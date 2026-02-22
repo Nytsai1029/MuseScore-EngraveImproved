@@ -319,6 +319,8 @@ public:
     void setUserDotPosition(DirectionV d) { m_userDotPosition = d; }
     DirectionV dotPosition() const { return m_dotPosition; }
     void setDotPosition(DirectionV d) { m_dotPosition = d; }
+    Spatium ledgerLineLengthOffset() const { return m_ledgerLineLengthOffset; }
+    void setLedgerLineLengthOffset(Spatium val) { m_ledgerLineLengthOffset = val; }
     bool dotIsUp() const;                 // actual dot position
 
     void reset() override;
@@ -514,6 +516,7 @@ private:
     DirectionH m_userMirror = DirectionH::AUTO;        ///< user override of mirror
     DirectionV m_userDotPosition = DirectionV::AUTO;   ///< user override of dot position
     DirectionV m_dotPosition = DirectionV::AUTO;       // used as an intermediate step when resolving dot conflicts
+    Spatium m_ledgerLineLengthOffset = 0.0_sp;
 
     NoteHeadScheme m_headScheme = NoteHeadScheme::HEAD_AUTO;
     NoteHeadGroup m_headGroup = NoteHeadGroup::HEAD_NORMAL;

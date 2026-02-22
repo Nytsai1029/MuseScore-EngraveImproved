@@ -176,6 +176,23 @@ FocusableItem {
                     navigationRowStart: noteDirectionSection.navigationRowEnd + 1
                 }
 
+                SpinBoxPropertyView {
+                    id: ledgerLineLengthOffsetView
+
+                    titleText: qsTrc("inspector", "Ledger line length offset")
+                    propertyItem: root.headModel ? root.headModel.ledgerLineLengthOffset : null
+                    enabled: root.headModel ? !root.headModel.isEmpty && propertyItem.isEnabled : false
+                    measureUnitsSymbol: qsTrc("global", "sp")
+
+                    minValue: -2
+                    maxValue: 4
+                    step: 0.01
+
+                    navigationName: "LedgerLineLengthOffset"
+                    navigationPanel: root.navigationPanel
+                    navigationRowStart: noteOffsetSection.navigationRowEnd + 1
+                }
+
                 FlatRadioButtonGroupPropertyView {
                     id: centerStavesSection
                     propertyItem: root.chordModel ? root.chordModel.combineVoice : null
@@ -195,7 +212,7 @@ FocusableItem {
 
                     navigationName: "Combine with voices that share the same stem direction"
                     navigationPanel: root.navigationPanel
-                    navigationRowStart: noteOffsetSection.navigationRowEnd + 1
+                    navigationRowStart: ledgerLineLengthOffsetView.navigationRowEnd + 1
 
                     model: [
                         { text: qsTrc("inspector", "Auto"), value: CommonTypes.AUTO_ON_OFF_AUTO },

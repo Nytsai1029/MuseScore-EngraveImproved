@@ -35,12 +35,14 @@ using namespace mu::notation;
 
 std::vector<INotationWriter::UnitType> ExportProjectScenario::supportedUnitTypes(const ExportType& exportType) const
 {
-    IF_ASSERT_FAILED(!exportType.suffixes.isEmpty()) {
+    if (exportType.suffixes.isEmpty()) {
+        LOGW() << "Export type has no suffixes, id:" << exportType.id;
         return {};
     }
 
     auto writer = writers()->writer(exportType.suffixes.front().toStdString());
     if (!writer) {
+        LOGW() << "Writer not found for export suffix:" << exportType.suffixes.front();
         return {};
     }
 
@@ -50,6 +52,13 @@ std::vector<INotationWriter::UnitType> ExportProjectScenario::supportedUnitTypes
 RetVal<muse::io::path_t> ExportProjectScenario::askExportPath(const INotationPtrList& notations, const ExportType& exportType,
                                                               INotationWriter::UnitType unitType, muse::io::path_t defaultPath) const
 {
+    if (exportType.suffixes.isEmpty()) {
+        LOGE() << "Can't ask export path: export type has no suffixes, id:" << exportType.id;
+        RetVal<muse::io::path_t> exportPath;
+        exportPath.ret = false;
+        return exportPath;
+    }
+
     INotationProjectPtr project = context()->currentProject();
 
     std::string filenameAddition;

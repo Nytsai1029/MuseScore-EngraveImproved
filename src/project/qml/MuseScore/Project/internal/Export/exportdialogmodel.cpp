@@ -276,6 +276,16 @@ void ExportDialogModel::setExportType(const ExportType& type)
         return;
     }
 
+    if (type.suffixes.isEmpty()) {
+        if (type.hasSubtypes()) {
+            setExportType(type.subtypes.front());
+            return;
+        }
+
+        LOGW() << "Skipping export type without suffixes, id:" << type.id;
+        return;
+    }
+
     m_selectedExportType = type;
 
     audioExportConfiguration()->loadSampleFormatSetting(type.suffixes[0]);
@@ -320,6 +330,10 @@ void ExportDialogModel::selectExportTypeById(const QString& id)
 
 QVariantList ExportDialogModel::availableUnitTypes() const
 {
+    if (m_selectedExportType.suffixes.isEmpty()) {
+        return {};
+    }
+
     QMap<UnitType, QString> unitTypeNames {
         { UnitType::PER_PAGE, muse::qtrc("project/export", "Each page to a separate file") },
         { UnitType::PER_PART, muse::qtrc("project/export", "Each part to a separate file") },
@@ -371,6 +385,11 @@ void ExportDialogModel::setUnitType(UnitType unitType)
 
 bool ExportDialogModel::exportScores()
 {
+    if (m_selectedExportType.suffixes.isEmpty()) {
+        LOGE() << "Can't export: selected export type has no suffixes, id:" << m_selectedExportType.id;
+        return false;
+    }
+
     INotationPtrList notations;
 
     for (const QModelIndex& index : m_selectionModel->selectedIndexes()) {
@@ -390,7 +409,7 @@ bool ExportDialogModel::exportScores()
     //    filename = io::filename(m_exportPath);
     //}
     muse::io::path_t defaultPath;
-    if (m_exportPath != "" && filename != "") {
+    if (m_exportPath != "" && filename != "" && !m_selectedExportType.suffixes.isEmpty()) {
         defaultPath = io::absoluteDirpath(m_exportPath)
                       .appendingComponent(io::filename(filename, false))
                       .appendingSuffix(m_selectedExportType.suffixes[0]);
@@ -808,6 +827,10 @@ void ExportDialogModel::updateExportInfo()
 
 QVariantList ExportDialogModel::availableSampleFormats() const
 {
+    if (m_selectedExportType.suffixes.isEmpty()) {
+        return {};
+    }
+
     const auto& formats = audioExportConfiguration()->availableSampleFormats(m_selectedExportType.suffixes[0]);
     QVariantList result;
     for (const auto& format : formats) {
@@ -826,6 +849,10 @@ int ExportDialogModel::selectedSampleFormat() const
 
 void ExportDialogModel::setSelectedSampleFormat(int format)
 {
+    if (m_selectedExportType.suffixes.isEmpty()) {
+        return;
+    }
+
     const auto audioFormat = static_cast<muse::audio::AudioSampleFormat>(format);
     if (audioFormat == audioExportConfiguration()->exportSampleFormat()) {
         return;

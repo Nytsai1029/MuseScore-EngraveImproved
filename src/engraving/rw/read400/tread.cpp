@@ -3066,6 +3066,7 @@ bool TRead::readProperties(Note* n, XmlReader& e, ReadContext& ctx)
         TRead::readProperty(n, e, ctx, Pid::MIRROR_HEAD);
     } else if (tag == "dotPosition") {
         TRead::readProperty(n, e, ctx, Pid::DOT_POSITION);
+    } else if (TRead::readProperty(n, tag, e, ctx, Pid::LEDGER_LINE_LENGTH_OFFSET)) {
     } else if (tag == "fixed") {
         n->setFixed(e.readBool());
     } else if (tag == "fixedLine") {

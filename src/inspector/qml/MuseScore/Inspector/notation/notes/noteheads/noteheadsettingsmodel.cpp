@@ -65,6 +65,7 @@ void NoteheadSettingsModel::createProperties()
     m_headType = buildPropertyItem(mu::engraving::Pid::HEAD_TYPE);
     m_headSystem = buildPropertyItem(mu::engraving::Pid::HEAD_SCHEME);
     m_dotPosition = buildPropertyItem(mu::engraving::Pid::DOT_POSITION);
+    m_ledgerLineLengthOffset = buildPropertyItem(mu::engraving::Pid::LEDGER_LINE_LENGTH_OFFSET);
     m_offset = buildPointFPropertyItem(mu::engraving::Pid::OFFSET);
 }
 
@@ -84,6 +85,7 @@ void NoteheadSettingsModel::loadProperties()
         Pid::HEAD_TYPE,
         Pid::HEAD_SCHEME,
         Pid::DOT_POSITION,
+        Pid::LEDGER_LINE_LENGTH_OFFSET,
         Pid::OFFSET,
     };
 
@@ -102,6 +104,7 @@ void NoteheadSettingsModel::resetProperties()
     m_headType->resetToDefault();
     m_headSystem->resetToDefault();
     m_dotPosition->resetToDefault();
+    m_ledgerLineLengthOffset->resetToDefault();
     m_offset->resetToDefault();
 }
 
@@ -144,6 +147,10 @@ void NoteheadSettingsModel::loadProperties(const mu::engraving::PropertyIdSet& p
 
     if (muse::contains(propertyIdSet, Pid::DOT_POSITION)) {
         loadPropertyItem(m_dotPosition);
+    }
+
+    if (muse::contains(propertyIdSet, Pid::LEDGER_LINE_LENGTH_OFFSET)) {
+        loadPropertyItem(m_ledgerLineLengthOffset, formatDoubleFunc);
     }
 
     if (muse::contains(propertyIdSet, Pid::OFFSET)) {
@@ -189,6 +196,11 @@ PropertyItem* NoteheadSettingsModel::headSystem() const
 PropertyItem* NoteheadSettingsModel::dotPosition() const
 {
     return m_dotPosition;
+}
+
+PropertyItem* NoteheadSettingsModel::ledgerLineLengthOffset() const
+{
+    return m_ledgerLineLengthOffset;
 }
 
 PropertyItem* NoteheadSettingsModel::offset() const

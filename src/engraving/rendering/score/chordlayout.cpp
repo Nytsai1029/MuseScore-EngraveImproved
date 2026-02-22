@@ -1313,7 +1313,11 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
     }
 
     // the extra length of a ledger line to be added on each side of the notehead
-    const double extraLen = ctx.conf().style().styleAbsolute(Sid::ledgerLineLength);
+    const double styleExtraLen = ctx.conf().style().styleAbsolute(Sid::ledgerLineLength);
+    auto ledgerLineExtraLenForNote = [item, styleExtraLen](const Note* note) {
+        const double noteOffset = note->ledgerLineLengthOffset().val() * item->spatium();
+        return std::max(0.0, styleExtraLen + noteOffset) * note->mag();
+    };
 
     bool visible = false;
 
@@ -1370,8 +1374,9 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
 
             // ledger lines need the leftmost point of the notehead with a respect of bbox
             const double x = note->pos().x() + note->bboxXShift();
-            if (x - extraLen * note->mag() < minX) {
-                minX = x - extraLen * note->mag();
+            const double noteExtraLen = ledgerLineExtraLenForNote(note);
+            if (x - noteExtraLen < minX) {
+                minX = x - noteExtraLen;
                 // increase width of all lines between this one and the staff
                 for (auto& d : vecLines) {
                     if (!d.accidental && ((l < 0 && d.line >= l) || (l > 0 && d.line <= l))) {
@@ -1380,8 +1385,8 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
                 }
             }
             // same for left side
-            if (x + hw + extraLen * note->mag() > maxX) {
-                maxX = x + hw + extraLen * note->mag();
+            if (x + hw + noteExtraLen > maxX) {
+                maxX = x + hw + noteExtraLen;
                 for (auto& d : vecLines) {
                     if ((l < 0 && d.line >= l) || (l > 0 && d.line <= l)) {
                         d.maxX = maxX;

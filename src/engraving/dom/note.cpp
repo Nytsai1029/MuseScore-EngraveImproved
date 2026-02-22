@@ -620,6 +620,7 @@ Note::Note(const Note& n, bool link)
     m_userMirror        = n.m_userMirror;
     m_isSmall          = n.m_isSmall;
     m_userDotPosition   = n.m_userDotPosition;
+    m_ledgerLineLengthOffset = n.m_ledgerLineLengthOffset;
     m_fixed             = n.m_fixed;
     m_fixedLine         = n.m_fixedLine;
     m_harmonic          = n.m_harmonic;
@@ -3022,6 +3023,8 @@ PropertyValue Note::getProperty(Pid propertyId) const
         return userMirror();
     case Pid::DOT_POSITION:
         return PropertyValue::fromValue<DirectionV>(userDotPosition());
+    case Pid::LEDGER_LINE_LENGTH_OFFSET:
+        return ledgerLineLengthOffset();
     case Pid::HEAD_SCHEME:
         return headScheme();
     case Pid::HEAD_GROUP:
@@ -3097,6 +3100,9 @@ bool Note::setProperty(Pid propertyId, const PropertyValue& v)
         break;
     case Pid::DOT_POSITION:
         setUserDotPosition(v.value<DirectionV>());
+        break;
+    case Pid::LEDGER_LINE_LENGTH_OFFSET:
+        setLedgerLineLengthOffset(v.value<Spatium>());
         break;
     case Pid::HEAD_SCHEME:
         setHeadScheme(v.value<NoteHeadScheme>());
@@ -3206,6 +3212,8 @@ PropertyValue Note::propertyDefault(Pid propertyId) const
         return DirectionH::AUTO;
     case Pid::DOT_POSITION:
         return DirectionV::AUTO;
+    case Pid::LEDGER_LINE_LENGTH_OFFSET:
+        return 0.0_sp;
     case Pid::HEAD_SCHEME:
         return NoteHeadScheme::HEAD_AUTO;
     case Pid::HEAD_GROUP:

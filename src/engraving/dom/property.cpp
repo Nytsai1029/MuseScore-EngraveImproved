@@ -95,6 +95,7 @@ static constexpr PropertyMetaData propertyList[] = {
     { Pid::HAS_PARENTHESES,                     P_TYPE::PARENTHESES_MODE,          PropertyGroup::APPEARANCE, false, "parentheses",                     QT_TRANSLATE_NOOP("engraving/propertyName", "parentheses") },
     { Pid::HIDE_GENERATED_PARENTHESES,          P_TYPE::BOOL,                      PropertyGroup::APPEARANCE, true , "hideGeneratedParentheses",        QT_TRANSLATE_NOOP("engraving/propertyName", "hide generated parentheses") },
     { Pid::DOT_POSITION,                        P_TYPE::DIRECTION_V,               PropertyGroup::POSITION,   false, "dotPosition",                     QT_TRANSLATE_NOOP("engraving/propertyName", "dot position") },
+    { Pid::LEDGER_LINE_LENGTH_OFFSET,           P_TYPE::SPATIUM,                   PropertyGroup::APPEARANCE, false, "ledgerLineLengthOffset",           QT_TRANSLATE_NOOP("engraving/propertyName", "ledger line length offset") },
     { Pid::COMBINE_VOICE,                       P_TYPE::AUTO_ON_OFF,               PropertyGroup::POSITION,   true,  "combineVoice",                    QT_TRANSLATE_NOOP("engraving/propertyName", "combine voice") },
     { Pid::TUNING,                              P_TYPE::REAL,                      PropertyGroup::APPEARANCE, false, "tuning",                          QT_TRANSLATE_NOOP("engraving/propertyName", "tuning") },
     { Pid::PAUSE,                               P_TYPE::REAL,                      PropertyGroup::APPEARANCE, true,  "pause",                           QT_TRANSLATE_NOOP("engraving/propertyName", "pause") },
