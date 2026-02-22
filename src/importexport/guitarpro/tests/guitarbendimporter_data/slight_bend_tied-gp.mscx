@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<museScore version="4.70">
+  <Score>
+    <eid>B_B</eid>
+    <Division>480</Division>
+    <showInvisible>1</showInvisible>
+    <showUnprintable>1</showUnprintable>
+    <showFrames>1</showFrames>
+    <showMargins>0</showMargins>
+    <metaTag name="arranger"></metaTag>
+    <metaTag name="composer"></metaTag>
+    <metaTag name="copyright"></metaTag>
+    <metaTag name="lyricist"></metaTag>
+    <metaTag name="movementNumber"></metaTag>
+    <metaTag name="movementTitle"></metaTag>
+    <metaTag name="source"></metaTag>
+    <metaTag name="translator"></metaTag>
+    <metaTag name="workNumber"></metaTag>
+    <metaTag name="workTitle"></metaTag>
+    <Part id="1">
+      <Staff>
+        <eid>C_C</eid>
+        <StaffType group="pitched">
+          <name>stdNormal</name>
+          </StaffType>
+        </Staff>
+      <trackName>Solo Guitar</trackName>
+      <Instrument id="electric-guitar">
+        <longName>Solo Guitar</longName>
+        <shortName>E-Gt</shortName>
+        <trackName></trackName>
+        <transposeDiatonic>-7</transposeDiatonic>
+        <transposeChromatic>-12</transposeChromatic>
+        <instrumentId>pluck.guitar.electric</instrumentId>
+        <singleNoteDynamics>0</singleNoteDynamics>
+        <StringData>
+          <frets>24</frets>
+          <string>51</string>
+          <string>56</string>
+          <string>61</string>
+          <string>66</string>
+          <string>70</string>
+          <string>75</string>
+          </StringData>
+        <Channel>
+          <program value="30"/>
+          <controller ctrl="7" value="88"/>
+          </Channel>
+        </Instrument>
+      </Part>
+    <Staff id="1">
+      <Measure>
+        <eid>D_D</eid>
+        <voice>
+          <KeySig>
+            <eid>E_E</eid>
+            <concertKey>-5</concertKey>
+            <mode>major</mode>
+            </KeySig>
+          <TimeSig>
+            <eid>F_F</eid>
+            <sigN>4</sigN>
+            <sigD>4</sigD>
+            </TimeSig>
+          <Dynamic>
+            <subtype>ff</subtype>
+            <velocity>112</velocity>
+            <eid>G_G</eid>
+            </Dynamic>
+          <Tempo>
+            <tempo>2.083333</tempo>
+            <eid>H_H</eid>
+            <text><sym>metNoteQuarterUp</sym> = 125</text>
+            </Tempo>
+          <Chord>
+            <eid>I_I</eid>
+            <durationType>quarter</durationType>
+            <Note>
+              <eid>J_J</eid>
+              <pitch>68</pitch>
+              <tpc>10</tpc>
+              <fret>14</fret>
+              <string>2</string>
+              <Spanner type="GuitarBend">
+                <GuitarBend>
+                  <guitarBendType>0</guitarBendType>
+                  <bendStartTimeFactor>0</bendStartTimeFactor>
+                  <bendEndTimeFactor>1</bendEndTimeFactor>
+                  <eid>K_K</eid>
+                  <anchor>3</anchor>
+                  </GuitarBend>
+                <next>
+                  <location>
+                    <fractions>1/4</fractions>
+                    </location>
+                  </next>
+                </Spanner>
+              </Note>
+            </Chord>
+          <Chord>
+            <eid>L_L</eid>
+            <BeamMode>no</BeamMode>
+            <durationType>eighth</durationType>
+            <grace8after/>
+            <noStem>1</noStem>
+            <Note>
+              <eid>M_M</eid>
+              <Accidental>
+                <role>1</role>
+                <subtype>accidentalFlat</subtype>
+                <eid>N_N</eid>
+                </Accidental>
+              <pitch>68</pitch>
+              <tpc>10</tpc>
+              <fret>14</fret>
+              <string>2</string>
+              <Spanner type="GuitarBend">
+                <prev>
+                  <location>
+                    </location>
+                  </prev>
+                </Spanner>
+              </Note>
+            </Chord>
+          <Beam>
+            <eid>O_O</eid>
+            <l1>16</l1>
+            <l2>16</l2>
+            </Beam>
+          <Chord>
+            <eid>P_P</eid>
+            <durationType>eighth</durationType>
+            <Note>
+              <eid>Q_Q</eid>
+              <parentheses>both</parentheses>
+              <Accidental>
+                <role>1</role>
+                <subtype>accidentalQuarterToneFlatArrowUp</subtype>
+                <eid>R_R</eid>
+                </Accidental>
+              <pitch>69</pitch>
+              <centOffset>-50</centOffset>
+              <tpc>17</tpc>
+              <fret>14</fret>
+              <string>2</string>
+              <Spanner type="GuitarBend">
+                <GuitarBend>
+                  <guitarBendType>0</guitarBendType>
+                  <bendStartTimeFactor>0</bendStartTimeFactor>
+                  <bendEndTimeFactor>1</bendEndTimeFactor>
+                  <eid>S_S</eid>
+                  <anchor>3</anchor>
+                  </GuitarBend>
+                <next>
+                  <location>
+                    <grace>0</grace>
+                    </location>
+                  </next>
+                </Spanner>
+              <Spanner type="GuitarBend">
+                <prev>
+                  <location>
+                    <fractions>-1/4</fractions>
+                    </location>
+                  </prev>
+                </Spanner>
+              </Note>
+            <NoteParenGroup>
+              <Notes>
+                <NoteIdx>0</NoteIdx>
+                </Notes>
+              </NoteParenGroup>
+            </Chord>
+          <Chord>
+            <eid>T_T</eid>
+            <durationType>eighth</durationType>
+            <Note>
+              <eid>U_U</eid>
+              <pitch>68</pitch>
+              <tpc>10</tpc>
+              <fret>14</fret>
+              <string>2</string>
+              <Spanner type="GuitarBend">
+                <GuitarBend>
+                  <guitarBendType>3</guitarBendType>
+                  <bendStartTimeFactor>0</bendStartTimeFactor>
+                  <bendEndTimeFactor>1</bendEndTimeFactor>
+                  <eid>V_V</eid>
+                  <anchor>3</anchor>
+                  </GuitarBend>
+                <next>
+                  <location>
+                    </location>
+                  </next>
+                </Spanner>
+              <Spanner type="GuitarBend">
+                <prev>
+                  <location>
+                    </location>
+                  </prev>
+                </Spanner>
+              </Note>
+            </Chord>
+          <Chord>
+            <eid>W_W</eid>
+            <durationType>half</durationType>
+            <Note>
+              <eid>X_X</eid>
+              <pitch>68</pitch>
+              <tpc>10</tpc>
+              <fret>14</fret>
+              <string>2</string>
+              <Spanner type="GuitarBend">
+                <GuitarBend>
+                  <guitarBendType>0</guitarBendType>
+                  <bendStartTimeFactor>0</bendStartTimeFactor>
+                  <bendEndTimeFactor>1</bendEndTimeFactor>
+                  <eid>Y_Y</eid>
+                  <anchor>3</anchor>
+                  </GuitarBend>
+                <next>
+                  <location>
+                    <measures>1</measures>
+                    <fractions>-1/2</fractions>
+                    </location>
+                  </next>
+                </Spanner>
+              </Note>
+            </Chord>
+          <BarLine>
+            <eid>Z_Z</eid>
+            </BarLine>
+          </voice>
+        </Measure>
+      <Measure>
+        <eid>a_a</eid>
+        <voice>
+          <Chord>
+            <eid>b_b</eid>
+            <durationType>half</durationType>
+            <Note>
+              <eid>c_c</eid>
+              <parentheses>both</parentheses>
+              <Accidental>
+                <role>1</role>
+                <subtype>accidentalQuarterToneFlatArrowUp</subtype>
+                <eid>d_d</eid>
+                </Accidental>
+              <pitch>69</pitch>
+              <centOffset>-50</centOffset>
+              <tpc>17</tpc>
+              <fret>14</fret>
+              <string>2</string>
+              <Spanner type="GuitarBend">
+                <prev>
+                  <location>
+                    <measures>-1</measures>
+                    <fractions>1/2</fractions>
+                    </location>
+                  </prev>
+                </Spanner>
+              </Note>
+            <NoteParenGroup>
+              <Notes>
+                <NoteIdx>0</NoteIdx>
+                </Notes>
+              </NoteParenGroup>
+            </Chord>
+          <Rest>
+            <eid>e_e</eid>
+            <durationType>half</durationType>
+            </Rest>
+          </voice>
+        </Measure>
+      </Staff>
+    </Score>
+  </museScore>

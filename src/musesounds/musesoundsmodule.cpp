@@ -1,0 +1,76 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * MuseScore-Studio-CLA-applies
+ *
+ * MuseScore Studio
+ * Music Composition & Notation
+ *
+ * Copyright (C) 2024 MuseScore Limited
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+#include "musesoundsmodule.h"
+
+#include "modularity/ioc.h"
+#include "framework/interactive/iinteractiveuriregister.h"
+
+#include "internal/musesoundsconfiguration.h"
+#include "internal/musesoundsrepository.h"
+
+#include "internal/musesoundscheckupdatescenario.h"
+#include "internal/musesoundscheckupdateservice.h"
+#include "internal/musesamplercheckupdateservice.h"
+#include "internal/musesamplercheckupdatescenario.h"
+
+using namespace mu::musesounds;
+using namespace muse;
+using namespace muse::modularity;
+
+std::string MuseSoundsModule::moduleName() const
+{
+    return "musesounds";
+}
+
+void MuseSoundsModule::registerExports()
+{
+    m_configuration = std::make_shared<MuseSoundsConfiguration>(globalCtx());
+    m_repository = std::make_shared<MuseSoundsRepository>(globalCtx());
+
+    m_museSoundsCheckUpdateScenario = std::make_shared<MuseSoundsCheckUpdateScenario>(globalCtx());
+    m_museSoundsCheckUpdateService = std::make_shared<MuseSoundsCheckUpdateService>(globalCtx());
+    m_museSamplerCheckUpdateService = std::make_shared<MuseSamplerCheckUpdateService>(globalCtx());
+    m_museSamplerCheckUpdateScenario = std::make_shared<MuseSamplerCheckUpdateScenario>(globalCtx());
+
+    globalIoc()->registerExport<IMuseSoundsConfiguration>(moduleName(), m_configuration);
+    globalIoc()->registerExport<IMuseSoundsRepository>(moduleName(), m_repository);
+
+    globalIoc()->registerExport<IMuseSoundsCheckUpdateScenario>(moduleName(), m_museSoundsCheckUpdateScenario);
+    globalIoc()->registerExport<IMuseSoundsCheckUpdateService>(moduleName(), m_museSoundsCheckUpdateService);
+
+    globalIoc()->registerExport<IMuseSamplerCheckUpdateService>(moduleName(), m_museSamplerCheckUpdateService);
+    globalIoc()->registerExport<IMuseSamplerCheckUpdateScenario>(moduleName(), m_museSamplerCheckUpdateScenario);
+}
+
+void MuseSoundsModule::resolveImports()
+{
+    auto ir = globalIoc()->resolve<interactive::IInteractiveUriRegister>(moduleName());
+    if (ir) {
+        ir->registerQmlUri(Uri("musescore://musesounds/musesoundsreleaseinfo"), "MuseScore.MuseSounds", "MuseSoundsReleaseInfoDialog");
+    }
+}
+
+void MuseSoundsModule::onInit(const IApplication::RunMode&)
+{
+    m_configuration->init();
+    m_repository->init();
+}
