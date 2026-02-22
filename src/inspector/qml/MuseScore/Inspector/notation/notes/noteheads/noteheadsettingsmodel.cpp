@@ -65,7 +65,8 @@ void NoteheadSettingsModel::createProperties()
     m_headType = buildPropertyItem(mu::engraving::Pid::HEAD_TYPE);
     m_headSystem = buildPropertyItem(mu::engraving::Pid::HEAD_SCHEME);
     m_dotPosition = buildPropertyItem(mu::engraving::Pid::DOT_POSITION);
-    m_ledgerLineLengthOffset = buildPropertyItem(mu::engraving::Pid::LEDGER_LINE_LENGTH_OFFSET);
+    m_ledgerLineLengthOffsetLeft = buildPropertyItem(mu::engraving::Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT);
+    m_ledgerLineLengthOffsetRight = buildPropertyItem(mu::engraving::Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT);
     m_offset = buildPointFPropertyItem(mu::engraving::Pid::OFFSET);
 }
 
@@ -85,7 +86,8 @@ void NoteheadSettingsModel::loadProperties()
         Pid::HEAD_TYPE,
         Pid::HEAD_SCHEME,
         Pid::DOT_POSITION,
-        Pid::LEDGER_LINE_LENGTH_OFFSET,
+        Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT,
+        Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT,
         Pid::OFFSET,
     };
 
@@ -104,7 +106,8 @@ void NoteheadSettingsModel::resetProperties()
     m_headType->resetToDefault();
     m_headSystem->resetToDefault();
     m_dotPosition->resetToDefault();
-    m_ledgerLineLengthOffset->resetToDefault();
+    m_ledgerLineLengthOffsetLeft->resetToDefault();
+    m_ledgerLineLengthOffsetRight->resetToDefault();
     m_offset->resetToDefault();
 }
 
@@ -149,8 +152,12 @@ void NoteheadSettingsModel::loadProperties(const mu::engraving::PropertyIdSet& p
         loadPropertyItem(m_dotPosition);
     }
 
-    if (muse::contains(propertyIdSet, Pid::LEDGER_LINE_LENGTH_OFFSET)) {
-        loadPropertyItem(m_ledgerLineLengthOffset, formatDoubleFunc);
+    if (muse::contains(propertyIdSet, Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT)) {
+        loadPropertyItem(m_ledgerLineLengthOffsetLeft, formatDoubleFunc);
+    }
+
+    if (muse::contains(propertyIdSet, Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT)) {
+        loadPropertyItem(m_ledgerLineLengthOffsetRight, formatDoubleFunc);
     }
 
     if (muse::contains(propertyIdSet, Pid::OFFSET)) {
@@ -198,9 +205,14 @@ PropertyItem* NoteheadSettingsModel::dotPosition() const
     return m_dotPosition;
 }
 
-PropertyItem* NoteheadSettingsModel::ledgerLineLengthOffset() const
+PropertyItem* NoteheadSettingsModel::ledgerLineLengthOffsetLeft() const
 {
-    return m_ledgerLineLengthOffset;
+    return m_ledgerLineLengthOffsetLeft;
+}
+
+PropertyItem* NoteheadSettingsModel::ledgerLineLengthOffsetRight() const
+{
+    return m_ledgerLineLengthOffsetRight;
 }
 
 PropertyItem* NoteheadSettingsModel::offset() const

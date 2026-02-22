@@ -40,7 +40,8 @@ class NoteheadSettingsModel : public AbstractInspectorModel
     Q_PROPERTY(mu::inspector::PropertyItem * headType READ headType CONSTANT)
     Q_PROPERTY(mu::inspector::PropertyItem * headSystem READ headSystem CONSTANT)
     Q_PROPERTY(mu::inspector::PropertyItem * dotPosition READ dotPosition CONSTANT)
-    Q_PROPERTY(mu::inspector::PropertyItem * ledgerLineLengthOffset READ ledgerLineLengthOffset CONSTANT)
+    Q_PROPERTY(mu::inspector::PropertyItem * ledgerLineLengthOffsetLeft READ ledgerLineLengthOffsetLeft CONSTANT)
+    Q_PROPERTY(mu::inspector::PropertyItem * ledgerLineLengthOffsetRight READ ledgerLineLengthOffsetRight CONSTANT)
     Q_PROPERTY(mu::inspector::PropertyItem * offset READ offset CONSTANT)
     Q_PROPERTY(bool isTrillCueNote READ isTrillCueNote NOTIFY isTrillCueNoteChanged)
 
@@ -55,7 +56,8 @@ public:
     PropertyItem* headType() const;
     PropertyItem* headSystem() const;
     PropertyItem* dotPosition() const;
-    PropertyItem* ledgerLineLengthOffset() const;
+    PropertyItem* ledgerLineLengthOffsetLeft() const;
+    PropertyItem* ledgerLineLengthOffsetRight() const;
     PropertyItem* offset() const;
     bool isTrillCueNote() const;
 
@@ -86,7 +88,8 @@ private:
     PropertyItem* m_headType = nullptr;
     PropertyItem* m_headSystem = nullptr;
     PropertyItem* m_dotPosition = nullptr;
-    PropertyItem* m_ledgerLineLengthOffset = nullptr;
+    PropertyItem* m_ledgerLineLengthOffsetLeft = nullptr;
+    PropertyItem* m_ledgerLineLengthOffsetRight = nullptr;
     PointFPropertyItem* m_offset = nullptr;
     bool m_isTrillCueNote = false;
 };

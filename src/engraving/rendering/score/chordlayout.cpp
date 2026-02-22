@@ -1314,8 +1314,12 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
 
     // the extra length of a ledger line to be added on each side of the notehead
     const double styleExtraLen = ctx.conf().style().styleAbsolute(Sid::ledgerLineLength);
-    auto ledgerLineExtraLenForNote = [item, styleExtraLen](const Note* note) {
-        const double noteOffset = note->ledgerLineLengthOffset().val() * item->spatium();
+    auto ledgerLineExtraLenLeftForNote = [item, styleExtraLen](const Note* note) {
+        const double noteOffset = note->ledgerLineLengthOffsetLeft().val() * item->spatium();
+        return std::max(0.0, styleExtraLen + noteOffset) * note->mag();
+    };
+    auto ledgerLineExtraLenRightForNote = [item, styleExtraLen](const Note* note) {
+        const double noteOffset = note->ledgerLineLengthOffsetRight().val() * item->spatium();
         return std::max(0.0, styleExtraLen + noteOffset) * note->mag();
     };
 
@@ -1374,9 +1378,10 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
 
             // ledger lines need the leftmost point of the notehead with a respect of bbox
             const double x = note->pos().x() + note->bboxXShift();
-            const double noteExtraLen = ledgerLineExtraLenForNote(note);
-            if (x - noteExtraLen < minX) {
-                minX = x - noteExtraLen;
+            const double noteExtraLenLeft = ledgerLineExtraLenLeftForNote(note);
+            const double noteExtraLenRight = ledgerLineExtraLenRightForNote(note);
+            if (x - noteExtraLenLeft < minX) {
+                minX = x - noteExtraLenLeft;
                 // increase width of all lines between this one and the staff
                 for (auto& d : vecLines) {
                     if (!d.accidental && ((l < 0 && d.line >= l) || (l > 0 && d.line <= l))) {
@@ -1384,9 +1389,9 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
                     }
                 }
             }
-            // same for left side
-            if (x + hw + noteExtraLen > maxX) {
-                maxX = x + hw + noteExtraLen;
+            // same for right side
+            if (x + hw + noteExtraLenRight > maxX) {
+                maxX = x + hw + noteExtraLenRight;
                 for (auto& d : vecLines) {
                     if ((l < 0 && d.line >= l) || (l > 0 && d.line <= l)) {
                         d.maxX = maxX;

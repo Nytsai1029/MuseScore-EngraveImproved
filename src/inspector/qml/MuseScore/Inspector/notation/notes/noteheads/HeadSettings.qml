@@ -177,10 +177,10 @@ FocusableItem {
                 }
 
                 SpinBoxPropertyView {
-                    id: ledgerLineLengthOffsetView
+                    id: ledgerLineLengthOffsetLeftView
 
-                    titleText: qsTrc("inspector", "Ledger line length offset")
-                    propertyItem: root.headModel ? root.headModel.ledgerLineLengthOffset : null
+                    titleText: qsTrc("inspector", "Ledger line length offset (left)")
+                    propertyItem: root.headModel ? root.headModel.ledgerLineLengthOffsetLeft : null
                     enabled: root.headModel ? !root.headModel.isEmpty && propertyItem.isEnabled : false
                     measureUnitsSymbol: qsTrc("global", "sp")
 
@@ -188,9 +188,26 @@ FocusableItem {
                     maxValue: 4
                     step: 0.01
 
-                    navigationName: "LedgerLineLengthOffset"
+                    navigationName: "LedgerLineLengthOffsetLeft"
                     navigationPanel: root.navigationPanel
                     navigationRowStart: noteOffsetSection.navigationRowEnd + 1
+                }
+
+                SpinBoxPropertyView {
+                    id: ledgerLineLengthOffsetRightView
+
+                    titleText: qsTrc("inspector", "Ledger line length offset (right)")
+                    propertyItem: root.headModel ? root.headModel.ledgerLineLengthOffsetRight : null
+                    enabled: root.headModel ? !root.headModel.isEmpty && propertyItem.isEnabled : false
+                    measureUnitsSymbol: qsTrc("global", "sp")
+
+                    minValue: -2
+                    maxValue: 4
+                    step: 0.01
+
+                    navigationName: "LedgerLineLengthOffsetRight"
+                    navigationPanel: root.navigationPanel
+                    navigationRowStart: ledgerLineLengthOffsetLeftView.navigationRowEnd + 1
                 }
 
                 FlatRadioButtonGroupPropertyView {
@@ -212,7 +229,7 @@ FocusableItem {
 
                     navigationName: "Combine with voices that share the same stem direction"
                     navigationPanel: root.navigationPanel
-                    navigationRowStart: ledgerLineLengthOffsetView.navigationRowEnd + 1
+                    navigationRowStart: ledgerLineLengthOffsetRightView.navigationRowEnd + 1
 
                     model: [
                         { text: qsTrc("inspector", "Auto"), value: CommonTypes.AUTO_ON_OFF_AUTO },
