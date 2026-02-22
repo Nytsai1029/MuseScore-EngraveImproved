@@ -88,6 +88,16 @@ PropertyItem* SlurAndTieSettingsModel::minLength() const
     return m_minLength;
 }
 
+PropertyItem* SlurAndTieSettingsModel::multiBezierEnabled() const
+{
+    return m_multiBezierEnabled;
+}
+
+PropertyItem* SlurAndTieSettingsModel::multiBezierKnotCount() const
+{
+    return m_multiBezierKnotCount;
+}
+
 bool SlurAndTieSettingsModel::isLaissezVib() const
 {
     return m_isLaissezVib;
@@ -108,6 +118,11 @@ bool SlurAndTieSettingsModel::isLineStyleAvailable() const
     return m_isLineStyleAvailable;
 }
 
+bool SlurAndTieSettingsModel::isMultiBezierOptionsAvailable() const
+{
+    return m_isMultiBezierOptionsAvailable;
+}
+
 QVariantList SlurAndTieSettingsModel::possibleLineStyles() const
 {
     QVariantList result {
@@ -126,9 +141,12 @@ void SlurAndTieSettingsModel::createProperties()
     m_direction = buildPropertyItem(mu::engraving::Pid::SLUR_DIRECTION);
     m_tiePlacement = buildPropertyItem(mu::engraving::Pid::TIE_PLACEMENT);
     m_minLength = buildPropertyItem(mu::engraving::Pid::MIN_LENGTH);
+    m_multiBezierEnabled = buildPropertyItem(mu::engraving::Pid::SLUR_MULTI_BEZIER_ENABLED);
+    m_multiBezierKnotCount = buildPropertyItem(mu::engraving::Pid::SLUR_MULTI_BEZIER_KNOT_COUNT);
     updateIsTiePlacementAvailable();
     updateIsMinLengthAvailable();
     updateisLineStyleAvailable();
+    updateIsMultiBezierOptionsAvailable();
 }
 
 void SlurAndTieSettingsModel::loadProperties()
@@ -137,9 +155,12 @@ void SlurAndTieSettingsModel::loadProperties()
     loadPropertyItem(m_direction);
     loadPropertyItem(m_tiePlacement);
     loadPropertyItem(m_minLength);
+    loadPropertyItem(m_multiBezierEnabled);
+    loadPropertyItem(m_multiBezierKnotCount);
     updateIsTiePlacementAvailable();
     updateIsMinLengthAvailable();
     updateisLineStyleAvailable();
+    updateIsMultiBezierOptionsAvailable();
 }
 
 void SlurAndTieSettingsModel::resetProperties()
@@ -148,6 +169,8 @@ void SlurAndTieSettingsModel::resetProperties()
     m_direction->resetToDefault();
     m_tiePlacement->resetToDefault();
     m_minLength->resetToDefault();
+    m_multiBezierEnabled->resetToDefault();
+    m_multiBezierKnotCount->resetToDefault();
 }
 
 void SlurAndTieSettingsModel::updateIsTiePlacementAvailable()
@@ -195,5 +218,21 @@ void SlurAndTieSettingsModel::updateisLineStyleAvailable()
     if (available != m_isLineStyleAvailable) {
         m_isLineStyleAvailable = available;
         emit isLineStyleAvailableChanged(m_isLineStyleAvailable);
+    }
+}
+
+void SlurAndTieSettingsModel::updateIsMultiBezierOptionsAvailable()
+{
+    bool available = false;
+    for (EngravingItem* item : m_elementList) {
+        if (item->isSlur()) {
+            available = true;
+            break;
+        }
+    }
+
+    if (available != m_isMultiBezierOptionsAvailable) {
+        m_isMultiBezierOptionsAvailable = available;
+        emit isMultiBezierOptionsAvailableChanged(m_isMultiBezierOptionsAvailable);
     }
 }

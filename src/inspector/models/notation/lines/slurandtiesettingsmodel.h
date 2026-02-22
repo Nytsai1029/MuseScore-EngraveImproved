@@ -32,9 +32,12 @@ class SlurAndTieSettingsModel : public AbstractInspectorModel
     Q_PROPERTY(PropertyItem * direction READ direction CONSTANT)
     Q_PROPERTY(PropertyItem * tiePlacement READ tiePlacement CONSTANT)
     Q_PROPERTY(PropertyItem * minLength READ minLength CONSTANT)
+    Q_PROPERTY(PropertyItem * multiBezierEnabled READ multiBezierEnabled CONSTANT)
+    Q_PROPERTY(PropertyItem * multiBezierKnotCount READ multiBezierKnotCount CONSTANT)
     Q_PROPERTY(bool isTiePlacementAvailable READ isTiePlacementAvailable NOTIFY isTiePlacementAvailableChanged)
     Q_PROPERTY(bool isMinLengthAvailable READ isMinLengthAvailable NOTIFY isMinLengthAvailableChanged)
     Q_PROPERTY(bool isLineStyleAvailable READ isLineStyleAvailable NOTIFY isLineStyleAvailableChanged)
+    Q_PROPERTY(bool isMultiBezierOptionsAvailable READ isMultiBezierOptionsAvailable NOTIFY isMultiBezierOptionsAvailableChanged)
     Q_PROPERTY(bool isLaissezVib READ isLaissezVib CONSTANT)
 
 public:
@@ -52,12 +55,15 @@ public:
     PropertyItem* direction() const;
     PropertyItem* tiePlacement() const;
     PropertyItem* minLength() const;
+    PropertyItem* multiBezierEnabled() const;
+    PropertyItem* multiBezierKnotCount() const;
 
     bool isLaissezVib() const;
 
     bool isTiePlacementAvailable() const;
     bool isMinLengthAvailable() const;
     bool isLineStyleAvailable() const;
+    bool isMultiBezierOptionsAvailable() const;
 
     Q_INVOKABLE QVariantList possibleLineStyles() const;
 
@@ -65,6 +71,7 @@ signals:
     void isTiePlacementAvailableChanged(bool available);
     void isMinLengthAvailableChanged(bool available);
     void isLineStyleAvailableChanged(bool available);
+    void isMultiBezierOptionsAvailableChanged(bool available);
 
 private:
     void createProperties() override;
@@ -74,15 +81,19 @@ private:
     void updateIsTiePlacementAvailable();
     void updateIsMinLengthAvailable();
     void updateisLineStyleAvailable();
+    void updateIsMultiBezierOptionsAvailable();
 
     PropertyItem* m_lineStyle = nullptr;
     PropertyItem* m_direction = nullptr;
     PropertyItem* m_tiePlacement = nullptr;
     PropertyItem* m_minLength = nullptr;
+    PropertyItem* m_multiBezierEnabled = nullptr;
+    PropertyItem* m_multiBezierKnotCount = nullptr;
 
     bool m_isTiePlacementAvailable = false;
     bool m_isMinLengthAvailable = false;
     bool m_isLineStyleAvailable = false;
+    bool m_isMultiBezierOptionsAvailable = false;
 
     bool m_isLaissezVib = false;
 };

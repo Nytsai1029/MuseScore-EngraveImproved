@@ -81,6 +81,35 @@ Column {
         ]
     }
 
+    CheckBoxPropertyView {
+        id: multiBezierEnabledSection
+
+        visible: root.model ? root.model.isMultiBezierOptionsAvailable : false
+        propertyItem: root.model ? root.model.multiBezierEnabled : null
+        titleText: qsTrc("inspector", "Apply multi-segment Bezier curves")
+
+        navigationPanel: root.navigationPanel
+        navigationRowStart: placementSection.navigationRowEnd + 1
+    }
+
+    SpinBoxPropertyView {
+        id: multiBezierKnotCountSection
+
+        titleText: qsTrc("inspector", "Turning points")
+        visible: root.model ? root.model.isMultiBezierOptionsAvailable : false
+        propertyItem: root.model ? root.model.multiBezierKnotCount : null
+        enabled: multiBezierEnabledSection.propertyItem ? Boolean(multiBezierEnabledSection.propertyItem.value) : false
+
+        step: 1
+        maxValue: 16
+        minValue: 1
+        decimals: 0
+
+        navigationName: "Turning points"
+        navigationPanel: root.navigationPanel
+        navigationRowStart: multiBezierEnabledSection.navigationRowEnd + 1
+    }
+
     FlatRadioButtonGroupPropertyView {
         id: tiePlacementSection
 
@@ -91,7 +120,7 @@ Column {
         titleText: root.isLaissezVib ? qsTrc("inspector", "Laissez vibrer placement") : qsTrc("inspector", "Tie placement")
 
         navigationPanel: root.navigationPanel
-        navigationRowStart: placementSection.navigationRowEnd + 1
+        navigationRowStart: multiBezierKnotCountSection.navigationRowEnd + 1
 
         model: [
             { text: qsTrc("inspector", "Auto"), value: SlurTieTypes.TIE_PLACEMENT_AUTO, title: qsTrc("inspector", "Auto")  },
@@ -114,6 +143,6 @@ Column {
 
         navigationName: "Minimum length"
         navigationPanel: root.navigationPanel
-        navigationRowStart: root.tiePlacementSection + 1
+        navigationRowStart: tiePlacementSection.navigationRowEnd + 1
     }
 }

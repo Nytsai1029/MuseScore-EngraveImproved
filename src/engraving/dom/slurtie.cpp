@@ -201,7 +201,7 @@ void SlurTieSegment::startEditDrag(EditData& ed)
     IF_ASSERT_FAILED(eed) {
         return;
     }
-    for (auto i : { Pid::SLUR_UOFF1, Pid::SLUR_UOFF2, Pid::SLUR_UOFF3, Pid::SLUR_UOFF4, Pid::OFFSET }) {
+    for (auto i : { Pid::SLUR_UOFF1, Pid::SLUR_UOFF2, Pid::SLUR_UOFF3, Pid::SLUR_UOFF4, Pid::SLUR_MULTI_BEZIER_DATA, Pid::OFFSET }) {
         eed->pushProperty(i);
     }
 }

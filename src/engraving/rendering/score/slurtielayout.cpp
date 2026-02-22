@@ -21,6 +21,8 @@
  */
 #include "slurtielayout.h"
 
+#include <cmath>
+
 #include "iengravingfont.h"
 
 #include "dom/slur.h"
@@ -2806,6 +2808,260 @@ void SlurTieLayout::computeBezier(SlurSegment* slurSeg, PointF shoulderOffset)
     toSystemCoordinates = toSlurCoordinates.inverted();
     p2 = toSlurCoordinates.map(pp2);
 
+    // Set slur thickness
+    computeMidThickness(slurSeg, p2.x() / slurSeg->spatium());
+    PointF thick(0.0, slurSeg->ldata()->midThickness());
+
+    if (slurSeg->useMultiBezier()) {
+        slurSeg->ensureMultiBezierKnotData();
+        const int knotCount = slurSeg->multiBezierKnotCount();
+        auto& knotData = slurSeg->multiBezierKnotData();
+
+        if (knotCount > 0 && int(knotData.size()) == knotCount) {
+            struct CubicChainSegment {
+                PointF start;
+                PointF c1;
+                PointF c2;
+                PointF end;
+            };
+
+            const double c = p2.x();
+            const double arcY = 0.5 * (p3.y() + p4.y());
+            const double tangentLen = c / double(knotCount + 1) * 0.35;
+
+            std::vector<PointF> knotPoints(knotCount);
+            std::vector<PointF> inHandlePoints(knotCount);
+            std::vector<PointF> outHandlePoints(knotCount);
+
+            for (int i = 0; i < knotCount; ++i) {
+                const double t = double(i + 1) / double(knotCount + 1);
+                const PointF defaultKnot(c * t, 4.0 * arcY * t * (1.0 - t));
+
+                const double slope = muse::RealIsNull(c) ? 0.0 : (4.0 * arcY * (1.0 - 2.0 * t)) / c;
+                const double dx = tangentLen / std::sqrt(1.0 + slope * slope);
+                const PointF tangent(dx, slope * dx);
+
+                const PointF knotOffset = rotate.map(knotData[i].knot.off);
+                const PointF inHandleOffset = rotate.map(knotData[i].inHandle.off);
+                const PointF outHandleOffset = rotate.map(knotData[i].outHandle.off);
+
+                knotPoints[i] = defaultKnot + knotOffset;
+                inHandlePoints[i] = defaultKnot - tangent + inHandleOffset;
+                outHandlePoints[i] = defaultKnot + tangent + outHandleOffset;
+
+                // Keep tangent endpoints collinear with the knot, even after relayout.
+                PointF inVector = inHandlePoints[i] - knotPoints[i];
+                PointF outVector = outHandlePoints[i] - knotPoints[i];
+                double inLen = std::hypot(inVector.x(), inVector.y());
+                double outLen = std::hypot(outVector.x(), outVector.y());
+                PointF axis;
+                if (outLen > 1e-6) {
+                    axis = outVector / outLen;
+                } else if (inLen > 1e-6) {
+                    axis = -inVector / inLen;
+                } else {
+                    const double tangentLenNorm = std::hypot(tangent.x(), tangent.y());
+                    axis = tangentLenNorm > 1e-6 ? (tangent / tangentLenNorm) : PointF(1.0, 0.0);
+                    inLen = tangentLenNorm;
+                    outLen = tangentLenNorm;
+                }
+
+                inHandlePoints[i] = knotPoints[i] - axis * inLen;
+                outHandlePoints[i] = knotPoints[i] + axis * outLen;
+
+                knotData[i].knot.p = toSystemCoordinates.map(knotPoints[i]) - knotData[i].knot.off;
+                knotData[i].inHandle.p = toSystemCoordinates.map(inHandlePoints[i]) - knotData[i].inHandle.off;
+                knotData[i].outHandle.p = toSystemCoordinates.map(outHandlePoints[i]) - knotData[i].outHandle.off;
+            }
+
+            const double startSlope = muse::RealIsNull(c) ? 0.0 : (4.0 * arcY) / c;
+            const double endSlope = -startSlope;
+
+            const auto tangentAt = [tangentLen](double slope) -> PointF {
+                const double dx = tangentLen / std::sqrt(1.0 + slope * slope);
+                return PointF(dx, slope * dx);
+            };
+
+            PointF startHandle = tangentAt(startSlope) + rotate.map(slurSeg->ups(Grip::BEZIER1).off);
+            PointF endHandle = p2 - tangentAt(endSlope) + rotate.map(slurSeg->ups(Grip::BEZIER2).off);
+
+            slurSeg->ups(Grip::BEZIER1).p = toSystemCoordinates.map(startHandle) - slurSeg->ups(Grip::BEZIER1).off;
+            slurSeg->ups(Grip::BEZIER2).p = toSystemCoordinates.map(endHandle) - slurSeg->ups(Grip::BEZIER2).off;
+
+            std::vector<CubicChainSegment> chain;
+            chain.reserve(size_t(knotCount + 1));
+
+            PointF segmentStart = PointF();
+            for (int i = 0; i <= knotCount; ++i) {
+                const PointF segmentEnd = (i < knotCount) ? knotPoints[i] : p2;
+                const PointF c1 = (i == 0) ? startHandle : outHandlePoints[i - 1];
+                const PointF c2 = (i == knotCount) ? endHandle : inHandlePoints[i];
+                chain.push_back({ segmentStart, c1, c2, segmentEnd });
+                segmentStart = segmentEnd;
+            }
+
+            struct SamplePoint {
+                PointF point;
+                PointF tangent;
+                double arcLength = 0.0;
+            };
+
+            const auto cubicPointAt = [](const CubicChainSegment& segment, double t) -> PointF {
+                const double r = 1.0 - t;
+                const PointF b123 = r * (r * segment.start + t * segment.c1) + t * (r * segment.c1 + t * segment.c2);
+                const PointF b234 = r * (r * segment.c1 + t * segment.c2) + t * (r * segment.c2 + t * segment.end);
+                return r * b123 + t * b234;
+            };
+
+            const auto cubicDerivativeAt = [](const CubicChainSegment& segment, double t) -> PointF {
+                const double r = 1.0 - t;
+                return 3.0 * r * r * (segment.c1 - segment.start)
+                       + 6.0 * r * t * (segment.c2 - segment.c1)
+                       + 3.0 * t * t * (segment.end - segment.c2);
+            };
+
+            std::vector<SamplePoint> samples;
+            samples.reserve(size_t((knotCount + 1) * 24 + 1));
+
+            double accumulatedLength = 0.0;
+            PointF previousPoint;
+            bool hasPreviousPoint = false;
+            const int samplesPerSegment = std::max(16, 24 / std::max(1, knotCount + 1));
+
+            for (size_t segmentIdx = 0; segmentIdx < chain.size(); ++segmentIdx) {
+                const CubicChainSegment& segment = chain[segmentIdx];
+                for (int i = 0; i <= samplesPerSegment; ++i) {
+                    if (segmentIdx > 0 && i == 0) {
+                        continue;
+                    }
+
+                    const double t = double(i) / double(samplesPerSegment);
+                    const PointF point = cubicPointAt(segment, t);
+                    const PointF tangent = cubicDerivativeAt(segment, t);
+
+                    if (hasPreviousPoint) {
+                        accumulatedLength += std::hypot(point.x() - previousPoint.x(), point.y() - previousPoint.y());
+                    } else {
+                        hasPreviousPoint = true;
+                    }
+                    previousPoint = point;
+
+                    samples.push_back({ point, tangent, accumulatedLength });
+                }
+            }
+
+            if (samples.size() < 2) {
+                return;
+            }
+
+            const double totalLength = std::max(samples.back().arcLength, 1e-6);
+            const auto fullThicknessAt = [slurSeg, totalLength](double arcLength) -> double {
+                const double t = std::clamp(arcLength / totalLength, 0.0, 1.0);
+                const double envelope = std::max(0.0, 1.0 - 2.0 * std::abs(0.5 - t));
+                return envelope * 2.0 * slurSeg->ldata()->midThickness();
+            };
+
+            const bool solidStyle = slurSeg->slur()->styleType() == SlurStyleType::Solid;
+            PainterPath path;
+
+            if (solidStyle) {
+                std::vector<PointF> upperPoints;
+                std::vector<PointF> lowerPoints;
+                upperPoints.reserve(samples.size());
+                lowerPoints.reserve(samples.size());
+
+                for (size_t i = 0; i < samples.size(); ++i) {
+                    PointF tangent = samples[i].tangent;
+                    if (std::hypot(tangent.x(), tangent.y()) < 1e-6) {
+                        if (i > 0) {
+                            tangent = samples[i - 1].tangent;
+                        } else if (i + 1 < samples.size()) {
+                            tangent = samples[i + 1].tangent;
+                        }
+                    }
+
+                    double tangentLength = std::hypot(tangent.x(), tangent.y());
+                    if (tangentLength < 1e-6) {
+                        tangent = PointF(1.0, 0.0);
+                        tangentLength = 1.0;
+                    }
+
+                    const PointF normal(-tangent.y() / tangentLength, tangent.x() / tangentLength);
+                    const double halfThickness = 0.5 * fullThicknessAt(samples[i].arcLength);
+
+                    upperPoints.push_back(samples[i].point - normal * halfThickness);
+                    lowerPoints.push_back(samples[i].point + normal * halfThickness);
+                }
+
+                const auto appendSmoothCurve = [&path](const std::vector<PointF>& points, bool reverse) {
+                    const int count = int(points.size());
+                    if (count < 2) {
+                        return;
+                    }
+
+                    const auto pointAt = [&points, reverse, count](int idx) -> PointF {
+                        return reverse ? points[size_t(count - 1 - idx)] : points[size_t(idx)];
+                    };
+
+                    constexpr double smoothFactor = 1.0 / 6.0;
+                    for (int i = 0; i < count - 1; ++i) {
+                        const PointF p0 = pointAt(std::max(i - 1, 0));
+                        const PointF p1 = pointAt(i);
+                        const PointF p2 = pointAt(i + 1);
+                        const PointF p3 = pointAt(std::min(i + 2, count - 1));
+
+                        const PointF c1 = p1 + (p2 - p0) * smoothFactor;
+                        const PointF c2 = p2 - (p3 - p1) * smoothFactor;
+                        path.cubicTo(c1, c2, p2);
+                    }
+                };
+
+                path.moveTo(upperPoints.front());
+                appendSmoothCurve(upperPoints, false);
+                path.lineTo(lowerPoints.back());
+                appendSmoothCurve(lowerPoints, true);
+                path.closeSubpath();
+            } else {
+                path.moveTo(PointF());
+                for (const CubicChainSegment& segment : chain) {
+                    path.cubicTo(segment.c1, segment.c2, segment.end);
+                }
+            }
+
+            path = toSystemCoordinates.map(path);
+            slurSeg->mutldata()->path.set_value(path);
+
+            const double halfArcLength = totalLength * 0.5;
+            size_t midIndex = 0;
+            while (midIndex + 1 < samples.size() && samples[midIndex].arcLength < halfArcLength) {
+                ++midIndex;
+            }
+
+            const PointF dragPoint = samples[midIndex].point;
+            const PointF shoulderPoint = knotPoints.empty() ? dragPoint : knotPoints[size_t(knotCount / 2)];
+            slurSeg->ups(Grip::DRAG).p = toSystemCoordinates.map(dragPoint);
+            slurSeg->ups(Grip::SHOULDER).p = toSystemCoordinates.map(shoulderPoint);
+
+            Shape shape(Shape::Type::Composite);
+            for (size_t i = 1; i < samples.size(); ++i) {
+                const PointF pStart = toSystemCoordinates.map(samples[i - 1].point);
+                const PointF pEnd = toSystemCoordinates.map(samples[i].point);
+                RectF rect(pStart, pEnd);
+                rect = rect.normalized();
+
+                const double thickness = std::max(fullThicknessAt(samples[i - 1].arcLength), fullThicknessAt(samples[i].arcLength));
+                if (rect.height() < thickness) {
+                    const double adjust = (thickness - rect.height()) * 0.5;
+                    rect.adjust(0.0, -adjust, 0.0, adjust);
+                }
+
+                shape.add(rect, slurSeg);
+            }
+            slurSeg->mutldata()->setShape(shape);
+            return;
+        }
+    }
+
     // Calculate p5 and p6
     PointF p5 = 0.5 * p2; // mid-point between pp1 and p2
     PointF p6 = 0.5 * (p3 + p4); // mid-point between p3 and p4
@@ -2815,10 +3071,6 @@ void SlurTieLayout::computeBezier(SlurSegment* slurSeg, PointF shoulderOffset)
     slurSeg->ups(Grip::BEZIER2).p  = toSystemCoordinates.map(p4) - slurSeg->ups(Grip::BEZIER2).off;
     slurSeg->ups(Grip::DRAG).p     = toSystemCoordinates.map(p5);
     slurSeg->ups(Grip::SHOULDER).p = toSystemCoordinates.map(p6);
-
-    // Set slur thickness
-    computeMidThickness(slurSeg, p2.x() / slurSeg->spatium());
-    PointF thick(0.0, slurSeg->ldata()->midThickness());
 
     // Set path
     PainterPath path = PainterPath();

@@ -3794,6 +3794,14 @@ void TRead::read(Slur* s, XmlReader& e, ReadContext& ctx)
 bool TRead::readProperties(Slur* s, XmlReader& e, ReadContext& ctx)
 {
     const AsciiStringView tag(e.name());
+    if (TRead::readProperty(s, tag, e, ctx, Pid::SLUR_MULTI_BEZIER_ENABLED)) {
+        return true;
+    }
+
+    if (TRead::readProperty(s, tag, e, ctx, Pid::SLUR_MULTI_BEZIER_KNOT_COUNT)) {
+        return true;
+    }
+
     if (TRead::readProperty(s, tag, e, ctx, Pid::PARTIAL_SPANNER_DIRECTION)) {
         return true;
     }
@@ -3845,6 +3853,7 @@ void TRead::read(SlurTieSegment* s, XmlReader& e, ReadContext& ctx)
             s->ups(Grip::BEZIER2).off = e.readPoint() * _spatium;
         } else if (tag == "o4") {
             s->ups(Grip::END).off = e.readPoint() * _spatium;
+        } else if (TRead::readProperty(s, tag, e, ctx, Pid::SLUR_MULTI_BEZIER_DATA)) {
         } else if (!readItemProperties(s, e, ctx)) {
             e.unknown();
         }

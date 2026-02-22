@@ -21,6 +21,12 @@
  */
 #include "slur.h"
 
+#include <algorithm>
+#include <array>
+#include <cmath>
+#include <iomanip>
+#include <sstream>
+
 #include "arpeggio.h"
 #include "beam.h"
 #include "chord.h"
@@ -49,6 +55,170 @@ SlurSegment::SlurSegment(System* parent, ElementType type)
 SlurSegment::SlurSegment(const SlurSegment& ss)
     : SlurTieSegment(ss)
 {
+    m_multiBezierData = ss.m_multiBezierData;
+    m_multiBezierKnotData = ss.m_multiBezierKnotData;
+}
+
+bool SlurSegment::useMultiBezier() const
+{
+    const Slur* parentSlur = slur();
+    return parentSlur && parentSlur->multiBezierEnabled() && multiBezierKnotCount() > 0;
+}
+
+int SlurSegment::multiBezierKnotCount() const
+{
+    const Slur* parentSlur = slur();
+    if (!parentSlur) {
+        return 0;
+    }
+
+    return std::clamp(parentSlur->multiBezierKnotCount(), 0, 16);
+}
+
+int SlurSegment::multiBezierDragGripIndex() const
+{
+    return int(Grip::DRAG);
+}
+
+bool SlurSegment::isMultiBezierControlGripIndex(int gripIndex) const
+{
+    return gripIndex >= multiBezierFirstGripIndex() && gripIndex < multiBezierControlGripEndIndex();
+}
+
+int SlurSegment::multiBezierKnotIndexForGrip(int gripIndex) const
+{
+    if (!isMultiBezierControlGripIndex(gripIndex)) {
+        return -1;
+    }
+
+    return (gripIndex - multiBezierFirstGripIndex()) / 3;
+}
+
+SlurSegment::MultiBezierGripType SlurSegment::multiBezierGripTypeForGrip(int gripIndex) const
+{
+    if (!isMultiBezierControlGripIndex(gripIndex)) {
+        return MultiBezierGripType::None;
+    }
+
+    switch ((gripIndex - multiBezierFirstGripIndex()) % 3) {
+    case 0: return MultiBezierGripType::InHandle;
+    case 1: return MultiBezierGripType::Knot;
+    case 2: return MultiBezierGripType::OutHandle;
+    default: return MultiBezierGripType::None;
+    }
+}
+
+void SlurSegment::parseMultiBezierData()
+{
+    const int knotCount = multiBezierKnotCount();
+    m_multiBezierKnotData.assign(knotCount, MultiBezierKnot());
+
+    if (knotCount == 0 || m_multiBezierData.empty()) {
+        return;
+    }
+
+    std::istringstream knotStream(m_multiBezierData);
+    std::string knotToken;
+    int knotIdx = 0;
+
+    while (std::getline(knotStream, knotToken, ';') && knotIdx < knotCount) {
+        std::istringstream valueStream(knotToken);
+        std::string valueToken;
+        std::array<double, 6> values {};
+        int valueIdx = 0;
+
+        while (std::getline(valueStream, valueToken, ',') && valueIdx < static_cast<int>(values.size())) {
+            try {
+                values[valueIdx] = std::stod(valueToken);
+            } catch (...) {
+                values[valueIdx] = 0.0;
+            }
+            ++valueIdx;
+        }
+
+        if (valueIdx >= static_cast<int>(values.size())) {
+            MultiBezierKnot& knot = m_multiBezierKnotData[knotIdx];
+            knot.knot.off = PointF(values[0], values[1]);
+            knot.inHandle.off = PointF(values[2], values[3]);
+            knot.outHandle.off = PointF(values[4], values[5]);
+        }
+
+        ++knotIdx;
+    }
+}
+
+void SlurSegment::ensureMultiBezierKnotData()
+{
+    if (int(m_multiBezierKnotData.size()) == multiBezierKnotCount()) {
+        return;
+    }
+
+    parseMultiBezierData();
+}
+
+void SlurSegment::syncMultiBezierDataProperty()
+{
+    if (m_multiBezierKnotData.empty()) {
+        m_multiBezierData.clear();
+        return;
+    }
+
+    bool hasOffsets = false;
+    for (const MultiBezierKnot& knot : m_multiBezierKnotData) {
+        if (!knot.inHandle.off.isNull() || !knot.knot.off.isNull() || !knot.outHandle.off.isNull()) {
+            hasOffsets = true;
+            break;
+        }
+    }
+
+    if (!hasOffsets) {
+        m_multiBezierData.clear();
+        return;
+    }
+
+    std::ostringstream stream;
+    stream << std::setprecision(12);
+    for (size_t i = 0; i < m_multiBezierKnotData.size(); ++i) {
+        if (i > 0) {
+            stream << ';';
+        }
+
+        const MultiBezierKnot& knot = m_multiBezierKnotData[i];
+        stream << knot.knot.off.x() << ',' << knot.knot.off.y() << ','
+               << knot.inHandle.off.x() << ',' << knot.inHandle.off.y() << ','
+               << knot.outHandle.off.x() << ',' << knot.outHandle.off.y();
+    }
+
+    m_multiBezierData = stream.str();
+}
+
+bool SlurSegment::resetMultiBezierGrip(Grip grip)
+{
+    ensureMultiBezierKnotData();
+
+    const int gripIndex = int(grip);
+    const int knotIndex = multiBezierKnotIndexForGrip(gripIndex);
+    if (knotIndex < 0 || knotIndex >= int(m_multiBezierKnotData.size())) {
+        return false;
+    }
+
+    MultiBezierKnot& knot = m_multiBezierKnotData[knotIndex];
+    switch (multiBezierGripTypeForGrip(gripIndex)) {
+    case MultiBezierGripType::InHandle:
+        knot.inHandle.off = PointF();
+        break;
+    case MultiBezierGripType::Knot:
+        knot.knot.off = PointF();
+        break;
+    case MultiBezierGripType::OutHandle:
+        knot.outHandle.off = PointF();
+        break;
+    case MultiBezierGripType::None:
+        return false;
+    }
+
+    syncMultiBezierDataProperty();
+    return true;
 }
 
 //---------------------------------------------------------
@@ -81,6 +251,10 @@ bool SlurSegment::isEditAllowed(EditData& ed) const
         return true;
     }
 
+    if (useMultiBezier() && ed.key != Key_Home && isMultiBezierControlGripIndex(int(ed.curGrip))) {
+        return false;
+    }
+
     const bool moveStart = ed.curGrip == Grip::START;
     const bool moveEnd = ed.curGrip == Grip::END || ed.curGrip == Grip::DRAG;
 
@@ -108,6 +282,32 @@ bool SlurSegment::edit(EditData& ed)
 {
     if (!isEditAllowed(ed)) {
         return false;
+    }
+
+    if (useMultiBezier() && ed.key == Key_Home && ed.hasCurrentGrip()) {
+        const int gripIndex = int(ed.curGrip);
+        if (isMultiBezierControlGripIndex(gripIndex) || gripIndex == multiBezierDragGripIndex()
+            || gripIndex == int(Grip::SHOULDER)) {
+            startEditDrag(ed);
+            if (isMultiBezierControlGripIndex(gripIndex)) {
+                resetMultiBezierGrip(ed.curGrip);
+            } else if (gripIndex == int(Grip::SHOULDER)) {
+                ensureMultiBezierKnotData();
+                if (!m_multiBezierKnotData.empty()) {
+                    const int middleKnotIndex = std::clamp(multiBezierKnotCount() / 2, 0, int(m_multiBezierKnotData.size()) - 1);
+                    MultiBezierKnot& knot = m_multiBezierKnotData[middleKnotIndex];
+                    knot.inHandle.off = PointF();
+                    knot.knot.off = PointF();
+                    knot.outHandle.off = PointF();
+                    syncMultiBezierDataProperty();
+                }
+            } else {
+                roffset() = PointF();
+            }
+            renderer()->layoutItem(spanner());
+            endEditDrag(ed);
+            return true;
+        }
     }
 
     if (SlurTieSegment::edit(ed)) {
@@ -264,6 +464,97 @@ void SlurSegment::editDrag(EditData& ed)
 {
     Grip g = ed.curGrip;
 
+    if (useMultiBezier()) {
+        const int gripIndex = int(g);
+        if (isMultiBezierControlGripIndex(gripIndex)) {
+            ensureMultiBezierKnotData();
+            const int knotIndex = multiBezierKnotIndexForGrip(gripIndex);
+            if (knotIndex < 0 || knotIndex >= int(m_multiBezierKnotData.size())) {
+                return;
+            }
+
+            MultiBezierKnot& knot = m_multiBezierKnotData[knotIndex];
+            switch (multiBezierGripTypeForGrip(gripIndex)) {
+            case MultiBezierGripType::InHandle:
+                knot.inHandle.off += ed.delta;
+                {
+                    const PointF knotPos = knot.knot.pos();
+                    const PointF inPos = knot.inHandle.pos();
+                    PointF direction = inPos - knotPos;
+                    const double directionLen = std::hypot(direction.x(), direction.y());
+                    if (directionLen > 1e-6) {
+                        const PointF outPos = knot.outHandle.pos();
+                        double outLen = std::hypot(outPos.x() - knotPos.x(), outPos.y() - knotPos.y());
+                        if (outLen < 1e-6) {
+                            outLen = directionLen;
+                        }
+                        direction /= directionLen;
+                        const PointF newOutPos = knotPos - direction * outLen;
+                        knot.outHandle.off = newOutPos - knot.outHandle.p;
+                    }
+                }
+                break;
+            case MultiBezierGripType::Knot:
+                knot.inHandle.off += ed.delta;
+                knot.knot.off += ed.delta;
+                knot.outHandle.off += ed.delta;
+                break;
+            case MultiBezierGripType::OutHandle:
+                knot.outHandle.off += ed.delta;
+                {
+                    const PointF knotPos = knot.knot.pos();
+                    const PointF outPos = knot.outHandle.pos();
+                    PointF direction = outPos - knotPos;
+                    const double directionLen = std::hypot(direction.x(), direction.y());
+                    if (directionLen > 1e-6) {
+                        const PointF inPos = knot.inHandle.pos();
+                        double inLen = std::hypot(inPos.x() - knotPos.x(), inPos.y() - knotPos.y());
+                        if (inLen < 1e-6) {
+                            inLen = directionLen;
+                        }
+                        direction /= directionLen;
+                        const PointF newInPos = knotPos - direction * inLen;
+                        knot.inHandle.off = newInPos - knot.inHandle.p;
+                    }
+                }
+                break;
+            case MultiBezierGripType::None:
+                return;
+            }
+
+            syncMultiBezierDataProperty();
+            renderer()->computeBezier(this);
+            triggerLayout();
+            return;
+        }
+
+        if (gripIndex == multiBezierDragGripIndex()) {
+            roffset() += ed.delta;
+            triggerLayout();
+            return;
+        }
+
+        if (gripIndex == int(Grip::SHOULDER)) {
+            ensureMultiBezierKnotData();
+            if (m_multiBezierKnotData.empty()) {
+                return;
+            }
+            const int middleKnotIndex = std::clamp(multiBezierKnotCount() / 2, 0, int(m_multiBezierKnotData.size()) - 1);
+            MultiBezierKnot& knot = m_multiBezierKnotData[middleKnotIndex];
+            knot.inHandle.off += ed.delta;
+            knot.knot.off += ed.delta;
+            knot.outHandle.off += ed.delta;
+            syncMultiBezierDataProperty();
+            renderer()->computeBezier(this);
+            triggerLayout();
+            return;
+        }
+
+        if (g != Grip::START && g != Grip::END && g != Grip::BEZIER1 && g != Grip::BEZIER2) {
+            return;
+        }
+    }
+
     switch (g) {
     case Grip::START:
     case Grip::END:
@@ -313,6 +604,96 @@ void SlurSegment::editDrag(EditData& ed)
     triggerLayout();
 }
 
+PropertyValue SlurSegment::getProperty(Pid propertyId) const
+{
+    switch (propertyId) {
+    case Pid::SLUR_MULTI_BEZIER_DATA:
+        return muse::String::fromStdString(m_multiBezierData);
+    default:
+        return SlurTieSegment::getProperty(propertyId);
+    }
+}
+
+bool SlurSegment::setProperty(Pid propertyId, const PropertyValue& v)
+{
+    switch (propertyId) {
+    case Pid::SLUR_MULTI_BEZIER_DATA:
+        m_multiBezierData = v.value<muse::String>().toStdString();
+        parseMultiBezierData();
+        break;
+    default:
+        return SlurTieSegment::setProperty(propertyId, v);
+    }
+    triggerLayout();
+    return true;
+}
+
+PropertyValue SlurSegment::propertyDefault(Pid id) const
+{
+    switch (id) {
+    case Pid::SLUR_MULTI_BEZIER_DATA:
+        return muse::String();
+    default:
+        return SlurTieSegment::propertyDefault(id);
+    }
+}
+
+void SlurSegment::reset()
+{
+    SlurTieSegment::reset();
+    undoResetProperty(Pid::SLUR_MULTI_BEZIER_DATA);
+}
+
+int SlurSegment::gripsCount() const
+{
+    if (useMultiBezier()) {
+        return multiBezierControlGripEndIndex();
+    }
+
+    return SlurTieSegment::gripsCount();
+}
+
+Grip SlurSegment::defaultGrip() const
+{
+    if (useMultiBezier()) {
+        return Grip::DRAG;
+    }
+
+    return SlurTieSegment::defaultGrip();
+}
+
+std::vector<PointF> SlurSegment::gripsPositions(const EditData& ed) const
+{
+    if (!useMultiBezier()) {
+        return SlurTieSegment::gripsPositions(ed);
+    }
+
+    std::vector<PointF> grips;
+    grips.reserve(gripsCount());
+
+    const PointF pagePosition(pagePos());
+    for (int i = 0; i < int(Grip::GRIPS); ++i) {
+        grips.push_back(ups(Grip(i)).pos() + pagePosition);
+    }
+
+    const int knotCount = multiBezierKnotCount();
+    const PointF fallback = ups(Grip::DRAG).pos() + pagePosition;
+    for (int i = 0; i < knotCount; ++i) {
+        if (i < int(m_multiBezierKnotData.size())) {
+            const MultiBezierKnot& knot = m_multiBezierKnotData[size_t(i)];
+            grips.push_back(knot.inHandle.pos() + pagePosition);
+            grips.push_back(knot.knot.pos() + pagePosition);
+            grips.push_back(knot.outHandle.pos() + pagePosition);
+        } else {
+            grips.push_back(fallback);
+            grips.push_back(fallback);
+            grips.push_back(fallback);
+        }
+    }
+
+    return grips;
+}
+
 //---------------------------------------------------------
 //   isEdited
 //---------------------------------------------------------
@@ -324,7 +705,27 @@ bool SlurSegment::isEdited() const
             return true;
         }
     }
+
+    for (const MultiBezierKnot& knot : m_multiBezierKnotData) {
+        if (!knot.inHandle.off.isNull() || !knot.knot.off.isNull() || !knot.outHandle.off.isNull()) {
+            return true;
+        }
+    }
+
+    if (!m_multiBezierData.empty()) {
+        return true;
+    }
+
     return false;
+}
+
+bool SlurSegment::isUserModified() const
+{
+    if (SlurTieSegment::isUserModified()) {
+        return true;
+    }
+
+    return !m_multiBezierData.empty();
 }
 
 bool SlurSegment::isEndPointsEdited() const
@@ -357,6 +758,8 @@ Slur::Slur(const Slur& s)
 {
     _connectedElement = s._connectedElement;
     _partialSpannerDirection = s._partialSpannerDirection;
+    _multiBezierEnabled = s._multiBezierEnabled;
+    _multiBezierKnotCount = s._multiBezierKnotCount;
 }
 
 //---------------------------------------------------------
@@ -537,6 +940,10 @@ PropertyValue Slur::getProperty(Pid propertyId) const
     switch (propertyId) {
     case Pid::PARTIAL_SPANNER_DIRECTION:
         return partialSpannerDirection();
+    case Pid::SLUR_MULTI_BEZIER_ENABLED:
+        return multiBezierEnabled();
+    case Pid::SLUR_MULTI_BEZIER_KNOT_COUNT:
+        return multiBezierKnotCount();
     default:
         return SlurTie::getProperty(propertyId);
     }
@@ -547,6 +954,10 @@ PropertyValue Slur::propertyDefault(Pid id) const
     switch (id) {
     case Pid::PARTIAL_SPANNER_DIRECTION:
         return PartialSpannerDirection::NONE;
+    case Pid::SLUR_MULTI_BEZIER_ENABLED:
+        return false;
+    case Pid::SLUR_MULTI_BEZIER_KNOT_COUNT:
+        return 2;
     default:
         return SlurTie::propertyDefault(id);
     }
@@ -557,6 +968,15 @@ bool Slur::setProperty(Pid propertyId, const PropertyValue& v)
     switch (propertyId) {
     case Pid::PARTIAL_SPANNER_DIRECTION:
         setPartialSpannerDirection(v.value<PartialSpannerDirection>());
+        break;
+    case Pid::SLUR_MULTI_BEZIER_ENABLED:
+        setMultiBezierEnabled(v.toBool());
+        if (multiBezierEnabled() && multiBezierKnotCount() <= 0) {
+            setMultiBezierKnotCount(2);
+        }
+        break;
+    case Pid::SLUR_MULTI_BEZIER_KNOT_COUNT:
+        setMultiBezierKnotCount(std::clamp(v.toInt(), 0, 16));
         break;
     default:
         return SlurTie::setProperty(propertyId, v);

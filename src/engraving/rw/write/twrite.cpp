@@ -2652,6 +2652,8 @@ void TWrite::write(const Slur* item, XmlWriter& xml, WriteContext& ctx)
     }
     xml.startElement(item);
 
+    writeProperty(item, xml, Pid::SLUR_MULTI_BEZIER_ENABLED);
+    writeProperty(item, xml, Pid::SLUR_MULTI_BEZIER_KNOT_COUNT);
     writeProperty(item, xml, Pid::PARTIAL_SPANNER_DIRECTION);
 
     writeProperties(static_cast<const SlurTie*>(item), xml, ctx);
@@ -2690,6 +2692,7 @@ void TWrite::writeSlur(const SlurTieSegment* seg, XmlWriter& xml, WriteContext& 
     if (!seg->ups(Grip::END).off.isNull()) {
         xml.tagPoint("o4", seg->ups(Grip::END).off / _spatium);
     }
+    writeProperty(seg, xml, Pid::SLUR_MULTI_BEZIER_DATA);
 
     if (seg->isHammerOnPullOffSegment()) {
         writeProperties(toHammerOnPullOffSegment(seg), xml, ctx);

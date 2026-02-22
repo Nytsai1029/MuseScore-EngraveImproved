@@ -26,6 +26,7 @@
 #include "dom/engravingitem.h"
 #include "dom/barline.h"
 #include "dom/dynamic.h"
+#include "dom/slur.h"
 #include "dom/slurtie.h"
 #include "dom/textbase.h"
 #include "dom/textedit.h"
@@ -181,6 +182,41 @@ void EditModeRenderer::drawDynamic(Dynamic* item, muse::draw::Painter* painter, 
 
 void EditModeRenderer::drawSlurTieSegment(SlurTieSegment* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling)
 {
+    SlurSegment* slurSegment = item->isSlurSegment() ? static_cast<SlurSegment*>(item) : nullptr;
+    if (slurSegment && slurSegment->useMultiBezier() && ed.grips > int(Grip::GRIPS)) {
+        painter->setPen(Pen(item->configuration()->scoreGreyColor(), 0.0));
+        const int firstKnotGrip = int(Grip::GRIPS);
+
+        // Draw endpoint half-tangent guides.
+        const PointF start = PointF(ed.grip[int(Grip::START)].center());
+        const PointF bezier1 = PointF(ed.grip[int(Grip::BEZIER1)].center());
+        const PointF end = PointF(ed.grip[int(Grip::END)].center());
+        const PointF bezier2 = PointF(ed.grip[int(Grip::BEZIER2)].center());
+        painter->drawLine(LineF(start, bezier1));
+        painter->drawLine(LineF(end, bezier2));
+
+        // Draw tangent guides for each turning point.
+        for (int i = firstKnotGrip; i + 2 < ed.grips; i += 3) {
+            const PointF inHandle = PointF(ed.grip[i].center());
+            const PointF knot = PointF(ed.grip[i + 1].center());
+            const PointF outHandle = PointF(ed.grip[i + 2].center());
+            painter->drawLine(LineF(inHandle, knot));
+            painter->drawLine(LineF(knot, outHandle));
+        }
+
+        // Draw a lightweight guide through start, turning points and end.
+        PolygonF guide;
+        guide << start;
+        for (int i = firstKnotGrip; i + 2 < ed.grips; i += 3) {
+            guide << PointF(ed.grip[i + 1].center());
+        }
+        guide << end;
+        painter->drawPolyline(guide);
+
+        drawEngravingItem(item, painter, ed, currentViewScaling);
+        return;
+    }
+
     PolygonF polygon(7);
     polygon[0] = PointF(ed.grip[int(Grip::START)].center());
     polygon[1] = PointF(ed.grip[int(Grip::BEZIER1)].center());

@@ -451,6 +451,9 @@ static constexpr PropertyMetaData propertyList[] = {
 
     { Pid::TIE_PLACEMENT,           true,  "tiePlacement",          P_TYPE::TIE_PLACEMENT,      PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "tie placement") },
     { Pid::MIN_LENGTH,              true,  "minLength",             P_TYPE::SPATIUM,            PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "minimum length") },
+    { Pid::SLUR_MULTI_BEZIER_ENABLED, true,  "multiBezierEnabled",  P_TYPE::BOOL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "multi-bezier enabled") },
+    { Pid::SLUR_MULTI_BEZIER_KNOT_COUNT, true,  "multiBezierKnotCount", P_TYPE::INT,             PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "multi-bezier knot count") },
+    { Pid::SLUR_MULTI_BEZIER_DATA,  false, "multiBezierData",       P_TYPE::STRING,             PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "multi-bezier data") },
     { Pid::PARTIAL_SPANNER_DIRECTION,   true,  "partialSpannerDirection",   P_TYPE::PARTIAL_SPANNER_DIRECTION,  PropertyGroup::NONE,  QT_TRANSLATE_NOOP("engraving/propertyName", "partial spanner direction") },
 
     { Pid::POSITION_LINKED_TO_MASTER,   false, "positionLinkedToMaster",   P_TYPE::BOOL,        PropertyGroup::NONE,            QT_TRANSLATE_NOOP("engraving/propertyName", "position linked to main score") },

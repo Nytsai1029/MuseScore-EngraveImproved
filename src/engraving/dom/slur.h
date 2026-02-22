@@ -22,6 +22,9 @@
 
 #pragma once
 
+#include <string>
+#include <vector>
+
 #include "slurtie.h"
 
 #include "global/allocator.h"
@@ -42,6 +45,13 @@ class SlurSegment : public SlurTieSegment
     M_PROPERTY2(PointF, endPointOff2, setEndPointOff2, PointF(0.0, 0.0))
 
 public:
+    struct MultiBezierKnot
+    {
+        UP inHandle;
+        UP knot;
+        UP outHandle;
+    };
+
     SlurSegment(System* parent, ElementType type = ElementType::SLUR_SEGMENT);
     SlurSegment(const SlurSegment& ss);
 
@@ -49,12 +59,29 @@ public:
 
     bool isEdited() const;
     bool isEndPointsEdited() const;
+    bool isUserModified() const override;
     bool isEditAllowed(EditData&) const override;
     bool edit(EditData&) override;
 
+    PropertyValue getProperty(Pid propertyId) const override;
+    bool setProperty(Pid propertyId, const PropertyValue& v) override;
+    PropertyValue propertyDefault(Pid id) const override;
+    void reset() override;
+
     void editDrag(EditData& ed) override;
+    int gripsCount() const override;
+    Grip defaultGrip() const override;
+    std::vector<PointF> gripsPositions(const EditData& ed = EditData()) const override;
 
     Slur* slur() const { return toSlur(spanner()); }
+    bool useMultiBezier() const;
+    int multiBezierKnotCount() const;
+    int multiBezierDragGripIndex() const;
+
+    std::vector<MultiBezierKnot>& multiBezierKnotData() { return m_multiBezierKnotData; }
+    const std::vector<MultiBezierKnot>& multiBezierKnotData() const { return m_multiBezierKnotData; }
+    void ensureMultiBezierKnotData();
+    void syncMultiBezierDataProperty();
 
     double endWidth() const override;
     double midWidth() const override;
@@ -64,6 +91,25 @@ public:
 
 protected:
     void changeAnchor(EditData&, EngravingItem*) override;
+
+private:
+    enum class MultiBezierGripType : unsigned char {
+        None,
+        InHandle,
+        Knot,
+        OutHandle,
+    };
+
+    int multiBezierFirstGripIndex() const { return int(Grip::GRIPS); }
+    int multiBezierControlGripEndIndex() const { return multiBezierFirstGripIndex() + multiBezierKnotCount() * 3; }
+    bool isMultiBezierControlGripIndex(int gripIndex) const;
+    int multiBezierKnotIndexForGrip(int gripIndex) const;
+    MultiBezierGripType multiBezierGripTypeForGrip(int gripIndex) const;
+    bool resetMultiBezierGrip(Grip grip);
+    void parseMultiBezierData();
+
+    std::vector<MultiBezierKnot> m_multiBezierKnotData;
+    std::string m_multiBezierData;
 };
 
 //---------------------------------------------------------
@@ -134,6 +180,8 @@ public:
 private:
     M_PROPERTY2(ConnectedElement, connectedElement, setConnectedElement, ConnectedElement::NONE)
     M_PROPERTY2(PartialSpannerDirection, partialSpannerDirection, setPartialSpannerDirection, PartialSpannerDirection::NONE)
+    M_PROPERTY2(bool, multiBezierEnabled, setMultiBezierEnabled, false)
+    M_PROPERTY2(int, multiBezierKnotCount, setMultiBezierKnotCount, 2)
 
     PartialSpannerDirection calcIncomingDirection(bool incoming);
     PartialSpannerDirection calcOutgoingDirection(bool outgoing);
