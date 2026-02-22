@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -23,8 +23,6 @@
 
 #include <QTimer>
 
-#include "muse_framework_config.h"
-
 #include "log.h"
 
 using namespace muse;
@@ -40,10 +38,18 @@ void UiActionsRegister::init()
     updateCheckedAll();
     updateEnabledAll();
 
+    updateShortcutsAll();
+
     // listen
     if (uicontextResolver()) {
         uicontextResolver()->currentUiContextChanged().onNotify(this, [this]() {
             requestUpdateEnabledAll();
+        });
+    }
+
+    if (shortcutsRegister()) {
+        shortcutsRegister()->shortcutsChanged().onNotify(this, [this]() {
+            updateShortcutsAll();
         });
     }
 }
@@ -61,14 +67,13 @@ void UiActionsRegister::reg(const IUiActionsModulePtr& module)
         newActionCodeList.push_back(action.code);
     }
 
-#ifdef MUSE_MULTICONTEXT_WIP
     updateEnabled(newActionCodeList);
     updateChecked(newActionCodeList);
-#endif
+    updateShortcuts(newActionCodeList);
 
     module->actionsChanged().onReceive(this, [this](const UiActionList& actions) {
         updateActions(actions);
-    }, async::Asyncable::Mode::SetReplace); // see IUiActionsModule::actionsChanged()
+    });
 
     module->actionEnabledChanged().onReceive(this, [this](const ActionCodeList& codes) {
         updateEnabled(codes);
@@ -79,21 +84,6 @@ void UiActionsRegister::reg(const IUiActionsModulePtr& module)
         updateChecked(codes);
         m_actionStateChanged.send(codes);
     });
-}
-
-void UiActionsRegister::unreg(const IUiActionsModulePtr& module)
-{
-    for (auto it = m_actions.begin(); it != m_actions.end();) {
-        if (it->second.module == module) {
-            it = m_actions.erase(it);
-        } else {
-            ++it;
-        }
-    }
-
-    module->actionsChanged().disconnect(this);
-    module->actionEnabledChanged().disconnect(this);
-    module->actionCheckedChanged().disconnect(this);
 }
 
 UiActionsRegister::Info& UiActionsRegister::info(const ActionCode& code)
@@ -143,18 +133,6 @@ const UiAction& UiActionsRegister::action(const ActionCode& code) const
     return info(code).action;
 }
 
-const actions::ActionCode& UiActionsRegister::parentActionCode(const actions::ActionCode& code) const
-{
-    for (auto it = m_actions.begin(); it != m_actions.end(); it++) {
-        if (muse::contains(it->second.action.children, code)) {
-            return it->second.action.code;
-        }
-    }
-
-    static ActionCode null;
-    return null;
-}
-
 async::Channel<UiActionList> UiActionsRegister::actionsChanged() const
 {
     return m_actionsChanged;
@@ -169,6 +147,38 @@ UiActionState UiActionsRegister::actionState(const ActionCode& code) const
     }
 
     return inf.state;
+}
+
+void UiActionsRegister::updateShortcuts(const ActionCodeList& codes)
+{
+    if (!shortcutsRegister()) {
+        return;
+    }
+
+    auto screg = shortcutsRegister();
+    for (const ActionCode& code : codes) {
+        Info& inf = info(code);
+        if (!inf.isValid()) {
+            continue;
+        }
+
+        inf.action.shortcuts = screg->shortcut(inf.action.code).sequences;
+    }
+}
+
+void UiActionsRegister::updateShortcutsAll()
+{
+    TRACEFUNC;
+
+    if (!shortcutsRegister()) {
+        return;
+    }
+
+    auto screg = shortcutsRegister();
+    for (auto it = m_actions.begin(); it != m_actions.end(); ++it) {
+        Info& inf = it->second;
+        inf.action.shortcuts = screg->shortcut(inf.action.code).sequences;
+    }
 }
 
 void UiActionsRegister::updateActions(const UiActionList& actions)
@@ -218,7 +228,7 @@ void UiActionsRegister::updateEnabled(const ActionCodeList& codes)
 
     ActionCodeList changedList;
     auto ctxResolver = uicontextResolver();
-    const ui::UiContext& currentCtx = ctxResolver->currentUiContext();
+    ui::UiContext currentCtx = ctxResolver->currentUiContext();
     for (const ActionCode& code : codes) {
         Info& inf = info(code);
         if (!inf.isValid()) {
@@ -256,7 +266,7 @@ void UiActionsRegister::updateEnabledAll()
 
     ActionCodeList changedList;
     auto ctxResolver = uicontextResolver();
-    const ui::UiContext& currentCtx = ctxResolver->currentUiContext();
+    ui::UiContext currentCtx = ctxResolver->currentUiContext();
     LOGD() << "currentCtx: " << currentCtx.toString();
     for (auto it = m_actions.begin(); it != m_actions.end(); ++it) {
         Info& inf = it->second;

@@ -19,21 +19,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import Muse.Audio 1.0
 
 MixerPanelSection {
     id: root
 
     Item {
         id: content
-
-        required property MixerChannelItem channelItem
 
         height: childrenRect.height
         width: root.channelItemWidth
@@ -46,10 +42,10 @@ MixerPanelSection {
             spacing: 8
 
             VolumeSlider {
-                volumeLevel: content.channelItem.volumeLevel
+                volumeLevel: channelItem.volumeLevel
                 stepSize: 1.0
 
-                navigation.panel: content.channelItem.panel
+                navigation.panel: channelItem.panel
                 navigation.row: root.navigationRowStart
                 navigation.accessible.name: content.accessibleName + " " + readableVolumeLevel
                 navigation.onActiveChanged: {
@@ -59,15 +55,15 @@ MixerPanelSection {
                 }
 
                 onVolumeLevelMoved: function(level) {
-                    content.channelItem.volumeLevel = Math.round(level * 10) / 10
+                    channelItem.volumeLevel = Math.round(level * 10) / 10
                 }
 
                 onIncreaseRequested: {
-                    content.channelItem.volumeLevel += stepSize
+                    channelItem.volumeLevel += stepSize
                 }
 
                 onDecreaseRequested: {
-                    content.channelItem.volumeLevel -= stepSize
+                    channelItem.volumeLevel -= stepSize
                 }
             }
 
@@ -78,12 +74,12 @@ MixerPanelSection {
 
                 VolumePressureMeter {
                     id: leftPressure
-                    currentVolumePressure: content.channelItem.leftChannelPressure
+                    currentVolumePressure: channelItem.leftChannelPressure
                 }
 
                 VolumePressureMeter {
                     id: rightPressure
-                    currentVolumePressure: content.channelItem.rightChannelPressure
+                    currentVolumePressure: channelItem.rightChannelPressure
                     showRuler: true
                 }
             }

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -26,7 +26,7 @@
 using namespace muse::ui;
 
 QmlToolTip::QmlToolTip(QObject* parent, const modularity::ContextPtr& iocCtx)
-    : QObject(parent), Contextable(iocCtx)
+    : QObject(parent), Injectable(iocCtx)
 {
     connect(&m_openTimer, &QTimer::timeout, this, &QmlToolTip::doShow);
 
@@ -80,10 +80,12 @@ void QmlToolTip::hide(QQuickItem* item, bool force)
     m_closeTimer.start(uiConfiguration()->tooltipDelay());
 }
 
-void QmlToolTip::close()
+void QmlToolTip::init()
 {
-    m_shouldBeClosed = true;
-    doHide();
+    interactiveProvider()->currentUriAboutToBeChanged().onNotify(this, [this]() {
+        m_shouldBeClosed = true;
+        doHide();
+    });
 }
 
 void QmlToolTip::doShow()

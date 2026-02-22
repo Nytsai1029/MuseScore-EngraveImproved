@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,7 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#include <gmock/gmock.h>
+
+#include <gtest/gtest.h>
 
 #include "global/serialization/json.h"
 
@@ -29,7 +30,6 @@
 #include "mocks/audiopluginsconfigurationmock.h"
 
 using ::testing::_;
-using ::testing::NiceMock;
 using ::testing::Return;
 
 using namespace muse;
@@ -44,8 +44,8 @@ protected:
     void SetUp() override
     {
         m_knownPlugins = std::make_shared<KnownAudioPluginsRegister>(modularity::globalCtx());
-        m_fileSystem = std::make_shared<NiceMock<FileSystemMock> >();
-        m_configuration = std::make_shared<NiceMock<AudioPluginsConfigurationMock> >();
+        m_fileSystem = std::make_shared<FileSystemMock>();
+        m_configuration = std::make_shared<AudioPluginsConfigurationMock>();
 
         m_knownPlugins->fileSystem.set(m_fileSystem);
         m_knownPlugins->configuration.set(m_configuration);
@@ -212,7 +212,7 @@ TEST_F(AudioPlugins_KnownAudioPluginsRegisterTest, PluginInfoList)
     .WillOnce(Return(muse::make_ok()));
 
     // [WHEN] Register it
-    ret = m_knownPlugins->registerPlugins({ newPluginInfo });
+    ret = m_knownPlugins->registerPlugin(newPluginInfo);
 
     // [THEN] The plugin successfully registered
     EXPECT_TRUE(ret);
@@ -228,7 +228,7 @@ TEST_F(AudioPlugins_KnownAudioPluginsRegisterTest, PluginInfoList)
     .WillOnce(Return(muse::make_ok()));
 
     // [WHEN] Register it
-    ret = m_knownPlugins->registerPlugins({ duplicatedPluginInfo });
+    ret = m_knownPlugins->registerPlugin(duplicatedPluginInfo);
 
     // [THEN] The duplicated plugin successfully registered
     EXPECT_TRUE(ret);
@@ -250,7 +250,7 @@ TEST_F(AudioPlugins_KnownAudioPluginsRegisterTest, PluginInfoList)
     .WillOnce(Return(muse::make_ok()));
 
     // [WHEN] Unregister the plugin
-    ret = m_knownPlugins->unregisterPlugins({ unregisteredPlugin.meta.id });
+    ret = m_knownPlugins->unregisterPlugin(unregisteredPlugin.meta.id);
 
     // [THEN] The plugin successfully unregistered
     EXPECT_TRUE(ret);

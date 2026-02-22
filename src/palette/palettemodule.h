@@ -19,18 +19,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_PALETTE_PALETTEMODULE_H
+#define MU_PALETTE_PALETTEMODULE_H
 
 #include <memory>
 
 #include "modularity/imodulesetup.h"
 
 namespace mu::palette {
-class PaletteConfiguration;
 class PaletteProvider;
 class PaletteActionsController;
 class PaletteUiActions;
+class PaletteConfiguration;
 class PaletteWorkspaceSetup;
 class PaletteModule : public muse::modularity::IModuleSetup
 {
@@ -39,30 +39,22 @@ public:
 
     void registerExports() override;
     void resolveImports() override;
-    void onInit(const muse::IApplication::RunMode& mode) override;
 
-    muse::modularity::IContextSetup* newContext(const muse::modularity::ContextPtr& ctx) const override;
+    void registerResources() override;
+    void registerUiTypes() override;
 
-private:
-    std::shared_ptr<PaletteConfiguration> m_configuration;
-};
-
-class PaletteContext : public muse::modularity::IContextSetup
-{
-public:
-    PaletteContext(const muse::modularity::ContextPtr& ctx)
-        : muse::modularity::IContextSetup(ctx) {}
-
-    void registerExports() override;
-    void resolveImports() override;
     void onInit(const muse::IApplication::RunMode& mode) override;
     void onAllInited(const muse::IApplication::RunMode& mode) override;
     void onDeinit() override;
 
 private:
+
     std::shared_ptr<PaletteProvider> m_paletteProvider;
     std::shared_ptr<PaletteActionsController> m_actionsController;
     std::shared_ptr<PaletteUiActions> m_paletteUiActions;
+    std::shared_ptr<PaletteConfiguration> m_configuration;
     std::shared_ptr<PaletteWorkspaceSetup> m_paletteWorkspaceSetup;
 };
 }
+
+#endif // MU_PALETTE_PALETTEMODULE_H

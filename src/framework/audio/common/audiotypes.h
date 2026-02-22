@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MUSE_AUDIO_AUDIOTYPES_H
+#define MUSE_AUDIO_AUDIOTYPES_H
 
 #include <variant>
 #include <set>
@@ -36,8 +37,6 @@
 #include "global/io/iodevice.h"
 
 #include "mpe/events.h"
-
-#include "log.h"
 
 namespace muse::audio {
 using msecs_t = int64_t;
@@ -74,30 +73,12 @@ static constexpr TrackId INVALID_TRACK_ID = -1;
 static constexpr char DEFAULT_DEVICE_ID[] = "default";
 
 #ifdef Q_OS_WIN
-static constexpr samples_t MINIMUM_BUFFER_SIZE = 256;
+static constexpr size_t MINIMUM_BUFFER_SIZE = 256;
 #else
-static constexpr samples_t MINIMUM_BUFFER_SIZE = 128;
+static constexpr size_t MINIMUM_BUFFER_SIZE = 128;
 #endif
 
-static constexpr samples_t MAXIMUM_BUFFER_SIZE = 4096;
-static constexpr samples_t DEFAULT_BUFFER_SIZE = 1024;
-
-struct OutputSpec {
-    sample_rate_t sampleRate = 0;
-    samples_t samplesPerChannel = 0;
-    audioch_t audioChannelCount = 0;
-
-    inline bool isValid() const { return sampleRate > 0 && samplesPerChannel > 0 && audioChannelCount > 0; }
-
-    inline bool operator==(const OutputSpec& other) const
-    {
-        return sampleRate == other.sampleRate
-               && samplesPerChannel == other.samplesPerChannel
-               && audioChannelCount == other.audioChannelCount;
-    }
-
-    inline bool operator!=(const OutputSpec& other) const { return !this->operator==(other); }
-};
+static constexpr size_t MAXIMUM_BUFFER_SIZE = 4096;
 
 enum class SoundTrackType {
     Undefined = -1,
@@ -107,52 +88,29 @@ enum class SoundTrackType {
     WAV
 };
 
-enum class AudioSampleFormat {
-    Undefined = 0,
-    Int16,
-    Int24,
-    Float32
-};
-
 struct SoundTrackFormat {
     SoundTrackType type = SoundTrackType::Undefined;
-    OutputSpec outputSpec;
-    AudioSampleFormat sampleFormat = AudioSampleFormat::Undefined;
+    sample_rate_t sampleRate = 0;
+    samples_t samplesPerChannel = 0;
+    audioch_t audioChannelsNumber = 0;
     int bitRate = 0;
 
     bool operator==(const SoundTrackFormat& other) const
     {
         return type == other.type
-               && outputSpec == other.outputSpec
-               && sampleFormat == other.sampleFormat
+               && sampleRate == other.sampleRate
+               && audioChannelsNumber == other.audioChannelsNumber
+               && samplesPerChannel == other.samplesPerChannel
                && bitRate == other.bitRate;
     }
 
     bool isValid() const
     {
-        if (!outputSpec.isValid()) {
-            return false;
-        }
-
-        switch (type) {
-        case SoundTrackType::WAV:
-        case SoundTrackType::FLAC:
-            // For lossless/uncompressed, sample format must be defined
-            return sampleFormat != AudioSampleFormat::Undefined;
-
-        case SoundTrackType::MP3:
-        case SoundTrackType::OGG:
-            // For lossy, bitrate must be positive
-            return bitRate > 0;
-
-        default:
-            return false;
-        }
+        return type != SoundTrackType::Undefined
+               && sampleRate != 0
+               && samplesPerChannel != 0
+               && audioChannelsNumber != 0;
     }
-};
-
-struct AudioEngineConfig {
-    bool autoProcessOnlineSoundsInBackground = false;
 };
 
 using AudioSourceName = std::string;
@@ -162,8 +120,8 @@ using AudioResourceVendor = std::string;
 using AudioResourceAttributes = std::map<String, String>;
 using AudioUnitConfig = std::map<std::string, std::string>;
 
-static const String PLAYBACK_SETUP_DATA_ATTRIBUTE(u"playbackSetupData");
-static const String CATEGORIES_ATTRIBUTE(u"categories");
+static const String PLAYBACK_SETUP_DATA_ATTRIBUTE("playbackSetupData");
+static const String CATEGORIES_ATTRIBUTE("categories");
 
 enum class AudioResourceType {
     Undefined = -1,
@@ -173,7 +131,6 @@ enum class AudioResourceType {
     MuseSamplerSoundPack,
     Lv2Plugin,
     AudioUnit,
-    NyquistPlugin
 };
 
 static const std::map<AudioResourceType, QString> RESOURCE_TYPE_MAP = {
@@ -278,7 +235,6 @@ struct AudioFxParams {
         case AudioResourceType::Lv2Plugin:
         case AudioResourceType::FluidSoundfont:
         case AudioResourceType::MuseSamplerSoundPack:
-        case AudioResourceType::NyquistPlugin:
         case AudioResourceType::Undefined: break;
         }
 
@@ -362,7 +318,6 @@ inline AudioSourceType sourceTypeFromResourceType(AudioResourceType type)
     case AudioResourceType::AudioUnit:
     case AudioResourceType::Lv2Plugin:
     case AudioResourceType::MusePlugin:
-    case AudioResourceType::NyquistPlugin:
     case AudioResourceType::Undefined: break;
     }
 
@@ -400,16 +355,58 @@ struct AudioParams {
 };
 
 struct AudioSignalVal {
+    float amplitude = 0.f;
     volume_dbfs_t pressure = 0.f;
 
     inline bool operator ==(const AudioSignalVal& other) const
     {
-        return pressure == other.pressure;
+        return muse::is_equal(amplitude, other.amplitude)
+               && pressure == other.pressure;
     }
 };
 
 using AudioSignalValuesMap = std::map<audioch_t, AudioSignalVal>;
 using AudioSignalChanges = async::Channel<AudioSignalValuesMap>;
+
+static constexpr volume_dbfs_t MINIMUM_OPERABLE_DBFS_LEVEL = volume_dbfs_t::make(-100.f);
+struct AudioSignalsNotifier {
+    void updateSignalValues(const audioch_t audioChNumber, const float newAmplitude)
+    {
+        volume_dbfs_t newPressure = (newAmplitude > 0.f) ? volume_dbfs_t(muse::linear_to_db(newAmplitude)) : MINIMUM_OPERABLE_DBFS_LEVEL;
+        newPressure = std::max(newPressure, MINIMUM_OPERABLE_DBFS_LEVEL);
+
+        AudioSignalVal& signalVal = m_signalValuesMap[audioChNumber];
+
+        if (muse::is_equal(signalVal.pressure, newPressure)) {
+            return;
+        }
+
+        if (std::abs(signalVal.pressure - newPressure) < PRESSURE_MINIMAL_VALUABLE_DIFF) {
+            return;
+        }
+
+        signalVal.amplitude = newAmplitude;
+        signalVal.pressure = newPressure;
+
+        m_needNotifyAboutChanges = true;
+    }
+
+    void notifyAboutChanges()
+    {
+        if (m_needNotifyAboutChanges) {
+            audioSignalChanges.send(m_signalValuesMap);
+            m_needNotifyAboutChanges = false;
+        }
+    }
+
+    AudioSignalChanges audioSignalChanges;
+
+private:
+    static constexpr volume_dbfs_t PRESSURE_MINIMAL_VALUABLE_DIFF = volume_dbfs_t::make(2.5f);
+
+    AudioSignalValuesMap m_signalValuesMap;
+    bool m_needNotifyAboutChanges = false;
+};
 
 enum class PlaybackStatus {
     Stopped = 0,
@@ -458,16 +455,6 @@ enum class RenderMode {
     RealTimeMode,
     IdleMode,
     OfflineMode
-};
-
-//! NOTE When commands arrive at the engine, it exec them.
-//! These can be quick commands like changing the volume,
-//! or longer commands like add a new track.
-enum class OperationType {
-    Undefined = -1,
-    NoOperation,
-    QuickOperation,
-    LongOperation,
 };
 
 struct InputProcessingProgress {
@@ -524,3 +511,5 @@ struct InputProcessingProgress {
     async::Channel<StatusInfo, ChunkInfoList, ProgressInfo> processedChannel;
 };
 }
+
+#endif // MUSE_AUDIO_AUDIOTYPES_H

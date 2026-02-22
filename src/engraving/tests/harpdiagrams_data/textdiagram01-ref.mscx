@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
       <maskBarlinesForText>0</maskBarlinesForText>
-      <dividerLeftAlignToSystemBarline>0</dividerLeftAlignToSystemBarline>
-      <dividerRightAlignToSystemBarline>0</dividerRightAlignToSystemBarline>
       <scaleRythmicSpacingForSmallNotes>0</scaleRythmicSpacingForSmallNotes>
       <verticallyAlignChordSymbols>0</verticallyAlignChordSymbols>
       <pageNumberFontSize>9</pageNumberFontSize>
       <pageNumberFontStyle>0</pageNumberFontStyle>
-      <pageNumberMusicalSymbolSize>9</pageNumberMusicalSymbolSize>
       <changesBeforeBarlineRepeats>0</changesBeforeBarlineRepeats>
       <changesBeforeBarlineOtherJumps>0</changesBeforeBarlineOtherJumps>
       <showCourtesiesRepeats>0</showCourtesiesRepeats>
@@ -141,7 +138,8 @@
               </pedalState>
             <eid>G_G</eid>
             <style>harp_pedal_text_diagram</style>
-            <text>E<sym>csymAccidentalNatural</sym> F<sym>csymAccidentalNatural</sym> G<sym>csymAccidentalNatural</sym> A<sym>csymAccidentalNatural</sym> <br/>D<sym>csymAccidentalNatural</sym> C<sym>csymAccidentalNatural</sym> B<sym>csymAccidentalNatural</sym> </text>
+            <text>E<sym>csymAccidentalNatural</sym> F<sym>csymAccidentalNatural</sym> G<sym>csymAccidentalNatural</sym> A<sym>csymAccidentalNatural</sym> 
+D<sym>csymAccidentalNatural</sym> C<sym>csymAccidentalNatural</sym> B<sym>csymAccidentalNatural</sym> </text>
             </HarpPedalDiagram>
           <Rest>
             <eid>H_H</eid>
@@ -166,7 +164,8 @@
               </pedalState>
             <eid>J_J</eid>
             <style>harp_pedal_text_diagram</style>
-            <text>F<sym>csymAccidentalSharp</sym> <br/>C<sym>csymAccidentalSharp</sym> </text>
+            <text>F<sym>csymAccidentalSharp</sym> 
+C<sym>csymAccidentalSharp</sym> </text>
             </HarpPedalDiagram>
           <Rest>
             <eid>K_K</eid>
@@ -191,7 +190,8 @@
               </pedalState>
             <eid>M_M</eid>
             <style>harp_pedal_text_diagram</style>
-            <text>F<sym>csymAccidentalSharp</sym> <br/>C<sym>csymAccidentalSharp</sym> </text>
+            <text>F<sym>csymAccidentalSharp</sym> 
+C<sym>csymAccidentalSharp</sym> </text>
             </HarpPedalDiagram>
           <Rest>
             <eid>N_N</eid>
@@ -216,7 +216,8 @@
               </pedalState>
             <eid>P_P</eid>
             <style>harp_pedal_text_diagram</style>
-            <text>G<sym>csymAccidentalSharp</sym> <br/></text>
+            <text>G<sym>csymAccidentalSharp</sym> 
+</text>
             </HarpPedalDiagram>
           <Rest>
             <eid>Q_Q</eid>

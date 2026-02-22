@@ -39,6 +39,7 @@ public:
     LaissezVib* laissezVib() const { return (LaissezVib*)spanner(); }
 
     int gripsCount() const override { return 0; }
+    void editDrag(EditData&) override;
 
     struct LayoutData : public TieSegment::LayoutData {
         SymId symbol = SymId::noSym;
@@ -80,6 +81,6 @@ public:
     LaissezVibSegment* segmentAt(int n) { return toLaissezVibSegment(Spanner::segmentAt(n)); }
     const LaissezVibSegment* segmentAt(int n) const { return toLaissezVibSegment(Spanner::segmentAt(n)); }
 private:
-    Spatium m_minLength = 2.0_sp;
+    Spatium m_minLength = Spatium(2.0);
 };
 }

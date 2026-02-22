@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -31,8 +31,8 @@ using namespace muse::async;
 using namespace muse::audio;
 using namespace muse::audio::rpc;
 
-Player::Player(const TrackSequenceId sequenceId, const muse::modularity::ContextPtr& iocCtx)
-    : Contextable(iocCtx), m_sequenceId(sequenceId)
+Player::Player(const TrackSequenceId sequenceId)
+    : m_sequenceId(sequenceId)
 {
 }
 
@@ -87,26 +87,6 @@ TrackSequenceId Player::sequenceId() const
 {
     ONLY_AUDIO_MAIN_THREAD;
     return m_sequenceId;
-}
-
-async::Promise<Ret> Player::prepareToPlay()
-{
-    ONLY_AUDIO_MAIN_THREAD;
-    return async::make_promise<Ret>([this](auto resolve, auto) {
-        ONLY_AUDIO_MAIN_THREAD;
-        Msg msg = rpc::make_request(Method::PrepareToPlay, RpcPacker::pack(m_sequenceId));
-        channel()->send(msg, [resolve](const Msg& res) {
-            ONLY_AUDIO_MAIN_THREAD;
-            Ret ret;
-            IF_ASSERT_FAILED(RpcPacker::unpack(res.data, ret)) {
-                (void)resolve(make_ret(Ret::Code::UnknownError));
-                return;
-            }
-
-            (void)resolve(ret);
-        });
-        return Promise<Ret>::dummy_result();
-    }, PromiseType::AsyncByBody);
 }
 
 void Player::play(const secs_t delay)

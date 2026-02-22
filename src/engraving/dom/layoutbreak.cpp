@@ -46,14 +46,14 @@ static const ElementStyle sectionBreakStyle {
 //---------------------------------------------------------
 
 LayoutBreak::LayoutBreak(MeasureBase* parent)
-    : EngravingItem(ElementType::LAYOUT_BREAK, parent, ElementFlag::SYSTEM)
+    : EngravingItem(ElementType::LAYOUT_BREAK, parent, ElementFlag::SYSTEM | ElementFlag::HAS_TAG)
 {
     m_pause = 0.;
     m_startWithLongNames = false;
     m_startWithMeasureOne = false;
     m_firstSystemIndentation = false;
     m_showCourtesy = false;
-    m_layoutBreakType = LayoutBreakType::PAGE;
+    m_layoutBreakType = LayoutBreakType(propertyDefault(Pid::LAYOUT_BREAK).toInt());
 
     initElementStyle(&sectionBreakStyle);
 
@@ -111,7 +111,7 @@ void LayoutBreak::setLayoutBreakType(LayoutBreakType val)
 
 bool LayoutBreak::acceptDrop(EditData& data) const
 {
-    return data.dropElement->isLayoutBreak()
+    return data.dropElement->type() == ElementType::LAYOUT_BREAK
            && toLayoutBreak(data.dropElement)->layoutBreakType() != layoutBreakType();
 }
 
@@ -259,7 +259,9 @@ void LayoutBreak::removed()
 Font LayoutBreak::font() const
 {
     Font font(configuration()->iconsFontFamily(), Font::Type::Icon);
-    font.setPointSizeF(UI_ICONS_DEFAULT_FONT_SIZE * magS());
+    static constexpr double STANDARD_POINT_SIZE = 12.0;
+    double scaling = spatium() / SPATIUM20;
+    font.setPointSizeF(STANDARD_POINT_SIZE * scaling);
     return font;
 }
 }

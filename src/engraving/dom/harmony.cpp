@@ -24,17 +24,15 @@
 
 #include "containers.h"
 #include "translation.h"
+#include "types/translatablestring.h"
 
 #include "draw/fontmetrics.h"
 #include "draw/types/brush.h"
 #include "draw/types/pen.h"
 
-#include "../editing/textedit.h"
-#include "../editing/undo.h"
-#include "../editing/transpose.h"
-
 #include "chordlist.h"
 #include "fret.h"
+#include "line.h"
 #include "linkedobjects.h"
 #include "measure.h"
 #include "mscore.h"
@@ -46,9 +44,11 @@
 #include "segment.h"
 #include "staff.h"
 #include "textbase.h"
+#include "textedit.h"
 #include "utils.h"
 
 #include "log.h"
+#include "undo.h"
 
 using namespace mu;
 using namespace muse::draw;
@@ -173,24 +173,6 @@ bool HarmonyInfo::hasModifiers() const
     return m_parsedChord ? m_parsedChord->modifiers().size() > 0 : false;
 }
 
-String Harmony::displayText() const
-{
-    // String representation of what the user sees on the score
-    // Used in fretbox
-    String name;
-    for (const HarmonyRenderItem* segment : ldata()->renderItemList()) {
-        if (const TextSegment* textSeg = dynamic_cast<const TextSegment*>(segment)) {
-            String t = textSeg->text();
-            t.replace(u"\uE87C", u"/");
-            name += t;
-        } else if (const ChordSymbolParen* parenSeg = dynamic_cast<const ChordSymbolParen*>(segment)) {
-            name += parenSeg->parenItem->direction() == DirectionH::LEFT ? u"(" : u")";
-        }
-    }
-
-    return name;
-}
-
 //---------------------------------------------------------
 //   harmonyName
 //---------------------------------------------------------
@@ -267,9 +249,6 @@ String Harmony::harmonyName() const
 
 bool Harmony::isRealizable() const
 {
-    if (m_chords.empty()) {
-        return false;
-    }
     for (const HarmonyInfo* info : m_chords) {
         if (!tpcIsValid(info->rootTpc())) {
             return false;
@@ -838,8 +817,8 @@ void Harmony::endEdit(EditData& ed)
                         interval.flip();
                     }
                     for (HarmonyInfo* info : h->m_chords) {
-                        int rootTpc = Transpose::transposeTpc(info->rootTpc(), interval, true);
-                        int bassTpc = Transpose::transposeTpc(info->bassTpc(), interval, true);
+                        int rootTpc = transposeTpc(info->rootTpc(), interval, true);
+                        int bassTpc = transposeTpc(info->bassTpc(), interval, true);
                         info->setRootTpc(rootTpc);
                         info->setBassTpc(bassTpc);
                         // score()->undoTransposeHarmony(h, rootTpc, bassTpc);
@@ -1104,7 +1083,7 @@ const RealizedHarmony& Harmony::getRealizedHarmony() const
     const CapoParams& capo = st->capo(tick);
 
     int offset = 0;
-    if (capo.active && CapoParams::TransposeMode::TAB_ONLY != capo.transposeMode) {
+    if (capo.active) {
         offset = capo.fretPosition;
     }
 
@@ -1141,13 +1120,13 @@ const ParsedChord* Harmony::parsedForm()const
     return m_chords.front()->getParsedChord();
 }
 
-Color Harmony::curColor(const rendering::PaintOptions& opt) const
+Color Harmony::curColor() const
 {
-    if (!opt.isPrinting && m_isMisspelled) {
+    if (m_isMisspelled) {
         return configuration()->criticalColor();
     }
 
-    return EngravingItem::curColor(opt);
+    return EngravingItem::curColor();
 }
 
 void Harmony::setColor(const Color& color)
@@ -1204,12 +1183,12 @@ void TextSegment::setFont(const muse::draw::Font& f)
             const Char& c2 = m_text.at(i + 1);
             ++i;
             char32_t v = Char::surrogateToUcs4(c, c2);
-            if (!fm.inFont(v)) {
+            if (!fm.inFontUcs4(v)) {
                 fail = true;
                 break;
             }
         } else {
-            if (!fm.inFont(c.unicode())) {
+            if (!fm.inFont(c)) {
                 fail = true;
                 break;
             }
@@ -1616,11 +1595,6 @@ PropertyValue Harmony::propertyDefault(Pid id) const
         break;
     }
     return v;
-}
-
-bool Harmony::positionRelativeToNoteheadRest() const
-{
-    return !parent()->isFretDiagram();
 }
 
 //---------------------------------------------------------

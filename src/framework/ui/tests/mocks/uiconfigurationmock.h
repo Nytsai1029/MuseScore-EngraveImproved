@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -32,7 +32,6 @@ public:
     MOCK_METHOD(ThemeList, themes, (), (const, override));
     MOCK_METHOD(QStringList, possibleAccentColors, (), (const, override));
     MOCK_METHOD(QStringList, possibleFontFamilies, (), (const, override));
-    MOCK_METHOD(QStringList, nonTextFonts, (), (const, override));
     MOCK_METHOD(void, setNonTextFonts, (const QStringList&), (override));
 
     MOCK_METHOD(bool, isDarkMode, (), (const, override));

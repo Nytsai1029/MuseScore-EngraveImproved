@@ -50,7 +50,7 @@ public:
 
     bool isEdited() const;
     RectF drag(EditData&) override;
-    void dragGrip(EditData&) override;
+    void editDrag(EditData&) override;
 
     Tie* tie() const { return (Tie*)spanner(); }
 

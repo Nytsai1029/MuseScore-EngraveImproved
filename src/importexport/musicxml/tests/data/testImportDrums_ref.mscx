@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
@@ -17,7 +17,6 @@
       <staffDistance>5.5</staffDistance>
       <minSystemDistance>9.25</minSystemDistance>
       <romanNumeralFontFace>Edwin</romanNumeralFontFace>
-      <hideInstrumentNameIfOneInstrument>0</hideInstrumentNameIfOneInstrument>
       <spatium>2.11667</spatium>
       </Style>
     <showInvisible>1</showInvisible>

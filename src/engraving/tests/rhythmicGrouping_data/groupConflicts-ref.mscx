@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
+      <maskBarlinesForText>0</maskBarlinesForText>
       <lastSystemFillLimit>0</lastSystemFillLimit>
-      <defaultsVersion>301</defaultsVersion>
+      <scaleRythmicSpacingForSmallNotes>0</scaleRythmicSpacingForSmallNotes>
+      <verticallyAlignChordSymbols>0</verticallyAlignChordSymbols>
+      <pageNumberFontSize>9</pageNumberFontSize>
+      <pageNumberFontStyle>0</pageNumberFontStyle>
+      <changesBeforeBarlineRepeats>0</changesBeforeBarlineRepeats>
+      <changesBeforeBarlineOtherJumps>0</changesBeforeBarlineOtherJumps>
+      <showCourtesiesRepeats>0</showCourtesiesRepeats>
+      <showCourtesiesOtherJumps>0</showCourtesiesOtherJumps>
+      <showCourtesiesAfterCancellingRepeats>0</showCourtesiesAfterCancellingRepeats>
+      <showCourtesiesAfterCancellingOtherJumps>0</showCourtesiesAfterCancellingOtherJumps>
+      <repeatPlayCountShow>0</repeatPlayCountShow>
       <spatium>1.76389</spatium>
       </Style>
     <showInvisible>1</showInvisible>
@@ -127,7 +138,6 @@
     <Staff id="1">
       <VBox>
         <height>10</height>
-        <boxAutoSize>0</boxAutoSize>
         <sizeIsSpatiumDependent>1</sizeIsSpatiumDependent>
         <eid>E_E</eid>
         <Text>
@@ -1294,7 +1304,8 @@
             </Chord>
           <StaffText>
             <eid>nD_nD</eid>
-            <text>Alternative: don't dot leading rest (compare rest<br/>on beat 3 with rest on beat 1 at start of measure)</text>
+            <text>Alternative: don't dot leading rest (compare rest
+on beat 3 with rest on beat 1 at start of measure)</text>
             </StaffText>
           <Chord>
             <eid>oD_oD</eid>

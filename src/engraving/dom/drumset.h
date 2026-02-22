@@ -65,7 +65,7 @@ struct DrumInstrument {
 
     int voice = 0;
     String shortcut;
-    std::vector<DrumInstrumentVariant> variants;
+    std::list<DrumInstrumentVariant> variants;
 
     DrumInstrument() {}
     DrumInstrument(const String& n, NoteHeadGroup nh, int l, DirectionV d,
@@ -109,7 +109,7 @@ public:
     const String& name(int pitch) const { return m_drums[pitch].name; }
     String translatedName(int pitch) const;
     String shortcut(int pitch) const { return m_drums[pitch].shortcut; }
-    const std::vector<DrumInstrumentVariant>& variants(int pitch) const { return m_drums[pitch].variants; }
+    std::list<DrumInstrumentVariant> variants(int pitch) const { return m_drums[pitch].variants; }
     int panelRow(int pitch) const { return m_drums[pitch].panelRow; }
     int panelColumn(int pitch) const { return m_drums[pitch].panelColumn; }
 

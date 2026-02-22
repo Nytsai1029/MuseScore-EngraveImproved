@@ -45,23 +45,6 @@ static const ElementStyle markerStyle {
 };
 
 //---------------------------------------------------------
-//   MarkerTypeTable
-//---------------------------------------------------------
-
-const std::vector<MarkerTypeTableItem> markerTypeTable {
-    { MarkerType::SEGNO,      "<sym>segno</sym>",               "segno", false },
-    { MarkerType::VARSEGNO,   "<sym>segnoSerpent1</sym>",       "varsegno", false },
-    { MarkerType::CODA,       "<sym>coda</sym>",                "codab", false },
-    { MarkerType::VARCODA,    "<sym>codaSquare</sym>",          "varcoda", false },
-    { MarkerType::CODETTA,    "<sym>coda</sym><sym>coda</sym>", "codetta", false },
-    { MarkerType::FINE,       "Fine",                           "fine", true },
-    { MarkerType::TOCODA,     "To Coda",                        "coda", true },
-    { MarkerType::TOCODASYM,  "To <sym>coda</sym>",             "coda", true },
-    { MarkerType::DA_CODA,    "Da Coda",                        "coda", true },
-    { MarkerType::DA_DBLCODA, "Da Doppia Coda",                 "coda", true },
-};
-
-//---------------------------------------------------------
 //   Marker
 //---------------------------------------------------------
 
@@ -85,23 +68,73 @@ Marker::Marker(EngravingItem* parent, TextStyleType tid)
 
 void Marker::setMarkerType(MarkerType t)
 {
-    bool changeLabel = getProperty(Pid::LABEL) == propertyDefault(Pid::LABEL);
     m_markerType = t;
-    for (const MarkerTypeTableItem& p : markerTypeTable) {
-        if (p.type == t) {
-            if (empty()) {
-                setXmlText(String::fromAscii(p.text.ascii()));
-            }
-            if (changeLabel) {
-                setLabel(String::fromAscii(p.label.ascii()));
-            }
-            TextStyleType ts = p.rightAligned ? TextStyleType::REPEAT_RIGHT : TextStyleType::REPEAT_LEFT;
-            if (textStyleType() != ts) {
-                initTextStyleType(ts);
-            }
+    const char* txt = 0;
+    switch (t) {
+    case MarkerType::SEGNO:
+        txt = "<sym>segno</sym>";
+        setLabel(u"segno");
+        break;
 
-            break;
-        }
+    case MarkerType::VARSEGNO:
+        txt = "<sym>segnoSerpent1</sym>";
+        setLabel(u"varsegno");
+        break;
+
+    case MarkerType::CODA:
+        txt = "<sym>coda</sym>";
+        setLabel(u"codab");
+        break;
+
+    case MarkerType::VARCODA:
+        txt = "<sym>codaSquare</sym>";
+        setLabel(u"varcoda");
+        break;
+
+    case MarkerType::CODETTA:
+        txt = "<sym>coda</sym><sym>coda</sym>";
+        setLabel(u"codetta");
+        break;
+
+    case MarkerType::FINE:
+        txt = "Fine";
+        initTextStyleType(TextStyleType::REPEAT_RIGHT, true);
+        setLabel(u"fine");
+        break;
+
+    case MarkerType::TOCODA:
+        txt = "To Coda";
+        initTextStyleType(TextStyleType::REPEAT_RIGHT, true);
+        setLabel(u"coda");
+        break;
+
+    case MarkerType::TOCODASYM:
+        txt = "To <font size=\"20\"/><sym>coda</sym>";
+        initTextStyleType(TextStyleType::REPEAT_RIGHT, true);
+        setLabel(u"coda");
+        break;
+
+    case MarkerType::DA_CODA:
+        txt = "Da Coda";
+        initTextStyleType(TextStyleType::REPEAT_RIGHT, true);
+        setLabel(u"coda");
+        break;
+
+    case MarkerType::DA_DBLCODA:
+        txt = "Da Doppia Coda";
+        initTextStyleType(TextStyleType::REPEAT_RIGHT, true);
+        setLabel(u"coda");
+        break;
+
+    case MarkerType::USER:
+        break;
+
+    default:
+        LOGD("unknown marker type %d", int(t));
+        break;
+    }
+    if (empty() && txt) {
+        setXmlText(String::fromAscii(txt));
     }
 }
 
@@ -115,6 +148,34 @@ String Marker::markerTypeUserName() const
 }
 
 //---------------------------------------------------------
+//   styleChanged
+//---------------------------------------------------------
+
+void Marker::styleChanged()
+{
+    setMarkerType(m_markerType);
+    TextBase::styleChanged();
+}
+
+//---------------------------------------------------------
+//   undoSetLabel
+//---------------------------------------------------------
+
+void Marker::undoSetLabel(const String& s)
+{
+    undoChangeProperty(Pid::LABEL, s);
+}
+
+//---------------------------------------------------------
+//   undoSetMarkerType
+//---------------------------------------------------------
+
+void Marker::undoSetMarkerType(MarkerType t)
+{
+    undoChangeProperty(Pid::MARKER_TYPE, int(t));
+}
+
+//---------------------------------------------------------
 //   getProperty
 //---------------------------------------------------------
 
@@ -124,7 +185,7 @@ PropertyValue Marker::getProperty(Pid propertyId) const
     case Pid::LABEL:
         return label();
     case Pid::MARKER_TYPE:
-        return markerType();
+        return int(markerType());
     case Pid::MARKER_CENTER_ON_SYMBOL:
         return centerOnSymbol();
     default:
@@ -144,7 +205,7 @@ bool Marker::setProperty(Pid propertyId, const PropertyValue& v)
         setLabel(v.value<String>());
         break;
     case Pid::MARKER_TYPE:
-        setMarkerType(v.value<MarkerType>());
+        setMarkerType(MarkerType(v.toInt()));
         break;
     case Pid::MARKER_CENTER_ON_SYMBOL:
         setCenterOnSymbol(v.toBool());
@@ -167,14 +228,9 @@ PropertyValue Marker::propertyDefault(Pid propertyId) const
 {
     switch (propertyId) {
     case Pid::LABEL:
-        for (const MarkerTypeTableItem& p : markerTypeTable) {
-            if (m_markerType == p.type) {
-                return String::fromAscii(p.label.ascii());
-            }
-        }
         return String();
     case Pid::MARKER_TYPE:
-        return MarkerType::FINE;
+        return int(MarkerType::FINE);
     case Pid::PLACEMENT:
         return PlacementV::ABOVE;
     case Pid::MARKER_CENTER_ON_SYMBOL:

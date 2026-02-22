@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -31,18 +31,16 @@
 #include "audio/common/rpc/irpcchannel.h"
 
 namespace muse::audio {
-class Player : public IPlayer, public async::Asyncable, public Contextable
+class Player : public IPlayer, public async::Asyncable
 {
-    ContextInject<rpc::IRpcChannel> channel = { this };
+    Inject<rpc::IRpcChannel> channel;
 
 public:
-    Player(const TrackSequenceId sequenceId, const muse::modularity::ContextPtr& iocCtx);
+    Player(const TrackSequenceId sequenceId);
 
     void init();
 
     TrackSequenceId sequenceId() const override;
-
-    async::Promise<Ret> prepareToPlay() override;
 
     void play(const secs_t delay = 0) override;
     void seek(const secs_t newPosition, const bool flushSound = true) override;

@@ -36,58 +36,52 @@ class EngravingObject;
 namespace mu::engraving::apiv1 {
 //---------------------------------------------------------
 //   Ownership
-//   Represents ownership policy regarding the underlying
-//   engraving objects.
+///   \cond PLUGIN_API \private \endcond
+///   \internal
+///   Represents ownership policy regarding the underlying
+///   engraving objects.
 //---------------------------------------------------------
+
 enum class Ownership {
     PLUGIN,
     SCORE,
 };
 
-/** APIDOC
- * Base class for API score elements
- * @class ScoreElement
- * @memberof Engraving
- * @hideconstructor
-*/
+//---------------------------------------------------------
+//   ScoreElement
+///   Base class for most of object wrappers exposed to QML
+//---------------------------------------------------------
+
 class ScoreElement : public QObject
 {
     Q_OBJECT
-
-    /** APIDOC
-     * Type of this element.
-     * @readonly
-     * @q_property {Engraving.ElementType}
-     */
-    Q_PROPERTY(QJSValue type READ type)
-
-    /** APIDOC
-     * Name of this element's type, not localized.
-     * Use {@link Engraving.ScoreElement.userName} to obtain a localized
-     * @readonly
-     * @q_property {String}
-     */
+    /// Type of this element. See PluginAPI::PluginAPI::EngravingItem
+    /// for the list of possible values.
+    Q_PROPERTY(int type READ type)
+    /// Name of this element's type, not localized.
+    /// Use ScoreElement::userName() to obtain a localized
+    /// element name suitable for usage in a user interface.
     Q_PROPERTY(QString name READ name)
-
-    /** APIDOC
-     * The size of a spatium for this element.
-     * @readonly
-     * @q_property {Number}
-     * @since 4.6
-     */
-    Q_PROPERTY(float spatium READ spatium)
-
-    /** APIDOC
-     * The EID of this element.
-     * @readonly
-     * @q_property {String}
-     * @since 4.6
-     */
+    /// The size of a spatium for this element.
+    /// \since MuseScore 4.6
+    Q_PROPERTY(qreal spatium READ spatium)
+    /// The EID of this element.
+    /// \since MuseScore 4.6
     Q_PROPERTY(QString eid READ eid)
 
+    Ownership m_ownership;
+
+    qreal spatium() const;
+
+protected:
+    /// \cond MS_INTERNAL
+    mu::engraving::EngravingObject* const e;
+    /// \endcond
+
 public:
+    /// \cond MS_INTERNAL
     ScoreElement(mu::engraving::EngravingObject* m_e = nullptr, Ownership own = Ownership::PLUGIN)
-        : QObject(), e(m_e), m_ownership(own) {}
+        : QObject(), m_ownership(own), e(m_e) {}
     ScoreElement(const ScoreElement&) = delete;
     ScoreElement& operator=(const ScoreElement&) = delete;
     virtual ~ScoreElement();
@@ -99,38 +93,27 @@ public:
     const mu::engraving::EngravingObject* element() const { return e; }
 
     QString name() const;
-    QJSValue type() const;
-    qreal spatium() const;
+    int type() const;
+
     QString eid() const { return QString::fromStdString(element()->eid().toStdString()); }
 
     QVariant get(mu::engraving::Pid pid) const;
     void set(mu::engraving::Pid pid, const QVariant& val);
     void reset(mu::engraving::Pid pid);
 
-    /** APIDOC
-     * Name of this element's type, localized.
-     * @method
-     * @return {String} name
-    */
+    /// \endcond
+
     Q_INVOKABLE QString userName() const;
-
-    /** APIDOC
-     * Checks whether two variables represent the same object
-     * @method
-     * @param {Engraving.ScoreElement} other Object for comparison
-     * @return {Boolean} result
-    */
+    /// Checks whether two variables represent the same object. \since MuseScore 3.3
     Q_INVOKABLE bool is(apiv1::ScoreElement* other) { return other && element() == other->element(); }
-
-    int apiversion() const;
-
-protected:
-    mu::engraving::EngravingObject* const e;
-
-private:
-    Ownership m_ownership;
-    mutable int m_apiversion = -1;
 };
+
+//---------------------------------------------------------
+//   wrap
+///   \cond PLUGIN_API \private \endcond
+///   \internal
+///   \relates ScoreElement
+//---------------------------------------------------------
 
 template<class Wrapper, class T>
 Wrapper* wrap(T* t, Ownership own = Ownership::SCORE)
@@ -143,9 +126,15 @@ Wrapper* wrap(T* t, Ownership own = Ownership::SCORE)
 
 extern ScoreElement* wrap(mu::engraving::EngravingObject* se, Ownership own = Ownership::SCORE);
 
-//  Can be used to construct wrappers which do not
-//  support standard ownership logic or require
-//  additional arguments for initialization.
+//---------------------------------------------------------
+//   customWrap
+///   \cond PLUGIN_API \private \endcond
+///   \internal
+///   Can be used to construct wrappers which do not
+///   support standard ownership logic or require
+///   additional arguments for initialization.
+//---------------------------------------------------------
+
 template<class Wrapper, class T, typename ... Args>
 Wrapper* customWrap(T* t, Args... args)
 {
@@ -155,13 +144,17 @@ Wrapper* customWrap(T* t, Args... args)
     return w;
 }
 
-//   QML access to containers.
-//   A wrapper which provides read-only access for various
-//   items containers.
+//---------------------------------------------------------
+///   QML access to containers.
+///   A wrapper which provides read-only access for various
+///   items containers.
+//---------------------------------------------------------
+
 template<typename T, class Container>
 class QmlListAccess : public QQmlListProperty<T>
 {
 public:
+    /// \cond MS_INTERNAL
     QmlListAccess(QObject* obj, Container& container)
         : QQmlListProperty<T>(obj,
                               const_cast<void*>(static_cast<const void*>(&container)),
@@ -184,11 +177,14 @@ public:
             return wrap<T>(el, Ownership::SCORE);
         }
     }
+
+    /// \endcond
 };
 
+/// \cond PLUGIN_API \private \endcond
 template<typename T, class Container>
-QmlListAccess<T, Container> wrapContainerProperty(const QObject* obj, Container& c)
+QmlListAccess<T, Container> wrapContainerProperty(QObject* obj, Container& c)
 {
-    return QmlListAccess<T, Container>(const_cast<QObject*>(obj), c);
+    return QmlListAccess<T, Container>(obj, c);
 }
 }

@@ -22,10 +22,9 @@
 
 #include <gtest/gtest.h>
 
-#include "engraving/dom/factory.h"
-#include "engraving/dom/fret.h"
-#include "engraving/dom/harmony.h"
-
+#include "dom/factory.h"
+#include "dom/fret.h"
+#include "dom/harmony.h"
 #include "utils/scorerw.h"
 
 using namespace mu::engraving;
@@ -35,7 +34,22 @@ static const String FRETDIAGRAM_DATA_DIR(u"fretdiagrams_data/");
 class Engraving_FretDiagramTests : public ::testing::Test
 {
 protected:
+    void SetUp() override
+    {
+        m_use302 = MScore::useRead302InTestMode;
+        MScore::useRead302InTestMode = false;
+    }
+
+    void TearDown() override
+    {
+        MScore::useRead302InTestMode = m_use302;
+    }
+
     void testChordSymToFretDiagram(MasterScore* score);
+
+private:
+
+    bool m_use302 = false;
 };
 
 void Engraving_FretDiagramTests::testChordSymToFretDiagram(MasterScore* score)
@@ -55,7 +69,7 @@ void Engraving_FretDiagramTests::testChordSymToFretDiagram(MasterScore* score)
         FretDiagram* diagram = Factory::createFretDiagram(score->dummy()->segment());
         EXPECT_TRUE(diagram);
         diagram->updateDiagram(harmony->harmonyName());
-        String pattern = diagram->patternFromDiagram();
+        String pattern = FretDiagram::patternFromDiagram(diagram);
         EXPECT_EQ(pattern, FRET_PATTERN_REF);
         measure = measure->nextMeasure();
         delete diagram;

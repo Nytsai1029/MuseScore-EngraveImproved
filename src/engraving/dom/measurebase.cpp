@@ -290,7 +290,11 @@ Measure* MeasureBase::prevMeasureMM() const
     return nullptr;
 }
 
-const MeasureBase* MeasureBase::mbWithPrecedingSectionBreak() const
+//---------------------------------------------------------
+//   findPotentialSectionBreak
+//---------------------------------------------------------
+
+const MeasureBase* MeasureBase::findPotentialSectionBreak() const
 {
     // we're trying to find the MeasureBase that determines
     // if the next one after this starts a new section
@@ -387,7 +391,7 @@ void MeasureBase::triggerLayout() const
 //   scanElements
 //---------------------------------------------------------
 
-void MeasureBase::scanElements(std::function<void(EngravingItem*)> func)
+void MeasureBase::scanElements(void* data, void (* func)(void*, EngravingItem*), bool all)
 {
     if (isMeasure()) {
         for (EngravingItem* e : m_el) {
@@ -396,16 +400,16 @@ void MeasureBase::scanElements(std::function<void(EngravingItem*)> func)
                 LOGD("MeasureBase::scanElements: bad staffIdx %zu in element %s", staffIdx, e->typeName());
             }
             if ((e->track() == muse::nidx) || e->systemFlag() || toMeasure(this)->visible(staffIdx)) {
-                e->scanElements(func);
+                e->scanElements(data, func, all);
             }
         }
     } else {
         for (EngravingItem* e : m_el) {
-            e->scanElements(func);
+            e->scanElements(data, func, all);
         }
     }
     if (isBox()) {
-        func(this);
+        func(data, this);
     }
 }
 
@@ -917,7 +921,8 @@ void MeasureBaseList::change(MeasureBase* ob, MeasureBase* nb)
     if (ob == m_first) {
         m_first = nb;
     }
-    if (nb->isBox()) {
+    if (nb->type() == ElementType::HBOX || nb->type() == ElementType::VBOX
+        || nb->type() == ElementType::TBOX || nb->type() == ElementType::FBOX) {
         nb->setParent(ob->system());
     }
     for (EngravingItem* e : nb->el()) {

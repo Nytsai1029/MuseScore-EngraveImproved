@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_IMPORTEXPORT_MIDICONFIGURATION_H
+#define MU_IMPORTEXPORT_MIDICONFIGURATION_H
 
 #include "async/asyncable.h"
 #include "io/path.h"
@@ -37,10 +37,6 @@ public:
     void setMidiShortestNote(int ticks) override;
     muse::async::Channel<int> midiShortestNoteChanged() const override;
 
-    bool roundTempo() const override;
-    void setRoundTempo(bool round) override;
-    muse::async::Channel<bool> roundTempoChanged() const override;
-
     void setMidiImportOperationsFile(const std::optional<muse::io::path_t>& filePath) const override;
 
     // export
@@ -52,6 +48,7 @@ public:
 
 private:
     muse::async::Channel<int> m_midiShortestNoteChanged;
-    muse::async::Channel<bool> m_roundTempoChanged;
 };
 }
+
+#endif // MU_IMPORTEXPORT_MIDICONFIGURATION_H

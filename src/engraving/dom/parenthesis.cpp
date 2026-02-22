@@ -86,13 +86,12 @@ void Parenthesis::setFollowParentColor(bool val)
     m_followParentColor = val;
 }
 
-Color Parenthesis::curColor(const rendering::PaintOptions& opt) const
+Color Parenthesis::curColor() const
 {
     if (m_followParentColor) {
-        return parentItem()->curColor(opt);
+        return parentItem()->curColor();
     }
 
     return EngravingItem::curColor(getProperty(Pid::VISIBLE).toBool(),
-                                   getProperty(Pid::COLOR).value<Color>(),
-                                   opt);
+                                   getProperty(Pid::COLOR).value<Color>());
 }

@@ -21,12 +21,13 @@
  */
 
 #include <gtest/gtest.h>
+#include <utility>
 
-#include "engraving/dom/masterscore.h"
-#include "engraving/dom/part.h"
-#include "engraving/dom/staff.h"
-#include "engraving/types/types.h"
+#include "dom/masterscore.h"
+#include "dom/part.h"
+#include "dom/staff.h"
 
+#include "types/types.h"
 #include "utils/scorerw.h"
 
 using namespace mu::engraving;
@@ -35,6 +36,19 @@ static const String HIDEEMPTYSTAVES_DATA_DIR("hideemptystaves_data/");
 
 class Engraving_HideEmptyStavesTests : public ::testing::Test
 {
+protected:
+    void SetUp() override
+    {
+        m_useRead302 = std::exchange(MScore::useRead302InTestMode, false);
+    }
+
+    void TearDown() override
+    {
+        MScore::useRead302InTestMode = m_useRead302;
+    }
+
+private:
+    bool m_useRead302 = false;
 };
 
 TEST_F(Engraving_HideEmptyStavesTests, Compat450)

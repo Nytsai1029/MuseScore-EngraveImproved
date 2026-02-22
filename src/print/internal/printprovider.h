@@ -27,9 +27,9 @@
 #include "ui/imainwindow.h"
 
 namespace mu::print {
-class PrintProvider : public IPrintProvider, public muse::Contextable
+class PrintProvider : public IPrintProvider, public muse::Injectable
 {
-    muse::ContextInject<muse::ui::IMainWindow> mainWindow{ this };
+    muse::Inject<muse::ui::IMainWindow> mainWindow{ this };
 
 public:
     explicit PrintProvider(const muse::modularity::ContextPtr&);

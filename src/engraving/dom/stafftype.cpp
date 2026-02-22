@@ -22,17 +22,17 @@
 
 #include "stafftype.h"
 
-#include "draw/fontmetrics.h"
-#include "draw/painter.h"
-#include "io/file.h"
 #include "translation.h"
-
+#include "io/file.h"
+#include "draw/fontmetrics.h"
+#include "draw/types/pen.h"
 #include "rw/xmlreader.h"
-#include "style/defaultstyle.h"
-#include "style/style.h"
-#include "style/textstyle.h"
 #include "types/typesconv.h"
+#include "style/style.h"
+#include "style/defaultstyle.h"
+#include "engraving/style/textstyle.h"
 
+#include "chord.h"
 #include "mscore.h"
 #include "navigate.h"
 #include "score.h"
@@ -40,32 +40,19 @@
 
 #include "log.h"
 
+using namespace mu;
 using namespace muse::draw;
 using namespace muse::io;
 using namespace mu::engraving;
 
+#define TAB_DEFAULT_LINE_SP   (1.5)
+
 namespace mu::engraving {
-// HISTORIC TAB BASS STRING NOTATION
-// The following constants refer to the specifics of bass string notation in historic
-//    (Renaiss./Baroque French and Italian) tablatures.
-
-// how much to lower a bass string note with slashes with respect to line distance (in fraction of line distance)
-constexpr double STAFFTYPE_TAB_BASSSLASH_YOFFSET = 0.33;
-
-// The following constants could ideally be customizable values;
-//    they are currently constants to simplify implementation;
-// Note that these constants do not constrain which strings of an instrument are
-//    physically frettable (which is defined in the instrument itself) but fix the
-//    number of bass strings for which the notation is able to express a fret number
-//    rather than simply a string ordinal.
-constexpr int NUM_OF_BASSSTRINGS_WITH_LETTER = 4;     // the max number of bass strings frettable with letter notation (French)
-constexpr int NUM_OF_BASSSTRINGS_WITH_NUMBER = 2;     // the max number of bass strings frettable with number notation (Italian)
-
 //---------------------------------------------------------
 //   StaffTypeTablature
 //---------------------------------------------------------
 
-constexpr double TAB_DEFAULT_DUR_YOFFS = -1.0;
+#define TAB_DEFAULT_DUR_YOFFS (-1.0)
 
 std::vector<TablatureFretFont> StaffType::m_fretFonts = {};
 std::vector<TablatureDurationFont> StaffType::m_durationFonts = {};
@@ -329,6 +316,26 @@ void StaffType::styleChanged()
 }
 
 //---------------------------------------------------------
+//   doty1
+//    get y dot position of first repeat barline dot
+//---------------------------------------------------------
+
+double StaffType::doty1() const
+{
+    return m_lineDistance.val() * (static_cast<double>((m_lines - 1) / 2) - 0.5);
+}
+
+//---------------------------------------------------------
+//   doty2
+//    get y dot position of second repeat barline dot
+//---------------------------------------------------------
+
+double StaffType::doty2() const
+{
+    return m_lineDistance.val() * (static_cast<double>(m_lines / 2) + 0.5);
+}
+
+//---------------------------------------------------------
 //   setOnLines
 //---------------------------------------------------------
 
@@ -434,7 +441,7 @@ void StaffType::setDurationMetrics()
     RectF bb(fm.tightBoundingRect(txt));
     // raise symbols by a default margin and, if marks are above lines, by half the line distance
     // (converted from spatium units to raster units)
-    m_durationGridYOffset = (TAB_DEFAULT_DUR_YOFFS - (m_onLines ? 0.0 : lineDistance().val() * 0.5)) * defaultSpatium();
+    m_durationGridYOffset = (TAB_DEFAULT_DUR_YOFFS - (m_onLines ? 0.0 : lineDistance().val() * 0.5)) * SPATIUM20;
     // this is the bottomest point of any duration sign
     m_durationYOffset = m_durationGridYOffset;
     // move symbols so that the lowest margin 'sits' on the base line:
@@ -464,7 +471,7 @@ void StaffType::setFretMetrics()
         // _fretYOffset = -(bb.y() + bb.height()/2.0);  // <- using bbox of all chars
     } else {
         // compute total height of used characters
-        const String txt(m_fretFontInfo.displayLetter.data(), NUM_OF_LETTERFRETS);
+        String txt(m_fretFontInfo.displayLetter, NUM_OF_LETTERFRETS);
         bb = fm.tightBoundingRect(txt);
         // for letters: centre on the 'a' ascender, by moving down half of the part above the base line in bx
         RectF bx(fm.tightBoundingRect(m_fretFontInfo.displayLetter[0]));
@@ -473,12 +480,12 @@ void StaffType::setFretMetrics()
 
     // Calculate position for dead fret marks - these must be centred separately based on their glyph
     RectF deadBb = fm.tightBoundingRect(m_fretFontInfo.xChar);
-    double lineThickness = style().styleS(Sid::staffLineWidth).val() * defaultSpatium() * 0.5;
+    double lineThickness = style().styleS(Sid::staffLineWidth).val() * SPATIUM20 * 0.5;
     m_deadFretYOffset = -deadBb.y() / 2.0 + lineThickness;
 
     // if on string, we are done; if between strings, raise by half line distance
     if (!m_onLines) {
-        double lineAdj = lineDistance().val() * defaultSpatium() * 0.5;
+        double lineAdj = lineDistance().val() * SPATIUM20 * 0.5;
         m_fretYOffset -= lineAdj;
         m_deadFretYOffset -= lineAdj;
     }
@@ -515,11 +522,6 @@ void StaffType::setDurationFontName(const String& name)
 //   durationBoxH / durationBoxY
 //---------------------------------------------------------
 
-double StaffType::defaultSpatium() const
-{
-    return StyleDef::styleValues[static_cast<size_t>(Sid::spatium)].defaultValue.toDouble();
-}
-
 double StaffType::durationBoxH() const
 {
     if (!m_genDurations && !m_stemless) {
@@ -533,37 +535,7 @@ double StaffType::durationBoxY() const
     if (!m_genDurations && !m_stemless) {
         return 0.0;
     }
-    return m_durationBoxY + m_durationFontUserY * defaultSpatium();
-}
-
-double StaffType::durationFontYOffset() const
-{
-    return m_durationYOffset + m_durationFontUserY * defaultSpatium();
-}
-
-double StaffType::fretBoxY() const
-{
-    return m_fretBoxY + m_fretFontUserY * defaultSpatium();
-}
-
-double StaffType::deadFretBoxY() const
-{
-    return m_deadFretBoxY + m_fretFontUserY * defaultSpatium();
-}
-
-double StaffType::fretMaskH() const
-{
-    return m_lineDistance.val() * defaultSpatium();
-}
-
-double StaffType::fretMaskY() const
-{
-    return (m_onLines ? -0.5 : -1.0) * m_lineDistance.val() * defaultSpatium();
-}
-
-double StaffType::fretFontYOffset() const
-{
-    return m_fretYOffset + m_fretFontUserY * defaultSpatium();
+    return m_durationBoxY + m_durationFontUserY * SPATIUM20;
 }
 
 //---------------------------------------------------------
@@ -664,6 +636,64 @@ String StaffType::tabBassStringPrefix(int strg, bool* hasFret) const
         String prefix    = bassStrgIdx > 1
                            ? String(m_fretFontInfo.slashChar[bassStrgIdx - 2]) : String();
         return prefix;
+    }
+}
+
+//---------------------------------------------------------
+//   drawInputStringMarks
+//
+//    in TAB's, draws the marks within the input 'blue cursor' required to identify the current target input string.
+//
+//    Implements the specific of historic TAB styles for instruments with more strings than TAB lines.
+//    For strings normally represented by TAB lines, no mark is required.
+//    For strings not represented by TAB lines (e.g. bass strings in lutes and similar),
+//    either a sequence of slashes OR some ledger line-like lines OR the ordinal of the string
+//    are used, according to the TAB style (French or Italian) and the string position.
+//
+//    Note: assumes the string parameter is within legal bounds, i.e.:
+//    0 <= string <= [instrument strings] - 1
+//
+//    p       the Painter to draw into
+//    string  the instrument physical string for which to draw the mark (0 = top string)
+//    voice   the current input voice (affects mark colour)
+//    rect    the rect of the 'blue rectangle' showing the input position
+//---------------------------------------------------------
+
+void StaffType::drawInputStringMarks(Painter* p, int string, const Color& selectionColor, const RectF& rect) const
+{
+    if (m_group != StaffGroup::TAB) {
+        return;
+    }
+
+    static constexpr double LEDGER_LINE_THICKNESS = 0.15; // in sp
+    static constexpr double LEDGER_LINE_LEFTX = 0.25; // in % of cursor rectangle width
+    static constexpr double LEDGER_LINE_RIGHTX = 0.75; // in % of cursor rectangle width
+
+    double spatium = SPATIUM20;
+    double lineDist = m_lineDistance.val() * spatium;
+    bool hasFret = false;
+    String text = tabBassStringPrefix(string, &hasFret);
+    double lw = LEDGER_LINE_THICKNESS * spatium; // use a fixed width
+    Pen pen(selectionColor, lw);
+    p->setPen(pen);
+    // draw conventional 'ledger lines', if required
+    int numOfLedgerLines  = numOfTabLedgerLines(string);
+    double x1 = rect.x() + rect.width() * LEDGER_LINE_LEFTX;
+    double x2 = rect.x() + rect.width() * LEDGER_LINE_RIGHTX;
+    // cursor rect is 1 line dist. high, and it is:
+    // centred on the line for "frets on strings"    => lower top ledger line 1/2 line dist.
+    // sitting on the line for "frets above strings" => lower top ledger line 1 full line dist
+    double y = rect.top() + lineDist * (m_onLines ? 0.5 : 1.0);
+    for (int i = 0; i < numOfLedgerLines; i++) {
+        p->drawLine(LineF(x1, y, x2, y));
+        y += lineDist / numOfLedgerLines;     // insert other lines between top line and tab body
+    }
+    // draw the text, if any
+    if (!text.isEmpty()) {
+        Font f = fretFont();
+        f.setPointSizeF(f.pointSizeF() * MScore::pixelRatio);
+        p->setFont(f);
+        p->drawText(PointF(rect.left(), rect.top() + lineDist), text);
     }
 }
 

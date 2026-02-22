@@ -43,6 +43,8 @@ using namespace mu::engraving;
 static const Settings::Key DEFAULT_STYLE_FILE_PATH("engraving", "engraving/style/defaultStyleFile");
 static const Settings::Key PART_STYLE_FILE_PATH("engraving", "engraving/style/partStyleFile");
 
+static const Settings::Key INVERT_SCORE_COLOR("engraving", "engraving/scoreColorInversion");
+
 static const Settings::Key ALL_VOICES_COLOR("engraving", "engraving/colors/allVoicesColor");
 static const Settings::Key FORMATTING_COLOR("engraving", "engraving/colors/formattingColor");
 static const Settings::Key FRAME_COLOR("engraving", "engraving/colors/frameColor");
@@ -82,6 +84,11 @@ void EngravingConfiguration::init()
     settings()->setDefaultValue(PART_STYLE_FILE_PATH, Val(muse::io::path_t()));
     settings()->valueChanged(PART_STYLE_FILE_PATH).onReceive(this, [this](const Val& val) {
         m_partStyleFilePathChanged.send(val.toPath());
+    });
+
+    settings()->setDefaultValue(INVERT_SCORE_COLOR, Val(false));
+    settings()->valueChanged(INVERT_SCORE_COLOR).onReceive(nullptr, [this](const Val&) {
+        m_scoreInversionChanged.notify();
     });
 
     for (voice_idx_t voice = 0; voice < VOICES; ++voice) {
@@ -232,14 +239,9 @@ SizeF EngravingConfiguration::defaultPageSize() const
     return size;
 }
 
-bool EngravingConfiguration::canLayoutIcons() const
-{
-    return uiConfiguration() != nullptr;
-}
-
 muse::String EngravingConfiguration::iconsFontFamily() const
 {
-    return uiConfiguration() ? String::fromStdString(uiConfiguration()->iconsFontFamily()) : String();
+    return String::fromStdString(uiConfiguration()->iconsFontFamily());
 }
 
 Color EngravingConfiguration::defaultColor() const
@@ -273,11 +275,6 @@ Color EngravingConfiguration::criticalColor() const
     return Color::RED;
 }
 
-Color EngravingConfiguration::criticalBackgroundColor() const
-{
-    return Color::RED;
-}
-
 Color EngravingConfiguration::criticalSelectedColor() const
 {
     return "#8B0000";
@@ -295,9 +292,7 @@ Color EngravingConfiguration::noteBackgroundColor() const
 
 Color EngravingConfiguration::fontPrimaryColor() const
 {
-    return uiConfiguration()
-           ? Color(uiConfiguration()->currentTheme().values[muse::ui::ThemeStyleKey::FONT_PRIMARY_COLOR].toString())
-           : Color::BLACK;
+    return Color(uiConfiguration()->currentTheme().values[muse::ui::ThemeStyleKey::FONT_PRIMARY_COLOR].toString());
 }
 
 Color EngravingConfiguration::voiceColor(voice_idx_t voiceIdx) const
@@ -307,7 +302,7 @@ Color EngravingConfiguration::voiceColor(voice_idx_t voiceIdx) const
 
 double EngravingConfiguration::guiScaling() const
 {
-    return uiConfiguration() ? uiConfiguration()->guiScaling() : 1.0;
+    return uiConfiguration()->guiScaling();
 }
 
 Color EngravingConfiguration::selectionColor(voice_idx_t voice, bool itemVisible, bool itemIsUnlinkedFromScore) const
@@ -340,6 +335,16 @@ Color EngravingConfiguration::highlightSelectionColor(voice_idx_t voice) const
     return Color::fromQColor(selectionColor(voice).toQColor().lighter(135));
 }
 
+bool EngravingConfiguration::scoreInversionEnabled() const
+{
+    return settings()->value(INVERT_SCORE_COLOR).toBool();
+}
+
+void EngravingConfiguration::setScoreInversionEnabled(bool value)
+{
+    settings()->setSharedValue(INVERT_SCORE_COLOR, Val(value));
+}
+
 bool EngravingConfiguration::dynamicsApplyToAllVoices() const
 {
     return settings()->value(DYNAMICS_APPLY_TO_ALL_VOICES).toBool();
@@ -368,6 +373,11 @@ void EngravingConfiguration::setAutoUpdateFretboardDiagrams(bool v)
 muse::async::Channel<bool> EngravingConfiguration::autoUpdateFretboardDiagramsChanged() const
 {
     return m_fretboardDiagramsAutoUpdateChanged;
+}
+
+muse::async::Notification EngravingConfiguration::scoreInversionChanged() const
+{
+    return m_scoreInversionChanged;
 }
 
 Color EngravingConfiguration::formattingColor() const
@@ -455,7 +465,17 @@ bool EngravingConfiguration::guitarProImportExperimental() const
     return guitarProConfiguration() ? guitarProConfiguration()->experimental() : false;
 }
 
+bool EngravingConfiguration::shouldAddParenthesisOnStandardStaff() const
+{
+    return guitarProImportExperimental();
+}
+
 bool EngravingConfiguration::negativeFretsAllowed() const
+{
+    return guitarProImportExperimental();
+}
+
+bool EngravingConfiguration::crossNoteHeadAlwaysBlack() const
 {
     return guitarProImportExperimental();
 }
@@ -478,13 +498,4 @@ bool EngravingConfiguration::minDistanceForPartialSkylineCalculated() const
 bool EngravingConfiguration::specificSlursLayoutWorkaround() const
 {
     return guitarProImportExperimental();
-}
-
-bool EngravingConfiguration::preferSameStringForTranspose() const
-{
-    return false;
-}
-
-void EngravingConfiguration::setPreferSameStringForTranspose(bool /*preferSameString*/)
-{
 }

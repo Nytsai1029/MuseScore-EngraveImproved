@@ -47,6 +47,9 @@ public:
 
     InstrumentName* clone() const override { return new InstrumentName(*this); }
 
+    int layoutPos() const { return m_layoutPos; }
+    void setLayoutPos(int val) { m_layoutPos = val; }
+
     String instrumentNameTypeName() const;
     InstrumentNameType instrumentNameType() const { return m_instrumentNameType; }
     void setInstrumentNameType(InstrumentNameType v);
@@ -59,15 +62,16 @@ public:
 
     double largestStaffSpatium() const;
 
+    Fraction playTick() const override;
     bool isEditable() const override { return false; }
-
+    PropertyValue getProperty(Pid propertyId) const override;
     bool setProperty(Pid propertyId, const PropertyValue&) override;
-
-    bool positionRelativeToNoteheadRest() const override { return false; }
+    PropertyValue propertyDefault(Pid) const override;
 
 private:
 
     InstrumentNameType m_instrumentNameType = InstrumentNameType::LONG;
+    int m_layoutPos = 0;
     SysStaff* m_sysStaff = nullptr;
 };
 } // namespace mu::engraving

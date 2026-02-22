@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,38 +19,45 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#ifndef MUSE_UPDATE_APPUPDATESERVICE_H
+#define MUSE_UPDATE_APPUPDATESERVICE_H
 
-#pragma once
+#include "async/asyncable.h"
 
-#include "update/iappupdateservice.h"
-#include "global/modularity/ioc.h"
-#include "global/async/asyncable.h"
+#include "global/types/version.h"
 
-#include "global/io/ifilesystem.h"
+#include "modularity/ioc.h"
 #include "global/iapplication.h"
+#include "iinteractive.h"
+#include "network/inetworkmanagercreator.h"
+#include "io/ifilesystem.h"
 #include "global/isysteminfo.h"
 
-#include "network/inetworkmanagercreator.h"
-#include "update/iupdateconfiguration.h"
+#include "../iupdateconfiguration.h"
+#include "../iappupdateservice.h"
 
 namespace muse::update {
-class AppUpdateService : public IAppUpdateService, public Contextable, public async::Asyncable
+class AppUpdateService : public IAppUpdateService, public Injectable, public async::Asyncable
 {
-    GlobalInject<io::IFileSystem> fileSystem;
-    GlobalInject<ISystemInfo> systemInfo;
-    GlobalInject<IUpdateConfiguration> configuration;
-    GlobalInject<network::INetworkManagerCreator> networkManagerCreator;
-    GlobalInject<IApplication> application;
+    Inject<network::INetworkManagerCreator> networkManagerCreator = { this };
+    Inject<io::IFileSystem> fileSystem = { this };
+    Inject<ISystemInfo> systemInfo = { this };
+    Inject<IApplication> application = { this };
+    Inject<IInteractive> interactive = { this };
+    Inject<IUpdateConfiguration> configuration = { this };
 
 public:
     AppUpdateService(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void init();
 
-    async::Promise<RetVal<ReleaseInfo> > checkForUpdate() override;
-    const RetVal<ReleaseInfo>& lastCheckResult() const override;
-    RetVal<Progress> downloadRelease() override;
+    RetVal<ReleaseInfo> checkForUpdate() override;
+    RetVal<ReleaseInfo> lastCheckResult() const override;
+
+    RetVal<io::path_t> downloadRelease() override;
+    void cancelUpdate() override;
+    Progress updateProgress() override;
 
 private:
     friend class AppUpdateServiceTests;
@@ -61,22 +68,26 @@ private:
         bool isValid() const { return installedWeekBeginning.isValid() && previousRequestDay.isValid(); }
     };
 
-    network::RequestHeaders prepareHeaders(const UpdateRequestHistory& history) const;
     RetVal<UpdateRequestHistory> readUpdateRequestHistory(const io::path_t& path) const;
     Ret writeUpdateRequestHistory(const io::path_t& path, const UpdateRequestHistory& updateRequestHistory);
 
     RetVal<ReleaseInfo> parseRelease(const QByteArray& json) const;
 
     std::string platformFileSuffix() const;
+    ISystemInfo::CpuArchitecture assetArch(const QString& asset) const;
     QJsonObject resolveReleaseAsset(const QJsonObject& release) const;
 
-    using PrevReleaseNotesCallback = std::function<void (const PrevReleasesNotesList&)>;
-    void downloadPreviousReleasesNotes(const Version& updateVersion, const PrevReleaseNotesCallback& finished);
+    PrevReleasesNotesList previousReleasesNotes(const Version& updateVersion) const;
+    PrevReleasesNotesList parsePreviousReleasesNotes(const QByteArray& json) const;
 
     void clear();
 
     RetVal<ReleaseInfo> m_lastCheckResult;
+    io::path_t m_installatorPath;
+
     network::INetworkManagerPtr m_networkManager;
     Progress m_updateProgress;
 };
 }
+
+#endif // MUSE_UPDATE_APPUPDATESERVICE_H

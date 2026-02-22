@@ -484,6 +484,7 @@
     <dynamicsPosAbove x="0" y="-1.5"/>
     <dynamicsPosBelow x="0" y="2.5"/>
     <dynamicsMinDistance>0.5</dynamicsMinDistance>
+    <autoplaceVerticalAlignRange>2</autoplaceVerticalAlignRange>
     <textLinePlacement>0</textLinePlacement>
     <textLinePosAbove x="0" y="-1"/>
     <textLinePosBelow x="0" y="1"/>
@@ -1290,9 +1291,6 @@
     <autoplaceEnabled>1</autoplaceEnabled>
     <usePre_3_6_defaults>0</usePre_3_6_defaults>
     <defaultsVersion>302</defaultsVersion>
-    <lyricsEvenMusicalSymbolSize>11.0</lyricsEvenMusicalSymbolSize>
-    <lyricsOddMusicalSymbolSize>11.0</lyricsOddMusicalSymbolSize>
-    <pageNumberMusicalSymbolSize>9.0</pageNumberMusicalSymbolSize>sion>
     <Spatium>1.74978</Spatium>
     </Style>
   </museScore>

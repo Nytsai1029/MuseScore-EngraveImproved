@@ -28,8 +28,6 @@
 #include "containers.h"
 #include "realfn.h"
 
-#include "../editing/elementeditdata.h"
-
 #include "actionicon.h"
 #include "chord.h"
 #include "groups.h"
@@ -38,6 +36,7 @@
 #include "segment.h"
 #include "staff.h"
 #include "system.h"
+
 #include "tremolotwochord.h"
 #include "tuplet.h"
 
@@ -103,6 +102,33 @@ Beam::~Beam()
 
     muse::DeleteAll(m_fragments);
     m_fragments.clear();
+}
+
+//---------------------------------------------------------
+//   pagePos
+//---------------------------------------------------------
+
+PointF Beam::pagePos() const
+{
+    System* s = system();
+    if (s == 0) {
+        return pos();
+    }
+    double yp = y() + s->staff(staffIdx())->y() + s->y();
+    return PointF(pageX(), yp);
+}
+
+//---------------------------------------------------------
+//   canvasPos
+//---------------------------------------------------------
+
+PointF Beam::canvasPos() const
+{
+    PointF p(pagePos());
+    if (system() && system()->explicitParent()) {
+        p += system()->parentItem()->pos();
+    }
+    return p;
 }
 
 //---------------------------------------------------------
@@ -248,7 +274,7 @@ void Beam::calcBeamBreaks(const ChordRest* cr, const ChordRest* prevCr, int leve
     }
     // get default beam mode -- based on time signature preferences
     const Groups& group = cr->staff()->group(cr->measure()->tick());
-    BeamMode defaultBeamMode = group.baseBeamMode(cr, prevCr);
+    BeamMode defaultBeamMode = group.endBeam(cr, prevCr);
 
     bool isManuallyBroken16 = level >= 1 && beamMode == BeamMode::BEGIN16;
     bool isManuallyBroken32 = level >= 2 && beamMode == BeamMode::BEGIN32;
@@ -309,11 +335,15 @@ public:
 };
 
 //---------------------------------------------------------
-//   dragGrip
+//   editDrag
 //---------------------------------------------------------
 
-void Beam::dragGrip(EditData& ed)
+void Beam::editDrag(EditData& ed)
 {
+    if (ed.curGrip == Grip::NO_GRIP) {
+        return;
+    }
+
     int idx = directionIdx();
     double dy = ed.delta.y();
     BeamEditData* bed = static_cast<BeamEditData*>(ed.getData(this).get());
@@ -328,9 +358,6 @@ void Beam::dragGrip(EditData& ed)
         y1 += dy;
     } else if (ed.curGrip == Grip::END) {
         y2 += dy;
-    } else {
-        UNREACHABLE;
-        return;
     }
 
     double _spatium = spatium();
@@ -773,6 +800,19 @@ void Beam::initBeamEditData(EditData& ed)
     bed->e    = this;
     bed->editFragment = 0;
     ed.addData(bed);
+
+    PointF pt(ed.normalizedStartMove - pagePos());
+    double ydiff = 100000000.0;
+    int idx = directionIdx();
+    int i = 0;
+    for (BeamFragment* f : m_fragments) {
+        double d = std::fabs(f->py1[idx] - pt.y());
+        if (d < ydiff) {
+            ydiff = d;
+            bed->editFragment = i;
+        }
+        ++i;
+    }
 }
 
 //---------------------------------------------------------

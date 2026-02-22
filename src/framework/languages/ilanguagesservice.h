@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_LANGUAGES_ILANGUAGESSERVICE_H
+#define MUSE_LANGUAGES_ILANGUAGESSERVICE_H
 
 #include "modularity/imoduleinterface.h"
 #include "async/notification.h"
@@ -29,7 +29,7 @@
 #include "languagestypes.h"
 
 namespace muse::languages {
-class ILanguagesService : MODULE_GLOBAL_INTERFACE
+class ILanguagesService : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(ILanguagesService)
 
@@ -50,3 +50,5 @@ public:
     virtual async::Channel<bool> restartRequiredToApplyLanguageChanged() const = 0;
 };
 }
+
+#endif // MUSE_LANGUAGES_ILANGUAGESSERVICE_H

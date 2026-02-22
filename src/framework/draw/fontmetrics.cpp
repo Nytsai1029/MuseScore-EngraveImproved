@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -74,9 +74,9 @@ double FontMetrics::horizontalAdvance(const String& string) const
     return fontProvider()->horizontalAdvance(m_font, string);
 }
 
-double FontMetrics::horizontalAdvance(char32_t ucs4) const
+double FontMetrics::horizontalAdvance(const Char& ch) const
 {
-    return fontProvider()->horizontalAdvance(m_font, ucs4);
+    return fontProvider()->horizontalAdvance(m_font, ch);
 }
 
 RectF FontMetrics::boundingRect(const String& string) const
@@ -84,9 +84,14 @@ RectF FontMetrics::boundingRect(const String& string) const
     return fontProvider()->boundingRect(m_font, string);
 }
 
-RectF FontMetrics::boundingRect(char32_t ucs4) const
+RectF FontMetrics::boundingRect(const Char& ch) const
 {
-    return fontProvider()->boundingRect(m_font, ucs4);
+    return fontProvider()->boundingRect(m_font, ch);
+}
+
+RectF FontMetrics::boundingRect(const RectF& r, int flags, const String& string) const
+{
+    return fontProvider()->boundingRect(m_font, r, flags, string);
 }
 
 RectF FontMetrics::tightBoundingRect(const String& string) const
@@ -99,9 +104,14 @@ RectF FontMetrics::tightBoundingRect(const Char& ch) const
     return fontProvider()->tightBoundingRect(m_font, ch);
 }
 
-bool FontMetrics::inFont(char32_t ucs4) const
+bool FontMetrics::inFont(Char ch) const
 {
-    return fontProvider()->inFont(m_font, ucs4);
+    return fontProvider()->inFont(m_font, ch);
+}
+
+bool FontMetrics::inFontUcs4(char32_t ucs4) const
+{
+    return fontProvider()->inFontUcs4(m_font, ucs4);
 }
 
 // Static

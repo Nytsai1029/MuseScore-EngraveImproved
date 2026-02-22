@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -30,14 +30,14 @@
 #include "inetworkconfiguration.h"
 
 namespace muse::network {
-class NetworkConfiguration : public INetworkConfiguration, public Contextable
+class NetworkConfiguration : public INetworkConfiguration, public Injectable
 {
-    GlobalInject<IGlobalConfiguration> globalConfiguration;
-    GlobalInject<IApplication> application;
+    Inject<IGlobalConfiguration> globalConfiguration = { this };
+    Inject<IApplication> application = { this };
 
 public:
     NetworkConfiguration(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void init();
 

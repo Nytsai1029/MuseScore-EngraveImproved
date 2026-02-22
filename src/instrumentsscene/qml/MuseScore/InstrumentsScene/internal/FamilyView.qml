@@ -19,14 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
-import MuseScore.InstrumentsScene
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import MuseScore.InstrumentsScene 1.0
 
 Item {
     id: root
@@ -55,7 +54,7 @@ Item {
     }
 
     function focusGroupNavigation(groupIndex: int) {
-        var item = groupsView.itemAtIndex(groupIndex) as ListItemBlank
+        var item = groupsView.itemAtIndex(groupIndex)
         if (item && item.navigation) {
             item.navigation.requestActive()
         }
@@ -109,19 +108,15 @@ Item {
         delegate: ListItemBlank {
             id: item
 
-            required property string modelData
-            required property int index
+            property string groupName: modelData
 
-            readonly property string groupName: modelData
+            isSelected: groupsView.currentIndex === model.index
 
-            isSelected: groupsView.currentIndex === index
-            hint: itemTitleLabel.truncated ? groupName : ""
-
-            navigation.name: groupName
+            navigation.name: modelData
             navigation.panel: groupsView.navigation
-            navigation.row: 2 + index
+            navigation.row: 2 + model.index
             navigation.accessible.name: itemTitleLabel.text
-            navigation.accessible.row: index
+            navigation.accessible.row: model.index
 
             StyledTextLabel {
                 id: itemTitleLabel
@@ -130,11 +125,11 @@ Item {
 
                 font: ui.theme.bodyBoldFont
                 horizontalAlignment: Text.AlignLeft
-                text: item.groupName
+                text: groupName
             }
 
             onClicked: {
-                root.groupSelected(index)
+                root.groupSelected(model.index)
             }
         }
     }

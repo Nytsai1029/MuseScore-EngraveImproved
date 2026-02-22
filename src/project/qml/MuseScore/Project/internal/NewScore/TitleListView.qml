@@ -19,13 +19,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 Item {
     id: root
@@ -73,7 +70,7 @@ Item {
     StyledListView {
         id: view
 
-        anchors.top: root.searchEnabled ? searchField.bottom : title.bottom
+        anchors.top: searchEnabled ? searchField.bottom : title.bottom
         anchors.topMargin: 16
         anchors.bottom: parent.bottom
 
@@ -87,16 +84,13 @@ Item {
         delegate: ListItemBlank {
             id: item
 
-            required property string modelData
-            required property int index
-
-            isSelected: view.currentIndex === index
+            isSelected: view.currentIndex === model.index
 
             navigation.name: modelData
             navigation.panel: view.navigation
-            navigation.row: 2 + index
+            navigation.row: 2 + model.index
             navigation.accessible.name: titleLabel.text
-            navigation.accessible.row: index
+            navigation.accessible.row: model.index
 
             StyledTextLabel {
                 id: titleLabel
@@ -105,16 +99,16 @@ Item {
                 anchors.leftMargin: 12
 
                 horizontalAlignment: Text.AlignLeft
-                text: item.modelData
+                text: modelData
                 font: ui.theme.bodyBoldFont
             }
 
             onClicked: {
-                root.titleClicked(index)
+                root.titleClicked(model.index)
             }
 
             onDoubleClicked: {
-                root.doubleClicked(index)
+                root.doubleClicked(model.index)
             }
         }
     }

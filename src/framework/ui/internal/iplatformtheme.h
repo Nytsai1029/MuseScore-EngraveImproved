@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2022 MuseScore Limited and others
+ * Copyright (C) 2022 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -30,7 +30,7 @@
 class QWindow;
 
 namespace muse::ui {
-class IPlatformTheme : MODULE_CONTEXT_INTERFACE
+class IPlatformTheme : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IPlatformTheme)
 

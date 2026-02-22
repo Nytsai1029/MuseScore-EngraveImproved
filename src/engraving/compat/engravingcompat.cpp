@@ -29,15 +29,10 @@
 #include "engraving/dom/chord.h"
 #include "engraving/dom/instrument.h"
 #include "engraving/dom/masterscore.h"
-#include "engraving/dom/note.h"
-#include "engraving/dom/parenthesis.h"
 #include "engraving/dom/part.h"
 #include "engraving/dom/pedal.h"
 #include "engraving/dom/spanner.h"
 #include "engraving/dom/staff.h"
-#include "rw/compat/compatutils.h"
-
-#include "engraving/editing/editchord.h"
 
 using namespace mu::engraving;
 
@@ -45,11 +40,6 @@ namespace mu::engraving::compat {
 void EngravingCompat::doPreLayoutCompatIfNeeded(MasterScore* score)
 {
     int mscVersion = score->mscVersion();
-
-    if (mscVersion < 470) {
-        adjustTextOffset(score);
-        migrateNoteParens(score);
-    }
 
     if (mscVersion < 460) {
         resetMarkerLeftFontSize(score);
@@ -234,52 +224,12 @@ void EngravingCompat::adjustVBoxDistances(MasterScore* masterScore)
                 if (nextmb && nextmb->isVBoxBase()) {
                     VBox* first = static_cast<VBox*>(mb);
                     VBox* second = static_cast<VBox*>(nextmb);
-                    if (first->bottomGap() > 0_sp && second->topGap() > 0_sp) {
+                    if (first->bottomGap() > Spatium(0) && second->topGap() > Spatium(0)) {
                         first->setBottomGap(first->bottomGap() + second->topGap()); // Because pre-4.6 these used to be added
                     }
                 }
             }
         }
-    }
-}
-
-void EngravingCompat::adjustTextOffset(MasterScore* masterScore)
-{
-    auto doAdjustTextOffset = [](EngravingItem* item) {
-        if (!item->isTextBase()) {
-            return;
-        }
-
-        TextBase* text = toTextBase(item);
-
-        // Staff text, system text, and harp pedal diagrams are the only types which are attached to notes and weren't already
-        // placed with their left edges / centres / right edges aligned to the left / centre / right of the notehead
-        if (text->positionRelativeToNoteheadRest() && (text->isStaffText() || text->isSystemText() || text->isHarpPedalDiagram())) {
-            double mag = item->staff() ? item->staff()->staffMag(item) : 1.0;
-            double xAdj = item->symWidth(SymId::noteheadBlack) * mag;
-
-            switch (text->position()) {
-            case AlignH::HCENTER:
-                text->setProperty(Pid::OFFSET, PointF(text->offset().x() - xAdj / 2, text->offset().y()));
-                break;
-            case AlignH::RIGHT:
-                text->setProperty(Pid::OFFSET, PointF(text->offset().x() - xAdj, text->offset().y()));
-                break;
-            default:
-                break;
-            }
-        }
-    };
-
-    for (Score* score : masterScore->scoreList()) {
-        score->scanElements(doAdjustTextOffset);
-    }
-}
-
-void EngravingCompat::migrateNoteParens(MasterScore* masterScore)
-{
-    for (Score* score : masterScore->scoreList()) {
-        score->scanElements(CompatUtils::doMigrateNoteParens);
     }
 }
 

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -72,7 +72,7 @@ DockSeparator::DockSeparator(Layouting::Widget* parent)
     Layouting::Separator(parent),
     Layouting::Widget_quick(this), m_isSeparatorVisible(true)
 {
-    createQQuickItem("qrc:/qt/qml/Muse/Dock/DockSeparator.qml", this);
+    createQQuickItem("qrc:/qml/Muse/Dock/DockSeparator.qml", this);
 
     // Only set on Separator::init(), so single-shot
     QTimer::singleShot(0, this, &DockSeparator::isVerticalChanged);

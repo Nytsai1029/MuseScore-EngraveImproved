@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -57,7 +57,7 @@ static void updateHandlerNoop(QAccessibleEvent*)
 }
 
 AccessibilityController::AccessibilityController(const muse::modularity::ContextPtr& iocCtx)
-    : muse::Contextable(iocCtx)
+    : muse::Injectable(iocCtx)
 {
     m_pretendFocusTimer.setInterval(80); // Value found experimentally.
     m_pretendFocusTimer.setSingleShot(true);
@@ -77,7 +77,7 @@ QAccessibleInterface* AccessibilityController::accessibleInterface(QObject*)
     return static_cast<QAccessibleInterface*>(new AccessibleItemInterface(s_rootObject));
 }
 
-void AccessibilityController::setAccessibilityEnabled(bool enabled)
+void AccessibilityController::setAccesibilityEnabled(bool enabled)
 {
     m_enabled = enabled;
 }
@@ -615,10 +615,7 @@ void AccessibilityController::restoreFocus()
                               // Must do this before sending focus changed events.
 
     const Item& restore = findItem(m_lastFocused);
-    //! FIXME we just need to open the project and close the project tab after opening it
-    //! will triggered this assert
-    //IF_ASSERT_FAILED(restore.isValid() && restore.item != pretendItem) {
-    if (!(restore.isValid() && restore.item != pretendItem)) {
+    IF_ASSERT_FAILED(restore.isValid() && restore.item != pretendItem) {
         return;
     }
 
@@ -738,7 +735,7 @@ QAccessibleInterface* AccessibilityController::parentIface(const IAccessible* it
 
     if (it.item->accessibleRole() == IAccessible::Role::Application) {
         if (!qApp->isQuitLockEnabled()) {
-            return QAccessible::queryAccessibleInterface(interactive()->topWindow());
+            return QAccessible::queryAccessibleInterface(interactiveProvider()->topWindow());
         } else {
             return QAccessible::queryAccessibleInterface(qApp->focusWindow());
         }
@@ -846,7 +843,7 @@ QWindow* AccessibilityController::accessibleWindow() const
 
 muse::modularity::ContextPtr AccessibilityController::iocContext() const
 {
-    return Contextable::iocContext();
+    return Injectable::iocContext();
 }
 
 IAccessible::Role AccessibilityController::accessibleRole() const

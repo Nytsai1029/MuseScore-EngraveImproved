@@ -19,15 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-import QtQuick.Controls
-
-import Muse.Ui
-import Muse.UiComponents
-import MuseScore.Project
+import MuseScore.Project 1.0
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 StyledListView {
     id: root
@@ -58,8 +56,6 @@ StyledListView {
     }
 
     delegate: PropertyItem {
-        required property var model
-        
         anchors.left: parent ? parent.left : undefined
         anchors.right: parent ? parent.right : undefined
         anchors.rightMargin: root.propertyRowRightMargin

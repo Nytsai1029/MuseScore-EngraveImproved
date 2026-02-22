@@ -56,7 +56,6 @@
 #include "../dom/tremolobar.h"
 #include "../dom/tempotext.h"
 #include "../dom/image.h"
-#include "../editing/transpose.h"
 
 #include "tread.h"
 
@@ -97,7 +96,7 @@ void MeasureRead::readMeasure(Measure* measure, XmlReader& e, ReadContext& ctx, 
         }
         irregular = true;
         ctx.compatTimeSigMap()->add(measure->tick().ticks(), SigEvent(measure->m_len, measure->m_timesig));
-        ctx.compatTimeSigMap()->add(measure->endTick().ticks(), SigEvent(measure->m_timesig));
+        ctx.compatTimeSigMap()->add((measure->tick() + measure->ticks()).ticks(), SigEvent(measure->m_timesig));
     }
 
     while (e.readNextStartElement()) {
@@ -201,7 +200,7 @@ void MeasureRead::readMeasure(Measure* measure, XmlReader& e, ReadContext& ctx, 
     ctx.checkConnectors();
     if (measure->isMMRest()) {
         Measure* lm = ctx.lastMeasure();
-        ctx.setTick(lm->endTick());
+        ctx.setTick(lm->tick() + lm->ticks());
     }
     ctx.setCurrentMeasure(nullptr);
 
@@ -257,6 +256,7 @@ void MeasureRead::readVoice(Measure* measure, XmlReader& e, ReadContext& ctx, in
             if (barLine) {
                 segment = measure->getSegmentR(st, t);
                 segment->add(barLine);
+                barLine->renderer()->layoutItem(barLine);
             }
             if (fermata) {
                 segment->add(fermata);
@@ -465,12 +465,7 @@ void MeasureRead::readVoice(Measure* measure, XmlReader& e, ReadContext& ctx, in
             if (el->systemFlag() && el->isTopSystemObject()) {
                 el->setTrack(0); // original system object always goes on top
             }
-            if (el->chords().empty()) {
-                // Invalid harmony
-                delete el;
-            } else {
-                segment->add(el);
-            }
+            segment->add(el);
         } else if (tag == "FretDiagram") {
             // hack - getSegment needed because tick tags are unreliable in 1.3 scores
             // for symbols attached to anything but a measure
@@ -549,7 +544,7 @@ void MeasureRead::readVoice(Measure* measure, XmlReader& e, ReadContext& ctx, in
                 el->setTrack(0); // original system object always goes on top
             }
             segment->add(el);
-            if (el->isInstrumentChange()) {
+            if (el->type() == ElementType::INSTRUMENT_CHANGE) {
                 Fraction tick = ctx.tick();
                 Key key = staff->key(tick);
                 Key cKey = staff->concertKey(tick);
@@ -560,7 +555,7 @@ void MeasureRead::readVoice(Measure* measure, XmlReader& e, ReadContext& ctx, in
                     InstrumentChange* ic = toInstrumentChange(el);
                     for (KeySig* ks : ic->keySigs(true)) {
                         KeySigEvent ke = ks->keySigEvent();
-                        ke.setConcertKey(Transpose::transposeKey(key, vi));
+                        ke.setConcertKey(transposeKey(key, vi));
                         ke.setKey(key);
                         ks->setKeySigEvent(ke);
                         //segment->add(ks);

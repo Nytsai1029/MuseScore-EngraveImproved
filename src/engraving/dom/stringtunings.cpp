@@ -28,7 +28,7 @@
 #include "part.h"
 #include "score.h"
 #include "segment.h"
-#include "../editing/editpart.h"
+#include "undo.h"
 
 #include "containers.h"
 #include "translation.h"

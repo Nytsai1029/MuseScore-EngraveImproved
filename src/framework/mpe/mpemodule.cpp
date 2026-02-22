@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -22,13 +22,22 @@
 
 #include "mpemodule.h"
 
+#include <QQmlEngine>
+
 #include "modularity/ioc.h"
+#include "ui/iuiengine.h"
 
 #include "internal/articulationprofilesrepository.h"
+#include "view/articulationsprofileeditormodel.h"
 
 using namespace muse;
 using namespace muse::modularity;
 using namespace muse::mpe;
+
+static void mpe_init_qrc()
+{
+    Q_INIT_RESOURCE(mpe);
+}
 
 std::string MpeModule::moduleName() const
 {
@@ -37,7 +46,19 @@ std::string MpeModule::moduleName() const
 
 void MpeModule::registerExports()
 {
-    m_profilesRepository = std::make_shared<ArticulationProfilesRepository>(globalCtx());
+    m_profilesRepository = std::make_shared<ArticulationProfilesRepository>(iocContext());
 
-    globalIoc()->registerExport<IArticulationProfilesRepository>(moduleName(), m_profilesRepository);
+    ioc()->registerExport<IArticulationProfilesRepository>(moduleName(), m_profilesRepository);
+}
+
+void MpeModule::registerUiTypes()
+{
+    qmlRegisterType<ArticulationsProfileEditorModel>("Muse.Mpe", 1, 0, "ArticulationsProfileEditorModel");
+
+    ioc()->resolve<muse::ui::IUiEngine>(moduleName())->addSourceImportPath(muse_mpe_QML_IMPORT);
+}
+
+void MpeModule::registerResources()
+{
+    mpe_init_qrc();
 }

@@ -19,13 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
-
-#include "async/asyncable.h"
-#include "async/notifylist.h"
+#ifndef MU_NOTATION_NOTATIONPARTS_H
+#define MU_NOTATION_NOTATIONPARTS_H
 
 #include "inotationparts.h"
+#include "async/asyncable.h"
 #include "inotationundostack.h"
 #include "inotationinteraction.h"
 
@@ -119,6 +117,8 @@ private:
     std::vector<Staff*> staves(const muse::IDList& stavesIds) const;
     std::vector<Part*> parts(const muse::IDList& partsIds) const;
 
+    mu::engraving::InstrumentChange* findInstrumentChange(const Part* part, const Fraction& tick) const;
+
     void appendStaves(Part* part, const InstrumentTemplate& templ, const mu::engraving::KeyList& keyList);
     void insertStaff(Staff* staff, engraving::staff_idx_t destinationStaffIndex, bool createRests=true);
     void initStaff(Staff* staff, const InstrumentTemplate& templ, const mu::engraving::StaffType* staffType, size_t cleffIndex);
@@ -159,3 +159,5 @@ private:
     mutable std::map<muse::ID, muse::async::ChangedNotifier<const Staff*> > m_staffChangedNotifierMap;
 };
 }
+
+#endif // MU_NOTATION_NOTATIONPARTS_H

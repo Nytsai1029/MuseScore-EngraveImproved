@@ -24,22 +24,18 @@
 #include "project/inotationreader.h"
 
 #include "modularity/ioc.h"
-#include "interactive/iinteractive.h"
+#include "iinteractive.h"
 #include "io/ifilesystem.h"
 
 #include "engraving/engravingerrors.h"
 
 namespace mu::iex::mei {
-class MeiReader : public project::INotationReader, public muse::Contextable
+class MeiReader : public project::INotationReader
 {
-    muse::ContextInject<muse::IInteractive> interactive = { this };
-    muse::GlobalInject<muse::io::IFileSystem> fileSystem;
+    INJECT(muse::IInteractive, interactive)
+    INJECT(muse::io::IFileSystem, fileSystem)
 
 public:
-
-    MeiReader(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx) {}
-
     muse::Ret read(mu::engraving::MasterScore* score, const muse::io::path_t& path, const Options& options = Options()) override;
     mu::engraving::Err import(mu::engraving::MasterScore* score, const muse::io::path_t& path, const Options& options = Options());
 

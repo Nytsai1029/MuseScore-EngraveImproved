@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
@@ -39,6 +39,7 @@
           <name>perc5Line</name>
           <keysig>0</keysig>
           </StaffType>
+        <bracket type="-1" span="1" col="0" visible="1"/>
         </Staff>
       <trackName>Drumset 5 lines</trackName>
       <Instrument id="drumset">

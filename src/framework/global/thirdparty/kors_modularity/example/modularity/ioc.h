@@ -12,7 +12,9 @@ inline ModulesIoC* ioc()
 }
 
 template<class I>
-using Inject = kors::modularity::ContextInject<I>;
+using Inject = kors::modularity::Inject<I>;
+
+
 }
 
 #endif // EXAMPLE_IOC_H

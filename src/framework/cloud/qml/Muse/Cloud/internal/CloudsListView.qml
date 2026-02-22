@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,14 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
-import Muse.Cloud
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import Muse.Cloud 1.0
 
 StyledGridView {
     id: root
@@ -51,15 +48,6 @@ StyledGridView {
     delegate: Item {
         id: item
 
-        required property string cloudTitle
-        required property bool userIsAuthorized
-        required property string userName
-        required property url userProfileUrl
-        required property url userAvatarUrl
-        required property url userCollectionUrl
-        required property string cloudCode
-        required property int index
-
         height: root.cellHeight
         width: root.cellWidth
 
@@ -70,25 +58,26 @@ StyledGridView {
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
 
-            cloudTitle: item.cloudTitle
-            userIsAuthorized: item.userIsAuthorized
-            userName: item.userName
-            userProfileUrl: item.userProfileUrl
-            userAvatarUrl: item.userAvatarUrl
-            userCollectionUrl: item.userCollectionUrl
+            cloudTitle: model.cloudTitle
+            userIsAuthorized: model.userIsAuthorized
+            userName: model.userName
+            userProfileUrl: model.userProfileUrl
+            userAvatarUrl: model.userAvatarUrl
+            userCollectionUrl: model.userCollectionUrl
+
             navigationPanel.section: root.navigationSection
-            navigationPanel.order: item.index
+            navigationPanel.order: model.index
 
             onSignInRequested: {
-                root.signInRequested(item.cloudCode)
+                root.signInRequested(model.cloudCode)
             }
 
             onSignOutRequested: {
-                root.signOutRequested(item.cloudCode)
+                root.signOutRequested(model.cloudCode)
             }
 
             onCreateAccountRequested: {
-                root.createAccountRequested(item.cloudCode)
+                root.createAccountRequested(model.cloudCode)
             }
         }
     }

@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_PROJECT_PROJECTCREATOR_H
+#define MU_PROJECT_PROJECTCREATOR_H
 
 #include "../iprojectcreator.h"
 
@@ -31,3 +31,5 @@ public:
     INotationProjectPtr newProject(const muse::modularity::ContextPtr& iocCtx) const override;
 };
 }
+
+#endif // MU_PROJECT_PROJECTCREATOR_H

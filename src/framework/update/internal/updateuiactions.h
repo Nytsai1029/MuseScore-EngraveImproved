@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -30,9 +30,9 @@
 #include "updateactioncontroller.h"
 
 namespace muse::update {
-class UpdateUiActions : public muse::ui::IUiActionsModule, public Contextable
+class UpdateUiActions : public muse::ui::IUiActionsModule, public Injectable
 {
-    ContextInject<mu::context::IUiContextResolver> uicontextResolver = { this };
+    Inject<mu::context::IUiContextResolver> uicontextResolver = { this };
 
 public:
     UpdateUiActions(std::shared_ptr<UpdateActionController> controller, const modularity::ContextPtr& iocCtx);

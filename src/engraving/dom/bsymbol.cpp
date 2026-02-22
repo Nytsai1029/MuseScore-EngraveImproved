@@ -80,11 +80,11 @@ void BSymbol::add(EngravingItem* e)
 //   scanElements
 //---------------------------------------------------------
 
-void BSymbol::scanElements(std::function<void(EngravingItem*)> func)
+void BSymbol::scanElements(void* data, void (* func)(void*, EngravingItem*), bool all)
 {
-    func(this);
+    func(data, this);
     for (EngravingItem* e : m_leafs) {
-        e->scanElements(func);
+        e->scanElements(data, func, all);
     }
 }
 
@@ -187,7 +187,7 @@ std::vector<LineF> BSymbol::dragAnchorLines() const
 
 PointF BSymbol::pagePos() const
 {
-    if (explicitParent() && (explicitParent()->isSegment())) {
+    if (explicitParent() && (explicitParent()->type() == ElementType::SEGMENT)) {
         PointF p(pos());
         System* system = segment()->measure()->system();
         if (system) {
@@ -206,7 +206,7 @@ PointF BSymbol::pagePos() const
 
 PointF BSymbol::canvasPos() const
 {
-    if (explicitParent() && (explicitParent()->isSegment())) {
+    if (explicitParent() && (explicitParent()->type() == ElementType::SEGMENT)) {
         PointF p(pos());
         Segment* s = toSegment(explicitParent());
 

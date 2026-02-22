@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -29,13 +29,13 @@
 #include "extensions/iextensionsprovider.h"
 
 namespace muse::extensions {
-class ExtensionsUiActions : public ui::IUiActionsModule, public Contextable, public async::Asyncable
+class ExtensionsUiActions : public ui::IUiActionsModule, public Injectable, public async::Asyncable
 {
-    ContextInject<extensions::IExtensionsProvider> provider = { this };
+    Inject<extensions::IExtensionsProvider> provider = { this };
 
 public:
     ExtensionsUiActions(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     const ui::UiActionList& actionsList() const override;
 

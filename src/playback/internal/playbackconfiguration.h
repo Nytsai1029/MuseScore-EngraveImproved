@@ -27,19 +27,15 @@
 
 #include "modularity/ioc.h"
 #include "musesampler/imusesamplerinfo.h"
-#include "audio/main/iaudioconfiguration.h"
+#include "audio/iaudioconfiguration.h"
 
 namespace mu::playback {
-class PlaybackConfiguration : public IPlaybackConfiguration, public muse::async::Asyncable, public muse::Contextable
+class PlaybackConfiguration : public IPlaybackConfiguration, public muse::async::Asyncable
 {
-    muse::GlobalInject<muse::audio::IAudioConfiguration> audioConfiguration;
-    muse::ContextInject<muse::musesampler::IMuseSamplerInfo> musesamplerInfo = { this };
+    INJECT(muse::musesampler::IMuseSamplerInfo, musesamplerInfo)
+    INJECT(muse::audio::IAudioConfiguration, audioConfiguration)
 
 public:
-
-    PlaybackConfiguration(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx) {}
-
     void init();
 
     bool playNotesWhenEditing() const override;

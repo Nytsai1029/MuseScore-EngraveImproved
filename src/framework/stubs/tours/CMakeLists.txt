@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-only
-# MuseScore-Studio-CLA-applies
+# MuseScore-CLA-applies
 #
-# MuseScore Studio
+# MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2026 MuseScore Limited
+# Copyright (C) 2025 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -16,21 +16,26 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-muse_create_module(muse_tours ALIAS muse::tours STUB)
+declare_module(muse_tours)
+set(MODULE_ALIAS muse::tours)
 
-target_sources(muse_tours PRIVATE
-    toursstubmodule.cpp
-    toursstubmodule.h
-    toursconfigurationstub.cpp
-    toursconfigurationstub.h
-    toursservicestub.cpp
-    toursservicestub.h
-    toursproviderstub.cpp
-    toursproviderstub.h
-)
+set(MODULE_QRC tours.qrc)
 
-if (MUSE_MODULE_TOURS_QML)
-    add_subdirectory(qml/Muse/Tours)
-endif()
+set(MODULE_QML_IMPORT ${CMAKE_CURRENT_LIST_DIR}/qml)
+
+set(MODULE_SRC
+    ${CMAKE_CURRENT_LIST_DIR}/toursstubmodule.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/toursstubmodule.h
+    ${CMAKE_CURRENT_LIST_DIR}/toursconfigurationstub.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/toursconfigurationstub.h
+    ${CMAKE_CURRENT_LIST_DIR}/toursservicestub.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/toursservicestub.h
+
+    ${CMAKE_CURRENT_LIST_DIR}/view/toursproviderstub.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/toursproviderstub.h
+    )
+
+set(MODULE_IS_STUB ON)
+setup_module()

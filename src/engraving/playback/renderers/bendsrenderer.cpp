@@ -81,7 +81,7 @@ void BendsRenderer::render(const Note* note, const RenderingContext& ctx, mpe::P
     }
 
     if (const GuitarBend* bendBack = note->bendBack()) {
-        if (bendBack->bendType() != GuitarBendType::PRE_BEND) {
+        if (bendBack->type() != GuitarBendType::PRE_BEND) {
             return;
         }
     }
@@ -120,13 +120,13 @@ void BendsRenderer::renderMultibend(const Note* startNote, const RenderingContex
         }
 
         if (currBend) {
-            if (currBend->bendType() == GuitarBendType::SLIGHT_BEND) {
+            if (currBend->type() == GuitarBendType::SLIGHT_BEND) {
                 bendEvents.emplace_back(buildSlightNoteEvent(currNote, currNoteCtx));
                 break;
             }
         }
 
-        currNote = currBend && currBend->endNote() != currNote ? currBend->endNote() : nullptr;
+        currNote = currBend ? currBend->endNote() : nullptr;
         currBend = currNote ? currNote->bendFor() : nullptr;
     }
 
@@ -210,7 +210,7 @@ mpe::NoteEvent BendsRenderer::buildSlightNoteEvent(const Note* note, const Rende
     slightNoteCtx.duration -= timeOffset;
     slightNoteCtx.pitchLevel += mpe::PITCH_LEVEL_STEP / 2;
 
-    return buildNoteEvent(slightNoteCtx);
+    return buildNoteEvent(std::move(slightNoteCtx));
 }
 
 mpe::NoteEvent BendsRenderer::buildBendEvent(const Note* startNote, const RenderingContext& startNoteCtx,
@@ -251,7 +251,7 @@ mpe::NoteEvent BendsRenderer::buildBendEvent(const Note* startNote, const Render
     }
 
     mpe::PitchCurve curve = buildPitchCurve(noteCtx.timestamp, noteCtx.duration, pitchOffsets, timeFactorMap);
-    mpe::NoteEvent result = buildNoteEvent(noteCtx, curve);
+    mpe::NoteEvent result = buildNoteEvent(std::move(noteCtx), curve);
 
     return result;
 }

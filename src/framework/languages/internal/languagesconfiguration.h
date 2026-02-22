@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -29,13 +29,13 @@
 #include "global/types/config.h"
 
 namespace muse::languages {
-class LanguagesConfiguration : public ILanguagesConfiguration, public Contextable
+class LanguagesConfiguration : public ILanguagesConfiguration, public Injectable
 {
-    GlobalInject<IGlobalConfiguration> globalConfiguration;
+    Inject<IGlobalConfiguration> globalConfiguration = { this };
 
 public:
     LanguagesConfiguration(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void init();
 

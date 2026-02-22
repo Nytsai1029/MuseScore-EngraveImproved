@@ -18,6 +18,10 @@ on:
         description: 'Deploy: on - deploy'
         default: 'off'
         required: false
+      use_qt69:
+        description: 'Use Qt 6.9'
+        default: 'on'
+        required: false
   workflow_call:
     inputs:
       build_mode:
@@ -35,11 +39,19 @@ on:
         default: 'off'
         type: string
         required: false
+      use_qt69:
+        description: 'Use Qt 6.9'
+        default: 'on'
+        type: string
+        required: false
       build_number:
         description: "Build number (if not provided, will be generated)"
         default: ""
         type: string
         required: false
+
+env:
+  USE_QT69: ${{ inputs.use_qt69 != '' && inputs.use_qt69 || 'on' }}          
 
 jobs:
   backend:
@@ -47,11 +59,11 @@ jobs:
     if: github.event_name != 'schedule' || github.repository == 'musescore/MuseScore'
     steps:
     - name: Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.13.0
+      uses: styfle/cancel-workflow-action@0.12.1
       with:
         access_token: ${{ github.token }}
     - name: Clone repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
 
     - name: "Configure workflow"
       run: |
@@ -102,12 +114,11 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: 6.10.2
+        version: ${{ env.USE_QT69 == 'on' && '6.9.2' || '6.2.4' }}
         host: 'linux'
         target: 'desktop'
-        arch: 'linux_gcc_64'
-        modules: 'qt5compat qtnetworkauth qtshadertools qtwebsockets'
-        cache: true
+        arch: ${{ env.USE_QT69 == 'on' && 'linux_gcc_64' || 'gcc_64' }}
+        modules: 'qt5compat qtnetworkauth qtscxml qtshadertools qtwebsockets'
 
     - name: Setup environment
       run: |
@@ -138,25 +149,19 @@ jobs:
       run: |
         bash ./buildscripts/ci/backend/publish_to_registry.sh --token ${{ secrets.PACKAGES_PAT }}
 
-    - name: Check and update config on S3
+    - name: Deploy to musescore.com
       if: env.DO_DEPLOY == 'true'
       run: |
-        STAGE="devel"
-        if [ "${{ inputs.build_mode }}" = "stable" ]; then
-            STAGE="stable"
-        fi
-
-        bash ./buildscripts/ci/backend/check_update_config_on_s3.sh \
-          --token ${{ secrets.PACKAGES_PAT }} \
+        bash ./buildscripts/ci/backend/update_config_on_s3.sh \
           --s3_key ${{ secrets.S3_KEY_CONVERTER }} \
           --s3_secret ${{ secrets.S3_SECRET_CONVERTER }} \
-          --stage ${STAGE} \
+          --stage ${{ inputs.build_mode }} \
           --mu_version ${{ env.VERSION }} \
           --mu_version_major_minor ${{ env.VERSION_MAJOR_MINOR }}
 
     - name: Upload artifacts on GitHub
       if: ${{ always() }}
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ env.GITHUB_ARTIFACT_NAME }}
         path: ./build.artifacts/

@@ -120,7 +120,7 @@ static ElementStyle tapTextStyle;
 
 TappingText::TappingText(Tapping* parent)
     : TextBase(ElementType::TAPPING_TEXT, parent, TextStyleType::HAMMER_ON_PULL_OFF,
-               ElementFlag::MOVABLE | ElementFlag::GENERATED | ElementFlag::ON_STAFF)
+               ElementFlag::MOVABLE | ElementFlag::GENERATED)
 {
     initElementStyle(&tapTextStyle);
 }
@@ -130,12 +130,12 @@ TappingText::TappingText(const TappingText& t)
 {
 }
 
-Color TappingText::curColor(const rendering::PaintOptions& opt) const
+Color TappingText::curColor() const
 {
     if (parentItem()) {
-        return parentItem()->curColor(opt);
+        return parentItem()->curColor();
     }
 
-    return EngravingItem::curColor(opt);
+    return EngravingItem::curColor();
 }
 }

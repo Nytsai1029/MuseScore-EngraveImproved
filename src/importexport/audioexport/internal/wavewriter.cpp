@@ -32,12 +32,9 @@ Ret WaveWriter::write(notation::INotationPtr notation, io::IODevice& destination
 {
     const SoundTrackFormat format {
         SoundTrackType::WAV,
-        {
-            static_cast<sample_rate_t>(configuration()->exportSampleRate()),
-            configuration()->exportBufferSize(),
-            2 /* audioChannelsNumber */
-        },
-        configuration()->exportSampleFormat(),
+        static_cast<sample_rate_t>(configuration()->exportSampleRate()),
+        configuration()->exportBufferSize(),
+        2 /* audioChannelsNumber */,
         0 /* bitRate */
     };
 

@@ -19,17 +19,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
-
-#include "async/notification.h"
+#ifndef MU_NOTATION_INOTATIONPARTS_H
+#define MU_NOTATION_INOTATIONPARTS_H
 
 #include "notationtypes.h"
-
-namespace muse::async {
-template<typename T>
-class NotifyList;
-}
+#include "async/notification.h"
+#include "async/channel.h"
+#include "async/notifylist.h"
+#include "types/retval.h"
 
 namespace mu::notation {
 class INotationParts
@@ -100,3 +97,5 @@ public:
 
 using INotationPartsPtr = std::shared_ptr<INotationParts>;
 }
+
+#endif // MU_NOTATION_INOTATIONPARTS_H

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Style>
     <pageWidth>8.26772</pageWidth>
     <pageHeight>11.6929</pageHeight>
@@ -123,6 +123,7 @@
     <stemWidth>0.1</stemWidth>
     <shortenStem>1</shortenStem>
     <stemLength>3.5</stemLength>
+    <stemLengthSmall>2.25</stemLengthSmall>
     <shortStemStartLocation>1</shortStemStartLocation>
     <shortestStem>2.5</shortestStem>
     <beginRepeatLeftMargin>1</beginRepeatLeftMargin>
@@ -509,6 +510,7 @@
     <dynamicsPosAbove x="0" y="-1.0"/>
     <dynamicsPosBelow x="0" y="2.0"/>
     <dynamicsMinDistance>0.5</dynamicsMinDistance>
+    <autoplaceVerticalAlignRange>2</autoplaceVerticalAlignRange>
     <textLinePlacement>0</textLinePlacement>
     <textLinePosAbove x="0" y="-1"/>
     <textLinePosBelow x="0" y="1"/>

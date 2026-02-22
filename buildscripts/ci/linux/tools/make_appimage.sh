@@ -6,12 +6,6 @@ INSTALL_DIR="$1" # MuseScore was installed here
 APPIMAGE_NAME="$2" # name for AppImage file (created outside $INSTALL_DIR)
 PACKARCH="$3" # architecture (x86_64, aarch64, armv7l)
 
-if [ "$4" == "--build-pipewire" ]; then
-  BUILD_PIPEWIRE=true
-else
-  BUILD_PIPEWIRE=false
-fi
-
 if [ -z "$INSTALL_DIR" ]; then echo "error: not set INSTALL_DIR"; exit 1; fi
 if [ -z "$APPIMAGE_NAME" ]; then echo "error: not set APPIMAGE_NAME"; exit 1; fi
 if [ -z "$PACKARCH" ]; then 
@@ -111,7 +105,7 @@ mkdir -p "$qt_sql_drivers_tmp"
 
 # Semicolon-separated list of platforms to deploy in addition to `libqxcb.so`.
 # Used by linuxdeploy-plugin-qt.
-export EXTRA_PLATFORM_PLUGINS="libqoffscreen.so;libqwayland.so"
+export EXTRA_PLATFORM_PLUGINS="libqoffscreen.so;libqwayland-egl.so;libqwayland-generic.so"
 
 # Colon-separated list of root directories containing QML files.
 # Needed for linuxdeploy-plugin-qt to scan for QML imports.
@@ -216,11 +210,8 @@ done
 fallback_libraries=(
   libjack.so.0 # https://github.com/LMMS/lmms/pull/3958
   libOpenGL.so.0 # https://bugreports.qt.io/browse/QTBUG-89754
+  libpipewire-0.3.so.0
 )
-
-if $BUILD_PIPEWIRE; then
-  fallback_libraries+=( libpipewire-0.3.so.0 )
-fi
 
 for fb_lib in "${fallback_libraries[@]}"; do
   full_path="$(find_library "$fb_lib")"

@@ -19,95 +19,35 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#ifndef MU_NOTATION_SEARCHCOMMANDSPARSER_H
+#define MU_NOTATION_SEARCHCOMMANDSPARSER_H
 
-#pragma once
-
-#include "types/string.h"
+#include "notationtypes.h"
 
 namespace mu::notation {
 class SearchCommandsParser
 {
 public:
+    static SearchCommands availableCommands();
+
     struct SearchData
     {
-        enum class Type : unsigned char {
-            Invalid,
-            RehearsalMark,
-            Measure,
-            MeasureRange,
-            Page
-        };
+        ElementType elementType = ElementType::INVALID;
+        QVariant value;
 
-        Type type = Type::Invalid;
-        std::variant<std::monostate, muse::String, size_t, std::pair<size_t, size_t> > value;
-
-        bool isValid() const
+        bool isValid()
         {
-            return type != Type::Invalid;
-        }
-
-        static SearchData makeRehearsalMark(const muse::String& name)
-        {
-            SearchData data;
-            data.type = Type::RehearsalMark;
-            data.value = name;
-            return data;
-        }
-
-        muse::String rehearsalMark() const
-        {
-            assert(type == Type::RehearsalMark);
-            return std::get<muse::String>(value);
-        }
-
-        static SearchData makeMeasure(size_t index)
-        {
-            SearchData data;
-            data.type = Type::Measure;
-            data.value = index;
-            return data;
-        }
-
-        int measureIndex() const
-        {
-            assert(type == Type::Measure);
-            return static_cast<int>(std::get<size_t>(value));
-        }
-
-        static SearchData makeMeasureRange(size_t startIndex, size_t endIndex)
-        {
-            SearchData data;
-            data.type = Type::MeasureRange;
-            data.value = std::make_pair(startIndex, endIndex);
-            return data;
-        }
-
-        std::pair<size_t, size_t> measureRange() const
-        {
-            assert(type == Type::MeasureRange);
-            return std::get<std::pair<size_t, size_t> >(value);
-        }
-
-        static SearchData makePage(size_t index)
-        {
-            SearchData data;
-            data.type = Type::Page;
-            data.value = index;
-            return data;
-        }
-
-        size_t pageIndex() const
-        {
-            assert(type == Type::Page);
-            return std::get<size_t>(value);
+            return elementType != ElementType::INVALID;
         }
     };
 
-    static SearchData parse(const QString& searchCommand);
+    static SearchData parse(const std::string& searchCommand);
 
 private:
-    static SearchData parseMeasureCommand(const QString& searchCommand);
-    static SearchData parsePageCommand(const QString& searchCommand);
-    static SearchData parseRehearsalMarkCommand(const QString& searchCommand);
+    static SearchData parseMeasureCommand(const std::string& searchCommand);
+    static SearchData parsePageCommand(const std::string& searchCommand);
+    static SearchData parseRehearsalMarkCommand(const std::string& searchCommand);
 };
 }
+
+#endif // MU_NOTATION_SEARCHCOMMANDSPARSER_H

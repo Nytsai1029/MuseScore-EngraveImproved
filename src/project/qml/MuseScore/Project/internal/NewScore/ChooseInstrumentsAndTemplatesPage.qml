@@ -19,22 +19,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
-import MuseScore.Project
-import MuseScore.InstrumentsScene
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import MuseScore.Project 1.0
+import MuseScore.InstrumentsScene 1.0
 
 Item {
     id: root
 
     property string preferredScoreCreationMode: ""
 
-    readonly property Item currentPage: pageLoader.item as Item
     property string description: Boolean(currentPage) ? currentPage.description : ""
 
     property NavigationSection navigationSection: null
@@ -45,13 +43,15 @@ Item {
         }
 
         if (bar.currentIndex === 0) {
-            return (currentPage as ChooseInstrumentsPage).hasSelectedInstruments
+            return currentPage.hasSelectedInstruments
         } else if (bar.currentIndex === 1) {
-            return (currentPage as CreateFromTemplatePage).hasSelectedTemplate
+            return currentPage.hasSelectedTemplate
         }
 
         return false
     }
+
+    readonly property Item currentPage: pageLoader.item
 
     signal done
 
@@ -60,11 +60,11 @@ Item {
 
         switch(bar.currentIndex) {
         case 0:
-            result["scoreOrder"] = (currentPage as ChooseInstrumentsPage).currentOrder()
-            result["instruments"] = (currentPage as ChooseInstrumentsPage).instruments()
+            result["scoreOrder"] = currentPage.currentOrder()
+            result["instruments"] = currentPage.instruments()
             break
         case 1:
-            result["templatePath"] = (currentPage as CreateFromTemplatePage).selectedTemplatePath
+            result["templatePath"] = currentPage.selectedTemplatePath
             break
         }
 

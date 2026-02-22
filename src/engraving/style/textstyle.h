@@ -19,7 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#pragma once
+#ifndef MU_ENGRAVING_TEXTSTYLE_H
+#define MU_ENGRAVING_TEXTSTYLE_H
 
 #include "styledef.h"
 #include "../types/types.h"
@@ -42,7 +43,6 @@ enum class TextStylePropertyType : char {
     FrameBorderColor,
     FrameFillColor,
     MusicalSymbolsScale,
-    MusicalSymbolsSize,
     Position
 };
 
@@ -52,7 +52,7 @@ struct TextStyleProperty {
     Pid pid;
 };
 
-constexpr size_t TEXT_STYLE_SIZE = 17;
+constexpr size_t TEXT_STYLE_SIZE = 16;
 
 typedef std::array<TextStyleProperty, TEXT_STYLE_SIZE> TextStyle;
 
@@ -61,3 +61,5 @@ const std::vector<TextStyleType>& allTextStyles();
 const std::vector<TextStyleType>& editableTextStyles();
 const std::vector<TextStyleType>& primaryTextStyles();
 }
+
+#endif // MU_ENGRAVING_TEXTSTYLE_H

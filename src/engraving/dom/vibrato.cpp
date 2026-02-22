@@ -92,7 +92,7 @@ void VibratoSegment::symbolLine(SymId start, SymId fill, SymId end)
 //   propertyDelegate
 //---------------------------------------------------------
 
-EngravingObject* VibratoSegment::propertyDelegate(Pid pid) const
+EngravingItem* VibratoSegment::propertyDelegate(Pid pid)
 {
     if (pid == Pid::VIBRATO_TYPE || pid == Pid::PLACEMENT) {
         return spanner();
@@ -137,7 +137,7 @@ LineSegment* Vibrato::createLineSegment(System* parent)
 {
     VibratoSegment* seg = new VibratoSegment(this, parent);
     seg->setTrack(track());
-    seg->setColor(lineColor());
+    seg->setColor(color());
     seg->initElementStyle(&vibratoSegmentStyle);
     return seg;
 }
@@ -212,10 +212,12 @@ bool Vibrato::setProperty(Pid propertyId, const PropertyValue& val)
         break;
     case Pid::COLOR:
         setColor(val.value<Color>());
-        setLineColor(val.value<Color>());
-        break;
+        [[fallthrough]];
     default:
-        return SLine::setProperty(propertyId, val);
+        if (!SLine::setProperty(propertyId, val)) {
+            return false;
+        }
+        break;
     }
     triggerLayout();
     return true;
@@ -229,12 +231,21 @@ PropertyValue Vibrato::propertyDefault(Pid propertyId) const
 {
     switch (propertyId) {
     case Pid::VIBRATO_TYPE:
-        return static_cast<int>(VibratoType::GUITAR_VIBRATO);
+        return 0;
     case Pid::PLACEMENT:
         return style().styleV(Sid::vibratoPlacement);
     default:
         return SLine::propertyDefault(propertyId);
     }
+}
+
+//---------------------------------------------------------
+//   undoSetVibratoType
+//---------------------------------------------------------
+
+void Vibrato::undoSetVibratoType(VibratoType val)
+{
+    undoChangeProperty(Pid::VIBRATO_TYPE, int(val));
 }
 
 //---------------------------------------------------------

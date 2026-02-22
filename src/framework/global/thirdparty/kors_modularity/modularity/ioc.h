@@ -21,34 +21,41 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
-#pragma once
+#ifndef KORS_MODULARITY_IOC_H
+#define KORS_MODULARITY_IOC_H
 
 #include <memory>
 #include <mutex>
-#include <shared_mutex>
 #include <string_view>
 
 #include "context.h"
 #include "modulesioc.h"
+#include "injectable.h"
 
 namespace kors::modularity {
-#ifdef IOC_CHECK_INTERFACE_TYPE    
-ModulesGlobalIoC* globalIoc();
-ModulesContextIoC* ioc(const ContextPtr& ctx);
-#else 
-ModulesIoCBase* globalIoc();
-ModulesIoCBase* ioc(const ContextPtr& ctx);
-#endif
+ModulesIoC* _ioc(const ContextPtr& ctx = nullptr);
+void removeIoC(const ContextPtr& ctx = nullptr);
 
-void removeIoC(const ContextPtr& ctx);
+struct StaticMutex
+{
+    static std::recursive_mutex mutex;
+};
 
-//! NOTE Internal base class
 template<class I>
-class InjectBase
+class Inject
 {
 public:
-    virtual ~InjectBase() = default;
+
+#ifdef MUSE_MODULE_GLOBAL_MULTI_IOC
+    Inject(const ContextPtr& ctx)
+        : m_ctx(ctx) {}
+#else
+    Inject(const ContextPtr& ctx = nullptr)
+        : m_ctx(ctx) {}
+#endif
+
+    Inject(const Injectable* o)
+        : m_inj(o) {}
 
     const ContextPtr& iocContext() const
     {
@@ -68,77 +75,21 @@ public:
     const std::shared_ptr<I>& get() const
     {
         if (!m_i) {
-            static std::string_view module = "";
-            if constexpr (I::modularity_isGlobalInterface()) {
-                m_i = globalIoc()->template resolve<I>(module);
-            } else {
-                if (iocContext()) {
-                    m_i = ioc(iocContext())->template resolve<I>(module);
-
-                    if (!m_i) {
-                        //! NOTE Temporary for compatibility
-                        m_i = globalIoc()->template resolve<I>(module);
-                    }
-                } else {
-                    //! NOTE Temporary for compatibility
-                    m_i = globalIoc()->template resolve<I>(module);
-                }
+            //! NOTE In resolve, a new object can be created using a creator,
+            //! in this object injects can be used in the constructor,
+            //! this will lead to a double mutex lock, so the mutex must be recursive.
+            const std::lock_guard<std::recursive_mutex> lock(StaticMutex::mutex);
+            if (!m_i) {
+                static std::string_view module = "";
+                m_i = _ioc(iocContext())->template resolve<I>(module);
             }
         }
         return m_i;
     }
 
-    const std::shared_ptr<I>& operator()() const
-    {
-        return get();
-    }
-
-    /// For testing purposes only. Not thread-safe.
     void set(std::shared_ptr<I> impl)
     {
         m_i = impl;
-    }
-
-protected:
-    InjectBase(const ContextPtr& ctx)
-        : m_ctx(ctx)
-    {
-    }
-
-    InjectBase(const Contextable* inj)
-        : m_inj(inj)
-    {
-    }
-
-    const ContextPtr m_ctx;
-    const Contextable* m_inj = nullptr;
-    mutable std::shared_ptr<I> m_i = nullptr;
-};
-
-template<class I>
-class ThreadSafeInjectBase : public InjectBase<I>
-{
-public:
-    using InjectBase<I>::InjectBase;
-
-    const std::shared_ptr<I>& get() const
-    {
-        {
-            std::shared_lock lock(m_mutex);
-            if (InjectBase<I>::m_i) {
-                return InjectBase<I>::m_i;
-            }
-        }
-
-        std::unique_lock lock(m_mutex);
-        return InjectBase<I>::get();
-    }
-
-    /// For testing purposes.
-    void set(std::shared_ptr<I> impl)
-    {
-        std::unique_lock lock(m_mutex);
-        InjectBase<I>::set(impl);
     }
 
     const std::shared_ptr<I>& operator()() const
@@ -147,73 +98,19 @@ public:
     }
 
 private:
-    mutable std::shared_mutex m_mutex;
+
+    const ContextPtr m_ctx;
+    const Injectable* m_inj = nullptr;
+    mutable std::shared_ptr<I> m_i = nullptr;
 };
 
-//! NOTE Global Inject
 template<class I>
-class GlobalInject : public InjectBase<I>
+class GlobalInject : public Inject<I>
 {
 public:
     GlobalInject()
-        : InjectBase<I>(globalCtx)
-    {
-        static_assert(I::modularity_isGlobalInterface(), "The interface must be global.");
-    }
+        : Inject<I>(ContextPtr()) {}
 };
-
-//! NOTE Global Inject, Thread-safe (locking) variant of Inject.
-template<class I>
-class GlobalThreadSafeInject : public ThreadSafeInjectBase<I>
-{
-public:
-    GlobalThreadSafeInject()
-        : ThreadSafeInjectBase<I>(globalCtx)
-    {
-        static_assert(I::modularity_isGlobalInterface(), "The interface must be global.");
-    }
-};
-
-//! NOTE Context Inject
-template<class I>
-class ContextInject : public InjectBase<I>
-{
-public:
-
-    ContextInject(const ContextPtr& ctx)
-        : InjectBase<I>(ctx)
-    {
-        static_assert(!I::modularity_isGlobalInterface(), "The interface must be contextual.");
-    }
-
-    ContextInject(const Contextable* inj)
-        : InjectBase<I>(inj)
-    {
-        static_assert(!I::modularity_isGlobalInterface(), "The interface must be contextual.");
-    }
-};
-
-//! NOTE State less Inject, Thread-safe (locking) variant of Inject.
-template<class I>
-class ContextThreadSafeInject : public ThreadSafeInjectBase<I>
-{
-public:
-    ContextThreadSafeInject(const ContextPtr& ctx)
-        : ThreadSafeInjectBase<I>(ctx)
-    {
-        static_assert(!I::modularity_isGlobalInterface(), "The interface must be contextual.");
-    }
-
-    ContextThreadSafeInject(const Contextable* inj)
-        : ThreadSafeInjectBase<I>(inj)
-    {
-        static_assert(!I::modularity_isGlobalInterface(), "The interface must be contextual.");
-    }
-};
-
-//! NOTE Temporary for compatibility
-template<typename I>
-using Inject = ContextInject<I>;
-template<typename I>
-using ThreadSafeInject = ContextThreadSafeInject<I>;
 }
+
+#endif // KORS_MODULARITY_IOC_H

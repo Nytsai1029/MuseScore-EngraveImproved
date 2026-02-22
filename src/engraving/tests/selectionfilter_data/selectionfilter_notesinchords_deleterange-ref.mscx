@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
-    <eid>u3owA0tiskD_dyTHnBjo+sH</eid>
+    <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <spatium>1.75</spatium>
+      <spatium>1.74978</spatium>
       </Style>
     <showInvisible>1</showInvisible>
     <showUnprintable>1</showUnprintable>
     <showFrames>1</showFrames>
     <showMargins>0</showMargins>
-    <open>1</open>
     <metaTag name="arranger"></metaTag>
     <metaTag name="audioComUrl"></metaTag>
     <metaTag name="composer">Composer / arranger</metaTag>
@@ -71,7 +70,7 @@
       </Order>
     <Part id="1">
       <Staff>
-        <eid>0xYYNanH5ZK_SqBgdhd3cTG</eid>
+        <eid>C_C</eid>
         <StaffType group="pitched">
           <name>stdNormal</name>
           </StaffType>
@@ -136,226 +135,226 @@
       </Part>
     <Staff id="1">
       <Measure>
-        <eid>GCZEkenFseN_fzeKCRdnRrO</eid>
+        <eid>D_D</eid>
         <voice>
           <KeySig>
-            <eid>ypAURSunpFH_/oQNV/ldtbP</eid>
+            <eid>E_E</eid>
             <concertKey>0</concertKey>
             </KeySig>
           <TimeSig>
-            <eid>xIBj803HOHJ_fpM4Ju5nwlH</eid>
+            <eid>F_F</eid>
             <sigN>4</sigN>
             <sigD>4</sigD>
             </TimeSig>
           <SystemText>
-            <eid>YX6qOiJt7BI_VgOZMF6WkwF</eid>
+            <eid>G_G</eid>
             <text>Deselect bottom notes:</text>
             </SystemText>
           <StaffText>
-            <eid>yvU4zZH24hM_sQW54qAN2mP</eid>
+            <eid>H_H</eid>
             <text>Chords:</text>
             </StaffText>
           <Chord>
-            <eid>K5R009AcAZF_3sdvqYw+F5</eid>
+            <eid>I_I</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>/fW6azzkEVP_oU6kp5xCvu</eid>
+              <eid>J_J</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>W2V064tbo/P_W2V064tbo/P</eid>
+            <eid>K_K</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>Z1JCg2SYrdO_KsoDEnU/xfL</eid>
+            <eid>L_L</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>e0sAHNxc0M_t/SYHKdVOoO</eid>
+              <eid>M_M</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>Gx7CyaAUJeP_MXaxxWc3zxB</eid>
+            <eid>N_N</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>/aBg5OL/v2C_wSgX3b5X6DD</eid>
+              <eid>O_O</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>D48/nWyaKVJ_8NuWSOlhdiF</eid>
+            <eid>P_P</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>BE8GBzw41vO_pAW6qfSg6DI</eid>
+              <eid>Q_Q</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>X2V064tbo/P_X2V064tbo/P</eid>
+            <eid>R_R</eid>
             <durationType>eighth</durationType>
             </Rest>
           </voice>
         <voice>
           <Chord>
-            <eid>9IpgMwA3wBG_yOetWBdWZrP</eid>
+            <eid>S_S</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>2MM0JXFxkzL_huKCMs/0JcB</eid>
+              <eid>T_T</eid>
               <pitch>57</pitch>
               <tpc>17</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>Y2V064tbo/P_Y2V064tbo/P</eid>
+            <eid>U_U</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>IyaUapmCghG_di0fxzaIpGH</eid>
+            <eid>V_V</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>CavCGN1CGDE_sPt93erKbQO</eid>
+              <eid>W_W</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>zqCZmRONi1H_B12iEYlJRvJ</eid>
+            <eid>X_X</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>mEF9sJeTDjL_WFAJQ1ca7yM</eid>
+              <eid>Y_Y</eid>
               <pitch>47</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>dYwrvWlqWjG_7dHiY7sf5XH</eid>
+            <eid>Z_Z</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>vxYQcdbKIjP_SalxasW7F6D</eid>
+              <eid>a_a</eid>
               <pitch>64</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>Z2V064tbo/P_Z2V064tbo/P</eid>
+            <eid>b_b</eid>
             <durationType>eighth</durationType>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>LryV+tYw5iE_Vz48uyCQMGE</eid>
+        <eid>c_c</eid>
         <voice>
           <StaffText>
-            <eid>FIZ9kvhZjyN_1/hCR5CdAFG</eid>
+            <eid>d_d</eid>
             <text>Single notes:</text>
             </StaffText>
           <Rest>
-            <eid>a2V064tbo/P_a2V064tbo/P</eid>
+            <eid>e_e</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>uV26rUFF+qN_q2bqWgBiJiF</eid>
+        <eid>f_f</eid>
         <voice>
           <StaffText>
-            <eid>VTihPHLd9kH_/MXSeZYVrX</eid>
+            <eid>g_g</eid>
             <text>Mixture:</text>
             </StaffText>
           <Rest>
-            <eid>b2V064tbo/P_b2V064tbo/P</eid>
+            <eid>h_h</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>tm8Q81O5qFM_KBDy+p22S6L</eid>
+            <eid>i_i</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>x5LWZeiDWGL_j47BCato6AK</eid>
+              <eid>j_j</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>c2V064tbo/P_c2V064tbo/P</eid>
+            <eid>k_k</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Rest>
-            <eid>d2V064tbo/P_d2V064tbo/P</eid>
+            <eid>l_l</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Chord>
-            <eid>LNFwd8jEykL_bs6M3uzA5pE</eid>
+            <eid>m_m</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>WT0RqEULO5_fQC33ISeJyG</eid>
+              <eid>n_n</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>e2V064tbo/P_e2V064tbo/P</eid>
+            <eid>o_o</eid>
             <durationType>eighth</durationType>
             </Rest>
           </voice>
         <voice>
           <Rest>
-            <eid>f2V064tbo/P_f2V064tbo/P</eid>
+            <eid>p_p</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>YLgZ8so3orL_jDEEp0MVS6G</eid>
+            <eid>q_q</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>Zd2pmChV7qF_D5xpnjhLh3</eid>
+              <eid>r_r</eid>
               <pitch>64</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>g2V064tbo/P_g2V064tbo/P</eid>
+            <eid>s_s</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Rest>
-            <eid>h2V064tbo/P_h2V064tbo/P</eid>
+            <eid>t_t</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Chord>
-            <eid>9NSFZmubFN_NU7jhnGYNBJ</eid>
+            <eid>u_u</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>BGedGJ8QJwI_Q285lf5eN1F</eid>
+              <eid>v_v</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>i2V064tbo/P_i2V064tbo/P</eid>
+            <eid>w_w</eid>
             <durationType>eighth</durationType>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>j3lyVrgfq8E_z8cu3BOv3UM</eid>
+        <eid>x_x</eid>
         <voice>
           <StaffText>
-            <eid>LlX2s0lasEE_fbxaHd0zlIB</eid>
+            <eid>y_y</eid>
             <text>Extreme:</text>
             </StaffText>
           <Rest>
-            <eid>j2V064tbo/P_j2V064tbo/P</eid>
+            <eid>z_z</eid>
             <durationType>half</durationType>
             </Rest>
           <Chord>
-            <eid>5rfLPeYwoXI_LCrj0c4GjxD</eid>
+            <eid>0_0</eid>
             <durationType>half</durationType>
             <Note>
-              <eid>BVNjNC5RUEC_ddMXjHRRbeO</eid>
+              <eid>1_1</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
@@ -363,14 +362,14 @@
           </voice>
         <voice>
           <Rest>
-            <eid>k2V064tbo/P_k2V064tbo/P</eid>
+            <eid>2_2</eid>
             <durationType>half</durationType>
             </Rest>
           <Chord>
-            <eid>5JP7i75Dm4J_uIOBhz8Dt9L</eid>
+            <eid>3_3</eid>
             <durationType>half</durationType>
             <Note>
-              <eid>3POB8h33hAP_zfdUDZBmU5O</eid>
+              <eid>4_4</eid>
               <pitch>40</pitch>
               <tpc>18</tpc>
               </Note>
@@ -378,18 +377,18 @@
           </voice>
         </Measure>
       <Measure>
-        <eid>HGWSTeYYu2C_6Usge5V13KB</eid>
+        <eid>5_5</eid>
         <LayoutBreak>
-          <eid>rUyx7xE0xM_0vmm96lBgM</eid>
+          <eid>6_6</eid>
           <subtype>line</subtype>
           </LayoutBreak>
         <voice>
           <StaffText>
-            <eid>IwoLMzU+WUD_GbaGXdpfuf</eid>
+            <eid>7_7</eid>
             <text>Tuplets:</text>
             </StaffText>
           <Tuplet>
-            <eid>TxWB5gIEuiG_LTI1Kgfz9JP</eid>
+            <eid>8_8</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -400,25 +399,25 @@
             <direction>up</direction>
             </Tuplet>
           <Rest>
-            <eid>l2V064tbo/P_l2V064tbo/P</eid>
+            <eid>9_9</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Chord>
-            <eid>b4ZlgJxYvtM_P2ur4L0YspG</eid>
+            <eid>+_+</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>FOw1K65O73F_WAhZxrHiAg</eid>
+              <eid>/_/</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>m2V064tbo/P_m2V064tbo/P</eid>
+            <eid>AB_AB</eid>
             <durationType>quarter</durationType>
             </Rest>
           <endTuplet/>
           <Tuplet>
-            <eid>UrZu8F6ITcL_pDiiEn4bsBH</eid>
+            <eid>BB_BB</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -429,11 +428,11 @@
             <direction>up</direction>
             </Tuplet>
           <Rest>
-            <eid>n2V064tbo/P_n2V064tbo/P</eid>
+            <eid>CB_CB</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Tuplet>
-            <eid>wEOQ5eWW8xG_vHAHzJh/AdG</eid>
+            <eid>DB_DB</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>eighth</baseNote>
@@ -444,24 +443,24 @@
             <direction>up</direction>
             </Tuplet>
           <Chord>
-            <eid>c0SH3kmTbVD_M0QmHgxfFvO</eid>
+            <eid>EB_EB</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>Zn05TbEPBCJ_kWORPTRwKuI</eid>
+              <eid>FB_FB</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>o2V064tbo/P_o2V064tbo/P</eid>
+            <eid>GB_GB</eid>
             <durationType>quarter</durationType>
             </Rest>
           <endTuplet/>
           <Chord>
-            <eid>Xu7u9/QHP+I_qEM4ywA/qeJ</eid>
+            <eid>HB_HB</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>X9mHBxx+9PD_vkd4eR7nphL</eid>
+              <eid>IB_IB</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
@@ -470,7 +469,7 @@
           </voice>
         <voice>
           <Tuplet>
-            <eid>RDjjac0CVtP_ZFCk7sEbpaC</eid>
+            <eid>JB_JB</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -481,25 +480,25 @@
             <direction>down</direction>
             </Tuplet>
           <Rest>
-            <eid>p2V064tbo/P_p2V064tbo/P</eid>
+            <eid>KB_KB</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Chord>
-            <eid>KTnL8RXxoaP_uNltJYtepQC</eid>
+            <eid>LB_LB</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>7RskvbQnzEM_8XtUsoBQPBN</eid>
+              <eid>MB_MB</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>q2V064tbo/P_q2V064tbo/P</eid>
+            <eid>NB_NB</eid>
             <durationType>quarter</durationType>
             </Rest>
           <endTuplet/>
           <Tuplet>
-            <eid>WARYy0frWAL_ykiZDuTeN0P</eid>
+            <eid>OB_OB</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -510,11 +509,11 @@
             <direction>down</direction>
             </Tuplet>
           <Rest>
-            <eid>r2V064tbo/P_r2V064tbo/P</eid>
+            <eid>PB_PB</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Tuplet>
-            <eid>72BZkjsyNzP_vr/SkcYcef</eid>
+            <eid>QB_QB</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>eighth</baseNote>
@@ -525,24 +524,24 @@
             <direction>down</direction>
             </Tuplet>
           <Chord>
-            <eid>+BUrS9BU7JG_TBf4JwxIUZ</eid>
+            <eid>RB_RB</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>8EnFP+EMTVC_8LKS8RUGv5G</eid>
+              <eid>SB_SB</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>s2V064tbo/P_s2V064tbo/P</eid>
+            <eid>TB_TB</eid>
             <durationType>quarter</durationType>
             </Rest>
           <endTuplet/>
           <Chord>
-            <eid>ULifQUxSKUG_a/w+Kn62i7C</eid>
+            <eid>UB_UB</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>ramp04mbgmG_QBsno5ju5AL</eid>
+              <eid>VB_VB</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
@@ -551,206 +550,206 @@
           </voice>
         </Measure>
       <Measure>
-        <eid>NNlg7zyjGWC_1oro5BXILKG</eid>
+        <eid>WB_WB</eid>
         <voice>
           <SystemText>
-            <eid>RN8t0qowCJC_gGIFTtXPqpN</eid>
+            <eid>XB_XB</eid>
             <text>Deselect top notes and thirds:</text>
             </SystemText>
           <StaffText>
-            <eid>DJI0SjaUWHD_sEyFyH5eQoB</eid>
+            <eid>YB_YB</eid>
             <text>Chords:</text>
             </StaffText>
           <Chord>
-            <eid>1JFSRTaJ/tG_jworME5irkL</eid>
+            <eid>ZB_ZB</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>uehmATRachI_YxbOjhawfpO</eid>
+              <eid>aB_aB</eid>
               <pitch>83</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>t2V064tbo/P_t2V064tbo/P</eid>
+            <eid>bB_bB</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Rest>
-            <eid>u2V064tbo/P_u2V064tbo/P</eid>
+            <eid>cB_cB</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Chord>
-            <eid>J7MVL78etBF_hQyoOLAU8C</eid>
+            <eid>dB_dB</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>7h93sd2lLmP_3EwaY1c3Sz</eid>
+              <eid>eB_eB</eid>
               <pitch>83</pitch>
               <tpc>19</tpc>
               </Note>
             <Note>
-              <eid>BBi2T6hd7CL_stwltdRa/NJ</eid>
+              <eid>fB_fB</eid>
               <pitch>100</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>Kt1krvYW2CH_8uW6tAx/A1F</eid>
+            <eid>gB_gB</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>7JGApYrbrKM_6kx3L0A0vjP</eid>
+              <eid>hB_hB</eid>
               <pitch>83</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>v2V064tbo/P_v2V064tbo/P</eid>
+            <eid>iB_iB</eid>
             <durationType>eighth</durationType>
             </Rest>
           </voice>
         <voice>
           <Chord>
-            <eid>f+bzJ7PtpHJ_MuZUOwCuT2C</eid>
+            <eid>jB_jB</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>r8jTq3wfHpD_yfUlxADmPB</eid>
+              <eid>kB_kB</eid>
               <pitch>64</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>w2V064tbo/P_w2V064tbo/P</eid>
+            <eid>lB_lB</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Rest>
-            <eid>x2V064tbo/P_x2V064tbo/P</eid>
+            <eid>mB_mB</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Chord>
-            <eid>mugtBeFLdEH_l08o1yw1/SJ</eid>
+            <eid>nB_nB</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>D2z3VamY2hO_UHTMn3zV4UB</eid>
+              <eid>oB_oB</eid>
               <pitch>53</pitch>
               <tpc>13</tpc>
               </Note>
             <Note>
-              <eid>iwX/Ia0z1bN_koWWykV2jrF</eid>
+              <eid>pB_pB</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>MA925kjcCjC_mllAgfNp1I</eid>
+            <eid>qB_qB</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>VsWYKwMtpZP_Rtq4SZecTSF</eid>
+              <eid>rB_rB</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>y2V064tbo/P_y2V064tbo/P</eid>
+            <eid>sB_sB</eid>
             <durationType>eighth</durationType>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>xX6LK9PUxLC_izi17ub6xHJ</eid>
+        <eid>tB_tB</eid>
         <voice>
           <StaffText>
-            <eid>P/Gq7M1zTmK_hE5G/0T/5eM</eid>
+            <eid>uB_uB</eid>
             <text>Single notes:</text>
             </StaffText>
           <Rest>
-            <eid>z2V064tbo/P_z2V064tbo/P</eid>
+            <eid>vB_vB</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>cyAQvyWv3VC_pDLC3rhmOEF</eid>
+        <eid>wB_wB</eid>
         <voice>
           <StaffText>
-            <eid>20sfa1H/sAG_FoOFw96mOfC</eid>
+            <eid>xB_xB</eid>
             <text>Mixture:</text>
             </StaffText>
           <Rest>
-            <eid>02V064tbo/P_02V064tbo/P</eid>
+            <eid>yB_yB</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>uQj+9rmUwNE_3QnmNX4KF/G</eid>
+            <eid>zB_zB</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>4T9LurmGgZB_CvDr5rNrttG</eid>
+              <eid>0B_0B</eid>
               <pitch>83</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>12V064tbo/P_12V064tbo/P</eid>
+            <eid>1B_1B</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Rest>
-            <eid>22V064tbo/P_22V064tbo/P</eid>
+            <eid>2B_2B</eid>
             <durationType>half</durationType>
             </Rest>
           </voice>
         <voice>
           <Rest>
-            <eid>32V064tbo/P_32V064tbo/P</eid>
+            <eid>3B_3B</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>qMDZN/VisjN_dmVrtMQLqaP</eid>
+            <eid>4B_4B</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>m4AZHPGyMkP_geuUmvdKyUK</eid>
+              <eid>5B_5B</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>42V064tbo/P_42V064tbo/P</eid>
+            <eid>6B_6B</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Rest>
-            <eid>52V064tbo/P_52V064tbo/P</eid>
+            <eid>7B_7B</eid>
             <durationType>half</durationType>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>Qeirtj17T4G_LiEQXz1m//N</eid>
+        <eid>8B_8B</eid>
         <voice>
           <StaffText>
-            <eid>gHWP3kKiLQI_lrrYRlaGMvF</eid>
+            <eid>9B_9B</eid>
             <text>Extreme:</text>
             </StaffText>
           <Rest>
-            <eid>62V064tbo/P_62V064tbo/P</eid>
+            <eid>+B_+B</eid>
             <durationType>half</durationType>
             </Rest>
           <Chord>
-            <eid>C+Fw+HaBRiM_vxyJ57NVQmL</eid>
+            <eid>/B_/B</eid>
             <durationType>half</durationType>
             <Note>
-              <eid>PP3wVztC/nK_Q48MrrAVGrF</eid>
+              <eid>AC_AC</eid>
               <pitch>83</pitch>
               <tpc>19</tpc>
               </Note>
             <Note>
-              <eid>caw2Qzfm8f_4T3kHnMILhM</eid>
+              <eid>BC_BC</eid>
               <pitch>100</pitch>
               <tpc>18</tpc>
               </Note>
             <Note>
-              <eid>BnedQz20ibO_BrvVYuPXt+C</eid>
+              <eid>CC_CC</eid>
               <pitch>103</pitch>
               <tpc>15</tpc>
               </Note>
             <Note>
-              <eid>YK7OFrhvnHJ_lgXrdCvo42O</eid>
+              <eid>DC_DC</eid>
               <pitch>107</pitch>
               <tpc>19</tpc>
               </Note>
@@ -758,29 +757,29 @@
           </voice>
         <voice>
           <Rest>
-            <eid>72V064tbo/P_72V064tbo/P</eid>
+            <eid>EC_EC</eid>
             <durationType>half</durationType>
             </Rest>
           <Chord>
-            <eid>JxJ2vEcmZVP_ckuLItDACMG</eid>
+            <eid>FC_FC</eid>
             <durationType>half</durationType>
             <Note>
-              <eid>PzhvwCt8Y4J_vJ5zj52ncpM</eid>
+              <eid>GC_GC</eid>
               <pitch>47</pitch>
               <tpc>19</tpc>
               </Note>
             <Note>
-              <eid>Ds55xWC+nQP_D/jaj/u83wH</eid>
+              <eid>HC_HC</eid>
               <pitch>64</pitch>
               <tpc>18</tpc>
               </Note>
             <Note>
-              <eid>s/IGcMEKkAE_ZgHL8+nbQbM</eid>
+              <eid>IC_IC</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             <Note>
-              <eid>fg12Z62tE7B_vY9O+X82dpM</eid>
+              <eid>JC_JC</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
@@ -788,88 +787,88 @@
           </voice>
         </Measure>
       <Measure>
-        <eid>xeY0mLuzJZO_ASZpYcvsWyE</eid>
+        <eid>KC_KC</eid>
         <LayoutBreak>
-          <eid>qddfcHmj1vI_NjP66W1DVWE</eid>
+          <eid>LC_LC</eid>
           <subtype>line</subtype>
           </LayoutBreak>
         <voice>
           <StaffText>
-            <eid>82Dcgw5y1fC_ATInmEjkYf</eid>
+            <eid>MC_MC</eid>
             <text>Tuplets:</text>
             </StaffText>
           <Rest>
-            <eid>82V064tbo/P_82V064tbo/P</eid>
+            <eid>NC_NC</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>MtnhmKJvbbH_A52//gjWANO</eid>
+        <eid>OC_OC</eid>
         <voice>
           <StaffText>
-            <eid>KsYf5KSM+eK_hLj2fyOiAIJ</eid>
+            <eid>PC_PC</eid>
             <text>Chords:</text>
             </StaffText>
           <SystemText>
-            <eid>qt+6UP7Vg8B_tqzD7w600kN</eid>
+            <eid>QC_QC</eid>
             <text>Deselect single notes:</text>
             </SystemText>
           <Rest>
-            <eid>92V064tbo/P_92V064tbo/P</eid>
+            <eid>RC_RC</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>k8bJnwoP3oL_kvr6QpzEQSO</eid>
+        <eid>SC_SC</eid>
         <voice>
           <StaffText>
-            <eid>v0/57eU7F8O_10YmdBVveGO</eid>
+            <eid>TC_TC</eid>
             <text>Single notes:</text>
             </StaffText>
           <Chord>
-            <eid>nbOWHGxR11B_CeLoQYFuPOP</eid>
+            <eid>UC_UC</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>u3n/WlciiZG_iKfBlJJYfqF</eid>
+              <eid>VC_VC</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>Hvd+AeajcZJ_oWPD2mywHNI</eid>
+            <eid>WC_WC</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>l/tfnQstBoC_mFZcbxuzGBL</eid>
+              <eid>XC_XC</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>+2V064tbo/P_+2V064tbo/P</eid>
+            <eid>YC_YC</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>GVOpyktVYIF_JtzbzIZ6T8P</eid>
+            <eid>ZC_ZC</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>Jeu0oj4aQmB_Evy23nmYXUM</eid>
+              <eid>aC_aC</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>/2V064tbo/P_/2V064tbo/P</eid>
+            <eid>bC_bC</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>NVNoCezg0iN_UVzg9HO1BMM</eid>
+            <eid>cC_cC</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>oQVd+wWUZxG_+2rUMdhBJJC</eid>
+              <eid>dC_dC</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
@@ -877,45 +876,45 @@
           </voice>
         <voice>
           <Chord>
-            <eid>ywAFvnhkmYN_oZM3AA5ukC</eid>
+            <eid>eC_eC</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>tmFmRkqSyhL_Vlf8jALtZqF</eid>
+              <eid>fC_fC</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>szPFK+Pzmc_b5O7A0DBRRK</eid>
+            <eid>gC_gC</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>4+xicVXudyM_2kSluwYIW4M</eid>
+              <eid>hC_hC</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>A3V064tbo/P_A3V064tbo/P</eid>
+            <eid>iC_iC</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>nCyz+1Y6zzL_sb7fEiqt00F</eid>
+            <eid>jC_jC</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>LUUHP+qgREE_ZuPVINu0dfO</eid>
+              <eid>kC_kC</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>B3V064tbo/P_B3V064tbo/P</eid>
+            <eid>lC_lC</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>8jcIzavXsNN_g2M0WYHs8xC</eid>
+            <eid>mC_mC</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>QMqXCBE1TfD_mEan3Z2cCyK</eid>
+              <eid>nC_nC</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
@@ -923,52 +922,52 @@
           </voice>
         </Measure>
       <Measure>
-        <eid>AY90Fk1RvzP_Pz2pjSL1D4</eid>
+        <eid>oC_oC</eid>
         <voice>
           <StaffText>
-            <eid>N4KiQ1MaLsK_OpdeSoeOANB</eid>
+            <eid>pC_pC</eid>
             <text>Mixture:</text>
             </StaffText>
           <Rest>
-            <eid>C3V064tbo/P_C3V064tbo/P</eid>
+            <eid>qC_qC</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Beam>
-            <eid>D3V064tbo/P_D3V064tbo/P</eid>
+            <eid>rC_rC</eid>
             <l1>-16</l1>
             <l2>-16</l2>
             </Beam>
           <Chord>
-            <eid>kUuoqZGIjnE_ByvjW9viIyO</eid>
+            <eid>sC_sC</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>ch7BaqX3IlO_sDXRRhHC/0O</eid>
+              <eid>tC_tC</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>QJ+Mz+GY8gP_IFS4/W9T12N</eid>
+            <eid>uC_uC</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>LPeza3pqYPO_lz1Lxsb+7dB</eid>
+              <eid>vC_vC</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>E3V064tbo/P_E3V064tbo/P</eid>
+            <eid>wC_wC</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Rest>
-            <eid>F3V064tbo/P_F3V064tbo/P</eid>
+            <eid>xC_xC</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>P0EEpfsMSXO_2/EVQi6snb</eid>
+            <eid>yC_yC</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>l4iCmlGsSjO_ReQLZkUCQ+B</eid>
+              <eid>zC_zC</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
@@ -976,45 +975,45 @@
           </voice>
         <voice>
           <Rest>
-            <eid>G3V064tbo/P_G3V064tbo/P</eid>
+            <eid>0C_0C</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Beam>
-            <eid>H3V064tbo/P_H3V064tbo/P</eid>
+            <eid>1C_1C</eid>
             <l1>38</l1>
             <l2>38</l2>
             </Beam>
           <Chord>
-            <eid>bDnWbqxP3ZF_hyDwcQor4bL</eid>
+            <eid>2C_2C</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>S4luF+TvYEP_Jq24g+6MjWN</eid>
+              <eid>3C_3C</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>TMFqIuwoaZB_OyQCw2uZAWM</eid>
+            <eid>4C_4C</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>hGk/LftoZbE_oNuZqePMMvM</eid>
+              <eid>5C_5C</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>I3V064tbo/P_I3V064tbo/P</eid>
+            <eid>6C_6C</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Rest>
-            <eid>J3V064tbo/P_J3V064tbo/P</eid>
+            <eid>7C_7C</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>qk7pIuwblKN_nbpHaxHi/eD</eid>
+            <eid>8C_8C</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>+U9IfT6MzW_T6m/GYMEY0K</eid>
+              <eid>9C_9C</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
@@ -1022,32 +1021,32 @@
           </voice>
         </Measure>
       <Measure>
-        <eid>PXFAY38LkyG_V08dMDuERAD</eid>
+        <eid>+C_+C</eid>
         <voice>
           <StaffText>
-            <eid>xuZms3wcSxM_/c8RZ2mUHtG</eid>
+            <eid>/C_/C</eid>
             <text>Extreme:</text>
             </StaffText>
           <Rest>
-            <eid>K3V064tbo/P_K3V064tbo/P</eid>
+            <eid>AD_AD</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>UbXkIblXvmH_m1zgzBffl1P</eid>
+        <eid>BD_BD</eid>
         <LayoutBreak>
-          <eid>GdiUTtjDXnG_qqmw5ZEYHOB</eid>
+          <eid>CD_CD</eid>
           <subtype>line</subtype>
           </LayoutBreak>
         <voice>
           <StaffText>
-            <eid>7zr95z0hXwP_sYbbdwVs2ME</eid>
+            <eid>DD_DD</eid>
             <text>Tuplets:</text>
             </StaffText>
           <Tuplet>
-            <eid>L0j02cy+QQC_JxpUgfDGtvM</eid>
+            <eid>ED_ED</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -1058,30 +1057,30 @@
             <direction>up</direction>
             </Tuplet>
           <Chord>
-            <eid>ZTG+IPpnfX_FmZoq3FPXVF</eid>
+            <eid>FD_FD</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>o9cDXQwIyuH_ok7n4C0sVDO</eid>
+              <eid>GD_GD</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>L3V064tbo/P_L3V064tbo/P</eid>
+            <eid>HD_HD</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Chord>
-            <eid>iIBH9QB8lFM_yY9Sg/ACP3F</eid>
+            <eid>ID_ID</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>PqV0fC2/VvC_JCTBlj72Z5C</eid>
+              <eid>JD_JD</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <endTuplet/>
           <Tuplet>
-            <eid>KCaOlTvMnfP_J3zWC5R6S5N</eid>
+            <eid>KD_KD</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -1092,11 +1091,11 @@
             <direction>up</direction>
             </Tuplet>
           <Rest>
-            <eid>M3V064tbo/P_M3V064tbo/P</eid>
+            <eid>LD_LD</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Tuplet>
-            <eid>cR5e2hjytqB_34w6Y9Lt8JC</eid>
+            <eid>MD_MD</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>eighth</baseNote>
@@ -1107,11 +1106,11 @@
             <direction>up</direction>
             </Tuplet>
           <Rest>
-            <eid>N3V064tbo/P_N3V064tbo/P</eid>
+            <eid>ND_ND</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Tuplet>
-            <eid>EeWx5QVw3OM_pepqpNjRncH</eid>
+            <eid>OD_OD</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>16th</baseNote>
@@ -1122,52 +1121,52 @@
             <direction>up</direction>
             </Tuplet>
           <Beam>
-            <eid>O3V064tbo/P_O3V064tbo/P</eid>
+            <eid>PD_PD</eid>
             <l1>-16</l1>
             <l2>-16</l2>
             </Beam>
           <Chord>
-            <eid>4+8JcMs4eWE_s8EY9VBToVB</eid>
+            <eid>QD_QD</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>Wm2LBv9KNoI_jajoXIZMr8D</eid>
+              <eid>RD_RD</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>Rg1kzCE72aC_SNraz+LtLJM</eid>
+            <eid>SD_SD</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>ehCRozghpXO_GApV1GfG2/I</eid>
+              <eid>TD_TD</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>IsCU5jwyDuK_wV2SE0lruUJ</eid>
+            <eid>UD_UD</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>MxiU+JMV+1G_+ppGZQa48TB</eid>
+              <eid>VD_VD</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
             </Chord>
           <endTuplet/>
           <Rest>
-            <eid>P3V064tbo/P_P3V064tbo/P</eid>
+            <eid>WD_WD</eid>
             <durationType>eighth</durationType>
             </Rest>
           <endTuplet/>
           <Rest>
-            <eid>Q3V064tbo/P_Q3V064tbo/P</eid>
+            <eid>XD_XD</eid>
             <durationType>quarter</durationType>
             </Rest>
           <endTuplet/>
           </voice>
         <voice>
           <Tuplet>
-            <eid>CBqCCnoL6rB_Usr6GeI3NCF</eid>
+            <eid>YD_YD</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -1178,30 +1177,30 @@
             <direction>down</direction>
             </Tuplet>
           <Chord>
-            <eid>298XYCLZ11J_BUPY+8bKo4E</eid>
+            <eid>ZD_ZD</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>KlF4FalfjTJ_Fggeu8hvXzP</eid>
+              <eid>aD_aD</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>R3V064tbo/P_R3V064tbo/P</eid>
+            <eid>bD_bD</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Chord>
-            <eid>sp3YWCZt7DE_2Pbp5qIEqoJ</eid>
+            <eid>cD_cD</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>9CJeTkJcmK_JfMLzdxGU1I</eid>
+              <eid>dD_dD</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <endTuplet/>
           <Tuplet>
-            <eid>HokOJG9xYxF_OK1/QrLXDOG</eid>
+            <eid>eD_eD</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -1212,11 +1211,11 @@
             <direction>down</direction>
             </Tuplet>
           <Rest>
-            <eid>S3V064tbo/P_S3V064tbo/P</eid>
+            <eid>fD_fD</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Tuplet>
-            <eid>YnLq1jYRgtD_F6MJRSSEVFC</eid>
+            <eid>gD_gD</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>eighth</baseNote>
@@ -1227,11 +1226,11 @@
             <direction>down</direction>
             </Tuplet>
           <Rest>
-            <eid>T3V064tbo/P_T3V064tbo/P</eid>
+            <eid>hD_hD</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Tuplet>
-            <eid>uj0P3klHduE_RFD6Su1EqsM</eid>
+            <eid>iD_iD</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>16th</baseNote>
@@ -1242,290 +1241,290 @@
             <direction>down</direction>
             </Tuplet>
           <Beam>
-            <eid>U3V064tbo/P_U3V064tbo/P</eid>
+            <eid>jD_jD</eid>
             <l1>40</l1>
             <l2>40</l2>
             </Beam>
           <Chord>
-            <eid>QO5F3u1DhUK_2xCJeHXJAtG</eid>
+            <eid>kD_kD</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>KsuSVkFO7DO_30qjOWk9l2E</eid>
+              <eid>lD_lD</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>6Zis/Hxjq3O_JD3grPwujqJ</eid>
+            <eid>mD_mD</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>911GsM8SCaF_X7DXH2EbkTN</eid>
+              <eid>nD_nD</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>wZYcejxdQID_kXV82dHLA0B</eid>
+            <eid>oD_oD</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>zh3jqiWUmBL_0/szez8fxCH</eid>
+              <eid>pD_pD</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <endTuplet/>
           <Rest>
-            <eid>V3V064tbo/P_V3V064tbo/P</eid>
+            <eid>qD_qD</eid>
             <durationType>eighth</durationType>
             </Rest>
           <endTuplet/>
           <Rest>
-            <eid>W3V064tbo/P_W3V064tbo/P</eid>
+            <eid>rD_rD</eid>
             <durationType>quarter</durationType>
             </Rest>
           <endTuplet/>
           </voice>
         </Measure>
       <Measure>
-        <eid>hrr9BVVU7rJ_h4OuIxgzuXK</eid>
+        <eid>sD_sD</eid>
         <voice>
           <StaffText>
-            <eid>xRLuIUPDp0B_rh4L7Eyue2L</eid>
+            <eid>tD_tD</eid>
             <text>Chords:</text>
             </StaffText>
           <SystemText>
-            <eid>gKvSqeeKRuI_QW9LUaV4RVJ</eid>
+            <eid>uD_uD</eid>
             <text>Select seconds and sixths:</text>
             </SystemText>
           <Chord>
-            <eid>0GmB+NxfM9D_D0gLrktdjVM</eid>
+            <eid>vD_vD</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>5PNj5z1Z07L_WnTg4ZtRxIO</eid>
+              <eid>wD_wD</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             <Note>
-              <eid>vAVHpJn3v9K_DQg2DOAi5LE</eid>
+              <eid>xD_xD</eid>
               <pitch>83</pitch>
               <tpc>19</tpc>
               </Note>
             <Note>
-              <eid>VmcGPGOb0UD_PYgHbvYnO7L</eid>
+              <eid>yD_yD</eid>
               <pitch>86</pitch>
               <tpc>16</tpc>
               </Note>
             <Note>
-              <eid>xyXEu04iQO_yf/N7adeIYJ</eid>
+              <eid>zD_zD</eid>
               <pitch>89</pitch>
               <tpc>13</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>X3V064tbo/P_X3V064tbo/P</eid>
+            <eid>0D_0D</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>q7IBYLMl+EE_aOxvDGBymqL</eid>
+            <eid>1D_1D</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>XYAndPCqBGL_+Dr+vl8Jr9J</eid>
+              <eid>2D_2D</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>YoEySrC0CrN_98fTZF53PBG</eid>
+            <eid>3D_3D</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>Zbvx22HsCbM_H2LxUN2+HqE</eid>
+              <eid>4D_4D</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             <Note>
-              <eid>BCwKsAAqxYJ_Ex5CtWl49DH</eid>
+              <eid>5D_5D</eid>
               <pitch>83</pitch>
               <tpc>19</tpc>
               </Note>
             <Note>
-              <eid>+Z6t1fgCQlG_Dhkst08DS2O</eid>
+              <eid>6D_6D</eid>
               <pitch>86</pitch>
               <tpc>16</tpc>
               </Note>
             <Note>
-              <eid>l/FmmDNsBsD_v7pDQC1ZEQB</eid>
+              <eid>7D_7D</eid>
               <pitch>89</pitch>
               <tpc>13</tpc>
               </Note>
             <Note>
-              <eid>qCEOdVInEkK_Va1hXTzCUo</eid>
+              <eid>8D_8D</eid>
               <pitch>96</pitch>
               <tpc>14</tpc>
               </Note>
             <Note>
-              <eid>wV3IVEnMFgC_MQd444bdmrE</eid>
+              <eid>9D_9D</eid>
               <pitch>100</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>JuP1xIYugHG_1hRcNb3Qt5E</eid>
+            <eid>+D_+D</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>cs/4Udw/ElI_Y3i1mfqltjM</eid>
+              <eid>/D_/D</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             <Note>
-              <eid>LrV4ym+cUwF_XCSxMAdVIEG</eid>
+              <eid>AE_AE</eid>
               <pitch>83</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>Y3V064tbo/P_Y3V064tbo/P</eid>
+            <eid>BE_BE</eid>
             <durationType>eighth</durationType>
             </Rest>
           </voice>
         <voice>
           <Chord>
-            <eid>eV/l0q/H37H_pjDSFDPbb2C</eid>
+            <eid>CE_CE</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>mf14kOhSxVM_gZN1m/MXLLM</eid>
+              <eid>DE_DE</eid>
               <pitch>57</pitch>
               <tpc>17</tpc>
               </Note>
             <Note>
-              <eid>EjOcutDCKYN_qlDfFtImLOK</eid>
+              <eid>EE_EE</eid>
               <pitch>64</pitch>
               <tpc>18</tpc>
               </Note>
             <Note>
-              <eid>Fdli8odnORF_pLLYBNSrSZB</eid>
+              <eid>FE_FE</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             <Note>
-              <eid>uNvwi91JarD_8tUQiLvt2EC</eid>
+              <eid>GE_GE</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>Z3V064tbo/P_Z3V064tbo/P</eid>
+            <eid>HE_HE</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>9Psghzhh34M_r08KfLoQnZH</eid>
+            <eid>IE_IE</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>DveHr7ciBFN_s16BUw7GQyB</eid>
+              <eid>JE_JE</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>4QtnjSjdc7_fWZD74EYHuP</eid>
+            <eid>KE_KE</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>ymX+mvHUuTH_gu60bzeOdvG</eid>
+              <eid>LE_LE</eid>
               <pitch>47</pitch>
               <tpc>19</tpc>
               </Note>
             <Note>
-              <eid>a5muieMGMcD_OKnOkUSt1AE</eid>
+              <eid>ME_ME</eid>
               <pitch>53</pitch>
               <tpc>13</tpc>
               </Note>
             <Note>
-              <eid>BYnp7mwtomF_blGX6RAvuaG</eid>
+              <eid>NE_NE</eid>
               <pitch>57</pitch>
               <tpc>17</tpc>
               </Note>
             <Note>
-              <eid>TDNNyH4NB7O_OL+1zltLDWL</eid>
+              <eid>OE_OE</eid>
               <pitch>60</pitch>
               <tpc>14</tpc>
               </Note>
             <Note>
-              <eid>LRzU3LVJYvN_V68KmT+YIQG</eid>
+              <eid>PE_PE</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             <Note>
-              <eid>dKyul8ytnUD_UVgQfxtwuXE</eid>
+              <eid>QE_QE</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>wgtDPR/pvkJ_Aef84VAiOiB</eid>
+            <eid>RE_RE</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>yGa3UaDX3tD_HLqdYjL2uHH</eid>
+              <eid>SE_SE</eid>
               <pitch>64</pitch>
               <tpc>18</tpc>
               </Note>
             <Note>
-              <eid>JBhIBmgCx+P_Yiyhq6lsWNJ</eid>
+              <eid>TE_TE</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>a3V064tbo/P_a3V064tbo/P</eid>
+            <eid>UE_UE</eid>
             <durationType>eighth</durationType>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>MZjJC7BnFNG_+wmShXUhnSE</eid>
+        <eid>VE_VE</eid>
         <voice>
           <StaffText>
-            <eid>Qj+fdNAmHhO_3yoWQJFu6UM</eid>
+            <eid>WE_WE</eid>
             <text>Single notes:</text>
             </StaffText>
           <Chord>
-            <eid>wXsTatzM3AG_pG/6DN64d8I</eid>
+            <eid>XE_XE</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>AyJEg4LRogI_k1YC2I9Wu9D</eid>
+              <eid>YE_YE</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>QCi8pBLGs6B_pqzvpX3N8ZE</eid>
+            <eid>ZE_ZE</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>wtK8WjLoSpL_w8zaA/6NfvH</eid>
+              <eid>aE_aE</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>b3V064tbo/P_b3V064tbo/P</eid>
+            <eid>bE_bE</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>9R6w40EnvRD_pvz0iOSu7WH</eid>
+            <eid>cE_cE</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>EqcchNs2gNN_F1ljseDJrwL</eid>
+              <eid>dE_dE</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>c3V064tbo/P_c3V064tbo/P</eid>
+            <eid>eE_eE</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>2rXSKdFbwpO_2vodsKZaKC</eid>
+            <eid>fE_fE</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>BAkfmWTLVRN_6w4bLDGj1zI</eid>
+              <eid>gE_gE</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
@@ -1533,45 +1532,45 @@
           </voice>
         <voice>
           <Chord>
-            <eid>3jiE8gG+bqE_KMcIO27/InH</eid>
+            <eid>hE_hE</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>J0ejVASvkFE_bV6gsaLdRmI</eid>
+              <eid>iE_iE</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>RnB00tm3ZrJ_Eme8w6aylJH</eid>
+            <eid>jE_jE</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>HcMv6QW49/B_mhUzowJbbWP</eid>
+              <eid>kE_kE</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>d3V064tbo/P_d3V064tbo/P</eid>
+            <eid>lE_lE</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>CXIep+kN/7D_d2ktUHqyuCL</eid>
+            <eid>mE_mE</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>v2QMSoauCMN_TwmvElXo1FG</eid>
+              <eid>nE_nE</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>e3V064tbo/P_e3V064tbo/P</eid>
+            <eid>oE_oE</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>CZQLFQ++hHB_dSww3z+tEqE</eid>
+            <eid>pE_pE</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>rBykGAGs3uH_a6lwn+d2AhK</eid>
+              <eid>qE_qE</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
@@ -1579,76 +1578,76 @@
           </voice>
         </Measure>
       <Measure>
-        <eid>pOBrrB8aIsL_tMBI+5CHCRB</eid>
+        <eid>rE_rE</eid>
         <voice>
           <StaffText>
-            <eid>Q9Mmt9iPSbL_lYnJpKVoYEJ</eid>
+            <eid>sE_sE</eid>
             <text>Mixture:</text>
             </StaffText>
           <Rest>
-            <eid>f3V064tbo/P_f3V064tbo/P</eid>
+            <eid>tE_tE</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Beam>
-            <eid>g3V064tbo/P_g3V064tbo/P</eid>
+            <eid>uE_uE</eid>
             <l1>-32</l1>
             <l2>-26</l2>
             </Beam>
           <Chord>
-            <eid>I7UdZtCxViJ_BdodfzLIu5</eid>
+            <eid>vE_vE</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>1VtnPzSSfW_AezPcVPjqrM</eid>
+              <eid>wE_wE</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             <Note>
-              <eid>kTvJuS2M5SL_4qCmQ/2U7mD</eid>
+              <eid>xE_xE</eid>
               <pitch>83</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>387sGxYoTZP_uTayaX/QQvL</eid>
+            <eid>yE_yE</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>j9AVbwdJZzC_OY9bVdPZoDP</eid>
+              <eid>zE_zE</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>aDjiQJfGaFD_I0jmkjdBkpH</eid>
+            <eid>0E_0E</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>bVj4/c6EU0N_Wle9pxsU1iE</eid>
+              <eid>1E_1E</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>h3V064tbo/P_h3V064tbo/P</eid>
+            <eid>2E_2E</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Beam>
-            <eid>i3V064tbo/P_i3V064tbo/P</eid>
+            <eid>3E_3E</eid>
             <l1>-16</l1>
             <l2>-16</l2>
             </Beam>
           <Chord>
-            <eid>Dx92ilHJtAK_oh4Ydu9JDtC</eid>
+            <eid>4E_4E</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>fN8wVhChh4H_pPJFXMb3Q3L</eid>
+              <eid>5E_5E</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>i0vVwG7hEQG_TZsLziBN2DI</eid>
+            <eid>6E_6E</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>auz2l602SjM_fjBRE6afkLF</eid>
+              <eid>7E_7E</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
@@ -1656,69 +1655,69 @@
           </voice>
         <voice>
           <Rest>
-            <eid>j3V064tbo/P_j3V064tbo/P</eid>
+            <eid>8E_8E</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Beam>
-            <eid>k3V064tbo/P_k3V064tbo/P</eid>
+            <eid>9E_9E</eid>
             <l1>52</l1>
             <l2>46</l2>
             </Beam>
           <Chord>
-            <eid>dIDntKHlos_ZyLPU0BYqBK</eid>
+            <eid>+E_+E</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>ksJza8x6X7D_nnuz2sEkwcJ</eid>
+              <eid>/E_/E</eid>
               <pitch>64</pitch>
               <tpc>18</tpc>
               </Note>
             <Note>
-              <eid>zedNIu0uJNL_gACAmGUyQrD</eid>
+              <eid>AF_AF</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>AdZYzxaW9+C_4Ou5BIXe3CH</eid>
+            <eid>BF_BF</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>AOALMmevPHG_fgDixyjYIvF</eid>
+              <eid>CF_CF</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>rfUl7w42NcM_K8+5He6dnfC</eid>
+            <eid>DF_DF</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>OGVrjEYs4iH_gYk+CQdREBK</eid>
+              <eid>EF_EF</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>l3V064tbo/P_l3V064tbo/P</eid>
+            <eid>FF_FF</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Beam>
-            <eid>m3V064tbo/P_m3V064tbo/P</eid>
+            <eid>GF_GF</eid>
             <l1>44</l1>
             <l2>42</l2>
             </Beam>
           <Chord>
-            <eid>KpzzeKv8YeH_sAIp4Ci1aME</eid>
+            <eid>HF_HF</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>0yIFPdU83nF_hV56SQGDeHK</eid>
+              <eid>IF_IF</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>4VALSCPrYhM_qbOk5a43QmN</eid>
+            <eid>JF_JF</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>KAaeCn3ed7L_dAAodnYnbBB</eid>
+              <eid>KF_KF</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
@@ -1726,56 +1725,56 @@
           </voice>
         </Measure>
       <Measure>
-        <eid>1bfJAfNGycD_yMGjXtPzaQ</eid>
+        <eid>LF_LF</eid>
         <voice>
           <StaffText>
-            <eid>0tLr9PN7XYJ_WJlveIBbMVB</eid>
+            <eid>MF_MF</eid>
             <text>Extreme:</text>
             </StaffText>
           <Rest>
-            <eid>n3V064tbo/P_n3V064tbo/P</eid>
+            <eid>NF_NF</eid>
             <durationType>half</durationType>
             </Rest>
           <Chord>
-            <eid>QE36KhajcMJ_V2V064tbo/P</eid>
+            <eid>OF_OF</eid>
             <durationType>half</durationType>
             <Note>
-              <eid>G6EgsU5ndAN_kz2aiNdwcSK</eid>
+              <eid>PF_PF</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             <Note>
-              <eid>H3cILsg/14O_EakbUutRoeE</eid>
+              <eid>QF_QF</eid>
               <pitch>83</pitch>
               <tpc>19</tpc>
               </Note>
             <Note>
-              <eid>MWcYQERK1cM_ovhS1oM0r4D</eid>
+              <eid>RF_RF</eid>
               <pitch>86</pitch>
               <tpc>16</tpc>
               </Note>
             <Note>
-              <eid>FXwbYUDGdzI_Alu8t/ToPME</eid>
+              <eid>SF_SF</eid>
               <pitch>89</pitch>
               <tpc>13</tpc>
               </Note>
             <Note>
-              <eid>I60lcm7fdLK_cv6zkKXj5mH</eid>
+              <eid>TF_TF</eid>
               <pitch>96</pitch>
               <tpc>14</tpc>
               </Note>
             <Note>
-              <eid>roEHqqei2GF_tEvlR/DaTzN</eid>
+              <eid>UF_UF</eid>
               <pitch>100</pitch>
               <tpc>18</tpc>
               </Note>
             <Note>
-              <eid>WmmBQwB3pJB_eQk3QMaSO3G</eid>
+              <eid>VF_VF</eid>
               <pitch>103</pitch>
               <tpc>15</tpc>
               </Note>
             <Note>
-              <eid>bmNOGgxLLDJ_8GjXke/Aw1F</eid>
+              <eid>WF_WF</eid>
               <pitch>107</pitch>
               <tpc>19</tpc>
               </Note>
@@ -1783,49 +1782,49 @@
           </voice>
         <voice>
           <Rest>
-            <eid>o3V064tbo/P_o3V064tbo/P</eid>
+            <eid>XF_XF</eid>
             <durationType>half</durationType>
             </Rest>
           <Chord>
-            <eid>lqgX2XL2saH_jS/iSK3nSLL</eid>
+            <eid>YF_YF</eid>
             <durationType>half</durationType>
             <Note>
-              <eid>aqSkSMhTJYL_GGW11bndcWI</eid>
+              <eid>ZF_ZF</eid>
               <pitch>40</pitch>
               <tpc>18</tpc>
               </Note>
             <Note>
-              <eid>RBRbgpKe0EB_MoTdgKkCGYK</eid>
+              <eid>aF_aF</eid>
               <pitch>47</pitch>
               <tpc>19</tpc>
               </Note>
             <Note>
-              <eid>T6NTeAd2yLB_172CNSgcY9D</eid>
+              <eid>bF_bF</eid>
               <pitch>50</pitch>
               <tpc>16</tpc>
               </Note>
             <Note>
-              <eid>0BbHZoobYLM_qHBR814dE+O</eid>
+              <eid>cF_cF</eid>
               <pitch>53</pitch>
               <tpc>13</tpc>
               </Note>
             <Note>
-              <eid>+x1zHTsWn/N_mBUvpcRP4rL</eid>
+              <eid>dF_dF</eid>
               <pitch>60</pitch>
               <tpc>14</tpc>
               </Note>
             <Note>
-              <eid>S5JDlz7D5IG_lUeOgju4KZG</eid>
+              <eid>eF_eF</eid>
               <pitch>64</pitch>
               <tpc>18</tpc>
               </Note>
             <Note>
-              <eid>TKmN0NeApCK_jqcm4kNmH2P</eid>
+              <eid>fF_fF</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             <Note>
-              <eid>tTGUgc8IS/H_PNYyhAh/XIB</eid>
+              <eid>gF_gF</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
@@ -1833,18 +1832,18 @@
           </voice>
         </Measure>
       <Measure>
-        <eid>A+aHdlhCKBO_dGvatju15sD</eid>
+        <eid>hF_hF</eid>
         <LayoutBreak>
-          <eid>RFekbS7BFnN_xYNAo0kK+8L</eid>
+          <eid>iF_iF</eid>
           <subtype>line</subtype>
           </LayoutBreak>
         <voice>
           <StaffText>
-            <eid>UjiodDz89YD_1KPN0R+TNlG</eid>
+            <eid>jF_jF</eid>
             <text>Tuplets:</text>
             </StaffText>
           <Tuplet>
-            <eid>wMpoPG3evWB_2APHPc+bYcM</eid>
+            <eid>kF_kF</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -1855,35 +1854,35 @@
             <direction>up</direction>
             </Tuplet>
           <Chord>
-            <eid>bM0Yop3wSQI_m0S45jpWfmF</eid>
+            <eid>lF_lF</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>4IdSKFnkiRG_4wsI95M/YsD</eid>
+              <eid>mF_mF</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>zOqfN6Xet0P_HIiKbL7sLmG</eid>
+            <eid>nF_nF</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>mQ9YUlTuQIC_eVQqzHLgvwE</eid>
+              <eid>oF_oF</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>17L8ziokDa_KO6rLyA7RL</eid>
+            <eid>pF_pF</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>Tk/x8wAWWOD_WzFwLkOysr</eid>
+              <eid>qF_qF</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <endTuplet/>
           <Tuplet>
-            <eid>+Pb8UIVSQ3P_m54dMkSH8RB</eid>
+            <eid>rF_rF</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -1894,11 +1893,11 @@
             <direction>up</direction>
             </Tuplet>
           <Rest>
-            <eid>p3V064tbo/P_p3V064tbo/P</eid>
+            <eid>sF_sF</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Tuplet>
-            <eid>/g2MXpxSiOL_jbtIykEVfzF</eid>
+            <eid>tF_tF</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>eighth</baseNote>
@@ -1909,21 +1908,21 @@
             <direction>up</direction>
             </Tuplet>
           <Beam>
-            <eid>q3V064tbo/P_q3V064tbo/P</eid>
+            <eid>uF_uF</eid>
             <l1>-16</l1>
             <l2>-16</l2>
             </Beam>
           <Chord>
-            <eid>ymEaTX7pF5D_kcBErUoWh7</eid>
+            <eid>vF_vF</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>uwisby3ac5B_S8J2IttzIbD</eid>
+              <eid>wF_wF</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
             </Chord>
           <Tuplet>
-            <eid>YX7mi1kbFtP_gZ7A9JyLF0E</eid>
+            <eid>xF_xF</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>16th</baseNote>
@@ -1934,43 +1933,43 @@
             <direction>up</direction>
             </Tuplet>
           <Chord>
-            <eid>qGd3mEclbLF_09+oJgLpBJH</eid>
+            <eid>yF_yF</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>063vo6vANRP_6+5DixZii7D</eid>
+              <eid>zF_zF</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>mbzxEc++4C_o9Vjwe+q0jD</eid>
+            <eid>0F_0F</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>WwGr1j2icWM_aEalLZ11nFH</eid>
+              <eid>1F_1F</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>yV2E/rG8O0D_YUc03tEuZ6B</eid>
+            <eid>2F_2F</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>xclWTJIGE3K_wJqFWa1tqKD</eid>
+              <eid>3F_3F</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
             </Chord>
           <endTuplet/>
           <Rest>
-            <eid>r3V064tbo/P_r3V064tbo/P</eid>
+            <eid>4F_4F</eid>
             <durationType>eighth</durationType>
             </Rest>
           <endTuplet/>
           <Chord>
-            <eid>GsEkPODGhmM_l4QUp4xrI3C</eid>
+            <eid>5F_5F</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>F+L4mGCvbFL_m8gnbucc18B</eid>
+              <eid>6F_6F</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
@@ -1979,7 +1978,7 @@
           </voice>
         <voice>
           <Tuplet>
-            <eid>2EGTTyfvrD_8BD9ADMN6YD</eid>
+            <eid>7F_7F</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -1990,35 +1989,35 @@
             <direction>down</direction>
             </Tuplet>
           <Chord>
-            <eid>rD9N48+CMTK_m4o5L+ReQhD</eid>
+            <eid>8F_8F</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>nNZzPFiIuiJ_x44Q6Gp4tlD</eid>
+              <eid>9F_9F</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>ezhoq2FUfAB_tpskrNgl5LN</eid>
+            <eid>+F_+F</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>qTwAdXDaNaM_aTq42+t3tiB</eid>
+              <eid>/F_/F</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>jvaWcOS18DM_743S8w0CNCC</eid>
+            <eid>AG_AG</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>21yY6obF4ZH_hmjRZn1VugP</eid>
+              <eid>BG_BG</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <endTuplet/>
           <Tuplet>
-            <eid>i7Xh8q9iYZL_ZJjrY5s9QRF</eid>
+            <eid>CG_CG</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -2029,11 +2028,11 @@
             <direction>down</direction>
             </Tuplet>
           <Rest>
-            <eid>s3V064tbo/P_s3V064tbo/P</eid>
+            <eid>DG_DG</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Tuplet>
-            <eid>B16UX84t0l_HAa1loDMJxC</eid>
+            <eid>EG_EG</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>eighth</baseNote>
@@ -2044,21 +2043,21 @@
             <direction>down</direction>
             </Tuplet>
           <Beam>
-            <eid>t3V064tbo/P_t3V064tbo/P</eid>
+            <eid>FG_FG</eid>
             <l1>46</l1>
             <l2>44</l2>
             </Beam>
           <Chord>
-            <eid>OKUPKUiwGBF_1LaAbMOuq9N</eid>
+            <eid>GG_GG</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>erFnJYW/gaE_rpEpDlsRDtL</eid>
+              <eid>HG_HG</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Tuplet>
-            <eid>/KppKZE8RxC_ip/phhbby+K</eid>
+            <eid>IG_IG</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>16th</baseNote>
@@ -2069,43 +2068,43 @@
             <direction>down</direction>
             </Tuplet>
           <Chord>
-            <eid>mPmQvDkSh7N_9WAz2nql/1B</eid>
+            <eid>JG_JG</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>tpd1bm0HnEM_5pN96kRgRYI</eid>
+              <eid>KG_KG</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>tSyCBi1FI3H_vwAC4sehC+L</eid>
+            <eid>LG_LG</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>+G0NQmAOfY_3kg8EMQrDeN</eid>
+              <eid>MG_MG</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>mCTDlDAzEDD_ecX8GmpBPYI</eid>
+            <eid>NG_NG</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>Tn+8X+ZYP3M_0bOoZuLRzFI</eid>
+              <eid>OG_OG</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <endTuplet/>
           <Rest>
-            <eid>u3V064tbo/P_u3V064tbo/P</eid>
+            <eid>PG_PG</eid>
             <durationType>eighth</durationType>
             </Rest>
           <endTuplet/>
           <Chord>
-            <eid>SbPg1xAs2+P_HZKmIpOot8J</eid>
+            <eid>QG_QG</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>432YklmG1fN_j59tyJ6fg4G</eid>
+              <eid>RG_RG</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
@@ -2114,175 +2113,175 @@
           </voice>
         </Measure>
       <Measure>
-        <eid>wv/KkgmNrdC_Wx0wX3WHhVB</eid>
+        <eid>SG_SG</eid>
         <voice>
           <SystemText>
-            <eid>/yz7hIaFvEN_I4VoONXOWc</eid>
+            <eid>TG_TG</eid>
             <text>Select bottom notes, thirds, fourths, and top notes: </text>
             </SystemText>
           <StaffText>
-            <eid>wdLJCvN9NvI_M+j0OH042zN</eid>
+            <eid>UG_UG</eid>
             <text>Chords:</text>
             </StaffText>
           <Chord>
-            <eid>feKUHfvKAUL_CmKy4bZsKVC</eid>
+            <eid>VG_VG</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>ul2qAgmi/7B_XLv9OxN3FPO</eid>
+              <eid>WG_WG</eid>
               <pitch>79</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>v3V064tbo/P_v3V064tbo/P</eid>
+            <eid>XG_XG</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Rest>
-            <eid>w3V064tbo/P_w3V064tbo/P</eid>
+            <eid>YG_YG</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Chord>
-            <eid>2HaAsQreYkG_bM68S8IsMNF</eid>
+            <eid>ZG_ZG</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>MCUrdnjJBSP_gnRS+qX+ojD</eid>
+              <eid>aG_aG</eid>
               <pitch>79</pitch>
               <tpc>15</tpc>
               </Note>
             <Note>
-              <eid>pU72IV4Lp2N_Jx9Ldv7+xaH</eid>
+              <eid>bG_bG</eid>
               <pitch>89</pitch>
               <tpc>13</tpc>
               </Note>
             <Note>
-              <eid>c0Qp8WwpvsE_VURVVJGXB5P</eid>
+              <eid>cG_cG</eid>
               <pitch>93</pitch>
               <tpc>17</tpc>
               </Note>
             <Note>
-              <eid>H2lj8gzKzTD_4Pthn1kDChE</eid>
+              <eid>dG_dG</eid>
               <pitch>96</pitch>
               <tpc>14</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>zsHjAs7theB_k3HYnqdK6GE</eid>
+            <eid>eG_eG</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>fz77hLFVnJH_lZE32xUNy0D</eid>
+              <eid>fG_fG</eid>
               <pitch>79</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>x3V064tbo/P_x3V064tbo/P</eid>
+            <eid>gG_gG</eid>
             <durationType>eighth</durationType>
             </Rest>
           </voice>
         <voice>
           <Chord>
-            <eid>42D91RYqdLB_zvqSxH7XwqI</eid>
+            <eid>hG_hG</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>EGtu69NktdJ_rTs1WQdBv/L</eid>
+              <eid>iG_iG</eid>
               <pitch>60</pitch>
               <tpc>14</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>y3V064tbo/P_y3V064tbo/P</eid>
+            <eid>jG_jG</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Rest>
-            <eid>z3V064tbo/P_z3V064tbo/P</eid>
+            <eid>kG_kG</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Chord>
-            <eid>yxwfmpTnWwL_sHtwoiuZjPJ</eid>
+            <eid>lG_lG</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>hCTXvHaSdoO_yWtEm+GnPQN</eid>
+              <eid>mG_mG</eid>
               <pitch>50</pitch>
               <tpc>16</tpc>
               </Note>
             <Note>
-              <eid>5Esv/pwHgL_3S4hTvCMN9L</eid>
+              <eid>nG_nG</eid>
               <pitch>60</pitch>
               <tpc>14</tpc>
               </Note>
             <Note>
-              <eid>2Ek34M3PY1M_bmuNYkvWJlP</eid>
+              <eid>oG_oG</eid>
               <pitch>64</pitch>
               <tpc>18</tpc>
               </Note>
             <Note>
-              <eid>H6P8sGCq8aL_kz+2QOwFUXG</eid>
+              <eid>pG_pG</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>0zfi2Eu31YJ_HiB4+9vnxtL</eid>
+            <eid>qG_qG</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>AMziJ7SvQbN_j5NoE15o+IK</eid>
+              <eid>rG_rG</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>03V064tbo/P_03V064tbo/P</eid>
+            <eid>sG_sG</eid>
             <durationType>eighth</durationType>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>pEJZ6KiPWBO_hKdQuivgfsG</eid>
+        <eid>tG_tG</eid>
         <voice>
           <StaffText>
-            <eid>GQPlriYD4PD_0aDK2kj0mRB</eid>
+            <eid>uG_uG</eid>
             <text>Single notes:</text>
             </StaffText>
           <Chord>
-            <eid>Ser7nRxJoEE_nU9V5MI4acI</eid>
+            <eid>vG_vG</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>Qj4ZyWQqyeJ_+mZ9VM5xBHO</eid>
+              <eid>wG_wG</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>vz4rLY66PQC_xuE2OMdvhzK</eid>
+            <eid>xG_xG</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>GOYeuTpjFjF_M5QW1MwUI8D</eid>
+              <eid>yG_yG</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>13V064tbo/P_13V064tbo/P</eid>
+            <eid>zG_zG</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>1/YB8hswOfF_lAuMlriu8UO</eid>
+            <eid>0G_0G</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>Vljt2uuMcpP_46XVvtGkqeG</eid>
+              <eid>1G_1G</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>23V064tbo/P_23V064tbo/P</eid>
+            <eid>2G_2G</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>UptlUUrECQJ_nmqW13ptvvF</eid>
+            <eid>3G_3G</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>SEbKNm1WM3K_A82UfgBWnRI</eid>
+              <eid>4G_4G</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
@@ -2290,45 +2289,45 @@
           </voice>
         <voice>
           <Chord>
-            <eid>Ndo5fp6E5EL_t76xoPCQnUG</eid>
+            <eid>5G_5G</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>RJAON62/FpK_qKQCkNebUWK</eid>
+              <eid>6G_6G</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>PJzzNq59x/M_0uwixXMl+QK</eid>
+            <eid>7G_7G</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>dVGev3nRrxN_IoUWjR+tLzI</eid>
+              <eid>8G_8G</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>33V064tbo/P_33V064tbo/P</eid>
+            <eid>9G_9G</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>LcBtYWlOY2N_51USQwjJeoE</eid>
+            <eid>+G_+G</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>ji5RQRuqTbK_ZylvrErK//J</eid>
+              <eid>/G_/G</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>43V064tbo/P_43V064tbo/P</eid>
+            <eid>AH_AH</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>wFQJQOda/4L_ot6qhNR1NAE</eid>
+            <eid>BH_BH</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>nwnNLwTCVDG_zZKqCRc7ThP</eid>
+              <eid>CH_CH</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
@@ -2336,61 +2335,61 @@
           </voice>
         </Measure>
       <Measure>
-        <eid>VDYp9/qqk/O_Au3ifpTi6SJ</eid>
+        <eid>DH_DH</eid>
         <voice>
           <StaffText>
-            <eid>XBIO24667kL_3CZO6bZJv/N</eid>
+            <eid>EH_EH</eid>
             <text>Mixture:</text>
             </StaffText>
           <Rest>
-            <eid>53V064tbo/P_53V064tbo/P</eid>
+            <eid>FH_FH</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Beam>
-            <eid>63V064tbo/P_63V064tbo/P</eid>
+            <eid>GH_GH</eid>
             <l1>-24</l1>
             <l2>-20</l2>
             </Beam>
           <Chord>
-            <eid>oKhDMCK9oQO_XqP9yJUUMbM</eid>
+            <eid>HH_HH</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>xLBhqMO0EoF_QasIN9x0WyG</eid>
+              <eid>IH_IH</eid>
               <pitch>79</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>/YOIqJURCn_MkJB3e4MtJ</eid>
+            <eid>JH_JH</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>mNsBNdkPItJ_h5V9jTOYCQJ</eid>
+              <eid>KH_KH</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>5imy7Uttb6F_6PSfwel5R/D</eid>
+            <eid>LH_LH</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>U9DouS5dLOL_TM4Epz4vEuO</eid>
+              <eid>MH_MH</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>73V064tbo/P_73V064tbo/P</eid>
+            <eid>NH_NH</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Rest>
-            <eid>83V064tbo/P_83V064tbo/P</eid>
+            <eid>OH_OH</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>eB3pQhLBUnF_glqSF2/C+6C</eid>
+            <eid>PH_PH</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>otgj3bUdRnH_OXUcnCqmZGO</eid>
+              <eid>QH_QH</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
@@ -2398,54 +2397,54 @@
           </voice>
         <voice>
           <Rest>
-            <eid>93V064tbo/P_93V064tbo/P</eid>
+            <eid>RH_RH</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Beam>
-            <eid>+3V064tbo/P_+3V064tbo/P</eid>
+            <eid>SH_SH</eid>
             <l1>44</l1>
             <l2>40</l2>
             </Beam>
           <Chord>
-            <eid>NaoUUxCe0AD_0Fr4lP9bXTO</eid>
+            <eid>TH_TH</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>XzJJOfiUFON_lYEidVbwteM</eid>
+              <eid>UH_UH</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>uLKoHs3dyRP_59sFgis2voM</eid>
+            <eid>VH_VH</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>G8t81koOtxL_AwO/CY9ISL</eid>
+              <eid>WH_WH</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>gmfNhkPXi6C_dVgwAm6EAJN</eid>
+            <eid>XH_XH</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>0Ib4f0jPp5G_mNS0RcwNPRD</eid>
+              <eid>YH_YH</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>/3V064tbo/P_/3V064tbo/P</eid>
+            <eid>ZH_ZH</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Rest>
-            <eid>A4V064tbo/P_A4V064tbo/P</eid>
+            <eid>aH_aH</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Chord>
-            <eid>oVdF5QuIq0E_HevNy3Q87F</eid>
+            <eid>bH_bH</eid>
             <durationType>eighth</durationType>
             <Note>
-              <eid>yGCCbaAhvHL_1aEjIY/sqVH</eid>
+              <eid>cH_cH</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
@@ -2453,36 +2452,36 @@
           </voice>
         </Measure>
       <Measure>
-        <eid>2WzkaCA3VtB_sm05YW/AZ8B</eid>
+        <eid>dH_dH</eid>
         <voice>
           <StaffText>
-            <eid>xyBuAJL/0rP_k6nYASNT6RI</eid>
+            <eid>eH_eH</eid>
             <text>Extreme:</text>
             </StaffText>
           <Rest>
-            <eid>B4V064tbo/P_B4V064tbo/P</eid>
+            <eid>fH_fH</eid>
             <durationType>half</durationType>
             </Rest>
           <Chord>
-            <eid>BN/uqgTEzqK_PFoDAIR/RrH</eid>
+            <eid>gH_gH</eid>
             <durationType>half</durationType>
             <Note>
-              <eid>WZ3tY05od6J_kRaeE4Q/GKH</eid>
+              <eid>hH_hH</eid>
               <pitch>79</pitch>
               <tpc>15</tpc>
               </Note>
             <Note>
-              <eid>R9y3fwBpWdM_NZwc6eqzizE</eid>
+              <eid>iH_iH</eid>
               <pitch>89</pitch>
               <tpc>13</tpc>
               </Note>
             <Note>
-              <eid>TTL/bIUtHAP_mVqE+otagIP</eid>
+              <eid>jH_jH</eid>
               <pitch>93</pitch>
               <tpc>17</tpc>
               </Note>
             <Note>
-              <eid>JoZNrxQuljE_f3+MQ3MorGF</eid>
+              <eid>kH_kH</eid>
               <pitch>96</pitch>
               <tpc>14</tpc>
               </Note>
@@ -2490,29 +2489,29 @@
           </voice>
         <voice>
           <Rest>
-            <eid>C4V064tbo/P_C4V064tbo/P</eid>
+            <eid>lH_lH</eid>
             <durationType>half</durationType>
             </Rest>
           <Chord>
-            <eid>fBzxT+OuYEC_AVy7mwGOlrD</eid>
+            <eid>mH_mH</eid>
             <durationType>half</durationType>
             <Note>
-              <eid>4kuGc60wuaJ_PWqmL5EBZkJ</eid>
+              <eid>nH_nH</eid>
               <pitch>43</pitch>
               <tpc>15</tpc>
               </Note>
             <Note>
-              <eid>I1VAsxz5ktF_LIat1HXBCpB</eid>
+              <eid>oH_oH</eid>
               <pitch>53</pitch>
               <tpc>13</tpc>
               </Note>
             <Note>
-              <eid>B9FPg6rzPpP_6RVHa7LvOcD</eid>
+              <eid>pH_pH</eid>
               <pitch>57</pitch>
               <tpc>17</tpc>
               </Note>
             <Note>
-              <eid>jhe/hxi2gLE_L6Bml/43CT</eid>
+              <eid>qH_qH</eid>
               <pitch>60</pitch>
               <tpc>14</tpc>
               </Note>
@@ -2520,18 +2519,18 @@
           </voice>
         </Measure>
       <Measure>
-        <eid>zHvabBT6/Q_t4ctItiWe/D</eid>
+        <eid>rH_rH</eid>
         <LayoutBreak>
-          <eid>UFLldjJ0w4B_uOgJmDrj+2D</eid>
+          <eid>sH_sH</eid>
           <subtype>line</subtype>
           </LayoutBreak>
         <voice>
           <StaffText>
-            <eid>Viy54Sy6K1K_HeBYfzH0JWE</eid>
+            <eid>tH_tH</eid>
             <text>Tuplets:</text>
             </StaffText>
           <Tuplet>
-            <eid>jxi5jCNxb+G_q+NO9+HNIE</eid>
+            <eid>uH_uH</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -2542,30 +2541,30 @@
             <direction>up</direction>
             </Tuplet>
           <Chord>
-            <eid>DpidjP2guVM_2nFjOliGVwD</eid>
+            <eid>vH_vH</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>I8bjjP/72UJ_3wyaoF4ixFM</eid>
+              <eid>wH_wH</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>D4V064tbo/P_D4V064tbo/P</eid>
+            <eid>xH_xH</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Chord>
-            <eid>tLCXtEbDX0_HML0Ntq6KgI</eid>
+            <eid>yH_yH</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>tfHbpvKoO9M_OcJ4VcRcljG</eid>
+              <eid>zH_zH</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <endTuplet/>
           <Tuplet>
-            <eid>eRMKndW+//E_5Gn+cMaGM3</eid>
+            <eid>0H_0H</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -2576,11 +2575,11 @@
             <direction>up</direction>
             </Tuplet>
           <Rest>
-            <eid>E4V064tbo/P_E4V064tbo/P</eid>
+            <eid>1H_1H</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Tuplet>
-            <eid>rCIzTXU6rDL_HsniOpn49V</eid>
+            <eid>2H_2H</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>eighth</baseNote>
@@ -2591,11 +2590,11 @@
             <direction>up</direction>
             </Tuplet>
           <Rest>
-            <eid>F4V064tbo/P_F4V064tbo/P</eid>
+            <eid>3H_3H</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Tuplet>
-            <eid>dHoj5xYi+iD_jhdTcw4wD/G</eid>
+            <eid>4H_4H</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>16th</baseNote>
@@ -2606,52 +2605,52 @@
             <direction>up</direction>
             </Tuplet>
           <Beam>
-            <eid>G4V064tbo/P_G4V064tbo/P</eid>
+            <eid>5H_5H</eid>
             <l1>-16</l1>
             <l2>-16</l2>
             </Beam>
           <Chord>
-            <eid>PuX6w8ek0BD_gX/5I2WHRkJ</eid>
+            <eid>6H_6H</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>/qwpMz8HIgI_VAErTAlwulF</eid>
+              <eid>7H_7H</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>eA79dWcySq_uD9aL5tkasM</eid>
+            <eid>8H_8H</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>Bm2GzfsJLXF_m602V3wx2kE</eid>
+              <eid>9H_9H</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>JQKiYFOSOBL_8GD+oG0TncO</eid>
+            <eid>+H_+H</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>2Gr9LC+zDOM_EYr4Tt39ZRL</eid>
+              <eid>/H_/H</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
             </Chord>
           <endTuplet/>
           <Rest>
-            <eid>H4V064tbo/P_H4V064tbo/P</eid>
+            <eid>AI_AI</eid>
             <durationType>eighth</durationType>
             </Rest>
           <endTuplet/>
           <Rest>
-            <eid>I4V064tbo/P_I4V064tbo/P</eid>
+            <eid>BI_BI</eid>
             <durationType>quarter</durationType>
             </Rest>
           <endTuplet/>
           </voice>
         <voice>
           <Tuplet>
-            <eid>x8hKb9BhPZJ_AqbNjL9xFhE</eid>
+            <eid>CI_CI</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -2662,30 +2661,30 @@
             <direction>down</direction>
             </Tuplet>
           <Chord>
-            <eid>K9r4DKo2cnE_gyXEyG4FuKK</eid>
+            <eid>DI_DI</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>k0XLnlvyRYM_hUFtzt03bXG</eid>
+              <eid>EI_EI</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>J4V064tbo/P_J4V064tbo/P</eid>
+            <eid>FI_FI</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Chord>
-            <eid>jY/m8i4qt6O_5a2vHgw8QBC</eid>
+            <eid>GI_GI</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>BP3sBkLCfjD_ozmXC1YiLa</eid>
+              <eid>HI_HI</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <endTuplet/>
           <Tuplet>
-            <eid>rdgw9LiDiwD_r0baa8hH/0L</eid>
+            <eid>II_II</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>quarter</baseNote>
@@ -2696,11 +2695,11 @@
             <direction>down</direction>
             </Tuplet>
           <Rest>
-            <eid>K4V064tbo/P_K4V064tbo/P</eid>
+            <eid>JI_JI</eid>
             <durationType>quarter</durationType>
             </Rest>
           <Tuplet>
-            <eid>STJZJVy98rD_MM+C4y/H+sB</eid>
+            <eid>KI_KI</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>eighth</baseNote>
@@ -2711,11 +2710,11 @@
             <direction>down</direction>
             </Tuplet>
           <Rest>
-            <eid>L4V064tbo/P_L4V064tbo/P</eid>
+            <eid>LI_LI</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Tuplet>
-            <eid>ToVCfOY4lGL_EmtLun4XBiL</eid>
+            <eid>MI_MI</eid>
             <normalNotes>2</normalNotes>
             <actualNotes>3</actualNotes>
             <baseNote>16th</baseNote>
@@ -2726,311 +2725,311 @@
             <direction>down</direction>
             </Tuplet>
           <Beam>
-            <eid>M4V064tbo/P_M4V064tbo/P</eid>
+            <eid>NI_NI</eid>
             <l1>40</l1>
             <l2>40</l2>
             </Beam>
           <Chord>
-            <eid>5rr0v1mbq4D_5m9FBsdHK4P</eid>
+            <eid>OI_OI</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>H0XIHAm7aXM_XC0OBeX0iGO</eid>
+              <eid>PI_PI</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>AW8/TcnCxRB_Q+nNngc30rL</eid>
+            <eid>QI_QI</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>f8aMRcHLIgJ_tsP5my06tfB</eid>
+              <eid>RI_RI</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>D2IiOTpQ+qI_l6v/WPlaNBE</eid>
+            <eid>SI_SI</eid>
             <durationType>16th</durationType>
             <Note>
-              <eid>Gd4FCTubvkL_A41/mXe4BzF</eid>
+              <eid>TI_TI</eid>
               <pitch>71</pitch>
               <tpc>19</tpc>
               </Note>
             </Chord>
           <endTuplet/>
           <Rest>
-            <eid>N4V064tbo/P_N4V064tbo/P</eid>
+            <eid>UI_UI</eid>
             <durationType>eighth</durationType>
             </Rest>
           <endTuplet/>
           <Rest>
-            <eid>O4V064tbo/P_O4V064tbo/P</eid>
+            <eid>VI_VI</eid>
             <durationType>quarter</durationType>
             </Rest>
           <endTuplet/>
           </voice>
         </Measure>
       <Measure>
-        <eid>SepkiXv5H5_FwzEVjTXXrD</eid>
+        <eid>WI_WI</eid>
         <voice>
           <Rest>
-            <eid>D/ZWUALm1tN_nxg791sPQaH</eid>
+            <eid>XI_XI</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>sE+EVD2hV6C_ADTsKUg/FBG</eid>
+        <eid>YI_YI</eid>
         <voice>
           <Rest>
-            <eid>DnQwVYweu5P_hV6k6Mbs0HC</eid>
+            <eid>ZI_ZI</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>ehklqQV+e7L_39ymk2pdv0E</eid>
+        <eid>aI_aI</eid>
         <voice>
           <Rest>
-            <eid>tSLqtmN9YI_Vkw/tYULRlH</eid>
+            <eid>bI_bI</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>Q8m0v/gayQN_z93fUWmE48E</eid>
+        <eid>cI_cI</eid>
         <voice>
           <Rest>
-            <eid>9+lb/4hzwCH_YH8Z0+PKxeD</eid>
+            <eid>dI_dI</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>UuZ5lAwxOvE_ID4TVb4Vc4B</eid>
+        <eid>eI_eI</eid>
         <LayoutBreak>
-          <eid>+fw+MSZyWqG_AnMfOTXBgR</eid>
+          <eid>fI_fI</eid>
           <subtype>line</subtype>
           </LayoutBreak>
         <voice>
           <Rest>
-            <eid>0gdPdIFytEE_6T3pjbMB2OG</eid>
+            <eid>gI_gI</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>9dqvOaY/BZF_mcLHiGRZweP</eid>
+        <eid>hI_hI</eid>
         <voice>
           <Rest>
-            <eid>RgBeYh15B6O_rDpey0jG7iO</eid>
+            <eid>iI_iI</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>ugSH27EWriG_RlNjh8b9eGK</eid>
+        <eid>jI_jI</eid>
         <voice>
           <Rest>
-            <eid>DEWwsYddUQJ_2wOV6GNZLZB</eid>
+            <eid>kI_kI</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>DfMqbPYujAL_DA74btxYq4K</eid>
+        <eid>lI_lI</eid>
         <voice>
           <Rest>
-            <eid>b82hEl+IGQB_/Jq3buYYFXH</eid>
+            <eid>mI_mI</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>rN8dhZWh/CL_8EIPWe0qxFJ</eid>
+        <eid>nI_nI</eid>
         <voice>
           <Rest>
-            <eid>Koo1stnsYWB_Chl20eqo6bG</eid>
+            <eid>oI_oI</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>MoLkILjR1OC_0FFYg4nBV9K</eid>
+        <eid>pI_pI</eid>
         <LayoutBreak>
-          <eid>wHzOc/iQryK_IykGQInHaeP</eid>
+          <eid>qI_qI</eid>
           <subtype>line</subtype>
           </LayoutBreak>
         <voice>
           <Rest>
-            <eid>45e4jWKVh3O_IKP1MTzZKqC</eid>
+            <eid>rI_rI</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>MAG8sc5HcmO_7XFg3tCHE+F</eid>
+        <eid>sI_sI</eid>
         <voice>
           <Rest>
-            <eid>17J5ALZF4mH_Bwghctg4cNJ</eid>
+            <eid>tI_tI</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>KhU0yKRm23B_mK2gMfqHlkH</eid>
+        <eid>uI_uI</eid>
         <voice>
           <Rest>
-            <eid>NuZderl2rtL_2HKKJlZru4K</eid>
+            <eid>vI_vI</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>BVWrW60ymoF_2oZ1SoFX+1I</eid>
+        <eid>wI_wI</eid>
         <voice>
           <Rest>
-            <eid>DZkOE5xFlkC_vXqgWU2Co7N</eid>
+            <eid>xI_xI</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>+SQhtnWEO/C_HHR/IgvD7C</eid>
+        <eid>yI_yI</eid>
         <voice>
           <Rest>
-            <eid>3tCxw5ZAPFF_3lYhbcquuvO</eid>
+            <eid>zI_zI</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>Ixb1LG8wkLC_MBo65VodajP</eid>
+        <eid>0I_0I</eid>
         <LayoutBreak>
-          <eid>afUAyBCSx9K_QI2iYIyvYD</eid>
+          <eid>1I_1I</eid>
           <subtype>line</subtype>
           </LayoutBreak>
         <voice>
           <Rest>
-            <eid>HtFHj3Th1P_A3gAYAjJNhI</eid>
+            <eid>2I_2I</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>EZjJjDJEkYJ_tD/btKSyN3M</eid>
+        <eid>3I_3I</eid>
         <voice>
           <Rest>
-            <eid>xR+kGb4R67D_PJrmyG/xR5L</eid>
+            <eid>4I_4I</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>sj1OR0X2tVE_5j1LekjPpKH</eid>
+        <eid>5I_5I</eid>
         <voice>
           <Rest>
-            <eid>upoGUop9RnI_qzrLWE2axAB</eid>
+            <eid>6I_6I</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>Vk88dFfBPKL_Ey+sarefmzF</eid>
+        <eid>7I_7I</eid>
         <voice>
           <Rest>
-            <eid>tXoSHMAmDtB_TDqd0GgQDiO</eid>
+            <eid>8I_8I</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>lI3DBPQjg4M_EP1bkgtOwZ</eid>
+        <eid>9I_9I</eid>
         <voice>
           <Rest>
-            <eid>CPlQ5wXXlNF_yv23pvOERxH</eid>
+            <eid>+I_+I</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>rbnAKWtPkxO_7DbsvE6tr1C</eid>
+        <eid>/I_/I</eid>
         <LayoutBreak>
-          <eid>rHb3K8Krq+F_PDE4RE6j0TH</eid>
+          <eid>AJ_AJ</eid>
           <subtype>line</subtype>
           </LayoutBreak>
         <voice>
           <Rest>
-            <eid>FO/KO2OHNtC_jAtd4f8yqZH</eid>
+            <eid>BJ_BJ</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>OTEWsg9iDEM_Gj2I9xOI2zO</eid>
+        <eid>CJ_CJ</eid>
         <voice>
           <Rest>
-            <eid>Wz4IWPJ1iDG_MQpPJ1EizpN</eid>
+            <eid>DJ_DJ</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>mqsaEa5aacG_eTIg9KM+g2N</eid>
+        <eid>EJ_EJ</eid>
         <voice>
           <Rest>
-            <eid>9LLvGQtW8mL_nR0Wtgh/B/D</eid>
+            <eid>FJ_FJ</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>AOINK+8NmQB_+kLCbmBjb4H</eid>
+        <eid>GJ_GJ</eid>
         <voice>
           <Rest>
-            <eid>wIPcZ+OBUUL_DlpllKe7y/J</eid>
+            <eid>HJ_HJ</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>0XoonZUYtUB_v/66eG+Gm8D</eid>
+        <eid>IJ_IJ</eid>
         <voice>
           <Rest>
-            <eid>gp8qj8yl0OG_x1YDJ8FW23G</eid>
+            <eid>JJ_JJ</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>
           </voice>
         </Measure>
       <Measure>
-        <eid>tX7Vs1oNLNB_4Z2WqnncfyK</eid>
+        <eid>KJ_KJ</eid>
         <voice>
           <Rest>
-            <eid>62HNkvUvOoE_oAPHjMjd1O</eid>
+            <eid>LJ_LJ</eid>
             <durationType>measure</durationType>
             <duration>4/4</duration>
             </Rest>

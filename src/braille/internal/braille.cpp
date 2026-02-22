@@ -68,13 +68,6 @@
 #include "louis.h"
 #include "braillecode.h"
 
-#define BRAILLE_TRACE_ENABLED 0
-#if BRAILLE_TRACE_ENABLED
-#define BRAILLE_TRACE LOGD
-#else
-#define BRAILLE_TRACE LOGN
-#endif
-
 namespace mu::engraving {
 // Max lyrics num
 #define MAX_LYRICS_NUM                  16
@@ -836,7 +829,7 @@ bool Braille::write(QIODevice& device)
         }
 
         for (size_t i = 0; i < nrStaves; ++i) {
-            BRAILLE_TRACE() << "Measure " << mb->no() + 1 << " Staff " << i;
+            LOGD() << "Measure " << mb->no() + 1 << " Staff " << i;
 
             measureBraille[i] = brailleMeasure(m, static_cast<int>(i)).toUtf8();
 
@@ -845,7 +838,7 @@ bool Braille::write(QIODevice& device)
             }
         }
 
-        BRAILLE_TRACE() << "Current measure max len: " << currentMeasureMaxLength;
+        LOGD() << "Current measure max len: " << currentMeasureMaxLength;
         // TODO handle better the case when the size of the current measure
         // by itself is larger than the MAX_CHARS_PER_LINE. The measure will
         // have to be split on multiple lines based on specific rules
@@ -1448,8 +1441,8 @@ void Braille::brailleMeasureLyrics(BrailleEngravingItemList* beiz, Measure* meas
                 ChordRest* cr = seg->cr(staffCount * VOICES + voice);
                 if (cr && !cr->lyrics().empty()) {
                     for (Lyrics* l : cr->lyrics()) {
-                        int verse = l->verse();
-                        lyrics[verse].addLyricsItem(l);
+                        int no = l->no();
+                        lyrics[no].addLyricsItem(l);
                     }
                 }
             }

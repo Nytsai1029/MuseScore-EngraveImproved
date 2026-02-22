@@ -23,12 +23,15 @@
 #include "excerptnotation.h"
 
 #include "engraving/dom/excerpt.h"
-#include "engraving/editing/editexcerpt.h"
+#include "engraving/dom/text.h"
+#include "engraving/dom/undo.h"
+
+#include "log.h"
 
 using namespace mu::notation;
 
-ExcerptNotation::ExcerptNotation(MasterNotation* master, engraving::Excerpt* excerpt, const muse::modularity::ContextPtr& iocCtx)
-    : Notation(master, iocCtx), m_excerpt(excerpt)
+ExcerptNotation::ExcerptNotation(mu::engraving::Excerpt* excerpt, const muse::modularity::ContextPtr& iocCtx)
+    : Notation(iocCtx), m_excerpt(excerpt)
 {
 }
 
@@ -140,5 +143,5 @@ IExcerptNotationPtr ExcerptNotation::clone() const
     mu::engraving::Excerpt* copy = new mu::engraving::Excerpt(*m_excerpt);
     copy->markAsCustom();
 
-    return std::make_shared<ExcerptNotation>(m_masterNotation, copy, iocContext());
+    return std::make_shared<ExcerptNotation>(copy, iocContext());
 }

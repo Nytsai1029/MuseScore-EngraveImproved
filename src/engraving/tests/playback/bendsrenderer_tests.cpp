@@ -26,11 +26,12 @@
 
 #include "utils/scorerw.h"
 
-#include "engraving/dom/guitarbend.h"
-#include "engraving/dom/part.h"
+#include "dom/guitarbend.h"
+#include "dom/tempo.h"
+#include "dom/part.h"
 
-#include "engraving/playback/renderingcontext.h"
-#include "engraving/playback/renderers/bendsrenderer.h"
+#include "playback/renderingcontext.h"
+#include "playback/renderers/bendsrenderer.h"
 
 using namespace mu::engraving;
 using namespace muse;
@@ -43,6 +44,11 @@ class Engraving_BendsRendererTests : public ::testing::Test
 protected:
     static void SetUpTestSuite()
     {
+        //! NOTE: allows to read test files using their version readers
+        //! instead of using 302 (see mscloader.cpp, makeReader)
+        bool useRead302 = MScore::useRead302InTestMode;
+        MScore::useRead302InTestMode = false;
+
         s_score = ScoreRW::readScore(u"playback/playbackeventsrenderer_data/guitar_bends/guitar_bends.mscx");
 
         ASSERT_TRUE(s_score);
@@ -58,6 +64,8 @@ protected:
         s_profile->setPattern(ArticulationType::PreAppoggiatura, buildTestArticulationPattern());
         s_profile->setPattern(ArticulationType::PostAppoggiatura, buildTestArticulationPattern());
         s_profile->setPattern(ArticulationType::Distortion, buildTestArticulationPattern());
+
+        MScore::useRead302InTestMode = useRead302;
     }
 
     static void TearDownTestSuite()
@@ -71,8 +79,8 @@ protected:
     static ArticulationPattern buildTestArticulationPattern()
     {
         ArticulationPatternSegment blankSegment(ArrangementPattern(HUNDRED_PERCENT /*durationFactor*/, 0 /*timestampOffset*/),
-                                                PitchPattern(ArticulationMap::EXPECTED_SIZE, TEN_PERCENT, 0),
-                                                ExpressionPattern(ArticulationMap::EXPECTED_SIZE, TEN_PERCENT, 0));
+                                                PitchPattern(EXPECTED_SIZE, TEN_PERCENT, 0),
+                                                ExpressionPattern(EXPECTED_SIZE, TEN_PERCENT, 0));
 
         ArticulationPattern pattern;
         pattern.emplace(0, std::move(blankSegment));

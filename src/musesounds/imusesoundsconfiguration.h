@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -28,7 +28,7 @@
 #include "modularity/imoduleinterface.h"
 
 namespace mu::musesounds {
-class IMuseSoundsConfiguration : MODULE_GLOBAL_INTERFACE
+class IMuseSoundsConfiguration : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IMuseSoundsConfiguration)
 
@@ -51,8 +51,5 @@ public:
     virtual void setLastShownMuseSoundsReleaseVersion(const std::string& version) = 0;
 
     virtual bool museSoundsCheckForUpdateTestMode() const = 0;
-
-    virtual bool getSoundsTestMode() const = 0;
-    virtual void setSoundsTestMode(bool enabled) = 0;
 };
 }

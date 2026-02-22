@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2022 MuseScore Limited and others
+ * Copyright (C) 2022 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -42,9 +42,9 @@
 
 using namespace muse::cloud;
 
-class OAuthHttpServerReplyHandler::Impl : public Contextable
+class OAuthHttpServerReplyHandler::Impl : public Injectable
 {
-    muse::GlobalInject<ICloudConfiguration> configuration;
+    muse::Inject<ICloudConfiguration> configuration = { this };
 
 public:
     explicit Impl(OAuthHttpServerReplyHandler* p, const modularity::ContextPtr& iocCtx);
@@ -100,7 +100,7 @@ private:
 };
 
 OAuthHttpServerReplyHandler::Impl::Impl(OAuthHttpServerReplyHandler* p, const modularity::ContextPtr& iocCtx)
-    : Contextable(iocCtx), m_public(p)
+    : Injectable(iocCtx), m_public(p)
 {
     QObject::connect(&m_httpServer, &QTcpServer::newConnection, [this]() { onClientConnected(); });
 }

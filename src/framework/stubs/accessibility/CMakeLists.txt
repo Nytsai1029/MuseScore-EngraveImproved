@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-only
-# MuseScore-Studio-CLA-applies
+# MuseScore-CLA-applies
 #
-# MuseScore Studio
+# MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2026 MuseScore Limited
+# Copyright (C) 2021 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -16,15 +16,19 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-muse_create_module(muse_accessibility ALIAS muse::accessibility STUB)
+declare_module(muse_accessibility)
+set(MODULE_ALIAS muse::accessibility)
 
-target_sources(muse_accessibility PRIVATE
-    accessibilitystubmodule.cpp
-    accessibilitystubmodule.h
-    accessibilityconfigurationstub.cpp
-    accessibilityconfigurationstub.h
-    accessibilitycontrollerstub.cpp
-    accessibilitycontrollerstub.h
-)
+set(MODULE_SRC
+    ${CMAKE_CURRENT_LIST_DIR}/accessibilitystubmodule.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/accessibilitystubmodule.h
+    ${CMAKE_CURRENT_LIST_DIR}/accessibilityconfigurationstub.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/accessibilityconfigurationstub.h
+    ${CMAKE_CURRENT_LIST_DIR}/accessibilitycontrollerstub.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/accessibilitycontrollerstub.h
+    )
+
+set(MODULE_IS_STUB ON)
+setup_module()

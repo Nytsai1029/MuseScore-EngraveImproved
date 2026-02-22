@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MUSE_DOCK_MAINWINDOWBRIDGE_H
+#define MUSE_DOCK_MAINWINDOWBRIDGE_H
 
 #include <QObject>
 #include <QWindow>
@@ -32,7 +33,7 @@
 #include "ui/iwindowscontroller.h"
 
 namespace muse::ui {
-class MainWindowBridge : public QObject, public Contextable
+class MainWindowBridge : public QObject, public Injectable
 {
     Q_OBJECT
 
@@ -40,8 +41,8 @@ class MainWindowBridge : public QObject, public Contextable
     Q_PROPERTY(QString filePath READ filePath WRITE setFilePath NOTIFY filePathChanged)
     Q_PROPERTY(bool fileModified READ fileModified WRITE setFileModified NOTIFY fileModifiedChanged)
 
-    ContextInject<IMainWindow> mainWindow = { this };
-    ContextInject<IWindowsController> windowsController = { this };
+    Inject<IMainWindow> mainWindow = { this };
+    Inject<IWindowsController> windowsController = { this };
 
 public:
     explicit MainWindowBridge(QObject* parent = nullptr);
@@ -87,3 +88,5 @@ private:
     async::Notification m_isFullScreenChanged;
 };
 }
+
+#endif // MUSE_DOCK_MAINWINDOWBRIDGE_H

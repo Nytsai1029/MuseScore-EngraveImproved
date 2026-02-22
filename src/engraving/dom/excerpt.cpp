@@ -22,22 +22,21 @@
 
 #include "excerpt.h"
 
+#include <list>
+
 #include "containers.h"
 
-#include "../editing/addremoveelement.h"
-#include "../editing/editexcerpt.h"
-#include "../editing/transpose.h"
+#include "dom/partialtie.h"
 #include "style/style.h"
 
 #include "barline.h"
 #include "beam.h"
 #include "box.h"
-#include "capo.h"
 #include "chord.h"
 #include "factory.h"
-#include "fret.h"
 #include "guitarbend.h"
 #include "harmony.h"
+#include "laissezvib.h"
 #include "layoutbreak.h"
 #include "linkedobjects.h"
 #include "lyrics.h"
@@ -47,10 +46,10 @@
 #include "ornament.h"
 #include "page.h"
 #include "part.h"
-#include "partialtie.h"
 #include "rest.h"
 #include "score.h"
 #include "segment.h"
+#include "sig.h"
 #include "staff.h"
 #include "stafftype.h"
 #include "system.h"
@@ -58,9 +57,11 @@
 #include "textline.h"
 #include "tie.h"
 #include "tiemap.h"
+
 #include "tremolotwochord.h"
 #include "tuplet.h"
 #include "tupletmap.h"
+#include "undo.h"
 #include "utils.h"
 
 #include "log.h"
@@ -442,7 +443,7 @@ void Excerpt::createExcerpt(Excerpt* excerpt)
             if (score->lastSegment()) {
                 endTick = score->lastSegment()->tick();
             }
-            Transpose::transposeKeys(score, staffIdx, staffIdx + 1, Fraction(0, 1), endTick, flip);
+            score->transposeKeys(staffIdx, staffIdx + 1, Fraction(0, 1), endTick, flip);
 
             for (auto segment = score->firstSegmentMM(SegmentType::ChordRest); segment;
                  segment = segment->next1MM(SegmentType::ChordRest)) {
@@ -463,12 +464,12 @@ void Excerpt::createExcerpt(Excerpt* excerpt)
                     // if this harmony is attached to an mmrest,
                     // be sure to transpose harmony in underlying measure as well
                     for (EngravingObject* se : h->linkList()) {
-                        Harmony* hh = toHarmony(se);
+                        Harmony* hh = static_cast<Harmony*>(se);
                         // skip links to other staves (including in other scores)
                         if (hh->staff() != h->staff()) {
                             continue;
                         }
-                        Transpose::undoTransposeHarmony(score, hh, interval);
+                        score->undoTransposeHarmony(hh, interval);
                     }
                 }
             }
@@ -727,9 +728,9 @@ void Excerpt::cloneSpanner(Spanner* s, Score* score, track_idx_t dstTrack, track
     ns->styleChanged();
 }
 
-static void updateSpatium(EngravingItem* oldElement, EngravingItem* newElement)
+static void updateSpatium(void* oldElement, EngravingItem* newElement)
 {
-    double oldSpatium = oldElement->spatium();
+    double oldSpatium = static_cast<EngravingItem*>(oldElement)->spatium();
     double newSpatium = newElement->spatium();
     if (!muse::RealIsEqual(oldSpatium, newSpatium)) {
         newElement->spatiumChanged(oldSpatium, newSpatium);
@@ -743,7 +744,7 @@ static void cloneTuplets(ChordRest* ocr, ChordRest* ncr, Tuplet* ot, TupletMap& 
         tuplet->setTrack(track);
         tuplet->setParent(nm);
         tuplet->styleChanged();
-        tuplet->scanElements([&](EngravingItem* newElement) { updateSpatium(ot, newElement); });
+        tuplet->scanElements(ot, updateSpatium);
     };
 
     ot->setTrack(ocr->track());
@@ -990,6 +991,38 @@ static MeasureBase* cloneMeasure(MeasureBase* mb, Score* score, const Score* osc
                     }
 
                     EngravingItem* oe = oseg->element(srcTrack);
+                    int adjustedBarlineSpan = 0;
+                    if (srcTrack % VOICES == 0 && oseg->segmentType() == SegmentType::BarLine) {
+                        // mid-measure barline segment
+                        // may need to clone barline from a previous staff and/or adjust span
+                        int oIdx = static_cast<int>(srcTrack / VOICES);
+                        if (!oe) {
+                            // no barline on this staff in original score,
+                            // but check previous staves
+                            for (int i = oIdx - 1; i >= 0; --i) {
+                                oe = oseg->element(i * VOICES);
+                                if (oe) {
+                                    break;
+                                }
+                            }
+                        }
+                        if (oe) {
+                            // barline found, now check span
+                            BarLine* bl = toBarLine(oe);
+                            int oSpan1 = static_cast<int>(bl->staff()->idx());
+                            int oSpan2 = static_cast<int>(oSpan1 + bl->spanStaff());
+                            if (oSpan1 <= oIdx && oIdx <= oSpan2) {
+                                // this staff is within span
+                                // calculate adjusted span for excerpt
+                                int oSpan = oSpan2 - oIdx;
+                                adjustedBarlineSpan = std::min(oSpan, static_cast<int>(score->nstaves()));
+                            } else {
+                                // this staff is not within span
+                                oe = nullptr;
+                            }
+                        }
+                    }
+
                     bool clone = oe && !oe->generated() && !oe->excludeFromOtherParts();
 
                     if (clone) {
@@ -1003,7 +1036,12 @@ static MeasureBase* cloneMeasure(MeasureBase* mb, Score* score, const Score* osc
                         }
 
                         ne->setScore(score);
-                        if (oe->isChordRest()) {
+                        if (oe->isBarLine()) {
+                            BarLine* nbl = toBarLine(ne);
+                            if (adjustedBarlineSpan) {
+                                nbl->setSpanStaff(adjustedBarlineSpan);
+                            }
+                        } else if (oe->isChordRest()) {
                             ChordRest* ocr = toChordRest(oe);
                             ChordRest* ncr = toChordRest(ne);
 
@@ -1324,6 +1362,7 @@ void Excerpt::cloneStaff(Staff* srcStaff, Staff* dstStaff, bool cloneSpanners)
                         case ElementType::SYSTEM_TEXT:
                         case ElementType::TRIPLET_FEEL:
                         case ElementType::PLAYTECH_ANNOTATION:
+                        case ElementType::CAPO:
                         case ElementType::STRING_TUNINGS:
                         case ElementType::FRET_DIAGRAM:
                         case ElementType::HARMONY:
@@ -1332,11 +1371,6 @@ void Excerpt::cloneStaff(Staff* srcStaff, Staff* dstStaff, bool cloneSpanners)
                         case ElementType::INSTRUMENT_CHANGE:
                         case ElementType::LYRICS:                     // not normally segment-attached
                             continue;
-                        case ElementType::CAPO: {
-                            const Capo* capo = toCapo(e);
-                            dstStaff->insertCapoParams(e->tick(), capo->params(), true);
-                            continue;
-                        }
                         case ElementType::FERMATA:
                         {
                             // Fermatas are special since the belong to a segment but should
@@ -1493,16 +1527,6 @@ void Excerpt::cloneStaff2(Staff* srcStaff, Staff* dstStaff, const Fraction& star
         score->undoAddElement(element, false /*addToLinkedStaves*/);
     };
 
-    Selection& sel = score->selection();
-    Fraction rangeStart;
-    Fraction rangeEnd;
-    if (sel.isRange()) {
-        // The for-loop below will invalidate the current range start/end segments. Save their
-        // ticks and restore them later using tick2measure (see below)...
-        rangeStart = sel.tickStart();
-        rangeEnd = sel.tickEnd();
-    }
-
     for (Measure* m = m1; m && (m != m2); m = m->nextMeasure()) {
         Measure* nm = score->tick2measure(m->tick());
         nm->setMeasureRepeatCount(m->measureRepeatCount(srcStaffIdx), dstStaffIdx);
@@ -1515,8 +1539,7 @@ void Excerpt::cloneStaff2(Staff* srcStaff, Staff* dstStaff, const Fraction& star
                 continue;
             }
             bool alreadyCloned = oldEl->systemFlag() && oldEl->findLinkedInScore(score);
-            bool cloneElement = !alreadyCloned && oldEl->elementAppliesToTrack(staff2track(dstStaffIdx));
-            if (!cloneElement) {
+            if (alreadyCloned) {
                 continue;
             }
             EngravingItem* newEl = oldEl->linkedClone();
@@ -1528,9 +1551,14 @@ void Excerpt::cloneStaff2(Staff* srcStaff, Staff* dstStaff, const Fraction& star
         }
 
         TremoloTwoChord* prevTremolo = nullptr;
-        for (const auto& [srcTrack, dstTrack] : map) {
+        for (track_idx_t srcTrack : muse::keys(map)) {
             TupletMap tupletMap;          // tuplets cannot cross measure boundaries
+            track_idx_t dstTrack = map.at(srcTrack);
             for (Segment* oseg = m->first(); oseg; oseg = oseg->next()) {
+                if (oseg->header()) {
+                    // Generated at layout time, should not be cloned
+                    continue;
+                }
                 Segment* ns = nm->getSegment(oseg->segmentType(), oseg->tick());
                 EngravingItem* oef = oseg->element(trackZeroVoice(srcTrack));
                 if (oef && !oef->generated() && (oef->isTimeSig() || oef->isKeySig())) {
@@ -1540,7 +1568,7 @@ void Excerpt::cloneStaff2(Staff* srcStaff, Staff* dstStaff, const Fraction& star
                         ne->setParent(ns);
                         ne->setScore(score);
                         ne->styleChanged();
-                        ne->scanElements([&](EngravingItem* newElement) { updateSpatium(oef, newElement); });
+                        ne->scanElements(oef, updateSpatium);
                         addElement(ne);
                     }
                 }
@@ -1580,61 +1608,55 @@ void Excerpt::cloneStaff2(Staff* srcStaff, Staff* dstStaff, const Fraction& star
                 ne->setParent(ns);
                 ne->setScore(score);
                 ne->styleChanged();
-                ne->scanElements([&](EngravingItem* newElement) { updateSpatium(oe, newElement); });
+                ne->scanElements(oe, updateSpatium);
                 addElement(ne);
-
-                if (!oe->isChordRest()) {
-                    continue;
-                }
-
-                ChordRest* ocr = toChordRest(oe);
-                ChordRest* ncr = toChordRest(ne);
-                Tuplet* ot = ocr->tuplet();
-                if (ot) {
-                    cloneTuplets(ocr, ncr, ot, tupletMap, nm, dstTrack);
-                }
-
-                if (!oe->isChord()) {
-                    continue;
-                }
-
-                Chord* och = toChord(ocr);
-                Chord* nch = toChord(ncr);
-                addGraceNoteTiesAndBackSpanners(och->graceNotesBefore(), nch, tieMap, score);
-                size_t n = och->notes().size();
-                for (size_t i = 0; i < n; ++i) {
-                    Note* on = och->notes().at(i);
-                    Note* nn = nch->notes().at(i);
-                    addTies(on, nn, tieMap, score);
-                    addBackSpanners(on, nn, score);
-                    GuitarBend* bendBack = on->bendBack();
-                    Note* newStartNote = bendBack ? toNote(bendBack->startNote()->findLinkedInStaff(dstStaff)) : nullptr;
-                    if (bendBack && newStartNote) {
-                        GuitarBend* newBend = toGuitarBend(bendBack->linkedClone());
-                        newBend->setScore(score);
-                        newBend->setParent(newStartNote);
-                        newBend->setTrack(newStartNote->track());
-                        newBend->setTrack2(nn->track());
-                        newBend->setStartElement(newStartNote);
-                        newBend->setEndElement(nn);
-                        newStartNote->addSpannerFor(newBend);
-                        nn->addSpannerBack(newBend);
+                if (oe->isChordRest()) {
+                    ChordRest* ocr = toChordRest(oe);
+                    ChordRest* ncr = toChordRest(ne);
+                    Tuplet* ot = ocr->tuplet();
+                    if (ot) {
+                        cloneTuplets(ocr, ncr, ot, tupletMap, nm, dstTrack);
                     }
-                    GuitarBend* bendFor = on->bendFor();
-                    if (bendFor && bendFor->bendType() == GuitarBendType::SLIGHT_BEND) {
-                        // Because slight bends aren't detected as "bendBack"
-                        GuitarBend* newBend = toGuitarBend(bendFor->linkedClone());
-                        newBend->setScore(score);
-                        newBend->setParent(nn);
-                        newBend->setTrack(nn->track());
-                        newBend->setTrack2(nn->track());
-                        newBend->setStartElement(nn);
-                        newBend->setEndElement(nn);
-                        nn->addSpannerFor(newBend);
+                    if (oe->isChord()) {
+                        Chord* och = toChord(ocr);
+                        Chord* nch = toChord(ncr);
+                        addGraceNoteTiesAndBackSpanners(och->graceNotesBefore(), nch, tieMap, score);
+                        size_t n = och->notes().size();
+                        for (size_t i = 0; i < n; ++i) {
+                            Note* on = och->notes().at(i);
+                            Note* nn = nch->notes().at(i);
+                            addTies(on, nn, tieMap, score);
+                            addBackSpanners(on, nn, score);
+                            GuitarBend* bendBack = on->bendBack();
+                            Note* newStartNote = bendBack ? toNote(bendBack->startNote()->findLinkedInStaff(dstStaff)) : nullptr;
+                            if (bendBack && newStartNote) {
+                                GuitarBend* newBend = toGuitarBend(bendBack->linkedClone());
+                                newBend->setScore(score);
+                                newBend->setParent(newStartNote);
+                                newBend->setTrack(newStartNote->track());
+                                newBend->setTrack2(nn->track());
+                                newBend->setStartElement(newStartNote);
+                                newBend->setEndElement(nn);
+                                newStartNote->addSpannerFor(newBend);
+                                nn->addSpannerBack(newBend);
+                            }
+                            GuitarBend* bendFor = on->bendFor();
+                            if (bendFor && bendFor->type() == GuitarBendType::SLIGHT_BEND) {
+                                // Because slight bends aren't detected as "bendBack"
+                                GuitarBend* newBend = toGuitarBend(bendFor->linkedClone());
+                                newBend->setScore(score);
+                                newBend->setParent(nn);
+                                newBend->setTrack(nn->track());
+                                newBend->setTrack2(nn->track());
+                                newBend->setStartElement(nn);
+                                newBend->setEndElement(nn);
+                                nn->addSpannerFor(newBend);
+                            }
+                        }
+                        addGraceNoteTiesAndBackSpanners(och->graceNotesAfter(), nch, tieMap, score);
+                        addTremoloTwoChord(och, nch, prevTremolo);
                     }
                 }
-                addGraceNoteTiesAndBackSpanners(och->graceNotesAfter(), nch, tieMap, score);
-                addTremoloTwoChord(och, nch, prevTremolo);
             }
         }
         std::vector<Segment*> emptySegments;
@@ -1701,21 +1723,10 @@ void Excerpt::cloneStaff2(Staff* srcStaff, Staff* dstStaff, const Fraction& star
             interval.flip();
         }
 
-        Transpose::transposeKeys(score, dstStaffIdx, dstStaffIdx + 1, startTick, endTick, !scoreConcertPitch);
+        score->transposeKeys(dstStaffIdx, dstStaffIdx + 1, startTick, endTick, !scoreConcertPitch);
     }
 
     collectTieEndPoints(tieMap);
-
-    // Restore the range selection...
-    if (rangeStart.isValid()) {
-        Segment* newStart = score->tick2segment(rangeStart);
-        sel.setStartSegment(newStart);
-    }
-
-    if (rangeEnd.isValid()) {
-        Segment* newEnd = score->tick2segment(rangeEnd);
-        sel.setEndSegment(newEnd);
-    }
 }
 
 void Excerpt::promoteGapRestsToRealRests(const Measure* measure, staff_idx_t staffIdx)

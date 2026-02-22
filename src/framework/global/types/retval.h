@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -51,9 +51,11 @@ struct RetVal {
         return rv;
     }
 
-    static RetVal<T> make_ret(const Ret::Code& code, const std::string& text = "")
+    static RetVal<T> make_ret(const Ret::Code& code)
     {
-        return make_ret(static_cast<int>(code), text);
+        RetVal<T> rv;
+        rv.ret = muse::make_ret(code);
+        return rv;
     }
 
     static RetVal<T> make_ret(int code, const std::string& text = "")

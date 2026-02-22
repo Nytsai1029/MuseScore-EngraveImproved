@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -34,19 +34,15 @@ VstFxProcessor::VstFxProcessor(IVstPluginInstancePtr&& instance, const AudioFxPa
 {
 }
 
-void VstFxProcessor::init(const audio::OutputSpec& spec)
+void VstFxProcessor::init()
 {
-    IF_ASSERT_FAILED(spec.isValid()) {
-        return;
-    }
-
-    m_outputSpec = spec;
-
     m_vstAudioClient->init(AudioPluginType::Fx, m_pluginPtr);
 
-    auto onPluginLoaded = [this]() {
+    const samples_t blockSize = config()->samplesToPreallocate();
+
+    auto onPluginLoaded = [this, blockSize]() {
         m_pluginPtr->updatePluginConfig(m_params.configuration);
-        m_vstAudioClient->setOutputSpec(m_outputSpec);
+        m_vstAudioClient->setMaxSamplesPerBlock(blockSize);
         m_inited = true;
     };
 
@@ -81,13 +77,9 @@ async::Channel<AudioFxParams> VstFxProcessor::paramsChanged() const
     return m_paramsChanges;
 }
 
-void VstFxProcessor::setOutputSpec(const audio::OutputSpec& spec)
+void VstFxProcessor::setSampleRate(unsigned int sampleRate)
 {
-    m_outputSpec = spec;
-
-    if (m_inited) {
-        m_vstAudioClient->setOutputSpec(spec);
-    }
+    m_vstAudioClient->setSampleRate(sampleRate);
 }
 
 bool VstFxProcessor::active() const

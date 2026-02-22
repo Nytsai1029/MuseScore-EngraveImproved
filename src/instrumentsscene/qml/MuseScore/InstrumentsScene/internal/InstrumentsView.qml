@@ -19,19 +19,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
-import MuseScore.InstrumentsScene
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import MuseScore.InstrumentsScene 1.0
 
 Item {
     id: root
 
-    property InstrumentListModel instrumentsModel
+    property var instrumentsModel
     property alias navigation: instrumentsView.navigation
 
     property alias searching: searchField.hasText
@@ -91,21 +90,15 @@ Item {
         delegate: ListItemBlank {
             id: item
 
-            required property var model
-            required property string name
-            required property string description
-            required isSelected
-            required property var traits
-            required property int currentTraitIndex
-            required property int index
+            isSelected: model.isSelected
 
-            navigation.name: name
+            navigation.name: model.name
             navigation.panel: instrumentsView.navigation
-            navigation.row: 2 + index
+            navigation.row: 2 + model.index
             navigation.column: 0
             navigation.accessible.name: itemTitleLabel.text
-            navigation.accessible.description: description
-            navigation.accessible.row: index
+            navigation.accessible.description: model.description
+            navigation.accessible.row: model.index
 
             onNavigationTriggered: {
                 root.addSelectedInstrumentsToScoreRequested()
@@ -120,17 +113,19 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
 
                 horizontalAlignment: Text.AlignLeft
-                text: item.name
+                text: model.name
                 font: ui.theme.bodyBoldFont
             }
 
             onClicked: {
-                root.instrumentsModel.selectInstrument(index)
+                root.instrumentsModel.selectInstrument(model.index)
             }
 
             onDoubleClicked: {
                 root.addSelectedInstrumentsToScoreRequested()
             }
+
+            property var itemModel: model
 
             StyledDropdown {
                 id: traitsBox
@@ -140,7 +135,7 @@ Item {
                 navigation.row: item.navigation.row
                 navigation.column: 1
                 navigation.accessible.name: itemTitleLabel.text + " " + qsTrc("instruments", "traits")
-                navigation.accessible.row: item.index
+                navigation.accessible.row: item.itemModel.index
 
                 anchors.right: parent.right
                 anchors.rightMargin: 4
@@ -154,11 +149,11 @@ Item {
 
                 visible: traitsBox.count > 1
 
-                model: item.traits
-                currentIndex: item.currentTraitIndex
+                model: item.itemModel.traits
+                currentIndex: item.itemModel.currentTraitIndex
 
                 onActivated: function(index, value) {
-                    item.model.currentTraitIndex = index
+                    item.itemModel.currentTraitIndex = index
                 }
             }
         }

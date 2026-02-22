@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <dividerLeftAlignToSystemBarline>0</dividerLeftAlignToSystemBarline>
-      <dividerRightAlignToSystemBarline>0</dividerRightAlignToSystemBarline>
       <spatium>1.74978</spatium>
       </Style>
     <showInvisible>1</showInvisible>
@@ -1104,7 +1102,7 @@
       <name>Alto</name>
       <Division>480</Division>
       <Style>
-        <spatium>1.75</spatium>
+        <spatium>1.74978</spatium>
         </Style>
       <showInvisible>1</showInvisible>
       <showUnprintable>1</showUnprintable>
@@ -1846,7 +1844,7 @@
       <name>Tenor</name>
       <Division>480</Division>
       <Style>
-        <spatium>1.75</spatium>
+        <spatium>1.74978</spatium>
         </Style>
       <showInvisible>1</showInvisible>
       <showUnprintable>1</showUnprintable>

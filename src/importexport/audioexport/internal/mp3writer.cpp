@@ -32,12 +32,9 @@ Ret Mp3Writer::write(notation::INotationPtr notation, io::IODevice& destinationD
 {
     const SoundTrackFormat format {
         SoundTrackType::MP3,
-        {
-            static_cast<sample_rate_t>(configuration()->exportSampleRate()),
-            configuration()->exportBufferSize(),
-            2 /* audioChannelsNumber */
-        },
-        AudioSampleFormat::Undefined,
+        static_cast<sample_rate_t>(configuration()->exportSampleRate()),
+        configuration()->exportBufferSize(),
+        2 /* audioChannelsNumber */,
         configuration()->exportMp3Bitrate()
     };
 

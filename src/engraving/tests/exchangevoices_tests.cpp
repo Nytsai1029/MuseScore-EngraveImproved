@@ -22,17 +22,15 @@
 
 #include <gtest/gtest.h>
 
-#include "engraving/dom/chord.h"
-#include "engraving/dom/masterscore.h"
-#include "engraving/dom/measure.h"
-#include "engraving/dom/note.h"
-#include "engraving/dom/segment.h"
-#include "engraving/dom/score.h"
-#include "engraving/editing/undo.h"
+#include "dom/chord.h"
+#include "dom/masterscore.h"
+#include "dom/segment.h"
+#include "dom/undo.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String EXCHVOICES_DATA_DIR("exchangevoices_data/");
@@ -84,6 +82,9 @@ TEST_F(Engraving_ExchangevoicesTests, glissandi)
 TEST_F(Engraving_ExchangevoicesTests, rangeSelection)
 {
     // Change voice of range selection including lyrics, lyrics lines, partial ties, slur, glissando, note anchored line, dynamics
+    bool use302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
+
     Score* score = ScoreRW::readScore(EXCHVOICES_DATA_DIR + u"exchangevoices-range.mscx");
     EXPECT_TRUE(score);
     score->doLayout();
@@ -104,6 +105,8 @@ TEST_F(Engraving_ExchangevoicesTests, rangeSelection)
 
     EXPECT_TRUE(ScoreComp::saveCompareScore(score, u"exchangevoices-range.mscx",
                                             EXCHVOICES_DATA_DIR + u"exchangevoices-range.mscx"));
+
+    MScore::useRead302InTestMode = use302;
 }
 
 TEST_F(Engraving_ExchangevoicesTests, undoChangeVoice)
@@ -121,9 +124,9 @@ TEST_F(Engraving_ExchangevoicesTests, undoChangeVoice)
     // do
     score->deselectAll();
     // select bottom note of all voice 1 chords
-    for (Segment* s = score->firstSegment(SegmentType::ChordRest); s; s = s->next1(SegmentType::ChordRest)) {
-        ChordRest* cr = toChordRest(s->element(0));
-        if (cr && cr->isChord()) {
+    for (Segment* s = score->firstSegment(SegmentType::ChordRest); s; s = s->next1()) {
+        ChordRest* cr = static_cast<ChordRest*>(s->element(0));
+        if (cr && cr->type() == ElementType::CHORD) {
             Chord* c = toChord(cr);
             score->select(c->downNote(), SelectType::ADD);
         }

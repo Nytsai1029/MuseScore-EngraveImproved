@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,7 +19,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#pragma once
+
+#ifndef MUSE_MPE_EVENTS_H
+#define MUSE_MPE_EVENTS_H
 
 #include <variant>
 #include <vector>
@@ -29,7 +31,6 @@
 #include "global/types/number.h"
 #include "types/flags.h"
 #include "types/number.h"
-#include "types/sharedmap.h"
 
 #include "mpetypes.h"
 #include "playbacksetupdata.h"
@@ -256,6 +257,38 @@ private:
     ExpressionContext m_expressionCtx;
 };
 
+struct RestEvent
+{
+    RestEvent() = default;
+
+    explicit RestEvent(ArrangementContext&& arrangement)
+        : m_arrangementCtx(arrangement) {}
+
+    explicit RestEvent(const timestamp_t nominalTimestamp,
+                       const duration_t nominalDuration,
+                       const voice_layer_idx_t voiceIdx)
+    {
+        m_arrangementCtx.nominalTimestamp = nominalTimestamp;
+        m_arrangementCtx.actualTimestamp = nominalTimestamp;
+        m_arrangementCtx.nominalDuration = nominalDuration;
+        m_arrangementCtx.actualDuration = nominalDuration;
+        m_arrangementCtx.voiceLayerIndex = voiceIdx;
+    }
+
+    const ArrangementContext& arrangementCtx() const
+    {
+        return m_arrangementCtx;
+    }
+
+    bool operator==(const RestEvent& other) const
+    {
+        return m_arrangementCtx == other.m_arrangementCtx;
+    }
+
+private:
+    ArrangementContext m_arrangementCtx;
+};
+
 struct ControllerChangeEvent {
     enum Type : signed char {
         Undefined = -1,
@@ -327,18 +360,18 @@ struct SyllableEvent {
 
 using SyllableEventList = std::vector<SyllableEvent>;
 
-using PlaybackEvent = std::variant<std::monostate,
-                                   NoteEvent,
+using PlaybackEvent = std::variant<std::monostate, NoteEvent,
+                                   RestEvent,
                                    TextArticulationEvent,
                                    SoundPresetChangeEvent,
                                    SyllableEvent,
                                    ControllerChangeEvent>;
 
 using PlaybackEventList = std::vector<PlaybackEvent>;
-using PlaybackEventsMap = SharedMap<timestamp_t, PlaybackEventList>;
+using PlaybackEventsMap = std::map<timestamp_t, PlaybackEventList>;
 
-using DynamicLevelMap = SharedMap<timestamp_t, dynamic_level_t>;
-using DynamicLevelLayers = SharedMap<layer_idx_t, DynamicLevelMap>;
+using DynamicLevelMap = std::map<timestamp_t, dynamic_level_t>;
+using DynamicLevelLayers = std::map<layer_idx_t, DynamicLevelMap>;
 
 using MainStreamChanges = async::Channel<PlaybackEventsMap, DynamicLevelLayers>;
 using OffStreamChanges = async::Channel<PlaybackEventsMap, DynamicLevelLayers, bool /*flushOffstream*/>;
@@ -364,3 +397,5 @@ struct PlaybackData {
     }
 };
 }
+
+#endif // MUSE_MPE_EVENTS_H

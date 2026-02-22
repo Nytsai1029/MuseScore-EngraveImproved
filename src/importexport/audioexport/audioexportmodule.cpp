@@ -47,21 +47,25 @@ void AudioExportModule::registerExports()
 {
     m_configuration = std::make_shared<AudioExportConfiguration>();
 
-    globalIoc()->registerExport<AudioExportConfiguration>(moduleName(), m_configuration);
+    ioc()->registerExport<AudioExportConfiguration>(moduleName(), m_configuration);
 }
 
 void AudioExportModule::resolveImports()
 {
-    auto writers = globalIoc()->resolve<INotationWritersRegister>(moduleName());
+    auto writers = ioc()->resolve<INotationWritersRegister>(moduleName());
     if (writers) {
-        writers->reg({ "wav" }, std::make_shared<WaveWriter>(globalCtx()));
-        writers->reg({ "mp3" }, std::make_shared<Mp3Writer>(globalCtx()));
-        writers->reg({ "ogg" }, std::make_shared<OggWriter>(globalCtx()));
-        writers->reg({ "flac" }, std::make_shared<FlacWriter>(globalCtx()));
+        writers->reg({ "wav" }, std::make_shared<WaveWriter>(iocContext()));
+        writers->reg({ "mp3" }, std::make_shared<Mp3Writer>(iocContext()));
+        writers->reg({ "ogg" }, std::make_shared<OggWriter>(iocContext()));
+        writers->reg({ "flac" }, std::make_shared<FlacWriter>(iocContext()));
     }
 }
 
-void AudioExportModule::onInit(const IApplication::RunMode&)
+void AudioExportModule::onInit(const IApplication::RunMode& mode)
 {
+    if (mode == IApplication::RunMode::AudioPluginRegistration) {
+        return;
+    }
+
     m_configuration->init();
 }

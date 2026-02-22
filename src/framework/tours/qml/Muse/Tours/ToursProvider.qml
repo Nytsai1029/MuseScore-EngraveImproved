@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,30 +19,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
 
-pragma ComponentBehavior: Bound
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
-import QtQuick
+import Muse.Tours 1.0
 
-import Muse.Ui
-import Muse.UiComponents
-import Muse.Tours
+import "internal"
 
 Item {
     id: root
 
     anchors.fill: parent
 
+    property var provider: providerModel.toursProvider
+
     ToursProviderModel {
         id: providerModel
-
-        onOpenTourStep: function(parent, title, description, previewImageOrGifUrl, videoExplanationUrl, index, total) {
-            tourStepLoader.open(parent, title, description, previewImageOrGifUrl, videoExplanationUrl, index, total)
-        }
-
-        onCloseCurrentTourStep: {
-            tourStepLoader.close()
-        }
     }
 
     Loader {
@@ -53,18 +47,18 @@ Item {
         active: false
 
         sourceComponent: TourStepPopup {
-            closePolicies: providerModel.canControlTourPopupClosing ? PopupView.NoAutoClose : PopupView.CloseOnPressOutsideParent
+            closePolicies: root.provider.canControlTourPopupClosing ? PopupView.NoAutoClose : PopupView.CloseOnPressOutsideParent
 
             onHideRequested: {
-                Qt.callLater(tourStepLoader.unloadTourStep)
+                Qt.callLater(unloadTourStep)
             }
 
             onNextRequested: {
-                Qt.callLater(providerModel.showNext)
+                Qt.callLater(root.provider.showNext)
             }
 
             onClosed: {
-                Qt.callLater(tourStepLoader.unloadTourStep)
+                Qt.callLater(unloadTourStep)
             }
         }
 
@@ -73,7 +67,7 @@ Item {
         }
 
         function unloadTourStep() {
-            providerModel.onTourStepClosed(root.parent)
+            root.provider.onTourStepClosed(root.parent)
 
             tourStepLoader.active = false
         }
@@ -83,12 +77,12 @@ Item {
 
             update(parent, title, description, previewImageOrGifUrl, videoExplanationUrl, index, total)
 
-            var tourStepPopup = tourStepLoader.item as TourStepPopup
+            var tourStepPopup = tourStepLoader.item
             tourStepPopup.open()
         }
 
         function close() {
-            var tourStepPopup = tourStepLoader.item as TourStepPopup
+            var tourStepPopup = tourStepLoader.item
             if (!Boolean(tourStepPopup)) {
                 return
             }
@@ -109,6 +103,18 @@ Item {
             tourStepPopup.videoExplanationUrl = videoExplanationUrl
             tourStepPopup.index = index
             tourStepPopup.total = total
+        }
+    }
+
+    Connections {
+        target: root.provider
+
+        function onOpenTourStep(parent, title, description, previewImageOrGifUrl, videoExplanationUrl, index, total) {
+            tourStepLoader.open(parent, title, description, previewImageOrGifUrl, videoExplanationUrl, index, total)
+        }
+
+        function onCloseCurrentTourStep() {
+            tourStepLoader.close()
         }
     }
 }

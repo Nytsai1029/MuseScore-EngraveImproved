@@ -20,15 +20,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_ELEMENT_H
+#define MU_ENGRAVING_ELEMENT_H
+
+#include <optional>
 
 #include "draw/types/color.h"
 #include "draw/types/geometry.h"
+#include "draw/painter.h"
 
 #include "modularity/ioc.h"
 #include "../iengravingconfiguration.h"
 #include "../rendering/iscorerenderer.h"
-#include "../rendering/paintoptions.h"
 
 #include "../infrastructure/ld_access.h"
 #include "../infrastructure/shape.h"
@@ -40,12 +43,7 @@
 
 #include "engravingobject.h"
 #include "elementgroup.h"
-
-#include "../editing/editdata.h"
-
-namespace muse::draw {
-class Painter;
-}
+#include "editdata.h"
 
 #define DECLARE_LAYOUTDATA_METHODS(Class) \
     const LayoutData* ldata() const { return static_cast<const Class::LayoutData*>(EngravingItem::ldata()); } \
@@ -71,7 +69,7 @@ class AccessibleItem;
 typedef std::shared_ptr<AccessibleItem> AccessibleItemPtr;
 #endif
 
-enum class Pid : short;
+enum class Pid;
 class StaffType;
 
 //---------------------------------------------------------
@@ -94,35 +92,36 @@ enum class ElementFlag {
     NOT_SELECTABLE         = 0x00000002,
     MOVABLE                = 0x00000004,
     COMPOSITION            = 0x00000008,         // true if element is part of another element
-    ON_STAFF               = 0x00000010,
-    SELECTED               = 0x00000020,
-    GENERATED              = 0x00000040,
-    INVISIBLE              = 0x00000080,
-    NO_AUTOPLACE           = 0x00000100,
-    SYSTEM                 = 0x00000200,
-    PLACE_ABOVE            = 0x00000400,
-    SIZE_SPATIUM_DEPENDENT = 0x00000800,
+    HAS_TAG                = 0x00000010,         // true if this is a layered element
+    ON_STAFF               = 0x00000020,
+    SELECTED               = 0x00000040,
+    GENERATED              = 0x00000080,
+    INVISIBLE              = 0x00000100,
+    NO_AUTOPLACE           = 0x00000200,
+    SYSTEM                 = 0x00000400,
+    PLACE_ABOVE            = 0x00000800,
+    SIZE_SPATIUM_DEPENDENT = 0x00001000,
 
     // measure flags
-    REPEAT_END             = 0x00001000,
-    REPEAT_START           = 0x00002000,
-    REPEAT_JUMP            = 0x00004000,
-    IRREGULAR              = 0x00008000,
-    LINE_BREAK             = 0x00010000,
-    PAGE_BREAK             = 0x00020000,
-    SECTION_BREAK          = 0x00040000,
-    NO_BREAK               = 0x00080000,
-    HEADER                 = 0x00100000,
-    TRAILER                = 0x00200000,      // also used in segment
-    COURTESY_KEYSIG        = 0x00400000,
-    COURTESY_TIMESIG       = 0x00800000,
-    COURTESY_CLEF          = 0x01000000,
+    REPEAT_END             = 0x00002000,
+    REPEAT_START           = 0x00004000,
+    REPEAT_JUMP            = 0x00008000,
+    IRREGULAR              = 0x00010000,
+    LINE_BREAK             = 0x00020000,
+    PAGE_BREAK             = 0x00040000,
+    SECTION_BREAK          = 0x00080000,
+    NO_BREAK               = 0x00100000,
+    HEADER                 = 0x00200000,
+    TRAILER                = 0x00400000,      // also used in segment
+    COURTESY_KEYSIG        = 0x00800000,
+    COURTESY_TIMESIG       = 0x01000000,
+    COURTESY_CLEF          = 0x02000000,
 
     // segment flags
-    ENABLED                = 0x02000000,      // used for segments
-    EMPTY                  = 0x04000000,
-    WRITTEN                = 0x08000000,
-    END_OF_MEASURE_CHANGE  = 0x10000000,
+    ENABLED                = 0x04000000,      // used for segments
+    EMPTY                  = 0x08000000,
+    WRITTEN                = 0x10000000,
+    END_OF_MEASURE_CHANGE  = 0x20000000,
 };
 
 typedef muse::Flags<ElementFlag> ElementFlags;
@@ -139,7 +138,13 @@ enum class KerningType : unsigned char
     ALLOW_COLLISION,
 };
 
-using EngravingItemList = std::vector<EngravingItem*>;
+class EngravingItemList : public std::list<EngravingItem*>
+{
+    OBJECT_ALLOCATOR(engraving, EngravingItemList)
+public:
+
+    EngravingItem* at(size_t i) const;
+};
 
 //-------------------------------------------------------------------
 //    @@ EngravingItem
@@ -160,7 +165,7 @@ public:
     virtual ~EngravingItem();
 
     EngravingItem& operator=(const EngravingItem&) = delete;
-
+    //@ create a copy of the element
     virtual EngravingItem* clone() const = 0;
     virtual EngravingItem* linkedClone();
 
@@ -188,7 +193,6 @@ public:
     virtual bool isEngravingItem() const override { return true; }
 
     double spatium() const;
-    double defaultSpatium() const;
 
     inline void setFlag(ElementFlag f, bool v)
     {
@@ -252,6 +256,7 @@ public:
 
     virtual Fraction tick() const;
     virtual Fraction rtick() const;
+    virtual Fraction playTick() const;   ///< muse::Returns the tick at which playback should begin when this element is selected. Defaults to the element's own tick position.
 
     Fraction beat() const;
 
@@ -296,9 +301,9 @@ public:
     virtual void startEdit(EditData&);
     virtual bool isEditAllowed(EditData&) const;
     virtual bool edit(EditData&);
-    virtual void startDragGrip(EditData&);
-    virtual void dragGrip(EditData&);
-    virtual void endDragGrip(EditData&);
+    virtual void startEditDrag(EditData&);
+    virtual void editDrag(EditData&);
+    virtual void endEditDrag(EditData&);
     virtual void endEdit(EditData&);
 
     virtual void editCut(EditData&) {}
@@ -353,10 +358,11 @@ public:
 
     virtual void setColor(const Color& c);
     virtual Color color() const;
-    virtual Color curColor(const rendering::PaintOptions& opt) const;
-    Color curColor(bool isVisible, const rendering::PaintOptions& opt) const;
-    Color curColor(bool isVisible, Color normalColor, const rendering::PaintOptions& opt) const;
+    virtual Color curColor() const;
+    Color curColor(bool isVisible) const;
+    Color curColor(bool isVisible, Color normalColor) const;
 
+    void undoSetColor(const Color& c);
     void undoSetVisible(bool v);
     void undoAddElement(EngravingItem* element, bool addToLinkedStaves = true);
 
@@ -384,10 +390,15 @@ public:
 */
     virtual EngravingItem* drop(EditData&) { return 0; }
 
+/**
+ delivers mouseEvent to element in edit mode
+ returns true if mouse event is accepted by element
+ */
+    virtual bool mousePress(EditData&) { return false; }
+
     mutable bool itemDiscovered = false;       // helper flag for bsp
 
-    void scanElements(std::function<void(EngravingItem*)> func) override;
-    virtual bool collectForDrawing() const;
+    void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all=true) override;
 
     virtual void reset() override;           // reset all properties & position to default
 
@@ -434,6 +445,7 @@ public:
     void undoChangeProperty(Pid id, const PropertyValue&, PropertyFlags ps) override;
     using EngravingObject::undoChangeProperty;
     PropertyValue propertyDefault(Pid) const override;
+    virtual EngravingItem* propertyDelegate(Pid) { return 0; }     // return Spanner for SpannerSegment for some properties
 
     bool custom(Pid) const;
     virtual bool isUserModified() const;
@@ -480,6 +492,9 @@ public:
     virtual void triggerLayoutToEnd() const;
 
     double styleP(Sid idx) const;
+
+    bool colorsInversionEnabled() const;
+    void setColorsInversionEnabled(bool enabled);
 
     virtual void setParenthesesMode(const ParenthesesMode& v, bool addToLinked = true, bool generated = false);
     ParenthesesMode parenthesesMode() const;
@@ -735,6 +750,8 @@ private:
     Spatium m_minDistance;              // autoplace min distance
     mutable ElementFlags m_flags;
 
+    bool m_colorsInversionEnabled = true;
+
     bool m_excludeVerticalAlign = false;
 
     mutable LayoutData* m_layoutData = nullptr;
@@ -746,6 +763,45 @@ private:
 };
 
 using ElementPtr = std::shared_ptr<EngravingItem>;
+
+//-----------------------------------------------------------------------------
+//   ElementEditData
+//    holds element specific data during element editing:
+//
+//    startEditDrag(EditData&)    creates data and attaches it to EditData
+//       editDrag(EditData&)
+//    endEditDrag(EditData&)      use data to create undo records
+//-----------------------------------------------------------------------------
+
+enum class EditDataType : signed char {
+    ElementEditData,
+    TextEditData,
+    BarLineEditData,
+    BeamEditData,
+    NoteEditData,
+};
+
+struct PropertyData {
+    Pid id;
+    PropertyValue data;
+    PropertyFlags f;
+};
+
+class ElementEditData
+{
+    OBJECT_ALLOCATOR(engraving, ElementEditData)
+public:
+    EngravingItem* e = nullptr;
+    std::list<PropertyData> propertyData;
+
+    virtual ~ElementEditData() = default;
+    void pushProperty(Pid pid)
+    {
+        propertyData.push_back(PropertyData({ pid, e->getProperty(pid), e->propertyFlags(pid) }));
+    }
+
+    virtual EditDataType type() { return EditDataType::ElementEditData; }
+};
 
 //---------------------------------------------------------
 //   ElementList
@@ -760,10 +816,37 @@ public:
     void replace(EngravingItem* old, EngravingItem* n);
 };
 
+//---------------------------------------------------------
+//   @@ Compound
+//---------------------------------------------------------
+
+class Compound : public EngravingItem
+{
+    OBJECT_ALLOCATOR(engraving, Compound)
+
+public:
+    Compound(const ElementType& type, Score*);
+    Compound(const Compound&);
+
+    virtual void addElement(EngravingItem*, double x, double y);
+    void clear();
+    virtual void setSelected(bool f);
+    virtual void setVisible(bool);
+
+protected:
+    const std::list<EngravingItem*>& getElements() const { return m_elements; }
+
+private:
+    std::list<EngravingItem*> m_elements;
+};
+
 extern bool elementLessThan(const EngravingItem* const, const EngravingItem* const);
+extern void collectElements(void* data, EngravingItem* e);
 } // mu::engraving
 
 #ifndef NO_QT_SUPPORT
 Q_DECLARE_METATYPE(mu::engraving::ElementPtr)
 Q_DECLARE_METATYPE(mu::engraving::ElementType)
+#endif
+
 #endif

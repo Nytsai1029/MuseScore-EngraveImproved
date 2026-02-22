@@ -27,11 +27,6 @@
 #include "inotation.h"
 #include "iexcerptnotation.h"
 #include "inotationplayback.h"
-#include "inotationautomation.h"
-
-namespace mu::project {
-class INotationProject;
-}
 
 namespace mu::notation {
 using ExcerptNotationList = std::vector<IExcerptNotationPtr>;
@@ -39,7 +34,6 @@ using ExcerptNotationList = std::vector<IExcerptNotationPtr>;
 class IMasterNotation
 {
 public:
-    virtual project::INotationProject* project() const = 0;
 
     virtual muse::Ret setupNewScore(engraving::MasterScore* score, const ScoreCreateOptions& options) = 0;
     virtual void applyOptions(engraving::MasterScore* score, const ScoreCreateOptions& options, bool createdFromTemplate = false) = 0;
@@ -69,8 +63,6 @@ public:
 
     virtual INotationPlaybackPtr playback() const = 0;
     virtual void initNotationSoloMuteState(const INotationPtr notation) = 0;
-
-    virtual INotationAutomationPtr automation() const = 0;
 };
 
 using IMasterNotationPtr = std::shared_ptr<IMasterNotation>;

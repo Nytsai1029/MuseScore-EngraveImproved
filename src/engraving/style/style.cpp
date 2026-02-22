@@ -53,13 +53,13 @@ const PropertyValue& MStyle::value(Sid idx) const
         return val;
     }
 
-    return StyleDef::styleValues[size_t(idx)].defaultValue;
+    return StyleDef::styleValues[size_t(idx)].defaultValue();
 }
 
-double MStyle::valueAbsolute(Sid idx) const
+Millimetre MStyle::valueMM(Sid idx) const
 {
     if (idx == Sid::NOSTYLE) {
-        return 0.0;
+        return Millimetre();
     }
 
     return m_precomputedValues[size_t(idx)];
@@ -85,7 +85,7 @@ void MStyle::set(const Sid t, const PropertyValue& val)
 
 double MStyle::defaultSpatium() const
 {
-    return StyleDef::styleValues[static_cast<size_t>(Sid::spatium)].defaultValue.toDouble();
+    return DefaultStyle::resolveStyleDefaults(defaultStyleVersion()).spatium();
 }
 
 void MStyle::precomputeValues()
@@ -93,7 +93,7 @@ void MStyle::precomputeValues()
     double _spatium = value(Sid::spatium).toReal();
     for (const StyleDef::StyleValue& t : StyleDef::styleValues) {
         if (t.valueType() == P_TYPE::SPATIUM) {
-            m_precomputedValues[t.idx()] = value(t.sid).value<Spatium>().val() * _spatium;
+            m_precomputedValues[t.idx()] = value(t.styleIdx()).value<Spatium>().val() * _spatium;
         }
     }
 }
@@ -118,8 +118,8 @@ bool MStyle::readProperties(XmlReader& e)
     const AsciiStringView tag(e.name());
 
     for (const StyleDef::StyleValue& t : StyleDef::styleValues) {
-        Sid idx = t.sid;
-        if (t.xmlName == tag) {
+        Sid idx = t.styleIdx();
+        if (t.name() == tag) {
             P_TYPE type = t.valueType();
             switch (type) {
             case P_TYPE::SPATIUM:
@@ -321,17 +321,22 @@ bool MStyle::readTextStyleValCompat(XmlReader& e)
     return true;
 }
 
+void MStyle::readVersion(String versionTag)
+{
+    versionTag.remove(u".");
+    m_version = versionTag.toInt();
+}
+
 bool MStyle::read(IODevice* device, bool ign)
 {
     UNUSED(ign);
     XmlReader e(device);
     while (e.readNextStartElement()) {
         if (e.name() == "museScore") {
-            const String versionTag = e.attribute("version").remove(u'.');
-            const int mscVersion = versionTag.toInt();
+            readVersion(e.attribute("version"));
             while (e.readNextStartElement()) {
                 if (e.name() == "Style") {
-                    read(e, nullptr, mscVersion);
+                    read(e, nullptr);
                 } else {
                     e.unknown();
                 }
@@ -356,7 +361,7 @@ bool MStyle::isValid(IODevice* device)
     return false;
 }
 
-void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook, int mscVersion)
+void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook)
 {
     TRACEFUNC;
 
@@ -405,21 +410,21 @@ void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook, in
                     || tag == "propertyDistanceStem"
                     || tag == "propertyDistance"
                     || tag == "bracketDistance")
-                   && mscVersion < 400) {
+                   && m_version < 400) {
             // Ignoring pre-4.0 articulation style and brackets distance settings. Using the new defaults instead
             e.skipCurrentElement();
         } else if (tag == "pedalListStyle") { // pre-3.6.3/4.0 typo
             set(Sid::pedalLineStyle, TConv::fromXml(e.readAsciiText(), LineType::SOLID));
-        } else if (tag == "chordlineThickness" && mscVersion < 410) {
+        } else if (tag == "chordlineThickness" && m_version < 410) {
             // Ignoring pre-4.1 value as it was wrong (it wasn't user-editable anyway)
             e.skipCurrentElement();
-        } else if (tag == "pedalText" && mscVersion < 420) {
+        } else if (tag == "pedalText" && m_version < 420) {
             // Ignore old default
             String pedText = e.readText();
             if (!pedText.empty()) {
                 set(Sid::pedalText, pedText);
             }
-        } else if (tag == "pedalContinueText" && mscVersion < 420) {
+        } else if (tag == "pedalContinueText" && m_version < 420 && e.readAsciiText() == "") {
             // Ignore old default
             String pedContText = e.readText();
             if (!pedContText.empty()) {
@@ -441,7 +446,7 @@ void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook, in
                     || tag == "slurMidWidth"
                     || tag == "slurDottedWidth"
                     || tag == "slurMinDistance")
-                   && mscVersion < 430) {
+                   && m_version < 430) {
             // Pre-4.3 scores used identical style values for slurs and ties.
             // When opening older scores, use the same values for both.
             double _val = e.readDouble();
@@ -458,9 +463,9 @@ void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook, in
                 set(Sid::tieMinDistance,  Spatium(_val));
                 set(Sid::slurMinDistance, Spatium(_val));
             }
-        } else if (tag == "measureNumberOffset" && mscVersion < 440) { // pre-4.4 typo
+        } else if (tag == "measureNumberOffset" && m_version < 440) { // pre-4.4 typo
             set(Sid::measureNumberPosAbove, PointF(e.readPoint()));
-        } else if (tag == "measureNumberPosAbove" && mscVersion < 440) { // pre-4.4 typo
+        } else if (tag == "measureNumberPosAbove" && m_version < 440) { // pre-4.4 typo
             set(Sid::mmRestRangePosAbove, PointF(e.readPoint()));
         } else if (tag == "ottavaTextAlign") {
             // Pre-x.x (?) scores used identical style values for Above and Below
@@ -516,7 +521,7 @@ void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook, in
         } else if (tag == "staffPlacement") { // pre-4.4 typo
             set(Sid::staffTextPlacement, PlacementV(e.readText().toInt()));
         } else if (tag == "staffTextPosAbove"  // pre-4.4 typo, certainly before 3.6, even before 3.5
-                   && mscVersion <= 410) { // so we might test for < 302, however m_version seems set to 410 here?!?
+                   && m_version <= 410) { // so we might test for < 302, however m_version seems set to 410 here?!?
             double staffTextPosAboveY = e.readDouble();
             set(Sid::staffTextPosAbove, PointF(0.0, staffTextPosAboveY));
         } else if (tag == "staffPosAbove") { // pre-4.4 typo
@@ -524,7 +529,7 @@ void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook, in
         } else if (tag == "staffPosBelow") { // pre-4.4 typo
             set(Sid::staffTextPosBelow, e.readPoint());
         } else if (tag == "staffTextMinDistance" // pre-4.4 typo, certainly before 3.6, even before 3.5
-                   && mscVersion <= 410) { // so we might test for < 302, however m_version seems set to 410 here?!?
+                   && m_version <= 410) { // so we might test for < 302, however m_version seems set to 410 here?!?
             set(Sid::staffTextMinDistance, Spatium(e.readDouble()));
         } else if (tag == "staffMinDistance") { // pre-4.4 typo
             set(Sid::staffTextMinDistance, Spatium(e.readDouble()));
@@ -550,11 +555,11 @@ void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook, in
                    || tag == "defaultFontSpatiumDependent"
                    || tag == "usePre_3_6_defaults") {
             e.skipCurrentElement(); // obsolete
-        } else if (tag == "articulationAnchorDefault" && mscVersion < 410) {
+        } else if (tag == "articulationAnchorDefault" && m_version < 410) {
             set(Sid::articulationAnchorDefault, (int)compat::CompatUtils::translateToNewArticulationAnchor(e.readInt()));
-        } else if (tag == "articulationAnchorLuteFingering" && mscVersion < 410) {
+        } else if (tag == "articulationAnchorLuteFingering" && m_version < 410) {
             set(Sid::articulationAnchorLuteFingering, (int)compat::CompatUtils::translateToNewArticulationAnchor(e.readInt()));
-        } else if (tag == "articulationAnchorOther" && mscVersion < 410) {
+        } else if (tag == "articulationAnchorOther" && m_version < 410) {
             set(Sid::articulationAnchorOther, (int)compat::CompatUtils::translateToNewArticulationAnchor(e.readInt()));
         } else if (tag == "lineEndToSystemEndDistance") { // renamed in 4.5
             set(Sid::lineEndToBarlineDistance, Spatium(e.readDouble()));
@@ -578,27 +583,27 @@ void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook, in
             if (e.readBool()) {
                 set(Sid::chordSymbolSpelling, NoteSpellingType::FRENCH);
             }
-        } else if (tag == "chordModifierAdjust" && mscVersion < 460) {
+        } else if (tag == "chordModifierAdjust" && m_version < 460) {
             set(Sid::chordModifierAdjust, compat::CompatUtils::convertChordExtModUnits(e.readDouble()));
-        } else if (tag == "chordExtensionAdjust" && mscVersion < 460) {
+        } else if (tag == "chordExtensionAdjust" && m_version < 460) {
             set(Sid::chordExtensionAdjust, compat::CompatUtils::convertChordExtModUnits(e.readDouble()));
-        } else if (tag == "chordDescriptionFile" && mscVersion < 460) {
+        } else if (tag == "chordDescriptionFile" && m_version < 460) {
             AsciiStringView val = e.readAsciiText();
             if (val == "chords_std.xml") {
                 set(Sid::chordDescriptionFile, String(u"chords_legacy.xml"));
             } else {
                 set(Sid::chordDescriptionFile, String::fromAscii(val.ascii()));
             }
-        } else if (tag == "chordStyle" && mscVersion < 460) {
+        } else if (tag == "chordStyle" && m_version < 460) {
             AsciiStringView val = e.readAsciiText();
             if (val == "std") {
                 set(Sid::chordStyle, ChordStylePreset::LEGACY);
             } else {
                 set(Sid::chordStyle, TConv::fromXml(val, ChordStylePreset::STANDARD));
             }
-        } else if (tag == "fretFrets" && mscVersion < 460) {
+        } else if (tag == "fretFrets" && m_version < 460) {
             e.skipCurrentElement();
-        } else if (tag == "measureNumberHPlacement" && mscVersion < 460) {
+        } else if (tag == "measureNumberHPlacement" && m_version < 460) {
             // Before 460 PlacementH was used instead of AlignH, and was written as integer.
             // We can't directly map the integer to AlignH because it's enumerated differently.
             PlacementH hPlacement = PlacementH(e.readInt());
@@ -610,7 +615,7 @@ void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook, in
                 // In this case it was assumed to be centered on the measure
                 set(Sid::measureNumberAlignToBarline, false);
             }
-        } else if (tag == "mmRestRangeHPlacement" && mscVersion < 460) {
+        } else if (tag == "mmRestRangeHPlacement" && m_version < 460) {
             // Before 460 PlacementH was used instead of AlignH, and was written as integer.
             // We can't directly map the integer to AlignH because it's enumerated differently.
             PlacementH hPlacement = PlacementH(e.readInt());
@@ -625,27 +630,19 @@ void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook, in
         }
     }
 
-    if (mscVersion < 470) {
-        set(Sid::dividerLeftAlignToSystemBarline, false);
-        set(Sid::dividerRightAlignToSystemBarline, false);
-
-        // Musical symbol size
-        compat::CompatUtils::setMusicSymbolSize470(*this);
-    }
-
-    if (mscVersion < 460) {
-        bool verticalChordAlign = value(Sid::maxChordShiftAbove).value<Spatium>() != 0.0_sp
-                                  || value(Sid::maxChordShiftBelow).value<Spatium>() != 0.0_sp
-                                  || value(Sid::maxFretShiftAbove).value<Spatium>() != 0.0_sp
-                                  || value(Sid::maxFretShiftBelow).value<Spatium>() != 0.0_sp;
+    if (m_version < 460) {
+        bool verticalChordAlign = value(Sid::maxChordShiftAbove).value<Spatium>() != Spatium(0.0)
+                                  || value(Sid::maxChordShiftBelow).value<Spatium>() != Spatium(0.0)
+                                  || value(Sid::maxFretShiftAbove).value<Spatium>() != Spatium(0.0)
+                                  || value(Sid::maxFretShiftBelow).value<Spatium>() != Spatium(0.0);
         set(Sid::verticallyAlignChordSymbols, verticalChordAlign);
         // Make sure new position styles are initially the same as align values
         for (const StyleDef::StyleValue& st : StyleDef::styleValues) {
-            Sid positionSid = compat::CompatUtils::positionStyleFromAlign(st.sid);
+            Sid positionSid = compat::CompatUtils::positionStyleFromAlign(st.styleIdx());
             if (positionSid == Sid::NOSTYLE) {
                 continue;
             }
-            AlignH val = value(st.sid).value<Align>().horizontal;
+            AlignH val = value(st.styleIdx()).value<Align>().horizontal;
             set(positionSid, val);
         }
 
@@ -665,12 +662,12 @@ void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook, in
         set(Sid::harmonyHarmonyDistance, value(Sid::minHarmonyDistance));
     }
 
-    if (mscVersion == 450) {
+    if (m_version == 450) {
         // 450 spacing was a bit narrower
         set(Sid::spacingDensity, 1.30);
     }
 
-    if (mscVersion < 450) {
+    if (m_version < 450) {
         // Didn't exist before 4.5. Default to false for compatibility.
         set(Sid::scaleRythmicSpacingForSmallNotes, false);
         set(Sid::maskBarlinesForText, false);
@@ -682,7 +679,7 @@ void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook, in
         set(Sid::changesBeforeBarlineOtherJumps, false);
     }
 
-    if (mscVersion < 420 && !MScore::testMode) {
+    if (m_version < 420 && !MScore::testMode) {
         // This style didn't exist before version 4.2. For files older than 4.2, defaults
         // to INSIDE for compatibility. For files 4.2 and newer, defaults to OUTSIDE.
         set(Sid::tiePlacementChord, TiePlacement::INSIDE);
@@ -708,7 +705,7 @@ void MStyle::save(XmlWriter& xml, bool optimize)
     xml.startElement("Style");
 
     for (const StyleDef::StyleValue& st : StyleDef::styleValues) {
-        Sid idx = st.sid;
+        Sid idx = st.styleIdx();
         if (idx == Sid::spatium) {         // special handling for spatium
             continue;
         }
@@ -717,53 +714,53 @@ void MStyle::save(XmlWriter& xml, bool optimize)
         }
         P_TYPE type = st.valueType();
         if (P_TYPE::SPATIUM == type) {
-            xml.tag(st.xmlName, value(idx).value<Spatium>().val());
+            xml.tag(st.name(), value(idx).value<Spatium>().val());
         } else if (P_TYPE::DIRECTION_V == type) {
-            xml.tag(st.xmlName, int(value(idx).value<DirectionV>()));
+            xml.tag(st.name(), int(value(idx).value<DirectionV>()));
         } else if (P_TYPE::ALIGN == type) {
             Align a = value(idx).value<Align>();
             // Don't write if it's the default value
-            if (optimize && a == st.defaultValue.value<Align>()) {
+            if (optimize && a == st.defaultValue().value<Align>()) {
                 continue;
             }
-            xml.tag(st.xmlName, TConv::toXml(a));
+            xml.tag(st.name(), TConv::toXml(a));
         } else if (P_TYPE::ALIGN_H == type) {
-            xml.tag(st.xmlName, TConv::toXml(value(idx).value<AlignH>()));
+            xml.tag(st.name(), TConv::toXml(value(idx).value<AlignH>()));
         } else if (P_TYPE::LINE_TYPE == type) {
-            xml.tagProperty(st.xmlName, value(idx));
+            xml.tagProperty(st.name(), value(idx));
         } else if (P_TYPE::TIE_PLACEMENT == type) {
-            xml.tag(st.xmlName, TConv::toXml(value(idx).value<TiePlacement>()));
+            xml.tag(st.name(), TConv::toXml(value(idx).value<TiePlacement>()));
         } else if (P_TYPE::TIE_DOTS_PLACEMENT == type) {
-            xml.tag(st.xmlName, TConv::toXml(value(idx).value<TieDotsPlacement>()));
+            xml.tag(st.name(), TConv::toXml(value(idx).value<TieDotsPlacement>()));
         } else if (P_TYPE::TIMESIG_PLACEMENT == type) {
-            xml.tag(st.xmlName, TConv::toXml(value(idx).value<TimeSigPlacement>()));
+            xml.tag(st.name(), TConv::toXml(value(idx).value<TimeSigPlacement>()));
         } else if (P_TYPE::TIMESIG_STYLE == type) {
-            xml.tag(st.xmlName, TConv::toXml(value(idx).value<TimeSigStyle>()));
+            xml.tag(st.name(), TConv::toXml(value(idx).value<TimeSigStyle>()));
         } else if (P_TYPE::TIMESIG_MARGIN == type) {
-            xml.tag(st.xmlName, TConv::toXml(value(idx).value<TimeSigVSMargin>()));
+            xml.tag(st.name(), TConv::toXml(value(idx).value<TimeSigVSMargin>()));
         } else if (P_TYPE::CHORD_PRESET_TYPE == type) {
-            xml.tag(st.xmlName, TConv::toXml(value(idx).value<ChordStylePreset>()));
+            xml.tag(st.name(), TConv::toXml(value(idx).value<ChordStylePreset>()));
         } else if (P_TYPE::NOTE_SPELLING_TYPE == type) {
-            xml.tag(st.xmlName, TConv::toXml(value(idx).value<NoteSpellingType>()));
+            xml.tag(st.name(), TConv::toXml(value(idx).value<NoteSpellingType>()));
         } else if (P_TYPE::LH_TAPPING_SYMBOL == type) {
-            xml.tag(st.xmlName, TConv::toXml(value(idx).value<LHTappingSymbol>()));
+            xml.tag(st.name(), TConv::toXml(value(idx).value<LHTappingSymbol>()));
         } else if (P_TYPE::RH_TAPPING_SYMBOL == type) {
-            xml.tag(st.xmlName, TConv::toXml(value(idx).value<RHTappingSymbol>()));
+            xml.tag(st.name(), TConv::toXml(value(idx).value<RHTappingSymbol>()));
         } else if (P_TYPE::TEXT_STYLE == type) {
-            xml.tag(st.xmlName, TConv::toXml(value(idx).value<TextStyleType>()));
+            xml.tag(st.name(), TConv::toXml(value(idx).value<TextStyleType>()));
         } else if (P_TYPE::PARENTHESES_MODE == type) {
-            xml.tag(st.xmlName, TConv::toXml(value(idx).value<ParenthesesMode>()));
+            xml.tag(st.name(), TConv::toXml(value(idx).value<ParenthesesMode>()));
         } else if (P_TYPE::PLAY_COUNT_PRESET == type) {
-            xml.tag(st.xmlName, TConv::toXml(value(idx).value<RepeatPlayCountPreset>()));
+            xml.tag(st.name(), TConv::toXml(value(idx).value<RepeatPlayCountPreset>()));
         } else if (P_TYPE::MEASURE_NUMBER_PLACEMENT == type) {
-            xml.tag(st.xmlName, TConv::toXml(value(idx).value<MeasureNumberPlacement>()));
+            xml.tag(st.name(), TConv::toXml(value(idx).value<MeasureNumberPlacement>()));
         } else {
             PropertyValue val = value(idx);
             //! NOTE for compatibility
             if (val.isEnum()) {
                 val = val.value<int>();
             }
-            xml.tagProperty(st.xmlName, val);
+            xml.tagProperty(st.name(), val);
         }
     }
 
@@ -786,15 +783,15 @@ const char* MStyle::valueName(const Sid i)
         static const char* no_style = "no style";
         return no_style;
     }
-    return StyleDef::styleValues[size_t(i)].xmlName.ascii();
+    return StyleDef::styleValues[size_t(i)].name().ascii();
 }
 
 Sid MStyle::styleIdx(const String& name)
 {
     muse::ByteArray ba = name.toAscii();
     for (const StyleDef::StyleValue& st : StyleDef::styleValues) {
-        if (st.xmlName == ba.constChar()) {
-            return st.sid;
+        if (st.name() == ba.constChar()) {
+            return st.styleIdx();
         }
     }
     return Sid::NOSTYLE;

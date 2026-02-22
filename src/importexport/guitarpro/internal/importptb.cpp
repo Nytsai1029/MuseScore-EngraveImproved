@@ -45,7 +45,7 @@
 #include "engraving/dom/timesig.h"
 #include "engraving/dom/tuplet.h"
 
-#include "engraving/types/symid.h"
+#include "types/symid.h"
 
 #include "log.h"
 
@@ -585,7 +585,7 @@ void PowerTab::addPalmMute(Chord* chord)
         if (pm->tick2() < tick) {
             _palmMutes[track] = 0;
         } else {
-            pm->setTick2(chord->endTick());
+            pm->setTick2(chord->tick() + chord->actualTicks());
             pm->setEndElement(chord);
         }
     }

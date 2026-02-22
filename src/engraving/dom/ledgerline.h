@@ -49,6 +49,7 @@ public:
 
     LedgerLine* clone() const override { return new LedgerLine(*this); }
 
+    PointF pagePos() const override;        ///< position in page coordinates
     Chord* chord() const { return toChord(explicitParent()); }
 
     double len() const { return m_len; }
@@ -56,6 +57,8 @@ public:
 
     void setVertical(bool v) { m_vertical = v; }
     bool vertical() const { return m_vertical; }
+
+    double measureXPos() const;
 
     void spatiumChanged(double /*oldValue*/, double /*newValue*/) override;
 

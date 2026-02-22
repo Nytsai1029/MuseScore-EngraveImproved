@@ -19,11 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef INOTATIONELEMENTS_H
+#define INOTATIONELEMENTS_H
 
 #include <vector>
 
+#include "modularity/imoduleinterface.h"
 #include "notationtypes.h"
 
 namespace mu::notation {
@@ -34,7 +35,7 @@ public:
 
     virtual mu::engraving::Score* msScore() const = 0;
 
-    virtual std::vector<EngravingItem*> search(const QString& searchText) const = 0;
+    virtual EngravingItem* search(const std::string& searchText) const = 0;
     virtual std::vector<EngravingItem*> elements(const FilterElementsOptions& elementOptions = FilterElementsOptions()) const = 0;
 
     virtual Measure* measure(const int measureIndex) const = 0;
@@ -45,3 +46,5 @@ public:
 
 using INotationElementsPtr = std::shared_ptr<INotationElements>;
 }
+
+#endif // INOTATIONELEMENTS_H

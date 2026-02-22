@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -35,12 +35,12 @@
 #include "uiaction.h"
 
 namespace muse::ui {
-class UiArrangement : public Contextable, public async::Asyncable
+class UiArrangement : public Injectable, public async::Asyncable
 {
-    ContextInject<workspace::IWorkspacesDataProvider> workspacesDataProvider = { this };
+    Inject<workspace::IWorkspacesDataProvider> workspacesDataProvider = { this };
 public:
     UiArrangement(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void load();
 

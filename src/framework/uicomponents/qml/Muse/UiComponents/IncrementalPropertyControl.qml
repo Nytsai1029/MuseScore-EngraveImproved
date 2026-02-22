@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,10 +19,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
+import QtQuick 2.15
 
-import Muse.UiComponents
-import Muse.Ui
+import Muse.UiComponents 1.0
+import Muse.Ui 1.0
 
 Item {
     id: root
@@ -81,6 +81,8 @@ Item {
             if (newValue === value) {
                 return
             }
+
+            newValue = ui.df.formatReal(newValue, decimals)
         }
 
         root.valueEdited(newValue)
@@ -102,6 +104,8 @@ Item {
             if (newValue === value) {
                 return
             }
+
+            newValue = ui.df.formatReal(newValue, decimals)
         }
 
         root.valueEdited(newValue)
@@ -255,7 +259,7 @@ Item {
                 return
             }
 
-            var newVal = Number.fromLocaleString(Qt.locale(), newTextValue)
+            var newVal = parseFloat(newTextValue)
 
             if (isNaN(newVal)) {
                 newVal = 0
@@ -270,7 +274,7 @@ Item {
                 return
             }
 
-            var newVal = Number.fromLocaleString(Qt.locale(), newTextValue)
+            var newVal = parseFloat(newTextValue)
 
             if (isNaN(newVal)) {
                 newVal = 0

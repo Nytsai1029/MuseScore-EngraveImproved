@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_LINE_H
+#define MU_ENGRAVING_LINE_H
 
 #include "draw/types/color.h"
 #include "spanner.h"
@@ -43,11 +44,11 @@ class LineSegment : public SpannerSegment
 {
     OBJECT_ALLOCATOR(engraving, LineSegment)
 protected:
+    virtual void editDrag(EditData&) override;
     virtual bool isEditAllowed(EditData&) const override;
     virtual bool edit(EditData&) override;
-    virtual std::vector<LineF> gripAnchorLines(Grip) const override;
-    virtual void startDragGrip(EditData&) override;
-    virtual void dragGrip(EditData&) override;
+    std::vector<LineF> gripAnchorLines(Grip) const override;
+    virtual void startEditDrag(EditData&) override;
     void startDrag(EditData&) override;
 
     LineSegment(const ElementType& type, Spanner* sp, System* parent, ElementFlags f = ElementFlag::NOTHING);
@@ -62,7 +63,7 @@ public:
 
     friend class SLine;
 
-    virtual EngravingObject* propertyDelegate(Pid) const override;
+    virtual EngravingItem* propertyDelegate(Pid) override;
 
     bool needStartEditingAfterSelecting() const override { return true; }
     int gripsCount() const override { return 3; }
@@ -79,10 +80,9 @@ public:
 
 protected:
     virtual void rebaseOffsetsOnAnchorChanged(Grip grip, const PointF& oldPos, System* sys);
-    virtual void rebaseAnchors(EditData&, Grip);
 
 private:
-    void undoMoveStartEndAndSnappedItems(EditData& ed, bool moveStart, bool moveEnd, Segment* s1, Segment* s2);
+    void undoMoveStartEndAndSnappedItems(bool moveStart, bool moveEnd, Segment* s1, Segment* s2);
     PointF leftAnchorPosition(const double& systemPositionY) const;
     PointF rightAnchorPosition(const double& systemPositionY) const;
 
@@ -91,6 +91,7 @@ private:
     static PointF deltaRebaseRight(const Segment* oldSeg, const Segment* newSeg);
     static Fraction lastSegmentEndTick(const Segment* lastSeg, const Spanner* s);
     LineSegment* rebaseAnchor(Grip grip, Segment* newSeg);
+    void rebaseAnchors(EditData&, Grip);
 };
 
 //---------------------------------------------------------
@@ -154,4 +155,5 @@ private:
     double m_dashGapLen = 5.0;
     bool m_diagonal = false;
 };
-}
+} // namespace mu::engraving
+#endif

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -23,9 +23,9 @@
 
 #include <memory>
 
-#include "audio/engine/internal/synthesizers/abstractsynthesizer.h"
-#include "audio/engine/iaudioengineconfiguration.h"
-#include "audio/common/audiotypes.h"
+#include "audio/worker/internal/synthesizers/abstractsynthesizer.h"
+#include "audio/iaudioconfiguration.h"
+#include "audio/audiotypes.h"
 #include "modularity/ioc.h"
 #include "mpe/events.h"
 
@@ -37,15 +37,15 @@
 namespace muse::vst {
 class VstSynthesiser : public muse::audio::synth::AbstractSynthesizer
 {
-    GlobalInject<audio::engine::IAudioEngineConfiguration> config;
-    ContextInject<IVstInstancesRegister> instancesRegister = { this };
+    Inject<IVstInstancesRegister> instancesRegister = { this };
+    Inject<muse::audio::IAudioConfiguration> config = { this };
 
 public:
     explicit VstSynthesiser(const muse::audio::TrackId trackId, const muse::audio::AudioInputParams& params,
                             const modularity::ContextPtr& iocCtx);
     ~VstSynthesiser() override;
 
-    void init(const audio::OutputSpec& spec);
+    void init();
 
     bool isValid() const override;
 
@@ -65,28 +65,25 @@ public:
     void setPlaybackPosition(const muse::audio::msecs_t newPosition) override;
 
     // IAudioSource
-    void setOutputSpec(const audio::OutputSpec& spec) override;
+    void setSampleRate(unsigned int sampleRate) override;
     unsigned int audioChannelsCount() const override;
     async::Channel<unsigned int> audioChannelsCountChanged() const override;
     muse::audio::samples_t process(float* buffer, muse::audio::samples_t samplesPerChannel) override;
 
 private:
-    void updateRenderingMode(const audio::RenderMode mode) override;
-
     void toggleVolumeGain(const bool isActive);
     audio::samples_t processSequence(const VstSequencer::EventSequence& sequence, const audio::samples_t samples, float* buffer);
 
     IVstPluginInstancePtr m_pluginPtr = nullptr;
     std::unique_ptr<VstAudioClient> m_vstAudioClient = nullptr;
 
-    audio::OutputSpec m_outputSpec;
+    unsigned int m_audioChannelsCount = 2;
     async::Channel<unsigned int> m_streamsCountChanged;
 
     VstSequencer m_sequencer;
 
     muse::audio::TrackId m_trackId = muse::audio::INVALID_TRACK_ID;
 
-    bool m_inited = false;
     bool m_useDynamicEvents = false;
 };
 

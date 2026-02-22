@@ -30,7 +30,7 @@
 using namespace mu::engraving;
 
 RootItem::RootItem(Score* score)
-    : EngravingItem(ElementType::ROOT_ITEM, score)
+    : EngravingItem(ElementType::ROOT_ITEM, score), m_score(score)
 {
     m_dummy = new compat::DummyElement(this);
 }
@@ -55,6 +55,11 @@ void RootItem::init()
 
     m_dummy->setParent(this);
     m_dummy->init();
+}
+
+EngravingObject* RootItem::scanParent() const
+{
+    return m_score->scanParent();
 }
 
 #ifndef ENGRAVING_NO_ACCESSIBILITY

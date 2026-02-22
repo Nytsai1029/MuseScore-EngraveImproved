@@ -70,7 +70,7 @@ public:
     int hooks() const;
     bool hasStem() const;
     TDuration shift(int nSteps) const { TDuration d(type()); d.shiftType(nSteps); return d; }                                // dots are not retained
-    TDuration shiftRetainDots(int nSteps, bool stepDotted = false) const
+    TDuration shiftRetainDots(int nSteps, bool stepDotted = false)
     {
         TDuration d(type());
         d.setDots(m_dots);
@@ -94,7 +94,7 @@ private:
 
 std::vector<TDuration> toDurationList(Fraction l, bool useDots, int maxDots = 4, bool printRestRemains = true);
 std::vector<TDuration> toRhythmicDurationList(const Fraction& l, bool isRest, Fraction rtickStart, const TimeSigFrac& nominal, Measure* msr,
-                                              int maxDots, const Fraction& timeStretch = Fraction(1, 1));
+                                              int maxDots);
 
 bool forceRhythmicSplit(bool isRest, BeatType startBeat, BeatType endBeat, int beatsCrossed, BeatType strongestBeatCrossed,
                         const TimeSigFrac& nominal);

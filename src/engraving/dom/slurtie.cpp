@@ -23,9 +23,8 @@
 
 #include "draw/types/pen.h"
 
-#include "../editing/elementeditdata.h"
-#include "../editing/mscoreview.h"
-
+#include "chord.h"
+#include "mscoreview.h"
 #include "note.h"
 #include "page.h"
 #include "score.h"
@@ -79,7 +78,7 @@ bool SlurTieSegment::edit(EditData& ed)
 
     if (ed.key == Key_Home && !(ed.modifiers & ~KeyboardModifier::KeypadModifier)) {
         if (ed.hasCurrentGrip()) {
-            startDragGrip(ed);
+            startEditDrag(ed);
             if (ed.curGrip == Grip::SHOULDER) {
                 ups(Grip::BEZIER1).off = PointF();
                 ups(Grip::BEZIER2).off = PointF();
@@ -87,7 +86,7 @@ bool SlurTieSegment::edit(EditData& ed)
                 ups(ed.curGrip).off = PointF();
             }
             renderer()->layoutItem(spanner());
-            endDragGrip(ed);
+            endEditDrag(ed);
         }
         return true;
     }
@@ -193,27 +192,27 @@ bool SlurTieSegment::isUserModified() const
 }
 
 //---------------------------------------------------------
-//   startDragGrip
+//   startEditDrag
 //---------------------------------------------------------
 
-void SlurTieSegment::startDragGrip(EditData& ed)
+void SlurTieSegment::startEditDrag(EditData& ed)
 {
     ElementEditDataPtr eed = ed.getData(this);
     IF_ASSERT_FAILED(eed) {
         return;
     }
-    for (Pid i : { Pid::SLUR_UOFF1, Pid::SLUR_UOFF2, Pid::SLUR_UOFF3, Pid::SLUR_UOFF4, Pid::OFFSET }) {
+    for (auto i : { Pid::SLUR_UOFF1, Pid::SLUR_UOFF2, Pid::SLUR_UOFF3, Pid::SLUR_UOFF4, Pid::OFFSET }) {
         eed->pushProperty(i);
     }
 }
 
 //---------------------------------------------------------
-//   endDragGrip
+//   endEditDrag
 //---------------------------------------------------------
 
-void SlurTieSegment::endDragGrip(EditData& ed)
+void SlurTieSegment::endEditDrag(EditData& ed)
 {
-    EngravingItem::endDragGrip(ed);
+    EngravingItem::endEditDrag(ed);
     triggerLayout();
 }
 
@@ -366,7 +365,7 @@ PropertyValue SlurTie::getProperty(Pid propertyId) const
 {
     switch (propertyId) {
     case Pid::SLUR_STYLE_TYPE:
-        return styleType();
+        return PropertyValue::fromValue<SlurStyleType>(styleType());
     case Pid::SLUR_DIRECTION:
         return PropertyValue::fromValue<DirectionV>(slurDirection());
     default:
@@ -402,7 +401,7 @@ PropertyValue SlurTie::propertyDefault(Pid id) const
 {
     switch (id) {
     case Pid::SLUR_STYLE_TYPE:
-        return SlurStyleType::Solid;
+        return 0;
     case Pid::SLUR_DIRECTION:
         return PropertyValue::fromValue<DirectionV>(DirectionV::AUTO);
     default:

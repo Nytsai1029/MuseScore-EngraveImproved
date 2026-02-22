@@ -4,7 +4,7 @@
 # MuseScore Studio
 # Music Composition & Notation
 #
-# Copyright (C) 2026 MuseScore Limited
+# Copyright (C) 2025 MuseScore Limited
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -16,29 +16,29 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-muse_create_module(iex_tabledit)
+declare_module(iex_tabledit)
 
-target_sources(iex_tabledit PRIVATE
-    tableditmodule.cpp
-    tableditmodule.h
-    internal/tableditreader.cpp
-    internal/tableditreader.h
+set(MODULE_SRC
+    ${CMAKE_CURRENT_LIST_DIR}/tableditmodule.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/tableditmodule.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/tableditreader.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/tableditreader.h
 
-    internal/importtef.cpp
-    internal/importtef.h
-    internal/measurehandler.cpp
-    internal/measurehandler.h
-    internal/note.cpp
-    internal/note.h
-    internal/readinglist.cpp
-    internal/readinglist.h
-    internal/tuplethandler.cpp
-    internal/tuplethandler.h
-    internal/voiceallocator.cpp
-    internal/voiceallocator.h
-)
+    ${CMAKE_CURRENT_LIST_DIR}/internal/importtef.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/importtef.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/measurehandler.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/measurehandler.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/note.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/note.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/tuplethandler.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/tuplethandler.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/voiceallocator.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/voiceallocator.h
+    )
+
+setup_module()
 
 if (MUE_BUILD_IMPORTEXPORT_TESTS)
     add_subdirectory(tests)

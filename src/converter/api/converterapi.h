@@ -26,8 +26,8 @@
 #include "global/async/asyncable.h"
 
 #include "modularity/ioc.h"
+#include "global/iinteractive.h"
 #include "global/io/ifilesystem.h"
-#include "interactive/iinteractive.h"
 #include "../iconvertercontroller.h"
 
 namespace mu::converter::api {
@@ -35,9 +35,9 @@ class ConverterApi : public muse::api::ApiObject, public muse::async::Asyncable
 {
     Q_OBJECT
 
-    muse::GlobalInject<muse::io::IFileSystem> fileSystem;
-    muse::ContextInject<muse::IInteractive> interactive = { this };
-    muse::ContextInject<IConverterController> converter = { this };
+    muse::Inject<muse::IInteractive> interactive;
+    muse::Inject<muse::io::IFileSystem> fileSystem;
+    muse::Inject<IConverterController> converter;
 
 public:
     explicit ConverterApi(muse::api::IApiEngine* e);

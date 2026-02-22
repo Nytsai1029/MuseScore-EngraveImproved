@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,12 +19,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-
-import Muse.UiComponents
+import Muse.UiComponents 1.0
 
 Item {
     id: root
@@ -33,7 +30,6 @@ Item {
 
     property Component itemDelegate: Item {}
     property string sectionRole: "sectionRole"
-    property var sectionValue
 
     property int cellWidth: 0
     property int cellHeight: 0
@@ -54,7 +50,7 @@ Item {
         filters: [
             FilterValue {
                 roleName: root.sectionRole
-                roleValue: root.sectionValue
+                roleValue: modelData
                 compareType: CompareType.Equal
             }
         ]
@@ -94,26 +90,17 @@ Item {
         clip: true
 
         delegate: Item {
-            id: delegateItem
-
-            required property var model
-
             width: gridView.cellWidth
             height: gridView.cellHeight
 
-            Item {
-                anchors.centerIn: parent
+            Loader {
                 width: root.cellWidth
                 height: root.cellHeight
 
-                // Hack: using Repeater to pass `model` as `itemModel` to `root.itemDelegate`
-                Repeater {
-                    model: [
-                        { itemModel: delegateItem.model }
-                    ]
+                anchors.centerIn: parent
 
-                    delegate: root.itemDelegate
-                }
+                property var itemModel: model
+                sourceComponent: root.itemDelegate
             }
         }
     }

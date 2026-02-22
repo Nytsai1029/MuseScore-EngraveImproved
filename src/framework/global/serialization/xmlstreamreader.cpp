@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -499,11 +499,6 @@ std::vector<XmlStreamReader::Attribute> XmlStreamReader::attributes() const
     }
 
     return attrs;
-}
-
-bool XmlStreamReader::noChildren() const
-{
-    return m_xml->node ? !m_xml->node.first_child() && !m_xml->node.last_child() : false;
 }
 
 String XmlStreamReader::readBody() const

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -34,5 +34,5 @@ std::string VSTModule::moduleName() const
 
 void VSTModule::registerExports()
 {
-    globalIoc()->registerExport<IVstConfiguration>(moduleName(), new VstConfigurationStub());
+    ioc()->registerExport<IVstConfiguration>(moduleName(), new VstConfigurationStub());
 }

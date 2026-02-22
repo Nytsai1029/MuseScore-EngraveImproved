@@ -21,25 +21,21 @@
  */
 #pragma once
 
-#include "async/notification.h"
+#include <QString>
 
-#include "inotationaccessibility.h"
-#include "inotationelements.h"
-#include "inotationinteraction.h"
-#include "inotationmidiinput.h"
-#include "inotationpainting.h"
-#include "inotationparts.h"
-#include "inotationsolomutestate.h"
-#include "inotationstyle.h"
-#include "inotationviewstate.h"
+#include "async/notification.h"
 #include "internal/inotationundostack.h"
 #include "notationtypes.h"
-
-class QString;
-
-namespace mu::project {
-class INotationProject;
-}
+#include "inotationpainting.h"
+#include "inotationviewstate.h"
+#include "inotationsolomutestate.h"
+#include "inotationstyle.h"
+#include "inotationelements.h"
+#include "inotationinteraction.h"
+#include "inotationaccessibility.h"
+#include "inotationmidiinput.h"
+#include "inotationparts.h"
+#include "notationtypes.h"
 
 namespace mu::notation {
 class INotation;
@@ -47,16 +43,10 @@ using INotationPtr = std::shared_ptr<INotation>;
 using INotationWeakPtr = std::weak_ptr<INotation>;
 using INotationPtrList = std::vector<INotationPtr>;
 
-class IMasterNotation;
-using IMasterNotationPtr = std::shared_ptr<IMasterNotation>;
-
 class INotation
 {
 public:
     virtual ~INotation() = default;
-
-    virtual project::INotationProject* project() const = 0;
-    virtual IMasterNotationPtr masterNotation() const = 0;
 
     /// For MasterScores: the filename without extension
     /// For Scores: the excerpt name
@@ -112,6 +102,6 @@ public:
     virtual INotationPartsPtr parts() const = 0;
 
     // notify
-    virtual muse::async::Channel<muse::RectF> notationChanged() const = 0;
+    virtual muse::async::Notification notationChanged() const = 0;
 };
 }

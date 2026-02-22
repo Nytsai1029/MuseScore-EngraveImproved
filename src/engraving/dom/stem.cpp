@@ -23,10 +23,9 @@
 
 #include <cmath>
 
-#include "../editing/elementeditdata.h"
-
 #include "chord.h"
 #include "hook.h"
+
 #include "tremolosinglechord.h"
 
 #include "log.h"
@@ -89,17 +88,17 @@ void Stem::startEdit(EditData& ed)
     eed->pushProperty(Pid::USER_LEN);
 }
 
-void Stem::startDragGrip(EditData& ed)
+void Stem::startEditDrag(EditData& ed)
 {
-    EngravingItem::startDragGrip(ed);
+    EngravingItem::startEditDrag(ed);
     ElementEditDataPtr eed = ed.getData(this);
     eed->pushProperty(Pid::USER_LEN);
 }
 
-void Stem::dragGrip(EditData& ed)
+void Stem::editDrag(EditData& ed)
 {
     double yDelta = up() ? -ed.delta.y() : ed.delta.y();
-    m_userLength += Spatium::fromAbsolute(yDelta, spatium());
+    m_userLength += Spatium::fromMM(yDelta, spatium());
     Chord* c = chord();
     if (c->hook()) {
         c->hook()->move(PointF(0.0, ed.delta.y()));
@@ -109,7 +108,7 @@ void Stem::dragGrip(EditData& ed)
 
 void Stem::reset()
 {
-    undoChangeProperty(Pid::USER_LEN, 0.0_sp);
+    undoChangeProperty(Pid::USER_LEN, Spatium(0.0));
     EngravingItem::reset();
 }
 
@@ -188,7 +187,7 @@ PropertyValue Stem::propertyDefault(Pid id) const
 {
     switch (id) {
     case Pid::USER_LEN:
-        return 0.0_sp;
+        return 0.0;
     case Pid::STEM_DIRECTION:
         return PropertyValue::fromValue<DirectionV>(DirectionV::AUTO);
     default:

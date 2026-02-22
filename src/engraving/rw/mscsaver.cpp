@@ -28,8 +28,6 @@
 #include "dom/imageStore.h"
 #include "dom/audio.h"
 
-#include "engraving/automation/iautomation.h"
-
 #include "rwregister.h"
 #include "inoutdata.h"
 
@@ -42,7 +40,7 @@ using namespace mu::engraving;
 using namespace mu::engraving::rw;
 
 bool MscSaver::writeMscz(MasterScore* score, MscWriter& mscWriter, bool createThumbnail,
-                         const write::WriteContext* ctx)
+                         const write::WriteRange* range)
 {
     TRACEFUNC;
 
@@ -63,8 +61,8 @@ bool MscSaver::writeMscz(MasterScore* score, MscWriter& mscWriter, bool createTh
 
     WriteInOutData masterWriteOutData(score);
 
-    if (ctx) {
-        masterWriteOutData.ctx = *ctx;
+    if (range) {
+        masterWriteOutData.ctx.setRange(*range);
     }
 
     // Write MasterScore
@@ -73,14 +71,14 @@ bool MscSaver::writeMscz(MasterScore* score, MscWriter& mscWriter, bool createTh
         Buffer scoreBuf(&scoreData);
         scoreBuf.open(IODevice::ReadWrite);
 
-        RWRegister::writer()->writeScore(score, &scoreBuf, &masterWriteOutData);
+        RWRegister::writer(score->iocContext())->writeScore(score, &scoreBuf, &masterWriteOutData);
 
         mscWriter.writeScoreFile(scoreData);
     }
 
     // Write Excerpts
     {
-        if (!ctx || !ctx->shouldWriteRange()) {
+        if (!range) {
             const std::vector<Excerpt*>& excerpts = score->excerpts();
 
             for (size_t excerptIndex = 0; excerptIndex < excerpts.size(); ++excerptIndex) {
@@ -109,7 +107,7 @@ bool MscSaver::writeMscz(MasterScore* score, MscWriter& mscWriter, bool createTh
                     Buffer excerptBuf(&excerptData);
                     excerptBuf.open(IODevice::ReadWrite);
 
-                    RWRegister::writer()->writeScore(
+                    RWRegister::writer(partScore->iocContext())->writeScore(
                         excerpt->excerptScore(), &excerptBuf, &masterWriteOutData);
 
                     mscWriter.addExcerptFile(excerpt->fileName(), excerptData);
@@ -161,13 +159,6 @@ bool MscSaver::writeMscz(MasterScore* score, MscWriter& mscWriter, bool createTh
         }
     }
 
-    // Write automation
-    {
-        if (score->automation()) {
-            mscWriter.writeAutomationJsonFile(score->automation()->toJson());
-        }
-    }
-
     return true;
 }
 
@@ -189,7 +180,7 @@ bool MscSaver::exportPart(Score* partScore, MscWriter& mscWriter)
         Buffer excerptBuf(&excerptData);
         excerptBuf.open(IODevice::WriteOnly);
 
-        rw::RWRegister::writer()->writeScore(partScore, &excerptBuf);
+        rw::RWRegister::writer(partScore->iocContext())->writeScore(partScore, &excerptBuf);
 
         mscWriter.writeScoreFile(excerptData);
     }

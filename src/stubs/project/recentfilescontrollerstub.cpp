@@ -21,6 +21,7 @@
  */
 #include "recentfilescontrollerstub.h"
 
+using namespace mu;
 using namespace mu::project;
 
 const RecentFilesList& RecentFilesControllerStub::recentFilesList() const
@@ -47,9 +48,9 @@ void RecentFilesControllerStub::clearRecentFiles()
 {
 }
 
-muse::async::Promise<QPixmap> RecentFilesControllerStub::thumbnail(const muse::io::path_t&) const
+muse::async::Promise<QPixmap> RecentFilesControllerStub::thumbnail(const RecentFile&) const
 {
     return muse::async::Promise<QPixmap>([](auto /*resolve*/, auto reject) {
-        return reject(int(muse::Ret::Code::UnknownError), "stub");
+        return reject(int(Ret::Code::UnknownError), "stub");
     });
 }

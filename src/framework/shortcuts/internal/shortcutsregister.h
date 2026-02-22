@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_SHORTCUTS_SHORTCUTSREGISTER_H
+#define MUSE_SHORTCUTS_SHORTCUTSREGISTER_H
 
 #include <unordered_map>
 
@@ -30,24 +30,24 @@
 #include "ui/iuiactionsregister.h"
 #include "async/asyncable.h"
 #include "io/ifilesystem.h"
-#include "multiwindows/imultiwindowsprovider.h"
+#include "multiinstances/imultiinstancesprovider.h"
 
-namespace muse {
-class XmlStreamReader;
-class XmlStreamWriter;
+namespace muse::deprecated {
+class XmlReader;
+class XmlWriter;
 }
 
 namespace muse::shortcuts {
-class ShortcutsRegister : public IShortcutsRegister, public Contextable, public async::Asyncable
+class ShortcutsRegister : public IShortcutsRegister, public Injectable, public async::Asyncable
 {
-    GlobalInject<IShortcutsConfiguration> configuration;
-    GlobalInject<io::IFileSystem> fileSystem;
-    GlobalInject<mi::IMultiWindowsProvider> multiwindowsProvider;
-    ContextInject<muse::ui::IUiActionsRegister> uiactionsRegister = { this };
+    Inject<IShortcutsConfiguration> configuration = { this };
+    Inject<io::IFileSystem> fileSystem = { this };
+    Inject<mi::IMultiInstancesProvider> multiInstancesProvider = { this };
+    Inject<muse::ui::IUiActionsRegister> uiactionsRegister = { this };
 
 public:
     ShortcutsRegister(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void init();
 
@@ -76,10 +76,10 @@ public:
 private:
 
     bool readFromFile(ShortcutList& shortcuts, const io::path_t& path) const;
-    Shortcut readShortcut(XmlStreamReader& reader) const;
+    Shortcut readShortcut(deprecated::XmlReader& reader) const;
 
     bool writeToFile(const ShortcutList& shortcuts, const io::path_t& path) const;
-    void writeShortcut(XmlStreamWriter& writer, const Shortcut& shortcut) const;
+    void writeShortcut(deprecated::XmlWriter& writer, const Shortcut& shortcut) const;
 
     void mergeShortcuts(ShortcutList& shortcuts, const ShortcutList& defaultShortcuts) const;
     void mergeAdditionalShortcuts(ShortcutList& shortcuts);
@@ -98,3 +98,5 @@ private:
     async::Notification m_activeChanged;
 };
 }
+
+#endif // MUSE_SHORTCUTS_SHORTCUTSREGISTER_H

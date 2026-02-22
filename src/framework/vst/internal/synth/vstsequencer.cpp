@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2022 MuseScore Limited and others
+ * Copyright (C) 2022 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -43,6 +43,11 @@ static const mpe::ArticulationTypeSet SOSTENUTO_PEDAL_CC_SUPPORTED_TYPES {
 static const mpe::ArticulationTypeSet BEND_SUPPORTED_TYPES {
     mpe::ArticulationType::Multibend, mpe::ArticulationType::ContinuousGlissando,
 };
+
+static constexpr mpe::pitch_level_t MIN_SUPPORTED_PITCH_LEVEL = mpe::pitchLevel(mpe::PitchClass::C, 0);
+static constexpr int MIN_SUPPORTED_NOTE = 12; // VST equivalent for C0
+static constexpr mpe::pitch_level_t MAX_SUPPORTED_PITCH_LEVEL = mpe::pitchLevel(mpe::PitchClass::C, 8);
+static constexpr int MAX_SUPPORTED_NOTE = 108; // VST equivalent for C8
 
 void VstSequencer::init(ParamsMapping&& mapping, bool useDynamicEvents)
 {
@@ -116,7 +121,7 @@ void VstSequencer::addDynamicEvents(EventSequenceMap& destination, const mpe::Dy
 {
     for (const auto& layer : layers) {
         for (const auto& dynamic : layer.second) {
-            destination[dynamic.first].emplace_back(expressionLevel(dynamic.second));
+            destination[dynamic.first].emplace(expressionLevel(dynamic.second));
         }
     }
 }
@@ -130,12 +135,12 @@ void VstSequencer::addNoteEvent(EventSequenceMap& destination, const mpe::NoteEv
     const float tuning = noteTuning(noteEvent, noteId);
 
     if (arrangementCtx.hasStart()) {
-        destination[arrangementCtx.actualTimestamp].emplace_back(buildEvent(VstEvent::kNoteOnEvent, noteId, velocityFraction, tuning));
+        destination[arrangementCtx.actualTimestamp].emplace(buildEvent(VstEvent::kNoteOnEvent, noteId, velocityFraction, tuning));
     }
 
     if (arrangementCtx.hasEnd()) {
         const mpe::timestamp_t timestampTo = arrangementCtx.actualTimestamp + noteEvent.arrangementCtx().actualDuration;
-        destination[timestampTo].emplace_back(buildEvent(VstEvent::kNoteOffEvent, noteId, velocityFraction, tuning));
+        destination[timestampTo].emplace(buildEvent(VstEvent::kNoteOffEvent, noteId, velocityFraction, tuning));
     }
 
     for (const auto& artPair : noteEvent.expressionCtx().articulations) {
@@ -200,7 +205,7 @@ void VstSequencer::addParamChange(EventSequenceMap& destination, const mpe::time
         return;
     }
 
-    destination[timestamp].emplace_back(ParamChangeEvent { controlIt->second, value });
+    destination[timestamp].emplace(ParamChangeEvent { controlIt->second, value });
 }
 
 void VstSequencer::addPitchCurve(EventSequenceMap& destination, const mpe::NoteEvent& noteEvent,
@@ -217,7 +222,7 @@ void VstSequencer::addPitchCurve(EventSequenceMap& destination, const mpe::NoteE
     ParamChangeEvent event;
     event.paramId = pitchBendIt->second;
     event.value = 0.5f;
-    destination[pitchBendTimestampTo].push_back(event);
+    destination[pitchBendTimestampTo].insert(event);
 
     auto currIt = noteEvent.pitchCtx().pitchCurve.cbegin();
     auto nextIt = std::next(currIt);
@@ -250,7 +255,7 @@ void VstSequencer::addPitchCurve(EventSequenceMap& destination, const mpe::NoteE
             if (time < pitchBendTimestampTo) {
                 float bendValue = static_cast<float>(point.y);
                 event.value = bendValue;
-                destination[time].push_back(event);
+                destination[time].insert(event);
             }
         }
     }
@@ -306,16 +311,24 @@ VstEvent VstSequencer::buildEvent(const VstEvent::EventTypes type, const int32_t
 
 int32_t VstSequencer::noteIndex(const mpe::pitch_level_t pitchLevel) const
 {
-    float stepCount = mpe::ZERO_PITCH_LEVEL_MIDI_EQUIVALENT + pitchLevel / static_cast<float>(mpe::PITCH_LEVEL_STEP);
+    if (pitchLevel <= MIN_SUPPORTED_PITCH_LEVEL) {
+        return MIN_SUPPORTED_NOTE;
+    }
 
-    return std::clamp(stepCount, 0.f, 127.f);
+    if (pitchLevel >= MAX_SUPPORTED_PITCH_LEVEL) {
+        return MAX_SUPPORTED_NOTE;
+    }
+
+    float stepCount = MIN_SUPPORTED_NOTE + ((pitchLevel - MIN_SUPPORTED_PITCH_LEVEL) / static_cast<float>(mpe::PITCH_LEVEL_STEP));
+
+    return stepCount;
 }
 
 float VstSequencer::noteTuning(const mpe::NoteEvent& noteEvent, const int noteIdx) const
 {
-    int semitonesCount = noteIdx - mpe::ZERO_PITCH_LEVEL_MIDI_EQUIVALENT;
+    int semitonesCount = noteIdx - MIN_SUPPORTED_NOTE;
 
-    mpe::pitch_level_t tuningPitchLevel = noteEvent.pitchCtx().nominalPitchLevel - semitonesCount * mpe::PITCH_LEVEL_STEP;
+    mpe::pitch_level_t tuningPitchLevel = noteEvent.pitchCtx().nominalPitchLevel - (semitonesCount * mpe::PITCH_LEVEL_STEP);
 
     return (tuningPitchLevel / static_cast<float>(mpe::PITCH_LEVEL_STEP)) * 100.f;
 }

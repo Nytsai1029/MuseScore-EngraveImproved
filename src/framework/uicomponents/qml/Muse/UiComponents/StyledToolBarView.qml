@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,13 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 Item {
     id: root
@@ -99,11 +97,6 @@ Item {
             id: repeater
 
             Item {
-                id: delegateItem
-
-                required property ToolBarItem item
-                required property int index
-
                 width: loader.width
                 height: root.rowHeight
 
@@ -112,12 +105,15 @@ Item {
 
                     anchors.verticalCenter: parent.verticalCenter
 
+                    property var itemData: Boolean(model) ? model.itemRole : null
+
                     sourceComponent: {
-                        if (!Boolean(delegateItem.item)) {
+                        if (!Boolean(loader.itemData)) {
                             return null
                         }
 
-                        var type = delegateItem.item.type
+                        var type = loader.itemData.type
+
                         var comp = Boolean(root.sourceComponentCallback) ? root.sourceComponentCallback(type) : null
                         if (Boolean(comp)) {
                             return comp
@@ -132,12 +128,11 @@ Item {
                     }
 
                     onLoaded: {
-                        loader.item.itemData = delegateItem.item
+                        loader.item.itemData = loader.itemData
 
                         if (Boolean(loader.item.navigation)) {
                             loader.item.navigation.panel = root.navigationPanel
-                            loader.item.navigation.row = -1
-                            loader.item.navigation.column = delegateItem.index * 100
+                            loader.item.navigation.order = model.index
                         }
                     }
 
@@ -145,7 +140,7 @@ Item {
                         id: separatorComp
 
                         SeparatorLine {
-                            property var itemData: delegateItem.item
+                            property var itemData: loader.itemData
 
                             width: 1
                             height: root.separatorHeight
@@ -158,7 +153,7 @@ Item {
                         id: actionComp
 
                         StyledToolBarItem {
-                            itemData: delegateItem.item
+                            itemData: loader.itemData
                         }
                     }
                 }

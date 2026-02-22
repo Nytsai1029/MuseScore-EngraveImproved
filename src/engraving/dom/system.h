@@ -50,7 +50,8 @@ public:
     SysStaff() {}
     ~SysStaff();
 
-    InstrumentName* instrumentName = nullptr;
+    //int idx     { 0    };
+    std::vector<InstrumentName*> instrumentNames;
 
     const RectF& bbox() const { return m_bbox; }
     RectF& bbox() { return m_bbox; }
@@ -100,13 +101,17 @@ public:
 
     void moveToPage(Page* parent);
 
+    // Score Tree functions
+    EngravingObject* scanParent() const override;
+    EngravingObjectList scanChildren() const override;
+
     System* clone() const override { return new System(*this); }
 
     void add(EngravingItem*) override;
     void remove(EngravingItem*) override;
     void change(EngravingItem* o, EngravingItem* n) override;
 
-    void scanElements(std::function<void(EngravingItem*)> func) override;
+    void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all=true) override;
 
     void appendMeasure(MeasureBase*);
     void removeMeasure(MeasureBase*);

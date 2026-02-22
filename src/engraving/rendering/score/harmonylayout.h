@@ -21,9 +21,6 @@
  */
 #pragma once
 
-#include <stack>
-#include <vector>
-
 #include "layoutcontext.h"
 #include "dom/harmony.h"
 
@@ -68,13 +65,11 @@ private:
     static void layoutModifierParentheses(const Harmony* item);
 
     static void render(Harmony* item, Harmony::LayoutData* ldata, const LayoutContext& ctx);
-    static void doRenderSingleHarmony(Harmony* item, Harmony::LayoutData* ldata, HarmonyRenderCtx& harmonyCtx, int rootTpc, int bassTpc,
-                                      const LayoutContext& ctx);
     static void renderSingleHarmony(Harmony* item, Harmony::LayoutData* ldata, HarmonyRenderCtx& harmonyCtx, const LayoutContext& ctx);
     static void renderRomanNumeral(Harmony* item, Harmony::LayoutData* ldata);
     static void render(Harmony* item, Harmony::LayoutData* ldata, const String& str, HarmonyRenderCtx& harmonyCtx);
     static void render(Harmony* item, Harmony::LayoutData* ldata, SymId sym, HarmonyRenderCtx& harmonyCtx, const LayoutContext& ctx);
-    static void render(Harmony* item, Harmony::LayoutData* ldata, const std::vector<RenderActionPtr>& renderList,
+    static void render(Harmony* item, Harmony::LayoutData* ldata, const std::list<RenderActionPtr>& renderList,
                        HarmonyRenderCtx& harmonyCtx, const LayoutContext& ctx, int tpc,
                        NoteSpellingType noteSpelling = NoteSpellingType::STANDARD, NoteCaseType noteCase = NoteCaseType::AUTO,
                        double noteMag = 1.0);

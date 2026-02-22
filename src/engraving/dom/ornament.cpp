@@ -33,9 +33,6 @@
 #include "staff.h"
 #include "utils.h"
 
-#include "editing/editchord.h"
-#include "editing/transpose.h"
-
 using namespace mu::engraving;
 
 Ornament::Ornament(ChordRest* parent)
@@ -117,16 +114,16 @@ void Ornament::setTrack(track_idx_t val)
     m_track = val;
 }
 
-void Ornament::scanElements(std::function<void(EngravingItem*)> func)
+void Ornament::scanElements(void* data, void (* func)(void*, EngravingItem*), bool all)
 {
-    func(this);
+    func(data, this);
     for (Accidental* accidental : m_accidentalsAboveAndBelow) {
         if (accidental) {
-            func(accidental);
+            func(data, accidental);
         }
     }
     if (m_cueNoteChord) {
-        m_cueNoteChord->scanElements(func);
+        m_cueNoteChord->scanElements(data, func, all);
     }
 }
 
@@ -307,14 +304,14 @@ void Ornament::computeNotesAboveAndBelow(AccidentalState* accState)
                 AccidentalVal accidentalVal = accState->accidentalVal(pitchLine);
                 AccidentalVal noteAccidentalVal = tpc2alter(note->tpc());
                 int accidentalDiff = static_cast<int>(accidentalVal) - static_cast<int>(noteAccidentalVal);
-                note->transpose(Interval(0, accidentalDiff), true);
+                score()->transpose(note, Interval(0, accidentalDiff), true);
             }
         } else {
             Interval interval = Interval::fromOrnamentInterval(above ? _intervalAbove : _intervalBelow);
             if (!above) {
                 interval.flip();
             }
-            note->transpose(interval, true);
+            score()->transpose(note, interval, true);
         }
 
         AccidentalState copyOfAccState = *accState;
@@ -414,12 +411,10 @@ void Ornament::updateCueNote()
     if (!m_cueNoteChord) {
         m_cueNoteChord = Factory::createChord(parentChord->segment());
         m_cueNoteChord->setSmall(true);
+        cueNote->setParenthesesMode(ParenthesesMode::BOTH);
         cueNote->setHeadType(NoteHeadType::HEAD_QUARTER);
         m_cueNoteChord->add(cueNote);
         cueNote->setParent(m_cueNoteChord);
-
-        std::vector<Note*> notes = { cueNote };
-        EditChord::addChordParentheses(const_cast<Chord*>(m_cueNoteChord), notes, false, true);
     }
     m_cueNoteChord->setTrack(track());
     m_cueNoteChord->setParent(parentChord->segment());
@@ -450,7 +445,7 @@ void Ornament::mapOldTrillAccidental(Note* note, const Note* mainNote)
     AccidentalVal oldCompatValue = Accidental::subtype2value(m_trillOldCompatAccidental->accidentalType());
     AccidentalVal noteAccidentalVal = tpc2alter(note->tpc());
     int accidentalDiff = static_cast<int>(oldCompatValue) - static_cast<int>(noteAccidentalVal);
-    note->transpose(Interval(0, accidentalDiff), true);
+    score()->transpose(note, Interval(0, accidentalDiff), true);
     int semitones = note->pitch() - mainNote->pitch();
     switch (semitones) {
     case 0:

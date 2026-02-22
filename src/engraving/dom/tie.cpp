@@ -25,16 +25,15 @@
 
 #include "draw/types/transform.h"
 
-#include "../editing/mscoreview.h"
-#include "../editing/undo.h"
-
 #include "accidental.h"
 #include "barline.h"
 #include "chord.h"
 #include "factory.h"
 #include "hook.h"
 #include "ledgerline.h"
+#include "masterscore.h"
 #include "measure.h"
+#include "mscoreview.h"
 #include "note.h"
 #include "notedot.h"
 #include "part.h"
@@ -46,6 +45,7 @@
 #include "stem.h"
 #include "system.h"
 #include "tiejumppointlist.h"
+#include "undo.h"
 #include "utils.h"
 #include "volta.h"
 
@@ -113,7 +113,7 @@ RectF TieSegment::drag(EditData& ed)
     return SlurTieSegment::drag(ed);
 }
 
-void TieSegment::dragGrip(EditData& ed)
+void TieSegment::editDrag(EditData& ed)
 {
     consolidateAdjustmentOffsetIntoUserOffset();
     Grip g = ed.curGrip;
@@ -166,7 +166,6 @@ void TieSegment::dragGrip(EditData& ed)
         roffset() += ed.delta;
         break;
     default:
-        UNREACHABLE;
         return;
     }
 
@@ -198,27 +197,27 @@ bool TieSegment::isEdited() const
 
 double TieSegment::minShoulderHeight() const
 {
-    return style().styleAbsolute(Sid::tieMinShoulderHeight);
+    return style().styleMM(Sid::tieMinShoulderHeight);
 }
 
 double TieSegment::maxShoulderHeight() const
 {
-    return style().styleAbsolute(Sid::tieMaxShoulderHeight);
+    return style().styleMM(Sid::tieMaxShoulderHeight);
 }
 
 double TieSegment::endWidth() const
 {
-    return style().styleAbsolute(Sid::tieEndWidth);
+    return style().styleMM(Sid::tieEndWidth);
 }
 
 double TieSegment::midWidth() const
 {
-    return style().styleAbsolute(Sid::tieMidWidth);
+    return style().styleMM(Sid::tieMidWidth);
 }
 
 double TieSegment::dottedWidth() const
 {
-    return style().styleAbsolute(Sid::tieDottedWidth);
+    return style().styleMM(Sid::tieDottedWidth);
 }
 
 //---------------------------------------------------------
@@ -266,7 +265,7 @@ void Tie::updatePossibleJumpPoints()
         const Segment* endNoteSegment = endChord ? endChord->segment() : nullptr;
         const ChordRest* finalCROfMeasure = measure->lastChordRest(track());
         const bool finalCRHasFollowingJump = finalCROfMeasure ? finalCROfMeasure->hasFollowingJumpItem() : false;
-        const bool segsAreAdjacent = segmentsAreAdjacent(segment, endNoteSegment);
+        const bool segsAreAdjacent = segmentsAreAdjacentInRepeatStructure(segment, endNoteSegment);
         const bool segsAreInDifferentRepeatSegments = segmentsAreInDifferentRepeatSegments(segment, endNoteSegment);
 
         if (!(finalCRHasFollowingJump && segsAreAdjacent) || !segsAreInDifferentRepeatSegments) {
@@ -454,7 +453,7 @@ void Tie::setStartNote(Note* note)
 
 Note* Tie::startNote() const
 {
-    assert(!startElement() || startElement()->isNote());
+    assert(!startElement() || startElement()->type() == ElementType::NOTE);
     return toNote(startElement());
 }
 

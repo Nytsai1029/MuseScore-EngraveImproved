@@ -19,16 +19,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 #include "playbackstubmodule.h"
 
 #include "modularity/ioc.h"
+#include "ui/iuiengine.h"
 
 #include "playbackcontrollerstub.h"
 #include "playbackconfigurationstub.h"
 
 using namespace mu::playback;
 using namespace muse::modularity;
+
+static void playback_init_qrc()
+{
+    Q_INIT_RESOURCE(playback);
+}
 
 std::string PlaybackModule::moduleName() const
 {
@@ -37,6 +42,19 @@ std::string PlaybackModule::moduleName() const
 
 void PlaybackModule::registerExports()
 {
-    globalIoc()->registerExport<IPlaybackController>(moduleName(), new PlaybackControllerStub());
-    globalIoc()->registerExport<IPlaybackConfiguration>(moduleName(), new PlaybackConfigurationStub());
+    ioc()->registerExport<IPlaybackController>(moduleName(), new PlaybackControllerStub());
+    ioc()->registerExport<IPlaybackConfiguration>(moduleName(), new PlaybackConfigurationStub());
+}
+
+void PlaybackModule::registerResources()
+{
+    playback_init_qrc();
+}
+
+void PlaybackModule::registerUiTypes()
+{
+    std::shared_ptr<muse::ui::IUiEngine> ui = ioc()->resolve<muse::ui::IUiEngine>(moduleName());
+    if (ui) {
+        ui->addSourceImportPath(playback_QML_IMPORT);
+    }
 }

@@ -26,6 +26,7 @@
 
 #include "pitchspelling.h"
 
+#include "../types/dimension.h"
 #include "../types/types.h"
 
 namespace mu::engraving {
@@ -47,10 +48,14 @@ public:
     static constexpr NoteHeadType NOTEHEADTYPE_DEFAULT = NoteHeadType::HEAD_AUTO;
     static constexpr DirectionH DIRECTION_DEFAULT = DirectionH::AUTO;
     static constexpr bool HASLINE_DEFAULT = true;
-    static constexpr Spatium LINEWIDTH_DEFAULT = 0.12_sp;
+    static const Spatium LINEWIDTH_DEFAULT;
     static constexpr double LINEOFFSET_DEFAULT = 0.8;               // the distance between notehead and line
 
     Ambitus* clone() const override { return new Ambitus(*this); }
+
+    // Score Tree functions
+    EngravingObject* scanParent() const override;
+    EngravingObjectList scanChildren() const override;
 
     double mag() const override;
 
@@ -62,8 +67,8 @@ public:
     DirectionH direction() const { return m_direction; }
     bool hasLine() const { return m_hasLine; }
     Spatium lineWidth() const { return m_lineWidth; }
-    int topOctave() const { return (m_topPitch / PITCH_DELTA_OCTAVE) - 1; }
-    int bottomOctave() const { return (m_bottomPitch / PITCH_DELTA_OCTAVE) - 1; }
+    int topOctave() const { return (m_topPitch / 12) - 1; }
+    int bottomOctave() const { return (m_bottomPitch / 12) - 1; }
     int topPitch() const { return m_topPitch; }
     int bottomPitch() const { return m_bottomPitch; }
     int topTpc() const { return m_topTpc; }
@@ -88,7 +93,8 @@ public:
     double headWidth() const;
 
     // re-implemented virtual functions
-    void scanElements(std::function<void(EngravingItem*)> func) override;
+    PointF pagePos() const override;        // position in page coordinates
+    void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all=true) override;
     void setTrack(track_idx_t val) override;
 
     String accessibleInfo() const override;
@@ -125,7 +131,7 @@ private:
         int topTpc = Tpc::TPC_INVALID;
         int bottomTpc = Tpc::TPC_INVALID;
         int topPitch = INVALID_PITCH;
-        int bottomPitch = MAX_PITCH + 1;
+        int bottomPitch = INVALID_PITCH;
     };
 
     Ranges estimateRanges() const;                // scan staff up to next section break and update range pitches

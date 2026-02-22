@@ -20,22 +20,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "web/appjs/webapi.h"
+#include "log.h"
 
-#include <emscripten.h>
+#include "webbridge/webapi.h"
 
-using namespace mu::appjs;
+using namespace mu::webbridge;
 
 extern "C" {
-EMSCRIPTEN_KEEPALIVE
+void onclickTest1(int num) { WebApi::instance()->onclickTest1(num); }
 void load(const void* source, unsigned int len) { WebApi::instance()->load(source, len); }
-
-EMSCRIPTEN_KEEPALIVE
-void addSoundFont(const char* uri)
-{
-    WebApi::instance()->addSoundFont(std::string(uri));
-}
-
-EMSCRIPTEN_KEEPALIVE
-void startAudioProcessing() { WebApi::instance()->startAudioProcessing(); }
 }

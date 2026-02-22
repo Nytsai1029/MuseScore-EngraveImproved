@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -24,7 +24,7 @@
 
 #include "global/serialization/json.h"
 
-#include "audio/common/audiotypes.h"
+#include "audio/audiotypes.h"
 #include "audiopluginsutils.h"
 
 #include "log.h"
@@ -38,7 +38,6 @@ static const std::map<audio::AudioResourceType, std::string> RESOURCE_TYPE_TO_ST
     { audio::AudioResourceType::VstPlugin, "VstPlugin" },
     { audio::AudioResourceType::Lv2Plugin, "Lv2Plugin" },
     { audio::AudioResourceType::AudioUnit, "AudioUnit" },
-    { audio::AudioResourceType::NyquistPlugin, "NyquistPlugin" },
 };
 
 static JsonObject attributesToJson(const AudioResourceAttributes& attributes)
@@ -148,18 +147,16 @@ Ret KnownAudioPluginsRegister::load()
     }
 
     m_loaded = true;
-    pluginInfoListChanged().notify();
     return muse::make_ok();
 }
 
-AudioPluginInfoList KnownAudioPluginsRegister::pluginInfoList(PluginInfoAccepted accepted) const
+std::vector<AudioPluginInfo> KnownAudioPluginsRegister::pluginInfoList(PluginInfoAccepted accepted) const
 {
     if (!accepted) {
         return muse::values(m_pluginInfoMap);
     }
 
-    AudioPluginInfoList result;
-    result.reserve(m_pluginInfoMap.size());
+    std::vector<AudioPluginInfo> result;
 
     for (auto it = m_pluginInfoMap.cbegin(); it != m_pluginInfoMap.cend(); ++it) {
         if (accepted(it->second)) {
@@ -168,11 +165,6 @@ AudioPluginInfoList KnownAudioPluginsRegister::pluginInfoList(PluginInfoAccepted
     }
 
     return result;
-}
-
-muse::async::Notification KnownAudioPluginsRegister::pluginInfoListChanged() const
-{
-    return m_pluginInfoListChanged;
 }
 
 const io::path_t& KnownAudioPluginsRegister::pluginPath(const AudioResourceId& resourceId) const
@@ -196,55 +188,43 @@ bool KnownAudioPluginsRegister::exists(const AudioResourceId& resourceId) const
     return muse::contains(m_pluginInfoMap, resourceId);
 }
 
-Ret KnownAudioPluginsRegister::registerPlugins(const AudioPluginInfoList& list)
+Ret KnownAudioPluginsRegister::registerPlugin(const AudioPluginInfo& info)
 {
     IF_ASSERT_FAILED(m_loaded) {
         return false;
     }
 
-    if (list.empty()) {
-        return make_ok();
-    }
-
-    for (const AudioPluginInfo& info : list) {
-        auto it = m_pluginInfoMap.find(info.meta.id);
-        if (it != m_pluginInfoMap.end()) {
-            IF_ASSERT_FAILED(it->second.path != info.path) {
-                return false;
-            }
+    auto it = m_pluginInfoMap.find(info.meta.id);
+    if (it != m_pluginInfoMap.end()) {
+        IF_ASSERT_FAILED(it->second.path != info.path) {
+            return false;
         }
-
-        m_pluginInfoMap.emplace(info.meta.id, info);
-        m_pluginPaths.insert(info.path);
     }
+
+    m_pluginInfoMap.emplace(info.meta.id, info);
+    m_pluginPaths.insert(info.path);
 
     Ret ret = writePluginsInfo();
     return ret;
 }
 
-Ret KnownAudioPluginsRegister::unregisterPlugins(const AudioResourceIdList& resourceIds)
+Ret KnownAudioPluginsRegister::unregisterPlugin(const AudioResourceId& resourceId)
 {
     IF_ASSERT_FAILED(m_loaded) {
         return false;
     }
 
-    if (resourceIds.empty()) {
-        return make_ok();
+    if (!exists(resourceId)) {
+        return muse::make_ok();
     }
 
-    for (const AudioResourceId& resourceId : resourceIds) {
-        if (!exists(resourceId)) {
-            continue;
+    for (const auto& pair : m_pluginInfoMap) {
+        if (pair.first == resourceId) {
+            muse::remove(m_pluginPaths, pair.second.path);
         }
-
-        for (const auto& pair : m_pluginInfoMap) {
-            if (pair.first == resourceId) {
-                muse::remove(m_pluginPaths, pair.second.path);
-            }
-        }
-
-        m_pluginInfoMap.erase(resourceId);
     }
+
+    m_pluginInfoMap.erase(resourceId);
 
     Ret ret = writePluginsInfo();
     return ret;

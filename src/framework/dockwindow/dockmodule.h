@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MUSE_DOCK_DOCKMODULE_H
+#define MUSE_DOCK_DOCKMODULE_H
 
 #include <memory>
 
@@ -31,25 +32,17 @@ class DockWindowActionsController;
 class DockModule : public modularity::IModuleSetup
 {
 public:
+
     std::string moduleName() const override;
     void registerExports() override;
+    void registerResources() override;
+    void registerUiTypes() override;
     void onInit(const IApplication::RunMode& mode) override;
-
-    // Context
-    modularity::IContextSetup* newContext(const muse::modularity::ContextPtr& ctx) const override;
-};
-
-class DockContext : public modularity::IContextSetup
-{
-public:
-    DockContext(const muse::modularity::ContextPtr& ctx)
-        : modularity::IContextSetup(ctx) {}
-
-    void registerExports() override;
-    void onInit(const IApplication::RunMode& mode) override;
-    void onDeinit() override;
 
 private:
+
     std::shared_ptr<DockWindowActionsController> m_actionsController;
 };
 }
+
+#endif // MUSE_DOCK_DOCKMODULE_H

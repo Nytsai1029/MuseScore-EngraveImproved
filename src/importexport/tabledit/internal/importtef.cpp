@@ -21,7 +21,6 @@
  */
 #include "importtef.h"
 #include "measurehandler.h"
-#include "readinglist.h"
 #include "tuplethandler.h"
 
 #include "engraving/dom/box.h"
@@ -37,7 +36,6 @@
 #include "engraving/dom/tempotext.h"
 #include "engraving/dom/text.h"
 #include "engraving/dom/timesig.h"
-#include "engraving/dom/volta.h"
 #include "log.h"
 
 using namespace mu::engraving;
@@ -279,31 +277,6 @@ static void addRest(Segment* segment, track_idx_t track, TDuration tDuration, Fr
         rest->setVisible(visible);
         segment->add(rest);
     }
-}
-
-static void addVolta(Score* score, Measure* measure, const Ending& ending)
-{
-    constexpr track_idx_t voltaTrackIdx = 0;
-
-    Measure* endMeasure = measure;
-    for (int countdown = ending.duration - 1; countdown > 0; countdown--) {
-        Measure* next = endMeasure->nextMeasure();
-        if (!next) {
-            LOGD() << "Ending at " << "TBD" << " specifies non-existent end measure.";
-        }
-        endMeasure = next;
-    }
-
-    Volta* volta = Factory::createVolta(score->dummy());
-    volta->setTrack(voltaTrackIdx);
-    volta->setTick(measure->tick());
-    volta->setTick2(endMeasure->endTick());
-    volta->setVisible(true);
-    volta->setEndings({ ending.number });
-    String text;
-    text += String("%1").arg(ending.number);
-    volta->setText(text);
-    score->addElement(volta);
 }
 
 void TablEdit::createContents(const MeasureHandler& measureHandler)
@@ -591,19 +564,24 @@ void TablEdit::createProperties()
 void TablEdit::createRepeats()
 {
     LOGN("reading list size %zu number of measures %zu", tefReadingList.size(), tefMeasures.size());
-    ReadingList readingList;
-    readingList.calculate(tefMeasures.size(), tefReadingList);
-    for (size_t i = 0; i < tefMeasures.size(); ++i) {
-        Measure* m { score->crMeasure(static_cast<int>(i)) };
-        m->setRepeatStart(readingList.status().at(i).repeatStart);
-        m->setRepeatEnd(readingList.status().at(i).repeatEnd);
-        if (const std::optional<Ending>& ending = readingList.status().at(i).ending) {
-            addVolta(score, m, ending.value());
+    // proof of concept: add repeat to whole score if
+    // - reading list contains two items
+    // - both spanning the entire score
+    if (tefReadingList.size() == 2
+        && tefReadingList.at(0).firstMeasure == 1 && tefReadingList.at(0).lastMeasure == static_cast<int>(tefMeasures.size())
+        && tefReadingList.at(1).firstMeasure == 1 && tefReadingList.at(1).lastMeasure == static_cast<int>(tefMeasures.size())
+        ) {
+        LOGN("do it");
+        if (score->measures()->empty()) {
+            LOGE("no measures in score");
+            return;
         }
-    }
-    if (readingList.status().back().barlineEnd) {
-        Measure* m { score->crMeasure(static_cast<int>(tefMeasures.size()) - 1) };
-        m->setEndBarLineType(BarLineType::END, 0);
+        Measure* first { score->firstMeasure() };
+        Measure* last { score->lastMeasure() };
+        first->setRepeatStart(true);
+        last->setRepeatEnd(true);
+    } else {
+        LOGN("no score repeat");
     }
 }
 
@@ -664,7 +642,7 @@ static void fillGapsInFirstVoices(MasterScore* score)
                 EngravingItem* el = s->element(track);
                 if (el) {
                     if (s->isChordRestType()) {
-                        ChordRest* cr  = toChordRest(el);
+                        ChordRest* cr  = static_cast<ChordRest*>(el);
                         Fraction crTick     = cr->tick();
                         Fraction crLen      = cr->globalTicks();
                         if (crTick > endOfLastCR) {

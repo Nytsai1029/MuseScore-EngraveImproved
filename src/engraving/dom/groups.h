@@ -23,11 +23,8 @@
 #ifndef MU_ENGRAVING_GROUPS_H
 #define MU_ENGRAVING_GROUPS_H
 
-#include <unordered_map>
-
 #include "../types/groupnode.h"
 #include "../types/types.h"
-#include "durationtype.h"
 
 namespace mu::engraving {
 class ChordRest;
@@ -66,9 +63,7 @@ public:
     void dump(const char*) const;
 
     static const Groups& endings(const Fraction& f);
-    static BeamMode baseBeamMode(const ChordRest* cr, const ChordRest* prev = 0);
-    static BeamMode actualBeamMode(const ChordRest* cr, const ChordRest* prev);
-    static BeamMode actualBeamMode(const ChordRest* cr, const ChordRest* prev, const std::unordered_map<int, TDuration>* beatSubdivision);
+    static BeamMode endBeam(const ChordRest* cr, const ChordRest* prev = 0);
 
 private:
     GroupNodes m_nodes;

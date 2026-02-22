@@ -29,19 +29,19 @@
 
 #include "playback/iplaybackconfiguration.h"
 #include "actions/iactionsdispatcher.h"
+#include "global/iinteractive.h"
 #include "audio/main/iplayback.h"
-#include "interactive/iinteractive.h"
 
 namespace mu::playback {
-class OnlineSoundsController : public muse::actions::Actionable, public muse::async::Asyncable, public muse::Contextable
+class OnlineSoundsController : public muse::actions::Actionable, public muse::async::Asyncable
 {
-    muse::GlobalInject<IPlaybackConfiguration> configuration;
-    muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher = { this };
-    muse::ContextInject<muse::IInteractive> interactive = { this };
-    muse::ContextInject<muse::audio::IPlayback> playback = { this };
+    muse::Inject<IPlaybackConfiguration> configuration;
+    muse::Inject<muse::actions::IActionsDispatcher> dispatcher;
+    muse::Inject<muse::IInteractive> interactive;
+    muse::Inject<muse::audio::IPlayback> playback;
 
 public:
-    OnlineSoundsController(const muse::modularity::ContextPtr& iocCtx);
+    OnlineSoundsController();
 
     void regActions();
 

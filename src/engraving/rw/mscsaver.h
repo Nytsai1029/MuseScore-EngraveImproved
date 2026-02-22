@@ -28,20 +28,20 @@
 #include "../infrastructure/mscwriter.h"
 
 namespace mu::engraving::write {
-class WriteContext;
+struct WriteRange;
 }
 
 namespace mu::engraving {
 class MasterScore;
 class Score;
-class MscSaver : public muse::Contextable
+class MscSaver : public muse::Injectable
 {
-    muse::GlobalInject<muse::draw::IImageProvider> imageProvider;
+    muse::Inject<muse::draw::IImageProvider> imageProvider = { this };
 public:
     MscSaver(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx) {}
+        : muse::Injectable(iocCtx) {}
 
-    bool writeMscz(MasterScore* score, MscWriter& mscWriter, bool createThumbnail, const write::WriteContext* ctx = nullptr);
+    bool writeMscz(MasterScore* score, MscWriter& mscWriter, bool createThumbnail, const write::WriteRange* range = nullptr);
 
     bool exportPart(Score* partScore, MscWriter& mscWriter);
 };

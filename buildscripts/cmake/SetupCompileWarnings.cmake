@@ -8,10 +8,7 @@ if (MSVC)
     # either the above or the below, or even both
     #add_compile_options(/wd4996) # disabled warning: C4996, needed for VS 17.8.1 to suppress tons (some 1000) of them in VS' own code
 else()
-    add_compile_options(
-        $<$<COMPILE_LANGUAGE:C,CXX,OBJC,OBJCXX>:-Wall>
-        $<$<COMPILE_LANGUAGE:C,CXX,OBJC,OBJCXX>:-Wextra>
-    )
+    add_compile_options(-Wall -Wextra) #-Wconversion
 endif()
 
 # Target
@@ -37,7 +34,6 @@ function(target_no_warning TARGET WNAME)
     elseif(WNAME STREQUAL "-Wno-truncate")
         set(MSVC_Warning /wd4310 /wd4311)
         unset(GCC_Warning)
-        unset(CLANG_Warning)
     elseif(WNAME STREQUAL "-Wno-uninitialized")
         set(MSVC_Warning /wd4701 /wd4703)
     elseif(WNAME STREQUAL "-Wno-float-conversion")

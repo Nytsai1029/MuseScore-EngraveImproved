@@ -23,6 +23,7 @@
 #include "indicatoricon.h"
 
 #include "mscore.h"
+#include "page.h"
 #include "system.h"
 
 using namespace mu::engraving;
@@ -36,6 +37,8 @@ IndicatorIcon::IndicatorIcon(const ElementType& type, System* parent, ElementFla
 Font IndicatorIcon::font() const
 {
     Font font(configuration()->iconsFontFamily(), Font::Type::Icon);
-    font.setPointSizeF(UI_ICONS_DEFAULT_FONT_SIZE * magS());
+    static constexpr double STANDARD_POINT_SIZE = 12.0;
+    const double scaling = spatium() / SPATIUM20;
+    font.setPointSizeF(STANDARD_POINT_SIZE * scaling);
     return font;
 }

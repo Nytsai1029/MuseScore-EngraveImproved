@@ -30,7 +30,7 @@
 #include "brailletypes.h"
 
 namespace mu::braille {
-class IBrailleConfiguration : MODULE_GLOBAL_INTERFACE
+class IBrailleConfiguration : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IBrailleConfiguration)
 

@@ -23,19 +23,16 @@
 #pragma once
 
 #include <map>
-#include <optional>
-#include <unordered_map>
 
 #include "global/modularity/ioc.h"
+#include "iengravingfontsprovider.h"
 
-#include "../../iengravingfontsprovider.h"
+#include "types/types.h"
 
-#include "../../types/types.h"
-
-#include "../../dom/connector.h"
-#include "../../dom/interval.h"
-#include "../../dom/location.h"
-#include "../../dom/sig.h"
+#include "dom/connector.h"
+#include "dom/interval.h"
+#include "dom/location.h"
+#include "dom/sig.h"
 
 #include "../linksindexer.h"
 #include "../inoutdata.h"
@@ -43,7 +40,6 @@
 #include "connectorinforeader.h"
 
 namespace mu::engraving {
-class BarLine;
 class Beam;
 class EngravingObject;
 class LinkedObjects;
@@ -71,10 +67,10 @@ struct TextStyleMap {
     TextStyleType ss;
 };
 
-class ReadContext : public muse::Contextable
+class ReadContext : public muse::Injectable
 {
 public:
-    muse::GlobalInject<IEngravingFontsProvider> engravingFonts;
+    muse::Inject<IEngravingFontsProvider> engravingFonts = { this };
 
 public:
     ReadContext(const muse::modularity::ContextPtr& iocCtx);
@@ -103,9 +99,6 @@ public:
     void setOriginalSpatium(double v) { m_originalSpatium = v; }
     bool overrideSpatium() const { return m_overrideSpatium; }
     void setOverrideSpatium(bool v) { m_overrideSpatium = v; }
-
-    bool forcePageMode() const { return m_forcePageMode; }
-    void setForcePageMode(bool v) { m_forcePageMode = v; }
 
     compat::DummyElement* dummy() const;
 
@@ -173,12 +166,6 @@ public:
     void fillLocation(Location&, bool forceAbsFrac = false) const;
     void setLocation(const Location&);   // sets a new reading point, taking into account its type (absolute or relative).
 
-    size_t getStaffBarLineSpan(staff_idx_t) const;
-    void setStaffBarLineSpan(staff_idx_t, size_t barLineSpan);
-
-    std::optional<size_t> getBarLineSpan(const BarLine*);
-    void setBarLineSpan(const BarLine*, size_t barLineSpan);
-
     rw::ReadLinks readLinks() const;
     void initLinks(const rw::ReadLinks& l);
     void addLink(Staff* staff, LinkedObjects* link, const Location& location);
@@ -196,9 +183,6 @@ private:
     Score* m_score = nullptr;
 
     bool _pasteMode = false;  // modifies read behaviour on paste operation
-
-    std::unordered_map<staff_idx_t, size_t> m_staffBarLineSpanValues;
-    std::unordered_map<const BarLine*, size_t> m_barLineSpanValues;
 
     std::map<int /*staffIndex*/, std::vector<std::pair<LinkedObjects*, Location> > > m_staffLinkedElements; // one list per staff
     LinksIndexer m_linksIndexer;
@@ -234,6 +218,5 @@ private:
     bool m_overrideSpatium = false;
     double m_originalSpatium = 0;
     PropertyIdSet m_propertiesToSkip;
-    bool m_forcePageMode = false;
 };
 }

@@ -57,7 +57,7 @@ void EngravingFontsController::scanAllDirectories() const
 #elif defined(Q_OS_MACOS)
     // MacOS is correctly handled by Qt
     QStringList globalFontsPaths = QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).first(2);
-#elif defined(Q_OS_LINUX) || defined(Q_OS_FREEBSD)
+#elif defined(Q_OS_LINUX)
     // On Unix systems, we want $XDG_DATA_HOME (user-specific) and $XDG_DATA_DIRS (system-wide)
     QStringList globalFontsPaths { qgetenv("XDG_DATA_HOME") };
     globalFontsPaths.append(QString::fromLocal8Bit(qgetenv("XDG_DATA_DIRS")).split(':'));
@@ -77,18 +77,12 @@ void EngravingFontsController::scanAllDirectories() const
 
     engravingFonts()->loadAllFonts();
 
-    if (uiConfiguration()) {
-        QStringList musicFonts;
-        for (const engraving::IEngravingFontPtr& font : engravingFonts()->fonts()) {
-            musicFonts << QString::fromStdString(font->name());
-            musicFonts << QString::fromStdString(font->name() + " Text");
-        }
-        if (!musicFonts.contains("Gootville")) {
-            musicFonts << "Gootville";
-            musicFonts << "Gootville Text";
-        }
-        uiConfiguration()->setNonTextFonts(musicFonts);
+    QStringList musicFonts;
+    for (const engraving::IEngravingFontPtr& font : engravingFonts()->fonts()) {
+        musicFonts << QString::fromStdString(font->name());
+        musicFonts << QString::fromStdString(font->name() + " Text");
     }
+    uiConfiguration()->setNonTextFonts(musicFonts);
 }
 
 void EngravingFontsController::scanDirectory(const muse::io::path_t& path, bool isPrivate) const

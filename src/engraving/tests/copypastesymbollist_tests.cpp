@@ -24,17 +24,18 @@
 
 #include <QMimeData>
 
-#include "engraving/internal/qmimedataadapter.h"
+#include "internal/qmimedataadapter.h"
 
-#include "engraving/dom/factory.h"
-#include "engraving/dom/masterscore.h"
-#include "engraving/dom/measure.h"
+#include "dom/factory.h"
+#include "dom/masterscore.h"
+#include "dom/measure.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
 
 #include "log.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String CPSYMBOLLIST_DATA_DIR(u"copypastesymbollist_data/");
@@ -42,10 +43,24 @@ static const String CPSYMBOLLIST_DATA_DIR(u"copypastesymbollist_data/");
 class Engraving_CopyPasteSymbolListTests : public ::testing::Test
 {
 protected:
+    void SetUp() override
+    {
+        m_useRead302 = MScore::useRead302InTestMode;
+        MScore::useRead302InTestMode = false;
+    }
+
+    void TearDown() override
+    {
+        MScore::useRead302InTestMode = m_useRead302;
+    }
+
     void copypastecommon(MasterScore*, const char16_t*);
     void copypaste(const char16_t*, ElementType);
     void copypastepart(const char16_t*, ElementType);
     void copypastedifferentvoice(const char16_t*, ElementType);
+
+private:
+    bool m_useRead302 = false;
 };
 
 //---------------------------------------------------------

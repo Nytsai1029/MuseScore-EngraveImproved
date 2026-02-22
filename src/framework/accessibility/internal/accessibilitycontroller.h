@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_ACCESSIBILITY_ACCESSIBILITYCONTROLLER_H
+#define MUSE_ACCESSIBILITY_ACCESSIBILITYCONTROLLER_H
 
 #include <memory>
 #include <QObject>
@@ -32,15 +32,14 @@
 #include "global/async/channel.h"
 #include "global/iapplication.h"
 
+#include "framework/actions/iactionsdispatcher.h"
 #include "modularity/ioc.h"
+#include "ui/imainwindow.h"
+#include "ui/iinteractiveprovider.h"
+#include "ui/iuiactionsregister.h"
 #include "../iaccessibilityconfiguration.h"
 #include "../iaccessibilitycontroller.h"
 #include "accessibleobject.h"
-#include "actions/iactionsdispatcher.h"
-#include "interactive/iinteractive.h"
-#include "interactive/internal/iinteractiveprovider.h"
-#include "ui/imainwindow.h"
-#include "ui/iuiactionsregister.h"
 
 class QAccessibleInterface;
 class QAccessibleEvent;
@@ -50,16 +49,16 @@ class DiagnosticAccessibleModel;
 }
 
 namespace muse::accessibility {
-class AccessibilityController : public IAccessibilityController, public IAccessible, public muse::Contextable, public async::Asyncable,
+class AccessibilityController : public IAccessibilityController, public IAccessible, public muse::Injectable, public async::Asyncable,
     public std::enable_shared_from_this<AccessibilityController>
 {
 public:
-    GlobalInject<IAccessibilityConfiguration> configuration;
-    GlobalInject<IApplication> application;
-    ContextInject<actions::IActionsDispatcher> actionsDispatcher = { this };
-    ContextInject<IInteractive> interactive = { this };
-    ContextInject<ui::IMainWindow> mainWindow = { this };
-    ContextInject<ui::IUiActionsRegister> actionsRegister = { this };
+    Inject<IApplication> application = { this };
+    Inject<ui::IMainWindow> mainWindow = { this };
+    Inject<ui::IInteractiveProvider> interactiveProvider = { this };
+    Inject<ui::IUiActionsRegister> actionsRegister = { this };
+    Inject<actions::IActionsDispatcher> actionsDispatcher = { this };
+    Inject<IAccessibilityConfiguration> configuration = { this };
 
 public:
     AccessibilityController(const muse::modularity::ContextPtr& iocCtx);
@@ -67,7 +66,7 @@ public:
 
     static QAccessibleInterface* accessibleInterface(QObject* object);
 
-    void setAccessibilityEnabled(bool enabled);
+    void setAccesibilityEnabled(bool enabled);
 
     // IAccessibilityController
     void reg(IAccessible* item) override;
@@ -191,3 +190,5 @@ private:
     bool m_needToVoicePanelInfo = false;
 };
 }
+
+#endif // MUSE_ACCESSIBILITY_ACCESSIBILITYCONTROLLER_H

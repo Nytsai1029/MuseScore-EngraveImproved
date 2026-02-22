@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_IMPORTEXPORT_IMIDIIMPORTEXPORTCONFIGURATION_H
+#define MU_IMPORTEXPORT_IMIDIIMPORTEXPORTCONFIGURATION_H
 
 #include <optional>
 
@@ -29,7 +29,7 @@
 #include "io/path.h"
 
 namespace mu::iex::midi {
-class IMidiImportExportConfiguration : MODULE_GLOBAL_INTERFACE
+class IMidiImportExportConfiguration : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IMidiImportExportConfiguration)
 
@@ -41,10 +41,6 @@ public:
     virtual void setMidiShortestNote(int ticks) = 0;
     virtual muse::async::Channel<int> midiShortestNoteChanged() const = 0;
 
-    virtual bool roundTempo() const = 0;
-    virtual void setRoundTempo(bool round) = 0;
-    virtual muse::async::Channel<bool> roundTempoChanged() const = 0;
-
     virtual void setMidiImportOperationsFile(const std::optional<muse::io::path_t>& filePath) const = 0;
 
     // export
@@ -55,3 +51,5 @@ public:
     virtual void setIsMidiExportRpns(bool exportRpns) = 0;
 };
 }
+
+#endif // MU_IMPORTEXPORT_IMIDIIMPORTEXPORTCONFIGURATION_H

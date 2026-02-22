@@ -4,7 +4,7 @@
 # MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2021 MuseScore Limited and others
+# Copyright (C) 2021 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -18,24 +18,29 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-muse_create_module(muse_learn ALIAS muse::learn)
+declare_module(muse_learn)
+set(MODULE_ALIAS muse::learn)
 
-target_sources(muse_learn PRIVATE 
-    learnmodule.cpp
-    learnmodule.h
-    learnerrors.h
-    ilearnconfiguration.h
-    ilearnservice.h
-    internal/learnconfiguration.cpp
-    internal/learnconfiguration.h
-    internal/learnservice.cpp
-    internal/learnservice.h
-)
+set(MODULE_QRC learn.qrc)
 
-if (MUSE_QT_SUPPORT)
-    target_link_libraries(muse_learn PRIVATE Qt::Concurrent Qt::Network Qt::Qml)
+set(MODULE_QML_IMPORT ${CMAKE_CURRENT_LIST_DIR}/qml)
+
+set(MODULE_SRC
+    ${CMAKE_CURRENT_LIST_DIR}/learnmodule.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/learnmodule.h
+    ${CMAKE_CURRENT_LIST_DIR}/learnerrors.h
+    ${CMAKE_CURRENT_LIST_DIR}/ilearnconfiguration.h
+    ${CMAKE_CURRENT_LIST_DIR}/ilearnservice.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/learnconfiguration.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/learnconfiguration.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/learnservice.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/learnservice.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/learnpagemodel.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/learnpagemodel.h
+    )
+
+if (QT_SUPPORT)
+    list(APPEND MODULE_LINK Qt::Concurrent Qt::Network Qt::Qml)
 endif()
 
-if (MUSE_MODULE_LEARN_QML)
-    add_subdirectory(qml/Muse/Learn)
-endif()
+setup_module()

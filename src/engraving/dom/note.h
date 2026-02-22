@@ -25,7 +25,6 @@
 #include "containers.h"
 
 #include "engravingitem.h"
-#include "interval.h"
 #include "noteevent.h"
 #include "noteval.h"
 #include "pitchspelling.h"
@@ -47,7 +46,6 @@ class StaffType;
 class NoteEditData;
 enum class AccidentalType : unsigned char;
 enum class NoteType : unsigned char;
-struct NoteParenthesisInfo;
 
 static constexpr int MAX_DOTS = 4;
 
@@ -159,12 +157,16 @@ public:
     Chord* chord() const { return (Chord*)explicitParent(); }
     void setParent(Chord* ch);
 
+    // Score Tree functions
+    EngravingObject* scanParent() const override;
+    EngravingObjectList scanChildren() const override;
+
     void undoUnlink() override;
 
     double mag() const override;
     EngravingItem* elementBase() const override;
 
-    void scanElements(std::function<void(EngravingItem*)> func) override;
+    void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all = true) override;
     void setTrack(track_idx_t val) override;
 
     int playTicks() const;
@@ -196,11 +198,6 @@ public:
     void setPitch(int val, bool notifyAboutChanged = true);
     void setPitch(int pitch, int tpc1, int tpc2);
     int pitch() const { return m_pitch; }
-
-    double centOffset() const { return m_centOffset; }
-    void setCentOffset(double v) { m_centOffset = v; }
-    int quarterToneOffset() const { return std::round(m_centOffset / 50); }
-
     int ottaveCapoFret() const;
     int linkedOttavaPitchOffset() const;
     int ppitch() const;             // playback pitch
@@ -275,8 +272,6 @@ public:
 
     GuitarBend* bendFor() const;
     GuitarBend* bendBack() const;
-    GuitarBend* diveFor() const;
-    GuitarBend* diveBack() const;
     Tie* tieFor() const { return m_tieFor; }
     Tie* tieBack() const { return m_tieBack; }
     Tie* tieForNonPartial() const;
@@ -319,19 +314,6 @@ public:
     void setUserDotPosition(DirectionV d) { m_userDotPosition = d; }
     DirectionV dotPosition() const { return m_dotPosition; }
     void setDotPosition(DirectionV d) { m_dotPosition = d; }
-    Spatium ledgerLineLengthOffset() const
-    {
-        return Spatium((m_ledgerLineLengthOffsetLeft.val() + m_ledgerLineLengthOffsetRight.val()) * 0.5);
-    }
-    void setLedgerLineLengthOffset(Spatium val)
-    {
-        m_ledgerLineLengthOffsetLeft = val;
-        m_ledgerLineLengthOffsetRight = val;
-    }
-    Spatium ledgerLineLengthOffsetLeft() const { return m_ledgerLineLengthOffsetLeft; }
-    Spatium ledgerLineLengthOffsetRight() const { return m_ledgerLineLengthOffsetRight; }
-    void setLedgerLineLengthOffsetLeft(Spatium val) { m_ledgerLineLengthOffsetLeft = val; }
-    void setLedgerLineLengthOffsetRight(Spatium val) { m_ledgerLineLengthOffsetRight = val; }
     bool dotIsUp() const;                 // actual dot position
 
     void reset() override;
@@ -377,8 +359,7 @@ public:
 
     bool removeSpannerFor(Spanner* e) { return muse::remove(m_spannerFor, e); }
 
-    bool transposeDiatonic(int interval, bool keepAlterations, bool useDoubleAccidentals);
-    bool transpose(Interval interval, bool useDoubleSharpsFlats);
+    void transposeDiatonic(int interval, bool keepAlterations, bool useDoubleAccidentals);
 
     void localSpatiumChanged(double oldValue, double newValue) override;
     PropertyValue getProperty(Pid propertyId) const override;
@@ -421,10 +402,6 @@ public:
     SlideType slideToType() const { return m_slideToType; }
     SlideType slideFromType() const { return m_slideFromType; }
 
-    void setParenthesesMode(const ParenthesesMode& v, bool addToLinked = true, bool generated = false) override;
-
-    const NoteParenthesisInfo* parenInfo() const;
-
     void setHarmonic(bool val) { m_harmonic = val; }
     bool harmonic() const { return m_harmonic; }
 
@@ -455,12 +432,6 @@ public:
 
     void setVisible(bool v) override;
 
-    bool overrideBendVisibilityRules() const { return m_overrideBendVisibilityRules; }
-    void setOverrideBendVisibilityRules(bool v) { m_overrideBendVisibilityRules = v; }
-
-    bool hideGeneratedParens() const { return m_hideGeneratedParens; }
-    void setHideGeneratedParens(bool v) { m_hideGeneratedParens = v; }
-
     TieJumpPointList* tieJumpPoints() { return &m_jumpPoints; }
     const TieJumpPointList* tieJumpPoints() const { return &m_jumpPoints; }
 
@@ -469,7 +440,6 @@ public:
         ld_field<SymId> cachedNoteheadSym = { "[Note] cachedNoteheadSym", SymId::noSym };    // use in draw to avoid recomputing at every update
         ld_field<SymId> cachedSymNull = { "[Note] cachedSymNull", SymId::noSym };            // additional symbol for some transparent notehead
         ld_field<bool> mirror = { "[Note] mirror", false };                                  // True if note is mirrored at stem.
-        ld_field<bool> hasGeneratedParens = { "[Note] hasGeneratedParens", false };          // Should generated parens be created
     };
     DECLARE_LAYOUTDATA_METHODS(Note)
 
@@ -482,8 +452,8 @@ private:
     void startDrag(EditData&) override;
     RectF drag(EditData& ed) override;
     void endDrag(EditData&) override;
+    void editDrag(EditData& editData) override;
 
-    void dragInEditMode(EditData& ed);
     void verticalDrag(EditData& ed);
     void horizontalDrag(EditData& ed);
 
@@ -495,6 +465,8 @@ private:
     static std::vector<Note*> findTiedNotes(Note* startNote, bool followPartialTies = true);
 
     void normalizeLeftDragDelta(Segment* seg, EditData& ed, NoteEditData* ned);
+
+    static String tpcUserName(int tpc, int pitch, bool explicitAccidental, bool full = false);
 
     void getNoteListForDots(std::vector<Note*>& topDownNotes, std::vector<Note*>& bottomUpNotes, std::vector<int>& anchoredDots);
 
@@ -512,14 +484,11 @@ private:
                                       // except if only one note is dotted
     bool m_fretConflict = false;      // used by TAB staves to mark a fretting conflict:
                                       // two or more notes on the same string
+    bool m_dragMode = false;
     bool m_isSmall = false;
     bool m_play = true;           // note is not played if false
     mutable bool m_mark = false;  // for use in sequencer
     bool m_fixed = false;         // for slash notation
-
-    bool m_overrideBendVisibilityRules = false;
-
-    bool m_hideGeneratedParens = false;
 
     SlideType m_slideToType = SlideType::Undefined;
     SlideType m_slideFromType = SlideType::Undefined;
@@ -527,8 +496,6 @@ private:
     DirectionH m_userMirror = DirectionH::AUTO;        ///< user override of mirror
     DirectionV m_userDotPosition = DirectionV::AUTO;   ///< user override of dot position
     DirectionV m_dotPosition = DirectionV::AUTO;       // used as an intermediate step when resolving dot conflicts
-    Spatium m_ledgerLineLengthOffsetLeft = 0.0_sp;
-    Spatium m_ledgerLineLengthOffsetRight = 0.0_sp;
 
     NoteHeadScheme m_headScheme = NoteHeadScheme::HEAD_AUTO;
     NoteHeadGroup m_headGroup = NoteHeadGroup::HEAD_NORMAL;
@@ -548,7 +515,6 @@ private:
     int m_string = -1;
     mutable int m_tpc[2] = { Tpc::TPC_INVALID, Tpc::TPC_INVALID };   // tonal pitch class  (concert/transposing)
     mutable int m_pitch = 0;      // Note pitch as midi value (0 - 127).
-    mutable double m_centOffset = 0.0; // Pitch offset in cents (100 cents = 1 semitone)
 
     int m_userVelocity = 0;     // velocity user offset in percent, or absolute velocity for this note
     int m_fixedLine = 0;        // fixed line number if _fixed == true
@@ -560,8 +526,6 @@ private:
     Tie* m_tieBack = nullptr;
 
     bool m_harmonic = false;
-
-    bool m_hasParens = false;
 
     ElementList m_el;          // fingering, other text, symbols or images
     std::vector<NoteDot*> m_dots;

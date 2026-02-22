@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -20,12 +20,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 ListView {
     id: root
@@ -39,8 +38,6 @@ ListView {
     delegate: Item {
         id: delegateItem
 
-        required property ArticulationPatternSegmentItem patternSegmentItem
-
         property bool isSelected: root.model.currentPatternSegment === patternSegmentItem
 
         height: childrenRect.height
@@ -51,7 +48,7 @@ ListView {
 
             height: 64
             width: 64
-            patternModel: delegateItem.patternSegmentItem
+            patternModel: patternSegmentItem
             thumbnailModeOn: true
 
             showArrangement: root.showArrangement
@@ -66,7 +63,7 @@ ListView {
                 hoverEnabled: true
 
                 onClicked: {
-                    root.model.currentPatternSegment = delegateItem.patternSegmentItem
+                    root.model.currentPatternSegment = patternSegmentItem
                 }
             }
         }

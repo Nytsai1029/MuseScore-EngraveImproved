@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2023 MuseScore Limited and others
+ * Copyright (C) 2023 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,11 +19,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import QtQuick.Layouts
+import QtQuick 2.15
 
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 FocusScope {
     id: root
@@ -32,16 +31,14 @@ FocusScope {
 
     property bool checked: false
 
-    property alias text: label.text
-
     property string toolTipTitle: ""
     property string toolTipDescription: ""
     property string toolTipShortcut: ""
 
-    signal toggled
+    signal toggled()
 
-    implicitWidth: contentRow.implicitWidth
-    implicitHeight: contentRow.implicitHeight
+    implicitHeight: 20
+    implicitWidth: 36
 
     opacity: root.enabled ? 1.0 : ui.theme.itemOpacityDisabled
 
@@ -57,90 +54,59 @@ FocusScope {
         enabled: root.enabled && root.visible
 
         accessible.role: MUAccessible.CheckBox
-        accessible.name: root.text
         accessible.checked: root.checked
-
-        onActiveChanged: {
-            if (!root.activeFocus) {
-                root.forceActiveFocus()
-            }
-        }
 
         onTriggered: root.toggled()
     }
 
-    RowLayout {
-        id: contentRow
-        width: Math.min(implicitWidth, parent.width)
-        spacing: 6
+    Rectangle {
+        id: backgroundRect
 
-        Rectangle {
-            id: buttonBackground
+        anchors.fill: parent
 
-            implicitHeight: 20
-            implicitWidth: 36
+        color: root.checked ? ui.theme.accentColor : ui.theme.buttonColor
 
-            color: root.checked ? ui.theme.accentColor : ui.theme.buttonColor
+        border.width: ui.theme.borderWidth
+        border.color: ui.theme.strokeColor
+        radius: root.height / 2
 
-            border.width: ui.theme.borderWidth
-            border.color: ui.theme.strokeColor
-            radius: root.height / 2
-
-            NavigationFocusBorder {
-                navigationCtrl: navCtrl
-            }
-
-            StyledRectangularShadow {
-                anchors.fill: buttonHandle
-                offset.y: 1
-                blur: 4
-                radius: buttonHandle.radius
-            }
-
-            Rectangle {
-                id: buttonHandle
-
-                readonly property int margins: 2
-
-                anchors.verticalCenter: parent.verticalCenter
-                x: root.checked ? parent.width - width - margins : margins
-                width: height
-                height: parent.height - margins * 2
-
-                radius: width / 2
-                color: "#FFFFFF"
-
-                Behavior on x {
-                    NumberAnimation {
-                        duration: 100
-                        easing.type: Easing.OutCubic
-                    }
-                }
-            }
+        NavigationFocusBorder {
+            navigationCtrl: navCtrl
         }
 
-        StyledTextLabel {
-            id: label
-            visible: !isEmpty
+        StyledRectangularShadow {
+            anchors.fill: handleRect
+            offset.y: 1
+            blur: 4
+            radius: handleRect.radius
+        }
 
-            Layout.fillWidth: true
+        Rectangle {
+            id: handleRect
 
-            horizontalAlignment: Text.AlignLeft
-            wrapMode: Text.WordWrap
+            readonly property int margins: 2
+
+            anchors.verticalCenter: parent.verticalCenter
+            x: root.checked ? parent.width - width - margins : margins
+            width: root.height - margins * 2
+            height: width
+
+
+            radius: width / 2
+            color: "#FFFFFF"
         }
     }
 
     MouseArea {
         id: mouseArea
-        anchors.fill: contentRow
+        anchors.fill: parent
 
         enabled: root.enabled
-        hoverEnabled: !label.hoveredLink
-        z: label.z - 1 // enable clicking on links in label text
-
+        hoverEnabled: true
         onClicked: {
             navigation.requestActiveByInteraction()
 
+            root.ensureActiveFocus()
             root.toggled()
         }
 

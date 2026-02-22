@@ -22,8 +22,8 @@
 
 #include <gtest/gtest.h>
 
-#include "engraving/dom/dynamic.h"
-#include "engraving/dom/masterscore.h"
+#include "dom/dynamic.h"
+#include "dom/masterscore.h"
 
 #include "engraving/compat/scoreaccess.h"
 #include "utils/scorerw.h"
@@ -55,43 +55,43 @@ TEST_F(Engraving_DynamicTests, test1)
 
     dynamic->setDirection(DirectionV::DOWN);
     dynamic->setPropertyFlags(Pid::DIRECTION, PropertyFlags::UNSTYLED);
-    d = toDynamic(ScoreRW::writeReadElement(dynamic));
+    d = static_cast<Dynamic*>(ScoreRW::writeReadElement(dynamic));
     EXPECT_EQ(d->direction(), DirectionV::DOWN);
     delete d;
 
     dynamic->setVelocity(23);
-    d = toDynamic(ScoreRW::writeReadElement(dynamic));
+    d = static_cast<Dynamic*>(ScoreRW::writeReadElement(dynamic));
     EXPECT_EQ(d->velocity(), 23);
     delete d;
 
     dynamic->setVelocity(57);
-    d = toDynamic(ScoreRW::writeReadElement(dynamic));
+    d = static_cast<Dynamic*>(ScoreRW::writeReadElement(dynamic));
     EXPECT_EQ(d->velocity(), 57);
     delete d;
 
     dynamic->setProperty(Pid::VELOCITY, 23);
-    d = toDynamic(ScoreRW::writeReadElement(dynamic));
+    d = static_cast<Dynamic*>(ScoreRW::writeReadElement(dynamic));
     EXPECT_EQ(d->velocity(), 23);
     delete d;
 
     dynamic->setProperty(Pid::VELOCITY, 57);
-    d = toDynamic(ScoreRW::writeReadElement(dynamic));
+    d = static_cast<Dynamic*>(ScoreRW::writeReadElement(dynamic));
     EXPECT_EQ(d->velocity(), 57);
     delete d;
 
     dynamic->setProperty(Pid::AVOID_BARLINES, false);
     dynamic->setPropertyFlags(Pid::AVOID_BARLINES, PropertyFlags::UNSTYLED);
-    d = toDynamic(ScoreRW::writeReadElement(dynamic));
+    d = static_cast<Dynamic*>(ScoreRW::writeReadElement(dynamic));
     EXPECT_EQ(d->avoidBarLines(), false);
 
-    dynamic->setProperty(Pid::MUSICAL_SYMBOLS_SCALE, 0.5);
-    dynamic->setPropertyFlags(Pid::MUSICAL_SYMBOLS_SCALE, PropertyFlags::UNSTYLED);
-    d = toDynamic(ScoreRW::writeReadElement(dynamic));
-    EXPECT_EQ(d->symbolScale(), 0.5);
+    dynamic->setProperty(Pid::DYNAMICS_SIZE, 0.5);
+    dynamic->setPropertyFlags(Pid::DYNAMICS_SIZE, PropertyFlags::UNSTYLED);
+    d = static_cast<Dynamic*>(ScoreRW::writeReadElement(dynamic));
+    EXPECT_EQ(d->dynamicsSize(), 0.5);
 
     dynamic->setProperty(Pid::CENTER_ON_NOTEHEAD, true);
     dynamic->setPropertyFlags(Pid::CENTER_ON_NOTEHEAD, PropertyFlags::UNSTYLED);
-    d = toDynamic(ScoreRW::writeReadElement(dynamic));
+    d = static_cast<Dynamic*>(ScoreRW::writeReadElement(dynamic));
     EXPECT_EQ(d->centerOnNotehead(), true);
 
     delete d;

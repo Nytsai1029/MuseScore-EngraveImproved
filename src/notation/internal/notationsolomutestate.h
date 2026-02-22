@@ -19,9 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#pragma once
-
-#include <unordered_map>
+#ifndef MU_NOTATION_NOTATIONSOLOMUTESTATE_H
+#define MU_NOTATION_NOTATIONSOLOMUTESTATE_H
 
 #include "../inotationsolomutestate.h"
 #include "async/asyncable.h"
@@ -34,7 +33,7 @@ public:
     muse::Ret write(muse::io::IODevice* out) override;
 
     bool trackSoloMuteStateExists(const engraving::InstrumentTrackId& trackId) const override;
-    const SoloMuteState& trackSoloMuteState(const engraving::InstrumentTrackId& trackId) const override;
+    SoloMuteState trackSoloMuteState(const engraving::InstrumentTrackId& trackId) const override;
     void setTrackSoloMuteState(const engraving::InstrumentTrackId& trackId, const SoloMuteState& state) override;
     void removeTrackSoloMuteState(const engraving::InstrumentTrackId& trackId) override;
     muse::async::Channel<engraving::InstrumentTrackId, SoloMuteState> trackSoloMuteStateChanged() const override;
@@ -44,3 +43,5 @@ private:
     muse::async::Channel<engraving::InstrumentTrackId, SoloMuteState> m_trackSoloMuteStateChanged;
 };
 }
+
+#endif // MU_NOTATION_NOTATIONSOLOMUTESTATE_H

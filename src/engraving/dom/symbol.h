@@ -71,12 +71,10 @@ public:
 
     PropertyValue getProperty(Pid) const override;
     bool setProperty(Pid, const PropertyValue&) override;
-    virtual PropertyValue propertyDefault(Pid) const override;
+    PropertyValue propertyDefault(Pid) const override;
 
     double baseLine() const override { return 0.0; }
     virtual Segment* segment() const { return (Segment*)explicitParent(); }
-
-    void reset() override;
 
 protected:
     SymId m_sym = SymId::noSym;

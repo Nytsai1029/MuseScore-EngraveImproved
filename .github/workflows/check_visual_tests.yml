@@ -3,24 +3,32 @@ name: 'Check: Visual Tests (vtest)'
 on:
   pull_request:
   workflow_dispatch:
+    inputs:
+      use_qt69:
+        description: 'Use Qt 6.9'
+        default: 'on'
+        required: false 
+
+env:
+  USE_QT69: ${{ inputs.use_qt69 != '' && inputs.use_qt69 || 'on' }}  
 
 jobs:
   setup:
     name: "Setup VTests workflow"
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-22.04
     outputs:
       do_run: ${{ steps.output_data.outputs.do_run }}
-      reference_ref: ${{ steps.output_data.outputs.reference_ref }}
+      reference_sha: ${{ steps.output_data.outputs.reference_sha }}
       artifact_name: ${{ steps.output_data.outputs.artifact_name }}
     steps:
     - name: Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.13.0
+      uses: styfle/cancel-workflow-action@0.12.1
       with:
         access_token: ${{ github.token }}
     - name: Clone repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
       with:
-        sparse-checkout: buildscripts/ci/tools/make_build_number.sh
+        fetch-depth: 0
     - name: "Configure workflow"
       run: |
         bash ./buildscripts/ci/tools/make_build_number.sh
@@ -32,29 +40,29 @@ jobs:
       if: github.event_name == 'pull_request'
       env:
         pull_request_title: ${{ github.event.pull_request.title }}
-        REFERENCE_REF: ${{ github.event.pull_request.base.ref }}
       run: |
-        if [ -z "$REFERENCE_REF" ]; then DO_RUN='false'; else DO_RUN='true'; fi
-        echo "REFERENCE_REF=$REFERENCE_REF" >> $GITHUB_ENV
+        REFERENCE_SHA=$(git merge-base ${{ github.event.pull_request.base.sha }} HEAD)
+        if [ -z "$REFERENCE_SHA" ]; then DO_RUN='false'; else DO_RUN='true'; fi
+        echo "REFERENCE_SHA=$REFERENCE_SHA" >> $GITHUB_ENV
         echo "DO_RUN=$DO_RUN" >> $GITHUB_ENV
         echo "PR_INFO= ${{ github.event.pull_request.number }} ${pull_request_title}" >> $GITHUB_ENV
     - name: Get reference commit for push commit
       if: github.event_name == 'push'
       run: |
-        REFERENCE_REF=${{ github.event.before }}
-        if [[ -z "$REFERENCE_REF" || "$REFERENCE_REF" == 0000000000000000000000000000000000000000 ]]; then
+        REFERENCE_SHA=${{ github.event.before }}
+        if [[ -z "$REFERENCE_SHA" || "$REFERENCE_SHA" == 0000000000000000000000000000000000000000 ]]; then
           DO_RUN='false'
         else
           DO_RUN='true'
         fi
-        echo "REFERENCE_REF=$REFERENCE_REF" >> $GITHUB_ENV
+        echo "REFERENCE_SHA=$REFERENCE_SHA" >> $GITHUB_ENV
         echo "DO_RUN=$DO_RUN" >> $GITHUB_ENV
         echo "PR_INFO=" >> $GITHUB_ENV
     - id: output_data
       name: Output workflow data
       run: |
         echo "do_run=${DO_RUN}" | tee -a $GITHUB_OUTPUT
-        echo "reference_ref=${REFERENCE_REF}" | tee -a $GITHUB_OUTPUT
+        echo "reference_sha=${REFERENCE_SHA}" | tee -a $GITHUB_OUTPUT
         UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"VTests Comparison ${BUILD_NUMBER}${PR_INFO}")"
         echo "artifact_name=$UPLOAD_ARTIFACT_NAME" | tee -a $GITHUB_OUTPUT
 
@@ -65,31 +73,29 @@ jobs:
     if: needs.setup.outputs.do_run == 'true'
     steps:
     - name: Clone repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
 
+    - name: Get ccache timestamp
+      run: echo "CCACHE_TIMESTAMP=$(date -u +"%F-%T")" | tee -a $GITHUB_ENV
     - name: Restore ccache files
-      id: restore-ccache
-      uses: actions/cache/restore@v5
+      uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/.ccache
-        key: ${{runner.os}}-${{runner.arch}}-vtests-current-ccache-
-        restore-keys: |
-          ${{runner.os}}-${{runner.arch}}-vtests-current-ccache-
-          ${{runner.os}}-${{runner.arch}}-vtests-reference-ccache-
+        key: ${{runner.os}}-${{runner.arch}}-tests-ccache-${{ env.CCACHE_TIMESTAMP }}
+        restore-keys: ${{runner.os}}-${{runner.arch}}-tests-ccache-
     - name: Setup ccache
       run: |
-        sudo apt-get install -y ccache
+        sudo apt-get update && sudo apt-get install -y ccache
         bash ./buildscripts/ci/tools/setup_ccache_config.sh
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: 6.10.2
+        version: ${{ env.USE_QT69 == 'on' && '6.9.2' || '6.2.4' }}
         host: 'linux'
         target: 'desktop'
-        arch: 'linux_gcc_64'
-        modules: 'qt5compat qtnetworkauth qtshadertools qtwebsockets'
-        cache: true
+        arch: ${{ env.USE_QT69 == 'on' && 'linux_gcc_64' || 'gcc_64' }}
+        modules: 'qt5compat qtnetworkauth qtscxml qtshadertools qtwebsockets'
     - name: Setup environment
       run: |
         bash ./buildscripts/ci/linux/setup.sh
@@ -97,29 +103,13 @@ jobs:
     - name: Build and Pack
       run: |
         bash ./buildscripts/ci/vtests/build_and_pack.sh
-
-    - name: Show ccache stats
-      run: |
+        echo "============== ccache ==============="
         ccache -sv
     - name: Upload
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       with:
         name: current_build
         path: ./build.artifacts/
-
-    - name: Prepare ccache files for saving
-      id: prepare-save-ccache
-      if: always()
-      run: |
-        ccache --recompress 10
-        echo "CCACHE_TIMESTAMP=$(date -u +"%F-%T")" | tee -a $GITHUB_OUTPUT
-    - name: Save ccache files
-      if: always()
-      uses: actions/cache/save@v5
-      with:
-        key: ${{ steps.restore-ccache.outputs.cache-primary-key }}${{ steps.prepare-save-ccache.outputs.CCACHE_TIMESTAMP }}
-        path: ${{ github.workspace }}/.ccache
-
 
   build_reference:
     name: "Build reference"
@@ -128,33 +118,31 @@ jobs:
     if: needs.setup.outputs.do_run == 'true'
     steps:
     - name: Clone repository and checkout reference commit
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
       with:
-        ref: ${{ needs.setup.outputs.reference_ref }}
+        ref: ${{ needs.setup.outputs.reference_sha }}
 
+    - name: Get ccache timestamp
+      run: echo "CCACHE_TIMESTAMP=$(date -u +"%F-%T")" | tee -a $GITHUB_ENV
     - name: Restore ccache files
-      id: restore-ccache
-      uses: actions/cache/restore@v5
+      uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/.ccache
-        key: ${{runner.os}}-${{runner.arch}}-vtests-reference-ccache-
-        restore-keys: |
-          ${{runner.os}}-${{runner.arch}}-vtests-reference-ccache-
-          ${{runner.os}}-${{runner.arch}}-vtests-current-ccache-
+        key: ${{runner.os}}-${{runner.arch}}-tests-ccache-${{ env.CCACHE_TIMESTAMP }}
+        restore-keys: ${{runner.os}}-${{runner.arch}}-tests-ccache-
     - name: Setup ccache
       run: |
-        sudo apt-get install -y ccache
+        sudo apt-get update && sudo apt-get install -y ccache
         bash ./buildscripts/ci/tools/setup_ccache_config.sh
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: 6.10.2
+        version: ${{ env.USE_QT69 == 'on' && '6.9.2' || '6.2.4' }}
         host: 'linux'
         target: 'desktop'
-        arch: 'linux_gcc_64'
-        modules: 'qt5compat qtnetworkauth qtshadertools qtwebsockets'
-        cache: true
+        arch: ${{ env.USE_QT69 == 'on' && 'linux_gcc_64' || 'gcc_64' }}
+        modules: 'qt5compat qtnetworkauth qtscxml qtshadertools qtwebsockets'
     - name: Setup environment
       run: |
         bash ./buildscripts/ci/linux/setup.sh
@@ -162,28 +150,13 @@ jobs:
     - name: Build and Pack
       run: |
         bash ./buildscripts/ci/vtests/build_and_pack.sh
-    - name: Show ccache stats
-      run: |
+        echo "============== ccache ==============="
         ccache -sv
     - name: Upload
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       with:
         name: reference_build
         path: ./build.artifacts/
-
-    - name: Prepare ccache files for saving
-      id: prepare-save-ccache
-      if: always()
-      run: |
-        ccache --recompress 10
-        echo "CCACHE_TIMESTAMP=$(date -u +"%F-%T")" | tee -a $GITHUB_OUTPUT
-    - name: Save ccache files
-      if: always()
-      uses: actions/cache/save@v5
-      with:
-        key: ${{ steps.restore-ccache.outputs.cache-primary-key }}${{ steps.prepare-save-ccache.outputs.CCACHE_TIMESTAMP }}
-        path: ${{ github.workspace }}/.ccache
-
 
   generate_and_compare:
     name: "Generate and Compare"
@@ -192,14 +165,14 @@ jobs:
     if: needs.setup.outputs.do_run == 'true'
     steps:
     - name: Clone repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Download current
-      uses: actions/download-artifact@v7
+      uses: actions/download-artifact@v5
       with:
         name: current_build
         path: ./musescore_current
     - name: Download reference
-      uses: actions/download-artifact@v7
+      uses: actions/download-artifact@v5
       with:
         name: reference_build
         path: ./musescore_reference
@@ -220,7 +193,7 @@ jobs:
         ./vtest/vtest-compare-pngs.sh --ci 1 -c ./current_pngs_gp_small -r ./reference_pngs_gp_small -o ./comparison/gp
     - name: Upload comparison
       if: env.VTEST_DIFF_FOUND == 'true'
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.setup.outputs.artifact_name }}
         path: ./comparison
@@ -248,7 +221,7 @@ jobs:
         exit 1
     - name: Comment push commit
       if: github.event_name == 'push' && contains( env.VTEST_DIFF_FOUND, 'true')
-      uses: peter-evans/commit-comment@v4.0.0
+      uses: peter-evans/commit-comment@v3.0.0
       with:
         body: |
           This is an automatic message. This commit appears to change some of the visual tests.

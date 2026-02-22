@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) Igor Korsukov
+Copyright (c) 2020 Igor Korsukov
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,24 +21,21 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#pragma once
+#ifndef KORS_ASYNC_PROCESSEVENTS_H
+#define KORS_ASYNC_PROCESSEVENTS_H
 
-#include "internal/queuepool.h"
-#include "conf.h"
+#include "internal/abstractinvoker.h"
 
 namespace kors::async {
-inline void processMessages()
+inline void processEvents()
 {
-    QueuePool::instance()->processMessages();
+    AbstractInvoker::processEvents();
 }
 
-inline void processMessages(const std::thread::id& th)
+inline void onMainThreadInvoke(const std::function<void(const std::function<void()>&, bool)>& f)
 {
-    QueuePool::instance()->processMessages(th);
+    AbstractInvoker::onMainThreadInvoke(f);
+}
 }
 
-inline void terminate()
-{
-    conf::terminated = true;
-}
-}
+#endif // KORS_ASYNC_PROCESSEVENTS_H

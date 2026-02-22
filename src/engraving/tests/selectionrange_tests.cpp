@@ -22,15 +22,16 @@
 
 #include <gtest/gtest.h>
 
-#include "engraving/dom/chord.h"
-#include "engraving/dom/masterscore.h"
-#include "engraving/dom/measure.h"
-#include "engraving/dom/note.h"
-#include "engraving/dom/segment.h"
+#include "dom/chord.h"
+#include "dom/masterscore.h"
+#include "dom/measure.h"
+#include "dom/note.h"
+#include "dom/segment.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String SELRANGE_DATA_DIR("selectionrange_data/");
@@ -96,7 +97,7 @@ TEST_F(Engraving_SelectionRangeTests, selRangeAndSpanners)
 
         // Setup: Find all the spanners in this measure...
         std::unordered_set<const Spanner*> spannersInMeasure;
-        auto spanners = spannerMap.findContained(measure->tick().ticks(), measure->endTick().ticks());
+        auto spanners = spannerMap.findContained(measure->tick().ticks(), Fraction(measure->tick() + measure->ticks()).ticks());
         for (auto i : spanners) {
             const Spanner* sp = i.value;
             spannersInMeasure.emplace(sp);

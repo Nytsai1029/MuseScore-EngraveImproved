@@ -19,17 +19,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
-pragma ComponentBehavior: Bound
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
-import QtQuick
-import QtQuick.Layouts
-
-import Muse.Ui
-import Muse.UiComponents
-
-import MuseScore.NotationScene
-import MuseScore.Playback
+import MuseScore.NotationScene 1.0
+import MuseScore.Playback 1.0
 
 import "internal/SoundFlag"
 
@@ -58,7 +55,6 @@ AbstractElementPopup {
 
     function updatePosition() {
         root.x = (root.parent.width / 2) - (root.width / 2) + root.margins
-        Qt.callLater(root.repositionWindowIfNeed)
     }
 
     Column {

@@ -19,14 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
-import QtQuick
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
-import MuseScore.InstrumentsScene
+import MuseScore.InstrumentsScene 1.0
 
 RowLayout {
     id: root
@@ -34,8 +33,8 @@ RowLayout {
     property bool isMovingUpAvailable: false
     property bool isMovingDownAvailable: false
     property bool isRemovingAvailable: false
-    property bool isAddingAvailable: false
-    property bool isAddingSystemMarkingsAvailable: false
+    property bool isAddingAvailable: value
+    property bool isAddingSystemMarkingsAvailable: value
 
     property int selectedItemsType: LayoutPanelItemType.UNDEFINED
 

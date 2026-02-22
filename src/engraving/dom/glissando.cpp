@@ -80,7 +80,7 @@ GlissandoSegment::GlissandoSegment(Glissando* sp, System* parent)
 //   propertyDelegate
 //---------------------------------------------------------
 
-EngravingObject* GlissandoSegment::propertyDelegate(Pid pid) const
+EngravingItem* GlissandoSegment::propertyDelegate(Pid pid)
 {
     switch (pid) {
     case Pid::GLISS_TYPE:
@@ -352,7 +352,7 @@ PropertyValue Glissando::getProperty(Pid propertyId) const
 {
     switch (propertyId) {
     case Pid::GLISS_TYPE:
-        return glissandoType();
+        return int(glissandoType());
     case Pid::GLISS_TEXT:
         return text();
     case Pid::GLISS_SHOW_TEXT:
@@ -385,7 +385,7 @@ bool Glissando::setProperty(Pid propertyId, const PropertyValue& v)
 {
     switch (propertyId) {
     case Pid::GLISS_TYPE:
-        setGlissandoType(v.value<GlissandoType>());
+        setGlissandoType(GlissandoType(v.toInt()));
         break;
     case Pid::GLISS_TEXT:
         setText(v.value<String>());

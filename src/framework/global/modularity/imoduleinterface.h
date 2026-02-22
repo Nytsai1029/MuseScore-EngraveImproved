@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -25,9 +25,11 @@
 #include "../thirdparty/kors_modularity/modularity/imoduleinterface.h" // IWYU pragma: export
 
 namespace muse::modularity {
-//! TODO Remove?
-// using IModuleExportInterface = kors::modularity::IModuleExportInterface;
-// using IModuleExportCreator = kors::modularity::IModuleExportCreator;
+using IModuleExportInterface = kors::modularity::IModuleExportInterface;
+using IModuleExportCreator = kors::modularity::IModuleExportCreator;
+
+using IModuleInternalInterface = kors::modularity::IModuleInternalInterface;
+using IModuleInternalCreator = kors::modularity::IModuleInternalCreator;
 }
 
 #endif // MU_MODULARITY_IMODULEINTERFACE_H

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,13 +19,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-pragma ComponentBehavior: Bound
-
-import QtQuick 
-
-import Muse.UiComponents
-import Muse.Autobot
+import QtQuick 2.15
+import Muse.UiComponents 1.0
+import Muse.Autobot 1.0
 
 Rectangle {
 
@@ -36,9 +32,7 @@ Rectangle {
     AutobotScriptsModel {
         id: scriptsModel
 
-        onRequireStartTC: function(path) {
-            testCaseRun.run(path)
-        }
+        onRequireStartTC: testCaseRun.run(path)
     }
 
     Component.onCompleted: {
@@ -86,10 +80,6 @@ Rectangle {
 
         section.property: "typeRole"
         section.delegate: Rectangle {
-            id: sectionDelegateItem
-
-            required property string section
-
             width: parent.width
             height: 24
             color: ui.theme.backgroundSecondaryColor
@@ -100,13 +90,13 @@ Rectangle {
                 anchors.leftMargin: 8
                 anchors.verticalCenter: parent.verticalCenter
                 text: "All"
-                checked: scriptsModel.isAllSelected(sectionDelegateItem.section)
-                onClicked: scriptsModel.toggleAllSelect(sectionDelegateItem.section)
+                checked: scriptsModel.isAllSelected(section)
+                onClicked: scriptsModel.toggleAllSelect(section)
 
                 Connections {
                     target: scriptsModel
-                    function onIsAllSelectedChanged(type, arg) {
-                        if (type === sectionDelegateItem.section) {
+                    function onIsAllSelectedChanged() {
+                        if (type === section) {
                             allSelectedCheck.checked = arg
                         }
                     }
@@ -117,22 +107,13 @@ Rectangle {
                 anchors.left: allSelectedCheck.right
                 anchors.leftMargin: 8
                 anchors.verticalCenter: parent.verticalCenter
-                text: sectionDelegateItem.section
+                text: section
             }
         }
 
         delegate: ListItemBlank {
-            id: delegateItem
-
-            required property string title
-            required property string description
-            required property string type
-            required property string path
-            required property string status
-            required property bool selected
-            required property int index
-
-            width: ListView.view.width
+            anchors.left: parent ? parent.left : undefined
+            anchors.right: parent ? parent.right : undefined
             height: 48
 
             CheckBox {
@@ -140,8 +121,8 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.leftMargin: 8
                 anchors.verticalCenter: parent.verticalCenter
-                checked: delegateItem.selected
-                onClicked: scriptsModel.toggleSelect(delegateItem.index)
+                checked: selectedRole
+                onClicked: scriptsModel.toggleSelect(indexRole)
             }
 
             StyledTextLabel {
@@ -154,11 +135,11 @@ Rectangle {
                 anchors.rightMargin: 8
                 horizontalAlignment: Text.AlignLeft
                 text: {
-                    var status = delegateItem.status
+                    var status = statusRole
                     if (status !== "") {
                         status = "[" + status + "] "
                     }
-                    return status + delegateItem.title
+                    return status + titleRole
                 }
             }
 
@@ -171,16 +152,17 @@ Rectangle {
                 anchors.rightMargin: 8
                 horizontalAlignment: Text.AlignLeft
                 font.pixelSize: titleLabel.font.pixelSize / 1.2
-                text: delegateItem.description
+                text: descriptionRole
             }
 
             onClicked: {
-                if (delegateItem.type === "TestCase") {
-                    testCaseRun.run(delegateItem.path)
+                if (typeRole === "TestCase") {
+                    testCaseRun.run(pathRole)
                 } else {
                     scriptsModel.stopRunAllTC()
-                    scriptsModel.runScript(delegateItem.index)
+                    scriptsModel.runScript(indexRole)
                 }
+
             }
         }
     }

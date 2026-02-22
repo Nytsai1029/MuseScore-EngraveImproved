@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -39,7 +39,7 @@ class QByteArray;
 class QWindow;
 
 namespace muse::ui {
-class IUiConfiguration : MODULE_GLOBAL_INTERFACE
+class IUiConfiguration : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IUiConfiguration)
 
@@ -49,7 +49,6 @@ public:
     virtual ThemeList themes() const = 0;
     virtual QStringList possibleAccentColors() const = 0;
     virtual QStringList possibleFontFamilies() const = 0;
-    virtual QStringList nonTextFonts() const = 0;
     virtual void setNonTextFonts(const QStringList& fontFamilies) = 0;
 
     virtual bool isDarkMode() const = 0;

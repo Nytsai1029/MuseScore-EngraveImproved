@@ -121,10 +121,49 @@ void InstrumentName::setInstrumentNameType(InstrumentNameType st)
     }
 }
 
+//---------------------------------------------------------
+//   playTick
+//---------------------------------------------------------
+
+Fraction InstrumentName::playTick() const
+{
+    // Instrument names always have a tick value of zero, so play from the start of the first measure in the system that the instrument name belongs to.
+    const auto sys = system();
+    if (sys) {
+        const auto firstMeasure = sys->firstMeasure();
+        if (firstMeasure) {
+            return firstMeasure->tick();
+        }
+    }
+
+    return tick();
+}
+
+//---------------------------------------------------------
+//   getProperty
+//---------------------------------------------------------
+
+PropertyValue InstrumentName::getProperty(Pid id) const
+{
+    switch (id) {
+    case Pid::INAME_LAYOUT_POSITION:
+        return m_layoutPos;
+    default:
+        return TextBase::getProperty(id);
+    }
+}
+
+//---------------------------------------------------------
+//   setProperty
+//---------------------------------------------------------
+
 bool InstrumentName::setProperty(Pid id, const PropertyValue& v)
 {
     bool rv = true;
     switch (id) {
+    case Pid::INAME_LAYOUT_POSITION:
+        m_layoutPos = v.toInt();
+        break;
     case Pid::VISIBLE:
         // not supported
         break;
@@ -133,5 +172,19 @@ bool InstrumentName::setProperty(Pid id, const PropertyValue& v)
         break;
     }
     return rv;
+}
+
+//---------------------------------------------------------
+//   propertyDefault
+//---------------------------------------------------------
+
+PropertyValue InstrumentName::propertyDefault(Pid id) const
+{
+    switch (id) {
+    case Pid::INAME_LAYOUT_POSITION:
+        return 0;
+    default:
+        return TextBase::propertyDefault(id);
+    }
 }
 }

@@ -32,7 +32,6 @@
 #include "engraving/dom/staff.h"
 #include "engraving/dom/masterscore.h"
 #include "engraving/dom/part.h"
-#include "engraving/editing/transpose.h"
 #include "importmidi_operations.h"
 
 // This simple key detection algorithm is from thesis
@@ -182,7 +181,7 @@ void recognizeMainKeySig(QList<MTrack>& tracks)
             ke.setConcertKey(key);
             if (!v.isZero() && !score->style().styleB(Sid::concertPitch)) {
                 v.flip();
-                ke.setKey(Transpose::transposeKey(key, v));
+                ke.setKey(transposeKey(key, v));
             }
 
             KeyList& staffKeyList = *track.staff->keyList();

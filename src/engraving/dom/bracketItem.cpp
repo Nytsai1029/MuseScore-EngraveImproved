@@ -65,7 +65,7 @@ bool BracketItem::setProperty(Pid id, const PropertyValue& v)
         staff()->setBracketType(column(), BracketType(v.toInt())); // change bracket type global
         break;
     case Pid::BRACKET_COLUMN:
-        staff()->changeBracketColumn(column(), v.value<size_t>());
+        staff()->changeBracketColumn(column(), v.toInt());
         break;
     case Pid::BRACKET_SPAN:
         m_bracketSpan = static_cast<size_t>(v.toInt());
@@ -86,7 +86,7 @@ PropertyValue BracketItem::propertyDefault(Pid id) const
     case Pid::SYSTEM_BRACKET:
         return int(BracketType::NORMAL);
     case Pid::BRACKET_COLUMN:
-        return size_t(0);
+        return 0;
     default:
         return EngravingItem::propertyDefault(id);
     }

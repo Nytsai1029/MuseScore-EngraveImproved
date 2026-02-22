@@ -29,24 +29,24 @@
 #include "modularity/ioc.h"
 #include "actions/iactionsdispatcher.h"
 #include "context/iglobalcontext.h"
-#include "multiwindows/imultiwindowsprovider.h"
+#include "multiinstances/imultiinstancesprovider.h"
 #include "project/iprojectconfiguration.h"
 #include "iappshellconfiguration.h"
 
 #include "isessionsmanager.h"
 
 namespace mu::appshell {
-class SessionsManager : public ISessionsManager, public muse::Contextable, public muse::async::Asyncable
+class SessionsManager : public ISessionsManager, public muse::Injectable, public muse::async::Asyncable
 {
-    muse::GlobalInject<muse::mi::IMultiWindowsProvider> multiwindowsProvider;
-    muse::GlobalInject<project::IProjectConfiguration> projectConfiguration;
-    muse::GlobalInject<IAppShellConfiguration> configuration;
-    muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher = { this };
-    muse::ContextInject<context::IGlobalContext> globalContext = { this };
+    muse::Inject<muse::actions::IActionsDispatcher> dispatcher = { this };
+    muse::Inject<muse::mi::IMultiInstancesProvider> multiInstancesProvider = { this };
+    muse::Inject<context::IGlobalContext> globalContext = { this };
+    muse::Inject<project::IProjectConfiguration> projectConfiguration = { this };
+    muse::Inject<IAppShellConfiguration> configuration = { this };
 
 public:
     SessionsManager(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx) {}
+        : muse::Injectable(iocCtx) {}
 
     void init();
     void deinit();

@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_TREMOLOTWOCHORD_H
+#define MU_ENGRAVING_TREMOLOTWOCHORD_H
 
 #include "beambase.h"
 #include "engravingitem.h"
@@ -50,7 +51,7 @@ public:
     int subtype() const override { return static_cast<int>(m_tremoloType); }
     TranslatableString subtypeUserName() const override;
 
-    void scanElements(std::function<void(EngravingItem*)> func) override;
+    void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all=true) override;
 
     void setTremoloType(TremoloType t);
     TremoloType tremoloType() const { return m_tremoloType; }
@@ -83,6 +84,7 @@ public:
 
     bool crossStaffBeamBetween() const;
 
+    PointF pagePos() const override;      ///< position in page coordinates
     String accessibleInfo() const override;
     void triggerLayout() const override;
 
@@ -109,7 +111,7 @@ public:
     std::vector<PointF> gripsPositions(const EditData&) const override;
     bool isMovable() const override { return true; }
     bool isEditable() const override { return true; }
-    void dragGrip(EditData&) override;
+    void editDrag(EditData&) override;
 
     void clearBeamSegments() override;
 
@@ -148,4 +150,5 @@ private:
     //! NOTE for palette
     PainterPath m_path;
 };
-}
+} // namespace mu::engraving
+#endif

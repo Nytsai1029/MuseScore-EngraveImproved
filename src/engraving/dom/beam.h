@@ -54,11 +54,16 @@ class Beam final : public BeamBase
 public:
     ~Beam();
 
+    // Score Tree functions
+    EngravingObject* scanParent() const override;
+
     Beam* clone() const override { return new Beam(*this); }
+    PointF pagePos() const override;      ///< position in page coordinates
+    PointF canvasPos() const override;    ///< position in page coordinates
 
     bool isEditable() const override { return true; }
     void startEdit(EditData&) override;
-    void dragGrip(EditData&) override;
+    void editDrag(EditData&) override;
 
     Fraction tick() const override;
     Fraction rtick() const override;

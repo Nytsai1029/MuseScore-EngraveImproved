@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -47,14 +47,16 @@ void DrawModule::registerExports()
 {
 #ifndef DRAW_NO_INTERNAL
 
-    globalIoc()->registerExport<draw::IImageProvider>(moduleName(), new QImageProvider());
+    ioc()->registerExport<draw::IImageProvider>(moduleName(), new QImageProvider());
 
+    auto mainFProvider = std::make_shared<FontProvider>(iocContext());
     auto qtFProvider = std::make_shared<QFontProvider>();
+    auto fdispatcher = std::make_shared<FontProviderDispatcher>(mainFProvider, qtFProvider);
 
-    m_fontsEngine = std::make_shared<FontsEngine>(globalCtx());
-    globalIoc()->registerExport<draw::IFontProvider>(moduleName(), qtFProvider);
-    globalIoc()->registerExport<draw::IFontsEngine>(moduleName(), m_fontsEngine);
-    globalIoc()->registerExport<draw::IFontsDatabase>(moduleName(), new FontsDatabase());
+    m_fontsEngine = std::make_shared<FontsEngine>(iocContext());
+    ioc()->registerExport<draw::IFontProvider>(moduleName(), fdispatcher);
+    ioc()->registerExport<draw::IFontsEngine>(moduleName(), m_fontsEngine);
+    ioc()->registerExport<draw::IFontsDatabase>(moduleName(), new FontsDatabase());
 
 #endif // DRAW_NO_INTERNAL
 }

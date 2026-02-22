@@ -45,6 +45,9 @@ class SpannerSegment : public EngravingItem
 
 public:
 
+    // Score Tree functions
+    virtual EngravingObject* scanParent() const override;
+
     virtual double mag() const override;
     virtual Fraction tick() const override;
 
@@ -91,11 +94,12 @@ public:
     PropertyValue getProperty(Pid id) const override;
     bool setProperty(Pid id, const PropertyValue& v) override;
     PropertyValue propertyDefault(Pid id) const override;
-    virtual EngravingObject* propertyDelegate(Pid) const override;
+    virtual EngravingItem* propertyDelegate(Pid) override;
     void undoChangeProperty(Pid id, const PropertyValue&, PropertyFlags ps) override;
     using EngravingObject::undoChangeProperty;
 
     Sid getPropertyStyle(Pid id) const override;
+    PropertyFlags propertyFlags(Pid id) const override;
     void resetProperty(Pid id) override;
     void styleChanged() override;
     void reset() override;
@@ -104,7 +108,7 @@ public:
     void setVisible(bool f) override;
     void setColor(const Color& col) override;
 
-    bool collectForDrawing() const override;
+    void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all=true) override;
 
     EngravingItem* nextSegmentElement() override;
     EngravingItem* prevSegmentElement() override;
@@ -155,6 +159,10 @@ public:
         SEGMENT, MEASURE, CHORD, NOTE
     };
 
+    // Score Tree functions
+    virtual EngravingObject* scanParent() const override;
+    virtual EngravingObjectList scanChildren() const override;
+
     virtual double mag() const override;
 
     virtual void setScore(Score* s) override;
@@ -197,7 +205,7 @@ public:
     virtual void triggerLayout() const override;
     virtual void add(EngravingItem*) override;
     virtual void remove(EngravingItem*) override;
-    virtual void scanElements(std::function<void(EngravingItem*)>) override {}
+    virtual void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all=true) override;
     bool removeSpannerBack();
     virtual void removeUnmanaged();
     virtual void insertTimeUnmanaged(const Fraction& tick, const Fraction& len);

@@ -5,7 +5,7 @@
  * MuseScore Studio
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited
+ * Copyright (C) 2021 MuseScore Limited
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_PLAYBACKMODEL_H
+#define MU_ENGRAVING_PLAYBACKMODEL_H
 
 #include <unordered_map>
 #include <map>
@@ -47,14 +48,14 @@ class Segment;
 class Instrument;
 class RepeatList;
 
-class PlaybackModel : public muse::Contextable, public muse::async::Asyncable
+class PlaybackModel : public muse::Injectable, public muse::async::Asyncable
 {
 public:
-    muse::ContextInject<muse::mpe::IArticulationProfilesRepository> profilesRepository = { this };
+    muse::Inject<muse::mpe::IArticulationProfilesRepository> profilesRepository = { this };
 
 public:
     PlaybackModel(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx) {}
+        : muse::Injectable(iocCtx) {}
 
     void load(Score* score);
     void reload();
@@ -135,17 +136,16 @@ private:
 
     void clearExpiredTracks();
     void clearExpiredContexts(const track_idx_t trackFrom, const track_idx_t trackTo);
-    void clearExpiredEvents(const int tickFrom, const int tickTo, const track_idx_t trackFrom, const track_idx_t trackTo,
-                            ChangedTrackIdSet* trackChanges = nullptr);
+    void clearExpiredEvents(const int tickFrom, const int tickTo, const track_idx_t trackFrom, const track_idx_t trackTo);
     void collectChangesTracks(const InstrumentTrackId& trackId, ChangedTrackIdSet* result);
     void notifyAboutChanges(const InstrumentTrackIdSet& oldTracks, const InstrumentTrackIdSet& changedTracks);
 
     void sendEvents(const InstrumentTrackId& trackId);
 
     void removeEventsFromRange(const track_idx_t trackFrom, const track_idx_t trackTo, const muse::mpe::timestamp_t timestampFrom = -1,
-                               const muse::mpe::timestamp_t timestampTo = -1, ChangedTrackIdSet* trackChanges = nullptr);
+                               const muse::mpe::timestamp_t timestampTo = -1);
     void removeTrackEvents(const InstrumentTrackId& trackId, const muse::mpe::timestamp_t timestampFrom = -1,
-                           const muse::mpe::timestamp_t timestampTo = -1, ChangedTrackIdSet* trackChanges = nullptr);
+                           const muse::mpe::timestamp_t timestampTo = -1);
 
     bool shouldSkipChanges(const ScoreChanges& changes) const;
 
@@ -153,6 +153,8 @@ private:
     TickBoundaries tickBoundaries(const ScoreChanges& changes) const;
 
     const RepeatList& repeatList() const;
+
+    std::vector<const EngravingItem*> filterPlayableItems(const std::vector<const EngravingItem*>& items) const;
 
     muse::mpe::ArticulationsProfilePtr defaultActiculationProfile(const InstrumentTrackId& trackId) const;
 
@@ -181,3 +183,5 @@ private:
     muse::async::Channel<InstrumentTrackId> m_trackRemoved;
 };
 }
+
+#endif // PLAYBACKMODEL_H

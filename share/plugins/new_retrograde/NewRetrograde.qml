@@ -9,7 +9,7 @@
 //  the file LICENSE
 //===========================================================================
 
-import QtQuick
+import QtQuick 2.0
 import MuseScore 3.0
 
 MuseScore {

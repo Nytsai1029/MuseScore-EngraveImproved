@@ -24,23 +24,20 @@
 #include "modularity/imoduleinterface.h"
 
 #include "draw/painter.h"
-
-#include "paintoptions.h"
+#include "dom/editdata.h"
 
 namespace mu::engraving {
-class EditData;
 class EngravingItem;
 }
 
 namespace mu::engraving::rendering {
-class IEditModeRenderer : MODULE_CONTEXT_INTERFACE
+class IEditModeRenderer : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IEditModeRenderer)
 
 public:
     virtual ~IEditModeRenderer() = default;
 
-    virtual void drawItem(const EngravingItem* item, muse::draw::Painter* p, const EditData& ed, double currentViewScaling,
-                          const PaintOptions& opt) = 0;
+    virtual void drawItem(EngravingItem* item, muse::draw::Painter* p, EditData& ed, double currentViewScaling) = 0;
 };
 }

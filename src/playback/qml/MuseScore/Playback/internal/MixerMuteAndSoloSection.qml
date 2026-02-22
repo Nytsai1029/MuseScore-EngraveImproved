@@ -19,22 +19,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
-import MuseScore.Playback
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import Muse.Audio 1.0
+import MuseScore.Playback 1.0
 
 MixerPanelSection {
     id: root
 
     Item {
         id: content
-
-        required property MixerChannelItem channelItem
 
         height: childrenRect.height
         width: root.channelItemWidth
@@ -53,13 +49,13 @@ MixerPanelSection {
                 width: 20
 
                 icon: IconCode.MUTE
-                checked: content.channelItem.muted
+                checked: channelItem.muted
 
                 // TODO: not use `enabled` for this, but present visually in some other way
-                enabled: !(content.channelItem.muted && content.channelItem.forceMute)
+                enabled: !(channelItem.muted && channelItem.forceMute)
 
                 navigation.name: "MuteButton"
-                navigation.panel: content.channelItem.panel
+                navigation.panel: channelItem.panel
                 navigation.row: root.navigationRowStart
                 navigation.accessible.name: content.accessibleName + " " + qsTrc("playback", "Mute")
                 navigation.onActiveChanged: {
@@ -69,7 +65,7 @@ MixerPanelSection {
                 }
 
                 onToggled: {
-                    content.channelItem.muted = !checked
+                    channelItem.muted = !checked
                 }
             }
 
@@ -80,13 +76,13 @@ MixerPanelSection {
                 width: 20
 
                 icon: IconCode.SOLO
-                checked: content.channelItem.solo
+                checked: channelItem.solo
 
-                enabled: content.channelItem.type !== MixerChannelItem.Aux && (!content.channelItem.muted || content.channelItem.forceMute)
-                visible: content.channelItem.type !== MixerChannelItem.Master && content.channelItem.type !== MixerChannelItem.Metronome
+                enabled: channelItem.type !== MixerChannelItem.Aux && (!channelItem.muted || channelItem.forceMute)
+                visible: channelItem.type !== MixerChannelItem.Master && channelItem.type !== MixerChannelItem.Metronome
 
                 navigation.name: "SoloButton"
-                navigation.panel: content.channelItem.panel
+                navigation.panel: channelItem.panel
                 navigation.row: root.navigationRowStart + 1
                 navigation.accessible.name: content.accessibleName + " " + qsTrc("playback", "Solo")
                 navigation.onActiveChanged: {
@@ -96,7 +92,7 @@ MixerPanelSection {
                 }
 
                 onToggled: {
-                    content.channelItem.solo = !content.channelItem.solo
+                    channelItem.solo = !channelItem.solo
                 }
             }
         }

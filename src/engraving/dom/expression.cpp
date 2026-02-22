@@ -80,7 +80,7 @@ double Expression::computeDynamicExpressionDistance(const Dynamic* snappedDyn) c
     String dynamicTextString = snappedDyn->xmlText();
     String f = String::fromStdString("<sym>dynamicForte</sym>");
     double distance = (dynamicTextString.endsWith(f) ? 0.2 : 0.5) * spatium();
-    distance *= 0.5 * (snappedDyn->symbolScale() + (size() / 10));
+    distance *= 0.5 * (snappedDyn->dynamicsSize() + (size() / 10));
     return distance;
 }
 
@@ -94,7 +94,7 @@ std::unique_ptr<ElementGroup> Expression::getDragGroup(std::function<bool(const 
 
 bool Expression::acceptDrop(EditData& ed) const
 {
-    return ed.dropElement->isDynamic() || TextBase::acceptDrop(ed);
+    return ed.dropElement->type() == ElementType::DYNAMIC || TextBase::acceptDrop(ed);
 }
 
 EngravingItem* Expression::drop(EditData& ed)

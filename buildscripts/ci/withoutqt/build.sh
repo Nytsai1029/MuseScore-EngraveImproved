@@ -33,12 +33,6 @@ cd build-check_build_without_qt
 
 cmake .. -GNinja -DCMAKE_BUILD_TYPE="Debug" 
 
-if [ $(which nproc) ]; then
-    JOBS=$(nproc --all)
-else
-    JOBS=4
-fi
-
-ninja -j $JOBS
+ninja 
 
 

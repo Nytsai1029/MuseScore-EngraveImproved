@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -77,6 +77,8 @@ static const std::vector<std::string> BAD_MESSAGES = {
     "Framebuffer incomplete:"
 };
 
+GraphicsTestObject* GraphicsApiProvider::graphicsTestObject = nullptr;
+
 namespace muse::ui {
 class GraphicsProblemsDetectorLogDest : public LogDest
 {
@@ -122,13 +124,15 @@ GraphicsApiProvider::GraphicsApiProvider(const Version& appVersion)
             m_timer.stop();
         } else
         // success case
-        if (testObjectIsAlive && testObjectHasPainted) {
+        if (graphicsTestObject && graphicsTestObject->painted) {
             if (m_onResult) {
                 m_onResult(true);
             }
             m_timer.stop();
         }
     });
+
+    qmlRegisterType<GraphicsTestObject>("Muse.Ui", 1, 0, "GraphicsTestObject");
 }
 
 GraphicsApiProvider::~GraphicsApiProvider()
@@ -192,7 +196,7 @@ QString GraphicsApiProvider::apiName(GraphicsApi api)
 
 QString GraphicsApiProvider::dataFilePath() const
 {
-    GlobalConfiguration conf;
+    GlobalConfiguration conf(modularity::globalCtx());
     return conf.userAppDataPath().toQString() + "/required_graphicsapi.dat";
 }
 
@@ -232,10 +236,7 @@ void GraphicsApiProvider::writeData(const Data& d)
     QString str = vals.join('|');
 
     QFile file(dataFilePath());
-    if (!file.open(QIODevice::WriteOnly)) {
-        LOGE() << "Failed to write Graphics GraphicsApi data to file: " << file.fileName();
-        return;
-    }
+    file.open(QIODevice::WriteOnly);
     file.write(str.toUtf8());
 }
 
@@ -331,4 +332,37 @@ void GraphicsApiProvider::destroy()
     QTimer::singleShot(1, [self]() {
         delete self;
     });
+}
+
+// GraphicsTestObject
+
+GraphicsTestObject::GraphicsTestObject()
+{
+    setWidth(1);
+    setHeight(1);
+
+    GraphicsApiProvider::graphicsTestObject = this;
+}
+
+GraphicsTestObject::~GraphicsTestObject()
+{
+    GraphicsApiProvider::graphicsTestObject = nullptr;
+}
+
+void GraphicsTestObject::paint(QPainter*)
+{
+    LOGD() << "painted, graphics api: " << GraphicsApiProvider::graphicsApiName();
+
+    // just for test
+    // {
+    //     if (GraphicsApiProvider::graphicsApi() == GraphicsApiProvider::Direct3D11) {
+    //         LOGDA() << "Failed to build graphics pipeline state";
+    //     }
+
+    //     if (GraphicsApiProvider::graphicsApi() == GraphicsApiProvider::OpenGL) {
+    //         LOGDA() << "Failed to build graphics pipeline state";
+    //     }
+    // }
+
+    painted = true;
 }

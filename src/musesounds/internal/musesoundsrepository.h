@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -23,7 +23,6 @@
 #pragma once
 
 #include "modularity/ioc.h"
-#include "async/asyncable.h"
 #include "network/inetworkmanagercreator.h"
 #include "imusesoundsconfiguration.h"
 
@@ -34,14 +33,14 @@ class JsonDocument;
 }
 
 namespace mu::musesounds {
-class MuseSoundsRepository : public IMuseSoundsRepository, public muse::Contextable, public muse::async::Asyncable
+class MuseSoundsRepository : public IMuseSoundsRepository, public muse::Injectable
 {
-    muse::GlobalInject<muse::network::INetworkManagerCreator> networkManagerCreator;
-    muse::GlobalInject<IMuseSoundsConfiguration> configuration;
+    Inject<muse::network::INetworkManagerCreator> networkManagerCreator = { this };
+    Inject<IMuseSoundsConfiguration> configuration = { this };
 
 public:
     MuseSoundsRepository(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void init();
 
@@ -49,10 +48,13 @@ public:
     muse::async::Notification soundsCatalogueListChanged() const override;
 
 private:
+    QByteArray soundsRequestJson() const;
+    void th_requestSounds(const muse::UriQuery& soundsUri, std::function<void(muse::RetVal<SoundCatalogueInfoList>)> callBack) const;
+
     SoundCatalogueInfoList parseSounds(const muse::JsonDocument& soundsDoc) const;
 
+    mutable std::mutex m_mutex;
     SoundCatalogueInfoList m_soundsСatalogs;
     muse::async::Notification m_soundsСatalogsChanged;
-    muse::network::INetworkManagerPtr m_networkManager;
 };
 }

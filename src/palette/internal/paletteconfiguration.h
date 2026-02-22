@@ -30,17 +30,12 @@
 #include "ui/iuiconfiguration.h"
 
 namespace mu::palette {
-class PaletteConfiguration : public IPaletteConfiguration, public muse::async::Asyncable, public muse::Contextable
+class PaletteConfiguration : public IPaletteConfiguration, public muse::async::Asyncable
 {
-    muse::GlobalInject<muse::ui::IUiConfiguration> uiConfiguration;
-    muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;
+    INJECT(muse::ui::IUiConfiguration, uiConfiguration)
+    INJECT(muse::IGlobalConfiguration, globalConfiguration)
 
 public:
-    PaletteConfiguration(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx)
-    {
-    }
-
     void init();
 
     double paletteScaling() const override;

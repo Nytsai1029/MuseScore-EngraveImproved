@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -33,13 +33,13 @@
 
 namespace muse::draw {
 class IFontFace;
-class FontsEngine : public IFontsEngine, public Contextable
+class FontsEngine : public IFontsEngine, public Injectable
 {
-    GlobalInject<IFontsDatabase> fontsDatabase;
+    Inject<IFontsDatabase> fontsDatabase = { this };
 
 public:
     FontsEngine(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
     ~FontsEngine();
 
     void init();
@@ -51,7 +51,7 @@ public:
     double ascent(const Font& f) const override;
     double descent(const Font& f) const override;
 
-    bool inFont(const Font& f, char32_t ucs4) const override;
+    bool inFontUcs4(const Font& f, char32_t ucs4) const override;
 
     double horizontalAdvance(const Font& f, const char32_t& ch) const override;
     double horizontalAdvance(const Font& f, const std::u32string& text) const override;
@@ -59,6 +59,10 @@ public:
     RectF boundingRect(const Font& f, const char32_t& ch) const override;
     RectF boundingRect(const Font& f, const std::u32string& text) const override;
     RectF tightBoundingRect(const Font& f, const std::u32string& text) const override;
+
+    // Score symbols
+    RectF symBBox(const Font& f, char32_t ucs4) const override;
+    double symAdvance(const Font& f, char32_t ucs4) const override;
 
     // For draw
     std::vector<GlyphImage> render(const Font& f, const std::u32string& text) const override;

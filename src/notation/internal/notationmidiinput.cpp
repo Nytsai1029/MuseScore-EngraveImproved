@@ -62,7 +62,7 @@ static mu::playback::IPlaybackController::PlayParams makeNoteOffParams()
 
 NotationMidiInput::NotationMidiInput(IGetScore* getScore, INotationInteractionPtr notationInteraction,
                                      INotationUndoStackPtr undoStack, const muse::modularity::ContextPtr& iocCtx)
-    : muse::Contextable(iocCtx), m_getScore(getScore),
+    : muse::Injectable(iocCtx), m_getScore(getScore),
     m_notationInteraction(notationInteraction), m_undoStack(undoStack)
 {
     QObject::connect(&m_processTimer, &QTimer::timeout, [this]() { doProcessEvents(); });
@@ -206,11 +206,8 @@ void NotationMidiInput::doProcessEvents()
     }
 
     if (!notesOn.empty()) {
-        if (isNoteInput) {
-            playbackController()->seekElement(notesOn.front(), !useDurationAndVelocity /*flushSound*/);
-        }
-
         const std::vector<const EngravingItem*> elements(notesOn.begin(), notesOn.end());
+        playbackController()->seekElement(notesOn.front(), !useDurationAndVelocity /*flushSound*/);
         playbackController()->playElements(elements, makeNoteOnParams(useDurationAndVelocity), true);
         m_notesReceivedChannel.send(notesOn);
     }

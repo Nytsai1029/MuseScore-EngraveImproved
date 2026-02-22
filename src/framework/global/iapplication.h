@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -35,7 +35,7 @@ class QWindow;
 #endif
 
 namespace muse {
-class IApplication : MODULE_GLOBAL_INTERFACE
+class IApplication : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IApplication)
 public:
@@ -59,16 +59,12 @@ public:
     virtual RunMode runMode() const = 0;
     virtual bool noGui() const = 0;
 
-    virtual void setup() = 0;
+    virtual void perform() = 0;
     virtual void finish() = 0;
     virtual void restart() = 0;
 
-    virtual modularity::ContextPtr setupNewContext(const StringList& args = {}) = 0;
-    virtual void destroyContext(const modularity::ContextPtr& ctx) = 0;
-    virtual int contextCount() const = 0;
-    virtual std::vector<modularity::ContextPtr> contexts() const = 0;
-
-    virtual void processEvents() = 0;
+    virtual const modularity::ContextPtr iocContext() const = 0;
+    virtual modularity::ModulesIoC* ioc() const = 0;
 
 #ifndef NO_QT_SUPPORT
     virtual QWindow* focusWindow() const = 0;

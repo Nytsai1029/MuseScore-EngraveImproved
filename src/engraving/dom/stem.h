@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_STEM_H
+#define MU_ENGRAVING_STEM_H
 
 #include "engravingitem.h"
 
@@ -43,8 +44,8 @@ public:
 
     bool isEditable() const override { return true; }
     void startEdit(EditData&) override;
-    void startDragGrip(EditData&) override;
-    void dragGrip(EditData&) override;
+    void startEditDrag(EditData&) override;
+    void editDrag(EditData&) override;
 
     bool acceptDrop(EditData&) const override;
     EngravingItem* drop(EditData&) override;
@@ -88,9 +89,10 @@ private:
     friend class Factory;
     Stem(Chord* parent = 0);
 
-    Spatium m_baseLength = 0.0_sp;
+    Spatium m_baseLength = Spatium(0.0);
 
-    Spatium m_userLength = 0.0_sp;
-    Spatium m_lineWidth = 0.0_sp;
+    Spatium m_userLength = Spatium(0.0);
+    Spatium m_lineWidth = Spatium(0.0);
 };
 }
+#endif

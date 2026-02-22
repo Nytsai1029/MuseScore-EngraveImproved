@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -29,10 +29,10 @@
 #include "network/inetworkconfiguration.h"
 
 namespace muse::cloud {
-class CloudConfiguration : public ICloudConfiguration, public Contextable
+class CloudConfiguration : public ICloudConfiguration, public Injectable
 {
-    GlobalInject<IGlobalConfiguration> globalConfiguration;
-    GlobalInject<network::INetworkConfiguration> networkConfiguration;
+    Inject<IGlobalConfiguration> globalConfiguration = { this };
+    Inject<network::INetworkConfiguration> networkConfiguration = { this };
 
 public:
     CloudConfiguration(const modularity::ContextPtr& iocCtx);

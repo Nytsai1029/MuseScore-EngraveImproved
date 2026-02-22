@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_DYNAMICS_H
+#define MU_ENGRAVING_DYNAMICS_H
 
 #include "textbase.h"
 
@@ -115,12 +116,10 @@ public:
     void endEdit(EditData&) override;
     int gripsCount() const override;
     std::vector<PointF> gripsPositions(const EditData& = EditData()) const override;
-    void dragGrip(EditData& editData) override;
-    void endDragGrip(EditData&) override;
+    void editDrag(EditData& editData) override;
+    void endEditDrag(EditData&) override;
 
     bool isEditAllowed(EditData&) const override;
-
-    bool positionRelativeToNoteheadRest() const override { return true; }
 
     Hairpin* leftHairpin() const { return m_leftHairpin; }
     Hairpin* rightHairpin() const { return m_rightHairpin; }
@@ -143,6 +142,7 @@ public:
 private:
 
     M_PROPERTY(bool, avoidBarLines, setAvoidBarLines)
+    M_PROPERTY(double, dynamicsSize, setDynamicsSize)
     M_PROPERTY(bool, centerOnNotehead, setCenterOnNotehead)
 
     std::pair<DynamicType, String> parseDynamicText(const String&) const;
@@ -163,4 +163,6 @@ private:
     Hairpin* m_leftHairpin = nullptr;
     Hairpin* m_rightHairpin = nullptr;
 };
-}
+} // namespace mu::engraving
+
+#endif

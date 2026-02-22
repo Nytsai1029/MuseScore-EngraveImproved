@@ -19,11 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
-import Muse.UiComponents
-import MuseScore.Project
+import Muse.UiComponents 1.0
+import MuseScore.Project 1.0
 
 ExportSettingsPage {
     id: root
@@ -68,21 +68,6 @@ ExportSettingsPage {
 
         onClicked: {
             root.model.pdfTransparentBackground = !checked
-        }
-    }
-
-    CheckBox {
-        width: parent.width
-        text: qsTrc("project/export", "Grayscale")
-
-        navigation.name: "GrayscaleCheckbox"
-        navigation.panel: root.navigationPanel
-        navigation.row: root.navigationOrder + 3
-
-        checked: root.model.pdfGrayscale
-
-        onClicked: {
-            root.model.pdfGrayscale = !checked
         }
     }
 }

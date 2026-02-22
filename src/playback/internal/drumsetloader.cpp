@@ -23,7 +23,7 @@
 #include "drumsetloader.h"
 
 #include "notation/notationtypes.h"
-#include "notationscene/utilities/percussionutilities.h"
+#include "notation/utilities/percussionutilities.h"
 
 #include "global/types/bytearray.h"
 
@@ -75,7 +75,7 @@ void DrumsetLoader::loadDrumset(INotationPtr notation, const InstrumentTrackId& 
     }
 
     Drumset drumset;
-    PercussionUtilities(iocContext()).readDrumset(drumMapping, drumset);
+    PercussionUtilities::readDrumset(drumMapping, drumset);
     replaceDrumset(notation, trackId, drumset);
 
     m_drumsetCache.emplace(instrumentId, std::move(drumset));

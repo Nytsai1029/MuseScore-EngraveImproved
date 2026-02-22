@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -28,9 +28,9 @@ using namespace muse::actions;
 
 void ShortcutsController::init()
 {
-    interactive()->currentUri().ch.onReceive(this, [this](const Uri&) {
+    interactiveProvider()->currentUri().ch.onReceive(this, [this](const Uri&) {
         //! NOTE: enable process shortcuts only for non-widget objects
-        shortcutsRegister()->setActive(!interactive()->topWindowIsWidget());
+        shortcutsRegister()->setActive(!interactiveProvider()->topWindowIsWidget());
     });
 }
 

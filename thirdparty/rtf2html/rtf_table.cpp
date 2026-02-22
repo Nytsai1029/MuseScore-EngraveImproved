@@ -3,10 +3,8 @@
 #include <ostream>
 #include <iostream>
 #include <stdexcept>
+#include <functional>
 #include <algorithm>
-#include <tgmath.h>
-
-#include "common.h"
 
 typedef std::set<int> intset;
 

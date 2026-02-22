@@ -45,23 +45,27 @@ void MidiModule::registerExports()
 {
     m_configuration = std::make_shared<MidiConfiguration>();
 
-    globalIoc()->registerExport<IMidiImportExportConfiguration>(moduleName(), m_configuration);
+    ioc()->registerExport<IMidiImportExportConfiguration>(moduleName(), m_configuration);
 }
 
 void MidiModule::resolveImports()
 {
-    auto readers = globalIoc()->resolve<INotationReadersRegister>(moduleName());
+    auto readers = ioc()->resolve<INotationReadersRegister>(moduleName());
     if (readers) {
         readers->reg({ "mid", "midi", "kar" }, std::make_shared<NotationMidiReader>());
     }
 
-    auto writers = globalIoc()->resolve<INotationWritersRegister>(moduleName());
+    auto writers = ioc()->resolve<INotationWritersRegister>(moduleName());
     if (writers) {
-        writers->reg({ "mid", "midi", "kar" }, std::make_shared<NotationMidiWriter>(globalCtx()));
+        writers->reg({ "mid", "midi", "kar" }, std::make_shared<NotationMidiWriter>(iocContext()));
     }
 }
 
-void MidiModule::onInit(const muse::IApplication::RunMode&)
+void MidiModule::onInit(const muse::IApplication::RunMode& mode)
 {
+    if (mode == muse::IApplication::RunMode::AudioPluginRegistration) {
+        return;
+    }
+
     m_configuration->init();
 }

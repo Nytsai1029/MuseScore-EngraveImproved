@@ -24,8 +24,6 @@
 
 #include "io/buffer.h"
 
-#include "global/modularity/ioc.h"
-
 #include "engraving/rw/xmlreader.h"
 #include "engraving/rw/xmlwriter.h"
 
@@ -37,19 +35,18 @@ QByteArray toMimeData(T* t)
     buffer.open(muse::io::IODevice::WriteOnly);
     engraving::XmlWriter xml(&buffer);
     t->write(xml, true);
-    xml.flush();
     buffer.close();
     return buffer.data().toQByteArray();
 }
 
 template<class T>
-std::shared_ptr<T> fromMimeData(const QByteArray& data, const muse::AsciiStringView& tagName, const muse::modularity::ContextPtr& iocCtx)
+std::shared_ptr<T> fromMimeData(const QByteArray& data, const muse::AsciiStringView& tagName)
 {
     engraving::XmlReader e(data);
     while (e.readNextStartElement()) {
         const muse::AsciiStringView tag(e.name());
         if (tag == tagName) {
-            std::shared_ptr<T> t(new T(iocCtx));
+            std::shared_ptr<T> t(new T);
             if (!t->read(e, true)) {
                 return nullptr;
             }

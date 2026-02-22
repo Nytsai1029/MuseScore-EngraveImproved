@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2023 MuseScore Limited and others
+ * Copyright (C) 2023 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -36,6 +36,6 @@ std::string AccessibilityModule::moduleName() const
 
 void AccessibilityModule::registerExports()
 {
-    globalIoc()->registerExport<IAccessibilityConfiguration>(moduleName(), new AccessibilityConfigurationStub());
-    globalIoc()->registerExport<IAccessibilityController>(moduleName(), new AccessibilityControllerStub());
+    ioc()->registerExport<IAccessibilityConfiguration>(moduleName(), new AccessibilityConfigurationStub());
+    ioc()->registerExport<IAccessibilityController>(moduleName(), new AccessibilityControllerStub());
 }

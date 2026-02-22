@@ -19,12 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
-import Muse.Ui
-import Muse.UiComponents
-import MuseScore.Project
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import MuseScore.Project 1.0
 
 import "internal/SaveToCloud"
 
@@ -80,7 +80,7 @@ StyledDialogView {
 You can share drafts with others and publish your finished scores publicly too.")
                 buttonText: qsTrc("project/save", "Save to the cloud")
 
-                imageSource: "images/Cloud.png"
+                imageSource: "qrc:/SaveToCloud/images/Cloud.png"
 
                 navigation.panel: optionsNavPanel
                 navigation.column: 1
@@ -97,7 +97,7 @@ You can share drafts with others and publish your finished scores publicly too."
                 description: qsTrc("project/save", "If you prefer to save your files on your computer, you can do that here.")
                 buttonText: qsTrc("project/save", "Save to computer")
 
-                imageSource: "images/Laptop.png"
+                imageSource: "qrc:/SaveToCloud/images/Laptop.png"
 
                 navigation.panel: optionsNavPanel
                 navigation.column: 2

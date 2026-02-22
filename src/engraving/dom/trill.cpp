@@ -24,18 +24,17 @@
 
 #include <cmath>
 
-#include "../editing/addremoveelement.h"
 #include "types/typesconv.h"
 
 #include "iengravingfont.h"
 
 #include "accidental.h"
 #include "chord.h"
-#include "clef.h"
 #include "factory.h"
 #include "ornament.h"
 #include "score.h"
 #include "system.h"
+#include "undo.h"
 
 #include "log.h"
 
@@ -121,32 +120,21 @@ void TrillSegment::symbolLine(SymId start, SymId fill, SymId end)
     setbbox(r);
 }
 
-void TrillSegment::rebaseAnchors(EditData& ed, Grip grip)
-{
-    EngravingItem* startElement = spanner()->startElement();
-    if (startElement && startElement->isChord() && toChord(startElement)->staffMove() != 0) {
-        // This trill is on a cross-staff chord. Don't try to rebase its anchors when dragging.
-        return;
-    }
-
-    LineSegment::rebaseAnchors(ed, grip);
-}
-
 //---------------------------------------------------------
 //   scanElements
 //---------------------------------------------------------
 
-void TrillSegment::scanElements(std::function<void(EngravingItem*)> func)
+void TrillSegment::scanElements(void* data, void (* func)(void*, EngravingItem*), bool)
 {
-    func(this);
+    func(data, this);
     if (isSingleType() || isBeginType()) {
         Accidental* a = trill()->accidental();
         if (a) {
-            func(a);
+            func(data, a);
         }
         Chord* cueNoteChord = trill()->cueNoteChord();
         if (cueNoteChord) {
-            cueNoteChord->scanElements(func);
+            cueNoteChord->scanElements(data, func);
         }
     }
 }
@@ -155,7 +143,7 @@ void TrillSegment::scanElements(std::function<void(EngravingItem*)> func)
 //   propertyDelegate
 //---------------------------------------------------------
 
-EngravingObject* TrillSegment::propertyDelegate(Pid pid) const
+EngravingItem* TrillSegment::propertyDelegate(Pid pid)
 {
     if (pid == Pid::TRILL_TYPE || pid == Pid::ORNAMENT_STYLE || pid == Pid::PLACEMENT) {
         return spanner();
@@ -409,10 +397,12 @@ bool Trill::setProperty(Pid propertyId, const PropertyValue& val)
         break;
     case Pid::COLOR:
         setColor(val.value<Color>());
-        setLineColor(val.value<Color>());
-        break;
+        [[fallthrough]];
     default:
-        return SLine::setProperty(propertyId, val);
+        if (!SLine::setProperty(propertyId, val)) {
+            return false;
+        }
+        break;
     }
     triggerLayout();
     return true;
@@ -426,7 +416,7 @@ PropertyValue Trill::propertyDefault(Pid propertyId) const
 {
     switch (propertyId) {
     case Pid::TRILL_TYPE:
-        return static_cast<int>(TrillType::TRILL_LINE);
+        return 0;
     case Pid::ORNAMENT_STYLE:
         return OrnamentStyle::DEFAULT;
     case Pid::PLACEMENT:

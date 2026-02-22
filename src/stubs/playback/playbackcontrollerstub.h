@@ -5,7 +5,7 @@
  * MuseScore Studio
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited
+ * Copyright (C) 2021 MuseScore Limited
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_PLAYBACK_PLAYBACKCONTROLLERSTUB_H
+#define MU_PLAYBACK_PLAYBACKCONTROLLERSTUB_H
 
 #include "playback/iplaybackcontroller.h"
 
@@ -53,8 +53,9 @@ public:
     muse::async::Promise<muse::audio::SoundPresetList> availableSoundPresets(
         const engraving::InstrumentTrackId& instrumentTrackId) const override;
 
-    const SoloMuteState& trackSoloMuteState(const engraving::InstrumentTrackId& trackId) const override;
-    void setTrackSoloMuteState(const engraving::InstrumentTrackId& trackId, const SoloMuteState& state) override;
+    notation::INotationSoloMuteState::SoloMuteState trackSoloMuteState(const engraving::InstrumentTrackId& trackId) const override;
+    void setTrackSoloMuteState(const engraving::InstrumentTrackId& trackId,
+                               const notation::INotationSoloMuteState::SoloMuteState& state) override;
 
     void playElements(const std::vector<const notation::EngravingItem*>& elements,
                       const PlayParams& params = PlayParams(), bool isMidi = false) override;
@@ -70,10 +71,10 @@ public:
     bool actionChecked(const muse::actions::ActionCode& actionCode) const override;
     muse::async::Channel<muse::actions::ActionCode> actionCheckedChanged() const override;
 
-    muse::secs_t totalPlayTime() const override;
+    QTime totalPlayTime() const override;
     muse::async::Notification totalPlayTimeChanged() const override;
 
-    const notation::Tempo& currentTempo() const override;
+    notation::Tempo currentTempo() const override;
     muse::async::Notification currentTempoChanged() const override;
 
     notation::MeasureBeat currentBeat() const override;
@@ -94,3 +95,5 @@ public:
     muse::Progress onlineSoundsProcessingProgress() const override;
 };
 }
+
+#endif // MU_PLAYBACK_PLAYBACKCONTROLLERSTUB_H

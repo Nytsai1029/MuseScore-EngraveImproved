@@ -22,26 +22,23 @@
 
 #include <gtest/gtest.h>
 
-#include "engraving/dom/chord.h"
-#include "engraving/dom/excerpt.h"
-#include "engraving/dom/factory.h"
-#include "engraving/dom/glissando.h"
-#include "engraving/dom/layoutbreak.h"
-#include "engraving/dom/line.h"
-#include "engraving/dom/masterscore.h"
-#include "engraving/dom/measure.h"
-#include "engraving/dom/note.h"
-#include "engraving/dom/part.h"
-#include "engraving/dom/staff.h"
-#include "engraving/dom/system.h"
-#include "engraving/editing/editexcerpt.h"
-
-#include "engraving/api/v1/score.h"
-#include "engraving/api/v1/elements.h"
+#include "dom/chord.h"
+#include "dom/excerpt.h"
+#include "dom/factory.h"
+#include "dom/glissando.h"
+#include "dom/layoutbreak.h"
+#include "dom/line.h"
+#include "dom/masterscore.h"
+#include "dom/measure.h"
+#include "dom/part.h"
+#include "dom/staff.h"
+#include "dom/system.h"
+#include "dom/undo.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String SPANNERS_DATA_DIR("spanners_data/");
@@ -68,7 +65,7 @@ TEST_F(Engraving_SpannersTests, spanners01)
     EXPECT_TRUE(msr);
     Segment* seg   = msr->findSegment(SegmentType::ChordRest, Fraction(0, 1));
     EXPECT_TRUE(seg);
-    Chord* chord = toChord(seg->element(0));
+    Chord* chord = static_cast<Chord*>(seg->element(0));
     EXPECT_TRUE(chord);
     EXPECT_EQ(chord->type(), ElementType::CHORD);
     Note* note  = chord->upNote();
@@ -85,7 +82,7 @@ TEST_F(Engraving_SpannersTests, spanners01)
     EXPECT_TRUE(msr);
     seg   = msr->first();
     EXPECT_TRUE(seg);
-    chord = toChord(seg->element(0));     // voice 0 of staff 0
+    chord = static_cast<Chord*>(seg->element(0));     // voice 0 of staff 0
     EXPECT_TRUE(chord);
     EXPECT_EQ(chord->type(), ElementType::CHORD);
     note  = chord->upNote();
@@ -102,7 +99,7 @@ TEST_F(Engraving_SpannersTests, spanners01)
     EXPECT_TRUE(msr);
     seg   = msr->first();
     EXPECT_TRUE(seg);
-    chord = toChord(seg->element(4));     // voice 0 of staff 1
+    chord = static_cast<Chord*>(seg->element(4));     // voice 0 of staff 1
     EXPECT_TRUE(chord);
     EXPECT_EQ(chord->type(), ElementType::CHORD);
     note  = chord->upNote();
@@ -119,7 +116,7 @@ TEST_F(Engraving_SpannersTests, spanners01)
     EXPECT_TRUE(msr);
     seg   = msr->first();
     EXPECT_TRUE(seg);
-    chord = toChord(seg->element(0));     // voice 0 of staff 0
+    chord = static_cast<Chord*>(seg->element(0));     // voice 0 of staff 0
     EXPECT_TRUE(chord);
     EXPECT_EQ(chord->type(), ElementType::CHORD);
     note  = chord->upNote();
@@ -136,7 +133,7 @@ TEST_F(Engraving_SpannersTests, spanners01)
     EXPECT_TRUE(msr);
     seg   = msr->first();
     EXPECT_TRUE(seg);
-    chord = toChord(seg->element(0));     // voice 0 of staff 0
+    chord = static_cast<Chord*>(seg->element(0));     // voice 0 of staff 0
     EXPECT_TRUE(chord);
     EXPECT_EQ(chord->type(), ElementType::CHORD);
     note  = chord->upNote();
@@ -184,7 +181,7 @@ TEST_F(Engraving_SpannersTests, spanners03)
     EXPECT_TRUE(msr);
     Segment* seg   = msr->findSegment(SegmentType::ChordRest, Fraction(0, 1));
     EXPECT_TRUE(seg);
-    Chord* chord = toChord(seg->element(0));
+    Chord* chord = static_cast<Chord*>(seg->element(0));
     EXPECT_TRUE(chord);
     EXPECT_EQ(chord->type(), ElementType::CHORD);
     Note* note  = chord->upNote();
@@ -211,7 +208,7 @@ TEST_F(Engraving_SpannersTests, spanners03)
     // go to next chord
     seg               = seg->nextCR(0);
     EXPECT_TRUE(seg);
-    chord             = toChord(seg->element(0));
+    chord             = static_cast<Chord*>(seg->element(0));
     EXPECT_TRUE(chord);
     EXPECT_EQ(chord->type(), ElementType::CHORD);
     note              = chord->upNote();
@@ -225,11 +222,11 @@ TEST_F(Engraving_SpannersTests, spanners03)
     // go to next chord
     seg               = seg->nextCR(0);
     EXPECT_TRUE(seg);
-    chord             = toChord(seg->element(0));
-    EXPECT_TRUE(chord && chord->isChord());
+    chord             = static_cast<Chord*>(seg->element(0));
+    EXPECT_TRUE(chord && chord->type() == ElementType::CHORD);
     // go to its last before-grace note
     grace             = chord->graceNotesBefore().back();
-    EXPECT_TRUE(grace && grace->isChord());
+    EXPECT_TRUE(grace && grace->type() == ElementType::CHORD);
     note              = grace->upNote();
     EXPECT_TRUE(note);
     gliss             = new Glissando(score->dummy());
@@ -315,8 +312,8 @@ TEST_F(Engraving_SpannersTests, spanners06)
     EXPECT_TRUE(msr);
     Segment* seg   = msr->findSegment(SegmentType::ChordRest, Fraction(0, 1));
     EXPECT_TRUE(seg);
-    Chord* chord = toChord(seg->element(0));
-    EXPECT_TRUE(chord && chord->isChord());
+    Chord* chord = static_cast<Chord*>(seg->element(0));
+    EXPECT_TRUE(chord && chord->type() == ElementType::CHORD);
     Note* note  = chord->upNote();
     EXPECT_TRUE(note);
     // drop a glissando on note
@@ -347,8 +344,8 @@ TEST_F(Engraving_SpannersTests, spanners07)
     EXPECT_TRUE(msr);
     Segment* seg   = msr->findSegment(SegmentType::ChordRest, Fraction(0, 1));
     EXPECT_TRUE(seg);
-    Chord* chord = toChord(seg->element(0));
-    EXPECT_TRUE(chord && chord->isChord());
+    Chord* chord = static_cast<Chord*>(seg->element(0));
+    EXPECT_TRUE(chord && chord->type() == ElementType::CHORD);
     Note* note  = chord->upNote();
     EXPECT_TRUE(note);
     // drop a glissando on note
@@ -574,7 +571,7 @@ TEST_F(Engraving_SpannersTests, spanners15)
         SLine* sl = static_cast<SLine*>(spanner);
         sl->setProperty(Pid::COLOR, Color(255, 0, 0, 255));
         for (auto ss : sl->spannerSegments()) {
-            ss->setProperty(Pid::MIN_DISTANCE, 0.0_sp);
+            ss->setProperty(Pid::MIN_DISTANCE, 0.0);
             ss->setPropertyFlags(Pid::MIN_DISTANCE, PropertyFlags::UNSTYLED);
         }
     }
@@ -594,53 +591,5 @@ TEST_F(Engraving_SpannersTests, spanners16)
     EXPECT_TRUE(score);
 
     EXPECT_TRUE(ScoreComp::saveCompareScore(score, u"smallstaff01.mscx", SPANNERS_DATA_DIR + u"smallstaff01-ref.mscx"));
-    delete score;
-}
-
-//---------------------------------------------------------
-///  spanners17
-///   Test Plugin API score.spanners property
-///   Verify that score.spanners exposes all spanners in the score
-//---------------------------------------------------------
-
-TEST_F(Engraving_SpannersTests, spanners17_pluginAPI_scoreSpanners)
-{
-    // Load a score file
-    MasterScore* score = ScoreRW::readScore(SPANNERS_DATA_DIR + u"glissando01.mscx");
-    EXPECT_TRUE(score);
-
-    // Create Plugin API wrapper for the score
-    apiv1::Score apiScore(score);
-
-    // Get spanners using Plugin API
-    QQmlListProperty<apiv1::Spanner> scoreSpanners = apiScore.spanners();
-
-    // Basic sanity checks: the property should return a valid list
-    EXPECT_NE(scoreSpanners.count, nullptr);
-    EXPECT_NE(scoreSpanners.at, nullptr);
-
-    int spannerCount = scoreSpanners.count(&scoreSpanners);
-    EXPECT_GE(spannerCount, 0) << "Count should be non-negative";
-
-    // Get spanners directly from the score for comparison
-    auto domSpanners = score->spannerList();
-
-    // The Plugin API should expose the same number of spanners
-    EXPECT_EQ(spannerCount, (int)domSpanners.size())
-        << "Plugin API should expose all spanners from the score";
-
-    // Verify each spanner can be accessed and has valid properties
-    for (int i = 0; i < spannerCount; i++) {
-        auto* item = scoreSpanners.at(&scoreSpanners, i);
-        apiv1::Spanner* apiItem = qobject_cast<apiv1::Spanner*>(item);
-        EXPECT_TRUE(apiItem != nullptr) << "Spanner " << i << " should be a valid Spanner";
-
-        if (apiItem && apiItem->spanner()) {
-            // Verify we can access the track property (spanners have tracks)
-            track_idx_t track = apiItem->spanner()->track();
-            EXPECT_GE(track, 0) << "Spanner " << i << " should have a valid track";
-        }
-    }
-
     delete score;
 }

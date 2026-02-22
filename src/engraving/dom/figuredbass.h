@@ -263,7 +263,7 @@ public:
 
     // static functions for font config files
     static bool readConfigFile(const String& fileName);
-    static std::vector<String> fontNames();
+    static std::list<String> fontNames();
     static bool fontData(int nIdx, String* pFamily, String* pDisplayName, double* pSize, double* pLineHeight);
 
     // standard re-implemented virtual functions
@@ -290,8 +290,6 @@ public:
     PropertyValue getProperty(Pid propertyId) const override;
     bool setProperty(Pid propertyId, const PropertyValue&) override;
     PropertyValue propertyDefault(Pid) const override;
-
-    bool positionRelativeToNoteheadRest() const override { return true; }
 
     size_t itemsCount() const { return m_items.size(); }
     void appendItem(FiguredBassItem* item) { m_items.push_back(item); }

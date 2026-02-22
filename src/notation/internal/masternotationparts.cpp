@@ -25,9 +25,8 @@
 #include "engraving/dom/masterscore.h"
 #include "engraving/dom/scoreorder.h"
 #include "engraving/dom/excerpt.h"
+#include "engraving/dom/undo.h"
 #include "engraving/dom/utils.h"
-#include "engraving/editing/editexcerpt.h"
-#include "engraving/editing/transpose.h"
 
 #include "log.h"
 
@@ -202,7 +201,7 @@ void MasterNotationParts::replaceInstrument(const InstrumentKey& instrumentKey, 
     }
 
     // this also transposes all linked parts
-    engraving::Transpose::transpositionChanged(score(), part, Part::MAIN_INSTRUMENT_TICK, oldTranspose);
+    score()->transpositionChanged(part, Part::MAIN_INSTRUMENT_TICK, oldTranspose);
 
     if (isMainInstrument) {
         if (mu::engraving::Excerpt* excerpt = findExcerpt(part->id())) {

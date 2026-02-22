@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -22,14 +22,14 @@
 #ifndef MU_AUDIO_FXRESOLVERSTUB_H
 #define MU_AUDIO_FXRESOLVERSTUB_H
 
-#include "audio/engine/ifxresolver.h"
+#include "audio/worker/ifxresolver.h"
 
 namespace muse::audio::fx {
 class FxResolverStub : public IFxResolver
 {
 public:
-    std::vector<IFxProcessorPtr> resolveMasterFxList(const AudioFxChain& fxChain, const OutputSpec& outputSpec) override;
-    std::vector<IFxProcessorPtr> resolveFxList(const TrackId trackId, const AudioFxChain& fxChain, const OutputSpec& outputSpec) override;
+    std::vector<IFxProcessorPtr> resolveMasterFxList(const AudioFxChain& fxChain) override;
+    std::vector<IFxProcessorPtr> resolveFxList(const TrackId trackId, const AudioFxChain& fxChain) override;
     AudioResourceMetaList resolveAvailableResources() const override;
     void registerResolver(const AudioFxType type, IResolverPtr resolver) override;
     void clearAllFx() override;

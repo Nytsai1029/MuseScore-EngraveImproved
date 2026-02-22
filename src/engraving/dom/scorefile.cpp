@@ -22,19 +22,17 @@
 
 #include <cmath>
 
+#include "io/buffer.h"
 #include "io/file.h"
 #include "io/fileinfo.h"
 
-#include "draw/painter.h"
-
-#include "../editing/editstyle.h"
-#include "rendering/paintoptions.h"
 #include "style/style.h"
 
 #include "engravingitem.h"
 #include "mscore.h"
 #include "page.h"
 #include "score.h"
+#include "undo.h"
 
 #include "log.h"
 
@@ -42,6 +40,7 @@ using namespace mu;
 using namespace muse::io;
 using namespace muse::draw;
 using namespace mu::engraving;
+using namespace mu::engraving::read400;
 
 namespace mu::engraving {
 //---------------------------------------------------------
@@ -80,13 +79,16 @@ std::shared_ptr<Pixmap> Score::createThumbnail()
 
     Page* page = pages().at(0);
     RectF fr = page->pageBoundingRect();
-    double mag = 512.0 / std::max(fr.width(), fr.height());
+    double mag = 256.0 / std::max(fr.width(), fr.height());
     int w = int(fr.width() * mag);
     int h = int(fr.height() * mag);
 
     int dpm = lrint(DPMM * 1000.0);
 
     auto pixmap = imageProvider()->createPixmap(w, h, dpm, configuration()->thumbnailBackgroundColor());
+
+    double pr = MScore::pixelRatio;
+    MScore::pixelRatio = 1.0;
 
     auto painterProvider = imageProvider()->painterForImage(pixmap);
     Painter p(painterProvider, "thumbnail");
@@ -95,6 +97,8 @@ std::shared_ptr<Pixmap> Score::createThumbnail()
     p.scale(mag, mag);
     print(&p, 0);
     p.endDraw();
+
+    MScore::pixelRatio = pr;
 
     if (layoutMode() != mode) {
         setLayoutMode(mode);
@@ -164,10 +168,6 @@ void Score::print(Painter* painter, int pageNo)
 {
     m_printing  = true;
     MScore::pdfPrinting = true;
-
-    rendering::PaintOptions opt;
-    opt.isPrinting = true;
-
     Page* page = pages().at(pageNo);
     RectF fr  = page->pageBoundingRect();
 
@@ -179,7 +179,7 @@ void Score::print(Painter* painter, int pageNo)
         }
         painter->save();
         painter->translate(e->pagePos());
-        renderer()->drawItem(e, painter, opt);
+        renderer()->drawItem(e, painter);
         painter->restore();
     }
     MScore::pdfPrinting = false;

@@ -187,6 +187,24 @@ void TremoloTwoChord::reset()
 }
 
 //---------------------------------------------------------
+//   pagePos
+//---------------------------------------------------------
+
+PointF TremoloTwoChord::pagePos() const
+{
+    EngravingObject* e = explicitParent();
+    while (e && (!e->isSystem() && e->explicitParent())) {
+        e = e->explicitParent();
+    }
+    if (!e || !e->isSystem()) {
+        return pos();
+    }
+    System* s = toSystem(e);
+    double yp = y() + s->staff(staffIdx())->y() + s->y();
+    return PointF(pageX(), yp);
+}
+
+//---------------------------------------------------------
 //   setBeamDirection
 //---------------------------------------------------------
 
@@ -337,10 +355,10 @@ std::vector<PointF> TremoloTwoChord::gripsPositions(const EditData&) const
 }
 
 //---------------------------------------------------------
-//   dragGrip
+//   editDrag
 //---------------------------------------------------------
 
-void TremoloTwoChord::dragGrip(EditData& ed)
+void TremoloTwoChord::editDrag(EditData& ed)
 {
     int idx = directionIdx();
     double dy = ed.delta.y();
@@ -354,9 +372,6 @@ void TremoloTwoChord::dragGrip(EditData& ed)
         y1 += dy;
     } else if (ed.curGrip == Grip::END) {
         y2 += dy;
-    } else {
-        UNREACHABLE;
-        return;
     }
 
     double _spatium = spatium();
@@ -466,12 +481,12 @@ PropertyValue TremoloTwoChord::propertyDefault(Pid propertyId) const
 //   scanElements
 //---------------------------------------------------------
 
-void TremoloTwoChord::scanElements(std::function<void(EngravingItem*)> func)
+void TremoloTwoChord::scanElements(void* data, void (* func)(void*, EngravingItem*), bool all)
 {
     if (chord() && chord()->tremoloChordType() == TremoloChordType::TremoloSecondChord) {
         return;
     }
-    EngravingItem::scanElements(func);
+    EngravingItem::scanElements(data, func, all);
 }
 
 void TremoloTwoChord::clearBeamSegments()

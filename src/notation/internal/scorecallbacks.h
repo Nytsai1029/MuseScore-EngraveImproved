@@ -19,9 +19,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#pragma once
+#ifndef MU_NOTATION_SCORECALLBACKS_H
+#define MU_NOTATION_SCORECALLBACKS_H
 
-#include "engraving/editing/mscoreview.h"
+#include "engraving/dom/mscoreview.h"
 
 namespace mu::notation {
 class INotationInteraction;
@@ -48,3 +49,5 @@ private:
     INotationInteraction* m_interaction = nullptr;
 };
 }
+
+#endif // MU_NOTATION_SCORECALLBACKS_H

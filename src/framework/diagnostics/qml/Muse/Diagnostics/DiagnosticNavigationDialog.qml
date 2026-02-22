@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,9 +19,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import Muse.Ui
-import Muse.UiComponents
+import QtQuick 2.15
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 StyledDialogView {
     id: root
@@ -30,6 +30,8 @@ StyledDialogView {
 
     contentHeight: 900
     contentWidth: 600
+
+    x: 850
 
     //! NOTE It is necessary that it can be determined that this is an object for diagnostics
     contentItem.objectName: panel.objectName

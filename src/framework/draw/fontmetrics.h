@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -49,15 +49,16 @@ public:
     double width(const Char& ch) const;
 
     double horizontalAdvance(const String& string) const;
-    double horizontalAdvance(char32_t ucs4) const;
+    double horizontalAdvance(const Char& ch) const;
 
     RectF boundingRect(const String& string) const;
-    RectF boundingRect(char32_t ucs4) const;
-
+    RectF boundingRect(const Char& ch) const;
+    RectF boundingRect(const RectF& r, int flags, const String& string) const;
     RectF tightBoundingRect(const String& string) const;
     RectF tightBoundingRect(const Char& ch) const;
 
-    bool inFont(char32_t ucs4) const;
+    bool inFont(Char ch) const;
+    bool inFontUcs4(char32_t ucs4) const;
 
     static double width(const Font& f, const String& string);
     static RectF boundingRect(const Font& f, const String& string);

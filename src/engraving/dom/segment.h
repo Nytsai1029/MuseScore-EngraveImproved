@@ -128,6 +128,10 @@ public:
 
     void setParent(Measure* parent);
 
+    // Score Tree functions
+    EngravingObject* scanParent() const override;
+    EngravingObjectList scanChildren() const override;
+
     Segment* clone() const override { return new Segment(*this); }
 
     void setScore(Score*) override;
@@ -160,7 +164,6 @@ public:
 
     Segment* prev1() const;
     Segment* prev1WithElemsOnStaff(staff_idx_t staffIdx, SegmentType segType = SegmentType::ChordRest) const;
-    Segment* prev1WithElemsOnTrack(track_idx_t trackIdx, SegmentType segType = SegmentType::ChordRest) const;
     Segment* prev1enabled() const;
     Segment* prev1MM() const;
     Segment* prev1MMenabled() const;
@@ -173,16 +176,22 @@ public:
 
     EngravingItem* element(track_idx_t track) const;
 
+    // a variant of the above function, specifically designed to be called from QML
+    //@ returns the element at track 'track' (null if none)
+    EngravingItem* elementAt(track_idx_t track) const;
+
     const std::vector<EngravingItem*>& elist() const { return m_elist; }
     std::vector<EngravingItem*>& elist() { return m_elist; }
 
     void removeElement(track_idx_t track);
     void setElement(track_idx_t track, EngravingItem* el);
-    void scanElements(std::function<void(EngravingItem*)> func) override;
+    void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all=true) override;
 
     Measure* measure() const { return toMeasure(explicitParent()); }
     System* system() const { return toSystem(explicitParent()->explicitParent()); }
     double x() const override { return ldata()->pos().x(); }
+
+    RectF contentRect() const;
 
     void insertStaff(staff_idx_t staff);
     void removeStaff(staff_idx_t staff);
@@ -345,7 +354,7 @@ public:
     double xPosInSystemCoords() const;
     void setXPosInSystemCoords(double x);
 
-    bool isTupletSubdivisionOnStaff(staff_idx_t staffIdx) const;
+    bool isTupletSubdivision() const;
     bool isInsideTupletOnStaff(staff_idx_t staffIdx) const;
 
 private:

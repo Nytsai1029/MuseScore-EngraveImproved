@@ -20,14 +20,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_STYLE_H
+#define MU_ENGRAVING_STYLE_H
 
 #include <array>
 #include <cassert>
 
 #include "global/io/iodevice.h"
+#include "draw/types/geometry.h"
 
-#include "../types/spatium.h"
+#include "../types/dimension.h"
 #include "../types/propertyvalue.h"
 
 #include "styledef.h"
@@ -53,14 +55,14 @@ public:
         return value(idx).value<Spatium>();
     }
 
-    double   styleAbsolute(Sid idx) const { assert(MStyle::valueType(idx) == P_TYPE::SPATIUM); return valueAbsolute(idx); }
-    String   styleSt(Sid idx) const { assert(MStyle::valueType(idx) == P_TYPE::STRING); return value(idx).value<String>(); }
+    Millimetre styleMM(Sid idx) const { assert(MStyle::valueType(idx) == P_TYPE::SPATIUM); return valueMM(idx); }
+    String  styleSt(Sid idx) const { assert(MStyle::valueType(idx) == P_TYPE::STRING); return value(idx).value<String>(); }
     bool     styleB(Sid idx) const { assert(MStyle::valueType(idx) == P_TYPE::BOOL); return value(idx).toBool(); }
     double   styleD(Sid idx) const { assert(MStyle::valueType(idx) == P_TYPE::REAL); return value(idx).toReal(); }
     int      styleI(Sid idx) const { /* can be int or enum, so no assert */ return value(idx).toInt(); }
 
     const PropertyValue& value(Sid idx) const;
-    double valueAbsolute(Sid idx) const;
+    Millimetre valueMM(Sid idx) const;
 
     void set(Sid idx, const PropertyValue& v);
 
@@ -84,15 +86,21 @@ public:
     static Sid styleIdx(const String& name);
 
 private:
+
     friend class compat::ReadStyleHook;
 
-    void read(XmlReader& e, compat::ReadChordListHook* readChordListHook, int mscVersion);
+    void read(XmlReader& e, compat::ReadChordListHook* readChordListHook);
 
     bool readProperties(XmlReader&);
     bool readStyleValCompat(XmlReader&);
     bool readTextStyleValCompat(XmlReader&);
 
     std::array<PropertyValue, size_t(Sid::STYLES)> m_values;
-    std::array<double, size_t(Sid::STYLES)> m_precomputedValues;
+    std::array<Millimetre, size_t(Sid::STYLES)> m_precomputedValues;
+
+    void readVersion(String versionTag);
+    int m_version = 0;
 };
-}
+} // namespace mu::engraving
+
+#endif // MU_ENGRAVING_STYLE_H

@@ -19,15 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
 
-pragma ComponentBehavior: Bound
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
-
-import MuseScore.Playback
+import MuseScore.Playback 1.0
 
 Loader {
     id: root
@@ -45,32 +42,40 @@ Loader {
         statusModel.load()
     }
 
+    onLoaded: {
+        item.model = statusModel
+        item.navigation.panel = root.navigationPanel
+        item.navigation.order = root.navigationOrder
+    }
+
     sourceComponent: FlatButton {
         id: view
 
-        navigation.name: "OnlineSoundsStatusView"
-        navigation.panel: root.navigationPanel
-        navigation.order: root.navigationOrder
+        property var model
+        property var navPanel
+        property int navOrder: 0
 
-        readonly property bool mouseAreaEnabled: statusModel.manualProcessingAllowed
-                                                 || statusModel.status === OnlineSoundsStatusModel.Error
+        navigation.name: "OnlineSoundsStatusView"
+
+        readonly property bool mouseAreaEnabled: view.model.manualProcessingAllowed
+                                                 || view.model.status === OnlineSoundsStatusModel.Error
 
         mouseArea.enabled: view.mouseAreaEnabled
         mouseArea.hoverEnabled: view.mouseAreaEnabled
 
         // Enable tooltips but disable clicks
-        mouseArea.acceptedButtons: statusModel.manualProcessingAllowed ? Qt.LeftButton : Qt.NoButton
-        hoverHitColor: statusModel.manualProcessingAllowed ? ui.theme.buttonColor : "transparent"
+        mouseArea.acceptedButtons: view.model.manualProcessingAllowed ? Qt.LeftButton : Qt.NoButton
+        hoverHitColor: view.model.manualProcessingAllowed ? ui.theme.buttonColor : "transparent"
 
         transparent: true
         margins: 8
 
         onClicked: {
-            statusModel.processOnlineSounds()
+            view.model.processOnlineSounds()
         }
 
-        toolTipTitle: statusModel.errorTitle
-        toolTipDescription: statusModel.errorDescription
+        toolTipTitle: view.model.errorTitle
+        toolTipDescription: view.model.errorDescription
 
         contentItem: Row {
             spacing: 6
@@ -80,13 +85,13 @@ Loader {
                 height: 16
 
                 sourceComponent: {
-                    switch (statusModel.status) {
+                    switch (view.model.status) {
                     case OnlineSoundsStatusModel.Processing:
                         return busyIndicator
                     case OnlineSoundsStatusModel.Error:
                         return errorIndicator
                     case OnlineSoundsStatusModel.Success: {
-                        if (statusModel.manualProcessingAllowed) {
+                        if (view.model.manualProcessingAllowed) {
                             return processOnlineSoundsIndicator
                         }
 
@@ -104,13 +109,13 @@ Loader {
                 horizontalAlignment: Text.AlignLeft
 
                 text: {
-                    switch (statusModel.status) {
+                    switch (view.model.status) {
                     case OnlineSoundsStatusModel.Processing:
                         return qsTrc("playback", "Processing online sounds")
                     case OnlineSoundsStatusModel.Error:
                         return qsTrc("playback", "Online sounds")
                     case OnlineSoundsStatusModel.Success: {
-                        if (statusModel.manualProcessingAllowed) {
+                        if (view.model.manualProcessingAllowed) {
                             return qsTrc("playback", "Process online sounds")
                         }
 

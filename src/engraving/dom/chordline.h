@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_CHORDLINE_H
+#define MU_ENGRAVING_CHORDLINE_H
 
 #include "engravingitem.h"
 #include "draw/types/painterpath.h"
@@ -65,8 +66,8 @@ public:
 
     const TranslatableString& chordLineTypeName() const;
 
-    void startDragGrip(EditData&) override;
-    void dragGrip(EditData&) override;
+    void startEditDrag(EditData&) override;
+    void editDrag(EditData&) override;
 
     String accessibleInfo() const override;
 
@@ -116,4 +117,5 @@ private:
     bool m_playChordLine = true;
     Note* m_note = nullptr;
 };
-}
+} // namespace mu::engraving
+#endif

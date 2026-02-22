@@ -26,7 +26,7 @@
 
 #include "settings.h"
 
-#include "multiwindows/resourcelockguard.h"
+#include "multiinstances/resourcelockguard.h"
 
 #include "log.h"
 
@@ -171,6 +171,11 @@ void AppShellConfiguration::setStartupScorePath(const muse::io::path_t& scorePat
 async::Notification AppShellConfiguration::startupScorePathChanged() const
 {
     return m_startupScorePathChanged;
+}
+
+muse::io::path_t AppShellConfiguration::userDataPath() const
+{
+    return globalConfiguration()->userDataPath();
 }
 
 std::string AppShellConfiguration::handbookUrl() const
@@ -347,13 +352,13 @@ muse::io::path_t AppShellConfiguration::sessionFilePath() const
 
 RetVal<muse::ByteArray> AppShellConfiguration::readSessionState() const
 {
-    muse::mi::ReadResourceLockGuard lock_guard(multiwindowsProvider.get(), SESSION_RESOURCE_NAME);
+    muse::mi::ReadResourceLockGuard lock_guard(multiInstancesProvider.get(), SESSION_RESOURCE_NAME);
     return fileSystem()->readFile(sessionFilePath());
 }
 
 muse::Ret AppShellConfiguration::writeSessionState(const QByteArray& data)
 {
-    muse::mi::WriteResourceLockGuard lock_guard(multiwindowsProvider.get(), SESSION_RESOURCE_NAME);
+    muse::mi::WriteResourceLockGuard lock_guard(multiInstancesProvider.get(), SESSION_RESOURCE_NAME);
     return fileSystem()->writeFile(sessionFilePath(), ByteArray::fromQByteArrayNoCopy(data));
 }
 

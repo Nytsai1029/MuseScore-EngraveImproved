@@ -21,19 +21,11 @@
  */
 #pragma once
 
-#include <QJSValue>
-
 #include "global/api/apiobject.h"
-#include "global/api/apiutils.h"
 
 #include "extensions/api/v1/iapiv1object.h"
 
 #include "qmlpluginapi.h"
-
-#undef ENUM_PROPERTY
-#define ENUM_PROPERTY(qmlName, enumType) \
-    Q_PROPERTY(QJSValue qmlName READ get##qmlName CONSTANT) \
-    QJSValue get##qmlName() const { return makeEnum<enumType>(); }
 
 namespace mu::engraving::apiv1 {
 //! NOTE This API is used in `js` scripts of macros
@@ -52,10 +44,7 @@ class EngravingApiV1 : public muse::api::ApiObject, public muse::extensions::api
 
     Q_PROPERTY(apiv1::Score * curScore READ curScore CONSTANT)
 
-    // Enums
-    ENUM_PROPERTY(Element, enums::ElementType);
-    ENUM_PROPERTY(TextStyleType, enums::TextStyleType);
-
+    Q_PROPERTY(apiv1::Enum * Element READ elementTypeEnum CONSTANT)
     Q_PROPERTY(apiv1::Enum * Accidental READ accidentalTypeEnum CONSTANT)
     Q_PROPERTY(apiv1::Enum * AccidentalBracket READ accidentalBracketEnum CONSTANT)
     Q_PROPERTY(apiv1::Enum * OrnamentStyle READ ornamentStyleEnum CONSTANT)
@@ -113,6 +102,7 @@ class EngravingApiV1 : public muse::api::ApiObject, public muse::extensions::api
     Q_PROPERTY(apiv1::Enum * OrnamentShowAccidental READ ornamentShowAccidentalEnum CONSTANT)
     Q_PROPERTY(apiv1::Enum * PartialSpannerDirection READ partialSpannerDirectionEnum CONSTANT)
     Q_PROPERTY(apiv1::Enum * ChordStylePreset READ chordStylePresetEnum CONSTANT)
+    Q_PROPERTY(apiv1::Enum * AnnotationCategory READ annotationCategoryEnum CONSTANT)
     Q_PROPERTY(apiv1::Enum * PlayingTechniqueType READ playingTechniqueTypeEnum CONSTANT)
     Q_PROPERTY(apiv1::Enum * GradualTempoChangeType READ gradualTempoChangeTypeEnum CONSTANT)
     Q_PROPERTY(apiv1::Enum * ChangeMethod READ changeMethodEnum CONSTANT)
@@ -177,6 +167,7 @@ public:
 
     apiv1::Score* curScore() const { return api()->curScore(); }
 
+    apiv1::Enum* elementTypeEnum() const { return api()->get_elementTypeEnum(); }
     apiv1::Enum* accidentalTypeEnum() const { return api()->get_accidentalTypeEnum(); }
     apiv1::Enum* accidentalBracketEnum() const { return api()->get_accidentalBracketEnum(); }
     apiv1::Enum* ornamentStyleEnum() const { return api()->get_ornamentStyleEnum(); }
@@ -234,6 +225,7 @@ public:
     apiv1::Enum* ornamentShowAccidentalEnum() const { return api()->get_ornamentShowAccidentalEnum(); }
     apiv1::Enum* partialSpannerDirectionEnum() const { return api()->get_partialSpannerDirectionEnum(); }
     apiv1::Enum* chordStylePresetEnum() const { return api()->get_chordStylePresetEnum(); }
+    apiv1::Enum* annotationCategoryEnum() const { return api()->get_annotationCategoryEnum(); }
     apiv1::Enum* playingTechniqueTypeEnum() const { return api()->get_playingTechniqueTypeEnum(); }
     apiv1::Enum* gradualTempoChangeTypeEnum() const { return api()->get_gradualTempoChangeTypeEnum(); }
     apiv1::Enum* changeMethodEnum() const { return api()->get_changeMethodEnum(); }
@@ -305,12 +297,12 @@ public:
     Q_INVOKABLE void openLog(const QString& f) { api()->openLog(f); }
     Q_INVOKABLE void closeLog() { api()->closeLog(); }
 
-    Q_INVOKABLE apiv1::Fraction* fraction(int numerator, int denominator) const
+    Q_INVOKABLE apiv1::FractionWrapper* fraction(int numerator, int denominator) const
     {
         return api()->fraction(numerator, denominator);
     }
 
-    Q_INVOKABLE apiv1::Fraction* fractionFromTicks(int ticks) const
+    Q_INVOKABLE apiv1::FractionWrapper* fractionFromTicks(int ticks) const
     {
         return api()->fractionFromTicks(ticks);
     }
@@ -338,18 +330,6 @@ public:
     Q_INVOKABLE void quit() { api()->quit(); }
 
 private:
-
-    template<typename T>
-    QJSValue makeEnum(muse::api::EnumType type = muse::api::EnumType::Undefined) const
-    {
-        if (type == muse::api::EnumType::Undefined) {
-            type = engine()->apiversion() == 1 ? muse::api::EnumType::Int : muse::api::EnumType::String;
-        }
-        return muse::api::enumToJsValue(engine(),
-                                        QMetaEnum::fromType<T>(),
-                                        type);
-    }
-
     mutable PluginAPI* m_api = nullptr;
     mutable bool m_selfApi = false;
 };

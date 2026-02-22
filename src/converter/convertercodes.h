@@ -37,7 +37,6 @@ enum class Err {
 
     ConvertTypeUnknown = 1310,
     InvalidTransposeOptions = 1311,
-    InvalidScoreRegion = 1312,
 
     InFileFailedLoad = 1320,
 

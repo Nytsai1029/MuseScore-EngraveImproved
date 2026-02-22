@@ -31,8 +31,7 @@
 using namespace mu::engraving;
 
 namespace mu::iex::guitarpro {
-static void fillBendDataForNote(BendDataContext& bendDataCtx, const ImportedBendInfo& importedInfo, int noteIndexInChord,
-                                bool isBendSingle);
+static void fillBendDataForNote(BendDataContext& bendDataCtx, const ImportedBendInfo& importedInfo, int noteIndexInChord);
 
 static void fillSlightBendData(BendDataContext& bendDataCtx, const ImportedBendInfo& importedInfo, int noteIndexInChord);
 static void fillPrebendData(BendDataContext& bendDataCtx, const ImportedBendInfo& importedInfo, int noteIndexInChord);
@@ -74,15 +73,14 @@ BendDataContext BendDataCollector::collectBendDataContext()
     return bendDataCtx;
 }
 
-static void fillBendDataForNote(BendDataContext& bendDataCtx, const ImportedBendInfo& importedInfo, int noteIndexInChord, bool isBendSingle)
+static void fillBendDataForNote(BendDataContext& bendDataCtx, const ImportedBendInfo& importedInfo, int noteIndexInChord)
 {
     const Note* note = importedInfo.note;
     if (!note) {
         return;
     }
 
-    if (importedInfo.type == BendType::SLIGHT_BEND && isBendSingle) {
-        // even though it's slight bend (1/4), we import it as normal bend, if it's followed by other bend (or hold)
+    if (importedInfo.type == BendType::SLIGHT_BEND) {
         fillSlightBendData(bendDataCtx, importedInfo, noteIndexInChord);
         return;
     }
@@ -157,10 +155,7 @@ static void fillNormalBendData(BendDataContext& bendDataCtx, const ImportedBendI
         if (importedInfo.connectionType == ConnectionToNextNoteType::MAIN_NOTE_CONNECTS) {
             bendDataCtx.tiedNotesBendsData[track][tick][noteIdx] = std::move(data);
         } else if (importedInfo.connectionType == ConnectionToNextNoteType::LAST_GRACE_CONNECTS && i == importedInfo.segments.size() - 1) {
-            LastGraceNoteData lastNoteData;
-            lastNoteData.shouldMoveTie = true;
-            lastNoteData.endFactor = data.endFactor;
-            bendDataCtx.graceAfterBendData[track][tick][noteIdx].lastNoteData = lastNoteData;
+            bendDataCtx.graceAfterBendData[track][tick][noteIdx].shouldMoveTie = true;
         } else {
             bendDataCtx.graceAfterBendData[track][tick][noteIdx].data.push_back(std::move(data));
         }
@@ -245,20 +240,18 @@ void BendDataCollector::fillBendDataContext(BendDataContext& bendDataCtx)
                         size_t noteIndex = std::min(muse::indexOf(mainNote->chord()->notes(), mainNote),
                                                     lastChordData.chord->notes().size() - 1);
                         lastChordData.dataByNote[lastChordData.chord->notes()[noteIndex]].connectionType
-                            = (dataForFirstNote.segments.size()
-                               > 1 ? ConnectionToNextNoteType::LAST_GRACE_CONNECTS : ConnectionToNextNoteType::MAIN_NOTE_CONNECTS);
+                            = ConnectionToNextNoteType::LAST_GRACE_CONNECTS;
                     }
                 }
             }
 
-            size_t chunkSize = chunk.size();
-            for (auto& [chunkTick, chordInfo] : chunk) {
+            for (auto& [tack, chordInfo] : chunk) {
                 const auto& notesVec  = chordInfo.chord->notes();
                 const auto& notesData = chordInfo.dataByNote;
                 for (size_t i = 0; i < notesVec.size(); ++i) {
                     Note* n = notesVec[i];
                     if (auto it = notesData.find(n); it != notesData.end()) {
-                        fillBendDataForNote(bendDataCtx, it->second, static_cast<int>(i), chunkSize == 1);
+                        fillBendDataForNote(bendDataCtx, it->second, static_cast<int>(i));
                     }
                 }
             }

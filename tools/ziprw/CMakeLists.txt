@@ -11,22 +11,20 @@ set(MU_ROOT ${CMAKE_CURRENT_LIST_DIR}/../..)
 set(MUSE_FRAMEWORK_PATH ${MU_ROOT})
 
 set(CMAKE_MODULE_PATH
-    ${MU_ROOT}/buildscripts
-    ${MU_ROOT}/buildscripts/cmake
-    ${MU_ROOT}/src/framework/cmake
-    ${CMAKE_MODULE_PATH}
+        ${MU_ROOT}/buildscripts
+        ${MU_ROOT}/buildscripts/cmake
+        ${CMAKE_MODULE_PATH}
 )
 
 include(SetupBuildEnvironment)
 include(GetPlatformInfo)
 
-set(QT_MIN_VERSION "6.8")
+set(QT_MIN_VERSION "6.2.4")
 include(SetupQt6)
 
 include_directories(
     ${CMAKE_CURRENT_LIST_DIR}
     ${MU_ROOT}/src/framework
-    ${MU_ROOT}/src/framework/global
 )
 
 add_compile_definitions(
@@ -35,14 +33,10 @@ add_compile_definitions(
 
 configure_file(${MU_ROOT}/src/framework/cmake/muse_framework_config.h.in muse_framework_config.h )
 
-include(MuseCreateModule)
+include(DeclareModuleSetup)
 
 set(GLOBAL_NO_INTERNAL ON)
 add_subdirectory(${MU_ROOT}/src/framework/global global)
-
-target_link_libraries(muse_global PUBLIC
-    ${QT_LIBRARIES}
-)
 
 set(ENGRAVING_NO_INTERNAL ON)
 set(ENGRAVING_NO_ACCESSIBILITY ON)

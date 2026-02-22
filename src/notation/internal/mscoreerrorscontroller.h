@@ -19,27 +19,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_NOTATION_MSCOREERRORSCONTROLLER_H
+#define MU_NOTATION_MSCOREERRORSCONTROLLER_H
 
 #include "global/async/asyncable.h"
 
 #include "modularity/ioc.h"
-#include "interactive/iinteractive.h"
-#include "../inotationconfiguration.h"
+#include "global/iinteractive.h"
+#include "inotationconfiguration.h"
 
 namespace mu::notation {
-class MScoreErrorsController : public muse::Contextable, public muse::async::Asyncable
+class MScoreErrorsController : public muse::Injectable, public muse::async::Asyncable
 {
-    muse::GlobalInject<INotationConfiguration> configuration;
-    muse::ContextInject<muse::IInteractive> interactive = { this };
+    muse::Inject<INotationConfiguration> configuration = { this };
+    muse::Inject<muse::IInteractive> interactive = { this };
 
 public:
     MScoreErrorsController(const muse::modularity::ContextPtr& iocCtx);
 
     void checkAndShowMScoreError();
-
-private:
-    mu::engraving::MsError m_currentDialogError = mu::engraving::MsError::MS_NO_ERROR;
 };
 }
+
+#endif // MU_NOTATION_MSCOREERRORSCONTROLLER_H

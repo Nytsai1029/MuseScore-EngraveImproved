@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -27,7 +27,7 @@ using namespace muse;
 using namespace muse::extensions::apiv1;
 
 FileDialog::FileDialog(QObject* parent)
-    : QObject(parent), Contextable(muse::iocCtxForQmlObject(this)) {}
+    : QObject(parent), Injectable(muse::iocCtxForQmlObject(this)) {}
 
 QString FileDialog::doOpen(const QString& title, const QString& folder)
 {
@@ -82,16 +82,6 @@ void FileDialog::setVisible(bool newVisible)
     }
 }
 
-void FileDialog::open()
-{
-    setVisible(true);
-}
-
-void FileDialog::close()
-{
-    setVisible(false);
-}
-
 QString FileDialog::folder() const
 {
     return m_folder;
@@ -118,32 +108,6 @@ void FileDialog::setFilePath(const QString& newFilePath)
     }
     m_filePath = newFilePath;
     emit filePathChanged();
-}
-
-QUrl FileDialog::fileUrl() const
-{
-    return QUrl::fromLocalFile(m_filePath);
-}
-
-void FileDialog::setFileUrl(const QUrl& newFileUrl)
-{
-    setFilePath(newFileUrl.toLocalFile());
-}
-
-QList<QUrl> FileDialog::fileUrls() const
-{
-    QList<QUrl> urls;
-    urls.append(QUrl::fromLocalFile(m_filePath));
-    return urls;
-}
-
-void FileDialog::setFileUrls(const QList<QUrl>& newFileUrls)
-{
-    if (newFileUrls.isEmpty()) {
-        setFilePath(QString());
-    } else {
-        setFilePath(newFileUrls.first().toLocalFile());
-    }
 }
 
 FileDialog::Type FileDialog::type() const

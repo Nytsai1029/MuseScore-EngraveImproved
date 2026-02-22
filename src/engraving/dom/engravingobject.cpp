@@ -24,9 +24,6 @@
 
 #include "global/containers.h"
 
-#include "../editing/undo.h"
-#include "../editing/addremoveelement.h"
-#include "../editing/editproperty.h"
 #include "style/textstyle.h"
 #include "types/typesconv.h"
 
@@ -34,7 +31,7 @@
 #include "linkedobjects.h"
 #include "masterscore.h"
 #include "score.h"
-#include "staff.h"
+#include "undo.h"
 
 #include "log.h"
 
@@ -186,20 +183,6 @@ void EngravingObject::moveToDummy()
     }
 }
 
-EngravingItemList EngravingObject::getChildren(bool includeInvisible) const
-{
-    EngravingItemList childrenList;
-    auto collectChildren = [&](EngravingItem* item) {
-        if (item != this && (includeInvisible || item->visible())) {
-            childrenList.push_back(item);
-        }
-    };
-
-    const_cast<EngravingObject*>(this)->scanElements(collectChildren);
-
-    return childrenList;
-}
-
 void EngravingObject::setScore(Score* s)
 {
     doSetScore(s);
@@ -301,6 +284,19 @@ bool EngravingObject::onSameScore(const EngravingObject* other) const
 const MStyle& EngravingObject::style() const
 {
     return score()->style();
+}
+
+//---------------------------------------------------------
+//   scanElements
+/// Recursively apply scanElements to all children.
+/// See also EngravingItem::scanElements.
+//---------------------------------------------------------
+
+void EngravingObject::scanElements(void* data, void (* func)(void*, EngravingItem*), bool all)
+{
+    for (EngravingObject* child : scanChildren()) {
+        child->scanElements(data, func, all);
+    }
 }
 
 //---------------------------------------------------------
@@ -479,7 +475,7 @@ void EngravingObject::undoChangeProperty(Pid id, const PropertyValue& v, Propert
         }
     } else if (id == Pid::EXCLUDE_FROM_OTHER_PARTS) {
         if (isEngravingItem() && getProperty(Pid::EXCLUDE_FROM_OTHER_PARTS) != v) {
-            EngravingItem* delegate = toEngravingItem(propertyDelegate(id));
+            EngravingItem* delegate = toEngravingItem(this)->propertyDelegate(id);
             if (delegate) {
                 delegate->manageExclusionFromParts(v.toBool());
             } else {
@@ -488,7 +484,7 @@ void EngravingObject::undoChangeProperty(Pid id, const PropertyValue& v, Propert
         }
     } else if (id == Pid::VOICE_ASSIGNMENT) {
         if (v.value<VoiceAssignment>() != VoiceAssignment::CURRENT_VOICE_ONLY) {
-            changeProperties(this, Pid::VOICE, voice_idx_t(0), ps);
+            changeProperties(this, Pid::VOICE, 0, ps);
         }
     }
     changeProperties(this, id, v, ps);
@@ -634,10 +630,6 @@ int EngravingObject::getPropertyFlagsIdx(Pid id) const
 
 PropertyFlags EngravingObject::propertyFlags(Pid id) const
 {
-    if (EngravingObject* e = propertyDelegate(id)) {
-        return e->propertyFlags(id);
-    }
-
     static PropertyFlags f = PropertyFlags::NOSTYLE;
 
     int i = getPropertyFlagsIdx(id);
@@ -653,11 +645,6 @@ PropertyFlags EngravingObject::propertyFlags(Pid id) const
 
 void EngravingObject::setPropertyFlags(Pid id, PropertyFlags f)
 {
-    if (EngravingObject* e = propertyDelegate(id)) {
-        e->setPropertyFlags(id, f);
-        return;
-    }
-
     int i = getPropertyFlagsIdx(id);
     if (i == -1) {
         return;
@@ -732,7 +719,7 @@ bool EngravingObject::isSLineSegment() const
     return isHairpinSegment() || isOttavaSegment() || isPedalSegment()
            || isTrillSegment() || isVoltaSegment() || isTextLineSegment()
            || isGlissandoSegment() || isLetRingSegment() || isVibratoSegment() || isPalmMuteSegment()
-           || isGradualTempoChangeSegment() || isWhammyBarSegment();
+           || isGradualTempoChangeSegment();
 }
 
 //---------------------------------------------------------
@@ -776,8 +763,8 @@ bool EngravingObject::isTextBase() const
 PropertyValue EngravingObject::styleValue(Pid pid, Sid sid) const
 {
     switch (propertyType(pid)) {
-    case P_TYPE::ABSOLUTE:
-        return style().styleAbsolute(sid);
+    case P_TYPE::MILLIMETRE:
+        return style().styleMM(sid);
     case P_TYPE::POINT: {
         PointF val = style().styleV(sid).value<PointF>();
         if (offsetIsSpatiumDependent()) {

@@ -4,7 +4,7 @@
 # MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2021 MuseScore Limited and others
+# Copyright (C) 2021 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -18,21 +18,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-muse_create_module(muse_shortcuts ALIAS muse::shortcuts STUB)
+declare_module(muse_shortcuts)
+set(MODULE_ALIAS muse::shortcuts)
 
-target_sources(muse_shortcuts PRIVATE
-    shortcutsstubmodule.cpp
-    shortcutsstubmodule.h
-    shortcutsregisterstub.cpp
-    shortcutsregisterstub.h
-    shortcutscontrollerstub.cpp
-    shortcutscontrollerstub.h
-    shortcutsconfigurationstub.cpp
-    shortcutsconfigurationstub.h
-    midiremotestub.cpp
-    midiremotestub.h
-)
+set(MODULE_QRC shortcuts.qrc)
 
-if (MUSE_MODULE_SHORTCUTS_QML)
-    add_subdirectory(qml/Muse/Shortcuts)
-endif()
+set(MODULE_QML_IMPORT ${CMAKE_CURRENT_LIST_DIR}/qml )
+
+set(MODULE_SRC
+    ${CMAKE_CURRENT_LIST_DIR}/shortcutsstubmodule.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/shortcutsstubmodule.h
+    ${CMAKE_CURRENT_LIST_DIR}/shortcutsregisterstub.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/shortcutsregisterstub.h
+    ${CMAKE_CURRENT_LIST_DIR}/shortcutscontrollerstub.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/shortcutscontrollerstub.h
+    ${CMAKE_CURRENT_LIST_DIR}/shortcutsconfigurationstub.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/shortcutsconfigurationstub.h
+    ${CMAKE_CURRENT_LIST_DIR}/midiremotestub.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/midiremotestub.h
+    )
+
+set(MODULE_IS_STUB ON)
+setup_module()
+

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,42 +19,44 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#ifndef MUSE_NETWORK_NETWORKMANAGER_H
+#define MUSE_NETWORK_NETWORKMANAGER_H
 
-#pragma once
-
-#include <QObject>
+#include <QIODevice>
 
 #include "modularity/ioc.h"
-#include "async/asyncable.h"
+#include "../inetworkconfiguration.h"
 
-#include "network/inetworkconfiguration.h"
-#include "network/inetworkmanager.h"
+#include "inetworkmanager.h"
 
 class QNetworkAccessManager;
 class QNetworkRequest;
 class QNetworkReply;
 
 namespace muse::network {
-class NetworkManager : public QObject, public INetworkManager, public async::Asyncable
+class NetworkManager : public QObject, public INetworkManager, public Injectable
 {
     Q_OBJECT
 
-    GlobalInject<INetworkConfiguration> configuration;
+    Inject<INetworkConfiguration> configuration = { this };
 
 public:
     explicit NetworkManager(QObject* parent = nullptr);
+    ~NetworkManager() override;
 
-    RetVal<Progress> get(const QUrl& url, IncomingDevicePtr incomingData = nullptr,
-                         const RequestHeaders& headers = RequestHeaders()) override;
-    RetVal<Progress> head(const QUrl& url, const RequestHeaders& headers = RequestHeaders()) override;
-    RetVal<Progress> post(const QUrl& url, OutgoingDeviceVar outgoingData, IncomingDevicePtr incomingData = nullptr,
-                          const RequestHeaders& headers = RequestHeaders()) override;
-    RetVal<Progress> put(const QUrl& url, OutgoingDeviceVar outgoingData, IncomingDevicePtr incomingData = nullptr,
-                         const RequestHeaders& headers = RequestHeaders()) override;
-    RetVal<Progress> patch(const QUrl& url, OutgoingDeviceVar outgoingData, IncomingDevicePtr incomingData = nullptr,
-                           const RequestHeaders& headers = RequestHeaders()) override;
-    RetVal<Progress> del(const QUrl& url, IncomingDevicePtr incomingData = nullptr,
-                         const RequestHeaders& headers = RequestHeaders()) override;
+    Ret get(const QUrl& url, IncomingDevice* incomingData, const RequestHeaders& headers = RequestHeaders()) override;
+    Ret head(const QUrl& url, const RequestHeaders& headers = RequestHeaders()) override;
+    Ret post(const QUrl& url, OutgoingDevice* outgoingData, IncomingDevice* incomingData,
+             const RequestHeaders& headers = RequestHeaders()) override;
+    Ret put(const QUrl& url, OutgoingDevice* outgoingData, IncomingDevice* incomingData,
+            const RequestHeaders& headers = RequestHeaders()) override;
+    Ret patch(const QUrl& url, OutgoingDevice* outgoingData, IncomingDevice* incomingData,
+              const RequestHeaders& headers = RequestHeaders()) override;
+    Ret del(const QUrl& url, IncomingDevice* incomingData, const RequestHeaders& headers = RequestHeaders()) override;
+
+    Progress progress() const override;
+
+    void abort() override;
 
 private:
     enum RequestType {
@@ -66,20 +68,25 @@ private:
         DELETE_REQUEST
     };
 
-    RetVal<Progress> execRequest(RequestType requestType, const QUrl& url, IncomingDevicePtr incomingData, OutgoingDeviceVar outgoingData,
-                                 const RequestHeaders& headers);
+    Ret execRequest(RequestType requestType, const QUrl& url, IncomingDevice* incomingData = nullptr,
+                    OutgoingDevice* outgoingData = nullptr, const RequestHeaders& headers = RequestHeaders());
 
-    QNetworkRequest prepareRequest(const QUrl& url, const RequestHeaders& headers) const;
-    QNetworkReply* sendRequest(RequestType type, const QNetworkRequest& request, const OutgoingDeviceVar& device);
+    QNetworkReply* receiveReply(RequestType requestType, const QNetworkRequest& request, OutgoingDevice* outgoingData = nullptr);
 
-    struct RequestData {
-        IncomingDevicePtr incomingData;
-        OutgoingDeviceVar outgoingData;
-        QNetworkReply* reply = nullptr;
-        Progress progress;
-    };
+    bool openDevice(QIODevice* device, QIODevice::OpenModeFlag flags);
+    void closeDevice(QIODevice* device);
+
+    void prepareReplyReceive(QNetworkReply* reply, IncomingDevice* incomingData);
+    void prepareReplyTransmit(QNetworkReply* reply);
+
+    Ret waitForReplyFinished(QNetworkReply* reply);
+    Ret errorFromReply(const QNetworkReply* reply) const;
 
     QNetworkAccessManager* m_manager = nullptr;
-    std::map<size_t /*requestId*/, RequestData> m_requestDataMap;
+    IncomingDevice* m_incomingData = nullptr;
+    QNetworkReply* m_reply = nullptr;
+    Progress m_progress;
 };
 }
+
+#endif // MUSE_NETWORK_NETWORKMANAGER_H

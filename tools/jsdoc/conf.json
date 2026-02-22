@@ -16,17 +16,24 @@
     },
 	"opts": {
         "template": "./template",
-        "encoding": "utf8",                       
-        "recurse": true,                  
-        "theme_opts": {
-            "default_theme": "light",
-            "title": "Home",
-            "sections": ["Tutorials", "Namespaces", "Classes", "Global"],
-            "sort": false
-        }                
+        "encoding": "utf8",               
+        "destination": "./out/",          
+        "recurse": false,                  
+        "version": false                
 	},
-    "markdown": {
-        "hardwrap": false,
-        "idInHeadings": true
+    "docdash": {
+        "sort": true,
+        "sectionOrder": [   
+            "Tutorials",    
+            "Modules",        
+            "Externals",
+            "Events",
+            "Namespaces",
+            "Classes",
+            "Mixins",
+            "Interfaces"
+        ],
+        "search": true
     }
+
 }

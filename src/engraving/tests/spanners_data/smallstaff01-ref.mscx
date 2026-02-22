@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <defaultsVersion>301</defaultsVersion>
+      <pageWidth>8.27</pageWidth>
+      <pageHeight>11.69</pageHeight>
+      <pagePrintableWidth>7.4826</pagePrintableWidth>
+      <maskBarlinesForText>0</maskBarlinesForText>
+      <scaleRythmicSpacingForSmallNotes>0</scaleRythmicSpacingForSmallNotes>
+      <verticallyAlignChordSymbols>0</verticallyAlignChordSymbols>
+      <pageNumberFontSize>9</pageNumberFontSize>
+      <pageNumberFontStyle>0</pageNumberFontStyle>
+      <changesBeforeBarlineRepeats>0</changesBeforeBarlineRepeats>
+      <changesBeforeBarlineOtherJumps>0</changesBeforeBarlineOtherJumps>
+      <showCourtesiesRepeats>0</showCourtesiesRepeats>
+      <showCourtesiesOtherJumps>0</showCourtesiesOtherJumps>
+      <showCourtesiesAfterCancellingRepeats>0</showCourtesiesAfterCancellingRepeats>
+      <showCourtesiesAfterCancellingOtherJumps>0</showCourtesiesAfterCancellingOtherJumps>
+      <repeatPlayCountShow>0</repeatPlayCountShow>
       <spatium>1.76389</spatium>
       </Style>
     <showInvisible>1</showInvisible>
@@ -117,6 +131,11 @@
             <Spanner type="Slur">
               <Slur>
                 <eid>I_I</eid>
+                <SlurSegment no="0">
+                  <o2 x="0" y="-2.8"/>
+                  <o3 x="0" y="-2.8"/>
+                  <eid>J_J</eid>
+                  </SlurSegment>
                 </Slur>
               <next>
                 <location>
@@ -125,31 +144,31 @@
                 </next>
               </Spanner>
             <Note>
-              <eid>J_J</eid>
+              <eid>K_K</eid>
               <pitch>72</pitch>
               <tpc>14</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>K_K</eid>
+            <eid>L_L</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>L_L</eid>
+              <eid>M_M</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>M_M</eid>
+            <eid>N_N</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>N_N</eid>
+              <eid>O_O</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>O_O</eid>
+            <eid>P_P</eid>
             <durationType>quarter</durationType>
             <Spanner type="Slur">
               <prev>
@@ -159,7 +178,7 @@
                 </prev>
               </Spanner>
             <Note>
-              <eid>P_P</eid>
+              <eid>Q_Q</eid>
               <pitch>77</pitch>
               <tpc>13</tpc>
               </Note>

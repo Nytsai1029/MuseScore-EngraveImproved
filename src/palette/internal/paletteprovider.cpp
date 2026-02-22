@@ -29,11 +29,15 @@
 #include <QMimeData>
 #include <QStandardPaths>
 
-#include "engraving/dom/mscore.h"
+#include "engraving/dom/keysig.h"
+#include "engraving/dom/timesig.h"
 
 #include "palettecreator.h"
+#include "view/widgets/keyedit.h"
+#include "view/widgets/timedialog.h"
 
 #include "io/path.h"
+#include "commonscene/commonscenetypes.h"
 
 #include "translation.h"
 #include "types/uri.h"
@@ -104,7 +108,7 @@ void PaletteElementEditor::onElementAdded(const ElementPtr element)
     }
 
     QVariantMap mimeData;
-    mimeData[mimeSymbolFormat] = element->mimeData().toQByteArray();
+    mimeData[mu::commonscene::MIME_SYMBOL_FORMAT] = element->mimeData().toQByteArray();
 
     _controller->insert(_paletteIndex, -1, mimeData, Qt::CopyAction);
 }
@@ -206,9 +210,8 @@ PaletteElementEditor* AbstractPaletteController::elementEditor(const QModelIndex
         return ed;
     }
 
-    PaletteElementEditor* ed = new PaletteElementEditor(
-        this, paletteIndex, paletteIndex.data(PaletteTreeModel::PaletteTypeRole).value<Palette::Type>(),
-        iocContext(), this);
+    PaletteElementEditor* ed = new PaletteElementEditor(this, paletteIndex,
+                                                        paletteIndex.data(PaletteTreeModel::PaletteTypeRole).value<Palette::Type>(), this);
 
     m_paletteElementEditorMap.insert(paletteType, ed);
     return ed;
@@ -230,7 +233,7 @@ Qt::DropAction UserPaletteController::dropAction(const QVariantMap& mimeData, Qt
     }
 
     if (mimeData.contains(PaletteCell::mimeDataFormat) && proposedAction == Qt::MoveAction) {
-        const auto cell = PaletteCell::fromMimeData(mimeData[PaletteCell::mimeDataFormat].toByteArray(), iocContext());
+        const auto cell = PaletteCell::fromMimeData(mimeData[PaletteCell::mimeDataFormat].toByteArray());
         if (!cell) {
             return Qt::IgnoreAction;
         }
@@ -239,7 +242,7 @@ Qt::DropAction UserPaletteController::dropAction(const QVariantMap& mimeData, Qt
         }
         return Qt::MoveAction;
     }
-    if (mimeData.contains(mimeSymbolFormat) && proposedAction == Qt::CopyAction) {
+    if (mimeData.contains(mu::commonscene::MIME_SYMBOL_FORMAT) && proposedAction == Qt::CopyAction) {
         if (_filterCustom && !_custom) {
             return Qt::IgnoreAction;
         }
@@ -262,7 +265,7 @@ bool UserPaletteController::insert(const QModelIndex& parent, int row, const QVa
     PaletteCellPtr cell;
 
     if (mimeData.contains(PaletteCell::mimeDataFormat)) {
-        cell = PaletteCell::fromMimeData(mimeData[PaletteCell::mimeDataFormat].toByteArray(), iocContext());
+        cell = PaletteCell::fromMimeData(mimeData[PaletteCell::mimeDataFormat].toByteArray());
 
         if (!cell) {
             return false;
@@ -280,8 +283,8 @@ bool UserPaletteController::insert(const QModelIndex& parent, int row, const QVa
                 return false;
             }
         }
-    } else if (mimeData.contains(mimeSymbolFormat) && (action == Qt::CopyAction)) {
-        cell = PaletteCell::fromElementMimeData(mimeData[mimeSymbolFormat].toByteArray(), iocContext());
+    } else if (mimeData.contains(mu::commonscene::MIME_SYMBOL_FORMAT) && (action == Qt::CopyAction)) {
+        cell = PaletteCell::fromElementMimeData(mimeData[mu::commonscene::MIME_SYMBOL_FORMAT].toByteArray());
     }
 
     if (!cell) {
@@ -336,29 +339,34 @@ bool UserPaletteController::move(const QModelIndex& sourceParent, int sourceRow,
     return false;
 }
 
-async::Promise<UserPaletteController::RemoveAction> UserPaletteController::showHideOrDeleteDialog(const std::string& question) const
+void UserPaletteController::showHideOrDeleteDialog(const std::string& question,
+                                                   std::function<void(AbstractPaletteController::RemoveAction)> resultHandler) const
 {
     int hideButton = int(IInteractive::Button::CustomButton) + 1;
     int deleteButton = hideButton + 1;
 
-    return interactive()->question(std::string(), question, {
+    auto result = interactive()->question(std::string(), question, {
         IInteractive::ButtonData(hideButton, muse::trc("palette", "Hide")),
         IInteractive::ButtonData(deleteButton, muse::trc("palette", "Delete permanently")),
         interactive()->buttonData(IInteractive::Button::Cancel)
-    })
-           .then<RemoveAction>(this, [deleteButton, hideButton](const IInteractive::Result& res, auto resolve) {
+    });
+
+    result.onResolve(this, [deleteButton, hideButton, resultHandler](const IInteractive::Result& res) {
         RemoveAction action = RemoveAction::NoAction;
         if (res.isButton(deleteButton)) {
             action = RemoveAction::DeletePermanently;
         } else if (res.isButton(hideButton)) {
             action = RemoveAction::Hide;
         }
-        return resolve(action);
+
+        resultHandler(action);
     });
 }
 
 void UserPaletteController::queryRemove(const QModelIndexList& removeIndices, int customCount)
 {
+    using RemoveAction = AbstractPaletteController::RemoveAction;
+
     if (removeIndices.empty() || !canEdit(removeIndices[0].parent())) {
         return;
     }
@@ -380,10 +388,7 @@ void UserPaletteController::queryRemove(const QModelIndexList& removeIndices, in
                                    ? muse::trc("palette", "Do you want to hide this custom palette cell or permanently delete it?")
                                    : muse::trc("palette", "Do you want to hide these custom palette cells or permanently delete them?");
 
-            showHideOrDeleteDialog(question)
-            .onResolve(this, [=](RemoveAction action) {
-                remove(removeIndices, action);
-            });
+            showHideOrDeleteDialog(question,  [=](RemoveAction action) { remove(removeIndices, action); });
             return;
         } else {
             std::string question = customCount == 1
@@ -406,8 +411,7 @@ void UserPaletteController::queryRemove(const QModelIndexList& removeIndices, in
                                    ? muse::trc("palette", "Do you want to hide this custom palette or permanently delete it?")
                                    : muse::trc("palette", "Do you want to hide these custom palettes or permanently delete them?");
 
-            showHideOrDeleteDialog(question)
-            .onResolve(this, [=](RemoveAction action) { remove(removeIndices, action); });
+            showHideOrDeleteDialog(question,  [=](RemoveAction action) { remove(removeIndices, action); });
             return;
         } else {
             action = RemoveAction::Hide;
@@ -420,6 +424,8 @@ void UserPaletteController::queryRemove(const QModelIndexList& removeIndices, in
 void UserPaletteController::remove(const QModelIndexList& unsortedRemoveIndices,
                                    AbstractPaletteController::RemoveAction action)
 {
+    using RemoveAction = AbstractPaletteController::RemoveAction;
+
     if (action == RemoveAction::NoAction) {
         return;
     }
@@ -599,10 +605,11 @@ bool UserPaletteController::applyPaletteElement(const QModelIndex& index, Qt::Ke
 
 void PaletteProvider::init()
 {
-    m_userPaletteModel = new PaletteTreeModel(std::make_shared<PaletteTree>(), iocContext(), this);
+    m_userPaletteModel = new PaletteTreeModel(std::make_shared<PaletteTree>(), this);
     connect(m_userPaletteModel, &PaletteTreeModel::treeChanged, this, &PaletteProvider::notifyAboutUserPaletteChanged);
 
-    m_masterPaletteModel = new PaletteTreeModel(PaletteCreator(iocContext()).newMasterPaletteTree(), iocContext(), this);
+    m_masterPaletteModel = new PaletteTreeModel(PaletteCreator::newMasterPaletteTree());
+    m_masterPaletteModel->setParent(this);
 
     m_searchFilterModel = new PaletteCellFilterProxyModel(this);
     m_searchFilterModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
@@ -682,7 +689,7 @@ QAbstractItemModel* PaletteProvider::mainPaletteModel()
 AbstractPaletteController* PaletteProvider::mainPaletteController()
 {
     if (!m_mainPaletteController) {
-        m_mainPaletteController = new UserPaletteController(mainPaletteModel(), m_userPaletteModel, iocContext(), this);
+        m_mainPaletteController = new UserPaletteController(mainPaletteModel(), m_userPaletteModel, this);
     }
     return m_mainPaletteController;
 }
@@ -710,7 +717,7 @@ FilterPaletteTreeModel* PaletteProvider::customElementsPaletteModel()
 AbstractPaletteController* PaletteProvider::customElementsPaletteController()
 {
     if (!m_customElementsPaletteController) {
-        m_customElementsPaletteController = new UserPaletteController(customElementsPaletteModel(), m_userPaletteModel, iocContext(), this);
+        m_customElementsPaletteController = new UserPaletteController(customElementsPaletteModel(), m_userPaletteModel, this);
         m_customElementsPaletteController->setCustom(true);
     }
 
@@ -744,7 +751,7 @@ AbstractPaletteController* PaletteProvider::poolPaletteController(FilterPaletteT
                                                                   const QModelIndex& rootIndex) const
 {
     Q_UNUSED(rootIndex);
-    UserPaletteController* c = new UserPaletteController(poolPaletteModel, m_userPaletteModel, iocContext());
+    UserPaletteController* c = new UserPaletteController(poolPaletteModel, m_userPaletteModel);
     c->setVisible(false);
     c->setCustom(false);
     c->setUserEditable(false);
@@ -953,7 +960,7 @@ bool PaletteProvider::loadPalette(const QModelIndex& index)
         return false;
     }
 
-    PalettePtr pp = std::make_shared<Palette>(iocContext());
+    PalettePtr pp = std::make_shared<Palette>();
     if (!pp->readFromFile(path)) {
         return false;
     }
@@ -974,7 +981,7 @@ void PaletteProvider::setUserPaletteTree(PaletteTreePtr tree)
         m_userPaletteModel->setPaletteTree(tree);
         connect(m_userPaletteModel, &PaletteTreeModel::treeChanged, this, &PaletteProvider::notifyAboutUserPaletteChanged);
     } else {
-        m_userPaletteModel = new PaletteTreeModel(tree, iocContext(), /* parent */ this);
+        m_userPaletteModel = new PaletteTreeModel(tree, /* parent */ this);
         connect(m_userPaletteModel, &PaletteTreeModel::treeChanged, this, &PaletteProvider::notifyAboutUserPaletteChanged);
     }
 }
@@ -984,7 +991,7 @@ void PaletteProvider::setDefaultPaletteTree(PaletteTreePtr tree)
     if (m_defaultPaletteModel) {
         m_defaultPaletteModel->setPaletteTree(tree);
     } else {
-        m_defaultPaletteModel = new PaletteTreeModel(tree, iocContext(), /* parent */ this);
+        m_defaultPaletteModel = new PaletteTreeModel(tree, /* parent */ this);
     }
 }
 
@@ -1006,7 +1013,7 @@ void PaletteProvider::write(XmlWriter& xml, bool pasteMode) const
 bool PaletteProvider::read(XmlReader& e, bool pasteMode)
 {
     PaletteTreePtr tree = std::make_shared<PaletteTree>();
-    if (!tree->read(e, pasteMode, iocContext())) {
+    if (!tree->read(e, pasteMode)) {
         return false;
     }
 

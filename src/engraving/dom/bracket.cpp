@@ -57,6 +57,24 @@ Bracket::~Bracket()
 }
 
 //---------------------------------------------------------
+//   playTick
+//---------------------------------------------------------
+
+Fraction Bracket::playTick() const
+{
+    // Brackets always have a tick value of zero, so play from the start of the first measure in the system that the bracket belongs to.
+    const auto sys = system();
+    if (sys) {
+        const auto firstMeasure = sys->firstMeasure();
+        if (firstMeasure) {
+            return firstMeasure->tick();
+        }
+    }
+
+    return tick();
+}
+
+//---------------------------------------------------------
 //   setStaffSpan
 //---------------------------------------------------------
 
@@ -134,7 +152,7 @@ void Bracket::endEdit(EditData& ed)
     ed.clear(); // score layout invalidates element
 }
 
-void Bracket::dragGrip(EditData& ed)
+void Bracket::editDrag(EditData& ed)
 {
     double bracketHeight = ldata()->bracketHeight();
     bracketHeight += ed.delta.y();
@@ -142,11 +160,11 @@ void Bracket::dragGrip(EditData& ed)
 }
 
 //---------------------------------------------------------
-//   endDragGrip
+//   endEditDrag
 //    snap to nearest staff
 //---------------------------------------------------------
 
-void Bracket::endDragGrip(EditData&)
+void Bracket::endEditDrag(EditData&)
 {
     double ay2 = m_ay1 + ldata()->bracketHeight();
 
@@ -291,7 +309,7 @@ bool Bracket::setProperty(Pid id, const PropertyValue& v)
 PropertyValue Bracket::propertyDefault(Pid id) const
 {
     if (id == Pid::BRACKET_COLUMN) {
-        return size_t(0);
+        return 0;
     }
     PropertyValue v = EngravingItem::propertyDefault(id);
     if (!v.isValid()) {
@@ -323,14 +341,6 @@ void Bracket::undoChangeProperty(Pid id, const PropertyValue& v, PropertyFlags p
     // the undo stack; delegate to BracketItem:
     BracketItem* bi = bracketItem();
     bi->undoChangeProperty(id, v, ps);
-}
-
-Fraction Bracket::tick() const
-{
-    if (measure()) {
-        return measure()->tick();
-    }
-    return EngravingItem::tick();
 }
 
 //---------------------------------------------------------

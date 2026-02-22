@@ -59,7 +59,7 @@ void NoteArticulationsParser::buildNoteArticulationMap(const Note* note, const R
 
 void NoteArticulationsParser::doParse(const EngravingItem* item, const RenderingContext& ctx, mpe::ArticulationMap& result)
 {
-    IF_ASSERT_FAILED(item->isNote()) {
+    IF_ASSERT_FAILED(item->type() == ElementType::NOTE) {
         return;
     }
 
@@ -131,14 +131,11 @@ ArticulationType NoteArticulationsParser::articulationTypeByNoteheadGroup(const 
     }
 }
 
-void NoteArticulationsParser::parsePlayingTechnique(const RenderingContext& ctx, mpe::ArticulationMap& result, bool sustainAllowed)
+void NoteArticulationsParser::parsePlayingTechnique(const RenderingContext& ctx, mpe::ArticulationMap& result)
 {
-    const int chordPosTickWithOffset = ctx.nominalPositionStartTick + ctx.positionTickOffset;
-    const std::pair<timestamp_t, PlayingTechniqueType> tech = ctx.playbackCtx->playingTechnique(ctx.score, chordPosTickWithOffset);
-    if (tech.second == PlayingTechniqueType::HandbellsLV && !sustainAllowed) {
-        return;
-    }
+    int chordPosTickWithOffset = ctx.nominalPositionStartTick + ctx.positionTickOffset;
 
+    const std::pair<timestamp_t, PlayingTechniqueType> tech = ctx.playbackCtx->playingTechnique(ctx.score, chordPosTickWithOffset);
     const mpe::ArticulationType articulationType = articulationFromPlayTechType(tech.second);
     if (articulationType == ArticulationType::Standard || articulationType == ArticulationType::Undefined) {
         return;

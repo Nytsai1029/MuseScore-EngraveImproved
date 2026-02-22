@@ -20,32 +20,31 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_PROJECT_OPENSAVEPROJECTSCENARIO_H
+#define MU_PROJECT_OPENSAVEPROJECTSCENARIO_H
 
 #include "iopensaveprojectscenario.h"
 
 #include "modularity/ioc.h"
 #include "iprojectconfiguration.h"
 #include "iprojectfilescontroller.h"
-#include "interactive/iinteractive.h"
+#include "global/iinteractive.h"
 
 #include "cloud/musescorecom/imusescorecomservice.h"
 #include "cloud/audiocom/iaudiocomservice.h"
+#include "cloud/cloudqmltypes.h"
 
 namespace mu::project {
-class OpenSaveProjectScenario : public IOpenSaveProjectScenario, public muse::Contextable
+class OpenSaveProjectScenario : public IOpenSaveProjectScenario
 {
-    muse::GlobalInject<IProjectConfiguration> configuration;
-    muse::ContextInject<IProjectFilesController> projectFilesController = { this };
-    muse::ContextInject<muse::IInteractive> interactive = { this };
-    muse::ContextInject<muse::cloud::IMuseScoreComService> museScoreComService = { this };
-    muse::ContextInject<muse::cloud::IAudioComService> audioComService = { this };
+    INJECT(IProjectConfiguration, configuration)
+    INJECT(IProjectFilesController, projectFilesController)
+    INJECT(muse::IInteractive, interactive)
+    INJECT(muse::cloud::IMuseScoreComService, museScoreComService)
+    INJECT(muse::cloud::IAudioComService, audioComService)
 
 public:
-    OpenSaveProjectScenario(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx)
-    {
-    }
+    OpenSaveProjectScenario() = default;
 
     muse::RetVal<SaveLocation> askSaveLocation(INotationProjectPtr project, SaveMode mode,
                                                SaveLocationType preselectedType = SaveLocationType::Undefined) const override;
@@ -76,4 +75,19 @@ private:
     muse::Ret warnCloudNotAvailableForUploading(bool isPublishShare) const;
     muse::Ret warnCloudNotAvailableForSharingAudio() const;
 };
+
+class QMLSaveLocationType
+{
+    Q_GADGET
+
+public:
+    enum SaveLocationType {
+        Undefined = int(project::SaveLocationType::Undefined),
+        Local = int(project::SaveLocationType::Local),
+        Cloud = int(project::SaveLocationType::Cloud)
+    };
+    Q_ENUM(SaveLocationType);
+};
 }
+
+#endif // MU_PROJECT_OPENSAVEPROJECTSCENARIO_H

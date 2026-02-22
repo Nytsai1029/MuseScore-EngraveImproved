@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_PLAYBACK_PLAYBACKSTUBMODULE_H
+#define MU_PLAYBACK_PLAYBACKSTUBMODULE_H
 
 #include "modularity/imodulesetup.h"
 
@@ -29,6 +29,11 @@ class PlaybackModule : public muse::modularity::IModuleSetup
 {
 public:
     std::string moduleName() const override;
+
     void registerExports() override;
+    void registerResources() override;
+    void registerUiTypes() override;
 };
 }
+
+#endif // MU_PLAYBACK_PLAYBACKSTUBMODULE_H

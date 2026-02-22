@@ -42,8 +42,6 @@
 #include "dom/parenthesis.h"
 #include "dom/partialtie.h"
 
-#include "editing/editchord.h"
-
 #include "tlayout.h"
 #include "chordlayout.h"
 #include "stemlayout.h"
@@ -416,12 +414,6 @@ void SlurTieLayout::slurPos(Slur* item, SlurTiePos* sp, LayoutContext& ctx)
 
     sp->p1 = scr->pos() + scr->segment()->pos() + scr->measure()->pos();
     sp->p2 = ecr->pos() + ecr->segment()->pos() + ecr->measure()->pos();
-    if (scr->isGrace()) {
-        sp->p1 += scr->parentItem()->pos();
-    }
-    if (ecr->isGrace()) {
-        sp->p2 += ecr->parentItem()->pos();
-    }
 
     // adjust for cross-staff
     if (scr->vStaffIdx() != item->vStaffIdx() && sp->system1) {
@@ -1191,7 +1183,7 @@ Shape SlurTieLayout::getSegmentShape(SlurSegment* slurSeg, Segment* seg, ChordRe
     }
 
     for (track_idx_t track = staff2track(startStaffIdx); track < staff2track(endStaffIdx, VOICES); ++track) {
-        EngravingItem* e = seg->element(track);
+        EngravingItem* e = seg->elementAt(track);
         if (!e || !e->isChordRest()) {
             continue;
         }
@@ -1231,8 +1223,7 @@ Shape SlurTieLayout::getSegmentShape(SlurSegment* slurSeg, Segment* seg, ChordRe
         const EngravingItem* item = shapeEl.item();
         const EngravingItem* parent = item->parentItem();
         // Don't remove arpeggio starting on a different voice and ending on the same voice as endCR when slur is on the outside
-        if ((item->isArpeggio() || item->isChordBracket()) && (endCR->track() == toArpeggio(item)->endTrack())
-            && endCR->tick() == item->tick()
+        if (item->isArpeggio() && (endCR->track() == toArpeggio(item)->endTrack()) && endCR->tick() == item->tick()
             && (!slur->up() && toArpeggio(item)->span() > 1)) {
             return false;
         }
@@ -1261,8 +1252,7 @@ Shape SlurTieLayout::getSegmentShape(SlurSegment* slurSeg, Segment* seg, ChordRe
             return true;
         }
         // Remove arpeggios spanning more than 1 voice starting on endCR's voice when the slur is on the inside
-        if ((item->isArpeggio() || item->isChordBracket())
-            && (endCR->track() != item->track() || (!slur->up() && toArpeggio(item)->span() > 1))) {
+        if (item->isArpeggio() && (endCR->track() != item->track() || (!slur->up() && toArpeggio(item)->span() > 1))) {
             return true;
         }
         // Ignore big time signatures
@@ -1474,9 +1464,9 @@ void SlurTieLayout::avoidPreBendsOnTab(const Chord* sc, const Chord* ec, SlurTie
         for (Note* note : sc->notes()) {
             GuitarBend* bf = note->bendFor();
             GuitarBend* bb = note->bendBack();
-            if (bf && !bf->segmentsEmpty() && bf->bendType() == GuitarBendType::PRE_BEND && !bf->angledPreBend()) {
+            if (bf && !bf->segmentsEmpty() && bf->type() == GuitarBendType::PRE_BEND && !bf->angledPreBend()) {
                 bendOnStart = bf;
-            } else if (bb && !bb->segmentsEmpty() && bb->bendType() == GuitarBendType::PRE_BEND && !bb->angledPreBend()) {
+            } else if (bb && !bb->segmentsEmpty() && bb->type() == GuitarBendType::PRE_BEND && !bb->angledPreBend()) {
                 bendOnStart = bb;
             }
             if (bendOnStart) {
@@ -1488,9 +1478,9 @@ void SlurTieLayout::avoidPreBendsOnTab(const Chord* sc, const Chord* ec, SlurTie
         for (Note* note : ec->notes()) {
             GuitarBend* bf = note->bendFor();
             GuitarBend* bb = note->bendBack();
-            if (bf && !bf->segmentsEmpty() && bf->bendType() == GuitarBendType::PRE_BEND && !bf->angledPreBend()) {
+            if (bf && !bf->segmentsEmpty() && bf->type() == GuitarBendType::PRE_BEND && !bf->angledPreBend()) {
                 bendOnEnd = bf;
-            } else if (bb && !bb->segmentsEmpty() && bb->bendType() == GuitarBendType::PRE_BEND && !bb->angledPreBend()) {
+            } else if (bb && !bb->segmentsEmpty() && bb->type() == GuitarBendType::PRE_BEND && !bb->angledPreBend()) {
                 bendOnEnd = bb;
             }
             if (bendOnEnd) {
@@ -1911,16 +1901,8 @@ void SlurTieLayout::calculateLaissezVibY(LaissezVibSegment* segment, SlurTiePos&
 
     adjustYforLedgerLines(segment, sPos);
 
-    Note* note = lv->startNote();
-    Chord* chord = note->chord();
-
-    const NoteParenthesisInfo* noteParenInfo = chord->findNoteParenInfo(note);
-
-    Parenthesis* paren = nullptr;
-    if (noteParenInfo) {
-        paren = noteParenInfo->leftParen;
-    }
-
+    Parenthesis* paren = lv->parentItem()->leftParen();
+    Chord* chord = lv->startNote()->chord();
     const bool avoidStem = chord->stem() && chord->stem()->visible() && chord->up() == lv->up();
     if (paren && (!lv->isOuterTieOfChord(Grip::START) || avoidStem)) {
         RectF parenBbox = paren->ldata()->bbox().translated(paren->systemPos());
@@ -2037,8 +2019,7 @@ void SlurTieLayout::setPartialTieEndPos(PartialTie* item, SlurTiePos& sPos)
         const double elPosInSystemCoords = adjSeg->xPosInSystemCoords() + elPos;
         widthToSegment = outgoing ? elPosInSystemCoords - sPos.p1.x() : sPos.p2.x() - (elPosInSystemCoords + elementWidth);
         bool incomingFromBarline = !outgoing && element->isBarLine() && toBarLine(element)->barLineType() != BarLineType::START_REPEAT;
-        widthToSegment
-            -= item->style().styleAbsolute(incomingFromBarline ? Sid::barlineToLineStartDistance : Sid::lineEndToBarlineDistance);
+        widthToSegment -= item->style().styleMM(incomingFromBarline ? Sid::barlineToLineStartDistance : Sid::lineEndToBarlineDistance);
     }
 
     if (outgoing) {
@@ -2074,7 +2055,7 @@ void SlurTieLayout::layoutLaissezVibChord(Chord* chord, LayoutContext& ctx)
 
     for (auto& segWithPos : lvSegmentsWithPositions) {
         LaissezVibSegment* lvSeg = segWithPos.first;
-        Note* note = lvSeg->laissezVib()->startNote();
+        const Note* note = lvSeg->laissezVib()->startNote();
         SlurTiePos sPos = segWithPos.second;
         const double xDiff = chordLvEndPoint - sPos.p2.x();
         sPos.p2.setX(chordLvEndPoint);
@@ -2091,15 +2072,9 @@ void SlurTieLayout::layoutLaissezVibChord(Chord* chord, LayoutContext& ctx)
             ldata->setPos(sPos.p1);
         }
 
-        double yOrigin = sPos.system1->staff(chord->staffIdx())->y();
-        double yMoved = sPos.system1->staff(chord->vStaffIdx())->y();
-        double yDiff = yMoved - yOrigin;
-
-        const PointF chordPos = chord->pos() + chord->segment()->pos() + chord->measure()->pos() + PointF(0.0, yDiff);
+        const PointF chordPos = chord->pos() + chord->segment()->pos() + chord->measure()->pos();
         const PointF notePos = chordPos + note->pos();
         ldata->posRelativeToNote = sPos.p1 - notePos;
-
-        TLayout::fillNoteShape(note, note->mutldata());
     }
 }
 
@@ -2253,7 +2228,7 @@ void SlurTieLayout::adjustX(TieSegment* tieSegment, SlurTiePos& sPos, Grip start
                       || (s.item()->isNoteDot() && ignoreDot)
                       || (s.item()->isAccidental() && ignoreAccidental(toAccidental(s.item())))
                       || (s.item()->isLaissezVibSegment() && ignoreLvSeg)
-                      || ((s.item()->isArpeggio() || s.item()->isChordBracket()) && ignoreArpeggio)
+                      || (s.item()->isArpeggio() && ignoreArpeggio)
                       || (s.item()->isParenthesis() && ignoreParen)
                       || !s.item()->addToSkyline();
         return remove;
@@ -2372,7 +2347,7 @@ void SlurTieLayout::adjustY(TieSegment* tieSegment)
     int upSign = up ? -1 : 1;
 
     const double staffLineDist = staff->lineDistance(tick) * spatium;
-    const double staffLineThickness = tieSegment->style().styleAbsolute(Sid::staffLineWidth) * staff->staffMag(tick);
+    const double staffLineThickness = tieSegment->style().styleMM(Sid::staffLineWidth) * staff->staffMag(tick);
 
     // 1. Check for bad end point protrusion
 
@@ -2942,10 +2917,6 @@ bool SlurTieLayout::isDirectionMixture(const Chord* c1, const Chord* c2, LayoutC
 
 bool SlurTieLayout::shouldHideSlurSegment(SlurSegment* item)
 {
-    if (item->isHammerOnPullOffSegment()) {
-        return false;
-    }
-
     if (item->configuration()->specificSlursLayoutWorkaround()) {
         Slur* slur = item->slur();
         if (slur->connectedElement() == Slur::ConnectedElement::GLISSANDO) {

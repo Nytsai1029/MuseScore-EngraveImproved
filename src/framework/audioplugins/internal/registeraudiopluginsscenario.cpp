@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -23,7 +23,6 @@
 #include "registeraudiopluginsscenario.h"
 
 #include <QCoreApplication>
-#include <map>
 
 #include "global/translation.h"
 
@@ -50,77 +49,35 @@ void RegisterAudioPluginsScenario::init()
     }
 }
 
-PluginScanResult RegisterAudioPluginsScenario::scanPlugins() const
+Ret RegisterAudioPluginsScenario::registerNewPlugins()
 {
     TRACEFUNC;
 
-    PluginScanResult result;
+    io::paths_t newPluginPaths;
 
-    std::map<io::path_t, audio::AudioResourceId> registered;
-    for (const auto& info : knownPluginsRegister()->pluginInfoList()) {
-        registered[info.path] = info.meta.id;
-    }
+    for (const IAudioPluginsScannerPtr& scanner : scannerRegister()->scanners()) {
+        io::paths_t paths = scanner->scanPlugins();
 
-    for (const auto& scanner : scannerRegister()->scanners()) {
-        for (const auto& path : scanner->scanPlugins()) {
-            if (auto it = registered.find(path); it != registered.end()) {
-                registered.erase(it);
-            } else {
-                result.newPluginPaths.push_back(path);
+        for (const io::path_t& path : paths) {
+            if (!knownPluginsRegister()->exists(path)) {
+                newPluginPaths.push_back(path);
             }
         }
     }
 
-    for (const auto& [path, id] : registered) {
-        result.missingPluginIds.push_back(id);
+    if (newPluginPaths.empty()) {
+        return muse::make_ok();
     }
 
-    return result;
-}
+    processPluginsRegistration(newPluginPaths);
 
-Ret RegisterAudioPluginsScenario::updatePluginsRegistry()
-{
-    TRACEFUNC;
-
-    PluginScanResult result = scanPlugins();
-
-    unregisterRemovedPlugins(result.missingPluginIds);
-    registerNewPlugins(result.newPluginPaths);
-
-    return knownPluginsRegister()->load();
-}
-
-void RegisterAudioPluginsScenario::registerNewPlugins(const io::paths_t& pluginPaths)
-{
-    TRACEFUNC;
-
-    if (pluginPaths.empty()) {
-        return;
-    }
-
-    processPluginsRegistration(pluginPaths);
-    knownPluginsRegister()->load();
-}
-
-Ret RegisterAudioPluginsScenario::unregisterRemovedPlugins(const audio::AudioResourceIdList& pluginIds)
-{
-    TRACEFUNC;
-
-    if (pluginIds.empty()) {
-        return make_ok();
-    }
-
-    Ret ret = knownPluginsRegister()->unregisterPlugins(pluginIds);
-    if (!ret) {
-        LOGE() << "Failed to unregister removed plugins: " << ret.toString();
-    }
-
+    Ret ret = knownPluginsRegister()->load();
     return ret;
 }
 
 void RegisterAudioPluginsScenario::processPluginsRegistration(const io::paths_t& pluginPaths)
 {
-    interactive()->showProgress(muse::trc("audio", "Scanning audio plugins"), m_progress);
+    interactive()->showProgress(muse::trc("audio", "Scanning audio plugins"), &m_progress);
 
     m_aborted = false;
     m_progress.start();
@@ -161,19 +118,16 @@ Ret RegisterAudioPluginsScenario::registerPlugin(const io::path_t& pluginPath)
         return false;
     }
 
-    const IAudioPluginMetaReaderPtr reader = metaReader(pluginPath);
+    IAudioPluginMetaReaderPtr reader = metaReader(pluginPath);
     if (!reader) {
         return make_ret(Err::UnknownPluginType);
     }
 
-    const RetVal<AudioResourceMetaList> metaList = reader->readMeta(pluginPath);
+    RetVal<AudioResourceMetaList> metaList = reader->readMeta(pluginPath);
     if (!metaList.ret) {
         LOGE() << metaList.ret.toString();
         return metaList.ret;
     }
-
-    AudioPluginInfoList infoList;
-    infoList.reserve(metaList.val.size());
 
     for (const AudioResourceMeta& meta : metaList.val) {
         AudioPluginInfo info;
@@ -181,11 +135,14 @@ Ret RegisterAudioPluginsScenario::registerPlugin(const io::path_t& pluginPath)
         info.meta = meta;
         info.path = pluginPath;
         info.enabled = true;
-        infoList.emplace_back(std::move(info));
+
+        Ret ret = knownPluginsRegister()->registerPlugin(info);
+        if (!ret) {
+            return ret;
+        }
     }
 
-    Ret ret = knownPluginsRegister()->registerPlugins(infoList);
-    return ret;
+    return muse::make_ok();
 }
 
 Ret RegisterAudioPluginsScenario::registerFailedPlugin(const io::path_t& pluginPath, int failCode)
@@ -198,12 +155,13 @@ Ret RegisterAudioPluginsScenario::registerFailedPlugin(const io::path_t& pluginP
 
     AudioPluginInfo info;
     info.meta.id = io::completeBasename(pluginPath).toStdString();
+
     info.meta.type = metaType(pluginPath);
     info.path = pluginPath;
     info.enabled = false;
     info.errorCode = failCode;
 
-    Ret ret = knownPluginsRegister()->registerPlugins({ info });
+    Ret ret = knownPluginsRegister()->registerPlugin(info);
     return ret;
 }
 

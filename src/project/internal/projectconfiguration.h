@@ -35,18 +35,16 @@
 #include "../iprojectconfiguration.h"
 
 namespace mu::project {
-class ProjectConfiguration : public IProjectConfiguration, public muse::Contextable
+class ProjectConfiguration : public IProjectConfiguration
 {
-    muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;
-    muse::GlobalInject<notation::INotationConfiguration> notationConfiguration;
-    muse::GlobalInject<muse::cloud::ICloudConfiguration> cloudConfiguration;
-    muse::GlobalInject<muse::io::IFileSystem> fileSystem;
-    muse::GlobalInject<muse::accessibility::IAccessibilityConfiguration> accessibilityConfiguration;
-    muse::GlobalInject<muse::languages::ILanguagesService> languagesService;
+    INJECT(muse::IGlobalConfiguration, globalConfiguration)
+    INJECT(notation::INotationConfiguration, notationConfiguration)
+    INJECT(muse::cloud::ICloudConfiguration, cloudConfiguration)
+    INJECT(muse::accessibility::IAccessibilityConfiguration, accessibilityConfiguration)
+    INJECT(muse::io::IFileSystem, fileSystem)
+    INJECT(muse::languages::ILanguagesService, languagesService)
 
 public:
-    ProjectConfiguration(const muse::modularity::ContextPtr& iocCtx);
-
     void init();
 
     muse::io::path_t recentFilesJsonPath() const override;
@@ -167,9 +165,6 @@ private:
     muse::io::path_t appTemplatesPath() const;
     muse::io::path_t legacyCloudProjectsPath() const;
     muse::io::path_t cloudProjectsPath() const;
-
-    std::string uniqueFileNameAddition(const muse::io::path_t& filename, const muse::io::path_t& folderPath,
-                                       const std::string& suffix) const;
 
     muse::async::Channel<muse::io::path_t> m_userTemplatesPathChanged;
     muse::async::Channel<muse::io::path_t> m_userScoresPathChanged;

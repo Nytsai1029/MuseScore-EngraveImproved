@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,12 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 ListItemBlank {
     id: root
@@ -42,7 +42,6 @@ ListItemBlank {
 
     property int iconAndCheckMarkMode: StyledMenuItem.ShowOne
     property bool reserveSpaceForShortcutsOrSubmenuIndicator: itemPrv.hasShortcuts || root.hasSubMenu
-    property bool wideIcon: false
 
     property int padding: 0
 
@@ -118,17 +117,18 @@ ListItemBlank {
         property string id: root.modelData?.id ?? ""
 
         property string title: root.modelData?.title ?? ""
-        property string titleWithMnemonicUnderline: root.modelData?.titleWithMnemonicUnderline ?? title
+        property string titleWithMnemonicUnderline: modelData?.titleWithMnemonicUnderline ?? title
 
-        property bool hasShortcuts: Boolean(root.modelData?.shortcuts)
-        property string shortcuts: hasShortcuts ? root.modelData.shortcuts : ""
+        property bool hasShortcuts: Boolean(modelData) && Boolean(modelData.shortcuts)
+        property string shortcuts: hasShortcuts ? modelData.shortcuts : ""
 
-        property bool isCheckable: Boolean(root.modelData?.checkable)
-        property bool isChecked: isCheckable && Boolean(root.modelData.checked)
+        property bool isCheckable: Boolean(modelData) && Boolean(modelData.checkable)
+        property bool isChecked: isCheckable && Boolean(modelData.checked)
+
         property bool isSelectable: Boolean(root.modelData?.selectable)
-        property bool isSelected: isSelectable && Boolean(root.modelData.selected)
+        property bool isSelected: isSelectable && Boolean(root.modelData?.selected)
 
-        property bool hasIcon: Boolean(root.modelData?.icon) && root.modelData.icon !== IconCode.NONE
+        property bool hasIcon: Boolean(modelData) && Boolean(modelData.icon) && modelData.icon !== IconCode.NONE
     }
 
     function calculatedLeftPartWidth() {
@@ -183,7 +183,7 @@ ListItemBlank {
         StyledIconLabel {
             id: primaryIconLabel
             Layout.alignment: Qt.AlignLeft
-            Layout.preferredWidth: root.iconAndCheckMarkMode !== StyledMenuItem.ShowBoth && itemPrv.hasIcon && root.wideIcon ? 32 : 16
+            Layout.preferredWidth: 16
             iconCode: {
                 if (root.iconAndCheckMarkMode !== StyledMenuItem.ShowBoth && itemPrv.hasIcon) {
                     return root.modelData?.icon ?? IconCode.NONE
@@ -201,7 +201,7 @@ ListItemBlank {
         StyledIconLabel {
             id: secondaryIconLabel
             Layout.alignment: Qt.AlignLeft
-            Layout.preferredWidth: root.wideIcon ? 32 : 16
+            Layout.preferredWidth: 16
             color: root.modelData?.iconColor || ui.theme.fontPrimaryColor
             iconCode: root.modelData?.icon ?? IconCode.NONE
             visible: root.iconAndCheckMarkMode === StyledMenuItem.ShowBoth

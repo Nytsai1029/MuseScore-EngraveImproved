@@ -30,6 +30,13 @@ namespace mu::engraving {
 class Factory;
 class Segment;
 
+//---------------------------------------------------------------------------------------
+//   @@ KeySig
+///    The KeySig class represents a Key Signature on a staff
+//
+//   @P showCourtesy  bool  show courtesy key signature for this sig if appropriate
+//---------------------------------------------------------------------------------------
+
 class KeySig final : public EngravingItem
 {
     OBJECT_ALLOCATOR(engraving, KeySig)
@@ -46,13 +53,16 @@ public:
 
     double mag() const override;
 
-    void setKey(Key concertKey, Key transposedKey);
-    void setKey(Key concertKey);
+    //@ sets the key of the key signature (concert key and transposing key)
+    void setKey(Key cKey, Key tKey);
+    void setKey(Key cKey);
 
     Segment* segment() const { return (Segment*)explicitParent(); }
     Measure* measure() const { return explicitParent() ? (Measure*)explicitParent()->explicitParent() : nullptr; }
 
+    //@ returns the key of the actual key signature (from -7 (flats) to +7 (sharps) )
     Key key() const { return m_sig.key(); }
+    //@ returns the key of the concert key signature
     Key concertKey() const { return m_sig.concertKey(); }
     const std::vector<CustDef>& customKeyDefs() const { return m_sig.customKeyDefs(); }
     int degInKey(int degree) const { return m_sig.degInKey(degree); }
@@ -67,9 +77,11 @@ public:
 
     bool showCourtesy() const { return m_showCourtesy; }
     void setShowCourtesy(bool v) { m_showCourtesy = v; }
+    void undoSetShowCourtesy(bool v);
 
     KeyMode mode() const { return m_sig.mode(); }
     void setMode(KeyMode v) { m_sig.setMode(v); }
+    void undoSetMode(KeyMode v);
 
     PointF staffOffset() const override;
 
@@ -82,7 +94,6 @@ public:
     PropertyValue getProperty(Pid propertyId) const override;
     bool setProperty(Pid propertyId, const PropertyValue&) override;
     PropertyValue propertyDefault(Pid id) const override;
-    EngravingObject* propertyDelegate(Pid) const override;
 
     EngravingItem* nextSegmentElement() override;
     EngravingItem* prevSegmentElement() override;

@@ -58,8 +58,6 @@ public:
 
     void styleChanged() override;
 
-    bool positionRelativeToNoteheadRest() const override { return false; }
-
 private:
     void applyTypeStyle();
 

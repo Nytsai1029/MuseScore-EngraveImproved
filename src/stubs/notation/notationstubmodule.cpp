@@ -36,6 +36,6 @@ std::string NotationModule::moduleName() const
 
 void NotationModule::registerExports()
 {
-    globalIoc()->registerExport<INotationConfiguration>(moduleName(), new NotationConfigurationStub());
-    globalIoc()->registerExport<IInstrumentsRepository>(moduleName(), new InstrumentsRepositoryStub());
+    ioc()->registerExport<INotationConfiguration>(moduleName(), new NotationConfigurationStub());
+    ioc()->registerExport<IInstrumentsRepository>(moduleName(), new InstrumentsRepositoryStub());
 }

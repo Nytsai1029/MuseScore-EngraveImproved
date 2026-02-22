@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -21,9 +21,14 @@
  */
 #include "vstmodule.h"
 
+#include <QQmlEngine>
+
+#include "ui/iinteractiveuriregister.h"
+#include "ui/iuiengine.h"
+
 #include "modularity/ioc.h"
-#include "audio/engine/isynthresolver.h"
-#include "audio/engine/ifxresolver.h"
+#include "audio/worker/isynthresolver.h"
+#include "audio/worker/ifxresolver.h"
 
 #include "audioplugins/iaudiopluginsscannerregister.h"
 #include "audioplugins/iaudiopluginmetareaderregister.h"
@@ -33,6 +38,7 @@
 #include "internal/vstconfiguration.h"
 #include "internal/vstinstancesregister.h"
 #include "internal/vstmodulesrepository.h"
+#include "internal/synth/vstsynthesiser.h"
 #include "internal/synth/vstiresolver.h"
 #include "internal/fx/vstfxresolver.h"
 #include "internal/vstpluginsscanner.h"
@@ -40,12 +46,23 @@
 #include "internal/vstactionscontroller.h"
 #include "internal/vstuiactions.h"
 
+#include "view/vstview.h"
+#include "view/vstviewdialog_qwidget.h"
+
+#include "log.h"
+
 using namespace muse::vst;
 using namespace muse::modularity;
 using namespace muse::audio::synth;
 using namespace muse::audio::fx;
 using namespace muse::audio;
 using namespace muse::audioplugins;
+using namespace muse::ui;
+
+static void vst_init_qrc()
+{
+    Q_INIT_RESOURCE(vst);
+}
 
 std::string VSTModule::moduleName() const
 {
@@ -55,13 +72,13 @@ std::string VSTModule::moduleName() const
 void VSTModule::registerExports()
 {
     m_configuration = std::make_shared<VstConfiguration>();
-    m_pluginModulesRepo = std::make_shared<VstModulesRepository>(globalCtx());
-    m_pluginInstancesRegister = std::make_shared<VstInstancesRegister>(globalCtx());
-    m_actionsController = std::make_shared<VstActionsController>(globalCtx());
+    m_pluginModulesRepo = std::make_shared<VstModulesRepository>();
+    m_pluginInstancesRegister = std::make_shared<VstInstancesRegister>();
+    m_actionsController = std::make_shared<VstActionsController>();
 
-    globalIoc()->registerExport<IVstConfiguration>(moduleName(), m_configuration);
-    globalIoc()->registerExport<IVstModulesRepository>(moduleName(), m_pluginModulesRepo);
-    globalIoc()->registerExport<IVstInstancesRegister>(moduleName(), m_pluginInstancesRegister);
+    ioc()->registerExport<IVstConfiguration>(moduleName(), m_configuration);
+    ioc()->registerExport<IVstModulesRepository>(moduleName(), m_pluginModulesRepo);
+    ioc()->registerExport<IVstInstancesRegister>(moduleName(), m_pluginInstancesRegister);
 }
 
 void VSTModule::resolveImports()
@@ -70,47 +87,56 @@ void VSTModule::resolveImports()
     //! switches the action controller, so registration is there now.
     //! as soon as the new view is stabilized, we need to remove the old one and do as usual
 
-    // auto ir = globalIoc()->resolve<IInteractiveUriRegister>(moduleName());
+    // auto ir = ioc()->resolve<IInteractiveUriRegister>(moduleName());
     // if (ir) {
     //     ir->registerWidgetUri<VstViewDialog>(Uri("muse://vst/editor"));
-    //     ir->registerQmlUri(Uri("muse://vst/editor"), "Muse.Vst", "VstEditorDialog");
+    //     ir->registerQmlUri(Uri("muse://vst/editor"), "Muse/Vst/VstEditorDialog.qml");
     // }
 
-    auto ar = globalIoc()->resolve<ui::IUiActionsRegister>(moduleName());
+    auto ar = ioc()->resolve<ui::IUiActionsRegister>(moduleName());
     if (ar) {
         ar->reg(std::make_shared<VstUiActions>(m_actionsController));
     }
 
-    auto synthResolver = globalIoc()->resolve<ISynthResolver>(moduleName());
+    auto synthResolver = ioc()->resolve<ISynthResolver>(moduleName());
     if (synthResolver) {
-        synthResolver->registerResolver(AudioSourceType::Vsti, std::make_shared<VstiResolver>(globalCtx()));
+        synthResolver->registerResolver(AudioSourceType::Vsti, std::make_shared<VstiResolver>(iocContext()));
     }
 
-    auto fxResolver = globalIoc()->resolve<IFxResolver>(moduleName());
+    auto fxResolver = ioc()->resolve<IFxResolver>(moduleName());
     if (fxResolver) {
-        fxResolver->registerResolver(AudioFxType::VstFx, std::make_shared<VstFxResolver>(globalCtx()));
+        fxResolver->registerResolver(AudioFxType::VstFx, std::make_shared<VstFxResolver>());
     }
 
-    auto scannerRegister = globalIoc()->resolve<IAudioPluginsScannerRegister>(moduleName());
+    auto scannerRegister = ioc()->resolve<IAudioPluginsScannerRegister>(moduleName());
     if (scannerRegister) {
         scannerRegister->registerScanner(std::make_shared<VstPluginsScanner>());
     }
 
-    auto metaReaderRegister = globalIoc()->resolve<IAudioPluginMetaReaderRegister>(moduleName());
+    auto metaReaderRegister = ioc()->resolve<IAudioPluginMetaReaderRegister>(moduleName());
     if (metaReaderRegister) {
         metaReaderRegister->registerReader(std::make_shared<VstPluginMetaReader>());
     }
 }
 
-void VSTModule::onInit(const IApplication::RunMode& mode)
+void VSTModule::registerResources()
+{
+    vst_init_qrc();
+}
+
+void VSTModule::registerUiTypes()
+{
+    qmlRegisterType<VstView>("Muse.Vst", 1, 0, "VstView");
+
+    ioc()->resolve<muse::ui::IUiEngine>(moduleName())->addSourceImportPath(muse_vst_QML_IMPORT);
+}
+
+void VSTModule::onInit(const IApplication::RunMode&)
 {
     m_configuration->init();
+    m_actionsController->init();
     m_pluginModulesRepo->init();
-
-    if (mode == IApplication::RunMode::GuiApp) {
-        m_actionsController->init();
-        m_actionsController->setupUsedView();
-    }
+    m_actionsController->setupUsedView();
 }
 
 void VSTModule::onDeinit()

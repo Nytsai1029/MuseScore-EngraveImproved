@@ -25,28 +25,24 @@
 #include "async/asyncable.h"
 #include "modularity/ioc.h"
 #include "audio/main/iplayback.h"
-#include "audio/main/istartaudiocontroller.h"
 #include "iaudioexportconfiguration.h"
 #include "context/iglobalcontext.h"
 #include "playback/iplaybackcontroller.h"
-#include "global/iapplication.h"
 
 #include "project/inotationwriter.h"
 
 namespace mu::iex::audioexport {
-class AbstractAudioWriter : public project::INotationWriter, public muse::Contextable, public muse::async::Asyncable
+class AbstractAudioWriter : public project::INotationWriter, public muse::Injectable, public muse::async::Asyncable
 {
 public:
-    muse::GlobalInject<IAudioExportConfiguration> configuration;
-    muse::ContextInject<muse::audio::IPlayback> playback = { this };
-    muse::ContextInject<context::IGlobalContext> globalContext = { this };
-    muse::ContextInject<muse::audio::IStartAudioController> startAudioController = { this };
-    muse::ContextInject<playback::IPlaybackController> playbackController  = { this };
-    muse::GlobalInject<muse::IApplication> application;
+    muse::Inject<muse::audio::IPlayback> playback = { this };
+    muse::Inject<IAudioExportConfiguration> configuration = { this };
+    muse::Inject<context::IGlobalContext> globalContext = { this };
+    muse::Inject<playback::IPlaybackController> playbackController  = { this };
 
 public:
     AbstractAudioWriter(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx) {}
+        : muse::Injectable(iocCtx) {}
 
     std::vector<UnitType> supportedUnitTypes() const override;
     bool supportsUnitType(UnitType unitType) const override;

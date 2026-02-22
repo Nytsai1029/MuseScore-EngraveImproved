@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_BRAILLE_BRAILLEMODULE_H
+#define MU_BRAILLE_BRAILLEMODULE_H
 
 #include "modularity/imodulesetup.h"
 
@@ -29,6 +29,10 @@ class BrailleModule : public muse::modularity::IModuleSetup
 {
 public:
     std::string moduleName() const override;
+    void registerResources() override;
     void registerExports() override;
+    void registerUiTypes() override;
 };
 }
+
+#endif // MU_BRAILLE_BRAILLEMODULE_H

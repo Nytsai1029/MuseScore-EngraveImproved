@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2022 MuseScore Limited and others
+ * Copyright (C) 2022 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,12 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
+import QtQuick 2.15
 
-import Muse.Ui
-import Muse.UiComponents
-import Muse.Interactive
-import Muse.Cloud
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import Muse.Cloud 1.0
 
 StyledDialogView {
     id: root
@@ -72,7 +71,7 @@ StyledDialogView {
             { "buttonId": ButtonBoxModel.Cancel, "text": qsTrc("global", "Cancel"), "role": ButtonBoxModel.RejectRole, "isAccent": false, "isLeftSide": false },
 
             { "buttonId": ButtonBoxModel.CustomButton + 1,
-              "text": root.publishingScore ? qsTrc("project/save", "Save to computer") : qsTrc("cloud", "Create account"),
+              "text": publishingScore ? qsTrc("project/save", "Save to computer") : qsTrc("cloud", "Create account"),
               "role": ButtonBoxModel.ApplyRole, "isAccent": false, "isLeftSide": false },
 
             { "buttonId": ButtonBoxModel.CustomButton + 2, "text": qsTrc("cloud", "Log in"), "role": ButtonBoxModel.ApplyRole, "isAccent": false, "isLeftSide": false }
@@ -84,7 +83,7 @@ StyledDialogView {
                 root.hide()
                 return
             case ButtonBoxModel.CustomButton + 1:
-                if (root.publishingScore) {
+                if (publishingScore) {
                     root.ret = {
                         errcode: 0,
                         value: SaveToCloudResponse.SaveLocallyInstead
@@ -101,3 +100,4 @@ StyledDialogView {
         }
     }
 }
+

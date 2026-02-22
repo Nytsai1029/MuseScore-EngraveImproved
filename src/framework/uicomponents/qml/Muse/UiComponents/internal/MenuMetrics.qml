@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -21,8 +21,8 @@
  */
 import QtQml 2.15
 
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 QtObject {
     id: root
@@ -31,7 +31,6 @@ QtObject {
     property bool hasItemsWithIconOrCheckable: false
     property bool hasItemsWithSubmenu: false
     property bool hasItemsWithShortcut: false
-    property bool hasItemsWithWideIcon: false
 
     property int itemLeftPartWidth: 100
     property int itemRightPartWidth: 100
@@ -63,13 +62,10 @@ QtObject {
         //! - all selectable items that are selected get an accent color background
 
         for (let i = 0; i < model.length; i++) {
-            let item = Boolean(model.get) ? model.get(i).item : model[i]
+            let item = Boolean(model.get) ? model.get(i).itemRole : model[i]
             let hasIcon = (Boolean(item.icon) && item.icon !== IconCode.NONE)
 
             if (item.checkable && hasIcon) {
-                if (item.wideIcon) {
-                    root.hasItemsWithWideIcon = true
-                }
                 root.hasItemsWithIconAndCheckable = true
                 root.hasItemsWithIconOrCheckable = true
             } else if (item.checkable || hasIcon || item.selectable) {
@@ -89,7 +85,7 @@ QtObject {
         let rightWidth = 0
 
         for (let j = 0; j < model.length; j++) {
-            testItem.modelData = Boolean(model.get) ? model.get(j).item : model[j]
+            testItem.modelData = Boolean(model.get) ? model.get(j).itemRole : model[j]
             leftWidth = Math.max(leftWidth, testItem.calculatedLeftPartWidth())
             rightWidth = Math.max(rightWidth, testItem.calculatedRightPartWidth())
         }
@@ -100,7 +96,6 @@ QtObject {
 
     property StyledMenuItem testItem: StyledMenuItem {
         iconAndCheckMarkMode: root.iconAndCheckMarkMode
-        wideIcon: root.hasItemsWithWideIcon
 
         reserveSpaceForShortcutsOrSubmenuIndicator:
             root.hasItemsWithShortcut || root.hasItemsWithSubmenu

@@ -16,6 +16,10 @@ on:
         description: 'Upload symbols and dumps to Sentry (choose a project): mu4(default for stable build), mu4-sandbox'
         default: ''
         required: false
+      use_qt69:
+        description: 'Use Qt 6.9'
+        default: 'on'
+        required: false   
   workflow_call:
     inputs:
       build_mode:
@@ -33,6 +37,11 @@ on:
         default: ''
         type: string
         required: false
+      use_qt69:
+        description: 'Use Qt 6.9'
+        default: 'on'
+        type: string
+        required: false
       build_number:
         description: "Build number (if not provided, will be generated)"
         default: ""
@@ -44,9 +53,10 @@ jobs:
     runs-on: ubuntu-22.04-arm
     steps:
     - name: Clone repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Setup QEMU
       run: |
+        sudo apt-get update
         sudo apt-get install qemu-user-static -y
     - name: Configure workflow
       env:
@@ -150,7 +160,7 @@ jobs:
           bash /MuseScore/buildscripts/ci/linux/setup.sh --arch armv7l && \
           bash /MuseScore/buildscripts/ci/linux/arm32/install_qt.sh && \
           git config --global --add safe.directory /MuseScore && \
-          bash /MuseScore/buildscripts/ci/linux/arm32/run_lupdate.sh && \
+          bash /MuseScore/buildscripts/ci/translation/run_lupdate.sh && \
           bash /MuseScore/buildscripts/ci/linux/build.sh -n ${{ env.BUILD_NUMBER }} --crash_log_url $C_URL --arch armv7l && \
           bash /MuseScore/buildscripts/ci/linux/package.sh --arch armv7l && \
           bash /MuseScore/buildscripts/ci/tools/checksum.sh \
@@ -172,7 +182,7 @@ jobs:
       run: |
         bash ./buildscripts/ci/tools/osuosl/publish.sh -s ${{ secrets.OSUOSL_SSH_ENCRYPT_SECRET }} --os linux --arch armv7l -v 4
     - name: Upload artifacts on GitHub
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ env.UPLOAD_ARTIFACT_NAME }}
         path: ./build.artifacts/

@@ -1,8 +1,9 @@
-import QtQuick
+import QtQuick 2.15
 
-import MuseApi.Controls
+import MuseApi.Controls 1.0
 
 Rectangle {
+
     id: root
 
     implicitHeight: 400
@@ -29,4 +30,5 @@ Rectangle {
             api.interactive.info("Ext 1", "Clicked on Btn1")
         }
     }
+
 }

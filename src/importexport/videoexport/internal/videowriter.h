@@ -31,10 +31,12 @@
 namespace mu::iex::videoexport {
 class VideoWriter : public project::IProjectWriter
 {
-    muse::GlobalInject<IVideoExportConfiguration> configuration;
-    muse::GlobalInject<muse::IApplication> application;
+    muse::Inject<IVideoExportConfiguration> configuration;
+    muse::Inject<muse::IApplication> application;
 
 public:
+    VideoWriter() = default;
+
     std::vector<UnitType> supportedUnitTypes() const override;
     bool supportsUnitType(UnitType unitType) const override;
 

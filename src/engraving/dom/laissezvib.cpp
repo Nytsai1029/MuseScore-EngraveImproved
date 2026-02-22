@@ -21,14 +21,13 @@
  */
 
 #include "laissezvib.h"
-
-#include "../editing/mscoreview.h"
-
 #include "chord.h"
-#include "measure.h"
+#include "dom/measure.h"
+#include "dom/mscoreview.h"
+#include "dom/score.h"
 #include "note.h"
-#include "score.h"
 #include "staff.h"
+#include "style/style.h"
 
 namespace mu::engraving {
 static const ElementStyle laissezVibStyle {
@@ -55,7 +54,7 @@ PropertyValue LaissezVib::propertyDefault(Pid propertyId) const
 {
     switch (propertyId) {
     case Pid::MIN_LENGTH:
-        return 2.0_sp;
+        return Spatium(2.0);
     default:
         return Tie::propertyDefault(propertyId);
     }
@@ -105,6 +104,11 @@ LaissezVibSegment::LaissezVibSegment(System* parent)
 LaissezVibSegment::LaissezVibSegment(const LaissezVibSegment& s)
     : TieSegment(s)
 {
+}
+
+void LaissezVibSegment::editDrag(EditData&)
+{
+    // do nothing: dragging is already done by the `drag` method
 }
 
 String LaissezVibSegment::formatBarsAndBeats() const

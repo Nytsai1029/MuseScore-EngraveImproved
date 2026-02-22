@@ -25,8 +25,6 @@ struct UiContext
         return !this->operator ==(ctx);
     }
 
-    inline bool isNull() const { return const_data == nullptr; }
-
     std::string toString() const { return const_data ? std::string(const_data) : std::string(); }
 
 private:
@@ -57,7 +55,6 @@ enum class Checkable {
 struct UiAction
 {
     actions::ActionCode code;
-    std::vector<actions::ActionCode> children; // example: action://copy -> [action://project/copy]
     UiContext uiCtx = UiCtxAny;
     std::string scCtx = "any";
     MnemonicString title;
@@ -65,14 +62,11 @@ struct UiAction
     IconCode::Code iconCode = IconCode::Code::NONE;
     QString iconColor;
     Checkable checkable = Checkable::No;
+    std::vector<std::string> shortcuts;
 
     UiAction() = default;
     UiAction(const actions::ActionCode& code, UiContext ctx, std::string scCtx, Checkable ch = Checkable::No)
         : code(code), uiCtx(ctx), scCtx(scCtx), checkable(ch) {}
-
-    UiAction(const actions::ActionCode& code, const std::vector<actions::ActionCode>& children,
-             UiContext ctx, std::string scCtx, Checkable ch = Checkable::No)
-        : code(code), children(children), uiCtx(ctx), scCtx(scCtx), checkable(ch) {}
 
     UiAction(const actions::ActionCode& code, UiContext ctx, std::string scCtx, const MnemonicString& title,
              Checkable ch = Checkable::No)
@@ -85,11 +79,6 @@ struct UiAction
     UiAction(const actions::ActionCode& code, UiContext ctx, std::string scCtx, const MnemonicString& title,
              const TranslatableString& desc, IconCode::Code icon, Checkable ch = Checkable::No)
         : code(code), uiCtx(ctx), scCtx(scCtx), title(title), description(desc), iconCode(icon), checkable(ch) {}
-
-    UiAction(const actions::ActionCode& code, const std::vector<actions::ActionCode>& children,
-             UiContext ctx, std::string scCtx, const MnemonicString& title, const TranslatableString& desc, IconCode::Code icon,
-             Checkable ch = Checkable::No)
-        : code(code), children(children), uiCtx(ctx), scCtx(scCtx), title(title), description(desc), iconCode(icon), checkable(ch) {}
 
     UiAction(const actions::ActionCode& code, UiContext ctx, std::string scCtx, const MnemonicString& title,
              const TranslatableString& desc, IconCode::Code icon, QString iconColor, Checkable ch = Checkable::No)
@@ -113,11 +102,39 @@ struct UiAction
                && description == other.description
                && iconCode == other.iconCode
                && iconColor == other.iconColor
-               && checkable == other.checkable;
+               && checkable == other.checkable
+               && shortcuts == other.shortcuts;
     }
 };
 
-using UiActionList = std::vector<UiAction>;
+class UiActionList : public std::vector<UiAction>
+{
+public:
+    UiActionList() = default;
+    UiActionList(std::initializer_list<UiAction> l)
+        : std::vector<UiAction>(l) {}
+    UiActionList(std::vector<UiAction>::iterator b, std::vector<UiAction>::iterator e)
+        : std::vector<UiAction>(b, e) {}
+
+    bool contains(const actions::ActionCode& code) const
+    {
+        auto it = std::find_if(cbegin(), cend(), [code](const UiAction& a) {
+            return a.code == code;
+        });
+        return it != cend();
+    }
+
+    std::optional<size_t> indexOf(const actions::ActionCode& code) const
+    {
+        for (size_t i = 0; i < size(); ++i) {
+            if (at(i).code == code) {
+                return i;
+            }
+        }
+
+        return std::nullopt;
+    }
+};
 
 struct UiActionState
 {

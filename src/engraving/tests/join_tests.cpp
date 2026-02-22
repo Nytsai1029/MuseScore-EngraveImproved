@@ -22,18 +22,17 @@
 
 #include <gtest/gtest.h>
 
-#include "engraving/dom/chord.h"
-#include "engraving/dom/chordrest.h"
-#include "engraving/dom/masterscore.h"
-#include "engraving/dom/measure.h"
-#include "engraving/dom/note.h"
-#include "engraving/dom/segment.h"
-
-#include "engraving/editing/splitjoinmeasure.h"
+#include "dom/chord.h"
+#include "dom/chordrest.h"
+#include "dom/masterscore.h"
+#include "dom/measure.h"
+#include "dom/note.h"
+#include "dom/segment.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String JOIN_DATA_DIR("join_data/");
@@ -63,7 +62,7 @@ void Engraving_JoinTests::join(const char* p1, const char* p2, int index)
     EXPECT_NE(m1, m2);
 
     score->startCmd(TranslatableString::untranslatable("Engraving join tests"));
-    SplitJoinMeasure::joinMeasures(score->masterScore(), m1->tick(), m2->tick());
+    score->cmdJoinMeasure(m1, m2);
     score->endCmd();
 
     EXPECT_TRUE(ScoreComp::saveCompareScore(score, String::fromUtf8(p1), JOIN_DATA_DIR + String::fromUtf8(p2)));
@@ -83,7 +82,7 @@ void Engraving_JoinTests::join1(const char* p1)
 
     EXPECT_NE(m1, m2);
 
-    SplitJoinMeasure::joinMeasures(score->masterScore(), m1->tick(), m2->tick());
+    score->cmdJoinMeasure(m1, m2);
 
     // check if notes are still on line 6
     Segment* s = score->firstSegment(SegmentType::ChordRest);
@@ -149,6 +148,9 @@ TEST_F(Engraving_JoinTests, join10)
 
 TEST_F(Engraving_JoinTests, joinTieAtStart) {
     // Test splitting a measure when there is a tie ending on the first chord on the split range
+    bool use302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
+
     MasterScore* score = ScoreRW::readScore(JOIN_DATA_DIR + u"joinTieAtStart.mscx");
     EXPECT_TRUE(score);
 
@@ -179,7 +181,7 @@ TEST_F(Engraving_JoinTests, joinTieAtStart) {
     score->startCmd(TranslatableString::untranslatable("Engraving join tests"));
     Measure* m2 = m1->nextMeasure();
     Measure* m3 = m2->nextMeasure();
-    SplitJoinMeasure::joinMeasures(score->masterScore(), m2->tick(), m3->tick());
+    score->cmdJoinMeasure(m2, m3);
     score->endCmd();
 
     Tie* tie2 = checkTie();
@@ -191,4 +193,5 @@ TEST_F(Engraving_JoinTests, joinTieAtStart) {
     EXPECT_EQ(tie3, tie1);
 
     delete score;
+    MScore::useRead302InTestMode = use302;
 }

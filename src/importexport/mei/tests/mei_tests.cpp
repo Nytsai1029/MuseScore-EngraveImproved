@@ -35,6 +35,7 @@
 #include "importexport/mei/internal/meireader.h"
 #include "importexport/mei/internal/meiwriter.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String MEI_DIR(u"data/");
@@ -58,7 +59,7 @@ void Mei_Tests::meiReadTest(const char* file)
     String fileName = String::fromUtf8(file);
 
     auto importFunc = [](MasterScore* score, const muse::io::path_t& path) -> Err {
-        MeiReader meiReader(nullptr);
+        MeiReader meiReader;
         return meiReader.import(score, path);
     };
 

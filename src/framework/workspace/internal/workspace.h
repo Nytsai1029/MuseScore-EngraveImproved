@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -28,18 +28,18 @@
 #include "workspacefile.h"
 
 #include "modularity/ioc.h"
-#include "multiwindows/imultiwindowsprovider.h"
+#include "multiinstances/imultiinstancesprovider.h"
 #include "global/iapplication.h"
 #include "io/ifilesystem.h"
 #include "iworkspaceconfiguration.h"
 
 namespace muse::workspace {
-class Workspace : public IWorkspace, public Contextable, public async::Asyncable
+class Workspace : public IWorkspace, public Injectable, public async::Asyncable
 {
-    GlobalInject<mi::IMultiWindowsProvider> multiwindowsProvider;
-    GlobalInject<io::IFileSystem> fileSystem;
-    GlobalInject<IWorkspaceConfiguration> configuration;
-    GlobalInject<IApplication> application;
+    Inject<mi::IMultiInstancesProvider> multiInstancesProvider = { this };
+    Inject<IApplication> application = { this };
+    Inject<io::IFileSystem> fileSystem = { this };
+    Inject<IWorkspaceConfiguration> configuration = { this };
 
 public:
     Workspace(const io::path_t& filePath, const modularity::ContextPtr& iocCtx);

@@ -60,6 +60,10 @@ public:
 
     void setParent(Measure* parent);
 
+    // Score Tree functions
+    EngravingObject* scanParent() const override;
+    EngravingObjectList scanChildren() const override;
+
     Tuplet* clone() const override { return new Tuplet(*this); }
     void setTrack(track_idx_t val) override;
 
@@ -72,8 +76,8 @@ public:
     static void resetNumberProperty(Text* number);
 
     bool isEditable() const override;
-    void startDragGrip(EditData&) override;
-    void dragGrip(EditData&) override;
+    void startEditDrag(EditData&) override;
+    void editDrag(EditData&) override;
 
     void setSelected(bool f) override;
 
@@ -101,7 +105,7 @@ public:
         return std::find(m_currentElements.begin(), m_currentElements.end(), el) != m_currentElements.end();
     }
 
-    void scanElements(std::function<void(EngravingItem*)> func) override;
+    void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all=true) override;
 
     void reset() override;
 
@@ -140,7 +144,6 @@ public:
     void setVisible(bool f) override;
     void setColor(const Color& col) override;
 
-    EngravingObject* propertyDelegate(Pid id) const override;
     PropertyValue getProperty(Pid propertyId) const override;
     bool setProperty(Pid propertyId, const PropertyValue& v) override;
     PropertyValue propertyDefault(Pid id) const override;

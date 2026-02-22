@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_BEND_H
+#define MU_ENGRAVING_BEND_H
 
 #include "draw/types/font.h"
 
@@ -109,4 +110,5 @@ private:
     FontStyle m_fontStyle = FontStyle::Undefined;
     Spatium m_lineWidth;
 };
-}
+} // namespace mu::engraving
+#endif

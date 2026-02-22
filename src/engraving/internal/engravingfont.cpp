@@ -21,7 +21,6 @@
  */
 #include "engravingfont.h"
 
-#include "engraving/dom/mscore.h"
 #include "serialization/json.h"
 #include "io/file.h"
 #include "io/fileinfo.h"
@@ -29,7 +28,6 @@
 #include "types/symnames.h"
 
 #include "dom/mscore.h"
-#include "../style/styledef.h"
 
 #include "smufl.h"
 
@@ -48,7 +46,7 @@ using namespace mu::engraving;
 EngravingFont::EngravingFont(const std::string& name, const std::string& family,
                              const path_t& filePath, const path_t& metadataPath,
                              const modularity::ContextPtr& iocCtx)
-    : muse::Contextable(iocCtx),  m_symbols(static_cast<size_t>(SymId::lastSym) + 1),
+    : muse::Injectable(iocCtx),  m_symbols(static_cast<size_t>(SymId::lastSym) + 1),
     m_name(name),
     m_family(family),
     m_fontPath(filePath),
@@ -57,7 +55,7 @@ EngravingFont::EngravingFont(const std::string& name, const std::string& family,
 }
 
 EngravingFont::EngravingFont(const EngravingFont& other)
-    : muse::Contextable(other.iocContext())
+    : muse::Injectable(other.iocContext())
 {
     m_loaded = false;
     m_symbols  = other.m_symbols;
@@ -91,15 +89,6 @@ double EngravingFont::textEnclosureThickness()
     return m_textEnclosureThickness;
 }
 
-double DEFAULT_SMUFL_POINT_SIZE()
-{
-    const double DEFAULT_SPATIUM = StyleDef::styleValues[static_cast<size_t>(Sid::spatium)].defaultValue.toDouble();
-    const double DEFAULT_SPATIUM_IN_POINT_UNITS = DEFAULT_SPATIUM / mu::engraving::DPI * mu::engraving::PPI;
-    const double DEFAULT_SMUFL_POINT_SIZE = 4 * DEFAULT_SPATIUM_IN_POINT_UNITS; // By Smufl spec the spatium is 1/4 of the em
-
-    return DEFAULT_SMUFL_POINT_SIZE;
-}
-
 // =============================================
 // Load
 // =============================================
@@ -120,8 +109,6 @@ void EngravingFont::ensureLoad()
     m_font.setFamily(String::fromStdString(m_family), Font::Type::MusicSymbol);
     m_font.setNoFontMerging(true);
     m_font.setHinting(Font::Hinting::PreferVerticalHinting);
-
-    m_font.setPointSizeF(DEFAULT_SMUFL_POINT_SIZE());
 
     for (size_t id = 0; id < m_symbols.size(); ++id) {
         Smufl::Code code = Smufl::code(static_cast<SymId>(id));
@@ -757,8 +744,8 @@ void EngravingFont::loadGlyphsWithAnchors(const JsonObject& glyphsWithAnchors)
             const JsonArray arr = anchors.value(anchorId).toArray();
             const double x = arr.at(0).toDouble();
             const double y = arr.at(1).toDouble();
-            const double defaultSpatium = StyleDef::styleValues[static_cast<size_t>(Sid::spatium)].defaultValue.toDouble();
-            sym.smuflAnchors[search->second] = PointF(x, -y) * defaultSpatium;
+
+            sym.smuflAnchors[search->second] = PointF(x, -y) * SPATIUM20;
         }
     }
 }
@@ -855,15 +842,15 @@ void EngravingFont::loadEngravingDefaults(const JsonObject& engravingDefaultsObj
 
 void EngravingFont::computeMetrics(EngravingFont::Sym& sym, const Smufl::Code& code)
 {
-    if (fontProvider()->inFont(m_font, code.smuflCode)) {
+    if (fontProvider()->inFontUcs4(m_font, code.smuflCode)) {
         sym.code = code.smuflCode;
-    } else if (fontProvider()->inFont(m_font, code.musicSymBlockCode)) {
+    } else if (fontProvider()->inFontUcs4(m_font, code.musicSymBlockCode)) {
         sym.code = code.musicSymBlockCode;
     }
 
     if (sym.code > 0) {
-        sym.bbox = fontProvider()->boundingRect(m_font, sym.code);
-        sym.advance = fontProvider()->horizontalAdvance(m_font, sym.code);
+        sym.bbox = fontProvider()->symBBox(m_font, sym.code, DPI_F);
+        sym.advance = fontProvider()->symAdvance(m_font, sym.code, DPI_F);
     }
 }
 
@@ -1120,7 +1107,8 @@ void EngravingFont::draw(SymId id, Painter* painter, const SizeF& mag, const Poi
     }
 
     painter->save();
-    m_font.setPointSizeF(DEFAULT_SMUFL_POINT_SIZE());
+    double size = 20.0 * MScore::pixelRatio;
+    m_font.setPointSizeF(size);
     painter->scale(mag.width(), mag.height());
     painter->setFont(m_font);
     if (angle != 0) {

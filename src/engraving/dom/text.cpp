@@ -62,25 +62,12 @@ Text::Text(EngravingItem* parent, TextStyleType tid)
     initElementStyle(&defaultStyle);
 }
 
-EngravingObject* Text::propertyDelegate(Pid id) const
-{
-    if (id == Pid::TEXT_STYLE && parent() && parent()->isTextLineBaseSegment()) {
-        return parent();
-    }
-
-    return nullptr;
-}
-
 //---------------------------------------------------------
 //   propertyDefault
 //---------------------------------------------------------
 
 engraving::PropertyValue Text::propertyDefault(Pid id) const
 {
-    if (EngravingObject* item = propertyDelegate(id)) {
-        return item->propertyDefault(id);
-    }
-
     switch (id) {
     case Pid::TEXT_STYLE:
         return TextStyleType::DEFAULT;
@@ -116,19 +103,5 @@ bool Text::hasVoiceAssignmentProperties() const
         return parent->hasVoiceAssignmentProperties();
     }
     return false;
-}
-
-bool mu::engraving::Text::collectForDrawing() const
-{
-    return !(parent() && parent()->isTuplet());
-}
-
-bool Text::positionRelativeToNoteheadRest() const
-{
-    if (parent()->isBox() || parent()->isTuplet() || parent()->isSpannerSegment()) {
-        return false;
-    }
-
-    return true;
 }
 }

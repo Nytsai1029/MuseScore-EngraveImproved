@@ -27,8 +27,8 @@
 
 #include "settings.h"
 #include "importexport/musicxml/imusicxmlconfiguration.h"
-#include "importexport/musicxml/internal/import/importmusicxml.h"
-#include "importexport/musicxml/internal/export/exportmusicxml.h"
+#include "importexport/musicxml/internal/musicxml/import/importmusicxml.h"
+#include "importexport/musicxml/internal/musicxml/export/exportmusicxml.h"
 
 #include "engraving/tests/utils/scorerw.h"
 #include "engraving/tests/utils/scorecomp.h"
@@ -676,17 +676,17 @@ TEST_F(MusicXml_Tests, DISABLED_graceAfter4) {
 TEST_F(MusicXml_Tests, graceFermata) {
     musicXmlIoTest("testGraceFermata");
 }
-TEST_F(MusicXml_Tests, groupTime) {
-    musicXmlIoTest("testGroupTime");
-}
-TEST_F(MusicXml_Tests, groupTime2) {
-    musicXmlIoTest("testGroupTime2");
-}
 TEST_F(MusicXml_Tests, guitarBends) {
+    bool useRead302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
     musicXmlMscxExportTestRef("testGuitarBends");
+    MScore::useRead302InTestMode = useRead302;
 }
 TEST_F(MusicXml_Tests, hammerPull) {
+    bool useRead302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
     musicXmlIoTest("testHammerPull");
+    MScore::useRead302InTestMode = useRead302;
 }
 TEST_F(MusicXml_Tests, harpPedals) {
     musicXmlMscxExportTestRef("testHarpPedals");
@@ -784,42 +784,6 @@ TEST_F(MusicXml_Tests, inferSegnoII) {
 TEST_F(MusicXml_Tests, inferFraction) {
     musicXmlImportTestRef("testInferFraction");
 }
-TEST_F(MusicXml_Tests, localTimesig1) {
-    musicXmlMscxExportTestRef("testLocalTimesig1");
-}
-TEST_F(MusicXml_Tests, localTimesig2) {
-    musicXmlMscxExportTestRef("testLocalTimesig2");
-}
-TEST_F(MusicXml_Tests, localTimesig3) {
-    musicXmlMscxExportTestRef("testLocalTimesig3");
-}
-TEST_F(MusicXml_Tests, localTimesig4) {
-    musicXmlMscxExportTestRef("testLocalTimesig4");
-}
-TEST_F(MusicXml_Tests, localTimesig5) {
-    musicXmlMscxExportTestRef("testLocalTimesig5");
-}
-TEST_F(MusicXml_Tests, localTimesig6) {
-    musicXmlMscxExportTestRef("testLocalTimesig6");
-}
-TEST_F(MusicXml_Tests, localTimesig8) {
-    musicXmlMscxExportTestRef("testLocalTimesig8");
-}
-TEST_F(MusicXml_Tests, localTimesig9) {
-    musicXmlMscxExportTestRef("testLocalTimesig9");
-}
-TEST_F(MusicXml_Tests, localTimesig10) {
-    musicXmlMscxExportTestRef("testLocalTimesig10");
-}
-TEST_F(MusicXml_Tests, localTimesig11) {
-    musicXmlMscxExportTestRef("testLocalTimesig11");
-}
-TEST_F(MusicXml_Tests, localTimesig12) {
-    musicXmlMscxExportTestRef("testLocalTimesig12");
-}
-TEST_F(MusicXml_Tests, localTimesig14) {
-    musicXmlMscxExportTestRef("testLocalTimesig14");
-}
 TEST_F(MusicXml_Tests, inferredFingerings) {
     musicXmlImportTestRef("testInferredFingerings");
 }
@@ -900,9 +864,6 @@ TEST_F(MusicXml_Tests, lyricBracket) {
 }
 TEST_F(MusicXml_Tests, lyricColor) {
     musicXmlIoTest("testLyricColor");
-}
-TEST_F(MusicXml_Tests, lyricVisibility) {
-    musicXmlImportTestRef("testLyricVisibility");
 }
 TEST_F(MusicXml_Tests, lyricPos) {
     musicXmlImportTestRef("testLyricPos");
@@ -1051,21 +1012,6 @@ TEST_F(MusicXml_Tests, ornaments) {
 TEST_F(MusicXml_Tests, overlappingSpanners) {
     musicXmlIoTest("testOverlappingSpanners");
 }
-TEST_F(MusicXml_Tests, pageNumbers1) {
-    musicXmlMscxExportTestRefBreaks("testPageNumbers1");
-}
-TEST_F(MusicXml_Tests, pageNumbers2) {
-    musicXmlMscxExportTestRefBreaks("testPageNumbers2");
-}
-TEST_F(MusicXml_Tests, pageNumbers3) {
-    musicXmlMscxExportTestRefBreaks("testPageNumbers3");
-}
-TEST_F(MusicXml_Tests, pageNumbers4) {
-    musicXmlMscxExportTestRefBreaks("testPageNumbers4");
-}
-TEST_F(MusicXml_Tests, pageNumbers5) {
-    musicXmlMscxExportTestRefBreaks("testPageNumbers5");
-}
 TEST_F(MusicXml_Tests, partNames) {
     musicXmlImportTestRef("testPartNames");
 }
@@ -1145,7 +1091,10 @@ TEST_F(MusicXml_Tests, specialCharacters) {
     musicXmlIoTest("testSpecialCharacters");
 }
 TEST_F(MusicXml_Tests, stackedHarm) {
+    bool use302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
     musicXmlMscxExportTestRef("testStackedHarm");
+    MScore::useRead302InTestMode = use302;
 }
 TEST_F(MusicXml_Tests, staffEmptiness) {
     musicXmlImportTestRef("testStaffEmptiness");
@@ -1196,7 +1145,11 @@ TEST_F(MusicXml_Tests, DISABLED_EXCEPT_ON_LINUX(systemDistance)) {
     musicXmlMscxExportTestRef("testSystemDistance", true);
 }
 TEST_F(MusicXml_Tests, DISABLED_EXCEPT_ON_LINUX(systemDividers)) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
+    musicXmlIoTest("testSystemDividers-Qt68", true);
+#else
     musicXmlIoTest("testSystemDividers", true);
+#endif
 }
 TEST_F(MusicXml_Tests, systemObjectStaves) {
     musicXmlImportTestRef("testSystemObjectStaves");
@@ -1316,7 +1269,10 @@ TEST_F(MusicXml_Tests, timeTick) {
     musicXmlImportTestRef("testTimeTick");
 }
 TEST_F(MusicXml_Tests, timeTickExport) {
+    bool use302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
     musicXmlMscxExportTestRef("testTimeTickExport");
+    MScore::useRead302InTestMode = use302;
 }
 TEST_F(MusicXml_Tests, titleSwapMu) {
     musicXmlImportTestRef("testTitleSwapMu");
@@ -1407,9 +1363,6 @@ TEST_F(MusicXml_Tests, voltaHiding2) {
 }
 TEST_F(MusicXml_Tests, wedgeOffset) {
     musicXmlImportTestRef("testWedgeOffset");
-}
-TEST_F(MusicXml_Tests, wedgeCR) {
-    musicXmlMscxExportTestRef("testWedgeCR");
 }
 TEST_F(MusicXml_Tests, wedge1) {
     musicXmlIoTest("testWedge1");

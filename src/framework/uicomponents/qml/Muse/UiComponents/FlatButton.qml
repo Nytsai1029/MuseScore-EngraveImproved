@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,41 +19,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-pragma ComponentBehavior: Bound
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
-import QtQuick
-import QtQuick.Layouts
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
-import Muse.Ui 
-import Muse.UiComponents
-
-/** APIDOC
- * General button
- * @class FlatButton
- * @hideconstructor
- * @example
- * import MuseApi.Controls
- *
- * ExtensionBlank {
- *      FlatButton {
- *          icon: IconCode.STAR
- *          text: "Click me"
- *          onClicked: {
- *              api.interactive.info("Test", "Clicked on button")
- *          }
- *      }
- * }
-*/
 FocusScope {
     id: root
 
-    /** APIDOC
-     * @member {Qml.IconCode}
-     */
     property int icon: IconCode.NONE
-    /** APIDOC
-     * @member {String}
-     */
     property string text: ""
     property int textFormat: Text.AutoText
     property int maximumLineCount: 1
@@ -128,10 +103,6 @@ FocusScope {
         return FlatButton.TextOnly
     }
 
-    /** APIDOC
-     * @method
-     * @signal
-     */
     signal clicked(var mouse)
     // The `pressAndHold` signal is intentionally not "forwarded" here from the MouseArea for performance reasons.
     // Most buttons don't use it and Qt has optimizations if no signal is attached. If a component needs it,
@@ -223,8 +194,8 @@ FocusScope {
         anchors.verticalCenter: parent ? parent.verticalCenter : undefined
         anchors.horizontalCenter: parent ? parent.horizontalCenter : undefined
 
-        readonly property real itemImplicitWidth: (item as Item)?.implicitWidth ?? 0
-        readonly property real itemImplicitHeight: (item as Item)?.implicitHeight ?? 0
+        readonly property real itemImplicitWidth: item ? item.implicitWidth : 0
+        readonly property real itemImplicitHeight: item ? item.implicitHeight : 0
 
         sourceComponent: root.contentItem ? root.contentItem : defaultContentComponent
         readonly property Component defaultContentComponent: root.isVertical ? verticalContentComponent : horizontalContentComponent
@@ -242,7 +213,7 @@ FocusScope {
                 iconCode: root.icon
                 font: root.iconFont
                 color: root.iconColor
-                visible: !isEmpty && root.buttonType != FlatButton.TextOnly
+                visible: !isEmpty
             }
 
             StyledTextLabel {
@@ -253,7 +224,7 @@ FocusScope {
                 textFormat: root.textFormat
                 wrapMode: Text.Wrap
                 maximumLineCount: root.maximumLineCount
-                visible: !isEmpty && root.buttonType != FlatButton.IconOnly
+                visible: !isEmpty
             }
         }
     }
@@ -340,8 +311,8 @@ FocusScope {
         hoverEnabled: true
 
         onClicked: function(mouse) {
-            root.navigation.requestActiveByInteraction()
-            root.navigation.notifyAboutControlWasTriggered()
+            navigation.requestActiveByInteraction()
+            navigation.notifyAboutControlWasTriggered()
 
             root.doClicked(mouse)
         }

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,17 +19,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 #include "toursmodule.h"
+
+#include <QQmlEngine>
 
 #include "modularity/ioc.h"
 
 #include "internal/toursservice.h"
 #include "internal/toursconfiguration.h"
-#include "internal/toursprovider.h"
+
+#include "view/toursprovider.h"
+#include "view/toursprovidermodel.h"
 
 using namespace muse::tours;
 using namespace muse::modularity;
+
+static void tours_init_qrc()
+{
+    Q_INIT_RESOURCE(tours);
+}
 
 std::string ToursModule::moduleName() const
 {
@@ -38,11 +46,21 @@ std::string ToursModule::moduleName() const
 
 void ToursModule::registerExports()
 {
-    m_service = std::make_shared<ToursService>(globalCtx());
-    m_configuration = std::make_shared<ToursConfiguration>(globalCtx());
-    m_provider = std::make_shared<ToursProvider>(globalCtx());
+    m_service = std::make_shared<ToursService>(iocContext());
+    m_configuration = std::make_shared<ToursConfiguration>(iocContext());
+    m_provider = std::make_shared<ToursProvider>(iocContext());
 
-    globalIoc()->registerExport<IToursService>(moduleName(), m_service);
-    globalIoc()->registerExport<IToursConfiguration>(moduleName(), m_configuration);
-    globalIoc()->registerExport<IToursProvider>(moduleName(), m_provider);
+    ioc()->registerExport<IToursService>(moduleName(), m_service);
+    ioc()->registerExport<IToursConfiguration>(moduleName(), m_configuration);
+    ioc()->registerExport<IToursProvider>(moduleName(), m_provider);
+}
+
+void ToursModule::registerResources()
+{
+    tours_init_qrc();
+}
+
+void ToursModule::registerUiTypes()
+{
+    qmlRegisterType<ToursProviderModel>("Muse.Tours", 1, 0, "ToursProviderModel");
 }

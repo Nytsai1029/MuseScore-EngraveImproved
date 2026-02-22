@@ -22,13 +22,12 @@
 
 #include <gtest/gtest.h>
 
-#include "realfn.h"
-
-#include "engraving/dom/tempo.h"
-#include "engraving/types/constants.h"
-
 #include "utils/scorerw.h"
+#include "realfn.h"
+#include "types/constants.h"
+#include "dom/tempo.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String TEMPOMAP_TEST_FILES_DIR("tempomap_data/");
@@ -156,10 +155,10 @@ TEST_F(Engraving_TempoMapTests, TEMPO_MULTIPLIER)
     EXPECT_EQ(tempoMap->size(), expectedTempoMap.size());
 
     // [THEN] Applied tempo matches with our expectations
-    for (const auto& [tick, event] : *tempoMap) {
+    for (int tick : muse::keys(*tempoMap)) {
         double expectedBps = expectedTempoMap[tick].val;
 
-        EXPECT_NEAR(event.tempo.val,                     expectedBps,              TEMPO_ERROR);
+        EXPECT_NEAR(tempoMap->at(tick).tempo.val,        expectedBps,              TEMPO_ERROR);
         EXPECT_NEAR(tempoMap->tempo(tick).val,           expectedBps,              TEMPO_ERROR);
         EXPECT_NEAR(tempoMap->multipliedTempo(tick).val, expectedBps * multiplier, TEMPO_ERROR);
     }

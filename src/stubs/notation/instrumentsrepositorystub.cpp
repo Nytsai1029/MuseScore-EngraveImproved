@@ -58,9 +58,3 @@ const InstrumentGroupList& InstrumentsRepositoryStub::groups() const
     static InstrumentGroupList l;
     return l;
 }
-
-const InstrumentStringTuningsMap& InstrumentsRepositoryStub::stringTuningsPresets() const
-{
-    static InstrumentStringTuningsMap m;
-    return m;
-}

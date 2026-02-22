@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,13 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.3
 import QtQuick.Window
 
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 FocusScope {
     id: root
@@ -78,8 +78,8 @@ FocusScope {
     }
 
     function ensureActiveFocus() {
-        if (Window.window && Window.window.objectName.includes("_WindowView_QQuickView")) {
-            // See also WindowView::eventFilter
+        if (Window.window && Window.window.objectName.includes("PopupWindow_QQuickView")) {
+            // See also PopupWindow_QQuickView::eventFilter
             Window.window.flags &= ~Qt.WindowDoesNotAcceptFocus
             Window.window.requestActivate()
         }
@@ -182,14 +182,12 @@ FocusScope {
 
             text: root.currentText === undefined ? "" : root.currentText
 
-            ShortcutOverrideModel {
-                id: shortcutOverrideModel
-                // Left/right should not trigger navigation - override them...
-                directionKeysForOverride: ShortcutOverrideModel.LeftRight
+            TextInputModel {
+                id: textInputModel
             }
 
             Component.onCompleted: {
-                shortcutOverrideModel.init()
+                textInputModel.init()
             }
 
             Keys.onShortcutOverride: function(event) {
@@ -209,7 +207,7 @@ FocusScope {
                     return;
                 }
 
-                if (shortcutOverrideModel.isShortcutOverrideAllowed(event.key, event.modifiers)) {
+                if (textInputModel.isShortcutAllowedOverride(event.key, event.modifiers)) {
                     event.accepted = true
                 } else {
                     event.accepted = false

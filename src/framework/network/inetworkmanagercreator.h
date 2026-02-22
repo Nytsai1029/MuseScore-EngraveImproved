@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,14 +19,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_NETWORK_INETWORKMANAGERCREATOR_H
+#define MUSE_NETWORK_INETWORKMANAGERCREATOR_H
 
 #include "modularity/imoduleinterface.h"
 #include "inetworkmanager.h"
 
 namespace muse::network {
-class INetworkManagerCreator : MODULE_GLOBAL_INTERFACE
+class INetworkManagerCreator : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(INetworkManagerCreator)
 
@@ -36,3 +36,5 @@ public:
     virtual INetworkManagerPtr makeNetworkManager() const = 0;
 };
 }
+
+#endif // MUSE_NETWORK_INETWORKMANAGERCREATOR_H

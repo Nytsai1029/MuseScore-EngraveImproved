@@ -69,7 +69,6 @@
 #include "engraving/dom/marker.h"
 #include "engraving/dom/jump.h"
 #include "engraving/dom/bracketItem.h"
-#include "engraving/editing/transpose.h"
 
 #include "modularity/ioc.h"
 #include "importexport/ove/ioveconfiguration.h"
@@ -416,7 +415,7 @@ void OveToMScore::convertGroups()
     for (i = 0; i < m_ove->getPartCount(); ++i) {
         int partStaffCount = m_ove->getStaffCount(i);
         //if(parts == 0)
-        //  continue;
+        //	continue;
         Part* part = parts.at(i);
         if (part == 0) {
             continue;
@@ -433,7 +432,7 @@ void OveToMScore::convertGroups()
             if (j == 0 && partStaffCount == 2) {
                 staff->setBracketType(0, BracketType::BRACE);
                 staff->setBracketSpan(0, 2);
-                staff->setBarLineSpan(true);
+                staff->setBarLineSpan(2);
             }
 
             // bracket
@@ -443,7 +442,7 @@ void OveToMScore::convertGroups()
                 int endStaff = staffIndex + span;
                 if (span > 0 && endStaff >= staffIndex && endStaff <= m_ove->getTrackCount()) {
                     staff->addBracket(Factory::createBracketItem(staff->score()->dummy(), BracketType::NORMAL, span));
-                    staff->setBarLineSpan(static_cast<bool>(span));
+                    staff->setBarLineSpan(span);
                 }
             }
         }
@@ -764,10 +763,10 @@ void OveToMScore::convertTrackElements(int track)
 void OveToMScore::convertLineBreak()
 {
     for (MeasureBase* mb = m_score->measures()->first(); mb; mb = mb->next()) {
-        if (!mb->isMeasure()) {
+        if (mb->type() != ElementType::MEASURE) {
             continue;
         }
-        Measure* measure = toMeasure(mb);
+        Measure* measure = static_cast<Measure*>(mb);
 
         for (int i = 0; i < m_ove->getLineCount(); ++i) {
             ovebase::Line* line = m_ove->getLine(i);
@@ -841,7 +840,7 @@ void OveToMScore::convertSignatures()
                             Key cKey = key;
                             Interval v = staff.part()->instrument(tick)->transpose();
                             if (!v.isZero() && !m_score->style().styleB(Sid::concertPitch)) {
-                                cKey = Transpose::transposeKey(key, v);
+                                cKey = transposeKey(key, v);
                                 // if there are more than 6 accidentals in transposing key, it cannot be PreferSharpFlat::AUTO
                                 if ((key > 6 || key < -6) && staff.part()->preferSharpFlat() == PreferSharpFlat::AUTO) {
                                     staff.part()->setPreferSharpFlat(PreferSharpFlat::NONE);
@@ -1202,10 +1201,10 @@ ovebase::ClefType getClefType(ovebase::MeasureData* measure, int tick)
 void OveToMScore::convertMeasures()
 {
     for (MeasureBase* mb = m_score->measures()->first(); mb; mb = mb->next()) {
-        if (!mb->isMeasure()) {
+        if (mb->type() != ElementType::MEASURE) {
             continue;
         }
-        Measure* measure = toMeasure(mb);
+        Measure* measure = static_cast<Measure*>(mb);
         int tick = measure->tick().ticks();
         measure->setTicks(m_score->sigmap()->timesig(tick).timesig());
         measure->setTimesig(m_score->sigmap()->timesig(tick).timesig());     //?
@@ -1214,10 +1213,10 @@ void OveToMScore::convertMeasures()
 
     //  convert based on notes
     for (MeasureBase* mb = m_score->measures()->first(); mb; mb = mb->next()) {
-        if (!mb->isMeasure()) {
+        if (mb->type() != ElementType::MEASURE) {
             continue;
         }
-        Measure* measure = toMeasure(mb);
+        Measure* measure = static_cast<Measure*>(mb);
 
         convertLines(measure);
     }
@@ -2075,12 +2074,12 @@ void OveToMScore::convertLyrics(Measure* measure, int part, int staff, int track
         int tick = m_mtt->getTick(measure->no(), oveLyric->getTick());
 
         Lyrics* lyric = Factory::createLyrics(m_score->dummy()->chord());
-        lyric->setVerse(oveLyric->getVerse());
+        lyric->setNo(oveLyric->getVerse());
         lyric->setPlainText(oveLyric->getLyric());
         lyric->setTrack(track);
         Segment* segment = measure->getSegment(SegmentType::ChordRest, Fraction::fromTicks(tick));
         if (segment->element(track)) {
-            toChordRest(segment->element(track))->add(lyric);
+            static_cast<ChordRest*>(segment->element(track))->add(lyric);
         }
     }
 }
@@ -2208,17 +2207,15 @@ void OveToMScore::convertRepeats(Measure* measure, int part, int staff, int trac
 
         switch (type) {
         case ovebase::RepeatType::Segno: {
-            Marker* m = Factory::createMarker(measure);
-            m->setMarkerType(MarkerType::SEGNO);
-            m->resetProperty(Pid::LABEL);
-            e = m;
+            Marker* marker = Factory::createMarker(measure);
+            marker->setMarkerType(MarkerType::SEGNO);
+            e = marker;
             break;
         }
         case ovebase::RepeatType::Coda: {
-            Marker* m = Factory::createMarker(measure);
-            m->setMarkerType(MarkerType::CODA);
-            m->resetProperty(Pid::LABEL);
-            e = m;
+            Marker* marker = Factory::createMarker(measure);
+            marker->setMarkerType(MarkerType::CODA);
+            e = marker;
             break;
         }
         case ovebase::RepeatType::DSAlCoda: {
@@ -2248,14 +2245,12 @@ void OveToMScore::convertRepeats(Measure* measure, int part, int staff, int trac
         case ovebase::RepeatType::ToCoda: {
             Marker* m = Factory::createMarker(measure);
             m->setMarkerType(MarkerType::TOCODA);
-            m->resetProperty(Pid::LABEL);
             e = m;
             break;
         }
         case ovebase::RepeatType::Fine: {
             Marker* m = Factory::createMarker(measure);
             m->setMarkerType(MarkerType::FINE);
-            m->resetProperty(Pid::LABEL);
             e = m;
             break;
         }

@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_NOTATION_NOTATIONPAINTING_H
+#define MU_NOTATION_NOTATIONPAINTING_H
 
 #include "../inotationpainting.h"
 
@@ -37,15 +37,15 @@ class Page;
 
 namespace mu::notation {
 class Notation;
-class NotationPainting : public INotationPainting, public muse::Contextable
+class NotationPainting : public INotationPainting
 {
-    muse::GlobalInject<INotationConfiguration> configuration;
-    muse::GlobalInject<engraving::IEngravingConfiguration> engravingConfiguration;
-    muse::GlobalInject<muse::ui::IUiConfiguration> uiConfiguration;
-    muse::ContextInject<engraving::rendering::IScoreRenderer> scoreRenderer = { this };
+    INJECT(INotationConfiguration, configuration)
+    INJECT(engraving::IEngravingConfiguration, engravingConfiguration)
+    INJECT(engraving::rendering::IScoreRenderer, scoreRenderer)
+    INJECT(muse::ui::IUiConfiguration, uiConfiguration)
 
 public:
-    NotationPainting(Notation* notation, const muse::modularity::ContextPtr& ctx);
+    NotationPainting(Notation* notation);
 
     void setViewMode(const ViewMode& viewMode) override;
     ViewMode viewMode() const override;
@@ -55,7 +55,7 @@ public:
     muse::SizeF pageSizeInch() const override;
     muse::SizeF pageSizeInch(const Options& opt) const override;
 
-    void paintView(muse::draw::Painter* painter, const muse::RectF& frameRect, bool isPrinting, bool isAutomation) override;
+    void paintView(muse::draw::Painter* painter, const muse::RectF& frameRect, bool isPrinting) override;
     void paintPdf(muse::draw::Painter* painter, const Options& opt) override;
     void paintPrint(muse::draw::Painter* painter, const Options& opt) override;
     void paintPng(muse::draw::Painter* painter, const Options& opt) override;
@@ -74,3 +74,5 @@ private:
     muse::async::Notification m_viewModeChanged;
 };
 }
+
+#endif // MU_NOTATION_NOTATIONPAINTING_H

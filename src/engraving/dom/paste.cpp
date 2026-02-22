@@ -24,11 +24,6 @@
 
 #include "imimedata.h"
 
-#include "../editing/editmeasures.h"
-#include "../editing/editstaff.h"
-#include "../editing/mscoreview.h"
-#include "../editing/transpose.h"
-
 #include "rw/read400/tread.h"
 #include "rw/rwregister.h"
 #include "types/typesconv.h"
@@ -37,7 +32,6 @@
 #include "beam.h"
 #include "breath.h"
 #include "chord.h"
-#include "drumset.h"
 #include "dynamic.h"
 #include "factory.h"
 #include "figuredbass.h"
@@ -48,7 +42,7 @@
 #include "lyrics.h"
 #include "measure.h"
 #include "measurerepeat.h"
-#include "note.h"
+#include "mscoreview.h"
 #include "part.h"
 #include "rest.h"
 #include "score.h"
@@ -56,7 +50,9 @@
 #include "staff.h"
 #include "tie.h"
 #include "timesig.h"
+
 #include "tuplet.h"
+#include "undo.h"
 #include "utils.h"
 
 #include "log.h"
@@ -66,6 +62,39 @@ using namespace muse::io;
 using namespace mu::engraving;
 
 namespace mu::engraving {
+//---------------------------------------------------------
+//   transposeChord
+//---------------------------------------------------------
+
+void Score::transposeChord(Chord* c, const Fraction& tick)
+{
+    // set note track
+    // check if staffMove moves a note to a
+    // nonexistent staff
+    //
+    track_idx_t track = c->track();
+    size_t nn = (track / VOICES) + c->staffMove();
+    if (nn >= c->score()->nstaves()) {
+        c->setStaffMove(0);
+    }
+    Staff* staff = c->staff();
+    Interval dstTranspose = staff->transpose(tick);
+
+    if (dstTranspose.isZero()) {
+        for (Note* n : c->notes()) {
+            n->setTpc2(n->tpc1());
+        }
+    } else {
+        dstTranspose.flip();
+        for (Note* n : c->notes()) {
+            int npitch;
+            int ntpc;
+            transposeInterval(n->pitch(), n->tpc1(), &npitch, &ntpc, dstTranspose, true);
+            n->setTpc2(ntpc);
+        }
+    }
+}
+
 //---------------------------------------------------------
 //   pasteStaff
 //    return false if paste fails
@@ -93,16 +122,10 @@ void Score::pasteChordRest(ChordRest* cr, const Fraction& t)
 
     int twoNoteTremoloFactor = 1;
     if (cr->isChord()) {
-        Chord* chord = toChord(cr);
-        if (chord->vStaffIdx() >= chord->score()->nstaves()) {
-            // check if staffMove moves a note to a
-            // nonexistent staff
-            chord->setStaffMove(0);
-        }
-        Transpose::transposeChord(chord, tick);
-        if (chord->tremoloTwoChord()) {
+        transposeChord(toChord(cr), tick);
+        if (toChord(cr)->tremoloTwoChord()) {
             twoNoteTremoloFactor = 2;
-        } else if (cr->durationTypeTicks() == (cr->ticks() * 2)) {
+        } else if (cr->durationTypeTicks() == (cr->actualTicksAt(tick) * 2)) {
             // this could be the 2nd note of a two-note tremolo
             // check previous CR on same track, if it has a two-note tremolo, then set twoNoteTremoloFactor to 2
             Segment* seg = measure->undoGetSegment(SegmentType::ChordRest, tick);
@@ -122,7 +145,7 @@ void Score::pasteChordRest(ChordRest* cr, const Fraction& t)
     // otherwise, we need to convert to duration rest(s)
     // and potentially split the rest up (eg, 5/4 => whole + quarter)
     bool convertMeasureRest = cr->isRest() && cr->durationType().type() == DurationType::V_MEASURE
-                              && (tick != measure->tick() || cr->actualTicksAt(tick) != measure->ticks());
+                              && (tick != measure->tick() || cr->ticks() != measure->ticks());
 
     Fraction measureEnd = measure->endTick();
     bool isGrace = cr->isChord() && toChord(cr)->noteType() != NoteType::NORMAL;
@@ -145,7 +168,7 @@ void Score::pasteChordRest(ChordRest* cr, const Fraction& t)
     if (cr->isMeasureRepeat()) {
         partialCopy = toMeasureRepeat(cr)->actualTicks() != measure->ticks();
     } else if (!isGrace && !cr->tuplet()) {
-        partialCopy = cr->durationTypeTicks() != (cr->ticks() * twoNoteTremoloFactor);
+        partialCopy = cr->durationTypeTicks() != (cr->actualTicksAt(tick) * twoNoteTremoloFactor);
     }
 
     // if note is too long to fit in measure, split it up with a tie across the barline
@@ -153,12 +176,11 @@ void Score::pasteChordRest(ChordRest* cr, const Fraction& t)
     // we have already disallowed a tuplet from crossing the barline, so there is no problem here
     // but due to rounding, it might appear from actualTicks() that the last note is too long by a couple of ticks
 
-    Staff* stf = cr->staff();
     if (!isGrace && !cr->tuplet() && (tick + cr->actualTicksAt(tick) > measureEnd || partialCopy || convertMeasureRest)) {
         if (cr->isChord()) {
             // split Chord
             Chord* c = toChord(cr);
-            Fraction rest = c->ticks();
+            Fraction rest = c->actualTicksAt(tick);
             bool firstpart = true;
             while (rest.isNotZero()) {
                 measure = tick2measure(tick);
@@ -166,18 +188,15 @@ void Score::pasteChordRest(ChordRest* cr, const Fraction& t)
                 if (!firstpart) {
                     c2->removeMarkings(true);
                 }
-                Fraction timeStretch = stf->timeStretch(tick);
-                Fraction mlen = (measure->endTick() - tick) * timeStretch;
+                Fraction mlen = measure->tick() + measure->ticks() - tick;
                 Fraction len = mlen > rest ? rest : mlen;
-                std::vector<TDuration> dl = toRhythmicDurationList(len, false, (tick - measure->tick()) * timeStretch,
-                                                                   sigmap()->timesig(tick).nominal(), measure, MAX_DOTS, timeStretch);
-                if (dl.empty()) {
-                    LOGD("Could not make durations for: %d/%d", len.numerator(), len.denominator());
-                    return;
-                }
+                std::vector<TDuration> dl = toRhythmicDurationList(len, false, tick - measure->tick(), sigmap()->timesig(
+                                                                       tick).nominal(), measure, MAX_DOTS);
                 TDuration d = dl[0];
+                Fraction c2Tick(tick + c->tick());
                 c2->setDurationType(d);
                 c2->setTicks(d.fraction());
+                rest -= c2->actualTicksAt(c2Tick);
                 undoAddCR(c2, measure, tick);
 
                 std::vector<Note*> nl1 = c->notes();
@@ -200,10 +219,9 @@ void Score::pasteChordRest(ChordRest* cr, const Fraction& t)
                         nl2[i]->setTieBack(tie);
                     }
                 }
-                rest -= c2->ticks();
-                tick += c2->actualTicksAt(tick);
-                firstpart = false;
                 c = c2;
+                firstpart = false;
+                tick += c->actualTicksAt(c2Tick);
             }
         } else if (cr->isRest()) {
             // split Rest
@@ -214,18 +232,13 @@ void Score::pasteChordRest(ChordRest* cr, const Fraction& t)
             while (!rest.isZero()) {
                 Rest* r2      = firstpart ? r : toRest(r->clone());
                 measure       = tick2measure(tick);
-                Fraction timeStretch = stf->timeStretch(tick);
-                Fraction mlen = (measure->endTick() - tick) * timeStretch;
+                Fraction mlen = measure->tick() + measure->ticks() - tick;
                 Fraction len  = rest > mlen ? mlen : rest;
-                std::vector<TDuration> dl = toRhythmicDurationList(len, true, (tick - measure->tick()) * timeStretch,
-                                                                   sigmap()->timesig(tick).nominal(), measure, MAX_DOTS, timeStretch);
-                if (dl.empty()) {
-                    LOGD("Could not make durations for: %d/%d", len.numerator(), len.denominator());
-                    return;
-                }
+                std::vector<TDuration> dl = toRhythmicDurationList(len, true, tick - measure->tick(), sigmap()->timesig(
+                                                                       tick).nominal(), measure, MAX_DOTS);
                 TDuration d = dl[0];
                 r2->setDurationType(d);
-                r2->setTicks(d.isMeasure() ? measure->stretchedLen(stf) : d.fraction());
+                r2->setTicks(d.isMeasure() ? measure->ticks() : d.fraction());
                 undoAddCR(r2, measure, tick);
                 rest -= r2->ticks();
                 tick += r2->actualTicksAt(tick);
@@ -233,7 +246,7 @@ void Score::pasteChordRest(ChordRest* cr, const Fraction& t)
             }
         } else if (cr->isMeasureRepeat()) {
             MeasureRepeat* mr = toMeasureRepeat(cr);
-            std::vector<TDuration> list = toDurationList(mr->ticks(), true);
+            std::vector<TDuration> list = toDurationList(mr->actualTicks(), true);
             for (auto dur : list) {
                 Rest* r = Factory::createRest(this->dummy()->segment(), dur);
                 r->setTrack(cr->track());
@@ -241,19 +254,14 @@ void Score::pasteChordRest(ChordRest* cr, const Fraction& t)
                 while (!rest.isZero()) {
                     Rest* r2      = toRest(r->clone());
                     measure       = tick2measure(tick);
-                    Fraction timeStretch = stf->timeStretch(tick);
-                    Fraction mlen = (measure->endTick() - tick) * timeStretch;
+                    Fraction mlen = measure->tick() + measure->ticks() - tick;
                     Fraction len  = rest > mlen ? mlen : rest;
                     std::vector<TDuration> dl = toDurationList(len, false);
-                    if (dl.empty()) {
-                        LOGD("Could not make durations for: %d/%d", len.numerator(), len.denominator());
-                        return;
-                    }
                     TDuration d = dl[0];
                     r2->setTicks(d.fraction());
                     r2->setDurationType(d);
                     undoAddCR(r2, measure, tick);
-                    rest -= r2->ticks();
+                    rest -= d.fraction();
                     tick += r2->actualTicksAt(tick);
                 }
                 delete r;
@@ -328,6 +336,32 @@ static EngravingItem* prepareTarget(EngravingItem* target, Note* with, const Fra
     return target;
 }
 
+static bool canPasteStaff(XmlReader& reader, const Fraction& scale)
+{
+    if (scale != Fraction(1, 1)) {
+        while (reader.readNext() && reader.tokenType() != XmlReader::TokenType::EndDocument) {
+            AsciiStringView tag(reader.name());
+            Fraction len = Fraction::fromString(reader.attribute("len"));
+            if (!len.isZero() && !TDuration(len * scale).isValid()) {
+                return false;
+            }
+            if (tag == "durationType") {
+                if (!TDuration(TDuration(TConv::fromXml(reader.readAsciiText(),
+                                                        DurationType::V_INVALID)).fraction() * scale).isValid()) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+inline static bool canPasteStaff(const muse::ByteArray& mimeData, const Fraction& scale)
+{
+    XmlReader reader(mimeData);
+    return canPasteStaff(reader, scale);
+}
+
 static EngravingItem* pasteSystemObject(EditData& srcData, EngravingItem* target)
 {
     if (!target) {
@@ -388,32 +422,35 @@ static EngravingItem* pasteSystemObject(EditData& srcData, EngravingItem* target
 //   cmdPaste
 //---------------------------------------------------------
 
-bool Score::cmdPaste(const IMimeData* ms, MuseScoreView* view, Fraction scale)
+void Score::cmdPaste(const IMimeData* ms, MuseScoreView* view, Fraction scale)
 {
     if (!ms) {
         LOGE() << "No MIME data given";
-        return false;
+        return;
     }
 
     if (m_selection.isNone()) {
         LOGE() << "No target selection";
         MScore::setError(MsError::NO_DEST);
-        return false;
+        return;
     }
 
     if (ms->hasFormat(mimeSymbolFormat)) {
         muse::ByteArray data = ms->data(mimeSymbolFormat);
-        return cmdPasteSymbol(data, view, scale);
+        cmdPasteSymbol(data, view, scale);
+        return;
     }
 
     if (ms->hasFormat(mimeStaffListFormat)) {
         muse::ByteArray data = ms->data(mimeStaffListFormat);
-        return cmdPasteStaffList(data, scale);
+        cmdPasteStaffList(data, scale);
+        return;
     }
 
     if (ms->hasFormat(mimeSymbolListFormat)) {
         muse::ByteArray data = ms->data(mimeSymbolListFormat);
-        return cmdPasteSymbolList(data);
+        cmdPasteSymbolList(data);
+        return;
     }
 
     if (ms->hasImage()) {
@@ -450,15 +487,14 @@ bool Score::cmdPaste(const IMimeData* ms, MuseScoreView* view, Fraction scale)
         }
 
         select(droppedElements);
-        return true;
+        return;
     }
 
     LOGE() << "Unsupported MIME data (formats: " << ms->formats() << ")";
-    return false;
 }
 }
 
-bool Score::cmdPasteSymbol(muse::ByteArray& data, MuseScoreView* view, Fraction scale)
+void Score::cmdPasteSymbol(muse::ByteArray& data, MuseScoreView* view, Fraction scale)
 {
     std::vector<EngravingItem*> droppedElements;
 
@@ -467,47 +503,47 @@ bool Score::cmdPasteSymbol(muse::ByteArray& data, MuseScoreView* view, Fraction 
 
     std::unique_ptr<EngravingItem> el(EngravingItem::readMimeData(this, data, &dragOffset, &duration));
     if (!el) {
-        return false;
+        return;
     }
 
     duration *= scale;
     if (!TDuration(duration).isValid()) {
-        return false;
+        return;
     }
 
     std::vector<EngravingItem*> targetElements;
-    if (m_selection.isNone()) {
+    switch (m_selection.state()) {
+    case SelState::NONE:
         UNREACHABLE;
-        return false;
-    }
+        return;
+    case SelState::LIST:
+        targetElements = m_selection.elements();
+        break;
+    case SelState::RANGE:
+        // TODO: make this as smart as `NotationInteraction::applyPaletteElement`,
+        // without duplicating logic. (Currently, for range selections, we only
+        // paste onto the "top-left corner".
+        mu::engraving::Segment* firstSegment = m_selection.startSegment();
+        staff_idx_t firstStaffIndex = m_selection.staffStart();
 
-    // TODO: make this as smart as `NotationInteraction::applyPaletteElement`,
-    // without duplicating logic. (Currently, for range selections, we only
-    // paste onto the "top-left corner" for non-measure based elements.)
-    bool unique;
-    targetElements = filterTargetElements(m_selection, el.get(), unique);
-    if (!unique && m_selection.isRange()) {
         // The usage of `firstElementForNavigation` is inspired by `NotationInteraction::applyPaletteElement`.
-        Segment* firstSegment = m_selection.startSegment();
-        targetElements = { firstSegment->firstElementForNavigation(m_selection.staffStart()) };
+        targetElements = { firstSegment->firstElementForNavigation(firstStaffIndex) };
+        break;
     }
 
     if (targetElements.empty()) {
         LOGE() << "No valid target elements in selection";
         MScore::setError(MsError::NO_DEST);
-        return false;
+        return;
     }
-
-    const bool systemObj = el->systemFlag();
 
     for (EngravingItem* target : targetElements) {
         addRefresh(target->pageBoundingRect()); // layout() ?!
         el->setTrack(target->track());
 
         EditData ddata(view);
-        ddata.pos = target->pagePos();
         ddata.dropElement = el.get();
-        ddata.track = target->track();
+        ddata.pos = target->pageBoundingRect().topLeft();
 
         if (!target->acceptDrop(ddata)) {
             continue;
@@ -516,7 +552,16 @@ bool Score::cmdPasteSymbol(muse::ByteArray& data, MuseScoreView* view, Fraction 
         if (!el->isNote() || (target = prepareTarget(target, toNote(el.get()), duration))) {
             ddata.dropElement = el->clone();
 
-            EngravingItem* dropped = systemObj ? pasteSystemObject(ddata, target) : target->drop(ddata);
+            if (ddata.dropElement->systemFlag()) {
+                EngravingItem* newEl = pasteSystemObject(ddata, target);
+                if (newEl) {
+                    droppedElements.emplace_back(newEl);
+                }
+
+                continue;
+            }
+
+            EngravingItem* dropped = target->drop(ddata);
             if (dropped) {
                 droppedElements.emplace_back(dropped);
             }
@@ -524,10 +569,9 @@ bool Score::cmdPasteSymbol(muse::ByteArray& data, MuseScoreView* view, Fraction 
     }
 
     select(droppedElements);
-    return true;
 }
 
-bool Score::cmdPasteStaffList(muse::ByteArray& data, Fraction scale)
+void Score::cmdPasteStaffList(muse::ByteArray& data, Fraction scale)
 {
     if (MScore::debugMode) {
         LOGD() << "Pasting staff list: " << data.data();
@@ -538,30 +582,38 @@ bool Score::cmdPasteStaffList(muse::ByteArray& data, Fraction scale)
         cr = m_selection.firstChordRest();
     } else if (m_selection.isSingle()) {
         EngravingItem* e = m_selection.element();
-        Measure* measure = e->findMeasure();
-        cr = measure ? measure->findChordRest(e->tick(), e->track()) : nullptr;
-        if (!cr) {
+        if (!e->isNote() && !e->isChordRest()) {
             LOGE() << "Cannot paste staff list onto " << e->typeName();
             MScore::setError(MsError::DEST_NO_CR);
-            return false;
+            return;
         }
+        if (e->isNote()) {
+            e = toNote(e)->chord();
+        }
+        cr  = toChordRest(e);
     }
 
     if (!cr) {
         MScore::setError(MsError::NO_DEST);
-        return false;
+        return;
     }
 
     if (cr->tuplet() && cr->tick() != cr->topTuplet()->tick()) {
         MScore::setError(MsError::DEST_TUPLET);
-        return false;
+        return;
     }
 
-    XmlReader xmlReader(data);
-    return pasteStaff(xmlReader, cr->segment(), cr->staffIdx(), scale);
+    if (!canPasteStaff(data, scale)) {
+        return;
+    }
+
+    XmlReader e(data);
+    IF_ASSERT_FAILED(pasteStaff(e, cr->segment(), cr->staffIdx(), scale)) {
+        LOGE() << "Failed to paste staff";
+    }
 }
 
-bool Score::cmdPasteSymbolList(muse::ByteArray& data)
+void Score::cmdPasteSymbolList(muse::ByteArray& data)
 {
     if (MScore::debugMode) {
         LOGD() << "Pasting element list: " << data.data();
@@ -572,21 +624,22 @@ bool Score::cmdPasteSymbolList(muse::ByteArray& data)
         cr = m_selection.firstChordRest();
     } else if (m_selection.isSingle()) {
         EngravingItem* e = m_selection.element();
-        Measure* measure = e->findMeasure();
-        cr = measure ? measure->findChordRest(e->tick(), e->track()) : nullptr;
-        if (!cr) {
+        if (!e->isNote() && !e->isRest() && !e->isChord()) {
             LOGE() << "Cannot paste element list onto " << e->typeName();
             MScore::setError(MsError::DEST_NO_CR);
-            return false;
+            return;
         }
+        if (e->isNote()) {
+            e = toNote(e)->chord();
+        }
+        cr = toChordRest(e);
     }
 
     if (!cr) {
         MScore::setError(MsError::NO_DEST);
-        return false;
+        return;
     }
 
-    XmlReader xmlReader(data);
-    pasteSymbols(xmlReader, cr);
-    return true;
+    XmlReader e(data);
+    pasteSymbols(e, cr);
 }

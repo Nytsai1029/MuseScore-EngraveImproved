@@ -28,12 +28,10 @@
 #include "../iimagesexportconfiguration.h"
 #include "modularity/ioc.h"
 
-class QImage;
-
 namespace mu::iex::imagesexport {
 class PngWriter : public AbstractImageWriter
 {
-    muse::GlobalInject<IImagesExportConfiguration> configuration;
+    muse::Inject<IImagesExportConfiguration> configuration = { this };
 
 public:
     PngWriter(const muse::modularity::ContextPtr& iocCtx)
@@ -41,9 +39,6 @@ public:
 
     std::vector<project::INotationWriter::UnitType> supportedUnitTypes() const override;
     muse::Ret write(notation::INotationPtr notation, muse::io::IODevice& dstDevice, const Options& options = Options()) override;
-
-private:
-    void convertImageToGrayscale(QImage& image);
 };
 }
 

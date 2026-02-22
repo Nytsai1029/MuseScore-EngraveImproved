@@ -26,11 +26,11 @@
 #include "modularity/ioc.h"
 
 namespace mu::engraving {
-class DiagnosticDrawProvider : public IDiagnosticDrawProvider, public muse::Contextable
+class DiagnosticDrawProvider : public IDiagnosticDrawProvider, public muse::Injectable
 {
 public:
     DiagnosticDrawProvider(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx) {}
+        : muse::Injectable(iocCtx) {}
 
     muse::Ret generateDrawData(const muse::io::path_t& dirOrFile, const muse::io::path_t& outDirOrFile,
                                const GenOpt& opt = GenOpt()) override;

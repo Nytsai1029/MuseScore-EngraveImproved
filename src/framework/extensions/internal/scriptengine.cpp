@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -23,8 +23,6 @@
 
 #include <QJSValueIterator>
 
-#include "global/api/apiutils.h"
-
 #include "jsmoduleloader.h"
 
 #include "../api/extapi.h"
@@ -36,43 +34,33 @@ using namespace muse;
 using namespace muse::extensions;
 using namespace muse::api;
 
-ScriptEngine::ScriptEngine(const modularity::ContextPtr& iocCtx, int apiversion)
+ScriptEngine::ScriptEngine(const modularity::ContextPtr& iocCtx, int apiverion)
     : m_iocContext(iocCtx)
 {
     m_engine = new QJSEngine();
-    m_apiengine = new JsApiEngine(m_engine, m_iocContext);
-
     m_engine->installExtensions(QJSEngine::ConsoleExtension);
-    m_engine->setProperty("apiversion", apiversion);
 
     QJSValue globalObj = m_engine->globalObject();
-    if (apiversion == 1) {
+    if (apiverion == 1) {
         //! NOTE API v1 provides not only one global `api` object,
         //! but also a number of others, for example `curScore`,
         //! this is the legacy of the Qml plugin.
-        apiv1::ExtApiV1* api = new apiv1::ExtApiV1(m_apiengine, m_engine);
+        apiv1::ExtApiV1* api = new apiv1::ExtApiV1(this, m_engine);
         api->setup(globalObj);
         m_api = api;
     } else {
-        m_api = new api::ExtApi(m_apiengine, m_engine);
+        m_api = new api::ExtApi(this, m_engine);
     }
 
     globalObj.setProperty("api", m_engine->newQObject(m_api));
-
-    const std::vector<muse::api::IApiRegister::GlobalEnum>& globalEnums = apiRegister()->globalEnums();
-    for (const muse::api::IApiRegister::GlobalEnum& e : globalEnums) {
-        QString name = QString::fromStdString(e.name);
-        QJSValue enumObj = muse::api::enumToJsValue(m_apiengine, e.meta, e.type);
-        globalObj.setProperty(name, enumObj);
-    }
 
     m_moduleLoader = new JsModuleLoader(m_iocContext, m_engine);
     m_moduleLoader->pushEngine(this);
     QJSValue loaderObj = m_engine->newQObject(m_moduleLoader);
     QJSValue requireFn = loaderObj.property("require");
-    globalObj.setProperty("require", requireFn);
-    globalObj.setProperty("exports", m_engine->newObject());
-    globalObj.setProperty("module", loaderObj);
+    m_engine->globalObject().setProperty("require", requireFn);
+    m_engine->globalObject().setProperty("exports", m_engine->newObject());
+    m_engine->globalObject().setProperty("module", loaderObj);
 }
 
 ScriptEngine::ScriptEngine(ScriptEngine* engine)
@@ -103,16 +91,7 @@ io::path_t ScriptEngine::scriptPath() const
     return m_scriptPath;
 }
 
-QJSValue ScriptEngine::requireModule(const QString& module)
-{
-    LOGD() << module;
-    auto obj = apiRegister()->createApi(module.toStdString(), m_apiengine);
-    bool isNeedDelete = obj.second;
-    QJSEngine::setObjectOwnership(obj.first, isNeedDelete ? QJSEngine::JavaScriptOwnership : QJSEngine::CppOwnership);
-    return m_engine->newQObject(obj.first);
-}
-
-QJSValue ScriptEngine::requireFile(const QString& filePath)
+QJSValue ScriptEngine::require(const QString& filePath)
 {
     TRACEFUNC;
 
@@ -296,4 +275,27 @@ RetVal<QJSValue> ScriptEngine::evaluateContent(const QByteArray& fileContent, co
     rv.val = m_engine->evaluate(QString(fileContent), filePath.toQString());
     rv.ret = jsValueToRet(rv.val);
     return rv;
+}
+
+const modularity::ContextPtr& ScriptEngine::iocContext() const
+{
+    return m_iocContext;
+}
+
+QJSValue ScriptEngine::newQObject(QObject* o)
+{
+    if (!o->parent()) {
+        o->setParent(m_engine);
+    }
+    return m_engine->newQObject(o);
+}
+
+QJSValue ScriptEngine::newObject()
+{
+    return m_engine->newObject();
+}
+
+QJSValue ScriptEngine::newArray(size_t length)
+{
+    return m_engine->newArray(uint(length));
 }

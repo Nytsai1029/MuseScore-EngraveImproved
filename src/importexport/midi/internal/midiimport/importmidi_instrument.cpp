@@ -112,8 +112,8 @@ constexpr std::array GM1_SOUND_DATA {
     GM1ProgramData{ GM1Program::StringEnsemble2, "strings"sv },
     GM1ProgramData{ GM1Program::SynthStrings1, "string-synthesizer"sv },
     GM1ProgramData{ GM1Program::SynthStrings2, "string-synthesizer"sv },
-    GM1ProgramData{ GM1Program::ChoirAahs, "voice"sv },
-    GM1ProgramData{ GM1Program::VoiceOohs, "voice"sv },
+    GM1ProgramData{ GM1Program::ChoirAahs, "soprano"sv },
+    GM1ProgramData{ GM1Program::VoiceOohs, "soprano"sv },
     GM1ProgramData{ GM1Program::SynthVoice, "voice"sv },
     GM1ProgramData{ GM1Program::OrchestraHit, "brass-synthesizer"sv },
     GM1ProgramData{ GM1Program::Trumpet, "trumpet"sv },
@@ -521,7 +521,7 @@ static int findMaxPitchDiff(const std::pair<int, int>& minMaxPitch, const Instru
     return diff;
 }
 
-static bool hasCommonGenre(const std::vector<const InstrumentGenre*>& genres)
+static bool hasCommonGenre(const std::list<const InstrumentGenre*>& genres)
 {
     for (const InstrumentGenre* genre : genres) {
         if (genre->id == "common") {
@@ -708,9 +708,8 @@ QString msInstrName(int trackIndex)
     if (!instr) {
         return "";
     }
-
-    if (!instr->longName.toString().empty()) {
-        return instr->longName.toString();
+    if (!instr->longNames.empty()) {
+        return instr->longNames.front().name();
     }
 
     return instr->trackName;

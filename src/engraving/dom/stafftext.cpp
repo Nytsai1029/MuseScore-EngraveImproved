@@ -25,7 +25,7 @@
 #include "soundflag.h"
 #include "segment.h"
 #include "score.h"
-#include "../editing/addremoveelement.h"
+#include "undo.h"
 
 using namespace mu::engraving;
 
@@ -82,13 +82,25 @@ PropertyValue StaffText::propertyDefault(Pid id) const
     }
 }
 
-void StaffText::scanElements(std::function<void(EngravingItem*)> func)
+void StaffText::scanElements(void* data, void (* func)(void*, EngravingItem*), bool all)
 {
+    for (EngravingObject* child: scanChildren()) {
+        child->scanElements(data, func, all);
+    }
+    if (all || visible() || score()->isShowInvisible()) {
+        func(data, this);
+    }
+}
+
+EngravingObjectList StaffText::scanChildren() const
+{
+    EngravingObjectList children;
+
     if (m_soundFlag) {
-        m_soundFlag->scanElements(func);
+        children.push_back(m_soundFlag);
     }
 
-    StaffTextBase::scanElements(func);
+    return children;
 }
 
 void StaffText::add(EngravingItem* e)

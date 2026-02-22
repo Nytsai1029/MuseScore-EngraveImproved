@@ -20,11 +20,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_ACTIONICON_H
+#define MU_ENGRAVING_ACTIONICON_H
 
 #include "engravingitem.h"
-
-#include "draw/types/font.h"
 
 namespace mu::engraving {
 enum class ActionIconType : signed char {
@@ -64,11 +63,6 @@ enum class ActionIconType : signed char {
     GRACE_NOTE_BEND,
     SLIGHT_BEND,
 
-    DIVE,
-    PRE_DIVE,
-    DIP,
-    SCOOP,
-
     NOTE_ANCHORED_LINE,
 
     SYSTEM_LOCK,
@@ -84,6 +78,8 @@ public:
     ActionIcon(EngravingItem* score);
     ~ActionIcon() override = default;
 
+    static constexpr double DEFAULT_FONT_SIZE = 16.0;
+
     ActionIcon* clone() const override;
 
     ActionIconType actionType() const;
@@ -95,6 +91,8 @@ public:
     char16_t icon() const { return m_icon; }
 
     const muse::draw::Font& iconFont() const { return m_iconFont; }
+    double fontSize() const;
+    void setFontSize(double size);
 
     PropertyValue getProperty(Pid) const override;
     bool setProperty(Pid, const PropertyValue&) override;
@@ -106,3 +104,5 @@ private:
     muse::draw::Font m_iconFont;
 };
 }
+
+#endif // MU_ENGRAVING_ACTIONICON_H

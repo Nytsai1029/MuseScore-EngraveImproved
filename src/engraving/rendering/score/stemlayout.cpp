@@ -25,7 +25,6 @@
 #include "dom/hook.h"
 #include "dom/note.h"
 #include "dom/rest.h"
-#include "dom/score.h"
 #include "dom/staff.h"
 #include "dom/tremolosinglechord.h"
 #include "dom/tremolotwochord.h"
@@ -198,8 +197,7 @@ double StemLayout::stemPosX(const Chord* item)
         return stemAttach.x() - noteWidthOffset;
     }
 
-    const Note* refNote = item->ldata()->up ? item->upNote() : item->downNote();
-    double xPos = refNote->pos().x() + 0.5 * refNote->width();
+    double xPos = rendering::score::StemLayout::tabStemPosX() * item->spatium();
     if (item->isGraceBendEnd()) {
         GraceNotesGroup& graceBefore = item->graceNotesBefore();
         Chord* grace = graceBefore.empty() ? nullptr : graceBefore.front();
@@ -320,7 +318,7 @@ PointF StemLayout::tabStemPos(const Chord* item, const StaffType* st)
         // according to TAB parameters and stem up/down
         y = tabRestStemPosY(item, st);
     }
-    return PointF(0.5 * item->score()->noteHeadWidth() * item->mag() / item->spatium(), y);
+    return PointF(tabStemPosX(), y);
 }
 
 int StemLayout::stemLengthBeamAddition(const Chord* item, const LayoutContext& ctx)
@@ -425,8 +423,8 @@ int StemLayout::calcMinStemLength(Chord* item, const LayoutContext& ctx)
         // so we need to multiply it by 2 to get the actual height
         int buzzRollMultiplier = item->tremoloSingleChord()->isBuzzRoll() ? 2 : 1;
         minStemLength += ceil(item->tremoloSingleChord()->minHeight() / item->intrinsicMag() * 4.0 * buzzRollMultiplier);
-        int outSidePadding = style.styleAbsolute(Sid::tremoloOutSidePadding) / spatium * 4.0;
-        int noteSidePadding = style.styleAbsolute(Sid::tremoloNoteSidePadding) / spatium * 4.0;
+        int outSidePadding = style.styleMM(Sid::tremoloOutSidePadding).val() / spatium * 4.0;
+        int noteSidePadding = style.styleMM(Sid::tremoloNoteSidePadding).val() / spatium * 4.0;
 
         int outsideStaffOffset = 0;
         if (!staff->isTabStaff(item->tick())) {

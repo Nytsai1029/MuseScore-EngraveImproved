@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -256,11 +256,6 @@ void BufferedPaintProvider::restore()
 {
 }
 
-double BufferedPaintProvider::deviceLogicalDpi() const
-{
-    return 360;
-}
-
 void BufferedPaintProvider::setTransform(const Transform& transform)
 {
     DrawData::State& st = editableState();
@@ -303,6 +298,12 @@ void BufferedPaintProvider::drawText(const PointF& point, const String& text)
 void BufferedPaintProvider::drawText(const RectF& rect, int flags, const String& text)
 {
     editableData().texts.push_back(DrawText { DrawText::Rect, rect, flags, text });
+}
+
+void BufferedPaintProvider::drawTextWorkaround(const Font& f, const PointF& pos, const String& text)
+{
+    setFont(f);
+    drawText(pos, text);
 }
 
 void BufferedPaintProvider::drawSymbol(const PointF& point, char32_t ucs4Code)

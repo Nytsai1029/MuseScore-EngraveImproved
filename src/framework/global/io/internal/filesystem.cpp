@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -24,7 +24,10 @@
 #include <QDir>
 #include <QDirIterator>
 #include <QFileInfo>
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
 #include <QDirListing>
+#endif
 
 #ifdef Q_OS_WIN
 #include <windows.h>
@@ -64,6 +67,7 @@ Ret FileSystem::clear(const io::path_t& path)
         return true;
     }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
     using ItFlag = QDirListing::IteratorFlag;
     for (const auto& dirEntry : QDirListing{ qPath, ItFlag::IncludeHidden }) {
         if (dirEntry.isDir() && !dirEntry.isSymLink()) {
@@ -80,6 +84,25 @@ Ret FileSystem::clear(const io::path_t& path)
             return didRemove;
         }
     }
+#else
+    QDirIterator di(qPath, QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot);
+    while (di.hasNext()) {
+        const QString& filePath = di.next();
+        const QFileInfo& fi = di.fileInfo();
+
+        if (fi.isDir() && !fi.isSymLink()) {
+            const Ret didRemove = removeDir(filePath); // recursive
+            if (!didRemove) {
+                return didRemove;
+            }
+            continue;
+        }
+        const Ret didRemove = removeFile(filePath);
+        if (!didRemove) {
+            return didRemove;
+        }
+    }
+#endif
 
     return make_ok();
 }
@@ -460,10 +483,10 @@ Ret FileSystem::isWritable(const io::path_t& filePath) const
         file.remove();
     } else if (!fileInfo.isWritable()) {
         QFile file(filePath.toQString());
-        if (!file.open(QFile::WriteOnly)) {
-            ret = make_ret(Err::FSWriteError);
-            ret.setText(file.errorString().toStdString());
-        }
+        file.open(QFile::WriteOnly);
+
+        ret = make_ret(Err::FSWriteError);
+        ret.setText(file.errorString().toStdString());
 
         file.close();
     }

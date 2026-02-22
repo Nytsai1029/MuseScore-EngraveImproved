@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,12 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import QtQuick.Controls
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 import QtQuick.Window
 
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 FocusScope {
     id: root
@@ -36,7 +36,6 @@ FocusScope {
     property bool hasText: valueInput.text.length > 0
 
     property bool resizeVerticallyWithText: false
-    property bool allowNewLineByEnter: true
 
     property real textSidePadding: 12
 
@@ -45,8 +44,6 @@ FocusScope {
 
     readonly property alias mouseArea: clickableArea
     property bool containsMouse: clickableArea.containsMouse
-
-    property alias scrollableContentHeight: contentView.contentHeight
 
     readonly property alias navigation: navCtrl
     readonly property alias accessible: navCtrl.accessible
@@ -61,8 +58,8 @@ FocusScope {
     }
 
     function ensureActiveFocus() {
-        if (Window.window && Window.window.objectName.includes("_WindowView_QQuickView")) {
-            // See also WindowView::eventFilter
+        if (Window.window && Window.window.objectName.includes("PopupWindow_QQuickView")) {
+            // See also PopupWindow_QQuickView::eventFilter
             Window.window.flags &= ~Qt.WindowDoesNotAcceptFocus
             Window.window.requestActivate()
         }
@@ -123,8 +120,6 @@ FocusScope {
     }
 
     ScrollView {
-        id: contentView
-
         anchors.fill: parent
 
         ScrollBar.vertical: StyledScrollBar {
@@ -152,12 +147,7 @@ FocusScope {
 
                 objectName: "TextArea"
 
-                width: root.width
-
-                leftPadding: root.textSidePadding
-                rightPadding: root.textSidePadding
-                topPadding: root.textSidePadding
-                bottomPadding: root.textSidePadding
+                padding: root.textSidePadding
 
                 color: ui.theme.fontPrimaryColor
                 font: ui.theme.bodyFont
@@ -173,32 +163,17 @@ FocusScope {
                 visible: true
 
                 text: root.currentText === undefined ? "" : root.currentText
-                wrapMode: TextInput.Wrap
 
-                ShortcutOverrideModel {
-                    id: shortcutOverrideModel
-                    // Direction keys should not trigger navigation, override them...
-                    directionKeysForOverride: ShortcutOverrideModel.All
+                TextInputModel {
+                    id: textInputModel
                 }
 
                 Component.onCompleted: {
-                    shortcutOverrideModel.init()
+                    textInputModel.init()
                 }
 
                 Keys.onShortcutOverride: function(event) {
                     if (readOnly) {
-                        return
-                    }
-
-                    var finishEdit = function(){
-                        event.accepted = false
-                        root.focus = false
-                        root.textEditingFinished(valueInput.text)
-                    }
-
-                    var isNewLineKey = (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) && !event.modifiers
-                    if (!allowNewLineByEnter && isNewLineKey) {
-                        finishEdit()
                         return
                     }
 
@@ -214,10 +189,13 @@ FocusScope {
                         break
                     }
 
-                    if (shortcutOverrideModel.isShortcutOverrideAllowed(event.key, event.modifiers)) {
+                    if (textInputModel.isShortcutAllowedOverride(event.key, event.modifiers)) {
                         event.accepted = true
                     } else {
-                        finishEdit()
+                        event.accepted = false
+
+                        root.focus = false
+                        root.textEditingFinished(valueInput.text)
                     }
                 }
 
@@ -241,42 +219,6 @@ FocusScope {
 
                 onTextChanged: {
                     root.textChanged(text)
-                }
-
-                onCursorRectangleChanged: {
-                    ensureCursorVisible()
-                }
-
-                function ensureCursorVisible() {
-                    if (!activeFocus) {
-                        return
-                    }
-
-                    let flickable = contentView.contentItem
-                    if (!flickable) {
-                        return
-                    }
-
-                    let cursorY = valueInput.cursorRectangle.y
-                    let cursorHeight = valueInput.cursorRectangle.height
-
-                    let visibleTop = flickable.contentY
-                    let visibleBottom = visibleTop + contentView.height
-
-                    let topMargin = root.textSidePadding
-                    let bottomMargin = root.textSidePadding
-
-                    let eps = 2
-
-                    if (cursorY + cursorHeight + bottomMargin > visibleBottom + eps) {
-                        let newContentY = cursorY + cursorHeight + bottomMargin - contentView.height
-                        flickable.contentY = Math.max(0, newContentY)
-                    }
-
-                    else if (cursorY - topMargin < visibleTop - eps) {
-                        let newContentY = cursorY - topMargin
-                        flickable.contentY = Math.max(0, newContentY)
-                    }
                 }
             }
         }

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -26,14 +26,14 @@
 #include "number.h"
 
 namespace muse {
-[[nodiscard]] inline float db_to_linear(const float v)
+inline float db_to_linear(float v)
 {
-    return std::pow(10.0f, v / 20.0f);
+    return std::pow(10.0, v / 20.0);
 }
 
-[[nodiscard]] inline float linear_to_db(const float v)
+inline float linear_to_db(float v)
 {
-    return 20.0f * std::log10(std::abs(v));
+    return 20.0 * std::log10(std::abs(v));
 }
 
 //! NOTE Just linear ratio

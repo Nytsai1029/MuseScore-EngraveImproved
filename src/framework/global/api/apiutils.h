@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -25,10 +25,6 @@
 #include <string>
 #include <vector>
 #include <QString>
-#include <QJSValue>
-
-#include "apitypes.h"
-#include "iapiengine.h"
 
 namespace muse::api {
 inline std::vector<std::string> toStdVector(const QStringList& l)
@@ -39,24 +35,6 @@ inline std::vector<std::string> toStdVector(const QStringList& l)
         v.push_back(s.toStdString());
     }
     return v;
-}
-
-inline QJSValue enumToJsValue(IApiEngine* engine, const QMetaEnum& meta, EnumType type)
-{
-    QJSValue enumObj = engine->newObject();
-
-    for (int i = 0; i < meta.keyCount(); ++i) {
-        QString key = QString::fromLatin1(meta.key(i));
-        if (type == EnumType::String) {
-            enumObj.setProperty(key, key);
-        } else {
-            int val = meta.value(i);
-            enumObj.setProperty(key, val);
-        }
-    }
-
-    QJSValue frozenObj = engine->freeze(enumObj);
-    return frozenObj;
 }
 }
 

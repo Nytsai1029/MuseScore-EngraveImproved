@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
@@ -90,7 +90,7 @@
           <name>stdNormal</name>
           </StaffType>
         <bracket type="1" span="2" col="0" visible="1"/>
-        <barLineSpan>1</barLineSpan>
+        <barLineSpan>2</barLineSpan>
         </Staff>
       <Staff>
         <eid>F_F</eid>
@@ -469,7 +469,6 @@
             <WhammyBar>
               <beginTextOffset x="0" y="0"/>
               <eid>x_x</eid>
-              <placement>below</placement>
               </WhammyBar>
             <next>
               <location>
@@ -715,6 +714,7 @@
               </Note>
             </Chord>
           <BarLine>
+            <span>1</span>
             <eid>QB_QB</eid>
             </BarLine>
           </voice>
@@ -826,6 +826,7 @@
             <durationType>half</durationType>
             </Rest>
           <BarLine>
+            <span>1</span>
             <eid>cB_cB</eid>
             </BarLine>
           </voice>

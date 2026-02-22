@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -64,19 +64,6 @@ TEST_F(Global_UriTests, Uri_Parse_QueryAsUri)
     EXPECT_EQ(uri.scheme(), "muse");
     EXPECT_EQ(uri.path(), "some/path");
     EXPECT_EQ(uri.toString(), "muse://some/path");
-}
-
-TEST_F(Global_UriTests, Uri_LocalFile)
-{
-    //! GIVEN Local file path
-
-    io::path_t originPath = "/home/user/some/path/to/file name.ext";
-
-    Uri uri1 = Uri::fromLocalFile(originPath);
-    io::path_t path1 = uri1.toLocalFile();
-
-    EXPECT_TRUE(uri1.isValid());
-    EXPECT_EQ(path1, originPath);
 }
 
 TEST_F(Global_UriTests, UriQuery_Parse)

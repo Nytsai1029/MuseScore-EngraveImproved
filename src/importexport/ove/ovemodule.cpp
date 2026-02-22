@@ -42,18 +42,22 @@ void OveModule::registerExports()
 {
     m_configuration = std::make_shared<OveConfiguration>();
 
-    globalIoc()->registerExport<IOveConfiguration>(moduleName(), m_configuration);
+    ioc()->registerExport<IOveConfiguration>(moduleName(), m_configuration);
 }
 
 void OveModule::resolveImports()
 {
-    auto readers = globalIoc()->resolve<INotationReadersRegister>(moduleName());
+    auto readers = ioc()->resolve<INotationReadersRegister>(moduleName());
     if (readers) {
         readers->reg({ "ove", "scw" }, std::make_shared<OveReader>());
     }
 }
 
-void OveModule::onInit(const IApplication::RunMode&)
+void OveModule::onInit(const IApplication::RunMode& mode)
 {
+    if (mode == IApplication::RunMode::AudioPluginRegistration) {
+        return;
+    }
+
     m_configuration->init();
 }

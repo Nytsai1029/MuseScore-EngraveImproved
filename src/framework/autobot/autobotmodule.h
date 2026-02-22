@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_AUTOBOT_AUTOBOTMODULE_H
+#define MUSE_AUTOBOT_AUTOBOTMODULE_H
 
 #include <memory>
 
@@ -33,28 +33,20 @@ class AutobotActionsController;
 class AutobotModule : public modularity::IModuleSetup
 {
 public:
+
     std::string moduleName() const override;
+    void registerResources() override;
     void registerExports() override;
     void resolveImports() override;
-
-    modularity::IContextSetup* newContext(const muse::modularity::ContextPtr& ctx) const override;
-
-private:
-    std::shared_ptr<AutobotConfiguration> m_configuration;
-};
-
-class AutobotContext : public modularity::IContextSetup
-{
-public:
-    AutobotContext(const muse::modularity::ContextPtr& ctx)
-        : modularity::IContextSetup(ctx) {}
-
-    void registerExports() override;
-    void resolveImports() override;
+    void registerUiTypes() override;
     void onInit(const IApplication::RunMode& mode) override;
 
 private:
+
+    std::shared_ptr<AutobotConfiguration> m_configuration;
     std::shared_ptr<Autobot> m_autobot;
     std::shared_ptr<AutobotActionsController> m_actionsController;
 };
 }
+
+#endif // MUSE_AUTOBOT_AUTOBOTMODULE_H

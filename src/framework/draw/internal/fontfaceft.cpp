@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -361,10 +361,6 @@ f26dot6_t FontFaceFT::xHeight() const
     }
 
     const glyph_idx_t glyph = glyphIndex('x');
-    if (glyph == 0) {
-        return 0;
-    }
-
     GlyphMetrics* gm = glyphMetrics(glyph);
     IF_ASSERT_FAILED(gm) {
         return 0;
@@ -380,11 +376,7 @@ f26dot6_t FontFaceFT::capHeight() const
         return result;
     }
 
-    const glyph_idx_t glyph = glyphIndex('X');
-    if (glyph == 0) {
-        return 0;
-    }
-
+    const glyph_idx_t glyph = glyphIndex('x');
     GlyphMetrics* gm = glyphMetrics(glyph);
     IF_ASSERT_FAILED(gm) {
         return 0;

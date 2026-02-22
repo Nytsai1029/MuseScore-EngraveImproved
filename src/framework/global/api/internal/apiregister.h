@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -31,40 +31,21 @@ class ApiRegister : public IApiRegister
 {
 public:
     ApiRegister() = default;
-    ~ApiRegister();
 
     void regApiCreator(const std::string& module, const std::string& api, ICreator* c) override;
     void regApiSingltone(const std::string& module, const std::string& api, ApiObject* o) override;
     std::pair<ApiObject*, bool /*is need delete*/> createApi(const std::string& api, IApiEngine* e) const override;
 
-    void regEnum(const char* uri, const char* name, const QMetaEnum& meta, EnumType type) override;
-
-    void regGlobalEnum(const std::string& module, const QMetaEnum& meta, EnumType type = EnumType::String,
-                       const std::string& name = "") override;
-    const std::vector<GlobalEnum>& globalEnums() const override;
-
     // dev
     Dump dump() const override;
 
 private:
-
-    JsApiEngine* makeApiEngine(QJSEngine* jsengine);
-
     struct ApiCreator {
         std::string module;
         ICreator* c = nullptr;
     };
 
     std::map<std::string, ApiCreator> m_creators;
-
-    std::vector<GlobalEnum> m_globalEnums;
-
-    struct ApiEngine {
-        QJSEngine* jsengine = nullptr;
-        JsApiEngine* apiengine = nullptr;
-    };
-
-    std::vector<ApiEngine> m_apiengines;
 };
 }
 

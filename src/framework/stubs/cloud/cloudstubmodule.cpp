@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -22,12 +22,18 @@
 #include "cloudstubmodule.h"
 
 #include "modularity/ioc.h"
+#include "ui/iuiengine.h"
 
 #include "authorizationservicestub.h"
 
 using namespace muse;
 using namespace muse::cloud;
 using namespace muse::modularity;
+
+static void cloud_init_qrc()
+{
+    Q_INIT_RESOURCE(cloud);
+}
 
 std::string CloudModule::moduleName() const
 {
@@ -36,5 +42,14 @@ std::string CloudModule::moduleName() const
 
 void CloudModule::registerExports()
 {
-    globalIoc()->registerExport<IAuthorizationService>(moduleName(), new AuthorizationServiceStub());
+    ioc()->registerExport<IAuthorizationService>(moduleName(), new AuthorizationServiceStub());
+}
+
+void CloudModule::registerResources()
+{
+    cloud_init_qrc();
+}
+
+void CloudModule::registerUiTypes()
+{
 }

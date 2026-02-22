@@ -239,11 +239,14 @@ public:
 
     Note* note() const { return (explicitParent() && explicitParent()->isNote()) ? toNote(explicitParent()) : 0; }
 
+    // Score Tree functions
+    EngravingObject* scanParent() const override;
+
     TranslatableString subtypeUserName() const override;
     void setSubtype(const AsciiStringView& s);
     int subtype() const override { return (int)m_accidentalType; }
 
-    void setAccidentalType(AccidentalType t);
+    void setAccidentalType(AccidentalType t) { m_accidentalType = t; }
     AccidentalType accidentalType() const { return m_accidentalType; }
 
     void setRole(AccidentalRole r) { m_role = r; }
@@ -264,6 +267,8 @@ public:
     bool isEditable() const override { return true; }
     void startEdit(EditData&) override { setGenerated(false); }
 
+    void undoSetSmall(bool val);
+
     PropertyValue getProperty(Pid propertyId) const override;
     bool setProperty(Pid propertyId, const PropertyValue&) override;
     PropertyValue propertyDefault(Pid propertyId) const override;
@@ -272,11 +277,9 @@ public:
     static SymId subtype2symbol(AccidentalType);
     static AsciiStringView subtype2name(AccidentalType);
     static AccidentalType value2subtype(AccidentalVal);
-    static AccidentalType value2MicrotonalSubtype(AccidentalVal val, int quarterOff);
     static AccidentalType name2subtype(const AsciiStringView&);
     static bool isMicrotonal(AccidentalType t) { return t > AccidentalType::FLAT3; }
     static double subtype2centOffset(AccidentalType);
-    static AccidentalType centOffset2Subtype(double centOffset);
 
     int stackingOrder() const { return ldata()->stackingNumber + m_stackingOrderOffset; }
 

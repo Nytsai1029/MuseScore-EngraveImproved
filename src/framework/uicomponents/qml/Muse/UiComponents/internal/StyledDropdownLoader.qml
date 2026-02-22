@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,13 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import QtQuick.Window
+import QtQuick 2.15
+import QtQuick.Window 2.15
 
 Loader {
     id: loader
-
-    property var parentWindow: null
 
     property string textRole: ""
     property string valueRole: ""
@@ -41,8 +39,6 @@ Loader {
 
     property alias dropdown: loader.item
     property alias isOpened: loader.active
-
-    property Component contentListItem: null
 
     active: false
 
@@ -71,14 +67,12 @@ Loader {
         itemWidth: loader.itemWidth
         itemHeight: loader.itemHeight
 
-        contentListItem: loader.contentListItem
         textRole: loader.textRole
         valueRole: loader.valueRole
 
         itemColor: loader.itemColor
         background.color: loader.backgroundColor
 
-        parentWindow: loader.parentWindow
         accessibleWindow: loader.Window.window
 
         onHandleItem: function(index, value) {

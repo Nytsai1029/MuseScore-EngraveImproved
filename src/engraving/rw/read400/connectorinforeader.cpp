@@ -290,13 +290,13 @@ void ConnectorInfoReader::readAddConnector(ChordRest* item, ConnectorInfoReader*
                     if (ee == spanner) {
                         continue;
                     }
-                    Spanner* ls = toSpanner(ee);
+                    Spanner* ls = static_cast<Spanner*>(ee);
                     ls->setTick2(spanner->tick2());
                     for (EngravingObject* eee : item->linkList()) {
                         ChordRest* cr = toChordRest(eee);
                         if (cr->score() == eee->score() && cr->staffIdx() == ls->staffIdx()) {
                             ls->setTrack2(cr->track());
-                            if (ls->isSlur()) {
+                            if (ls->type() == ElementType::SLUR) {
                                 ls->setEndElement(cr);
                             }
                             break;

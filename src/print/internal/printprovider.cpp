@@ -23,7 +23,6 @@
 
 #include <QPrinter>
 #include <QPrintDialog>
-#include <QWindow>
 
 #include "log.h"
 
@@ -33,7 +32,7 @@ using namespace mu::notation;
 
 namespace mu::print {
 PrintProvider::PrintProvider(const kors::modularity::ContextPtr& iocCtx)
-    : Contextable(iocCtx)
+    : Injectable(iocCtx)
 {
 }
 

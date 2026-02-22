@@ -23,5 +23,6 @@
 #       instruments.xml
 #       orders.xml
 #       string_tunings_presets.json
-#       DESTINATION ${MUSE_APP_INSTALL_RESOURCES_LOCATION}/instruments
+#       DESTINATION ${Mscore_SHARE_NAME}${Mscore_INSTALL_NAME}instruments
 #       )
+

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -39,62 +39,42 @@ const UiActionList DiagnosticsActions::m_actions = {
     UiAction("diagnostic-show-paths",
              muse::ui::UiCtxAny,
              muse::shortcuts::CTX_ANY,
-             TranslatableString("action", "Show p&aths…"),
-             TranslatableString("action", "Show paths")
+             TranslatableString("action", "Show p&aths…")
              ),
     UiAction("diagnostic-show-profiler",
              muse::ui::UiCtxAny,
              muse::shortcuts::CTX_ANY,
-             TranslatableString("action", "Show pr&ofiler…"),
-             TranslatableString("action", "Show profiler")
+             TranslatableString("action", "Show pr&ofiler…")
              ),
     UiAction("diagnostic-show-graphicsinfo",
              muse::ui::UiCtxAny,
              muse::shortcuts::CTX_ANY,
-             TranslatableString("action", "Show g&raphics info…"),
-             TranslatableString("action", "Show graphics info")
+             TranslatableString("action", "Show g&raphics info…")
              ),
     UiAction("diagnostic-show-navigation-tree",
              muse::ui::UiCtxAny,
              muse::shortcuts::CTX_ANY,
-             TranslatableString("action", "Show &navigation tree…"),
-             TranslatableString("action", "Show navigation tree")
+             TranslatableString("action", "Show &navigation tree…")
              ),
     UiAction("diagnostic-show-accessible-tree",
              muse::ui::UiCtxAny,
              muse::shortcuts::CTX_ANY,
-             TranslatableString("action", "Show &accessibility tree…"),
-             TranslatableString("action", "Show accessibility tree")
+             TranslatableString("action", "Show &accessibility tree…")
              ),
     UiAction("diagnostic-accessible-tree-dump",
              muse::ui::UiCtxAny,
              muse::shortcuts::CTX_ANY,
-             TranslatableString("action", "&Dump accessibility tree to console"),
-             TranslatableString("action", "Dump accessibility tree to console")
+             TranslatableString("action", "&Dump accessibility tree to console")
              ),
     UiAction("diagnostic-show-engraving-elements",
              muse::ui::UiCtxAny,
              muse::shortcuts::CTX_ANY,
-             TranslatableString("action", "Show engraving &elements"),
-             TranslatableString("action", "Show engraving elements")
-             ),
-    UiAction("diagnostic-show-engraving-undostack",
-             muse::ui::UiCtxAny,
-             muse::shortcuts::CTX_ANY,
-             TranslatableString("action", "Show engraving &undo stack"),
-             TranslatableString("action", "Show engraving undo stack")
-             ),
-    UiAction("diagnostic-show-engraving-style",
-             muse::ui::UiCtxAny,
-             muse::shortcuts::CTX_ANY,
-             TranslatableString("action", "Show engraving &style options list"),
-             TranslatableString("action", "Show engraving style options list")
+             TranslatableString("action", "Show engraving &elements")
              ),
     UiAction("diagnostic-show-actions",
              muse::ui::UiCtxAny,
              muse::shortcuts::CTX_ANY,
-             TranslatableString("action", "Show &actions list"),
-             TranslatableString("action", "Show actions list")
+             TranslatableString("action", "Show &actions list")
              ),
     UiAction("action://diagnostic/actions/query",
              muse::ui::UiCtxAny,

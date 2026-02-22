@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -21,14 +21,56 @@
  */
 #pragma once
 
-#include "audio/engine/internal/abstracteventsequencer.h"
+#include "audio/worker/internal/abstracteventsequencer.h"
 #include "imusesamplertracks.h"
 
 #include "internal/apitypes.h"
 #include "internal/libhandler.h"
 
+typedef typename std::variant<muse::mpe::NoteEvent,
+                              muse::musesampler::AuditionStartNoteEvent,
+                              muse::musesampler::AuditionStopNoteEvent,
+                              muse::musesampler::AuditionCCEvent> MuseSamplerEvent;
+
+template<>
+struct std::less<MuseSamplerEvent>
+{
+    bool operator()(const MuseSamplerEvent& first,
+                    const MuseSamplerEvent& second) const
+    {
+        if (first.index() != second.index()) {
+            return first.index() < second.index();
+        }
+
+        if (std::holds_alternative<muse::musesampler::AuditionStartNoteEvent>(first)) {
+            const auto& e1 = std::get<muse::musesampler::AuditionStartNoteEvent>(first);
+            const auto& e2 = std::get<muse::musesampler::AuditionStartNoteEvent>(second);
+            if (e1.msEvent._pitch == e2.msEvent._pitch) {
+                return e1.msEvent._offset_cents < e2.msEvent._offset_cents;
+            }
+            return e1.msEvent._pitch < e2.msEvent._pitch;
+        }
+
+        if (std::holds_alternative<muse::musesampler::AuditionStopNoteEvent>(first)) {
+            return std::get<muse::musesampler::AuditionStopNoteEvent>(first).msEvent._pitch
+                   < std::get<muse::musesampler::AuditionStopNoteEvent>(second).msEvent._pitch;
+        }
+
+        if (std::holds_alternative<muse::musesampler::AuditionCCEvent>(first)) {
+            const auto& e1 = std::get<muse::musesampler::AuditionCCEvent>(first);
+            const auto& e2 = std::get<muse::musesampler::AuditionCCEvent>(second);
+            if (e1.cc == e2.cc) {
+                return e1.value < e2.value;
+            }
+            return e1.cc < e2.cc;
+        }
+
+        return false;
+    }
+};
+
 namespace muse::musesampler {
-class MuseSamplerSequencer : public audio::engine::AbstractEventSequencer<mpe::NoteEvent, AuditionStartNoteEvent, AuditionStopNoteEvent,
+class MuseSamplerSequencer : public audio::worker::AbstractEventSequencer<mpe::NoteEvent, AuditionStartNoteEvent, AuditionStopNoteEvent,
                                                                           AuditionCCEvent>
 {
 public:

@@ -203,11 +203,6 @@ void MscWriter::writeViewSettingsJsonFile(const ByteArray& data, const muse::io:
     addFileData(pathPrefix.toString() + u"viewsettings.json", data);
 }
 
-void MscWriter::writeAutomationJsonFile(const muse::ByteArray& data)
-{
-    addFileData(u"automation.json", data);
-}
-
 void MscWriter::writeMeta()
 {
     if (m_meta.isWritten) {
@@ -262,18 +257,22 @@ void MscWriter::Meta::addFile(const String& file)
 MscWriter::ZipFileWriter::~ZipFileWriter()
 {
     delete m_zip;
+    if (m_selfDeviceOwner) {
+        delete m_device;
+    }
 }
 
-Ret MscWriter::ZipFileWriter::open(io::IODevice* device, const path_t&)
+Ret MscWriter::ZipFileWriter::open(io::IODevice* device, const path_t& filePath)
 {
-    IF_ASSERT_FAILED(device) {
-        return make_ret(Ret::Code::InternalError);
-    }
     m_device = device;
+    if (!m_device) {
+        m_device = new File(filePath);
+        m_selfDeviceOwner = true;
+    }
 
     if (!m_device->isOpen()) {
         if (!m_device->open(IODevice::WriteOnly)) {
-            LOGE() << "failed to open device for writing";
+            LOGE() << "failed open file: " << filePath;
             return make_ret(m_device->error(), m_device->errorString());
         }
     }
@@ -321,9 +320,10 @@ bool MscWriter::ZipFileWriter::addFileData(const String& fileName, const ByteArr
 
 Ret MscWriter::DirWriter::open(io::IODevice* device, const muse::io::path_t& filePath)
 {
-    IF_ASSERT_FAILED(!device) {
+    if (device) {
+        NOT_SUPPORTED;
         m_hasError = true;
-        return make_ret(Ret::Code::InternalError);
+        return false;
     }
 
     if (filePath.empty()) {
@@ -399,18 +399,22 @@ bool MscWriter::DirWriter::addFileData(const String& fileName, const ByteArray& 
 MscWriter::XmlFileWriter::~XmlFileWriter()
 {
     delete m_stream;
+    if (m_selfDeviceOwner) {
+        delete m_device;
+    }
 }
 
-Ret MscWriter::XmlFileWriter::open(io::IODevice* device, const path_t&)
+Ret MscWriter::XmlFileWriter::open(io::IODevice* device, const path_t& filePath)
 {
-    IF_ASSERT_FAILED(device) {
-        return make_ret(Ret::Code::InternalError);
-    }
     m_device = device;
+    if (!m_device) {
+        m_device = new File(filePath);
+        m_selfDeviceOwner = true;
+    }
 
     if (!m_device->isOpen()) {
         if (!m_device->open(IODevice::WriteOnly)) {
-            LOGE() << "failed to open device for writing";
+            LOGE() << "failed open file: " << filePath;
             return make_ret(m_device->error(), m_device->errorString());
         }
     }

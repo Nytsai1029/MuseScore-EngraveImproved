@@ -34,8 +34,6 @@
 #include "part.h"
 #include "elements.h"
 
-#include "log.h"
-
 using namespace mu::engraving::apiv1;
 
 ScoreElement::~ScoreElement()
@@ -45,35 +43,14 @@ ScoreElement::~ScoreElement()
     }
 }
 
-int ScoreElement::apiversion() const
-{
-    if (m_apiversion == -1) {
-        QJSEngine* engine = qjsEngine(this);
-        IF_ASSERT_FAILED(engine) {
-            return -1;
-        }
-
-        m_apiversion = engine->property("apiversion").toInt();
-        IF_ASSERT_FAILED(m_apiversion > 0) {
-            m_apiversion = -1;
-        }
-    }
-    return m_apiversion;
-}
-
 QString ScoreElement::name() const
 {
     return QString(e->typeName());
 }
 
-QJSValue ScoreElement::type() const
+int ScoreElement::type() const
 {
-    if (apiversion() == 1) {
-        return QJSValue(int(e->type()));
-    } else {
-        static const QMetaEnum meta = QMetaEnum::fromType<enums::ElementType>();
-        return QJSValue(QString(meta.valueToKey(int(e->type()))));
-    }
+    return int(e->type());
 }
 
 //---------------------------------------------------------
@@ -109,7 +86,7 @@ QVariant ScoreElement::get(mu::engraving::Pid pid) const
     const PropertyValue val = e->getProperty(pid);
     switch (val.type()) {
     case P_TYPE::FRACTION: {
-        const mu::engraving::Fraction f(val.value<mu::engraving::Fraction>());
+        const Fraction f(val.value<Fraction>());
         return QVariant::fromValue(wrap(f));
     }
     case P_TYPE::ORNAMENT_INTERVAL: {
@@ -118,7 +95,7 @@ QVariant ScoreElement::get(mu::engraving::Pid pid) const
     }
     case P_TYPE::POINT:
         return val.value<PointF>().toQPointF() / spatium();
-    case P_TYPE::ABSOLUTE:
+    case P_TYPE::MILLIMETRE:
         return val.toReal() / spatium();
     case P_TYPE::SPATIUM:
         return val.value<Spatium>().val();
@@ -169,7 +146,7 @@ void ScoreElement::set(mu::engraving::Pid pid, const QVariant& val)
 
     switch (propertyType(pid)) {
     case P_TYPE::FRACTION: {
-        Fraction* f = val.value<Fraction*>();
+        FractionWrapper* f = val.value<FractionWrapper*>();
         if (!f) {
             LOGW() << "trying to assign value of wrong type to fractional property";
             return;
@@ -201,8 +178,8 @@ void ScoreElement::set(mu::engraving::Pid pid, const QVariant& val)
     case P_TYPE::POINT:
         newValue = PointF::fromQPointF(val.toPointF() * spatium());
         break;
-    case P_TYPE::ABSOLUTE:
-        newValue = val.toReal() * spatium();
+    case P_TYPE::MILLIMETRE:
+        newValue = Millimetre(val.toReal() * spatium());
         break;
     case P_TYPE::ALIGN: {
         apiv1::enums::Align apiValue = apiv1::enums::Align(val.toInt());

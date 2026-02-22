@@ -13,11 +13,12 @@
         if (parentParam && parentParam.name && param.name) {
             try {
                 paramRegExp = new RegExp('^(?:' + parentParam.name + '(?:\\[\\])*)\\.(.+)$');
-            }
-            catch (e) {
-                // there's probably a typo in the JSDoc comment that resulted in a weird
-                // parameter name
-                return;
+            }		
+            catch (e) {		
+                console.error("Problem parsing comment", e);
+                // there's probably a typo in the JSDoc comment that resulted in a weird		
+                // parameter name		
+                return;		
             }
 
             if ( paramRegExp.test(param.name) ) {
@@ -115,7 +116,7 @@
             <?js if (params.hasDefault) {?>
                 <td class="default">
                 <?js if (typeof param.defaultvalue !== 'undefined') { ?>
-                    <?js= self.htmlsafe(param.defaultvalue) ?>
+                    <code><?js= self.htmlsafe(param.defaultvalue) ?></code>
                 <?js } ?>
                 </td>
             <?js } ?>

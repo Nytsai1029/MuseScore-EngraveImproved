@@ -34,16 +34,14 @@
 #include "../iprojectautosaver.h"
 
 namespace mu::project {
-class ProjectAutoSaver : public IProjectAutoSaver, public muse::async::Asyncable, public muse::Contextable
+class ProjectAutoSaver : public IProjectAutoSaver, public muse::async::Asyncable
 {
-    muse::GlobalInject<muse::io::IFileSystem> fileSystem;
-    muse::GlobalInject<IProjectConfiguration> configuration;
-    muse::ContextInject<context::IGlobalContext> globalContext = { this };
+    INJECT(context::IGlobalContext, globalContext)
+    INJECT(muse::io::IFileSystem, fileSystem)
+    INJECT(IProjectConfiguration, configuration)
 
 public:
-    ProjectAutoSaver(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx)
-    {}
+    ProjectAutoSaver() = default;
 
     void init();
 

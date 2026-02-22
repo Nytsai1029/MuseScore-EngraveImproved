@@ -8,14 +8,16 @@ var self = this;
 <p class="summary"><?js= summary ?></p>
 <?js } ?>
 
+<?js= this.partial('details.tmpl', data) ?>
+
 <?js if (data.description) { ?>
-<div class="description">
+<div class="description usertext">
     <?js= data.description ?>
 </div>
 <?js } ?>
 
 <?js if (data.type && data.type.names) {?>
-    <h5>Type:</h5>
+    <h5 class="h5-types">Type:</h5>
     <ul>
         <li>
             <?js= self.partial('type.tmpl', data.type.names) ?>
@@ -23,16 +25,14 @@ var self = this;
     </ul>
 <?js } ?>
 
-<?js= this.partial('details.tmpl', data) ?>
-
 <?js if (data.fires && fires.length) { ?>
-    <h5>Fires:</h5>
+    <h5 class="h5-fires">Fires:</h5>
     <ul><?js fires.forEach(function(f) { ?>
         <li><?js= self.linkto(f) ?></li>
     <?js }); ?></ul>
 <?js } ?>
 
 <?js if (data.examples && examples.length) { ?>
-    <h5>Example<?js= examples.length > 1? 's':'' ?></h5>
+    <h5 class="h5-examples">Example<?js= examples.length > 1? 's':'' ?></h5>
     <?js= this.partial('examples.tmpl', examples) ?>
 <?js } ?>

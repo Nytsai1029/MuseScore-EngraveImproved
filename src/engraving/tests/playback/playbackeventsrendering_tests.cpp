@@ -25,17 +25,16 @@
 
 #include "mpe/tests/utils/articulationutils.h"
 
-#include "engraving/dom/note.h"
-#include "engraving/dom/measure.h"
-#include "engraving/dom/part.h"
-#include "engraving/dom/segment.h"
-#include "engraving/dom/ornament.h"
-#include "engraving/dom/tremolosinglechord.h"
-#include "engraving/dom/tremolotwochord.h"
-
-#include "engraving/playback/playbackeventsrenderer.h"
+#include "dom/note.h"
+#include "dom/factory.h"
+#include "dom/measure.h"
+#include "dom/part.h"
+#include "dom/segment.h"
+#include "dom/harppedaldiagram.h"
+#include "dom/ornament.h"
 
 #include "utils/scorerw.h"
+#include "playback/playbackeventsrenderer.h"
 
 using namespace mu::engraving;
 using namespace muse;
@@ -61,6 +60,15 @@ protected:
         m_dummyPattern.emplace(0, m_dummyPatternSegment);
 
         m_defaultProfile = std::make_shared<ArticulationsProfile>();
+
+        //! NOTE: allows to read test files using their version readers
+        //! instead of using 302 (see mscloader.cpp, makeReader)
+        MScore::useRead302InTestMode = false;
+    }
+
+    void TearDown() override
+    {
+        MScore::useRead302InTestMode = true;
     }
 
     const Chord* findChord(const Score* score, int tick, track_idx_t track = 0) const
@@ -181,6 +189,42 @@ TEST_F(Engraving_PlaybackEventsRendererTests, SingleNote_NoArticulations)
     EXPECT_EQ(event.expressionCtx().nominalDynamicLevel, dynamicLevelFromType(mpe::DynamicType::Natural));
     EXPECT_EQ(event.expressionCtx().articulations.size(), 1);
     EXPECT_TRUE(event.expressionCtx().articulations.contains(ArticulationType::Standard));
+}
+
+/**
+ * @brief PlaybackEventsRendererTests_Rest
+ * @details In this case we're gonna render a simple piece of score with a single measure,
+ *          which consists a rest only
+ */
+TEST_F(Engraving_PlaybackEventsRendererTests, Rest)
+{
+    // [GIVEN] Simple piece of score (piano, 4/4, 120 bpm, Treble Cleff)
+    Score* score = ScoreRW::readScore(PLAYBACK_EVENTS_RENDERING_DIR + "whole_measure_rest/whole_measure_rest.mscx");
+
+    Measure* firstMeasure = score->firstMeasure();
+    ASSERT_TRUE(firstMeasure);
+
+    Segment* firstSegment = firstMeasure->segments().firstCRSegment();
+    ASSERT_TRUE(firstSegment);
+
+    ChordRest* rest = firstSegment->nextChordRest(0);
+    ASSERT_TRUE(rest);
+
+    // [GIVEN] Dummy context
+    PlaybackContextPtr ctx = std::make_shared<PlaybackContext>();
+
+    // [WHEN] Request to render the rest
+    PlaybackEventsMap result;
+    m_renderer.render(rest, 0, m_defaultProfile, ctx, result);
+
+    // [THEN] We expect that a single rest event will be rendered
+    EXPECT_EQ(result.size(), 1);
+
+    RestEvent event = std::get<RestEvent>(result.begin()->second.front());
+
+    // [THEN] We expect that the rest event will match time expectations of the whole measure rest with 120BPM tempo
+    EXPECT_EQ(event.arrangementCtx().nominalTimestamp, 0);
+    EXPECT_EQ(event.arrangementCtx().nominalDuration, QUARTER_NOTE_DURATION * 4);
 }
 
 /**
@@ -2453,77 +2497,6 @@ TEST_F(Engraving_PlaybackEventsRendererTests, Single_Note_Tremolo_OnTiedNote)
             EXPECT_EQ(noteEvent.pitchCtx().nominalPitchLevel, pitchLevel(PitchClass::A, 4));
         }
     }
-
-    delete score;
-}
-
-/**
- * @brief PlaybackEventsRendererTests_Single_Note_Tremolo_OnTiedNote_PlaybackDisabled
- * @details This test verifies that tied notes with tremolo markings are NOT rendered
- *          when the tremolo's playTremolo setting is disabled (false).
- *          This is the fix for issue #30858 - preventing double playback when tremolo is disabled.
- */
-TEST_F(Engraving_PlaybackEventsRendererTests, Single_Note_Tremolo_OnTiedNote_PlaybackDisabled)
-{
-    // [GIVEN] Simple piece of score (violin, 4/4, 120 bpm, Treble Cleff)
-    Score* score = ScoreRW::readScore(
-        PLAYBACK_EVENTS_RENDERING_DIR + "single_note_tremolo_on_tied_note/single_note_tremolo_on_tied_note.mscx");
-    ASSERT_TRUE(score);
-
-    // [GIVEN] Find the chord with tremolo and disable tremolo playback
-    const Chord* chord = findChord(score, 2880);  // Chord with tremolo
-    ASSERT_TRUE(chord);
-    ASSERT_EQ(chord->notes().size(), 1);
-
-    const Note* lastTiedNote = chord->notes().front();
-    ASSERT_TRUE(lastTiedNote->tieBack() && !lastTiedNote->tieFor());
-
-    // [GIVEN] Disable tremolo playback - this simulates the user unchecking "Play tremolo"
-    TremoloSingleChord* tremoloSingle = chord->tremoloSingleChord();
-    TremoloTwoChord* tremoloTwo = chord->tremoloTwoChord();
-
-    if (tremoloSingle) {
-        tremoloSingle->setPlayTremolo(false);
-    }
-    if (tremoloTwo) {
-        tremoloTwo->setPlayTremolo(false);
-    }
-
-    // [GIVEN] Fulfill articulations profile with dummy patterns
-    m_defaultProfile->setPattern(ArticulationType::Standard, m_dummyPattern);
-    m_defaultProfile->setPattern(ArticulationType::Tremolo32nd, m_dummyPattern);
-
-    // [GIVEN] Dummy context
-    PlaybackContextPtr ctx = std::make_shared<PlaybackContext>();
-
-    // [GIVEN] First tied note (without tremolo) - should render normally
-    const Chord* firstChord = findChord(score, 1920);
-    ASSERT_TRUE(firstChord);
-    ASSERT_EQ(firstChord->notes().size(), 1);
-
-    const Note* firstTiedNote = firstChord->notes().front();
-    ASSERT_TRUE(firstTiedNote->tieFor() && !firstTiedNote->tieBack());
-
-    // [WHEN] Request to render the first chord (without tremolo)
-    PlaybackEventsMap result;
-    m_renderer.render(firstChord, 0, m_defaultProfile, ctx, result);
-
-    // [THEN] First note renders normally (standard articulation)
-    ASSERT_EQ(result.size(), 1);
-    ASSERT_EQ(result.begin()->second.size(), 1);
-    mpe::NoteEvent firstNoteEvent = std::get<mpe::NoteEvent>(result.begin()->second.at(0));
-    EXPECT_EQ(firstNoteEvent.expressionCtx().articulations.size(), 1);
-    EXPECT_TRUE(firstNoteEvent.expressionCtx().articulations.contains(ArticulationType::Standard));
-    EXPECT_EQ(firstNoteEvent.pitchCtx().nominalPitchLevel, pitchLevel(PitchClass::A, 4));
-    EXPECT_EQ(firstNoteEvent.arrangementCtx().nominalDuration, WHOLE_NOTE_DURATION);  // Full note, not half note
-
-    // [WHEN] Request to render the second chord (with tremolo disabled)
-    result.clear();
-    m_renderer.render(chord, 0, m_defaultProfile, ctx, result);
-
-    // [THEN] Since tremolo playback is disabled, this should NOT render the tied note
-    // This verifies that our fix prevents double playback when playTremolo = false
-    EXPECT_EQ(result.size(), 0);  // No events should be rendered for disabled tremolo on tied note
 
     delete score;
 }

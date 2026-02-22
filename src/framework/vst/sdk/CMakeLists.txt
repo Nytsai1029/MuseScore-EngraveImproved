@@ -4,7 +4,7 @@
 # MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2021 MuseScore Limited and others
+# Copyright (C) 2021 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-muse_create_thirdparty_module(vst3sdk)
+declare_thirdparty_module(vst_sdk_3)
 
 if(MUSE_MODULE_VST_VST3_SDK_PATH)
     set(VST3_SDK_PATH ${MUSE_MODULE_VST_VST3_SDK_PATH})
@@ -51,10 +51,12 @@ include(GetCompilerInfo)
 include(GetBuildType)
 
 if (BUILD_IS_DEBUG)
-    target_compile_definitions(vst3sdk PRIVATE DEVELOPMENT)
+    set(MODULE_DEF -DDEVELOPMENT)
 else()
-    target_compile_definitions(vst3sdk PRIVATE RELEASE)
+    set(MODULE_DEF -DRELEASE)
 endif()
+
+set(MODULE_USE_UNITY OFF)
 
 if (OS_IS_WIN)
     set(PLATFORM_SRC
@@ -171,7 +173,7 @@ set(VST_SDK_HOSTING_SRC
     ${VST3_SDK_PATH}/public.sdk/source/vst/hosting/plugprovider.h
     )
 
-target_sources(vst3sdk PRIVATE
+set(MODULE_SRC
     ${VST_BASE_SRC}
     ${VST_PLUGIN_INTERFACES_SRC}
     ${VST_SDK_COMMON_SRC}
@@ -179,12 +181,14 @@ target_sources(vst3sdk PRIVATE
     ${PLATFORM_SRC}
     )
 
-target_include_directories(vst3sdk PUBLIC
+set(MODULE_INCLUDE
     ${VST3_SDK_PATH}
     )
 
-target_no_warning(vst3sdk -w)
+setup_module()
+
+target_no_warning(${MODULE} -w)
 
 if (CC_IS_CLANG)
-    target_compile_options(vst3sdk PRIVATE -fobjc-arc)
+    set_property(TARGET ${MODULE} APPEND_STRING PROPERTY COMPILE_FLAGS "-fobjc-arc")
 endif()

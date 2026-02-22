@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -26,7 +26,7 @@
 using namespace muse::extensions::api;
 
 ExtApi::ExtApi(muse::api::IApiEngine* engine, QObject* parent)
-    : QObject(parent), Contextable(engine->iocContext()), m_engine(engine)
+    : QObject(parent), Injectable(engine->iocContext()), m_engine(engine)
 {
 }
 

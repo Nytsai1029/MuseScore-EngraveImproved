@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -24,6 +24,7 @@
 #include "global/settings.h"
 
 using namespace muse;
+using namespace mu;
 using namespace muse::diagnostics;
 
 static const Settings::Key IS_DUMP_UPLOAD_ALLOWED("diagnostics", "diagnostics/is_dump_upload_allowed");

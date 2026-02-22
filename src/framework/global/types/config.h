@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -44,15 +44,6 @@ struct Config {
     {
         m_data[key] = val;
     }
-
-    auto begin() { return m_data.begin(); }
-    auto end() { return m_data.end(); }
-    auto begin() const { return m_data.begin(); }
-    auto end() const { return m_data.end(); }
-    auto cbegin() const { return m_data.cbegin(); }
-    auto cend() const { return m_data.cend(); }
-
-    const ValMap& data() const { return m_data; }
 
 private:
     ValMap m_data;

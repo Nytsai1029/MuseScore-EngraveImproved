@@ -31,8 +31,7 @@ namespace mu::project {
 class NotationProject;
 class ProjectFileInfoProvider : public engraving::IFileInfoProvider
 {
-    muse::GlobalInject<muse::io::IFileSystem> filesystem;
-
+    INJECT(muse::io::IFileSystem, filesystem)
 public:
     explicit ProjectFileInfoProvider(NotationProject* project);
 

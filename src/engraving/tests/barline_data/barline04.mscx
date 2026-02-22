@@ -194,6 +194,7 @@
             <subtype>1</subtype>
             <sigN>4</sigN>
             <sigD>4</sigD>
+            <showCourtesy>0</showCourtesy>
             </TimeSig>
           <Rest>
             <durationType>measure</durationType>
@@ -274,6 +275,7 @@
             <subtype>1</subtype>
             <sigN>4</sigN>
             <sigD>4</sigD>
+            <showCourtesy>0</showCourtesy>
             </TimeSig>
           <Rest>
             <durationType>measure</durationType>
@@ -349,6 +351,7 @@
             <subtype>1</subtype>
             <sigN>4</sigN>
             <sigD>4</sigD>
+            <showCourtesy>0</showCourtesy>
             </TimeSig>
           <Rest>
             <durationType>measure</durationType>
@@ -424,6 +427,7 @@
             <subtype>1</subtype>
             <sigN>4</sigN>
             <sigD>4</sigD>
+            <showCourtesy>0</showCourtesy>
             </TimeSig>
           <Rest>
             <durationType>measure</durationType>

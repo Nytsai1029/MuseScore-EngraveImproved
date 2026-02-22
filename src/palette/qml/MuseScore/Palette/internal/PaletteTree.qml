@@ -20,21 +20,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-pragma ComponentBehavior: Bound
+import QtQuick 2.15
+import QtQuick.Controls 2.1
+import QtQml.Models 2.2
 
-import QtQuick
-import QtQuick.Controls
-import QtQml.Models
+import MuseScore.Palette 1.0
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
-import MuseScore.Palette
-import Muse.Ui
-import Muse.UiComponents
+import "utils.js" as Utils
 
 StyledListView {
     id: paletteTree
 
     property PaletteProvider paletteProvider
-    property AbstractItemModel paletteModel: Boolean(paletteProvider) ? paletteProvider.mainPaletteModel : null
+    property var paletteModel: Boolean(paletteProvider) ? paletteProvider.mainPaletteModel : null
     property PaletteController paletteController: paletteProvider ? paletteProvider.mainPaletteController : null
 
     property alias navigation: keynavTree
@@ -150,7 +150,7 @@ StyledListView {
     }
 
     function removeSelectedItems(parentIndex) {
-        PaletteUtils.removeSelectedItems(paletteController, paletteSelectionModel, parentIndex);
+        Utils.removeSelectedItems(paletteController, paletteSelectionModel, parentIndex);
     }
 
     displaced: Transition {
@@ -203,7 +203,7 @@ StyledListView {
     Timer {
         id: typeAheadTimer
         interval: 1000
-        onTriggered: paletteTree.typeAheadStr = ''
+        onTriggered: typeAheadStr = ''
     }
 
     onTypeAheadStrChanged: {
@@ -248,21 +248,21 @@ StyledListView {
     }
 
     Connections {
-        target: paletteTree.paletteProvider
+        target: paletteProvider
 
         function onIsSinglePaletteChanged() {
-            if (paletteTree.paletteProvider.isSinglePalette) {
+            if (paletteProvider.isSinglePalette) {
                 // Collapse all except first one
                 let hasFoundExpandedPalette = false
-                for (let idx = 0; idx < paletteTree.count; idx++) {
-                    const paletteIndex = paletteTree.paletteModel.index(idx, 0);
+                for (let idx = 0; idx < count; idx++) {
+                    const paletteIndex = paletteModel.index(idx, 0);
 
                     if (hasFoundExpandedPalette) {
-                        paletteTree.paletteModel.setData(paletteIndex, false, PaletteTreeModel.PaletteExpandedRole);
+                        paletteModel.setData(paletteIndex, false, PaletteTreeModel.PaletteExpandedRole);
                         continue
                     }
 
-                    if (paletteTree.paletteModel.data(paletteIndex, PaletteTreeModel.PaletteExpandedRole)) {
+                    if (paletteModel.data(paletteIndex, PaletteTreeModel.PaletteExpandedRole)) {
                         hasFoundExpandedPalette = true
                     }
                 }
@@ -296,7 +296,7 @@ StyledListView {
 
             onIsOpenedChanged: {
                 // build pool model on first popup appearance
-                if (isOpened && !poolPalette) {
+                if (visible && !poolPalette) {
                     poolPalette = paletteTree.paletteProvider.poolPaletteModel(control.modelIndex);
                     poolPaletteRootIndex = paletteTree.paletteProvider.poolPaletteIndex(control.modelIndex, poolPalette);
                     poolPaletteController = paletteTree.paletteProvider.poolPaletteController(poolPalette, control.modelIndex);
@@ -341,7 +341,7 @@ StyledListView {
             }
 
             onContentHeightChanged: {
-                if (isOpened && (needScrollToBottom || paletteTree.atYEnd))
+                if (visible && (needScrollToBottom || atYEnd))
                     scrollToPopupBottom();
             }
 
@@ -361,7 +361,7 @@ StyledListView {
 
         function close() {
             if (palettePopup.active) {
-                (palettePopup.item as MoreElementsPopup).close();
+                palettePopup.item.close();
             }
         }
 
@@ -376,8 +376,9 @@ StyledListView {
             palettePopup.control = control;
 
             palettePopup.active = true;
-            (palettePopup.item as MoreElementsPopup).setParentItem(parent);
-            (palettePopup.item as MoreElementsPopup).toggleOpened();
+            palettePopup.item.setParentItem(parent);
+
+            palettePopup.item.toggleOpened();
         }
     }
 
@@ -387,13 +388,8 @@ StyledListView {
 
         delegate: ItemDelegate {
             id: control
-
-            required property var model
-            required property int index
-
             topPadding: 0
             bottomPadding: expanded ? 4 : 0
-
             property int rowIndex: index
             property int navigationRow: (index + 1) * 10000 // to make unique
             property var modelIndex: paletteTree.model.modelIndex(index)
@@ -439,12 +435,12 @@ StyledListView {
 
             Timer {
                 id: expandTimer
-                interval: paletteTree.expandDuration + 50 // allow extra grace period
-                onTriggered: paletteTree.positionViewAtIndex(control.index, ListView.Contain)
+                interval: expandDuration + 50 // allow extra grace period
+                onTriggered: paletteTree.positionViewAtIndex(index, ListView.Contain)
             }
 
             onExpandedChanged: {
-                if (ListView.isCurrentItem && !paletteTree.filter.length) {
+                if (ListView.isCurrentItem && !filter.length) {
                     bringIntoViewAfterExpanding();
                 }
             }
@@ -454,7 +450,7 @@ StyledListView {
             onClicked: {
                 forceActiveFocus();
 
-                if (paletteTree.paletteProvider.isSingleClickToOpenPalette) {
+                if (paletteProvider.isSingleClickToOpenPalette) {
                     toggleExpand()
 
                     if (selected && !expanded) {
@@ -471,7 +467,7 @@ StyledListView {
             }
 
             onDoubleClicked: {
-                if (paletteTree.paletteProvider.isSingleClickToOpenPalette) {
+                if (paletteProvider.isSingleClickToOpenPalette) {
                     return;
                 }
 
@@ -484,7 +480,7 @@ StyledListView {
                 visible: !control.Drag.active
                 isSelected: control.selected
 
-                navigation.name: control.model.display
+                navigation.name: model.display
                 navigation.panel: keynavTree
                 navigation.row: control.navigationRow
                 navigation.column: 0
@@ -495,10 +491,10 @@ StyledListView {
                         forceActiveFocus();
 
                         if (!control.selected) {
-                            paletteSelectionModel.setCurrentIndex(control.modelIndex, ItemSelectionModel.ClearAndSelect);
+                            paletteSelectionModel.setCurrentIndex(modelIndex, ItemSelectionModel.ClearAndSelect);
                         }
 
-                        paletteTree.currentIndex = control.index;
+                        paletteTree.currentIndex = index;
                         paletteTree.positionViewAtIndex(control.rowIndex, ListView.Contain);
                     }
                 }
@@ -528,13 +524,13 @@ StyledListView {
                 paletteTree.paletteController.remove(modelIndex);
             }
 
-            text: paletteTree.filter.length ? qsTrc("palette", "%1, contains %Ln matching element(s)", "", mainPalette.count).arg(model.accessibleText)
-                                            : model.expanded ? qsTrc("palette", "%1 expanded", "tree item not collapsed").arg(model.accessibleText)
-                                                             : model.accessibleText
+            text: filter.length ? qsTrc("palette", "%1, contains %n matching element(s)", "", mainPalette.count).arg(model.accessibleText)
+                                : model.expanded ? qsTrc("palette", "%1 expanded", "tree item not collapsed").arg(model.accessibleText)
+                                                 : model.accessibleText
 
             width: ListView.view.width
 
-            Drag.active: paletteTree.paletteProvider.isPaletteDragEnabled && paletteHeaderDragArea.drag.active
+            Drag.active: paletteProvider.isPaletteDragEnabled && paletteHeaderDragArea.drag.active
             Drag.dragType: Drag.Automatic
             Drag.supportedActions: Qt.MoveAction
             Drag.proposedAction: Qt.MoveAction
@@ -637,7 +633,7 @@ StyledListView {
                     opacity: enabled ? 1 : ui.theme.itemOpacityDisabled
                     expanded: control.expanded
                     hovered: control.hovered
-                    text: control.model.display
+                    text: model.display
 
                     isInVisibleArea: control.y >= paletteTree.contentY && control.y < (paletteTree.contentY + paletteTree.height)
 
@@ -650,7 +646,7 @@ StyledListView {
                                 && paletteTree.paletteModel.parent(paletteSelectionModel.currentIndex) === control.modelIndex; // HACK to work around a (possible?) bug in columnIntersectsSelection
                     }
 
-                    custom: control.model.custom
+                    custom: model.custom
 
                     unresolved: control.DelegateModel.isUnresolved
 
@@ -659,9 +655,9 @@ StyledListView {
                         control.toggleExpand();
                     }
 
-                    editingEnabled: control.model.editable
+                    editingEnabled: model.editable
                     onEnableEditingToggled: function(val) {
-                        control.model.editable = val
+                        model.editable = val
                     }
 
                     onHideSelectedElementsRequested: paletteTree.removeSelectedItems(control.modelIndex);
@@ -737,10 +733,6 @@ StyledListView {
 
                         enableAnimations: paletteTree.enableAnimations
                         externalDropBlocked: paletteTree.expandedPopupIndex && !control.popupExpanded // FIXME: find another way to prevent drops go under a popup
-
-                        onSetCurrentTreeItemRequested: function(item) {
-                            paletteTree.currentTreeItem = item;
-                        }
                     }
                 }
             }

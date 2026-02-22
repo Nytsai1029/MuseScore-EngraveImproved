@@ -28,118 +28,116 @@
 #include "dom/dynamic.h"
 #include "dom/slurtie.h"
 #include "dom/textbase.h"
-#include "editing/textedit.h"
+#include "dom/textedit.h"
 #include "rendering/score/tdraw.h"
 
 using namespace mu::engraving::rendering::editmode;
 using namespace mu::engraving;
 using namespace muse::draw;
 
-void EditModeRenderer::drawItem(const EngravingItem* item, muse::draw::Painter* painter, const EditData& ed, double currentViewScaling,
-                                const PaintOptions& opt)
+void EditModeRenderer::drawItem(EngravingItem* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling)
 {
     switch (item->type()) {
     case ElementType::BAR_LINE:
-        drawBarline(item_cast<const BarLine*>(item), painter, ed, currentViewScaling, opt);
+        drawBarline(item_cast<BarLine*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::CAPO:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::DYNAMIC:
-        drawDynamic(item_cast<const Dynamic*>(item), painter, ed, currentViewScaling, opt);
+        drawDynamic(item_cast<Dynamic*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::EXPRESSION:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::FIGURED_BASS:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::FINGERING:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::GUITAR_BEND_TEXT:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::HARMONY:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::HARP_DIAGRAM:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::INSTRUMENT_CHANGE:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::INSTRUMENT_NAME:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::JUMP:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::LAISSEZ_VIB_SEGMENT:
-        drawSlurTieSegment(item_cast<const SlurTieSegment*>(item), painter, ed, currentViewScaling, opt);
+        drawSlurTieSegment(item_cast<SlurTieSegment*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::LYRICS:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::MMREST_RANGE:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::MARKER:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::MEASURE_NUMBER:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::PARTIAL_TIE_SEGMENT:
-        drawSlurTieSegment(item_cast<const SlurTieSegment*>(item), painter, ed, currentViewScaling, opt);
+        drawSlurTieSegment(item_cast<SlurTieSegment*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::PLAY_COUNT_TEXT:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::PLAYTECH_ANNOTATION:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::REHEARSAL_MARK:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::SLUR_SEGMENT:
     case ElementType::TIE_SEGMENT:
     case ElementType::HAMMER_ON_PULL_OFF_SEGMENT:
     case ElementType::TAPPING_HALF_SLUR_SEGMENT:
-        drawSlurTieSegment(item_cast<const SlurTieSegment*>(item), painter, ed, currentViewScaling, opt);
+        drawSlurTieSegment(item_cast<SlurTieSegment*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::STAFF_TEXT:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::STICKING:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::STRING_TUNINGS:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::SYSTEM_TEXT:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::TEMPO_TEXT:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::TEXT:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     case ElementType::TRIPLET_FEEL:
-        drawTextBase(item_cast<const TextBase*>(item), painter, ed, currentViewScaling, opt);
+        drawTextBase(item_cast<TextBase*>(item), painter, ed, currentViewScaling);
         break;
     default:
-        drawEngravingItem(item, painter, ed, currentViewScaling, opt);
+        drawEngravingItem(item, painter, ed, currentViewScaling);
     }
 }
 
-void EditModeRenderer::drawEngravingItem(const EngravingItem* item, muse::draw::Painter* painter, const EditData& ed,
-                                         double currentViewScaling, const PaintOptions& opt)
+void EditModeRenderer::drawEngravingItem(EngravingItem* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling)
 {
     UNUSED(currentViewScaling);
 
-    Pen pen(opt.invertColors
+    Pen pen(item->configuration()->scoreInversionEnabled()
             ? item->configuration()->scoreInversionColor()
             : item->configuration()->defaultColor(), 0.0);
     painter->setPen(pen);
@@ -153,38 +151,35 @@ void EditModeRenderer::drawEngravingItem(const EngravingItem* item, muse::draw::
     }
 }
 
-void EditModeRenderer::drawBarline(const BarLine* item, muse::draw::Painter* painter, const EditData& ed, double currentViewScaling,
-                                   const PaintOptions& opt)
+void EditModeRenderer::drawBarline(BarLine* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling)
 {
-    drawEngravingItem(item, painter, ed, currentViewScaling, opt);
-
-    const BarLineEditData* bed = static_cast<BarLineEditData*>(ed.getData(item).get());
-    BarLine::LayoutData* ldata = const_cast<BarLine::LayoutData*>(item->ldata());
+    drawEngravingItem(item, painter, ed, currentViewScaling);
+    BarLineEditData* bed = static_cast<BarLineEditData*>(ed.getData(item).get());
+    // Create a copy of the layout data
+    BarLine::LayoutData* ldata = item->mutldata();
     ldata->y1 += bed->yoff1;
     ldata->y2 += bed->yoff2;
     PointF pos(item->canvasPos());
     painter->translate(pos);
 
-    score::TDraw::drawItem(item, painter, opt);
+    score::TDraw::drawItem(item, painter);
 
     ldata->y1 -= bed->yoff1;
     ldata->y2 -= bed->yoff2;
     painter->translate(-pos);
 }
 
-void EditModeRenderer::drawDynamic(const Dynamic* item, muse::draw::Painter* painter, const EditData& ed, double currentViewScaling,
-                                   const PaintOptions& opt)
+void EditModeRenderer::drawDynamic(Dynamic* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling)
 {
     if (item->cursor() && item->cursor()->editing()) {
-        drawTextBase(item, painter, ed, currentViewScaling, opt);
+        drawTextBase(item, painter, ed, currentViewScaling);
         return;
     }
 
-    drawEngravingItem(item, painter, ed, currentViewScaling, opt);
+    drawEngravingItem(item, painter, ed, currentViewScaling);
 }
 
-void EditModeRenderer::drawSlurTieSegment(const SlurTieSegment* item, muse::draw::Painter* painter, const EditData& ed,
-                                          double currentViewScaling, const PaintOptions& opt)
+void EditModeRenderer::drawSlurTieSegment(SlurTieSegment* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling)
 {
     PolygonF polygon(7);
     polygon[0] = PointF(ed.grip[int(Grip::START)].center());
@@ -197,22 +192,21 @@ void EditModeRenderer::drawSlurTieSegment(const SlurTieSegment* item, muse::draw
     painter->setPen(Pen(item->configuration()->scoreGreyColor(), 0.0));
     painter->drawPolyline(polygon);
 
-    drawEngravingItem(item, painter, ed, currentViewScaling, opt);
+    drawEngravingItem(item, painter, ed, currentViewScaling);
 }
 
-static void drawTextBaseSelection(const TextBase* item, muse::draw::Painter* painter, const RectF& r)
+static void drawTextBaseSelection(TextBase* item, Painter* painter, const RectF& r)
 {
-    painter->save();
     Brush bg(item->configuration()->selectionColor());
     painter->setCompositionMode(CompositionMode::HardLight);
     painter->setBrush(bg);
     painter->setNoPen();
     painter->drawRect(r);
-    painter->restore();
+    painter->setCompositionMode(CompositionMode::SourceOver);
+    painter->setPen(item->textColor());
 }
 
-void EditModeRenderer::drawTextBase(const TextBase* item, muse::draw::Painter* painter, const EditData& ed, double currentViewScaling,
-                                    const PaintOptions& opt)
+void EditModeRenderer::drawTextBase(TextBase* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling)
 {
     PointF pos(item->canvasPos());
     painter->translate(pos);
@@ -231,7 +225,7 @@ void EditModeRenderer::drawTextBase(const TextBase* item, muse::draw::Painter* p
 
     if (cursor->hasSelection()) {
         painter->setBrush(BrushStyle::NoBrush);
-        painter->setPen(item->textColor(opt));
+        painter->setPen(item->textColor());
         size_t r1 = cursor->selectLine();
         size_t r2 = cursor->row();
         size_t c1 = cursor->selectColumn();
@@ -240,7 +234,7 @@ void EditModeRenderer::drawTextBase(const TextBase* item, muse::draw::Painter* p
         TextBase::sort(r1, c1, r2, c2);
         size_t row = 0;
         for (const TextBlock& t : ldata->blocks) {
-            draw(t, item, painter);
+            t.draw(painter, item);
             if (row >= r1 && row <= r2) {
                 RectF br;
                 if (row == r1 && r1 == r2) {
@@ -258,12 +252,13 @@ void EditModeRenderer::drawTextBase(const TextBase* item, muse::draw::Painter* p
             ++row;
         }
     }
-    painter->setBrush(item->curColor(opt));
-    Pen pen(item->curColor(opt));
+    painter->setBrush(item->curColor());
+    Pen pen(item->curColor());
     pen.setJoinStyle(PenJoinStyle::MiterJoin);
     painter->setPen(pen);
 
-    if (cursor->visible()) {
+    // Don't draw cursor if there is a selection
+    if (!cursor->hasSelection()) {
         painter->drawRect(cursor->cursorRect());
     }
 
@@ -276,19 +271,4 @@ void EditModeRenderer::drawTextBase(const TextBase* item, muse::draw::Painter* p
 
     painter->drawRect(r);
     pen = Pen(item->configuration()->defaultColor(), 0.0);
-}
-
-void EditModeRenderer::draw(const TextBlock& textBlock, const TextBase* item, muse::draw::Painter* painter)
-{
-    painter->translate(0.0, textBlock.y());
-    for (const TextFragment& f : textBlock.fragments()) {
-        draw(f, item, painter);
-    }
-    painter->translate(0.0, -textBlock.y());
-}
-
-void EditModeRenderer::draw(const TextFragment& textFragment, const TextBase* item, muse::draw::Painter* painter)
-{
-    painter->setFont(textFragment.font(item));
-    painter->drawText(textFragment.pos, textFragment.text);
 }

@@ -19,7 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#include <gmock/gmock.h>
+
+#include <gtest/gtest.h>
 
 #include "project/internal/templatesrepository.h"
 
@@ -30,9 +31,10 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 
-using ::testing::NiceMock;
+using ::testing::_;
 using ::testing::Return;
 
+using namespace mu;
 using namespace mu::project;
 using namespace mu::notation;
 using namespace muse;
@@ -44,9 +46,9 @@ protected:
     void SetUp() override
     {
         m_repository = std::make_shared<TemplatesRepository>();
-        m_msczReader = std::make_shared<NiceMock<MsczReaderMock> >();
-        m_fileSystem = std::make_shared<NiceMock<FileSystemMock> >();
-        m_configuration = std::make_shared<NiceMock<ProjectConfigurationMock> >();
+        m_msczReader = std::make_shared<MsczReaderMock>();
+        m_fileSystem = std::make_shared<FileSystemMock>();
+        m_configuration = std::make_shared<ProjectConfigurationMock>();
 
         m_repository->configuration.set(m_configuration);
         m_repository->mscReader.set(m_msczReader);
@@ -175,13 +177,13 @@ TEST_F(Project_TemplatesRepositoryTest, Templates)
         expectedTemplates << buildTemplate("My templates", otherTemplatePath, true /*isCustom*/);
     }
 
-    for (const Template& templ : std::as_const(expectedTemplates)) {
+    for (const Template& templ : expectedTemplates) {
         ON_CALL(*m_msczReader, readMeta(templ.meta.filePath))
         .WillByDefault(Return(RetVal<ProjectMeta>::make_ok(templ.meta)));
     }
 
     // [WHEN] Get templates meta
-    const RetVal<Templates> templates = m_repository->templates();
+    RetVal<Templates> templates = m_repository->templates();
 
     // [THEN] Successfully got templates meta
     EXPECT_TRUE(templates.ret);

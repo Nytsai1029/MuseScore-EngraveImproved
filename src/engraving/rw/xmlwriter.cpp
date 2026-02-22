@@ -117,16 +117,16 @@ void XmlWriter::tagProperty(Pid id, const PropertyValue& val, const PropertyValu
 
     const String writableVal(propertyToString(id, val, /* mscx */ true));
     if (writableVal.isEmpty()) {
-        //! NOTE The data type is ABSOLUTE, but we write SPATIUM
-        //! (the conversion from Absolute to Spatium occurred higher up the stack)
-        if (propType == P_TYPE::ABSOLUTE) {
+        //! NOTE The data type is MILLIMETRE, but we write SPATIUM
+        //! (the conversion from Millimetre to Spatium occurred higher up the stack)
+        if (propType == P_TYPE::MILLIMETRE) {
             propType = P_TYPE::SPATIUM;
         }
 
-        //! HACK Temporary hack. We used to have some kind of property with property type BOOL,
+        //! HACK Temporary hack. We have some kind of property with property type BOOL,
         //! but the used value type is INT (not just 1 and 0)
-        //! TODO: remove if deemed safe
-        IF_ASSERT_FAILED(!(propType == P_TYPE::BOOL && valType == P_TYPE::INT)) {
+        //! see STAFF_BARLINE_SPAN
+        if (propType == P_TYPE::BOOL && valType == P_TYPE::INT) {
             propType = P_TYPE::INT;
         }
 
@@ -185,8 +185,8 @@ void XmlWriter::tagProperty(const AsciiStringView& name, P_TYPE type, const Prop
     case P_TYPE::SPATIUM:
         element(name, data.value<Spatium>().val());
         break;
-    case P_TYPE::ABSOLUTE:
-        element(name, data.value<double>());
+    case P_TYPE::MILLIMETRE:
+        element(name, data.value<Millimetre>().val());
         break;
 
     // draw
@@ -201,9 +201,6 @@ void XmlWriter::tagProperty(const AsciiStringView& name, P_TYPE type, const Prop
     case P_TYPE::ORNAMENT_STYLE: {
         element(name, TConv::toXml(data.value<OrnamentStyle>()));
     } break;
-    case P_TYPE::ORNAMENT_SHOW_ACCIDENTAL:
-        element(name, static_cast<int>(data.value<OrnamentShowAccidental>()));
-        break;
     case P_TYPE::GLISS_STYLE: {
         element(name, TConv::toXml(data.value<GlissandoStyle>()));
     } break;
@@ -265,9 +262,6 @@ void XmlWriter::tagProperty(const AsciiStringView& name, P_TYPE type, const Prop
     case P_TYPE::CLEF_TYPE: {
         element(name, TConv::toXml(data.value<ClefType>()));
     } break;
-    case P_TYPE::CLEF_TO_BARLINE_POS:
-        element(name, static_cast<int>(data.value<ClefToBarlinePosition>()));
-        break;
     case P_TYPE::DYNAMIC_TYPE: {
         element(name, TConv::toXml(data.value<DynamicType>()));
     } break;
@@ -286,9 +280,6 @@ void XmlWriter::tagProperty(const AsciiStringView& name, P_TYPE type, const Prop
     case P_TYPE::TEXT_STYLE: {
         element(name, TConv::toXml(data.value<TextStyleType>()));
     } break;
-    case P_TYPE::SLUR_STYLE_TYPE:
-        element(name, static_cast<int>(data.value<SlurStyleType>()));
-        break;
     case P_TYPE::CHANGE_METHOD: {
         element(name, TConv::toXml(data.value<ChangeMethod>()));
     } break;

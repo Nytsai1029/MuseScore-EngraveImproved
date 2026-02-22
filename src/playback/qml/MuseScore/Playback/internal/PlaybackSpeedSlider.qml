@@ -19,7 +19,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
 import QtQuick
 import QtQuick.Layouts
 
@@ -48,8 +47,6 @@ RowLayout {
     }
 
     IncrementalPropertyControl {
-        id: speedControl
-
         Layout.preferredWidth: 76
         currentValue: root.playbackModel.tempoMultiplier * 100
 
@@ -79,9 +76,6 @@ RowLayout {
         stepSize: 0.05
 
         fillBackground: false
-
-        navigation.panel: root.navigationPanel
-        navigation.order: speedControl.navigation.order + 1
 
         onMoved: {
             root.playbackModel.tempoMultiplier = value

@@ -63,12 +63,13 @@ elseif(OS_IS_LIN)
 
 elseif(OS_IS_MAC)
 
+    set(MACOSX_BUNDLE_ICON_FILE AppIcon.icns)
     set(MACOSX_BUNDLE_GUI_IDENTIFIER ${MUSE_APP_GUI_IDENTIFIER})
     set(MACOSX_BUNDLE_BUNDLE_NAME ${MUSE_APP_TITLE})
     set(MACOSX_BUNDLE_LONG_VERSION_STRING ${MUSE_APP_VERSION})
     set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${MUSE_APP_VERSION})
     set(MACOSX_BUNDLE_BUNDLE_VERSION ${CMAKE_BUILD_NUMBER})
-    set(MACOSX_BUNDLE_COPYRIGHT "Copyright © 1999-2026 MuseScore Limited. Published under the GNU General Public License version 3.")
+    set(MACOSX_BUNDLE_COPYRIGHT "Copyright © 1999-2025 MuseScore Limited. Published under the GNU General Public License version 3.")
 
     set(CMAKE_INSTALL_RPATH ${QT_INSTALL_LIBS})
     if (MUE_COMPILE_MACOS_PRECOMPILED_DEPS_PATH)
@@ -101,98 +102,104 @@ set(LINK_LIB
     ${QT_LIBRARIES}
     muse::global
     muse::draw
+    muse::actions
+
+    # have stub, links real or stub
+    muse::network
+    muse::vst
+    muse::update
+    muse::accessibility
+    muse::shortcuts
+    muse::workspace
+    muse::audio
+    muse::mpe
+    muse::midi
+    muse::learn
+    muse::tours
+    muse::multiinstances
+    muse::cloud
+    muse::languages
+    muse::extensions
+
+    braille
+    muse::diagnostics
+    engraving
+    context
+    notation
+    project
+    commonscene
+    palette
+    inspector
+    playback
+    instrumentsscene
+    musesounds
     )
 
-macro(add_to_link_if_exists lib)
-    if (TARGET ${lib})
+macro(add_to_link_if_enabled opt lib)
+    if (${opt})
         list(APPEND LINK_LIB ${lib})
-
-        if (TARGET ${lib}_qml)
-            list(APPEND LINK_LIB ${lib}_qml)
-        endif()
     endif()
 endmacro()
 
-# NOTE There may be cases:
-# 1. The module is enabled and the target exists.
-# 2. The module is disabled, but there is a stub, the target exists
-# 3. The module is disabled and the target does not exist.
-# This function also adds qml parts to the link
-add_to_link_if_exists(muse::accessibility)
-add_to_link_if_exists(muse::actions)
-add_to_link_if_exists(muse::audio)
-add_to_link_if_exists(muse::audioplugins)
-add_to_link_if_exists(muse::autobot)
-add_to_link_if_exists(muse::cloud)
-add_to_link_if_exists(muse::diagnostics)
-add_to_link_if_exists(muse::dockwindow)
-add_to_link_if_exists(muse::extensions)
-add_to_link_if_exists(muse::interactive)
-add_to_link_if_exists(muse::languages)
-add_to_link_if_exists(muse::learn)
-add_to_link_if_exists(muse::midi)
-add_to_link_if_exists(muse::mpe)
-add_to_link_if_exists(muse::multiwindows)
-add_to_link_if_exists(muse::musesampler)
-add_to_link_if_exists(muse::network)
-add_to_link_if_exists(muse::shortcuts)
-add_to_link_if_exists(muse::tours)
-add_to_link_if_exists(muse::ui)
-add_to_link_if_exists(muse::ui_dialogs_qml)
-add_to_link_if_exists(muse::uicomponents)
-add_to_link_if_exists(muse::uicomponents_qmlapi)
-add_to_link_if_exists(muse::graphicaleffects_qml)
-add_to_link_if_exists(muse::legacytreeview_qml)
-add_to_link_if_exists(muse::update)
-add_to_link_if_exists(muse::vst)
-add_to_link_if_exists(muse::workspace)
+add_to_link_if_enabled(${MUSE_MODULE_AUTOBOT} muse::autobot)
+add_to_link_if_enabled(${MUSE_MODULE_AUDIOPLUGINS} muse::audioplugins)
+add_to_link_if_enabled(${MUSE_MODULE_MUSESAMPLER} muse::musesampler)
+add_to_link_if_enabled(${MUSE_MODULE_UI} muse::ui)
+add_to_link_if_enabled(${MUSE_MODULE_UI} muse::uicomponents)
+add_to_link_if_enabled(${MUSE_MODULE_DOCKWINDOW} muse::dockwindow)
 
-add_to_link_if_exists(appshell)
-add_to_link_if_exists(braille)
-add_to_link_if_exists(context)
-add_to_link_if_exists(converter)
-add_to_link_if_exists(engraving)
-add_to_link_if_exists(iex_audioexport)
-add_to_link_if_exists(iex_bb)
-add_to_link_if_exists(iex_bww)
-add_to_link_if_exists(iex_capella)
-add_to_link_if_exists(iex_guitarpro)
-add_to_link_if_exists(iex_imagesexport)
-add_to_link_if_exists(iex_lyricsexport)
-add_to_link_if_exists(iex_mei)
-add_to_link_if_exists(iex_midi)
-add_to_link_if_exists(iex_mnx)
-add_to_link_if_exists(iex_musedata)
-add_to_link_if_exists(iex_musicxml)
-add_to_link_if_exists(iex_ove)
-add_to_link_if_exists(iex_tabledit)
-add_to_link_if_exists(iex_videoexport)
-add_to_link_if_exists(inspector)
-add_to_link_if_exists(instrumentsscene)
-add_to_link_if_exists(musesounds)
-add_to_link_if_exists(notation)
-add_to_link_if_exists(notationscene)
-add_to_link_if_exists(palette)
-add_to_link_if_exists(playback)
-add_to_link_if_exists(preferences)
-add_to_link_if_exists(print)
-add_to_link_if_exists(project)     
+add_to_link_if_enabled(${MUE_BUILD_APPSHELL_MODULE} appshell)
+add_to_link_if_enabled(${MUE_BUILD_CONVERTER_MODULE} converter)
+add_to_link_if_enabled(${MUE_BUILD_PRINT_MODULE} print)
 
+if (MUE_BUILD_IMPEXP_BB_MODULE)
+    list(APPEND LINK_LIB iex_bb)
+endif ()
+if (MUE_BUILD_IMPEXP_BWW_MODULE)
+    list(APPEND LINK_LIB iex_bww)
+endif ()
+if (MUE_BUILD_IMPEXP_CAPELLA_MODULE)
+    list(APPEND LINK_LIB iex_capella)
+endif ()
+if (MUE_BUILD_IMPEXP_MIDI_MODULE)
+    list(APPEND LINK_LIB iex_midi)
+endif ()
+if (MUE_BUILD_IMPEXP_MUSEDATA_MODULE)
+    list(APPEND LINK_LIB iex_musedata)
+endif ()
+if (MUE_BUILD_IMPEXP_MUSICXML_MODULE)
+    list(APPEND LINK_LIB iex_musicxml)
+endif ()
+if (MUE_BUILD_IMPEXP_OVE_MODULE)
+    list(APPEND LINK_LIB iex_ove)
+endif ()
+if (MUE_BUILD_IMPEXP_AUDIOEXPORT_MODULE)
+    list(APPEND LINK_LIB iex_audioexport)
+endif ()
+if (MUE_BUILD_IMPEXP_IMAGESEXPORT_MODULE)
+    list(APPEND LINK_LIB iex_imagesexport)
+endif ()
+if (MUE_BUILD_IMPEXP_GUITARPRO_MODULE)
+    list(APPEND LINK_LIB iex_guitarpro)
+endif ()
+if (MUE_BUILD_IMPEXP_MEI_MODULE)
+    list(APPEND LINK_LIB iex_mei)
+endif ()
+if (MUE_BUILD_IMPEXP_VIDEOEXPORT_MODULE)
+    list(APPEND LINK_LIB iex_videoexport)
+endif ()
+if (MUE_BUILD_IMPEXP_TABLEDIT_MODULE)
+    list(APPEND LINK_LIB iex_tabledit)
+endif ()
 
-set(MSCORE_APPEND_SRC)
+set (MSCORE_APPEND_SRC)
 
 if (OS_IS_WIN)
-    set(MANIFEST_FILE_NAME "${EXECUTABLE_NAME}.manifest")
-    configure_file("configs/app_win.manifest.in" ${MANIFEST_FILE_NAME} @ONLY)
-
-    list(APPEND MSCORE_APPEND_SRC
-        ${WINDOWS_ICONS_RC}
-        "${CMAKE_CURRENT_BINARY_DIR}/${MANIFEST_FILE_NAME}"
-    )
+    list(APPEND MSCORE_APPEND_SRC ${WINDOWS_ICONS_RC})
 endif()
 
 if (MUE_CONFIGURATION_IS_APPWEB)
-    list(APPEND LINK_LIB appjs)
+    list(APPEND LINK_LIB webbridge)
 endif()
 
 ###########################################
@@ -250,13 +257,9 @@ if (MUSE_ENABLE_UNIT_TESTS_CODE_COVERAGE)
 endif()
 
 if (OS_IS_MAC)
-    include(${PROJECT_SOURCE_DIR}/share/icons/SetupIconComposerIcon.cmake)
-    target_setup_iconcomposer_icon(MuseScoreStudio "${PROJECT_SOURCE_DIR}/share/icons/AppIcon/AppIcon.icon")
-
     set_target_properties(MuseScoreStudio PROPERTIES
         MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/buildscripts/packaging/macOS/Info.plist.in
-        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER ${MACOSX_BUNDLE_GUI_IDENTIFIER}
-    )
+        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER ${MACOSX_BUNDLE_GUI_IDENTIFIER})
 endif (OS_IS_MAC)
 
 if (CC_IS_MINGW)
@@ -350,33 +353,42 @@ if (OS_IS_WIN)
         configure_file(${PROJECT_SOURCE_DIR}/buildscripts/packaging/Windows/PortableApps/appinfo.ini.in     ${CMAKE_INSTALL_PREFIX}/../../App/AppInfo/appinfo.ini   @ONLY)
     endif (WIN_PORTABLE)
 
-    if (MUE_RUN_WINDEPLOYQT)
-        set(deploy_tool_options_arg "--plugindir bin --qmldir ${PROJECT_SOURCE_DIR}")
-        qt_generate_deploy_qml_app_script(
-            TARGET MuseScoreStudio
-            OUTPUT_SCRIPT deploy_script
-            NO_UNSUPPORTED_PLATFORM_ERROR
-            DEPLOY_TOOL_OPTIONS ${deploy_tool_options_arg}
-        )
+    set(deploy_tool_options_arg "--plugindir bin --qmldir ${PROJECT_SOURCE_DIR}")
 
-        install(SCRIPT ${deploy_script})
-    endif() # MUE_RUN_WINDEPLOYQT
+    qt_generate_deploy_qml_app_script(
+        TARGET MuseScoreStudio
+        OUTPUT_SCRIPT deploy_script
+        NO_UNSUPPORTED_PLATFORM_ERROR
+        DEPLOY_TOOL_OPTIONS ${deploy_tool_options_arg}
+    )
+
+    install(SCRIPT ${deploy_script})
 
 ###########################################
 # Linux
 ###########################################
 elseif(OS_IS_LIN)
     # Install mscore executable (package maintainers may add "MuseScore" and/or "musescore" aliases that symlink to mscore)
-    install(CODE "message(STATUS \"Creating symlink ${CMAKE_INSTALL_PREFIX}/bin/musescore${MUSE_APP_INSTALL_SUFFIX} -> ${CMAKE_INSTALL_PREFIX}/bin/mscore${MUSE_APP_INSTALL_SUFFIX}\")
-                  execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink \"${CMAKE_INSTALL_PREFIX}/bin/mscore${MUSE_APP_INSTALL_SUFFIX}\" \"${CMAKE_INSTALL_PREFIX}/bin/musescore${MUSE_APP_INSTALL_SUFFIX}\")")
+    if (LN_EXECUTABLE)
+       add_custom_target(mscore_alias ALL
+           COMMAND echo "Creating symlink alias for mscore executable."
+           COMMAND ${LN_EXECUTABLE} -sf "mscore${MUSE_APP_INSTALL_SUFFIX}" "musescore${MUSE_APP_INSTALL_SUFFIX}"
+           COMMAND echo 'Symlink alias: musescore${MUSE_APP_INSTALL_SUFFIX} -> mscore${MUSE_APP_INSTALL_SUFFIX}'
+           )
+       install(FILES ${PROJECT_BINARY_DIR}/src/app/musescore${MUSE_APP_INSTALL_SUFFIX} DESTINATION bin)
+    else (LN_EXECUTABLE)
+       add_custom_target(mscore_alias ALL COMMAND echo "No symlink aliases will be created." VERBATIM )
+    endif (LN_EXECUTABLE)
 
+elseif(OS_IS_FBSD)
 ###########################################
 # FreeBSD
 ###########################################
-elseif(OS_IS_FBSD)
-    # Install mscore executable (package maintainers may add "MuseScore" and/or "musescore" aliases that symlink to mscore)
-    install(CODE "message(STATUS \"Creating symlink ${CMAKE_INSTALL_PREFIX}/bin/musescore${MUSE_APP_INSTALL_SUFFIX} -> ${CMAKE_INSTALL_PREFIX}/bin/mscore${MUSE_APP_INSTALL_SUFFIX}\")
-                  execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink \"${CMAKE_INSTALL_PREFIX}/bin/mscore${MUSE_APP_INSTALL_SUFFIX}\" \"${CMAKE_INSTALL_PREFIX}/bin/musescore${MUSE_APP_INSTALL_SUFFIX}\")")
+    add_custom_target(mscore_alias ALL
+           COMMAND echo "Creating symlink alias for mscore executable."
+           COMMAND ln -sfv "mscore" "musescore"
+           )
+   install(FILES ${PROJECT_BINARY_DIR}/src/app/musescore DESTINATION bin)
 
 ###########################################
 # macOS
@@ -405,13 +417,7 @@ elseif(OS_IS_MAC)
             ${PROJECT_SOURCE_DIR}/fonts/petaluma/PetalumaText.otf
             ${PROJECT_SOURCE_DIR}/fonts/finalemaestro/FinaleMaestroText-Regular.otf
             ${PROJECT_SOURCE_DIR}/fonts/finalebroadway/FinaleBroadwayText.otf
-            DESTINATION ${MUSE_APP_INSTALL_RESOURCES_LOCATION}/fonts
-    )
-
-    qt_generate_deploy_qml_app_script(
-        TARGET MuseScoreStudio
-        OUTPUT_SCRIPT deploy_script
-        MACOS_BUNDLE_POST_BUILD
+            DESTINATION ${Mscore_SHARE_NAME}${Mscore_INSTALL_NAME}fonts
     )
 
 ###########################################
@@ -422,10 +428,11 @@ elseif(OS_IS_WASM)
     add_custom_command(
         TARGET MuseScoreStudio
         POST_BUILD
-        COMMAND node ${PROJECT_SOURCE_DIR}/src/web/appjs/install.js ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+        COMMAND node ${PROJECT_SOURCE_DIR}/src/webbridge/install.js ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Install js api..."
     )
+
 
 else()
     message(FATAL_ERROR "Unsupported Platform: ${CMAKE_HOST_SYSTEM_NAME}")
@@ -437,7 +444,7 @@ endif()
 #################################################
 if (MSVC)
     # Add a post-build event to deploy the application to the output folder. Same as building the INSTALL target.
-    string(TOUPPER ${CMAKE_GENERATOR} UPPER_CMAKE_GENERATOR)
+    STRING(TOUPPER ${CMAKE_GENERATOR} UPPER_CMAKE_GENERATOR)
     if (${UPPER_CMAKE_GENERATOR} MATCHES "VISUAL STUDIO")
         # We want $(Configuration) passed verbatim. Note the round brackets.
         set(CONFIG_STR "$(Configuration)")

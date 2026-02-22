@@ -23,8 +23,8 @@
 #include "rasgueado.h"
 
 #include "score.h"
+#include "stafftype.h"
 #include "system.h"
-#include "text.h"
 
 using namespace mu;
 using namespace mu::engraving;
@@ -43,9 +43,6 @@ static const ElementStyle rasgueadoStyle {
     { Sid::letRingTextAlign,                     Pid::BEGIN_TEXT_ALIGN },
     { Sid::letRingTextAlign,                     Pid::CONTINUE_TEXT_ALIGN },
     { Sid::letRingTextAlign,                     Pid::END_TEXT_ALIGN },
-    { Sid::letRingPosition,                      Pid::BEGIN_TEXT_POSITION },
-    { Sid::letRingPosition,                      Pid::CONTINUE_TEXT_POSITION },
-    { Sid::letRingPosition,                      Pid::END_TEXT_POSITION },
     { Sid::letRingHookHeight,                    Pid::BEGIN_HOOK_HEIGHT },
     { Sid::letRingHookHeight,                    Pid::END_HOOK_HEIGHT },
     { Sid::letRingLineStyle,                     Pid::LINE_STYLE },
@@ -60,8 +57,6 @@ static const ElementStyle rasgueadoStyle {
 RasgueadoSegment::RasgueadoSegment(Rasgueado* sp, System* parent)
     : TextLineBaseSegment(ElementType::RASGUEADO_SEGMENT, sp, parent, ElementFlag::MOVABLE | ElementFlag::ON_STAFF)
 {
-    m_text->setTextStyleType(propertyDefault(Pid::TEXT_STYLE).value<TextStyleType>());
-    m_endText->setTextStyleType(propertyDefault(Pid::TEXT_STYLE).value<TextStyleType>());
 }
 
 //---------------------------------------------------------
@@ -137,19 +132,6 @@ PropertyValue Rasgueado::propertyDefault(Pid propertyId) const
     case Pid::CONTINUE_TEXT_PLACE:
     case Pid::END_TEXT_PLACE:
         return TextPlace::AUTO;
-
-    case Pid::TEXT_STYLE:
-        return TextStyleType::LET_RING;
-
-    case Pid::BEGIN_FILLED_ARROW_HEIGHT:   // No arrow endings for rasguedo
-    case Pid::BEGIN_FILLED_ARROW_WIDTH:
-    case Pid::END_FILLED_ARROW_HEIGHT:
-    case Pid::END_FILLED_ARROW_WIDTH:
-    case Pid::BEGIN_LINE_ARROW_HEIGHT:
-    case Pid::BEGIN_LINE_ARROW_WIDTH:
-    case Pid::END_LINE_ARROW_HEIGHT:
-    case Pid::END_LINE_ARROW_WIDTH:
-        return 0.0;
 
     default:
         return TextLineBase::propertyDefault(propertyId);

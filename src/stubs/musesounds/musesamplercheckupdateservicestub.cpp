@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -36,7 +36,7 @@ bool MuseSamplerCheckUpdateServiceStub::incompatibleLocalVersion() const
 
 muse::async::Promise<muse::RetVal<bool> > MuseSamplerCheckUpdateServiceStub::checkForUpdate()
 {
-    return muse::async::Promise<muse::RetVal<bool> >([](auto /*resolve*/, auto reject) {
-        return reject(int(muse::Ret::Code::UnknownError), "stub");
+    return muse::async::Promise<muse::RetVal<bool> >([](auto, auto) {
+        return muse::async::Promise<muse::RetVal<bool> >::dummy_result();
     });
 }

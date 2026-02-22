@@ -21,7 +21,7 @@
  */
 #pragma once
 
-#include <vector>
+#include <list>
 
 #include "../iconvertercontroller.h"
 
@@ -35,22 +35,22 @@
 #include "types/retval.h"
 
 namespace mu::converter {
-class ConverterController : public IConverterController, public muse::Contextable
+class ConverterController : public IConverterController, public muse::Injectable
 {
-    muse::GlobalInject<project::IProjectCreator> notationCreator;
-    muse::ContextInject<project::INotationWritersRegister> writers = { this };
-    muse::ContextInject<project::IProjectRWRegister> projectRW = { this };
-    muse::ContextInject<context::IGlobalContext> globalContext = { this };
-    muse::ContextInject<muse::extensions::IExtensionsProvider> extensionsProvider = { this };
+    muse::Inject<project::IProjectCreator> notationCreator = { this };
+    muse::Inject<project::INotationWritersRegister> writers = { this };
+    muse::Inject<project::IProjectRWRegister> projectRW = { this };
+    muse::Inject<context::IGlobalContext> globalContext = { this };
+    muse::Inject<muse::extensions::IExtensionsProvider> extensionsProvider = { this };
 
 public:
     ConverterController(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx) {}
+        : muse::Injectable(iocCtx) {}
 
     muse::Ret fileConvert(const muse::io::path_t& in, const muse::io::path_t& out, const OpenParams& openParams = {},
-                          const muse::String& soundProfile = {}, const muse::io::path_t& tracksDiffPath = {},
-                          const muse::UriQuery& extensionUri = {}, const std::string& transposeOptionsJson = {},
-                          const std::optional<ConvertTarget>& target = std::nullopt) override;
+                          const muse::String& soundProfile = muse::String(), const muse::io::path_t& tracksDiffPath = {},
+                          const muse::UriQuery& extensionUri = muse::UriQuery(), const std::string& transposeOptionsJson = {},
+                          const std::optional<size_t>& pageNum = std::nullopt) override;
 
     muse::Ret batchConvert(const muse::io::path_t& batchJobFile, const OpenParams& openParams = {}, const muse::String& soundProfile = {},
                            const muse::UriQuery& extensionUri = {}, muse::ProgressPtr progress = nullptr) override;
@@ -65,31 +65,23 @@ public:
     muse::Ret exportScoreTranspose(const muse::io::path_t& in, const muse::io::path_t& out, const std::string& optionsJson,
                                    const OpenParams& openParams = {}) override;
 
-    muse::Ret exportScoreElements(const muse::io::path_t& in, const muse::io::path_t& out, const OpenParams& openParams = {}) override;
+    muse::Ret exportScoreElements(const muse::io::path_t& in, const muse::io::path_t& out, const std::string& optionsJson,
+                                  const OpenParams& openParams = {}) override;
 
     muse::Ret exportScoreVideo(const muse::io::path_t& in, const muse::io::path_t& out, const OpenParams& openParams = {}) override;
 
     muse::Ret updateSource(const muse::io::path_t& in, const std::string& newSource, bool forceMode = false) override;
 
 private:
-    struct CopyrightInfo {
-        CopyrightInfo() {}
-
-        muse::String text;
-        bool showOnAllPages = false;
-    };
-
     struct Job {
         muse::io::path_t in;
         muse::io::path_t out;
         muse::io::path_t tracksDiffPath;
         std::optional<notation::TransposeOptions> transposeOptions;
         std::optional<size_t> pageNum;
-        std::vector<size_t> visibleParts;
-        CopyrightInfo copyright;
     };
 
-    using BatchJob = std::vector<Job>;
+    using BatchJob = std::list<Job>;
     using TransposeOpts = std::optional<notation::TransposeOptions>;
 
     muse::RetVal<BatchJob> parseBatchJob(const muse::io::path_t& batchJobFile) const;
@@ -97,8 +89,7 @@ private:
     muse::Ret convertFile(const muse::io::path_t& in, const muse::io::path_t& out, const OpenParams& openParams = {},
                           const muse::String& soundProfile = {}, const muse::io::path_t& tracksDiffPath = {},
                           const muse::UriQuery& extensionUri = {}, const TransposeOpts& transposeOptions = std::nullopt,
-                          const std::optional<ConvertTarget>& target = std::nullopt, const std::vector<size_t>& visibleParts = {},
-                          const CopyrightInfo& copyright = {});
+                          const std::optional<size_t>& pageNum = std::nullopt);
 
     muse::Ret convertScoreParts(project::INotationWriterPtr writer, notation::IMasterNotationPtr masterNotation,
                                 const muse::io::path_t& out);
@@ -117,8 +108,6 @@ private:
                                       const muse::io::path_t& out) const;
     muse::Ret convertScorePartsToMp3(project::INotationWriterPtr writer, notation::IMasterNotationPtr masterNotation,
                                      const muse::io::path_t& out) const;
-
-    muse::Ret saveRegion(project::INotationProjectPtr project, const ConvertRegionJson& regionJson, const muse::io::path_t& out) const;
 
     muse::Ret writeTracksDiff(project::INotationProjectPtr project, const QJsonArray& oldTracks, const muse::io::path_t& path) const;
 };

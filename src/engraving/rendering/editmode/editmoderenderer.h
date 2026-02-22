@@ -38,8 +38,6 @@ class BarLine;
 class Dynamic;
 class SlurTieSegment;
 class TextBase;
-class TextBlock;
-class TextFragment;
 }
 
 namespace mu::engraving::rendering::editmode {
@@ -48,23 +46,14 @@ class EditModeRenderer : public IEditModeRenderer
 public:
     EditModeRenderer() = default;
 
-    void drawItem(const EngravingItem* item, muse::draw::Painter* p, const EditData& ed, double currentViewScaling,
-                  const PaintOptions& opt) override;
+    void drawItem(EngravingItem* item, muse::draw::Painter* p, EditData& ed, double currentViewScaling) override;
 
 private:
-    static void drawEngravingItem(const EngravingItem* item, muse::draw::Painter* painter, const EditData& ed, double currentViewScaling,
-                                  const PaintOptions& opt);
+    static void drawEngravingItem(EngravingItem* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling);
 
-    static void drawBarline(const BarLine* item, muse::draw::Painter* painter, const EditData& ed, double currentViewScaling,
-                            const PaintOptions& opt);
-    static void drawDynamic(const Dynamic* item, muse::draw::Painter* painter, const EditData& ed, double currentViewScaling,
-                            const PaintOptions& opt);
-    static void drawSlurTieSegment(const SlurTieSegment* item, muse::draw::Painter* painter, const EditData& ed, double currentViewScaling,
-                                   const PaintOptions& opt);
-
-    static void drawTextBase(const TextBase* item, muse::draw::Painter* painter, const EditData& ed, double currentViewScaling,
-                             const PaintOptions& opt);
-    static void draw(const TextBlock& textBlock, const TextBase* item, muse::draw::Painter* painter);
-    static void draw(const TextFragment& textFragment, const TextBase* item, muse::draw::Painter* painter);
+    static void drawBarline(BarLine* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling);
+    static void drawDynamic(Dynamic* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling);
+    static void drawSlurTieSegment(SlurTieSegment* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling);
+    static void drawTextBase(TextBase* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling);
 };
 }

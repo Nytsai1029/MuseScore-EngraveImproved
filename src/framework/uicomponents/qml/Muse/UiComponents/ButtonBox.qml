@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,13 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import QtQml
-import QtQuick.Controls
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQml 2.14
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 Container {
     id: root
@@ -71,7 +71,7 @@ Container {
 
     function accentButton() {
         for (var i = 0; i < root.count; i++) {
-            var btn = root.itemAt(i) as FlatButton
+            var btn = root.itemAt(i)
             if (btn.accentButton) {
                 return btn
             }
@@ -81,7 +81,10 @@ Container {
     }
 
     function addButton(text, buttonId, buttonRole, isAccent, isLeftSide) {
-        const button = Qt.createQmlObject("import Muse.UiComponents; FlatButton {}", root) as FlatButton
+        const button = Qt.createQmlObject('
+                                    import Muse.UiComponents 1.0
+                                    FlatButton {
+                                    }', root)
         button.text = text
         button.accentButton = isAccent
 
@@ -100,7 +103,7 @@ Container {
 
     function restoreAccessibility() {
         for (var i = 0; i < root.count; i++) {
-            var btn = root.itemAt(i) as FlatButton
+            var btn = root.itemAt(i)
             if (!Boolean(btn.navigation)) {
                 continue
             }
@@ -160,7 +163,7 @@ Container {
                     continue
                 }
 
-                var btn = root.itemAt(i) as FlatButton
+                var btn = root.itemAt(i)
                 if (buttonInfo.button !== btn) {
                     root.moveItem(buttonInfo.index, i)
                 }
@@ -190,7 +193,7 @@ Container {
 
         function buttonInfo(buttonType) {
             for (var i = 0; i < root.count; i++) {
-                var btn = root.itemAt(i) as FlatButton
+                var btn = root.itemAt(i)
                 if (!Boolean(btn)) {
                     continue
                 }
@@ -234,7 +237,7 @@ Container {
             root.addItem(separator)
 
             for (var i = root.count - 2; i >= 0; i--) {
-                var button = root.itemAt(i) as FlatButton
+                var button = root.itemAt(i)
                 if (button.buttonId === lastLeftSideButtonType) {
                     break;
                 }

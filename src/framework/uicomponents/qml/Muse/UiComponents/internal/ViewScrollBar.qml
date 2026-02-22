@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
+import QtQuick 2.15
 
 Item {
     id: root
@@ -122,16 +122,7 @@ Item {
                 correctedClickPos *= (1.0 - root.size) / (1.0 - root.minimumSize)
             }
 
-            return correctedClickPos / root.availableTrackLength
-        }
-
-        function doOnPositionChanged(mouse) {
-            if (!pressed) {
-                return
-            }
-
-            let clickPos = root.isVertical ? mouse.y : mouse.x
-            root.moved(toLogical(clickPos) - moveStartOffset)
+            return correctedClickPos / availableTrackLength
         }
 
         onPressed: function(mouse) {
@@ -143,20 +134,25 @@ Item {
             if (clickPos < start || clickPos > end) {
                 // TODO: when currently in overscroll mode and then clicking outside the scrollbar,
                 // the notation position flickers.
-                moveStartOffset = Math.max(root.size, root.minimumSize * (1.0 - root.size) / (1.0 - root.minimumSize)) / 2
+                moveStartOffset = Math.max(root.size, minimumSize * (1.0 - root.size) / (1.0 - root.minimumSize)) / 2
             } else {
                 moveStartOffset = toLogical(clickPos) - root.position
             }
 
-            doOnPositionChanged(mouse)
+            onPositionChanged(mouse)
         }
 
         onPositionChanged: function(mouse) {
-            doOnPositionChanged(mouse)
+            if (!pressed) {
+                return
+            }
+
+            let clickPos = root.isVertical ? mouse.y : mouse.x
+            root.moved(toLogical(clickPos) - moveStartOffset)
         }
 
         onReleased: function(mouse) {
-            doOnPositionChanged(mouse)
+            onPositionChanged(mouse)
             moveStartOffset = 0.0
         }
     }

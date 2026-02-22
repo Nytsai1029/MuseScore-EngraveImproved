@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <spatium>1.75</spatium>
+      <spatium>1.74978</spatium>
       </Style>
     <showInvisible>1</showInvisible>
     <showUnprintable>1</showUnprintable>
@@ -31,7 +31,8 @@
       <trackName>Backing
 Vocals</trackName>
       <Instrument id="voice">
-        <longName>Backing<br/>Vocals</longName>
+        <longName>Backing
+Vocals</longName>
         <shortName>B. Vx.</shortName>
         <trackName>Voice</trackName>
         <minPitchP>38</minPitchP>
@@ -125,8 +126,10 @@ Vocals</trackName>
       <trackName>Electric
 Guitar 1</trackName>
       <Instrument id="electric-guitar">
-        <longName>Electric<br/>Guitar 1</longName>
-        <shortName>Elec.<br/>Gtr. 1</shortName>
+        <longName>Electric
+Guitar 1</longName>
+        <shortName>Elec.
+Gtr. 1</shortName>
         <trackName>Electric Guitar</trackName>
         <minPitchP>40</minPitchP>
         <maxPitchP>88</maxPitchP>
@@ -253,8 +256,10 @@ Guitar 1</trackName>
       <trackName>Electric
 Guitar 2</trackName>
       <Instrument id="electric-guitar">
-        <longName>Electric<br/>Guitar 2</longName>
-        <shortName>Elec.<br/>Gtr. 2</shortName>
+        <longName>Electric
+Guitar 2</longName>
+        <shortName>Elec.
+Gtr. 2</shortName>
         <trackName>Electric Guitar</trackName>
         <minPitchP>40</minPitchP>
         <maxPitchP>88</maxPitchP>
@@ -380,8 +385,10 @@ Guitar 2</trackName>
       <trackName>Acoustic
 Guitar</trackName>
       <Instrument id="guitar-steel">
-        <longName>Acoustic<br/>Guitar</longName>
-        <shortName>Ac.<br/>Gtr.</shortName>
+        <longName>Acoustic
+Guitar</longName>
+        <shortName>Ac.
+Gtr.</shortName>
         <trackName>Acoustic Guitar</trackName>
         <minPitchP>40</minPitchP>
         <maxPitchP>84</maxPitchP>
@@ -476,7 +483,8 @@ Guitar</trackName>
       <trackName>Piano 2</trackName>
       <Instrument id="piano">
         <longName>Piano 2</longName>
-        <shortName>Pno.<br/>2</shortName>
+        <shortName>Pno.
+2</shortName>
         <trackName>Piano</trackName>
         <minPitchP>21</minPitchP>
         <maxPitchP>108</maxPitchP>

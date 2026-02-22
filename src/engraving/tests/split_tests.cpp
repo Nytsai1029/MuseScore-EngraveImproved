@@ -22,16 +22,16 @@
 
 #include <gtest/gtest.h>
 
-#include "engraving/dom/chordrest.h"
-#include "engraving/dom/masterscore.h"
-#include "engraving/dom/measure.h"
-#include "engraving/dom/note.h"
-#include "engraving/dom/segment.h"
-#include "engraving/editing/splitjoinmeasure.h"
+#include "dom/chordrest.h"
+#include "dom/masterscore.h"
+#include "dom/measure.h"
+#include "dom/note.h"
+#include "dom/segment.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String SPLIT_DATA_DIR("split_data/");
@@ -51,9 +51,10 @@ void Engraving_SplitTests::split(const char* f1, const char* ref, int index)
     for (int i = 0; i < index; ++i) {
         s = s->next1(SegmentType::ChordRest);
     }
+    ChordRest* cr = toChordRest(s->element(0));
 
     score->startCmd(TranslatableString::untranslatable("Engraving split tests"));
-    SplitJoinMeasure::splitMeasure(score, s->tick());
+    score->cmdSplitMeasure(cr);
     score->endCmd();
 
     EXPECT_TRUE(ScoreComp::saveCompareScore(score, String::fromUtf8(f1), SPLIT_DATA_DIR + String::fromUtf8(ref)));
@@ -100,7 +101,7 @@ TEST_F(Engraving_SplitTests, split08)
     split("split08.mscx", "split08-ref.mscx");
 }
 
-TEST_F(Engraving_SplitTests, split183846)
+TEST_F(Engraving_SplitTests, DISABLED_split183846) //  determine why pageWidth/pageHeight are missing!
 {
     split("split183846-irregular-qn-qn-wn.mscx",          "split183846-irregular-qn-qn-wn-ref.mscx", 1);
     split("split183846-irregular-wn-wn.mscx",             "split183846-irregular-wn-wn-ref.mscx", 1);
@@ -126,6 +127,9 @@ TEST_F(Engraving_SplitTests, split295207)
 
 TEST_F(Engraving_SplitTests, splitTieAtStart) {
     // Test splitting a measure when there is a tie ending on the first chord on the split range
+    bool use302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
+
     MasterScore* score = ScoreRW::readScore(SPLIT_DATA_DIR + u"splitTieAtStart.mscx");
     EXPECT_TRUE(score);
 
@@ -153,8 +157,10 @@ TEST_F(Engraving_SplitTests, splitTieAtStart) {
 
     Tie* tie1 = checkTie();
 
+    ChordRest* splitCr = m1->nextMeasure()->findChordRest(Fraction(3, 2), 0);
+
     score->startCmd(TranslatableString::untranslatable("Engraving split tests"));
-    SplitJoinMeasure::splitMeasure(score, Fraction(3, 2));
+    score->cmdSplitMeasure(splitCr);
     score->endCmd();
 
     Tie* tie2 = checkTie();
@@ -166,4 +172,5 @@ TEST_F(Engraving_SplitTests, splitTieAtStart) {
     EXPECT_EQ(tie3, tie1);
 
     delete score;
+    MScore::useRead302InTestMode = use302;
 }

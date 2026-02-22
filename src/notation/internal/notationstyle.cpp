@@ -5,7 +5,7 @@
  * MuseScore Studio
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited
+ * Copyright (C) 2021 MuseScore Limited
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -21,13 +21,17 @@
  */
 #include "notationstyle.h"
 
-#include "io/file.h"
-#include "types/translatablestring.h"
+#include "engraving/style/defaultstyle.h"
 
 #include "engraving/dom/masterscore.h"
 #include "engraving/dom/excerpt.h"
-#include "engraving/editing/editstyle.h"
-#include "engraving/style/defaultstyle.h"
+#include "engraving/dom/mscore.h"
+#include "engraving/dom/undo.h"
+
+#include "io/file.h"
+
+#include "log.h"
+#include "types/translatablestring.h"
 
 using namespace mu::notation;
 using namespace muse::async;
@@ -37,12 +41,12 @@ NotationStyle::NotationStyle(IGetScore* getScore, INotationUndoStackPtr undoStac
 {
 }
 
-const PropertyValue& NotationStyle::styleValue(const StyleId& styleId) const
+PropertyValue NotationStyle::styleValue(const StyleId& styleId) const
 {
     return score()->style().styleV(styleId);
 }
 
-const PropertyValue& NotationStyle::defaultStyleValue(const StyleId& styleId) const
+PropertyValue NotationStyle::defaultStyleValue(const StyleId& styleId) const
 {
     return engraving::DefaultStyle::defaultStyle().value(styleId);
 }

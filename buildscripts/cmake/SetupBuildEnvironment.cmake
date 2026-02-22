@@ -50,12 +50,9 @@ endif()
 # Address Sanitizer
 if(MUSE_COMPILE_ASAN)
     if(CC_IS_CLANG OR CC_IS_GCC OR CC_IS_MINGW)
-        add_compile_options($<$<COMPILE_LANGUAGE:C,CXX,OBJC,OBJCXX>:-fsanitize=address>)
-        add_compile_options($<$<COMPILE_LANGUAGE:C,CXX,OBJC,OBJCXX>:-fno-omit-frame-pointer>)
-        add_link_options($<$<COMPILE_LANGUAGE:C,CXX,OBJC,OBJCXX>:-fsanitize=address>)
-
-        add_compile_options($<$<COMPILE_LANGUAGE:Swift>:-sanitize=address>)
-        add_link_options($<$<COMPILE_LANGUAGE:Swift>:-sanitize=address>)
+        add_compile_options("-fsanitize=address")
+        add_compile_options("-fno-omit-frame-pointer")
+        add_link_options("-fsanitize=address")
     elseif(CC_IS_MSVC)
         add_compile_options("/fsanitize=address")
     endif()
@@ -97,9 +94,9 @@ endif()
 # Wasm-specific
 if(CC_IS_EMCC)
 
-    set(MU_ROOT ${CMAKE_CURRENT_LIST_DIR}/../..)
+    # set(EMCC_COMPILE_FLAGS "--bind -o .html --preload-file ../../files")
 
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${MU_ROOT}/build.artifacts)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/public_html)
 
     set(EMCC_COMPILE_FLAGS "-s USE_ZLIB=1 -O2")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${EMCC_COMPILE_FLAGS}")

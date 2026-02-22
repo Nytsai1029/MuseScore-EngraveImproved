@@ -47,14 +47,10 @@ set(RENDERING_SCORE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/tremololayout.h
     ${CMAKE_CURRENT_LIST_DIR}/pagelayout.cpp
     ${CMAKE_CURRENT_LIST_DIR}/pagelayout.h
-    ${CMAKE_CURRENT_LIST_DIR}/headerfooterlayout.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/headerfooterlayout.h
     ${CMAKE_CURRENT_LIST_DIR}/slurtielayout.cpp
     ${CMAKE_CURRENT_LIST_DIR}/slurtielayout.h
     ${CMAKE_CURRENT_LIST_DIR}/guitarbendlayout.cpp
     ${CMAKE_CURRENT_LIST_DIR}/guitarbendlayout.h
-    ${CMAKE_CURRENT_LIST_DIR}/guitardivelayout.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/guitardivelayout.h
     ${CMAKE_CURRENT_LIST_DIR}/arpeggiolayout.cpp
     ${CMAKE_CURRENT_LIST_DIR}/arpeggiolayout.h
     ${CMAKE_CURRENT_LIST_DIR}/horizontalspacing.cpp
@@ -83,10 +79,6 @@ set(RENDERING_SCORE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/parenthesislayout.h
     ${CMAKE_CURRENT_LIST_DIR}/restlayout.cpp
     ${CMAKE_CURRENT_LIST_DIR}/restlayout.h
-    ${CMAKE_CURRENT_LIST_DIR}/boxlayout.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/boxlayout.h
-    ${CMAKE_CURRENT_LIST_DIR}/textlayout.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/textlayout.h
 
     ${CMAKE_CURRENT_LIST_DIR}/passbase.cpp
     ${CMAKE_CURRENT_LIST_DIR}/passbase.h

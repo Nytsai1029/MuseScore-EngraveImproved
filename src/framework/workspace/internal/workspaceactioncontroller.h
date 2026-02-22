@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -25,22 +25,22 @@
 #include "actions/actionable.h"
 
 #include "modularity/ioc.h"
-#include "interactive/iinteractive.h"
+#include "iinteractive.h"
 #include "actions/iactionsdispatcher.h"
 #include "iworkspaceconfiguration.h"
 #include "iworkspacemanager.h"
 
 namespace muse::workspace {
-class WorkspaceActionController : public Contextable, public actions::Actionable
+class WorkspaceActionController : public Injectable, public actions::Actionable
 {
-    GlobalInject<IWorkspaceConfiguration> configuration;
-    ContextInject<actions::IActionsDispatcher> dispatcher = { this };
-    ContextInject<IInteractive> interactive = { this };
-    ContextInject<IWorkspaceManager> manager = { this };
+    Inject<actions::IActionsDispatcher> dispatcher = { this };
+    Inject<IInteractive> interactive = { this };
+    Inject<IWorkspaceConfiguration> configuration = { this };
+    Inject<IWorkspaceManager> manager = { this };
 
 public:
     WorkspaceActionController(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void init();
 

@@ -27,7 +27,7 @@ SOFTWARE.
 #include <memory>
 #include <string_view>
 
-#include "context.h" // IWYU pragma: export
+#include "context.h"
 #include "funcinfo.h"
 
 namespace kors::modularity {
@@ -37,35 +37,53 @@ public:
     virtual ~IModuleInterface() = default;
 };
 
-class IModuleGlobalInterface : public IModuleInterface
+class IModuleExportInterface : public IModuleInterface
 {
 public:
-    virtual ~IModuleGlobalInterface() = default;
+    virtual ~IModuleExportInterface() = default;
 
-    static constexpr bool modularity_isGlobalInterface() { return true; }
+    static constexpr bool isInternalInterface() { return false; }
 };
 
-class IModuleContextInterface : public IModuleInterface
+class IModuleInternalInterface : public IModuleInterface
 {
 public:
-    virtual ~IModuleContextInterface() = default;
+    virtual ~IModuleInternalInterface() = default;
 
-    static constexpr bool modularity_isGlobalInterface() { return false; }
+    static constexpr bool isInternalInterface() { return true; }
+};
+
+class IModuleCreator
+{
+public:
+    virtual ~IModuleCreator() = default;
+    virtual std::shared_ptr<IModuleInterface> create() = 0;
+};
+
+struct IModuleExportCreator : public IModuleCreator {
+    virtual ~IModuleExportCreator() = default;
+    static constexpr bool isInternalInterface() { return false; }
+};
+
+struct IModuleInternalCreator : public IModuleCreator {
+    virtual ~IModuleInternalCreator() = default;
+    static constexpr bool isInternalInterface() { return true; }
 };
 
 struct InterfaceInfo {
     std::string_view id;
     std::string_view module;
-    constexpr InterfaceInfo(std::string_view i, std::string_view m)
-        : id(i), module(m) {}
+    bool internal = false;
+    constexpr InterfaceInfo(std::string_view i, std::string_view m, bool intr)
+        : id(i), module(m), internal(intr) {}
 };
 }
 
 #ifndef _KORS_NO_STRINGVIEW_CONSTEXPR_METHODS
 #define INTERFACE_ID(id)                                                \
 public:                                                                 \
-    static constexpr kors::modularity::InterfaceInfo modularity_interfaceInfo() { \
-        constexpr kors::modularity::InterfaceInfo info(#id, MODULENAME); \
+    static constexpr kors::modularity::InterfaceInfo interfaceInfo() {    \
+        constexpr kors::modularity::InterfaceInfo info(#id, MODULENAME, isInternalInterface());    \
         return info;                                                    \
     }                                                                   \
 private:                                                                \
@@ -73,19 +91,18 @@ private:                                                                \
 #else
 #define INTERFACE_ID(id)                                                \
 public:                                                                 \
-    static const kors::modularity::InterfaceInfo& modularity_interfaceInfo() { \
-        static const kors::modularity::InterfaceInfo info(#id, MODULENAME);    \
+    static const kors::modularity::InterfaceInfo& interfaceInfo() {       \
+        static const kors::modularity::InterfaceInfo info(#id, MODULENAME, isInternalInterface());    \
         return info;                                                    \
     }                                                                   \
 private:                                                                \
 
 #endif
 
-#define MODULE_GLOBAL_INTERFACE public kors::modularity::IModuleGlobalInterface
-#define MODULE_CONTEXT_INTERFACE public kors::modularity::IModuleContextInterface
+#define MODULE_EXPORT_INTERFACE public kors::modularity::IModuleExportInterface
+#define MODULE_EXPORT_CREATOR public kors::modularity::IModuleExportCreator
 
-//! NOTE Temporary for compatibility
-#define MODULE_EXPORT_INTERFACE public kors::modularity::IModuleContextInterface
-#define MODULE_GLOBAL_EXPORT_INTERFACE public kors::modularity::IModuleGlobalInterface
+#define MODULE_INTERNAL_INTERFACE public kors::modularity::IModuleInternalInterface
+#define MODULE_INTERNAL_CREATOR public kors::modularity::IModuleInternalCreator
 
 #endif // KORS_MODULARITY_IMODULEINTERFACE_H

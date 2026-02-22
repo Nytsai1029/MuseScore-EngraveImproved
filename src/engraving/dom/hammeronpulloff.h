@@ -50,11 +50,9 @@ public:
     bool isHammerOn() const { return m_isHammerOn; }
     void setIsHammerOn(bool v) { m_isHammerOn = v; }
 
-    Color curColor(const rendering::PaintOptions& opt) const override;
+    Color curColor() const override;
 
     PropertyValue propertyDefault(Pid id) const override;
-
-    bool positionRelativeToNoteheadRest() const override { return false; }
 
 private:
     Chord* m_startChord = nullptr;
@@ -76,9 +74,10 @@ public:
 
     HammerOnPullOff* hammerOnPullOff() const { return toHammerOnPullOff(spanner()); }
 
-    Color curColor(const rendering::PaintOptions& opt) const override;
+    Color curColor() const override;
 
-    void scanElements(std::function<void(EngravingItem*)> func) override;
+    void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all=true) override;
+    EngravingObjectList scanChildren() const override;
 
     void setTrack(track_idx_t idx) override;
     void setSelected(bool f) override;

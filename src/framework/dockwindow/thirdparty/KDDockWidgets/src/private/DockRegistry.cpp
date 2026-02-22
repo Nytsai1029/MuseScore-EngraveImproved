@@ -35,8 +35,6 @@
 #include "quick/QmlTypes.h"
 #endif
 
-#include "../ContextData.h"
-
 using namespace KDDockWidgets;
 
 static void initKDDockWidgetResources()
@@ -49,8 +47,8 @@ static void initKDDockWidgetResources()
 #endif
 }
 
-DockRegistry::DockRegistry(int ctx, QObject *parent)
-    : QObject(parent), m_ctx(ctx)
+DockRegistry::DockRegistry(QObject *parent)
+    : QObject(parent)
 {
     qApp->installEventFilter(this);
 
@@ -100,7 +98,7 @@ void DockRegistry::onFocusObjectChanged(QObject *obj)
         }
 
         if (auto dw = qobject_cast<DockWidgetBase *>(p)) {
-            setFocusedDockWidget(dw);
+            DockRegistry::self()->setFocusedDockWidget(dw);
             return;
         }
         p = KDDockWidgets::Private::parentWidget(p);
@@ -199,7 +197,7 @@ bool DockRegistry::isProbablyObscured(QWindow *window, FloatingWindow *exclude) 
     }
 
     // Floating windows are Tool (keep above), unless we disabled it in Config
-    const bool targetIsToolWindow = KDDockWidgets::usesUtilityWindows(m_ctx) && floatingWindowForHandle(window) != nullptr;
+    const bool targetIsToolWindow = KDDockWidgets::usesUtilityWindows() && floatingWindowForHandle(window) != nullptr;
 
     for (MainWindowBase *mw : m_mainWindows) {
         QWindow *mwWindow = mw->window()->windowHandle();
@@ -291,9 +289,15 @@ bool DockRegistry::itemIsInMainWindow(const Layouting::Item *item) const
     return false;
 }
 
-DockRegistry *DockRegistry::self(int ctx)
+DockRegistry *DockRegistry::self()
 {
-    return ContextData::context(ctx)->reg;
+    static QPointer<DockRegistry> s_dockRegistry;
+
+    if (!s_dockRegistry) {
+        s_dockRegistry = new DockRegistry();
+    }
+
+    return s_dockRegistry;
 }
 
 void DockRegistry::registerDockWidget(DockWidgetBase *dock)
@@ -395,7 +399,7 @@ DockWidgetBase *DockRegistry::dockByName(const QString &name, DockByNameFlags fl
 
     if (flags.testFlag(DockByNameFlag::CreateIfNotFound)) {
         // DockWidget doesn't exist, ask to create it
-        if (auto factoryFunc = Config::self(m_ctx).dockWidgetFactoryFunc()) {
+        if (auto factoryFunc = Config::self().dockWidgetFactoryFunc()) {
             auto dw = factoryFunc(name);
             if (dw && dw->uniqueName() != name) {
                 // Very special case
@@ -713,7 +717,7 @@ bool DockRegistry::eventFilter(QObject *watched, QEvent *event)
         }
 
         // The following code is for hididng the overlay
-        if (!(Config::self(m_ctx).flags() & Config::Flag_AutoHideSupport))
+        if (!(Config::self().flags() & Config::Flag_AutoHideSupport))
             return false;
 
         if (qobject_cast<Frame *>(watched)) {

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -31,32 +31,31 @@
 #include "profiler.h"
 
 #include "internal/baseapplication.h"
+#include "internal/invoker.h"
 #include "internal/cryptographichash.h"
 #include "internal/process.h"
 #include "internal/systeminfo.h"
-#include "internal/tickerprovider.h"
+
+#ifdef MUSE_MODULE_UI
+#include "internal/interactive.h"
+#endif
 
 #include "runtime.h"
 #include "async/processevents.h"
 
 #include "settings.h"
 
+#include "io/internal/filesystem.h"
+
 #include "api/internal/apiregister.h"
 #include "api/iapiregister.h"
 #include "api/logapi.h"
+#include "api/interactiveapi.h"
 #include "api/filesystemapi.h"
 #include "api/processapi.h"
 
-#include "muse_framework_config.h"
-
 #ifdef MUSE_MODULE_DIAGNOSTICS
 #include "diagnostics/idiagnosticspathsregister.h"
-#endif
-
-#ifdef Q_OS_WASM
-#include "io/internal/memfilesystem.h"
-#else
-#include "io/internal/filesystem.h"
 #endif
 
 #ifdef Q_OS_WIN
@@ -69,6 +68,8 @@ using namespace muse;
 using namespace muse::modularity;
 using namespace muse::io;
 
+std::shared_ptr<Invoker> GlobalModule::s_asyncInvoker = {};
+
 class ApplicationStub : public BaseApplication
 {
 public:
@@ -76,13 +77,8 @@ public:
     ApplicationStub()
         : BaseApplication(std::make_shared<modularity::Context>()) {}
 
-    void setup() override {}
+    void perform() override {}
     void finish() override {}
-
-    modularity::ContextPtr setupNewContext(const StringList&) override { return nullptr; }
-    void destroyContext(const modularity::ContextPtr&) override {}
-    int contextCount() const override { return 0; }
-    std::vector<modularity::ContextPtr> contexts() const override { return {}; }
 };
 
 GlobalModule::GlobalModule()
@@ -100,22 +96,20 @@ void GlobalModule::registerExports()
         m_application = std::make_shared<ApplicationStub>();
     }
 
-    m_configuration = std::make_shared<GlobalConfiguration>();
+    m_configuration = std::make_shared<GlobalConfiguration>(iocContext());
+    s_asyncInvoker = std::make_shared<Invoker>();
     m_systemInfo = std::make_shared<SystemInfo>();
-    m_tickerProvider = std::make_shared<TickerProvider>();
 
-    globalIoc()->registerExport<IApplication>(moduleName(), m_application);
-    globalIoc()->registerExport<IGlobalConfiguration>(moduleName(), m_configuration);
-    globalIoc()->registerExport<ISystemInfo>(moduleName(), m_systemInfo);
-    globalIoc()->registerExport<ICryptographicHash>(moduleName(), new CryptographicHash());
-    globalIoc()->registerExport<IProcess>(moduleName(), new Process());
-    globalIoc()->registerExport<ITickerProvider>(moduleName(), m_tickerProvider);
-    globalIoc()->registerExport<api::IApiRegister>(moduleName(), new api::ApiRegister());
+    ioc()->registerExport<IApplication>(moduleName(), m_application);
+    ioc()->registerExport<IGlobalConfiguration>(moduleName(), m_configuration);
+    ioc()->registerExport<ISystemInfo>(moduleName(), m_systemInfo);
+    ioc()->registerExport<IFileSystem>(moduleName(), new FileSystem());
+    ioc()->registerExport<ICryptographicHash>(moduleName(), new CryptographicHash());
+    ioc()->registerExport<IProcess>(moduleName(), new Process());
+    ioc()->registerExport<api::IApiRegister>(moduleName(), new api::ApiRegister());
 
-#ifdef Q_OS_WASM
-    globalIoc()->registerExport<IFileSystem>(moduleName(), new MemFileSystem());
-#else
-    globalIoc()->registerExport<IFileSystem>(moduleName(), new FileSystem());
+#ifdef MUSE_MODULE_UI
+    ioc()->registerExport<IInteractive>(moduleName(), new Interactive(iocContext()));
 #endif
 }
 
@@ -123,9 +117,10 @@ void GlobalModule::registerApi()
 {
     using namespace muse::api;
 
-    auto api = globalIoc()->resolve<IApiRegister>(moduleName());
+    auto api = ioc()->resolve<IApiRegister>(moduleName());
     if (api) {
-        api->regApiCreator(moduleName(), "MuseApi.Log", new ApiCreator<LogApi>());
+        api->regApiCreator(moduleName(), "api.log", new ApiCreator<LogApi>());
+        api->regApiCreator(moduleName(), "api.interactive", new api::ApiCreator<InteractiveApi>());
         api->regApiCreator(moduleName(), "api.process", new ApiCreator<ProcessApi>());
         api->regApiCreator(moduleName(), "api.filesystem", new ApiCreator<FileSystemApi>());
     }
@@ -152,7 +147,7 @@ void GlobalModule::onPreInit(const IApplication::RunMode& mode)
 
     //! Log file
     io::path_t logFilePath = "none";
-#ifndef MUSE_CONFIGURATION_IS_WEB
+#ifndef Q_OS_WASM
     io::path_t logPath = m_configuration->userAppDataPath() + "/logs";
     fileSystem()->makePath(logPath);
 
@@ -183,7 +178,7 @@ void GlobalModule::onPreInit(const IApplication::RunMode& mode)
 
     logger->addDest(logFile);
     LOGI() << "log path: " << logFilePath;
-#endif // end of not MUSE_CONFIGURATION_IS_WEB
+#endif
 
     if (m_loggerLevel) {
         logger->setLevel(m_loggerLevel.value());
@@ -218,18 +213,17 @@ void GlobalModule::onPreInit(const IApplication::RunMode& mode)
     Profiler* profiler = Profiler::instance();
     profiler->setup(profOpt, new MyPrinter());
 
-    //! --- Setup Ticker ---
-    m_tickerProvider->start();
+    //! --- Setup Invoker ---
 
-    //! --- Setup Async ---
-    const std::thread::id thisThId = std::this_thread::get_id();
-    m_asyncTicker.start(1, [thisThId]() {
-        async::processMessages(thisThId);
-    }, Ticker::Mode::Repeat);
+    Invoker::setup();
+
+    async::onMainThreadInvoke([](const std::function<void()>& f, bool isAlwaysQueued) {
+        s_asyncInvoker->invoke(f, isAlwaysQueued);
+    });
 
     //! --- Diagnostics ---
 #ifdef MUSE_MODULE_DIAGNOSTICS
-    auto pr = globalIoc()->resolve<muse::diagnostics::IDiagnosticsPathsRegister>(moduleName());
+    auto pr = ioc()->resolve<muse::diagnostics::IDiagnosticsPathsRegister>(moduleName());
     if (pr) {
         pr->reg("appBinPath", m_configuration->appBinPath());
         pr->reg("appBinDirPath", m_configuration->appBinDirPath());
@@ -267,8 +261,7 @@ void GlobalModule::onInit(const IApplication::RunMode&)
 
 void GlobalModule::onDeinit()
 {
-    m_tickerProvider->stop();
-    muse::async::terminate();
+    invokeQueuedCalls();
 
 #ifdef Q_OS_WIN
     if (m_endTimePeriod) {
@@ -277,16 +270,12 @@ void GlobalModule::onDeinit()
 #endif
 }
 
+void GlobalModule::invokeQueuedCalls()
+{
+    s_asyncInvoker->invokeQueuedCalls();
+}
+
 void GlobalModule::setLoggerLevel(const muse::logger::Level& level)
 {
     m_loggerLevel = level;
-}
-
-IContextSetup* GlobalModule::newContext(const kors::modularity::ContextPtr& ctx) const
-{
-    return new GlobalContext(ctx);
-}
-
-void GlobalContext::registerExports()
-{
 }

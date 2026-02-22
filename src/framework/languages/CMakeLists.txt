@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-only
-# MuseScore-Studio-CLA-applies
+# MuseScore-CLA-applies
 #
-# MuseScore Studio
+# MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2026 MuseScore Limited
+# Copyright (C) 2021 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -16,30 +16,26 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-muse_create_module(muse_languages ALIAS muse::languages)
+declare_module(muse_languages)
+set(MODULE_ALIAS muse::languages)
 
-target_sources(muse_languages PRIVATE
-    languagesmodule.cpp
-    languagesmodule.h
+set(MODULE_SRC
+    ${CMAKE_CURRENT_LIST_DIR}/languagesmodule.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/languagesmodule.h
+    ${CMAKE_CURRENT_LIST_DIR}/languagestypes.h
+    ${CMAKE_CURRENT_LIST_DIR}/languageserrors.h
+    ${CMAKE_CURRENT_LIST_DIR}/ilanguagesconfiguration.h
+    ${CMAKE_CURRENT_LIST_DIR}/ilanguagesservice.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/languagesconfiguration.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/languagesconfiguration.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/languagesservice.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/languagesservice.h
+    )
 
-    languagestypes.h
-    languageserrors.h
-
-    ilanguagesconfiguration.h
-    ilanguagesservice.h
-
-    internal/languagesconfiguration.cpp
-    internal/languagesconfiguration.h
-    internal/languagesservice.cpp
-    internal/languagesservice.h
-)
-
-if (MUSE_QT_SUPPORT)
-    target_link_libraries(muse_languages PRIVATE Qt::Concurrent Qt::Gui Qt::Network Qt::Qml)
+if (QT_SUPPORT)
+    list(APPEND MODULE_LINK Qt::Concurrent Qt::Gui Qt::Network Qt::Qml)
 endif()
 
-if (MUSE_MODULE_LANGUAGES_TESTS)
-    add_subdirectory(tests)
-endif()
+setup_module()

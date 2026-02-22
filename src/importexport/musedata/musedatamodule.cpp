@@ -38,7 +38,7 @@ std::string MuseDataModule::moduleName() const
 
 void MuseDataModule::resolveImports()
 {
-    auto readers = globalIoc()->resolve<INotationReadersRegister>(moduleName());
+    auto readers = ioc()->resolve<INotationReadersRegister>(moduleName());
     if (readers) {
         readers->reg({ "md" }, std::make_shared<MuseDataReader>());
     }

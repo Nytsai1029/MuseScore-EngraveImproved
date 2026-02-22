@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -34,7 +34,7 @@ using namespace muse::audio;
 IVstPluginInstancePtr VstInstancesRegister::makeAndRegisterInstrPlugin(const AudioResourceId& resourceId,
                                                                        const muse::audio::TrackId trackId)
 {
-    std::shared_ptr<VstPluginInstance> instance = std::make_shared<VstPluginInstance>(resourceId, iocContext());
+    std::shared_ptr<VstPluginInstance> instance = std::make_shared<VstPluginInstance>(resourceId);
 
     registerInstrPlugin(trackId, instance);
 
@@ -47,7 +47,7 @@ IVstPluginInstancePtr VstInstancesRegister::makeAndRegisterFxPlugin(const muse::
                                                                     const muse::audio::TrackId trackId,
                                                                     const muse::audio::AudioFxChainOrder chainOrder)
 {
-    std::shared_ptr<VstPluginInstance> instance = std::make_shared<VstPluginInstance>(resourceId, iocContext());
+    std::shared_ptr<VstPluginInstance> instance = std::make_shared<VstPluginInstance>(resourceId);
 
     registerFxPlugin(trackId, chainOrder, instance);
 
@@ -59,7 +59,7 @@ IVstPluginInstancePtr VstInstancesRegister::makeAndRegisterFxPlugin(const muse::
 IVstPluginInstancePtr VstInstancesRegister::makeAndRegisterMasterFxPlugin(const muse::audio::AudioResourceId& resourceId,
                                                                           const muse::audio::AudioFxChainOrder chainOrder)
 {
-    std::shared_ptr<VstPluginInstance> instance = std::make_shared<VstPluginInstance>(resourceId, iocContext());
+    std::shared_ptr<VstPluginInstance> instance = std::make_shared<VstPluginInstance>(resourceId);
 
     registerMasterFxPlugin(chainOrder, instance);
 

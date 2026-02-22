@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -20,11 +20,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick
+import QtQuick 2.15
 
-import Muse.Ui
-import Muse.UiComponents
-import Muse.GraphicalEffects
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import Muse.GraphicalEffects 1.0
 
 Item {
     id: root

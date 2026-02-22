@@ -28,14 +28,12 @@ BUILD_TOOLS=$HOME/build_tools
 ENV_FILE=$BUILD_TOOLS/environment.sh
 PACKARCH="x86_64" # x86_64, armv7l, aarch64, wasm
 COMPILER="gcc" # gcc, clang
-EMSDK_VERSION="4.0.7" # for Qt 6.10
-BUILD_PIPEWIRE=false
+EMSDK_VERSION="3.1.70" # for Qt 6.9
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         --arch) PACKARCH="$2"; shift ;;
         --compiler) COMPILER="$2"; shift ;;
-        --build-pipewire) BUILD_PIPEWIRE=true ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
@@ -59,25 +57,65 @@ fi
 # GET DEPENDENCIES
 ##########################################################################
 
-apt_packages_tools=(
-  # Alphabetical order please!
+apt_packages=(
+  coreutils
   curl
   desktop-file-utils # installs `desktop-file-validate` for appimagetool
+  gawk
+  git
   lcov
+  libasound2-dev
+  libcups2-dev
+  libfontconfig1-dev
+  libfreetype6-dev
+  libgcrypt20-dev
+  libgl1-mesa-dev
+  libglib2.0-dev
   libgpgme-dev # install for appimagetool
+  libjack-dev
+  libnss3-dev
+  libportmidi-dev
+  libpulse-dev
+  librsvg2-dev
+  libsndfile1-dev
+  libssl-dev
+  libtool
+  make
   p7zip-full
+  sed
+  software-properties-common # installs `add-apt-repository`
   unzip
   wget
   zsync # installs `zsyncmake` for appimagetool
   )
 
-# Qt dependencies are already installed by the "Install Qt" step
-apt_packages_deps=(
-  libasound2-dev
-  libcups2-dev
-  libsndfile1-dev
+# MuseScore compiles without these but won't run without them
+apt_packages_runtime=(
+  # Alphabetical order please!
+  libdbus-1-3
+  libegl1-mesa-dev
+  libgles2-mesa-dev
+  libodbc2
+  libpq-dev
+  libssl-dev
+  libxcomposite-dev
+  libxcursor-dev
+  libxi-dev
+  libxkbcommon-x11-0
+  libxrandr2
+  libxtst-dev
+  libdrm-dev
+  libxcb-icccm4
+  libxcb-image0
+  libxcb-keysyms1
+  libxcb-randr0
+  libxcb-render-util0
+  libxcb-xinerama0
+  libxcb-xkb-dev
+  libxkbcommon-dev
+  libopengl-dev
   libvulkan-dev
-)
+  )
 
 apt_packages_ffmpeg=(
   ffmpeg
@@ -86,17 +124,17 @@ apt_packages_ffmpeg=(
   libswscale-dev
   )
 
-if $BUILD_PIPEWIRE ; then
-  apt_packages_deps+=(
-    libdbus-1-dev
-    libudev-dev
-    )
-fi
+apt_packages_pw_deps=(
+  libdbus-1-dev
+  libudev-dev
+  )
 
+$SUDO apt-get update
 $SUDO apt-get install -y --no-install-recommends \
-  "${apt_packages_tools[@]}" \
-  "${apt_packages_deps[@]}" \
-  "${apt_packages_ffmpeg[@]}"
+  "${apt_packages[@]}" \
+  "${apt_packages_runtime[@]}" \
+  "${apt_packages_ffmpeg[@]}" \
+  "${apt_packages_pw_deps[@]}"
 
 ##########################################################################
 # GET TOOLS
@@ -130,21 +168,46 @@ else
   echo "Unknown compiler: $COMPILER"
 fi
 
-# CMake
-if [[ "$PACKARCH" == "armv7l" ]]; then
-  $SUDO apt-get install -y --no-install-recommends cmake
-fi
-echo "cmake version"
+# CMAKE
+# Get newer CMake (only used cached version if it is the same)
+case "$PACKARCH" in
+  x86_64 | wasm)
+    cmake_version="3.24.0"
+    cmake_dir="$BUILD_TOOLS/cmake/${cmake_version}"
+    if [[ ! -d "$cmake_dir" ]]; then
+      mkdir -p "$cmake_dir"
+      cmake_url="https://cmake.org/files/v${cmake_version%.*}/cmake-${cmake_version}-linux-x86_64.tar.gz"
+      wget -q --show-progress --no-check-certificate -O - "${cmake_url}" | tar --strip-components=1 -xz -C "${cmake_dir}"
+    fi
+    export PATH="$cmake_dir/bin:$PATH"
+    echo export PATH="$cmake_dir/bin:\${PATH}" >> ${ENV_FILE}
+    ;;
+  armv7l | aarch64)
+    $SUDO apt-get install -y --no-install-recommends cmake
+    ;;
+esac
 cmake --version
 
 # Ninja
-if [[ "$PACKARCH" == "armv7l" ]]; then
-  $SUDO apt-get install -y --no-install-recommends ninja-build
-fi
+case "$PACKARCH" in
+  x86_64 | wasm)
+    echo "Get Ninja"
+    ninja_dir=$BUILD_TOOLS/Ninja
+    if [[ ! -d "$ninja_dir" ]]; then
+      mkdir -p $ninja_dir
+      wget -q --show-progress -O $ninja_dir/ninja "https://s3.amazonaws.com/utils.musescore.org/build_tools/linux/Ninja/ninja"
+      chmod +x $ninja_dir/ninja
+    fi
+    export PATH="${ninja_dir}:${PATH}"
+    echo export PATH="${ninja_dir}:\${PATH}" >> ${ENV_FILE}
+    ;;
+  armv7l | aarch64)
+    $SUDO apt-get install -y --no-install-recommends ninja-build
+    ;;
+esac
 echo "ninja version"
 ninja --version
 
-# Emscripten
 if [[ "$PACKARCH" == "wasm" ]]; then
   git clone https://github.com/emscripten-core/emsdk.git $BUILD_TOOLS/emsdk
   origin_dir=$(pwd)
@@ -156,98 +219,91 @@ if [[ "$PACKARCH" == "wasm" ]]; then
   cd $origin_dir
 fi
 
-# Python3-pip
-if [[ "$PACKARCH" == "armv7l" ]]; then
-  $SUDO apt-get install -y --no-install-recommends python3-pip
-fi
+# MESON
+# Get recent version of Meson (to build pipewire)
+meson_version="1.1.1"
+sudo python3 -m pip install meson==${meson_version}
 
 ##########################################################################
 # BUILD PIPWIRE
 ##########################################################################
 
-if $BUILD_PIPEWIRE ; then
-  # MESON
-  # Get recent version of Meson (to build pipewire)
-  meson_version="1.1.1"
-  $SUDO python3 -m pip install meson==${meson_version}
+pw_version="1.0.4"
+pw_src_dir="$BUILD_TOOLS/pw-src-${pw_version}"
+pw_dist_dir="$BUILD_TOOLS/pw-dist-${pw_version}"
+pw_url="https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/${pw_version}/pipewire-${pw_version}.tar.gz"
+if [[ ! -d "${pw_src_dir}" ]]; then
+  mkdir -p "${pw_src_dir}"
+  wget -q --show-progress -O pw.tar.gz "${pw_url}"
+  tar -xzf pw.tar.gz -C "${pw_src_dir}" --strip-components=1
+  rm pw.tar.gz
+  pushd "${pw_src_dir}"
 
-  pw_version="1.0.4"
-  pw_src_dir="$BUILD_TOOLS/pw-src-${pw_version}"
-  pw_dist_dir="$BUILD_TOOLS/pw-dist-${pw_version}"
-  pw_url="https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/${pw_version}/pipewire-${pw_version}.tar.gz"
-  if [[ ! -d "${pw_src_dir}" ]]; then
-    mkdir -p "${pw_src_dir}"
-    wget -q --show-progress -O pw.tar.gz "${pw_url}"
-    tar -xzf pw.tar.gz -C "${pw_src_dir}" --strip-components=1
-    rm pw.tar.gz
-    pushd "${pw_src_dir}"
+  meson setup builddir \
+    --buildtype=debug \
+    --prefix=${pw_dist_dir} \
+    --libdir=${pw_dist_dir}/lib \
+    -Dexamples=disabled \
+    -Dtests=disabled \
+    -Dgstreamer=disabled \
+    -Dgstreamer-device-provider=disabled \
+    -Dsystemd=disabled \
+    -Dselinux=disabled \
+    -Dpipewire-alsa=disabled \
+    -Dpipewire-jack=disabled \
+    -Dpipewire-v4l2=disabled \
+    -Djack-devel=false \
+    -Dalsa=disabled \
+    -Daudiomixer=disabled \
+    -Daudioconvert=enabled \
+    -Dbluez5=disabled \
+    -Dcontrol=disabled \
+    -Daudiotestsrc=disabled \
+    -Djack=disabled \
+    -Dsupport=enabled \
+    -Devl=disabled \
+    -Dv4l2=disabled \
+    -Dvideoconvert=disabled \
+    -Dvideotestsrc=disabled \
+    -Dpw-cat=disabled \
+    -Dudev=disabled \
+    -Dsdl2=disabled \
+    -Dsndfile=disabled \
+    -Dlibmysofa=disabled \
+    -Dlibpulse=disabled \
+    -Droc=disabled \
+    -Decho-cancel-webrtc=disabled \
+    -Dlibusb=disabled \
+    -Dsession-managers=[] \
+    -Draop=disabled \
+    -Dlv2=disabled \
+    -Dx11=disabled \
+    -Dlibcanberra=disabled \
+    -Dlegacy-rtkit=false \
+    -Davb=disabled \
+    -Dflatpak=disabled \
+    -Dreadline=disabled \
+    -Dgsettings=disabled \
+    -Dcompress-offload=disabled \
+    -Drlimits-install=false \
+    -Dopus=disabled \
+    -Dlibffado=disabled \
 
-    meson setup builddir \
-      --buildtype=debug \
-      --prefix=${pw_dist_dir} \
-      --libdir=${pw_dist_dir}/lib \
-      -Dexamples=disabled \
-      -Dtests=disabled \
-      -Dgstreamer=disabled \
-      -Dgstreamer-device-provider=disabled \
-      -Dsystemd=disabled \
-      -Dselinux=disabled \
-      -Dpipewire-alsa=disabled \
-      -Dpipewire-jack=disabled \
-      -Dpipewire-v4l2=disabled \
-      -Djack-devel=false \
-      -Dalsa=disabled \
-      -Daudiomixer=disabled \
-      -Daudioconvert=enabled \
-      -Dbluez5=disabled \
-      -Dcontrol=disabled \
-      -Daudiotestsrc=disabled \
-      -Djack=disabled \
-      -Dsupport=enabled \
-      -Devl=disabled \
-      -Dv4l2=disabled \
-      -Dvideoconvert=disabled \
-      -Dvideotestsrc=disabled \
-      -Dpw-cat=disabled \
-      -Dudev=disabled \
-      -Dsdl2=disabled \
-      -Dsndfile=disabled \
-      -Dlibmysofa=disabled \
-      -Dlibpulse=disabled \
-      -Droc=disabled \
-      -Decho-cancel-webrtc=disabled \
-      -Dlibusb=disabled \
-      -Dsession-managers=[] \
-      -Draop=disabled \
-      -Dlv2=disabled \
-      -Dx11=disabled \
-      -Dlibcanberra=disabled \
-      -Dlegacy-rtkit=false \
-      -Davb=disabled \
-      -Dflatpak=disabled \
-      -Dreadline=disabled \
-      -Dgsettings=disabled \
-      -Dcompress-offload=disabled \
-      -Drlimits-install=false \
-      -Dopus=disabled \
-      -Dlibffado=disabled \
-
-    meson compile -C builddir
-    popd
-  fi
-  echo "Built pipewire in ${pw_src_dir}/builddir"
-  if [[ ! -d "${pw_dist_dir}" ]]; then
-    pushd ${pw_src_dir}
-    meson install -C builddir
-    popd
-  fi
-  echo "Installed pipewire to ${pw_dist_dir}"
-
-  echo export PW_DIST_DIR="${pw_dist_dir}" >> ${ENV_FILE}
-  echo export PKG_CONFIG_PATH="${pw_dist_dir}/lib/pkgconfig:\${PKG_CONFIG_PATH}" >> ${ENV_FILE}
-  echo export LIBRARY_PATH="${pw_dist_dir}/lib:\${LIBRARY_PATH}" >> ${ENV_FILE}
-  echo export LD_LIBRARY_PATH="${pw_dist_dir}/lib:\${LD_LIBRARY_PATH}" >> ${ENV_FILE}
+  meson compile -C builddir
+  popd
 fi
+echo "Built pipewire in ${pw_src_dir}/builddir"
+if [[ ! -d "${pw_dist_dir}" ]]; then
+  pushd ${pw_src_dir}
+  meson install -C builddir
+  popd
+fi
+echo "Installed pipewire to ${pw_dist_dir}"
+
+echo export PW_DIST_DIR="${pw_dist_dir}" >> ${ENV_FILE}
+echo export PKG_CONFIG_PATH="${pw_dist_dir}/lib/pkgconfig:\${PKG_CONFIG_PATH}" >> ${ENV_FILE}
+echo export LIBRARY_PATH="${pw_dist_dir}/lib:\${LIBRARY_PATH}" >> ${ENV_FILE}
+echo export LD_LIBRARY_PATH="${pw_dist_dir}/lib:\${LD_LIBRARY_PATH}" >> ${ENV_FILE}
 
 ##########################################################################
 # POST INSTALL

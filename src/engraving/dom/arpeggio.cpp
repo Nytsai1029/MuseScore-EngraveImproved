@@ -22,13 +22,15 @@
 
 #include "arpeggio.h"
 
-#include "../editing/elementeditdata.h"
-#include "../editing/mscoreview.h"
-#include "../editing/undo.h"
-#include "../types/typesconv.h"
+#include <cmath>
+
+#include "containers.h"
+
+#include "types/typesconv.h"
 
 #include "accidental.h"
 #include "chord.h"
+#include "mscoreview.h"
 #include "note.h"
 #include "page.h"
 #include "part.h"
@@ -36,14 +38,15 @@
 #include "score.h"
 #include "segment.h"
 #include "staff.h"
+#include "undo.h"
 
 #include "log.h"
 
 using namespace mu;
 using namespace mu::engraving;
 
-Arpeggio::Arpeggio(Chord* parent, ElementType type)
-    : EngravingItem(type, parent, ElementFlag::MOVABLE)
+Arpeggio::Arpeggio(Chord* parent)
+    : EngravingItem(ElementType::ARPEGGIO, parent, ElementFlag::MOVABLE)
 {
     m_arpeggioType = ArpeggioType::NORMAL;
     m_span     = 1;
@@ -52,9 +55,7 @@ Arpeggio::Arpeggio(Chord* parent, ElementType type)
     m_playArpeggio = true;
     m_stretch = 1.0;
 
-    if (type == ElementType::ARPEGGIO) {
-        parent->setSpanArpeggio(this);
-    }
+    parent->setSpanArpeggio(this);
 }
 
 Arpeggio::~Arpeggio()
@@ -204,28 +205,23 @@ std::vector<PointF> Arpeggio::gripsPositions(const EditData&) const
     const PointF pp(pagePos());
     PointF p1(ldata->bbox().width() / 2, ldata->bbox().top());
     PointF p2(ldata->bbox().width() / 2, ldata->bbox().bottom());
-    PointF p3(ldata->bbox().center());
-    return { p1 + pp, p2 + pp, p3 + pp };
+    return { p1 + pp, p2 + pp };
 }
 
 //---------------------------------------------------------
-//   dragGrip
+//   editDrag
 //---------------------------------------------------------
 
-void Arpeggio::dragGrip(EditData& ed)
+void Arpeggio::editDrag(EditData& ed)
 {
-    if (ed.curGrip == Grip::MIDDLE) {
-        setOffset(offset() + ed.delta);
-        triggerLayout();
-        return;
-    }
-
+    Part* p = part();
+    double d = ed.delta.y();
     PointF pos = PointF(chord()->canvasPos().x(), ed.pos.y());
     EngravingItem* e = ed.view()->elementNear(pos);
 
     if (ed.curGrip == Grip::START) {
-        m_userLen1 -= ed.delta.y();
-        if (e && e->isNote() && e->part() == part()) {
+        m_userLen1 -= d;
+        if (e && e->isNote() && e->part() == p) {
             Chord* c = toNote(e)->chord();
             int newSpan = std::max(1, m_span + int(track()) - int(c->track()));
             if (track() != c->track()) {
@@ -239,9 +235,9 @@ void Arpeggio::dragGrip(EditData& ed)
             }
         }
     } else if (ed.curGrip == Grip::END) {
-        m_userLen2 += ed.delta.y();
+        m_userLen2 += d;
         // Increase span
-        if (e && e->isNote() && e->part() == part()) {
+        if (e && e->isNote() && e->part() == p) {
             int newSpan = std::max(1, int(e->track()) - int(track()) + 1);
             if (e->track() != endTrack()) {
                 // if new endTrack is less than old we have chords to unmark
@@ -252,9 +248,6 @@ void Arpeggio::dragGrip(EditData& ed)
                 m_userLen2 = 0.0;
             }
         }
-    } else {
-        UNREACHABLE;
-        return;
     }
 
     triggerLayout();
@@ -283,11 +276,6 @@ std::vector<LineF> Arpeggio::gripAnchorLines(Grip grip) const
 {
     std::vector<LineF> result;
 
-    const int gripIndex = static_cast<int>(grip);
-    if (gripIndex >= gripsCount() || grip == Grip::MIDDLE) {
-        return result;
-    }
-
     Chord* _chord = chord();
     if (!_chord) {
         return result;
@@ -295,6 +283,12 @@ std::vector<LineF> Arpeggio::gripAnchorLines(Grip grip) const
 
     const Page* p = toPage(findAncestor(ElementType::PAGE));
     const PointF pageOffset = p ? p->pos() : PointF();
+    const int gripIndex = static_cast<int>(grip);
+
+    if (gripIndex >= gripsCount()) {
+        return result;
+    }
+
     const PointF gripCanvasPos = gripsPositions().at(gripIndex) + pageOffset;
 
     if (grip == Grip::START) {
@@ -328,9 +322,9 @@ void Arpeggio::startEdit(EditData& ed)
     eed->pushProperty(Pid::ARP_USER_LEN2);
 }
 
-void Arpeggio::startDragGrip(EditData& ed)
+void Arpeggio::startEditDrag(EditData& ed)
 {
-    EngravingItem::startDragGrip(ed);
+    EngravingItem::startEditDrag(ed);
     ElementEditDataPtr eed = ed.getData(this);
     if (!eed) {
         return;
@@ -397,7 +391,7 @@ void Arpeggio::spatiumChanged(double oldValue, double newValue)
 
 bool Arpeggio::acceptDrop(EditData& data) const
 {
-    return data.dropElement->type() == ElementType::ARPEGGIO || data.dropElement->type() == ElementType::CHORD_BRACKET;
+    return data.dropElement->type() == ElementType::ARPEGGIO;
 }
 
 //---------------------------------------------------------
@@ -409,7 +403,6 @@ EngravingItem* Arpeggio::drop(EditData& data)
     EngravingItem* e = data.dropElement;
     switch (e->type()) {
     case ElementType::ARPEGGIO:
-    case ElementType::CHORD_BRACKET:
     {
         Arpeggio* a = toArpeggio(e);
         if (explicitParent()) {

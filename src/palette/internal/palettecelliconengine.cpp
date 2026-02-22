@@ -31,7 +31,7 @@
 #include "engraving/dom/masterscore.h"
 #include "engraving/style/defaultstyle.h"
 
-#include "notationscene/utilities/engravingitempreviewpainter.h"
+#include "notation/utilities/engravingitempreviewpainter.h"
 
 #include "log.h"
 
@@ -39,26 +39,27 @@ using namespace mu::palette;
 using namespace muse::draw;
 using namespace mu::engraving;
 
-PaletteCellIconEngine::PaletteCellIconEngine(PaletteCellConstPtr cell, const muse::modularity::ContextPtr& ctx, qreal extraMag)
-    : QIconEngine(), muse::Contextable(ctx), m_cell(cell), m_extraMag(extraMag)
+PaletteCellIconEngine::PaletteCellIconEngine(PaletteCellConstPtr cell, qreal extraMag)
+    : QIconEngine(), m_cell(cell), m_extraMag(extraMag)
 {
 }
 
 QIconEngine* PaletteCellIconEngine::clone() const
 {
-    return new PaletteCellIconEngine(m_cell, iocContext(), m_extraMag);
+    return new PaletteCellIconEngine(m_cell, m_extraMag);
 }
 
 void PaletteCellIconEngine::paint(QPainter* qp, const QRect& rect, QIcon::Mode mode, QIcon::State state)
 {
+    qreal dpi = qp->device()->logicalDpiX();
     Painter p(qp, "palettecell");
     p.save();
     p.setAntialiasing(true);
-    paintCell(p, RectF::fromQRectF(rect), mode == QIcon::Selected, state == QIcon::On);
+    paintCell(p, RectF::fromQRectF(rect), mode == QIcon::Selected, state == QIcon::On, dpi);
     p.restore();
 }
 
-void PaletteCellIconEngine::paintCell(Painter& painter, const RectF& rect, bool selected, bool current) const
+void PaletteCellIconEngine::paintCell(Painter& painter, const RectF& rect, bool selected, bool current, qreal dpi) const
 {
     paintBackground(painter, rect, selected, current);
 
@@ -81,12 +82,13 @@ void PaletteCellIconEngine::paintCell(Painter& painter, const RectF& rect, bool 
     params.yoffset = m_cell->yoffset;
 
     params.rect = rect;
+    params.dpi = dpi;
     params.spatium = configuration()->paletteSpatium() * params.mag;
 
     //! NOTE: Slight hack - we can now specify exactly now many staff lines we want...
     params.numStaffLines = m_cell->drawStaff ? 5 : 0;
 
-    notation::EngravingItemPreviewPainter::paintPreview(engravingRender(), element, params);
+    notation::EngravingItemPreviewPainter::paintPreview(element, params);
 }
 
 void PaletteCellIconEngine::paintBackground(Painter& painter, const RectF& rect, bool selected, bool current) const

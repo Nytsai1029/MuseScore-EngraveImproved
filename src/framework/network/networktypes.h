@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_NETWORK_NETWORKTYPES_H
+#define MUSE_NETWORK_NETWORKTYPES_H
 
 #include <QVariantMap>
 #include <QNetworkRequest>
@@ -40,11 +40,29 @@ struct RequestHeaders
     }
 };
 
-using QIODevicePtr = std::shared_ptr<QIODevice>;
 using IncomingDevice = QIODevice;
-using IncomingDevicePtr = QIODevicePtr;
 
-struct NoOutgoingDevice {};
-using QHttpMultiPartPtr = std::shared_ptr<QHttpMultiPart>;
-using OutgoingDeviceVar = std::variant<QIODevicePtr, QHttpMultiPartPtr, NoOutgoingDevice>;
+struct OutgoingDevice
+{
+    OutgoingDevice(QIODevice* device)
+        : m_device(device), m_multiPart(nullptr) {}
+    OutgoingDevice(QHttpMultiPart* multiPart)
+        : m_device(nullptr), m_multiPart(multiPart) {}
+
+    QIODevice* device() const
+    {
+        return m_device;
+    }
+
+    QHttpMultiPart* multiPart() const
+    {
+        return m_multiPart;
+    }
+
+private:
+    QIODevice* m_device = nullptr;
+    QHttpMultiPart* m_multiPart = nullptr;
+};
 }
+
+#endif // MUSE_NETWORK_NETWORKTYPES_H

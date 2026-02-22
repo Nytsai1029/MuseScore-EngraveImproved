@@ -5,7 +5,7 @@
  * MuseScore Studio
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore Limited
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -21,25 +21,30 @@
  */
 
 #include <QDateTime>
-#include <QFileInfo>
-#include <QQmlEngine>
-#include <QQmlContext>
 
 #include "util.h"
 
-#include "log.h"
-#include "modularity/ioc.h"
-#include "global/iglobalconfiguration.h"
-#include "extensions/iextensionsconfiguration.h"
-#include "project/iprojectconfiguration.h"
-#include "notation/inotationconfiguration.h"
-#include "audio/main/iaudioconfiguration.h"
-#include "engraving/infrastructure/mscio.h"
-#include "context/iglobalcontext.h"
+#include "score.h"
 
-using namespace muse;
+#include "engraving/dom/measurebase.h"
+#include "engraving/dom/page.h"
+#include "engraving/dom/score.h"
+#include "engraving/dom/system.h"
 
-namespace mu::engraving::apiv1 {
+using namespace mu;
+
+namespace mu::plugins::api {
+//---------------------------------------------------------
+//   ScoreView
+//---------------------------------------------------------
+
+ScoreView::ScoreView(QQuickItem* parent)
+    : uicomponents::QuickPaintedView(parent)
+{
+    setAcceptedMouseButtons(Qt::LeftButton);
+    score = nullptr;
+}
+
 //---------------------------------------------------------
 //   FileIO
 //---------------------------------------------------------
@@ -47,232 +52,6 @@ namespace mu::engraving::apiv1 {
 FileIO::FileIO(QObject* parent)
     : QObject(parent)
 {
-}
-
-// User's MuseScore documents directory (default location for scores, plugins, etc.)
-QString FileIO::userDataPath()
-{
-    // Get global configuration to access allowed paths
-    auto globalConfig = muse::modularity::globalIoc()->resolve<IGlobalConfiguration>("extensions");
-    if (!globalConfig) {
-        LOGE() << "Failed to resolve IGlobalConfiguration";
-        return QString();
-    }
-
-    return globalConfig->userDataPath().toQString();
-}
-
-// User-configured Plugins directory (Preferences → Folders → Plugins)
-QString FileIO::pluginsUserPath()
-{
-    auto extensionsConfig = muse::modularity::globalIoc()->resolve<extensions::IExtensionsConfiguration>("extensions");
-    if (!extensionsConfig) {
-        LOGE() << "Failed to resolve IExtensionsConfiguration";
-        return QString();
-    }
-
-    return extensionsConfig->pluginsUserPath().toQString();
-}
-
-// User-configured Scores directory (Preferences → Folders → Scores)
-QString FileIO::userProjectsPath()
-{
-    auto projectConfig = muse::modularity::globalIoc()->resolve<mu::project::IProjectConfiguration>("project");
-    if (!projectConfig) {
-        LOGE() << "Failed to resolve IProjectConfiguration";
-        return QString();
-    }
-
-    return projectConfig->userProjectsPath().toQString();
-}
-
-// User-configured Templates directory (Preferences → Folders → Templates)
-QString FileIO::userTemplatesPath()
-{
-    auto projectConfig = muse::modularity::globalIoc()->resolve<mu::project::IProjectConfiguration>("project");
-    if (!projectConfig) {
-        LOGE() << "Failed to resolve IProjectConfiguration";
-        return QString();
-    }
-
-    return projectConfig->userTemplatesPath().toQString();
-}
-
-// User-configured Styles directory (Preferences → Folders → Styles)
-QString FileIO::userStylesPath()
-{
-    auto notationConfig = muse::modularity::globalIoc()->resolve<mu::notation::INotationConfiguration>("notation");
-    if (!notationConfig) {
-        LOGE() << "Failed to resolve INotationConfiguration";
-        return QString();
-    }
-
-    return notationConfig->userStylesPath().toQString();
-}
-
-// User-configured SoundFonts directories (Preferences → Folders → SoundFonts)
-QStringList FileIO::userSoundFontDirectories()
-{
-    QStringList paths;
-    auto audioConfig = muse::modularity::globalIoc()->resolve<audio::IAudioConfiguration>("audio");
-
-    if (!audioConfig) {
-        LOGE() << "Failed to resolve IAudioConfiguration";
-        return paths; // empty list
-    }
-
-    for (const auto& path : audioConfig->userSoundFontDirectories()) {
-        if (!path.empty()) {
-            paths << path.toQString();
-        }
-    }
-
-    return paths;
-}
-
-// The running plugin's directory
-QString FileIO::pluginDirectoryPath()
-{
-    QQmlContext* context = QQmlEngine::contextForObject(this);
-
-    if (!context) {
-        return QString();
-    }
-
-    QUrl url = context->baseUrl();
-
-    if (!url.isLocalFile()) {
-        return QString();
-    }
-
-    return QFileInfo(url.toLocalFile()).absolutePath();
-}
-
-// Path of project file (ex: .../Desktop/project.mscz)
-QString FileIO::projectPath()
-{
-    auto globalContext = muse::modularity::globalIoc()->resolve<context::IGlobalContext>("project");
-    if (!globalContext) {
-        LOGE() << "Failed to resolve IGlobalContext";
-        return QString();
-    }
-
-    auto project = globalContext->currentProject();
-    if (!project) {
-        return QString();
-    }
-
-    muse::io::path_t projectPath = project->path();
-    if (projectPath.empty()) {
-        return QString();
-    }
-
-    return projectPath.toQString();
-}
-
-// Is the project a folder with a .mscx file
-bool FileIO::isProjectDirectory()
-{
-    QString projectPath = FileIO::projectPath();
-    if (projectPath.isEmpty()) {
-        return false;
-    }
-
-    std::string suffix = muse::io::suffix(projectPath);
-
-    return mscIoModeBySuffix(suffix) == MscIoMode::Dir;
-}
-
-// Path of project's containing folder
-QString FileIO::projectDirectoryPath()
-{
-    QString projectPath = FileIO::projectPath();
-    if (projectPath.isEmpty()) {
-        return QString();
-    }
-
-    QString directoryPath = io::dirpath(projectPath).toQString();
-    return directoryPath;
-}
-
-//---------------------------------------------------------
-//   isPathWriteable
-//   Check if the file path is within allowed directories
-//---------------------------------------------------------
-bool FileIO::isPathWriteable(const QString& filePath)
-{
-    // Get the canonical (absolute, symlinks resolved) path
-    QFileInfo fileInfo(filePath);
-    QString canonicalPath = fileInfo.canonicalFilePath();
-
-    // If file doesn't exist yet, we need to clean the path manually
-    // because absoluteFilePath() does NOT resolve .. and . elements
-    if (canonicalPath.isEmpty()) {
-        // Use QDir::cleanPath to resolve .. and . elements
-        canonicalPath = QDir::cleanPath(fileInfo.absoluteFilePath());
-    }
-
-    // Build list of allowed base paths from all user-configurable directories
-    QStringList allowedPaths;
-
-    // Note: userAppDataPath() is NOT included because it contains sensitive data:
-    // - User credentials (musescorecom_cred.dat)
-    // - System configuration (shortcuts.xml, midi_mappings.xml)
-    // - Application logs
-    // Plugins should not write to this directory
-
-    // 1. System temp directory (for temporary files)
-    QDir tempDir;
-    allowedPaths << tempDir.tempPath();
-
-    // 2. User's MuseScore documents directory (default location for Scores, Plugins, SoundFonts, Styles, Templates)
-    if (QString path = FileIO::userDataPath(); !path.isEmpty()) {
-        allowedPaths << path;
-    }
-
-    // 3. User-configured Plugins directory (Preferences → Folders → Plugins)
-    if (QString path = FileIO::pluginsUserPath(); !path.isEmpty()) {
-        allowedPaths << path;
-    }
-
-    // 4. User-configured Scores directory (Preferences → Folders → Scores)
-    if (QString path = FileIO::userProjectsPath(); !path.isEmpty()) {
-        allowedPaths << path;
-    }
-
-    // 5. User-configured Templates directory (Preferences → Folders → Templates)
-    if (QString path = FileIO::userTemplatesPath(); !path.isEmpty()) {
-        allowedPaths << path;
-    }
-
-    // 6. User-configured Styles directory (Preferences → Folders → Styles)
-    if (QString path = FileIO::userStylesPath(); !path.isEmpty()) {
-        allowedPaths << path;
-    }
-
-    // 7. User-configured SoundFonts directories (Preferences → Folders → SoundFonts)
-    allowedPaths << FileIO::userSoundFontDirectories();
-
-    // 8. Project path if it's a folder (with a .mscx file) instead of a .mscz file
-    if (FileIO::isProjectDirectory()) {
-        allowedPaths << FileIO::projectDirectoryPath();
-    }
-
-    // Check if the canonical path starts with any allowed base path
-    bool allowed = false;
-    for (const QString& basePath : allowedPaths) {
-        if (canonicalPath.startsWith(basePath)) {
-            allowed = true;
-            break;
-        }
-    }
-
-    if (!allowed) {
-        LOGW() << "File write blocked: path '" << canonicalPath << "' is outside allowed directories";
-        LOGW() << "Allowed directories: " << allowedPaths.join(", ");
-    }
-
-    return allowed;
 }
 
 QString FileIO::read()
@@ -313,12 +92,6 @@ bool FileIO::write(const QString& data)
 
     QString source = (url.isValid() && url.isLocalFile()) ? url.toLocalFile() : m_source;
 
-    // Security: Check if path is within allowed directories
-    if (!FileIO::isPathWriteable(source)) {
-        emit error("File write blocked: path is outside allowed directories");
-        return false;
-    }
-
     QFile file(source);
     if (!file.open(QFile::WriteOnly | QFile::Truncate)) {
         return false;
@@ -328,36 +101,6 @@ bool FileIO::write(const QString& data)
     out << data;
     file.close();
     return true;
-}
-
-bool FileIO::writeBinary(const QString& data)
-{
-    if (m_source.isEmpty()) {
-        return false;
-    }
-
-    QUrl url(m_source);
-
-    QString source = (url.isValid() && url.isLocalFile()) ? url.toLocalFile() : m_source;
-
-    // Security: Check if path is within allowed directories
-    if (!FileIO::isPathWriteable(source)) {
-        emit error("File write blocked: path is outside allowed directories");
-        return false;
-    }
-
-    QFile file(source);
-    if (!file.open(QFile::WriteOnly | QFile::Truncate)) {
-        return false;
-    }
-
-    // Write binary data without text encoding
-    // Each character in the QString represents a byte (0-255)
-    QByteArray bytes = data.toLatin1();
-    qint64 written = file.write(bytes);
-    file.close();
-
-    return written == bytes.size();
 }
 
 //---------------------------------------------------------
@@ -408,4 +151,109 @@ void MsProcess::startWithArgs(const QString& program, const QStringList& args)
 {
     QProcess::start(program, args, ReadWrite);
 }
+
+//---------------------------------------------------------
+//   setScore
+//---------------------------------------------------------
+
+void ScoreView::setScore(mu::plugins::api::Score* s)
+{
+    mu::engraving::Score* newScore = s ? s->score() : nullptr;
+    setScore(newScore);
 }
+
+void ScoreView::setScore(mu::engraving::Score* s)
+{
+    MuseScoreView::setScore(s);
+    m_currentPage = 0;
+    score = s;
+
+    if (score) {
+        score->doLayout();
+
+        mu::engraving::Page* page = score->pages()[m_currentPage];
+        RectF pr(page->pageBoundingRect());
+        qreal m1 = width() / pr.width();
+        qreal m2 = height() / pr.height();
+        mag = qMax(m1, m2);
+
+        m_boundingRect = QRectF(0.0, 0.0, pr.width() * mag, pr.height() * mag);
+
+        setWidth(pr.width() * mag);
+        setHeight(pr.height() * mag);
+    }
+    update();
+}
+
+//---------------------------------------------------------
+//   paint
+//---------------------------------------------------------
+
+void ScoreView::paint(QPainter* qp)
+{
+    muse::draw::Painter p(qp, "plugins_scoreview");
+    p.setAntialiasing(true);
+    p.fillRect(RectF(0.0, 0.0, width(), height()), m_color);
+    if (!score) {
+        return;
+    }
+    p.scale(mag, mag);
+
+    mu::engraving::Page* page = score->pages()[m_currentPage];
+    QList<const mu::engraving::EngravingItem*> el;
+    for (engraving::System* s : page->systems()) {
+        for (engraving::MeasureBase* m : s->measures()) {
+            m->scanElements(&el, mu::engraving::collectElements, false);
+        }
+    }
+    page->scanElements(&el, mu::engraving::collectElements, false);
+
+    foreach (const mu::engraving::EngravingItem* e, el) {
+        PointF pos(e->pagePos());
+        p.translate(pos);
+        mu::engraving::EngravingItem::renderer()->drawItem(e, &p);
+        p.translate(-pos);
+    }
+}
+
+//---------------------------------------------------------
+//   setCurrentPage
+//---------------------------------------------------------
+
+void ScoreView::setCurrentPage(int n)
+{
+    if (!score) {
+        return;
+    }
+    if (n < 0) {
+        n = 0;
+    }
+    int nn = static_cast<int>(score->pages().size());
+    if (nn == 0) {
+        return;
+    }
+    if (n >= nn) {
+        n = nn - 1;
+    }
+    m_currentPage = n;
+    update();
+}
+
+//---------------------------------------------------------
+//   nextPage
+//---------------------------------------------------------
+
+void ScoreView::nextPage()
+{
+    setCurrentPage(m_currentPage + 1);
+}
+
+//---------------------------------------------------------
+//   prevPage
+//---------------------------------------------------------
+
+void ScoreView::prevPage()
+{
+    setCurrentPage(m_currentPage - 1);
+}
+} // namespace mu::plugins::api

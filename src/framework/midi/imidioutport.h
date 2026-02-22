@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -29,7 +29,7 @@
 #include "miditypes.h"
 
 namespace muse::midi {
-class IMidiOutPort : MODULE_CONTEXT_INTERFACE
+class IMidiOutPort : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IMidiOutPort)
 

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,14 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-import QtQuick.Layouts
-
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 import "internal"
 
@@ -154,15 +151,12 @@ StyledDialogView {
                         }
 
                         delegate: RowLayout {
-                            id: delegateItem
-
-                            required property string modelData
-                            readonly property alias title: delegateItem.modelData
-
                             Layout.preferredHeight: titleLabel.height
                             Layout.preferredWidth: (content.width / 2 - gridView.columnSpacing / gridView.columns)
 
                             spacing: 10
+
+                            property string title: modelData
 
                             Rectangle {
                                 Layout.preferredWidth: 9
@@ -178,7 +172,7 @@ StyledDialogView {
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: implicitHeight
 
-                                text: delegateItem.title
+                                text: title
                                 horizontalAlignment: Text.AlignLeft
                                 wrapMode: Text.WordWrap
                                 maximumLineCount: 2

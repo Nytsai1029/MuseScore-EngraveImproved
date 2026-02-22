@@ -68,6 +68,10 @@ public:
 
     String label() const { return m_label; }
     void setLabel(const String& s) { m_label = s; }
+    void undoSetLabel(const String& s);
+    void undoSetMarkerType(MarkerType t);
+
+    void styleChanged() override;
 
     PropertyValue getProperty(Pid propertyId) const override;
     bool setProperty(Pid propertyId, const PropertyValue&) override;
@@ -77,7 +81,7 @@ public:
     EngravingItem* prevSegmentElement() override;
     String accessibleInfo() const override;
 
-    bool positionRelativeToNoteheadRest() const override { return false; }
+    bool positionSeparateFromAlignment() const override { return true; }
 
     bool centerOnSymbol() const { return m_centerOnSymbol; }
     void setCenterOnSymbol(bool val) { m_centerOnSymbol = val; }
@@ -100,13 +104,4 @@ private:
 
     bool m_centerOnSymbol = true;
 };
-
-struct MarkerTypeTableItem {
-    MarkerType type;
-    AsciiStringView text;
-    AsciiStringView label;
-    bool rightAligned;
-};
-
-extern const std::vector<MarkerTypeTableItem> markerTypeTable;
 } // namespace mu::engraving

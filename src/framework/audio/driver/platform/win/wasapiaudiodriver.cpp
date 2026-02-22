@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2022 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,591 +19,243 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 #include "wasapiaudiodriver.h"
 
-#include <combaseapi.h>
-#include <audioclient.h>
-#include <mmdeviceapi.h>
-#include <functiondiscoverykeys_devpkey.h>
+#include "muse_framework_config.h"
+#ifdef QT_CONCURRENT_SUPPORTED
+#include "concurrency/concurrent.h"
+#endif
 
-#include "global/defer.h"
-#include "global/translation.h"
+#include "wasapitypes.h"
+#include "wasapiaudioclient.h"
+#include "audiodeviceslistener.h"
 
+#include "translation.h"
 #include "log.h"
 
+using namespace winrt;
 using namespace muse;
 using namespace muse::audio;
 
-struct WasapiAudioDriver::DeviceListener : public IMMNotificationClient
-{
-    DeviceListener(WasapiAudioDriver* driver)
-        : m_driver(driver) {}
-
-    STDMETHOD_(ULONG, AddRef)() {
-        return 1;
-    }
-    STDMETHOD_(ULONG, Release)() {
-        return 1;
-    }
-    STDMETHOD(QueryInterface)(REFIID, void**) {
-        return S_OK;
-    }
-    STDMETHOD(OnDeviceStateChanged)(LPCWSTR, DWORD) {
-        return S_OK;
-    }
-    STDMETHOD(OnDeviceAdded)(LPCWSTR) {
-        m_driver->updateAudioDeviceList();
-        return S_OK;
-    }
-    STDMETHOD(OnDeviceRemoved)(LPCWSTR) {
-        m_driver->updateAudioDeviceList();
-        return S_OK;
-    }
-    STDMETHOD(OnDefaultDeviceChanged)(EDataFlow flow, ERole role, LPCWSTR) {
-        if ((role != eConsole && role != eCommunications) || (flow != eRender)) {
-            return S_OK;
-        }
-
-        m_driver->updateAudioDeviceList();
-
-        return S_OK;
-    }
-    STDMETHOD(OnPropertyValueChanged)(LPCWSTR, const PROPERTYKEY) {
-        return S_OK;
-    }
-
-    WasapiAudioDriver* m_driver = nullptr;
-};
-
-struct WasapiAudioDriver::Data {
-    IMMDeviceEnumerator* enumerator = nullptr;
-    IAudioClient* audioClient = nullptr;
-    IAudioRenderClient* renderClient = nullptr;
-    WAVEFORMATEX* mixFormat = nullptr;
-    HANDLE audioEvent = nullptr;
-
-    void releaseClient()
-    {
-        if (audioEvent) {
-            CloseHandle(audioEvent);
-            audioEvent = nullptr;
-        }
-
-        if (renderClient) {
-            renderClient->Release();
-            renderClient = nullptr;
-        }
-
-        if (audioClient) {
-            audioClient->Release();
-            audioClient = nullptr;
-        }
-
-        if (mixFormat) {
-            CoTaskMemFree(mixFormat);
-            mixFormat = nullptr;
-        }
-    }
-
-    void releaseAll()
-    {
-        releaseClient();
-        if (enumerator) {
-            enumerator->Release();
-            enumerator = nullptr;
-        }
-    }
-};
-
-static REFERENCE_TIME to_reftime(int numSamples, double sampleRate)
-{
-    return (REFERENCE_TIME)((numSamples * 10000.0 * 1000.0 / sampleRate) + 0.5);
-}
-
-static samples_t to_samples(const REFERENCE_TIME& t, double sampleRate)
+inline int refTimeToSamples(const REFERENCE_TIME& t, double sampleRate) noexcept
 {
     return sampleRate * ((double)t) * 0.0000001;
 }
 
-static std::wstring to_wstring(const std::string& str)
+inline REFERENCE_TIME samplesToRefTime(int numSamples, double sampleRate) noexcept
 {
-    if (str.empty()) {
-        return L"";
-    }
-
-    int wide_len = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, nullptr, 0);
-    if (wide_len == 0) {
-        return L"";
-    }
-
-    std::wstring result(wide_len - 1, 0);
-    MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, &result[0], wide_len);
-
-    return result;
+    return (REFERENCE_TIME)((numSamples * 10000.0 * 1000.0 / sampleRate) + 0.5);
 }
 
-static std::string to_string(LPWSTR wstr)
-{
-    if (!wstr || wstr[0] == L'\0') {
-        return "";
-    }
+struct WasapiData {
+    HANDLE clientStartedEvent;
+    HANDLE clientFailedToStartEvent;
+    HANDLE clientStoppedEvent;
 
-    int multi_len = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, nullptr, 0, nullptr, nullptr);
-    if (multi_len == 0) {
-        return "";
-    }
+    winrt::com_ptr<winrt::WasapiAudioClient> wasapiClient;
+};
 
-    std::string result(multi_len - 1, 0);
-    WideCharToMultiByte(CP_UTF8, 0, wstr, -1, &result[0], multi_len, nullptr, nullptr);
-
-    return result;
-}
-
-static std::string get_deviceId(IMMDevice* device)
-{
-    LPWSTR devId;
-    HRESULT hr = device->GetId(&devId);
-    if (FAILED(hr)) {
-        LOGE() << "failed get deviceId";
-        return std::string();
-    }
-    std::string str = to_string(devId);
-    CoTaskMemFree(devId);
-    return str;
-}
-
-static std::string hrToString(HRESULT hr)
-{
-    if (SUCCEEDED(hr)) {
-        return "SUCCEEDED";
-    }
-
-    switch (hr) {
-    // Common WASAPI errors
-    case AUDCLNT_E_NOT_INITIALIZED:          return "AUDCLNT_E_NOT_INITIALIZED - Audio client not initialized";
-    case AUDCLNT_E_ALREADY_INITIALIZED:      return "AUDCLNT_E_ALREADY_INITIALIZED - Audio client already initialized";
-    case AUDCLNT_E_WRONG_ENDPOINT_TYPE:      return "AUDCLNT_E_WRONG_ENDPOINT_TYPE - Wrong endpoint type";
-    case AUDCLNT_E_DEVICE_INVALIDATED:       return "AUDCLNT_E_DEVICE_INVALIDATED - Device invalidated";
-    case AUDCLNT_E_NOT_STOPPED:              return "AUDCLNT_E_NOT_STOPPED - Audio client not stopped";
-    case AUDCLNT_E_BUFFER_TOO_LARGE:         return "AUDCLNT_E_BUFFER_TOO_LARGE - Buffer too large";
-    case AUDCLNT_E_OUT_OF_ORDER:             return "AUDCLNT_E_OUT_OF_ORDER - Operation out of order";
-    case AUDCLNT_E_UNSUPPORTED_FORMAT:       return "AUDCLNT_E_UNSUPPORTED_FORMAT - Unsupported format";
-    case AUDCLNT_E_INVALID_SIZE:             return "AUDCLNT_E_INVALID_SIZE - Invalid size";
-    case AUDCLNT_E_DEVICE_IN_USE:            return "AUDCLNT_E_DEVICE_IN_USE - Device in use";
-    case AUDCLNT_E_BUFFER_OPERATION_PENDING: return "AUDCLNT_E_BUFFER_OPERATION_PENDING - Buffer operation pending";
-    case AUDCLNT_E_THREAD_NOT_REGISTERED:    return "AUDCLNT_E_THREAD_NOT_REGISTERED - Thread not registered";
-    case AUDCLNT_E_EXCLUSIVE_MODE_NOT_ALLOWED: return "AUDCLNT_E_EXCLUSIVE_MODE_NOT_ALLOWED - Exclusive mode not allowed";
-    case AUDCLNT_E_ENDPOINT_CREATE_FAILED:   return "AUDCLNT_E_ENDPOINT_CREATE_FAILED - Endpoint create failed";
-    case AUDCLNT_E_SERVICE_NOT_RUNNING:      return "AUDCLNT_E_SERVICE_NOT_RUNNING - Audio service not running";
-    case AUDCLNT_E_EVENTHANDLE_NOT_EXPECTED: return "AUDCLNT_E_EVENTHANDLE_NOT_EXPECTED - Event handle not expected";
-    case AUDCLNT_E_EXCLUSIVE_MODE_ONLY:      return "AUDCLNT_E_EXCLUSIVE_MODE_ONLY - Exclusive mode only";
-    case AUDCLNT_E_BUFDURATION_PERIOD_NOT_EQUAL: return "AUDCLNT_E_BUFDURATION_PERIOD_NOT_EQUAL - Buffer duration/period not equal";
-    case AUDCLNT_E_EVENTHANDLE_NOT_SET:      return "AUDCLNT_E_EVENTHANDLE_NOT_SET - Event handle not set";
-    case AUDCLNT_E_INCORRECT_BUFFER_SIZE:    return "AUDCLNT_E_INCORRECT_BUFFER_SIZE - Incorrect buffer size";
-    case AUDCLNT_E_BUFFER_SIZE_ERROR:        return "AUDCLNT_E_BUFFER_SIZE_ERROR - Buffer size error";
-    case AUDCLNT_E_CPUUSAGE_EXCEEDED:        return "AUDCLNT_E_CPUUSAGE_EXCEEDED - CPU usage exceeded";
-
-    // Common COM errors
-    case E_INVALIDARG:                       return "E_INVALIDARG - Invalid arguments";
-    case E_OUTOFMEMORY:                      return "E_OUTOFMEMORY - Out of memory";
-    case E_NOINTERFACE:                      return "E_NOINTERFACE - No interface";
-    case E_POINTER:                          return "E_POINTER - Invalid pointer";
-    case E_ACCESSDENIED:                     return "E_ACCESSDENIED - Access denied";
-    case E_FAIL:                             return "E_FAIL - Unspecified error";
-
-    default:
-        return "Unknown error: " + std::to_string(hr);
-    }
-}
+static WasapiData s_data;
 
 WasapiAudioDriver::WasapiAudioDriver()
 {
-    m_data = std::make_shared<Data>();
-    m_deviceListener = std::make_shared<DeviceListener>(this);
-}
+    s_data.clientStartedEvent = CreateEvent(NULL, FALSE, FALSE, L"WASAPI_Client_Started");
+    s_data.clientFailedToStartEvent = CreateEvent(NULL, FALSE, FALSE, L"WASAPI_Client_Failed_To_Start");
+    s_data.clientStoppedEvent = CreateEvent(NULL, FALSE, FALSE, L"WASAPI_Client_Stopped");
 
-WasapiAudioDriver::~WasapiAudioDriver()
-{
-    doClose();
+    m_devicesListener = std::make_unique<AudioDevicesListener>();
+    m_devicesListener->devicesChanged().onNotify(this, [this]() {
+        updateAvailableOutputDevices();
+    });
 
-    if (m_data->enumerator) {
-        m_data->enumerator->UnregisterEndpointNotificationCallback(m_deviceListener.get());
-    }
+    m_devicesListener->defaultDeviceChanged().onNotify(this, [this]() {
+        if (s_data.wasapiClient.get()) {
+            s_data.wasapiClient->setFallbackDevice(to_hstring<std::string>(this->defaultDeviceId()));
+        }
 
-    m_data->releaseAll();
-
-    CoUninitialize();
-}
-
-std::string WasapiAudioDriver::name() const
-{
-    return "WASAPI";
+        if (m_deviceId == DEFAULT_DEVICE_ID) {
+            reopen();
+        }
+    });
 }
 
 void WasapiAudioDriver::init()
 {
-    LOGI() << "begin driver init";
-    HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
-    if (FAILED(hr)) {
-        LOGE() << "failed CoInitializeEx, error: " << hrToString(hr);
-    }
-
-    hr = CoCreateInstance(
-        __uuidof(MMDeviceEnumerator),
-        nullptr,
-        CLSCTX_ALL,
-        __uuidof(IMMDeviceEnumerator),
-        (void**)&m_data->enumerator
-        );
-
-    if (FAILED(hr)) {
-        LOGE() << "failed create DeviceEnumerator, error: " << hrToString(hr);
-        return;
-    }
-
-    hr = m_data->enumerator->RegisterEndpointNotificationCallback(m_deviceListener.get());
-    if (FAILED(hr)) {
-        LOGE() << "failed RegisterEndpointNotificationCallback, error: " << hrToString(hr);
-    }
-
-    updateAudioDeviceList();
-
-    LOGI() << "success driver init";
+    updateAvailableOutputDevices();
 }
 
-static std::pair<std::vector<AudioDevice>, std::string /*defaultId*/> audioDevices(IMMDeviceEnumerator* enumerator)
+std::string WasapiAudioDriver::name() const
 {
-    IF_ASSERT_FAILED(enumerator) {
-        return {};
-    }
-
-    IMMDeviceCollection* pCollection = nullptr;
-    HRESULT hr = enumerator->EnumAudioEndpoints(eRender, DEVICE_STATE_ACTIVE, &pCollection);
-    if (FAILED(hr)) {
-        LOGE() << "failed get EnumAudioEndpoints, error: " << hrToString(hr);
-        return {};
-    }
-
-    UINT count = 0;
-    pCollection->GetCount(&count);
-
-    std::pair<std::vector<AudioDevice>, std::string> devices;
-
-    for (UINT i = 0; i < count; i++) {
-        IMMDevice* pDevice = nullptr;
-        hr = pCollection->Item(i, &pDevice);
-        if (SUCCEEDED(hr)) {
-            AudioDevice deviceInfo;
-            deviceInfo.id = get_deviceId(pDevice);
-
-            IPropertyStore* pProps = nullptr;
-            hr = pDevice->OpenPropertyStore(STGM_READ, &pProps);
-            if (SUCCEEDED(hr)) {
-                PROPVARIANT varName;
-                PropVariantInit(&varName);
-
-                hr = pProps->GetValue(PKEY_Device_FriendlyName, &varName);
-                if (SUCCEEDED(hr) && varName.vt == VT_LPWSTR) {
-                    deviceInfo.name = to_string(varName.pwszVal);
-                }
-
-                PropVariantClear(&varName);
-                pProps->Release();
-            }
-
-            devices.first.push_back(deviceInfo);
-            pDevice->Release();
-        }
-    }
-
-    pCollection->Release();
-
-    IMMDevice* defaultDevice = nullptr;
-    enumerator->GetDefaultAudioEndpoint(eRender, eConsole, &defaultDevice);
-    if (defaultDevice) {
-        devices.second = get_deviceId(defaultDevice);
-        defaultDevice->Release();
-    }
-
-    return devices;
-}
-
-void WasapiAudioDriver::updateAudioDeviceList()
-{
-    TRACEFUNC;
-
-    IF_ASSERT_FAILED(m_data->enumerator) {
-        return;
-    }
-
-    auto devices = audioDevices(m_data->enumerator);
-    m_deviceList.clear();
-    m_deviceList.push_back({ DEFAULT_DEVICE_ID, muse::trc("audio", "System default") });
-    m_deviceList.insert(m_deviceList.end(), devices.first.begin(), devices.first.end());
-    m_defaultDeviceId = devices.second;
-    m_deviceListChanged.notify();
-}
-
-static IAudioClient* audioClientForDevice(IMMDeviceEnumerator* enumerator, const std::string& deviceId)
-{
-    std::wstring wdeviceId = to_wstring(deviceId);
-    IMMDevice* device = nullptr;
-    HRESULT hr = enumerator->GetDevice(wdeviceId.c_str(), &device);
-    if (FAILED(hr)) {
-        LOGE() << "failed get device with id: " << deviceId << ", error: " << hrToString(hr);
-        return nullptr;
-    }
-
-    DEFER {
-        device->Release();
-    };
-
-    IAudioClient* audioClient = nullptr;
-    hr = device->Activate(
-        __uuidof(IAudioClient),
-        CLSCTX_ALL,
-        nullptr,
-        (void**)&audioClient
-        );
-
-    if (FAILED(hr)) {
-        LOGE() << "failed get audioClient, error: " << hrToString(hr);
-        return nullptr;
-    }
-
-    return audioClient;
-}
-
-AudioDeviceID WasapiAudioDriver::defaultDevice() const
-{
-    return m_defaultDeviceId;
+    return "WASAPI_driver";
 }
 
 bool WasapiAudioDriver::open(const Spec& spec, Spec* activeSpec)
 {
-    TRACEFUNC;
-
-    IF_ASSERT_FAILED(!spec.deviceId.empty()) {
-        return false;
+    if (!s_data.wasapiClient.get()) {
+        s_data.wasapiClient
+            = make_self<WasapiAudioClient>(s_data.clientStartedEvent, s_data.clientFailedToStartEvent, s_data.clientStoppedEvent);
     }
 
-    IF_ASSERT_FAILED(m_data->enumerator) {
-        return false;
+    m_desiredSpec = spec;
+
+    s_data.wasapiClient->setBufferDuration(samplesToRefTime(spec.samples, spec.sampleRate));
+
+    bool lowLatencyModeRequired = spec.samples <= s_data.wasapiClient->lowLatencyUpperBound();
+
+    s_data.wasapiClient->setLowLatency(lowLatencyModeRequired);
+    s_data.wasapiClient->setSampleRequestCallback(spec.callback);
+
+    LOGI() << "WASAPI: trying to open the audio end-point with the following sample rate - " << spec.sampleRate;
+    LOGI() << "WASAPI: trying to open the audio end-point with the following samples per channel number - " << spec.samples;
+
+    hstring deviceId;
+    hstring defaultDeviceId = to_hstring<std::string>(this->defaultDeviceId());
+
+    if (m_deviceId.empty() || m_deviceId == DEFAULT_DEVICE_ID) {
+        deviceId = defaultDeviceId;
+    } else {
+        deviceId = to_hstring<std::string>(m_deviceId);
     }
 
-    AudioDeviceID deviceId = spec.deviceId;
-    if (deviceId == DEFAULT_DEVICE_ID) {
-        deviceId = defaultDevice();
-    }
+    s_data.wasapiClient->setFallbackDevice(defaultDeviceId);
+    s_data.wasapiClient->asyncInitializeAudioDevice(deviceId);
 
-    LOGI() << "try open driver, device: " << deviceId;
+    static constexpr DWORD handleCount = 2;
+    const HANDLE handles[handleCount] = { s_data.clientStartedEvent, s_data.clientFailedToStartEvent };
 
-    m_data->audioClient = audioClientForDevice(m_data->enumerator, deviceId);
-    if (!m_data->audioClient) {
-        LOGE() << "failed get audio client for device: " << deviceId;
-        return false;
-    }
+    DWORD waitResult = WaitForMultipleObjects(handleCount, handles, false, INFINITE);
+    if (waitResult != WAIT_OBJECT_0) {
+        // Either the event was the second event (namely s_data.clientFailedToStartEvent)
+        // Or some wait error occurred
 
-    HRESULT hr = m_data->audioClient->GetMixFormat(&m_data->mixFormat);
-    if (FAILED(hr)) {
-        LOGE() << "failed get mixFormat, error: " << hrToString(hr);
-        return false;
-    }
+        LOGE() << "WASAPI: error open the device " << to_string(deviceId) << ", trying to use closest supported format";
 
-    m_activeSpec = spec;
-    m_activeSpec.output.sampleRate = m_data->mixFormat->nSamplesPerSec;
+        static constexpr bool USE_CLOSEST_SUPPORTED_FORMAT = true;
+        s_data.wasapiClient->asyncInitializeAudioDevice(deviceId, USE_CLOSEST_SUPPORTED_FORMAT);
 
-    if (activeSpec) {
-        *activeSpec = m_activeSpec;
-    }
-
-    m_audioThread = std::thread(&WasapiAudioDriver::th_audioThread, this);
-
-    return true;
-}
-
-void WasapiAudioDriver::th_audioThread()
-{
-    m_opened = th_audioInitialize();
-    m_activeSpecChanged.send(m_activeSpec);
-
-    while (m_opened) {
-        DWORD waitResult = WaitForSingleObject(m_data->audioEvent, 100);
-        if (waitResult == WAIT_OBJECT_0) {
-            th_processAudioData();
-        } else if (waitResult == WAIT_TIMEOUT) {
-            continue;
-        } else {
-            // error
-            break;
+        waitResult = WaitForMultipleObjects(handleCount, handles, false, INFINITE);
+        if (waitResult != WAIT_OBJECT_0) {
+            return false;
         }
     }
-}
 
-bool WasapiAudioDriver::th_audioInitialize()
-{
-    TRACEFUNC;
+    m_activeSpec = m_desiredSpec;
+    m_activeSpec.sampleRate = s_data.wasapiClient->sampleRate();
+    m_activeSpec.samples = std::max(m_activeSpec.samples, static_cast<uint16_t>(minSupportedBufferSize()));
+    *activeSpec = m_activeSpec;
 
-    REFERENCE_TIME bufferDuration = to_reftime(m_activeSpec.output.samplesPerChannel,
-                                               m_activeSpec.output.sampleRate);
-
-    HRESULT hr = m_data->audioClient->Initialize(
-        AUDCLNT_SHAREMODE_SHARED,
-        AUDCLNT_STREAMFLAGS_EVENTCALLBACK,
-        bufferDuration,
-        0,
-        m_data->mixFormat,
-        nullptr
-        );
-
-    if (FAILED(hr)) {
-        LOGE() << "failed audioClient->Initialize, error: " << hrToString(hr);
-        return false;
-    }
-
-    m_data->audioClient->GetBufferSize(&m_bufferFrames);
-    REFERENCE_TIME defaultPeriod = 0;
-    REFERENCE_TIME minimumPeriod = 0;
-    m_data->audioClient->GetDevicePeriod(&defaultPeriod, &minimumPeriod);
-    m_defaultPeriod = to_samples(defaultPeriod, m_activeSpec.output.sampleRate);
-    m_minimumPeriod = to_samples(minimumPeriod, m_activeSpec.output.sampleRate);
-
-    hr = m_data->audioClient->GetService(
-        __uuidof(IAudioRenderClient),
-        (void**)&m_data->renderClient
-        );
-
-    if (FAILED(hr)) {
-        LOGE() << "failed get renderClient, error: " << hrToString(hr);
-        return false;
-    }
-
-    m_data->audioEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
-    if (!m_data->audioEvent) {
-        LOGE() << "failed create audioEvent";
-        return false;
-    }
-
-    hr = m_data->audioClient->SetEventHandle(m_data->audioEvent);
-    if (FAILED(hr)) {
-        LOGE() << "failed set audioEvent, error: " << hrToString(hr);
-        return false;
-    }
-
-    hr = m_data->audioClient->Start();
-    if (FAILED(hr)) {
-        LOGE() << "failed audioClient->Start(), error: " << hrToString(hr);
-        return false;
-    }
+    m_isOpened = true;
 
     return true;
-}
-
-void WasapiAudioDriver::th_processAudioData()
-{
-    // Get padding in existing buffer
-    UINT32 paddingFrames = 0;
-    auto hr = m_data->audioClient->GetCurrentPadding(&paddingFrames);
-    if (FAILED(hr)) {
-        LOGE() << "Failed to get current padding: " << hrToString(hr);
-        return;
-    }
-
-    // GetCurrentPadding represents the number of queued frames
-    // so we can subtract that from the overall number of frames we have
-    const uint32_t framesAvailable = m_bufferFrames - paddingFrames;
-
-    // Only continue if we have buffer to write data
-    if (framesAvailable == 0) {
-        return;
-    }
-
-    const uint32_t actualFramesToRead = framesAvailable;
-
-    // WASAPI: "nBlockAlign must be equal to the product of nChannels and wBitsPerSample divided by 8 (bits per byte)"
-    const uint32_t clientFrameSize = m_data->mixFormat->nBlockAlign;
-
-    // MuseScore assumes only 2 audio channels (same calculation as above to determine frame size)
-    const uint32_t muFrameSize = 2 * m_data->mixFormat->wBitsPerSample / 8;
-
-    uint8_t* data = nullptr;
-    hr = m_data->renderClient->GetBuffer(actualFramesToRead, &data);
-    if (FAILED(hr)) {
-        LOGE() << "Failed to get buffer: " << hrToString(hr);
-        return;
-    }
-
-    if (actualFramesToRead > 0) {
-        // Based on the previous calculations, the only way that clientFrameSize will be larger than muFrameSize is
-        // if the client specifies more than 2 channels. MuseScore doesn't support this (yet), so we use a workaround
-        // where the missing channels are padded with zeroes...
-        if (clientFrameSize > muFrameSize) {
-            const size_t surroundBufferDesiredSize = actualFramesToRead * muFrameSize;
-            if (m_surroundAudioBuffer.size() < surroundBufferDesiredSize) {
-                m_surroundAudioBuffer.resize(surroundBufferDesiredSize, 0);
-            }
-
-            m_activeSpec.callback(m_surroundAudioBuffer.data(),
-                                  (int)surroundBufferDesiredSize);
-
-            for (uint32_t i = 0; i < actualFramesToRead; ++i) {
-                uint8_t* frameStartPos = data + i * clientFrameSize;
-                std::memcpy(frameStartPos, m_surroundAudioBuffer.data() + i * muFrameSize, muFrameSize);
-                std::memset(frameStartPos + muFrameSize, 0, clientFrameSize - muFrameSize);
-            }
-        } else {
-            m_activeSpec.callback(data, actualFramesToRead * clientFrameSize);
-        }
-    }
-    m_data->renderClient->ReleaseBuffer(actualFramesToRead, 0);
 }
 
 void WasapiAudioDriver::close()
 {
-    doClose();
-}
-
-void WasapiAudioDriver::doClose()
-{
-    m_opened = false;
-    if (m_audioThread.joinable()) {
-        m_audioThread.join();
+    if (!s_data.wasapiClient.get()) {
+        return;
     }
 
-    m_data->releaseClient();
+    s_data.wasapiClient->stopPlaybackAsync();
+
+    WaitForSingleObject(s_data.clientStoppedEvent, INFINITE);
+    s_data.wasapiClient = nullptr;
+
+    m_isOpened = false;
 }
 
 bool WasapiAudioDriver::isOpened() const
 {
-    return m_opened;
+    return m_isOpened;
 }
 
-const IAudioDriver::Spec& WasapiAudioDriver::activeSpec() const
+const WasapiAudioDriver::Spec& WasapiAudioDriver::activeSpec() const
 {
     return m_activeSpec;
 }
 
-async::Channel<IAudioDriver::Spec> WasapiAudioDriver::activeSpecChanged() const
+AudioDeviceID WasapiAudioDriver::outputDevice() const
 {
-    return m_activeSpecChanged;
+    return m_deviceId;
+}
+
+bool WasapiAudioDriver::selectOutputDevice(const AudioDeviceID& id)
+{
+    bool result = true;
+
+    if (m_deviceId == id) {
+        return result;
+    }
+
+    m_deviceId = id;
+
+    if (isOpened()) {
+        close();
+        result = open(m_activeSpec, &m_activeSpec);
+    }
+
+    if (result) {
+        m_outputDeviceChanged.notify();
+    }
+
+    return result;
+}
+
+bool WasapiAudioDriver::resetToDefaultOutputDevice()
+{
+    return selectOutputDevice(DEFAULT_DEVICE_ID);
+}
+
+async::Notification WasapiAudioDriver::outputDeviceChanged() const
+{
+    return m_outputDeviceChanged;
 }
 
 AudioDeviceList WasapiAudioDriver::availableOutputDevices() const
 {
-    return m_deviceList;
+    std::lock_guard lock(m_availableOutputDevicesMutex);
+    return m_availableOutputDevices;
 }
 
 async::Notification WasapiAudioDriver::availableOutputDevicesChanged() const
 {
-    return m_deviceListChanged;
+    return m_availableOutputDevicesChanged;
 }
 
-std::vector<samples_t> WasapiAudioDriver::availableOutputDeviceBufferSizes() const
+unsigned int WasapiAudioDriver::outputDeviceBufferSize() const
 {
-    std::vector<samples_t> result;
+    return m_activeSpec.samples;
+}
 
-    samples_t n = MAXIMUM_BUFFER_SIZE;
-    samples_t min = std::max(m_minimumPeriod, MINIMUM_BUFFER_SIZE);
+bool WasapiAudioDriver::setOutputDeviceBufferSize(unsigned int bufferSize)
+{
+    bool result = true;
+
+    if (isOpened()) {
+        close();
+
+        m_activeSpec.samples = bufferSize;
+        result = open(m_activeSpec, &m_activeSpec);
+    } else {
+        m_desiredSpec.samples = bufferSize;
+    }
+
+    m_outputDeviceBufferSizeChanged.notify();
+
+    return result;
+}
+
+async::Notification WasapiAudioDriver::outputDeviceBufferSizeChanged() const
+{
+    return m_outputDeviceBufferSizeChanged;
+}
+
+std::vector<unsigned int> WasapiAudioDriver::availableOutputDeviceBufferSizes() const
+{
+    std::vector<unsigned int> result;
+
+    unsigned int n = MAXIMUM_BUFFER_SIZE;
+    unsigned int min = minSupportedBufferSize();
 
     while (n >= min) {
         result.push_back(n);
@@ -613,7 +265,35 @@ std::vector<samples_t> WasapiAudioDriver::availableOutputDeviceBufferSizes() con
     return result;
 }
 
-std::vector<sample_rate_t> WasapiAudioDriver::availableOutputDeviceSampleRates() const
+unsigned int WasapiAudioDriver::outputDeviceSampleRate() const
+{
+    return m_activeSpec.sampleRate;
+}
+
+bool WasapiAudioDriver::setOutputDeviceSampleRate(unsigned int sampleRate)
+{
+    bool result = true;
+
+    if (isOpened()) {
+        close();
+
+        m_activeSpec.sampleRate = sampleRate;
+        result = open(m_activeSpec, &m_activeSpec);
+    } else {
+        m_desiredSpec.sampleRate = sampleRate;
+    }
+
+    m_outputDeviceSampleRateChanged.notify();
+
+    return result;
+}
+
+async::Notification WasapiAudioDriver::outputDeviceSampleRateChanged() const
+{
+    return m_outputDeviceSampleRateChanged;
+}
+
+std::vector<unsigned int> WasapiAudioDriver::availableOutputDeviceSampleRates() const
 {
     return {
         44100,
@@ -621,4 +301,94 @@ std::vector<sample_rate_t> WasapiAudioDriver::availableOutputDeviceSampleRates()
         88200,
         96000,
     };
+}
+
+void WasapiAudioDriver::resume()
+{
+}
+
+void WasapiAudioDriver::suspend()
+{
+}
+
+void WasapiAudioDriver::reopen()
+{
+    close();
+
+    open(m_activeSpec, &m_activeSpec);
+}
+
+AudioDeviceID WasapiAudioDriver::defaultDeviceId() const
+{
+    using namespace winrt::Windows::Media::Devices;
+
+    AudioDeviceID result;
+
+    try {
+        result = to_string(MediaDevice::GetDefaultAudioRenderId(AudioDeviceRole::Default));
+    } catch (...) {
+        LOGE() << to_string(hresult_error(to_hresult()).message());
+    }
+
+    return result;
+}
+
+void WasapiAudioDriver::updateAvailableOutputDevices()
+{
+#ifdef QT_CONCURRENT_SUPPORTED
+    Concurrent::run([this](){
+        using namespace Windows::Devices::Enumeration;
+        using namespace winrt::Windows::Media::Devices;
+
+        AudioDeviceList result;
+
+        result.push_back({ DEFAULT_DEVICE_ID, muse::trc("audio", "System default") });
+
+        DeviceInformationCollection devices = nullptr;
+
+        try {
+            // Get the string identifier of the audio renderer
+            hstring AudioSelector = MediaDevice::GetAudioRenderSelector();
+
+            winrt::Windows::Foundation::IAsyncOperation<DeviceInformationCollection> deviceRequest
+                = DeviceInformation::FindAllAsync(AudioSelector, {});
+
+            devices = deviceRequest.get();
+        } catch (...) {
+            LOGE() << to_string(hresult_error(to_hresult()).message());
+        }
+
+        if (devices) {
+            for (const auto& deviceInfo : devices) {
+                AudioDevice device { to_string(deviceInfo.Id()), to_string(deviceInfo.Name()) };
+                result.emplace_back(std::move(device));
+            }
+        }
+
+        std::lock_guard lock(m_availableOutputDevicesMutex);
+
+        if (result == m_availableOutputDevices) {
+            return;
+        }
+
+        m_availableOutputDevices = result;
+        m_availableOutputDevicesChanged.notify();
+    });
+#endif
+}
+
+unsigned int WasapiAudioDriver::minSupportedBufferSize() const
+{
+    IF_ASSERT_FAILED(s_data.wasapiClient.get()) {
+        return MINIMUM_BUFFER_SIZE;
+    }
+
+    unsigned int minPeriod = s_data.wasapiClient->minPeriodInFrames();
+    unsigned int closestBufferSize = MINIMUM_BUFFER_SIZE;
+
+    while (closestBufferSize < minPeriod) {
+        closestBufferSize *= 2;
+    }
+
+    return closestBufferSize;
 }

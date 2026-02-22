@@ -22,10 +22,11 @@
 
 #include <gtest/gtest.h>
 
-#include "engraving/compat/scoreaccess.h"
-#include "engraving/dom/factory.h"
-#include "engraving/dom/part.h"
-#include "engraving/dom/staff.h"
+#include "dom/factory.h"
+#include "dom/part.h"
+#include "dom/staff.h"
+
+#include "compat/scoreaccess.h"
 
 using namespace mu::engraving;
 

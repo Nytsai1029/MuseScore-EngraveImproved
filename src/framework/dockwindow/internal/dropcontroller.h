@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -35,9 +35,9 @@ class DockPanelView;
 class DockingHolderView;
 class DockToolBarView;
 class DockPageView;
-class DropController : public KDDockWidgets::DropIndicatorOverlayInterface, public Contextable
+class DropController : public KDDockWidgets::DropIndicatorOverlayInterface, public Injectable
 {
-    ContextInject<IDockWindowProvider> dockWindowProvider = { this };
+    Inject<IDockWindowProvider> dockWindowProvider = { this };
 
 public:
     explicit DropController(KDDockWidgets::DropArea* dropArea, const modularity::ContextPtr& iocCtx);

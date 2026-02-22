@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -113,9 +113,8 @@ std::string JackAudioDriver::name() const
 int jack_srate_callback(jack_nframes_t nframes, void* args)
 {
     IAudioDriver::Spec* spec = (IAudioDriver::Spec*)args;
-    LOGI() << "Jack reported sampleRate change."
-           << " musescores samplerate: " << spec->output.sampleRate
-           << ", is the same as jacks: " << nframes;
+    LOGI() << "Jack reported sampleRate change. Pray to god, musescores samplerate: " << spec->sampleRate << ", is the same as jacks: " <<
+        nframes;
     return 0;
 }
 
@@ -123,7 +122,7 @@ bool JackAudioDriver::open(const Spec& spec, Spec* activeSpec)
 {
     s_jackData = new JackData();
     // s_jackData->samples  = spec.samples; // client doesn't set sample-rate
-    s_jackData->channels = spec.output.audioChannelCount;
+    s_jackData->channels = spec.channels;
     s_jackData->callback = spec.callback;
     s_jackData->userdata = spec.userdata;
     // FIX: "default" is not a good name for jack-clients
@@ -154,8 +153,8 @@ bool JackAudioDriver::open(const Spec& spec, Spec* activeSpec)
 
     unsigned int jackSamplerate = jack_get_sample_rate(handle);
     LOGI() << "sampleRate used by jack: " << jackSamplerate;
-    if (spec.output.sampleRate != jackSamplerate) {
-        LOGW() << "Musescores samplerate: " << spec.output.sampleRate << ", is NOT the same as jack's: " << jackSamplerate;
+    if (spec.sampleRate != jackSamplerate) {
+        LOGW() << "Musescores samplerate: " << spec.sampleRate << ", is NOT the same as jack's: " << jackSamplerate;
         // FIX: enable this if it is possible for user to adjust samplerate (AUDIO_SAMPLE_RATE_KEY)
         //jack_client_close(handle);
         //return false;
@@ -163,13 +162,11 @@ bool JackAudioDriver::open(const Spec& spec, Spec* activeSpec)
 
     s_jackData->buffer = new float[s_jackData->samples * s_jackData->channels];
 
-    s_format2 = spec;
-    s_format2.format = Format::AudioF32;
-    s_format2.output.sampleRate = jackSamplerate;
-    m_activeSpecChanged.send(s_format2);
-
     if (activeSpec) {
-        *activeSpec = s_format2;
+        *activeSpec = spec;
+        activeSpec->format = Format::AudioF32;
+        activeSpec->sampleRate = jackSamplerate;
+        s_format2 = *activeSpec;
     }
 
     jack_on_shutdown(handle, jack_cleanup_callback, 0);
@@ -196,11 +193,6 @@ bool JackAudioDriver::isOpened() const
 const JackAudioDriver::Spec& JackAudioDriver::activeSpec() const
 {
     return s_format2;
-}
-
-muse::async::Channel<JackAudioDriver::Spec> JackAudioDriver::activeSpecChanged() const
-{
-    return m_activeSpecChanged;
 }
 
 AudioDeviceID JackAudioDriver::outputDevice() const
@@ -253,15 +245,20 @@ async::Notification JackAudioDriver::availableOutputDevicesChanged() const
     return m_availableOutputDevicesChanged;
 }
 
+unsigned int JackAudioDriver::outputDeviceBufferSize() const
+{
+    return s_format2.samples;
+}
+
 bool JackAudioDriver::setOutputDeviceBufferSize(unsigned int bufferSize)
 {
-    if (s_format2.output.samplesPerChannel == bufferSize) {
+    if (s_format2.samples == bufferSize) {
         return true;
     }
 
     bool reopen = isOpened();
     close();
-    s_format2.output.samplesPerChannel = bufferSize;
+    s_format2.samples = bufferSize;
 
     bool ok = true;
     if (reopen) {
@@ -295,15 +292,20 @@ std::vector<unsigned int> JackAudioDriver::availableOutputDeviceBufferSizes() co
     return result;
 }
 
+unsigned int JackAudioDriver::outputDeviceSampleRate() const
+{
+    return s_format2.sampleRate;
+}
+
 bool JackAudioDriver::setOutputDeviceSampleRate(unsigned int sampleRate)
 {
-    if (s_format2.output.sampleRate == sampleRate) {
+    if (s_format2.sampleRate == sampleRate) {
         return true;
     }
 
     bool reopen = isOpened();
     close();
-    s_format2.output.sampleRate = sampleRate;
+    s_format2.sampleRate = sampleRate;
 
     bool ok = true;
     if (reopen) {

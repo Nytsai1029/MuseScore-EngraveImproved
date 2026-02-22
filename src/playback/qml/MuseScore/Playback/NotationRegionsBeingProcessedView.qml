@@ -20,11 +20,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-pragma ComponentBehavior: Bound
+import QtQuick 2.15
 
-import QtQuick
-
-import MuseScore.Playback
+import MuseScore.Playback 1.0
 
 import "internal"
 
@@ -60,19 +58,17 @@ Loader {
 
             model: regionsModel
 
-            property real progressBackgroundOpacity
+            property real progressBackgroundOpacity: 0.6
 
             delegate: AudioProcessingProgressBar {
                 id: progressBar
 
-                required property rect rect
-                required progress
+                x: model.rect.x
+                y: model.rect.y - model.rect.height
+                width: Math.max(model.rect.width, progressBar.minWidth)
+                height: model.rect.height * 0.7
 
-                x: rect.x
-                y: rect.y - rect.height
-                width: Math.max(rect.width, progressBar.minWidth)
-                height: rect.height * 0.7
-
+                progress: model.progress
                 textColor: repeater.model.progressTextColor
                 backgroundColor: repeater.model.progressBackgroundColor
                 backgroundOpacity: repeater.progressBackgroundOpacity

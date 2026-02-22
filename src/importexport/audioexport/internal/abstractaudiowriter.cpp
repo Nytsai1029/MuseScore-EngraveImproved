@@ -80,7 +80,6 @@ Ret AbstractAudioWriter::writeList(const INotationPtrList&, io::IODevice&, const
 void AbstractAudioWriter::abort()
 {
     playback()->abortSavingAllSoundTracks();
-    m_isCompleted = true;
 }
 
 muse::Progress* AbstractAudioWriter::progress()
@@ -101,12 +100,6 @@ Ret AbstractAudioWriter::doWriteAndWait(INotationPtr notation,
         return make_ret(Ret::Code::InternalError);
     }
 
-    //! NOTE Waiting for the audio system to start if it is not already running
-    while (!startAudioController()->isAudioStarted()) {
-        application()->processEvents();
-        QThread::yieldCurrentThread();
-    }
-
     m_isCompleted = false;
     m_writeRet = muse::Ret();
 
@@ -124,12 +117,8 @@ Ret AbstractAudioWriter::doWriteAndWait(INotationPtr notation,
             m_progress.progress(current, total, onlineSoundsMsg);
         });
 
-        onlineSoundsProcessing.finished().onReceive(this, [this, path, format, onlineSoundsProcessing](const ProgressResult&) {
+        onlineSoundsProcessing.finished().onReceive(this, [this, path, format](const ProgressResult&) {
             doWrite(path, format, false /*startProgress*/);
-
-            auto mut = onlineSoundsProcessing;
-            mut.progressChanged().disconnect(this);
-            mut.finished().disconnect(this);
         });
     } else {
         doWrite(path, format);
@@ -138,11 +127,10 @@ Ret AbstractAudioWriter::doWriteAndWait(INotationPtr notation,
     m_progress.finished().onReceive(this, [this](const ProgressResult&) {
         playbackController()->setIsExportingAudio(false);
         playbackController()->setNotation(globalContext()->currentNotation());
-        m_progress.finished().disconnect(this);
     });
 
     while (!m_isCompleted) {
-        application()->processEvents();
+        qApp->processEvents();
         QThread::yieldCurrentThread();
     }
 
@@ -164,24 +152,21 @@ void AbstractAudioWriter::doWrite(const QString& path, const SoundTrackFormat& f
             });
 
             playback()->saveSoundTrack(sequenceId, muse::io::path_t(path), std::move(format))
-            .onResolve(this, [this, path, sequenceId](const bool /*result*/) {
+            .onResolve(this, [this, path](const bool /*result*/) {
                 LOGD() << "Successfully saved sound track by path: " << path;
                 m_writeRet = muse::make_ok();
                 m_isCompleted = true;
                 m_progress.finish(muse::make_ok());
-                playback()->saveSoundTrackProgressChanged(sequenceId).disconnect(this);
             })
-            .onReject(this, [this, sequenceId](int errorCode, const std::string& msg) {
+            .onReject(this, [this](int errorCode, const std::string& msg) {
                 m_writeRet = Ret(errorCode, msg);
                 m_isCompleted = true;
                 m_progress.finish(make_ret(errorCode, msg));
-                playback()->saveSoundTrackProgressChanged(sequenceId).disconnect(this);
             });
         }
     })
-    .onReject(this, [this](int errorCode, const std::string& msg) {
+    .onReject(this, [](int errorCode, const std::string& msg) {
         LOGE() << "errorCode: " << errorCode << ", " << msg;
-        m_isCompleted = true;
     });
 }
 

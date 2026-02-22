@@ -28,17 +28,16 @@
 #include "engraving/compat/scoreaccess.h"
 #include "engraving/dom/factory.h"
 #include "engraving/dom/interval.h"
-#include "engraving/dom/masterscore.h"
 #include "engraving/types/types.h"
 
 // api
+#include "apitypes.h"
 #include "engravingapiv1.h"
 #include "score.h"
 #include "instrument.h"
 #include "cursor.h"
 #include "elements.h"
 #include "selection.h"
-#include "util.h"
 
 #include "log.h"
 
@@ -103,6 +102,7 @@ Enum* PluginAPI::instrumentLabelVisibilityEnum = nullptr;
 Enum* PluginAPI::ornamentShowAccidentalEnum = nullptr;
 Enum* PluginAPI::partialSpannerDirectionEnum = nullptr;
 Enum* PluginAPI::chordStylePresetEnum = nullptr;
+Enum* PluginAPI::annotationCategoryEnum = nullptr;
 Enum* PluginAPI::playingTechniqueTypeEnum = nullptr;
 Enum* PluginAPI::gradualTempoChangeTypeEnum = nullptr;
 Enum* PluginAPI::changeMethodEnum = nullptr;
@@ -193,15 +193,12 @@ void PluginAPI::registerQmlTypes()
     qmlRegisterAnonymousType<Ornament>("MuseScore", 3);
     qmlRegisterType<PlayEvent>("MuseScore", 3, 0, "PlayEvent");
 
-    qmlRegisterAnonymousType<Fraction>("MuseScore", 3);
-    qRegisterMetaType<Fraction*>("Fraction*");
+    qmlRegisterAnonymousType<FractionWrapper>("MuseScore", 3);
+    qRegisterMetaType<FractionWrapper*>("FractionWrapper*");
     qmlRegisterAnonymousType<IntervalWrapper>("MuseScore", 3);
     qRegisterMetaType<IntervalWrapper*>("IntervalWrapper*");
     qmlRegisterAnonymousType<OrnamentIntervalWrapper>("MuseScore", 3);
     qRegisterMetaType<OrnamentIntervalWrapper*>("OrnamentIntervalWrapper*");
-
-    qmlRegisterType<MsProcess>("MuseScore", 3, 0, "QProcess");
-    qmlRegisterType<FileIO, 1>("FileIO",    3, 0, "FileIO");
 
     qmlTypesRegistered = true;
 }
@@ -230,11 +227,10 @@ void PluginAPI::setup(QQmlEngine* e)
     }
 
     engravingApi->setApi(this);
-    m_engine = engravingApi->engine();
 }
 
 PluginAPI::PluginAPI(QQuickItem* parent)
-    : QQuickItem(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
+    : QQuickItem(parent)
 {
     setRequiresScore(true); // by default plugins require a score to work
 }
@@ -272,16 +268,14 @@ QQmlListProperty<apiv1::Score> PluginAPI::scores()
 bool PluginAPI::writeScore(Score* s, const QString& name, const QString& ext)
 {
     if (!s || !s->score()) {
-        LOGW() << "No score provided";
         return false;
     }
 
-    if (s->score() != currentScore()) {
-        LOGW() << "Only writing the selected score is currently supported";
-        return false;
-    }
+    UNUSED(name);
+    UNUSED(ext);
 
-    return helper()->writeScore(name, ext);
+    NOT_IMPLEMENTED;
+    return false;
 }
 
 //---------------------------------------------------------
@@ -296,21 +290,10 @@ bool PluginAPI::writeScore(Score* s, const QString& name, const QString& ext)
 
 apiv1::Score* PluginAPI::readScore(const QString& name, bool noninteractive)
 {
-    const bool hadScoreOpened = currentScore();
+    UNUSED(name);
+    UNUSED(noninteractive);
 
-    if (hadScoreOpened) {
-        LOGW() << "Will open a score in a new window";
-    }
-
-    if (noninteractive) {
-        LOGW() << "Noninteractive flag is not yet implemented";
-        return nullptr;
-    }
-
-    mu::engraving::Score* score = helper()->readScore(name);
-    if (score) {
-        return wrap<apiv1::Score>(score, Ownership::SCORE);
-    }
+    NOT_IMPLEMENTED;
     return nullptr;
 }
 
@@ -318,24 +301,11 @@ apiv1::Score* PluginAPI::readScore(const QString& name, bool noninteractive)
 //   closeScore
 //---------------------------------------------------------
 
-void PluginAPI::closeScore()
-{
-    return closeScore(curScore());
-}
-
 void PluginAPI::closeScore(apiv1::Score* score)
 {
-    if (!score || !score->score()) {
-        LOGW() << "No score provided";
-        return;
-    }
+    UNUSED(score);
 
-    if (score->score() != currentScore()) {
-        LOGW() << "Only closing the selected score is currently supported";
-        return;
-    }
-
-    helper()->closeScore();
+    NOT_IMPLEMENTED;
 }
 
 //---------------------------------------------------------
@@ -408,14 +378,14 @@ apiv1::Score* PluginAPI::newScore(const QString& /*name*/, const QString& part, 
 void PluginAPI::cmd(const QString& s)
 {
     static const QMap<QString, QString> COMPAT_CMD_MAP = {
-        { "escape", "action://notation/cancel" },
-        { "cut", "action://notation/cut" },
-        { "copy", "action://notation/copy" },
-        { "paste", "action://notation/paste" },
+        { "escape", "notation-escape" },
+        { "cut", "notation-cut" },
+        { "copy", "notation-copy" },
+        { "paste", "notation-paste" },
         { "paste-half", "notation-paste-half" },
         { "paste-double", "notation-paste-double" },
         { "select-all", "notation-select-all" },
-        { "delete", "action://notation/delete" },
+        { "delete", "notation-delete" },
         { "next-chord", "notation-move-right" },
         { "prev-chord", "notation-move-left" },
         { "prev-measure", "notation-move-left-quickly" }
@@ -466,7 +436,7 @@ MsProcess* PluginAPI::newQProcess()
 ///  denominator
 //---------------------------------------------------------
 
-apiv1::Fraction* PluginAPI::fraction(int num, int den) const
+FractionWrapper* PluginAPI::fraction(int num, int den) const
 {
     return wrap(mu::engraving::Fraction(num, den));
 }
@@ -477,7 +447,7 @@ apiv1::Fraction* PluginAPI::fraction(int num, int den) const
 /// \since MuseScore 4.6
 //---------------------------------------------------------
 
-apiv1::Fraction* PluginAPI::fractionFromTicks(int ticks) const
+FractionWrapper* PluginAPI::fractionFromTicks(int ticks) const
 {
     return wrap(mu::engraving::Fraction::fromTicks(ticks));
 }

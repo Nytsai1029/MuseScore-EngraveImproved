@@ -28,22 +28,17 @@
 #include "actions/iactionsdispatcher.h"
 #include "ui/iuiactionsregister.h"
 #include "async/asyncable.h"
-#include "interactive/iinteractive.h"
+#include "iinteractive.h"
 #include "context/iglobalcontext.h"
 
 namespace mu::palette {
-class PaletteActionsController : public muse::actions::Actionable, public muse::async::Asyncable, public muse::Contextable
+class PaletteActionsController : public muse::actions::Actionable, public muse::async::Asyncable
 {
-    muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher = { this };
-    muse::ContextInject<muse::IInteractive> interactive = { this };
-    muse::ContextInject<context::IGlobalContext> globalContext = { this };
+    INJECT(muse::actions::IActionsDispatcher, dispatcher)
+    INJECT(muse::IInteractive, interactive)
+    INJECT(context::IGlobalContext, globalContext)
 
 public:
-    PaletteActionsController(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx)
-    {
-    }
-
     void init();
 
     muse::ValCh<bool> isMasterPaletteOpened() const;

@@ -20,11 +20,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_PITCHUTILS_H
+#define MU_ENGRAVING_PITCHUTILS_H
 
 #include "mpe/mpetypes.h"
 
-#include "engraving/dom/pitchspelling.h"
+#include "dom/pitchspelling.h"
 
 namespace mu::engraving {
 inline muse::mpe::PitchClass pitchClassFromTpc(const int tpc)
@@ -116,7 +117,7 @@ inline muse::mpe::octave_t actualOctave(const int nominalOctave, const muse::mpe
     int shift = static_cast<int>(nominalPitchClass) - static_cast<int>(accidental);
 
     constexpr int lowerBound = 0;
-    constexpr int upperBound = muse::mpe::STEPS_PER_OCTAVE - 1;
+    constexpr int upperBound = static_cast<int>(muse::mpe::PitchClass::Last) - 1;
 
     if (shift < lowerBound) {
         return static_cast<muse::mpe::octave_t>(nominalOctave + 1);
@@ -141,3 +142,5 @@ inline muse::mpe::pitch_level_t notePitchLevel(const int noteTpc, const int note
     return result;
 }
 }
+
+#endif // MU_ENGRAVING_PITCHUTILS_H

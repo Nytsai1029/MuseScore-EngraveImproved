@@ -21,8 +21,6 @@
  */
 
 #include "hammeronpulloff.h"
-
-#include "mscore.h"
 #include "note.h"
 #include "score.h"
 #include "stafftype.h"
@@ -50,22 +48,33 @@ HammerOnPullOffSegment::HammerOnPullOffSegment(const HammerOnPullOffSegment& oth
 {
 }
 
-Color HammerOnPullOffSegment::curColor(const rendering::PaintOptions& opt) const
+Color HammerOnPullOffSegment::curColor() const
 {
-    if (!opt.isPrinting && MScore::warnGuitarBends && !isValid()) {
-        return selected() ? configuration()->criticalSelectedColor() : configuration()->criticalColor();
+    if (score()->printing() || !MScore::warnGuitarBends || isValid()) {
+        return SlurSegment::curColor();
     }
 
-    return SlurSegment::curColor(opt);
+    auto engravingConf = configuration();
+    return selected() ? engravingConf->criticalSelectedColor() : engravingConf->criticalColor();
 }
 
-void HammerOnPullOffSegment::scanElements(std::function<void(EngravingItem*)> func)
+void HammerOnPullOffSegment::scanElements(void* data, void (*func)(void*, EngravingItem*), bool all)
 {
-    for (HammerOnPullOffText* hopo : m_hopoText) {
-        hopo->scanElements(func);
+    for (EngravingObject* child : scanChildren()) {
+        child->scanElements(data, func, all);
     }
 
-    EngravingItem::scanElements(func);
+    func(data, this);
+}
+
+EngravingObjectList HammerOnPullOffSegment::scanChildren() const
+{
+    EngravingObjectList children;
+    for (HammerOnPullOffText* hopo : m_hopoText) {
+        children.push_back(hopo);
+    }
+
+    return children;
 }
 
 void HammerOnPullOffSegment::setTrack(track_idx_t idx)
@@ -269,7 +278,7 @@ static ElementStyle hopoStyle;
 
 HammerOnPullOffText::HammerOnPullOffText(HammerOnPullOffSegment* parent)
     : TextBase(ElementType::HAMMER_ON_PULL_OFF_TEXT, parent, TextStyleType::HAMMER_ON_PULL_OFF,
-               ElementFlag::MOVABLE | ElementFlag::GENERATED | ElementFlag::ON_STAFF)
+               ElementFlag::MOVABLE | ElementFlag::GENERATED)
 {
     resetProperty(Pid::PLACEMENT);
     initElementStyle(&hopoStyle);
@@ -309,13 +318,13 @@ bool HammerOnPullOffText::isUserModified() const
     return TextBase::isUserModified();
 }
 
-Color HammerOnPullOffText::curColor(const rendering::PaintOptions& opt) const
+Color HammerOnPullOffText::curColor() const
 {
-    if (!isValid() && MScore::warnGuitarBends && !opt.isPrinting) {
+    if (!isValid() && MScore::warnGuitarBends && !score()->printing()) {
         return selected() ? configuration()->criticalSelectedColor() : configuration()->criticalColor();
     }
 
-    return TextBase::curColor(opt);
+    return TextBase::curColor();
 }
 
 PropertyValue HammerOnPullOffText::propertyDefault(Pid id) const

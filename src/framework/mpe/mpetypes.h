@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MUSE_MPE_MPETYPES_H
+#define MUSE_MPE_MPETYPES_H
 
 #include <stdint.h>
 #include <math.h>
@@ -28,10 +29,12 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <map>
+#include <set>
 #include <vector>
 
 #include "types/sharedhashmap.h"
 #include "types/sharedmap.h"
+#include "realfn.h"
 
 #include "soundid.h"
 
@@ -148,23 +151,24 @@ enum class PitchClass : signed char {
     G_sharp = 8,
     A = 9,
     A_sharp = 10,
-    B = 11
+    B = 11,
+
+    Last
 };
 
-constexpr int STEPS_PER_OCTAVE = 12;
-
-using octave_t = int_fast8_t;
+using octave_t = uint_fast8_t;
 using pitch_level_t = percentage_t;
 using PitchCurve = ValuesCurve<pitch_level_t>;
 
+constexpr size_t EXPECTED_SIZE = (HUNDRED_PERCENT / TEN_PERCENT) + 1;
+
 constexpr pitch_level_t PITCH_LEVEL_STEP = 50;
 constexpr pitch_level_t MAX_PITCH_LEVEL = HUNDRED_PERCENT;
-
-constexpr int ZERO_PITCH_LEVEL_MIDI_EQUIVALENT = 12; // C0 in MIDI standard
+constexpr octave_t MAX_SUPPORTED_OCTAVE = 17; // 0 - 17
 
 constexpr inline pitch_level_t pitchLevel(const PitchClass pitchClass, const octave_t octave)
 {
-    return (PITCH_LEVEL_STEP * STEPS_PER_OCTAVE * octave) + (PITCH_LEVEL_STEP * static_cast<int>(pitchClass));
+    return (PITCH_LEVEL_STEP * (static_cast<int>(PitchClass::Last)) * octave) + (PITCH_LEVEL_STEP * static_cast<int>(pitchClass));
 }
 
 constexpr inline pitch_level_t pitchLevelDiff(const PitchClass fClass, const octave_t fOctave,
@@ -705,8 +709,6 @@ struct ArticulationAppliedData {
 
 struct ArticulationMap : public SharedHashMap<ArticulationType, ArticulationAppliedData>
 {
-    static constexpr size_t EXPECTED_SIZE = (HUNDRED_PERCENT / TEN_PERCENT) + 1;
-
     void updateOccupiedRange(const ArticulationType type, const duration_percentage_t occupiedFrom, const duration_percentage_t occupiedTo)
     {
         if (!contains(type)) {
@@ -929,3 +931,5 @@ private:
     ExpressionPattern::DynamicOffsetMap m_averageDynamicOffsetMap;
 };
 }
+
+#endif // MUSE_MPE_MPETYPES_H

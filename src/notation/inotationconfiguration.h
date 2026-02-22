@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_NOTATION_INOTATIONCONFIGURATION_H
+#define MU_NOTATION_INOTATIONCONFIGURATION_H
 
 #include <QColor>
 #include <optional>
@@ -33,7 +33,7 @@
 #include "global/globaltypes.h"
 
 namespace mu::notation {
-class INotationConfiguration : MODULE_GLOBAL_INTERFACE
+class INotationConfiguration : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(INotationConfiguration)
 
@@ -71,16 +71,6 @@ public:
     virtual muse::async::Notification foregroundChanged() const = 0;
 
     virtual muse::io::path_t wallpapersDefaultDirPath() const = 0;
-
-    virtual bool shouldInvertScore() const = 0;  // Whether score should be inverted now, based on theme.
-
-    virtual bool scoreInversionEnabled() const = 0;
-    virtual void setScoreInversionEnabled(bool value) = 0;
-    virtual muse::async::Notification scoreInversionChanged() const = 0;
-
-    virtual bool isOnlyInvertInDarkTheme() const = 0;
-    virtual void setOnlyInvertInDarkTheme(bool value) = 0;
-    virtual muse::async::Notification isOnlyInvertInDarkThemeChanged() const = 0;
 
     virtual QColor borderColor() const = 0;
     virtual int borderWidth() const = 0;
@@ -159,7 +149,9 @@ public:
 
     virtual bool isAutomaticallyPanEnabled() const = 0;
     virtual void setIsAutomaticallyPanEnabled(bool enabled) = 0;
-    virtual muse::async::Notification isAutomaticallyPanEnabledChanged() const = 0;
+
+    virtual bool isSmoothPanning() const = 0;
+    virtual void setIsSmoothPanning(bool value) = 0;
 
     virtual bool isPlayRepeatsEnabled() const = 0;
     virtual void setIsPlayRepeatsEnabled(bool enabled) = 0;
@@ -190,6 +182,10 @@ public:
     virtual muse::ValCh<muse::Orientation> canvasOrientation() const = 0;
     virtual void setCanvasOrientation(muse::Orientation orientation) = 0;
 
+    virtual bool isLimitCanvasScrollArea() const = 0;
+    virtual void setIsLimitCanvasScrollArea(bool limited) = 0;
+    virtual muse::async::Notification isLimitCanvasScrollAreaChanged() const = 0;
+
     virtual bool colorNotesOutsideOfUsablePitchRange() const = 0;
     virtual void setColorNotesOutsideOfUsablePitchRange(bool value) = 0;
     virtual muse::async::Channel<bool> colorNotesOutsideOfUsablePitchRangeChanged() const = 0;
@@ -213,13 +209,13 @@ public:
     virtual void setTemplateModeEnabled(std::optional<bool> enabled) = 0;
     virtual void setTestModeEnabled(std::optional<bool> enabled) = 0;
 
-    virtual muse::io::path_t instrumentsXmlPath() const = 0;
-    virtual muse::io::path_t scoreOrdersXmlPath() const = 0;
+    virtual muse::io::path_t instrumentListPath() const = 0;
 
-    virtual muse::io::path_t userInstrumentsFolder() const = 0;
-    virtual muse::io::paths_t userInstrumentsAndScoreOrdersPaths() const = 0;
-    virtual void setUserInstrumentsFolder(const muse::io::path_t& path) = 0;
-    virtual muse::async::Channel<muse::io::path_t> userInstrumentsFolderChanged() const = 0;
+    virtual muse::io::paths_t scoreOrderListPaths() const = 0;
+    virtual muse::async::Notification scoreOrderListPathsChanged() const = 0;
+
+    virtual muse::io::paths_t userScoreOrderListPaths() const = 0;
+    virtual void setUserScoreOrderListPaths(const muse::io::paths_t& paths) = 0;
 
     virtual muse::io::path_t stringTuningsPresetsPath() const = 0;
 
@@ -229,14 +225,60 @@ public:
     virtual int gridSizeSpatium(muse::Orientation gridOrientation) const = 0;
     virtual void setGridSize(muse::Orientation gridOrientation, int sizeSpatium) = 0;
 
+    virtual bool needToShowAddTextErrorMessage() const = 0;
+    virtual void setNeedToShowAddTextErrorMessage(bool show) = 0;
+
+    virtual bool needToShowAddFiguredBassErrorMessage() const = 0;
+    virtual void setNeedToShowAddFiguredBassErrorMessage(bool show) = 0;
+
+    virtual bool needToShowAddGuitarBendErrorMessage() const = 0;
+    virtual void setNeedToShowAddGuitarBendErrorMessage(bool show) = 0;
+
     virtual bool needToShowMScoreError(const std::string& errorKey) const = 0;
     virtual void setNeedToShowMScoreError(const std::string& errorKey, bool show) = 0;
+
+    virtual muse::ValCh<int> pianoKeyboardNumberOfKeys() const = 0;
+    virtual void setPianoKeyboardNumberOfKeys(int number) = 0;
 
     virtual muse::ValCh<bool> midiUseWrittenPitch() const = 0;
     virtual void setMidiUseWrittenPitch(bool useWrittenPitch) = 0;
 
+    virtual bool useNewPercussionPanel() const = 0;
+    virtual void setUseNewPercussionPanel(bool use) = 0;
+    virtual muse::async::Notification useNewPercussionPanelChanged() const = 0;
+
+    virtual bool percussionPanelUseNotationPreview() const = 0;
+    virtual void setPercussionPanelUseNotationPreview(bool use) = 0;
+    virtual muse::async::Notification percussionPanelUseNotationPreviewChanged() const = 0;
+
+    virtual PercussionPanelAutoShowMode percussionPanelAutoShowMode() const = 0;
+    virtual void setPercussionPanelAutoShowMode(PercussionPanelAutoShowMode autoShowMode) = 0;
+    virtual muse::async::Notification percussionPanelAutoShowModeChanged() const = 0;
+
+    virtual bool autoClosePercussionPanel() const = 0;
+    virtual void setAutoClosePercussionPanel(bool autoClose) = 0;
+    virtual muse::async::Notification autoClosePercussionPanelChanged() const = 0;
+
+    virtual bool showPercussionPanelPadSwapDialog() const = 0;
+    virtual void setShowPercussionPanelPadSwapDialog(bool show) = 0;
+    virtual muse::async::Notification showPercussionPanelPadSwapDialogChanged() const = 0;
+
+    virtual bool percussionPanelMoveMidiNotesAndShortcuts() const = 0;
+    virtual void setPercussionPanelMoveMidiNotesAndShortcuts(bool move) = 0;
+    virtual muse::async::Notification percussionPanelMoveMidiNotesAndShortcutsChanged() const = 0;
+
     virtual muse::io::path_t styleFileImportPath() const = 0;
     virtual void setStyleFileImportPath(const muse::io::path_t& path) = 0;
     virtual muse::async::Channel<std::string> styleFileImportPathChanged() const = 0;
+
+    virtual int styleDialogLastPageIndex() const = 0;
+    virtual void setStyleDialogLastPageIndex(int value) = 0;
+
+    virtual int styleDialogLastSubPageIndex() const = 0;
+    virtual void setStyleDialogLastSubPageIndex(int value) = 0;
+
+    virtual void resetStyleDialogPageIndices() = 0;
 };
 }
+
+#endif // MU_NOTATION_INOTATIONCONFIGURATION_H

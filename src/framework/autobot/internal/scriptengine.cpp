@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -210,7 +210,7 @@ void ScriptEngine::dump(const QString& name, const QJSValue& val)
     }
 
     QString str = name + "\n";
-    for (const QString& prop : std::as_const(props)) {
+    for (const QString& prop : props) {
         str += "  " + prop + ": " + val.property(prop).toString() + "\n";
     }
 
@@ -242,11 +242,6 @@ const modularity::ContextPtr& ScriptEngine::iocContext() const
     return m_iocContext;
 }
 
-int ScriptEngine::apiversion() const
-{
-    return 2;
-}
-
 QJSValue ScriptEngine::newQObject(QObject* o)
 {
     if (!o->parent()) {
@@ -263,10 +258,4 @@ QJSValue ScriptEngine::newObject()
 QJSValue ScriptEngine::newArray(size_t length)
 {
     return m_engine->newArray(uint(length));
-}
-
-QJSValue ScriptEngine::freeze(const QJSValue& val)
-{
-    static QJSValue freezeFn = m_engine->evaluate("Object.freeze");
-    return freezeFn.call({ val });
 }

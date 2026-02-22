@@ -21,7 +21,7 @@
  */
 #pragma once
 
-#include <engraving/types/fraction.h>
+#include <types/fraction.h>
 
 namespace mu::engraving {
 class Note;
@@ -35,15 +35,9 @@ struct BendNoteData {
     int quarterTones = 0;
 };
 
-// tie between originally tied notes should be removed and instead the bend after last grace note should be placed
-struct LastGraceNoteData {
-    bool shouldMoveTie = false;
-    double endFactor = 1.0; // grace notes' durations are split equally and they have startFactor 0 (bend starts from the beginning)
-};
-
 struct GraceNotesImportInfo {
     std::vector<BendNoteData> data;
-    LastGraceNoteData lastNoteData;
+    bool shouldMoveTie = false; // tie between originally tied notes should be removed and instead the bend after last grace note should be placed
 };
 
 using bend_data_map_t       = std::map<size_t /* idx in chord */, BendNoteData>;

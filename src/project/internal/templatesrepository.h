@@ -34,13 +34,11 @@ namespace mu::project {
 class TemplatesRepository : public ITemplatesRepository
 {
 public:
-    muse::GlobalInject<muse::io::IFileSystem> fileSystem;
-    muse::GlobalInject<IProjectConfiguration> configuration;
-    muse::GlobalInject<IMscMetaReader> mscReader;
+    INJECT(IProjectConfiguration, configuration)
+    INJECT(IMscMetaReader, mscReader)
+    INJECT(muse::io::IFileSystem, fileSystem)
 
 public:
-    TemplatesRepository() = default;
-
     muse::RetVal<Templates> templates() const override;
 
 private:

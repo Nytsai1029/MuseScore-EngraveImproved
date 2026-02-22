@@ -25,19 +25,16 @@
 #include "iprojectmigrator.h"
 
 #include "modularity/ioc.h"
-#include "interactive/iinteractive.h"
+#include "iinteractive.h"
 #include "iprojectconfiguration.h"
 
 namespace mu::project {
-class ProjectMigrator : public IProjectMigrator, public muse::Contextable
+class ProjectMigrator : public IProjectMigrator
 {
-    muse::GlobalInject<IProjectConfiguration> configuration;
-    muse::ContextInject<muse::IInteractive> interactive = { this };
+    INJECT(IProjectConfiguration, configuration)
+    INJECT(muse::IInteractive, interactive)
 public:
-    ProjectMigrator(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx)
-    {
-    }
+    ProjectMigrator() = default;
 
     muse::Ret migrateEngravingProjectIfNeed(engraving::EngravingProjectPtr project) override;
 

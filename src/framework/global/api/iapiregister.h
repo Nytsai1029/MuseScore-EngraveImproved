@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -22,16 +22,12 @@
 #ifndef MUSE_API_IAPIREGISTER_H
 #define MUSE_API_IAPIREGISTER_H
 
-#include <vector>
-#include <QMetaEnum>
-
 #include "modularity/imoduleinterface.h"
 #include "iapiengine.h"
-#include "apiobject.h"
-#include "apitypes.h"
+#include "api/apiobject.h"
 
 namespace muse::api {
-class IApiRegister : MODULE_GLOBAL_INTERFACE
+class IApiRegister : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(api::IApiRegister)
 public:
@@ -46,27 +42,6 @@ public:
     virtual void regApiCreator(const std::string& module, const std::string& api, ICreator* c) = 0;
     virtual void regApiSingltone(const std::string& module, const std::string& api, ApiObject* o) = 0;
     virtual std::pair<ApiObject*, bool /*is need delete*/> createApi(const std::string& api, IApiEngine* e) const = 0;
-
-    virtual void regEnum(const char* uri, const char* name, const QMetaEnum& meta, EnumType type) = 0;
-
-    template<typename E>
-    void regEnum(const char* uri, EnumType type = EnumType::String, const char* name = nullptr)
-    {
-        const QMetaEnum meta = QMetaEnum::fromType<E>();
-        const char* ename = name ? name : meta.enumName();
-        regEnum(uri, ename, meta, type);
-    }
-
-    struct GlobalEnum {
-        std::string module;
-        std::string name;
-        QMetaEnum meta;
-        EnumType type = EnumType::String;
-    };
-
-    virtual void regGlobalEnum(const std::string& module, const QMetaEnum& meta, EnumType type = EnumType::String,
-                               const std::string& name = "") = 0;
-    virtual const std::vector<GlobalEnum>& globalEnums() const = 0;
 
     // dev
     struct Dump

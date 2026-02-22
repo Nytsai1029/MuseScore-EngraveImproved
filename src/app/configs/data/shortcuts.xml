@@ -12,7 +12,7 @@
         <autorepeat>0</autorepeat>
     </SC>
     <SC>
-        <key>multiwindows-dev-show-info</key>
+        <key>multiinstances-dev-show-info</key>
         <seq>Ctrl+F3</seq>
         <autorepeat>0</autorepeat>
     </SC>
@@ -83,39 +83,11 @@
       <seq>Space</seq>
       <autorepeat>0</autorepeat>
     </SC>
-<!-- end Keyboard navigation -->
-
-<!-- Global actions -->
     <SC>
-        <key>action://copy</key>
-        <seq>Ctrl+C</seq>
-    </SC>
-    <SC>
-        <key>action://cut</key>
-        <seq>Ctrl+X</seq>
-    </SC>
-    <SC>
-        <key>action://paste</key>
-        <seq>Ctrl+V</seq>
-    </SC>
-    <SC>
-        <key>action://undo</key>
-        <std>11</std>
-    </SC>
-    <SC>
-        <key>action://redo</key>
-        <std>12</std>
-    </SC>
-    <SC>
-        <key>action://delete</key>
-        <seq>Del</seq>
-        <seq>Backspace</seq>
-    </SC>
-    <SC>
-      <key>action://cancel</key>
+      <key>nav-escape</key>
       <seq>Esc</seq>
     </SC>
-<!-- end Global actions -->
+<!-- end Keyboard navigation -->
 
   <SC>
     <key>help</key>
@@ -153,16 +125,32 @@
     <autorepeat>0</autorepeat>
     </SC>
   <SC>
+    <key>undo</key>
+    <std>11</std>
+    </SC>
+  <SC>
+    <key>redo</key>
+    <std>12</std>
+    </SC>
+  <SC>
+    <key>notation-cut</key>
+    <seq>Ctrl+X</seq>
+    </SC>
+  <SC>
+    <key>notation-copy</key>
+    <seq>Ctrl+C</seq>
+    </SC>
+  <SC>
+    <key>notation-paste</key>
+    <seq>Ctrl+V</seq>
+    </SC>
+  <SC>
     <key>notation-paste-half</key>
     <seq>Ctrl+Shift+Q</seq>
     </SC>
   <SC>
     <key>notation-paste-double</key>
     <seq>Ctrl+Shift+W</seq>
-    </SC>
-  <SC>
-    <key>extend-to-next-note</key>
-    <seq>Alt+W</seq>
     </SC>
   <SC>
     <key>notation-swap</key>
@@ -601,6 +589,15 @@
     <seq>Shift+.</seq>
     </SC>
   <SC>
+    <key>notation-escape</key>
+    <seq>Esc</seq>
+    </SC>
+  <SC>
+    <key>notation-delete</key>
+    <seq>Del</seq>
+    <seq>Backspace</seq>
+    </SC>
+  <SC>
     <key>time-delete</key>
     <seq>Ctrl+Del</seq>
     <seq>Ctrl+Backspace</seq>
@@ -806,11 +803,6 @@
     <autorepeat>0</autorepeat>
     </SC>
   <SC>
-    <key>play-from-selection</key>
-    <seq>Shift+Space</seq>
-    <autorepeat>0</autorepeat>
-    </SC>
-  <SC>
     <key>pause-and-select</key>
     <seq>Ctrl+Space</seq>
     <autorepeat>0</autorepeat>
@@ -950,9 +942,11 @@
   <SC>
     <key>prev-text-element</key>
     <seq>Shift+Space</seq>
-    <seq>Left</seq>
-    <seq>Backspace</seq>
     </SC>
+  <SC>
+    <key>prev-text-element</key>
+    <seq>Left</seq>
+  </SC>
   <SC>
     <key>next-syllable</key>
     <seq>-</seq>

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -29,18 +29,8 @@ class ActionsModule : public modularity::IModuleSetup
 {
 public:
     std::string moduleName() const override;
-    void registerApi() override;
-
-    modularity::IContextSetup* newContext(const modularity::ContextPtr& ctx) const override;
-};
-
-class ActionsModuleContext : public modularity::IContextSetup
-{
-public:
-    ActionsModuleContext(const modularity::ContextPtr& ctx)
-        : modularity::IContextSetup(ctx) {}
-
     void registerExports() override;
+    void registerApi() override;
 };
 }
 

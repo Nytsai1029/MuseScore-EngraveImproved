@@ -14,8 +14,8 @@
     </identification>
   <part-list>
     <score-part id="P1">
-      <part-name print-object="no">Voice</part-name>
-      <part-abbreviation print-object="no">Vo.</part-abbreviation>
+      <part-name>Voice</part-name>
+      <part-abbreviation>Vo.</part-abbreviation>
       <score-instrument id="P1-I1">
         <instrument-name>Voice</instrument-name>
         </score-instrument>
@@ -56,7 +56,7 @@
         </note>
       </measure>
     <measure number="2">
-      <print new-page="yes" page-number="2"/>
+      <print new-page="yes"/>
       <direction placement="above" system="only-top">
         <direction-type>
           <words>After page break</words>
@@ -69,7 +69,7 @@
         </note>
       </measure>
     <measure number="3">
-      <print new-page="yes" page-number="3"/>
+      <print new-page="yes"/>
       <direction placement="below">
         <direction-type>
           <words valign="top" font-size="12">Tframe</words>
@@ -87,7 +87,7 @@
         </note>
       </measure>
     <measure number="4">
-      <print new-page="yes" page-number="4"/>
+      <print new-page="yes"/>
       <direction placement="above" system="only-top">
         <direction-type>
           <words>After page break in tframe</words>
@@ -100,7 +100,7 @@
         </note>
       </measure>
     <measure number="5">
-      <print new-page="yes" page-number="5"/>
+      <print new-page="yes"/>
       <direction placement="above" system="only-top">
         <direction-type>
           <words>After page break in hframe</words>

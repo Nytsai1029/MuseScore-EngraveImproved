@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -50,24 +50,20 @@ VstSynthesiser::~VstSynthesiser()
     instancesRegister()->unregisterInstrPlugin(m_params.resourceMeta.id, m_trackId);
 }
 
-void VstSynthesiser::init(const OutputSpec& spec)
+void VstSynthesiser::init()
 {
-    IF_ASSERT_FAILED(spec.isValid()) {
-        return;
-    }
-
-    m_outputSpec = spec;
-
     m_pluginPtr = instancesRegister()->makeAndRegisterInstrPlugin(m_params.resourceMeta.id, m_trackId);
 
-    m_vstAudioClient->init(AudioPluginType::Instrument, m_pluginPtr);
+    m_audioChannelsCount = config()->audioChannelsCount();
+    m_vstAudioClient->init(AudioPluginType::Instrument, m_pluginPtr, m_audioChannelsCount);
 
-    auto onPluginLoaded = [this]() {
+    const samples_t blockSize = config()->samplesToPreallocate();
+
+    auto onPluginLoaded = [this, blockSize]() {
         m_pluginPtr->updatePluginConfig(m_params.configuration);
-        m_vstAudioClient->setOutputSpec(m_outputSpec);
+        m_vstAudioClient->setMaxSamplesPerBlock(blockSize);
         m_vstAudioClient->loadSupportedParams();
         m_sequencer.init(m_vstAudioClient->paramsMapping(SUPPORTED_CONTROLLERS), m_useDynamicEvents);
-        m_inited = true;
     };
 
     if (m_pluginPtr->isLoaded()) {
@@ -88,15 +84,6 @@ void VstSynthesiser::init(const OutputSpec& spec)
     m_sequencer.setOnOffStreamFlushed([this]() {
         m_vstAudioClient->flushSound();
     });
-}
-
-void VstSynthesiser::updateRenderingMode(const RenderMode mode)
-{
-    if (mode == RenderMode::OfflineMode) {
-        m_vstAudioClient->setProcessMode(VstProcessMode::kOffline);
-    } else {
-        m_vstAudioClient->setProcessMode(VstProcessMode::kRealtime);
-    }
 }
 
 void VstSynthesiser::toggleVolumeGain(const bool isActive)
@@ -180,18 +167,15 @@ void VstSynthesiser::setPlaybackPosition(const muse::audio::msecs_t newPosition)
     }
 }
 
-void VstSynthesiser::setOutputSpec(const audio::OutputSpec& spec)
+void VstSynthesiser::setSampleRate(unsigned int sampleRate)
 {
-    m_outputSpec = spec;
-
-    if (m_inited) {
-        m_vstAudioClient->setOutputSpec(spec);
-    }
+    m_sampleRate = sampleRate;
+    m_vstAudioClient->setSampleRate(sampleRate);
 }
 
 unsigned int VstSynthesiser::audioChannelsCount() const
 {
-    return m_outputSpec.audioChannelCount;
+    return m_audioChannelsCount;
 }
 
 async::Channel<unsigned int> VstSynthesiser::audioChannelsCountChanged() const
@@ -205,7 +189,11 @@ samples_t VstSynthesiser::process(float* buffer, samples_t samplesPerChannel)
         return 0;
     }
 
-    const msecs_t nextMsecs = samplesToMsecs(samplesPerChannel, m_outputSpec.sampleRate);
+    if (samplesPerChannel > m_vstAudioClient->maxSamplesPerBlock()) {
+        m_vstAudioClient->setMaxSamplesPerBlock(samplesPerChannel);
+    }
+
+    const msecs_t nextMsecs = samplesToMsecs(samplesPerChannel, m_sampleRate);
     const VstSequencer::EventSequenceMap sequences = m_sequencer.movePlaybackForward(nextMsecs);
 
     samples_t sampleOffset = 0;
@@ -217,14 +205,14 @@ samples_t VstSynthesiser::process(float* buffer, samples_t samplesPerChannel)
         auto nextIt = std::next(it);
         if (nextIt != sequences.cend()) {
             msecs_t duration = nextIt->first - it->first;
-            durationInSamples = microSecsToSamples(duration, m_outputSpec.sampleRate);
+            durationInSamples = microSecsToSamples(duration, m_sampleRate);
         }
 
         IF_ASSERT_FAILED(sampleOffset + durationInSamples <= samplesPerChannel) {
             break;
         }
 
-        processedSamples += processSequence(it->second, durationInSamples, buffer + sampleOffset * m_outputSpec.audioChannelCount);
+        processedSamples += processSequence(it->second, durationInSamples, buffer + sampleOffset * m_audioChannelsCount);
         sampleOffset += durationInSamples;
     }
 

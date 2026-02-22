@@ -32,7 +32,12 @@ enum class Err {
     UnknownError    = int(muse::Ret::Code::NotationFirst),
 
     // selection
-    SelectCompleteTupletOrTremolo = 1050,
+    NoteIsNotSelected = 1050,
+    NoteOrRestIsNotSelected,
+    NoteOrFiguredBassIsNotSelected,
+    MeasureIsNotSelected,
+    NoteOrRestOrHarmonyIsNotSelected,
+    SelectCompleteTupletOrTremolo,
     EmptySelection,
 };
 
@@ -43,6 +48,26 @@ inline muse::Ret make_ret(Err err)
     switch (err) {
     case Err::UnknownError:
         text = muse::trc("notation", "Unknown error");
+        break;
+    case Err::NoteIsNotSelected:
+        text = muse::trc("notation", "No note selected")
+               + "\n" + muse::trc("notation", "Please select a note and retry");
+        break;
+    case Err::NoteOrRestIsNotSelected:
+        text = muse::trc("notation", "No note or rest selected")
+               + "\n" + muse::trc("notation", "Please select a note or rest and retry");
+        break;
+    case Err::NoteOrFiguredBassIsNotSelected:
+        text = muse::trc("notation", "No note or figured bass selected")
+               + "\n" + muse::trc("notation", "Please select a note or figured bass and retry");
+        break;
+    case Err::MeasureIsNotSelected:
+        text = muse::trc("notation", "No measure selected")
+               + "\n" + muse::trc("notation", "Please select a measure and retry");
+        break;
+    case Err::NoteOrRestOrHarmonyIsNotSelected:
+        text = muse::trc("notation", "No note or rest or chord symbol selected")
+               + "\n" + muse::trc("notation", "Please select a note or rest or chord symbol and retry");
         break;
     case Err::SelectCompleteTupletOrTremolo:
         text = muse::trc("notation", "Please select the complete tuplet or tremolo and retry");

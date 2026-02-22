@@ -33,9 +33,9 @@
 
 namespace mu::engraving {
 class MasterScore;
-class DrawDataGenerator : public muse::Contextable
+class DrawDataGenerator : public muse::Injectable
 {
-    muse::ContextInject<engraving::rendering::IScoreRenderer> scoreRenderer = { this };
+    muse::Inject<engraving::rendering::IScoreRenderer> scoreRenderer = { this };
 public:
     DrawDataGenerator(const muse::modularity::ContextPtr& iocCtx);
 

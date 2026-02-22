@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -21,13 +21,19 @@
  */
 #include "autobotmodule.h"
 
+#include <QQmlEngine>
+
 #include "modularity/ioc.h"
-#include "interactive/iinteractiveuriregister.h"
+#include "ui/iinteractiveuriregister.h"
 #include "ui/iuiactionsregister.h"
 
 #include "internal/autobot.h"
 #include "internal/autobotconfiguration.h"
+#include "view/autobotscriptsmodel.h"
+#include "view/testcaserunmodel.h"
 
+#include "draw/painter.h"
+#include "internal/draw/abpaintprovider.h"
 #include "internal/autobotactionscontroller.h"
 #include "internal/autobotactions.h"
 #include "internal/autobotscriptsrepository.h"
@@ -39,79 +45,83 @@
 
 using namespace muse::autobot;
 using namespace muse::api;
-using namespace muse::modularity;
 
-static const std::string mname("autobot");
+static void autobot_init_qrc()
+{
+    Q_INIT_RESOURCE(autobot);
+}
 
 std::string AutobotModule::moduleName() const
 {
-    return mname;
+    return "autobot";
+}
+
+void AutobotModule::registerResources()
+{
+    autobot_init_qrc();
 }
 
 void AutobotModule::registerExports()
 {
-    m_configuration = std::make_shared<AutobotConfiguration>(globalCtx());
+    m_configuration = std::make_shared<AutobotConfiguration>(iocContext());
+    m_autobot = std::make_shared<Autobot>(iocContext());
+    m_actionsController = std::make_shared<AutobotActionsController>(iocContext());
 
-    globalIoc()->registerExport<IAutobotConfiguration>(mname, m_configuration);
+    ioc()->registerExport<IAutobot>(moduleName(), m_autobot);
+    ioc()->registerExport<IAutobotConfiguration>(moduleName(), m_configuration);
+    ioc()->registerExport<IAutobotScriptsRepository>(moduleName(), new AutobotScriptsRepository(iocContext()));
+
+    // draw::Painter::extended = AbPaintProvider::instance();
 }
 
 void AutobotModule::resolveImports()
 {
-    auto ir = globalIoc()->resolve<muse::interactive::IInteractiveUriRegister>(mname);
+    auto ir = ioc()->resolve<muse::ui::IInteractiveUriRegister>(moduleName());
     if (ir) {
-        ir->registerQmlUri(Uri("muse://diagnostics/autobot/scripts"), "Muse.Autobot", "ScriptsDialog");
-        ir->registerQmlUri(Uri("muse://autobot/selectfile"), "Muse.Autobot", "AutobotSelectFileDialog");
+        ir->registerQmlUri(Uri("muse://diagnostics/autobot/batchtests"), "Muse/Autobot/BatchTestsDialog.qml");
+        ir->registerQmlUri(Uri("muse://diagnostics/autobot/scripts"), "Muse/Autobot/ScriptsDialog.qml");
+        ir->registerQmlUri(Uri("muse://autobot/selectfile"), "Muse/Autobot/AutobotSelectFileDialog.qml");
     }
-}
 
-IContextSetup* AutobotModule::newContext(const muse::modularity::ContextPtr& ctx) const
-{
-    return new AutobotContext(ctx);
-}
-
-// Context
-
-void AutobotContext::registerExports()
-{
-    m_autobot = std::make_shared<Autobot>(iocContext());
-    m_actionsController = std::make_shared<AutobotActionsController>(iocContext());
-
-    ioc()->registerExport<IAutobot>(mname, m_autobot);
-    ioc()->registerExport<IAutobotScriptsRepository>(mname, new AutobotScriptsRepository(iocContext()));
-}
-
-void AutobotContext::resolveImports()
-{
-    auto ar = ioc()->resolve<muse::ui::IUiActionsRegister>(mname);
+    auto ar = ioc()->resolve<muse::ui::IUiActionsRegister>(moduleName());
     if (ar) {
         ar->reg(std::make_shared<AutobotActions>());
     }
 
-    auto api = ioc()->resolve<IApiRegister>(mname);
+    auto api = ioc()->resolve<IApiRegister>(moduleName());
     if (api) {
-        api->regApiCreator(mname, "api.autobot", new ApiCreator<api::AutobotApi>());
-        api->regApiCreator(mname, "api.context", new ApiCreator<ContextApi>());
+        api->regApiCreator("autobot", "api.autobot", new ApiCreator<api::AutobotApi>());
+        api->regApiCreator("autobot", "api.context", new ApiCreator<ContextApi>());
     }
 }
 
-void AutobotContext::onInit(const IApplication::RunMode&)
+void AutobotModule::registerUiTypes()
 {
+    qmlRegisterType<AutobotScriptsModel>("Muse.Autobot", 1, 0, "AutobotScriptsModel");
+    qmlRegisterType<TestCaseRunModel>("Muse.Autobot", 1, 0, "TestCaseRunModel");
+}
+
+void AutobotModule::onInit(const IApplication::RunMode& mode)
+{
+    if (mode == IApplication::RunMode::AudioPluginRegistration) {
+        return;
+    }
+
     m_autobot->init();
     m_actionsController->init();
 
     //! --- Diagnostics ---
-    auto pr = ioc()->resolve<muse::diagnostics::IDiagnosticsPathsRegister>(mname);
+    auto pr = ioc()->resolve<muse::diagnostics::IDiagnosticsPathsRegister>(moduleName());
     if (pr) {
-        auto configuration = globalIoc()->resolve<IAutobotConfiguration>(mname);
-        for (const io::path_t& p : configuration->scriptsDirPaths()) {
+        for (const io::path_t& p : m_configuration->scriptsDirPaths()) {
             pr->reg("autobotScriptsPath", p);
         }
-        for (const io::path_t& p : configuration->testingFilesDirPaths()) {
+        for (const io::path_t& p : m_configuration->testingFilesDirPaths()) {
             pr->reg("autobotTestingFilesPath", p);
         }
-        pr->reg("autobotDataPath", configuration->dataPath());
-        pr->reg("autobotSavingFilesPath", configuration->savingFilesPath());
-        pr->reg("autobotReportsPath", configuration->reportsPath());
-        pr->reg("autobotDrawDataPath", configuration->drawDataPath());
+        pr->reg("autobotDataPath", m_configuration->dataPath());
+        pr->reg("autobotSavingFilesPath", m_configuration->savingFilesPath());
+        pr->reg("autobotReportsPath", m_configuration->reportsPath());
+        pr->reg("autobotDrawDataPath", m_configuration->drawDataPath());
     }
 }

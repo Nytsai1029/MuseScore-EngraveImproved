@@ -22,10 +22,8 @@
 
 #include "scorerw.h"
 
-#include "global/io/ifilesystem.h"
-#include "global/io/buffer.h"
-#include "global/io/file.h"
-#include "global/modularity/ioc.h"
+#include "io/file.h"
+#include "io/buffer.h"
 
 #include "engraving/compat/scoreaccess.h"
 #include "engraving/compat/mscxcompat.h"
@@ -41,8 +39,6 @@
 using namespace mu;
 using namespace muse::io;
 using namespace mu::engraving;
-
-static const muse::GlobalInject<IFileSystem> FILE_SYSTEM;
 
 String ScoreRW::m_rootPath;
 
@@ -97,24 +93,28 @@ MasterScore* ScoreRW::readScore(const String& name, bool isAbsolutePath, ImportF
 
 bool ScoreRW::saveScore(Score* score, const String& name)
 {
-    FILE_SYSTEM()->remove(name);
+    File file(name);
+    if (file.exists()) {
+        file.remove();
+    }
 
-    Buffer output;
-    if (!output.open(Buffer::WriteOnly)) {
+    if (!file.open(IODevice::ReadWrite)) {
         return false;
     }
 
-    if (!rw::RWRegister::writer()->writeScore(score, &output)) {
-        return false;
-    }
-    output.close();
-
-    return FILE_SYSTEM()->writeFile(name, output.data());
+    return rw::RWRegister::writer(score->iocContext())->writeScore(score, &file);
 }
 
 bool ScoreRW::saveScore(Score* score, const String& name, ExportFunc exportFunc)
 {
-    FILE_SYSTEM()->remove(name);
+    File file(name);
+    if (file.exists()) {
+        file.remove();
+    }
+
+    if (!file.open(IODevice::ReadWrite)) {
+        return false;
+    }
 
     muse::io::path_t path =  name;
     Err rv = exportFunc(score, path);
@@ -136,7 +136,7 @@ EngravingItem* ScoreRW::writeReadElement(EngravingItem* element)
     buffer.open(IODevice::WriteOnly);
     XmlWriter xml(&buffer);
     xml.startDocument();
-    rw::RWRegister::writer()->writeItem(element, xml);
+    rw::RWRegister::writer(element->iocContext())->writeItem(element, xml);
     xml.flush();
     buffer.close();
 

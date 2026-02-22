@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
       <lyricsMinBottomDistance>4</lyricsMinBottomDistance>
       <maskBarlinesForText>0</maskBarlinesForText>
-      <dividerLeftAlignToSystemBarline>0</dividerLeftAlignToSystemBarline>
-      <dividerRightAlignToSystemBarline>0</dividerRightAlignToSystemBarline>
       <clefLeftMargin>0.64</clefLeftMargin>
       <clefKeyRightMargin>1.75</clefKeyRightMargin>
       <lastSystemFillLimit>0</lastSystemFillLimit>
@@ -259,6 +257,7 @@
     <Staff id="1">
       <VBox>
         <height>10</height>
+        <sizeIsSpatiumDependent>1</sizeIsSpatiumDependent>
         <eid>G_G</eid>
         <Text>
           <eid>H_H</eid>

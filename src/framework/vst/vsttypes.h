@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -114,7 +114,6 @@ using VstProcessContext = Steinberg::Vst::ProcessContext;
 using VstProcessSetup = Steinberg::Vst::ProcessSetup;
 using VstMemoryStream = Steinberg::MemoryStream;
 using VstBufferStream = Steinberg::Vst::BufferStream;
-using VstProcessMode = Steinberg::Vst::ProcessModes;
 
 namespace PluginEditorViewType = Steinberg::Vst::ViewType;
 

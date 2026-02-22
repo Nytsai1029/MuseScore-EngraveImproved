@@ -67,13 +67,45 @@ static const std::string META_DATA_NAME = "metadata";
 static const std::string DEV_INFO_NAME = "devinfo";
 
 static constexpr bool ADD_SEPARATOR = true;
+static constexpr auto NO_STYLE = "";
+
+static ScoreElementScanner::Options parseScoreElementScannerOptions(const std::string& json)
+{
+    QJsonParseError parseError;
+    const QJsonDocument doc = QJsonDocument::fromJson(QByteArray::fromStdString(json), &parseError);
+    if (parseError.error != QJsonParseError::NoError) {
+        LOGE() << "JSON parse error:" << parseError.errorString();
+        return {};
+    }
+
+    const QJsonObject obj = doc.object();
+
+    ScoreElementScanner::Options options;
+    options.avoidDuplicates = obj.value("avoidDuplicates").toBool();
+
+    const QJsonArray typeArray = obj.value("types").toArray();
+    for (const auto typeObj : typeArray) {
+        if (!typeObj.isString()) {
+            continue;
+        }
+
+        const std::string typeStr = typeObj.toString().toStdString();
+        const ElementType type = TConv::fromXml(typeStr, ElementType::INVALID);
+        if (type != ElementType::INVALID) {
+            options.acceptedTypes.insert(type);
+        }
+    }
+
+    return options;
+}
 
 Ret BackendApi::exportScoreMedia(const muse::io::path_t& in, const muse::io::path_t& out, const muse::io::path_t& highlightConfigPath,
-                                 const OpenParams& openParams)
+                                 const muse::io::path_t& stylePath,
+                                 bool forceMode)
 {
     TRACEFUNC
 
-    RetVal<INotationProjectPtr> prj = openProject(in, openParams);
+    RetVal<INotationProjectPtr> prj = openProject(in, stylePath, forceMode);
     if (!prj.ret) {
         return prj.ret;
     }
@@ -96,17 +128,17 @@ Ret BackendApi::exportScoreMedia(const muse::io::path_t& in, const muse::io::pat
     result &= exportScorePdf(notation, jsonWriter, ADD_SEPARATOR);
     result &= exportScoreMidi(notation, jsonWriter, ADD_SEPARATOR);
     result &= exportScoreMusicXML(notation, jsonWriter, ADD_SEPARATOR);
-    result &= exportScoreMetaData(notation, jsonWriter, ADD_SEPARATOR);
+    result &= exportScoreMetaData(prj.val, jsonWriter, ADD_SEPARATOR);
     result &= devInfo(notation, jsonWriter);
 
     return result ? make_ret(Ret::Code::Ok) : make_ret(Ret::Code::InternalError);
 }
 
-Ret BackendApi::exportScoreMeta(const muse::io::path_t& in, const muse::io::path_t& out, const OpenParams& openParams)
+Ret BackendApi::exportScoreMeta(const muse::io::path_t& in, const muse::io::path_t& out, const muse::io::path_t& stylePath, bool forceMode)
 {
     TRACEFUNC
 
-    RetVal<INotationProjectPtr> prj = openProject(in, openParams);
+    RetVal<INotationProjectPtr> prj = openProject(in, stylePath, forceMode);
     if (!prj.ret) {
         return prj.ret;
     }
@@ -118,16 +150,16 @@ Ret BackendApi::exportScoreMeta(const muse::io::path_t& in, const muse::io::path
 
     BackendJsonWriter jsonWriter(&outputFile);
 
-    bool result = exportScoreMetaData(notation, jsonWriter);
+    bool result = exportScoreMetaData(prj.val, jsonWriter);
 
     return result ? make_ret(Ret::Code::Ok) : make_ret(Ret::Code::InternalError);
 }
 
-Ret BackendApi::exportScoreParts(const muse::io::path_t& in, const muse::io::path_t& out, const OpenParams& openParams)
+Ret BackendApi::exportScoreParts(const muse::io::path_t& in, const muse::io::path_t& out, const muse::io::path_t& stylePath, bool forceMode)
 {
     TRACEFUNC
 
-    RetVal<INotationProjectPtr> prj = openProject(in, openParams);
+    RetVal<INotationProjectPtr> prj = openProject(in, stylePath, forceMode);
     if (!prj.ret) {
         return prj.ret;
     }
@@ -142,11 +174,12 @@ Ret BackendApi::exportScoreParts(const muse::io::path_t& in, const muse::io::pat
     return ret;
 }
 
-Ret BackendApi::exportScorePartsPdfs(const muse::io::path_t& in, const muse::io::path_t& out, const OpenParams& openParams)
+Ret BackendApi::exportScorePartsPdfs(const muse::io::path_t& in, const muse::io::path_t& out, const muse::io::path_t& stylePath,
+                                     bool forceMode)
 {
     TRACEFUNC
 
-    RetVal<INotationProjectPtr> prj = openProject(in, openParams);
+    RetVal<INotationProjectPtr> prj = openProject(in, stylePath, forceMode);
     if (!prj.ret) {
         return prj.ret;
     }
@@ -164,11 +197,12 @@ Ret BackendApi::exportScorePartsPdfs(const muse::io::path_t& in, const muse::io:
 }
 
 Ret BackendApi::exportScoreTranspose(const muse::io::path_t& in, const muse::io::path_t& out, const std::string& optionsJson,
-                                     const OpenParams& openParams)
+                                     const muse::io::path_t& stylePath,
+                                     bool forceMode)
 {
     TRACEFUNC
 
-    RetVal<INotationProjectPtr> prj = openProject(in, openParams);
+    RetVal<INotationProjectPtr> prj = openProject(in, stylePath, forceMode);
     if (!prj.ret) {
         return prj.ret;
     }
@@ -190,12 +224,12 @@ Ret BackendApi::exportScoreTranspose(const muse::io::path_t& in, const muse::io:
     return result ? make_ret(Ret::Code::Ok) : make_ret(Ret::Code::InternalError);
 }
 
-Ret BackendApi::exportScoreElements(const muse::io::path_t& in, const muse::io::path_t& out,
-                                    const OpenParams& openParams)
+Ret BackendApi::exportScoreElements(const muse::io::path_t& in, const muse::io::path_t& out, const std::string& optionsJson,
+                                    const muse::io::path_t& stylePath, bool forceMode)
 {
     TRACEFUNC;
 
-    RetVal<INotationProjectPtr> prj = openProject(in, openParams);
+    RetVal<INotationProjectPtr> prj = openProject(in, stylePath, forceMode);
     if (!prj.ret) {
         return prj.ret;
     }
@@ -205,7 +239,9 @@ Ret BackendApi::exportScoreElements(const muse::io::path_t& in, const muse::io::
     QFile outputFile;
     openOutputFile(outputFile, out);
 
-    return doExportScoreElements(notation, outputFile);
+    BackendJsonWriter jsonWriter(&outputFile);
+
+    return doExportScoreElements(notation, jsonWriter, optionsJson);
 }
 
 Ret BackendApi::openOutputFile(QFile& file, const muse::io::path_t& out)
@@ -221,7 +257,9 @@ Ret BackendApi::openOutputFile(QFile& file, const muse::io::path_t& out)
     return ok ? make_ret(Ret::Code::Ok) : make_ret(Ret::Code::InternalError);
 }
 
-RetVal<project::INotationProjectPtr> BackendApi::openProject(const muse::io::path_t& path, const OpenParams& params)
+RetVal<project::INotationProjectPtr> BackendApi::openProject(const muse::io::path_t& path,
+                                                             const muse::io::path_t& stylePath,
+                                                             bool forceMode)
 {
     TRACEFUNC
 
@@ -230,7 +268,7 @@ RetVal<project::INotationProjectPtr> BackendApi::openProject(const muse::io::pat
         return make_ret(Ret::Code::InternalError);
     }
 
-    Ret ret = notationProject->load(path, params);
+    Ret ret = notationProject->load(path, stylePath, forceMode);
     if (!ret) {
         LOGE() << "failed load: " << path << ", ret: " << ret.toString();
         return make_ret(Ret::Code::InternalError);
@@ -445,11 +483,11 @@ Ret BackendApi::exportScoreMusicXML(const INotationPtr notation, BackendJsonWrit
     return make_ret(Ret::Code::Ok);
 }
 
-Ret BackendApi::exportScoreMetaData(const INotationPtr notation, BackendJsonWriter& jsonWriter, bool addSeparator)
+Ret BackendApi::exportScoreMetaData(const INotationProjectPtr project, BackendJsonWriter& jsonWriter, bool addSeparator)
 {
     TRACEFUNC
 
-    RetVal<std::string> meta = NotationMeta::metaJson(notation);
+    RetVal<std::string> meta = NotationMeta::metaJson(project);
     if (!meta.ret) {
         LOGW() << meta.ret.toString();
         return meta.ret;
@@ -548,8 +586,8 @@ Ret BackendApi::doExportScoreParts(const IMasterNotationPtr masterNotation, QIOD
         partsTitles << partTitle;
 
         QVariantMap meta;
-        for (const auto& [key, val] : partMetaTags) {
-            meta[key] = val.toQString();
+        for (const String& key: muse::keys(partMetaTags)) {
+            meta[key] = partMetaTags[key].toQString();
         }
 
         meta["open"] = partScore->isOpen();
@@ -642,99 +680,72 @@ Ret BackendApi::doExportScoreTranspose(const INotationPtr notation, BackendJsonW
     return ret;
 }
 
-muse::Ret BackendApi::doExportScoreElements(const notation::INotationPtr notation, QIODevice& out)
+muse::Ret BackendApi::doExportScoreElements(const notation::INotationPtr notation, BackendJsonWriter& jsonWriter,
+                                            const std::string& optionsJson, bool addSeparator)
 {
     mu::engraving::Score* score = notation->elements()->msScore();
-    ElementMap elements = ScoreElementScanner::scanElements(score);
+    ScoreElementScanner::Options options = parseScoreElementScannerOptions(optionsJson);
+    ScoreElementScanner::InstrumentElementMap elements = ScoreElementScanner::scanElements(score, options);
 
     QJsonArray rootArray;
 
-    auto writeLocation = [](const ElementInfo::Location& loc, QJsonObject& obj) {
-        if (loc.staffIdx != muse::nidx) {
-            obj["staffIdx"] = static_cast<int>(loc.staffIdx);
-        }
-
-        if (loc.voiceIdx != muse::nidx) {
-            obj["voiceIdx"] = static_cast<int>(loc.voiceIdx);
-        }
-
-        if (loc.measureIdx != muse::nidx) {
-            obj["measureIdx"] = static_cast<int>(loc.measureIdx);
-        }
-
-        if (RealIsEqualOrMore(loc.beat, 0.f)) {
-            obj["beat"] = loc.beat;
-        }
-    };
-
-    auto writeDuration = [](const ElementInfo::Duration& dur, QJsonObject& obj) {
-        QJsonObject durObj;
-        durObj["name"] = dur.name.toQString();
-        if (dur.dots > 0) {
-            durObj["dots"] = dur.dots;
-        }
-        obj["duration"] = durObj;
-    };
-
-    auto writeNotes = [](const ElementInfo::NoteList& notes, QJsonObject& obj) {
-        QJsonArray noteArray;
-
-        for (const ElementInfo::Note& note : notes) {
-            QJsonObject noteObj;
-            noteObj["name"] = note.name.toQString();
-            for (const auto& [key, val] : note.data) {
-                noteObj[key.toQString()] = val.toQString();
-            }
-            noteArray << noteObj;
-        }
-
-        obj["notes"] = noteArray;
-    };
-
     for (const auto& instrumentPair : elements) {
-        QJsonArray elementArray;
+        QJsonArray typeArray;
 
-        for (const ElementInfo& element : instrumentPair.second) {
-            QJsonObject obj;
-            obj["type"] = mu::engraving::TConv::toXml(element.type).ascii();
+        for (const auto& pair: instrumentPair.second) {
+            QJsonArray elementArray;
 
-            if (!element.name.empty()) {
-                obj["name"] = element.name.toQString();
+            for (const ScoreElementScanner::ElementInfo& element : pair.second) {
+                QJsonObject obj;
+
+                if (!element.name.empty()) {
+                    obj["name"] = element.name.toQString();
+                }
+
+                if (!element.notes.empty()) {
+                    obj["notes"] = element.notes.toQString();
+                }
+
+                if (!element.text.empty()) {
+                    obj["text"] = element.text.toQString();
+                }
+
+                if (element.staffIdx != muse::nidx) {
+                    obj["staffIdx"] = static_cast<int>(element.staffIdx);
+                }
+
+                if (element.voiceIdx != muse::nidx) {
+                    obj["voiceIdx"] = static_cast<int>(element.voiceIdx);
+                }
+
+                if (element.measureIdx != muse::nidx) {
+                    obj["measureIdx"] = static_cast<int>(element.measureIdx);
+                }
+
+                if (RealIsEqualOrMore(element.beat, 0.f)) {
+                    obj["beat"] = element.beat;
+                }
+
+                if (!obj.empty()) {
+                    elementArray << obj;
+                }
             }
 
-            if (!element.notes.empty()) {
-                writeNotes(element.notes, obj);
-            }
-
-            if (!element.duration.name.empty()) {
-                writeDuration(element.duration, obj);
-            }
-
-            for (const auto& [key, val] : element.data) {
-                obj[key.toQString()] = val.toQString();
-            }
-
-            if (element.start == element.end) {
-                writeLocation(element.start, obj);
-            } else {
-                QJsonObject start, end;
-                writeLocation(element.start, start);
-                writeLocation(element.end, end);
-                obj["start"] = start;
-                obj["end"] = end;
-            }
-
-            elementArray << obj;
+            QString type = mu::engraving::TConv::toXml(pair.first).ascii();
+            QJsonObject typeObj;
+            typeObj[type] = elementArray;
+            typeArray << typeObj;
         }
 
         QJsonObject instrumentObj;
         instrumentObj["instrumentId"] = instrumentPair.first.instrumentId.toQString();
         instrumentObj["partId"] = instrumentPair.first.partId.toQString();
-        instrumentObj["elements"] = elementArray;
+        instrumentObj["types"] = typeArray;
         rootArray << instrumentObj;
     }
 
-    out.write(QJsonDocument(rootArray).toJson(QJsonDocument::Compact));
+    jsonWriter.addKey("scoreElements");
+    jsonWriter.addValue(QJsonDocument(rootArray).toJson(QJsonDocument::Compact), addSeparator);
 
     return make_ok();
 }
@@ -816,10 +827,7 @@ void BackendApi::initPotentialExcerpts(notation::IMasterNotationPtr masterNotati
 
 Ret BackendApi::updateSource(const muse::io::path_t& in, const std::string& newSource, bool forceMode)
 {
-    OpenParams openParams;
-    openParams.forceMode = forceMode;
-
-    RetVal<INotationProjectPtr> project = openProject(in, openParams);
+    RetVal<INotationProjectPtr> project = openProject(in, NO_STYLE, forceMode);
     if (!project.ret) {
         return project.ret;
     }

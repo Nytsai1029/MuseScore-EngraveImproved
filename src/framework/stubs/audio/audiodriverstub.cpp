@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -30,12 +30,7 @@ void AudioDriverStub::init()
 
 std::string AudioDriverStub::name() const
 {
-    return {};
-}
-
-AudioDeviceID AudioDriverStub::defaultDevice() const
-{
-    return {};
+    return std::string();
 }
 
 bool AudioDriverStub::open(const IAudioDriver::Spec&, IAudioDriver::Spec*)
@@ -58,10 +53,24 @@ const AudioDriverStub::Spec& AudioDriverStub::activeSpec() const
     return dummySpec;
 }
 
-async::Channel<AudioDriverStub::Spec> AudioDriverStub::activeSpecChanged() const
+std::string AudioDriverStub::outputDevice() const
 {
-    static async::Channel<Spec> activeSpecChanged;
-    return activeSpecChanged;
+    return std::string();
+}
+
+bool AudioDriverStub::selectOutputDevice(const std::string&)
+{
+    return false;
+}
+
+bool AudioDriverStub::resetToDefaultOutputDevice()
+{
+    return false;
+}
+
+async::Notification AudioDriverStub::outputDeviceChanged() const
+{
+    return async::Notification();
 }
 
 AudioDeviceList AudioDriverStub::availableOutputDevices() const
@@ -74,12 +83,50 @@ async::Notification AudioDriverStub::availableOutputDevicesChanged() const
     return async::Notification();
 }
 
-std::vector<samples_t> AudioDriverStub::availableOutputDeviceBufferSizes() const
+unsigned int AudioDriverStub::outputDeviceBufferSize() const
+{
+    return 0;
+}
+
+bool AudioDriverStub::setOutputDeviceBufferSize(unsigned int)
+{
+    return false;
+}
+
+async::Notification AudioDriverStub::outputDeviceBufferSizeChanged() const
+{
+    return async::Notification();
+}
+
+std::vector<unsigned int> AudioDriverStub::availableOutputDeviceBufferSizes() const
 {
     return {};
 }
 
-std::vector<sample_rate_t> AudioDriverStub::availableOutputDeviceSampleRates() const
+unsigned int AudioDriverStub::outputDeviceSampleRate() const
+{
+    return 0;
+}
+
+bool AudioDriverStub::setOutputDeviceSampleRate(unsigned int)
+{
+    return false;
+}
+
+async::Notification AudioDriverStub::outputDeviceSampleRateChanged() const
+{
+    return async::Notification();
+}
+
+std::vector<unsigned int> AudioDriverStub::availableOutputDeviceSampleRates() const
 {
     return {};
+}
+
+void AudioDriverStub::resume()
+{
+}
+
+void AudioDriverStub::suspend()
+{
 }

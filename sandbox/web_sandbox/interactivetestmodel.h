@@ -4,13 +4,13 @@
 #include <QEventLoop>
 
 #include "global/modularity/ioc.h"
-#include "interactive/iinteractive.h"
+#include "global/iinteractive.h"
 
 class InteractiveTestModel : public QObject
 {
     Q_OBJECT
 
-    muse::ContextInject<muse::IInteractive> interactive;
+    muse::Inject<muse::IInteractive> interactive;
 
 public:
     InteractiveTestModel();

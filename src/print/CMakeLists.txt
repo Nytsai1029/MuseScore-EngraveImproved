@@ -4,7 +4,7 @@
 # MuseScore Studio
 # Music Composition & Notation
 #
-# Copyright (C) 2026 MuseScore Limited
+# Copyright (C) 2021 MuseScore Limited
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -16,17 +16,22 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-muse_create_module(print)
+declare_module(print)
 
-target_sources(print PRIVATE
-    printmodule.cpp
-    printmodule.h
-    iprintprovider.h
+set(MODULE_SRC
+    ${CMAKE_CURRENT_LIST_DIR}/printmodule.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/printmodule.h
+    ${CMAKE_CURRENT_LIST_DIR}/iprintprovider.h
 
-    internal/printprovider.cpp
-    internal/printprovider.h
-)
+    ${CMAKE_CURRENT_LIST_DIR}/internal/printprovider.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/printprovider.h
+    )
 
-target_link_libraries(print PRIVATE Qt::PrintSupport)
+if (QT_SUPPORT)
+    list(APPEND MODULE_LINK Qt::PrintSupport)
+endif()
+
+setup_module()
+

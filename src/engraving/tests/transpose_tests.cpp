@@ -22,13 +22,13 @@
 
 #include <gtest/gtest.h>
 
-#include "engraving/dom/masterscore.h"
-#include "engraving/editing/undo.h"
-#include "engraving/editing/transpose.h"
+#include "dom/masterscore.h"
+#include "dom/undo.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String TRANSPOSE_DATA_DIR("transpose_data/");
@@ -51,8 +51,8 @@ public:
 
         // transpose major second up
         score->startCmd(TranslatableString::untranslatable("Engraving transpose tests"));
-        Transpose::transpose(score, TransposeMode::BY_INTERVAL, TransposeDirection::UP, Key::C, 4,
-                             true, true, true);
+        score->transpose(TransposeMode::BY_INTERVAL, TransposeDirection::UP, Key::C, 4,
+                         true, true, true);
         score->endCmd();
         EXPECT_TRUE(ScoreComp::saveCompareScore(score, writeFile1, reference1));
 
@@ -80,8 +80,8 @@ public:
 
         // transpose diatonic fourth down
         score->startCmd(TranslatableString::untranslatable("Engraving transpose tests"));
-        Transpose::transpose(score, TransposeMode::DIATONICALLY, TransposeDirection::DOWN, Key::C, 3,
-                             true, false, false);
+        score->transpose(TransposeMode::DIATONICALLY, TransposeDirection::DOWN, Key::C, 3,
+                         true, false, false);
         score->endCmd();
         EXPECT_TRUE(ScoreComp::saveCompareScore(score, writeFile1, reference1));
 
@@ -101,32 +101,18 @@ TEST_F(Engraving_TransposeTests, undoTranspose)
 
 TEST_F(Engraving_TransposeTests, undoTransposeChordSymbols)
 {
+    bool useRead302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
     undoTransposeTest(u"undoTransposeChordSymbols");
-}
-
-TEST_F(Engraving_TransposeTests, undoTransposeFretDiagramsChordSymbols)
-{
-    undoTransposeTest(u"undoTransposeFretDiagramsChordSymbols");
-}
-
-TEST_F(Engraving_TransposeTests, undoTransposeFretDiagrams)
-{
-    undoTransposeTest(u"undoTransposeFretDiagrams");
+    MScore::useRead302InTestMode = useRead302;
 }
 
 TEST_F(Engraving_TransposeTests, undoDiatonicTransposeChordSymbols)
 {
+    bool useRead302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
     undoDiatonicTransposeTest(u"undoDiatonicTransposeChordSymbols");
-}
-
-TEST_F(Engraving_TransposeTests, undoDiatonicTransposeFretDiagramsChordSymbols)
-{
-    undoTransposeTest(u"undoDiatonicTransposeFretDiagramsChordSymbols");
-}
-
-TEST_F(Engraving_TransposeTests, undoDiatonicTransposeFretDiagrams)
-{
-    undoTransposeTest(u"undoDiatonicTransposeFretDiagrams");
+    MScore::useRead302InTestMode = useRead302;
 }
 
 TEST_F(Engraving_TransposeTests, undoDiatonicTranspose)

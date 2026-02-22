@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -78,12 +78,12 @@ QString GlobalConfiguration::resolveAppDataPath() const
     return "/files/share";
 #else
     // Try relative path (needed for portable AppImage and non-standard installations)
-    QDir dir(QCoreApplication::applicationDirPath() + QString("/../" MUSE_APP_INSTALL_RESOURCES_LOCATION));
+    QDir dir(QCoreApplication::applicationDirPath() + QString("/../share/" MUSE_APP_INSTALL_NAME));
     if (dir.exists()) {
         return dir.absolutePath() + "/";
     }
     // Otherwise fall back to default location (e.g. if binary has moved relative to share)
-    return QString(MUSE_APP_INSTALL_PREFIX "/" MUSE_APP_INSTALL_RESOURCES_LOCATION "/");
+    return QString(MUSE_APP_INSTALL_PREFIX "/share/" MUSE_APP_INSTALL_NAME);
 #endif
 }
 

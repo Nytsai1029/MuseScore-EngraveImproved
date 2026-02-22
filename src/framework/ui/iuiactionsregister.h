@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -29,20 +29,18 @@
 #include "uiaction.h"
 
 namespace muse::ui {
-class IUiActionsRegister : MODULE_CONTEXT_INTERFACE
+class IUiActionsRegister : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IUiActionsRegister)
 
 public:
     virtual ~IUiActionsRegister() = default;
 
-    virtual void reg(const IUiActionsModulePtr& module) = 0;
-    virtual void unreg(const IUiActionsModulePtr& module) = 0;
+    virtual void reg(const IUiActionsModulePtr& actions) = 0;
 
     virtual std::vector<UiAction> actionList() const = 0;
 
     virtual const UiAction& action(const actions::ActionCode& code) const = 0;
-    virtual const actions::ActionCode& parentActionCode(const actions::ActionCode& code) const = 0;
     virtual async::Channel<UiActionList> actionsChanged() const = 0;
 
     virtual UiActionState actionState(const actions::ActionCode& code) const = 0;

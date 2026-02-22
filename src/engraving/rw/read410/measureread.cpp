@@ -191,7 +191,7 @@ void MeasureRead::readMeasure(Measure* measure, XmlReader& e, ReadContext& ctx, 
     ctx.checkConnectors();
     if (measure->isMMRest()) {
         Measure* lm = ctx.lastMeasure();
-        ctx.setTick(lm->endTick());
+        ctx.setTick(lm->tick() + lm->ticks());
     }
     ctx.setCurrentMeasure(nullptr);
 
@@ -250,6 +250,7 @@ void MeasureRead::readVoice(Measure* measure, XmlReader& e, ReadContext& ctx, in
             if (barLine) {
                 segment = measure->getSegmentR(st, t);
                 segment->add(barLine);
+                barLine->renderer()->layoutItem(barLine);
             }
             if (fermata) {
                 segment->add(fermata);
@@ -448,12 +449,7 @@ void MeasureRead::readVoice(Measure* measure, XmlReader& e, ReadContext& ctx, in
             if (el->systemFlag() && el->isTopSystemObject()) {
                 el->setTrack(0); // original system object always goes on top
             }
-            if (el->chords().empty()) {
-                // Invalid harmony
-                delete el;
-            } else {
-                segment->add(el);
-            }
+            segment->add(el);
         } else if (tag == "FretDiagram") {
             // hack - getSegment needed because tick tags are unreliable in 1.3 scores
             // for symbols attached to anything but a measure

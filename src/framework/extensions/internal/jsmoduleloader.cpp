@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -30,7 +30,7 @@
 using namespace muse::extensions;
 
 JsModuleLoader::JsModuleLoader(const modularity::ContextPtr& iocCtx, QObject* parent)
-    : QObject(parent), muse::Contextable(iocCtx)
+    : QObject(parent), muse::Injectable(iocCtx)
 {
 }
 
@@ -59,20 +59,13 @@ QJSValue JsModuleLoader::require(QString module)
         return QJSValue();
     }
 
-    // require buildin module
-    if (module.startsWith("MuseApi.")) {
-        return engine()->requireModule(module);
+    bool ok = false;
+    QString filePath = resolvePath(module, &ok);
+    if (!ok) {
+        return QJSValue();
     }
-    // require js file
-    else {
-        bool ok = false;
-        QString filePath = resolvePath(module, &ok);
-        if (!ok) {
-            return QJSValue();
-        }
 
-        return engine()->requireFile(filePath);
-    }
+    return engine()->require(filePath);
 }
 
 QJSValue JsModuleLoader::exports() const

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -28,12 +28,13 @@
 #include "../iapplication.h"
 
 namespace muse {
-class GlobalConfiguration : public IGlobalConfiguration
+class GlobalConfiguration : public IGlobalConfiguration, public Injectable
 {
-    GlobalInject<IApplication> application;
+    Inject<IApplication> application{ this };
 
 public:
-    GlobalConfiguration() {}
+    GlobalConfiguration(const modularity::ContextPtr& ctx)
+        : Injectable(ctx) {}
 
     void init();
 

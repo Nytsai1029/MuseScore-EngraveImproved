@@ -22,11 +22,11 @@
 echo "Install Qt"
 trap 'code=$?; echo "error: Install Qt: command \`$BASH_COMMAND\` exited with code $code." >&2; exit 1' ERR
 
-QT_DIR=$HOME/Qt/6.10.2/macos
+QT_DIR=$HOME/Qt/6.9.3/macos
 
-wget -q --show-progress -O Qt-6.10.2-macOS-10.15.7z 'https://github.com/cbjeukendrup/musescore_build_qt/releases/download/v21960860930/Qt-6.10.2-macOS-10.15.7z'
-7z x Qt-6.10.2-macOS-10.15.7z -o$QT_DIR
-rm Qt-6.10.2-macOS-10.15.7z
+wget -q --show-progress -O Qt-6.9.3-macOS-10.15.7z 'https://github.com/cbjeukendrup/musescore_build_qt/releases/download/Qt-6.9.3-macOS-10.15-f98386509cc0952e80e1e200cf230ee0114007e5/Qt-6.9.3-macOS-10.15.7z'
+7z x Qt-6.9.3-macOS-10.15.7z -o$QT_DIR
+rm Qt-6.9.3-macOS-10.15.7z
 
 echo $QT_DIR/bin >> $GITHUB_PATH
 

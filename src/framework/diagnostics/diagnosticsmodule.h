@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_DIAGNOSTICS_DIAGNOSTICSMODULE_H
+#define MUSE_DIAGNOSTICS_DIAGNOSTICSMODULE_H
 
 #include <memory>
 
@@ -34,31 +34,20 @@ class DiagnosticsConfiguration;
 class DiagnosticsActionsController;
 class DiagnosticsModule : public muse::modularity::IModuleSetup
 {
-    muse::GlobalInject<muse::io::IFileSystem> fileSystem;
+    INJECT(muse::io::IFileSystem, fileSystem)
 
 public:
     std::string moduleName() const override;
     void registerExports() override;
     void resolveImports() override;
+    void registerResources() override;
+    void registerUiTypes() override;
     void onInit(const muse::IApplication::RunMode& mode) override;
-
-    muse::modularity::IContextSetup* newContext(const muse::modularity::ContextPtr& ctx) const override;
 
 private:
     std::shared_ptr<DiagnosticsConfiguration> m_configuration;
-};
-
-class DiagnosticsContext : public muse::modularity::IContextSetup
-{
-public:
-    DiagnosticsContext(const muse::modularity::ContextPtr& ctx)
-        : muse::modularity::IContextSetup(ctx) {}
-
-    void registerExports() override;
-    void resolveImports() override;
-    void onInit(const muse::IApplication::RunMode& mode) override;
-
-private:
     std::shared_ptr<DiagnosticsActionsController> m_actionsController;
 };
 }
+
+#endif // MUSE_DIAGNOSTICS_DIAGNOSTICSMODULE_H

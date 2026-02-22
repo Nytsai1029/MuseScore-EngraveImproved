@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-only
-# MuseScore-Studio-CLA-applies
+# MuseScore-CLA-applies
 #
-# MuseScore Studio
+# MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2026 MuseScore Limited
+# Copyright (C) 2025 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -16,30 +16,36 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-muse_create_module(muse_tours ALIAS muse::tours)
+declare_module(muse_tours)
+set(MODULE_ALIAS muse::tours)
 
-target_sources(muse_tours PRIVATE
-    toursmodule.cpp
-    toursmodule.h
-    tourstypes.h
-    itoursconfiguration.h
-    itoursservice.h
-    itoursprovider.h
+set(MODULE_QRC tours.qrc)
 
-    internal/toursconfiguration.cpp
-    internal/toursconfiguration.h
-    internal/toursservice.cpp
-    internal/toursservice.h
-    internal/toursprovider.cpp
-    internal/toursprovider.h
-)
+set(MODULE_QML_IMPORT ${CMAKE_CURRENT_LIST_DIR}/qml)
+
+set(MODULE_SRC
+    ${CMAKE_CURRENT_LIST_DIR}/toursmodule.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/toursmodule.h
+    ${CMAKE_CURRENT_LIST_DIR}/tourstypes.h
+    ${CMAKE_CURRENT_LIST_DIR}/itoursconfiguration.h
+    ${CMAKE_CURRENT_LIST_DIR}/itoursservice.h
+    ${CMAKE_CURRENT_LIST_DIR}/itoursprovider.h
+
+    ${CMAKE_CURRENT_LIST_DIR}/internal/toursconfiguration.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/toursconfiguration.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/toursservice.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/toursservice.h
+
+    ${CMAKE_CURRENT_LIST_DIR}/view/toursprovider.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/toursprovider.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/toursprovidermodel.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/toursprovidermodel.h
+    )
+
+setup_module()
 
 if (MUSE_MODULE_TOURS_TESTS)
     # add_subdirectory(tests) # todo
-endif()
-
-if (MUSE_MODULE_TOURS_QML)
-    add_subdirectory(qml/Muse/Tours)
 endif()

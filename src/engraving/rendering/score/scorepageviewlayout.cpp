@@ -108,7 +108,7 @@ void ScorePageViewLayout::initLayoutContext(const Score* score, LayoutContext& c
         } else {
             const MeasureBase* mb = state.nextMeasure()->prev();
             if (mb) {
-                mb = mb->mbWithPrecedingSectionBreak();
+                mb = mb->findPotentialSectionBreak();
             }
 
             const LayoutBreak* layoutBreak = mb->sectionBreakElement();

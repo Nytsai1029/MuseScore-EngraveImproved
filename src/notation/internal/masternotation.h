@@ -19,7 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#pragma once
+#ifndef MU_NOTATION_MASTERNOTATION_H
+#define MU_NOTATION_MASTERNOTATION_H
 
 #include <memory>
 
@@ -41,8 +42,6 @@ class MasterNotation : public IMasterNotation, public Notation, public std::enab
 {
 public:
     ~MasterNotation();
-
-    project::INotationProject* project() const override;
 
     muse::Ret setupNewScore(engraving::MasterScore* score, const ScoreCreateOptions& options) override;
     void applyOptions(engraving::MasterScore* score, const ScoreCreateOptions& options, bool createdFromTemplate = false) override;
@@ -72,11 +71,10 @@ public:
     INotationPlaybackPtr playback() const override;
     void initNotationSoloMuteState(const INotationPtr notation) override;
 
-    INotationAutomationPtr automation() const override;
-
 private:
-    friend class project::NotationProject;
-    explicit MasterNotation(project::INotationProject* project, const muse::modularity::ContextPtr& iocCtx);
+
+    friend class NotationCreator;
+    explicit MasterNotation(const muse::modularity::ContextPtr& iocCtx);
 
     void initAfterSettingScore(const engraving::MasterScore* score);
 
@@ -95,12 +93,9 @@ private:
 
     void markScoreAsNeedToSave();
 
-    project::INotationProject* m_project = nullptr;
-
     ExcerptNotationList m_excerpts;
     muse::async::Notification m_excerptsChanged;
     INotationPlaybackPtr m_notationPlayback = nullptr;
-    INotationAutomationPtr m_notationAutomation = nullptr;
     muse::async::Notification m_hasPartsChanged;
 
     mutable ExcerptNotationList m_potentialExcerpts;
@@ -114,3 +109,5 @@ private:
 
 using MasterNotationPtr = std::shared_ptr<MasterNotation>;
 }
+
+#endif // MU_NOTATION_MASTERNOTATION_H

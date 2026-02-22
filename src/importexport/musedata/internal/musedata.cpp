@@ -43,7 +43,6 @@
 #include "engraving/dom/staff.h"
 #include "engraving/dom/timesig.h"
 #include "engraving/dom/tuplet.h"
-#include "engraving/editing/transpose.h"
 
 #include "log.h"
 
@@ -65,7 +64,7 @@ void MuseData::musicalAttribute(QStringView s, Part* part)
             ke.setConcertKey(key);
             if (!v.isZero() && !score->style().styleB(Sid::concertPitch)) {
                 v.flip();
-                ke.setKey(Transpose::transposeKey(key, v));
+                ke.setKey(transposeKey(key, v));
             }
             for (Staff* staff : part->staves()) {
                 staff->setKey(curTick, ke);
@@ -189,7 +188,13 @@ void MuseData::readChord(Part*, QStringView s)
             staffIdx = s.mid(23, 1).toInt() - 1;
         }
     }
-    int pitch = clampPitch(table[step] + alter + (octave + 1) * 12);
+    int pitch = table[step] + alter + (octave + 1) * 12;
+    if (pitch < 0) {
+        pitch = 0;
+    }
+    if (pitch > 127) {
+        pitch = 127;
+    }
 
     Chord* chord = (Chord*)chordRest;
     Note* note = Factory::createNote(chord);
@@ -439,7 +444,7 @@ void MuseData::readNote(Part* part, QStringView s)
         for (const QStringView w : sl) {
             Lyrics* l = Factory::createLyrics(chord);
             l->setPlainText(diacritical(w));
-            l->setVerse(no++);
+            l->setNo(no++);
             l->setTrack(gstaff * VOICES);
             chord->add(l);
         }
@@ -541,7 +546,7 @@ void MuseData::readBackup(QStringView s)
 Measure* MuseData::createMeasure()
 {
     for (MeasureBase* mb = score->first(); mb; mb = mb->next()) {
-        if (!mb->isMeasure()) {
+        if (mb->type() != ElementType::MEASURE) {
             continue;
         }
         Measure* m = (Measure*)mb;

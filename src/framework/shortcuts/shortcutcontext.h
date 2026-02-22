@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -31,15 +31,14 @@ namespace muse::shortcuts {
 //! which do not depend on the specifics of the application.
 //! Application-specific UI contexts are declared in the `context/shortcutcontext.h` file
 
-static const std::string CTX_DISABLED("disabled");
 static const std::string CTX_ANY("any");
 static const std::string CTX_PROJECT_OPENED("project-opened");
 static const std::string CTX_PROJECT_FOCUSED("project-focused");
 
-//! NOTE special context for navigation shortcuts because the project in MuseScore has its own navigation system
+//! NOTE special context for navigation shortcuts because the project has its own navigation system
 static const std::string CTX_NOT_PROJECT_FOCUSED("not-project-focused");
 
-class IShortcutContextPriority : MODULE_CONTEXT_INTERFACE
+class IShortcutContextPriority : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IShortcutContextPriority);
 

@@ -40,7 +40,8 @@ public:
     StaffText* clone() const override { return new StaffText(*this); }
     EngravingItem* linkedClone() override;
 
-    void scanElements(std::function<void(EngravingItem*)> func) override;
+    void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all=true) override;
+    EngravingObjectList scanChildren() const override;
 
     void add(EngravingItem*) override;
     void remove(EngravingItem*) override;

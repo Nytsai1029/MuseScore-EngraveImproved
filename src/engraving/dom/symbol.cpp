@@ -165,14 +165,6 @@ PropertyValue Symbol::propertyDefault(Pid propertyId) const
     return EngravingItem::propertyDefault(propertyId);
 }
 
-void Symbol::reset()
-{
-    undoResetProperty(Pid::SYMBOLS_SIZE);
-    undoResetProperty(Pid::SYMBOL_ANGLE);
-    undoResetProperty(Pid::SCORE_FONT);
-    BSymbol::reset();
-}
-
 //---------------------------------------------------------
 //   FSymbol
 //---------------------------------------------------------

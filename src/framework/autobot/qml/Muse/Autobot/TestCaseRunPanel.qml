@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,12 +19,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
-import Muse.Autobot
+import QtQuick 2.15
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import Muse.Autobot 1.0
 
 Rectangle {
 
@@ -167,13 +165,6 @@ Rectangle {
         model: runModel.steps
 
         delegate: ListItemBlank {
-            id: delegateItem
-
-            required property string name
-            required property string status
-            required property string duration
-            required property int index
-
             anchors.left: parent ? parent.left : undefined
             anchors.right: parent ? parent.right : undefined
             height: 48
@@ -186,7 +177,7 @@ Rectangle {
                 anchors.rightMargin: 8
                 anchors.verticalCenter: parent.verticalCenter
                 horizontalAlignment: Text.AlignLeft
-                text: (delegateItem.index+1) + ": " + delegateItem.name
+                text: (model.index+1) + ": " + modelData.name
             }
 
             StyledTextLabel {
@@ -198,12 +189,12 @@ Rectangle {
                 anchors.rightMargin: 8
                 horizontalAlignment: Text.AlignLeft
                 text: {
-                    var duration = delegateItem.duration
+                    var duration = modelData.duration
                     if (duration !== "") {
-                        return delegateItem.status + " [" + duration + "]"
+                        return modelData.status + " [" + duration + "]"
                     }
 
-                    delegateItem.status
+                    modelData.status
                 }
             }
         }

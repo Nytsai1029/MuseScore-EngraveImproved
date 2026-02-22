@@ -35,7 +35,7 @@ static std::vector<int> pitchSteps(const Note* note)
 {
     const Glissando* glissando = nullptr;
     for (const Spanner* spanner : note->spannerFor()) {
-        if (spanner->isGlissando()) {
+        if (spanner->type() == ElementType::GLISSANDO) {
             glissando = toGlissando(spanner);
             break;
         }
@@ -93,7 +93,7 @@ void GlissandosRenderer::renderDiscreteGlissando(const Note* note, NominalNoteCt
                                      noteCtx.duration,
                                      noteCtx.articulations);
 
-        result.emplace_back(buildNoteEvent(noteCtx));
+        result.emplace_back(buildNoteEvent(std::move(noteCtx)));
     }
 }
 

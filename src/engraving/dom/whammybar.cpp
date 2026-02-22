@@ -24,44 +24,38 @@
 
 #include "score.h"
 #include "system.h"
-#include "text.h"
 
 using namespace mu;
 using namespace mu::engraving;
 
 namespace mu::engraving {
 static const ElementStyle whammyBarStyle {
-    { Sid::whammyBarFontFace,                      Pid::BEGIN_FONT_FACE },
-    { Sid::whammyBarFontFace,                      Pid::CONTINUE_FONT_FACE },
-    { Sid::whammyBarFontFace,                      Pid::END_FONT_FACE },
-    { Sid::whammyBarFontSize,                      Pid::BEGIN_FONT_SIZE },
-    { Sid::whammyBarFontSize,                      Pid::CONTINUE_FONT_SIZE },
-    { Sid::whammyBarFontSize,                      Pid::END_FONT_SIZE },
-    { Sid::whammyBarFontStyle,                     Pid::BEGIN_FONT_STYLE },
-    { Sid::whammyBarFontStyle,                     Pid::CONTINUE_FONT_STYLE },
-    { Sid::whammyBarFontStyle,                     Pid::END_FONT_STYLE },
-    { Sid::whammyBarTextAlign,                     Pid::BEGIN_TEXT_ALIGN },
-    { Sid::whammyBarTextAlign,                     Pid::CONTINUE_TEXT_ALIGN },
-    { Sid::whammyBarTextAlign,                     Pid::END_TEXT_ALIGN },
-    { Sid::whammyBarPosition,                      Pid::BEGIN_TEXT_POSITION },
-    { Sid::whammyBarPosition,                      Pid::CONTINUE_TEXT_POSITION },
-    { Sid::whammyBarPosition,                      Pid::END_TEXT_POSITION },
-    { Sid::whammyBarHookHeight,                    Pid::BEGIN_HOOK_HEIGHT },
-    { Sid::whammyBarHookHeight,                    Pid::END_HOOK_HEIGHT },
-    { Sid::whammyBarLineStyle,                     Pid::LINE_STYLE },
-    { Sid::whammyBarDashLineLen,                   Pid::DASH_LINE_LEN },
-    { Sid::whammyBarDashGapLen,                    Pid::DASH_GAP_LEN },
-    { Sid::whammyBarFontSpatiumDependent,          Pid::TEXT_SIZE_SPATIUM_DEPENDENT },
-    { Sid::whammyBarEndHookType,                   Pid::END_HOOK_TYPE },
-    { Sid::whammyBarLineWidth,                     Pid::LINE_WIDTH },
-    { Sid::whammyBarText,                          Pid::BEGIN_TEXT },
+    { Sid::letRingFontFace,                      Pid::BEGIN_FONT_FACE },
+    { Sid::letRingFontFace,                      Pid::CONTINUE_FONT_FACE },
+    { Sid::letRingFontFace,                      Pid::END_FONT_FACE },
+    { Sid::letRingFontSize,                      Pid::BEGIN_FONT_SIZE },
+    { Sid::letRingFontSize,                      Pid::CONTINUE_FONT_SIZE },
+    { Sid::letRingFontSize,                      Pid::END_FONT_SIZE },
+    { Sid::letRingFontStyle,                     Pid::BEGIN_FONT_STYLE },
+    { Sid::letRingFontStyle,                     Pid::CONTINUE_FONT_STYLE },
+    { Sid::letRingFontStyle,                     Pid::END_FONT_STYLE },
+    { Sid::letRingTextAlign,                     Pid::BEGIN_TEXT_ALIGN },
+    { Sid::letRingTextAlign,                     Pid::CONTINUE_TEXT_ALIGN },
+    { Sid::letRingTextAlign,                     Pid::END_TEXT_ALIGN },
+    { Sid::letRingHookHeight,                    Pid::BEGIN_HOOK_HEIGHT },
+    { Sid::letRingHookHeight,                    Pid::END_HOOK_HEIGHT },
+    { Sid::letRingLineStyle,                     Pid::LINE_STYLE },
+    { Sid::letRingDashLineLen,                   Pid::DASH_LINE_LEN },
+    { Sid::letRingDashGapLen,                    Pid::DASH_GAP_LEN },
+    { Sid::letRingFontSpatiumDependent,          Pid::TEXT_SIZE_SPATIUM_DEPENDENT },
+    { Sid::letRingEndHookType,                   Pid::END_HOOK_TYPE },
+    { Sid::letRingLineWidth,                     Pid::LINE_WIDTH },
+    { Sid::ottava8VAPlacement,                   Pid::PLACEMENT }
 };
 
 WhammyBarSegment::WhammyBarSegment(WhammyBar* sp, System* parent)
     : TextLineBaseSegment(ElementType::WHAMMY_BAR_SEGMENT, sp, parent, ElementFlag::MOVABLE | ElementFlag::ON_STAFF)
 {
-    m_text->setTextStyleType(propertyDefault(Pid::TEXT_STYLE).value<TextStyleType>());
-    m_endText->setTextStyleType(propertyDefault(Pid::TEXT_STYLE).value<TextStyleType>());
 }
 
 //---------------------------------------------------------
@@ -106,10 +100,13 @@ PropertyValue WhammyBar::propertyDefault(Pid propertyId) const
 {
     switch (propertyId) {
     case Pid::LINE_WIDTH:
-        return style().styleV(Sid::whammyBarLineWidth);
+        return style().styleV(Sid::letRingLineWidth);
+
+    case Pid::ALIGN:
+        return Align(AlignH::LEFT, AlignV::BASELINE);
 
     case Pid::LINE_STYLE:
-        return style().styleV(Sid::whammyBarLineStyle);
+        return style().styleV(Sid::letRingLineStyle);
 
     case Pid::LINE_VISIBLE:
         return true;
@@ -119,11 +116,11 @@ PropertyValue WhammyBar::propertyDefault(Pid propertyId) const
         return PropertyValue::fromValue(PointF(0, 0));
 
     case Pid::BEGIN_FONT_STYLE:
-        return style().styleV(Sid::whammyBarFontStyle);
+        return style().styleV(Sid::letRingFontStyle);
 
     case Pid::BEGIN_TEXT:
     case Pid::CONTINUE_TEXT:
-        return style().styleV(Sid::whammyBarText).value<String>(); // TODO: fix the style
+        return PropertyValue::fromValue("w/bar"); // TODO: fix the style
 
     case Pid::END_TEXT:
         return "";
@@ -135,19 +132,6 @@ PropertyValue WhammyBar::propertyDefault(Pid propertyId) const
     case Pid::CONTINUE_TEXT_PLACE:
     case Pid::END_TEXT_PLACE:
         return TextPlace::AUTO;
-
-    case Pid::TEXT_STYLE:
-        return TextStyleType::WHAMMY_BAR;
-
-    case Pid::BEGIN_FILLED_ARROW_HEIGHT:   // No arrow endings for whammy bar
-    case Pid::BEGIN_FILLED_ARROW_WIDTH:
-    case Pid::END_FILLED_ARROW_HEIGHT:
-    case Pid::END_FILLED_ARROW_WIDTH:
-    case Pid::BEGIN_LINE_ARROW_HEIGHT:
-    case Pid::BEGIN_LINE_ARROW_WIDTH:
-    case Pid::END_LINE_ARROW_HEIGHT:
-    case Pid::END_LINE_ARROW_WIDTH:
-        return 0.0;
 
     default:
         return TextLineBase::propertyDefault(propertyId);
@@ -164,22 +148,22 @@ Sid WhammyBar::getPropertyStyle(Pid id) const
     case Pid::PLACEMENT:
         return Sid::ottava8VAPlacement; // TODO: fix the style
     case Pid::BEGIN_FONT_FACE:
-        return Sid::whammyBarFontFace;
+        return Sid::letRingFontFace;
     case Pid::BEGIN_FONT_SIZE:
     case Pid::CONTINUE_FONT_SIZE:
     case Pid::END_FONT_SIZE:
-        return Sid::whammyBarFontSize;
+        return Sid::letRingFontSize;
     case Pid::BEGIN_FONT_STYLE:
     case Pid::CONTINUE_FONT_STYLE:
     case Pid::END_FONT_STYLE:
-        return Sid::whammyBarFontStyle;
+        return Sid::letRingFontStyle;
     case Pid::BEGIN_TEXT_ALIGN:
     case Pid::CONTINUE_TEXT_ALIGN:
     case Pid::END_TEXT_ALIGN:
-        return Sid::whammyBarTextAlign;
+        return Sid::letRingTextAlign;
     case Pid::BEGIN_HOOK_HEIGHT:
     case Pid::END_HOOK_HEIGHT:
-        return Sid::whammyBarHookHeight;
+        return Sid::letRingHookHeight;
     default:
         break;
     }

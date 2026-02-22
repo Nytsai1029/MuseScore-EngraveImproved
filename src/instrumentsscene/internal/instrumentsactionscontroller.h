@@ -19,31 +19,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_INSTRUMENTSSCENE_INSTRUMENTSACTIONSCONTROLLER_H
+#define MU_INSTRUMENTSSCENE_INSTRUMENTSACTIONSCONTROLLER_H
 
 #include "actions/actionable.h"
 #include "global/async/asyncable.h"
 
 #include "modularity/ioc.h"
 #include "actions/iactionsdispatcher.h"
-#include "notationscene/iselectinstrumentscenario.h"
+#include "notation/iselectinstrumentscenario.h"
 #include "context/iglobalcontext.h"
 
 namespace mu::instrumentsscene {
-class InstrumentsActionsController : public muse::actions::Actionable, public muse::async::Asyncable, public muse::Contextable
+class InstrumentsActionsController : public muse::actions::Actionable, public muse::async::Asyncable
 {
-    muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher = { this };
-    muse::ContextInject<notation::ISelectInstrumentsScenario> selectInstrumentsScenario = { this };
-    muse::ContextInject<context::IGlobalContext> context = { this };
+    INJECT(muse::actions::IActionsDispatcher, dispatcher)
+    INJECT(notation::ISelectInstrumentsScenario, selectInstrumentsScenario)
+    INJECT(context::IGlobalContext, context)
 
 public:
-
-    InstrumentsActionsController(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx)
-    {
-    }
-
     virtual ~InstrumentsActionsController() = default;
 
     bool canReceiveAction(const muse::actions::ActionCode&) const override;
@@ -55,3 +49,5 @@ private:
     void changeInstrument();
 };
 }
+
+#endif // MU_INSTRUMENTSSCENE_INSTRUMENTSACTIONSCONTROLLER_H

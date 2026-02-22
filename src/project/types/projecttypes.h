@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_PROJECT_PROJECTTYPES_H
+#define MU_PROJECT_PROJECTTYPES_H
 
 #include <variant>
 
@@ -52,16 +52,6 @@ struct ProjectCreateOptions
     notation::ScoreCreateOptions scoreOptions;
 };
 
-struct OpenParams {
-    OpenParams() {}
-
-    muse::io::path_t stylePath;
-    bool disablePlayback = false;
-    bool forceMode = false;
-    bool forcePageMode = false;
-    bool unrollRepeats = false;
-};
-
 struct MigrationOptions
 {
     // common
@@ -86,18 +76,12 @@ enum class SaveMode
     SavePage,
 };
 
-namespace _SaveLocationType {
-Q_NAMESPACE;
-enum class Type
+enum class SaveLocationType
 {
     Undefined,
     Local,
     Cloud
 };
-Q_ENUM_NS(Type)
-}
-
-using SaveLocationType = _SaveLocationType::Type;
 
 struct CloudProjectInfo {
     QUrl sourceUrl;
@@ -308,32 +292,36 @@ struct ProjectBeingDownloaded {
     muse::ProgressPtr progress;
 };
 
-namespace _GenerateAudioTimePeriodType {
-Q_NAMESPACE;
-
-enum class Type {
-    Never = 0,
-    Always,
-    AfterCertainNumberOfSaves
-};
-Q_ENUM_NS(Type)
-}
-
-using GenerateAudioTimePeriodType = _GenerateAudioTimePeriodType::Type;
-
-namespace _MigrationType {
-Q_NAMESPACE;
-
-enum class Type
+class GenerateAudioTimePeriod
 {
-    Unknown,
-    Pre_3_6,
-    Ver_3_6
-};
-Q_ENUM_NS(Type)
-}
+    Q_GADGET
 
-using MigrationType = _MigrationType::Type;
+public:
+    enum class Type {
+        Never = 0,
+        Always,
+        AfterCertainNumberOfSaves
+    };
+    Q_ENUM(Type)
+};
+
+using GenerateAudioTimePeriodType = GenerateAudioTimePeriod::Type;
+
+class Migration
+{
+    Q_GADGET
+
+public:
+    enum class Type
+    {
+        Unknown,
+        Pre_3_6,
+        Ver_3_6
+    };
+    Q_ENUM(Type)
+};
+
+using MigrationType = Migration::Type;
 
 inline std::vector<MigrationType> allMigrationTypes()
 {
@@ -345,3 +333,5 @@ inline std::vector<MigrationType> allMigrationTypes()
     return types;
 }
 }
+
+#endif // MU_PROJECT_PROJECTTYPES_H

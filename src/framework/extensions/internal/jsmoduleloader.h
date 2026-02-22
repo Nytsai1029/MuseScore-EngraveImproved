@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -32,13 +32,13 @@
 
 namespace muse::extensions {
 class ScriptEngine;
-class JsModuleLoader : public QObject, public muse::Contextable
+class JsModuleLoader : public QObject, public muse::Injectable
 {
     Q_OBJECT
     Q_PROPERTY(QJSValue exports READ exports WRITE setExports)
 
-    GlobalInject<IExtensionsConfiguration> configuration;
-    GlobalInject<io::IFileSystem> fileSystem;
+    Inject<IExtensionsConfiguration> configuration = { this };
+    Inject<io::IFileSystem> fileSystem = { this };
 
 public:
     explicit JsModuleLoader(const modularity::ContextPtr& iocCtx, QObject* parent = 0);

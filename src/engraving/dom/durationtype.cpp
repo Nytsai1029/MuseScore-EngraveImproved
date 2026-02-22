@@ -477,8 +477,6 @@ TDuration& TDuration::operator+=(const TDuration& t)
 
 //---------------------------------------------------------
 //   toDurationList
-//    - l is in local time
-//    - returned durations are in local time
 //---------------------------------------------------------
 
 std::vector<TDuration> toDurationList(Fraction l, bool useDots, int maxDots, bool printRestRemains)
@@ -504,24 +502,17 @@ std::vector<TDuration> toDurationList(Fraction l, bool useDots, int maxDots, boo
 
 //---------------------------------------------------------
 //   toRhythmicDurationList
-//    - l and rtickStart are in local (stretched) time
-//    - returned durations are in local time
 //---------------------------------------------------------
 
 std::vector<TDuration> toRhythmicDurationList(const Fraction& l, bool isRest, Fraction rtickStart,
-                                              const TimeSigFrac& nominal, Measure* msr, int maxDots,
-                                              const Fraction& timeStretch)
+                                              const TimeSigFrac& nominal, Measure* msr, int maxDots)
 {
-    IF_ASSERT_FAILED(l > Fraction(0, 1)) {
-        return {};
-    }
-
     std::vector<TDuration> dList;
     dList.reserve(8);
 
     if (msr->isAnacrusis()) {
-        rtickStart += msr->anacrusisOffset() * timeStretch;
-    } else if (isRest && l == msr->ticks() * timeStretch) {
+        rtickStart += msr->anacrusisOffset();
+    } else if (isRest && l == msr->ticks()) {
         TDuration d = TDuration(DurationType::V_MEASURE);
         dList.push_back(d);
         return dList;

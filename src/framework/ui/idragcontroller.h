@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -36,7 +36,7 @@ struct DragData {
 
 using DragDataPtr = std::shared_ptr<DragData>;
 
-class IDragController : MODULE_CONTEXT_INTERFACE
+class IDragController : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IDragController)
 

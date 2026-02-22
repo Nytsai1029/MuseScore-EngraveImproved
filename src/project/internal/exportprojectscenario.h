@@ -26,7 +26,7 @@
 
 #include "iexportprojectscenario.h"
 #include "iprojectconfiguration.h"
-#include "interactive/iinteractive.h"
+#include "iinteractive.h"
 #include "inotationwritersregister.h"
 #include "importexport/imagesexport/iimagesexportconfiguration.h"
 #include "context/iglobalcontext.h"
@@ -34,29 +34,23 @@
 #include "async/asyncable.h"
 
 namespace mu::project {
-class ExportProjectScenario : public IExportProjectScenario, public muse::async::Asyncable, public muse::Contextable
+class ExportProjectScenario : public IExportProjectScenario, public muse::async::Asyncable
 {
-    muse::GlobalInject<muse::io::IFileSystem> fileSystem;
-    muse::GlobalInject<IProjectConfiguration> configuration;
-    muse::GlobalInject<iex::imagesexport::IImagesExportConfiguration> imagesExportConfiguration;
-    muse::ContextInject<muse::IInteractive> interactive = { this };
-    muse::ContextInject<INotationWritersRegister> writers = { this };
-    muse::ContextInject<context::IGlobalContext> context = { this };
+    INJECT(IProjectConfiguration, configuration)
+    INJECT(muse::IInteractive, interactive)
+    INJECT(INotationWritersRegister, writers)
+    INJECT(iex::imagesexport::IImagesExportConfiguration, imagesExportConfiguration)
+    INJECT(context::IGlobalContext, context)
+    INJECT(muse::io::IFileSystem, fileSystem)
 
 public:
-
-    ExportProjectScenario(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx)
-    {
-    }
-
     std::vector<INotationWriter::UnitType> supportedUnitTypes(const ExportType& exportType) const override;
 
     muse::RetVal<muse::io::path_t> askExportPath(const notation::INotationPtrList& notations, const ExportType& exportType,
                                                  INotationWriter::UnitType unitType = INotationWriter::UnitType::PER_PART,
                                                  muse::io::path_t defaultPath = "") const override;
 
-    bool exportScores(notation::INotationPtrList notations, const muse::io::path_t destinationPath,
+    bool exportScores(const notation::INotationPtrList& notations, const muse::io::path_t destinationPath,
                       INotationWriter::UnitType unitType = INotationWriter::UnitType::PER_PART,
                       bool openDestinationFolderOnExport = false) const override;
 

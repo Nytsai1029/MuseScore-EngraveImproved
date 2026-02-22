@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -30,7 +30,7 @@
 
 namespace muse::actions {
 class Actionable;
-class IActionsDispatcher : MODULE_CONTEXT_INTERFACE
+class IActionsDispatcher : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IActionsDispatcher)
 public:
@@ -110,7 +110,7 @@ public:
     template<typename T>
     void reg(Actionable* client, const ActionQuery& query, T* caller, void (T::* func)())
     {
-        reg(client, query, [caller, func](const ActionQuery&) { (caller->*func)(); });
+        reg(client, query.toString(), [caller, func](const ActionQuery&) { (caller->*func)(); });
     }
 };
 }

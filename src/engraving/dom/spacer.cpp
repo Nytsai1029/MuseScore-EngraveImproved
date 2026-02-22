@@ -22,11 +22,12 @@
 
 #include "spacer.h"
 
-#include "../editing/editdata.h"
-#include "../editing/elementeditdata.h"
+#include "draw/types/pen.h"
 
 #include "measure.h"
 #include "score.h"
+
+#include "log.h"
 
 using namespace mu;
 using namespace muse::draw;
@@ -41,7 +42,7 @@ Spacer::Spacer(Measure* parent)
     : EngravingItem(ElementType::SPACER, parent)
 {
     m_spacerType = SpacerType::UP;
-    m_gap = 0.0_sp;
+    m_gap = Spatium(0.0);
     m_z = -10; // Ensure behind notation
 }
 
@@ -59,36 +60,38 @@ Spacer::Spacer(const Spacer& s)
 void Spacer::setGap(Spatium sp)
 {
     m_gap = sp;
+    renderer()->layoutItem(this);
 }
 
 //---------------------------------------------------------
-//   startDragGrip
+//   startEditDrag
 //---------------------------------------------------------
 
-void Spacer::startDragGrip(EditData& ed)
+void Spacer::startEditDrag(EditData& ed)
 {
     ElementEditDataPtr eed = ed.getData(this);
     eed->pushProperty(Pid::SPACE);
 }
 
 //---------------------------------------------------------
-//   dragGrip
+//   editDrag
 //---------------------------------------------------------
 
-void Spacer::dragGrip(EditData& ed)
+void Spacer::editDrag(EditData& ed)
 {
     double s = ed.delta.y();
 
     switch (spacerType()) {
     case SpacerType::DOWN:
     case SpacerType::FIXED:
-        m_gap += Spatium::fromAbsolute(s, spatium());
+        m_gap += Spatium::fromMM(s, spatium());
         break;
     case SpacerType::UP:
-        m_gap -= Spatium::fromAbsolute(s, spatium());
+        m_gap -= Spatium::fromMM(s, spatium());
         break;
     }
-    m_gap = std::max(m_gap, 2.0_sp);
+    m_gap = std::max(m_gap, Spatium(2.0));
+    renderer()->layoutItem(this);
     triggerLayout();
 }
 
@@ -142,6 +145,7 @@ bool Spacer::setProperty(Pid propertyId, const PropertyValue& v)
         }
         break;
     }
+    renderer()->layoutItem(this);
     triggerLayout();
     setGenerated(false);
     return true;
@@ -155,7 +159,7 @@ PropertyValue Spacer::propertyDefault(Pid id) const
 {
     switch (id) {
     case Pid::SPACE:
-        return 0.0_sp;
+        return Spatium(0.0);
     default:
         return EngravingItem::propertyDefault(id);
     }

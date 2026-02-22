@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,10 +19,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
+import "internal"
 
 Item {
     id: root
@@ -75,7 +74,7 @@ Item {
     Loader {
         id: loader
 
-        sourceComponent: root.isHorizontal ? horizontalView : verticalView
+        sourceComponent: isHorizontal ? horizontalView : verticalView
     }
 
     Component {
@@ -90,11 +89,6 @@ Item {
                 model: Boolean(root.model) ? privateProperties.modelSections() : []
 
                 Row {
-                    id: delegateRow
-
-                    required property var modelData
-                    required property int index
-
                     spacing: privateProperties.spacingAfterSection
 
                     height: root.sectionHeight
@@ -104,8 +98,6 @@ Item {
                         height: root.sectionHeight
 
                         sectionDelegate: root.sectionDelegate
-                        itemModel: delegateRow.modelData
-                        index: delegateRow.index
                     }
 
                     GridViewDelegate {
@@ -115,7 +107,6 @@ Item {
 
                         itemDelegate: root.itemDelegate
                         sectionRole: root.sectionRole
-                        sectionValue: delegateRow.modelData
 
                         cellWidth: root.cellWidth
                         cellHeight: root.cellHeight
@@ -142,11 +133,6 @@ Item {
                 model: Boolean(root.model) ? privateProperties.modelSections() : []
 
                 Column {
-                    id: delegateColumn
-
-                    required property var modelData
-                    required property int index
-
                     spacing: privateProperties.spacingAfterSection
 
                     width: root.sectionWidth
@@ -156,8 +142,6 @@ Item {
                         height: root.sectionHeight
 
                         sectionDelegate: root.sectionDelegate
-                        itemModel: delegateColumn.modelData
-                        index: delegateColumn.index
                     }
 
                     GridViewDelegate {
@@ -167,7 +151,6 @@ Item {
 
                         itemDelegate: root.itemDelegate
                         sectionRole: root.sectionRole
-                        sectionValue: delegateColumn.modelData
 
                         cellWidth: root.cellWidth
                         cellHeight: root.cellHeight

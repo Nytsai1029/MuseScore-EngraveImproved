@@ -26,13 +26,13 @@
 
 #include "containers.h"
 
-#include "../editing/mscoreview.h"
-
 #include "anchors.h"
 #include "barline.h"
 #include "chord.h"
 #include "dynamic.h"
+#include "lyrics.h"
 #include "measure.h"
+#include "mscoreview.h"
 #include "note.h"
 #include "page.h"
 #include "part.h"
@@ -198,10 +198,10 @@ void LineSegment::startDrag(EditData& ed)
 }
 
 //---------------------------------------------------------
-//   startDragGrip
+//   startEditDrag
 //---------------------------------------------------------
 
-void LineSegment::startDragGrip(EditData& ed)
+void LineSegment::startEditDrag(EditData& ed)
 {
     ElementEditDataPtr eed = ed.getData(this);
     if (!eed) {
@@ -261,11 +261,11 @@ bool LineSegment::edit(EditData& ed)
         } else {
             s2 = MoveElementAnchors::findNewAnchorSegmentForLine(this, ed, s2);
         }
-        if (!s1 || !s2 || s1->tick() >= s2->tick()) {
+        if (s1 == 0 || s2 == 0 || s1->tick() >= s2->tick()) {
             return true;
         }
 
-        undoMoveStartEndAndSnappedItems(ed, moveStart, moveEnd, s1, s2);
+        undoMoveStartEndAndSnappedItems(moveStart, moveEnd, s1, s2);
 
         EditTimeTickAnchors::updateAnchors(this);
     }
@@ -357,18 +357,6 @@ bool LineSegment::edit(EditData& ed)
                 if (m2->nextMeasure()) {
                     m2 = m2->nextMeasure();
                 }
-            }
-        } else if (ed.key == Key_Home) {
-            if (moveStart) {
-                m1 = m1->system()->firstMeasure();
-            } else if (moveEnd) {
-                m2 = m2->system()->firstMeasure();
-            }
-        } else if (ed.key == Key_End) {
-            if (moveStart) {
-                m1 = m1->system()->lastMeasure();
-            } else if (moveEnd) {
-                m2 = m2->system()->lastMeasure();
             }
         }
         if (m1->tick() > m2->tick()) {
@@ -596,6 +584,14 @@ void LineSegment::rebaseAnchors(EditData& ed, Grip grip)
         return;
     }
 
+    if (isTrillSegment()) {
+        EngravingItem* startElement = spanner()->startElement();
+        if (startElement && startElement->isChord() && toChord(startElement)->staffMove() != 0) {
+            // This trill is on a cross-staff chord. Don't try to rebase its anchors when dragging.
+            return;
+        }
+    }
+
     // don't change anchors on keyboard adjustment or if Ctrl is pressed
     // (Ctrl+Left/Right is handled elsewhere!)
     if (ed.key == Key_Left || ed.key == Key_Right || ed.key == Key_Up || ed.key == Key_Down || ed.modifiers & ControlModifier) {
@@ -690,7 +686,7 @@ void LineSegment::rebaseAnchors(EditData& ed, Grip grip)
         PointF oldStartPos = line()->linePos(Grip::START, &sys);
         PointF oldEndPos = line()->linePos(Grip::END, &sys);
 
-        undoMoveStartEndAndSnappedItems(ed, true, true, seg1, seg2);
+        undoMoveStartEndAndSnappedItems(true, true, seg1, seg2);
 
         rebaseOffsetsOnAnchorChanged(Grip::START, oldStartPos, sys);
         rebaseOffsetsOnAnchorChanged(Grip::END, oldEndPos, sys);
@@ -701,10 +697,10 @@ void LineSegment::rebaseAnchors(EditData& ed, Grip grip)
 }
 
 //---------------------------------------------------------
-//   dragGrip
+//   editDrag
 //---------------------------------------------------------
 
-void LineSegment::dragGrip(EditData& ed)
+void LineSegment::editDrag(EditData& ed)
 {
     // Only for resizing according to the diagonal properties
     const PointF deltaResize(ed.evtDelta.x(), line()->diagonal() ? ed.evtDelta.y() : 0.0);
@@ -736,8 +732,7 @@ void LineSegment::dragGrip(EditData& ed)
     }
     break;
     default:
-        UNREACHABLE;
-        return;
+        break;
     }
     if (line()->anchor() == Spanner::Anchor::NOTE && ed.isStartEndGrip()) {
         //
@@ -793,7 +788,7 @@ void LineSegment::localSpatiumChanged(double ov, double nv)
 //   propertyDelegate
 //---------------------------------------------------------
 
-EngravingObject* LineSegment::propertyDelegate(Pid pid) const
+EngravingItem* LineSegment::propertyDelegate(Pid pid)
 {
     if (pid == Pid::DIAGONAL
         || pid == Pid::COLOR
@@ -832,7 +827,7 @@ RectF LineSegment::drag(EditData& ed)
 Spatium LineSegment::lineWidth() const
 {
     if (!line()) {
-        return 0.0_sp;
+        return Spatium(0.0);
     }
 
     return line()->lineWidth();
@@ -847,13 +842,12 @@ double LineSegment::absoluteFromSpatium(const Spatium& sp) const
     return line()->absoluteFromSpatium(sp);
 }
 
-void LineSegment::undoMoveStartEndAndSnappedItems(EditData& ed, bool moveStart, bool moveEnd, Segment* s1, Segment* s2)
+void LineSegment::undoMoveStartEndAndSnappedItems(bool moveStart, bool moveEnd, Segment* s1, Segment* s2)
 {
-    bool moveSnapped = !(ed.modifiers & AltModifier);
     SLine* thisLine = line();
     if (moveStart) {
         Fraction tickDiff = s1->tick() - thisLine->tick();
-        if (EngravingItem* itemSnappedBefore = ldata()->itemSnappedBefore(); itemSnappedBefore && moveSnapped) {
+        if (EngravingItem* itemSnappedBefore = ldata()->itemSnappedBefore()) {
             if (itemSnappedBefore->isTextBase()) {
                 MoveElementAnchors::moveSegment(itemSnappedBefore, s1, tickDiff);
             } else if (itemSnappedBefore->isLineSegment()) {
@@ -866,7 +860,7 @@ void LineSegment::undoMoveStartEndAndSnappedItems(EditData& ed, bool moveStart, 
     }
     if (moveEnd) {
         Fraction tickDiff = s2->tick() - thisLine->tick2();
-        if (EngravingItem* itemSnappedAfter = thisLine->backSegment()->ldata()->itemSnappedAfter(); itemSnappedAfter && moveSnapped) {
+        if (EngravingItem* itemSnappedAfter = thisLine->backSegment()->ldata()->itemSnappedAfter()) {
             if (itemSnappedAfter->isTextBase()) {
                 MoveElementAnchors::moveSegment(itemSnappedAfter, s2, tickDiff);
             } else if (itemSnappedAfter->isLineSegment()) {
@@ -888,7 +882,7 @@ SLine::SLine(const ElementType& type, EngravingItem* parent, ElementFlags f)
 {
     setTrack(0);
     m_lineColor = configuration()->defaultColor();
-    m_lineWidth = 0.15_sp;
+    m_lineWidth = Spatium(0.15);
 }
 
 SLine::SLine(const SLine& s)
@@ -1011,11 +1005,11 @@ bool SLine::setProperty(Pid id, const PropertyValue& v)
         m_diagonal = v.toBool();
         break;
     case Pid::COLOR:
-        setLineColor(v.value<Color>());
+        m_lineColor = v.value<Color>();
         break;
     case Pid::LINE_WIDTH:
-        if (v.type() == P_TYPE::ABSOLUTE) {
-            m_lineWidth = Spatium::fromAbsolute(v.value<double>(), spatium());
+        if (v.type() == P_TYPE::MILLIMETRE) {
+            m_lineWidth = Spatium::fromMM(v.value<Millimetre>(), spatium());
         } else if (v.type() == P_TYPE::SPATIUM) {
             m_lineWidth = v.value<Spatium>();
         }
@@ -1051,7 +1045,7 @@ PropertyValue SLine::propertyDefault(Pid pid) const
         if (propertyFlags(pid) != PropertyFlags::NOSTYLE) {
             return Spanner::propertyDefault(pid);
         }
-        return 0.15_sp;
+        return Spatium(0.15);
     case Pid::LINE_STYLE:
         if (propertyFlags(pid) != PropertyFlags::NOSTYLE) {
             return Spanner::propertyDefault(pid);
@@ -1129,7 +1123,7 @@ Note* SLine::guessFinalNote(Note* startNote)
         return 0;
     }
 
-    Segment* segm = chord->score()->tick2rightSegment(chord->endTick());
+    Segment* segm = chord->score()->tick2rightSegment(chord->tick() + chord->actualTicks());
     while (segm && !segm->isChordRestType()) {
         segm = segm->next1();
     }

@@ -20,14 +20,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-pragma ComponentBehavior: Bound
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
-import QtQuick
-import QtQuick.Controls
-
-import Muse.Ui
-import Muse.UiComponents
-import MuseScore.Braille
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import MuseScore.Braille 1.0
 
 StyledFlickable {
     id: root
@@ -202,11 +201,11 @@ StyledFlickable {
         }
 
         Component.onCompleted: {
-            shortcutOverrideModel.init()
+            textInputModel.init()
         }
 
-        ShortcutOverrideModel {
-            id: shortcutOverrideModel
+        TextInputModel {
+            id: textInputModel
         }
 
         Keys.onShortcutOverride: function(event) {
@@ -233,7 +232,7 @@ StyledFlickable {
                     || event.key === Qt.Key_QuoteLeft) {
                 //! NOTE: We need to handle Tab key here because https://doc.qt.io/qt-5/qml-qtquick-controls2-textarea.html#tab-focus
                 //!       and we don't use qt navigation system
-                if (shortcutOverrideModel.handleShortcut(event.key, event.modifiers)) {
+                if (textInputModel.handleShortcut(event.key, event.modifiers)) {
                     brailleTextArea.focus = false;
                     event.accepted = true;
                     return;

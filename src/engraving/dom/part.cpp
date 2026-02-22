@@ -66,7 +66,7 @@ Part::Part(Score* s)
 
 void Part::initFromInstrTemplate(const InstrumentTemplate* t)
 {
-    m_partName = t->longName.toString();
+    m_partName = !t->longNames.empty() ? t->longNames.front().name() : t->trackName;
     setInstrument(Instrument::fromTemplate(t));
 }
 
@@ -183,6 +183,20 @@ void Part::appendStaff(Staff* staff)
 void Part::clearStaves()
 {
     m_staves.clear();
+}
+
+//---------------------------------------------------------
+//   setLongNames
+//---------------------------------------------------------
+
+void Part::setLongNames(std::list<StaffName>& name, const Fraction& tick)
+{
+    instrument(tick)->setLongNames(StaffNameList(name));
+}
+
+void Part::setShortNames(std::list<StaffName>& name, const Fraction& tick)
+{
+    instrument(tick)->setShortNames(StaffNameList(name));
 }
 
 //---------------------------------------------------------
@@ -480,7 +494,8 @@ String Part::instrumentId(const Fraction& tick) const
 
 String Part::longName(const Fraction& tick) const
 {
-    return instrument(tick)->longName().toString();
+    const std::list<StaffName>& nl = longNames(tick);
+    return nl.empty() ? u"" : nl.front().name();
 }
 
 //---------------------------------------------------------
@@ -498,35 +513,26 @@ String Part::instrumentName(const Fraction& tick) const
 
 String Part::shortName(const Fraction& tick) const
 {
-    return instrument(tick)->shortName().toString();
+    const std::list<StaffName>& nl = shortNames(tick);
+    return nl.empty() ? u"" : nl.front().name();
 }
 
 //---------------------------------------------------------
 //   setLongName
 //---------------------------------------------------------
 
-void Part::setLongName(const String& s, const Fraction& tick)
+void Part::setLongName(const String& s)
 {
-    instrument(tick)->setLongName(s);
-}
-
-void Part::setLongName(const StaffName& n,  const Fraction& tick)
-{
-    instrument(tick)->setLongName(n);
+    instrument()->setLongName(s);
 }
 
 //---------------------------------------------------------
 //   setShortName
 //---------------------------------------------------------
 
-void Part::setShortName(const String& s, const Fraction& tick)
+void Part::setShortName(const String& s)
 {
-    instrument(tick)->setShortName(s);
-}
-
-void Part::setShortName(const StaffName& n, const Fraction& tick)
-{
-    instrument(tick)->setShortName(n);
+    instrument()->setShortName(s);
 }
 
 //---------------------------------------------------------

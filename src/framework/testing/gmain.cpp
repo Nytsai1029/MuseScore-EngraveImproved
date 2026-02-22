@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -37,9 +37,6 @@
 
 GTEST_API_ int main(int argc, char** argv)
 {
-    QCoreApplication::setOrganizationName("MuseScore");
-    QCoreApplication::setOrganizationDomain("musescore.org");
-
     QGuiApplication app(argc, argv);
 
     qputenv("QML_DISABLE_DISK_CACHE", "true");

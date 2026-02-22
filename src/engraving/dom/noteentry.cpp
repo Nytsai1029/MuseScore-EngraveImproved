@@ -23,10 +23,6 @@
 #include <tuple>
 
 #include "translation.h"
-
-#include "../editing/editmeasures.h"
-#include "../editing/inserttime.h"
-#include "../editing/transpose.h"
 #include "infrastructure/messagebox.h"
 
 #include "accidental.h"
@@ -39,7 +35,6 @@
 #include "measure.h"
 #include "measurerepeat.h"
 #include "navigate.h"
-#include "note.h"
 #include "part.h"
 #include "range.h"
 #include "score.h"
@@ -47,8 +42,8 @@
 #include "staff.h"
 #include "stringdata.h"
 #include "tie.h"
-#include "tremolotwochord.h"
 #include "tuplet.h"
+#include "undo.h"
 #include "utils.h"
 
 #include "log.h"
@@ -73,16 +68,12 @@ NoteVal Score::noteValForPosition(Position pos, AccidentalType at, bool& error)
     ClefType clef   = st->clef(tick);
     const Instrument* instr = st->part()->instrument(s->tick());
     NoteVal nval;
-    const StringData* stringData = nullptr;
+    const StringData* stringData = 0;
 
     // pitched/unpitched note entry depends on instrument (override StaffGroup)
     StaffGroup staffGroup = st->staffType(tick)->group();
     if (staffGroup != StaffGroup::TAB) {
         staffGroup = instr->useDrumset() ? StaffGroup::PERCUSSION : StaffGroup::STANDARD;
-    }
-
-    if (staffGroup != StaffGroup::PERCUSSION) {
-        stringData = st->part()->stringData(s->tick(), st->idx());
     }
 
     switch (staffGroup) {
@@ -114,6 +105,7 @@ NoteVal Score::noteValForPosition(Position pos, AccidentalType at, bool& error)
         if (m_is.rest()) {
             return nval;
         }
+        stringData = st->part()->stringData(s->tick(), st->idx());
         line = st->staffType(tick)->visualStringToPhys(line);
         if (line < 0 || line >= static_cast<int>(stringData->strings())) {
             error = true;
@@ -133,10 +125,10 @@ NoteVal Score::noteValForPosition(Position pos, AccidentalType at, bool& error)
         }
         // for open strings, only accepts fret 0 (strings in StringData are from bottom to top)
         size_t strgDataIdx = stringData->strings() - line - 1;
-        if (nval.fret > 0 && stringData->stringList().at(strgDataIdx).open) {
+        if (nval.fret > 0 && stringData->stringList().at(strgDataIdx).open == true) {
             nval.fret = 0;
         }
-        nval.pitch = stringData->getPitch(line, nval.fret, st, pos.segment->tick());
+        nval.pitch = stringData->getPitch(line, nval.fret, st);
         break;
     }
 
@@ -158,10 +150,9 @@ NoteVal Score::noteValForPosition(Position pos, AccidentalType at, bool& error)
             if (v.isZero()) {
                 nval.tpc1 = nval.tpc2;
             } else {
-                nval.tpc1 = Transpose::transposeTpc(nval.tpc2, v, true);
+                nval.tpc1 = mu::engraving::transposeTpc(nval.tpc2, v, true);
             }
         }
-        stringData->convertPitch(nval.pitch, st, pos.segment->tick(), &nval.string, &nval.fret);
     }
     break;
     }
@@ -180,11 +171,6 @@ Note* Score::addPitch(NoteVal& nval, bool addFlag, InputState* externalInputStat
         }
 
         return addPitchToChord(nval, toChord(c), externalInputState);
-    }
-
-    if (is.beyondScore()) {
-        appendMeasures(1);
-        is.moveToNextInputPos();
     }
 
     expandVoice(is.segment(), is.track());
@@ -368,11 +354,6 @@ Ret Score::putNote(const Position& p, bool replace)
 
     m_is.setTrack(p.staffIdx * VOICES + m_is.voice());
     m_is.setSegment(s);
-
-    if (p.beyondScore) {
-        appendMeasures(1);
-        m_is.moveToNextInputPos();
-    }
 
     if (mu::engraving::Excerpt* excerpt = score()->excerpt()) {
         const TracksMap& tracks = excerpt->tracksMapping();
@@ -844,7 +825,7 @@ Ret Score::insertChordByInsertingTime(const Position& pos)
         // II. Make chord or rest in other track longer if it crosses the insert area
         if (!measureIsFull) {
             ChordRest* cr = ms->findCR(tick, track);
-            if (cr && cr->tick() < tick && cr->endTick() > tick) {
+            if (cr && cr->tick() < tick && (cr->tick() + cr->actualTicks()) > tick) {
                 if (cr->isRest()) {
                     const Fraction fillLen = cr->ticks() + fraction;
                     ms->undoRemoveElement(cr);

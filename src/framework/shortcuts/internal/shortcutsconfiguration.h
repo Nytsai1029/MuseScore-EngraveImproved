@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -31,13 +31,13 @@
 #include "global/types/config.h"
 
 namespace muse::shortcuts {
-class ShortcutsConfiguration : public IShortcutsConfiguration, public Contextable, public async::Asyncable
+class ShortcutsConfiguration : public IShortcutsConfiguration, public Injectable, public async::Asyncable
 {
-    GlobalInject<IGlobalConfiguration> globalConfiguration;
+    Inject<IGlobalConfiguration> globalConfiguration = { this };
 
 public:
     ShortcutsConfiguration(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void init();
 

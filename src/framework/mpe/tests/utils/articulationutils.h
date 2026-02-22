@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -39,7 +39,7 @@ inline PitchPattern createSimplePitchPattern(const pitch_level_t incrementDiff =
 {
     PitchPattern result;
 
-    for (size_t i = 0; i < ArticulationMap::EXPECTED_SIZE; ++i) {
+    for (size_t i = 0; i < EXPECTED_SIZE; ++i) {
         result.pitchOffsetMap.insert_or_assign(static_cast<int>(i) * TEN_PERCENT, static_cast<int>(i) * incrementDiff);
     }
 
@@ -52,7 +52,7 @@ inline ExpressionPattern createSimpleExpressionPattern(const dynamic_level_t amp
 
     double amplitudeSqrt = std::sqrt(amplitudeLevel);
 
-    for (size_t i = 0; i < ArticulationMap::EXPECTED_SIZE; ++i) {
+    for (size_t i = 0; i < EXPECTED_SIZE; ++i) {
         duration_percentage_t currentPos = static_cast<int>(i) * TEN_PERCENT;
         dynamic_level_t value = amplitudeLevel - static_cast<dynamic_level_t>(std::pow(
                                                                                   (2

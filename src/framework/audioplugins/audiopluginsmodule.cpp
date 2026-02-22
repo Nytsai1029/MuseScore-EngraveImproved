@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -46,14 +46,14 @@ std::string AudioPluginsModule::moduleName() const
 
 void AudioPluginsModule::registerExports()
 {
-    m_configuration = std::make_shared<AudioPluginsConfiguration>(globalCtx());
-    m_registerAudioPluginsScenario = std::make_shared<RegisterAudioPluginsScenario>(globalCtx());
+    m_configuration = std::make_shared<AudioPluginsConfiguration>();
+    m_registerAudioPluginsScenario = std::make_shared<RegisterAudioPluginsScenario>(iocContext());
 
-    globalIoc()->registerExport<IAudioPluginsConfiguration>(moduleName(), m_configuration);
-    globalIoc()->registerExport<IKnownAudioPluginsRegister>(moduleName(), std::make_shared<KnownAudioPluginsRegister>(globalCtx()));
-    globalIoc()->registerExport<IAudioPluginsScannerRegister>(moduleName(), std::make_shared<AudioPluginsScannerRegister>());
-    globalIoc()->registerExport<IAudioPluginMetaReaderRegister>(moduleName(), std::make_shared<AudioPluginMetaReaderRegister>());
-    globalIoc()->registerExport<IRegisterAudioPluginsScenario>(moduleName(), m_registerAudioPluginsScenario);
+    ioc()->registerExport<IAudioPluginsConfiguration>(moduleName(), m_configuration);
+    ioc()->registerExport<IKnownAudioPluginsRegister>(moduleName(), std::make_shared<KnownAudioPluginsRegister>(iocContext()));
+    ioc()->registerExport<IAudioPluginsScannerRegister>(moduleName(), std::make_shared<AudioPluginsScannerRegister>());
+    ioc()->registerExport<IAudioPluginMetaReaderRegister>(moduleName(), std::make_shared<AudioPluginMetaReaderRegister>());
+    ioc()->registerExport<IRegisterAudioPluginsScenario>(moduleName(), m_registerAudioPluginsScenario);
 }
 
 void AudioPluginsModule::resolveImports()
@@ -65,7 +65,7 @@ void AudioPluginsModule::onInit(const IApplication::RunMode&)
     m_registerAudioPluginsScenario->init();
 
     //! --- Diagnostics ---
-    auto pr = globalIoc()->resolve<muse::diagnostics::IDiagnosticsPathsRegister>(moduleName());
+    auto pr = ioc()->resolve<muse::diagnostics::IDiagnosticsPathsRegister>(moduleName());
     if (pr) {
         pr->reg("known_audio_plugins", m_configuration->knownAudioPluginsFilePath());
     }

@@ -22,13 +22,10 @@
 
 #include "groups.h"
 
-#include <unordered_map>
-
 #include "chordrest.h"
 #include "durationtype.h"
 #include "measure.h"
 #include "staff.h"
-#include "timesig.h"
 #include "tuplet.h"
 
 #include "log.h"
@@ -100,11 +97,10 @@ static std::vector<NoteGroup> noteGroups {
 };
 
 //---------------------------------------------------------
-//   baseBeamMode
-//    based on time signature properties but respecting manual settings
+//   endBeam
 //---------------------------------------------------------
 
-BeamMode Groups::baseBeamMode(const ChordRest* cr, const ChordRest* prev)
+BeamMode Groups::endBeam(const ChordRest* cr, const ChordRest* prev)
 {
     if (cr->isGrace() || cr->beamMode() != BeamMode::AUTO) {
         return cr->beamMode();
@@ -116,7 +112,7 @@ BeamMode Groups::baseBeamMode(const ChordRest* cr, const ChordRest* prev)
     Fraction smallestTickLen = Fraction(1, 8); // start with 8th
     Fraction tickLenLimit = Fraction(1, 32); // only check up to 32nds because that's all thats available
                                              // in timesig properties
-    while (smallestTickLen > maxTickLen || cr->rtick().ticks() % smallestTickLen.ticks() != 0) {
+    while (smallestTickLen > maxTickLen || cr->tick().ticks() % smallestTickLen.ticks() != 0) {
         smallestTickLen /= 2; // proceed to 16th, 32nd, etc
         if (smallestTickLen < tickLenLimit) {
             smallestTickLen = cr->ticks();
@@ -152,110 +148,12 @@ BeamMode Groups::baseBeamMode(const ChordRest* cr, const ChordRest* prev)
         // if there is a hole between previous and current cr, break beam
         // exclude tuplets from this check; tick calculations can be unreliable
         // and they seem to be handled well anyhow
-        if (cr->voice() && prev && !prev->tuplet() && prev->endTick() < cr->tick()) {
+        if (cr->voice() && prev && !prev->tuplet() && prev->tick() + prev->actualTicks() < cr->tick()) {
             val = BeamMode::BEGIN;
         }
     }
 
     return val;
-}
-
-//---------------------------------------------------------
-//   actualBeamMode
-//    final beam mode after applying contextual corrections
-//---------------------------------------------------------
-
-BeamMode Groups::actualBeamMode(const ChordRest* cr, const ChordRest* prev)
-{
-    Measure* measure = cr->measure();
-    const Staff* stf = cr->staff();
-    TimeSig* ts = stf->timeSig(measure->tick());
-    bool checkBeats = ts && ts->denominator() == 4;
-
-    std::unordered_map<int, TDuration> beatSubdivision;
-    if (checkBeats && cr->rtick().isNotZero()) {
-        Fraction stretch = ts->stretch();
-        Fraction tick = cr->rtick() * stretch;
-
-        if ((tick.ticks() % Constants::DIVISION) == 0) {
-            for (Segment* s = measure->first(SegmentType::ChordRest); s; s = s->next(SegmentType::ChordRest)) {
-                ChordRest* mcr = toChordRest(s->element(cr->track()));
-                if (mcr == 0) {
-                    continue;
-                }
-                int beat = (mcr->rtick() * stretch).ticks() / Constants::DIVISION;
-                if (muse::contains(beatSubdivision, beat)) {
-                    beatSubdivision[beat] = std::min(beatSubdivision[beat], mcr->durationType());
-                } else {
-                    beatSubdivision[beat] = mcr->durationType();
-                }
-            }
-        }
-    }
-
-    return actualBeamMode(cr, prev, &beatSubdivision);
-}
-
-BeamMode Groups::actualBeamMode(const ChordRest* cr, const ChordRest* prev,
-                                const std::unordered_map<int, TDuration>* beatSubdivision)
-{
-    // do not beam rests set to BeamMode::AUTO or with only other rests
-    if (cr->isRest() && cr->beamMode() == BeamMode::AUTO) {
-        return BeamMode::NONE;
-    }
-
-    TDuration durationType = cr->durationType();
-    // chord with no hooks cannot be beamed
-    if (cr->isChord() && durationType.hooks() == 0) {
-        return BeamMode::NONE;
-    }
-    // if chord has hooks and is 2nd element of a cross-measure value
-    // set beam mode to NONE (do not combine with following chord beam/hook, if any)
-    if (durationType.hooks() > 0 && cr->crossMeasure() == CrossMeasure::SECOND) {
-        return BeamMode::NONE;
-    }
-
-    BeamMode bm = Groups::baseBeamMode(cr, prev);
-
-    if (bm == BeamMode::AUTO) {
-        // start beam at the beginning of measures
-        if (cr->rtick().isZero()) {
-            return BeamMode::BEGIN;
-        }
-
-        // perform additional context-dependent checks
-        Measure* measure = cr->measure();
-        const Staff* stf = cr->staff();
-        TimeSig* ts = stf->timeSig(measure->tick());
-        bool checkBeats = ts && ts->denominator() == 4;
-        Fraction stretch = ts ? ts->stretch() : Fraction(1, 1);
-
-        // check if we need to break beams according to minimum duration in current / previous beat
-        if (checkBeats) {
-            Fraction tick = cr->rtick() * stretch;
-            // check if on the beat
-            if ((tick.ticks() % Constants::DIVISION) == 0) {
-                int beat = tick.ticks() / Constants::DIVISION;
-                // get minimum duration for this & previous beat
-                auto it_current = beatSubdivision->find(beat);
-                auto it_prev = beatSubdivision->find(beat - 1);
-                TDuration current_min = (it_current != beatSubdivision->end()) ? it_current->second : TDuration(DurationType::V_INVALID);
-                TDuration prev_min = (it_prev != beatSubdivision->end()) ? it_prev->second : TDuration(DurationType::V_INVALID);
-                TDuration minDuration = std::min(current_min, prev_min);
-                // re-calculate beam as if this were the duration of current chordrest
-                TDuration saveDuration        = cr->actualDurationType();
-                TDuration saveCMDuration      = cr->crossMeasureDurationType();
-                CrossMeasure saveCrossMeasVal = cr->crossMeasure();
-                const_cast<ChordRest*>(cr)->setDurationType(minDuration);
-                bm = Groups::baseBeamMode(cr, prev);
-                const_cast<ChordRest*>(cr)->setDurationType(saveDuration);
-                const_cast<ChordRest*>(cr)->setCrossMeasure(saveCrossMeasVal);
-                const_cast<ChordRest*>(cr)->setCrossMeasureDurationType(saveCMDuration);
-            }
-        }
-    }
-
-    return bm == BeamMode::AUTO ? BeamMode::MID : bm;
 }
 
 //---------------------------------------------------------

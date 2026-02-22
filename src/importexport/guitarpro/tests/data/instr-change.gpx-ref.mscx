@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
@@ -60,7 +60,9 @@
         <Text>
           <eid>F_F</eid>
           <style>subtitle</style>
-          <text>Rock<br/>Pink Floyd<br/>The Wall</text>
+          <text>Rock
+Pink Floyd
+The Wall</text>
           </Text>
         <Text>
           <eid>G_G</eid>

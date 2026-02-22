@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -41,21 +41,21 @@ std::string NetworkModule::moduleName() const
 
 void NetworkModule::registerExports()
 {
-    m_configuration = std::make_shared<NetworkConfiguration>(muse::modularity::globalCtx());
+    m_configuration = std::make_shared<NetworkConfiguration>(iocContext());
 
-    globalIoc()->registerExport<INetworkManagerCreator>(moduleName(), new NetworkManagerCreator());
-    globalIoc()->registerExport<INetworkConfiguration>(moduleName(), m_configuration);
+    ioc()->registerExport<INetworkManagerCreator>(moduleName(), new NetworkManagerCreator());
+    ioc()->registerExport<INetworkConfiguration>(moduleName(), m_configuration);
 }
 
 void NetworkModule::registerApi()
 {
     using namespace muse::api;
 
-    auto api = globalIoc()->resolve<IApiRegister>(moduleName());
+    auto api = ioc()->resolve<IApiRegister>(moduleName());
     if (api) {
 #ifdef MUSE_MODULE_NETWORK_WEBSOCKET
-        api->regApiCreator(moduleName(), "MuseApi.Websocket", new ApiCreator<api::WebSocketApi>());
-        api->regApiCreator(moduleName(), "MuseApi.WebsocketServer", new ApiCreator<api::WebSocketServerApi>());
+        api->regApiCreator(moduleName(), "api.websocket", new ApiCreator<api::WebSocketApi>());
+        api->regApiCreator(moduleName(), "api.websocketserver", new ApiCreator<api::WebSocketServerApi>());
 #endif
     }
 }

@@ -24,14 +24,15 @@
 
 #include "engraving/style/style.h"
 
-#include "engraving/dom/chord.h"
-#include "engraving/dom/masterscore.h"
-#include "engraving/dom/measure.h"
-#include "engraving/editing/editstyle.h"
+#include "dom/chord.h"
+#include "dom/masterscore.h"
+#include "dom/measure.h"
+#include "dom/undo.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String EARLYMUSIC_DATA_DIR("earlymusic_data/");

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,35 +19,35 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_SHORTCUTS_SHORTCUTSCONTROLLER_H
+#define MUSE_SHORTCUTS_SHORTCUTSCONTROLLER_H
 
 #include "../ishortcutscontroller.h"
 
 #include "async/asyncable.h"
 #include "modularity/ioc.h"
 #include "actions/iactionsdispatcher.h"
-#include "interactive/iinteractive.h"
 #include "ui/iuiactionsregister.h"
+#include "ui/iinteractiveprovider.h"
 #include "ui/iuicontextresolver.h"
 #include "ishortcutsregister.h"
 #include "shortcutcontext.h"
 
 namespace muse::shortcuts {
-class ShortcutsController : public IShortcutsController, public Contextable, public async::Asyncable
+class ShortcutsController : public IShortcutsController, public Injectable, public async::Asyncable
 {
-    ContextInject<muse::ui::IUiActionsRegister> aregister = { this };
-    ContextInject<IShortcutsRegister> shortcutsRegister = { this };
-    ContextInject<muse::actions::IActionsDispatcher> dispatcher = { this };
-    ContextInject<muse::IInteractive> interactive = { this };
-    ContextInject<muse::ui::IUiContextResolver> uiContextResolver = { this };
+    Inject<IShortcutsRegister> shortcutsRegister = { this };
+    Inject<muse::actions::IActionsDispatcher> dispatcher = { this };
+    Inject<muse::ui::IUiActionsRegister> aregister = { this };
+    Inject<muse::ui::IInteractiveProvider> interactiveProvider = { this };
+    Inject<muse::ui::IUiContextResolver> uiContextResolver = { this };
 
     //! NOTE May be missing because it must be implemented outside the framework
-    ContextInject<IShortcutContextPriority> shortcutContextPriority = { this };
+    Inject<IShortcutContextPriority> shortcutContextPriority = { this };
 
 public:
     ShortcutsController(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void init();
 
@@ -58,3 +58,5 @@ private:
     muse::actions::ActionCode resolveAction(const std::string& sequence) const;
 };
 }
+
+#endif // MUSE_SHORTCUTS_SHORTCUTSCONTROLLER_H

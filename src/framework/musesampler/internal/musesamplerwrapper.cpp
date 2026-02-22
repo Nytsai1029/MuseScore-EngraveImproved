@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2022 MuseScore Limited and others
+ * Copyright (C) 2022 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -24,7 +24,7 @@
 
 #include <cstring>
 
-#include "audio/common/audioerrors.h"
+#include "audio/audioerrors.h"
 
 #include "global/serialization/json.h"
 #include "global/realfn.h"
@@ -83,6 +83,10 @@ MuseSamplerWrapper::MuseSamplerWrapper(MuseSamplerLibHandlerPtr samplerLib,
     m_sequencer.setOnOffStreamFlushed([this]() {
         m_allNotesOffRequested = true;
     });
+
+    config()->samplesToPreallocateChanged().onReceive(this, [this](const samples_t samples) {
+        initSampler(m_samplerSampleRate, samples);
+    });
 }
 
 MuseSamplerWrapper::~MuseSamplerWrapper()
@@ -98,26 +102,24 @@ MuseSamplerWrapper::~MuseSamplerWrapper()
     m_samplerLib->destroy(m_sampler);
 }
 
-void MuseSamplerWrapper::setOutputSpec(const audio::OutputSpec& spec)
+void MuseSamplerWrapper::setSampleRate(unsigned int sampleRate)
 {
     const bool isOffline = currentRenderMode() == RenderMode::OfflineMode;
-    const bool shouldReinitSampler = !m_sampler
-                                     || (m_outputSpec.sampleRate != spec.sampleRate && !isOffline)
-                                     || (m_outputSpec.samplesPerChannel != spec.samplesPerChannel && !isOffline);
+    const bool shouldUpdateSampleRate = m_samplerSampleRate != sampleRate && !isOffline;
 
-    if (shouldReinitSampler) {
-        if (!initSampler(spec.sampleRate, spec.samplesPerChannel)) {
+    if (!m_sampler || shouldUpdateSampleRate) {
+        if (!initSampler(sampleRate, config()->samplesToPreallocate())) {
             return;
         }
 
-        m_samplerSampleRate = spec.sampleRate;
+        m_samplerSampleRate = sampleRate;
     }
 
-    m_outputSpec = spec;
+    m_sampleRate = sampleRate;
 
     if (isOffline) {
-        LOGD() << "Start offline mode, sampleRate: " << spec.sampleRate;
-        m_samplerLib->startOfflineMode(m_sampler, spec.sampleRate);
+        LOGD() << "Start offline mode, sampleRate: " << m_sampleRate;
+        m_samplerLib->startOfflineMode(m_sampler, m_sampleRate);
         m_offlineModeStarted = true;
     }
 }
@@ -148,7 +150,7 @@ samples_t MuseSamplerWrapper::process(float* buffer, samples_t samplesPerChannel
     bool active = isActive();
 
     if (!active) {
-        msecs_t nextMicros = samplesToMsecs(samplesPerChannel, m_outputSpec.sampleRate);
+        msecs_t nextMicros = samplesToMsecs(samplesPerChannel, m_sampleRate);
         MuseSamplerSequencer::EventSequenceMap sequences = m_sequencer.movePlaybackForward(nextMicros);
 
         for (const auto& pair : sequences) {
@@ -232,21 +234,21 @@ void MuseSamplerWrapper::setupSound(const mpe::PlaybackSetupData& setupData)
 
 void MuseSamplerWrapper::setupEvents(const mpe::PlaybackData& playbackData)
 {
-    ONLY_AUDIO_ENGINE_THREAD;
+    ONLY_AUDIO_WORKER_THREAD;
 
     m_sequencer.load(playbackData);
 }
 
 const mpe::PlaybackData& MuseSamplerWrapper::playbackData() const
 {
-    ONLY_AUDIO_ENGINE_THREAD;
+    ONLY_AUDIO_WORKER_THREAD;
 
     return m_sequencer.playbackData();
 }
 
 void MuseSamplerWrapper::updateRenderingMode(const RenderMode mode)
 {
-    ONLY_AUDIO_ENGINE_THREAD;
+    ONLY_AUDIO_WORKER_THREAD;
 
     if (!m_samplerLib || !m_sampler) {
         return;
@@ -283,14 +285,14 @@ ms_Track MuseSamplerWrapper::addTrack()
 
 msecs_t MuseSamplerWrapper::playbackPosition() const
 {
-    return samplesToMsecs(m_currentPosition, m_outputSpec.sampleRate);
+    return samplesToMsecs(m_currentPosition, m_sampleRate);
 }
 
 void MuseSamplerWrapper::setPlaybackPosition(const msecs_t newPosition)
 {
     m_sequencer.setPlaybackPosition(newPosition);
 
-    setCurrentPosition(microSecsToSamples(newPosition, m_outputSpec.sampleRate));
+    setCurrentPosition(microSecsToSamples(newPosition, m_sampleRate));
 }
 
 bool MuseSamplerWrapper::isActive() const
@@ -377,7 +379,7 @@ void MuseSamplerWrapper::setupOnlineSound()
 
 void MuseSamplerWrapper::updateRenderingProgress(ms_RenderingRangeList list, int size)
 {
-    ONLY_AUDIO_ENGINE_THREAD;
+    ONLY_AUDIO_WORKER_THREAD;
 
     IF_ASSERT_FAILED(m_samplerLib && m_sampler) {
         return;
@@ -600,7 +602,7 @@ void MuseSamplerWrapper::setCurrentPosition(const samples_t samples)
     m_currentPosition = samples;
     m_pendingSetPosition = true;
 
-    if (isActive() || m_instrument.isOnline) {
+    if (isActive()) {
         doCurrentSetPosition();
     }
 }
@@ -634,11 +636,15 @@ void MuseSamplerWrapper::prepareToPlay()
     doCurrentSetPosition();
 
     if (readyToPlay()) {
-        m_checkReadyToPlayTimer.reset();
         return;
     }
 
-    m_checkReadyToPlayTimer.reset(new Timer(std::chrono::microseconds(10000)));
+    if (!m_checkReadyToPlayTimer) {
+        m_checkReadyToPlayTimer = std::make_unique<Timer>(std::chrono::microseconds(10000)); // every 10ms
+    }
+
+    m_checkReadyToPlayTimer->stop();
+
     m_checkReadyToPlayTimer->onTimeout(this, [this]() {
         if (readyToPlay()) {
             m_readyToPlayChanged.notify();

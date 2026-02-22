@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <defaultsVersion>301</defaultsVersion>
+      <maskBarlinesForText>0</maskBarlinesForText>
+      <scaleRythmicSpacingForSmallNotes>0</scaleRythmicSpacingForSmallNotes>
+      <verticallyAlignChordSymbols>0</verticallyAlignChordSymbols>
+      <pageNumberFontSize>9</pageNumberFontSize>
+      <pageNumberFontStyle>0</pageNumberFontStyle>
+      <changesBeforeBarlineRepeats>0</changesBeforeBarlineRepeats>
+      <changesBeforeBarlineOtherJumps>0</changesBeforeBarlineOtherJumps>
+      <showCourtesiesRepeats>0</showCourtesiesRepeats>
+      <showCourtesiesOtherJumps>0</showCourtesiesOtherJumps>
+      <showCourtesiesAfterCancellingRepeats>0</showCourtesiesAfterCancellingRepeats>
+      <showCourtesiesAfterCancellingOtherJumps>0</showCourtesiesAfterCancellingOtherJumps>
+      <repeatPlayCountShow>0</repeatPlayCountShow>
       <spatium>1.76389</spatium>
       </Style>
     <showInvisible>1</showInvisible>
@@ -60,7 +71,6 @@
     <Staff id="1">
       <VBox>
         <height>10</height>
-        <boxAutoSize>0</boxAutoSize>
         <sizeIsSpatiumDependent>1</sizeIsSpatiumDependent>
         <eid>D_D</eid>
         <Text>
@@ -134,52 +144,48 @@
               <tpc>13</tpc>
               </Note>
             </Chord>
-          <BarLine>
-            <span>1</span>
-            <eid>T_T</eid>
-            </BarLine>
           </voice>
         </Measure>
       <Measure>
-        <eid>U_U</eid>
+        <eid>T_T</eid>
         <voice>
           <Chord>
-            <eid>V_V</eid>
+            <eid>U_U</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>W_W</eid>
+              <eid>V_V</eid>
               <pitch>67</pitch>
               <tpc>15</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>X_X</eid>
+            <eid>W_W</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>Y_Y</eid>
+              <eid>X_X</eid>
               <pitch>69</pitch>
               <tpc>17</tpc>
               </Note>
             </Chord>
           <Rest>
-            <eid>Z_Z</eid>
+            <eid>Y_Y</eid>
             <durationType>half</durationType>
             </Rest>
           <BarLine>
             <span>1</span>
-            <eid>a_a</eid>
+            <eid>Z_Z</eid>
             </BarLine>
           </voice>
         </Measure>
       <Measure>
-        <eid>b_b</eid>
+        <eid>a_a</eid>
         <voice>
           <Chord>
-            <eid>c_c</eid>
+            <eid>b_b</eid>
             <durationType>quarter</durationType>
             <Spanner type="Slur">
               <Slur>
-                <eid>d_d</eid>
+                <eid>c_c</eid>
                 </Slur>
               <next>
                 <location>
@@ -188,13 +194,13 @@
                 </next>
               </Spanner>
             <Note>
-              <eid>e_e</eid>
+              <eid>d_d</eid>
               <pitch>72</pitch>
               <tpc>14</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>f_f</eid>
+            <eid>e_e</eid>
             <durationType>quarter</durationType>
             <Spanner type="Slur">
               <prev>
@@ -204,25 +210,25 @@
                 </prev>
               </Spanner>
             <Note>
-              <eid>g_g</eid>
+              <eid>f_f</eid>
               <pitch>74</pitch>
               <tpc>16</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>h_h</eid>
+            <eid>g_g</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>i_i</eid>
+              <eid>h_h</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
             </Chord>
           <Chord>
-            <eid>j_j</eid>
+            <eid>i_i</eid>
             <durationType>quarter</durationType>
             <Note>
-              <eid>k_k</eid>
+              <eid>j_j</eid>
               <pitch>76</pitch>
               <tpc>18</tpc>
               </Note>
@@ -230,7 +236,7 @@
           <BarLine>
             <subtype>end</subtype>
             <span>1</span>
-            <eid>l_l</eid>
+            <eid>k_k</eid>
             </BarLine>
           </voice>
         </Measure>

@@ -47,7 +47,7 @@ public:
     bool followParentCurColor() const;
     void setFollowParentColor(bool val);
 
-    Color curColor(const rendering::PaintOptions& opt) const override;
+    Color curColor() const override;
 
     struct LayoutData : public EngravingItem::LayoutData
     {

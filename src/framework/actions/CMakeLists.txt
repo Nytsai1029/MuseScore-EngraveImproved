@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-only
-# MuseScore-Studio-CLA-applies
+# MuseScore-CLA-applies
 #
-# MuseScore Studio
+# MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2026 MuseScore Limited
+# Copyright (C) 2021 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -16,23 +16,30 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-muse_create_module(muse_actions ALIAS muse::actions)
+declare_module(muse_actions)
+set(MODULE_ALIAS muse::actions)
 
-target_sources(muse_actions PRIVATE
-    actionsmodule.cpp
-    actionsmodule.h
-    iactionsdispatcher.h
-    actionable.h
-    actiontypes.h
+set(MODULE_SRC
+    ${CMAKE_CURRENT_LIST_DIR}/actionsmodule.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/actionsmodule.h
+    ${CMAKE_CURRENT_LIST_DIR}/iactionsdispatcher.h
+    ${CMAKE_CURRENT_LIST_DIR}/actionable.h
+    ${CMAKE_CURRENT_LIST_DIR}/actiontypes.h
 
-    api/dispatcherapi.cpp
-    api/dispatcherapi.h
+    ${CMAKE_CURRENT_LIST_DIR}/api/dispatcherapi.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/api/dispatcherapi.h
 
-    internal/actionsdispatcher.cpp
-    internal/actionsdispatcher.h
-)
+    ${CMAKE_CURRENT_LIST_DIR}/internal/actionsdispatcher.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/actionsdispatcher.h
+    )
+
+if (QT_SUPPORT)
+    list(APPEND MODULE_LINK Qt::Quick)
+endif()
+
+setup_module()
 
 if (MUSE_MODULE_ACTIONS_TESTS)
     add_subdirectory(tests)

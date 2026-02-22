@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -22,11 +22,13 @@
 
 #include <gtest/gtest.h>
 
-#include "engraving/dom/bsp.h"
-#include "engraving/dom/page.h"
+#include "dom/bsp.h"
+#include "dom/page.h"
 
 #include "utils/scorerw.h"
+#include "utils/scorecomp.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String BSPTREE_DATA_DIR(u"bsptree_data/");

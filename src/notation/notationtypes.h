@@ -23,6 +23,7 @@
 
 #include <QPixmap>
 #include <QDate>
+#include <unordered_set>
 
 #include "translation.h"
 
@@ -367,6 +368,17 @@ struct PartInstrumentListScoreOrder
     ScoreOrder scoreOrder;
 };
 
+struct SearchCommand
+{
+    ElementType searchElementType = ElementType::INVALID;
+    std::string code;
+    std::string description;
+
+    SearchCommand(const ElementType& searchElementType, const std::string& code, const std::string& description)
+        : searchElementType(searchElementType), code(code), description(description) {}
+};
+using SearchCommands = QList<SearchCommand>;
+
 struct FilterElementsOptions
 {
     ElementType elementType = ElementType::INVALID;
@@ -451,13 +463,13 @@ struct TupletOptions
 
 struct LoopBoundaries
 {
-    Fraction loopInTick;
-    Fraction loopOutTick;
+    int loopInTick = 0;
+    int loopOutTick = 0;
     bool enabled = false;
 
     bool isNull() const
     {
-        return loopInTick.isZero() && loopOutTick.isZero();
+        return loopInTick == 0 && loopOutTick == 0;
     }
 
     bool operator==(const LoopBoundaries& boundaries) const
@@ -593,6 +605,12 @@ struct StringTuningsInfo
 };
 
 using InstrumentStringTuningsMap = std::map<std::string, std::vector<StringTuningsInfo> >;
+
+enum class PercussionPanelAutoShowMode {
+    UNPITCHED_STAFF,
+    UNPITCHED_STAFF_NOTE_INPUT,
+    NEVER,
+};
 
 static const mu::engraving::ElementTypeSet NOTE_REST_TYPES {
     mu::engraving::ElementType::NOTE,

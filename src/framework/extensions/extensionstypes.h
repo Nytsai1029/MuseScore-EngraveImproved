@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -65,7 +65,7 @@ static inline ui::UiContext toUiContext(const String& ctx)
     } else if (ctx == u"Any") {
         return ui::UiCtxAny;
     }
-    LOGE() << "unknown ui context: " << ctx << ", will be using default: " << DEFAULT_UI_CONTEXT;
+    LOGE() << "unknown ui context: " << ctx << ", will be use default: " << DEFAULT_UI_CONTEXT;
     return ui::UiCtxProjectOpened;
 }
 
@@ -80,7 +80,7 @@ static inline std::string toScContext(const String& uiCtx)
     } else if (uiCtx == u"Any") {
         return shortcuts::CTX_ANY;
     }
-    LOGE() << "unknown ui context: " << uiCtx << ", will be using default: " << DEFAULT_UI_CONTEXT;
+    LOGE() << "unknown ui context: " << uiCtx << ", will be use default: " << DEFAULT_UI_CONTEXT;
     return shortcuts::CTX_PROJECT_OPENED;
 }
 

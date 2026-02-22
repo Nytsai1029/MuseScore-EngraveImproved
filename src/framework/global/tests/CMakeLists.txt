@@ -4,7 +4,7 @@
 # MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2021 MuseScore Limited and others
+# Copyright (C) 2021 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -25,6 +25,7 @@ set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/mocks/filesystemmock.h
     ${CMAKE_CURRENT_LIST_DIR}/mocks/processmock.h
     ${CMAKE_CURRENT_LIST_DIR}/mocks/globalconfigurationmock.h
+    ${CMAKE_CURRENT_LIST_DIR}/mocks/interactivemock.h
     ${CMAKE_CURRENT_LIST_DIR}/mocks/systeminfomock.h
 
     ${CMAKE_CURRENT_LIST_DIR}/uri_tests.cpp
@@ -42,19 +43,13 @@ set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/allocator_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/mnemonicstring_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/containers_tests.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/vectorview_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/version_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/number_tests.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/progress_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ziprw_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/msgpack_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ret_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/xmldom_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/xmlstreamreader_tests.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/xmlstreamwriter_tests.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/ringqueue_tests.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/rpcqueue_tests.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/geometry_tests.cpp
 )
 
 include(SetupGTest)

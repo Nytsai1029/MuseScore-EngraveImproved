@@ -22,124 +22,92 @@
 
 #include "scoreelementsscanner.h"
 
-#include "engraving/types/typesconv.h"
 #include "engraving/dom/score.h"
 #include "engraving/dom/part.h"
 #include "engraving/dom/note.h"
-#include "engraving/dom/rest.h"
 #include "engraving/dom/harmony.h"
 #include "engraving/dom/tempotext.h"
-#include "engraving/dom/dynamic.h"
 
 using namespace mu::converter;
-using namespace mu::engraving;
 
 struct ScannerData {
+    using ElementKey = std::pair<mu::engraving::ElementType, int /*subtype*/>;
+
+    // in
+    ScoreElementScanner::Options options;
+
     // out
-    ElementMap elements;
-    std::set<Chord*> chords;
-    std::set<Spanner*> spanners;
+    ScoreElementScanner::InstrumentElementMap elements;
+    std::set<const mu::engraving::Chord*> chords;
+    std::map<mu::engraving::InstrumentTrackId, std::map<ElementKey, std::set<muse::String> > > uniqueNames;
 };
 
-static bool itemAccepted(const EngravingItem* item)
+static bool itemAccepted(const mu::engraving::EngravingItem* item, const mu::engraving::ElementTypeSet& acceptedTypes)
 {
     // Ignore temporary / invalid elements and elements that cannot be interacted with
-    if (!item || !item->part() || !item->selectable() || !item->isInteractionAvailable()) {
+    if (!item || !item->part() || item->generated() || !item->selectable() || !item->isInteractionAvailable()) {
         return false;
     }
 
-    static const ElementTypeSet NOTE_PARTS {
-        ElementType::ACCIDENTAL,
-        ElementType::STEM,
-        ElementType::HOOK,
-        ElementType::BEAM,
-        ElementType::NOTEDOT,
-        ElementType::TIE,
-        ElementType::TIE_SEGMENT,
-    };
-
-    if (muse::contains(NOTE_PARTS, item->type())) {
-        return false;
+    if (acceptedTypes.empty()) {
+        return true;
     }
 
-    if (item->isBarLine() && item->tick().ticks() == 0) {
-        return false;
+    mu::engraving::ElementType type = item->type();
+
+    if (item->isNote()) {
+        const mu::engraving::Chord* chord = toNote(item)->chord();
+        if (chord->notes().size() > 1) {
+            type = chord->type();
+        }
+    } else if (item->isSpannerSegment()) {
+        type = mu::engraving::toSpannerSegment(item)->spanner()->type();
     }
 
-    return true;
+    return muse::contains(acceptedTypes, type);
 }
 
-static bool isChordArticulation(const EngravingItem* item)
+static bool isChordArticulation(const mu::engraving::EngravingItem* item)
 {
-    const EngravingItem* parent = item->parentItem();
+    const mu::engraving::EngravingItem* parent = item->parentItem();
     if (!parent || !parent->isChord()) {
         return false;
     }
 
-    static const ElementTypeSet CHORD_ARTICULATION_TYPES {
-        ElementType::ARPEGGIO,
-        ElementType::TREMOLO_SINGLECHORD,
-        ElementType::ORNAMENT,
+    static const std::unordered_set<mu::engraving::ElementType> CHORD_ARTICULATION_TYPES {
+        mu::engraving::ElementType::ARPEGGIO,
+        mu::engraving::ElementType::TREMOLO_SINGLECHORD,
+        mu::engraving::ElementType::ORNAMENT,
     };
 
     return muse::contains(CHORD_ARTICULATION_TYPES, item->type());
 }
 
-static muse::String noteName(const Note* note)
+static muse::String chordToNotes(const mu::engraving::Chord* chord)
 {
-    return tpc2name(note->tpc(), NoteSpellingType::STANDARD, NoteCaseType::AUTO) + String::number(note->octave());
-}
+    muse::StringList notes;
 
-static ElementInfo::NoteList chordToNotes(const Chord* chord)
-{
-    ElementInfo::NoteList notes;
-    notes.reserve(chord->notes().size());
-
-    for (const Note* note : chord->notes()) {
-        ElementInfo::Note info;
-        info.name = noteName(note);
-
-        if (note->tieFor() && note->tieFor()->endNote()) {
-            info.data[u"tied"] = muse::Val(true);
-        }
-
-        notes.emplace_back(std::move(info));
+    for (const mu::engraving::Note* note : chord->notes()) {
+        notes.push_back(note->tpcUserName());
     }
 
-    return notes;
+    return notes.join(u" ");
 }
 
-static ElementInfo::Duration durationInfo(const TDuration& dur)
+static void addElementInfoIfNeed(void* data, mu::engraving::EngravingItem* item)
 {
-    ElementInfo::Duration result;
-    result.name = TConv::translatedUserName(dur.type());
-    result.dots = dur.dots();
-
-    return result;
-}
-
-static bool hasBeat(ElementType type)
-{
-    static const ElementTypeSet NO_BEAT {
-        ElementType::BAR_LINE,
-    };
-
-    return !muse::contains(NO_BEAT, type);
-}
-
-static void addElementInfoIfNeed(ScannerData* scannerData, EngravingItem* item)
-{
-    if (!itemAccepted(item)) {
+    ScannerData* scannerData = static_cast<ScannerData*>(data);
+    if (!itemAccepted(item, scannerData->options.acceptedTypes)) {
         return;
     }
 
-    ElementType type = item->type();
-    ElementInfo info;
-    bool locationIsSet = false;
+    mu::engraving::ElementType type = item->type();
+    std::optional<mu::engraving::EngravingItem::BarBeat> barbeat;
+    ScoreElementScanner::ElementInfo info;
 
     if (item->isNote()) {
-        Note* note = toNote(item);
-        Chord* chord = note->chord();
+        const mu::engraving::Note* note = mu::engraving::toNote(item);
+        const mu::engraving::Chord* chord = note->chord();
         if (chord->notes().size() > 1) {
             if (muse::contains(scannerData->chords, chord)) {
                 return;
@@ -149,111 +117,74 @@ static void addElementInfoIfNeed(ScannerData* scannerData, EngravingItem* item)
             scannerData->chords.insert(chord);
             info.notes = chordToNotes(chord);
         } else {
-            info.name = noteName(note);
-
-            if (note->tieFor() && note->tieFor()->endNote()) {
-                info.data[u"tied"] = muse::Val(true);
-            }
+            info.name = note->tpcUserName();
         }
-        info.duration = durationInfo(chord->durationType());
-    } else if (isChordArticulation(item)) {
-        Chord* chord = toChord(item->parentItem());
-        scannerData->chords.insert(chord);
-        info.name = item->translatedSubtypeUserName();
-        info.notes = chordToNotes(chord);
-        info.duration = durationInfo(chord->durationType());
-    } else if (item->isRest()) {
-        info.duration = durationInfo(toRest(item)->durationType());
     } else if (item->isSpannerSegment()) {
-        Spanner* spanner = toSpannerSegment(item)->spanner();
-        if (muse::contains(scannerData->spanners, spanner)) {
-            return;
-        }
-
+        mu::engraving::Spanner* spanner = mu::engraving::toSpannerSegment(item)->spanner();
         item = spanner;
         type = spanner->type();
         info.name = spanner->translatedSubtypeUserName();
-        scannerData->spanners.insert(spanner);
 
-        const Segment* startSegment = spanner->startSegment();
+        const mu::engraving::Segment* startSegment = spanner->startSegment();
         if (startSegment) {
-            const EngravingItem::BarBeat barbeat = startSegment->barbeat();
-            info.start.measureIdx = barbeat.bar - 1;
-            info.start.beat = barbeat.beat - 1.;
-            info.start.staffIdx = track2staff(spanner->track());
-            info.start.voiceIdx = track2voice(spanner->track());
+            barbeat = startSegment->barbeat();
         }
-
-        const Segment* endSegment = spanner->endSegment();
-        if (endSegment) {
-            const EngravingItem::BarBeat barbeat = endSegment->barbeat();
-            info.end.measureIdx = barbeat.bar - 1;
-            info.end.beat = barbeat.beat - 1.;
-            info.end.staffIdx = track2staff(spanner->track2());
-            info.end.voiceIdx = track2voice(spanner->track2());
-        }
-
-        locationIsSet = startSegment || endSegment;
     } else if (item->isHarmony()) {
-        info.name = toHarmony(item)->harmonyName();
-    } else if (item->isTempoText()) {
-        const TempoText* tempo = toTempoText(item);
-        info.data[u"bpm"] = muse::Val(tempo->tempoBpm());
-        info.duration = durationInfo(tempo->duration());
-    } else if (item->isPlayTechAnnotation()) {
+        info.name = mu::engraving::toHarmony(item)->harmonyName();
+    } else if (isChordArticulation(item)) {
+        const mu::engraving::Chord* chord = mu::engraving::toChord(item->parentItem());
+        scannerData->chords.insert(chord);
         info.name = item->translatedSubtypeUserName();
-    } else if (item->isDynamic()) {
-        info.name = TConv::toXml(toDynamic(item)->dynamicType()).ascii();
+        info.notes = chordToNotes(chord);
+    } else if (item->isTempoText()) {
+        info.text = mu::engraving::toTempoText(item)->tempoInfo();
     } else if (item->isTextBase()) {
-        info.data[u"text"] = muse::Val(toTextBase(item)->plainText().toStdString());
+        info.text = mu::engraving::toTextBase(item)->plainText();
     } else {
         info.name = item->translatedSubtypeUserName();
     }
 
-    info.type = type;
+    if (!barbeat.has_value()) {
+        barbeat = item->barbeat();
+    }
 
-    const Part* part = item->part();
-    const InstrumentTrackId trackId {
+    if (info.name.empty() && info.notes.empty() && info.text.empty()) {
+        info.name = item->typeUserName().translated();
+    }
+
+    const mu::engraving::Part* part = item->part();
+    const mu::engraving::InstrumentTrackId trackId {
         part->id(),
         part->instrumentId(item->tick())
     };
 
-    if (!locationIsSet) {
-        const EngravingItem::BarBeat barbeat = item->barbeat();
-        info.start.staffIdx = item->staffIdx();
-        info.start.voiceIdx = item->voice();
-        info.start.measureIdx = barbeat.displayedBar - 1;
+    if (scannerData->options.avoidDuplicates) {
+        const muse::String& name = !info.name.empty() ? info.name : info.notes;
+        const ScannerData::ElementKey key = std::make_pair(type, item->subtype());
+        std::set<muse::String>& uniqueNames = scannerData->uniqueNames[trackId][key];
 
-        if (hasBeat(type)) {
-            info.start.beat = barbeat.beat - 1.;
+        if (muse::contains(uniqueNames, name)) {
+            return;
         }
 
-        info.end = info.start;
+        uniqueNames.insert(name);
     }
 
-    scannerData->elements[trackId].emplace_back(std::move(info));
+    info.staffIdx = item->staffIdx();
+    info.voiceIdx = item->voice();
+    info.measureIdx = barbeat.value().bar - 1;
+    info.beat = barbeat.value().beat - 1.;
+    scannerData->elements[trackId][type].push_back(info);
 }
 
-ElementMap ScoreElementScanner::scanElements(Score* score)
+ScoreElementScanner::InstrumentElementMap ScoreElementScanner::scanElements(mu::engraving::Score* score, const Options& options)
 {
     TRACEFUNC;
 
     ScannerData data;
-    score->scanElements([&](mu::engraving::EngravingItem* item) { addElementInfoIfNeed(&data, item); });
+    data.options = options;
 
-    // Sort elements: staff -> measure -> beat -> voice
-    for (auto& pair : data.elements) {
-        std::stable_sort(pair.second.begin(), pair.second.end(), [](const ElementInfo& a, const ElementInfo& b) {
-            const auto& A = a.start;
-            const auto& B = b.start;
-
-            // Map negative beats to a value that always sorts last
-            const float beatA = (A.beat < 0.f) ? std::numeric_limits<float>::max() : A.beat;
-            const float beatB = (B.beat < 0.f) ? std::numeric_limits<float>::max() : B.beat;
-
-            return std::tie(A.staffIdx, A.measureIdx, beatA, A.voiceIdx) < std::tie(B.staffIdx, B.measureIdx, beatB, B.voiceIdx);
-        });
-    }
+    score->scanElements(&data, addElementInfoIfNeed, false);
 
     return data.elements;
 }

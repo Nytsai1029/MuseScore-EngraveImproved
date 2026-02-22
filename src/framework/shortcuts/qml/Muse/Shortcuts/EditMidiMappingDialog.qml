@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,12 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQuick.Layouts 1.12
 
-import Muse.Ui
-import Muse.UiComponents
-import Muse.Shortcuts
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import Muse.Shortcuts 1.0
 
 StyledDialogView {
     id: root
@@ -38,10 +38,6 @@ StyledDialogView {
 
     signal mapToEventRequested(var event)
 
-    onNavigationActivateRequested: {
-        mappingField.navigation.requestActive();
-    }
-
     function startEdit(action) {
         model.load(action.mappedType, action.mappedValue)
         actionNameLabel.text = action.title
@@ -50,18 +46,11 @@ StyledDialogView {
         open()
     }
 
+
     Rectangle {
         anchors.fill: parent
 
         color: ui.theme.backgroundPrimaryColor
-
-        NavigationPanel {
-            id: navPanel
-            name: "EditMidiMappingDialog"
-            section: root.navigationSection
-            enabled: root.enabled && root.visible
-            order: 1
-        }
 
         EditMidiMappingModel {
             id: model
@@ -116,9 +105,6 @@ StyledDialogView {
 
                     //: The app is waiting for the user to trigger a valid MIDI remote event
                     hint: qsTrc("shortcuts", "Waiting…")
-
-                    navigation.panel: navPanel
-                    navigation.order: 1
                 }
             }
 
@@ -126,9 +112,6 @@ StyledDialogView {
                 width: parent.width
 
                 buttons: [ ButtonBoxModel.Cancel ]
-
-                navigationPanel.section: root.navigationSection
-                navigationPanel.order: 2
 
                 FlatButton {
                     text: qsTrc("global", "Add")

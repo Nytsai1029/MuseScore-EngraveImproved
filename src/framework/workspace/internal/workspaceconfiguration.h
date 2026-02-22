@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -32,14 +32,14 @@
 #include "../iworkspaceconfiguration.h"
 
 namespace muse::workspace {
-class WorkspaceConfiguration : public IWorkspaceConfiguration, public Contextable, public async::Asyncable
+class WorkspaceConfiguration : public IWorkspaceConfiguration, public Injectable, public async::Asyncable
 {
-    GlobalInject<IGlobalConfiguration> globalConfiguration;
-    GlobalInject<io::IFileSystem> fileSystem;
+    Inject<IGlobalConfiguration> globalConfiguration = { this };
+    Inject<io::IFileSystem> fileSystem = { this };
 
 public:
     WorkspaceConfiguration(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void init();
 

@@ -35,12 +35,12 @@ class Score;
 }
 
 namespace mu::notation {
-class NotationPlayback : public INotationPlayback, public muse::async::Asyncable, public muse::Contextable
+class NotationPlayback : public INotationPlayback, public muse::async::Asyncable
 {
-    muse::GlobalInject<INotationConfiguration> configuration;
+    INJECT(INotationConfiguration, configuration)
 
 public:
-    NotationPlayback(IGetScore* getScore, muse::async::Channel<muse::RectF> notationChanged, const muse::modularity::ContextPtr& iocCtx);
+    NotationPlayback(IGetScore* getScore, muse::async::Notification notationChanged, const muse::modularity::ContextPtr& iocCtx);
 
     void init() override;
     void reload() override;
@@ -107,7 +107,7 @@ private:
 
     IGetScore* m_getScore = nullptr;
 
-    muse::async::Channel<muse::RectF> m_notationChanged;
+    muse::async::Notification m_notationChanged;
 
     LoopBoundaries m_loopBoundaries;
     muse::async::Notification m_loopBoundariesChanged;

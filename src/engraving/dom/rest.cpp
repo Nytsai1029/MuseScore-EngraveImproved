@@ -28,8 +28,6 @@
 #include "containers.h"
 #include "translation.h"
 
-#include "../editing/addremoveelement.h"
-
 #include "actionicon.h"
 #include "articulation.h"
 #include "chord.h"
@@ -42,7 +40,7 @@
 #include "segment.h"
 #include "staff.h"
 #include "stafftype.h"
-#include "parenthesis.h"
+#include "undo.h"
 
 #include "log.h"
 
@@ -143,15 +141,25 @@ void Rest::setOffset(const PointF& o)
 
 RectF Rest::drag(EditData& ed)
 {
-    if (ed.modifiers & ShiftModifier) {
-        Segment* seg = segment();
-        const Spatium deltaSp = Spatium(ed.evtDelta.x() / spatium());
-        seg->undoChangeProperty(Pid::LEADING_SPACE, seg->extraLeadingSpace() + deltaSp);
-    } else {
-        setOffset(offset() + ed.evtDelta);
+    // don't allow drag for Measure Rests, because they can't be easily laid out in correct position while dragging
+    if (measure() && durationType().type() == DurationType::V_MEASURE) {
+        return RectF();
     }
-    triggerLayout();
-    return RectF();
+
+    PointF s(ed.delta);
+    RectF r(pageBoundingRect());
+
+    // Limit horizontal drag range
+    static const double xDragRange = spatium() * 5;
+    if (std::fabs(s.x()) > xDragRange) {
+        s.rx() = xDragRange * (s.x() < 0 ? -1.0 : 1.0);
+    }
+    setOffset(PointF(s.x(), s.y()));
+
+    renderer()->layoutItem(this);
+
+    score()->rebuildBspTree();
+    return pageBoundingRect().united(r);
 }
 
 //---------------------------------------------------------
@@ -161,29 +169,62 @@ RectF Rest::drag(EditData& ed)
 bool Rest::acceptDrop(EditData& data) const
 {
     EngravingItem* e = data.dropElement;
-
-    switch (e->type()) {
-    case ElementType::CHORD:
-    case ElementType::NOTE:
-    case ElementType::IMAGE:
-    case ElementType::SYMBOL:
+    ElementType type = e->type();
+    if ((type == ElementType::ACTION_ICON && toActionIcon(e)->actionType() == ActionIconType::BEAM_AUTO)
+        || (type == ElementType::ACTION_ICON && toActionIcon(e)->actionType() == ActionIconType::BEAM_NONE)
+        || (type == ElementType::ACTION_ICON && toActionIcon(e)->actionType() == ActionIconType::BEAM_BREAK_LEFT)
+        || (type == ElementType::ACTION_ICON && toActionIcon(e)->actionType() == ActionIconType::BEAM_BREAK_INNER_8TH)
+        || (type == ElementType::ACTION_ICON && toActionIcon(e)->actionType() == ActionIconType::BEAM_BREAK_INNER_16TH)
+        || (type == ElementType::ACTION_ICON && toActionIcon(e)->actionType() == ActionIconType::BEAM_JOIN)
+        || (type == ElementType::FERMATA)
+        || (type == ElementType::CLEF)
+        || (type == ElementType::KEYSIG)
+        || (type == ElementType::TIMESIG)
+        || (type == ElementType::SYSTEM_TEXT)
+        || (type == ElementType::TRIPLET_FEEL)
+        || (type == ElementType::STAFF_TEXT)
+        || (type == ElementType::PLAYTECH_ANNOTATION)
+        || (type == ElementType::CAPO)
+        || (type == ElementType::BAR_LINE)
+        || (type == ElementType::BREATH)
+        || (type == ElementType::CHORD)
+        || (type == ElementType::NOTE)
+        || (type == ElementType::STAFF_STATE)
+        || (type == ElementType::INSTRUMENT_CHANGE)
+        || (type == ElementType::DYNAMIC)
+        || (type == ElementType::EXPRESSION)
+        || (type == ElementType::HARMONY)
+        || (type == ElementType::TEMPO_TEXT)
+        || (type == ElementType::REHEARSAL_MARK)
+        || (type == ElementType::FRET_DIAGRAM)
+        || (type == ElementType::TREMOLOBAR)
+        || (type == ElementType::IMAGE)
+        || (type == ElementType::SYMBOL)
+        || (type == ElementType::HARP_DIAGRAM)
+        || (type == ElementType::MEASURE_REPEAT && durationType().type() == DurationType::V_MEASURE)
+        ) {
         return true;
-    case ElementType::MEASURE_REPEAT:
-        return durationType().type() == DurationType::V_MEASURE;
-    default:
-        // prevent 'hanging' slurs, avoid crash on tie
-        if (e->isSpanner()) {
-            static const std::set<ElementType> ignoredTypes {
-                ElementType::SLUR,
-                ElementType::HAMMER_ON_PULL_OFF,
-                ElementType::TIE,
-                ElementType::GLISSANDO
-            };
-            return !muse::contains(ignoredTypes, e->type());
-        }
-        break;
     }
-    return ChordRest::acceptDrop(data);
+
+    if (type == ElementType::STRING_TUNINGS) {
+        staff_idx_t staffIdx = 0;
+        Segment* seg = nullptr;
+        if (!score()->pos2measure(data.pos, &staffIdx, 0, &seg, 0)) {
+            return false;
+        }
+
+        return measure()->canAddStringTunings(staffIdx);
+    }
+
+    // prevent 'hanging' slurs, avoid crash on tie
+    static const std::set<ElementType> ignoredTypes {
+        ElementType::SLUR,
+        ElementType::HAMMER_ON_PULL_OFF,
+        ElementType::TIE,
+        ElementType::GLISSANDO
+    };
+
+    return e->isSpanner() && !muse::contains(ignoredTypes, type);
 }
 
 //---------------------------------------------------------
@@ -199,7 +240,7 @@ EngravingItem* Rest::drop(EditData& data)
         Articulation* a = toArticulation(e);
         if (!a->isFermata() || !score()->toggleArticulation(this, a)) {
             delete e;
-            e = nullptr;
+            e = 0;
         }
     }
         return e;
@@ -232,6 +273,8 @@ EngravingItem* Rest::drop(EditData& data)
         }
         break;
     }
+    case ElementType::STRING_TUNINGS:
+        return measure()->drop(data);
 
     default:
         return ChordRest::drop(data);
@@ -249,10 +292,10 @@ SymId Rest::getSymbol(DurationType type, int line, int lines) const
     case DurationType::V_LONG:
         return SymId::restLonga;
     case DurationType::V_BREVE:
-        return (line < 0 || line >= lines) ? SymId::restDoubleWholeLegerLine : SymId::restDoubleWhole;
+        return SymId::restDoubleWhole;
     case DurationType::V_MEASURE:
         if (ticks() >= Fraction(2, 1)) {
-            return (line < 0 || line >= lines) ? SymId::restDoubleWholeLegerLine : SymId::restDoubleWhole;
+            return SymId::restDoubleWhole;
         }
     // fall through
     case DurationType::V_WHOLE:
@@ -397,23 +440,17 @@ double Rest::downPos() const
 //   scanElements
 //---------------------------------------------------------
 
-void Rest::scanElements(std::function<void(EngravingItem*)> func)
+void Rest::scanElements(void* data, void (* func)(void*, EngravingItem*), bool all)
 {
-    ChordRest::scanElements(func);
+    ChordRest::scanElements(data, func, all);
     for (EngravingItem* e : el()) {
-        e->scanElements(func);
+        e->scanElements(data, func, all);
     }
     for (NoteDot* dot : m_dots) {
-        dot->scanElements(func);
+        dot->scanElements(data, func, all);
     }
-    if (!isGap() || debugDrawGap()) {
-        func(this);
-    }
-    if (leftParen()) {
-        func(leftParen());
-    }
-    if (rightParen()) {
-        func(rightParen());
+    if (!isGap()) {
+        func(data, this);
     }
 }
 
@@ -695,6 +732,23 @@ EngravingItem* Rest::prevElement()
 }
 
 //---------------------------------------------------------
+//   editDrag
+//---------------------------------------------------------
+
+void Rest::editDrag(EditData& editData)
+{
+    Segment* seg = segment();
+
+    if (editData.modifiers & ShiftModifier) {
+        const Spatium deltaSp = Spatium(editData.delta.x() / spatium());
+        seg->undoChangeProperty(Pid::LEADING_SPACE, seg->extraLeadingSpace() + deltaSp);
+    } else {
+        setOffset(offset() + editData.evtDelta);
+    }
+    triggerLayout();
+}
+
+//---------------------------------------------------------
 //   Rest::shouldNotBeDrawn
 //    in tab staff, do not draw rests (except mmrests)
 //    if rests are off OR if dur. symbols are on
@@ -718,11 +772,6 @@ bool Rest::shouldNotBeDrawn() const
     }
 
     return false;
-}
-
-bool Rest::debugDrawGap() const
-{
-    return configuration()->debuggingOptions().showGapRests;
 }
 
 //---------------------------------------------------------

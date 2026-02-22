@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -21,7 +21,7 @@
  */
 #include "xmlstreamwriter.h"
 
-#include <vector>
+#include <list>
 
 #include <global/thirdparty/utfcpp/utf8.h>
 
@@ -34,7 +34,7 @@ using namespace std::literals;
 using namespace muse;
 
 struct XmlStreamWriter::Impl {
-    std::vector<std::string> stack;
+    std::list<std::string> stack;
     TextStream stream;
 
     void putLevel()
@@ -118,7 +118,7 @@ std::string XmlStreamWriter::escapeString(const std::string_view str)
 void XmlStreamWriter::writeValue(const Value& v)
 {
     // std::monostate, int, unsigned int, signed long int, unsigned long int, signed long long, unsigned long long,
-    // double, const char*, std::string_view, String
+    // double, const char*, AsciiStringView, String
     switch (v.index()) {
     case 0:
         break;
@@ -138,7 +138,7 @@ void XmlStreamWriter::writeValue(const Value& v)
         break;
     case 8: m_impl->stream << escapeString(AsciiStringView(std::get<const char*>(v)));
         break;
-    case 9: m_impl->stream << escapeString(std::get<std::string_view>(v));
+    case 9: m_impl->stream << escapeString(std::get<AsciiStringView>(v));
         break;
     case 10: m_impl->stream << escapeString(std::get<String>(v).toStdString());
         break;
@@ -149,9 +149,9 @@ void XmlStreamWriter::writeValue(const Value& v)
     }
 }
 
-void XmlStreamWriter::startElement(const std::string_view& name, const Attributes& attrs)
+void XmlStreamWriter::startElement(const AsciiStringView& name, const Attributes& attrs)
 {
-    IF_ASSERT_FAILED(name.find(' ') == std::string_view::npos) {
+    IF_ASSERT_FAILED(!name.contains(' ')) {
     }
 
     m_impl->putLevel();
@@ -162,7 +162,7 @@ void XmlStreamWriter::startElement(const std::string_view& name, const Attribute
         m_impl->stream << '\"';
     }
     m_impl->stream << '>' << '\n';
-    m_impl->stack.emplace_back(name);
+    m_impl->stack.push_back(name.ascii());
 }
 
 void XmlStreamWriter::startElement(const String& name, const Attributes& attrs)
@@ -182,12 +182,13 @@ void XmlStreamWriter::endElement()
 {
     m_impl->putLevel();
     m_impl->stream << "</" << muse::takeLast(m_impl->stack) << '>' << '\n';
+    flush();
 }
 
 // <element attr="value" />
-void XmlStreamWriter::element(const std::string_view& name, const Attributes& attrs)
+void XmlStreamWriter::element(const AsciiStringView& name, const Attributes& attrs)
 {
-    IF_ASSERT_FAILED(name.find(' ') == std::string_view::npos) {
+    IF_ASSERT_FAILED(!name.contains(' ')) {
     }
 
     m_impl->putLevel();
@@ -200,9 +201,9 @@ void XmlStreamWriter::element(const std::string_view& name, const Attributes& at
     m_impl->stream << "/>\n";
 }
 
-void XmlStreamWriter::element(const std::string_view& name, const Value& body)
+void XmlStreamWriter::element(const AsciiStringView& name, const Value& body)
 {
-    IF_ASSERT_FAILED(name.find(' ') == std::string_view::npos) {
+    IF_ASSERT_FAILED(!name.contains(' ')) {
     }
 
     m_impl->putLevel();
@@ -211,9 +212,9 @@ void XmlStreamWriter::element(const std::string_view& name, const Value& body)
     m_impl->stream << "</" << name << '>' << '\n';
 }
 
-void XmlStreamWriter::element(const std::string_view& name, const Attributes& attrs, const Value& body)
+void XmlStreamWriter::element(const AsciiStringView& name, const Attributes& attrs, const Value& body)
 {
-    IF_ASSERT_FAILED(name.find(' ') == std::string_view::npos) {
+    IF_ASSERT_FAILED(!name.contains(' ')) {
     }
 
     m_impl->putLevel();

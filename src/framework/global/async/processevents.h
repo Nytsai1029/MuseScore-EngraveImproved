@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,23 +19,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#pragma once
+#ifndef MUSE_ASYNC_PROCESSEVENTS_H
+#define MUSE_ASYNC_PROCESSEVENTS_H
 
 #include "../thirdparty/kors_async/async/processevents.h"
 
 namespace muse::async {
-inline void processMessages()
+inline void processEvents()
 {
-    kors::async::processMessages();
+    kors::async::processEvents();
 }
 
-inline void processMessages(const std::thread::id& th)
+inline void onMainThreadInvoke(const std::function<void(const std::function<void()>&, bool)>& f)
 {
-    kors::async::processMessages(th);
+    kors::async::onMainThreadInvoke(f);
+}
 }
 
-inline void terminate()
-{
-    kors::async::terminate();
-}
-}
+#endif // MUSE_ASYNC_PROCESSEVENTS_H

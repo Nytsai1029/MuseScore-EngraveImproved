@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -24,15 +24,9 @@
 #include <cassert>
 
 #include "global/serialization/msgpack_forward.h"
-#include "audio/common/audiotypes.h"
+#include "../../audiotypes.h"
 
 #include "log.h"
-
-void pack_custom(muse::msgpack::Packer& p, const muse::audio::AudioEngineConfig& value);
-void unpack_custom(muse::msgpack::UnPacker& p, muse::audio::AudioEngineConfig& value);
-
-void pack_custom(muse::msgpack::Packer& p, const muse::audio::OutputSpec& value);
-void unpack_custom(muse::msgpack::UnPacker& p, muse::audio::OutputSpec& value);
 
 void pack_custom(muse::msgpack::Packer& p, const muse::audio::PlaybackStatus& value);
 void unpack_custom(muse::msgpack::UnPacker& p, muse::audio::PlaybackStatus& value);
@@ -63,8 +57,6 @@ void unpack_custom(muse::msgpack::UnPacker& p, muse::audio::SoundPreset& value);
 
 void pack_custom(muse::msgpack::Packer& p, const muse::audio::SoundTrackType& value);
 void unpack_custom(muse::msgpack::UnPacker& p, muse::audio::SoundTrackType& value);
-void pack_custom(muse::msgpack::Packer& p, const muse::audio::AudioSampleFormat& value);
-void unpack_custom(muse::msgpack::UnPacker& p, muse::audio::AudioSampleFormat& value);
 void pack_custom(muse::msgpack::Packer& p, const muse::audio::SoundTrackFormat& value);
 void unpack_custom(muse::msgpack::UnPacker& p, muse::audio::SoundTrackFormat& value);
 
@@ -103,6 +95,8 @@ void unpack_custom(muse::msgpack::UnPacker& p, muse::mpe::ExpressionContext& val
 
 void pack_custom(muse::msgpack::Packer& p, const muse::mpe::NoteEvent& value);
 void unpack_custom(muse::msgpack::UnPacker& p, muse::mpe::NoteEvent& value);
+void pack_custom(muse::msgpack::Packer& p, const muse::mpe::RestEvent& value);
+void unpack_custom(muse::msgpack::UnPacker& p, muse::mpe::RestEvent& value);
 void pack_custom(muse::msgpack::Packer& p, const muse::mpe::TextArticulationEvent& value);
 void unpack_custom(muse::msgpack::UnPacker& p, muse::mpe::TextArticulationEvent& value);
 void pack_custom(muse::msgpack::Packer& p, const muse::mpe::SoundPresetChangeEvent& value);
@@ -122,26 +116,6 @@ void pack_custom(muse::msgpack::Packer& p, const muse::mpe::PlaybackData& value)
 void unpack_custom(muse::msgpack::UnPacker& p, muse::mpe::PlaybackData& value);
 
 #include "global/serialization/msgpack.h"
-
-inline void pack_custom(muse::msgpack::Packer& p, const muse::audio::AudioEngineConfig& value)
-{
-    p.process(value.autoProcessOnlineSoundsInBackground);
-}
-
-inline void unpack_custom(muse::msgpack::UnPacker& p, muse::audio::AudioEngineConfig& value)
-{
-    p.process(value.autoProcessOnlineSoundsInBackground);
-}
-
-inline void pack_custom(muse::msgpack::Packer& p, const muse::audio::OutputSpec& value)
-{
-    p.process(value.sampleRate, value.samplesPerChannel, value.audioChannelCount);
-}
-
-inline void unpack_custom(muse::msgpack::UnPacker& p, muse::audio::OutputSpec& value)
-{
-    p.process(value.sampleRate, value.samplesPerChannel, value.audioChannelCount);
-}
 
 inline void pack_custom(muse::msgpack::Packer& p, const muse::audio::PlaybackStatus& value)
 {
@@ -261,36 +235,24 @@ inline void unpack_custom(muse::msgpack::UnPacker& p, muse::audio::SoundTrackTyp
     value = static_cast<muse::audio::SoundTrackType>(type);
 }
 
-inline void pack_custom(muse::msgpack::Packer& p, const muse::audio::AudioSampleFormat& value)
-{
-    p.process(static_cast<int>(value));
-}
-
-inline void unpack_custom(muse::msgpack::UnPacker& p, muse::audio::AudioSampleFormat& value)
-{
-    int format = 0;
-    p.process(format);
-    value = static_cast<muse::audio::AudioSampleFormat>(format);
-}
-
 inline void pack_custom(muse::msgpack::Packer& p, const muse::audio::SoundTrackFormat& value)
 {
-    p.process(value.type, value.outputSpec, value.sampleFormat, value.bitRate);
+    p.process(value.type, value.sampleRate, value.samplesPerChannel, value.audioChannelsNumber, value.bitRate);
 }
 
 inline void unpack_custom(muse::msgpack::UnPacker& p, muse::audio::SoundTrackFormat& value)
 {
-    p.process(value.type, value.outputSpec, value.sampleFormat, value.bitRate);
+    p.process(value.type, value.sampleRate, value.samplesPerChannel, value.audioChannelsNumber, value.bitRate);
 }
 
 inline void pack_custom(muse::msgpack::Packer& p, const muse::audio::AudioSignalVal& value)
 {
-    p.process(value.pressure);
+    p.process(value.amplitude, value.pressure);
 }
 
 inline void unpack_custom(muse::msgpack::UnPacker& p, muse::audio::AudioSignalVal& value)
 {
-    p.process(value.pressure);
+    p.process(value.amplitude, value.pressure);
 }
 
 inline void pack_custom(muse::msgpack::Packer& p, const muse::audio::InputProcessingProgress::ChunkInfo& value)
@@ -448,6 +410,18 @@ inline void unpack_custom(muse::msgpack::UnPacker& p, muse::mpe::NoteEvent& valu
     value = muse::mpe::NoteEvent(std::move(arrCtx), std::move(pitchCtx), std::move(exprCtx));
 }
 
+inline void pack_custom(muse::msgpack::Packer& p, const muse::mpe::RestEvent& value)
+{
+    p.process(value.arrangementCtx());
+}
+
+inline void unpack_custom(muse::msgpack::UnPacker& p, muse::mpe::RestEvent& value)
+{
+    muse::mpe::ArrangementContext arrCtx;
+    p.process(arrCtx);
+    value = muse::mpe::RestEvent(std::move(arrCtx));
+}
+
 inline void pack_custom(muse::msgpack::Packer& p, const muse::mpe::TextArticulationEvent& value)
 {
     p.process(value.text, value.layerIdx, value.flags);
@@ -504,18 +478,22 @@ inline void pack_custom(muse::msgpack::Packer& p, const muse::mpe::PlaybackEvent
         p.process(event);
     } break;
     case 2: {
-        const muse::mpe::TextArticulationEvent& event = std::get<muse::mpe::TextArticulationEvent>(value);
+        const muse::mpe::RestEvent& event = std::get<muse::mpe::RestEvent>(value);
         p.process(event);
     } break;
     case 3: {
-        const muse::mpe::SoundPresetChangeEvent& event = std::get<muse::mpe::SoundPresetChangeEvent>(value);
+        const muse::mpe::TextArticulationEvent& event = std::get<muse::mpe::TextArticulationEvent>(value);
         p.process(event);
     } break;
     case 4: {
-        const muse::mpe::SyllableEvent& event = std::get<muse::mpe::SyllableEvent>(value);
+        const muse::mpe::SoundPresetChangeEvent& event = std::get<muse::mpe::SoundPresetChangeEvent>(value);
         p.process(event);
     } break;
     case 5: {
+        const muse::mpe::SyllableEvent& event = std::get<muse::mpe::SyllableEvent>(value);
+        p.process(event);
+    } break;
+    case 6: {
         const muse::mpe::ControllerChangeEvent& event = std::get<muse::mpe::ControllerChangeEvent>(value);
         p.process(event);
     } break;
@@ -540,21 +518,26 @@ inline void unpack_custom(muse::msgpack::UnPacker& p, muse::mpe::PlaybackEvent& 
         value = event;
     } break;
     case 2: {
-        muse::mpe::TextArticulationEvent event;
+        muse::mpe::RestEvent event;
         p.process(event);
         value = event;
     } break;
     case 3: {
-        muse::mpe::SoundPresetChangeEvent event;
+        muse::mpe::TextArticulationEvent event;
         p.process(event);
         value = event;
     } break;
     case 4: {
-        muse::mpe::SyllableEvent event;
+        muse::mpe::SoundPresetChangeEvent event;
         p.process(event);
         value = event;
     } break;
     case 5: {
+        muse::mpe::SyllableEvent event;
+        p.process(event);
+        value = event;
+    } break;
+    case 6: {
         muse::mpe::ControllerChangeEvent event;
         p.process(event);
         value = event;

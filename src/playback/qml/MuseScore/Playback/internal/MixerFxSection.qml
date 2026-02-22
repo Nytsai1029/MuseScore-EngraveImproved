@@ -19,18 +19,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import Muse.Audio 1.0
 
 MixerPanelSection {
     id: root
-
-    property bool resourcePickingActive: false
 
     //: FX is an abbreviation of "effects".
     headerTitle: qsTrc("playback", "Audio FX")
@@ -38,8 +34,6 @@ MixerPanelSection {
 
     Column {
         id: content
-
-        required property MixerChannelItem channelItem
 
         y: 0
 
@@ -52,21 +46,18 @@ MixerPanelSection {
 
         Repeater {
             id: repeater
+            anchors.horizontalCenter: parent.horizontalCenter
 
-            model: content.channelItem.outputResourceItemList
-
+            model: channelItem.outputResourceItemList
             delegate: AudioResourceControl {
-                id: resourceControl
+                id: inputResourceControl
 
-                required property OutputResourceItem modelData
-                required property int index
-
-                anchors.horizontalCenter: content.horizontalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 resourceItemModel: modelData
 
-                navigationPanel: content.channelItem.panel
-                navigationRowStart: root.navigationRowStart + index * 3 // NOTE: 3 - because AudioResourceControl have 3 controls
+                navigationPanel: channelItem.panel
+                navigationRowStart: root.navigationRowStart + (model.index * 3) // NOTE: 3 - because AudioResourceControl have 3 controls
                 navigationName: modelData.id
                 accessibleName: content.accessibleName
 
@@ -84,10 +75,6 @@ MixerPanelSection {
 
                 onNavigateControlIndexChanged: function(index) {
                     root.navigateControlIndexChanged(index)
-                }
-
-                onResourcePickingActiveChanged: {
-                    root.resourcePickingActive = resourceControl.resourcePickingActive
                 }
             }
         }

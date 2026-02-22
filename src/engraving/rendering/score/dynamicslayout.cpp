@@ -23,7 +23,6 @@
 #include "dynamicslayout.h"
 #include "layoutcontext.h"
 #include "tlayout.h"
-#include "textlayout.h"
 
 #include "../dom/hairpin.h"
 #include "../dom/staff.h"
@@ -63,15 +62,10 @@ void DynamicsLayout::doLayoutDynamic(Dynamic* item, Dynamic::LayoutData* ldata, 
 
     item->setPlacementBasedOnVoiceAssignment(conf.styleV(Sid::dynamicsHairpinVoiceBasedPlacement).value<DirectionV>());
 
-    // If "Center on notehead" is on, override user position. Restore later
-    AlignH userPosition = item->getProperty(Pid::POSITION).value<AlignH>();
-    AlignH hPos = item->centerOnNotehead() ? AlignH::HCENTER : item->position();
-    item->setPosition(hPos);
-    TextLayout::layoutBaseTextBase(item, ldata);
-    item->setPosition(userPosition);
+    TLayout::layoutBaseTextBase(item, ldata);
 
     const Segment* s = item->segment();
-    if (!s || (!item->centerOnNotehead() && item->position() == AlignH::LEFT)) {
+    if (!s || (!item->centerOnNotehead() && item->align().horizontal == AlignH::LEFT)) {
         return;
     }
 
@@ -79,6 +73,12 @@ void DynamicsLayout::doLayoutDynamic(Dynamic* item, Dynamic::LayoutData* ldata, 
         layoutDynamicToEndOfPrevious(item, ldata);
         return;
     }
+
+    bool centerOnNote = item->centerOnNotehead() || (!item->centerOnNotehead() && item->align().horizontal == AlignH::HCENTER);
+    double mag = item->staff()->staffMag(item);
+    double noteHeadWidth = item->score()->noteHeadWidth() * mag;
+
+    ldata->moveX(noteHeadWidth * (centerOnNote ? 0.5 : 1));
 
     if (!item->centerOnNotehead()) {
         return;
@@ -188,7 +188,7 @@ void DynamicsLayout::manageBarlineCollisions(const Dynamic* item, TextBase::Layo
         return;
     }
 
-    if (!item->score()->staff(barLineStaff)->barLineSpan()) {
+    if (item->score()->staff(barLineStaff)->barLineSpan() < 1) {
         return; // Barline doesn't extend through staves
     }
 
@@ -206,7 +206,7 @@ void DynamicsLayout::manageBarlineCollisions(const Dynamic* item, TextBase::Layo
     }
 
     if (rightBarLineSegment) {
-        EngravingItem* e = rightBarLineSegment->element(barLineStaff * VOICES);
+        EngravingItem* e = rightBarLineSegment->elementAt(barLineStaff * VOICES);
         if (e) {
             double rightMargin = e->ldata()->bbox().translated(e->pagePos()).left()
                                  - referenceBBox.translated(item->pagePos() - item->offset()).right()
@@ -226,7 +226,7 @@ void DynamicsLayout::manageBarlineCollisions(const Dynamic* item, TextBase::Layo
         }
     }
     if (leftBarLineSegment) {
-        EngravingItem* e = leftBarLineSegment->element(barLineStaff * VOICES);
+        EngravingItem* e = leftBarLineSegment->elementAt(barLineStaff * VOICES);
         if (e) {
             double leftMargin = referenceBBox.translated(item->pagePos() - item->offset()).left()
                                 - e->ldata()->bbox().translated(e->pagePos()).right()

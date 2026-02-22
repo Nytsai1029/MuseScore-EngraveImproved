@@ -21,7 +21,7 @@
  */
 #include "bendinfoconverter.h"
 
-#include <engraving/dom/note.h>
+#include <dom/note.h>
 
 using namespace mu::engraving;
 
@@ -71,7 +71,7 @@ ImportedBendInfo BendInfoConverter::fillBendInfo(const Note* note, const PitchVa
 
         if (currentPitchDiff == previousPitchDiff && !importedInfo.segments.empty()) {
             BendSegment& lastSegment = importedInfo.segments.back();
-            lastSegment.middleTime = pitchValues[i + 1].time; // there is no "hold" in bend, cause both segments go same direction
+            lastSegment.middleTime = pitchValues[i].time;
             lastSegment.endTime = pitchValues[i + 1].time;
             lastSegment.endPitch = pitchValues[i + 1].pitch;
             continue;

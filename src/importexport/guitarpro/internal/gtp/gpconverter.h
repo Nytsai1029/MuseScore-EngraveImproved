@@ -19,9 +19,9 @@ class GPScore;
 class GPTrack;
 class GPDomModel;
 
-class GPConverter : public muse::Contextable
+class GPConverter : public muse::Injectable
 {
-    muse::GlobalInject<mu::engraving::IEngravingConfiguration> engravingConfiguration;
+    muse::Inject<mu::engraving::IEngravingConfiguration> engravingConfiguration = { this };
 
 public:
     GPConverter(mu::engraving::Score* score, std::unique_ptr<GPDomModel>&& gpDom, const muse::modularity::ContextPtr& iocCtx);
@@ -150,7 +150,6 @@ private:
     void fillTuplet();
     bool tupletParamsChanged(const GPBeat* beat, const ChordRest* cr);
     void setBeamMode(const GPBeat* beat, ChordRest* cr, Measure* measure, Fraction tick);
-    void addCapos();
 
     mu::engraving::Score* _score;
     std::unique_ptr<GPDomModel> _gpDom;
@@ -173,7 +172,6 @@ private:
     std::unordered_map<Note*, int> m_originalPitches; // info of changed pitches for keeping track of ties
     std::unordered_map<mu::engraving::Chord*, mu::engraving::TremoloType> m_tremolosInChords;
     std::unordered_map<track_idx_t, mu::engraving::Slur*> _slurs; // map(track, slur)
-    std::map<uint64_t /* part ID */, int /* fret position */> m_capoParams;
 
     mutable GPBeat* m_currentGPBeat = nullptr; // used for passing info from notes
 

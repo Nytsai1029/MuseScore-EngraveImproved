@@ -222,7 +222,6 @@ struct FileData
     MidiFile midiFile;
     QList<MTrack> tracks;
     int processingsOfOpenedFile = 0;
-    qint64 fileModificationTime = 0;
     bool hasTempoText = false;
     QByteArray HHeaderData;
     QByteArray VHeaderData;

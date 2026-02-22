@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -24,7 +24,7 @@
 
 #include <memory>
 
-#include "interactive/iinteractive.h"
+#include "iinteractive.h"
 
 namespace muse::autobot {
 class AutobotInteractive : public IInteractive
@@ -69,13 +69,12 @@ public:
                                  const std::string& dialogTitle = {}) override;
 
     // progress
-    void showProgress(const std::string& title, Progress progress) override;
+    void showProgress(const std::string& title, Progress* progress) override;
 
     // files
     virtual async::Promise<io::path_t> selectOpeningFile(const std::string& title, const io::path_t& dir,
                                                          const std::vector<std::string>& filter) override;
-    io::path_t selectOpeningFileSync(const std::string& title, const io::path_t& dir, const std::vector<std::string>& filter,
-                                     const int options = 0) override;
+    io::path_t selectOpeningFileSync(const std::string& title, const io::path_t& dir, const std::vector<std::string>& filter) override;
     io::path_t selectSavingFileSync(const std::string& title, const io::path_t& dir, const std::vector<std::string>& filter,
                                     bool confirmOverwrite = true) override;
 
@@ -100,16 +99,10 @@ public:
     void close(const Uri& uri) override;
     void closeAllDialogs() override;
 
-    // state
     ValCh<Uri> currentUri() const override;
     RetVal<bool> isCurrentUriDialog() const override;
-    async::Notification currentUriAboutToBeChanged() const override;
     std::vector<Uri> stack() const override;
 
-    QWindow* topWindow() const override;
-    bool topWindowIsWidget() const override;
-
-    // external
     Ret openUrl(const std::string& url) const override;
     Ret openUrl(const QUrl& url) const override;
 
@@ -123,6 +116,7 @@ public:
     io::path_t selectedFilePath() const; // last selected file path
 
 private:
+
     std::shared_ptr<IInteractive> m_real = nullptr;
 
     io::path_t m_selectedFilePath;

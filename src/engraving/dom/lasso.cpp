@@ -39,10 +39,10 @@ Lasso::Lasso(Score* s)
 }
 
 //---------------------------------------------------------
-//   dragGrip
+//   editDrag
 //---------------------------------------------------------
 
-void Lasso::dragGrip(EditData& ed)
+void Lasso::editDrag(EditData& ed)
 {
     //Qt::CursorShape cursorShape = Qt::ArrowCursor;
     Lasso::LayoutData* ldata = mutldata();

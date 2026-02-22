@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -28,18 +28,11 @@ bool MuseSoundsCheckUpdateScenarioStub::needCheckForUpdate() const
     return false;
 }
 
-void MuseSoundsCheckUpdateScenarioStub::checkForUpdate(bool)
+muse::async::Promise<muse::Ret> MuseSoundsCheckUpdateScenarioStub::checkForUpdate(bool)
 {
-}
-
-bool MuseSoundsCheckUpdateScenarioStub::checkInProgress() const
-{
-    return false;
-}
-
-muse::async::Notification MuseSoundsCheckUpdateScenarioStub::checkInProgressChanged() const
-{
-    return {};
+    return muse::async::make_promise<Ret>([this](auto, auto) {
+        return muse::async::Promise<muse::Ret>::dummy_result();
+    });
 }
 
 bool MuseSoundsCheckUpdateScenarioStub::hasUpdate() const

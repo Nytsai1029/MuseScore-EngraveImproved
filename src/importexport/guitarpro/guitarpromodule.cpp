@@ -42,13 +42,13 @@ void GuitarProModule::registerExports()
 {
     m_configuration = std::make_shared<GuitarProConfiguration>();
 
-    globalIoc()->registerExport<IGuitarProConfiguration>(moduleName(), m_configuration);
+    ioc()->registerExport<IGuitarProConfiguration>(moduleName(), m_configuration);
 }
 
 void GuitarProModule::resolveImports()
 {
-    auto readers = globalIoc()->resolve<INotationReadersRegister>(moduleName());
+    auto readers = ioc()->resolve<INotationReadersRegister>(moduleName());
     if (readers) {
-        readers->reg({ "gtp", "gp3", "gp4", "gp5", "gpx", "gp", "ptb" }, std::make_shared<GuitarProReader>(muse::modularity::globalCtx()));
+        readers->reg({ "gtp", "gp3", "gp4", "gp5", "gpx", "gp", "ptb" }, std::make_shared<GuitarProReader>(iocContext()));
     }
 }

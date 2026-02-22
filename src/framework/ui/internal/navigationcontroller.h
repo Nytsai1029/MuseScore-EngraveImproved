@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,33 +19,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_UI_NAVIGATIONCONTROLLER_H
+#define MUSE_UI_NAVIGATIONCONTROLLER_H
 
 #include <QObject>
 #include <QList>
 
 #include "modularity/ioc.h"
-#include "actions/actionable.h"
-#include "actions/iactionsdispatcher.h"
+#include "global/iinteractive.h"
 #include "async/asyncable.h"
 #include "ui/imainwindow.h"
-#include "interactive/iinteractive.h"
+#include "actions/iactionsdispatcher.h"
+#include "actions/actionable.h"
 
 #include "../inavigationcontroller.h"
 
 namespace muse::ui {
-class NavigationController : public QObject, public INavigationController, public Contextable, public actions::Actionable,
+class NavigationController : public QObject, public INavigationController, public Injectable, public actions::Actionable,
     public async::Asyncable
 {
 public:
-    ContextInject<actions::IActionsDispatcher> dispatcher = { this };
-    ContextInject<IInteractive> interactive = { this };
-    ContextInject<IMainWindow> mainWindow = { this };
+    Inject<actions::IActionsDispatcher> dispatcher = { this };
+    Inject<IInteractive> interactive = { this };
+    Inject<IMainWindow> mainWindow = { this };
 
 public:
     NavigationController(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     enum MoveDirection {
         First = 0,
@@ -154,3 +154,5 @@ private:
     bool m_isResetOnMousePress = true;
 };
 }
+
+#endif // MUSE_UI_NAVIGATIONCONTROLLER_H

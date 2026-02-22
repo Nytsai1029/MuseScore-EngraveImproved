@@ -19,7 +19,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 import QtQuick
 
 import Muse.Ui
@@ -51,7 +50,7 @@ StyledDialogView {
         id: navPanel
         name: "PalettePropertiesDialog"
         section: root.navigationSection
-        enabled: contentColumn.enabled && contentColumn.visible
+        enabled: root.enabled && root.visible
         order: 1
         direction: NavigationPanel.Horizontal
     }
@@ -82,7 +81,7 @@ StyledDialogView {
             navigation.order: 1
         }
 
-        SeparatorLine { anchors.margins: -root.margins }
+        SeparatorLine { anchors.margins: -parent.margins }
 
         StyledTextLabel {
             text: qsTrc("palette", "Cell size")

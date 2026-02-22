@@ -29,13 +29,12 @@
 #include "mpe/tests/utils/articulationutils.h"
 #include "mpe/tests/mocks/articulationprofilesrepositorymock.h"
 
-#include "engraving/dom/part.h"
-#include "engraving/dom/measure.h"
-#include "engraving/dom/chord.h"
-
-#include "engraving/playback/playbackmodel.h"
-
 #include "utils/scorerw.h"
+#include "dom/part.h"
+#include "dom/measure.h"
+#include "dom/chord.h"
+
+#include "playback/playbackmodel.h"
 
 using ::testing::NiceMock;
 using ::testing::Return;
@@ -55,6 +54,10 @@ class Engraving_PlaybackModelTests : public ::testing::Test, public muse::async:
 protected:
     void SetUp() override
     {
+        //! NOTE: allows to read test files using their version readers
+        //! instead of using 302 (see mscloader.cpp, makeReader)
+        MScore::useRead302InTestMode = false;
+
         m_dummyPatternSegment.arrangementPattern
             = tests::createArrangementPattern(HUNDRED_PERCENT /*duration_factor*/, 0 /*timestamp_offset*/);
         m_dummyPatternSegment.pitchPattern = tests::createSimplePitchPattern(0 /*increment_pitch_diff*/);
@@ -66,11 +69,16 @@ protected:
         m_repositoryMock = std::make_shared<NiceMock<ArticulationProfilesRepositoryMock> >();
     }
 
+    void TearDown() override
+    {
+        MScore::useRead302InTestMode = true;
+    }
+
     ArticulationPattern buildTestArticulationPattern() const
     {
         ArticulationPatternSegment blankSegment(ArrangementPattern(HUNDRED_PERCENT /*durationFactor*/, 0 /*timestampOffset*/),
-                                                PitchPattern(ArticulationMap::EXPECTED_SIZE, TEN_PERCENT, 0),
-                                                ExpressionPattern(ArticulationMap::EXPECTED_SIZE, TEN_PERCENT, 0));
+                                                PitchPattern(EXPECTED_SIZE, TEN_PERCENT, 0),
+                                                ExpressionPattern(EXPECTED_SIZE, TEN_PERCENT, 0));
 
         ArticulationPattern pattern;
         pattern.emplace(0, std::move(blankSegment));
@@ -178,24 +186,26 @@ TEST_F(Engraving_PlaybackModelTests, Repeat_And_Tremolo)
     EXPECT_CALL(*m_repositoryMock, defaultProfile(_)).WillRepeatedly(Return(m_defaultProfile));
 
     // [GIVEN] Expected amount of events per timestamp
-    const std::map<timestamp_t, size_t> expectedSizePerTimestamp {
+    const std::map<timestamp_t, std::pair<size_t /*notes*/, size_t /*rests*/> > expectedSizePerTimestamp {
         // The first four half notes; repeated
-        { 0 * 2 * QUARTER_NOTE_DURATION, 16 },
-        { 1 * 2 * QUARTER_NOTE_DURATION, 16 },
-        { 2 * 2 * QUARTER_NOTE_DURATION, 16 },
-        { 3 * 2 * QUARTER_NOTE_DURATION, 16 },
-        { 4 * 2 * QUARTER_NOTE_DURATION, 16 },
-        { 5 * 2 * QUARTER_NOTE_DURATION, 16 },
-        { 6 * 2 * QUARTER_NOTE_DURATION, 16 },
-        { 7 * 2 * QUARTER_NOTE_DURATION, 16 },
+        { 0 * 2 * QUARTER_NOTE_DURATION, { 16, 0 } },
+        { 1 * 2 * QUARTER_NOTE_DURATION, { 16, 0 } },
+        { 2 * 2 * QUARTER_NOTE_DURATION, { 16, 0 } },
+        { 3 * 2 * QUARTER_NOTE_DURATION, { 16, 0 } },
+        { 4 * 2 * QUARTER_NOTE_DURATION, { 16, 0 } },
+        { 5 * 2 * QUARTER_NOTE_DURATION, { 16, 0 } },
+        { 6 * 2 * QUARTER_NOTE_DURATION, { 16, 0 } },
+        { 7 * 2 * QUARTER_NOTE_DURATION, { 16, 0 } },
 
         // After the repeat
-        { 8 * 2 * QUARTER_NOTE_DURATION, 16 },
+        { 8 * 2 * QUARTER_NOTE_DURATION, { 16, 0 } },
+        { 9 * 2 * QUARTER_NOTE_DURATION, { 0, 1 } },
 
         // Final three half notes
-        { 10 * 2 * QUARTER_NOTE_DURATION, 16 },
-        { 11 * 2 * QUARTER_NOTE_DURATION, 16 },
-        { 12 * 2 * QUARTER_NOTE_DURATION, 16 },
+        { 10 * 2 * QUARTER_NOTE_DURATION, { 16, 0 } },
+        { 11 * 2 * QUARTER_NOTE_DURATION, { 16, 0 } },
+        { 12 * 2 * QUARTER_NOTE_DURATION, { 16, 0 } },
+        { 13 * 2 * QUARTER_NOTE_DURATION, { 0, 1 } }
     };
 
     // [WHEN] The articulation profiles repository will be returning profiles for StringsArticulation family
@@ -223,7 +233,7 @@ TEST_F(Engraving_PlaybackModelTests, Repeat_And_Tremolo)
 
         ASSERT_TRUE(isExpectedTimestamp(pair.first));
 
-        size_t notes = 0;
+        size_t notes = 0, rests = 0;
         for (const PlaybackEvent& event : pair.second) {
             if (std::holds_alternative<mpe::NoteEvent>(event)) {
                 // Check actual timestamp
@@ -231,10 +241,12 @@ TEST_F(Engraving_PlaybackModelTests, Repeat_And_Tremolo)
                 EXPECT_EQ(noteEvent.arrangementCtx().actualTimestamp, pair.first + notes * (2 * QUARTER_NOTE_DURATION / 16));
 
                 ++notes;
+            } else {
+                ++rests;
             }
         }
 
-        EXPECT_EQ(expectedSizePerTimestamp.at(pair.first), notes);
+        EXPECT_EQ(std::make_pair(notes, rests), expectedSizePerTimestamp.at(pair.first));
     }
 
     EXPECT_EQ(timestampCount, expectedSizePerTimestamp.size());
@@ -1118,26 +1130,6 @@ TEST_F(Engraving_PlaybackModelTests, Metronome_4_4)
 
     // [THEN] Amount of events does match expectations
     EXPECT_EQ(eventsWhenMetronomeEnabled.size(), expectedSize);
-    for (const auto& [timestamp, list] : eventsWhenMetronomeEnabled) {
-        EXPECT_EQ(list.size(), 1);
-    }
-
-    // [WHEN] Score has been changed
-    ScoreChanges changes;
-    changes.tickFrom = 480;
-    changes.tickTo = 960;
-    changes.staffIdxFrom = 0;
-    changes.staffIdxTo = 0;
-    changes.changedTypes = { ElementType::NOTE };
-
-    score->changesChannel().send(changes);
-
-    // [THEN] Amount of events does match expectations
-    const PlaybackEventsMap& eventsAfterScoreChange = model.resolveTrackPlaybackData(model.metronomeTrackId()).originEvents;
-    EXPECT_EQ(eventsAfterScoreChange.size(), expectedSize);
-    for (const auto& [timestamp, list] : eventsAfterScoreChange) {
-        EXPECT_EQ(list.size(), 1);
-    }
 
     // [WHEN] The playback model requested to be loaded with Metronome disabled
     model.setIsMetronomeEnabled(false);

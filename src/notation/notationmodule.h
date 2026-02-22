@@ -27,6 +27,9 @@
 
 namespace mu::notation {
 class NotationConfiguration;
+class NotationActionController;
+class NotationUiActions;
+class MidiInputOutputController;
 class InstrumentsRepository;
 class EngravingFontsController;
 class NotationModule : public muse::modularity::IModuleSetup
@@ -35,25 +38,16 @@ public:
     std::string moduleName() const override;
 
     void registerExports() override;
-    void onInit(const muse::IApplication::RunMode&) override;
-
-    muse::modularity::IContextSetup* newContext(const muse::modularity::ContextPtr& ctx) const override;
-
-private:
-    std::shared_ptr<NotationConfiguration> m_configuration;
-};
-
-class NotationContext : public muse::modularity::IContextSetup
-{
-public:
-    NotationContext(const muse::modularity::ContextPtr& ctx)
-        : muse::modularity::IContextSetup(ctx) {}
-
-    void registerExports() override;
     void resolveImports() override;
+    void registerResources() override;
+    void registerUiTypes() override;
     void onInit(const muse::IApplication::RunMode& mode) override;
 
 private:
+    std::shared_ptr<NotationConfiguration> m_configuration;
+    std::shared_ptr<NotationActionController> m_actionController;
+    std::shared_ptr<NotationUiActions> m_notationUiActions;
+    std::shared_ptr<MidiInputOutputController> m_midiInputOutputController;
     std::shared_ptr<InstrumentsRepository> m_instrumentsRepository;
     std::shared_ptr<EngravingFontsController> m_engravingFontsController;
 };

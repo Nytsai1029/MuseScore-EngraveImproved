@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MUSE_GLOBAL_SHAREDHASHMAP_H
+#define MUSE_GLOBAL_SHAREDHASHMAP_H
 
 #include <memory>
 #include <unordered_map>
@@ -33,7 +34,7 @@ public:
     // like std
     using key_type = KeyType;
     using mapped_type = ValType;
-    using value_type = std::pair<const KeyType, ValType>;
+    using value_type = std::pair<KeyType, ValType>;
 
     using PairType = value_type;
     using Data = std::unordered_map<KeyType, ValType>;
@@ -209,7 +210,7 @@ public:
         m_dataPtr->erase(key);
     }
 
-    void erase(iterator first, iterator last)
+    void erase(const_iterator first, const_iterator last)
     {
         ensureDetach();
         m_dataPtr->erase(first, last);
@@ -225,7 +226,7 @@ public:
         return !this->operator ==(another);
     }
 
-private:
+protected:
     void ensureDetach()
     {
         if (!m_dataPtr) {
@@ -242,3 +243,5 @@ private:
     DataPtr m_dataPtr = nullptr;
 };
 }
+
+#endif // MUSE_GLOBAL_SHAREDHASHMAP_H

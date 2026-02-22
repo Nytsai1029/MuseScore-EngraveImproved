@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_ENGRAVING_IENGRAVINGCONFIGURATION_H
+#define MU_ENGRAVING_IENGRAVINGCONFIGURATION_H
 
 #include "types/string.h"
 #include "io/path.h"
@@ -30,7 +30,7 @@
 #include "engraving/types/types.h"
 
 namespace mu::engraving {
-class IEngravingConfiguration : MODULE_GLOBAL_INTERFACE
+class IEngravingConfiguration : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IEngravingConfiguration)
 public:
@@ -48,7 +48,6 @@ public:
 
     virtual SizeF defaultPageSize() const = 0;
 
-    virtual bool canLayoutIcons() const = 0;
     virtual String iconsFontFamily() const = 0;
 
     virtual Color defaultColor() const = 0;
@@ -57,7 +56,6 @@ public:
     virtual Color warningColor() const = 0;
     virtual Color warningSelectedColor() const = 0;
     virtual Color criticalColor() const = 0;
-    virtual Color criticalBackgroundColor() const = 0;
     virtual Color criticalSelectedColor() const = 0;
     virtual Color thumbnailBackgroundColor() const = 0;
     virtual Color noteBackgroundColor() const = 0;
@@ -69,6 +67,10 @@ public:
     virtual Color selectionColor(voice_idx_t voiceIndex = 0, bool itemVisible = true, bool itemIsUnlinkedFromScore = false) const = 0;
     virtual void setSelectionColor(voice_idx_t voiceIndex, Color color) = 0;
     virtual muse::async::Channel<voice_idx_t, Color> selectionColorChanged() const = 0;
+
+    virtual bool scoreInversionEnabled() const = 0;
+    virtual void setScoreInversionEnabled(bool value) = 0;
+    virtual muse::async::Notification scoreInversionChanged() const = 0;
 
     virtual bool dynamicsApplyToAllVoices() const = 0;
     virtual void setDynamicsApplyToAllVoices(bool v) = 0;
@@ -105,7 +107,6 @@ public:
         bool showLineAttachPoints = false;
         bool markEmptyStaffVisibilityOverrides = false;
         bool markCorruptedMeasures = true;
-        bool showGapRests = false;
 
         bool anyEnabled() const
         {
@@ -119,7 +120,6 @@ public:
                    || showLineAttachPoints
                    || markEmptyStaffVisibilityOverrides
                    || markCorruptedMeasures
-                   || showGapRests
             ;
         }
     };
@@ -137,12 +137,14 @@ public:
 
     /// these configurations will be removed after solving https://github.com/musescore/MuseScore/issues/14294
     virtual bool guitarProImportExperimental() const = 0;
+    virtual bool shouldAddParenthesisOnStandardStaff() const = 0;
     virtual bool negativeFretsAllowed() const = 0;
+    virtual bool crossNoteHeadAlwaysBlack() const = 0;
     virtual void setGuitarProMultivoiceEnabled(bool multiVoice) = 0;
     virtual bool guitarProMultivoiceEnabled() const = 0;
     virtual bool minDistanceForPartialSkylineCalculated() const = 0;
     virtual bool specificSlursLayoutWorkaround() const = 0;
-    virtual bool preferSameStringForTranspose() const = 0;
-    virtual void setPreferSameStringForTranspose(bool preferSameString) = 0;
 };
 }
+
+#endif // MU_ENGRAVING_IENGRAVINGCONFIGURATION_H

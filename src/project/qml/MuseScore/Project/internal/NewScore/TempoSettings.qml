@@ -19,22 +19,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import QtQuick.Layouts 1.3
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
-
-import Muse.Ui
-import Muse.UiComponents
-import MuseScore.Project
-import MuseScore.NotationScene
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import MuseScore.Project 1.0
+import MuseScore.CommonScene 1.0
 
 FlatButton {
     id: root
 
-    property AdditionalInfoModel model: null
+    property var model: null
     property string currentValueAccessibleName: model.tempoAccessibleName(root.model.tempo.noteIcon,
                                                                           root.model.tempo.withDot) + " " + root.model.tempo.value
 
@@ -128,30 +125,23 @@ FlatButton {
                 }
 
                 delegate: FlatRadioButton {
-                    id: delegateButton
-
-                    required property string noteSymbol
-                    required property int noteIcon
-                    required property bool withDot
-                    required property int index
-
                     width: 36
                     height: width
 
                     enabled: withTempo.checked
-                    checked: index === root.model.currentTempoNoteIndex
+                    checked: model.index === root.model.currentTempoNoteIndex
 
-                    navigation.name: noteSymbol
+                    navigation.name: modelData.noteSymbol
                     navigation.panel: tempoMarkingView.navigationPanel
                     navigation.row: 1
-                    navigation.column: index
+                    navigation.column: model.index
 
-                    navigation.accessible.name: root.model.tempoAccessibleName(noteIcon, withDot)
+                    navigation.accessible.name: root.model.tempoAccessibleName(modelData.noteIcon, modelData.withDot)
 
                     onToggled: {
                         var tempo = root.model.tempo
-                        tempo.noteIcon = noteIcon
-                        tempo.withDot = withDot
+                        tempo.noteIcon = modelData.noteIcon
+                        tempo.withDot = modelData.withDot
                         root.model.tempo = tempo
                     }
 
@@ -161,7 +151,7 @@ FlatButton {
                         font.family: ui.theme.musicalFont.family
                         font.pixelSize: 24
                         font.letterSpacing: 2
-                        text: delegateButton.noteSymbol
+                        text: modelData.noteSymbol
                     }
                 }
             }

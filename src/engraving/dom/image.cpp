@@ -28,9 +28,6 @@
 #include "draw/types/pixmap.h"
 #include "draw/svgrenderer.h"
 
-#include "../editing/editdata.h"
-#include "../editing/elementeditdata.h"
-
 #include "imageStore.h"
 #include "masterscore.h"
 #include "mscore.h"
@@ -57,7 +54,7 @@ static bool defaultSizeIsSpatium    = true;
 //---------------------------------------------------------
 
 Image::Image(EngravingItem* parent)
-    : BSymbol(ElementType::IMAGE, parent, ElementFlag::MOVABLE), muse::Contextable(BSymbol::iocContext())
+    : BSymbol(ElementType::IMAGE, parent, ElementFlag::MOVABLE), muse::Injectable(BSymbol::iocContext())
 {
     m_imageType        = ImageType::NONE;
     m_size            = SizeF(0.0, 0.0);
@@ -69,7 +66,7 @@ Image::Image(EngravingItem* parent)
 }
 
 Image::Image(const Image& img)
-    : BSymbol(img), muse::Contextable(img.muse::Contextable::iocContext())
+    : BSymbol(img), muse::Injectable(img.muse::Injectable::iocContext())
 {
     m_imageType        = img.m_imageType;
     m_buffer           = img.m_buffer;
@@ -290,19 +287,19 @@ bool Image::loadFromData(const std::string& name, const muse::ByteArray& ba)
 //   startDrag
 //---------------------------------------------------------
 
-void Image::startDragGrip(EditData& data)
+void Image::startEditDrag(EditData& data)
 {
-    BSymbol::startDragGrip(data);
+    BSymbol::startEditDrag(data);
     ElementEditDataPtr eed = data.getData(this);
 
     eed->pushProperty(Pid::SIZE);
 }
 
 //---------------------------------------------------------
-//   dragGrip
+//   editDrag
 //---------------------------------------------------------
 
-void Image::dragGrip(EditData& ed)
+void Image::editDrag(EditData& ed)
 {
     if (ed.curGrip == Grip::MIDDLE) {
         setOffset(offset() + ed.evtDelta);

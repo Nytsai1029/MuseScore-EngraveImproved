@@ -48,7 +48,7 @@ public:
     int subtype() const override { return static_cast<int>(m_tremoloType); }
     TranslatableString subtypeUserName() const override;
 
-    void scanElements(std::function<void(EngravingItem*)> func) override;
+    void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all=true) override;
 
     void setTremoloType(TremoloType t);
     TremoloType tremoloType() const { return m_tremoloType; }
@@ -71,7 +71,9 @@ public:
     void localSpatiumChanged(double oldValue, double newValue) override;
     void styleChanged() override;
     staff_idx_t vStaffIdx() const override;
+    PointF pagePos() const override;      ///< position in page coordinates
     String accessibleInfo() const override;
+    void triggerLayout() const override;
 
     bool playTremolo() const { return m_playTremolo; }
     void setPlayTremolo(bool v) { m_playTremolo = v; }
@@ -83,6 +85,7 @@ public:
     bool isMovable() const override { return true; }
     bool isEditable() const override { return true; }
     void endEdit(EditData&) override;
+    void editDrag(EditData&) override;
 
     muse::draw::PainterPath basePath(double stretch = 0) const;
     const muse::draw::PainterPath& path() const { return m_path; }

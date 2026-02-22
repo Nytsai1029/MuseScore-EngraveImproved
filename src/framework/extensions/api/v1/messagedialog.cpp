@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -24,7 +24,7 @@
 using namespace muse::extensions::apiv1;
 
 MessageDialog::MessageDialog(QObject* parent)
-    : QObject(parent), Contextable(muse::iocCtxForQmlObject(this)) {}
+    : QObject(parent), Injectable(muse::iocCtxForQmlObject(this)) {}
 
 void MessageDialog::doOpen(const QString& contentTitle, const QString& text, const QString& detailed, const QVariantList& buttons)
 {

@@ -22,11 +22,12 @@
 
 #include <gtest/gtest.h>
 
-#include "engraving/dom/masterscore.h"
+#include "dom/masterscore.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String SPLITSTAFF_DATA_DIR(u"splitstaff_data/");

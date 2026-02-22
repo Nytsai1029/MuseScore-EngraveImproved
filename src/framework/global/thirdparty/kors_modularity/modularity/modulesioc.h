@@ -32,39 +32,100 @@ SOFTWARE.
 
 #include "imoduleinterface.h"
 
-// Temporary disabled
-//#define IOC_CHECK_INTERFACE_TYPE
-
 namespace kors::modularity {
-class ModulesIoCBase
+class ModulesIoC
 {
 public:
 
-#ifndef IOC_CHECK_INTERFACE_TYPE
+    ModulesIoC() = default;
+
     // Register Export
     template<class I>
-    void registerExport(const std::string& module, std::shared_ptr<I> p)
+    void registerExportCreator(const std::string& module, IModuleCreator* c)
     {
-        registerService(module, I::modularity_interfaceInfo(), std::static_pointer_cast<IModuleInterface>(p));
+        if (!c) {
+            assert(c);
+            return;
+        }
+        registerService(module, I::interfaceInfo(), std::shared_ptr<IModuleInterface>(), c);
     }
 
     template<class I>
     void registerExport(const std::string& module, I* p)
     {
+        if (!p) {
+            assert(p);
+            return;
+        }
         registerExport<I>(module, std::shared_ptr<I>(p));
     }
 
     template<class I>
     void registerExportNoDelete(const std::string& module, I* p)
     {
+        if (!p) {
+            assert(p);
+            return;
+        }
         registerExport<I>(module, std::shared_ptr<I>(p, [](I*) {}));
+    }
+
+    template<class I>
+    void registerExport(const std::string& module, std::shared_ptr<I> p)
+    {
+        if (!p) {
+            assert(p);
+            return;
+        }
+        registerService(module, I::interfaceInfo(), std::static_pointer_cast<IModuleInterface>(p), nullptr);
+    }
+
+    // Register Internal
+    template<class I>
+    void registerInternalCreator(const std::string& module, IModuleCreator* c)
+    {
+        if (!c) {
+            assert(c);
+            return;
+        }
+        registerService(module, I::interfaceInfo(), std::shared_ptr<IModuleInterface>(), c);
+    }
+
+    template<class I>
+    void registerInternal(const std::string& module, I* p)
+    {
+        if (!p) {
+            assert(p);
+            return;
+        }
+        registerInternal<I>(module, std::shared_ptr<I>(p));
+    }
+
+    template<class I>
+    void registerInternalNoDelete(const std::string& module, I* p)
+    {
+        if (!p) {
+            assert(p);
+            return;
+        }
+        registerInternal<I>(module, std::shared_ptr<I>(p, [](I*) {}));
+    }
+
+    template<class I>
+    void registerInternal(const std::string& module, std::shared_ptr<I> p)
+    {
+        if (!p) {
+            assert(p);
+            return;
+        }
+        registerService(module, I::interfaceInfo(), std::static_pointer_cast<IModuleInterface>(p), nullptr);
     }
 
     // Unregister
     template<class I>
     void unregister(const std::string& /*module*/)
     {
-        unregisterService(I::modularity_interfaceInfo());
+        unregisterService(I::interfaceInfo());
     }
 
     template<class I>
@@ -79,24 +140,35 @@ public:
     template<class I>
     std::shared_ptr<I> resolve(const std::string_view& module, const std::string_view& callInfo = std::string_view())
     {
-        std::shared_ptr<IModuleInterface> p = doResolvePtrByInfo(module, I::modularity_interfaceInfo(), callInfo);
+        std::shared_ptr<IModuleInterface> p = doResolvePtrByInfo(module, I::interfaceInfo(), callInfo);
 #ifndef NDEBUG
         return std::dynamic_pointer_cast<I>(p);
 #else
         return std::static_pointer_cast<I>(p);
 #endif
     }
-#endif    
+
+    template<class I>
+    std::shared_ptr<I> resolveRequiredImport(const std::string& module)
+    {
+        std::shared_ptr<IModuleInterface> p = doResolvePtrByInfo(module, I::interfaceInfo(), std::string_view());
+        if (!p) {
+            std::cerr << "not found implementation for interface: " << I::interfaceInfo().id << std::endl;
+            assert(false);
+        }
+#ifndef NDEBUG
+        return std::dynamic_pointer_cast<I>(p);
+#else
+        return std::static_pointer_cast<I>(p);
+#endif
+    }
 
     void reset()
     {
         m_map.clear();
     }
 
-    ModulesIoCBase() = default;
-
-protected:
-
+private:
 
     void unregisterService(const InterfaceInfo& info)
     {
@@ -105,13 +177,9 @@ protected:
 
     void registerService(const std::string& module,
                          const InterfaceInfo& info,
-                         std::shared_ptr<IModuleInterface> p)
+                         std::shared_ptr<IModuleInterface> p,
+                         IModuleCreator* c)
     {
-        if (!p) {
-            assert(p);
-            return;
-        }
-
         auto foundIt = m_map.find(info.id);
         if (foundIt != m_map.end()) {
             std::cerr << module << ": double register:"
@@ -122,15 +190,30 @@ protected:
 
         Service inj;
         inj.sourceModule = module;
+        inj.c = c;
         inj.p = p;
         m_map[info.id] = inj;
     }
 
-    std::shared_ptr<IModuleInterface> doResolvePtrByInfo(const std::string_view& /*usageModule*/,
+    std::shared_ptr<IModuleInterface> doResolvePtrByInfo(const std::string_view& usageModule,
                                                          const InterfaceInfo& info,
-                                                         const std::string_view& /*callInfo*/)
+                                                         const std::string_view& callInfo)
     {
         //! TODO add statistics collection / monitoring, who resolves what
+
+        if (info.internal) {
+            if (usageModule != info.module) {
+                std::cerr << "Assertion failed!! Interface '" << info.id << "' is internal"
+                          << ", usage module: '" << usageModule << "'"
+                          << ", interface module: '" << info.module << "'"
+                          << ", called from: " << (callInfo.empty() ? std::string_view("unknown") : callInfo)
+                          << std::endl;
+
+                #ifndef NDEBUG
+                std::abort();
+                #endif
+            }
+        }
 
         auto it = m_map.find(info.id);
         if (it == m_map.end()) {
@@ -142,10 +225,15 @@ protected:
             return inj.p;
         }
 
+        if (inj.c) {
+            return inj.c->create();
+        }
+
         return nullptr;
     }
 
     struct Service {
+        IModuleCreator* c = nullptr;
         std::string sourceModule;
         std::shared_ptr<IModuleInterface> p;
     };
@@ -153,118 +241,10 @@ protected:
     std::map<std::string_view, Service > m_map;
 };
 
-class ModulesGlobalIoC : public ModulesIoCBase
+template<class T>
+struct Creator : MODULE_EXPORT_CREATOR
 {
-public:
-
-    // Register Export
-    template<class I>
-    void registerExport(const std::string& module, std::shared_ptr<I> p)
-    {
-        static_assert(I::modularity_isGlobalInterface(), "The interface must be global.");
-        registerService(module, I::modularity_interfaceInfo(), std::static_pointer_cast<IModuleInterface>(p));
-    }
-
-    template<class I>
-    void registerExport(const std::string& module, I* p)
-    {
-        static_assert(I::modularity_isGlobalInterface(), "The interface must be global.");
-        registerExport<I>(module, std::shared_ptr<I>(p));
-    }
-
-    template<class I>
-    void registerExportNoDelete(const std::string& module, I* p)
-    {
-        static_assert(I::modularity_isGlobalInterface(), "The interface must be global.");
-        registerExport<I>(module, std::shared_ptr<I>(p, [](I*) {}));
-    }
-
-    // Unregister
-    template<class I>
-    void unregister(const std::string& /*module*/)
-    {
-        static_assert(I::modularity_isGlobalInterface(), "The interface must be global.");
-        unregisterService(I::modularity_interfaceInfo());
-    }
-
-    template<class I>
-    void unregisterIfRegistered(const std::string& module, std::shared_ptr<I> p)
-    {
-        static_assert(I::modularity_isGlobalInterface(), "The interface must be global.");
-        if (resolve<I>(module, std::string_view()) == p) {
-            unregister<I>(module);
-        }
-    }
-
-    // Resolve
-    template<class I>
-    std::shared_ptr<I> resolve(const std::string_view& module, const std::string_view& callInfo = std::string_view())
-    {
-        static_assert(I::modularity_isGlobalInterface(), "The interface must be global.");
-        std::shared_ptr<IModuleInterface> p = doResolvePtrByInfo(module, I::modularity_interfaceInfo(), callInfo);
-#ifndef NDEBUG
-        return std::dynamic_pointer_cast<I>(p);
-#else
-        return std::static_pointer_cast<I>(p);
-#endif
-    }
-};
-
-class ModulesContextIoC : public ModulesIoCBase
-{
-public:
-
-    // Register Export
-    template<class I>
-    void registerExport(const std::string& module, std::shared_ptr<I> p)
-    {
-        static_assert(!I::modularity_isGlobalInterface(), "The interface must be contextual.");
-        registerService(module, I::modularity_interfaceInfo(), std::static_pointer_cast<IModuleInterface>(p));
-    }
-
-    template<class I>
-    void registerExport(const std::string& module, I* p)
-    {
-        static_assert(!I::modularity_isGlobalInterface(), "The interface must be contextual.");
-        registerExport<I>(module, std::shared_ptr<I>(p));
-    }
-
-    template<class I>
-    void registerExportNoDelete(const std::string& module, I* p)
-    {
-        static_assert(!I::modularity_isGlobalInterface(), "The interface must be contextual.");
-        registerExport<I>(module, std::shared_ptr<I>(p, [](I*) {}));
-    }
-
-    // Unregister
-    template<class I>
-    void unregister(const std::string& /*module*/)
-    {
-        static_assert(!I::modularity_isGlobalInterface(), "The interface must be contextual.");
-        unregisterService(I::modularity_interfaceInfo());
-    }
-
-    template<class I>
-    void unregisterIfRegistered(const std::string& module, std::shared_ptr<I> p)
-    {
-        static_assert(!I::modularity_isGlobalInterface(), "The interface must be contextual.");
-        if (resolve<I>(module, std::string_view()) == p) {
-            unregister<I>(module);
-        }
-    }
-
-    // Resolve
-    template<class I>
-    std::shared_ptr<I> resolve(const std::string_view& module, const std::string_view& callInfo = std::string_view())
-    {
-        static_assert(!I::modularity_isGlobalInterface(), "The interface must be contextual.");
-        std::shared_ptr<IModuleInterface> p = doResolvePtrByInfo(module, I::modularity_interfaceInfo(), callInfo);
-#ifndef NDEBUG
-        return std::dynamic_pointer_cast<I>(p);
-#else
-        return std::static_pointer_cast<I>(p);
-#endif
-    }
+    std::shared_ptr<IModuleInterface> create() { return std::make_shared<T>(); }
 };
 }
 

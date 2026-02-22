@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_GLOBAL_SETTINGS_H
+#define MUSE_GLOBAL_SETTINGS_H
 
 #include <string>
 
@@ -29,9 +29,9 @@
 #include "io/path.h"
 
 #include "muse_framework_config.h"
-#ifdef MUSE_MODULE_MULTIWINDOWS
+#ifdef MUSE_MODULE_MULTIINSTANCES
 #include "modularity/ioc.h"
-#include "multiwindows/imultiwindowsprovider.h"
+#include "multiinstances/imultiinstancesprovider.h"
 #endif
 
 //! NOTE We are gradually abandoning Qt in non-GUI classes.
@@ -44,8 +44,8 @@ class QSettings;
 namespace muse {
 class Settings
 {
-#ifdef MUSE_MODULE_MULTIWINDOWS
-    GlobalInject<muse::mi::IMultiWindowsProvider> multiwindowsProvider;
+#ifdef MUSE_MODULE_MULTIINSTANCES
+    GlobalInject<muse::mi::IMultiInstancesProvider> multiInstancesProvider;
 #endif
 public:
     static Settings* instance();
@@ -86,8 +86,10 @@ public:
 
     void reset(bool keepDefaultSettings = false, bool notifyAboutChanges = true, bool notifyOtherInstances = true);
 
-    const Val& value(const Key& key) const;
-    const Val& defaultValue(const Key& key) const;
+    Val value(const Key& key) const;
+    Val defaultValue(const Key& key) const;
+
+    std::string description(const Key& key) const;
 
     //! NOTE Will be write to global config and sync between all instances
     void setSharedValue(const Key& key, const Val& value);
@@ -136,3 +138,5 @@ inline Settings* settings()
     return Settings::instance();
 }
 }
+
+#endif // MUSE_GLOBAL_SETTINGS_H

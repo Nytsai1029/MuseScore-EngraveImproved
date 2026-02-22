@@ -59,7 +59,5 @@ public:
     bool hasVoiceAssignmentProperties() const override { return true; }
 
     void reset() override;
-
-    bool positionRelativeToNoteheadRest() const override { return true; }
 };
 }

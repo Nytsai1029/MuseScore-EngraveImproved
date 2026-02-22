@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,30 +19,34 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_VST_VSTFXPROCESSOR_H
+#define MUSE_VST_VSTFXPROCESSOR_H
 
 #include <memory>
 
 #include "async/asyncable.h"
 
-#include "audio/engine/ifxprocessor.h"
+#include "modularity/ioc.h"
+#include "audio/worker/ifxprocessor.h"
+#include "audio/iaudioconfiguration.h"
 
 #include "../vstaudioclient.h"
+#include "../../ivstplugininstance.h"
 #include "vsttypes.h"
 
 namespace muse::vst {
 class VstFxProcessor : public muse::audio::IFxProcessor, public async::Asyncable
 {
+    muse::Inject<muse::audio::IAudioConfiguration> config;
 public:
     explicit VstFxProcessor(IVstPluginInstancePtr&& instance, const muse::audio::AudioFxParams& params);
 
-    void init(const audio::OutputSpec& spec);
+    void init();
 
     muse::audio::AudioFxType type() const override;
     const muse::audio::AudioFxParams& params() const override;
     async::Channel<muse::audio::AudioFxParams> paramsChanged() const override;
-    void setOutputSpec(const audio::OutputSpec& spec) override;
+    void setSampleRate(unsigned int sampleRate) override;
     bool active() const override;
     void setActive(bool active) override;
     void process(float* buffer, unsigned int sampleCount, muse::audio::msecs_t playbackPosition = 0) override;
@@ -55,9 +59,9 @@ private:
 
     muse::audio::AudioFxParams m_params;
     async::Channel<muse::audio::AudioFxParams> m_paramsChanges;
-
-    audio::OutputSpec m_outputSpec;
 };
 
 using VstFxPtr = std::shared_ptr<VstFxProcessor>;
 }
+
+#endif // MUSE_VST_VSTFXPROCESSOR_H

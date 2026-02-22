@@ -38,7 +38,7 @@ namespace mu::engraving {
 //---------------------------------------------------------
 
 StaffTypeChange::StaffTypeChange(MeasureBase* parent)
-    : EngravingItem(ElementType::STAFFTYPE_CHANGE, parent)
+    : EngravingItem(ElementType::STAFFTYPE_CHANGE, parent, ElementFlag::HAS_TAG)
 {
     m_lw = spatium() * 0.3;
 }
@@ -101,7 +101,7 @@ PropertyValue StaffTypeChange::getProperty(Pid propertyId) const
     case Pid::STAFF_STEMLESS:
         return m_staffType->stemless();
     case Pid::HEAD_SCHEME:
-        return m_staffType->noteHeadScheme();
+        return int(m_staffType->noteHeadScheme());
     case Pid::STAFF_GEN_CLEF:
         return m_staffType->genClef();
     case Pid::STAFF_GEN_TIMESIG:
@@ -211,7 +211,7 @@ PropertyValue StaffTypeChange::propertyDefault(Pid id) const
     case Pid::STAFF_LINES:
         return 5;
     case Pid::LINE_DISTANCE:
-        return 1.0_sp;
+        return Spatium(1.0);
     case Pid::STAFF_SHOW_BARLINES:
         return true;
     case Pid::STAFF_SHOW_LEDGERLINES:
@@ -235,7 +235,7 @@ PropertyValue StaffTypeChange::propertyDefault(Pid id) const
     case Pid::STAFF_COLOR:
         return PropertyValue::fromValue(configuration()->defaultColor());
     case Pid::STAFF_YOFFSET:
-        return 0.0_sp;
+        return Spatium(0.0);
     default:
         return EngravingItem::propertyDefault(id);
     }

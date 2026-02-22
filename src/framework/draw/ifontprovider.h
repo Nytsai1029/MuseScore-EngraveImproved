@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -31,7 +31,7 @@
 #include "types/geometry.h"
 
 namespace muse::draw {
-class IFontProvider : MODULE_GLOBAL_INTERFACE
+class IFontProvider : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(muse::draw::IFontProvider)
 
@@ -47,16 +47,21 @@ public:
     virtual double ascent(const Font& f) const = 0;
     virtual double descent(const Font& f) const = 0;
 
-    virtual bool inFont(const Font& f, char32_t ucs4) const = 0;
+    virtual bool inFont(const Font& f, Char ch) const = 0;
+    virtual bool inFontUcs4(const Font& f, char32_t ucs4) const = 0;
 
     // Text
     virtual double horizontalAdvance(const Font& f, const String& string) const = 0;
-    virtual double horizontalAdvance(const Font& f, char32_t ucs4) const = 0;
+    virtual double horizontalAdvance(const Font& f, const Char& ch) const = 0;
 
     virtual RectF boundingRect(const Font& f, const String& string) const = 0;
-    virtual RectF boundingRect(const Font& f, char32_t ucs4) const = 0;
-
+    virtual RectF boundingRect(const Font& f, const Char& ch) const = 0;
+    virtual RectF boundingRect(const Font& f, const RectF& r, int flags, const String& string) const = 0;
     virtual RectF tightBoundingRect(const Font& f, const String& string) const = 0;
+
+    // Score symbols
+    virtual RectF symBBox(const Font& f, char32_t ucs4, double DPI_F) const = 0;
+    virtual double symAdvance(const Font& f, char32_t ucs4, double DPI_F) const = 0;
 };
 }
 

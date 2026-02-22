@@ -37,10 +37,6 @@ namespace mu::engraving {
 class TextBase;
 class TextBlock;
 
-static constexpr double SUBSCRIPT_SIZE     = 0.6;
-static constexpr double SUBSCRIPT_OFFSET   = 0.5;  // of x-height
-static constexpr double SUPERSCRIPT_OFFSET = -0.9; // of x-height
-
 //---------------------------------------------------------
 //   FrameType
 //---------------------------------------------------------
@@ -153,9 +149,6 @@ public:
     void endEdit();
     void startEdit();
     bool editing() const { return m_editing; }
-    bool visible() const { return m_visible; }
-    void setVisible(bool val) { m_visible = val; }
-    void toggleVisible() { setVisible(!m_visible); }
 
     CharFormat* format() { return &m_format; }
     const CharFormat* format() const { return &m_format; }
@@ -187,7 +180,6 @@ public:
     TextBlock& curLine();
 
     RectF cursorRect() const;
-    RectF cursorCanvasRect() const;
     bool movePosition(TextCursor::MoveOperation op, TextCursor::MoveMode mode = TextCursor::MoveMode::MoveAnchor, int count = 1);
     void selectWord();
     void moveCursorToEnd() { movePosition(TextCursor::MoveOperation::End); }
@@ -212,7 +204,6 @@ private:
     size_t m_selectLine = 0;           // start of selection
     size_t m_selectColumn = 0;
     bool m_editing = false;
-    bool m_visible = false;
 };
 
 //---------------------------------------------------------
@@ -240,12 +231,10 @@ public:
     bool operator ==(const TextFragment& f) const;
 
     TextFragment split(int column);
+    void draw(muse::draw::Painter*, const TextBase*) const;
     muse::draw::Font font(const TextBase*) const;
     int columns() const;
     void changeFormat(FormatId id, const FormatValue& data);
-
-private:
-    void resolveFallback(muse::draw::Font::Type fontType, const muse::draw::FontMetrics& fm, String& family) const;
 };
 
 //---------------------------------------------------------
@@ -260,7 +249,8 @@ public:
 
     bool operator ==(const TextBlock& x) const { return m_fragments == x.m_fragments; }
     bool operator !=(const TextBlock& x) const { return m_fragments != x.m_fragments; }
-
+    void draw(muse::draw::Painter*, const TextBase*) const;
+    void layout(const TextBase*);
     const std::list<TextFragment>& fragments() const { return m_fragments; }
     std::list<TextFragment>& fragments() { return m_fragments; }
     std::list<TextFragment> fragmentsWithoutEmpty();
@@ -283,7 +273,6 @@ public:
     double y() const { return m_y; }
     void setY(double val) { m_y = val; }
     double lineSpacing() const { return m_lineSpacing; }
-    void setLineSpacing(double val) { m_lineSpacing = val; }
     String text(int, int, bool = false) const;
     bool eol() const { return m_eol; }
     void setEol(bool val) { m_eol = val; }
@@ -291,6 +280,7 @@ public:
 
 private:
     void simplify();
+    double musicSymbolBaseLineAdjust(const TextBase* t, const TextFragment& f, const std::list<TextFragment>::iterator fi);
 
     std::list<TextFragment> m_fragments;
     double m_y = 0.0;
@@ -313,12 +303,16 @@ public:
 
     ~TextBase();
 
+    virtual bool mousePress(EditData&) override;
+
     Text& operator=(const Text&) = delete;
 
     Align align() const { return m_align; }
     void setAlign(Align a) { m_align = a; }
     AlignH position() const { return m_position; }
     void setPosition(AlignH val) { m_position = val; }
+
+    static void drawTextWorkaround(muse::draw::Painter* p, muse::draw::Font& f, const PointF& pos, const String& text);
 
     static String plainToXmlText(const String& s) { return s.toXmlEscaped(); }
     void setPlainText(const String& t) { setXmlText(plainToXmlText(t)); }
@@ -361,9 +355,6 @@ public:
     virtual void endDrag(EditData&) override;
     void movePosition(EditData&, TextCursor::MoveOperation);
 
-    bool mousePress(EditData& ed);
-    void dragTo(EditData& ed);
-
     bool deleteSelectedText(EditData&);
 
     void selectAll(TextCursor*);
@@ -376,6 +367,8 @@ public:
     RectF pageRectangle() const;
 
     const Shape& highResShape() const { return ldata()->highResShape.value(); }
+
+    void dragTo(EditData&);
 
     std::vector<LineF> dragAnchorLines() const override;
 
@@ -457,7 +450,7 @@ public:
     friend class TextCursor;
     using EngravingObject::undoChangeProperty;
 
-    Color textColor(const rendering::PaintOptions& opt) const;
+    Color textColor() const;
     FrameType frameType() const { return m_frameType; }
     void setFrameType(FrameType val) { m_frameType = val; }
     double textLineSpacing() const { return m_textLineSpacing; }
@@ -495,8 +488,7 @@ public:
     //! NOTE It can only be set for some types of text, see who has the setter.
     //! At the moment it's: Text, Jump, Marker
     bool layoutToParentWidth() const { return m_layoutToParentWidth; }
-
-    virtual bool positionRelativeToNoteheadRest() const = 0;
+    virtual bool positionSeparateFromAlignment() const { return false; }
 
     void setVoiceAssignment(VoiceAssignment v) { m_voiceAssignment = v; }
     VoiceAssignment voiceAssignment() const { return m_voiceAssignment; }
@@ -508,12 +500,7 @@ public:
 
     double symbolSize() const { return m_symbolSize; }
     void setSymbolSize(double v) { m_symbolSize = v; }
-
-    double symbolScale() const { return m_symbolScale; }
-    void setSymbolScale(double v) { m_symbolScale = v; }
-
-    bool hasSymbolScale() const;
-    bool hasSymbolSize() const { return !hasSymbolScale(); }
+    inline bool hasSymbolSize() const { return isMarker() || isTempoText() || isSystemText() || isStaffText(); }
 
 protected:
     TextBase(const ElementType& type, EngravingItem* parent = 0, TextStyleType tid = TextStyleType::DEFAULT,
@@ -576,7 +563,6 @@ private:
     bool m_primed = 0;
 
     double m_symbolSize = 18.0;
-    double m_symbolScale = 1.0;
 
     TextCursor* m_cursor = nullptr;
 

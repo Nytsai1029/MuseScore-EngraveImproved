@@ -38,6 +38,14 @@ class Score;
 class InstrumentTemplate;
 
 //---------------------------------------------------------
+//   PreferSharpFlat
+//---------------------------------------------------------
+
+enum class PreferSharpFlat : char {
+    NONE, SHARPS, FLATS, AUTO
+};
+
+//---------------------------------------------------------
 //   @@ Part
 //   @P endTrack        int         (read only)
 //   @P harmonyCount    int         (read only)
@@ -97,10 +105,14 @@ public:
     String instrumentName(const Fraction& tick = { -1, 1 }) const;
     String instrumentId(const Fraction& tick = { -1, 1 }) const;
 
-    void setLongName(const String& s, const Fraction& tick = { -1, 1 });
-    void setLongName(const StaffName& n, const Fraction& tick = { -1, 1 });
-    void setShortName(const String& s, const Fraction& tick = { -1, 1 });
-    void setShortName(const StaffName& n, const Fraction& tick = { -1, 1 });
+    const std::list<StaffName>& longNames(const Fraction& tick = { -1, 1 }) const { return instrument(tick)->longNames(); }
+    const std::list<StaffName>& shortNames(const Fraction& tick = { -1, 1 }) const { return instrument(tick)->shortNames(); }
+
+    void setLongNames(std::list<StaffName>& s,  const Fraction& tick = { -1, 1 });
+    void setShortNames(std::list<StaffName>& s, const Fraction& tick = { -1, 1 });
+
+    void setLongName(const String& s);
+    void setShortName(const String& s);
     void setLongNameAll(const String& s);  // For all instruments in _instruments
     void setShortNameAll(const String& s); // For all instruments in _instruments
 

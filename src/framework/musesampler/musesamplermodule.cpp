@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2022 MuseScore Limited and others
+ * Copyright (C) 2022 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -23,7 +23,7 @@
 #include "musesamplermodule.h"
 
 #include "modularity/ioc.h"
-#include "audio/engine/isynthresolver.h"
+#include "audio/worker/isynthresolver.h"
 
 #include "ui/iuiactionsregister.h"
 
@@ -47,35 +47,39 @@ std::string MuseSamplerModule::moduleName() const
 
 void MuseSamplerModule::registerExports()
 {
-    m_configuration = std::make_shared<MuseSamplerConfiguration>(globalCtx());
-    m_actionController = std::make_shared<MuseSamplerActionController>(globalCtx());
-    m_resolver = std::make_shared<MuseSamplerResolver>(globalCtx());
+    m_configuration = std::make_shared<MuseSamplerConfiguration>(iocContext());
+    m_actionController = std::make_shared<MuseSamplerActionController>(iocContext());
+    m_resolver = std::make_shared<MuseSamplerResolver>(iocContext());
 
-    globalIoc()->registerExport<IMuseSamplerConfiguration>(moduleName(), m_configuration);
-    globalIoc()->registerExport<IMuseSamplerInfo>(moduleName(), m_resolver);
+    ioc()->registerExport<IMuseSamplerConfiguration>(moduleName(), m_configuration);
+    ioc()->registerExport<IMuseSamplerInfo>(moduleName(), m_resolver);
 }
 
 void MuseSamplerModule::resolveImports()
 {
-    auto synthResolver = globalIoc()->resolve<synth::ISynthResolver>(moduleName());
+    auto synthResolver = ioc()->resolve<synth::ISynthResolver>(moduleName());
 
     if (synthResolver) {
         synthResolver->registerResolver(AudioSourceType::MuseSampler, m_resolver);
     }
 
-    auto ar = globalIoc()->resolve<muse::ui::IUiActionsRegister>(moduleName());
+    auto ar = ioc()->resolve<muse::ui::IUiActionsRegister>(moduleName());
     if (ar) {
         ar->reg(std::make_shared<MuseSamplerUiActions>());
     }
 }
 
-void MuseSamplerModule::onInit(const IApplication::RunMode&)
+void MuseSamplerModule::onInit(const IApplication::RunMode& mode)
 {
+    if (IApplication::RunMode::AudioPluginRegistration == mode) {
+        return;
+    }
+
     m_configuration->init();
     m_resolver->init();
     m_actionController->init(m_resolver);
 
-    auto pr = globalIoc()->resolve<muse::diagnostics::IDiagnosticsPathsRegister>(moduleName());
+    auto pr = ioc()->resolve<muse::diagnostics::IDiagnosticsPathsRegister>(moduleName());
     if (pr) {
         pr->reg("musesampler", m_configuration->libraryPath());
     }

@@ -57,7 +57,7 @@ void TremoloLayout::layout(TremoloTwoChord* item, const LayoutContext& ctx)
         // center tremolo above note
         x = anchor1->x() + anchor1->headWidth() * 0.5;
         y = anchor1->y();
-        h = (ctx.conf().styleAbsolute(Sid::tremoloNoteSidePadding) + item->ldata()->bbox().height()) * item->chord1()->intrinsicMag();
+        h = (ctx.conf().styleMM(Sid::tremoloNoteSidePadding).val() + item->ldata()->bbox().height()) * item->chord1()->intrinsicMag();
     }
 
     layoutTwoNotesTremolo(item, ctx, x, y, h, item->spatium());
@@ -96,7 +96,7 @@ void TremoloLayout::layout(TremoloSingleChord* item, const LayoutContext& ctx)
         }
 
         y = anchor1->y();
-        h = (ctx.conf().styleAbsolute(Sid::tremoloNoteSidePadding) + item->ldata()->bbox().height()) * item->chord()->intrinsicMag();
+        h = (ctx.conf().styleMM(Sid::tremoloNoteSidePadding).val() + item->ldata()->bbox().height()) * item->chord()->intrinsicMag();
     }
 
     layoutOneNoteTremolo(item, ctx, x, y, h, item->spatium());
@@ -114,12 +114,13 @@ void TremoloLayout::layoutOneNoteTremolo(TremoloSingleChord* item, const LayoutC
         x = ChordLayout::centerX(item->chord());
     }
 
+    double staveOffset = item->staffOffsetY();
     bool up = item->chord()->up();
     int upValue = up ? -1 : 1;
     double mag = item->chord()->intrinsicMag();
     spatium *= mag;
 
-    double yOffset = h - ctx.conf().styleAbsolute(Sid::tremoloOutSidePadding) * mag;
+    double yOffset = h - ctx.conf().styleMM(Sid::tremoloOutSidePadding).val() * mag;
 
     int beams = item->chord()->beams();
     if (item->chord()->hook()) {
@@ -143,11 +144,12 @@ void TremoloLayout::layoutOneNoteTremolo(TremoloSingleChord* item, const LayoutC
     yOffset -= item->isBuzzRoll() && up ? 0.5 * spatium : 0.0;
     yOffset -= up ? 0.0 : item->minHeight() * spatium / mag;
     yOffset *= upValue;
+    yOffset += staveOffset;
     y += yOffset;
 
     if (up) {
         double height = item->isBuzzRoll() ? 0 : item->minHeight();
-        double staveHeight = (((item->staff()->lines(item->tick()) - 1) - height) * spatium / mag);
+        double staveHeight = (((item->staff()->lines(item->tick()) - 1) - height) * spatium / mag) + staveOffset;
         y = std::min(y, staveHeight);
     } else {
         y = std::max(y, 0.0);
@@ -237,6 +239,7 @@ void TremoloLayout::layoutTwoNotesTremolo(TremoloTwoChord* item, const LayoutCon
     item->setEndAnchor(BeamTremoloLayout::chordBeamAnchor(item->ldata(), item->chord2(), ChordBeamAnchorType::End));
 
     // deal with manual adjustments here and return
+    PropertyValue val = item->getProperty(Pid::PLACEMENT);
     if (item->userModified()) {
         int idx = item->directionIdx();
         double startY = item->beamFragment().py1[idx];
@@ -372,7 +375,7 @@ void TremoloLayout::createBeamSegments(TremoloTwoChord* item, const LayoutContex
     item->beamSegments().push_back(mainStroke);
 
     LineF line = mainStroke->line;
-    double halfWidth = 0.5 * ctx.conf().styleAbsolute(Sid::beamWidth);
+    double halfWidth = 0.5 * ctx.conf().styleMM(Sid::beamWidth).val();
     double bboxTop = std::min(line.y1(), line.y2()) - halfWidth;
     double bboxBottom = std::max(line.y1(), line.y2()) + halfWidth;
 

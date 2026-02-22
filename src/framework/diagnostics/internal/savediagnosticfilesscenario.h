@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -26,17 +26,17 @@
 
 #include "modularity/ioc.h"
 #include "idiagnosticsconfiguration.h"
-#include "interactive/iinteractive.h"
+#include "iinteractive.h"
 
 namespace muse::diagnostics {
-class SaveDiagnosticFilesScenario : public ISaveDiagnosticFilesScenario, public Contextable
+class SaveDiagnosticFilesScenario : public ISaveDiagnosticFilesScenario, public Injectable
 {
-    GlobalInject<diagnostics::IDiagnosticsConfiguration> configuration;
-    ContextInject<muse::IInteractive> interactive = { this };
+    Inject<diagnostics::IDiagnosticsConfiguration> configuration = { this };
+    Inject<muse::IInteractive> interactive = { this };
 
 public:
     SaveDiagnosticFilesScenario(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     muse::Ret saveDiagnosticFiles() override;
 };

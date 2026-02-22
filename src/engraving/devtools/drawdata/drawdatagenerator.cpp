@@ -25,7 +25,6 @@
 #include "global/io/fileinfo.h"
 
 #include "draw/bufferedpaintprovider.h"
-#include "draw/painter.h"
 #include "draw/utils/drawdatarw.h"
 
 #include "engraving/compat/scoreaccess.h"
@@ -53,7 +52,7 @@ using namespace mu::engraving;
 static const std::vector<std::string> FILES_FILTER = { "*.mscz", "*.mscx", "*.gp", "*.gpx", "*.gp4", "*.gp5" };
 
 DrawDataGenerator::DrawDataGenerator(const muse::modularity::ContextPtr& iocCtx)
-    : muse::Contextable(iocCtx)
+    : muse::Injectable(iocCtx)
 {
 }
 
@@ -124,7 +123,7 @@ DrawDataPtr DrawDataGenerator::genDrawData(const muse::io::path_t& scorePath, co
     {
         TRACEFUNC_C("Paint");
         Painter painter(pd, "DrawData");
-        rendering::IScoreRenderer::ScorePaintOptions option;
+        rendering::IScoreRenderer::PaintOptions option;
         //option.fromPage = 0;
         //option.toPage = 0;
         option.isMultiPage = true;
@@ -171,7 +170,7 @@ Pixmap DrawDataGenerator::genImage(const muse::io::path_t& scorePath) const
     {
         Painter painter(&image, "DrawData");
 
-        rendering::IScoreRenderer::ScorePaintOptions opt;
+        rendering::IScoreRenderer::PaintOptions opt;
         opt.fromPage = 0;
         opt.toPage = 0;
         opt.deviceDpi = DrawData::CANVAS_DPI;
@@ -207,7 +206,8 @@ bool DrawDataGenerator::loadScore(mu::engraving::MasterScore* score, const muse:
         }
 
         MscLoader scoreReader;
-        Ret ret = scoreReader.loadMscz(score, reader, nullptr, true);
+        SettingsCompat settingsCompat;
+        Ret ret = scoreReader.loadMscz(score, reader, settingsCompat, true);
         if (!ret) {
             LOGE() << "failed read file: " << path;
             return false;

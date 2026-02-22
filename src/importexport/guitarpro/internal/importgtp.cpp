@@ -97,7 +97,7 @@ const char* const GuitarPro::errmsg[] = {
 //---------------------------------------------------------
 
 GuitarPro::GuitarPro(MasterScore* s, int v, const modularity::ContextPtr& iocCtx)
-    : muse::Contextable(iocCtx)
+    : muse::Injectable(iocCtx)
 {
     score   = s;
     version = v;
@@ -526,7 +526,7 @@ void GuitarPro::addDynamic(Note* note, int d)
     }
     Segment* s = nullptr;
     if (note->chord()->isGrace()) {
-        Chord* parent = toChord(note->chord()->parent());
+        Chord* parent = static_cast<Chord*>(note->chord()->parent());
         s = parent->segment();
     } else {
         s = note->chord()->segment();
@@ -601,7 +601,7 @@ void GuitarPro::readVolta(GPVolta* gpVolta, Measure* m)
         }
         volta->setText(XmlWriter::xmlString(voltaTextString));
         volta->setTick(m->tick());
-        volta->setTick2(m->endTick());
+        volta->setTick2(m->tick() + m->ticks());
         score->addElement(volta);
     }
 }
@@ -694,8 +694,8 @@ void GuitarPro::createSlide(int sl, ChordRest* cr, int staffIdx, Note* note)
         Segment* prevSeg = cr->segment()->prev1(SegmentType::ChordRest);
         EngravingItem* prevElem = prevSeg->element(staffIdx);
         if (prevElem) {
-            if (prevElem->isChord()) {
-                Chord* prevChord = toChord(prevElem);
+            if (prevElem->type() == ElementType::CHORD) {
+                Chord* prevChord = static_cast<Chord*>(prevElem);
                 /** TODO we should not just take the top note here
                 * but the /correct/ note need to check whether GP
                 * supports multi-note gliss. I think it can in modern
@@ -975,8 +975,8 @@ void GuitarPro::applyBeatEffects(Chord* chord, int beatEffect, bool& hasVibratoL
             a->setPropertyFlags(Pid::ARTICULATION_ANCHOR, PropertyFlags::UNSTYLED);
             chord->add(a);
         }
-        //TODO-ws       else for (auto n : chord->notes())
-        //          n->setHarmonic(true);
+        //TODO-ws		else for (auto n : chord->notes())
+        //			n->setHarmonic(true);
     } else if (beatEffect == 5) {
         Articulation* a = Factory::createArticulation(chord);
         a->setSymId(SymId::stringsUpBow);
@@ -1195,8 +1195,8 @@ bool GuitarPro1::read(IODevice* io)
                 bool hasPalmMute = false;
                 for (int i = 6; i >= 0; --i) {
                     if (strings & (1 << i) && ((6 - i) < numStrings)) {
-                        Note* note = Factory::createNote(toChord(cr));
-                        toChord(cr)->add(note);
+                        Note* note = Factory::createNote(static_cast<Chord*>(cr));
+                        static_cast<Chord*>(cr)->add(note);
                         readResult = readNote(6 - i, note);
                         hasLetRing = readResult.letRing || hasLetRing;
                         hasPalmMute = readResult.palmMute || hasPalmMute;
@@ -1310,7 +1310,7 @@ void GuitarPro::restsForEmptyBeats(Segment* seg, Measure* measure, ChordRest* cr
      * make them invisible so users get the same visual if they are
      * at a valid tick of the score. */
     if (seg->empty()) {
-        if (tick < measure->endTick()) {
+        if (tick < measure->first()->tick() + measure->ticks()) {
             cr = Factory::createRest(seg);
             cr->setTrack(track);
             TDuration d(l);
@@ -1699,8 +1699,8 @@ bool GuitarPro2::read(IODevice* io)
                 bool hasPalmMute = false;
                 for (int i = 6; i >= 0; --i) {
                     if (strings & (1 << i) && ((6 - i) < numStrings)) {
-                        Note* note = Factory::createNote(toChord(cr));
-                        toChord(cr)->add(note);
+                        Note* note = Factory::createNote(static_cast<Chord*>(cr));
+                        static_cast<Chord*>(cr)->add(note);
                         readResult = readNote(6 - i, note);
                         hasLetRing = readResult.letRing || hasLetRing;
                         hasPalmMute = readResult.palmMute || hasPalmMute;
@@ -1905,8 +1905,8 @@ GuitarPro::ReadNoteResult GuitarPro1::readNote(int string, Note* note)
                 //     major: replace with a 'hammer-on' guitar effect when implemented
                 //     minor: make slurs for parts
 
-                ChordRest* cr1 = toChord(gc);
-                ChordRest* cr2 = toChord(note->chord());
+                ChordRest* cr1 = static_cast<Chord*>(gc);
+                ChordRest* cr2 = static_cast<Chord*>(note->chord());
 
                 Slur* slur1 = Factory::createSlur(score->dummy());
                 slur1->setStartElement(cr1);
@@ -1940,8 +1940,8 @@ GuitarPro::ReadNoteResult GuitarPro1::readNote(int string, Note* note)
             if (modMask2 & EFFECT_ARTIFICIAL_HARMONIC) {
                 /*int type =*/
                 readUInt8();
-                //TODO-ws           if (type == 1 || type == 4 || type == 5)
-                //                    note->setHarmonic(true);
+                //TODO-ws			if (type == 1 || type == 4 || type == 5)
+                //				      note->setHarmonic(true);
             }
             if (modMask2 & EFFECT_TRILL) {
                 //TODO-ws                        note->setTrillFret(readUInt8());      // trill fret
@@ -2468,7 +2468,7 @@ bool GuitarPro3::read(IODevice* io)
 
                 cr->setTicks(l);
 
-                if (cr->isRest() && l >= measure->ticks()) {
+                if (cr->type() == ElementType::REST && l >= measure->ticks()) {
                     cr->setDurationType(DurationType::V_MEASURE);
                     cr->setTicks(measure->ticks());
                 } else {
@@ -2504,7 +2504,7 @@ bool GuitarPro3::read(IODevice* io)
                         note->setTpcFromPitch();
                     }
                 }
-                if (cr && cr->isChord() && toChord(cr)->notes().empty()) {
+                if (cr && cr->type() == ElementType::CHORD && static_cast<Chord*>(cr)->notes().empty()) {
                     if (segment->cr(track)) {
                         segment->remove(cr);
                     }
@@ -2531,7 +2531,7 @@ bool GuitarPro3::read(IODevice* io)
 
                     bool hasVibratoLeftHandOnBeat = false;
                     bool hasVibratoWTremBarOnBeat = false;
-                    applyBeatEffects(toChord(cr), beatEffects, hasVibratoLeftHandOnBeat, hasVibratoWTremBarOnBeat);
+                    applyBeatEffects(static_cast<Chord*>(cr), beatEffects, hasVibratoLeftHandOnBeat, hasVibratoWTremBarOnBeat);
                     hasVibratoLeftHand = hasVibratoLeftHand || hasVibratoLeftHandOnBeat;
                     hasVibratoWTremBar = hasVibratoWTremBar || hasVibratoWTremBarOnBeat;
                     if (slide > 0) {
@@ -2560,12 +2560,12 @@ bool GuitarPro3::read(IODevice* io)
             for (auto seg = measure->first(); seg; seg = seg->next()) {
                 if (seg->segmentType() == SegmentType::ChordRest) {
                     auto cr = seg->cr(track);
-                    if (cr && cr->isChord()) {
+                    if (cr && cr->type() == ElementType::CHORD) {
                         removeRests = false;
                         break;
                     } else if (cr) {
                         ++counter;
-                        lastRest = toRest(cr);
+                        lastRest = static_cast<Rest*>(cr);
                     }
                 }
             }
@@ -2613,7 +2613,7 @@ bool GuitarPro3::read(IODevice* io)
             if (crest->type() == mu::engraving::ElementType::REST) {
                 break;
             }
-            auto cr = toChord(crest);
+            auto cr = static_cast<Chord*>(crest);
             if (!cr) {
                 continue;
             }

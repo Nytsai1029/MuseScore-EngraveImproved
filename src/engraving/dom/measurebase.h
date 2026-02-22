@@ -84,7 +84,10 @@ public:
     System* nextNonVBoxSystem() const;
     void setParent(System* s) { EngravingItem::setParent((EngravingObject*)(s)); }
 
-    virtual void scanElements(std::function<void(EngravingItem*)> func) override;
+    // Score Tree functions
+    EngravingObject* scanParent() const override;
+    EngravingObjectList scanChildren() const override;
+    virtual void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all=true) override;
 
     virtual void setScore(Score* s) override;
 
@@ -106,7 +109,7 @@ public:
     ElementList& el() { return m_el; }
     const ElementList& el() const { return m_el; }
 
-    const MeasureBase* mbWithPrecedingSectionBreak() const;
+    const MeasureBase* findPotentialSectionBreak() const;
     LayoutBreak* sectionBreakElement() const;
 
     void undoSetBreak(bool v, LayoutBreakType type);

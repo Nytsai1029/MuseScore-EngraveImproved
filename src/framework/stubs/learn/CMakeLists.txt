@@ -4,7 +4,7 @@
 # MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2021 MuseScore Limited and others
+# Copyright (C) 2021 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -18,13 +18,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-muse_create_module(muse_learn ALIAS muse::learn STUB)
+declare_module(muse_learn)
+set(MODULE_ALIAS muse::learn)
 
-target_sources(muse_learn PRIVATE 
-    learnmodule.cpp
-    learnmodule.h
-)
+set(MODULE_QRC learn.qrc)
 
-if (MUSE_MODULE_LEARN_QML)
-    add_subdirectory(qml/Muse/Learn)
-endif()
+set(MODULE_QML_IMPORT ${CMAKE_CURRENT_LIST_DIR}/qml)
+
+set(MODULE_SRC
+    ${CMAKE_CURRENT_LIST_DIR}/learnmodule.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/learnmodule.h
+    )
+
+set(MODULE_IS_STUB ON)
+setup_module()
+

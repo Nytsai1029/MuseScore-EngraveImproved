@@ -21,6 +21,7 @@
  */
 #include "projectconfigurationstub.h"
 
+using namespace mu;
 using namespace mu::project;
 
 muse::io::path_t ProjectConfigurationStub::recentFilesJsonPath() const
@@ -28,9 +29,9 @@ muse::io::path_t ProjectConfigurationStub::recentFilesJsonPath() const
     return muse::io::path_t();
 }
 
-muse::ByteArray ProjectConfigurationStub::compatRecentFilesData() const
+ByteArray ProjectConfigurationStub::compatRecentFilesData() const
 {
-    return {};
+    return ByteArray();
 }
 
 muse::io::path_t ProjectConfigurationStub::myFirstProjectPath() const
@@ -38,9 +39,9 @@ muse::io::path_t ProjectConfigurationStub::myFirstProjectPath() const
     return muse::io::path_t();
 }
 
-muse::io::paths_t ProjectConfigurationStub::availableTemplateDirs() const
+io::paths_t ProjectConfigurationStub::availableTemplateDirs() const
 {
-    return {};
+    return io::paths_t();
 }
 
 muse::io::path_t ProjectConfigurationStub::templateCategoriesJsonPath(const muse::io::path_t&) const
@@ -115,22 +116,7 @@ bool ProjectConfigurationStub::isCloudProject(const muse::io::path_t&) const
     return false;
 }
 
-bool ProjectConfigurationStub::isLegacyCloudProject(const muse::io::path_t&) const
-{
-    return false;
-}
-
-muse::io::path_t ProjectConfigurationStub::cloudProjectPath(int) const
-{
-    return muse::io::path_t();
-}
-
-int ProjectConfigurationStub::cloudScoreIdFromPath(const muse::io::path_t&) const
-{
-    return 0;
-}
-
-muse::io::path_t ProjectConfigurationStub::cloudProjectSavingPath(int) const
+muse::io::path_t ProjectConfigurationStub::cloudProjectSavingFilePath(const muse::io::path_t&) const
 {
     return muse::io::path_t();
 }
@@ -164,24 +150,6 @@ bool ProjectConfigurationStub::shouldWarnBeforeSavingPubliclyToCloud() const
 }
 
 void ProjectConfigurationStub::setShouldWarnBeforeSavingPubliclyToCloud(bool)
-{
-}
-
-int ProjectConfigurationStub::homeScoresPageTabIndex() const
-{
-    return 0;
-}
-
-void ProjectConfigurationStub::setHomeScoresPageTabIndex(int)
-{
-}
-
-IProjectConfiguration::HomeScoresPageViewType ProjectConfigurationStub::homeScoresPageViewType() const
-{
-    return IProjectConfiguration::HomeScoresPageViewType::Grid;
-}
-
-void ProjectConfigurationStub::setHomeScoresPageViewType(IProjectConfiguration::HomeScoresPageViewType)
 {
 }
 
@@ -249,7 +217,7 @@ bool ProjectConfigurationStub::alsoShareAudioCom() const
     return false;
 }
 
-void ProjectConfigurationStub::setAlsoShareAudioCom(bool)
+void ProjectConfigurationStub::setAlsoShareAudioCom(bool share)
 {
 }
 
@@ -264,7 +232,7 @@ bool ProjectConfigurationStub::showAlsoShareAudioComDialog() const
     return false;
 }
 
-void ProjectConfigurationStub::setShowAlsoShareAudioComDialog(bool)
+void ProjectConfigurationStub::setShowAlsoShareAudioComDialog(bool show)
 {
 }
 
@@ -273,7 +241,7 @@ bool ProjectConfigurationStub::hasAskedAlsoShareAudioCom() const
     return false;
 }
 
-void ProjectConfigurationStub::setHasAskedAlsoShareAudioCom(bool)
+void ProjectConfigurationStub::setHasAskedAlsoShareAudioCom(bool has)
 {
 }
 
@@ -374,14 +342,5 @@ bool ProjectConfigurationStub::disableVersionChecking() const
 }
 
 void ProjectConfigurationStub::setDisableVersionChecking(bool)
-{
-}
-
-bool ProjectConfigurationStub::createBackupBeforeSaving() const
-{
-    return false;
-}
-
-void ProjectConfigurationStub::setCreateBackupBeforeSaving(bool)
 {
 }

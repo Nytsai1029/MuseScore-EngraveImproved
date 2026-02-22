@@ -34,7 +34,7 @@
 
 #include "modularity/ioc.h"
 #include "../ipaletteconfiguration.h"
-#include "interactive/iinteractive.h"
+#include "iinteractive.h"
 
 namespace mu::engraving {
 enum class ActionIconType : signed char;
@@ -46,14 +46,14 @@ namespace mu::palette {
 class Palette;
 using PalettePtr = std::shared_ptr<Palette>;
 
-class Palette : public QObject, public muse::Contextable
+class Palette : public QObject
 {
     Q_GADGET
 
-    muse::GlobalInject<IPaletteConfiguration> configuration;
-    muse::ContextInject<muse::ui::IUiActionsRegister> actionsRegister = { this };
-    muse::ContextInject<engraving::rendering::ISingleRenderer> engravingRender = { this };
-    muse::ContextInject<muse::IInteractive> interactive = { this };
+    INJECT_STATIC(IPaletteConfiguration, configuration)
+    INJECT_STATIC(muse::ui::IUiActionsRegister, actionsRegister)
+    INJECT_STATIC(engraving::rendering::ISingleRenderer, engravingRender)
+    INJECT(muse::IInteractive, interactive)
 
 public:
     enum class Type {
@@ -93,7 +93,7 @@ public:
     };
     Q_ENUM(Type)
 
-    explicit Palette(const muse::modularity::ContextPtr& iocCtx, Type t = Type::Custom, QObject* parent = nullptr);
+    explicit Palette(Type t = Type::Custom, QObject* parent = nullptr);
     ~Palette();
 
     QString id() const;
@@ -170,7 +170,7 @@ public:
 
     bool read(engraving::XmlReader&, bool pasteMode);
     void write(engraving::XmlWriter&, bool pasteMode) const;
-    static PalettePtr fromMimeData(const QByteArray& data, const muse::modularity::ContextPtr& iocCtx);
+    static PalettePtr fromMimeData(const QByteArray& data);
     QByteArray toMimeData() const;
 
     bool readFromFile(const QString& path);

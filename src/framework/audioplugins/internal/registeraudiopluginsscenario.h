@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -25,7 +25,7 @@
 #include "global/modularity/ioc.h"
 #include "global/iprocess.h"
 #include "global/iglobalconfiguration.h"
-#include "interactive/iinteractive.h"
+#include "global/iinteractive.h"
 #include "global/async/asyncable.h"
 
 #include "../iregisteraudiopluginsscenario.h"
@@ -34,28 +34,23 @@
 #include "../iaudiopluginmetareaderregister.h"
 
 namespace muse::audioplugins {
-class RegisterAudioPluginsScenario : public IRegisterAudioPluginsScenario, public Contextable, public async::Asyncable
+class RegisterAudioPluginsScenario : public IRegisterAudioPluginsScenario, public Injectable, public async::Asyncable
 {
 public:
-    GlobalInject<IGlobalConfiguration> globalConfiguration;
-    GlobalInject<IProcess> process;
-    ContextInject<IKnownAudioPluginsRegister> knownPluginsRegister = { this };
-    ContextInject<IAudioPluginsScannerRegister> scannerRegister = { this };
-    ContextInject<IAudioPluginMetaReaderRegister> metaReaderRegister = { this };
-    ContextInject<IInteractive> interactive = { this };
+    Inject<IKnownAudioPluginsRegister> knownPluginsRegister = { this };
+    Inject<IAudioPluginsScannerRegister> scannerRegister = { this };
+    Inject<IAudioPluginMetaReaderRegister> metaReaderRegister = { this };
+    Inject<IGlobalConfiguration> globalConfiguration = { this };
+    Inject<IInteractive> interactive = { this };
+    Inject<IProcess> process = { this };
 
 public:
     RegisterAudioPluginsScenario(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void init();
 
-    PluginScanResult scanPlugins() const override;
-
-    Ret updatePluginsRegistry() override;
-    void registerNewPlugins(const io::paths_t& pluginPaths) override;
-    Ret unregisterRemovedPlugins(const audio::AudioResourceIdList& pluginIds) override;
-
+    Ret registerNewPlugins() override;
     Ret registerPlugin(const io::path_t& pluginPath) override;
     Ret registerFailedPlugin(const io::path_t& pluginPath, int failCode) override;
 

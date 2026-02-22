@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -42,7 +42,7 @@ using namespace muse;
 using namespace muse::accessibility;
 
 AccessibleItemInterface::AccessibleItemInterface(AccessibleObject* object)
-    : muse::Contextable(object->item()->iocContext())
+    : muse::Injectable(object->item()->iocContext())
 {
     m_object = object;
 }
@@ -64,7 +64,7 @@ QWindow* AccessibleItemInterface::window() const
         return window;
     }
 
-    return interactive()->topWindow();
+    return interactiveProvider()->topWindow();
 }
 
 QRect AccessibleItemInterface::rect() const
@@ -208,30 +208,6 @@ QAccessible::State AccessibleItemInterface::state() const
         state.focusable = true;
         state.focused = item->accessibleState(IAccessible::State::Focused);
     } break;
-    case IAccessible::Role::Table: {
-        state.focusable = true;
-        state.focused = item->accessibleState(IAccessible::State::Focused);
-    } break;
-    case IAccessible::Role::ColumnHeader: {
-        state.focusable = true;
-        state.focused = item->accessibleState(IAccessible::State::Focused);
-    } break;
-    case IAccessible::Role::RowHeader: {
-        state.focusable = true;
-        state.focused = item->accessibleState(IAccessible::State::Focused);
-    } break;
-    case IAccessible::Role::Column: {
-        state.focusable = true;
-        state.focused = item->accessibleState(IAccessible::State::Focused);
-    } break;
-    case IAccessible::Role::Row: {
-        state.focusable = true;
-        state.focused = item->accessibleState(IAccessible::State::Focused);
-    } break;
-    case IAccessible::Role::Cell: {
-        state.focusable = true;
-        state.focused = item->accessibleState(IAccessible::State::Focused);
-    } break;
     default: {
         LOGW() << "not handled role: " << static_cast<int>(r);
     } break;
@@ -293,12 +269,6 @@ QAccessible::Role AccessibleItemInterface::role() const
     case IAccessible::Role::MenuItem: return QAccessible::MenuItem;
     case IAccessible::Role::SpinBox: return QAccessible::SpinBox;
     case IAccessible::Role::Range: return QAccessible::Slider;
-    case IAccessible::Role::Table: return QAccessible::Table;
-    case IAccessible::Role::ColumnHeader: return QAccessible::ColumnHeader;
-    case IAccessible::Role::RowHeader: return QAccessible::RowHeader;
-    case IAccessible::Role::Column: return QAccessible::Column;
-    case IAccessible::Role::Row: return QAccessible::Row;
-    case IAccessible::Role::Cell: return QAccessible::Cell;
     case IAccessible::Role::Group:
     case IAccessible::Role::Information:
     case IAccessible::Role::ElementOnScore: {
@@ -537,13 +507,13 @@ void* AccessibleItemInterface::interface_cast(QAccessible::InterfaceType type)
         return static_cast<QAccessibleTextInterface*>(this);
     }
 
-    bool isTableType = type == QAccessible::InterfaceType::TableCellInterface;
+    bool isListType = type == QAccessible::InterfaceType::TableCellInterface;
 #ifdef Q_OS_WIN
     //! NOTE: Without Action and Text interfaces NVDA doesn't work
-    isTableType |= type == QAccessible::InterfaceType::ActionInterface;
+    isListType |= type == QAccessible::InterfaceType::ActionInterface;
 #endif
 
-    if (isTableType && itemRole == QAccessible::ListItem) {
+    if (isListType && itemRole == QAccessible::ListItem) {
         //! NOTE: Without Action and Text interfaces NVDA doesn't work
         return static_cast<QAccessibleTableCellInterface*>(this);
     }

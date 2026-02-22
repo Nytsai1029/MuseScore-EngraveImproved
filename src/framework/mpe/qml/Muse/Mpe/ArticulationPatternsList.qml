@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -20,19 +20,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-pragma ComponentBehavior: Bound
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
-
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 ListView {
     id: root
 
-    property ArticulationsProfileEditorModel editorModel: null
+    property QtObject editorModel: null
 
     property var contextMenuModel: [
         { id: "copy", title: /*qsTrc*/ "Copy pattern data" }
@@ -48,8 +46,6 @@ ListView {
 
     delegate: Item {
         id: delegateItem
-
-        required property ArticulationPatternItem modelData
 
         height: 32
         width: root.width
@@ -80,7 +76,7 @@ ListView {
 
                 horizontalAlignment: Qt.AlignLeft
 
-                text: delegateItem.modelData.title
+                text: modelData.title
 
                 MouseArea {
                     id: mouseArea
@@ -97,7 +93,7 @@ ListView {
                             return
                         }
 
-                        if (mouse.button === Qt.RightButton && root.editorModel && !delegateItem.modelData.isSelected ) {
+                        if (mouse.button === Qt.RightButton && root.editorModel && !modelData.isSelected ) {
                             menuLoader.toggleOpened(root.contextMenuModel, mouseX, mouseY)
                         }
                     }
@@ -111,7 +107,7 @@ ListView {
                             return
                         }
 
-                        root.editorModel.copyPatternDataFromItem(delegateItem.modelData)
+                        root.editorModel.copyPatternDataFromItem(modelData)
                     }
                 }
             }
@@ -122,10 +118,10 @@ ListView {
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                 Layout.rightMargin: 12
 
-                checked: delegateItem.modelData.isActive
+                checked: modelData.isActive
 
                 onClicked: {
-                    delegateItem.modelData.isActive = !delegateItem.modelData.isActive
+                    modelData.isActive = !modelData.isActive
                     delegateItem.selectCurrentItem()
                 }
             }
@@ -135,7 +131,7 @@ ListView {
             State {
                 name: "SELECTED"
 
-                when: delegateItem.modelData.isSelected
+                when: modelData.isSelected
 
                 PropertyChanges {
                     target: backgroundRect
@@ -146,7 +142,7 @@ ListView {
 
             State {
                 name: "HOVERED"
-                when: (mouseArea.containsMouse || checkBox.hovered) && !delegateItem.modelData.isSelected && !mouseArea.containsPress
+                when: (mouseArea.containsMouse || checkBox.hovered) && !modelData.isSelected && !mouseArea.containsPress
 
                 PropertyChanges {
                     target: backgroundRect
@@ -157,7 +153,7 @@ ListView {
 
             State {
                 name: "PRESSED"
-                when: (mouseArea.containsPress || checkBox.pressed) && !delegateItem.modelData.isSelected
+                when: (mouseArea.containsPress || checkBox.pressed) && !modelData.isSelected
 
                 PropertyChanges {
                     target: backgroundRect

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <spatium>1.75</spatium>
+      <spatium>1.74978</spatium>
       </Style>
     <showInvisible>1</showInvisible>
     <showUnprintable>1</showUnprintable>
@@ -217,8 +217,8 @@
               <tpc>18</tpc>
               </Note>
             <Arpeggio>
-              <subtype>2</subtype>
               <eid>f_f</eid>
+              <subtype>2</subtype>
               <span>5</span>
               </Arpeggio>
             </Chord>

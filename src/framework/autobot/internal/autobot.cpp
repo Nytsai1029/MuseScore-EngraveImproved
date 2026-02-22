@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -81,7 +81,7 @@ void Autobot::affectOnServices()
         shortcutsRegister()->reload(true);
 
         //! NOTE Change Interactive implementation
-        modularity::ModulesContextIoC* ioc = modularity::ioc(iocContext());
+        modularity::ModulesIoC* ioc = application()->ioc();
         auto realInteractive = ioc->resolve<IInteractive>("autobot");
         m_autobotInteractive->setRealInteractive(realInteractive);
         ioc->unregister<IInteractive>("autobot");
@@ -99,7 +99,7 @@ void Autobot::restoreAffectOnServices()
         navigation()->setIsResetOnMousePress(true);
         shortcutsRegister()->reload(false);
 
-        modularity::ModulesContextIoC* ioc = modularity::ioc(iocContext());
+        modularity::ModulesIoC* ioc = application()->ioc();
         auto realInteractive = m_autobotInteractive->realInteractive();
         ioc->unregister<IInteractive>("autobot");
         ioc->registerExport<IInteractive>("autobot", realInteractive);

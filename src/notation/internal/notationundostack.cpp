@@ -25,12 +25,12 @@
 #include "log.h"
 
 #include "engraving/dom/masterscore.h"
-#include "engraving/editing/undo.h"
+#include "engraving/dom/undo.h"
 
 using namespace mu::notation;
 using namespace muse::async;
 
-NotationUndoStack::NotationUndoStack(IGetScore* getScore, Channel<muse::RectF> notationChanged)
+NotationUndoStack::NotationUndoStack(IGetScore* getScore, Notification notationChanged)
     : m_getScore(getScore), m_notationChanged(notationChanged)
 {
 }
@@ -278,7 +278,7 @@ mu::engraving::UndoStack* NotationUndoStack::undoStack() const
 
 void NotationUndoStack::notifyAboutNotationChanged()
 {
-    m_notationChanged.send(muse::RectF());
+    m_notationChanged.notify();
 }
 
 void NotationUndoStack::notifyAboutStateChanged()

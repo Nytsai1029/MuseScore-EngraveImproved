@@ -21,7 +21,7 @@
  */
 #include "exportprojectscenario.h"
 
-#include "global/io/buffer.h"
+#include "global/io/file.h"
 #include "global/io/fileinfo.h"
 
 #include "translation.h"
@@ -35,14 +35,12 @@ using namespace mu::notation;
 
 std::vector<INotationWriter::UnitType> ExportProjectScenario::supportedUnitTypes(const ExportType& exportType) const
 {
-    if (exportType.suffixes.isEmpty()) {
-        LOGW() << "Export type has no suffixes, id:" << exportType.id;
+    IF_ASSERT_FAILED(!exportType.suffixes.isEmpty()) {
         return {};
     }
 
     auto writer = writers()->writer(exportType.suffixes.front().toStdString());
     if (!writer) {
-        LOGW() << "Writer not found for export suffix:" << exportType.suffixes.front();
         return {};
     }
 
@@ -52,13 +50,6 @@ std::vector<INotationWriter::UnitType> ExportProjectScenario::supportedUnitTypes
 RetVal<muse::io::path_t> ExportProjectScenario::askExportPath(const INotationPtrList& notations, const ExportType& exportType,
                                                               INotationWriter::UnitType unitType, muse::io::path_t defaultPath) const
 {
-    if (exportType.suffixes.isEmpty()) {
-        LOGE() << "Can't ask export path: export type has no suffixes, id:" << exportType.id;
-        RetVal<muse::io::path_t> exportPath;
-        exportPath.ret = false;
-        return exportPath;
-    }
-
     INotationProjectPtr project = context()->currentProject();
 
     std::string filenameAddition;
@@ -105,7 +96,7 @@ RetVal<muse::io::path_t> ExportProjectScenario::askExportPath(const INotationPtr
     return exportPath;
 }
 
-bool ExportProjectScenario::exportScores(notation::INotationPtrList notations, const muse::io::path_t destinationPath,
+bool ExportProjectScenario::exportScores(const notation::INotationPtrList& notations, const muse::io::path_t destinationPath,
                                          INotationWriter::UnitType unitType, bool openDestinationFolderOnExport) const
 {
     std::string suffix = io::suffix(destinationPath);
@@ -162,11 +153,11 @@ bool ExportProjectScenario::exportScores(notation::INotationPtrList notations, c
         writerProgress->progressChanged().onReceive(this, [this, &currentFileNum, fileCount](int64_t current, int64_t total,
                                                                                              const std::string& status) {
             m_exportProgress.progress(currentFileNum * total + current, fileCount * total, status);
-        }, async::Asyncable::Mode::SetReplace);
+        });
 
         m_exportProgress.canceled().onNotify(this, [writer]() {
             writer->abort();
-        }, muse::async::Asyncable::Mode::SetReplace);
+        });
     }
 
     DEFER {
@@ -175,8 +166,8 @@ bool ExportProjectScenario::exportScores(notation::INotationPtrList notations, c
 
         if (writerProgress) {
             m_exportProgress.finish(muse::make_ok());
-            writerProgress->progressChanged().disconnect(this);
-            m_exportProgress.finished().disconnect(this);
+            writerProgress->progressChanged().resetOnReceive(this);
+            m_exportProgress.finished().resetOnReceive(this);
         }
     };
 
@@ -237,9 +228,6 @@ bool ExportProjectScenario::exportScores(notation::INotationPtrList notations, c
     } break;
     case INotationWriter::UnitType::MULTI_PART: {
         auto exportFunction = [writer, notations, options](IODevice& destinationDevice) {
-                if (notations.size() == 1) {
-                    return writer->write(notations.front(), destinationDevice, options);
-                }
                 return writer->writeList(notations, destinationDevice, options);
             };
 
@@ -416,19 +404,9 @@ Ret ExportProjectScenario::doExportLoop(const muse::io::path_t& scorePath, std::
     }
 
     while (true) {
-        Buffer outputBuf;
-        outputBuf.setMeta("file_path", scorePath.toStdString());
-        IF_ASSERT_FAILED(outputBuf.open(IODevice::WriteOnly)) {
-            return make_ret(Ret::Code::InternalError);
-        }
-
-        Ret ret = exportFunction(outputBuf);
-        outputBuf.close();
-        if (!ret) {
-            if (ret.code() == static_cast<int>(Ret::Code::Cancel)) {
-                return ret;
-            }
-
+        io::File outputFile(scorePath);
+        outputFile.setMeta("file_path", scorePath.toStdString());
+        if (!outputFile.open(File::WriteOnly)) {
             if (askForRetry(filename)) {
                 continue;
             } else {
@@ -436,8 +414,15 @@ Ret ExportProjectScenario::doExportLoop(const muse::io::path_t& scorePath, std::
             }
         }
 
-        ret = fileSystem()->writeFile(scorePath, outputBuf.data());
+        Ret ret = exportFunction(outputFile);
+        outputFile.close();
+
         if (!ret) {
+            if (ret.code() == static_cast<int>(Ret::Code::Cancel)) {
+                fileSystem()->remove(scorePath);
+                return ret;
+            }
+
             if (askForRetry(filename)) {
                 continue;
             } else {
@@ -455,7 +440,7 @@ void ExportProjectScenario::showExportProgress(bool isAudioExport) const
 {
     std::string title = isAudioExport ? muse::trc("project/export", "Exporting audio…") : muse::trc("project/export", "Exporting…");
 
-    interactive()->showProgress(title, m_exportProgress);
+    interactive()->showProgress(title, &m_exportProgress);
 }
 
 void ExportProjectScenario::openFolder(const muse::io::path_t& path) const

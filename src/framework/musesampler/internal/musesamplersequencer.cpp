@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -528,7 +528,7 @@ void MuseSamplerSequencer::addAuditionNoteEvent(const mpe::NoteEvent& noteEvent)
         msEvent._articulation_text_starts_at_note = m_auditionParamsCache.textArticulationStartsAtNote;
         msEvent._syllable_starts_at_note = m_auditionParamsCache.syllableStartsAtNote;
 
-        m_offStreamEvents[arrangementCtx.actualTimestamp].push_back(noteOn);
+        m_offStreamEvents[arrangementCtx.actualTimestamp].insert(noteOn);
     }
 
     if (arrangementCtx.hasEnd()) {
@@ -537,7 +537,7 @@ void MuseSamplerSequencer::addAuditionNoteEvent(const mpe::NoteEvent& noteEvent)
         noteOff.msTrack = track;
 
         timestamp_t timestampTo = arrangementCtx.actualTimestamp + arrangementCtx.actualDuration;
-        m_offStreamEvents[timestampTo].emplace_back(std::move(noteOff));
+        m_offStreamEvents[timestampTo].emplace(std::move(noteOff));
     }
 
     auto pedalIt = articulations.find(mpe::ArticulationType::Pedal);
@@ -554,12 +554,12 @@ void MuseSamplerSequencer::addAuditionPedalEvent(const mpe::ArticulationMeta& me
 
     if (meta.hasStart()) {
         event.value = 1;
-        m_offStreamEvents[meta.timestamp].push_back(event);
+        m_offStreamEvents[meta.timestamp].emplace(event);
     }
 
     if (meta.hasEnd()) {
         event.value = 0;
-        m_offStreamEvents[meta.timestamp + meta.overallDuration].push_back(event);
+        m_offStreamEvents[meta.timestamp + meta.overallDuration].emplace(event);
     }
 }
 
@@ -584,18 +584,36 @@ void MuseSamplerSequencer::addAuditionCCEvent(const mpe::ControllerChangeEvent& 
         return;
     }
 
-    m_offStreamEvents[positionUs].push_back(ccEvent);
+    m_offStreamEvents[positionUs].insert(ccEvent);
 }
 
 void MuseSamplerSequencer::pitchAndTuning(const pitch_level_t nominalPitch, int& pitch, int& centsOffset) const
 {
+    static constexpr pitch_level_t MIN_SUPPORTED_PITCH_LEVEL = pitchLevel(PitchClass::C, 0);
+    static constexpr int MIN_SUPPORTED_NOTE = 12; // equivalent for C0
+    static constexpr pitch_level_t MAX_SUPPORTED_PITCH_LEVEL = pitchLevel(PitchClass::C, 8);
+    static constexpr int MAX_SUPPORTED_NOTE = 108; // equivalent for C8
+
+    pitch = 0;
+    centsOffset = 0;
+
+    if (nominalPitch <= MIN_SUPPORTED_PITCH_LEVEL) {
+        pitch = MIN_SUPPORTED_NOTE;
+        return;
+    }
+
+    if (nominalPitch >= MAX_SUPPORTED_PITCH_LEVEL) {
+        pitch = MAX_SUPPORTED_NOTE;
+        return;
+    }
+
     // Get midi pitch
-    float stepCount = mpe::ZERO_PITCH_LEVEL_MIDI_EQUIVALENT + nominalPitch / static_cast<float>(mpe::PITCH_LEVEL_STEP);
+    float stepCount = MIN_SUPPORTED_NOTE + ((nominalPitch - MIN_SUPPORTED_PITCH_LEVEL) / static_cast<float>(PITCH_LEVEL_STEP));
     pitch = RealRound(stepCount, 0);
 
     // Get tuning offset
-    int semitonesCount = pitch - mpe::ZERO_PITCH_LEVEL_MIDI_EQUIVALENT;
-    pitch_level_t tuningPitchLevel = nominalPitch - semitonesCount * mpe::PITCH_LEVEL_STEP;
+    int semitonesCount = pitch - MIN_SUPPORTED_NOTE;
+    pitch_level_t tuningPitchLevel = nominalPitch - (semitonesCount * PITCH_LEVEL_STEP);
     centsOffset = pitchLevelToCents(tuningPitchLevel);
 }
 

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -29,23 +29,22 @@
 #include "modularity/ioc.h"
 #include "imainwindow.h"
 #include "internal/iplatformtheme.h"
-#include "io/filewatcher.h"
 
 #include "types/val.h"
 #include "uiarrangement.h"
 #include "async/asyncable.h"
 
 namespace muse::ui {
-class UiConfiguration : public IUiConfiguration, public Contextable, public async::Asyncable
+class UiConfiguration : public IUiConfiguration, public Injectable, public async::Asyncable
 {
-    ContextInject<IMainWindow> mainWindow = { this };
-    ContextInject<IPlatformTheme> platformTheme = { this };
-    GlobalInject<IGlobalConfiguration> globalConfiguration;
+    Inject<IMainWindow> mainWindow = { this };
+    Inject<IPlatformTheme> platformTheme = { this };
+    Inject<IGlobalConfiguration> globalConfiguration = { this };
 
 public:
 
     UiConfiguration(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx), m_uiArrangement(iocCtx) {}
+        : Injectable(iocCtx), m_uiArrangement(iocCtx) {}
 
     void init();
     void load();
@@ -54,7 +53,6 @@ public:
     ThemeList themes() const override;
     QStringList possibleAccentColors() const override;
     QStringList possibleFontFamilies() const override;
-    QStringList nonTextFonts() const override;
     void setNonTextFonts(const QStringList& fontFamilies) override;
 
     bool isDarkMode() const override;
@@ -176,7 +174,5 @@ private:
     QStringList m_nonTextFonts;
 
     Config m_config;
-
-    mutable io::FileWatcher m_themeWatcher;
 };
 }

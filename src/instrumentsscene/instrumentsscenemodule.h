@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_INSTRUMENTSSCENE_INSTRUMENTSSCENEMODULE_H
+#define MU_INSTRUMENTSSCENE_INSTRUMENTSSCENEMODULE_H
 
 #include <memory>
 
@@ -32,22 +32,15 @@ class InstrumentsSceneModule : public muse::modularity::IModuleSetup
 {
 public:
     std::string moduleName() const override;
-    void resolveImports() override;
-
-    muse::modularity::IContextSetup* newContext(const muse::modularity::ContextPtr& ctx) const override;
-};
-
-class InstrumentsSceneContext : public muse::modularity::IContextSetup
-{
-public:
-    InstrumentsSceneContext(const muse::modularity::ContextPtr& ctx)
-        : muse::modularity::IContextSetup(ctx) {}
-
     void registerExports() override;
     void resolveImports() override;
+    void registerResources() override;
+    void registerUiTypes() override;
     void onInit(const muse::IApplication::RunMode& mode) override;
 
 private:
     std::shared_ptr<InstrumentsActionsController> m_actionsController;
 };
 }
+
+#endif // MU_INSTRUMENTSSCENE_INSTRUMENTSSCENEMODULE_H

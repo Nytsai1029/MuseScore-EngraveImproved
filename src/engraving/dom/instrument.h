@@ -20,9 +20,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_INSTRUMENT_H
+#define MU_ENGRAVING_INSTRUMENT_H
 
-#include <vector>
+#include <list>
 
 #include "global/containers.h"
 #include "global/types/string.h"
@@ -51,20 +52,37 @@ class StaffName
 {
 public:
     StaffName() = default;
-    StaffName(const String& xmlText);
+    StaffName(const String& xmlText, int pos = 0);
 
     String toPlainText() const;
+    static StaffName fromPlainText(const String& plainText, int pos = 0);
 
     bool operator==(const StaffName&) const;
-
-    String toString() const { return m_name; }
+    String toString() const;
+    int pos() const { return m_pos; }
+    void setPos(int p) { m_pos = p; }
+    String name() const { return m_name; }
     void setName(const String& n) { m_name = n; }
 
 private:
-    String m_name;
+    String m_name;       // html string
+    int m_pos = 0;       // even number -> between staves
 };
 
-using StaffNameList = std::vector<StaffName>;
+//---------------------------------------------------------
+//   StaffNameList
+//---------------------------------------------------------
+
+class StaffNameList : public std::list<StaffName>
+{
+    OBJECT_ALLOCATOR(engraving, StaffNameList)
+public:
+    StaffNameList() = default;
+    StaffNameList(const std::list<StaffName>& l)
+        : std::list<StaffName>(l) {}
+
+    std::list<String> toStringList() const;
+};
 
 //---------------------------------------------------------
 //   NamedEventList
@@ -152,7 +170,7 @@ public:
 
     bool isHarmonyChannel() const { return m_name == String::fromUtf8(InstrChannel::HARMONY_NAME); }
 
-    std::vector<NamedEventList> midiActions;
+    std::list<NamedEventList> midiActions;
     std::vector<MidiArticulation> articulation;
 
     InstrChannel();
@@ -332,7 +350,7 @@ public:
     ClefTypeList clefType(size_t staffIdx) const;
     void setClefType(size_t staffIdx, const ClefTypeList& c);
 
-    const std::vector<NamedEventList>& midiActions() const { return m_midiActions; }
+    const std::list<NamedEventList>& midiActions() const { return m_midiActions; }
     void addMidiAction(const NamedEventList& l) { m_midiActions.push_back(l); }
 
     const std::vector<MidiArticulation>& articulation() const { return m_articulation; }
@@ -343,7 +361,7 @@ public:
     void removeChannel(InstrChannel* c) { muse::remove(m_channel, c); }
     void clearChannels() { m_channel.clear(); }
 
-    void setMidiActions(const std::vector<NamedEventList>& l) { m_midiActions = l; }
+    void setMidiActions(const std::list<NamedEventList>& l) { m_midiActions = l; }
     void setArticulation(const std::vector<MidiArticulation>& l) { m_articulation = l; }
     const StringData* stringData() const { return &m_stringData; }
     void setStringData(const StringData& d) { m_stringData.set(d); }
@@ -351,16 +369,22 @@ public:
 
     void setLongName(const String& f);
     void setShortName(const String& f);
-    void setLongName(const StaffName& v) { m_longName = v; }
-    void setShortName(const StaffName& v) { m_shortName = v; }
-    const StaffName& longName() const;
-    const StaffName& shortName() const;
+
+    void addLongName(const StaffName& f);
+    void addShortName(const StaffName& f);
 
     int minPitchP() const;
     int maxPitchP() const;
     int minPitchA() const;
     int maxPitchA() const;
     String musicXmlId() const;
+
+    const StaffNameList& longNames() const;
+    const StaffNameList& shortNames() const;
+    void setLongNames(const StaffNameList& l);
+    void setShortNames(const StaffNameList& l);
+    void appendLongName(const StaffName& n);
+    void appendShortName(const StaffName& n);
 
     String trackName() const;
     void setTrackName(const String& s);
@@ -392,8 +416,8 @@ public:
 
 private:
 
-    StaffName m_longName;
-    StaffName m_shortName;
+    StaffNameList m_longNames;
+    StaffNameList m_shortNames;
     String m_trackName;
     String m_id;
     String m_soundId;
@@ -409,7 +433,7 @@ private:
     Drumset* m_drumset = nullptr;
     StringData m_stringData;
 
-    std::vector<NamedEventList> m_midiActions;
+    std::list<NamedEventList> m_midiActions;
     std::vector<MidiArticulation> m_articulation;
     std::vector<InstrChannel*> m_channel;        // at least one entry
     std::vector<ClefTypeList> m_clefType;
@@ -441,4 +465,5 @@ private:
 
     static Instrument defaultInstrument;
 };
-}
+} // namespace mu::engraving
+#endif

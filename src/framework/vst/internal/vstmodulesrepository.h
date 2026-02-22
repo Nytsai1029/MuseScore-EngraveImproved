@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -36,14 +36,13 @@
 #include "vsttypes.h"
 
 namespace muse::vst {
-class VstModulesRepository : public IVstModulesRepository, public muse::Contextable
+class VstModulesRepository : public IVstModulesRepository
 {
-    muse::GlobalInject<muse::audio::IAudioThreadSecurer> threadSecurer;
+    INJECT(audioplugins::IKnownAudioPluginsRegister, knownPlugins)
+    INJECT_STATIC(muse::audio::IAudioThreadSecurer, threadSecurer)
 
-    muse::ContextInject<audioplugins::IKnownAudioPluginsRegister> knownPlugins { this };
 public:
-    VstModulesRepository(const muse::modularity::ContextPtr& ctx)
-        : muse::Contextable(ctx) {}
+    VstModulesRepository() = default;
 
     void init();
     void deInit();

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,18 +19,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_EXTENSIONS_APIV1_FILEDIALOG_H
+#define MUSE_EXTENSIONS_APIV1_FILEDIALOG_H
 
 #include <QObject>
 #include <QString>
-#include <QUrl>
 
 #include "global/modularity/ioc.h"
-#include "interactive/iinteractive.h"
+#include "global/iinteractive.h"
 
 namespace muse::extensions::apiv1 {
-class FileDialog : public QObject, public Contextable
+class FileDialog : public QObject, public Injectable
 {
     Q_OBJECT
     Q_PROPERTY(Type type READ type WRITE setType NOTIFY typeChanged FINAL)
@@ -38,10 +37,8 @@ class FileDialog : public QObject, public Contextable
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged FINAL)
     Q_PROPERTY(QString folder READ folder WRITE setFolder NOTIFY folderChanged FINAL)
     Q_PROPERTY(QString filePath READ filePath WRITE setFilePath NOTIFY filePathChanged FINAL)
-    Q_PROPERTY(QUrl fileUrl READ fileUrl WRITE setFileUrl FINAL)
-    Q_PROPERTY(QList<QUrl> fileUrls READ fileUrls WRITE setFileUrls FINAL)
 
-    ContextInject<IInteractive> interactive = { this };
+    Inject<IInteractive> interactive = { this };
 
 public:
     FileDialog(QObject* parent = nullptr);
@@ -60,20 +57,11 @@ public:
     bool visible() const;
     void setVisible(bool newVisible);
 
-    Q_INVOKABLE void open();
-    Q_INVOKABLE void close();
-
     QString folder() const;
     void setFolder(const QString& newFolder);
 
     QString filePath() const;
     void setFilePath(const QString& newFilePath);
-
-    QUrl fileUrl() const;
-    void setFileUrl(const QUrl& newFileUrl);
-
-    QList<QUrl> fileUrls() const;
-    void setFileUrls(const QList<QUrl>& newFileUrls);
 
 signals:
     void accepted();
@@ -96,3 +84,5 @@ private:
     Type m_type = Type::Load;
 };
 }
+
+#endif // MUSE_EXTENSIONS_APIV1_FILEDIALOG_H

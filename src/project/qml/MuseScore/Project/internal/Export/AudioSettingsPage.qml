@@ -19,12 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
-import Muse.UiComponents
-import Muse.Ui
-import MuseScore.Project
+import Muse.UiComponents 1.0
+import Muse.Ui 1.0
+import MuseScore.Project 1.0
 
 ExportSettingsPage {
     id: root
@@ -78,29 +78,6 @@ ExportSettingsPage {
 
             onActivated: function(index, value) {
                 root.model.bitRate = value
-            }
-        }
-    }
-
-    ExportOptionItem {
-        id: sampleFormatLabel
-        visible: root.model.availableSampleFormats.length > 0
-        text: qsTrc("project/export", "Sample format:")
-
-        StyledDropdown {
-            Layout.preferredWidth: 126
-
-            navigation.name: "SampleFormatsDropdown"
-            navigation.panel: root.navigationPanel
-            navigation.row: root.navigationOrder + 3
-            navigation.accessible.name: sampleFormatLabel.text + " " + currentText
-
-            model: root.model.availableSampleFormats
-
-            currentIndex: indexOfValue(root.model.selectedSampleFormat)
-
-            onActivated: function(index, value) {
-                root.model.selectedSampleFormat = value
             }
         }
     }

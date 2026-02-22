@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -144,13 +144,13 @@ void CoreMidiOutPort::initCore()
     };
 
     result = MIDIClientCreate(CFSTR("MuseScore"), onCoreMidiNotificationReceived, this, &m_core->client);
-    if (result != noErr) {
+    IF_ASSERT_FAILED(result == noErr) {
         LOGE() << "failed create midi output client";
         return;
     }
 
     result = MIDIOutputPortCreate(m_core->client, CFSTR("MuseScore output port"), &m_core->outputPort);
-    if (result != noErr) {
+    IF_ASSERT_FAILED(result == noErr) {
         LOGE() << "failed create midi output port";
     }
 }

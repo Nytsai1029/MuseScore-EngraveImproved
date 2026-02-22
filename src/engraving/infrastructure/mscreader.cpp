@@ -87,11 +87,6 @@ bool MscReader::isOpened() const
     return m_reader ? m_reader->isOpened() : false;
 }
 
-bool MscReader::isContainer() const
-{
-    return m_reader ? m_reader->isContainer() : false;
-}
-
 MscReader::IReader* MscReader::reader() const
 {
     if (!m_reader) {
@@ -246,15 +241,6 @@ ByteArray MscReader::readAudioSettingsJsonFile(const muse::io::path_t& pathPrefi
 ByteArray MscReader::readViewSettingsJsonFile(const muse::io::path_t& pathPrefix) const
 {
     return fileData(pathPrefix.toString() + u"viewsettings.json");
-}
-
-muse::ByteArray MscReader::readAutomationJsonFile() const
-{
-    if (!fileExists(u"automation.json")) {
-        return ByteArray();
-    }
-
-    return fileData(u"automation.json");
 }
 
 // =======================================================================

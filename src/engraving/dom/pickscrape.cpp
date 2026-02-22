@@ -24,7 +24,6 @@
 
 #include "score.h"
 #include "system.h"
-#include "text.h"
 
 using namespace mu;
 using namespace mu::engraving;
@@ -43,9 +42,6 @@ static const ElementStyle pickScrapeStyle {
     { Sid::palmMuteTextAlign,                     Pid::BEGIN_TEXT_ALIGN },
     { Sid::palmMuteTextAlign,                     Pid::CONTINUE_TEXT_ALIGN },
     { Sid::palmMuteTextAlign,                     Pid::END_TEXT_ALIGN },
-    { Sid::palmMutePosition,                      Pid::BEGIN_TEXT_POSITION },
-    { Sid::palmMutePosition,                      Pid::CONTINUE_TEXT_POSITION },
-    { Sid::palmMutePosition,                      Pid::END_TEXT_POSITION },
     { Sid::palmMuteHookHeight,                    Pid::BEGIN_HOOK_HEIGHT },
     { Sid::palmMuteHookHeight,                    Pid::END_HOOK_HEIGHT },
     { Sid::palmMuteLineStyle,                     Pid::LINE_STYLE },
@@ -60,8 +56,6 @@ static const ElementStyle pickScrapeStyle {
 PickScrapeSegment::PickScrapeSegment(PickScrape* sp, System* parent)
     : TextLineBaseSegment(ElementType::PICK_SCRAPE_SEGMENT, sp, parent, ElementFlag::MOVABLE | ElementFlag::ON_STAFF)
 {
-    m_text->setTextStyleType(propertyDefault(Pid::TEXT_STYLE).value<TextStyleType>());
-    m_endText->setTextStyleType(propertyDefault(Pid::TEXT_STYLE).value<TextStyleType>());
 }
 
 //---------------------------------------------------------
@@ -138,19 +132,6 @@ PropertyValue PickScrape::propertyDefault(Pid propertyId) const
     case Pid::CONTINUE_TEXT_PLACE:
     case Pid::END_TEXT_PLACE:
         return TextPlace::AUTO;
-
-    case Pid::TEXT_STYLE:
-        return TextStyleType::PALM_MUTE;
-
-    case Pid::BEGIN_FILLED_ARROW_HEIGHT:   // No arrow endings for pick scrape
-    case Pid::BEGIN_FILLED_ARROW_WIDTH:
-    case Pid::END_FILLED_ARROW_HEIGHT:
-    case Pid::END_FILLED_ARROW_WIDTH:
-    case Pid::BEGIN_LINE_ARROW_HEIGHT:
-    case Pid::BEGIN_LINE_ARROW_WIDTH:
-    case Pid::END_LINE_ARROW_HEIGHT:
-    case Pid::END_LINE_ARROW_WIDTH:
-        return 0.0;
 
     default:
         return TextLineBase::propertyDefault(propertyId);

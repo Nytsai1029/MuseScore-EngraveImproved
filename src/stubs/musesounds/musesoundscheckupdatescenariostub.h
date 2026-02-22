@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -28,10 +28,7 @@ class MuseSoundsCheckUpdateScenarioStub : public IMuseSoundsCheckUpdateScenario
 {
 public:
     bool needCheckForUpdate() const override;
-    void checkForUpdate(bool manual) override;
-
-    bool checkInProgress() const override;
-    muse::async::Notification checkInProgressChanged() const override;
+    muse::async::Promise<muse::Ret> checkForUpdate(bool manual) override;
 
     bool hasUpdate() const override;
     muse::Ret showUpdate() override;

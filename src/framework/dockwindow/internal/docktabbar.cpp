@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -26,8 +26,8 @@
 
 using namespace muse::dock;
 
-DockTabBar::DockTabBar(int ctx, KDDockWidgets::TabWidget* parent)
-    : KDDockWidgets::TabBarQuick(ctx, parent)
+DockTabBar::DockTabBar(KDDockWidgets::TabWidget* parent)
+    : KDDockWidgets::TabBarQuick(parent)
 {
 }
 

@@ -19,12 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
-import Muse.Ui
-import Muse.UiComponents
-import MuseScore.Project
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import MuseScore.Project 1.0
 
 RadioButtonGroup {
     id: root
@@ -36,8 +36,6 @@ RadioButtonGroup {
         name: "AudioGenerationSettingsContent"
         direction: NavigationPanel.Both
     }
-
-    property real columnWidth: -1
 
     orientation: Qt.Vertical
     spacing: 16
@@ -132,13 +130,13 @@ RadioButtonGroup {
 
             width: parent.width
             height: button.implicitHeight
-            spacing: 12
+            spacing: 6
 
             // "Every: %1 saves" needs to be one string for correct translatability. We then split the translated version.
 
             //: `%1` will be replaced with a number input field.
             //: Text before it will appear before that number field, text after will appear after the field.
-            readonly property string text: qsTrc("project/save", "Every %1 saves")
+            readonly property string text: qsTrc("project/save", "Every: %1 saves")
 
             readonly property var textSplit: text.split("%1")
 
@@ -160,8 +158,7 @@ RadioButtonGroup {
                 id: button
 
                 anchors.verticalCenter: parent.verticalCenter
-
-                width: root.columnWidth > 0 ? root.columnWidth : implicitWidth
+                width: Math.max(implicitWidth, 80)
 
                 text: numberOfSavesItem.textPart1.trim()
                 checked: settingsModel.timePeriodType === numberOfSavesItem.type

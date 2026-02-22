@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,12 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 import "internal"
 
@@ -34,7 +34,6 @@ Item {
     property alias model: sortFilterProxyModel.sourceModel
 
     property bool readOnly: false
-    property var isReadOnlyFunction: null
 
     property string keyRoleName: "key"
     //: As in a "key/value" pair: for example, the "key" could be
@@ -51,28 +50,10 @@ Item {
     property alias hasSelection: selectionModel.hasSelection
     readonly property var selection: sortFilterProxyModel.mapSelectionToSource(selectionModel.selection)
 
-    property string headerColor: ui.theme.backgroundPrimaryColor
-    property bool drawZebra: true
-
-    property int keyColumnWidth: 0
-    property bool isKeyEditable: false
-    property int headerCapitalization: Font.AllUppercase
-    property bool startEditByDoubleClick: false
-    property bool sorterEnabled: true
-
     property NavigationSection navigationSection: null
     property int navigationOrderStart: 0
 
-    property alias currentIndex: view.currentIndex
-    readonly property int currentSourceRow: (
-        view.currentIndex >= 0
-            ? sortFilterProxyModel.mapToSource(sortFilterProxyModel.index(view.currentIndex, 0)).row
-            : -1
-    )
-
     signal handleItem(var index, var item)
-    signal keyEdited(int sourceRow, string newKey)
-    signal valueEdited(int sourceRow, string newValue)
 
     QtObject {
         id: prv
@@ -128,18 +109,6 @@ Item {
         model: sortFilterProxyModel
     }
 
-    Rectangle {
-        id: headerBackground
-
-        anchors.fill: header
-
-        color: root.headerColor
-        border.width: 1
-        border.color: ui.theme.strokeColor
-
-        visible: !root.drawZebra
-    }
-
     RowLayout {
         id: header
 
@@ -167,66 +136,42 @@ Item {
 
         ValueListHeaderItem {
             Layout.fillHeight: true
-            Layout.preferredWidth: root.keyColumnWidth != 0 ? root.keyColumnWidth + 2 * prv.sideMargin : -1
-            Layout.fillWidth: root.keyColumnWidth != 0 ? false : true
+            Layout.fillWidth: true
             leftMargin: prv.sideMargin
-            rightMargin: prv.sideMargin
 
             headerTitle: keyTitle
-            headerCapitalization: root.headerCapitalization
             spacing: prv.spacing
-            isSorterEnabled: root.sorterEnabled ? keySorter.enabled : false
+            isSorterEnabled: keySorter.enabled
             sortOrder: keySorter.sortOrder
 
             navigation.panel: header.headerNavigation
             navigation.column: 0
 
             onClicked: {
-                if (!root.sorterEnabled) {
-                    return
-                }
-
                 prv.toggleSorter(keySorter)
                 prv.setSorterEnabled(valueSorter, false)
             }
         }
 
-        SeparatorLine {
-            id: headerSeparator
-        }
-
         ValueListHeaderItem {
-            Layout.preferredWidth: root.keyColumnWidth != 0 ? -1 : prv.valueItemWidth + prv.sideMargin
-            Layout.fillWidth: root.keyColumnWidth != 0 ? true : false
+            Layout.preferredWidth: prv.valueItemWidth + prv.sideMargin
             Layout.fillHeight: true
-            Layout.alignment: root.keyColumnWidth != 0 ? Qt.AlignLeft : Qt.AlignRight
-            Layout.leftMargin: root.keyColumnWidth != 0 ? prv.sideMargin : 18
+            Layout.alignment: Qt.AlignRight
             rightMargin: prv.sideMargin
 
             headerTitle: valueTitle
-            headerCapitalization: root.headerCapitalization
             spacing: prv.spacing
-            isSorterEnabled: root.sorterEnabled ? valueSorter.enabled : false
+            isSorterEnabled: valueSorter.enabled
             sortOrder: valueSorter.sortOrder
 
             navigation.panel: header.headerNavigation
             navigation.column: 1
 
             onClicked: {
-                if (!root.sorterEnabled) {
-                    return
-                }
-
                 prv.toggleSorter(valueSorter)
                 prv.setSorterEnabled(keySorter, false)
             }
         }
-    }
-
-    SeparatorLine {
-        anchors.bottom: header.bottom
-
-        visible: !root.drawZebra
     }
 
     StyledListView {
@@ -237,8 +182,8 @@ Item {
         anchors.leftMargin: background.border.width
         anchors.right: parent.right
         anchors.rightMargin: background.border.width
-
-        height: Math.min(contentHeight, root.height - header.height - background.border.width - 1/*separator*/)
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: background.border.width
 
         model: sortFilterProxyModel
 
@@ -267,7 +212,6 @@ Item {
             item: model
 
             property var modelIndex: sortFilterProxyModel.index(model.index, 0)
-            property int sourceRow: sortFilterProxyModel.mapToSource(modelIndex).row
 
             keyRoleName: root.keyRoleName
             valueRoleName: root.valueRoleName
@@ -279,19 +223,13 @@ Item {
 
             isSelected: selectionModel.hasSelection && selectionModel.isSelected(modelIndex)
             readOnly: root.readOnly
-            keyReadOnly: root.isKeyEditable ? root.isReadOnlyFunction(model.index) : true
-
-            drawZebra: root.drawZebra
-            keyColumnWidth: root.keyColumnWidth
-            keysEditable: root.isKeyEditable
-            startEditByDoubleClick: root.startEditByDoubleClick
 
             spacing: prv.spacing
             sideMargin: prv.sideMargin
             valueItemWidth: prv.valueItemWidth
 
             navigation.panel: view.navigation
-            navigation.enabled: root.isKeyEditable ? false : enabled
+            navigation.enabled: enabled
             navigation.row: model.index
             navigation.column: 0
 
@@ -312,12 +250,10 @@ Item {
 
             onClicked: {
                 selectionModel.select(modelIndex)
-                view.currentIndex = index
             }
 
             onDoubleClicked: {
                 selectionModel.select(modelIndex)
-                view.currentIndex = index
                 Qt.callLater(root.handleItem, sortFilterProxyModel.mapToSource(modelIndex), item)
             }
 
@@ -330,19 +266,6 @@ Item {
                     view.positionViewAtIndex(index, ListView.Contain)
                 }
             }
-
-            onKeyEdited: function(newKey) {
-                root.keyEdited(sourceRow, newKey)
-            }
-
-            onValueEdited: function(newVal) {
-                root.valueEdited(sourceRow, newVal)
-            }
         }
-    }
-
-    SeparatorLine {
-        x: headerSeparator.x
-        orientation: Qt.Vertical
     }
 }

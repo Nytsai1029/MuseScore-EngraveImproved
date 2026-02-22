@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -21,15 +21,15 @@
  */
 #pragma once
 
-#include "modularity/imoduleinterface.h"
-
 #include "types/retval.h"
-#include "async/promise.h"
+#include "progress.h"
 
 #include "update/updatetypes.h"
 
+#include "modularity/imoduleinterface.h"
+
 namespace mu::musesounds {
-class IMuseSoundsCheckUpdateService : MODULE_CONTEXT_INTERFACE
+class IMuseSoundsCheckUpdateService : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IMuseSamplerUpdateService)
 
@@ -38,7 +38,9 @@ public:
 
     virtual muse::Ret needCheckForUpdate() const = 0;
 
-    virtual muse::async::Promise<muse::RetVal<muse::update::ReleaseInfo> > checkForUpdate() = 0;
-    virtual const muse::RetVal<muse::update::ReleaseInfo>& lastCheckResult() const = 0;
+    virtual muse::RetVal<muse::update::ReleaseInfo> checkForUpdate() = 0;
+    virtual muse::RetVal<muse::update::ReleaseInfo> lastCheckResult() = 0;
+
+    virtual muse::Progress updateProgress() = 0;
 };
 }

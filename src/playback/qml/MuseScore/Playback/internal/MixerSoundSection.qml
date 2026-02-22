@@ -19,27 +19,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import Muse.Audio 1.0
 
 MixerPanelSection {
     id: root
-
-    property bool resourcePickingActive: false
 
     headerTitle: qsTrc("playback", "Sound")
 
     Item {
         id: content
 
-        required property MixerChannelItem channelItem
-
-        height: resourceControl.height
+        height: inputResourceControl.height
         width: root.channelItemWidth
 
         property string accessibleName: (Boolean(root.needReadChannelName) ? channelItem.title + " " : "") + root.headerTitle
@@ -47,30 +41,26 @@ MixerPanelSection {
         visible: !channelItem.outputOnly
 
         AudioResourceControl {
-            id: resourceControl
+            id: inputResourceControl
 
             anchors.horizontalCenter: parent.horizontalCenter
             height: 26
 
             supportsByPassing: false
-            resourceItemModel: content.channelItem.inputResourceItem ?? null
+            resourceItemModel: channelItem.inputResourceItem ?? null
 
-            navigationPanel: content.channelItem.panel
+            navigationPanel: channelItem.panel
             navigationRowStart: root.navigationRowStart
             accessibleName: content.accessibleName
 
             onTitleClicked: {
-                if (content.channelItem.inputResourceItem) {
-                    content.channelItem.inputResourceItem.requestToLaunchNativeEditorView()
+                if (channelItem.inputResourceItem) {
+                    channelItem.inputResourceItem.requestToLaunchNativeEditorView()
                 }
             }
 
             onNavigateControlIndexChanged: function(index) {
                 root.navigateControlIndexChanged(index)
-            }
-
-            onResourcePickingActiveChanged: {
-                root.resourcePickingActive = resourceControl.resourcePickingActive
             }
         }
     }

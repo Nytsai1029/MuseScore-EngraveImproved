@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_LANGUAGES_LANGUAGESSERVICE_H
+#define MUSE_LANGUAGES_LANGUAGESSERVICE_H
 
 #include "ilanguagesservice.h"
 #include "async/asyncable.h"
@@ -29,24 +29,21 @@
 #include "ilanguagesconfiguration.h"
 #include "framework/network/inetworkmanagercreator.h"
 #include "io/ifilesystem.h"
-#include "multiwindows/imultiwindowsprovider.h"
+#include "multiinstances/imultiinstancesprovider.h"
 
-#include "progress.h"
-
-class QJsonObject;
 class QTranslator;
 
 namespace muse::languages {
-class LanguagesService : public ILanguagesService, public Contextable, public async::Asyncable
+class LanguagesService : public ILanguagesService, public Injectable, public async::Asyncable
 {
-    GlobalInject<ILanguagesConfiguration> configuration;
-    GlobalInject<network::INetworkManagerCreator> networkManagerCreator;
-    GlobalInject<io::IFileSystem> fileSystem;
-    GlobalInject<mi::IMultiWindowsProvider> multiwindowsProvider;
+    Inject<ILanguagesConfiguration> configuration = { this };
+    Inject<network::INetworkManagerCreator> networkManagerCreator = { this };
+    Inject<io::IFileSystem> fileSystem = { this };
+    Inject<mi::IMultiInstancesProvider> multiInstancesProvider = { this };
 
 public:
     LanguagesService(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void init();
 
@@ -68,20 +65,12 @@ private:
 
     void setCurrentLanguage(const QString& languageCode);
     QString effectiveLanguageCode(QString languageCode) const;
-
     Ret loadLanguage(Language& lang);
-    Ret doLoadLanguage(Language& lang);
 
-    void downloadServerLanguagesInfo(const QString& languageCode, std::function<void(const RetVal<QJsonObject>&)> finished);
-    QStringList languagesToUpdate(const QString& mainLanguageCode, const QJsonObject& serverLanguagesInfo) const;
-    void doUpdateLanguages(const QStringList& languageCodes, Progress overallProgress, std::function<void(const Ret&)> overallFinished);
-    void  doUpdateLanguage(const QString& languageCode, std::function<void(int64_t current, int64_t total,
-                                                                           const std::string&)> progressCallback,
-                           std::function<void(const Ret&)> finished);
-
-    Ret unpackAndWriteLanguage(const QByteArray& zipData);
-
-    RetVal<QString> fileHash(const io::path_t& path) const;
+    void th_update(const QString& languageCode, Progress progress);
+    bool canUpdate(const QString& languageCode);
+    Ret downloadLanguage(const QString& languageCode, Progress progress) const;
+    RetVal<QString> fileHash(const io::path_t& path);
 
 private:
     LanguagesHash m_languagesHash;
@@ -89,13 +78,13 @@ private:
     async::Notification m_currentLanguageChanged;
     Language m_placeholderLanguage;
 
-    std::vector<QTranslator*> m_translators;
+    QSet<QTranslator*> m_translators;
+    mutable QHash<QString, Progress> m_updateOperationsHash;
 
     bool m_inited = false;
-    bool m_languageUpdateInProgress = false;
     bool m_restartRequiredToApplyLanguage = false;
     async::Channel<bool> m_restartRequiredToApplyLanguageChanged;
-
-    network::INetworkManagerPtr m_networkManager;
 };
 }
+
+#endif // MUSE_LANGUAGES_LANGUAGESSERVICE_H

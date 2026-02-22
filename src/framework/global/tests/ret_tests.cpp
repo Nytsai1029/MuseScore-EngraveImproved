@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -54,11 +54,18 @@ TEST(Global_RetTests, Data_KeyExistsWithMatchingIntType_ReturnsStoredValue)
 
 // === Key Not Found ===
 
-TEST(Global_RetTests, Data_KeyNotFound_ReturnsDefault)
+TEST(Global_RetTests, Data_KeyNotFound_ReturnsDefaultInReleaseANDTriggersAssertionInDebug)
 {
+#ifdef NDEBUG
     const Ret ret;
     const auto result = ret.data<std::string>("missing", std::string("fallback"));
     EXPECT_EQ(result, "fallback");
+#else
+    const Ret ret;
+    EXPECT_DEATH({
+        const auto result = ret.data<std::string>("missing", std::string("fallback"));
+    }, ".*Assertion.*failed");
+#endif
 }
 
 // === Type Mismatch ===
@@ -74,7 +81,6 @@ TEST(Global_RetTests, Data_KeyExistsButTypeMismatch_ReturnsDefaultInReleaseANDTr
     // In debug builds, expect the assertion to trigger
     EXPECT_DEATH({
         const auto result = ret.data<std::string>("answer", std::string("0"));
-        UNUSED(result);
     }, ".*Assertion.*failed");
 #endif
 }
@@ -109,9 +115,17 @@ TEST(Global_RetTests, Data_EnumClass_ReturnsStoredValue)
     EXPECT_EQ(result, Global_RetTests::StatusCode::OK);
 }
 
-TEST(Global_RetTests, Data_EnumClassKeyNotFound_ReturnsDefault)
+TEST(Global_RetTests, Data_EnumClassKeyNotFound_ReturnsDefaultInReleaseANDTriggersAssertionInDebug)
 {
+#ifdef NDEBUG
     const Ret ret;
     const auto result = ret.data<Global_RetTests::StatusCode>("missing", Global_RetTests::StatusCode::Unknown);
     EXPECT_EQ(result, Global_RetTests::StatusCode::Unknown);
+#else
+    const Ret ret;
+    EXPECT_DEATH({
+        const auto result = ret.data<Global_RetTests::StatusCode>("missing", Global_RetTests::StatusCode::Unknown);
+        UNUSED(result);
+    }, ".*Assertion.*failed");
+#endif
 }

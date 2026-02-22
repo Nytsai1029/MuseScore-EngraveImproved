@@ -21,15 +21,32 @@
  */
 #include "searchcommandsparser.h"
 
+#include "engraving/dom/rehearsalmark.h"
+#include "engraving/dom/measure.h"
+#include "engraving/dom/page.h"
+
+#include "log.h"
+#include "translation.h"
+#include "notationerrors.h"
+
 using namespace mu::notation;
 
-static constexpr QStringView REHEARSAL_MARK_CODE(u"r");
-static constexpr QStringView PAGE_CODE(u"p");
+static const std::string REHEARSAL_MARK_CODE("r");
+static const std::string PAGE_CODE("p");
 
-SearchCommandsParser::SearchData SearchCommandsParser::parse(const QString& searchCommand)
+SearchCommands SearchCommandsParser::availableCommands()
+{
+    SearchCommands commands;
+    commands << SearchCommand(ElementType::REHEARSAL_MARK, REHEARSAL_MARK_CODE, muse::trc("notation", "Rehearsal marks"))
+             << SearchCommand(ElementType::PAGE, PAGE_CODE, muse::trc("notation", "Pages"));
+
+    return commands;
+}
+
+SearchCommandsParser::SearchData SearchCommandsParser::parse(const std::string& searchCommand)
 {
     SearchData data;
-    if (searchCommand.isEmpty()) {
+    if (searchCommand.empty()) {
         return data;
     }
 
@@ -47,60 +64,63 @@ SearchCommandsParser::SearchData SearchCommandsParser::parse(const QString& sear
     return data;
 }
 
-SearchCommandsParser::SearchData SearchCommandsParser::parseMeasureCommand(const QString& searchCommand)
+SearchCommandsParser::SearchData SearchCommandsParser::parseMeasureCommand(const std::string& searchCommand)
 {
-    QStringList parts = searchCommand.split(u'-', Qt::SkipEmptyParts);
+    SearchData data;
 
-    if (parts.size() == 2) {
-        bool ok1, ok2 = false;
-        size_t startMeasure = parts[0].toUInt(&ok1);
-        size_t endMeasure = parts[1].toUInt(&ok2);
+    QString qsearchCommand = QString::fromStdString(searchCommand).toLower();
+    bool ok = false;
+    int measureIndex = qsearchCommand.toInt(&ok);
 
-        if (ok1 && ok2 && (startMeasure <= endMeasure)) {
-            return SearchData::makeMeasureRange(startMeasure, endMeasure);
-        }
-        return SearchData{};
-    } else {
-        bool ok = false;
-        size_t measureIndex = searchCommand.toUInt(&ok);
-
-        if (ok) {
-            return SearchData::makeMeasure(measureIndex);
-        }
+    if (ok) {
+        data.elementType = ElementType::MEASURE;
+        data.value = QVariant::fromValue(measureIndex);
     }
 
-    return SearchData{};
+    return data;
 }
 
-SearchCommandsParser::SearchData SearchCommandsParser::parsePageCommand(const QString& searchCommand)
+SearchCommandsParser::SearchData SearchCommandsParser::parsePageCommand(const std::string& searchCommand)
 {
-    QString qsearchCommand = searchCommand.toLower();
+    SearchData data;
 
-    if (!qsearchCommand.startsWith(PAGE_CODE) || qsearchCommand.size() <= PAGE_CODE.size()) {
-        return SearchData{};
+    QString qsearchCommand = QString::fromStdString(searchCommand).toLower();
+
+    int pageCodeLength = static_cast<int>(PAGE_CODE.length());
+    if (!qsearchCommand.startsWith(PAGE_CODE.c_str()) || qsearchCommand.size() <= pageCodeLength) {
+        return data;
     }
 
-    if (!qsearchCommand[PAGE_CODE.size()].isNumber()) {
-        return SearchData{};
+    if (!qsearchCommand[pageCodeLength].isNumber()) {
+        return data;
     }
 
     bool ok = false;
-    size_t pageIndex = qsearchCommand.mid(PAGE_CODE.size()).toUInt(&ok);
+    int pageIndex = qsearchCommand.mid(static_cast<int>(PAGE_CODE.size())).toInt(&ok);
 
     if (ok) {
-        return SearchData::makePage(pageIndex);
+        data.elementType = ElementType::PAGE;
+        data.value = pageIndex;
     }
 
-    return SearchData{};
+    return data;
 }
 
-SearchCommandsParser::SearchData SearchCommandsParser::parseRehearsalMarkCommand(const QString& searchCommand)
+SearchCommandsParser::SearchData SearchCommandsParser::parseRehearsalMarkCommand(const std::string& searchCommand)
 {
-    QString qsearchCommand = searchCommand.toLower();
+    SearchData data;
 
-    if (qsearchCommand.startsWith(REHEARSAL_MARK_CODE) && qsearchCommand.size() > REHEARSAL_MARK_CODE.size()) {
-        return SearchData::makeRehearsalMark(qsearchCommand.mid(REHEARSAL_MARK_CODE.size()));
+    QString qsearchCommand = QString::fromStdString(searchCommand).toLower();
+
+    int rehearsalMarkCodeLength = static_cast<int>(REHEARSAL_MARK_CODE.length());
+    if (qsearchCommand.startsWith(REHEARSAL_MARK_CODE.c_str()) && qsearchCommand.size() > rehearsalMarkCodeLength) {
+        data.elementType = ElementType::REHEARSAL_MARK;
+        data.value = qsearchCommand.mid(rehearsalMarkCodeLength);
+        return data;
     }
 
-    return SearchData::makeRehearsalMark(qsearchCommand);
+    data.elementType = ElementType::REHEARSAL_MARK;
+    data.value = qsearchCommand;
+
+    return data;
 }

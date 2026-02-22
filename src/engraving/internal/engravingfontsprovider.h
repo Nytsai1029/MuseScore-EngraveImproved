@@ -32,7 +32,7 @@
 
 namespace mu::engraving {
 class EngravingFont;
-class EngravingFontsProvider : public IEngravingFontsProvider, public muse::Contextable
+class EngravingFontsProvider : public IEngravingFontsProvider, public muse::Injectable
 {
 public:
 

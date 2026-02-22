@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -88,7 +88,7 @@ FontDataKey FontsDatabase::actualFont(const FontDataKey& requireKey, Font::Type 
     }
 
     FontDataKey def = defaultFont(type);
-    LOGW() << "not found required font: " << requireKey.family().id() << ", will be using default: " << def.family().id();
+    LOGW() << "not found require font: " << requireKey.family().id() << ", will be use default: " << def.family().id();
     return def;
 }
 

@@ -20,16 +20,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_POINT_H
+#define MU_ENGRAVING_POINT_H
 
 #include <climits>
 
-#include "../types/propertyvalue.h"
+#include "types/propertyvalue.h"
 
 namespace mu::engraving {
 class EngravingItem;
 
-enum class Pid : short;
+enum class Pid;
 
 //---------------------------------------------------------
 //   Location
@@ -99,4 +100,5 @@ private:
     bool m_rel = false;
     bool m_isTimeTick = false;
 };
-}
+} // namespace mu::engraving
+#endif

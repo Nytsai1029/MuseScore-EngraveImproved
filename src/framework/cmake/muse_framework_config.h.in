@@ -24,8 +24,8 @@
 #cmakedefine MUSE_APP_VERSION_LABEL "${MUSE_APP_VERSION_LABEL}"
 
 #cmakedefine MUSE_APP_INSTALL_SUFFIX "${MUSE_APP_INSTALL_SUFFIX}"
-#cmakedefine MUSE_APP_INSTALL_PREFIX "${MUSE_APP_INSTALL_PREFIX}"
-#cmakedefine MUSE_APP_INSTALL_RESOURCES_LOCATION "${MUSE_APP_INSTALL_RESOURCES_LOCATION}"
+#cmakedefine MUSE_APP_INSTALL_PREFIX ${MUSE_APP_INSTALL_PREFIX}
+#cmakedefine MUSE_APP_INSTALL_NAME ${MUSE_APP_INSTALL_NAME}
 
 #cmakedefine WIN_PORTABLE 1
 
@@ -34,13 +34,6 @@
 /* ============================================== */
 #cmakedefine QT_QPROCESS_SUPPORTED 1
 #cmakedefine QT_CONCURRENT_SUPPORTED 1
-
-/* ============================================== */
-/* Enviropment                                    */
-/* ============================================== */
-#cmakedefine MUSE_CONFIGURATION_IS_WEB 1
-#cmakedefine MUSE_THREADS_SUPPORT 1
-#cmakedefine MUSE_MULTICONTEXT_WIP 1
 
 /* ============================================== */
 /* Modules                                        */
@@ -57,15 +50,8 @@
 #cmakedefine MUSE_MODULE_AUDIO 1
 #cmakedefine MUSE_MODULE_AUDIO_TESTS 1
 #cmakedefine MUSE_MODULE_AUDIO_API 1
-#cmakedefine MUSE_MODULE_AUDIO_ASIO 1
-#cmakedefine MUSE_MODULE_AUDIO_PIPEWIRE 1
 #cmakedefine MUSE_MODULE_AUDIO_JACK 1
 #cmakedefine MUSE_MODULE_AUDIO_EXPORT 1
-
-#define MUSE_MODULE_AUDIO_WORKER_MODE 1
-#define MUSE_MODULE_AUDIO_DRIVER_MODE 2
-#define MUSE_MODULE_AUDIO_WORKERRPC_MODE 3
-#define MUSE_MODULE_AUDIO_WORKMODE ${MUSE_MODULE_AUDIO_WORKMODE}
 
 #cmakedefine MUSE_MODULE_AUDIOPLUGINS 1
 
@@ -99,11 +85,6 @@
 #cmakedefine MUSE_MODULE_GLOBAL_TESTS 1
 #cmakedefine MUSE_MODULE_GLOBAL_API 1
 
-#cmakedefine MUSE_MODULE_INTERACTIVE 1
-#cmakedefine MUSE_MODULE_INTERACTIVE_TESTS 1
-#cmakedefine MUSE_MODULE_INTERACTIVE_API 1
-#cmakedefine MUSE_MODULE_INTERACTIVE_SYNC_SUPPORTED 1
-
 #cmakedefine MUSE_MODULE_LANGUAGES 1
 #cmakedefine MUSE_MODULE_LANGUAGES_TESTS 1
 #cmakedefine MUSE_MODULE_LANGUAGES_API 1
@@ -120,9 +101,9 @@
 #cmakedefine MUSE_MODULE_MPE_TESTS 1
 #cmakedefine MUSE_MODULE_MPE_API 1
 
-#cmakedefine MUSE_MODULE_MULTIWINDOWS 1
-#cmakedefine MUSE_MODULE_MULTIWINDOWS_TESTS 1
-#cmakedefine MUSE_MODULE_MULTIWINDOWS_API 1
+#cmakedefine MUSE_MODULE_MULTIINSTANCES 1
+#cmakedefine MUSE_MODULE_MULTIINSTANCES_TESTS 1
+#cmakedefine MUSE_MODULE_MULTIINSTANCES_API 1
 
 #cmakedefine MUSE_MODULE_MUSESAMPLER 1
 #cmakedefine MUSE_MODULE_MUSESAMPLER_TESTS 1
@@ -146,7 +127,7 @@
 #cmakedefine MUSE_MODULE_UI_API 1
 #cmakedefine MUSE_MODULE_UI_DISABLE_MODALITY 1
 #cmakedefine MUSE_MODULE_UI_SYSTEMDRAG_SUPPORTED 1
-#cmakedefine MUSE_MODULE_UI_NAVIGATION_EXCLUDEPROJECT 1
+#cmakedefine MUSE_MODULE_UI_SYNCINTERACTIVE_SUPPORTED 1
 
 #cmakedefine MUSE_MODULE_UPDATE 1
 #cmakedefine MUSE_MODULE_UPDATE_TESTS 1
@@ -161,3 +142,4 @@
 #cmakedefine MUSE_MODULE_WORKSPACE_API 1
 
 #cmakedefine MUSE_ENABLE_UNIT_TESTS 1
+

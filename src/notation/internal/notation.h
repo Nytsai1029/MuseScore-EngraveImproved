@@ -19,34 +19,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#pragma once
+#ifndef MU_NOTATION_NOTATION_H
+#define MU_NOTATION_NOTATION_H
 
 #include "async/asyncable.h"
 #include "modularity/ioc.h"
 
-#include "../imasternotation.h"
+#include "engraving/iengravingconfiguration.h"
+
 #include "../inotation.h"
-#include "../inotationconfiguration.h"
 #include "igetscore.h"
+#include "../inotationconfiguration.h"
 
 namespace mu::engraving {
 class Score;
 }
 
 namespace mu::notation {
-class MasterNotation;
 class NotationInteraction;
 class NotationPlayback;
-class Notation : virtual public INotation, public IGetScore, public muse::Contextable, public muse::async::Asyncable
+class Notation : virtual public INotation, public IGetScore, public muse::Injectable, public muse::async::Asyncable
 {
-    muse::GlobalInject<INotationConfiguration> configuration;
+    muse::Inject<INotationConfiguration> configuration = { this };
+    muse::Inject<engraving::IEngravingConfiguration> engravingConfiguration = { this };
 
 public:
-    explicit Notation(MasterNotation* master, const muse::modularity::ContextPtr& iocCtx, engraving::Score* score = nullptr);
+    explicit Notation(const muse::modularity::ContextPtr& iocCtx, engraving::Score* score = nullptr);
     ~Notation() override;
-
-    project::INotationProject* project() const override;
-    IMasterNotationPtr masterNotation() const override;
 
     QString name() const override;
     QString projectName() const override;
@@ -79,20 +78,18 @@ public:
     INotationAccessibilityPtr accessibility() const override;
     INotationPartsPtr parts() const override;
 
-    muse::async::Channel<muse::RectF> notationChanged() const override;
+    muse::async::Notification notationChanged() const override;
 
 protected:
     mu::engraving::Score* score() const override;
     void setScore(mu::engraving::Score* score);
     muse::async::Notification scoreInited() const override;
 
-    void notifyAboutNotationChanged(const muse::RectF& updateRect = muse::RectF());
+    void notifyAboutNotationChanged();
 
     INotationPartsPtr m_parts = nullptr;
     INotationUndoStackPtr m_undoStack = nullptr;
-    muse::async::Channel<muse::RectF> m_notationChanged;
-
-    MasterNotation* m_masterNotation = nullptr;
+    muse::async::Notification m_notationChanged;
 
 private:
     friend class NotationInteraction;
@@ -113,3 +110,5 @@ private:
     INotationElementsPtr m_elements = nullptr;
 };
 }
+
+#endif // MU_NOTATION_NOTATION_H

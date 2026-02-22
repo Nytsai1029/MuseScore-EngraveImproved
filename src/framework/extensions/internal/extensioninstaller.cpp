@@ -39,13 +39,9 @@ void ExtensionInstaller::installExtension(const io::path_t& srcPath)
     }
 
     const ExtensionsLoader loader;
-    const RetVal<Manifest> m = loader.parseManifest(data);
-    if (!m.ret) {
-        LOGE() << "failed parse manifest: " << srcPath << ", err: " << m.ret.toString();
-        return;
-    }
+    const Manifest m = loader.parseManifest(data);
 
-    const Manifest existingManifest = provider()->manifest(m.val.uri);
+    const Manifest existingManifest = provider()->manifest(m.uri);
     const bool alreadyInstalled = existingManifest.isValid();
 
     if (!alreadyInstalled) {
@@ -53,8 +49,8 @@ void ExtensionInstaller::installExtension(const io::path_t& srcPath)
         return;
     }
 
-    if (existingManifest.version == m.val.version) {
-        LOGI() << "already installed: " << m.val.uri;
+    if (existingManifest.version == m.version) {
+        LOGI() << "already installed: " << m.uri;
 
         interactive()->info(trc("extensions", "The extension is already installed."), std::string(),
                             { interactive()->buttonData(IInteractive::Button::Ok) });
@@ -72,7 +68,7 @@ void ExtensionInstaller::installExtension(const io::path_t& srcPath)
 
     const std::string text = qtrc("extensions", "Another version of the extension “%1” is already installed (version %2). "
                                                 "Do you want to replace it with version %3?")
-                             .arg(existingManifest.title, existingManifest.version, m.val.version).toStdString();
+                             .arg(existingManifest.title, existingManifest.version, m.version).toStdString();
 
     interactive()->question(trc("extensions", "Update extension"),
                             text,
@@ -125,28 +121,11 @@ void ExtensionInstaller::uninstallExtension(const Uri& uri)
         return;
     }
 
-    Ret ret;
-    if (manifest.legacyPlugin) {
-        DO_ASSERT(io::FileInfo::suffix(manifest.path) == "qml");
-        ret = fileSystem()->remove(manifest.path);
-        if (ret) {
-            LOGI() << "Success removed the legacy qml plugin file: " << manifest.path;
-        } else {
-            LOGE() << "Failed to remove the legacy qml plugin file: " << manifest.path << ", err: " << ret.toString();
-        }
-    } else {
-        ret = fileSystem()->remove(io::dirpath(manifest.path));
-        if (ret) {
-            LOGI() << "Success removed the extension dir: " << io::dirpath(manifest.path)
-                   << "(manifest: " << manifest.path << ")";
-        } else {
-            LOGE() << "Failed to remove the extension dir: " << io::dirpath(manifest.path)
-                   << "(manifest: " << manifest.path << ")"
-                   << ", err: " << ret.toString();
-        }
+    Ret ret = fileSystem()->remove(io::dirpath(manifest.path));
+    if (!ret) {
+        LOGE() << "Failed to delete the folder: " << manifest.path << ", err: " << ret.toString();
+        return;
     }
 
-    if (ret) {
-        provider()->reloadExtensions();
-    }
+    provider()->reloadExtensions();
 }

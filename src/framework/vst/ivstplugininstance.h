@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -24,7 +24,7 @@
 #include "global/async/notification.h"
 
 #include "vsttypes.h"
-#include "audio/common/audiotypes.h"
+#include "audio/audiotypes.h"
 
 namespace muse::vst {
 class IVstPluginInstance

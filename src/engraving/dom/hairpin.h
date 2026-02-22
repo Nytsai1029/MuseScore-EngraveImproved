@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_HAIRPIN_H
+#define MU_ENGRAVING_HAIRPIN_H
 
 #include "../types/types.h"
 
@@ -60,7 +61,7 @@ public:
     PointF circledTip() const { return m_circledTip; }
     void setCircledTip(const PointF& p) { m_circledTip = p; }
 
-    EngravingObject* propertyDelegate(Pid) const override;
+    EngravingItem* propertyDelegate(Pid) override;
 
     int gripsCount() const override;
     std::vector<PointF> gripsPositions(const EditData& = EditData()) const override;
@@ -72,14 +73,14 @@ public:
     EngravingItem* findElementToSnapBefore(bool ignoreInvisible = true) const;
     EngravingItem* findElementToSnapAfter(bool ignoreInvisible = true) const;
 
-    void endDragGrip(EditData& ed) override;
+    void endEditDrag(EditData& ed) override;
 
 private:
     TextBase* findStartDynamicOrExpression(bool ignoreInvisible = true) const;
     TextBase* findEndDynamicOrExpression(bool ignoreInvisible = true) const;
 
-    void startDragGrip(EditData&) override;
-    void dragGrip(EditData&) override;
+    void startEditDrag(EditData&) override;
+    void editDrag(EditData&) override;
 
     Sid getPropertyStyle(Pid) const override;
 
@@ -203,4 +204,6 @@ private:
 
 #ifndef NO_QT_SUPPORT
 Q_DECLARE_METATYPE(mu::engraving::HairpinType)
+#endif
+
 #endif

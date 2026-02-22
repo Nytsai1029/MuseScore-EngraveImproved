@@ -20,11 +20,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_PLAYBACK_PLAYBACKTYPES_H
+#define MU_PLAYBACK_PLAYBACKTYPES_H
 
 #include <QTime>
 
-#include "audio/common/audiotypes.h"
+#include "audio/audiotypes.h"
 
 namespace mu::playback {
 static constexpr muse::audio::aux_channel_idx_t AUX_CHANNEL_NUM = 2;
@@ -123,3 +124,5 @@ enum OnlineSoundsShowProgressBarMode {
     Never,
 };
 }
+
+#endif // MU_PLAYBACK_PLAYBACKTYPES_H

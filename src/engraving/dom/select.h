@@ -66,7 +66,7 @@ struct ElementPattern {
 //---------------------------------------------------------
 
 struct NotePattern : ElementPattern {
-    std::vector<Note*> el;
+    std::list<Note*> el;
     int pitch = -1;
     int string = INVALID_STRING_INDEX;
     int tpc = Tpc::TPC_INVALID;
@@ -115,7 +115,7 @@ public:
     std::vector<Note*> noteList(track_idx_t track = muse::nidx) const;
 
     const std::list<EngravingItem*> uniqueElements() const;
-    std::list<Note*> uniqueNotes(track_idx_t track = muse::nidx, bool tied = true) const;
+    std::list<Note*> uniqueNotes(track_idx_t track = muse::nidx) const;
 
     bool isSingle() const { return (m_state == SelState::LIST) && (m_el.size() == 1); }
     bool elementsSelected(const ElementTypeSet& types) const;

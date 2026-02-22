@@ -16,7 +16,6 @@
 #include "LayoutSaver.h"
 
 #include <QObject>
-#include <QQmlParserStatus>
 
 class QQuickItem;
 
@@ -29,8 +28,8 @@ namespace KDDockWidgets {
  * For C++, just use KDDockWidgets::LayoutSaver directly
  */
 class DOCKS_EXPORT LayoutSaverInstantiator
-    : public QObject,  
-      public QQmlParserStatus
+    : public QObject,
+      public LayoutSaver
 {
     Q_OBJECT
 public:
@@ -39,12 +38,6 @@ public:
 
     Q_INVOKABLE bool saveToFile(const QString &jsonFilename);
     Q_INVOKABLE bool restoreFromFile(const QString &jsonFilename);
-
-private:
-    void classBegin() override {};
-    void componentComplete() override;
-
-    LayoutSaver* m_saver = nullptr;
 };
 
 }

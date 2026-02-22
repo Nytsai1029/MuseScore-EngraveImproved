@@ -44,12 +44,10 @@ public:
 
     // Shadow note
     virtual mu::engraving::ShadowNote* shadowNote() const = 0;
-    virtual void showShadowNoteForPosition(const muse::PointF& pos) = 0;
-    virtual void showShadowNoteForMidiPitch(const uint8_t pitch) = 0;
+    virtual bool showShadowNote(const muse::PointF& pos) = 0;
     virtual void hideShadowNote() = 0;
     virtual muse::RectF shadowNoteRect() const = 0;
-    virtual muse::RectF previewMeasureRect() const = 0;
-    virtual muse::async::Channel</*visible*/ bool> shadowNoteChanged() const = 0;
+    virtual muse::async::Notification shadowNoteChanged() const = 0;
 
     // Visibility
     virtual void toggleVisible() = 0;
@@ -102,7 +100,7 @@ public:
     virtual muse::async::Notification dragChanged() const = 0;
 
     virtual bool isOutgoingDragElementAllowed(const EngravingItem* element) const = 0;
-    virtual void startOutgoingDragElement(const EngravingItem* element, QObject* dragSource, const muse::PointF& hotSpot) = 0;
+    virtual void startOutgoingDragElement(const EngravingItem* element, QObject* dragSource) = 0;
     virtual void startOutgoingDragRange(QObject* dragSource) = 0;
     virtual bool isOutgoingDragStarted() const = 0;
     virtual void endOutgoingDrag() = 0;
@@ -172,8 +170,7 @@ public:
     virtual void startEditGrip(EngravingItem* element, mu::engraving::Grip grip) = 0;
     virtual void endEditGrip() = 0;
 
-    virtual bool isEditingElement() const = 0;
-    virtual muse::async::Notification isEditingElementChanged() const = 0;
+    virtual bool isElementEditStarted() const = 0;
     virtual void startEditElement(EngravingItem* element) = 0;
     virtual void changeEditElement(EngravingItem* newElement) = 0;
     virtual bool isEditAllowed(QKeyEvent* event) = 0;
@@ -187,11 +184,12 @@ public:
     virtual void splitSelectedMeasure() = 0;
     virtual void joinSelectedMeasures() = 0;
 
+    virtual muse::Ret canAddBoxes() const = 0;
     virtual void addBoxes(BoxType boxType, int count, AddBoxesTarget target) = 0;
     virtual void addBoxes(BoxType boxType, int count, int beforeBoxIndex, bool insertAfter) = 0;
 
     virtual void copySelection() = 0;
-    virtual void repeatSelection() = 0;
+    virtual muse::Ret repeatSelection() = 0;
     virtual void copyLyrics() = 0;
     virtual void pasteSelection(const Fraction& scale = Fraction(1, 1)) = 0;
     virtual void swapSelection() = 0;
@@ -241,12 +239,17 @@ public:
     virtual void addAnchoredLineToSelectedNotes() = 0;
 
     virtual void addTextToTopFrame(TextStyleType type) = 0;
+
+    virtual muse::Ret canAddTextToItem(TextStyleType type, const EngravingItem* item) const = 0;
     virtual void addTextToItem(TextStyleType type, EngravingItem* item) = 0;
 
     virtual muse::Ret canAddImageToItem(const EngravingItem* item) const = 0;
     virtual void addImageToItem(const muse::io::path_t& imagePath, EngravingItem* item) = 0;
 
+    virtual muse::Ret canAddFiguredBass() const = 0;
     virtual void addFiguredBass() = 0;
+
+    virtual muse::Ret canAddFretboardDiagram() const = 0;
     virtual void addFretboardDiagram() = 0;
 
     virtual void addStretch(qreal value) = 0;
@@ -258,7 +261,6 @@ public:
     virtual void implodeSelectedStaff() = 0;
 
     virtual void realizeSelectedChordSymbols(bool literal, Voicing voicing, HarmonyDurationType durationType) = 0;
-    virtual void extendToNextNote() = 0;
     virtual void removeSelectedMeasures() = 0;
     virtual void removeSelectedRange() = 0;
     virtual void removeEmptyTrailingMeasures() = 0;
@@ -268,8 +270,6 @@ public:
 
     virtual void changeEnharmonicSpelling(bool both) = 0;
     virtual void spellPitches() = 0;
-    virtual void spellPitchesWithSharps() = 0;
-    virtual void spellPitchesWithFlats() = 0;
     virtual void regroupNotesAndRests() = 0;
     virtual void resequenceRehearsalMarks() = 0;
 
@@ -285,6 +285,7 @@ public:
     virtual void addMelisma() = 0;
     virtual void addLyricsVerse() = 0;
 
+    virtual muse::Ret canAddGuitarBend() const = 0;
     virtual void addGuitarBend(GuitarBendType bendType) = 0;
 
     // Text navigation
@@ -332,10 +333,7 @@ public:
     virtual muse::async::Channel<ShowItemRequest> showItemRequested() const = 0;
 
     virtual void setGetViewRectFunc(const std::function<muse::RectF()>& func) = 0;
-
     virtual void checkAndShowError() = 0;
-
-    virtual void toggleDebugShowGapRests() = 0;
 };
 
 using INotationInteractionPtr = std::shared_ptr<INotationInteraction>;

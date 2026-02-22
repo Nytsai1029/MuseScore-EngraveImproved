@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-only
-# MuseScore-Studio-CLA-applies
+# MuseScore-CLA-applies
 #
-# MuseScore Studio
+# MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2026 MuseScore Limited
+# Copyright (C) 2021 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -16,40 +16,44 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-muse_create_module(muse_network ALIAS muse::network)
+declare_module(muse_network)
+set(MODULE_ALIAS muse::network)
 
-target_sources(muse_network PRIVATE
-    networkmodule.cpp
-    networkmodule.h
-    networkerrors.h
-    networktypes.h
-    inetworkmanager.h
-    inetworkmanagercreator.h
-    inetworkconfiguration.h
+set(MODULE_SRC
+    ${CMAKE_CURRENT_LIST_DIR}/networkmodule.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/networkmodule.h
+    ${CMAKE_CURRENT_LIST_DIR}/networkerrors.h
+    ${CMAKE_CURRENT_LIST_DIR}/networktypes.h
+    ${CMAKE_CURRENT_LIST_DIR}/inetworkmanager.h
+    ${CMAKE_CURRENT_LIST_DIR}/inetworkmanagercreator.h
+    ${CMAKE_CURRENT_LIST_DIR}/inetworkconfiguration.h
 
-    internal/networkmanager.cpp
-    internal/networkmanager.h
-    internal/networkmanagercreator.cpp
-    internal/networkmanagercreator.h
-    internal/networkconfiguration.cpp
-    internal/networkconfiguration.h
-)
-
-target_link_libraries(muse_network PUBLIC Qt::Network)
-
-if (MUSE_MODULE_NETWORK_WEBSOCKET)
-    target_sources(muse_network PRIVATE
-        api/websocketapi.cpp
-        api/websocketapi.h
-        api/websocketserverapi.cpp
-        api/websocketserverapi.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/networkmanager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/networkmanager.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/networkmanagercreator.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/networkmanagercreator.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/networkconfiguration.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/networkconfiguration.h
     )
 
-    target_compile_definitions(muse_network PRIVATE MUSE_MODULE_NETWORK_WEBSOCKET)
-    target_link_libraries(muse_network PRIVATE Qt::WebSockets)
+list(APPEND MODULE_LINK Qt::Qml)
+list(APPEND MODULE_LINK_PUBLIC Qt::Network)
+
+if (MUSE_MODULE_NETWORK_WEBSOCKET)
+    set(MODULE_SRC ${MODULE_SRC}
+        ${CMAKE_CURRENT_LIST_DIR}/api/websocketapi.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/api/websocketapi.h
+        ${CMAKE_CURRENT_LIST_DIR}/api/websocketserverapi.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/api/websocketserverapi.h
+    )
+
+    list(APPEND MODULE_DEF -DMUSE_MODULE_NETWORK_WEBSOCKET)
+    list(APPEND MODULE_LINK Qt::WebSockets)
 endif()
+
+setup_module()
 
 if (MUSE_MODULE_NETWORK_TESTS)
     add_subdirectory(tests)

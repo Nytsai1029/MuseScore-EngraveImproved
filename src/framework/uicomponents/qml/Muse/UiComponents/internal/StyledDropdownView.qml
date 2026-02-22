@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -20,18 +20,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-pragma ComponentBehavior: Bound
+import QtQuick 2.15
 
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 DropdownView {
     id: root
 
     property var model: null
-    property Component contentListItem: null
     required property int visibleItemsCount
 
     default property alias contentData: content.contentData
@@ -82,7 +79,6 @@ DropdownView {
         content.navigationSection.requestActive()
 
         prv.positionViewAtIndex(root.currentIndex)
-        prv.navigateToItem(root.currentIndex)
     }
 
     onClosed: {
@@ -167,37 +163,28 @@ DropdownView {
                 }
             }
 
-            InitialLetterNavigation {
-                id: initialLetterNavigation
-
-                stringList: {
-                    var result = []
-
-                    if (!Boolean(root.model)) {
-                        return result
-                    }
-
-                    for (var i = 0; i < root.model.length; ++i) {
-                        var itemText =  Utils.getItemValue(root.model, i, root.textRole, "")
-                        result.push(itemText)
-                    }
-
-                    return result
-                }
-
-                panel: view.navigationPanel
-                controlColumn: -1
-
-                onRequestVisible: function(index) {
-                    prv.positionViewAtIndex(index)
-                }
-            }
-
             QtObject {
                 id: prv
 
+                function itemIndexByFirstChar(text) {
+                    if (text === "") {
+                        return;
+                    }
+
+                    text = text.toLowerCase()
+                    for (var i = 0; i < root.model.length; ++i) {
+                        var itemText =  Utils.getItemValue(root.model, i, root.textRole, "")
+                        if (itemText.toLowerCase().startsWith(text)) {
+                            return i
+                        }
+                    }
+
+                    return -1
+                }
+
                 function positionViewAtIndex(itemIndex) {
                     view.positionViewAtIndex(itemIndex, ListView.Contain)
+
                     correctPosition(itemIndex)
                 }
 
@@ -214,6 +201,8 @@ DropdownView {
                             view.contentY += diff
                         }
                     }
+
+                    Qt.callLater(navigateToItem, itemIndex)
                 }
 
                 function navigateToItem(itemIndex, byUser) {
@@ -227,8 +216,6 @@ DropdownView {
             delegate: ListItemBlank {
                 id: item
 
-                required property int index
-
                 objectName: "dropitem"
 
                 height: root.itemHeight
@@ -236,62 +223,63 @@ DropdownView {
 
                 normalColor: root.itemColor
 
-                isSelected: index === root.currentIndex
+                isSelected: model.index === root.currentIndex
 
-                navigation.name: loader.text
+                navigation.name: label.text
                 navigation.panel: view.navigationPanel
-                navigation.row: index
-                navigation.accessible.name: loader.text
+                navigation.row: model.index
+                navigation.accessible.name: label.text
                 navigation.accessible.window: root.accessibleWindow
                 navigation.onActiveChanged: {
                     if (navigation.highlight) {
-                        view.positionViewAtIndex(index, ListView.Contain)
-                        Qt.callLater(prv.navigateToItem, index)
+                        view.positionViewAtIndex(model.index, ListView.Contain)
                     }
                 }
 
-                Loader {
-                    id: loader
+                Keys.onShortcutOverride: function(event) {
+                    if (event.text === "") {
+                        event.accepted = false
+                        return
+                    }
+
+                    if (prv.itemIndexByFirstChar(event.text) > -1) {
+                        event.accepted = true
+                    }
+                }
+
+                Keys.onPressed: function(event) {
+                    if (event.text === "") {
+                        return
+                    }
+
+                    var index = prv.itemIndexByFirstChar(event.text)
+                    if (index > -1) {
+                        view.positionViewAtIndex(index, ListView.Contain)
+                        Qt.callLater(navigateToItem, index, true)
+                    }
+                }
+
+                StyledTextLabel {
+                    id: label
                     anchors.fill: parent
+                    anchors.leftMargin: 12
+                    horizontalAlignment: Text.AlignLeft
 
-                    property string text: Utils.getItemValue(root.model, index, root.textRole, "")
-
-                    sourceComponent: root.contentListItem ?? defaultContentListItem
-
-                    onLoaded: {
-                        let contentListItem = loader.item
-                        if (!contentListItem) {
-                            return
-                        }
-
-                        contentListItem.text = Qt.binding(function() { return loader.text })
-                    }
-
-                    Component {
-                        id: defaultContentListItem
-
-                        StyledTextLabel {
-                            anchors.fill: parent
-                            anchors.leftMargin: 12
-                            horizontalAlignment: Text.AlignLeft
-
-                            text: loader.text
-                        }
-                    }
+                    text: Utils.getItemValue(root.model, model.index, root.textRole, "")
                 }
 
                 onClicked: {
-                    var value = Utils.getItemValue(root.model, item.index, root.valueRole, undefined)
-                    root.handleItem(item.index, value)
+                    var value = Utils.getItemValue(root.model, model.index, root.valueRole, undefined)
+                    root.handleItem(model.index, value)
                 }
 
                 mouseArea.onContainsMouseChanged: {
-                    if (!loader.item.truncated) {
+                    if (!label.truncated) {
                         return
                     }
 
                     if (mouseArea.containsMouse) {
-                        ui.tooltip.show(item, loader.item.text)
+                        ui.tooltip.show(item, label.text)
                     } else {
                         ui.tooltip.hide(item)
                     }

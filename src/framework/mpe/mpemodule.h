@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MUSE_MPE_MPEMODULE_H
+#define MUSE_MPE_MPEMODULE_H
 
 #include <memory>
 
@@ -33,8 +34,12 @@ class MpeModule : public modularity::IModuleSetup
 public:
     std::string moduleName() const override;
     void registerExports() override;
+    void registerUiTypes() override;
+    void registerResources() override;
 
 private:
     std::shared_ptr<ArticulationProfilesRepository> m_profilesRepository;
 };
 }
+
+#endif // MUSE_MPE_MPEMODULE_H

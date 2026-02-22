@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -31,7 +31,7 @@
 
 namespace muse::extensions::api {
 //! NOTE Used for qml and scripts
-class ExtApi : public QObject, public Contextable
+class ExtApi : public QObject, public Injectable
 {
     Q_OBJECT
     Q_PROPERTY(QJSValue log READ log CONSTANT)
@@ -48,6 +48,9 @@ class ExtApi : public QObject, public Contextable
     //Q_PROPERTY(QJSValue keyboard READ keyboard CONSTANT)
     //Q_PROPERTY(QJSValue accessibility READ accessibility CONSTANT)
 
+    //! NOTE This is autobot context, should be rework and make general context
+    //Q_PROPERTY(QJSValue context READ context CONSTANT)
+
     //! ATTENTION
     //! Don't add these APIs here.
     //! We do not control the authors of extensions;
@@ -58,28 +61,29 @@ class ExtApi : public QObject, public Contextable
     Q_PROPERTY(QJSValue websocket READ websocket CONSTANT)
     Q_PROPERTY(QJSValue websocketserver READ websocketserver CONSTANT)
 
-    GlobalInject<muse::api::IApiRegister> apiRegister;
+    Inject<muse::api::IApiRegister> apiRegister = { this };
 
 public:
     ExtApi(muse::api::IApiEngine* engine, QObject* parent);
     ~ExtApi();
 
-    QJSValue log() const { return api("MuseApi.Log"); }
-    QJSValue interactive() const { return api("MuseApi.Interactive"); }
-    QJSValue theme() const { return api("MuseApi.Theme"); }
+    QJSValue log() const { return api("api.log"); }
+    QJSValue context() const { return api("api.context"); }
+    QJSValue interactive() const { return api("api.interactive"); }
+    QJSValue theme() const { return api("api.theme"); }
 
-    QJSValue engraving() const { return api("MuseApi.Engraving"); }
+    QJSValue engraving() const { return api("api.engraving.v1"); }
 
-    QJSValue converter() const { return api("MuseApi.Converter"); }
+    QJSValue converter() const { return api("api.converter"); }
 
-    QJSValue dispatcher() const { return api("MuseInternal.Dispatcher"); }
-    QJSValue navigation() const { return api("MuseInternal.Navigation"); }
-    QJSValue shortcuts() const { return api("MuseInternal.Shortcuts"); }
-    QJSValue keyboard() const { return api("MuseInternal.Keyboard"); }
-    QJSValue accessibility() const { return api("MuseInternal.Accessibility"); }
+    QJSValue dispatcher() const { return api("api.dispatcher"); }
+    QJSValue navigation() const { return api("api.navigation"); }
+    QJSValue shortcuts() const { return api("api.shortcuts"); }
+    QJSValue keyboard() const { return api("api.keyboard"); }
+    QJSValue accessibility() const { return api("api.accessibility"); }
 
-    QJSValue websocket() const { return api("MuseApi.Websocket"); }
-    QJSValue websocketserver() const { return api("MuseApi.WebsocketServer"); }
+    QJSValue websocket() const { return api("api.websocket"); }
+    QJSValue websocketserver() const { return api("api.websocketserver"); }
 
 private:
     QJSValue api(const std::string& name) const;

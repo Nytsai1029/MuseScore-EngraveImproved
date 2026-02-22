@@ -22,17 +22,18 @@
 
 #include <gtest/gtest.h>
 
-#include "engraving/dom/chord.h"
-#include "engraving/dom/factory.h"
-#include "engraving/dom/masterscore.h"
-#include "engraving/dom/measure.h"
-#include "engraving/dom/staff.h"
-#include "engraving/dom/timesig.h"
-#include "engraving/dom/tuplet.h"
+#include "dom/chord.h"
+#include "dom/factory.h"
+#include "dom/masterscore.h"
+#include "dom/measure.h"
+#include "dom/staff.h"
+#include "dom/timesig.h"
+#include "dom/tuplet.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String TUPLET_DATA_DIR(u"tuplet_data/");
@@ -131,7 +132,7 @@ void Engraving_TupletTests::split(const char16_t* p1, const char16_t* p2)
     dd.dropElement = ts;
     dd.modifiers = {};
     dd.dragOffset = QPointF();
-    dd.track = 0;
+    dd.pos = m->pagePos();
     m->drop(dd);
     score->endCmd();
 

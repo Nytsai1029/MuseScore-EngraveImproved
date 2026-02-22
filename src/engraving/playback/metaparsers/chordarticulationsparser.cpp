@@ -74,7 +74,7 @@ void ChordArticulationsParser::buildChordArticulationMap(const Chord* chord, con
 
 void ChordArticulationsParser::doParse(const EngravingItem* item, const RenderingContext& ctx, mpe::ArticulationMap& result)
 {
-    IF_ASSERT_FAILED(item->isChord()) {
+    IF_ASSERT_FAILED(item->type() == ElementType::CHORD) {
         return;
     }
 
@@ -128,7 +128,7 @@ void ChordArticulationsParser::parseSpanners(const Chord* chord, const Rendering
         spannerContext.nominalDurationTicks = SpannerFilter::spannerActualDurationTicks(spanner, interval.stop - interval.start);
         spannerContext.nominalPositionEndTick = spannerContext.nominalPositionStartTick + spannerContext.nominalDurationTicks;
 
-        SpannersMetaParser::parse(spanner, spannerContext, result);
+        SpannersMetaParser::parse(spanner, std::move(spannerContext), result);
     }
 }
 
@@ -172,7 +172,7 @@ void ChordArticulationsParser::parseTremolo(const Chord* chord, const RenderingC
 void ChordArticulationsParser::parseArpeggio(const Chord* chord, const RenderingContext& ctx, mpe::ArticulationMap& result)
 {
     const Arpeggio* arpeggio = chord->arpeggio();
-    if (!arpeggio || arpeggio->isChordBracket()) {
+    if (!arpeggio) {
         return;
     }
 

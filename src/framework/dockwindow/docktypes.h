@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -20,19 +20,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MUSE_DOCK_DOCKTYPES_H
+#define MUSE_DOCK_DOCKTYPES_H
 
 #include <QObject>
 #include <QVariant>
 #include <QRect>
 
-#include <qqmlintegration.h>
-
 namespace muse::dock {
-constexpr const char* CONTEXT_MENU_MODEL_PROPERTY("contextMenuModel");
-constexpr const char* DOCK_PANEL_PROPERTY("dockPanel");
-constexpr const char* TITLEBAR_PROPERTY("titleBar");
-constexpr const char* TOOLBAR_COMPONENT_PROPERTY("toolbarComponent");
+inline const char* CONTEXT_MENU_MODEL_PROPERTY("contextMenuModel");
+inline const char* DOCK_PANEL_PROPERTY("dockPanel");
+inline const char* TITLEBAR_PROPERTY("titleBar");
+inline const char* TOOLBAR_COMPONENT_PROPERTY("toolbarComponent");
 
 //! NOTE: need to be synchronized with Window shadow(see DockFloatingWindow margins)
 inline constexpr int DOCK_WINDOW_SHADOW(8);
@@ -46,20 +45,22 @@ enum class DockType {
     Central
 };
 
-namespace DockLocation {
-Q_NAMESPACE;
-QML_ELEMENT;
+class DockLocation
+{
+    Q_GADGET
 
-enum Location {
-    Undefined,
-    Left,
-    Right,
-    Center,
-    Top,
-    Bottom
+public:
+    enum Location {
+        Undefined,
+        Left,
+        Right,
+        Center,
+        Top,
+        Bottom
+    };
+
+    Q_ENUM(Location)
 };
-Q_ENUM_NS(Location)
-}
 
 using Location = DockLocation::Location;
 
@@ -120,3 +121,5 @@ inline DockProperties readPropertiesFromObject(const QObject* obj)
     return result;
 }
 }
+
+#endif // MUSE_DOCK_DOCKTYPES_H

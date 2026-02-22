@@ -19,19 +19,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-import QtQuick.Layouts
-
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import Muse.Audio 1.0
 
 Item {
     id: root
 
-    property AbstractAudioResourceItem resourceItemModel
+    property QtObject resourceItemModel: null
+
+    property var menuAnchorItem: undefined
 
     readonly property string title: root.resourceItemModel ? root.resourceItemModel.title : ""
     readonly property bool isActive: root.resourceItemModel ? root.resourceItemModel.isActive : false
@@ -324,8 +324,6 @@ Item {
 
                 StyledMenuLoader {
                     id: menuLoader
-
-                    isSearchable: true
 
                     onHandleMenuItem: function(itemId) {
                         if (root.resourceItemModel) {

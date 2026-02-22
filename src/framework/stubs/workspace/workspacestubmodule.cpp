@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -37,7 +37,7 @@ std::string WorkspaceModule::moduleName() const
 
 void WorkspaceModule::registerExports()
 {
-    globalIoc()->registerExport<IWorkspaceConfiguration>(moduleName(), new WorkspaceConfigurationStub());
-    globalIoc()->registerExport<IWorkspaceManager>(moduleName(), new WorkspaceManagerStub());
-    globalIoc()->registerExport<IWorkspacesDataProvider>(moduleName(), new WorkspacesDataProviderStub());
+    ioc()->registerExport<IWorkspaceConfiguration>(moduleName(), new WorkspaceConfigurationStub());
+    ioc()->registerExport<IWorkspaceManager>(moduleName(), new WorkspaceManagerStub());
+    ioc()->registerExport<IWorkspacesDataProvider>(moduleName(), new WorkspacesDataProviderStub());
 }

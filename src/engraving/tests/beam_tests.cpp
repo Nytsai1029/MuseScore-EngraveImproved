@@ -22,17 +22,18 @@
 
 #include <gtest/gtest.h>
 
-#include "engraving/dom/beam.h"
-#include "engraving/dom/chord.h"
-#include "engraving/dom/chordrest.h"
-#include "engraving/dom/masterscore.h"
-#include "engraving/dom/measure.h"
-#include "engraving/dom/note.h"
-#include "engraving/dom/tremolotwochord.h"
+#include "dom/beam.h"
+#include "dom/chord.h"
+#include "dom/chordrest.h"
+#include "dom/masterscore.h"
+#include "dom/measure.h"
+#include "dom/note.h"
+#include "dom/tremolotwochord.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String BEAM_DATA_DIR("beam_data/");
@@ -307,6 +308,9 @@ TEST_F(Engraving_BeamTests, deleteBeamStemDirection)
 
 TEST_F(Engraving_BeamTests, drumKitBeam)
 {
+    bool useRead302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
+
     MasterScore* score = ScoreRW::readScore(BEAM_DATA_DIR + "drumKitBeam.mscx");
     EXPECT_TRUE(score);
     score->setLayoutAll();
@@ -339,4 +343,6 @@ TEST_F(Engraving_BeamTests, drumKitBeam)
     // These chords inherit their direction from the beam
     EXPECT_TRUE(cr2->up() && cr2->stemDirection() == DirectionV::AUTO);
     EXPECT_TRUE(cr3->up() && cr3->stemDirection() == DirectionV::AUTO);
+
+    MScore::useRead302InTestMode = useRead302;
 }

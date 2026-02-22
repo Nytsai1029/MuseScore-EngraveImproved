@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -25,25 +25,22 @@
 
 #include "modularity/ioc.h"
 #include "actions/iactionsdispatcher.h"
-#include "interactive/iinteractive.h"
-#include "interactive/iinteractiveuriregister.h"
+#include "global/iinteractive.h"
+#include "ui/iinteractiveuriregister.h"
 #include "../ivstinstancesregister.h"
 #include "../ivstconfiguration.h"
 
 namespace muse::vst {
-class VstActionsController : public actions::Actionable, public muse::Contextable
+class VstActionsController : public actions::Actionable
 {
-    muse::GlobalInject<IVstConfiguration> configuration;
-    muse::ContextInject<actions::IActionsDispatcher> dispatcher = { this };
-    muse::ContextInject<IInteractive> interactive = { this };
-    muse::ContextInject<interactive::IInteractiveUriRegister> interactiveUriRegister = { this };
-    muse::ContextInject<IVstInstancesRegister> instancesRegister = { this };
+    muse::Inject<actions::IActionsDispatcher> dispatcher;
+    muse::Inject<IInteractive> interactive;
+    muse::Inject<IVstInstancesRegister> instancesRegister;
+    muse::Inject<ui::IInteractiveUriRegister> interactiveUriRegister;
+    muse::Inject<IVstConfiguration> configuration;
 
 public:
-    VstActionsController(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx)
-    {
-    }
+    VstActionsController() = default;
 
     void init();
 

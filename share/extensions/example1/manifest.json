@@ -6,8 +6,5 @@
     "ui_context": "Any",
     "modal": true,
 
-    "actions": [
-        {"path": "Main.qml"}
-    ]
-    
+    "path": "Main.qml"
 }

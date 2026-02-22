@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -32,13 +32,13 @@
 namespace muse::extensions::legacy {
 //! NOTE Run old plugins without UI
 //! But they are still qml files, so they are run as qml
-class ExtPluginRunner : public Contextable
+class ExtPluginRunner : public Injectable
 {
-    ContextInject<IExtensionsUiEngine> engine = { this };
+    Inject<IExtensionsUiEngine> engine = { this };
 
 public:
     ExtPluginRunner(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     Ret run(const Action& action);
 };

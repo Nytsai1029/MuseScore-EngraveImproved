@@ -11,54 +11,38 @@
 #include "global/globalmodule.h"
 
 #include "modularity/ioc.h"
-#include "multiwindows/imultiwindowsprovider.h"
+#include "global/iapplication.h"
+#include "multiinstances/imultiinstancesprovider.h"
 #include "appshell/iappshellconfiguration.h"
 #include "appshell/internal/istartupscenario.h"
 #include "importexport/guitarpro/iguitarproconfiguration.h"
 
-namespace mu::appshell {
-class SplashScreen;
-}
-
 namespace mu::app {
 class GuiApp : public muse::BaseApplication, public std::enable_shared_from_this<GuiApp>
 {
-    muse::GlobalInject<muse::mi::IMultiWindowsProvider> multiwindowsProvider;
-    muse::GlobalInject<appshell::IAppShellConfiguration> appshellConfiguration;
-    muse::GlobalInject<iex::guitarpro::IGuitarProConfiguration> guitarProConfiguration;
+    muse::Inject<muse::IApplication> muapplication;
+    muse::Inject<muse::mi::IMultiInstancesProvider> multiInstancesProvider;
+    muse::Inject<appshell::IAppShellConfiguration> appshellConfiguration;
+    muse::Inject<appshell::IStartupScenario> startupScenario;
+    muse::Inject<iex::guitarpro::IGuitarProConfiguration> guitarProConfiguration;
 
 public:
     GuiApp(const CmdOptions& options, const muse::modularity::ContextPtr& ctx);
 
     void addModule(muse::modularity::IModuleSetup* module);
 
-    void setup() override;
+    void perform() override;
     void finish() override;
-
-    muse::modularity::ContextPtr setupNewContext(const muse::StringList& args = {}) override;
-    void destroyContext(const muse::modularity::ContextPtr& ctx) override;
-    int contextCount() const override;
-    std::vector<muse::modularity::ContextPtr> contexts() const override;
 
 private:
     void applyCommandLineOptions(const CmdOptions& options);
 
-    std::vector<muse::modularity::IContextSetup*>& contextSetups(const muse::modularity::ContextPtr& ctx);
-
     CmdOptions m_options;
-
-    appshell::SplashScreen* m_splashScreen = nullptr;
 
     //! NOTE Separately to initialize logger and profiler as early as possible
     muse::GlobalModule m_globalModule;
+
     std::vector<muse::modularity::IModuleSetup*> m_modules;
-
-    struct Context {
-        muse::modularity::ContextPtr ctx;
-        std::vector<muse::modularity::IContextSetup*> setups;
-    };
-
-    std::vector<Context> m_contexts;
 };
 }
 

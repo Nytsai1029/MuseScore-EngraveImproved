@@ -20,11 +20,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_PLAYBACK_DRUMSETLOADER_H
+#define MU_PLAYBACK_DRUMSETLOADER_H
 
 #include "async/asyncable.h"
 
-#include "audio/common/audiotypes.h"
+#include "audio/audiotypes.h"
 
 #include "notation/iinstrumentsrepository.h"
 #include "notation/inotation.h"
@@ -34,18 +35,12 @@
 #include "musesampler/imusesamplerinfo.h"
 
 namespace mu::playback {
-class DrumsetLoader : public muse::async::Asyncable, public muse::Contextable
+class DrumsetLoader : public muse::async::Asyncable
 {
-    muse::ContextInject<notation::IInstrumentsRepository> instrumentsRepository = { this };
-    muse::ContextInject<muse::musesampler::IMuseSamplerInfo> museSampler = { this };
+    Inject<notation::IInstrumentsRepository> instrumentsRepository;
+    Inject<muse::musesampler::IMuseSamplerInfo> museSampler;
 
 public:
-
-    DrumsetLoader(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx)
-    {
-    }
-
     void loadDrumset(notation::INotationPtr notation, const mu::engraving::InstrumentTrackId& trackId,
                      const muse::audio::AudioResourceMeta& resourceMeta);
 
@@ -56,3 +51,5 @@ private:
     std::unordered_map<int /*instrumentId*/, std::optional<mu::engraving::Drumset> > m_drumsetCache;
 };
 }
+
+#endif // MU_PLAYBACK_DRUMSETLOADER_H

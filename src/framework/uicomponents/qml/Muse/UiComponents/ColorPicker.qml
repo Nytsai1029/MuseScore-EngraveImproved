@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,10 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
+import QtQuick 2.15
 
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+
+import "Utils.js" as Utils
 
 Rectangle {
     id: root
@@ -78,7 +80,7 @@ Rectangle {
     StyledIconLabel {
         anchors.fill: parent
         iconCode: IconCode.QUESTION_MARK
-        visible: root.isIndeterminate
+        visible: isIndeterminate
     }
 
     MouseArea {
@@ -89,7 +91,7 @@ Rectangle {
         hoverEnabled: true
 
         onClicked: {
-            navCtrl.requestActiveByInteraction()
+            navigation.requestActiveByInteraction()
 
             prv.selectColor()
         }
@@ -111,3 +113,4 @@ Rectangle {
         }
     ]
 }
+

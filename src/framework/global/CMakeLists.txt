@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-only
-# MuseScore-Studio-CLA-applies
+# MuseScore-CLA-applies
 #
-# MuseScore Studio
+# MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2026 MuseScore Limited
+# Copyright (C) 2021 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -16,219 +16,233 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-muse_create_module(muse_global ALIAS muse::global)
+declare_module(muse_global)
+set(MODULE_ALIAS muse::global)
 
-include(thirdparty/kors_logger/logger.cmake)
-include(thirdparty/kors_profiler/profiler/profiler.cmake)
-include(thirdparty/kors_modularity/modularity/modularity.cmake)
-include(thirdparty/utfcpp/utfcpp.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/async/async.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/thirdparty/kors_logger/logger.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/thirdparty/kors_profiler/profiler/profiler.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/thirdparty/kors_modularity/modularity/modularity.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/thirdparty/utfcpp/utfcpp.cmake)
 
-add_subdirectory(async)
-
-target_sources(muse_global PRIVATE
+find_package(TinyXml REQUIRED)
+set(MODULE_SRC
+    ${MODULARITY_SRC}
+    ${ASYNC_SRC}
     ${KORS_LOGGER_SRC}
     ${KORS_PROFILER_SRC}
     ${UTFCPP_SRC}
-
-    globaltypes.h
-    iapplication.h
-    iglobalconfiguration.h
-    log.h
-    logstream.h
-    logger.h
-    logremover.cpp
-    logremover.h
-    profiler.h
-    dataformatter.cpp
-    dataformatter.h
-    stringutils.cpp
-    stringutils.h
-    ptrutils.h
-    realfn.h
-    runtime.cpp
-    runtime.h
-    translation.cpp
-    translation.h
-    timer.cpp
-    timer.h
-    progress.h
-    utils.cpp
-    utils.h
-    interpolation.cpp
-    interpolation.h
-    defer.h
-    containers.h
-    icryptographichash.h
-    allocator.cpp
-    allocator.h
-    dlib.h
-    iprocess.h
-    isysteminfo.h
-    configreader.cpp
-    configreader.h
-    uuid.cpp
-    uuid.h
-    itickerprovider.h
-    ticker.cpp
-    ticker.h
+    ${CMAKE_CURRENT_LIST_DIR}/globaltypes.h
+    ${CMAKE_CURRENT_LIST_DIR}/iapplication.h
+    ${CMAKE_CURRENT_LIST_DIR}/iinteractive.h
+    ${CMAKE_CURRENT_LIST_DIR}/iglobalconfiguration.h
+    ${CMAKE_CURRENT_LIST_DIR}/log.h
+    ${CMAKE_CURRENT_LIST_DIR}/logstream.h
+    ${CMAKE_CURRENT_LIST_DIR}/logger.h
+    ${CMAKE_CURRENT_LIST_DIR}/logremover.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/logremover.h
+    ${CMAKE_CURRENT_LIST_DIR}/profiler.h
+    ${CMAKE_CURRENT_LIST_DIR}/dataformatter.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/dataformatter.h
+    ${CMAKE_CURRENT_LIST_DIR}/stringutils.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/stringutils.h
+    ${CMAKE_CURRENT_LIST_DIR}/ptrutils.h
+    ${CMAKE_CURRENT_LIST_DIR}/realfn.h
+    ${CMAKE_CURRENT_LIST_DIR}/runtime.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/runtime.h
+    ${CMAKE_CURRENT_LIST_DIR}/translation.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/translation.h
+    ${CMAKE_CURRENT_LIST_DIR}/timer.h
+    ${CMAKE_CURRENT_LIST_DIR}/threadutils.h
+    ${CMAKE_CURRENT_LIST_DIR}/progress.h
+    ${CMAKE_CURRENT_LIST_DIR}/utils.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/utils.h
+    ${CMAKE_CURRENT_LIST_DIR}/interpolation.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/interpolation.h
+    ${CMAKE_CURRENT_LIST_DIR}/defer.h
+    ${CMAKE_CURRENT_LIST_DIR}/containers.h
+    ${CMAKE_CURRENT_LIST_DIR}/icryptographichash.h
+    ${CMAKE_CURRENT_LIST_DIR}/allocator.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/allocator.h
+    ${CMAKE_CURRENT_LIST_DIR}/dlib.h
+    ${CMAKE_CURRENT_LIST_DIR}/iprocess.h
+    ${CMAKE_CURRENT_LIST_DIR}/isysteminfo.h
+    ${CMAKE_CURRENT_LIST_DIR}/configreader.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/configreader.h
+    ${CMAKE_CURRENT_LIST_DIR}/uuid.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/uuid.h
 
     ${KORS_MODULARITY_SRC}
-    modularity/ioccontext.cpp
-    modularity/ioc.h
-    modularity/imoduleinterface.h
-    modularity/imodulesetup.h
+    ${CMAKE_CURRENT_LIST_DIR}/modularity/ioccontext.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/modularity/ioc.h
+    ${CMAKE_CURRENT_LIST_DIR}/modularity/imoduleinterface.h
+    ${CMAKE_CURRENT_LIST_DIR}/modularity/imodulesetup.h
 
-    types/bytearray.cpp
-    types/bytearray.h
-    types/string.cpp
-    types/string.h
-    types/datetime.cpp
-    types/datetime.h
-    types/flags.h
-    types/id.cpp
-    types/id.h
-    types/val.cpp
-    types/val.h
-    types/ret.cpp
-    types/ret.h
-    types/retval.h
-    types/uri.cpp
-    types/uri.h
-    types/sharedhashmap.h
-    types/sharedmap.h
-    types/translatablestring.h
-    types/mnemonicstring.cpp
-    types/mnemonicstring.h
-    types/version.cpp
-    types/version.h
-    types/number.h
-    types/config.h
-    types/ratio.h
-    types/secs.h
-    types/color.cpp
-    types/color.h
-    types/rgba.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/bytearray.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/types/bytearray.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/string.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/types/string.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/datetime.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/types/datetime.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/flags.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/id.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/types/id.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/val.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/types/val.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/ret.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/types/ret.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/retval.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/uri.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/types/uri.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/sharedhashmap.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/sharedmap.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/translatablestring.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/mnemonicstring.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/types/mnemonicstring.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/version.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/types/version.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/number.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/config.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/ratio.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/secs.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/color.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/types/color.h
+    ${CMAKE_CURRENT_LIST_DIR}/types/rgba.h
 
-    io/ioenums.h
-    io/path.cpp
-    io/path.h
-    io/iodevice.cpp
-    io/iodevice.h
-    io/file.cpp
-    io/file.h
-    io/filewatcher.cpp
-    io/filewatcher.h
-    io/buffer.cpp
-    io/buffer.h
-    io/ifilesystem.h
-    io/ioretcodes.h
-    io/fileinfo.cpp
-    io/fileinfo.h
-    io/dir.cpp
-    io/dir.h
+    ${CMAKE_CURRENT_LIST_DIR}/io/ioenums.h
+    ${CMAKE_CURRENT_LIST_DIR}/io/path.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/io/path.h
+    ${CMAKE_CURRENT_LIST_DIR}/io/iodevice.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/io/iodevice.h
+    ${CMAKE_CURRENT_LIST_DIR}/io/file.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/io/file.h
+    ${CMAKE_CURRENT_LIST_DIR}/io/buffer.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/io/buffer.h
+    ${CMAKE_CURRENT_LIST_DIR}/io/ifilesystem.h
+    ${CMAKE_CURRENT_LIST_DIR}/io/ioretcodes.h
+    ${CMAKE_CURRENT_LIST_DIR}/io/fileinfo.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/io/fileinfo.h
+    ${CMAKE_CURRENT_LIST_DIR}/io/dir.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/io/dir.h
 
-    io/devtools/allzerosfilecorruptor.cpp
-    io/devtools/allzerosfilecorruptor.h
+    ${CMAKE_CURRENT_LIST_DIR}/io/devtools/allzerosfilecorruptor.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/io/devtools/allzerosfilecorruptor.h
 
-    serialization/zipreader.cpp
-    serialization/zipreader.h
-    serialization/zipwriter.cpp
-    serialization/zipwriter.h
-    serialization/internal/zipcontainer.cpp
-    serialization/internal/zipcontainer.h
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/xmlstreamreader.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/xmlstreamreader.h
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/xmlstreamwriter.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/xmlstreamwriter.h
+    ${TINYXML_MODULE_SRC}
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/zipreader.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/zipreader.h
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/zipwriter.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/zipwriter.h
 
-    serialization/textstream.cpp
-    serialization/textstream.h
-    serialization/json.cpp
-    serialization/json.h
-    serialization/msgpack.h
-    serialization/msgpack_forward.h
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/internal/zipcontainer.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/internal/zipcontainer.h
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/textstream.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/textstream.h
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/json.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/json.h
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/xmldom.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/xmldom.h
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/msgpack.h
+    ${CMAKE_CURRENT_LIST_DIR}/serialization/msgpack_forward.h
+    
+    ${CMAKE_CURRENT_LIST_DIR}/thirdparty/pugixml/pugixml.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/thirdparty/pugixml/pugixml.cpp
 
-    serialization/xmlstreamreader.cpp
-    serialization/xmlstreamreader.h
-    serialization/xmlstreamwriter.cpp
-    serialization/xmlstreamwriter.h
-    serialization/xmldom.cpp
-    serialization/xmldom.h
-
-    thirdparty/pugixml/pugixml.hpp
-    thirdparty/pugixml/pugixml.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/concurrency/taskscheduler.h
+    ${CMAKE_CURRENT_LIST_DIR}/concurrency/concurrent.h
 )
 
-if (MUSE_THREADS_SUPPORT)
-    target_sources(muse_global PRIVATE
-        concurrency/taskscheduler.h
-        concurrency/concurrent.h
-        concurrency/threadutils.h
-        concurrency/ringqueue.h
-        concurrency/rpcqueue.h
-    )
-endif()
-
 if (GLOBAL_NO_INTERNAL)
-    target_compile_definitions(muse_global PRIVATE GLOBAL_NO_INTERNAL)
+    set(MODULE_DEF ${MODULE_DEF} -DGLOBAL_NO_INTERNAL)
 else()
-    target_sources(muse_global PRIVATE
-        globalmodule.cpp
-        globalmodule.h
-        settings.cpp
-        settings.h
+    set(MODULE_SRC ${MODULE_SRC}
+        ${CMAKE_CURRENT_LIST_DIR}/globalmodule.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/globalmodule.h
+        ${CMAKE_CURRENT_LIST_DIR}/settings.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/settings.h
 
-        api/apitypes.h
-        api/iapiregister.h
-        api/iapiengine.h
-        api/internal/apiregister.cpp
-        api/internal/apiregister.h
-        api/apiobject.cpp
-        api/apiobject.h
-        api/jsretval.h
-        api/apiutils.h
-        api/logapi.cpp
-        api/logapi.h
-        api/processapi.cpp
-        api/processapi.h
-        api/filesystemapi.cpp
-        api/filesystemapi.h
+        ${CMAKE_CURRENT_LIST_DIR}/api/iapiregister.h
+        ${CMAKE_CURRENT_LIST_DIR}/api/iapiengine.h
+        ${CMAKE_CURRENT_LIST_DIR}/api/internal/apiregister.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/api/internal/apiregister.h
+        ${CMAKE_CURRENT_LIST_DIR}/api/apiobject.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/api/apiobject.h
+        ${CMAKE_CURRENT_LIST_DIR}/api/jsretval.h
+        ${CMAKE_CURRENT_LIST_DIR}/api/apiutils.h
+        ${CMAKE_CURRENT_LIST_DIR}/api/logapi.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/api/logapi.h
+        ${CMAKE_CURRENT_LIST_DIR}/api/interactiveapi.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/api/interactiveapi.h
+        ${CMAKE_CURRENT_LIST_DIR}/api/processapi.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/api/processapi.h
+        ${CMAKE_CURRENT_LIST_DIR}/api/filesystemapi.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/api/filesystemapi.h
 
-        internal/baseapplication.cpp
-        internal/baseapplication.h
-        internal/globalconfiguration.cpp
-        internal/globalconfiguration.h
-        internal/cryptographichash.cpp
-        internal/cryptographichash.h
-        internal/process.cpp
-        internal/process.h
-        internal/systeminfo.cpp
-        internal/systeminfo.h
-        internal/tickerprovider.cpp
-        internal/tickerprovider.h
-    )
+        ${CMAKE_CURRENT_LIST_DIR}/internal/baseapplication.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/internal/baseapplication.h
+        ${CMAKE_CURRENT_LIST_DIR}/internal/globalconfiguration.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/internal/globalconfiguration.h
+        ${CMAKE_CURRENT_LIST_DIR}/internal/interactive.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/internal/interactive.h
+        ${CMAKE_CURRENT_LIST_DIR}/internal/cryptographichash.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/internal/cryptographichash.h
+        ${CMAKE_CURRENT_LIST_DIR}/internal/invoker.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/internal/invoker.h
+        ${CMAKE_CURRENT_LIST_DIR}/internal/process.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/internal/process.h
+        ${CMAKE_CURRENT_LIST_DIR}/internal/systeminfo.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/internal/systeminfo.h
 
-    include(GetPlatformInfo)
+        ${CMAKE_CURRENT_LIST_DIR}/io/internal/filesystem.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/io/internal/filesystem.h
 
-    if (OS_IS_WASM)
-        target_sources(muse_global PRIVATE
-            io/internal/memfilesystem.cpp
-            io/internal/memfilesystem.h
+        ${CMAKE_CURRENT_LIST_DIR}/deprecated/xmlreader.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/deprecated/xmlreader.h
+        ${CMAKE_CURRENT_LIST_DIR}/deprecated/xmlwriter.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/deprecated/xmlwriter.h
+        ${CMAKE_CURRENT_LIST_DIR}/deprecated/qzip.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/deprecated/qzipreader_p.h
+        ${CMAKE_CURRENT_LIST_DIR}/deprecated/qzipwriter_p.h
         )
-    else()
-        target_sources(muse_global PRIVATE
-            io/internal/filesystem.cpp
-            io/internal/filesystem.h
+
+    if (MU_BUILD_UI_MODULE)
+        set(MODULE_SRC ${MODULE_SRC}
+            ${CMAKE_CURRENT_LIST_DIR}/internal/interactive.cpp
+            ${CMAKE_CURRENT_LIST_DIR}/internal/interactive.h
         )
     endif()
 
-    if (OS_IS_WIN)
-        target_sources(muse_global PRIVATE
-            platform/win/async.h
-            platform/win/waitabletimer.h
+    include(GetPlatformInfo)
+
+    if (OS_IS_MAC)
+        set(MODULE_SRC ${MODULE_SRC}
+            ${CMAKE_CURRENT_LIST_DIR}/internal/platform/macos/macosinteractivehelper.mm
+            ${CMAKE_CURRENT_LIST_DIR}/internal/platform/macos/macosinteractivehelper.h
         )
-        target_link_libraries(muse_global PRIVATE
+        set_source_files_properties(
+            ${CMAKE_CURRENT_LIST_DIR}/internal/platform/macos/macosinteractivehelper.mm
+            PROPERTIES
+            SKIP_UNITY_BUILD_INCLUSION ON
+            SKIP_PRECOMPILE_HEADERS ON
+        )
+        find_library(AppKit NAMES AppKit)
+        list(APPEND MODULE_LINK ${AppKit})
+    elseif(OS_IS_WIN)
+        set(MODULE_SRC ${MODULE_SRC}
+            ${CMAKE_CURRENT_LIST_DIR}/internal/platform/win/wininteractivehelper.cpp
+            ${CMAKE_CURRENT_LIST_DIR}/internal/platform/win/wininteractivehelper.h
+            ${CMAKE_CURRENT_LIST_DIR}/platform/win/async.h
+            ${CMAKE_CURRENT_LIST_DIR}/platform/win/waitabletimer.h
+        )
+        list(APPEND MODULE_LINK
             WindowsApp # needed for C++/WinRT
-            Winmm # needed for timeBeginPeriod
-        )
+            Winmm) # needed for timeBeginPeriod
     endif()
 endif()
 
@@ -236,39 +250,54 @@ include(GetCompilerInfo)
 set(Z_LIB )
 if (CC_IS_MSVC)
     include(FindZlibStatic)
-    target_link_libraries(muse_global PRIVATE zlibstat)
-    target_include_directories(muse_global PRIVATE ${DEPENDENCIES_INC}/zlib)
+    set(Z_LIB zlibstat)
+    set(Z_INCLUDE ${DEPENDENCIES_INC}/zlib)
 elseif (CC_IS_EMCC)
     #zlib included in main linker
 else ()
-    target_link_libraries(muse_global PRIVATE z)
+    set(Z_LIB z)
 endif ()
 
-target_include_directories(muse_global PRIVATE thirdparty/pugixml)
+list(APPEND MODULE_INCLUDE_PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/thirdparty/pugixml
+)
 
-if (MUSE_QT_SUPPORT)
+list(APPEND MODULE_INCLUDE_PRIVATE ${Z_INCLUDE})
+list(APPEND MODULE_LINK ${Z_LIB})
+
+list(APPEND MODULE_LINK ${TINYXML_MODULE_LINK})
+set(MODULE_DEF ${TINYXML_MODULE_DEF})
+
+if (QT_SUPPORT)
     # These are needed by so many modules, that we make them public here,
     # so that other modules get them transitively.
-    target_link_libraries(muse_global PUBLIC Qt::Core Qt::Gui)
+    list(APPEND MODULE_LINK_PUBLIC Qt::Core Qt::Gui)
 
     # These are needed by the PCH; if we don't make them public, modules
     # that don't use them won't be able to use the PCH with some compilers.
-    target_link_libraries(muse_global PUBLIC Qt::Quick Qt::Widgets)
+    list(APPEND MODULE_LINK_PUBLIC Qt::Quick Qt::Widgets)
 endif()
 
-target_link_libraries(muse_global PRIVATE ${CMAKE_DL_LIBS})
+list(APPEND MODULE_LINK_PUBLIC ${CMAKE_DL_LIBS})
 
 if (MUSE_ENABLE_CUSTOM_ALLOCATOR)
-    target_compile_definitions(muse_global PRIVATE MUSE_ENABLE_CUSTOM_ALLOCATOR)
+    set(MODULE_DEF ${MODULE_DEF} -DMUSE_ENABLE_CUSTOM_ALLOCATOR)
 endif()
 
 if (MUSE_MODULE_GLOBAL_LOGGER_DEBUGLEVEL)
-    target_compile_definitions(muse_global PRIVATE MUSE_MODULE_GLOBAL_LOGGER_DEBUGLEVEL)
+    set(MODULE_DEF ${MODULE_DEF} -DMUSE_MODULE_GLOBAL_LOGGER_DEBUGLEVEL)
 endif()
 
 if (MUSE_MODULE_GLOBAL_MULTI_IOC)
-    target_compile_definitions(muse_global PUBLIC MUSE_MODULE_GLOBAL_MULTI_IOC)
+    set(MODULE_DEF ${MODULE_DEF} -DMUSE_MODULE_GLOBAL_MULTI_IOC)
+
+target_sources(muse_global
+  PRIVATE
+    types/secs.h
+)
 endif()
+
+setup_module()
 
 if (MUSE_MODULE_GLOBAL_TESTS)
     add_subdirectory(tests)

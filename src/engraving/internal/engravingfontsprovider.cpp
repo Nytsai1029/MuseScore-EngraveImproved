@@ -30,7 +30,7 @@ using namespace mu;
 using namespace mu::engraving;
 
 EngravingFontsProvider::EngravingFontsProvider(const muse::modularity::ContextPtr& iocCtx)
-    : muse::Contextable(iocCtx)
+    : muse::Injectable(iocCtx)
 {
 }
 

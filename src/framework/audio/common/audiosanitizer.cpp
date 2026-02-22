@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -28,7 +28,7 @@
 using namespace muse::audio;
 
 static std::thread::id s_as_mainThreadID;
-static std::thread::id s_as_engineThreadID;
+static std::thread::id s_as_workerThreadID;
 static std::set<std::thread::id> s_mixerThreadIdSet;
 
 void AudioSanitizer::setupMainThread()
@@ -46,9 +46,9 @@ bool AudioSanitizer::isMainThread()
     return std::this_thread::get_id() == s_as_mainThreadID;
 }
 
-void AudioSanitizer::setupEngineThread()
+void AudioSanitizer::setupWorkerThread()
 {
-    s_as_engineThreadID = std::this_thread::get_id();
+    s_as_workerThreadID = std::this_thread::get_id();
 }
 
 void AudioSanitizer::setMixerThreads(const std::set<std::thread::id>& threadIdSet)
@@ -56,14 +56,14 @@ void AudioSanitizer::setMixerThreads(const std::set<std::thread::id>& threadIdSe
     s_mixerThreadIdSet = threadIdSet;
 }
 
-std::thread::id AudioSanitizer::engineThread()
+std::thread::id AudioSanitizer::workerThread()
 {
-    return s_as_engineThreadID;
+    return s_as_workerThreadID;
 }
 
-bool AudioSanitizer::isEngineThread()
+bool AudioSanitizer::isWorkerThread()
 {
     std::thread::id id = std::this_thread::get_id();
 
-    return id == s_as_engineThreadID || muse::contains(s_mixerThreadIdSet, id);
+    return id == s_as_workerThreadID || muse::contains(s_mixerThreadIdSet, id);
 }

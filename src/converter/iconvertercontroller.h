@@ -22,25 +22,29 @@
 #pragma once
 
 #include "modularity/imoduleinterface.h"
-
-#include "convertertypes.h"
-
 #include "global/types/ret.h"
 #include "global/types/uri.h"
 #include "global/io/path.h"
 #include "global/progress.h"
 
 namespace mu::converter {
-class IConverterController : MODULE_CONTEXT_INTERFACE
+class IConverterController : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IConverterController)
 public:
     virtual ~IConverterController() = default;
 
+    struct OpenParams {
+        OpenParams() {}
+
+        muse::io::path_t stylePath;
+        bool forceMode = false;
+    };
+
     virtual muse::Ret fileConvert(const muse::io::path_t& in, const muse::io::path_t& out, const OpenParams& openParams = {},
-                                  const muse::String& soundProfile = {}, const muse::io::path_t& tracksDiffPath = {},
-                                  const muse::UriQuery& extensionUri = {}, const std::string& transposeOptionsJson = {},
-                                  const std::optional<ConvertTarget>& target = std::nullopt) = 0;
+                                  const muse::String& soundProfile = muse::String(), const muse::io::path_t& tracksDiffPath = {},
+                                  const muse::UriQuery& extensionUri = muse::UriQuery(), const std::string& transposeOptionsJson = {},
+                                  const std::optional<size_t>& pageNum = std::nullopt) = 0;
 
     virtual muse::Ret batchConvert(const muse::io::path_t& batchJobFile, const OpenParams& openParams = {},
                                    const muse::String& soundProfile = {}, const muse::UriQuery& extensionUri = {},
@@ -56,7 +60,8 @@ public:
     virtual muse::Ret exportScoreTranspose(const muse::io::path_t& in, const muse::io::path_t& out, const std::string& optionsJson,
                                            const OpenParams& openParams = {}) = 0;
 
-    virtual muse::Ret exportScoreElements(const muse::io::path_t& in, const muse::io::path_t& out, const OpenParams& openParams = {}) = 0;
+    virtual muse::Ret exportScoreElements(const muse::io::path_t& in, const muse::io::path_t& out, const std::string& optionsJson,
+                                          const OpenParams& openParams = {}) = 0;
 
     virtual muse::Ret exportScoreVideo(const muse::io::path_t& in, const muse::io::path_t& out, const OpenParams& openParams = {}) = 0;
 

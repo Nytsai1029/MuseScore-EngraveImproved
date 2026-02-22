@@ -27,9 +27,6 @@
 #include <vector>
 #include <map>
 
-#include "engraving/types/fraction.h"
-#include "engraving/types/types.h"
-
 namespace mu::engraving {
 class Chord;
 class Note;
@@ -63,18 +60,11 @@ public:
     bool isNull() const;
 
     void        set(const StringData& src);
-    bool        convertPitch(int pitch, int pitchOffset, int* string, int* fret, const CapoParams& capo = {}) const;
     bool        convertPitch(int pitch, Staff* staff, int* string, int* fret) const;
-    bool        convertPitch(int pitch, Staff* staff, const Fraction& tick, int* string, int* fret) const;
-    int         fret(int pitch, int string, const Staff* staff) const;
-    int         fret(int pitch, int string, const Staff* staff, const Fraction& tick) const;
+    int         fret(int pitch, int string, Staff* staff) const;
     void        fretChords(Chord* chord) const;
-    int         getPitch(int string, int fret, int pitchOffset) const;
-    int         getPitch(int string, int fret, const Staff* staff) const;
-    int         getPitch(int string, int fret, const Staff* staff, const Fraction& tick) const;
-    static int  pitchOffsetAt(const Staff* staff);
-    static int  pitchOffsetAt(const Staff* staff, const Fraction& tick);
-    static int  pitchOffsetAt(const Staff* staff, const Fraction& tick, int string);
+    int         getPitch(int string, int fret, Staff* staff) const;
+    static int  pitchOffsetAt(Staff* staff);
     size_t      strings() const { return m_stringTable.size(); }
     int         frettedStrings() const;
     const std::vector<instrString>& stringList() const { return m_stringTable; }
@@ -89,8 +79,10 @@ public:
 
 private:
 
+    bool        convertPitch(int pitch, int pitchOffset, int* string, int* fret) const;
     int         fret(int pitch, int string, int pitchOffset) const;
-    void        sortChordNotes(std::map<int, Note*>& sortedNotes, const Chord* chord, int* count) const;
+    int         getPitch(int string, int fret, int pitchOffset) const;
+    void        sortChordNotes(std::map<int, Note*>& sortedNotes, const Chord* chord, int pitchOffset, int* count) const;
     void        sortChordNotesUseSameString(const Chord* chord, int pitchOffset) const;
 
     //      std::vector<int>  stringTable { 40, 45, 50, 55, 59, 64 };   // guitar is default

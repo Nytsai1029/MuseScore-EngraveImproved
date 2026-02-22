@@ -19,7 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#pragma once
+#ifndef MU_ENGRAVING_READ400_H
+#define MU_ENGRAVING_READ400_H
 
 #include "../ireader.h"
 
@@ -34,9 +35,9 @@ class Read400 : public rw::IReader
 {
 public:
 
-    muse::Ret readScoreFile(Score* score, XmlReader& e, rw::ReadInOutData* data) override;
+    muse::Ret readScore(Score* score, XmlReader& e, rw::ReadInOutData* data) override;
 
-    static bool readScoreTag(Score* score, XmlReader& e, ReadContext& ctx);
+    static bool readScore400(Score* score, XmlReader& e, ReadContext& ctx);
 
     bool pasteStaff(XmlReader& e, Segment* dst, staff_idx_t dstStaff, Fraction scale) override;
     void pasteSymbols(XmlReader& e, ChordRest* dst) override;
@@ -46,3 +47,5 @@ private:
     void doReadItem(EngravingItem* item, XmlReader& xml) override;
 };
 }
+
+#endif // MU_ENGRAVING_READ400_H

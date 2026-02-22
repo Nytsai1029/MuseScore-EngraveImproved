@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_IMAGE_H
+#define MU_ENGRAVING_IMAGE_H
 
 #include "bsymbol.h"
 
@@ -43,12 +44,12 @@ enum class ImageType : char {
 //   @@ Image
 //---------------------------------------------------------
 
-class Image final : public BSymbol, public muse::Contextable
+class Image final : public BSymbol, public muse::Injectable
 {
     OBJECT_ALLOCATOR(engraving, Image)
     DECLARE_CLASSOF(ElementType::IMAGE)
 
-    muse::GlobalInject<muse::draw::IImageProvider> imageProvider;
+    muse::Inject<muse::draw::IImageProvider> imageProvider = { this };
 
 public:
     Image(EngravingItem* parent);
@@ -112,14 +113,14 @@ public:
 private:
 
     bool isEditable() const override { return true; }
-    void startDragGrip(EditData&) override;
-    void dragGrip(EditData& ed) override;
+    void startEditDrag(EditData&) override;
+    void editDrag(EditData& ed) override;
     std::vector<LineF> gripAnchorLines(Grip) const override { return std::vector<LineF>(); }
 
     ImageStoreItem* m_storeItem = nullptr;
     std::string m_storePath; // the path of the img in the ImageStore
     mutable muse::draw::Pixmap m_buffer; // cached rendering
-    SizeF m_size;                   // in absolute or spatium units
+    SizeF m_size;                   // in mm or spatium units
     bool m_lockAspectRatio = false;
     bool m_autoScale = false;           // fill parent frame
     bool m_sizeIsSpatium = false;
@@ -130,4 +131,5 @@ private:
 
     ImageType m_imageType = ImageType::NONE;
 };
-}
+} // namespace mu::engraving
+#endif

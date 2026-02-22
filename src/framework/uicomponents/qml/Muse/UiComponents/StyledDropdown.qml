@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,11 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import QtQuick.Controls
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 import "internal"
 
@@ -31,14 +31,11 @@ Item {
     id: root
 
     property var model: null
-    property alias contentListItem: dropdownLoader.contentListItem
     property int count: Boolean(model) ? model.length : 0
     property string textRole: "text"
     property string valueRole: "value"
 
     property int currentIndex: -1
-
-    property alias parentWindow: dropdownLoader.parentWindow
 
     property alias background: backgroundItem
     property alias itemColor: dropdownLoader.itemColor
@@ -57,7 +54,6 @@ Item {
     property alias navigation: mainItem.navigation
 
     property alias isOpened: dropdownLoader.isOpened
-    property alias dropdown: dropdownLoader.dropdown
 
     signal activated(int index, var value)
 

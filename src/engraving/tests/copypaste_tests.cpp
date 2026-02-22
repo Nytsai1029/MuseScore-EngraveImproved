@@ -24,20 +24,21 @@
 
 #include <QMimeData>
 
-#include "engraving/internal/qmimedataadapter.h"
+#include "internal/qmimedataadapter.h"
 
-#include "engraving/dom/chord.h"
-#include "engraving/dom/chordrest.h"
-#include "engraving/dom/durationtype.h"
-#include "engraving/dom/masterscore.h"
-#include "engraving/dom/measure.h"
-#include "engraving/dom/note.h"
-#include "engraving/dom/segment.h"
+#include "dom/chord.h"
+#include "dom/chordrest.h"
+#include "dom/durationtype.h"
+#include "dom/masterscore.h"
+#include "dom/measure.h"
+#include "dom/note.h"
+#include "dom/segment.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
 #include "utils/testutils.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String COPYPASTE_DATA_DIR(u"copypaste_data/");
@@ -125,7 +126,7 @@ TEST_F(Engraving_CopyPasteTests, copypaste06)
     copypaste("06");    // tie
 }
 
-TEST_F(Engraving_CopyPasteTests, copypaste07)
+TEST_F(Engraving_CopyPasteTests, DISABLED_copypaste07)
 {
     copypaste("07");    // start ottava
 }
@@ -295,7 +296,7 @@ TEST_F(Engraving_CopyPasteTests, copypaste2Voice5)
     //paste to quarter rest
     EngravingItem* dest = m1->first()->next(segTypeCR)->next(segTypeCR)->next(segTypeCR)->element(0);
     EXPECT_TRUE(dest->isRest());
-    EXPECT_EQ(toChordRest(dest)->durationType(), DurationType::V_QUARTER);
+    EXPECT_EQ(static_cast<ChordRest*>(dest)->durationType(), DurationType::V_QUARTER);
     score->select(dest);
 
     score->startCmd(TranslatableString::untranslatable("Copy/paste tests"));
@@ -334,7 +335,7 @@ TEST_F(Engraving_CopyPasteTests, copypaste2Voice6)
     EngravingItem* dest = m1->first(segTypeCR)->next(segTypeCR)->next(segTypeCR)->next(segTypeCR)->next(segTypeCR)->element(0);
 
     EXPECT_TRUE(dest->isRest());
-    EXPECT_EQ(toChordRest(dest)->durationType(), DurationType::V_16TH);
+    EXPECT_EQ(static_cast<ChordRest*>(dest)->durationType(), DurationType::V_16TH);
     score->select(dest);
 
     score->startCmd(TranslatableString::untranslatable("Copy/paste tests"));
@@ -764,6 +765,9 @@ TEST_F(Engraving_CopyPasteTests, DISABLED_copypastetremolo)
 
 TEST_F(Engraving_CopyPasteTests, copypasteparts)
 {
+    bool useRead302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
+
     MasterScore* score = ScoreRW::readScore(COPYPASTE_DATA_DIR + String("copypaste_parts.mscx"));
     EXPECT_TRUE(score);
     // create part
@@ -802,4 +806,6 @@ TEST_F(Engraving_CopyPasteTests, copypasteparts)
 
     EXPECT_TRUE(ScoreComp::saveCompareScore(score, String("copypaste_parts.mscx"),
                                             COPYPASTE_DATA_DIR + String("copypaste_parts-ref.mscx")));
+
+    MScore::useRead302InTestMode = useRead302;
 }

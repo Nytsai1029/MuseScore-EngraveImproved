@@ -20,9 +20,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "note.h"
 #include "noteline.h"
-#include "text.h"
+#include "linkedobjects.h"
+#include "factory.h"
+#include "note.h"
+#include "textline.h"
 
 namespace mu::engraving {
 static const ElementStyle noteLineStyle {
@@ -39,22 +41,11 @@ static const ElementStyle noteLineStyle {
     { Sid::noteLineAlign,                      Pid::BEGIN_TEXT_ALIGN },
     { Sid::noteLineAlign,                      Pid::CONTINUE_TEXT_ALIGN },
     { Sid::noteLineAlign,                      Pid::END_TEXT_ALIGN },
-    { Sid::noteLinePosition,                   Pid::BEGIN_TEXT_POSITION },
-    { Sid::noteLinePosition,                   Pid::CONTINUE_TEXT_POSITION },
-    { Sid::noteLinePosition,                   Pid::END_TEXT_POSITION },
     { Sid::noteLineFontSpatiumDependent,       Pid::TEXT_SIZE_SPATIUM_DEPENDENT },
     { Sid::noteLineWidth,                      Pid::LINE_WIDTH },
     { Sid::noteLineStyle,                      Pid::LINE_STYLE },
     { Sid::noteLineDashLineLen,                Pid::DASH_LINE_LEN },
     { Sid::noteLineDashGapLen,                 Pid::DASH_GAP_LEN },
-    { Sid::noteLineEndLineArrowHeight,         Pid::END_LINE_ARROW_HEIGHT },
-    { Sid::noteLineEndLineArrowWidth,          Pid::END_LINE_ARROW_WIDTH },
-    { Sid::noteLineBeginLineArrowHeight,       Pid::BEGIN_LINE_ARROW_HEIGHT },
-    { Sid::noteLineBeginLineArrowWidth,        Pid::BEGIN_LINE_ARROW_WIDTH },
-    { Sid::noteLineEndFilledArrowHeight,       Pid::END_FILLED_ARROW_HEIGHT },
-    { Sid::noteLineEndFilledArrowWidth,        Pid::END_FILLED_ARROW_WIDTH },
-    { Sid::noteLineBeginFilledArrowHeight,     Pid::BEGIN_FILLED_ARROW_HEIGHT },
-    { Sid::noteLineBeginFilledArrowWidth,      Pid::BEGIN_FILLED_ARROW_WIDTH },
 };
 
 Sid NoteLineSegment::getPropertyStyle(Pid pid) const
@@ -68,11 +59,9 @@ Sid NoteLineSegment::getPropertyStyle(Pid pid) const
 NoteLineSegment::NoteLineSegment(Spanner* sp, System* parent)
     : TextLineBaseSegment(ElementType::NOTELINE_SEGMENT, sp, parent, ElementFlag::MOVABLE)
 {
-    m_text->setTextStyleType(propertyDefault(Pid::TEXT_STYLE).value<TextStyleType>());
-    m_endText->setTextStyleType(propertyDefault(Pid::TEXT_STYLE).value<TextStyleType>());
 }
 
-EngravingObject* NoteLineSegment::propertyDelegate(Pid pid) const
+EngravingItem* NoteLineSegment::propertyDelegate(Pid pid)
 {
     if (pid == Pid::NOTELINE_PLACEMENT) {
         return noteLine();
@@ -83,11 +72,8 @@ EngravingObject* NoteLineSegment::propertyDelegate(Pid pid) const
 
 Sid NoteLine::getPropertyStyle(Pid pid) const
 {
-    switch (pid) {
-    case Pid::OFFSET:
+    if (pid == Pid::OFFSET) {
         return Sid::NOSTYLE;
-    default:
-        break;
     }
     return TextLineBase::getPropertyStyle(pid);
 }
@@ -158,7 +144,7 @@ PropertyValue NoteLine::propertyDefault(Pid propertyId) const
         return TextPlace::LEFT;
     case Pid::BEGIN_HOOK_HEIGHT:
     case Pid::END_HOOK_HEIGHT:
-        return 1.5_sp;
+        return Spatium(1.5);
     case Pid::PLACEMENT:
         return PlacementV::ABOVE;
     case Pid::DIAGONAL:
@@ -168,14 +154,11 @@ PropertyValue NoteLine::propertyDefault(Pid propertyId) const
     case Pid::OFFSET:
         return PointF();
     case Pid::GAP_BETWEEN_TEXT_AND_LINE:
-        return 0.5_sp;
+        return Spatium(0.5);
     case Pid::SYSTEM_FLAG:
         return false;
     case Pid::ANCHOR:
         return int(Spanner::Anchor::NOTE);
-
-    case Pid::TEXT_STYLE:
-        return TextStyleType::NOTELINE;
     default:
         return TextLineBase::propertyDefault(propertyId);
     }

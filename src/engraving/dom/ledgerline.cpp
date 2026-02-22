@@ -23,6 +23,8 @@
 #include "ledgerline.h"
 
 #include "chord.h"
+#include "measure.h"
+#include "system.h"
 
 #include "log.h"
 
@@ -34,7 +36,7 @@ namespace mu::engraving {
 //---------------------------------------------------------
 
 LedgerLine::LedgerLine(EngravingItem* s)
-    : EngravingItem(ElementType::LEDGER_LINE, s, ElementFlag::ON_STAFF)
+    : EngravingItem(ElementType::LEDGER_LINE, s)
 {
     setSelectable(false);
     m_len        = 0.;
@@ -42,6 +44,29 @@ LedgerLine::LedgerLine(EngravingItem* s)
 
 LedgerLine::~LedgerLine()
 {
+}
+
+//---------------------------------------------------------
+//   pagePos
+//---------------------------------------------------------
+
+PointF LedgerLine::pagePos() const
+{
+    System* system = chord()->measure()->system();
+    double yp = y() + system->staff(staffIdx())->y() + system->y();
+    return PointF(pageX(), yp);
+}
+
+//---------------------------------------------------------
+//   measureXPos
+//---------------------------------------------------------
+
+double LedgerLine::measureXPos() const
+{
+    double xp = x();                     // chord relative
+    xp += chord()->x();                  // segment relative
+    xp += chord()->segment()->x();       // measure relative
+    return xp;
 }
 
 //---------------------------------------------------------

@@ -58,7 +58,7 @@ TimeSig::TimeSig(Segment* parent)
     m_sig.set(0, 1);                 // initialize to invalid
     m_timeSigType      = TimeSigType::NORMAL;
     m_largeParentheses = false;
-    setMinDistance(0.5_sp); // TODO: style
+    setMinDistance(Spatium(0.5)); // TODO: style
 }
 
 void TimeSig::setParent(Segment* parent)
@@ -72,7 +72,7 @@ void TimeSig::setParent(Segment* parent)
 
 double TimeSig::mag() const
 {
-    return timeSigPlacement() == TimeSigPlacement::NORMAL && staff() ? staff()->staffMag(this) : 1.0;
+    return timeSigPlacement() == TimeSigPlacement::NORMAL && staff() ? staff()->staffMag(tick()) : 1.0;
 }
 
 //---------------------------------------------------------
@@ -200,7 +200,7 @@ PropertyValue TimeSig::getProperty(Pid propertyId) const
 {
     switch (propertyId) {
     case Pid::SHOW_COURTESY:
-        return showCourtesySig();
+        return int(showCourtesySig());
     case Pid::NUMERATOR_STRING:
         return numeratorString();
     case Pid::DENOMINATOR_STRING:
@@ -279,7 +279,7 @@ PropertyValue TimeSig::propertyDefault(Pid id) const
 {
     switch (id) {
     case Pid::SHOW_COURTESY:
-        return true;
+        return 1;
     case Pid::NUMERATOR_STRING:
         return String();
     case Pid::DENOMINATOR_STRING:
@@ -416,9 +416,9 @@ TimeSigStyle TimeSig::timeSigStyle() const
 double TimeSig::numDist() const
 {
     switch (timeSigPlacement()) {
-    case TimeSigPlacement::NORMAL: return style().styleAbsolute(Sid::timeSigNormalNumDist);
-    case TimeSigPlacement::ABOVE_STAVES: return style().styleAbsolute(Sid::timeSigAboveNumDist);
-    case TimeSigPlacement::ACROSS_STAVES: return style().styleAbsolute(Sid::timeSigAcrossNumDist);
+    case TimeSigPlacement::NORMAL: return style().styleMM(Sid::timeSigNormalNumDist);
+    case TimeSigPlacement::ABOVE_STAVES: return style().styleMM(Sid::timeSigAboveNumDist);
+    case TimeSigPlacement::ACROSS_STAVES: return style().styleMM(Sid::timeSigAcrossNumDist);
     default:
         return 0.0;
     }
@@ -427,10 +427,10 @@ double TimeSig::numDist() const
 double TimeSig::yPos() const
 {
     switch (timeSigPlacement()) {
-    case TimeSigPlacement::NORMAL: return style().styleAbsolute(Sid::timeSigNormalY);
+    case TimeSigPlacement::NORMAL: return style().styleMM(Sid::timeSigNormalY);
     case TimeSigPlacement::ABOVE_STAVES: return (staff()->hasSystemObjectsBelowBottomStaff() ? -1.0 : 1.0)
-               * style().styleAbsolute(Sid::timeSigAboveY);
-    case TimeSigPlacement::ACROSS_STAVES: return style().styleAbsolute(Sid::timeSigAcrossY);
+               * style().styleMM(Sid::timeSigAboveY);
+    case TimeSigPlacement::ACROSS_STAVES: return style().styleMM(Sid::timeSigAcrossY);
     default:
         return 0.0;
     }

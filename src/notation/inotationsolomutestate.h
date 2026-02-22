@@ -19,18 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#pragma once
+#ifndef MU_NOTATION_INOTATIONSOLOMUTESTATE_H
+#define MU_NOTATION_INOTATIONSOLOMUTESTATE_H
 
-#include "async/channel.h"
+#include "engraving/infrastructure/mscreader.h"
 #include "io/iodevice.h"
-#include "io/path.h"
-#include "types/ret.h"
 
-#include "engraving/types/types.h"
-
-namespace mu::engraving {
-class MscReader;
-}
+#include "notationtypes.h"
 
 namespace mu::notation {
 class INotationSoloMuteState
@@ -53,7 +48,7 @@ public:
     virtual muse::Ret write(muse::io::IODevice* out) = 0;
 
     virtual bool trackSoloMuteStateExists(const engraving::InstrumentTrackId& trackId) const = 0;
-    virtual const SoloMuteState& trackSoloMuteState(const engraving::InstrumentTrackId& trackId) const = 0;
+    virtual SoloMuteState trackSoloMuteState(const engraving::InstrumentTrackId& trackId) const = 0;
     virtual void setTrackSoloMuteState(const engraving::InstrumentTrackId& trackId, const SoloMuteState& state) = 0;
     virtual void removeTrackSoloMuteState(const engraving::InstrumentTrackId& trackId) = 0;
     virtual muse::async::Channel<engraving::InstrumentTrackId, SoloMuteState> trackSoloMuteStateChanged() const = 0;
@@ -61,3 +56,5 @@ public:
 
 using INotationSoloMuteStatePtr = std::shared_ptr<INotationSoloMuteState>;
 }
+
+#endif // MU_NOTATION_INOTATIONSOLOMUTESTATE_H

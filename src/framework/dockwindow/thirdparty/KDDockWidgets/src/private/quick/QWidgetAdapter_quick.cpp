@@ -120,9 +120,8 @@ static QQuickItem *actualParentItem(QQuickItem *candidateParentItem, Qt::WindowF
                                         : candidateParentItem;
 }
 
-QWidgetAdapter::QWidgetAdapter(int ctx, QQuickItem *parent, Qt::WindowFlags flags)
+QWidgetAdapter::QWidgetAdapter(QQuickItem *parent, Qt::WindowFlags flags)
     : QQuickItem(actualParentItem(parent, flags))
-    , m_ctx(ctx)
     , m_windowFlags(flags)
 {
     if (parent && flagsAreTopLevelFlags(flags)) {
@@ -535,7 +534,7 @@ QWidgetAdapter *QWidgetAdapter::parentWidget(bool includeTransient) const
     if (includeTransient) {
         if (QQuickView *w = quickView()) {
             // Here we're mimicking QWidget::parentWidget(), which can return the transient parent of the QWindow.
-            MainWindowBase *mw = DockRegistry::self(m_ctx)->mainWindowForHandle(w->transientParent());
+            MainWindowBase *mw = DockRegistry::self()->mainWindowForHandle(w->transientParent());
             if (mw)
                 return mw;
         }

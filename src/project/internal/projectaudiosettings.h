@@ -34,10 +34,9 @@
 #include "../iprojectaudiosettings.h"
 
 namespace mu::project {
-class ProjectAudioSettings : public IProjectAudioSettings, public muse::Contextable
+class ProjectAudioSettings : public IProjectAudioSettings
 {
-    muse::GlobalInject<playback::IPlaybackConfiguration> playbackConfig;
-
+    INJECT_STATIC(playback::IPlaybackConfiguration, playbackConfig)
 public:
     const muse::audio::AudioOutputParams& masterAudioOutputParams() const override;
     void setMasterAudioOutputParams(const muse::audio::AudioOutputParams& params) override;
@@ -75,8 +74,7 @@ public:
 
 private:
     friend class NotationProject;
-    ProjectAudioSettings(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx) {}
+    ProjectAudioSettings() = default;
 
     muse::audio::AudioInputParams inputParamsFromJson(const QJsonObject& object) const;
     muse::audio::AudioOutputParams outputParamsFromJson(const QJsonObject& object) const;

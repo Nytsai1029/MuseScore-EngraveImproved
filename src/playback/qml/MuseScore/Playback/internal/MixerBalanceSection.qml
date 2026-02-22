@@ -19,13 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
 
-pragma ComponentBehavior: Bound    
-
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import Muse.Audio 1.0
 
 MixerPanelSection {
     id: root
@@ -34,8 +32,6 @@ MixerPanelSection {
 
     Item {
         id: content
-
-        required property MixerChannelItem channelItem
 
         height: contentRow.implicitHeight
         width: root.channelItemWidth
@@ -54,11 +50,11 @@ MixerPanelSection {
 
                 from: -100
                 to: 100
-                value: content.channelItem.balance
+                value: channelItem.balance
                 stepSize: 1
                 isBalanceKnob: true
 
-                navigation.panel: content.channelItem.panel
+                navigation.panel: channelItem.panel
                 navigation.row: root.navigationRowStart
                 navigation.accessible.name: content.accessibleName
                 navigation.onActiveChanged: {
@@ -68,7 +64,7 @@ MixerPanelSection {
                 }
 
                 onNewValueRequested: function(newValue) {
-                    content.channelItem.balance = newValue
+                    channelItem.balance = newValue
                 }
             }
 
@@ -84,7 +80,7 @@ MixerPanelSection {
                 textSidePadding: 0
                 background.radius: 2
 
-                navigation.panel: content.channelItem.panel
+                navigation.panel: channelItem.panel
                 navigation.row: root.navigationRowStart + 1
                 navigation.accessible.name: content.accessibleName + " " + currentText
                 navigation.onActiveChanged: {
@@ -99,11 +95,11 @@ MixerPanelSection {
                     bottom: -100
                 }
 
-                currentText: content.channelItem.balance
+                currentText: channelItem.balance
 
                 onTextChanged: function(newTextValue) {
-                    if (content.channelItem.balance !== Number(newTextValue)) {
-                        content.channelItem.balance = Number(newTextValue)
+                    if (channelItem.balance !== Number(newTextValue)) {
+                        channelItem.balance = Number(newTextValue)
                     }
                 }
             }

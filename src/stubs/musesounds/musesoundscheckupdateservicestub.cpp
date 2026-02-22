@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -29,15 +29,17 @@ Ret MuseSoundsCheckUpdateServiceStub::needCheckForUpdate() const
     return make_ret(Ret::Code::NotSupported);
 }
 
-async::Promise<RetVal<update::ReleaseInfo> > MuseSoundsCheckUpdateServiceStub::checkForUpdate()
+RetVal<update::ReleaseInfo> MuseSoundsCheckUpdateServiceStub::checkForUpdate()
 {
-    return async::Promise<muse::RetVal<update::ReleaseInfo> >([](auto resolve, auto) {
-        return resolve(make_ret(Ret::Code::NotSupported));
-    });
+    return make_ret(Ret::Code::NotSupported);
 }
 
-const RetVal<update::ReleaseInfo>& MuseSoundsCheckUpdateServiceStub::lastCheckResult() const
+RetVal<update::ReleaseInfo> MuseSoundsCheckUpdateServiceStub::lastCheckResult()
 {
-    static const RetVal<update::ReleaseInfo> dummyInfo(make_ret(Ret::Code::NotSupported));
-    return dummyInfo;
+    return make_ret(Ret::Code::NotSupported);
+}
+
+Progress MuseSoundsCheckUpdateServiceStub::updateProgress()
+{
+    return Progress();
 }

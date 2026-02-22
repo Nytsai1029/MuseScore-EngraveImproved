@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -21,38 +21,49 @@
  */
 #pragma once
 
-#include "musesounds/imusesoundscheckupdateservice.h"
-#include "modularity/ioc.h"
 #include "async/asyncable.h"
 
-#include "musesounds/imusesoundsconfiguration.h"
+#include "modularity/ioc.h"
 #include "network/inetworkmanagercreator.h"
-#include "global/iglobalconfiguration.h"
+#include "io/ifilesystem.h"
+#include "global/isysteminfo.h"
 #include "languages/ilanguagesconfiguration.h"
-#include "interactive/iinteractive.h"
+#include "iinteractive.h"
+
+#include "../global/iglobalconfiguration.h"
+#include "../imusesoundsconfiguration.h"
+#include "../imusesoundscheckupdateservice.h"
 
 namespace mu::musesounds {
-class MuseSoundsCheckUpdateService : public IMuseSoundsCheckUpdateService, public muse::Contextable, public muse::async::Asyncable
+class MuseSoundsCheckUpdateService : public IMuseSoundsCheckUpdateService, public muse::Injectable, public muse::async::Asyncable
 {
-    muse::GlobalInject<IMuseSoundsConfiguration> configuration;
-    muse::GlobalInject<muse::network::INetworkManagerCreator> networkManagerCreator;
-    muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;
-    muse::GlobalInject<muse::languages::ILanguagesConfiguration> languagesConfiguration;
-    muse::ContextInject<muse::IInteractive> interactive = { this };
+    Inject<muse::network::INetworkManagerCreator> networkManagerCreator = { this };
+    Inject<muse::IGlobalConfiguration> globalConfiguration = { this };
+    Inject<muse::io::IFileSystem> fileSystem = { this };
+    Inject<muse::ISystemInfo> systemInfo = { this };
+    Inject<muse::languages::ILanguagesConfiguration> languagesConfiguration = { this };
+    Inject<muse::IInteractive> interactive = { this };
+    Inject<IMuseSoundsConfiguration> configuration = { this };
 
 public:
+
     MuseSoundsCheckUpdateService(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     muse::Ret needCheckForUpdate() const override;
 
-    muse::async::Promise<muse::RetVal<muse::update::ReleaseInfo> > checkForUpdate() override;
-    const muse::RetVal<muse::update::ReleaseInfo>& lastCheckResult() const override;
+    muse::RetVal<muse::update::ReleaseInfo> checkForUpdate() override;
+    muse::RetVal<muse::update::ReleaseInfo> lastCheckResult() override;
+
+    muse::Progress updateProgress() override;
 
 private:
     muse::RetVal<muse::update::ReleaseInfo> parseRelease(const QByteArray& json) const;
 
+    void clear();
+
     muse::RetVal<muse::update::ReleaseInfo> m_lastCheckResult;
-    muse::network::INetworkManagerPtr m_networkManager;
+    muse::io::path_t m_installatorPath;
+    muse::Progress m_updateProgress;
 };
 }

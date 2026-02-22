@@ -27,7 +27,7 @@
 #include "engraving/dom/repeatlist.h"
 #include "engraving/dom/masterscore.h"
 
-#include "notationscene/qml/MuseScore/NotationScene/playbackcursor.h"
+#include "notation/view/playbackcursor.h"
 
 #include "log.h"
 
@@ -233,7 +233,7 @@ muse::Ret VideoWriter::generatePagedOriginalVideo(INotationProjectPtr project, c
         }
 
         INotationPainting::Options opt;
-        opt.fromPage = page->pageNumber();
+        opt.fromPage = page->no();
         opt.toPage = opt.fromPage;
         opt.deviceDpi = CANVAS_DPI;
 

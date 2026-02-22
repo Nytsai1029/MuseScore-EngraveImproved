@@ -19,13 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import Muse.Audio 1.0
 
 MixerPanelSection {
     id: root
@@ -35,8 +33,6 @@ MixerPanelSection {
 
     Column {
         id: content
-
-        required property MixerChannelItem channelItem
 
         y: 0
 
@@ -51,20 +47,17 @@ MixerPanelSection {
             id: repeater
             anchors.horizontalCenter: parent.horizontalCenter
 
-            model: content.channelItem.auxSendItemList
+            model: channelItem.auxSendItemList
 
             delegate: AuxSendControl {
                 id: auxSendControl
-
-                required property AuxSendItem modelData
-                required property int index
 
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 auxSendItemModel: modelData
 
-                navigationPanel: content.channelItem.panel
-                navigationRowStart: root.navigationRowStart + index * 2 // NOTE: 2 - because AuxSendControl has 2 controls
+                navigationPanel: channelItem.panel
+                navigationRowStart: root.navigationRowStart + (model.index * 2) // NOTE: 2 - because AuxSendControl has 2 controls
                 navigationName: content.accessibleName
                 accessibleName: content.accessibleName
 

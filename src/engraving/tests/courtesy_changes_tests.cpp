@@ -23,10 +23,9 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include "engraving/dom/barline.h"
-
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
+#include "dom/barline.h"
 
 using namespace mu::engraving;
 static const String COURTESY_CHANGES_DATA(u"courtesy_changes_data/");
@@ -34,6 +33,17 @@ static const String COURTESY_CHANGES_DATA(u"courtesy_changes_data/");
 class Engraving_CourtesyChangesTests : public ::testing::Test
 {
 protected:
+    void SetUp() override
+    {
+        m_useRead302 = MScore::useRead302InTestMode;
+        MScore::useRead302InTestMode = false;
+    }
+
+    void TearDown() override
+    {
+        MScore::useRead302InTestMode = m_useRead302;
+    }
+
     void setStyle(MasterScore* score)
     {
         score->startCmd(TranslatableString::untranslatable("Courtesy changes"));
@@ -43,6 +53,9 @@ protected:
         score->style().set(Sid::showCourtesiesAfterCancellingOtherJumps, false);
         score->endCmd();
     }
+
+private:
+    bool m_useRead302 = false;
 };
 
 TEST_F(Engraving_CourtesyChangesTests, toggleCourtesies) {

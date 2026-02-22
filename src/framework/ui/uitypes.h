@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,17 +19,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_UI_UITYPES_H
+#define MUSE_UI_UITYPES_H
 
 #include <vector>
-
 #include <QString>
 #include <QMetaType>
 #include <QMap>
 #include <QQuickItem>
-
-#include <qqmlintegration.h>
 
 #include "view/iconcodes.h" // IWYU pragma: export
 #include "workspace/workspacetypes.h"
@@ -124,7 +121,6 @@ struct ThemeInfo
     ThemeCode codeKey;
     std::string title;
     QMap<ThemeStyleKey, QVariant> values;
-    QMap<QString, QVariant> extra;
 };
 
 using ThemeList = std::vector<ThemeInfo>;
@@ -142,8 +138,40 @@ enum class IconSizeType {
     Toolbar
 };
 
+class ContainerType
+{
+    Q_GADGET
+public:
+    enum Type
+    {
+        Undefined = 0,
+        PrimaryPage,
+        QmlDialog,
+        QWidgetDialog
+    };
+    Q_ENUM(Type)
+};
+
+struct ContainerMeta
+{
+    ContainerType::Type type = ContainerType::Undefined;
+    QString qmlPath;
+    int widgetMetaTypeId = QMetaType::UnknownType;
+
+    ContainerMeta() = default;
+
+    ContainerMeta(const ContainerType::Type& type)
+        : type(type) {}
+    ContainerMeta(const ContainerType::Type& type, const QString& qmlPath)
+        : type(type), qmlPath(qmlPath) {}
+    ContainerMeta(const ContainerType::Type& type, int widgetMetaTypeId)
+        : type(type), widgetMetaTypeId(widgetMetaTypeId) {}
+};
+
 // workspaces
 inline const workspace::DataKey WS_UiSettings("ui_settings");
 inline const workspace::DataKey WS_UiStates("ui_states");
 inline const workspace::DataKey WS_UiToolConfigs("ui_toolconfigs");
 }
+
+#endif // MUSE_UI_UITYPES_H

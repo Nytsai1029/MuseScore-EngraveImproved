@@ -25,5 +25,6 @@ install(FILES
       Dynamic_Strings.mscx
       Brassed_Up.mscx
       Dawn.mscx
-      DESTINATION ${MUSE_APP_INSTALL_RESOURCES_LOCATION}/demos
+      DESTINATION ${Mscore_SHARE_NAME}${Mscore_INSTALL_NAME}demos
       )
+

@@ -27,28 +27,25 @@ using namespace mu::engraving::write;
 
 bool WriteContext::canWrite(const EngravingItem* e) const
 {
-    if (!_filter.has_value()) {
+    if (!_clipboardmode) {
         return true;
     }
-
-    return _filter.value().canSelect(e);
+    return _filter.canSelect(e);
 }
 
 bool WriteContext::canWriteNoteIdx(size_t noteIdx, size_t totalNotesInChord) const
 {
-    if (!_filter.has_value()) {
+    if (!_clipboardmode) {
         return true;
     }
-
     const Selection& sel = m_score->selection();
-    return _filter.value().canSelectNoteIdx(noteIdx, totalNotesInChord, sel.rangeContainsMultiNoteChords());
+    return _filter.canSelectNoteIdx(noteIdx, totalNotesInChord, sel.rangeContainsMultiNoteChords());
 }
 
 bool WriteContext::canWriteVoice(track_idx_t track) const
 {
-    if (!_filter.has_value()) {
+    if (!_clipboardmode) {
         return true;
     }
-
-    return _filter.value().canSelectVoice(track);
+    return _filter.canSelectVoice(track);
 }

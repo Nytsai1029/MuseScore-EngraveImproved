@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -28,14 +28,9 @@
 
 #include "log.h"
 
-#include "modularity/ioc.h"
 #include "thirdparty/KDDockWidgets/src/DockWidgetQuick.h"
 #include "thirdparty/KDDockWidgets/src/private/quick/FrameQuick_p.h"
 #include "thirdparty/KDDockWidgets/src/private/FloatingWindow_p.h"
-
-#include "ui/qml/Muse/Ui/navigationsection.h"
-
-#include "muse_framework_config.h"
 
 namespace muse::dock {
 static QSize adjustSizeByConstraints(const QSize& size, const QSize& min, const QSize& max)
@@ -54,8 +49,8 @@ static bool sizeInRange(const QSize& size, const QSize& min, const QSize& max)
 class DockWidgetImpl : public KDDockWidgets::DockWidgetQuick
 {
 public:
-    DockWidgetImpl(int ctx, const QString& uniqueName)
-        : KDDockWidgets::DockWidgetQuick(ctx, uniqueName)
+    DockWidgetImpl(const QString& uniqueName)
+        : KDDockWidgets::DockWidgetQuick(uniqueName)
     {
         setObjectName(uniqueName);
     }
@@ -75,7 +70,7 @@ public:
 using namespace muse::dock;
 
 DockBase::DockBase(DockType type, QQuickItem* parent)
-    : QQuickItem(parent), Contextable(muse::iocCtxForQmlObject(this))
+    : QQuickItem(parent)
 {
     Q_ASSERT(type != DockType::Undefined);
 
@@ -473,7 +468,7 @@ void DockBase::close()
         return;
     }
 
-    m_dockWidget->close();
+    m_dockWidget->forceClose();
     setVisible(false);
 }
 
@@ -599,12 +594,7 @@ void DockBase::resize(int width, int height)
     applySizeConstraints();
 }
 
-muse::ui::INavigationSection* DockBase::navigationSection() const
-{
-    return m_navigationSection;
-}
-
-muse::ui::NavigationSection* DockBase::navigationSection_property() const
+muse::ui::NavigationSection* DockBase::navigationSection() const
 {
     return m_navigationSection;
 }
@@ -630,16 +620,11 @@ void DockBase::componentComplete()
         return;
     }
 
-    const int ctx = iocContext()->id;
-
-    QString name = objectName();
-    name +=  "_" + QString::number(ctx);
-
     if (content->objectName().isEmpty()) {
-        content->setObjectName(name + "_content");
+        content->setObjectName(objectName() + "_content");
     }
 
-    m_dockWidget = new DockWidgetImpl(ctx, name);
+    m_dockWidget = new DockWidgetImpl(objectName());
     m_dockWidget->setWidget(content);
     m_dockWidget->setTitle(m_title);
 

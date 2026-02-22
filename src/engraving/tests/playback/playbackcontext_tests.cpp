@@ -29,10 +29,10 @@
 #include "engraving/dom/staff.h"
 #include "engraving/dom/repeatlist.h"
 
-#include "engraving/playback/playbackcontext.h"
-#include "engraving/playback/utils/arrangementutils.h"
+#include "playback/playbackcontext.h"
+#include "playback/utils/arrangementutils.h"
 
-#include "engraving/types/typesconv.h"
+#include "types/typesconv.h"
 
 using namespace mu::engraving;
 using namespace muse::mpe;
@@ -46,6 +46,18 @@ static constexpr int TICKS_STEP = 480;
 
 class Engraving_PlaybackContextTests : public ::testing::Test
 {
+protected:
+    void SetUp() override
+    {
+        //! NOTE: allows to read test files using their version readers
+        //! instead of using 302 (see mscloader.cpp, makeReader)
+        MScore::useRead302InTestMode = false;
+    }
+
+    void TearDown() override
+    {
+        MScore::useRead302InTestMode = true;
+    }
 };
 
 //! Checks that hairpins outside/inside repeats don't overlap. See:
@@ -80,7 +92,7 @@ TEST_F(Engraving_PlaybackContextTests, Hairpins_Repeats)
 
     for (const auto& pair : p_to_f_curve) {
         mpe::timestamp_t time = timestampFromTicks(score, pair.first);
-        ASSERT_FALSE(expectedDynamics.contains(time));
+        ASSERT_FALSE(muse::contains(expectedDynamics, time));
         expectedDynamics.emplace(time, p + static_cast<dynamic_level_t>(pair.second));
     }
 
@@ -99,7 +111,7 @@ TEST_F(Engraving_PlaybackContextTests, Hairpins_Repeats)
             mpe::timestamp_t time = timestampFromTicks(score, tick);
 
             if (tick != f_to_fff_startTick) { // f already added by the previous hairpin
-                ASSERT_FALSE(expectedDynamics.contains(time));
+                ASSERT_FALSE(muse::contains(expectedDynamics, time));
             }
 
             expectedDynamics.emplace(time, f + static_cast<dynamic_level_t>(pair.second));
@@ -115,7 +127,7 @@ TEST_F(Engraving_PlaybackContextTests, Hairpins_Repeats)
 
     for (const auto& pair : ppp_to_p_curve) {
         mpe::timestamp_t time = timestampFromTicks(score, ppp_to_p_startTick + pair.first);
-        ASSERT_FALSE(expectedDynamics.contains(time));
+        ASSERT_FALSE(muse::contains(expectedDynamics, time));
         expectedDynamics.emplace(time, ppp + static_cast<dynamic_level_t>(pair.second));
     }
 

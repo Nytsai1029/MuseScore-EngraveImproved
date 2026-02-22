@@ -18,9 +18,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>. 
 
-muse_create_thirdparty_module(rtf2html)
+declare_thirdparty_module(rtf2html)
 
-target_sources(rtf2html PRIVATE
+set(MODULE_USE_QT ON)
+
+set(MODULE_SRC
     common.h
     config.h
     dbg_iter.h
@@ -34,7 +36,9 @@ target_sources(rtf2html PRIVATE
     rtf_tools.h
     )
 
-target_link_libraries(rtf2html PRIVATE Qt::Core)
+set(MODULE_LINK Qt::Core)
 
-target_no_warning(rtf2html -Wno-conversion)
-target_no_warning(rtf2html -Wno-deprecated-declarations)
+setup_module()
+
+target_no_warning(${MODULE} -Wno-conversion)
+target_no_warning(${MODULE} -Wno-deprecated-declarations)

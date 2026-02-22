@@ -29,6 +29,7 @@ class VideoExportModule : public muse::modularity::IModuleSetup
 {
 public:
     std::string moduleName() const override;
+    void registerResources() override;
     void registerExports() override;
     void resolveImports() override;
 };

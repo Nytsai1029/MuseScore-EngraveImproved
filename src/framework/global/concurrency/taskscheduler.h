@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2022 MuseScore Limited and others
+ * Copyright (C) 2022 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -20,10 +20,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 #pragma once
-
-#include "muse_framework_config.h"
-
-#ifdef MUSE_THREADS_SUPPORT
 
 #include <condition_variable>
 #include <functional>
@@ -201,5 +197,3 @@ private:
     std::unique_ptr<std::thread[]> m_threadPool = nullptr;
 };
 }
-
-#endif // MUSE_THREADS_SUPPORT

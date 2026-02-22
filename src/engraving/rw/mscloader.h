@@ -19,12 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_ENGRAVING_MSCLOADER_H
+#define MU_ENGRAVING_MSCLOADER_H
 
 #include "global/types/ret.h"
 
 #include "../infrastructure/mscreader.h"
+#include "../types/types.h"
 
 namespace mu::engraving::compat {
 class ReadStyleHook;
@@ -42,7 +43,8 @@ class MscLoader
 public:
     MscLoader() = default;
 
-    muse::Ret loadMscz(MasterScore* score, const MscReader& mscReader, rw::ReadInOutData* out, bool ignoreVersionError);
+    muse::Ret loadMscz(MasterScore* score, const MscReader& mscReader, SettingsCompat& settingsCompat, bool ignoreVersionError,
+                       rw::ReadInOutData* out = nullptr);
 
 private:
     friend class MasterScore;
@@ -50,3 +52,5 @@ private:
                               compat::ReadStyleHook* styleHook = nullptr);
 };
 }
+
+#endif // MU_ENGRAVING_MSCLOADER_H

@@ -25,14 +25,13 @@
 #include <cmath>
 #include <QBuffer>
 
-#include "global/io/buffer.h"
-#include "global/serialization/xmlstreamwriter.h"
-
 #include "engraving/dom/masterscore.h"
 #include "engraving/dom/repeatlist.h"
 #include "engraving/dom/system.h"
 
 #include "engraving/types/types.h"
+
+#include "global/deprecated/xmlwriter.h"
 
 #include "log.h"
 
@@ -42,38 +41,34 @@ using namespace mu::engraving;
 using namespace muse;
 using namespace muse::io;
 
-static constexpr std::string_view SCORE_TAG("score");
-static constexpr std::string_view ELEMENTS_TAG("elements");
-static constexpr std::string_view ELEMENT_TAG("element");
-static constexpr std::string_view EVENTS_TAG("events");
-static constexpr std::string_view EVENT_TAG("event");
+constexpr std::string_view SCORE_TAG("score");
+constexpr std::string_view ELEMENTS_TAG("elements");
+constexpr std::string_view ELEMENT_TAG("element");
+constexpr std::string_view EVENTS_TAG("events");
+constexpr std::string_view EVENT_TAG("event");
 
-static void writeElementPosition(XmlStreamWriter& writer, const std::string& id, const muse::PointF& pos, const muse::PointF& sPos,
+static void writeElementPosition(deprecated::XmlWriter& writer, const std::string& id, const muse::PointF& pos, const muse::PointF& sPos,
                                  page_idx_t pageIndex)
 {
-    XmlStreamWriter::Attributes attributes;
-    attributes.emplace_back("id", id);
-    attributes.emplace_back("x", pos.x());
-    attributes.emplace_back("y", pos.y());
-    attributes.emplace_back("sx", sPos.x());
-    attributes.emplace_back("sy", sPos.y());
-    attributes.emplace_back("page", pageIndex);
-
-    writer.startElement(ELEMENT_TAG, attributes);
-    writer.endElement();
+    writer.writeStartElement(ELEMENT_TAG);
+    writer.writeAttribute("id", id);
+    writer.writeAttribute("x", std::to_string(pos.x()));
+    writer.writeAttribute("y", std::to_string(pos.y()));
+    writer.writeAttribute("sx", std::to_string(sPos.x()));
+    writer.writeAttribute("sy", std::to_string(sPos.y()));
+    writer.writeAttribute("page", std::to_string(pageIndex));
+    writer.writeEndElement();
 }
 
-static void writeEventPosition(XmlStreamWriter& writer, const std::string& id, int time)
+static void writeEventPosition(deprecated::XmlWriter& writer, const std::string& id, int time)
 {
-    XmlStreamWriter::Attributes attributes;
-    attributes.emplace_back("elid", id);
-    attributes.emplace_back("position", time);
-
-    writer.startElement(EVENT_TAG, attributes);
-    writer.endElement();
+    writer.writeStartElement(EVENT_TAG);
+    writer.writeAttribute("elid", id);
+    writer.writeAttribute("position", std::to_string(time));
+    writer.writeEndElement();
 }
 
-static void writeMeasureEvents(XmlStreamWriter& writer, Measure* m, int offset, const QHash<void*, int>& segments)
+static void writeMeasureEvents(deprecated::XmlWriter& writer, Measure* m, int offset, const QHash<void*, int>& segments)
 {
     for (mu::engraving::Segment* s = m->first(mu::engraving::SegmentType::ChordRest); s;
          s = s->next(mu::engraving::SegmentType::ChordRest)) {
@@ -85,13 +80,8 @@ static void writeMeasureEvents(XmlStreamWriter& writer, Measure* m, int offset, 
     }
 }
 
-PositionsWriter::PositionsWriter(const muse::modularity::ContextPtr& ctx)
-    : muse::Contextable(ctx)
-{
-}
-
-PositionsWriter::PositionsWriter(PositionsWriter::ElementType elementType, const muse::modularity::ContextPtr& ctx)
-    : muse::Contextable(ctx), m_elementType(elementType)
+PositionsWriter::PositionsWriter(PositionsWriter::ElementType elementType)
+    : m_elementType(elementType)
 {
 }
 
@@ -118,23 +108,23 @@ Ret PositionsWriter::write(INotationPtr notation, io::IODevice& destinationDevic
         return make_ret(Ret::Code::UnknownError);
     }
 
-    Buffer buf;
-    if (!buf.open(IODevice::WriteOnly)) {
-        return make_ret(Ret::Code::InternalError);
-    }
+    QByteArray qdata;
+    QBuffer buf(&qdata);
+    buf.open(QIODevice::WriteOnly);
 
-    XmlStreamWriter writer(&buf);
+    deprecated::XmlWriter writer(&buf);
 
-    writer.startDocument();
-    writer.startElement(SCORE_TAG);
+    writer.writeStartDocument();
+    writer.writeStartElement(SCORE_TAG);
 
     writeElementsPositions(writer, score);
     writeEventsPositions(writer, score);
 
-    writer.endElement();
-    writer.flush();
+    writer.writeEndElement();
+    writer.writeEndDocument();
 
-    destinationDevice.write(buf.data());
+    ByteArray data = ByteArray::fromQByteArrayNoCopy(qdata);
+    destinationDevice.write(data);
 
     return true;
 }
@@ -170,9 +160,9 @@ QHash<void*, int> PositionsWriter::elementIds(const mu::engraving::Score* score)
     return elementIds;
 }
 
-void PositionsWriter::writeElementsPositions(XmlStreamWriter& writer, const mu::engraving::Score* score) const
+void PositionsWriter::writeElementsPositions(deprecated::XmlWriter& writer, const mu::engraving::Score* score) const
 {
-    writer.startElement(ELEMENTS_TAG);
+    writer.writeStartElement(ELEMENTS_TAG);
 
     switch (m_elementType) {
     case ElementType::SEGMENT:
@@ -183,10 +173,10 @@ void PositionsWriter::writeElementsPositions(XmlStreamWriter& writer, const mu::
         break;
     }
 
-    writer.endElement();
+    writer.writeEndElement();
 }
 
-void PositionsWriter::writeSegmentsPositions(XmlStreamWriter& writer, const mu::engraving::Score* score) const
+void PositionsWriter::writeSegmentsPositions(deprecated::XmlWriter& writer, const mu::engraving::Score* score) const
 {
     int id = 0;
     qreal ndpi = pngDpiResolution();
@@ -218,7 +208,7 @@ void PositionsWriter::writeSegmentsPositions(XmlStreamWriter& writer, const mu::
     }
 }
 
-void PositionsWriter::writeMeasuresPositions(XmlStreamWriter& writer, const mu::engraving::Score* score) const
+void PositionsWriter::writeMeasuresPositions(deprecated::XmlWriter& writer, const mu::engraving::Score* score) const
 {
     int id = 0;
     qreal ndpi = pngDpiResolution();
@@ -238,11 +228,11 @@ void PositionsWriter::writeMeasuresPositions(XmlStreamWriter& writer, const mu::
     }
 }
 
-void PositionsWriter::writeEventsPositions(XmlStreamWriter& writer, const mu::engraving::Score* score) const
+void PositionsWriter::writeEventsPositions(deprecated::XmlWriter& writer, const mu::engraving::Score* score) const
 {
     QHash<void*, int> elementIds = this->elementIds(score);
 
-    writer.startElement(EVENTS_TAG);
+    writer.writeStartElement(EVENTS_TAG);
 
     score->masterScore()->setExpandRepeats(true);
 
@@ -267,5 +257,5 @@ void PositionsWriter::writeEventsPositions(XmlStreamWriter& writer, const mu::en
         }
     }
 
-    writer.endElement();
+    writer.writeEndElement();
 }

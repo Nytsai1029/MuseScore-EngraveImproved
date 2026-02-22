@@ -22,20 +22,21 @@
 
 #include <gtest/gtest.h>
 
-#include "engraving/dom/lyrics.h"
-#include "engraving/dom/masterscore.h"
-#include "engraving/dom/measure.h"
-#include "engraving/dom/page.h"
-#include "engraving/dom/rest.h"
-#include "engraving/dom/staff.h"
-#include "engraving/dom/system.h"
-#include "engraving/dom/tuplet.h"
-#include "engraving/dom/note.h"
+#include "dom/lyrics.h"
+#include "dom/masterscore.h"
+#include "dom/measure.h"
+#include "dom/page.h"
+#include "dom/rest.h"
+#include "dom/staff.h"
+#include "dom/system.h"
+#include "dom/tuplet.h"
+#include "dom/note.h"
 
 #include "utils/scorerw.h"
 
 #include "log.h"
 
+using namespace mu;
 using namespace mu::engraving;
 
 static const String ALL_ELEMENTS_DATA_DIR("all_elements_data/");
@@ -54,8 +55,9 @@ public:
 //    data.
 //---------------------------------------------------------
 
-static void isLayoutDone(bool* result, EngravingItem* e)
+static void isLayoutDone(void* data, EngravingItem* e)
 {
+    bool* result = static_cast<bool*>(data);
     if (e->isTuplet()) {
         Tuplet* t = toTuplet(e);
         if (!t->hasBracket() || !t->number()) {
@@ -94,7 +96,7 @@ static void isLayoutDone(bool* result, EngravingItem* e)
         (*result) = false;
         // Print some info about the element to make test more useful...
         if (Measure* m = toMeasure(e->findMeasure())) {
-            LOGD("Layout of %s is not done (page %zu, measure %d)", e->typeName(), m->system()->page()->pageNumber() + 1,
+            LOGD("Layout of %s is not done (page %zu, measure %d)", e->typeName(), m->system()->page()->no() + 1,
                  m->no() + 1);
         } else {
             LOGD("Layout of %s is not done", e->typeName());
@@ -116,7 +118,7 @@ void Engraving_LayoutElementsTests::tstLayoutAll(String file)
         score->setLayoutMode(mode);
         bool layoutDone = true;
         for (Score* s : score->scoreList()) {
-            s->scanElements([&](EngravingItem* item) { isLayoutDone(&layoutDone, item); });
+            s->scanElements(&layoutDone, isLayoutDone, /* all */ true);
             EXPECT_TRUE(layoutDone);
         }
     }

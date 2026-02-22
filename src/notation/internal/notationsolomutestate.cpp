@@ -23,29 +23,27 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-#include "engraving/infrastructure/mscreader.h"
-
 #include "notationsolomutestate.h"
 
-using namespace muse;
-using namespace mu::engraving;
+using namespace mu;
 using namespace mu::notation;
+using namespace muse;
 
 Ret NotationSoloMuteState::read(const engraving::MscReader& reader, const muse::io::path_t& pathPrefix)
 {
-    const ByteArray json = reader.readAudioSettingsJsonFile(pathPrefix);
+    ByteArray json = reader.readAudioSettingsJsonFile(pathPrefix);
 
     if (json.empty()) {
         return make_ret(Ret::Code::UnknownError);
     }
 
-    const QJsonObject rootObj = QJsonDocument::fromJson(json.toQByteArrayNoCopy()).object();
+    QJsonObject rootObj = QJsonDocument::fromJson(json.toQByteArrayNoCopy()).object();
 
-    const QJsonArray tracksArray = rootObj.value("tracks").toArray();
-    for (const QJsonValueConstRef track : tracksArray) {
-        const QJsonObject trackObject = track.toObject();
+    QJsonArray tracksArray = rootObj.value("tracks").toArray();
+    for (const QJsonValue track : tracksArray) {
+        QJsonObject trackObject = track.toObject();
 
-        const InstrumentTrackId id = {
+        InstrumentTrackId id = {
             trackObject.value("partId").toString(),
             trackObject.value("instrumentId").toString()
         };
@@ -66,7 +64,7 @@ Ret NotationSoloMuteState::write(io::IODevice* out)
     QJsonObject rootObj;
     QJsonArray tracksArray;
 
-    for (const auto& pair : m_trackSoloMuteStatesMap) {
+    for (auto pair : m_trackSoloMuteStatesMap) {
         QJsonObject currentTrack;
         currentTrack["instrumentId"] = pair.first.instrumentId.toQString();
         currentTrack["partId"] = pair.first.partId.toQString();
@@ -92,13 +90,12 @@ bool NotationSoloMuteState::trackSoloMuteStateExists(const engraving::Instrument
     return search != m_trackSoloMuteStatesMap.end();
 }
 
-const INotationSoloMuteState::SoloMuteState& NotationSoloMuteState::trackSoloMuteState(const InstrumentTrackId& partId) const
+mu::notation::INotationSoloMuteState::SoloMuteState NotationSoloMuteState::trackSoloMuteState(const InstrumentTrackId& partId) const
 {
     auto search = m_trackSoloMuteStatesMap.find(partId);
 
     if (search == m_trackSoloMuteStatesMap.end()) {
-        static const SoloMuteState dummySoloMuteState;
-        return dummySoloMuteState;
+        return {};
     }
 
     return search->second;

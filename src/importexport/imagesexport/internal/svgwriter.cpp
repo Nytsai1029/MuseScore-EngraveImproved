@@ -68,6 +68,7 @@ Ret SvgWriter::write(INotationPtr notation, io::IODevice& destinationDevice, con
     mu::engraving::MScore::svgPrinting = true;
 
     const std::vector<mu::engraving::Page*>& pages = score->pages();
+    double pixelRationBackup = mu::engraving::MScore::pixelRatio;
 
     const size_t PAGE_NUMBER = muse::value(options, OptionKey::PAGE_NUMBER, Val(0)).toInt();
     if (PAGE_NUMBER >= pages.size()) {
@@ -105,14 +106,13 @@ Ret SvgWriter::write(INotationPtr notation, io::IODevice& destinationDevice, con
         painter.translate(-pageRect.topLeft());
     }
 
+    mu::engraving::MScore::pixelRatio = mu::engraving::DPI / printer.logicalDpiX();
+
     const bool TRANSPARENT_BACKGROUND = muse::value(options, OptionKey::TRANSPARENT_BACKGROUND,
                                                     Val(configuration()->exportSvgWithTransparentBackground())).toBool();
     if (!TRANSPARENT_BACKGROUND) {
         painter.fillRect(pageRect, muse::draw::Color::WHITE);
     }
-
-    engraving::rendering::PaintOptions eopt;
-    eopt.isPrinting = true;
 
     // 1st pass: StaffLines
     for (const mu::engraving::System* system : page->systems()) {
@@ -146,7 +146,7 @@ Ret SvgWriter::write(INotationPtr notation, io::IODevice& destinationDevice, con
                 if (!measure->isMeasure()) {
                     if (concatenatedSL != nullptr) {
                         printer.setElement(concatenatedSL);
-                        scoreRenderer()->paintItem(painter, concatenatedSL, eopt);
+                        scoreRenderer()->paintItem(painter, concatenatedSL);
                         concatenatedSL = nullptr;
                         prevStaffType = nullptr;
                     }
@@ -160,7 +160,7 @@ Ret SvgWriter::write(INotationPtr notation, io::IODevice& destinationDevice, con
                     || (score->staff(staffIndex)->staffType(m->tick()) != prevStaffType)) {
                     if (concatenatedSL != nullptr) {
                         printer.setElement(concatenatedSL);
-                        scoreRenderer()->paintItem(painter, concatenatedSL, eopt);
+                        scoreRenderer()->paintItem(painter, concatenatedSL);
                         concatenatedSL = nullptr;
                         prevStaffType = nullptr;
                     }
@@ -191,7 +191,7 @@ Ret SvgWriter::write(INotationPtr notation, io::IODevice& destinationDevice, con
                 concatenatedSL->mutldata()->setShape(concatenatedShape);
                 concatenatedSL->mutldata()->setMask(concatenatedMask);
                 printer.setElement(concatenatedSL);
-                scoreRenderer()->paintItem(painter, concatenatedSL, eopt);
+                scoreRenderer()->paintItem(painter, concatenatedSL);
                 concatenatedSL = nullptr;
                 prevStaffType = nullptr;
             }
@@ -259,7 +259,7 @@ Ret SvgWriter::write(INotationPtr notation, io::IODevice& destinationDevice, con
         printer.setElement(element);
 
         // Paint it
-        scoreRenderer()->paintItem(painter, element, eopt);
+        scoreRenderer()->paintItem(painter, element);
     }
 
     painter.endDraw();
@@ -268,6 +268,7 @@ Ret SvgWriter::write(INotationPtr notation, io::IODevice& destinationDevice, con
     destinationDevice.write(data);
 
     // Clean up and return
+    mu::engraving::MScore::pixelRatio = pixelRationBackup;
     score->setPrinting(false);
     mu::engraving::MScore::pdfPrinting = false;
     mu::engraving::MScore::svgPrinting = false;

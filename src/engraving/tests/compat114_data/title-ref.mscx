@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
@@ -38,7 +38,7 @@
         <StaffType group="pitched">
           </StaffType>
         <bracket type="1" span="2" col="0" visible="1"/>
-        <barLineSpan>1</barLineSpan>
+        <barLineSpan>2</barLineSpan>
         </Staff>
       <Staff>
         <eid>D_D</eid>
@@ -440,6 +440,7 @@
             </Rest>
           <BarLine>
             <subtype>end</subtype>
+            <span>1</span>
             <eid>MB_MB</eid>
             </BarLine>
           </voice>

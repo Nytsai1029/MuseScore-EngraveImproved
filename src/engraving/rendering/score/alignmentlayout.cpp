@@ -198,7 +198,6 @@ double AlignmentLayout::yOpticalCenter(const EngravingItem* item)
     case ElementType::DYNAMIC:
     case ElementType::EXPRESSION:
     {
-        // Please keep `Dynamic::gripsPositions` in sync with this calculation
         curY += item->staffOffsetY();
         AlignV vertAlign = toTextBase(item)->align().vertical;
         double bboxHeight = item->ldata()->bbox().height();
@@ -213,7 +212,7 @@ double AlignmentLayout::yOpticalCenter(const EngravingItem* item)
             break;
         case AlignV::BASELINE:
             if (item->isDynamic()) {
-                curY -= 0.46 * item->spatium() * toDynamic(item)->symbolScale(); // approximated half x-height of dynamic
+                curY -= 0.46 * item->spatium() * toDynamic(item)->dynamicsSize(); // approximated half x-height of dynamic
             } else {
                 curY -= 0.5 * toExpression(item)->fontMetrics().xHeight();
             }

@@ -19,12 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQuick.Layouts 1.3
 
-import Muse.UiComponents
-import Muse.Ui
-import MuseScore.Project
+import Muse.UiComponents 1.0
+import Muse.Ui 1.0
+import MuseScore.Project 1.0
 
 Item {
 
@@ -59,9 +59,8 @@ Item {
         spacing: 12
 
         TitleListView {
-            Layout.minimumWidth: 200
-            Layout.preferredWidth: parent.width / 5
             Layout.fillHeight: true
+            Layout.preferredWidth: parent.width / 4
 
             navigationPanel.section: root.navigationSection
             navigationPanel.name: "Category"
@@ -87,9 +86,8 @@ Item {
         TitleListView {
             id: templatesView
 
-            Layout.minimumWidth: 276
-            Layout.preferredWidth: parent.width / 4
             Layout.fillHeight: true
+            Layout.preferredWidth: parent.width / 4
 
             navigationPanel.section: root.navigationSection
             navigationPanel.name: "Template"

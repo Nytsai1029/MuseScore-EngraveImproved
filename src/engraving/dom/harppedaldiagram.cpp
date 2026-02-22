@@ -25,11 +25,10 @@
 #include "translation.h"
 #include "types/typesconv.h"
 
-#include "../editing/editharppedaldiagram.h"
-
 #include "part.h"
 #include "score.h"
 #include "segment.h"
+#include "undo.h"
 
 #include "log.h"
 

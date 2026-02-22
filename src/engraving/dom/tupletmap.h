@@ -20,9 +20,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_TUPLETMAP_H
+#define MU_ENGRAVING_TUPLETMAP_H
 
-#include <vector>
+#include <list>
 
 namespace mu::engraving {
 class Tuplet;
@@ -47,9 +48,10 @@ class TupletMap
 public:
     TupletMap() {}
     Tuplet* findNew(Tuplet* o);
-    void add(Tuplet* _o, Tuplet* _n) { m_map.emplace_back(_o, _n); }
+    void add(Tuplet* _o, Tuplet* _n) { m_map.push_back(Tuplet2(_o, _n)); }
 
 private:
-    std::vector<Tuplet2> m_map;
+    std::list<Tuplet2> m_map;
 };
-}
+} // namespace mu::engraving
+#endif

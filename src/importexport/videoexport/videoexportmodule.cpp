@@ -28,25 +28,37 @@
 
 #include "project/iprojectrwregister.h"
 
+#include "log.h"
+
 using namespace mu::iex::videoexport;
 using namespace mu::project;
 using namespace muse::modularity;
 
 static std::shared_ptr<VideoExportConfiguration> s_configuration = std::make_shared<VideoExportConfiguration>();
 
+static void videoexport_init_qrc()
+{
+    Q_INIT_RESOURCE(videoexport);
+}
+
 std::string VideoExportModule::moduleName() const
 {
     return "iex_videoexport";
 }
 
+void VideoExportModule::registerResources()
+{
+    videoexport_init_qrc();
+}
+
 void VideoExportModule::registerExports()
 {
-    globalIoc()->registerExport<VideoExportConfiguration>(moduleName(), s_configuration);
+    ioc()->registerExport<VideoExportConfiguration>(moduleName(), s_configuration);
 }
 
 void VideoExportModule::resolveImports()
 {
-    auto projectRWreg = globalIoc()->resolve<IProjectRWRegister>(moduleName());
+    auto projectRWreg = ioc()->resolve<IProjectRWRegister>(moduleName());
     if (projectRWreg) {
         projectRWreg->regWriter({ "mp4" }, std::make_shared<VideoWriter>());
     }

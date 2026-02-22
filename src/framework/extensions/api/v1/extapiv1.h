@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -30,7 +30,7 @@
 #include "api/iapiengine.h"
 
 namespace muse::extensions::apiv1 {
-class ExtApiV1 : public QObject, public Contextable
+class ExtApiV1 : public QObject, public Injectable
 {
     Q_OBJECT
 
@@ -40,7 +40,7 @@ class ExtApiV1 : public QObject, public Contextable
     Q_PROPERTY(QJSValue websocket READ websocket CONSTANT)
     Q_PROPERTY(QJSValue websocketserver READ websocketserver CONSTANT)
 
-    GlobalInject<muse::api::IApiRegister> apiRegister;
+    Inject<muse::api::IApiRegister> apiRegister = { this };
 
 public:
 
@@ -49,10 +49,10 @@ public:
 
     void setup(QJSValue globalObj);
 
-    QJSValue log() const { return api("MuseApi.Log"); }
-    QJSValue engraving() const { return api("MuseApi.Engraving"); }
-    QJSValue websocket() const { return api("MuseApi.Websocket"); }
-    QJSValue websocketserver() const { return api("MuseApi.WebsocketServer"); }
+    QJSValue log() const { return api("api.log"); }
+    QJSValue engraving() const { return api("api.engraving.v1"); }
+    QJSValue websocket() const { return api("api.websocket"); }
+    QJSValue websocketserver() const { return api("api.websocketserver"); }
 
     static void registerQmlTypes();
 

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -30,14 +30,14 @@
 #include "../idockwindowprovider.h"
 
 namespace muse::dock {
-class DockWindowActionsController : public muse::Contextable, public muse::actions::Actionable
+class DockWindowActionsController : public muse::Injectable, public muse::actions::Actionable
 {
-    muse::ContextInject<IDockWindowProvider> dockWindowProvider = { this };
-    muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher = { this };
+    muse::Inject<IDockWindowProvider> dockWindowProvider = { this };
+    muse::Inject<muse::actions::IActionsDispatcher> dispatcher = { this };
 
 public:
     DockWindowActionsController(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx) {}
+        : muse::Injectable(iocCtx) {}
 
     void init();
 

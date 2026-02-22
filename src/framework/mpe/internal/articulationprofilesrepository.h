@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -30,13 +30,13 @@
 #include "iarticulationprofilesrepository.h"
 
 namespace muse::mpe {
-class ArticulationProfilesRepository : public IArticulationProfilesRepository, public Contextable, public async::Asyncable
+class ArticulationProfilesRepository : public IArticulationProfilesRepository, public Injectable, public async::Asyncable
 {
-    GlobalInject<io::IFileSystem> fileSystem;
+    Inject<io::IFileSystem> fileSystem = { this };
 
 public:
     ArticulationProfilesRepository(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     ArticulationsProfilePtr createNew() const override;
     ArticulationsProfilePtr defaultProfile(const ArticulationFamily family) const override;

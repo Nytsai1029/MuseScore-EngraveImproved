@@ -23,14 +23,13 @@
 
 #include <QVersionNumber>
 
-#include "io/path.h"
 #include "mdlmigrator.h"
 
-#include "engraving/dom/excerpt.h"
-#include "engraving/dom/masterscore.h"
-#include "engraving/editing/editscoreproperties.h"
-#include "engraving/rw/compat/readstyle.h"
 #include "engraving/types/constants.h"
+#include "engraving/dom/score.h"
+#include "engraving/dom/excerpt.h"
+#include "engraving/dom/undo.h"
+#include "engraving/rw/compat/readstyle.h"
 
 #include "io/file.h"
 
@@ -45,8 +44,8 @@ using namespace mu::engraving::compat;
 using namespace muse;
 
 static const Uri MIGRATION_DIALOG_URI("musescore://project/migration");
-static const io::path_t LELAND_STYLE_PATH(":/engraving/styles/migration-306-style-Leland.mss");
-static const io::path_t EDWIN_STYLE_PATH(":/engraving/styles/migration-306-style-Edwin.mss");
+static const QString LELAND_STYLE_PATH(":/engraving/styles/migration-306-style-Leland.mss");
+static const QString EDWIN_STYLE_PATH(":/engraving/styles/migration-306-style-Edwin.mss");
 
 static MigrationType migrationTypeFromMscVersion(int mscVersion)
 {
@@ -107,7 +106,7 @@ Ret ProjectMigrator::askAboutMigration(MigrationOptions& out, const QString& app
     query.addParam("isApplyEdwin", Val(out.isApplyEdwin));
     query.addParam("isRemapPercussion", Val(out.isRemapPercussion));
 
-#ifndef MUSE_MODULE_INTERACTIVE_SYNC_SUPPORTED
+#ifndef MUSE_MODULE_UI_SYNCINTERACTIVE_SUPPORTED
     //! NOTE If there is no support for synchronous interactivity (web)
     //! Then we will migrate without questions
 
@@ -143,15 +142,15 @@ void ProjectMigrator::resetStyleSettings(mu::engraving::MasterScore* score)
     qreal sp = score->style().spatium();
     mu::engraving::MStyle* style = &score->style();
     style->set(mu::engraving::Sid::dynamicsFontSize, 10.0);
-    qreal doubleBarDistance = style->styleAbsolute(mu::engraving::Sid::doubleBarDistance);
-    doubleBarDistance -= style->styleAbsolute(mu::engraving::Sid::doubleBarWidth);
+    qreal doubleBarDistance = style->styleMM(mu::engraving::Sid::doubleBarDistance);
+    doubleBarDistance -= style->styleMM(mu::engraving::Sid::doubleBarWidth);
     style->set(mu::engraving::Sid::doubleBarDistance, doubleBarDistance / sp);
-    qreal endBarDistance = style->styleAbsolute(mu::engraving::Sid::endBarDistance);
-    endBarDistance -= (style->styleAbsolute(mu::engraving::Sid::barWidth) + style->styleAbsolute(mu::engraving::Sid::endBarWidth)) / 2;
+    qreal endBarDistance = style->styleMM(mu::engraving::Sid::endBarDistance);
+    endBarDistance -= (style->styleMM(mu::engraving::Sid::barWidth) + style->styleMM(mu::engraving::Sid::endBarWidth)) / 2;
     style->set(mu::engraving::Sid::endBarDistance, endBarDistance / sp);
-    qreal repeatBarlineDotSeparation = style->styleAbsolute(mu::engraving::Sid::repeatBarlineDotSeparation);
+    qreal repeatBarlineDotSeparation = style->styleMM(mu::engraving::Sid::repeatBarlineDotSeparation);
     qreal dotWidth = score->engravingFont()->width(mu::engraving::SymId::repeatDot, 1.0);
-    repeatBarlineDotSeparation -= (style->styleAbsolute(mu::engraving::Sid::barWidth) + dotWidth) / 2;
+    repeatBarlineDotSeparation -= (style->styleMM(mu::engraving::Sid::barWidth) + dotWidth) / 2;
     style->set(mu::engraving::Sid::repeatBarlineDotSeparation, repeatBarlineDotSeparation / sp);
     score->resetStyleValue(mu::engraving::Sid::measureSpacing);
 }

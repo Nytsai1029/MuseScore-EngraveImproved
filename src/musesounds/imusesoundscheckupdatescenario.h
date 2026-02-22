@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -21,24 +21,23 @@
  */
 #pragma once
 
-#include "async/notification.h"
+#include "async/promise.h"
 #include "types/ret.h"
 
 #include "modularity/imoduleinterface.h"
 
 namespace mu::musesounds {
-class IMuseSoundsCheckUpdateScenario : MODULE_CONTEXT_INTERFACE
+class IMuseSoundsCheckUpdateScenario : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IMuseSoundsCheckUpdateScenario)
 
 public:
+    using CheckForUpdateCompleteCallback = std::function<void ()>;
+
     virtual ~IMuseSoundsCheckUpdateScenario() = default;
 
     virtual bool needCheckForUpdate() const = 0;
-    virtual void checkForUpdate(bool manual) = 0;
-
-    virtual bool checkInProgress() const = 0;
-    virtual muse::async::Notification checkInProgressChanged() const = 0;
+    virtual muse::async::Promise<muse::Ret> checkForUpdate(bool manual) = 0;
 
     virtual bool hasUpdate() const = 0;
     virtual muse::Ret showUpdate() = 0;

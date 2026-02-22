@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -39,12 +39,6 @@ template<typename T>
 inline bool contains(const std::vector<T>& vec, const T& v)
 {
     return std::find(vec.cbegin(), vec.cend(), v) != vec.cend();
-}
-
-template<typename T, typename Predicate>
-inline bool contains_if(const std::vector<T>& vec, Predicate&& pred)
-{
-    return std::find_if(vec.cbegin(), vec.cend(), std::forward<Predicate>(pred)) != vec.cend();
 }
 
 template<typename T>
@@ -273,11 +267,20 @@ inline bool contains(const std::unordered_map<K, V>& m, const K& k)
 }
 
 template<typename Map>
+inline auto keys(const Map& m) -> std::vector<typename Map::key_type>
+{
+    std::vector<typename Map::key_type> result;
+    for (auto&& p : m) {
+        result.push_back(p.first);
+    }
+    return result;
+}
+
+template<typename Map>
 inline auto values(const Map& m) -> std::vector<typename Map::mapped_type>
 {
     std::vector<typename Map::mapped_type> result;
-    result.reserve(m.size());
-    for (const auto& p : m) {
+    for (auto&& p : m) {
         result.push_back(p.second);
     }
     return result;

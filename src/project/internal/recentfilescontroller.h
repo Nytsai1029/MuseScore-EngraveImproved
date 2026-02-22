@@ -19,7 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#pragma once
+#ifndef MU_PROJECT_RECENTFILESCONTROLLER_H
+#define MU_PROJECT_RECENTFILESCONTROLLER_H
 
 #include "irecentfilescontroller.h"
 
@@ -33,15 +34,15 @@
 #include "iprojectconfiguration.h"
 #include "imscmetareader.h"
 #include "io/ifilesystem.h"
-#include "multiwindows/imultiwindowsprovider.h"
+#include "multiinstances/imultiinstancesprovider.h"
 
 namespace mu::project {
 class RecentFilesController : public IRecentFilesController, public muse::async::Asyncable
 {
-    muse::GlobalThreadSafeInject<IProjectConfiguration> configuration;
-    muse::GlobalThreadSafeInject<muse::io::IFileSystem> fileSystem;
-    muse::GlobalThreadSafeInject<muse::mi::IMultiWindowsProvider> multiwindowsProvider;
-    muse::GlobalThreadSafeInject<IMscMetaReader> mscMetaReader;
+    INJECT(IProjectConfiguration, configuration)
+    INJECT(IMscMetaReader, mscMetaReader)
+    INJECT(muse::io::IFileSystem, fileSystem)
+    INJECT(muse::mi::IMultiInstancesProvider, multiInstancesProvider)
 
 public:
     void init();
@@ -81,3 +82,5 @@ private:
     mutable std::map<muse::io::path_t, CachedThumbnail> m_thumbnailCache;
 };
 }
+
+#endif // MU_PROJECT_RECENTFILESCONTROLLER_H

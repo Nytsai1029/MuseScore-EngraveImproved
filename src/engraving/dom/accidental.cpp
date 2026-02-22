@@ -176,40 +176,40 @@ static const Acc ACC_LIST[] = {
     Acc(AccidentalVal::NATURAL,   83,   SymId::accidentalWyschnegradsky5TwelfthsSharp),
     Acc(AccidentalVal::FLAT,       0,   SymId::accidentalWyschnegradsky6TwelfthsFlat),
     Acc(AccidentalVal::SHARP,      0,   SymId::accidentalWyschnegradsky6TwelfthsSharp),
-    Acc(AccidentalVal::NATURAL, -117,   SymId::accidentalWyschnegradsky7TwelfthsFlat),
-    Acc(AccidentalVal::NATURAL,  117,   SymId::accidentalWyschnegradsky7TwelfthsSharp),
+    Acc(AccidentalVal::NATURAL, -116,   SymId::accidentalWyschnegradsky7TwelfthsFlat),
+    Acc(AccidentalVal::NATURAL,  116,   SymId::accidentalWyschnegradsky7TwelfthsSharp),
     Acc(AccidentalVal::NATURAL, -133,   SymId::accidentalWyschnegradsky8TwelfthsFlat),
     Acc(AccidentalVal::NATURAL,  133,   SymId::accidentalWyschnegradsky8TwelfthsSharp),
     Acc(AccidentalVal::NATURAL, -150,   SymId::accidentalWyschnegradsky9TwelfthsFlat),
     Acc(AccidentalVal::NATURAL,  150,   SymId::accidentalWyschnegradsky9TwelfthsSharp),
 
     // the most important (Spartan) Sagittal accidentals
-    Acc(AccidentalVal::NATURAL,  -17,   SymId::accSagittal5v7KleismaDown),
-    Acc(AccidentalVal::NATURAL,   17,   SymId::accSagittal5v7KleismaUp),
-    Acc(AccidentalVal::NATURAL,  -17,   SymId::accSagittal5CommaDown),
-    Acc(AccidentalVal::NATURAL,   17,   SymId::accSagittal5CommaUp),
-    Acc(AccidentalVal::NATURAL,  -33,   SymId::accSagittal7CommaDown),
-    Acc(AccidentalVal::NATURAL,   33,   SymId::accSagittal7CommaUp),
-    Acc(AccidentalVal::NATURAL,  -33,   SymId::accSagittal25SmallDiesisDown),
-    Acc(AccidentalVal::NATURAL,   33,   SymId::accSagittal25SmallDiesisUp),
-    Acc(AccidentalVal::NATURAL,  -50,   SymId::accSagittal35MediumDiesisDown),
-    Acc(AccidentalVal::NATURAL,   50,   SymId::accSagittal35MediumDiesisUp),
-    Acc(AccidentalVal::NATURAL,  -50,   SymId::accSagittal11MediumDiesisDown),
-    Acc(AccidentalVal::NATURAL,   50,   SymId::accSagittal11MediumDiesisUp),
-    Acc(AccidentalVal::NATURAL,  -50,   SymId::accSagittal11LargeDiesisDown),
-    Acc(AccidentalVal::NATURAL,   50,   SymId::accSagittal11LargeDiesisUp),
-    Acc(AccidentalVal::NATURAL,  -50,   SymId::accSagittal35LargeDiesisDown),
-    Acc(AccidentalVal::NATURAL,   50,   SymId::accSagittal35LargeDiesisUp),
-    Acc(AccidentalVal::NATURAL,  -67,   SymId::accSagittalFlat25SUp),
-    Acc(AccidentalVal::NATURAL,   67,   SymId::accSagittalSharp25SDown),
-    Acc(AccidentalVal::NATURAL,  -67,   SymId::accSagittalFlat7CUp),
-    Acc(AccidentalVal::NATURAL,   67,   SymId::accSagittalSharp7CDown),
-    Acc(AccidentalVal::NATURAL,  -83,   SymId::accSagittalFlat5CUp),
-    Acc(AccidentalVal::NATURAL,   83,   SymId::accSagittalSharp5CDown),
-    Acc(AccidentalVal::NATURAL,  -83,   SymId::accSagittalFlat5v7kUp),
-    Acc(AccidentalVal::NATURAL,   83,   SymId::accSagittalSharp5v7kDown),
-    Acc(AccidentalVal::NATURAL, -100,   SymId::accSagittalFlat),
-    Acc(AccidentalVal::NATURAL,  100,   SymId::accSagittalSharp),
+    Acc(AccidentalVal::NATURAL,   -5.8, SymId::accSagittal5v7KleismaDown),
+    Acc(AccidentalVal::NATURAL,    5.8, SymId::accSagittal5v7KleismaUp),
+    Acc(AccidentalVal::NATURAL,  -21.5, SymId::accSagittal5CommaDown),
+    Acc(AccidentalVal::NATURAL,   21.5, SymId::accSagittal5CommaUp),
+    Acc(AccidentalVal::NATURAL,  -27.3, SymId::accSagittal7CommaDown),
+    Acc(AccidentalVal::NATURAL,   27.3, SymId::accSagittal7CommaUp),
+    Acc(AccidentalVal::NATURAL,  -43.0, SymId::accSagittal25SmallDiesisDown),
+    Acc(AccidentalVal::NATURAL,   43.0, SymId::accSagittal25SmallDiesisUp),
+    Acc(AccidentalVal::NATURAL,  -48.8, SymId::accSagittal35MediumDiesisDown),
+    Acc(AccidentalVal::NATURAL,   48.8, SymId::accSagittal35MediumDiesisUp),
+    Acc(AccidentalVal::NATURAL,  -53.3, SymId::accSagittal11MediumDiesisDown),
+    Acc(AccidentalVal::NATURAL,   53.3, SymId::accSagittal11MediumDiesisUp),
+    Acc(AccidentalVal::NATURAL,  -60.4, SymId::accSagittal11LargeDiesisDown),
+    Acc(AccidentalVal::NATURAL,   60.4, SymId::accSagittal11LargeDiesisUp),
+    Acc(AccidentalVal::NATURAL,  -64.9, SymId::accSagittal35LargeDiesisDown),
+    Acc(AccidentalVal::NATURAL,   64.9, SymId::accSagittal35LargeDiesisUp),
+    Acc(AccidentalVal::NATURAL,  -70.7, SymId::accSagittalFlat25SUp),
+    Acc(AccidentalVal::NATURAL,   70.7, SymId::accSagittalSharp25SDown),
+    Acc(AccidentalVal::NATURAL,  -86.4, SymId::accSagittalFlat7CUp),
+    Acc(AccidentalVal::NATURAL,   86.4, SymId::accSagittalSharp7CDown),
+    Acc(AccidentalVal::NATURAL,  -92.2, SymId::accSagittalFlat5CUp),
+    Acc(AccidentalVal::NATURAL,   92.2, SymId::accSagittalSharp5CDown),
+    Acc(AccidentalVal::NATURAL, -107.9, SymId::accSagittalFlat5v7kUp),
+    Acc(AccidentalVal::NATURAL,  107.9, SymId::accSagittalSharp5v7kDown),
+    Acc(AccidentalVal::NATURAL, -113.7, SymId::accSagittalFlat),
+    Acc(AccidentalVal::NATURAL,  113.7, SymId::accSagittalSharp),
 
     // Turkish folk music accidentals
     Acc(AccidentalVal::NATURAL, -22.2, SymId::accidental1CommaFlat),
@@ -306,44 +306,6 @@ double Accidental::subtype2centOffset(AccidentalType st)
     return ACC_LIST[int(st)].centOffset;
 }
 
-AccidentalType Accidental::centOffset2Subtype(double centOffset)
-{
-    for (int i = 0; i < static_cast<int>(AccidentalType::END); ++i) {
-        if (muse::RealIsEqual(ACC_LIST[i].centOffset, centOffset)) {
-            return static_cast<AccidentalType>(i);
-        }
-    }
-
-    return AccidentalType::NONE;
-}
-
-AccidentalType Accidental::value2MicrotonalSubtype(AccidentalVal val, int quarterOff)
-{
-    if (quarterOff == 0) {
-        return value2subtype(val);
-    }
-
-    if (quarterOff < -1 || quarterOff > 1) {
-        // TODO: more general implementation
-        return value2subtype(val);
-    }
-
-    switch (val) {
-    case AccidentalVal::NATURAL:
-        return quarterOff == 1 ? AccidentalType::SHARP_ARROW_DOWN : AccidentalType::FLAT_ARROW_UP;
-    case AccidentalVal::FLAT:
-        return quarterOff == 1 ? AccidentalType::FLAT_ARROW_UP : AccidentalType::FLAT_ARROW_DOWN;
-    case AccidentalVal::SHARP:
-        return quarterOff == 1 ? AccidentalType::SHARP_ARROW_UP : AccidentalType::SHARP_ARROW_DOWN;
-    case AccidentalVal::FLAT2:
-        return quarterOff == 1 ? AccidentalType::FLAT2_ARROW_UP : AccidentalType::FLAT2_ARROW_DOWN;
-    case AccidentalVal::SHARP2:
-        return quarterOff == 1 ? AccidentalType::SHARP2_ARROW_UP : AccidentalType::SHARP2_ARROW_DOWN;
-    default:
-        return value2subtype(val);
-    }
-}
-
 int Accidental::line() const
 {
     Note* n = note();
@@ -378,14 +340,6 @@ AccidentalType Accidental::name2subtype(const AsciiStringView& tag)
 void Accidental::setSubtype(const AsciiStringView& tag)
 {
     setAccidentalType(name2subtype(tag));
-}
-
-void Accidental::setAccidentalType(AccidentalType t)
-{
-    m_accidentalType = t;
-    if (note()) {
-        note()->setCentOffset(Accidental::subtype2centOffset(t));
-    }
 }
 
 void Accidental::computeMag()
@@ -425,7 +379,7 @@ bool Accidental::acceptDrop(EditData& data) const
 {
     const EngravingItem* e = data.dropElement;
 
-    if (e->isAccidental()) {
+    if (e->type() == ElementType::ACCIDENTAL) {
         return note();
     }
 
@@ -467,6 +421,15 @@ EngravingItem* Accidental::drop(EditData& data)
     }
     delete e;
     return nullptr;
+}
+
+//---------------------------------------------------------
+//   undoSetSmall
+//---------------------------------------------------------
+
+void Accidental::undoSetSmall(bool val)
+{
+    undoChangeProperty(Pid::SMALL, val);
 }
 
 //---------------------------------------------------------

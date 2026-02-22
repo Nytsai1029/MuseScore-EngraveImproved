@@ -76,7 +76,7 @@ enum layerElementCounter {
 class MeiExporter
 {
 public:
-    muse::GlobalInject<mu::iex::mei::IMeiConfiguration> configuration;
+    INJECT_STATIC(mu::iex::mei::IMeiConfiguration, configuration)
 
 public:
     MeiExporter(engraving::Score* s) { m_score = s; }
@@ -160,7 +160,7 @@ private:
      * Helper methods
      */
     bool isCurrentNode(const libmei::Element& element);
-    std::vector<const engraving::Volta*> findVoltasInMeasure(const engraving::Measure* measure);
+    std::list<const engraving::Volta*> findVoltasInMeasure(const engraving::Measure* measure);
     void fillControlEventMap(const std::string& xmlId, const engraving::ChordRest* chordRest);
     std::string findStartIdFor(const engraving::EngravingItem* item);
     void addToRepeatMarkList(const engraving::EngravingItem* repeatMark, pugi::xml_node node, const std::string& xmlId);
@@ -215,7 +215,7 @@ private:
     bool m_hasSections;
 
     /** A list of items (first) for which we know the @startid (second)  */
-    std::vector<std::pair<const engraving::EngravingItem*, std::string> > m_startingControlEventList;
+    std::list<std::pair<const engraving::EngravingItem*, std::string> > m_startingControlEventList;
     /** A map of items with the @endid they will need to have added */
     std::map<const engraving::EngravingItem*, std::string> m_endingControlEventMap;
     /** A map of items with the @plist value they will need to have added */
@@ -223,11 +223,11 @@ private:
     /** A map of chord that are a plist of the arpeggio */
     std::map<const engraving::Chord*, const engraving::Arpeggio*> m_arpegPlistMap;
     /** A map of elements (e.g., Fermata) to which a tstamp will need to be added  */
-    std::vector<std::pair<const engraving::EngravingItem*, std::pair<libmei::xsdPositiveInteger_List, double> > > m_tstampControlEventMap;
+    std::list<std::pair<const engraving::EngravingItem*, std::pair<libmei::xsdPositiveInteger_List, double> > > m_tstampControlEventMap;
     /** A map of items with the corresponding node (to which the endid from m_endingControlEventMap or plist from m_plistMap will be added) */
     std::map<const engraving::EngravingItem*, pugi::xml_node> m_openControlEventMap;
 
-    std::vector<MeiExporter::RepeatMark> m_repeatMarks;
+    std::list<MeiExporter::RepeatMark> m_repeatMarks;
 
     /** Counters for generating xml:ids */
     int m_xmlIDCounter;

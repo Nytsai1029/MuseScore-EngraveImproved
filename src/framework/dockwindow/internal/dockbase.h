@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,31 +19,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_DOCK_DOCKBASE_H
+#define MUSE_DOCK_DOCKBASE_H
 
 #include <QQuickItem>
-#include <qqmlintegration.h>
 
-#include "global/modularity/ioc.h"
+#include <optional>
 
-#include "docktypes.h"
-
-#include "ui/inavigation.h"
-
-Q_MOC_INCLUDE("ui/qml/Muse/Ui/navigationsection.h")
+#include "../docktypes.h"
+#include "uicomponents/view/qmllistproperty.h"
+#include "ui/view/navigationsection.h"
 
 namespace KDDockWidgets {
 class DockWidgetQuick;
 }
 
-namespace muse::ui {
-class NavigationSection;
-}
-
 namespace muse::dock {
 struct DropDestination;
-class DockBase : public QQuickItem, public Contextable
+class DockBase : public QQuickItem
 {
     Q_OBJECT
 
@@ -71,11 +64,9 @@ class DockBase : public QQuickItem, public Contextable
 
     Q_PROPERTY(bool inited READ inited NOTIFY initedChanged)
 
-    Q_PROPERTY(muse::ui::NavigationSection * navigationSection
-               READ navigationSection_property WRITE setNavigationSection NOTIFY navigationSectionChanged)
+    Q_PROPERTY(
+        muse::ui::NavigationSection * navigationSection READ navigationSection WRITE setNavigationSection NOTIFY navigationSectionChanged)
     Q_PROPERTY(int contentNavigationPanelOrderStart READ contentNavigationPanelOrderStart NOTIFY contentNavigationPanelOrderStartChanged)
-
-    QML_ELEMENT
 
 public:
     DockBase(DockType type, QQuickItem* parent = nullptr);
@@ -130,8 +121,7 @@ public:
     Q_INVOKABLE void close();
     Q_INVOKABLE void resize(int width, int height);
 
-    ui::INavigationSection* navigationSection() const;
-    ui::NavigationSection* navigationSection_property() const;
+    ui::NavigationSection* navigationSection() const;
     int contentNavigationPanelOrderStart() const;
 
 public slots:
@@ -250,3 +240,5 @@ struct DropDestination
     void clear();
 };
 }
+
+#endif // MUSE_DOCK_DOCKBASE_H

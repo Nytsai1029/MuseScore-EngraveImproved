@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-only
-# MuseScore-Studio-CLA-applies
+# MuseScore-CLA-applies
 #
-# MuseScore Studio
+# MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2026 MuseScore Limited
+# Copyright (C) 2021 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -16,39 +16,45 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-muse_create_module(muse_update ALIAS muse::update)
+declare_module(muse_update)
+set(MODULE_ALIAS muse::update)
 
-target_sources(muse_update PRIVATE
-    updatemodule.cpp
-    updatemodule.h
-    updatetypes.h
-    updateerrors.h
-    iupdateconfiguration.h
-    iappupdatescenario.h
-    iappupdateservice.h
+set(MODULE_QRC update.qrc)
 
-    internal/updateconfiguration.cpp
-    internal/updateconfiguration.h
-    internal/updateuiactions.cpp
-    internal/updateuiactions.h
-    internal/updateactioncontroller.cpp
-    internal/updateactioncontroller.h
-    internal/appupdatescenario.cpp
-    internal/appupdatescenario.h
-    internal/appupdateservice.cpp
-    internal/appupdateservice.h
-)
+set(MODULE_QML_IMPORT ${CMAKE_CURRENT_LIST_DIR}/qml)
 
-if (MUSE_QT_SUPPORT)
-    target_link_libraries(muse_update PRIVATE Qt::Concurrent)
+set(MODULE_SRC
+    ${CMAKE_CURRENT_LIST_DIR}/updatemodule.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/updatemodule.h
+    ${CMAKE_CURRENT_LIST_DIR}/updatetypes.h
+    ${CMAKE_CURRENT_LIST_DIR}/updateerrors.h
+    ${CMAKE_CURRENT_LIST_DIR}/iupdateconfiguration.h
+    ${CMAKE_CURRENT_LIST_DIR}/iupdatescenario.h
+    ${CMAKE_CURRENT_LIST_DIR}/iappupdateservice.h
+
+    ${CMAKE_CURRENT_LIST_DIR}/internal/updateconfiguration.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/updateconfiguration.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/updatescenario.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/updatescenario.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/updateuiactions.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/updateuiactions.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/updateactioncontroller.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/updateactioncontroller.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/appupdateservice.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/appupdateservice.h
+
+    ${CMAKE_CURRENT_LIST_DIR}/view/updatemodel.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/updatemodel.h
+    )
+
+if (QT_SUPPORT)
+    list(APPEND MODULE_LINK Qt::Concurrent Qt::Qml)
 endif()
+
+setup_module()
 
 if (MUSE_MODULE_UPDATE_TESTS)
     add_subdirectory(tests)
-endif()
-
-if (MUSE_MODULE_UPDATE_QML)
-    add_subdirectory(qml/Muse/Update)
 endif()

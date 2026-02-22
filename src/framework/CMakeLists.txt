@@ -4,7 +4,7 @@
 # MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2021 MuseScore Limited and others
+# Copyright (C) 2021 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -18,27 +18,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-if (MUSE_COMPILE_USE_PCH)
-    add_subdirectory(${MUSE_FRAMEWORK_PATH}/buildscripts/pch pch)
-endif()
-
 # should be first to work pch
 if (MUSE_MODULE_GLOBAL)
     add_subdirectory(global)
-endif()
-
-# modules need to be listed in dependency order
-if (MUSE_MODULE_UI)
-    add_subdirectory(ui)
-    add_subdirectory(uicomponents)
-endif()
-
-if (MUSE_MODULE_INTERACTIVE)
-    add_subdirectory(interactive)
-endif()
-
-if (MUSE_MODULE_DOCKWINDOW)
-    add_subdirectory(dockwindow)
 endif()
 
 if (MUSE_MODULE_ACCESSIBILITY)
@@ -85,6 +67,15 @@ if (MUSE_MODULE_MUSESAMPLER)
     add_subdirectory(musesampler)
 endif()
 
+if (MUSE_MODULE_UI)
+    add_subdirectory(ui)
+    add_subdirectory(uicomponents)
+endif()
+
+if (MUSE_MODULE_DOCKWINDOW)
+    add_subdirectory(dockwindow)
+endif()
+
 if (MUSE_MODULE_NETWORK)
     add_subdirectory(network)
 endif()
@@ -97,8 +88,8 @@ if (MUSE_MODULE_TOURS)
     add_subdirectory(tours)
 endif()
 
-if (MUSE_MODULE_MULTIWINDOWS)
-    add_subdirectory(multiwindows)
+if (MUSE_MODULE_MULTIINSTANCES)
+    add_subdirectory(multiinstances)
 endif()
 
 if (MUSE_MODULE_LANGUAGES)
@@ -138,3 +129,6 @@ endif()
 
 # Stubs
 add_subdirectory(stubs)
+
+
+

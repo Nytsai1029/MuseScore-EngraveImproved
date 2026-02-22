@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
@@ -77,18 +77,12 @@
             <durationType>quarter</durationType>
             <Note>
               <eid>J_J</eid>
-              <parentheses>both</parentheses>
               <pitch>62</pitch>
               <tpc>16</tpc>
               <fret>12</fret>
               <string>3</string>
               <ghost>1</ghost>
               </Note>
-            <NoteParenGroup>
-              <Notes>
-                <NoteIdx>0</NoteIdx>
-                </Notes>
-              </NoteParenGroup>
             </Chord>
           <Rest>
             <eid>K_K</eid>

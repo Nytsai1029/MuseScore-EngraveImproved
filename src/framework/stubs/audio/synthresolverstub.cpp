@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -26,14 +26,12 @@
 using namespace muse::audio;
 using namespace muse::audio::synth;
 
-void SynthResolverStub::init(const AudioInputParams& defaultInputParams, const OutputSpec& defaultOutputSpec)
+void SynthResolverStub::init(const AudioInputParams& defaultInputParams)
 {
     m_defaultInputParams = defaultInputParams;
-    m_defaultOutputSpec = defaultOutputSpec;
 }
 
-ISynthesizerPtr SynthResolverStub::resolveSynth(const TrackId, const AudioInputParams& params, const audio::OutputSpec&,
-                                                const PlaybackSetupData&) const
+ISynthesizerPtr SynthResolverStub::resolveSynth(const TrackId, const AudioInputParams& params, const PlaybackSetupData&) const
 {
     return std::make_shared<SynthesizerStub>(params);
 }

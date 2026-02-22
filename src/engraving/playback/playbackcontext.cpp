@@ -426,9 +426,6 @@ void PlaybackContext::updateDynamicMap(const Dynamic* dynamic, const Segment* se
 
 void PlaybackContext::updatePlayTechMap(const PlayTechAnnotation* annotation, const int segmentPositionTick)
 {
-    if (!annotation->playPlayTechAnnotation()) {
-        return;
-    }
     const PlayingTechniqueType type = annotation->techniqueType();
     if (type == PlayingTechniqueType::Undefined) {
         return;
@@ -689,7 +686,7 @@ void PlaybackContext::handleSegmentElements(const RepeatSegment* repeat, const S
                                             std::vector<const MeasureRepeat*>& foundMeasureRepeats)
 {
     for (track_idx_t track = m_partStartTrack; track < m_partEndTrack; ++track) {
-        const EngravingItem* item = segment->element(track);
+        const EngravingItem* item = segment->elementAt(track);
         if (!item) {
             continue;
         }

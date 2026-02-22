@@ -2134,7 +2134,6 @@ void Convert::markerFromMEI(engraving::Marker* marker, const libmei::RepeatMark&
     }
 
     marker->setMarkerType(markerType);
-    marker->resetProperty(engraving::Pid::LABEL);
 
     // @color
     Convert::colorFromMEI(marker, meiRepeatMark);
@@ -2201,8 +2200,8 @@ Convert::MeasureStruct Convert::measureFromMEI(const libmei::Measure& meiMeasure
     // for now only rely on the presence of @n
     measureSt.irregular = (!meiMeasure.HasN());
 
-    if (meiMeasure.HasN() && std::isdigit(meiMeasure.GetN().at(0))) {
-        measureSt.n = std::stoi(meiMeasure.GetN());
+    if (meiMeasure.HasN()) {
+        measureSt.n = std::stoi(meiMeasure.GetN()) - 1;
         // Make sure we have no measure number below 0;
         measureSt.n = std::max(0, measureSt.n);
     }
@@ -3036,7 +3035,7 @@ Convert::BracketStruct Convert::staffGrpFromMEI(const libmei::StaffGrp& meiStaff
     return bracketSt;
 }
 
-libmei::StaffGrp Convert::staffGrpToMEI(const engraving::BracketType bracket, const bool barLineSpan)
+libmei::StaffGrp Convert::staffGrpToMEI(const engraving::BracketType bracket, int barLineSpan)
 {
     libmei::StaffGrp meiStaffGrp;
 
@@ -3044,7 +3043,7 @@ libmei::StaffGrp Convert::staffGrpToMEI(const engraving::BracketType bracket, co
     meiStaffGrp.SetSymbol(symbolToMEI(bracket));
 
     // @bar.thru
-    if (barLineSpan) {
+    if (barLineSpan > 0) {
         meiStaffGrp.SetBarThru(libmei::BOOLEAN_true);
     }
 

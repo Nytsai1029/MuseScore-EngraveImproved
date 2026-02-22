@@ -44,23 +44,27 @@ void MeiModule::registerExports()
 {
     m_configuration = std::make_shared<MeiConfiguration>();
 
-    globalIoc()->registerExport<IMeiConfiguration>(moduleName(), m_configuration);
+    ioc()->registerExport<IMeiConfiguration>(moduleName(), m_configuration);
 }
 
 void MeiModule::resolveImports()
 {
-    auto readers = globalIoc()->resolve<INotationReadersRegister>(moduleName());
+    auto readers = ioc()->resolve<INotationReadersRegister>(moduleName());
     if (readers) {
-        readers->reg({ "mei" }, std::make_shared<MeiReader>(muse::modularity::globalCtx()));
+        readers->reg({ "mei" }, std::make_shared<MeiReader>());
     }
 
-    auto writers = globalIoc()->resolve<INotationWritersRegister>(moduleName());
+    auto writers = ioc()->resolve<INotationWritersRegister>(moduleName());
     if (writers) {
         writers->reg({ "mei" }, std::make_shared<MeiWriter>());
     }
 }
 
-void MeiModule::onInit(const IApplication::RunMode&)
+void MeiModule::onInit(const IApplication::RunMode& mode)
 {
+    if (mode == IApplication::RunMode::AudioPluginRegistration) {
+        return;
+    }
+
     m_configuration->init();
 }

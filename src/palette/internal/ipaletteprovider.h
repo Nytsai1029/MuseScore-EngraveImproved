@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_PALETTE_IPALETTEPROVIDER_H
+#define MU_PALETTE_IPALETTEPROVIDER_H
 
 #include "modularity/imoduleinterface.h"
 
@@ -29,7 +30,7 @@
 #include "palettetree.h"
 
 namespace mu::palette {
-class IPaletteProvider : MODULE_CONTEXT_INTERFACE
+class IPaletteProvider : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IPaletteAdapter)
 
@@ -46,3 +47,5 @@ public:
     virtual muse::async::Channel<mu::engraving::ElementPtr> addCustomItemRequested() const = 0;
 };
 }
+
+#endif // MU_PALETTE_IPALETTEPROVIDER_H

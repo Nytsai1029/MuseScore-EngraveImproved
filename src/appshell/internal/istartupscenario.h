@@ -19,15 +19,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_APPSHELL_ISTARTUPSCENARIO_H
+#define MU_APPSHELL_ISTARTUPSCENARIO_H
 
 #include "modularity/imoduleinterface.h"
 
 #include "project/types/projecttypes.h"
+#include "async/promise.h"
 
 namespace mu::appshell {
-class IStartupScenario : MODULE_CONTEXT_INTERFACE
+class IStartupScenario : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IStartupScenario)
 
@@ -41,8 +42,12 @@ public:
     virtual const project::ProjectFile& startupScoreFile() const = 0;
     virtual void setStartupScoreFile(const std::optional<project::ProjectFile>& file) = 0;
 
-    virtual void runOnSplashScreen() = 0;
+    virtual muse::async::Promise<muse::Ret> runOnSplashScreen() = 0;
     virtual void runAfterSplashScreen() = 0;
     virtual bool startupCompleted() const = 0;
+
+    virtual QList<QVariantMap> welcomeDialogData() const = 0;
 };
 }
+
+#endif // MU_APPSHELL_ISTARTUPSCENARIO_H

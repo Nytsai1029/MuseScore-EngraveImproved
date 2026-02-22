@@ -35,8 +35,6 @@
 #include "../dom/excerpt.h"
 #include "../dom/imageStore.h"
 
-#include "engraving/automation/iautomation.h"
-
 #include "compat/compatutils.h"
 #include "compat/readstyle.h"
 
@@ -68,11 +66,15 @@ static RetVal<IReaderPtr> makeReader(int version, bool ignoreVersionError)
         }
     }
 
+    if (version > 302 && MScore::testMode && MScore::useRead302InTestMode) {
+        version = 302;
+    }
+
     return RetVal<IReaderPtr>::make_ok(RWRegister::reader(version));
 }
 
-Ret MscLoader::loadMscz(MasterScore* masterScore, const MscReader& mscReader, rw::ReadInOutData* inOut,
-                        bool ignoreVersionError)
+Ret MscLoader::loadMscz(MasterScore* masterScore, const MscReader& mscReader, SettingsCompat& settingsCompat,
+                        bool ignoreVersionError, rw::ReadInOutData* inOut)
 {
     TRACEFUNC;
 
@@ -84,53 +86,51 @@ Ret MscLoader::loadMscz(MasterScore* masterScore, const MscReader& mscReader, rw
 
     ScoreLoad sl;
 
-    if (mscReader.isContainer()) {
-        // Read style
-        {
-            ByteArray styleData = mscReader.readStyleFile();
-            if (!styleData.empty()) {
-                Buffer buf(&styleData);
-                buf.open(IODevice::ReadOnly);
-                masterScore->style().read(&buf);
-                if (inOut) {
-                    inOut->originalSpatium = masterScore->style().spatium();
-                }
+    // Read style
+    {
+        ByteArray styleData = mscReader.readStyleFile();
+        if (!styleData.empty()) {
+            Buffer buf(&styleData);
+            buf.open(IODevice::ReadOnly);
+            masterScore->style().read(&buf);
+            if (inOut) {
+                inOut->originalSpatium = masterScore->style().spatium();
             }
         }
+    }
 
-        // Read ChordList
-        {
-            bool chordListOk = false;
-            ByteArray chordListData = mscReader.readChordListFile();
-            if (!chordListData.empty()) {
-                Buffer buf(&chordListData);
-                buf.open(IODevice::ReadOnly);
+    // Read ChordList
+    {
+        bool chordListOk = false;
+        ByteArray chordListData = mscReader.readChordListFile();
+        if (!chordListData.empty()) {
+            Buffer buf(&chordListData);
+            buf.open(IODevice::ReadOnly);
 
-                chordListOk = masterScore->chordList()->read(&buf);
-            }
-
-            masterScore->chordList()->setCustomChordList(chordListOk);
-
-            if (!chordListOk) {
-                // See also ReadChordListHook::validate()
-                MStyle& style = masterScore->style();
-                ChordList* chordList = masterScore->chordList();
-
-                bool custom = style.styleV(Sid::chordStyle).value<ChordStylePreset>() == ChordStylePreset::CUSTOM;
-                chordList->setCustomChordList(custom);
-
-                // Ensure that `checkChordList` loads the default chord list
-                chordList->unload();
-            }
+            chordListOk = masterScore->chordList()->read(&buf);
         }
 
-        // Read images
-        {
-            if (!MScore::noImages) {
-                std::vector<String> images = mscReader.imageFileNames();
-                for (const String& name : images) {
-                    imageStore.add(name.toStdString(), mscReader.readImageFile(name));
-                }
+        masterScore->chordList()->setCustomChordList(chordListOk);
+
+        if (!chordListOk) {
+            // See also ReadChordListHook::validate()
+            MStyle& style = masterScore->style();
+            ChordList* chordList = masterScore->chordList();
+
+            bool custom = style.styleV(Sid::chordStyle).value<ChordStylePreset>() == ChordStylePreset::CUSTOM;
+            chordList->setCustomChordList(custom);
+
+            // Ensure that `checkChordList` loads the default chord list
+            chordList->unload();
+        }
+    }
+
+    // Read images
+    {
+        if (!MScore::noImages) {
+            std::vector<String> images = mscReader.imageFileNames();
+            for (const String& name : images) {
+                imageStore.add(name.toStdString(), mscReader.readImageFile(name));
             }
         }
     }
@@ -156,7 +156,7 @@ Ret MscLoader::loadMscz(MasterScore* masterScore, const MscReader& mscReader, rw
     }
 
     // Read excerpts
-    if (ret && masterScore->mscVersion() >= 400 && mscReader.isContainer()) {
+    if (ret && masterScore->mscVersion() >= 400) {
         std::vector<String> excerptFileNames = mscReader.excerptFileNames();
         for (const String& excerptFileName : excerptFileNames) {
             Score* partScore = masterScore->createScore();
@@ -186,7 +186,7 @@ Ret MscLoader::loadMscz(MasterScore* masterScore, const MscReader& mscReader, rw
                 break;
             }
 
-            ret = reader.val->readScoreFile(partScore, xml, &partReadInData);
+            ret = reader.val->readScore(partScore, xml, &partReadInData);
             if (!ret) {
                 break;
             }
@@ -221,13 +221,7 @@ Ret MscLoader::loadMscz(MasterScore* masterScore, const MscReader& mscReader, rw
         }
     }
 
-    // Read automation
-    {
-        if (masterScore->automation()) {
-            ByteArray ba = mscReader.readAutomationJsonFile();
-            masterScore->automation()->read(ba);
-        }
-    }
+    settingsCompat = std::move(inOut->settingsCompat);
 
     return ret;
 }
@@ -255,7 +249,7 @@ Ret MscLoader::readMasterScore(MasterScore* score, XmlReader& e, bool ignoreVers
             //! For version 4.0 (400), this does not need to be done,
             //! because starting from version 4.0 the entire style is stored in a file,
             //! respectively, the entire style will be loaded, which was when the score was created.
-            if (styleHook && score->mscVersion() < 400) {
+            if (styleHook && (score->mscVersion() < 400 || (MScore::testMode && MScore::useRead302InTestMode))) {
                 styleHook->setupDefaultStyle();
             }
 
@@ -265,7 +259,7 @@ Ret MscLoader::readMasterScore(MasterScore* score, XmlReader& e, bool ignoreVers
                 score->checkChordList();
             }
 
-            Ret ret = reader.val->readScoreFile(score, e, out);
+            Ret ret = reader.val->readScore(score, e, out);
 
             score->setExcerptsChanged(false);
 

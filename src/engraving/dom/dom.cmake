@@ -58,8 +58,6 @@ set(DOM_SRC
     ${CMAKE_CURRENT_LIST_DIR}/check.cpp
     ${CMAKE_CURRENT_LIST_DIR}/chord.cpp
     ${CMAKE_CURRENT_LIST_DIR}/chord.h
-    ${CMAKE_CURRENT_LIST_DIR}/chordbracket.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/chordbracket.h
     ${CMAKE_CURRENT_LIST_DIR}/chordline.cpp
     ${CMAKE_CURRENT_LIST_DIR}/chordline.h
     ${CMAKE_CURRENT_LIST_DIR}/chordlist.cpp
@@ -74,6 +72,8 @@ set(DOM_SRC
     ${CMAKE_CURRENT_LIST_DIR}/cleflist.h
     ${CMAKE_CURRENT_LIST_DIR}/capo.cpp
     ${CMAKE_CURRENT_LIST_DIR}/capo.h
+    ${CMAKE_CURRENT_LIST_DIR}/cmd.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/cmd.h
     ${CMAKE_CURRENT_LIST_DIR}/connector.cpp
     ${CMAKE_CURRENT_LIST_DIR}/connector.h
     ${CMAKE_CURRENT_LIST_DIR}/deadslapped.cpp
@@ -92,8 +92,9 @@ set(DOM_SRC
     ${CMAKE_CURRENT_LIST_DIR}/dynamichairpingroup.h
     ${CMAKE_CURRENT_LIST_DIR}/easeInOut.cpp
     ${CMAKE_CURRENT_LIST_DIR}/easeInOut.h
-    ${CMAKE_CURRENT_LIST_DIR}/editcapo.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/editcapo.h
+    ${CMAKE_CURRENT_LIST_DIR}/edit.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/editdata.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/editdata.h
     ${CMAKE_CURRENT_LIST_DIR}/elementgroup.cpp
     ${CMAKE_CURRENT_LIST_DIR}/elementgroup.h
     ${CMAKE_CURRENT_LIST_DIR}/elementmap.cpp
@@ -152,6 +153,7 @@ set(DOM_SRC
     ${CMAKE_CURRENT_LIST_DIR}/instrumentname.h
     ${CMAKE_CURRENT_LIST_DIR}/interval.cpp
     ${CMAKE_CURRENT_LIST_DIR}/interval.h
+    ${CMAKE_CURRENT_LIST_DIR}/joinMeasure.cpp
     ${CMAKE_CURRENT_LIST_DIR}/jump.cpp
     ${CMAKE_CURRENT_LIST_DIR}/jump.h
     ${CMAKE_CURRENT_LIST_DIR}/key.cpp
@@ -203,6 +205,8 @@ set(DOM_SRC
     ${CMAKE_CURRENT_LIST_DIR}/mmrestrange.h
     ${CMAKE_CURRENT_LIST_DIR}/mscore.cpp
     ${CMAKE_CURRENT_LIST_DIR}/mscore.h
+    ${CMAKE_CURRENT_LIST_DIR}/mscoreview.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/mscoreview.h
     ${CMAKE_CURRENT_LIST_DIR}/navigate.cpp
     ${CMAKE_CURRENT_LIST_DIR}/navigate.h
     ${CMAKE_CURRENT_LIST_DIR}/note.cpp
@@ -235,6 +239,8 @@ set(DOM_SRC
     ${CMAKE_CURRENT_LIST_DIR}/pedal.h
     ${CMAKE_CURRENT_LIST_DIR}/pickscrape.cpp
     ${CMAKE_CURRENT_LIST_DIR}/pickscrape.h
+    ${CMAKE_CURRENT_LIST_DIR}/pitch.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/pitch.h
     ${CMAKE_CURRENT_LIST_DIR}/pitchspelling.cpp
     ${CMAKE_CURRENT_LIST_DIR}/pitchspelling.h
     ${CMAKE_CURRENT_LIST_DIR}/playcounttext.cpp
@@ -262,6 +268,7 @@ set(DOM_SRC
     ${CMAKE_CURRENT_LIST_DIR}/scorefile.cpp
     ${CMAKE_CURRENT_LIST_DIR}/scoreorder.cpp
     ${CMAKE_CURRENT_LIST_DIR}/scoreorder.h
+    ${CMAKE_CURRENT_LIST_DIR}/scoretree.cpp
     ${CMAKE_CURRENT_LIST_DIR}/segment.cpp
     ${CMAKE_CURRENT_LIST_DIR}/segment.h
     ${CMAKE_CURRENT_LIST_DIR}/segmentlist.cpp
@@ -284,6 +291,7 @@ set(DOM_SRC
     ${CMAKE_CURRENT_LIST_DIR}/spanner.h
     ${CMAKE_CURRENT_LIST_DIR}/spannermap.cpp
     ${CMAKE_CURRENT_LIST_DIR}/spannermap.h
+    ${CMAKE_CURRENT_LIST_DIR}/splitMeasure.cpp
     ${CMAKE_CURRENT_LIST_DIR}/staff.cpp
     ${CMAKE_CURRENT_LIST_DIR}/staff.h
     ${CMAKE_CURRENT_LIST_DIR}/stafflines.cpp
@@ -338,6 +346,8 @@ set(DOM_SRC
     ${CMAKE_CURRENT_LIST_DIR}/text.h
     ${CMAKE_CURRENT_LIST_DIR}/textbase.cpp
     ${CMAKE_CURRENT_LIST_DIR}/textbase.h
+    ${CMAKE_CURRENT_LIST_DIR}/textedit.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/textedit.h
     ${CMAKE_CURRENT_LIST_DIR}/textline.cpp
     ${CMAKE_CURRENT_LIST_DIR}/textline.h
     ${CMAKE_CURRENT_LIST_DIR}/textlinebase.cpp
@@ -349,6 +359,7 @@ set(DOM_SRC
     ${CMAKE_CURRENT_LIST_DIR}/tiemap.h
     ${CMAKE_CURRENT_LIST_DIR}/timesig.cpp
     ${CMAKE_CURRENT_LIST_DIR}/timesig.h
+    ${CMAKE_CURRENT_LIST_DIR}/transpose.cpp
     ${CMAKE_CURRENT_LIST_DIR}/tremolotwochord.cpp
     ${CMAKE_CURRENT_LIST_DIR}/tremolotwochord.h
     ${CMAKE_CURRENT_LIST_DIR}/tremolosinglechord.cpp
@@ -362,6 +373,8 @@ set(DOM_SRC
     ${CMAKE_CURRENT_LIST_DIR}/tuplet.cpp
     ${CMAKE_CURRENT_LIST_DIR}/tuplet.h
     ${CMAKE_CURRENT_LIST_DIR}/tupletmap.h
+    ${CMAKE_CURRENT_LIST_DIR}/undo.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/undo.h
     ${CMAKE_CURRENT_LIST_DIR}/unrollrepeats.cpp
     ${CMAKE_CURRENT_LIST_DIR}/utils.cpp
     ${CMAKE_CURRENT_LIST_DIR}/utils.h

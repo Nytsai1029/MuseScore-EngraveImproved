@@ -24,9 +24,6 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-#include "engraving/infrastructure/mscreader.h"
-#include "engraving/infrastructure/mscwriter.h"
-
 #include "notation.h"
 
 using namespace mu;
@@ -71,8 +68,7 @@ static QString viewModeToString(ViewMode m)
     return "";
 }
 
-NotationViewState::NotationViewState(Notation* notation, const modularity::ContextPtr& ctx)
-    : muse::Contextable(ctx)
+NotationViewState::NotationViewState(Notation* notation)
 {
     notation->openChanged().onNotify(this, [this, notation]() {
         if (!notation->isOpen()) {
@@ -117,7 +113,7 @@ void NotationViewState::setMatrixInited(bool inited)
     m_isMatrixInited = inited;
 }
 
-const Transform& NotationViewState::matrix() const
+Transform NotationViewState::matrix() const
 {
     return m_matrix;
 }

@@ -96,13 +96,6 @@ Shape StaffLines::hitShape() const
     return Shape(hitBBox(), this);
 }
 
-bool StaffLines::collectForDrawing() const
-{
-    staff_idx_t idx = staffIdx();
-    return EngravingItem::collectForDrawing() && (measure()->visible(idx) || measure()->isCutawayClef(idx))
-           && score()->staff(idx)->show();
-}
-
 //---------------------------------------------------------
 //   y1
 //---------------------------------------------------------
@@ -114,5 +107,16 @@ double StaffLines::y1() const
             return 0.0;
       */
     return system->staff(staffIdx())->y() + ldata()->pos().y();
+}
+
+//---------------------------------------------------------
+//   scanElements
+//---------------------------------------------------------
+
+void StaffLines::scanElements(void* data, void (* func)(void*, EngravingItem*), bool all)
+{
+    if (all || (measure()->visible(staffIdx()) && score()->staff(staffIdx())->show())) {
+        func(data, this);
+    }
 }
 }

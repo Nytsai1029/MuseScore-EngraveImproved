@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_EXTENSIONS_EXTENSIONSPROVIDER_H
+#define MUSE_EXTENSIONS_EXTENSIONSPROVIDER_H
 
 #include "global/async/asyncable.h"
 
@@ -28,20 +28,20 @@
 #include "../iextensionsconfiguration.h"
 #include "../iextensionsprovider.h"
 #include "../iextensionsexecpointsregister.h"
-#include "interactive/iinteractive.h"
+#include "global/iinteractive.h"
 #include "io/ifilesystem.h"
 
 namespace muse::extensions {
-class ExtensionsProvider : public IExtensionsProvider, public Contextable, public async::Asyncable
+class ExtensionsProvider : public IExtensionsProvider, public Injectable, public async::Asyncable
 {
-    GlobalInject<IExtensionsConfiguration> configuration;
-    GlobalInject<io::IFileSystem> fileSystem;
-    ContextInject<IExtensionsExecPointsRegister> execPointsRegister = { this };
-    ContextInject<IInteractive> interactive = { this };
+    Inject<IExtensionsConfiguration> configuration = { this };
+    Inject<IExtensionsExecPointsRegister> execPointsRegister = { this };
+    Inject<IInteractive> interactive = { this };
+    Inject<io::IFileSystem> fileSystem  = { this };
 
 public:
     ExtensionsProvider(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void reloadExtensions() override;
 
@@ -72,3 +72,5 @@ private:
     async::Channel<Manifest> m_manifestChanged;
 };
 }
+
+#endif // MUSE_EXTENSIONS_EXTENSIONSPROVIDER_H

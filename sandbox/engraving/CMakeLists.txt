@@ -11,9 +11,8 @@ set(MU_ROOT ${CMAKE_CURRENT_LIST_DIR}/../..)
 set(PROJECT_ROOT_DIR ${MU_ROOT})
 
 set(CMAKE_MODULE_PATH
-    ${MU_ROOT}/buildscripts
-    ${MU_ROOT}/buildscripts/cmake
-    ${MU_ROOT}/src/framework/cmake
+    ${MU_ROOT}/build
+    ${MU_ROOT}/build/cmake
     ${CMAKE_MODULE_PATH}
 )
 

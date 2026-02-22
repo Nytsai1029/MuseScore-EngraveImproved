@@ -23,14 +23,10 @@ if (CMAKE_C_COMPILER_LAUNCHER OR CMAKE_CXX_COMPILER_LAUNCHER)
     return()
 endif()
 
-find_program(COMPILER_CACHE_PROGRAM NAMES ccache sccache buildcache)
+find_program(COMPILER_CACHE_PROGRAM ccache sccache buildcache)
 if (NOT COMPILER_CACHE_PROGRAM)
     message(STATUS "No compiler cache program found")
     return()
-endif()
-
-if (CC_IS_MSVC)
-    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT Embedded)
 endif()
 
 if (CMAKE_GENERATOR MATCHES "Make" OR CMAKE_GENERATOR MATCHES "Ninja")

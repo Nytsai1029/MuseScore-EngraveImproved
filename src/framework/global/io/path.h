@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -104,7 +104,6 @@ path_t filename(const path_t& path, bool includingExtension = true);
 path_t basename(const path_t& path);
 path_t completeBasename(const path_t& path);
 path_t absolutePath(const path_t& path);
-path_t absoluteFilePath(const path_t& path);
 //path_t dirname(const path_t& path);
 path_t dirpath(const path_t& path);
 path_t absoluteDirpath(const path_t& path);

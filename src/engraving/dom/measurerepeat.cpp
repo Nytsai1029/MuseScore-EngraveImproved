@@ -110,7 +110,7 @@ PointF MeasureRepeat::numberPosition(const RectF& numberBbox) const
     if (staffType() && staffType()->lines() == 1) {
         staffTop -= 2.0 * spatium();
     }
-    double y = std::min(staffTop, -symBbox(ldata()->symId).height() / 2) + absoluteFromSpatium(m_numberPos) - 0.5 * numberBbox.height();
+    double y = std::min(staffTop, -symBbox(ldata()->symId).height() / 2) + m_numberPos * spatium() - 0.5 * numberBbox.height();
 
     return PointF(x, y);
 }
@@ -163,7 +163,7 @@ bool MeasureRepeat::setProperty(Pid propertyId, const PropertyValue& v)
         setNumMeasures(v.toInt());
         break;
     case Pid::MEASURE_REPEAT_NUMBER_POS:
-        setNumberPos(v.value<Spatium>());
+        setNumberPos(v.toDouble());
         triggerLayout();
         break;
     default:
@@ -190,7 +190,7 @@ Fraction MeasureRepeat::ticks() const
 
 String MeasureRepeat::accessibleInfo() const
 {
-    return muse::mtrc("engraving", "%1; Duration: %Ln measure(s)", nullptr, numMeasures()).arg(EngravingItem::accessibleInfo());
+    return muse::mtrc("engraving", "%1; Duration: %n measure(s)", nullptr, numMeasures()).arg(EngravingItem::accessibleInfo());
 }
 
 //---------------------------------------------------------
@@ -199,7 +199,7 @@ String MeasureRepeat::accessibleInfo() const
 
 muse::TranslatableString MeasureRepeat::subtypeUserName() const
 {
-    return muse::TranslatableString("engraving", "%Ln measure(s)", nullptr, numMeasures());
+    return muse::TranslatableString("engraving", "%n measure(s)", nullptr, numMeasures());
 }
 
 //---------------------------------------------------------

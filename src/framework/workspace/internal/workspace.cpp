@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -21,7 +21,7 @@
  */
 #include "workspace.h"
 
-#include "multiwindows/resourcelockguard.h"
+#include "multiinstances/resourcelockguard.h"
 
 #include "workspacefile.h"
 #include "workspaceerrors.h"
@@ -32,11 +32,11 @@ using namespace muse;
 using namespace muse::workspace;
 
 Workspace::Workspace(const io::path_t& filePath, const modularity::ContextPtr& iocCtx)
-    : Contextable(iocCtx)
+    : Injectable(iocCtx)
 {
     m_file = std::make_shared<WorkspaceFile>(filePath);
 
-    multiwindowsProvider()->resourceChanged().onReceive(this, [this](const std::string& resourceName){
+    multiInstancesProvider()->resourceChanged().onReceive(this, [this](const std::string& resourceName){
         if (resourceName == fileResourceName()) {
             reload();
         }
@@ -158,7 +158,7 @@ io::path_t Workspace::filePath() const
 
 Ret Workspace::load()
 {
-    mi::ReadResourceLockGuard resource_guard(multiwindowsProvider.get(), fileResourceName());
+    mi::ReadResourceLockGuard resource_guard(multiInstancesProvider.get(), fileResourceName());
     return m_file->load();
 }
 
@@ -177,7 +177,7 @@ Ret Workspace::save()
 
 Ret Workspace::doSave()
 {
-    mi::WriteResourceLockGuard resource_guard(multiwindowsProvider.get(), fileResourceName());
+    mi::WriteResourceLockGuard resource_guard(multiInstancesProvider.get(), fileResourceName());
     m_file->setMeta("app_version", Val(application()->version().toStdString()));
     return m_file->save();
 }

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -29,7 +29,7 @@ class QmlTranslation : public QObject
 {
     Q_OBJECT
 public:
-    QmlTranslation(QObject* parent = nullptr);
+    QmlTranslation(QObject* parent);
 
     Q_INVOKABLE QString translate(const QString& context, const QString& text, const QString& disambiguation = QString(), int n = -1) const;
 };

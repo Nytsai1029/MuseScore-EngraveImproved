@@ -49,12 +49,12 @@ enum class P_TYPE : unsigned char {
     STRING,
 
     // Geometry
-    POINT,              // point units, value saved as absolute or spatium depending on EngravingItem->sizeIsSpatiumDependent()
+    POINT,              // point units, value saved as mm or spatium depending on EngravingItem->sizeIsSpatiumDependent()
     SIZE,
     DRAW_PATH,
     SCALE,
     SPATIUM,
-    ABSOLUTE,
+    MILLIMETRE,
     PAIR_REAL,
 
     // Draw
@@ -120,7 +120,6 @@ enum class P_TYPE : unsigned char {
 
     LH_TAPPING_SYMBOL,
     RH_TAPPING_SYMBOL,
-    VIBRATO_LINE_TYPE,
 
     VOICE_ASSIGNMENT,
     AUTO_ON_OFF,
@@ -128,7 +127,6 @@ enum class P_TYPE : unsigned char {
     AUTO_CUSTOM_HIDE,
 
     MEASURE_NUMBER_PLACEMENT,
-    CAPO_TRANSPOSE_MODE,
 
     // Other
     GROUPS,
@@ -184,6 +182,9 @@ public:
 
     PropertyValue(const Spatium& v)
         : m_type(P_TYPE::SPATIUM), m_data(make_data<Spatium>(v)) {}
+
+    PropertyValue(const Millimetre& v)
+        : m_type(P_TYPE::MILLIMETRE), m_data(make_data<Millimetre>(v)) {}
 
     // Draw
     PropertyValue(SymId v)
@@ -341,9 +342,6 @@ public:
     PropertyValue(const RHTappingSymbol& v)
         : m_type(P_TYPE::RH_TAPPING_SYMBOL), m_data(make_data<RHTappingSymbol>(v)) {}
 
-    PropertyValue(const VibratoType& v)
-        : m_type(P_TYPE::VIBRATO_LINE_TYPE), m_data(make_data<VibratoType>(v)) {}
-
     PropertyValue(const VoiceAssignment& v)
         : m_type(P_TYPE::VOICE_ASSIGNMENT), m_data(make_data<VoiceAssignment>(v)) {}
 
@@ -359,8 +357,6 @@ public:
     PropertyValue(const MeasureNumberPlacement& v)
         : m_type(P_TYPE::MEASURE_NUMBER_PLACEMENT), m_data(make_data<MeasureNumberPlacement>(v)) {}
 
-    PropertyValue(const CapoParams::TransposeMode& v)
-        : m_type(P_TYPE::CAPO_TRANSPOSE_MODE), m_data(make_data<CapoParams::TransposeMode>(v)) {}
     bool isValid() const;
 
     P_TYPE type() const;
@@ -429,10 +425,19 @@ public:
                 }
             }
 
+            //! HACK Temporary hack for real to Millimetre
+            if constexpr (std::is_same<T, Millimetre>::value) {
+                if (P_TYPE::REAL == m_type) {
+                    Arg<double>* mrv = get<double>();
+                    assert(mrv);
+                    return mrv ? Millimetre(mrv->v) : Millimetre();
+                }
+            }
+
             //! HACK Temporary hack for Spatium to real
             if constexpr (std::is_same<T, double>::value) {
-                if (P_TYPE::ABSOLUTE == m_type) {
-                    return value<double>();
+                if (P_TYPE::MILLIMETRE == m_type) {
+                    return value<Millimetre>().val();
                 }
             }
 

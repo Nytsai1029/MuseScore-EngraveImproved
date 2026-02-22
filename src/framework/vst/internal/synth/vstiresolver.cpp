@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -28,10 +28,9 @@ using namespace muse::vst;
 using namespace muse::audio;
 using namespace muse::audio::synth;
 
-ISynthesizerPtr VstiResolver::resolveSynth(const audio::TrackId trackId, const audio::AudioInputParams& params,
-                                           const audio::OutputSpec& outputSpec) const
+ISynthesizerPtr VstiResolver::resolveSynth(const muse::audio::TrackId trackId, const muse::audio::AudioInputParams& params) const
 {
-    return createSynth(trackId, params, outputSpec);
+    return createSynth(trackId, params);
 }
 
 bool VstiResolver::hasCompatibleResources(const muse::audio::PlaybackSetupData& /*setup*/) const
@@ -44,14 +43,14 @@ void VstiResolver::refresh()
     pluginModulesRepo()->refresh();
 }
 
-VstSynthPtr VstiResolver::createSynth(const TrackId trackId, const AudioInputParams& params, const OutputSpec& outputSpec) const
+VstSynthPtr VstiResolver::createSynth(const muse::audio::TrackId trackId, const muse::audio::AudioInputParams& params) const
 {
     if (!pluginModulesRepo()->exists(params.resourceMeta.id)) {
         return nullptr;
     }
 
     auto synth = std::make_shared<VstSynthesiser>(trackId, params, iocContext());
-    synth->init(outputSpec);
+    synth->init();
 
     return synth;
 }

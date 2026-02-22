@@ -19,26 +19,40 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#pragma once
+#ifndef MU_ENGRAVING_ISINGLERENDERER_H
+#define MU_ENGRAVING_ISINGLERENDERER_H
 
 #include "modularity/imoduleinterface.h"
 
 #include "draw/painter.h"
-#include "paintoptions.h"
 
 namespace mu::engraving {
 class EngravingItem;
 }
 
 namespace mu::engraving::rendering {
-class ISingleRenderer : MODULE_CONTEXT_INTERFACE
+class ISingleRenderer : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(ISingleRenderer)
 
 public:
     virtual ~ISingleRenderer() = default;
 
-    virtual void layoutItem(EngravingItem* item) = 0;
-    virtual void drawItem(const EngravingItem* item, muse::draw::Painter* p, const PaintOptions& opt) = 0;
+    void layoutItem(EngravingItem* item)
+    {
+        doLayoutItem(item);
+    }
+
+    void drawItem(const EngravingItem* item, muse::draw::Painter* p)
+    {
+        doDrawItem(item, p);
+    }
+
+protected:
+
+    virtual void doLayoutItem(EngravingItem* item) = 0;
+    virtual void doDrawItem(const EngravingItem* item, muse::draw::Painter* p) = 0;
 };
 }
+
+#endif // MU_ENGRAVING_ISINGLERENDERER_H

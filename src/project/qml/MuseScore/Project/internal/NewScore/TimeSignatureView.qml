@@ -19,11 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import QtQuick
+import QtQuick 2.9
 
-import Muse.Ui
-import Muse.UiComponents
-import MuseScore.Project
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import MuseScore.Project 1.0
 
 Item {
     id: root

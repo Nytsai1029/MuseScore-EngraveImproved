@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -149,7 +149,7 @@ double FontsEngine::descent(const Font& f) const
     return from_f26d6(rf->face->descent()) * rf->pixelScale();
 }
 
-bool FontsEngine::inFont(const Font& f, char32_t ucs4) const
+bool FontsEngine::inFontUcs4(const Font& f, char32_t ucs4) const
 {
     RequireFace* rf = fontFace(f);
     IF_ASSERT_FAILED(rf && rf->face) {
@@ -331,6 +331,30 @@ RectF FontsEngine::tightBoundingRect(const Font& f, const std::u32string& text) 
     return fromFBBox(rect, rf->pixelScale());
 }
 
+RectF FontsEngine::symBBox(const Font& f, char32_t ucs4) const
+{
+    RequireFace* rf = fontFace(f, true);
+    IF_ASSERT_FAILED(rf && rf->face) {
+        return RectF();
+    }
+
+    glyph_idx_t glyphIdx = rf->face->glyphIndex(ucs4);
+    FBBox bb = rf->face->glyphBbox(glyphIdx);
+    return fromFBBox(bb, rf->pixelScale());
+}
+
+double FontsEngine::symAdvance(const Font& f, char32_t ucs4) const
+{
+    RequireFace* rf = fontFace(f, true);
+    IF_ASSERT_FAILED(rf && rf->face) {
+        return 0.0;
+    }
+
+    glyph_idx_t glyphIdx = rf->face->glyphIndex(ucs4);
+    f26dot6_t advance = rf->face->glyphAdvance(glyphIdx);
+    return from_f26d6(advance) * rf->pixelScale();
+}
+
 #ifndef MUSE_MODULE_DRAW_USE_QTTEXTDRAW
 static void generateSdf(GlyphImage& out, glyph_idx_t glyphIdx, const IFontFace* face)
 {
@@ -475,6 +499,11 @@ IFontFace* FontsEngine::createFontFace(const io::path_t& path) const
     }
 
     IFontFace* origin = new FontFaceFT();
+    if (io::FileInfo::suffix(path) == u"ftx") {
+        //origin = new FontFaceXT();
+    } else {
+        origin = new FontFaceFT();
+    }
 
     return new FontFaceDU(origin);
 }

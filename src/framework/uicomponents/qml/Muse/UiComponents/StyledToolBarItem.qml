@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,11 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
-import QtQuick
-
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 FlatButton {
     id: root
@@ -36,7 +36,7 @@ FlatButton {
     width: Boolean(itemData) ? implicitWidth : 32
     height: Boolean(itemData) ? implicitHeight : 32
 
-    accentButton: Boolean(itemData) && (itemData.checked || menuLoader.isMenuOpened)
+    accentButton: !transparent && Boolean(itemData) && (itemData.checked || menuLoader.isMenuOpened)
 
     text: Boolean(itemData) && itemData.showTitle ? itemData.title : ""
 
@@ -50,7 +50,7 @@ FlatButton {
     toolTipShortcut: Boolean(itemData) ? itemData.shortcuts : ""
 
     orientation: Qt.Horizontal
-    transparent: !accentButton && Boolean(itemData) ? itemData.isTransparent : false
+    transparent: Boolean(itemData) ? itemData.isTransparent : false
 
     enabled: Boolean(itemData) ? itemData.enabled : false
 
@@ -113,7 +113,7 @@ FlatButton {
     }
 
     Canvas {
-        visible: root.isMenuSecondary
+        visible: isMenuSecondary
 
         property color fillColor: ui.theme.fontPrimaryColor
         onFillColorChanged: {

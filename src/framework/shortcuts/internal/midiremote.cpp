@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,14 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 #include "midiremote.h"
 
-#include "global/io/buffer.h"
-#include "global/serialization/xmlstreamreader.h"
-#include "global/serialization/xmlstreamwriter.h"
+#include "global/deprecated/xmlreader.h"
+#include "global/deprecated/xmlwriter.h"
 
-#include "multiwindows/resourcelockguard.h"
+#include "multiinstances/resourcelockguard.h"
 
 #include "log.h"
 
@@ -34,11 +32,11 @@ using namespace muse;
 using namespace muse::shortcuts;
 using namespace muse::midi;
 
-static constexpr std::string_view MIDIMAPPING_TAG("MidiMapping");
-static constexpr std::string_view EVENT_TAG("Event");
-static constexpr std::string_view MAPPING_ACTION_CODE_TAG("key");
-static constexpr std::string_view MAPPING_EVENT_TYPE_TAG("EventType");
-static constexpr std::string_view MAPPING_EVENT_VALUE_TAG("EventValue");
+constexpr std::string_view MIDIMAPPING_TAG("MidiMapping");
+constexpr std::string_view EVENT_TAG("Event");
+constexpr std::string_view MAPPING_ACTION_CODE_TAG("key");
+constexpr std::string_view MAPPING_EVENT_TYPE_TAG("EventType");
+constexpr std::string_view MAPPING_EVENT_VALUE_TAG("EventValue");
 
 static const std::string REALTIME_ADVANCE_ACTION_NAME("realtime-advance");
 
@@ -46,7 +44,7 @@ static const std::string MIDI_MAPPING_RESOURCE_NAME("MIDI_MAPPING");
 
 void MidiRemote::init()
 {
-    multiwindowsProvider()->resourceChanged().onReceive(this, [this](const std::string& resourceName) {
+    multiInstancesProvider()->resourceChanged().onReceive(this, [this](const std::string& resourceName) {
         if (resourceName == MIDI_MAPPING_RESOURCE_NAME) {
             readMidiMappings();
         }
@@ -78,10 +76,8 @@ Ret MidiRemote::setMidiMappings(const MidiMappingList& midiMappings)
 
 void MidiRemote::resetMidiMappings()
 {
-    {
-        muse::mi::WriteResourceLockGuard resource_guard(multiwindowsProvider(), MIDI_MAPPING_RESOURCE_NAME);
-        fileSystem()->remove(configuration()->midiMappingUserAppDataPath());
-    }
+    muse::mi::WriteResourceLockGuard resource_guard(multiInstancesProvider(), MIDI_MAPPING_RESOURCE_NAME);
+    fileSystem()->remove(configuration()->midiMappingUserAppDataPath());
 
     m_midiMappings = {};
     m_midiMappingsChanged.notify();
@@ -128,26 +124,18 @@ Ret MidiRemote::process(const Event& ev)
 
 void MidiRemote::readMidiMappings()
 {
-    RetVal<ByteArray> mappingsData;
-    {
-        muse::mi::ReadResourceLockGuard resource_guard(multiwindowsProvider(), MIDI_MAPPING_RESOURCE_NAME);
-        mappingsData = fileSystem()->readFile(configuration()->midiMappingUserAppDataPath());
-    }
+    muse::mi::ReadResourceLockGuard resource_guard(multiInstancesProvider(), MIDI_MAPPING_RESOURCE_NAME);
 
-    if (!mappingsData.ret) {
-        LOGD() << "failed to open midi mappings file: " << mappingsData.ret.toString();
-        return;
-    }
-
-    XmlStreamReader reader(mappingsData.val);
+    io::path_t midiMappingsPath = configuration()->midiMappingUserAppDataPath();
+    deprecated::XmlReader reader(midiMappingsPath);
 
     reader.readNextStartElement();
-    if (reader.name() != MIDIMAPPING_TAG) {
+    if (reader.tagName() != MIDIMAPPING_TAG) {
         return;
     }
 
     while (reader.readNextStartElement()) {
-        if (reader.name() != EVENT_TAG) {
+        if (reader.tagName() != EVENT_TAG) {
             reader.skipCurrentElement();
             continue;
         }
@@ -158,20 +146,20 @@ void MidiRemote::readMidiMappings()
         }
     }
 
-    if (reader.isError()) {
+    if (!reader.success()) {
         LOGE() << "failed parse xml, error: " << reader.error();
     }
 }
 
-MidiControlsMapping MidiRemote::readMidiMapping(XmlStreamReader& reader) const
+MidiControlsMapping MidiRemote::readMidiMapping(deprecated::XmlReader& reader) const
 {
     MidiControlsMapping midiMapping;
 
     while (reader.readNextStartElement()) {
-        const std::string tag(reader.name());
+        std::string tag(reader.tagName());
 
         if (tag == MAPPING_ACTION_CODE_TAG) {
-            midiMapping.action = reader.readAsciiText();
+            midiMapping.action = reader.readString();
         } else if (tag == MAPPING_EVENT_TYPE_TAG) {
             midiMapping.event.type = static_cast<RemoteEventType>(reader.readInt());
         } else if (tag == MAPPING_EVENT_VALUE_TAG) {
@@ -188,44 +176,31 @@ bool MidiRemote::writeMidiMappings(const MidiMappingList& midiMappings) const
 {
     TRACEFUNC;
 
-    ByteArray data;
-    io::Buffer buf(&data);
-    if (!buf.open(io::IODevice::WriteOnly)) {
-        LOGE() << buf.errorString();
-        return false;
-    }
+    muse::mi::WriteResourceLockGuard resource_guard(multiInstancesProvider(), MIDI_MAPPING_RESOURCE_NAME);
 
-    XmlStreamWriter writer(&buf);
-    writer.startDocument();
-    writer.startElement(MIDIMAPPING_TAG);
+    io::path_t midiMappingsPath = configuration()->midiMappingUserAppDataPath();
+    deprecated::XmlWriter writer(midiMappingsPath);
+
+    writer.writeStartDocument();
+    writer.writeStartElement(MIDIMAPPING_TAG);
 
     for (const MidiControlsMapping& midiMapping : midiMappings) {
         writeMidiMapping(writer, midiMapping);
     }
 
-    writer.endElement();
-    writer.flush();
+    writer.writeEndElement();
+    writer.writeEndDocument();
 
-    Ret ret;
-    {
-        muse::mi::WriteResourceLockGuard resource_guard(multiwindowsProvider(), MIDI_MAPPING_RESOURCE_NAME);
-        ret = fileSystem()->writeFile(configuration()->midiMappingUserAppDataPath(), data);
-    }
-
-    if (!ret) {
-        LOGE() << ret.toString();
-    }
-
-    return ret;
+    return writer.success();
 }
 
-void MidiRemote::writeMidiMapping(XmlStreamWriter& writer, const MidiControlsMapping& midiMapping) const
+void MidiRemote::writeMidiMapping(deprecated::XmlWriter& writer, const MidiControlsMapping& midiMapping) const
 {
-    writer.startElement(EVENT_TAG);
-    writer.element(MAPPING_ACTION_CODE_TAG, midiMapping.action);
-    writer.element(MAPPING_EVENT_TYPE_TAG, midiMapping.event.type);
-    writer.element(MAPPING_EVENT_VALUE_TAG, midiMapping.event.value);
-    writer.endElement();
+    writer.writeStartElement(EVENT_TAG);
+    writer.writeTextElement(MAPPING_ACTION_CODE_TAG, midiMapping.action);
+    writer.writeTextElement(MAPPING_EVENT_TYPE_TAG, std::to_string(midiMapping.event.type));
+    writer.writeTextElement(MAPPING_EVENT_VALUE_TAG, std::to_string(midiMapping.event.value));
+    writer.writeEndElement();
 }
 
 bool MidiRemote::needIgnoreEvent(const Event& event) const

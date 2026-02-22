@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -22,27 +22,72 @@
 
 #include "uiengine.h"
 
+#include <QApplication>
 #include <QQmlApplicationEngine>
+#include <QStringList>
 #include <QDir>
 #include <QQmlContext>
 #include <QEventLoop>
-#include <QFontDatabase>
 #include <QTimer>
 
 #include "global/types/color.h"
 #include "graphicsapiprovider.h"
 
+#include "log.h"
+
 using namespace muse::ui;
 
+namespace muse::ui {
+class QmlApiEngine : public muse::api::IApiEngine
+{
+public:
+    QmlApiEngine(QQmlEngine* e, const modularity::ContextPtr& iocContext)
+        : m_engine(e), m_iocContext(iocContext) {}
+
+    const modularity::ContextPtr& iocContext() const override
+    {
+        return m_iocContext;
+    }
+
+    QJSValue newQObject(QObject* o) override
+    {
+        if (!o->parent()) {
+            o->setParent(m_engine);
+        }
+        return m_engine->newQObject(o);
+    }
+
+    QJSValue newObject() override
+    {
+        return m_engine->newObject();
+    }
+
+    QJSValue newArray(size_t length = 0) override
+    {
+        return m_engine->newArray(uint(length));
+    }
+
+private:
+    QQmlEngine* m_engine = nullptr;
+    const modularity::ContextPtr& m_iocContext;
+};
+}
+
 UiEngine::UiEngine(const modularity::ContextPtr& iocCtx)
-    : Contextable(iocCtx)
+    : Injectable(iocCtx)
 {
     m_engine = new QQmlApplicationEngine(this);
-    m_apiEngine = new muse::api::JsApiEngine(m_engine, iocContext());
+    m_apiEngine = new QmlApiEngine(m_engine, iocContext());
     m_translation = new QmlTranslation(this);
+    m_interactiveProvider = std::make_shared<InteractiveProvider>(iocContext());
     m_api = new QmlApi(this, iocContext());
     m_tooltip = new QmlToolTip(this, iocContext());
     m_dataFormatter = new QmlDataFormatter(this);
+
+    //! NOTE At the moment, UiTheme is also QProxyStyle
+    //! Inside the theme, QApplication::setStyle(this) is calling and the QStyleSheetStyle becomes as parent.
+    //! So, the UiTheme will be deleted when will deleted the application (as a child of QStyleSheetStyle).
+    m_theme = new api::ThemeApi(m_apiEngine);
 }
 
 UiEngine::~UiEngine()
@@ -52,19 +97,18 @@ UiEngine::~UiEngine()
 
 void UiEngine::init()
 {
+    m_theme->init();
+    m_tooltip->init();
     m_engine->rootContext()->setContextProperty("ui", this);
     m_engine->rootContext()->setContextProperty("api", m_api);
 
     QmlIoCContext* qmlIoc = new QmlIoCContext(this);
     qmlIoc->ctx = iocContext();
-    m_engine->rootContext()->setContextProperty("ioc_context", QVariant::fromValue(qmlIoc));
+    m_engine->setProperty("ioc_context", QVariant::fromValue(qmlIoc));
 
     QJSValue translator = m_engine->newQObject(m_translation);
     QJSValue translateFn = translator.property("translate");
     m_engine->globalObject().setProperty("qsTrc", translateFn);
-
-    m_networkManagerFactory = new QmlNetworkAccessManagerFactory();
-    m_engine->setNetworkAccessManagerFactory(m_networkManagerFactory);
 
 #ifdef Q_OS_WIN
     QDir dir(QCoreApplication::applicationDirPath() + QString("/../qml"));
@@ -151,11 +195,6 @@ QmlApi* UiEngine::api() const
     return m_api;
 }
 
-void UiEngine::setTheme(api::ThemeApi* theme)
-{
-    m_theme = theme;
-}
-
 muse::api::ThemeApi* UiEngine::theme() const
 {
     return m_theme;
@@ -164,6 +203,16 @@ muse::api::ThemeApi* UiEngine::theme() const
 QmlToolTip* UiEngine::tooltip() const
 {
     return m_tooltip;
+}
+
+InteractiveProvider* UiEngine::interactiveProvider_property() const
+{
+    return m_interactiveProvider.get();
+}
+
+std::shared_ptr<InteractiveProvider> UiEngine::interactiveProvider() const
+{
+    return m_interactiveProvider;
 }
 
 Qt::KeyboardModifiers UiEngine::keyboardModifiers() const
@@ -191,17 +240,6 @@ QColor UiEngine::colorWithAlphaF(const QColor& src, float alpha) const
     QColor c = src;
     c.setAlphaF(alpha);
     return c;
-}
-
-QStringList UiEngine::allTextFonts() const
-{
-    QStringList allFonts = QFontDatabase::families();
-    for (const QString& nonTextFont : configuration()->nonTextFonts()) {
-        if (!nonTextFont.endsWith(" Text")) {
-            allFonts.removeAll(nonTextFont);
-        }
-    }
-    return allFonts;
 }
 
 QQmlApplicationEngine* UiEngine::qmlAppEngine() const

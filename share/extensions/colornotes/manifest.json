@@ -8,7 +8,5 @@
     "version":  "3.5",
     "apiversion": 1,
 
-    "actions": [
-        { "path": "main.js" }
-    ]
+    "path": "main.js"
 }

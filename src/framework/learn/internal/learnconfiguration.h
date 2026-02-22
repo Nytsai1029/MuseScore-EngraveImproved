@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -30,13 +30,13 @@
 #include "ilearnconfiguration.h"
 
 namespace muse::learn {
-class LearnConfiguration : public ILearnConfiguration, public Contextable
+class LearnConfiguration : public ILearnConfiguration, public Injectable
 {
-    GlobalInject<IGlobalConfiguration> globalConfiguration;
+    Inject<IGlobalConfiguration> globalConfiguration = { this };
 
 public:
     LearnConfiguration(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void init();
 

@@ -4,7 +4,7 @@
 # MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2021 MuseScore Limited and others
+# Copyright (C) 2021 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -27,14 +27,12 @@ set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/mocks/mainwindowmock.h
 
     ${CMAKE_CURRENT_LIST_DIR}/navigationcontroller_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/qmltooltip_tests.cpp
     )
 
 set(MODULE_TEST_LINK
     muse_actions
     muse_ui
-    # Linking a non-qml module (or its tests) to its qml counterpart should 
-    # generally be avoided, but for the ui module we have to make an exception.
-    muse_ui_qml 
     Qt::Quick
     )
 

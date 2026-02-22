@@ -124,8 +124,6 @@ public:
     TappingText(const TappingText& t);
     TappingText* clone() const override { return new TappingText(*this); }
 
-    Color curColor(const rendering::PaintOptions& opt) const override;
-
-    bool positionRelativeToNoteheadRest() const override { return true; }
+    Color curColor() const override;
 };
 } // namespace mu::engraving

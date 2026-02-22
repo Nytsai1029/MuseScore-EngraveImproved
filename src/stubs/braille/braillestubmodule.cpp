@@ -21,19 +21,37 @@
  */
 #include "braillestubmodule.h"
 
+#include <QQmlEngine>
+
 #include "modularity/ioc.h"
+#include "ui/iuiengine.h"
 
 #include "brailleconfigurationstub.h"
 
 using namespace muse;
 using namespace mu::braille;
 
+static void braille_init_qrc()
+{
+    Q_INIT_RESOURCE(braille);
+}
+
 std::string BrailleModule::moduleName() const
 {
     return "braille";
 }
 
+void BrailleModule::registerResources()
+{
+    braille_init_qrc();
+}
+
 void BrailleModule::registerExports()
 {
-    globalIoc()->registerExport<IBrailleConfiguration>(moduleName(), new BrailleConfigurationStub());
+    ioc()->registerExport<IBrailleConfiguration>(moduleName(), new BrailleConfigurationStub());
+}
+
+void BrailleModule::registerUiTypes()
+{
+    ioc()->resolve<muse::ui::IUiEngine>(moduleName())->addSourceImportPath(braille_QML_IMPORT);
 }

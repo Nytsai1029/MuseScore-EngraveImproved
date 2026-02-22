@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
@@ -14,7 +14,6 @@
       <pageOddBottomMargin>0.590551</pageOddBottomMargin>
       <romanNumeralFontFace>Edwin</romanNumeralFontFace>
       <nashvilleNumberFontSize>10</nashvilleNumberFontSize>
-      <hideInstrumentNameIfOneInstrument>0</hideInstrumentNameIfOneInstrument>
       <tupletFontSize>10</tupletFontSize>
       <fingeringFontSize>10</fingeringFontSize>
       <lhGuitarFingeringFontSize>10</lhGuitarFingeringFontSize>
@@ -118,7 +117,7 @@ the video game: a tone poem</metaTag>
       </Part>
     <Staff id="1">
       <VBox>
-        <height>10.636</height>
+        <height>10.641</height>
         <eid>D_D</eid>
         <Text>
           <eid>E_E</eid>
@@ -133,7 +132,8 @@ the video game: a tone poem</metaTag>
         <Text>
           <eid>G_G</eid>
           <style>subtitle</style>
-          <text>from MUSESCORE: the musical: the graphic novel:<br/>the video game: a tone poem</text>
+          <text>from MUSESCORE: the musical: the graphic novel:
+the video game: a tone poem</text>
           </Text>
         </VBox>
       <Measure>
@@ -152,7 +152,8 @@ the video game: a tone poem</metaTag>
             </TimeSig>
           <StaffText>
             <eid>K_K</eid>
-            <text>Lyrics to be sung by candlelight<br/>        (and this not to be inferred)</text>
+            <text>Lyrics to be sung by candlelight
+        (and this not to be inferred)</text>
             </StaffText>
           <Beam>
             <eid>L_L</eid>

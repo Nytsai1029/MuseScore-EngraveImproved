@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -24,16 +24,8 @@
 #include "../uiaction.h"
 #include "shortcuts/shortcutcontext.h"
 
-#include "muse_framework_config.h"
-
 using namespace muse::ui;
 using namespace muse::actions;
-
-#ifdef MUSE_MODULE_UI_NAVIGATION_EXCLUDEPROJECT
-static const std::string NAVIGATION_SHORTCUTS_CTX = muse::shortcuts::CTX_NOT_PROJECT_FOCUSED;
-#else
-static const std::string NAVIGATION_SHORTCUTS_CTX = muse::shortcuts::CTX_ANY;
-#endif
 
 const UiActionList NavigationUiActions::m_actions = {
     UiAction("nav-dev-show-controls",
@@ -66,43 +58,43 @@ const UiActionList NavigationUiActions::m_actions = {
              ),
     UiAction("nav-right",
              ui::UiCtxAny,
-             NAVIGATION_SHORTCUTS_CTX
+             muse::shortcuts::CTX_NOT_PROJECT_FOCUSED
              ),
     UiAction("nav-left",
              ui::UiCtxAny,
-             NAVIGATION_SHORTCUTS_CTX
+             muse::shortcuts::CTX_NOT_PROJECT_FOCUSED
              ),
     UiAction("nav-up",
              ui::UiCtxAny,
-             NAVIGATION_SHORTCUTS_CTX
+             muse::shortcuts::CTX_NOT_PROJECT_FOCUSED
              ),
     UiAction("nav-down",
              ui::UiCtxAny,
-             NAVIGATION_SHORTCUTS_CTX
+             muse::shortcuts::CTX_NOT_PROJECT_FOCUSED
              ),
     UiAction("nav-escape",
              ui::UiCtxAny,
-             muse::shortcuts::CTX_DISABLED
+             muse::shortcuts::CTX_NOT_PROJECT_FOCUSED
              ),
     UiAction("nav-trigger-control",
              ui::UiCtxAny,
-             NAVIGATION_SHORTCUTS_CTX
+             muse::shortcuts::CTX_NOT_PROJECT_FOCUSED
              ),
     UiAction("nav-first-control",
              ui::UiCtxAny,
-             NAVIGATION_SHORTCUTS_CTX
+             muse::shortcuts::CTX_NOT_PROJECT_FOCUSED
              ),
     UiAction("nav-last-control",
              ui::UiCtxAny,
-             NAVIGATION_SHORTCUTS_CTX
+             muse::shortcuts::CTX_NOT_PROJECT_FOCUSED
              ),
     UiAction("nav-nextrow-control",
              ui::UiCtxAny,
-             NAVIGATION_SHORTCUTS_CTX
+             muse::shortcuts::CTX_NOT_PROJECT_FOCUSED
              ),
     UiAction("nav-prevrow-control",
              ui::UiCtxAny,
-             NAVIGATION_SHORTCUTS_CTX
+             muse::shortcuts::CTX_NOT_PROJECT_FOCUSED
              )
 };
 

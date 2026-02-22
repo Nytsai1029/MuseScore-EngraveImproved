@@ -36,7 +36,7 @@
 #include "engraving/rw/rwregister.h"
 #include "engraving/rw/compat/tremolocompat.h"
 
-#include "widgets/palettewidget.h"
+#include "view/widgets/palettewidget.h"
 
 #include "log.h"
 #include "translation.h"
@@ -64,15 +64,14 @@ static bool needsStaff(ElementPtr e)
     }
 }
 
-PaletteCell::PaletteCell(const muse::modularity::ContextPtr& iocCtx, QObject* parent)
-    : QObject(parent), muse::Contextable(iocCtx)
+PaletteCell::PaletteCell(QObject* parent)
+    : QObject(parent)
 {
     id = makeId();
 }
 
-PaletteCell::PaletteCell(const muse::modularity::ContextPtr& iocCtx, ElementPtr e, const QString& _name, qreal _mag, const QPointF& _offset,
-                         const QString& _tag, QObject* parent)
-    : QObject(parent), muse::Contextable(iocCtx), element(e), name(_name), mag(_mag), xoffset(_offset.x()), yoffset(_offset.y()), tag(_tag)
+PaletteCell::PaletteCell(ElementPtr e, const QString& _name, qreal _mag, const QPointF& _offset, const QString& _tag, QObject* parent)
+    : QObject(parent), element(e), name(_name), mag(_mag), xoffset(_offset.x()), yoffset(_offset.y()), tag(_tag)
 {
     id = makeId();
     drawStaff = needsStaff(element);
@@ -102,7 +101,6 @@ const char* PaletteCell::translationContext() const
     case ElementType::ACTION_ICON:
         return "action";
     case ElementType::ARPEGGIO:
-    case ElementType::CHORD_BRACKET:
     case ElementType::CHORDLINE:
     case ElementType::GLISSANDO:
     case ElementType::HARMONY:
@@ -117,6 +115,9 @@ const char* PaletteCell::translationContext() const
     case ElementType::DYNAMIC:
         return "engraving/dynamictype";
     case ElementType::HAIRPIN:
+        if (name == u"Dynamic + hairpin") {
+            return "palette";
+        }
         return "engraving/hairpintype";
     case ElementType::LAYOUT_BREAK:
         return "engraving/layoutbreaktype";
@@ -222,7 +223,7 @@ bool PaletteCell::read(XmlReader& e, bool pasteMode)
         } else if (s == "Tremolo") {
             compat::TremoloCompat tc;
             tc.parent = gpaletteScore->dummy()->chord();
-            rw::RWRegister::reader(gpaletteScore->mscVersion())->readTremoloCompat(&tc, e);
+            rw::RWRegister::reader()->readTremoloCompat(&tc, e);
             if (tc.single) {
                 element.reset(tc.single);
             } else if (tc.two) {
@@ -239,7 +240,7 @@ bool PaletteCell::read(XmlReader& e, bool pasteMode)
             if (!element) {
                 e.unknown();
             } else {
-                rw::RWRegister::reader(gpaletteScore->mscVersion())->readItem(element.get(), e);
+                rw::RWRegister::reader()->readItem(element.get(), e);
             }
         }
     }
@@ -250,7 +251,7 @@ bool PaletteCell::read(XmlReader& e, bool pasteMode)
         PaletteCompat::migrateOldPaletteCellIfNeeded(this, gpaletteScore);
         element->styleChanged();
 
-        if (element->isActionIcon()) {
+        if (element->type() == ElementType::ACTION_ICON) {
             ActionIcon* icon = toActionIcon(element.get());
             const muse::ui::UiAction& action = actionsRegister()->action(icon->actionCode());
             if (action.isValid()) {
@@ -309,19 +310,19 @@ void PaletteCell::write(XmlWriter& xml, bool pasteMode) const
     }
 
     if (untranslatedElement) {
-        rw::RWRegister::writer()->writeItem(untranslatedElement.get(), xml);
+        rw::RWRegister::writer(untranslatedElement->iocContext())->writeItem(untranslatedElement.get(), xml);
     } else {
-        rw::RWRegister::writer()->writeItem(element.get(), xml);
+        rw::RWRegister::writer(element->iocContext())->writeItem(element.get(), xml);
     }
     xml.endElement();
 }
 
-PaletteCellPtr PaletteCell::fromMimeData(const QByteArray& data, const muse::modularity::ContextPtr& iocCtx)
+PaletteCellPtr PaletteCell::fromMimeData(const QByteArray& data)
 {
-    return ::fromMimeData<PaletteCell>(data, "Cell", iocCtx);
+    return ::fromMimeData<PaletteCell>(data, "Cell");
 }
 
-PaletteCellPtr PaletteCell::fromElementMimeData(const QByteArray& data, const muse::modularity::ContextPtr& iocCtx)
+PaletteCellPtr PaletteCell::fromElementMimeData(const QByteArray& data)
 {
     PointF dragOffset;
     Fraction duration(1, 4);
@@ -336,17 +337,16 @@ PaletteCellPtr PaletteCell::fromElementMimeData(const QByteArray& data, const mu
     }
 
     if (element->isActionIcon()) {
-        muse::Inject<muse::ui::IUiActionsRegister> aregister = { iocCtx };
         ActionIcon* icon = toActionIcon(element.get());
-        const muse::ui::UiAction& action = aregister()->action(icon->actionCode());
+        const muse::ui::UiAction& action = actionsRegister()->action(icon->actionCode());
         if (action.isValid()) {
             icon->setAction(icon->actionCode(), static_cast<char16_t>(action.iconCode));
         }
     }
 
-    const String name = (element->isFretDiagram()) ? toFretDiagram(element.get())->harmonyPlainText() : element->translatedTypeUserName();
+    const String name = (element->isFretDiagram()) ? toFretDiagram(element.get())->harmonyText() : element->translatedTypeUserName();
 
-    return std::make_shared<PaletteCell>(iocCtx, element, name);
+    return std::make_shared<PaletteCell>(element, name);
 }
 
 QByteArray PaletteCell::toMimeData() const

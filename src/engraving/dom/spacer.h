@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_SPACER_H
+#define MU_ENGRAVING_SPACER_H
 
 #include "engravingitem.h"
 #include "draw/types/painterpath.h"
@@ -58,8 +59,8 @@ public:
     TranslatableString subtypeUserName() const override;
 
     bool isEditable() const override { return true; }
-    void startDragGrip(EditData&) override;
-    void dragGrip(EditData&) override;
+    void startEditDrag(EditData&) override;
+    void editDrag(EditData&) override;
 
     void setGap(Spatium sp);
     Spatium gap() const { return m_gap; }
@@ -90,4 +91,5 @@ private:
     SpacerType m_spacerType = SpacerType::UP;
     Spatium m_gap;
 };
-}
+} // namespace mu::engraving
+#endif

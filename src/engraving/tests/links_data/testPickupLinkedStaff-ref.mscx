@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
-    <eid>gY8R+JIYuhL_buEc7F+kvMG</eid>
+    <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <spatium>1.75</spatium>
+      <spatium>1.74978</spatium>
       </Style>
     <showInvisible>1</showInvisible>
     <showUnprintable>1</showUnprintable>
     <showFrames>1</showFrames>
     <showMargins>0</showMargins>
-    <open>1</open>
     <metaTag name="arranger"></metaTag>
     <metaTag name="composer">Composer / arranger</metaTag>
     <metaTag name="copyright"></metaTag>
@@ -72,15 +71,15 @@
       </Order>
     <Part id="1">
       <Staff>
-        <eid>aWS2zjx+axP_aWS2zjx+axP</eid>
+        <eid>C_C</eid>
         <StaffType group="pitched">
           <name>stdNormal</name>
           </StaffType>
         <defaultClef>G8vb</defaultClef>
         </Staff>
       <Staff>
-        <eid>bWS2zjx+axP_bWS2zjx+axP</eid>
-        <linkedTo>aWS2zjx+axP_aWS2zjx+axP</linkedTo>
+        <eid>D_D</eid>
+        <linkedTo>C_C</linkedTo>
         <StaffType group="pitched">
           <name>stdNormal</name>
           </StaffType>
@@ -123,45 +122,46 @@
     <Staff id="1">
       <VBox>
         <height>10</height>
-        <eid>YRewe+1wtBJ_B/s5bHeD0yG</eid>
+        <sizeIsSpatiumDependent>1</sizeIsSpatiumDependent>
+        <eid>E_E</eid>
         <Text>
-          <eid>mtumnv/Rk/J_MQ5AaeMX/QE</eid>
+          <eid>F_F</eid>
           <style>title</style>
           <text>Untitled score</text>
           </Text>
         <Text>
-          <eid>0Ki/39rH30G_a3j9vhraDbM</eid>
+          <eid>G_G</eid>
           <style>subtitle</style>
           <text>Subtitle</text>
           </Text>
         <Text>
-          <eid>DCv1Hr68jl_lU3VTe3ZRdM</eid>
+          <eid>H_H</eid>
           <style>composer</style>
           <text>Composer / arranger</text>
           </Text>
         </VBox>
       <Measure len="7/16">
-        <eid>Ggj1CbyB6DC_i4qW5TIBQXF</eid>
+        <eid>I_I</eid>
         <voice>
           <KeySig>
-            <eid>6NTQCl7CkfI_ZWS2zjx+axP</eid>
+            <eid>J_J</eid>
             <concertKey>0</concertKey>
             </KeySig>
           <TimeSig>
-            <eid>KU3nBgIs0h_d5Xl/tJ2HfF</eid>
+            <eid>K_K</eid>
             <sigN>4</sigN>
             <sigD>4</sigD>
             </TimeSig>
           <Rest>
-            <eid>iCr/8Pt0YE_swjjY8sRZaF</eid>
+            <eid>L_L</eid>
             <durationType>eighth</durationType>
             </Rest>
           <Rest>
-            <eid>Vc6rwaUeGHP_SNYobkeQygG</eid>
+            <eid>M_M</eid>
             <durationType>16th</durationType>
             </Rest>
           <Rest>
-            <eid>gkJXQxtZNIF_agCRGi8Q9gK</eid>
+            <eid>N_N</eid>
             <durationType>quarter</durationType>
             </Rest>
           </voice>
@@ -171,28 +171,28 @@
       <Measure len="7/16">
         <voice>
           <KeySig>
-            <eid>cWS2zjx+axP_cWS2zjx+axP</eid>
-            <linkedTo>6NTQCl7CkfI_ZWS2zjx+axP</linkedTo>
+            <eid>O_O</eid>
+            <linkedTo>J_J</linkedTo>
             <concertKey>0</concertKey>
             </KeySig>
           <TimeSig>
-            <eid>dWS2zjx+axP_dWS2zjx+axP</eid>
+            <eid>P_P</eid>
             <sigN>4</sigN>
             <sigD>4</sigD>
             </TimeSig>
           <Rest>
-            <eid>eWS2zjx+axP_eWS2zjx+axP</eid>
-            <linkedTo>iCr/8Pt0YE_swjjY8sRZaF</linkedTo>
+            <eid>Q_Q</eid>
+            <linkedTo>L_L</linkedTo>
             <durationType>eighth</durationType>
             </Rest>
           <Rest>
-            <eid>fWS2zjx+axP_fWS2zjx+axP</eid>
-            <linkedTo>Vc6rwaUeGHP_SNYobkeQygG</linkedTo>
+            <eid>R_R</eid>
+            <linkedTo>M_M</linkedTo>
             <durationType>16th</durationType>
             </Rest>
           <Rest>
-            <eid>gWS2zjx+axP_gWS2zjx+axP</eid>
-            <linkedTo>gkJXQxtZNIF_agCRGi8Q9gK</linkedTo>
+            <eid>S_S</eid>
+            <linkedTo>N_N</linkedTo>
             <durationType>quarter</durationType>
             </Rest>
           </voice>

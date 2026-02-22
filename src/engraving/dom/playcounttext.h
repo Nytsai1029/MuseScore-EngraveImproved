@@ -51,8 +51,6 @@ public:
     bool setProperty(Pid propertyId, const PropertyValue&) override;
     PropertyValue propertyDefault(Pid propertyId) const override;
 
-    bool positionRelativeToNoteheadRest() const override { return false; }
-
 private:
     friend class Factory;
     PlayCountText(Segment* parent, TextStyleType tid = TextStyleType::REPEAT_PLAY_COUNT);

@@ -83,8 +83,6 @@ void CommandLineParser::init()
 
     m_parser.addOption(QCommandLineOption("session-type", "Startup with given session type", "type")); // see StartupScenario::sessionTypeTromString
 
-    m_parser.addOption(QCommandLineOption("unroll-repeats", "Unroll repeats"));
-
     // Converter mode
     m_parser.addOption(QCommandLineOption({ "r", "image-resolution" }, "Set output resolution for image export", "DPI"));
     m_parser.addOption(QCommandLineOption({ "o", "export-to" }, "Export to 'file'. Format depends on file's extension", "file"));
@@ -109,7 +107,8 @@ void CommandLineParser::init()
                                           "Transpose the given score and export the data to a single JSON file, print it to stdout",
                                           "options"));
     m_parser.addOption(QCommandLineOption("score-elements",
-                                          "Scan the given score and export elements to a single JSON file, print it to stdout"));
+                                          "Scan the given score and export elements to a single JSON file, print it to stdout",
+                                          "options"));
     m_parser.addOption(QCommandLineOption("source-update", "Update the source in the given score"));
 
     m_parser.addOption(QCommandLineOption({ "S", "style" }, "Load style file", "style"));
@@ -130,10 +129,6 @@ void CommandLineParser::init()
     m_parser.addOption(QCommandLineOption("page",
                                           "Use with '-o <file>', export only the specified page. "
                                           "Supported output formats: SVG, PNG, PDF, MSCZ",
-                                          "options"));
-
-    m_parser.addOption(QCommandLineOption("region",
-                                          "Use with '-o <file>', export only the specified region to a separate mscz file. ",
                                           "options"));
 
     // MusicXML
@@ -325,10 +320,6 @@ void CommandLineParser::parse(int argc, char** argv)
             if (m_parser.isSet("page")) {
                 m_options.converterTask.params[CmdOptions::ParamKey::PageNumber] = m_parser.value("page");
             }
-
-            if (m_parser.isSet("region")) {
-                m_options.converterTask.params[CmdOptions::ParamKey::ScoreRegion] = m_parser.value("region");
-            }
         }
     }
 
@@ -385,6 +376,7 @@ void CommandLineParser::parse(int argc, char** argv)
         m_options.runMode = IApplication::RunMode::ConsoleApp;
         m_options.converterTask.type = ConvertType::ExportScoreElements;
         m_options.converterTask.inputFile = scorefiles[0];
+        m_options.converterTask.params[CmdOptions::ParamKey::ScoreElementsOptions] = m_parser.value("score-elements");
     }
 
     if (m_parser.isSet("source-update")) {
@@ -454,10 +446,6 @@ void CommandLineParser::parse(int argc, char** argv)
 
     if (m_parser.isSet("f")) {
         m_options.converterTask.params[CmdOptions::ParamKey::ForceMode] = true;
-    }
-
-    if (m_parser.isSet("unroll-repeats")) {
-        m_options.converterTask.params[CmdOptions::ParamKey::UnrollRepeats] = true;
     }
 
     if (m_parser.isSet("S")) {
@@ -568,6 +556,26 @@ IApplication::RunMode CommandLineParser::runMode() const
 const CmdOptions& CommandLineParser::options() const
 {
     return m_options;
+}
+
+CmdOptions::ConverterTask CommandLineParser::converterTask() const
+{
+    return m_options.converterTask;
+}
+
+CmdOptions::Diagnostic CommandLineParser::diagnostic() const
+{
+    return m_options.diagnostic;
+}
+
+CmdOptions::Autobot CommandLineParser::autobot() const
+{
+    return m_options.autobot;
+}
+
+CmdOptions::AudioPluginRegistration CommandLineParser::audioPluginRegistration() const
+{
+    return m_options.audioPluginRegistration;
 }
 
 void CommandLineParser::printLongVersion() const

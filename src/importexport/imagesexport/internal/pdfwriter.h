@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_IMPORTEXPORT_PDFWRITER_H
+#define MU_IMPORTEXPORT_PDFWRITER_H
 
 #include "abstractimagewriter.h"
 
@@ -33,8 +34,8 @@ class QPdfWriter;
 namespace mu::iex::imagesexport {
 class PdfWriter : public AbstractImageWriter
 {
-    muse::GlobalInject<IImagesExportConfiguration> configuration;
-    muse::GlobalInject<muse::IApplication> application;
+    Inject<IImagesExportConfiguration> configuration = { this };
+    Inject<muse::IApplication> application = { this };
 
 public:
     PdfWriter(const muse::modularity::ContextPtr& iocCtx)
@@ -49,3 +50,5 @@ private:
     void preparePdfWriter(QPdfWriter& pdfWriter, const QString& title, const QSizeF& size) const;
 };
 }
+
+#endif // MU_IMPORTEXPORT_PDFWRITER_H

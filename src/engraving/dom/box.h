@@ -20,7 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_BOX_H
+#define MU_ENGRAVING_BOX_H
 
 #include "measurebase.h"
 #include "property.h"
@@ -42,8 +43,8 @@ public:
 
     virtual bool isEditAllowed(EditData&) const override;
     virtual bool edit(EditData&) override;
-    virtual void startDragGrip(EditData&) override;
-    virtual void dragGrip(EditData&) override;
+    virtual void startEditDrag(EditData&) override;
+    virtual void editDrag(EditData&) override;
 
     virtual bool acceptDrop(EditData&) const override;
     virtual EngravingItem* drop(EditData&) override;
@@ -159,7 +160,7 @@ public:
     PropertyValue propertyDefault(Pid) const override;
     bool setProperty(Pid propertyId, const PropertyValue&) override;
 
-    void startDragGrip(EditData&) override;
+    void startEditDrag(EditData&) override;
 
     std::vector<PointF> gripsPositions(const EditData&) const override;
 
@@ -250,8 +251,12 @@ public:
     ~TBox() override;
 
     Text* text() const { return m_text; }
+    void resetText(Text* text);
 
-    void scanElements(std::function<void(EngravingItem*)> func) override;
+    // Score Tree functions
+    EngravingObject* scanParent() const override;
+    EngravingObjectList scanChildren() const override;
+    void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all = true) override;
 
     TBox* clone() const override { return new TBox(*this); }
 
@@ -272,4 +277,5 @@ public:
 private:
     Text* m_text = nullptr;
 };
-}
+} // namespace mu::engraving
+#endif

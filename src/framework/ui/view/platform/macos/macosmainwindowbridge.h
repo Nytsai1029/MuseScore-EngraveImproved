@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MUSE_UI_MACOS_MAINWINDOWBRIDGE_H
+#define MUSE_UI_MACOS_MAINWINDOWBRIDGE_H
 
 #include "async/asyncable.h"
 #include "modularity/ioc.h"
@@ -33,7 +33,7 @@ class MacOSMainWindowBridge : public MainWindowBridge, public async::Asyncable
 {
     Q_OBJECT
 
-    GlobalInject<IUiConfiguration> uiConfiguration;
+    INJECT(IUiConfiguration, uiConfiguration)
 
 public:
     explicit MacOSMainWindowBridge(QObject* parent = nullptr);
@@ -47,3 +47,5 @@ private:
     void init() override;
 };
 }
+
+#endif // MUSE_UI_MACOS_MAINWINDOWBRIDGE_H

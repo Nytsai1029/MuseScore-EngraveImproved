@@ -19,16 +19,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
-
-import Muse.Ui
-import Muse.UiComponents
-import MuseScore.Playback
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import Muse.Audio 1.0
+import MuseScore.Playback 1.0
 
 import "internal"
 
@@ -95,6 +93,10 @@ ColumnLayout {
         navigationSection: root.navigationSection
         navigationOrderStart: root.contentNavigationPanelOrderStart + 1 // +1 for toolbar
 
+        Component.onCompleted: {
+            mixerPanelModel.load()
+        }
+
         onModelReset: {
             Qt.callLater(setupConnections)
         }
@@ -136,14 +138,13 @@ ColumnLayout {
 
         implicitHeight: contentColumn.height
 
-        interactive: (height < contentHeight || width < contentWidth) && !flickable.resourcePickingActive
+        interactive: height < contentHeight || width < contentWidth
 
         ScrollBar.horizontal: horizontalScrollBar
 
         ScrollBar.vertical: StyledScrollBar { policy: ScrollBar.AlwaysOn }
 
         property bool completed: false
-        property bool resourcePickingActive: soundSection.resourcePickingActive || fxSection.resourcePickingActive
 
         function positionViewAtEnd() {
             if (!flickable.completed) {

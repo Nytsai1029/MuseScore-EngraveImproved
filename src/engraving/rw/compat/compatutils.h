@@ -19,12 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#pragma once
+#ifndef MU_ENGRAVING_COMPATUTILS_H
+#define MU_ENGRAVING_COMPATUTILS_H
 
 #include <vector>
 #include <set>
 
-#include "../../dom/articulation.h"
+#include "dom/articulation.h"
 
 namespace mu::engraving {
 class Dynamic;
@@ -48,9 +49,6 @@ public:
     static const std::set<SymId> ORNAMENT_IDS;
     static const std::map<Sid, Sid> ALIGN_VALS_TO_CONVERT;
     static Sid positionStyleFromAlign(Sid align);
-    static void setTextLineTextPositionFromAlign(TextLineBase* tl);
-    static void setMusicSymbolSize470(MStyle& style);
-    static void doMigrateNoteParens(EngravingItem* item);
 
 private:
     static void replaceStaffTextWithPlayTechniqueAnnotation(MasterScore* score);
@@ -71,3 +69,4 @@ private:
     static void convertLaissezVibArticToTie(MasterScore* masterScore);
 };
 }
+#endif // MU_ENGRAVING_COMPATUTILS_H

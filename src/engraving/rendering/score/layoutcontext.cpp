@@ -21,11 +21,10 @@
  */
 #include "layoutcontext.h"
 
-#include "editing/addremoveelement.h"
-#include "editing/editsystemlocks.h"
-#include "editing/mscoreview.h"
+#include "dom/undo.h"
 #include "style/defaultstyle.h"
 
+#include "dom/mscoreview.h"
 #include "dom/score.h"
 #include "dom/spanner.h"
 
@@ -114,9 +113,9 @@ bool LayoutConfiguration::isVerticalSpreadEnabled() const
 double LayoutConfiguration::maxSystemDistance() const
 {
     if (isVerticalSpreadEnabled()) {
-        return style().styleAbsolute(Sid::maxSystemSpread);
+        return style().styleMM(Sid::maxSystemSpread);
     } else {
-        return style().styleAbsolute(Sid::maxSystemDistance);
+        return style().styleMM(Sid::maxSystemDistance);
     }
 }
 
@@ -227,14 +226,6 @@ const Staff* DomAccessor::staff(staff_idx_t idx) const
         return nullptr;
     }
     return score()->staff(idx);
-}
-
-bool DomAccessor::allStavesInvisible() const
-{
-    IF_ASSERT_FAILED(score()) {
-        return false;
-    }
-    return score()->allStavesInvisible();
 }
 
 size_t DomAccessor::ntracks() const
@@ -366,11 +357,6 @@ const SystemLocks* DomAccessor::systemLocks() const
     return score()->systemLocks();
 }
 
-const PaddingTable& DomAccessor::paddingTable() const
-{
-    return score()->paddingTable();
-}
-
 ChordRest* DomAccessor::findCR(Fraction tick, track_idx_t track)
 {
     IF_ASSERT_FAILED(score()) {
@@ -467,7 +453,7 @@ void DomAccessor::updateSystemLocksOnCreateMMRest(Measure* first, Measure* last)
     IF_ASSERT_FAILED(score()) {
         return;
     }
-    EditSystemLocks::updateSystemLocksOnCreateMMRests(score(), first, last);
+    score()->updateSystemLocksOnCreateMMRests(first, last);
 }
 
 void DomAccessor::addUnmanagedSpanner(Spanner* s)
@@ -609,6 +595,22 @@ const LayoutState& LayoutContext::state() const
 LayoutState& LayoutContext::mutState()
 {
     return m_state;
+}
+
+void LayoutContext::setLayout(const Fraction& tick1, const Fraction& tick2, staff_idx_t staff1, staff_idx_t staff2, const EngravingItem* e)
+{
+    IF_ASSERT_FAILED(m_score) {
+        return;
+    }
+    m_score->setLayout(tick1, tick2, staff1, staff2, e);
+}
+
+void LayoutContext::addRefresh(const RectF& r)
+{
+    IF_ASSERT_FAILED(m_score) {
+        return;
+    }
+    m_score->addRefresh(r);
 }
 
 const Selection& LayoutContext::selection() const

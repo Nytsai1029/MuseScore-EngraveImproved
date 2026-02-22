@@ -160,7 +160,6 @@ public:
     static void layout(ActionIcon* item, const Context& ctx);
     static void layout(Ambitus* item, const Context& ctx);
     static void layout(Arpeggio* item, const Context& ctx);
-    static void layout(ChordBracket* item, const Context& ctx);
     static void layout(Articulation* item, const Context& ctx);
 
     static void layout(BagpipeEmbellishment* item, const Context& ctx);
@@ -242,7 +241,6 @@ public:
 
     static void layout(Vibrato* item, const Context& ctx);
     static void layout(Volta* item, const Context& ctx);
-    static void layout(WhammyBar* item, const Context& ctx);
 
 private:
     static void layout(GlissandoSegment* item, const Context& ctx);
@@ -257,7 +255,6 @@ private:
     static void layout(TrillSegment* item, const Context& ctx);
     static void layout(VibratoSegment* item, const Context& ctx);
     static void layout(VoltaSegment* item, const Context& ctx);
-    static void layout(WhammyBarSegment* item, const Context& ctx);
 
     static void layout(Text* item, const Context& ctx);
     static void layoutTextBase(const TextBase* item, const Context& ctx, TextBase::LayoutData* ldata);

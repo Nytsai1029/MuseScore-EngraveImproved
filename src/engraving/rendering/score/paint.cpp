@@ -35,7 +35,7 @@ using namespace muse::draw;
 using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
 
-void Paint::paintScore(Painter* painter, Score* score, const IScoreRenderer::ScorePaintOptions& opt)
+void Paint::paintScore(Painter* painter, Score* score, const IScoreRenderer::PaintOptions& opt)
 {
     TRACEFUNC;
     if (!score) {
@@ -67,6 +67,7 @@ void Paint::paintScore(Painter* painter, Score* score, const IScoreRenderer::Sco
     }
 
     // Setup score draw system
+    mu::engraving::MScore::pixelRatio = mu::engraving::DPI / DEVICE_DPI;
     mu::engraving::MScore::pdfPrinting = opt.isPrinting;
 
     const bool wasPrinting = score->printing();
@@ -146,7 +147,8 @@ void Paint::paintScore(Painter* painter, Score* score, const IScoreRenderer::Sco
             }
 
             std::vector<EngravingItem*> elements = page->items(drawRect.translated(-pagePos));
-            paintItems(*painter, elements, opt);
+            paintItems(*painter, elements);
+            //DebugPaint::paintPageTree(*painter, page);
 
             if (disableClipping) {
                 painter->setClipping(false);
@@ -193,7 +195,7 @@ SizeF Paint::pageSizeInch(const Score* score)
     return SizeF(score->style().styleD(Sid::pageWidth), score->style().styleD(Sid::pageHeight));
 }
 
-SizeF Paint::pageSizeInch(const Score* score, const IScoreRenderer::ScorePaintOptions& opt)
+SizeF Paint::pageSizeInch(const Score* score, const IScoreRenderer::PaintOptions& opt)
 {
     if (!score) {
         return SizeF();
@@ -217,7 +219,7 @@ SizeF Paint::pageSizeInch(const Score* score, const IScoreRenderer::ScorePaintOp
     return pageRect.size() / mu::engraving::DPI;
 }
 
-void Paint::paintItem(Painter& painter, const EngravingItem* item, const PaintOptions& opt)
+void Paint::paintItem(Painter& painter, const EngravingItem* item)
 {
     TRACEFUNC;
     if (item->ldata()->isSkipDraw()) {
@@ -227,11 +229,11 @@ void Paint::paintItem(Painter& painter, const EngravingItem* item, const PaintOp
     PointF itemPosition(item->pagePos());
 
     painter.translate(itemPosition);
-    TDraw::drawItem(item, &painter, opt);
+    TDraw::drawItem(item, &painter);
     painter.translate(-itemPosition);
 }
 
-void Paint::paintItems(Painter& painter, const std::vector<EngravingItem*>& items, const PaintOptions& opt)
+void Paint::paintItems(Painter& painter, const std::vector<EngravingItem*>& items)
 {
     TRACEFUNC;
     std::vector<EngravingItem*> sortedItems(items.begin(), items.end());
@@ -243,6 +245,6 @@ void Paint::paintItems(Painter& painter, const std::vector<EngravingItem*>& item
             continue;
         }
 
-        paintItem(painter, item, opt);
+        paintItem(painter, item);
     }
 }

@@ -6,8 +6,7 @@ on:
     inputs:
       platforms:
         description: 'Platforms to build:'
-        # default: 'backend linux_arm32 linux_arm64 linux_x64 macos windows_x64 windows_portable'
-        default: 'backend linux_arm64 linux_x64 macos windows_x64 windows_portable'
+        default: 'backend linux_arm32 linux_arm64 linux_x64 macos windows_x64 windows_portable'
         required: true
       build_mode:
         description: 'Build mode: devel,nightly,testing,stable'
@@ -25,12 +24,15 @@ on:
         description: 'Upload symbols and dumps to Sentry (choose a project): mu4(default for stable build), mu4-sandbox'
         default: ''
         required: false
+      use_qt69:
+        description: 'Use Qt 6.9'
+        default: 'on'
+        required: false   
   workflow_call:
     inputs:
       platforms:
         description: 'Platforms to build:'
-        # default: 'backend linux_arm32 linux_arm64 linux_x64 macos windows_x64 windows_portable'
-        default: 'backend linux_arm64 linux_x64 macos windows_x64 windows_portable'
+        default: 'backend linux_arm32 linux_arm64 linux_x64 macos windows_x64 windows_portable'
         type: string
         required: true
       build_mode:
@@ -53,6 +55,11 @@ on:
         default: ''
         type: string
         required: false
+      use_qt69:
+        description: 'Use Qt 6.9'
+        default: 'on'
+        type: string
+        required: false  
 
 defaults:
   run:
@@ -62,12 +69,12 @@ jobs:
 
   generate_build_number:
     name: Generate Build Number
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-22.04
     outputs:
       build_number: ${{ steps.make_build_number.outputs.build_number }}
     steps:
       - name: Clone repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v5
       - name: Generate build number
         id: make_build_number
         run: |
@@ -86,6 +93,7 @@ jobs:
       build_mode: ${{ inputs.build_mode }}
       publish: ${{ inputs.publish }}
       deploy: ${{ inputs.deploy_backend }}
+      use_qt69: ${{ inputs.use_qt69 }}
       build_number: ${{ needs.generate_build_number.outputs.build_number }}
 
   linux_arm32:
@@ -98,6 +106,7 @@ jobs:
       build_mode: ${{ inputs.build_mode }}
       publish: ${{ inputs.publish }}
       sentry_project: ${{ inputs.sentry_project }}
+      use_qt69: ${{ inputs.use_qt69 }}
       build_number: ${{ needs.generate_build_number.outputs.build_number }}
 
   linux:
@@ -110,6 +119,7 @@ jobs:
       build_mode: ${{ inputs.build_mode }}
       publish: ${{ inputs.publish }}
       sentry_project: ${{ inputs.sentry_project }}
+      use_qt69: ${{ inputs.use_qt69 }}
       build_number: ${{ needs.generate_build_number.outputs.build_number }}
 
   macos:
@@ -122,6 +132,7 @@ jobs:
       build_mode: ${{ inputs.build_mode }}
       publish: ${{ inputs.publish }}
       sentry_project: ${{ inputs.sentry_project }}
+      use_qt69: ${{ inputs.use_qt69 }}
       build_number: ${{ needs.generate_build_number.outputs.build_number }}
 
   windows:
@@ -134,6 +145,7 @@ jobs:
       build_mode: ${{ inputs.build_mode }}
       publish: ${{ inputs.publish }}
       sentry_project: ${{ inputs.sentry_project }}
+      use_qt69: ${{ inputs.use_qt69 }}
       build_number: ${{ needs.generate_build_number.outputs.build_number }}
 
   # Dummy build for testing purposes.
@@ -147,11 +159,11 @@ jobs:
         os:
         - ubuntu-22.04 # linux_x64, backend, linux_arm32, linux_arm64
         - macos-latest
-        - windows-2025 # windows_x64, windows_portable
+        - windows-2022 # windows_x64, windows_portable
     runs-on: ${{ matrix.os }}
     steps:
     - name: Clone repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Prepare dummy artifact
       run: |
         ARTIFACTS_DIR="build.artifacts"
@@ -187,7 +199,7 @@ jobs:
         UPLOAD_ARTIFACT_NAME="$(tr '":<>|*?/\\’' '_' <<<"MU4_${BUILD_NUMBER}_Dummy-${{ matrix.os }}_${BUILD_BRANCH}")"
         echo "UPLOAD_ARTIFACT_NAME=${UPLOAD_ARTIFACT_NAME}" | tee -a "${GITHUB_ENV}"
     - name: Upload artifacts to GitHub
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ env.UPLOAD_ARTIFACT_NAME }}
         path: ${{ env.ARTIFACTS_DIR }}

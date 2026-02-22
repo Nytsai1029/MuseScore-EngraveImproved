@@ -28,12 +28,12 @@
 #include "context/iuicontextresolver.h"
 
 namespace mu::project {
-class ProjectUiActions : public muse::ui::IUiActionsModule, public muse::Contextable
+class ProjectUiActions : public muse::ui::IUiActionsModule
 {
-    muse::ContextInject<context::IUiContextResolver> uicontextResolver = { this };
+    INJECT(context::IUiContextResolver, uicontextResolver)
 public:
 
-    ProjectUiActions(std::shared_ptr<ProjectActionsController> controller, const muse::modularity::ContextPtr& iocCtx);
+    ProjectUiActions(std::shared_ptr<ProjectActionsController> controller);
 
     const muse::ui::UiActionList& actionsList() const override;
 

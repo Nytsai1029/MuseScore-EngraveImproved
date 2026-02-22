@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <spatium>1.75</spatium>
+      <defaultsVersion>410</defaultsVersion>
+      <spatium>1.74978</spatium>
       </Style>
     <showInvisible>1</showInvisible>
     <showUnprintable>1</showUnprintable>
     <showFrames>1</showFrames>
     <showMargins>0</showMargins>
-    <open>1</open>
     <metaTag name="arranger"></metaTag>
     <metaTag name="audioComUrl"></metaTag>
     <metaTag name="composer">Componist / arrangeur</metaTag>
@@ -112,7 +112,6 @@
           <KeySig>
             <eid>F_F</eid>
             <concertKey>0</concertKey>
-            <actualKey>2</actualKey>
             </KeySig>
           <TimeSig>
             <eid>G_G</eid>
@@ -124,6 +123,10 @@
             <durationType>whole</durationType>
             <Note>
               <eid>I_I</eid>
+              <Accidental>
+                <subtype>accidentalSharp</subtype>
+                <eid>J_J</eid>
+                </Accidental>
               <pitch>83</pitch>
               <tpc>19</tpc>
               <tpc2>21</tpc2>
@@ -132,10 +135,14 @@
           </voice>
         <voice>
           <Chord>
-            <eid>J_J</eid>
+            <eid>K_K</eid>
             <durationType>whole</durationType>
             <Note>
-              <eid>K_K</eid>
+              <eid>L_L</eid>
+              <Accidental>
+                <subtype>accidentalSharp</subtype>
+                <eid>M_M</eid>
+                </Accidental>
               <pitch>71</pitch>
               <tpc>19</tpc>
               <tpc2>21</tpc2>
@@ -148,22 +155,21 @@
       <Measure>
         <voice>
           <KeySig>
-            <eid>L_L</eid>
+            <eid>N_N</eid>
             <linkedTo>F_F</linkedTo>
             <concertKey>0</concertKey>
-            <actualKey>2</actualKey>
             </KeySig>
           <TimeSig>
-            <eid>M_M</eid>
+            <eid>O_O</eid>
             <sigN>4</sigN>
             <sigD>4</sigD>
             </TimeSig>
           <Chord>
-            <eid>N_N</eid>
+            <eid>P_P</eid>
             <linkedTo>H_H</linkedTo>
             <durationType>whole</durationType>
             <Note>
-              <eid>O_O</eid>
+              <eid>Q_Q</eid>
               <linkedTo>I_I</linkedTo>
               <pitch>83</pitch>
               <tpc>19</tpc>
@@ -173,12 +179,16 @@
           </voice>
         <voice>
           <Chord>
-            <eid>P_P</eid>
-            <linkedTo>J_J</linkedTo>
+            <eid>R_R</eid>
+            <linkedTo>K_K</linkedTo>
             <durationType>whole</durationType>
             <Note>
-              <eid>Q_Q</eid>
-              <linkedTo>K_K</linkedTo>
+              <eid>S_S</eid>
+              <linkedTo>L_L</linkedTo>
+              <Accidental>
+                <subtype>accidentalSharp</subtype>
+                <eid>T_T</eid>
+                </Accidental>
               <pitch>71</pitch>
               <tpc>19</tpc>
               <tpc2>21</tpc2>
@@ -188,7 +198,7 @@
         </Measure>
       </Staff>
     <Score>
-      <eid>R_R</eid>
+      <eid>U_U</eid>
       <name>Klarinet in B♭</name>
       <Tracklist sTrack="0" dstTrack="0"/>
       <Tracklist sTrack="2" dstTrack="1"/>
@@ -212,8 +222,6 @@
         <lyricsMelismaPad>0.1</lyricsMelismaPad>
         <lyricsDashYposRatio>0.6</lyricsDashYposRatio>
         <maskBarlinesForText>0</maskBarlinesForText>
-        <dividerLeftAlignToSystemBarline>0</dividerLeftAlignToSystemBarline>
-        <dividerRightAlignToSystemBarline>0</dividerRightAlignToSystemBarline>
         <clefKeyDistance>1</clefKeyDistance>
         <barNoteDistance>1.3</barNoteDistance>
         <accidentalDistance>0.22</accidentalDistance>
@@ -250,18 +258,17 @@
       <showUnprintable>1</showUnprintable>
       <showFrames>1</showFrames>
       <showMargins>0</showMargins>
-      <open>1</open>
       <metaTag name="partName">Klarinet in B♭</metaTag>
       <Part id="1">
         <Staff>
-          <eid>S_S</eid>
+          <eid>V_V</eid>
           <linkedTo>C_C</linkedTo>
           <StaffType group="pitched">
             <name>stdNormal</name>
             </StaffType>
           </Staff>
         <Staff>
-          <eid>T_T</eid>
+          <eid>W_W</eid>
           <linkedTo>C_C</linkedTo>
           <StaffType group="pitched">
             <name>stdNormal</name>
@@ -286,27 +293,30 @@
         </Part>
       <Staff id="1">
         <Measure>
-          <eid>U_U</eid>
+          <eid>X_X</eid>
           <voice>
             <KeySig>
-              <eid>V_V</eid>
+              <eid>Y_Y</eid>
               <linkedTo>F_F</linkedTo>
               <concertKey>0</concertKey>
-              <actualKey>2</actualKey>
               </KeySig>
             <TimeSig>
-              <eid>W_W</eid>
+              <eid>Z_Z</eid>
               <linkedTo>G_G</linkedTo>
               <sigN>4</sigN>
               <sigD>4</sigD>
               </TimeSig>
             <Chord>
-              <eid>X_X</eid>
+              <eid>a_a</eid>
               <linkedTo>H_H</linkedTo>
               <durationType>whole</durationType>
               <Note>
-                <eid>Y_Y</eid>
+                <eid>b_b</eid>
                 <linkedTo>I_I</linkedTo>
+                <Accidental>
+                  <subtype>accidentalSharp</subtype>
+                  <eid>c_c</eid>
+                  </Accidental>
                 <pitch>83</pitch>
                 <tpc>19</tpc>
                 <tpc2>21</tpc2>
@@ -319,24 +329,27 @@
         <Measure>
           <voice>
             <KeySig>
-              <eid>Z_Z</eid>
+              <eid>d_d</eid>
               <linkedTo>F_F</linkedTo>
               <concertKey>0</concertKey>
-              <actualKey>2</actualKey>
               </KeySig>
             <TimeSig>
-              <eid>a_a</eid>
-              <linkedTo>M_M</linkedTo>
+              <eid>e_e</eid>
+              <linkedTo>O_O</linkedTo>
               <sigN>4</sigN>
               <sigD>4</sigD>
               </TimeSig>
             <Chord>
-              <eid>b_b</eid>
-              <linkedTo>J_J</linkedTo>
+              <eid>f_f</eid>
+              <linkedTo>K_K</linkedTo>
               <durationType>whole</durationType>
               <Note>
-                <eid>c_c</eid>
-                <linkedTo>K_K</linkedTo>
+                <eid>g_g</eid>
+                <linkedTo>L_L</linkedTo>
+                <Accidental>
+                  <subtype>accidentalSharp</subtype>
+                  <eid>h_h</eid>
+                  </Accidental>
                 <pitch>71</pitch>
                 <tpc>19</tpc>
                 <tpc2>21</tpc2>

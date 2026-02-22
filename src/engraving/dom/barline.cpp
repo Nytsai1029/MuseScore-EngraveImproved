@@ -22,17 +22,16 @@
 
 #include "barline.h"
 
+#include "dom/playcounttext.h"
 #include "translation.h"
-
-#include "../editing/undo.h"
-#include "../types/symnames.h"
+#include "types/symnames.h"
 
 #include "articulation.h"
 #include "marker.h"
 #include "masterscore.h"
 #include "measure.h"
 #include "part.h"
-#include "playcounttext.h"
+#include "part.h"
 #include "score.h"
 #include "segment.h"
 #include "spanner.h"
@@ -40,6 +39,7 @@
 #include "stafflines.h"
 #include "stafftype.h"
 #include "system.h"
+#include "undo.h"
 
 #include "log.h"
 
@@ -367,27 +367,40 @@ bool BarLine::isBottom() const
 }
 
 //---------------------------------------------------------
+//   playTick
+//---------------------------------------------------------
+
+Fraction BarLine::playTick() const
+{
+    // Play from the start of the measure to the right of the barline, unless this is the last barline in either the entire score or the system,
+    // in which case we should play from the start of the measure to the left of the barline.
+    const auto measure = findMeasure();
+    if (measure) {
+        const auto nextMeasure = findMeasure()->next();
+        if (!nextMeasure || (nextMeasure->system() != measure->system())) {
+            return measure->tick();
+        }
+    }
+
+    return tick();
+}
+
+//---------------------------------------------------------
 //   acceptDrop
 //---------------------------------------------------------
 
 bool BarLine::acceptDrop(EditData& data) const
 {
-    EngravingItem* e = data.dropElement;
-
-    if (e->isBarLine()) {
+    ElementType type = data.dropElement->type();
+    if (type == ElementType::BAR_LINE) {
         return true;
-    } else if (e->isFermata() || e->isSymbol() || e->isImage()) {
-        return segment() && segment()->isEndBarLineType();
-    } else if (e->isMeasureNumber() || e->isJump() || e->isMarker() || e->isLayoutBreak()) {
-        if (Measure* m = measure()) {
-            bool left = (e->isMarker() && !toMarker(e)->isRightMarker()) || e->isMeasureNumber();
-            if (left && segment()->isEndBarLineType() && m->nextMeasureMM()) {
-                m = m->nextMeasureMM();
-            }
-            return m->acceptDrop(data);
-        }
+    } else {
+        return (type == ElementType::FERMATA || type == ElementType::SYMBOL || type == ElementType::IMAGE)
+               && segment()
+               && segment()->isEndBarLineType();
     }
-    return false;
+    // Prevent unreachable code warning
+    // return false;
 }
 
 //---------------------------------------------------------
@@ -402,47 +415,39 @@ EngravingItem* BarLine::drop(EditData& data)
         BarLine* bl    = toBarLine(e);
         BarLineType st = bl->barLineType();
 
-        if (segment()->segmentType() == SegmentType::BarLine) {
-            // barline exists mid measure
-            undoChangeProperty(Pid::BARLINE_TYPE, st);
-            undoChangeProperty(Pid::BARLINE_SPAN, false);
-            undoChangeProperty(Pid::BARLINE_SPAN_FROM, bl->spanFrom());
-            undoChangeProperty(Pid::BARLINE_SPAN_TO, bl->spanTo());
-        } else {
-            // check if the new property can apply to this single bar line
-            BarLineType bt = BarLineType::START_REPEAT | BarLineType::END_REPEAT | BarLineType::END_START_REPEAT;
-            bool oldRepeat = barLineType() & bt;
-            bool newRepeat = bl->barLineType() & bt;
+        // check if the new property can apply to this single bar line
+        BarLineType bt = BarLineType::START_REPEAT | BarLineType::END_REPEAT | BarLineType::END_START_REPEAT;
+        bool oldRepeat = barLineType() & bt;
+        bool newRepeat = bl->barLineType() & bt;
 
-            Measure* m = measure();
-            if (bl->playCount() != -1) {
-                m->undoChangeProperty(Pid::REPEAT_COUNT, bl->playCount());
-            }
-
-            // if ctrl was used and repeats are not involved,
-            // or if drop refers to span rather than subtype =>
-            // single bar line drop
-
-            if ((data.control() && !oldRepeat && !newRepeat) || (bl->spanFrom() || bl->spanTo())) {
-                // if drop refers to span, update this bar line span
-                if (bl->spanFrom() || bl->spanTo()) {
-                    // if dropped spanFrom or spanTo are below the middle of standard staff (5 lines)
-                    // adjust to the number of staff lines
-                    int spanFrom   = bl->spanFrom();
-                    int spanTo     = bl->spanTo();
-                    undoChangeProperty(Pid::BARLINE_SPAN, false);
-                    undoChangeProperty(Pid::BARLINE_SPAN_FROM, spanFrom);
-                    undoChangeProperty(Pid::BARLINE_SPAN_TO, spanTo);
-                }
-                // if drop refers to subtype, update this bar line subtype
-                else {
-                    score()->undoChangeBarLineType(this, st, false);
-                }
-            } else {
-                score()->undoChangeBarLineType(this, st, true);
-            }
-            score()->undoUpdatePlayCountText(m);
+        Measure* m = measure();
+        if (bl->playCount() != -1) {
+            m->undoChangeProperty(Pid::REPEAT_COUNT, bl->playCount());
         }
+
+        // if ctrl was used and repeats are not involved,
+        // or if drop refers to span rather than subtype =>
+        // single bar line drop
+
+        if ((data.control() && !oldRepeat && !newRepeat) || (bl->spanFrom() || bl->spanTo())) {
+            // if drop refers to span, update this bar line span
+            if (bl->spanFrom() || bl->spanTo()) {
+                // if dropped spanFrom or spanTo are below the middle of standard staff (5 lines)
+                // adjust to the number of staff lines
+                int spanFrom   = bl->spanFrom();
+                int spanTo     = bl->spanTo();
+                undoChangeProperty(Pid::BARLINE_SPAN, false);
+                undoChangeProperty(Pid::BARLINE_SPAN_FROM, spanFrom);
+                undoChangeProperty(Pid::BARLINE_SPAN_TO, spanTo);
+            }
+            // if drop refers to subtype, update this bar line subtype
+            else {
+                score()->undoChangeBarLineType(this, st, false);
+            }
+        } else {
+            score()->undoChangeBarLineType(this, st, true);
+        }
+        score()->undoUpdatePlayCountText(m);
         delete e;
     } else if (e->isArticulationFamily()) {
         Articulation* atr = toArticulation(e);
@@ -475,16 +480,8 @@ EngravingItem* BarLine::drop(EditData& data)
         e->setParent(segment());
         score()->undoAddElement(e);
         return e;
-    } else if (e->isMeasureNumber() || e->isJump() || e->isMarker() || e->isLayoutBreak()) {
-        if (Measure* m = measure()) {
-            bool left = (e->isMarker() && !toMarker(e)->isRightMarker()) || e->isMeasureNumber();
-            if (left && segment()->isEndBarLineType() && m->nextMeasureMM()) {
-                m = m->nextMeasureMM();
-            }
-            return m->drop(data);
-        }
     }
-    return nullptr;
+    return 0;
 }
 
 //---------------------------------------------------------
@@ -533,7 +530,7 @@ std::vector<PointF> BarLine::gripsPositions(const EditData& ed) const
 {
     const BarLineEditData* bed = static_cast<const BarLineEditData*>(ed.getData(this).get());
 
-    double lw = style().styleAbsolute(Sid::barWidth) * staff()->staffMag(tick());
+    double lw = style().styleMM(Sid::barWidth) * staff()->staffMag(tick());
     const_cast<BarLine*>(this)->calcY();
 
     const PointF pp = pagePos();
@@ -593,44 +590,43 @@ bool BarLine::edit(EditData& ed)
 }
 
 //---------------------------------------------------------
-//   dragGrip
+//   editDrag
 //---------------------------------------------------------
 
-void BarLine::dragGrip(EditData& ed)
+void BarLine::editDrag(EditData& ed)
 {
-    IF_ASSERT_FAILED(ed.curGrip == Grip::START) {
-        return;
-    }
-
     BarLineEditData* bed = static_cast<BarLineEditData*>(ed.getData(this).get());
 
     double lineDist = staff()->lineDistance(tick()) * spatium();
     calcY();
-
-    // min for bottom grip is 1 line below top grip
-    const double min = ldata()->y1 - ldata()->y2 + lineDist;
-    // max is the bottom of the system
-    const System* system = segment() ? segment()->system() : nullptr;
-    const staff_idx_t st = staffIdx();
-    const double max = (system && st != muse::nidx)
-                       ? (system->height() - ldata()->y2 - system->staff(st)->y())
-                       : std::numeric_limits<double>::max();
-    // update yoff2 and bring it within limit
-    bed->yoff2 += ed.delta.y();
-    if (bed->yoff2 < min) {
-        bed->yoff2 = min;
-    }
-    if (bed->yoff2 > max) {
-        bed->yoff2 = max;
+    if (ed.curGrip != Grip::START) {
+        return;
+    } else {
+        // min for bottom grip is 1 line below top grip
+        const double min = ldata()->y1 - ldata()->y2 + lineDist;
+        // max is the bottom of the system
+        const System* system = segment() ? segment()->system() : nullptr;
+        const staff_idx_t st = staffIdx();
+        const double max = (system && st != muse::nidx)
+                           ? (system->height() - ldata()->y2 - system->staff(st)->y())
+                           : std::numeric_limits<double>::max();
+        // update yoff2 and bring it within limit
+        bed->yoff2 += ed.delta.y();
+        if (bed->yoff2 < min) {
+            bed->yoff2 = min;
+        }
+        if (bed->yoff2 > max) {
+            bed->yoff2 = max;
+        }
     }
 }
 
 //---------------------------------------------------------
-//   endDragGrip
+//   endEditDrag
 //    snap to nearest staff / staff line
 //---------------------------------------------------------
 
-void BarLine::endDragGrip(EditData& ed)
+void BarLine::endEditDrag(EditData& ed)
 {
     calcY();
     BarLineEditData* bed = static_cast<BarLineEditData*>(ed.getData(this).get());
@@ -656,7 +652,7 @@ void BarLine::endDragGrip(EditData& ed)
         for (staffIdx2 = staffIdx1 + 1; staffIdx2 < numOfStaves; ++staffIdx2) {
             // compute 1st staff height, absolute top Y of 2nd staff and height of blank between the staves
             Staff* staff1      = score()->staff(staffIdx2 - 1);
-            double staff1Hght    = staff1->staffHeight(tick());
+            double staff1Hght    = (staff1->lines(tick()) - 1) * staff1->lineDistance(tick()) * spatium();
             double staff2TopY    = systTopY + syst->staff(staffIdx2)->y();
             double blnkBtwnStaff = staff2TopY - staff1TopY - staff1Hght;
             // if bar line bottom coord is above than mid-way of blank between staves...
@@ -716,11 +712,16 @@ void BarLine::endDragGrip(EditData& ed)
 //   scanElements
 //---------------------------------------------------------
 
-void BarLine::scanElements(std::function<void(EngravingItem*)> func)
+void BarLine::scanElements(void* data, void (* func)(void*, EngravingItem*), bool all)
 {
-    func(this);
+    // if no width (staff has bar lines turned off) and not all requested, do nothing
+    if (RealIsNull(width()) && !all) {
+        return;
+    }
+
+    func(data, this);
     for (EngravingItem* e : m_el) {
-        e->scanElements(func);
+        e->scanElements(data, func, all);
     }
 }
 
@@ -786,7 +787,7 @@ void BarLine::remove(EngravingItem* e)
 
 PropertyValue BarLine::getProperty(Pid id) const
 {
-    if (EngravingObject* e = const_cast<BarLine*>(this)->propertyDelegate(id)) {
+    if (EngravingItem* e = const_cast<BarLine*>(this)->propertyDelegate(id)) {
         return e->getProperty(id);
     }
 
@@ -796,9 +797,9 @@ PropertyValue BarLine::getProperty(Pid id) const
     case Pid::BARLINE_SPAN:
         return spanStaff();
     case Pid::BARLINE_SPAN_FROM:
-        return spanFrom();
+        return int(spanFrom());
     case Pid::BARLINE_SPAN_TO:
-        return spanTo();
+        return int(spanTo());
     case Pid::BARLINE_SHOW_TIPS:
         return showTips();
     default:
@@ -813,7 +814,7 @@ PropertyValue BarLine::getProperty(Pid id) const
 
 bool BarLine::setProperty(Pid id, const PropertyValue& v)
 {
-    if (EngravingObject* e = propertyDelegate(id)) {
+    if (EngravingItem* e = propertyDelegate(id)) {
         return e->setProperty(id, v);
     }
 
@@ -847,19 +848,19 @@ bool BarLine::setProperty(Pid id, const PropertyValue& v)
 
 void BarLine::undoChangeProperty(Pid id, const PropertyValue& v, PropertyFlags ps)
 {
-    if (EngravingObject* e = propertyDelegate(id)) {
+    if (EngravingItem* e = propertyDelegate(id)) {
         e->undoChangeProperty(id, v, ps);
         return;
     }
 
-    if (id == Pid::BARLINE_TYPE && segment() && segment()->segmentType() != SegmentType::BarLine) {
+    if (id == Pid::BARLINE_TYPE && segment()) {
         score()->undoChangeBarLineType(this, v.value<BarLineType>(), true, true);
     } else {
         EngravingObject::undoChangeProperty(id, v, ps);
     }
 }
 
-EngravingObject* BarLine::propertyDelegate(Pid pid) const
+EngravingItem* BarLine::propertyDelegate(Pid pid)
 {
     if (pid == Pid::REPEAT_COUNT) {
         return measure();
@@ -887,7 +888,7 @@ PlayCountText* BarLine::playCountText() const
 
 PropertyValue BarLine::propertyDefault(Pid propertyId) const
 {
-    if (EngravingObject* e = const_cast<BarLine*>(this)->propertyDelegate(propertyId)) {
+    if (EngravingItem* e = const_cast<BarLine*>(this)->propertyDelegate(propertyId)) {
         return e->propertyDefault(propertyId);
     }
 
@@ -990,10 +991,10 @@ String BarLine::accessibleExtraInfo() const
             if (!score()->selectionFilter().canSelect(e)) {
                 continue;
             }
-            if (e->isJump()) {
+            if (e->type() == ElementType::JUMP) {
                 rez= String(u"%1 %2").arg(rez, e->screenReaderInfo());
             }
-            if (e->isMarker()) {
+            if (e->type() == ElementType::MARKER) {
                 const Marker* m1 = toMarker(e);
                 if (m1->markerType() == MarkerType::FINE) {
                     rez = String(u"%1 %2").arg(rez, e->screenReaderInfo());
@@ -1025,7 +1026,7 @@ String BarLine::accessibleExtraInfo() const
         if (!score()->selectionFilter().canSelect(s)) {
             continue;
         }
-        if (s->isVolta()) {
+        if (s->type() == ElementType::VOLTA) {
             if (s->tick() == tick) {
                 rez += u"; " + muse::mtrc("engraving", "Start of %1").arg(s->screenReaderInfo());
             }

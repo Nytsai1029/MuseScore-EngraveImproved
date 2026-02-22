@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,17 +19,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#ifndef MUSE_ASYNC_NOTIFYLIST_H
+#define MUSE_ASYNC_NOTIFYLIST_H
 
-#pragma once
-
-#include <cassert>
 #include <vector>
+#include <cassert>
 
-#include "changednotify.h"
+#include "../thirdparty/kors_async/async/changednotify.h"
 
 #include "asyncable.h"
 
 namespace muse::async {
+template<typename T>
+using ChangedNotifier = kors::async::ChangedNotifier<T>;
+
+template<typename T>
+using ChangedNotify = kors::async::ChangedNotify<T>;
+
 template<typename T>
 class NotifyList : public std::vector<T>
 {
@@ -54,7 +60,7 @@ public:
     }
 
     template<typename Call>
-    void onChanged(Asyncable* caller, Call f, Asyncable::Mode mode = Asyncable::Mode::SetOnce)
+    void onChanged(Asyncable* caller, Call f, Asyncable::AsyncMode mode = Asyncable::AsyncMode::AsyncSetOnce)
     {
         assert(m_notify);
         if (!m_notify) {
@@ -63,8 +69,17 @@ public:
         m_notify->onChanged(caller, f, mode);
     }
 
+    void resetOnChanged(Asyncable* caller)
+    {
+        assert(m_notify);
+        if (!m_notify) {
+            return;
+        }
+        m_notify->resetOnChanged(caller);
+    }
+
     template<typename Call>
-    void onItemChanged(Asyncable* caller, Call f, Asyncable::Mode mode = Asyncable::Mode::SetOnce)
+    void onItemChanged(Asyncable* caller, Call f, Asyncable::AsyncMode mode = Asyncable::AsyncMode::AsyncSetOnce)
     {
         assert(m_notify);
         if (!m_notify) {
@@ -73,8 +88,17 @@ public:
         m_notify->onItemChanged(caller, f, mode);
     }
 
+    void resetOnItemChanged(Asyncable* caller)
+    {
+        assert(m_notify);
+        if (!m_notify) {
+            return;
+        }
+        m_notify->resetOnItemChanged(caller);
+    }
+
     template<typename Call>
-    void onItemAdded(Asyncable* caller, Call f, Asyncable::Mode mode = Asyncable::Mode::SetOnce)
+    void onItemAdded(Asyncable* caller, Call f, Asyncable::AsyncMode mode = Asyncable::AsyncMode::AsyncSetOnce)
     {
         assert(m_notify);
         if (!m_notify) {
@@ -83,8 +107,17 @@ public:
         m_notify->onItemAdded(caller, f, mode);
     }
 
+    void resetOnItemAdded(Asyncable* caller)
+    {
+        assert(m_notify);
+        if (!m_notify) {
+            return;
+        }
+        m_notify->resetOnItemAdded(caller);
+    }
+
     template<typename Call>
-    void onItemRemoved(Asyncable* caller, Call f, Asyncable::Mode mode = Asyncable::Mode::SetOnce)
+    void onItemRemoved(Asyncable* caller, Call f, Asyncable::AsyncMode mode = Asyncable::AsyncMode::AsyncSetOnce)
     {
         assert(m_notify);
         if (!m_notify) {
@@ -93,8 +126,13 @@ public:
         m_notify->onItemRemoved(caller, f, mode);
     }
 
+    void resetOnItemRemoved(Asyncable* caller)
+    {
+        m_notify->resetOnItemRemoved(caller);
+    }
+
     template<typename Call>
-    void onItemReplaced(Asyncable* caller, Call f, Asyncable::Mode mode = Asyncable::Mode::SetOnce)
+    void onItemReplaced(Asyncable* caller, Call f, Asyncable::AsyncMode mode = Asyncable::AsyncMode::AsyncSetOnce)
     {
         assert(m_notify);
         if (!m_notify) {
@@ -103,16 +141,14 @@ public:
         m_notify->onItemReplaced(caller, f, mode);
     }
 
-    void disconnect(Asyncable* caller)
+    void resetOnItemReplaced(Asyncable* caller)
     {
-        assert(m_notify);
-        if (!m_notify) {
-            return;
-        }
-        m_notify->disconnect(caller);
+        m_notify->resetOnItemReplaced(caller);
     }
 
 private:
     std::shared_ptr<ChangedNotify<T> > m_notify = nullptr;
 };
 }
+
+#endif // MUSE_ASYNC_NOTIFYLIST_H

@@ -20,9 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#include "engraving/dom/select.h"
+#ifndef MU_ENGRAVING_APIV1_SELECTION_H
+#define MU_ENGRAVING_APIV1_SELECTION_H
 
 // api
 #include "elements.h"
@@ -97,3 +96,5 @@ public:
 
 extern Selection* selectionWrap(mu::engraving::Selection* selection);
 }
+
+#endif

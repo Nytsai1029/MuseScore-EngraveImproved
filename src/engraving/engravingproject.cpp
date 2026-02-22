@@ -23,10 +23,9 @@
 
 #include "global/allocator.h"
 
-#include "rw/inoutdata.h"
+#include "style/defaultstyle.h"
 #include "rw/mscloader.h"
 #include "rw/mscsaver.h"
-#include "style/defaultstyle.h"
 #include "dom/masterscore.h"
 #include "dom/part.h"
 
@@ -57,7 +56,7 @@ std::shared_ptr<EngravingProject> EngravingProject::create(const MStyle& style, 
 }
 
 EngravingProject::EngravingProject(const modularity::ContextPtr& iocCtx)
-    : muse::Contextable(iocCtx)
+    : muse::Injectable(iocCtx)
 {
     muse::ObjectAllocator::used();
 }
@@ -103,12 +102,12 @@ bool EngravingProject::readOnly() const
     return m_masterScore->readOnly();
 }
 
-void EngravingProject::setMasterScore(MasterScore* score)
+Ret EngravingProject::setupMasterScore(bool forceMode)
 {
-    m_masterScore = score;
+    return doSetupMasterScore(forceMode);
 }
 
-Ret EngravingProject::setupMasterScore(bool forceMode)
+Ret EngravingProject::doSetupMasterScore(bool forceMode)
 {
     TRACEFUNC;
 
@@ -142,22 +141,21 @@ MasterScore* EngravingProject::masterScore() const
     return m_masterScore;
 }
 
-Ret EngravingProject::loadMscz(const MscReader& msc, rw::ReadInOutData* data, bool ignoreVersionError)
+Ret EngravingProject::loadMscz(const MscReader& msc, SettingsCompat& settingsCompat, bool ignoreVersionError)
 {
     TRACEFUNC;
 
     MScore::setError(MsError::MS_NO_ERROR);
-
     MscLoader loader;
-    return loader.loadMscz(m_masterScore, msc, data, ignoreVersionError);
+    return loader.loadMscz(m_masterScore, msc, settingsCompat, ignoreVersionError);
 }
 
-bool EngravingProject::writeMscz(MscWriter& writer, bool createThumbnail, const write::WriteContext* ctx)
+bool EngravingProject::writeMscz(MscWriter& writer, bool createThumbnail, const write::WriteRange* range)
 {
     TRACEFUNC;
 
     MscSaver saver(iocContext());
-    return saver.writeMscz(m_masterScore, writer, createThumbnail, ctx);
+    return saver.writeMscz(m_masterScore, writer, createThumbnail, range);
 }
 
 bool EngravingProject::isCorruptedUponLoading() const

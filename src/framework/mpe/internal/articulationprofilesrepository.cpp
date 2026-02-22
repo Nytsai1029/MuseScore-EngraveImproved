@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -37,11 +37,11 @@ using namespace muse::async;
 
 static const std::map<ArticulationFamily, io::path_t> DEFAULT_ARTICULATION_PROFILES =
 {
-    { ArticulationFamily::Keyboards, io::path_t(":/mpe/resources/general_keyboard_articulations_profile.json") },
-    { ArticulationFamily::Strings, io::path_t(":/mpe/resources/general_strings_articulations_profile.json") },
-    { ArticulationFamily::Winds, io::path_t(":/mpe/resources/general_winds_articulations_profile.json") },
-    { ArticulationFamily::Percussions, io::path_t(":/mpe/resources/general_percussion_articulations_profile.json") },
-    { ArticulationFamily::Voices, io::path_t(":/mpe/resources/general_voice_articulations_profile.json") }
+    { ArticulationFamily::Keyboards, io::path_t(":/mpe/general_keyboard_articulations_profile.json") },
+    { ArticulationFamily::Strings, io::path_t(":/mpe/general_strings_articulations_profile.json") },
+    { ArticulationFamily::Winds, io::path_t(":/mpe/general_winds_articulations_profile.json") },
+    { ArticulationFamily::Percussions, io::path_t(":/mpe/general_percussion_articulations_profile.json") },
+    { ArticulationFamily::Voices, io::path_t(":/mpe/general_voice_articulations_profile.json") }
 };
 
 static const QString SUPPORTED_FAMILIES = "supportedFamilies";

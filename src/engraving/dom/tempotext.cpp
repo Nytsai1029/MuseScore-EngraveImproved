@@ -165,7 +165,7 @@ TDuration TempoText::duration() const
     int dummy = 0;
     TDuration result;
 
-    findTempoDuration(plainText(), dummy, result);
+    findTempoDuration(xmlText(), dummy, result);
 
     return result;
 }
@@ -233,7 +233,7 @@ void TempoText::updateScore()
 
 void TempoText::updateRelative()
 {
-    BeatsPerSecond tempoBefore = score()->tempo(tick() - Fraction::eps());
+    BeatsPerSecond tempoBefore = score()->tempo(tick() - Fraction::fromTicks(1));
     setTempo(tempoBefore * m_relative);
 }
 

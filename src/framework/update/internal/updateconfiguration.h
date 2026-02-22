@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -32,14 +32,14 @@
 #include "global/types/config.h"
 
 namespace muse::update {
-class UpdateConfiguration : public IUpdateConfiguration, public Contextable, public async::Asyncable
+class UpdateConfiguration : public IUpdateConfiguration, public Injectable, public async::Asyncable
 {
-    GlobalInject<IGlobalConfiguration> globalConfiguration;
-    GlobalInject<network::INetworkConfiguration> networkConfiguration;
+    Inject<IGlobalConfiguration> globalConfiguration = { this };
+    Inject<network::INetworkConfiguration> networkConfiguration = { this };
 
 public:
     UpdateConfiguration(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void init();
 

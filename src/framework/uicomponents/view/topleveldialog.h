@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -28,10 +28,10 @@
 #include "ui/imainwindow.h"
 
 namespace muse::uicomponents {
-class TopLevelDialog : public QDialog, public muse::Contextable
+class TopLevelDialog : public QDialog, public muse::Injectable
 {
 public:
-    muse::ContextInject<ui::IMainWindow> mainWindow = { this };
+    muse::Inject<ui::IMainWindow> mainWindow = { this };
 
 public:
     explicit TopLevelDialog(QWidget* parent = nullptr);

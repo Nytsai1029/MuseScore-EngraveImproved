@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="4.70">
+<museScore version="4.60">
   <Score>
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <spatium>1.75</spatium>
+      <spatium>1.74978</spatium>
       </Style>
     <showInvisible>1</showInvisible>
     <showUnprintable>1</showUnprintable>
@@ -30,8 +30,13 @@
         </Staff>
       <trackName></trackName>
       <Instrument id="piano">
-        <longName>Very long<br/>Instrument Name<br/>that does not<br/>fit within<br/>one line</longName>
-        <shortName>Vl.<br/>I/II</shortName>
+        <longName>Very long
+Instrument Name
+that does not
+fit within
+one line</longName>
+        <shortName>Vl.
+I/II</shortName>
         <trackName></trackName>
         <instrumentId>keyboard.piano</instrumentId>
         <Channel>

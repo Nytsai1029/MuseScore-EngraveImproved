@@ -15,6 +15,10 @@ on:
         description: 'Create tag & release: (if enabled, release type must be alpha,beta,rc,stable)'
         type: boolean
         default: false
+      use_qt69:
+        description: 'Use Qt 6.9'
+        default: 'on'
+        required: false   
 
 defaults:
   run:
@@ -24,13 +28,13 @@ jobs:
 
   plan:
     name: 'Plan: ${{ inputs.release_type}} (tag=${{ inputs.create_tag }})'
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     outputs:
       tag_name: ${{ steps.make_tag_info.outputs.TAG_NAME }}
       release_name: ${{ steps.make_tag_info.outputs.RELEASE_NAME }}
     steps:
     - name: Clone repo with history
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0 # entire history for all branches and tags
     - id: make_tag_info
@@ -41,10 +45,6 @@ jobs:
       run: |
         git tag --list | tail -n 20
         echo ==========
-
-        sudo apt-get update
-        sudo apt-get install cmake
-
         buildscripts/ci/release/make_tag_name.sh | tee -a "${GITHUB_OUTPUT}"
         echo "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
         echo ==========
@@ -83,15 +83,15 @@ jobs:
       - plan # to access outputs
       - update_learn_playlists
     if: ${{ ! failure() && ! cancelled() && inputs.create_tag }} # run even if prior jobs were skipped
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     environment:
       name: production # requires approval
       url: ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ needs.plan.outputs.tag_name }}
     steps:
     - name: Clone repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Download and extract artifacts
-      uses: actions/download-artifact@v7
+      uses: actions/download-artifact@v5
       with:
         path: build.artifacts
     - name: Collate release binaries

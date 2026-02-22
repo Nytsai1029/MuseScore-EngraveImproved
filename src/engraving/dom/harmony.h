@@ -267,15 +267,12 @@ public:
 
     bool hasModifiers() const;
 
-    String displayText() const;
     String harmonyName() const;
 
     double baseLine() const override;
     void spatiumChanged(double oldValue, double newValue) override;
     void localSpatiumChanged(double oldValue, double newValue) override;
     void setHarmony(const String& s);
-
-    int subtype() const override { return static_cast<int>(harmonyType()); }
 
     TranslatableString typeUserName() const override;
     String accessibleInfo() const override;
@@ -291,14 +288,12 @@ public:
     bool setProperty(Pid propertyId, const PropertyValue& v) override;
     PropertyValue propertyDefault(Pid id) const override;
 
-    bool positionRelativeToNoteheadRest() const override;
-
     double mag() const override;
 
     double bassScale() const { return m_bassScale; }
     void setBassScale(double v) { m_bassScale = v; }
 
-    Color curColor(const rendering::PaintOptions& opt) const override;
+    Color curColor() const override;
     void setColor(const Color& color) override;
 
     bool doNotStackModifiers() const { return m_doNotStackModifiers; }

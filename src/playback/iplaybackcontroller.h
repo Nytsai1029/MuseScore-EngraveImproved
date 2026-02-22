@@ -5,7 +5,7 @@
  * MuseScore Studio
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited
+ * Copyright (C) 2021 MuseScore Limited
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,8 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef MU_PLAYBACK_IPLAYBACKCONTROLLER_H
+#define MU_PLAYBACK_IPLAYBACKCONTROLLER_H
 
 #include "modularity/imoduleinterface.h"
 #include "async/notification.h"
@@ -29,14 +29,13 @@
 #include "global/progress.h"
 #include "notation/inotation.h"
 #include "notation/notationtypes.h"
-#include "audio/common/audiotypes.h"
+#include "audio/audiotypes.h"
 #include "actions/actiontypes.h"
-#include "midi/miditypes.h"
 
 #include "playbacktypes.h"
 
 namespace mu::playback {
-class IPlaybackController : MODULE_CONTEXT_INTERFACE
+class IPlaybackController : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IPlaybackController)
 
@@ -72,10 +71,9 @@ public:
     const
         = 0;
 
-    using SoloMuteState = notation::INotationSoloMuteState::SoloMuteState;
-
-    virtual const SoloMuteState& trackSoloMuteState(const engraving::InstrumentTrackId& trackId) const = 0;
-    virtual void setTrackSoloMuteState(const engraving::InstrumentTrackId& trackId, const SoloMuteState& state) = 0;
+    virtual notation::INotationSoloMuteState::SoloMuteState trackSoloMuteState(const engraving::InstrumentTrackId& trackId) const = 0;
+    virtual void setTrackSoloMuteState(const engraving::InstrumentTrackId& trackId,
+                                       const notation::INotationSoloMuteState::SoloMuteState& state) = 0;
 
     struct PlayParams {
         PlayParams() {}
@@ -98,10 +96,10 @@ public:
     virtual bool actionChecked(const muse::actions::ActionCode& actionCode) const = 0;
     virtual muse::async::Channel<muse::actions::ActionCode> actionCheckedChanged() const = 0;
 
-    virtual muse::secs_t totalPlayTime() const = 0;
+    virtual QTime totalPlayTime() const = 0;
     virtual muse::async::Notification totalPlayTimeChanged() const = 0;
 
-    virtual const notation::Tempo& currentTempo() const = 0;
+    virtual notation::Tempo currentTempo() const = 0;
     virtual muse::async::Notification currentTempoChanged() const = 0;
 
     virtual notation::MeasureBeat currentBeat() const = 0;
@@ -122,3 +120,5 @@ public:
     virtual muse::Progress onlineSoundsProcessingProgress() const = 0;
 };
 }
+
+#endif // MU_PLAYBACK_IPLAYBACKCONTROLLER_H

@@ -47,7 +47,6 @@
 #include "engraving/dom/text.h"
 #include "engraving/dom/tie.h"
 #include "engraving/dom/utils.h"
-#include "engraving/editing/transpose.h"
 #include "engraving/engravingerrors.h"
 
 #include "log.h"
@@ -444,7 +443,7 @@ Err importBB(MasterScore* score, const QString& name)
 
     if (tracks->isEmpty()) {
         for (MeasureBase* mb = score->first(); mb; mb = mb->next()) {
-            if (!mb->isMeasure()) {
+            if (mb->type() != ElementType::MEASURE) {
                 continue;
             }
             Measure* measure = (Measure*)mb;
@@ -462,7 +461,7 @@ Err importBB(MasterScore* score, const QString& name)
     }
 
     for (MeasureBase* mb = score->first(); mb; mb = mb->next()) {
-        if (!mb->isMeasure()) {
+        if (mb->type() != ElementType::MEASURE) {
             continue;
         }
         Measure* measure = (Measure*)mb;
@@ -486,7 +485,7 @@ Err importBB(MasterScore* score, const QString& name)
     Text* text = Factory::createText(measureB, TextStyleType::TITLE);
     text->setPlainText(String::fromUtf8(bb.title()));
 
-    if (!measureB->isVBox()) {
+    if (measureB->type() != ElementType::VBOX) {
         measureB = Factory::createTitleVBox(score->dummy()->system());
         measureB->setNext(score->first());
         score->measures()->append(measureB);
@@ -535,7 +534,7 @@ Err importBB(MasterScore* score, const QString& name)
 
     int n = 0;
     for (MeasureBase* mb = score->first(); mb; mb = mb->next()) {
-        if (!mb->isMeasure()) {
+        if (mb->type() != ElementType::MEASURE) {
             continue;
         }
         Measure* measure = (Measure*)mb;
@@ -560,7 +559,7 @@ Err importBB(MasterScore* score, const QString& name)
         Key cKey = key;
         Interval v = staff->part()->instrument(tick)->transpose();
         if (!v.isZero() && !score->style().styleB(Sid::concertPitch)) {
-            cKey = Transpose::transposeKey(key, v);
+            cKey = transposeKey(key, v);
             // if there are more than 6 accidentals in transposing key, it cannot be PreferSharpFlat::AUTO
             if ((key > 6 || key < -6) && staff->part()->preferSharpFlat() == PreferSharpFlat::AUTO) {
                 staff->part()->setPreferSharpFlat(PreferSharpFlat::NONE);

@@ -20,17 +20,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef MU_ENGRAVING_READ114_H
+#define MU_ENGRAVING_READ114_H
 
 #include "../ireader.h"
-
-namespace mu::engraving {
-class Excerpt;
-}
-
-namespace mu::engraving::read400  {
-class ReadContext;
-}
 
 namespace mu::engraving::read114 {
 class Read114 : public rw::IReader
@@ -40,18 +33,16 @@ public:
     //   read114
     //    import old version <= 1.3 files
     //---------------------------------------------------------
-    muse::Ret readScoreFile(Score* masterScore, XmlReader& e, rw::ReadInOutData* out) override;
+    muse::Ret readScore(Score* masterScore, XmlReader& e, rw::ReadInOutData* out) override;
 
     bool pasteStaff(XmlReader& e, Segment* dst, staff_idx_t dstStaff, Fraction scale) override;
     void pasteSymbols(XmlReader& e, ChordRest* dst) override;
 
     void readTremoloCompat(compat::TremoloCompat* item, XmlReader& xml) override;
 
-    static void setBarLineSpanToStaves(Score*, const read400::ReadContext&);
-
 private:
     void doReadItem(EngravingItem* item, XmlReader& xml) override;
-
-    void readExcerpt(Excerpt* ex, XmlReader& e, read400::ReadContext& ctx);
 };
 }
+
+#endif // MU_ENGRAVING_READ114_H

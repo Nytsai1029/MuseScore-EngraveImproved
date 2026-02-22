@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -39,8 +39,8 @@ const UiActionList WorkspaceUiActions::m_actions = {
     UiAction("configure-workspaces",
              muse::ui::UiCtxAny,
              muse::shortcuts::CTX_ANY,
-             TranslatableString("action", "Edit workspaces…"),
              TranslatableString("action", "Edit workspaces"),
+             TranslatableString("action", "Edit workspaces…"),
              IconCode::Code::EDIT
              ),
     UiAction("create-workspace",
@@ -52,7 +52,7 @@ const UiActionList WorkspaceUiActions::m_actions = {
 };
 
 WorkspaceUiActions::WorkspaceUiActions(std::shared_ptr<WorkspaceActionController> controller, const modularity::ContextPtr& iocCtx)
-    : Contextable(iocCtx), m_controller(controller)
+    : Injectable(iocCtx), m_controller(controller)
 {
 }
 

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -36,12 +36,12 @@ std::thread::id AudioThreadSecurer::mainThreadId() const
     return AudioSanitizer::mainThread();
 }
 
-bool AudioThreadSecurer::isAudioEngineThread() const
+bool AudioThreadSecurer::isAudioWorkerThread() const
 {
-    return AudioSanitizer::isEngineThread();
+    return AudioSanitizer::isWorkerThread();
 }
 
-std::thread::id AudioThreadSecurer::audioEngineThreadId() const
+std::thread::id AudioThreadSecurer::workerThreadId() const
 {
-    return AudioSanitizer::engineThread();
+    return AudioSanitizer::workerThread();
 }

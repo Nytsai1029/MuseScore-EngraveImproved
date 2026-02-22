@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -22,14 +22,26 @@
 
 #include "dockmodule.h"
 
+#include <QQmlEngine>
+
 #include "internal/dropcontroller.h"
 #include "internal/dockseparator.h"
+#include "internal/dockframemodel.h"
 #include "internal/docktabbar.h"
-#include "internal/docktitlebar.h"
 #include "internal/dockwindowactionscontroller.h"
 #include "internal/dockwindowprovider.h"
 
-#include "thirdparty/KDDockWidgets/src/ContextData.h"
+#include "view/dockwindow.h"
+#include "view/dockpanelview.h"
+#include "view/docktoolbarview.h"
+#include "view/dockstatusbarview.h"
+#include "view/dockingholderview.h"
+#include "view/dockcentralview.h"
+#include "view/dockpageview.h"
+#include "view/docktitlebar.h"
+
+#include "docktypes.h"
+
 #include "thirdparty/KDDockWidgets/src/Config.h"
 #include "thirdparty/KDDockWidgets/src/DockWidgetBase.h"
 #include "thirdparty/KDDockWidgets/src/FrameworkWidgetFactory.h"
@@ -38,14 +50,12 @@
 #include "modularity/ioc.h"
 #include "ui/iuiengine.h"
 
-#include "muse_framework_config.h"
-
 namespace muse::dock {
 class DockWidgetFactory : public KDDockWidgets::DefaultWidgetFactory
 {
 public:
     DockWidgetFactory(const modularity::ContextPtr& iocCtx)
-        : KDDockWidgets::DefaultWidgetFactory(iocCtx->id), m_iocContext(iocCtx) {}
+        : m_iocContext(iocCtx) {}
 
     KDDockWidgets::DropIndicatorOverlayInterface* createDropIndicatorOverlay(KDDockWidgets::DropArea* dropArea) const override
     {
@@ -59,37 +69,37 @@ public:
 
     KDDockWidgets::TitleBar* createTitleBar(KDDockWidgets::Frame* frame) const override
     {
-        return new DockTitleBar(m_ctx, frame);
+        return new DockTitleBar(frame);
     }
 
     KDDockWidgets::TitleBar* createTitleBar(KDDockWidgets::FloatingWindow* floatingWindow) const override
     {
-        return new DockTitleBar(m_ctx, floatingWindow);
+        return new DockTitleBar(floatingWindow);
     }
 
     KDDockWidgets::TabBar* createTabBar(KDDockWidgets::TabWidget* parent) const override
     {
-        return new DockTabBar(m_ctx, parent);
+        return new DockTabBar(parent);
     }
 
     QUrl titleBarFilename() const override
     {
-        return QUrl("qrc:/qt/qml/Muse/Dock/DockTitleBar.qml");
+        return QUrl("qrc:/qml/Muse/Dock/DockTitleBar.qml");
     }
 
     QUrl dockwidgetFilename() const override
     {
-        return QUrl("qrc:/qt/qml/Muse/Dock/DockWidget.qml");
+        return QUrl("qrc:/qml/Muse/Dock/DockWidget.qml");
     }
 
     QUrl frameFilename() const override
     {
-        return QUrl("qrc:/qt/qml/Muse/Dock/DockFrame.qml");
+        return QUrl("qrc:/qml/Muse/Dock/DockFrame.qml");
     }
 
     QUrl floatingWindowFilename() const override
     {
-        return QUrl("qrc:/qt/qml/Muse/Dock/DockFloatingWindow.qml");
+        return QUrl("qrc:/qml/Muse/Dock/DockFloatingWindow.qml");
     }
 
 private:
@@ -100,78 +110,76 @@ private:
 using namespace muse::dock;
 using namespace muse::modularity;
 
-static const std::string module_name = "dockwindow";
+static void dock_init_qrc()
+{
+    Q_INIT_RESOURCE(dock);
+}
 
 std::string DockModule::moduleName() const
 {
-    return module_name;
+    return "dockwindow";
 }
 
 void DockModule::registerExports()
 {
-}
-
-void DockModule::onInit(const IApplication::RunMode&)
-{
-}
-
-// Context
-
-IContextSetup* DockModule::newContext(const muse::modularity::ContextPtr& ctx) const
-{
-    return new DockContext(ctx);
-}
-
-void DockContext::registerExports()
-{
     m_actionsController = std::make_shared<DockWindowActionsController>(iocContext());
 
-    ioc()->registerExport<IDockWindowProvider>(module_name, new DockWindowProvider());
+    ioc()->registerExport<IDockWindowProvider>(moduleName(), new DockWindowProvider());
 }
 
-void DockContext::onInit(const IApplication::RunMode&)
+void DockModule::registerResources()
 {
+    dock_init_qrc();
+}
+
+void DockModule::registerUiTypes()
+{
+    qmlRegisterType<DockWindow>("Muse.Dock", 1, 0, "DockWindow");
+    qmlRegisterType<DockPanelView>("Muse.Dock", 1, 0, "DockPanelView");
+    qmlRegisterType<DockStatusBarView>("Muse.Dock", 1, 0, "DockStatusBar");
+    qmlRegisterType<DockToolBarView>("Muse.Dock", 1, 0, "DockToolBarView");
+    qmlRegisterType<DockingHolderView>("Muse.Dock", 1, 0, "DockingHolderView");
+    qmlRegisterType<DockCentralView>("Muse.Dock", 1, 0, "DockCentralView");
+    qmlRegisterType<DockPageView>("Muse.Dock", 1, 0, "DockPageView");
+    qmlRegisterType<DockFrameModel>("Muse.Dock", 1, 0, "DockFrameModel");
+
+    qmlRegisterUncreatableType<DockTabsModel>("Muse.Dock", 1, 0, "DockTabsModel", "Not creatable from QML");
+    qmlRegisterUncreatableType<DockToolBarAlignment>("Muse.Dock", 1, 0, "DockToolBarAlignment", "Not creatable from QML");
+    qmlRegisterUncreatableType<DockLocation>("Muse.Dock", 1, 0, "Location", "Not creatable from QML");
+}
+
+void DockModule::onInit(const IApplication::RunMode& mode)
+{
+    if (mode != IApplication::RunMode::GuiApp) {
+        return;
+    }
+
     m_actionsController->init();
 
     // ===================================
     // Setup KDDockWidgets
     // ===================================
 
-    QQmlEngine* engine = ioc()->resolve<ui::IUiEngine>(module_name)->qmlEngine();
+    QQmlEngine* engine = ioc()->resolve<ui::IUiEngine>(moduleName())->qmlEngine();
 
-    const int ctx = iocContext()->id;
+    KDDockWidgets::Config::self().setFrameworkWidgetFactory(new DockWidgetFactory(iocContext()));
+    KDDockWidgets::Config::self().setQmlEngine(engine);
 
-    //! NOTE Create new context data
-    KDDockWidgets::ContextData::context(ctx);
-
-    KDDockWidgets::Config& config = KDDockWidgets::Config::self(ctx);
-
-    config.setFrameworkWidgetFactory(new DockWidgetFactory(iocContext()));
-    config.setQmlEngine(engine);
-
-    auto flags = config.flags()
+    auto flags = KDDockWidgets::Config::self().flags()
                  | KDDockWidgets::Config::Flag_HideTitleBarWhenTabsVisible
                  | KDDockWidgets::Config::Flag_TitleBarNoFloatButton;
 
-    config.setFlags(flags);
+    KDDockWidgets::Config::self().setFlags(flags);
 
     KDDockWidgets::FloatingWindow::s_windowFlagsOverride = Qt::Tool
                                                            | Qt::NoDropShadowWindowHint
                                                            | Qt::FramelessWindowHint;
 
-    auto internalFlags = config.internalFlags()
+    auto internalFlags = KDDockWidgets::Config::self().internalFlags()
                          | KDDockWidgets::Config::InternalFlag_UseTransparentFloatingWindow;
 
-    config.setInternalFlags(internalFlags);
+    KDDockWidgets::Config::self().setInternalFlags(internalFlags);
 
-    config.setAbsoluteWidgetMinSize(QSize(10, 10));
-    config.setSeparatorThickness(1);
-}
-
-void DockContext::onDeinit()
-{
-    const int ctx = iocContext()->id;
-
-    //! NOTE Destroy context data
-    KDDockWidgets::ContextData::destroyContext(ctx);
+    KDDockWidgets::Config::self().setAbsoluteWidgetMinSize(QSize(10, 10));
+    KDDockWidgets::Config::self().setSeparatorThickness(1);
 }

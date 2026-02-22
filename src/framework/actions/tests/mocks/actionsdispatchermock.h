@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -32,9 +32,6 @@ public:
     MOCK_METHOD(void, dispatch, (const ActionCode&), (override));
     MOCK_METHOD(void, dispatch, (const ActionCode&, const ActionData&), (override));
     MOCK_METHOD(void, dispatch, (const ActionQuery& actionQuery), (override));
-
-    MOCK_METHOD(async::Channel<ActionCode>, preDispatch, (), (const, override));
-    MOCK_METHOD(async::Channel<ActionCode>, postDispatch, (), (const, override));
 
     MOCK_METHOD(void, unReg, (Actionable*), (override));
     MOCK_METHOD(void, reg, (Actionable*, const ActionCode&, const ActionCallBackWithNameAndData&), (override));

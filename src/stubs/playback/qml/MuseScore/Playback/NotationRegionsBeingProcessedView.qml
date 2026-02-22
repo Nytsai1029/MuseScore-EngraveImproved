@@ -19,8 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-import QtQuick
+import QtQuick 2.15
 
 Loader {
     id: root
@@ -30,4 +29,5 @@ Loader {
 
     active: false
     enabled: false
+
 }

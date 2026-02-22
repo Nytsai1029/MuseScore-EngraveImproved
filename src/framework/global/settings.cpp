@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -27,8 +27,8 @@
 #include <QStandardPaths>
 #include <QDir>
 
-#ifdef MUSE_MODULE_MULTIWINDOWS
-#include "multiwindows/resourcelockguard.h"
+#ifdef MUSE_MODULE_MULTIINSTANCES
+#include "multiinstances/resourcelockguard.h"
 #endif
 
 #include "muse_framework_config.h"
@@ -137,9 +137,9 @@ void Settings::reset(bool keepDefaultSettings, bool notifyAboutChanges, bool not
     }
 
     UNUSED(notifyOtherInstances);
-#ifdef MUSE_MODULE_MULTIWINDOWS
-    if (notifyOtherInstances && multiwindowsProvider()) {
-        multiwindowsProvider()->settingsReset();
+#ifdef MUSE_MODULE_MULTIINSTANCES
+    if (notifyOtherInstances && multiInstancesProvider()) {
+        multiInstancesProvider()->settingsReset();
     }
 #endif
 }
@@ -171,8 +171,8 @@ static Val compat_QVariantToVal(const QVariant& var)
 Settings::Items Settings::readItems() const
 {
     Items result;
-#ifdef MUSE_MODULE_MULTIWINDOWS
-    muse::mi::ReadResourceLockGuard resource_lock(multiwindowsProvider.get(), SETTINGS_RESOURCE_NAME);
+#ifdef MUSE_MODULE_MULTIINSTANCES
+    muse::mi::ReadResourceLockGuard resource_lock(multiInstancesProvider.get(), SETTINGS_RESOURCE_NAME);
 #endif
     for (const QString& key : m_settings->allKeys()) {
         Item item;
@@ -185,22 +185,27 @@ Settings::Items Settings::readItems() const
     return result;
 }
 
-const Val& Settings::value(const Key& key) const
+Val Settings::value(const Key& key) const
 {
     return findItem(key).value;
 }
 
-const Val& Settings::defaultValue(const Key& key) const
+Val Settings::defaultValue(const Key& key) const
 {
     return findItem(key).defaultValue;
+}
+
+std::string Settings::description(const Key& key) const
+{
+    return findItem(key).description;
 }
 
 void Settings::setSharedValue(const Key& key, const Val& value)
 {
     setLocalValue(key, value);
-#ifdef MUSE_MODULE_MULTIWINDOWS
-    if (multiwindowsProvider()) {
-        multiwindowsProvider()->settingsSetValue(key.key, value);
+#ifdef MUSE_MODULE_MULTIINSTANCES
+    if (multiInstancesProvider()) {
+        multiInstancesProvider()->settingsSetValue(key.key, value);
     }
 #endif
 }
@@ -232,8 +237,8 @@ void Settings::setLocalValue(const Key& key, const Val& value)
 
 void Settings::writeValue(const Key& key, const Val& value)
 {
-#ifdef MUSE_MODULE_MULTIWINDOWS
-    muse::mi::WriteResourceLockGuard resource_lock(multiwindowsProvider.get(), SETTINGS_RESOURCE_NAME);
+#ifdef MUSE_MODULE_MULTIINSTANCES
+    muse::mi::WriteResourceLockGuard resource_lock(multiInstancesProvider.get(), SETTINGS_RESOURCE_NAME);
 #endif
     // TODO: implement writing/reading first part of key (module name)
     m_settings->setValue(QString::fromStdString(key.key), value.toQVariant());
@@ -304,9 +309,9 @@ void Settings::beginTransaction(bool notifyToOtherInstances)
     m_isTransactionStarted = true;
 
     UNUSED(notifyToOtherInstances)
-#ifdef MUSE_MODULE_MULTIWINDOWS
-    if (notifyToOtherInstances && multiwindowsProvider()) {
-        multiwindowsProvider()->settingsBeginTransaction();
+#ifdef MUSE_MODULE_MULTIINSTANCES
+    if (notifyToOtherInstances && multiInstancesProvider()) {
+        multiInstancesProvider()->settingsBeginTransaction();
     }
 #endif
 }
@@ -333,9 +338,9 @@ void Settings::commitTransaction(bool notifyToOtherInstances)
     m_localSettings.clear();
 
     UNUSED(notifyToOtherInstances)
-#ifdef MUSE_MODULE_MULTIWINDOWS
-    if (notifyToOtherInstances && multiwindowsProvider()) {
-        multiwindowsProvider()->settingsCommitTransaction();
+#ifdef MUSE_MODULE_MULTIINSTANCES
+    if (notifyToOtherInstances && multiInstancesProvider()) {
+        multiInstancesProvider()->settingsCommitTransaction();
     }
 #endif
 }
@@ -357,9 +362,9 @@ void Settings::rollbackTransaction(bool notifyToOtherInstances)
     m_localSettings.clear();
 
     UNUSED(notifyToOtherInstances)
-#ifdef MUSE_MODULE_MULTIWINDOWS
-    if (notifyToOtherInstances && multiwindowsProvider()) {
-        multiwindowsProvider()->settingsRollbackTransaction();
+#ifdef MUSE_MODULE_MULTIINSTANCES
+    if (notifyToOtherInstances && multiInstancesProvider()) {
+        multiInstancesProvider()->settingsRollbackTransaction();
     }
 #endif
 }

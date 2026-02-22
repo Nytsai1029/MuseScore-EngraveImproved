@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -22,70 +22,31 @@
 
 #pragma once
 
-#include "global/async/asyncable.h"
-
 #include "audio/iaudiodrivercontroller.h"
-
 #include "modularity/ioc.h"
-#include "audio/main/iaudioconfiguration.h"
-#include "audio/common/rpc/irpcchannel.h"
+
+#include "audio/iaudioconfiguration.h"
 
 namespace muse::audio {
-class AudioDriverController : public IAudioDriverController, public Contextable, public async::Asyncable
+class AudioDriverController : public IAudioDriverController, public Injectable
 {
-    GlobalInject<IAudioConfiguration> configuration;
-    ContextInject<rpc::IRpcChannel> rpcChannel = { this };
+    Inject<IAudioConfiguration> configuration = { this };
 
 public:
     AudioDriverController(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
-    // Api
-    std::vector<std::string> availableAudioApiList() const override;
+    void init();
 
     std::string currentAudioApi() const override;
-    void changeCurrentAudioApi(const std::string& name) override;
+    void setCurrentAudioApi(const std::string& name) override;
     async::Notification currentAudioApiChanged() const override;
 
-    // Current driver operation
-    AudioDeviceList availableOutputDevices() const override;
-    async::Notification availableOutputDevicesChanged() const override;
+    std::vector<std::string> availableAudioApiList() const override;
 
-    bool open(const IAudioDriver::Spec& spec, IAudioDriver::Spec* activeSpec) override;
-    void close() override;
-    bool isOpened() const override;
-
-    const IAudioDriver::Spec& activeSpec() const override;
-    async::Channel<IAudioDriver::Spec> activeSpecChanged() const override;
-
-    AudioDeviceID outputDevice() const override;
-    bool selectOutputDevice(const AudioDeviceID& deviceId) override;
-    async::Notification outputDeviceChanged() const override;
-
-    std::vector<samples_t> availableOutputDeviceBufferSizes() const override;
-    void changeBufferSize(samples_t samples) override;
-    async::Notification outputDeviceBufferSizeChanged() const override;
-
-    std::vector<sample_rate_t> availableOutputDeviceSampleRates() const override;
-    void changeSampleRate(sample_rate_t sampleRate) override;
-    async::Notification outputDeviceSampleRateChanged() const override;
+    IAudioDriverPtr audioDriver() const override;
 
 private:
-    IAudioDriverPtr createDriver(const std::string& name) const;
-    void setNewDriver(IAudioDriverPtr newDriver);
-
-    IAudioDriver::Spec defaultSpec() const;
-
-    void checkOutputDevice();
-    void updateOutputSpec();
-
-    IAudioDriver::Callback m_callback;
     IAudioDriverPtr m_audioDriver;
-    async::Notification m_currentAudioApiChanged;
-    async::Notification m_availableOutputDevicesChanged;
-    async::Channel<IAudioDriver::Spec> m_activeSpecChanged;
-    async::Notification m_outputDeviceChanged;
-    async::Notification m_outputDeviceBufferSizeChanged;
-    async::Notification m_outputDeviceSampleRateChanged;
 };
 }

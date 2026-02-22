@@ -52,88 +52,104 @@ void UiContextResolver::init()
     interactive()->currentUri().ch.onReceive(this, [this](const Uri&) {
         //! NOTE Let the page/dialog open and show itself first
         QTimer::singleShot(CURRENT_URI_CHANGED_TIMEOUT, [this]() {
-            updateCurrentUiContext();
+            notifyAboutContextChanged();
         });
     });
 
+    playbackController()->isPlayingChanged().onNotify(this, [this]() {
+        notifyAboutContextChanged();
+    });
+
     globalContext()->currentNotationChanged().onNotify(this, [this]() {
-        updateCurrentUiContext();
+        auto notation = globalContext()->currentNotation();
+        if (notation) {
+            notation->interaction()->selectionChanged().onNotify(this, [this]() {
+                notifyAboutContextChanged();
+            });
+
+            notation->interaction()->textEditingStarted().onNotify(this, [this]() {
+                notifyAboutContextChanged();
+            });
+
+            notation->interaction()->textEditingEnded().onReceive(this, [this](engraving::TextBase*) {
+                notifyAboutContextChanged();
+            });
+
+            notation->undoStack()->stackChanged().onNotify(this, [this]() {
+                notifyAboutContextChanged();
+            });
+
+            notation->interaction()->noteInput()->noteInputStarted().onReceive(this, [this](bool) {
+                notifyAboutContextChanged();
+            });
+
+            notation->interaction()->noteInput()->noteInputEnded().onNotify(this, [this]() {
+                notifyAboutContextChanged();
+            });
+        }
+        notifyAboutContextChanged();
     });
 
     navigationController()->navigationChanged().onNotify(this, [this]() {
-        updateCurrentUiContext();
+        notifyAboutContextChanged();
     });
 }
 
-void UiContextResolver::updateCurrentUiContext()
+void UiContextResolver::notifyAboutContextChanged()
 {
-    UiContext ctx = resolveCurrentUiContext();
-
-    if (!m_currentUiContext.isNull() && m_currentUiContext == ctx) {
-        return;
-    }
-
-    m_currentUiContext = ctx;
     m_currentUiContextChanged.notify();
 }
 
-UiContext UiContextResolver::resolveCurrentUiContext() const
+UiContext UiContextResolver::currentUiContext() const
 {
     TRACEFUNC;
-
-#ifdef MUSE_MODULE_INTERACTIVE
-    if (interactive()) {
-        Uri currentUri = interactive()->currentUri().val;
+    Uri currentUri = interactive()->currentUri().val;
 
 #ifdef MUSE_MODULE_DIAGNOSTICS
-        currentUri = diagnostics::diagnosticCurrentUri(interactive()->stack());
+    currentUri = diagnostics::diagnosticCurrentUri(interactive()->stack());
 #endif
 
-        if (currentUri == HOME_PAGE_URI) {
-            return context::UiCtxHomeOpened;
-        }
-
-        if (currentUri == NOTATION_PAGE_URI) {
-            auto notation = globalContext()->currentNotation();
-            if (!notation) {
-                //! NOTE The notation page is open, but the notation itself is not loaded - we consider that the notation is not open.
-                //! We need to think, maybe we need a separate value for this case.
-                return context::UiCtxUnknown;
-            }
-
-            INavigationPanel* activePanel = navigationController()->activePanel();
-            if (activePanel) {
-                const QString panelName = activePanel->name();
-                if (panelName == NOTATION_NAVIGATION_PANEL) {
-                    return context::UiCtxProjectFocused;
-                } else if (panelName == BRAILLE_NAVIGATION_PANEL) {
-                    return context::UiCtxBrailleFocused;
-                }
-            }
-
-            return context::UiCtxProjectOpened;
-        }
-
-        if (currentUri == PUBLISH_PAGE_URI) {
-            return context::UiCtxPublishOpened;
-        }
-
-        if (currentUri == DEVTOOLS_PAGE_URI) {
-            return context::UiCtxDevToolsOpened;
-        }
-
-        if (interactive()->isCurrentUriDialog().val) {
-            bool isExtensionDialog = currentUri == EXTENSIONS_DIALOG_URI;
-            if (!isExtensionDialog) {
-                return context::UiCtxDialogOpened;
-            }
-        }
-
-        return context::UiCtxUnknown;
+    if (currentUri == HOME_PAGE_URI) {
+        return context::UiCtxHomeOpened;
     }
-#endif
 
-    return globalContext()->currentNotation() ? context::UiCtxProjectOpened : context::UiCtxUnknown;
+    if (currentUri == NOTATION_PAGE_URI) {
+        auto notation = globalContext()->currentNotation();
+        if (!notation) {
+            //! NOTE The notation page is open, but the notation itself is not loaded - we consider that the notation is not open.
+            //! We need to think, maybe we need a separate value for this case.
+            return context::UiCtxUnknown;
+        }
+
+        INavigationPanel* activePanel = navigationController()->activePanel();
+        if (activePanel) {
+            const QString panelName = activePanel->name();
+            if (panelName == NOTATION_NAVIGATION_PANEL) {
+                return context::UiCtxProjectFocused;
+            } else if (panelName == BRAILLE_NAVIGATION_PANEL) {
+                return context::UiCtxBrailleFocused;
+            }
+        }
+
+        return context::UiCtxProjectOpened;
+    }
+
+    if (currentUri == PUBLISH_PAGE_URI) {
+        return context::UiCtxPublishOpened;
+    }
+
+    if (currentUri == DEVTOOLS_PAGE_URI) {
+        return context::UiCtxDevToolsOpened;
+    }
+
+    if (interactive()->isCurrentUriDialog().val) {
+        bool isExtensionDialog = currentUri == EXTENSIONS_DIALOG_URI;
+        if (!isExtensionDialog) {
+            return context::UiCtxDialogOpened;
+        }
+    }
+
+    return context::UiCtxUnknown;
 }
 
 bool UiContextResolver::match(const muse::ui::UiContext& currentCtx, const muse::ui::UiContext& actCtx) const
@@ -166,17 +182,8 @@ bool UiContextResolver::matchWithCurrent(const UiContext& ctx) const
         return true;
     }
 
-    const UiContext& currentCtx = currentUiContext();
+    UiContext currentCtx = currentUiContext();
     return match(currentCtx, ctx);
-}
-
-const muse::ui::UiContext& UiContextResolver::currentUiContext() const
-{
-    if (m_currentUiContext.isNull()) {
-        const_cast<UiContextResolver*>(this)->updateCurrentUiContext();
-    }
-
-    return m_currentUiContext;
 }
 
 muse::async::Notification UiContextResolver::currentUiContextChanged() const
@@ -199,10 +206,6 @@ bool UiContextResolver::isShortcutContextAllowed(const std::string& scContext) c
     //! UPDATE I'm now adding one more context for list VS range selection, but this is
     //! quite clearly not an optimal solution. In future, we need a general system to
     //! allow/disallow shortcuts based on any property of the currentNotation. [M.S.]
-
-    if (CTX_DISABLED == scContext) {
-        return false;
-    }
 
     if (CTX_NOTATION_OPENED == scContext) {
         return matchWithCurrent(context::UiCtxProjectOpened);

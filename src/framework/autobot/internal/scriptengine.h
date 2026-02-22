@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -69,11 +69,9 @@ public:
 
     // IApiEngine
     const modularity::ContextPtr& iocContext() const override;
-    int apiversion() const override;
     QJSValue newQObject(QObject* o) override;
     QJSValue newObject() override;
     QJSValue newArray(size_t length = 0) override;
-    QJSValue freeze(const QJSValue& val) override;
 
     static void dump(const QString& name, const QJSValue& val);
 

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -27,7 +27,7 @@
 #include "../types/fontstypes.h"
 
 namespace muse::draw {
-class IFontsDatabase : MODULE_GLOBAL_INTERFACE
+class IFontsDatabase : public modularity::IModuleExportInterface
 {
     INTERFACE_ID(muse::draw::IFontsDatabase)
 public:

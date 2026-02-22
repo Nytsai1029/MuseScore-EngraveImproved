@@ -4,7 +4,7 @@
 # MuseScore
 # Music Composition & Notation
 #
-# Copyright (C) 2024 MuseScore Limited and others
+# Copyright (C) 2024 MuseScore BVBA and others
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -18,11 +18,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-set(MODULE_TEST muse_update_test)
+set(MODULE_TEST update_test)
 
 set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/mocks/updateconfigurationmock.h
-    ${CMAKE_CURRENT_LIST_DIR}/appupdateservice_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/updateservice_tests.cpp
 )
 
 set(MODULE_TEST_LINK
@@ -33,3 +33,4 @@ set(MODULE_TEST_LINK
 set(MODULE_TEST_DATA_ROOT ${CMAKE_CURRENT_LIST_DIR})
 
 include(SetupGTest)
+

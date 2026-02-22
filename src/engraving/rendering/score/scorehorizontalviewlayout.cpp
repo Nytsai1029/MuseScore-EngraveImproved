@@ -137,7 +137,7 @@ void ScoreHorizontalViewLayout::resetSystems(LayoutContext& ctx, bool layoutAll)
         page = Factory::createPage(ctx.mutDom().rootItem());
         ctx.mutDom().pages().push_back(page);
         page->mutldata()->setBbox(0.0, 0.0, ctx.conf().loWidth(), ctx.conf().loHeight());
-        page->setPageNumber(0);
+        page->setNo(0);
 
         System* system = Factory::createSystem(page);
         ctx.mutDom().systems().push_back(system);
@@ -239,9 +239,9 @@ void ScoreHorizontalViewLayout::layoutLinear(LayoutContext& ctx)
     }
 
     const double lm = ctx.state().page()->lm();
-    const double tm = ctx.state().page()->tm() + ctx.conf().styleAbsolute(Sid::staffUpperBorder);
+    const double tm = ctx.state().page()->tm() + ctx.conf().styleMM(Sid::staffUpperBorder);
     const double rm = ctx.state().page()->rm();
-    const double bm = ctx.state().page()->bm() + ctx.conf().styleAbsolute(Sid::staffLowerBorder);
+    const double bm = ctx.state().page()->bm() + ctx.conf().styleMM(Sid::staffLowerBorder);
 
     layoutSystemLockIndicators(system);
 
@@ -280,7 +280,7 @@ void ScoreHorizontalViewLayout::collectLinearSystem(LayoutContext& ctx)
     System* system = ctx.mutDom().systems().front();
     SystemLayout::setInstrumentNames(system, ctx, /* longNames */ true);
 
-    double targetSystemWidth = ctx.dom().nmeasures() * ctx.conf().styleAbsolute(Sid::minMeasureWidth);
+    double targetSystemWidth = ctx.dom().nmeasures() * ctx.conf().styleMM(Sid::minMeasureWidth).val();
     system->setWidth(targetSystemWidth);
 
     double curSystemWidth = 0.0;
@@ -296,7 +296,7 @@ void ScoreHorizontalViewLayout::collectLinearSystem(LayoutContext& ctx)
     std::set<Measure*> measuresToLayout;
 
     while (ctx.state().curMeasure()) {
-        if (ctx.state().curMeasure()->isVBoxBase()) {
+        if (ctx.state().curMeasure()->isVBox() || ctx.state().curMeasure()->isTBox() || ctx.state().curMeasure()->isFBox()) {
             ctx.mutState().curMeasure()->resetExplicitParent();
             MeasureLayout::getNextMeasure(ctx);
             continue;
@@ -416,7 +416,7 @@ void ScoreHorizontalViewLayout::layoutSegmentsWithDuration(Measure* m, const std
     Segment* current = findFirstEnabledSegment(m);
 
     auto [spacing, width] = computeCellWidth(current, visibleParts);
-    currentXPos = m->style().styleAbsolute(Sid::barNoteDistance);
+    currentXPos = m->style().styleMM(Sid::barNoteDistance);
     current->mutldata()->setPosX(currentXPos);
     current->setWidth(width);
     current->setSpacing(spacing);
@@ -467,9 +467,9 @@ std::pair<double, double> ScoreHorizontalViewLayout::computeCellWidth(const Segm
         if (cr) {
             width = calculateWidth(cr);
 
-            if (cr->isRest()) {
+            if (cr->type() == ElementType::REST) {
                 //spacing = 0; //!not necessary. It is to more clearly understanding code
-            } else if (cr->isChord()) {
+            } else if (cr->type() == ElementType::CHORD) {
                 Chord* ch = toChord(cr);
 
                 //! check that gracenote exist. If exist add additional spacing

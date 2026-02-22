@@ -131,9 +131,7 @@ public:
     void update(Selection& selection);
     void moveInputPos(EngravingItem* e);
     void moveToNextInputPos();
-
-    bool beyondScore() const { return m_beyondScore; }
-    void setBeyondScore(bool val) { m_beyondScore = val; }
+    bool endOfScore() const;
 
     // TODO: unify with Selection::cr()?
     static Note* note(EngravingItem*);
@@ -167,8 +165,6 @@ private:
     Slur* m_slur = nullptr;
 
     std::set<SymId> m_articulationIds;
-
-    bool m_beyondScore = false;
 };
 } // namespace mu::engraving
 #endif

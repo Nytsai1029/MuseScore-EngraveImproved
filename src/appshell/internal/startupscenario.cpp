@@ -23,12 +23,11 @@
 #include "startupscenario.h"
 
 #include <QCoreApplication>
+#include <QTimer>
 
 #include "async/async.h"
+#include "network/networkerrors.h"
 #include "translation.h"
-
-#include "muse_framework_config.h"
-
 #include "log.h"
 
 using namespace mu::appshell;
@@ -39,6 +38,8 @@ static const muse::UriQuery FIRST_LAUNCH_SETUP_URI("musescore://firstLaunchSetup
 static const muse::UriQuery WELCOME_DIALOG_URI("musescore://welcomedialog");
 static const muse::Uri HOME_URI("musescore://home");
 static const muse::Uri NOTATION_URI("musescore://notation");
+
+static constexpr int CHECK_FOR_UPDATES_TIMEOUT(7500);
 
 static StartupModeType modeTypeTromString(const std::string& str)
 {
@@ -59,21 +60,6 @@ static StartupModeType modeTypeTromString(const std::string& str)
     }
 
     return StartupModeType::StartEmpty;
-}
-
-static const Uri& startupPageUri(StartupModeType modeType)
-{
-    switch (modeType) {
-    case StartupModeType::StartEmpty:
-    case StartupModeType::StartWithNewScore:
-    case StartupModeType::Recovery:
-        return HOME_URI;
-    case StartupModeType::StartWithScore:
-    case StartupModeType::ContinueLastSession:
-        return NOTATION_URI;
-    }
-
-    return HOME_URI;
 }
 
 void StartupScenario::setStartupType(const std::optional<std::string>& type)
@@ -104,24 +90,81 @@ void StartupScenario::setStartupScoreFile(const std::optional<project::ProjectFi
     m_startupScoreFile = file ? file.value() : project::ProjectFile();
 }
 
-void StartupScenario::runOnSplashScreen()
+muse::async::Promise<muse::Ret> StartupScenario::runOnSplashScreen()
 {
-    TRACEFUNC;
-
-    if (!multiwindowsProvider()->isFirstWindow()) {
+    return async::make_promise<Ret>([this](auto resolve, auto) {
         registerAudioPlugins();
-        return;
-    }
 
-    if (appUpdateScenario() && appUpdateScenario()->needCheckForUpdate()) {
-        appUpdateScenario()->checkForUpdate(/*manual*/ false);
-    }
+        if (multiInstancesProvider()->instances().size() != 1) {
+            const Ret ret = muse::make_ret(Ret::Code::Ok);
+            return resolve(ret);
+        }
 
-    if (museSoundsUpdateScenario() && museSoundsUpdateScenario()->needCheckForUpdate()) {
-        museSoundsUpdateScenario()->checkForUpdate(/*manual*/ false);
-    }
+        // Calculate the total number of expected update checks (TODO: check the
+        // connection before trying any of this)...
 
-    registerAudioPlugins();
+        const bool canCheckAppUpdate = appUpdateScenario() && appUpdateScenario()->needCheckForUpdate();
+        const bool canCheckMuseSoundsUpdate = museSoundsUpdateScenario() && museSoundsUpdateScenario()->needCheckForUpdate();
+        //! NOTE: A MuseSampler update check also exists but we run it later (see onStartupPageOpened)...
+        m_totalChecksExpected = size_t(canCheckAppUpdate) + size_t(canCheckMuseSoundsUpdate);
+
+        if (m_totalChecksExpected == 0) {
+            const Ret ret = muse::make_ret(Ret::Code::Ok);
+            return resolve(ret);
+        }
+
+        m_totalChecksReceived = 0;
+
+        // Resolve once all checks are completed...
+        const auto onUpdateCheckCompleted = [this, resolve](){
+            if (!m_updateChecksInProgress) {
+                return; // Already resolved or timed out...
+            }
+
+            ++m_totalChecksReceived;
+
+            if (m_totalChecksReceived < m_totalChecksExpected) {
+                return; // Not ready to resolve yet...
+            }
+
+            m_updateChecksInProgress = false;
+
+            const Ret ret = muse::make_ret(Ret::Code::Ok);
+            (void)resolve(ret);
+        };
+
+        // Asynchronously start the checks once we know the total number of expected checks...
+        m_updateChecksInProgress = true;
+        async::Async::call(this, [this, onUpdateCheckCompleted, canCheckAppUpdate, canCheckMuseSoundsUpdate]() {
+            if (canCheckAppUpdate) {
+                muse::async::Promise<Ret> promise = appUpdateScenario()->checkForUpdate(/*manual*/ false);
+                promise.onResolve(this, [onUpdateCheckCompleted](Ret) {
+                    onUpdateCheckCompleted();
+                });
+            }
+            if (canCheckMuseSoundsUpdate) {
+                muse::async::Promise<Ret> promise = museSoundsUpdateScenario()->checkForUpdate(/*manual*/ false);
+                promise.onResolve(this, [onUpdateCheckCompleted](Ret) {
+                    onUpdateCheckCompleted();
+                });
+            }
+        });
+
+        // Timeout if the checks take too long...
+        QTimer::singleShot(CHECK_FOR_UPDATES_TIMEOUT, [this, resolve]() {
+            if (!m_updateChecksInProgress) {
+                return;
+            }
+
+            m_updateChecksInProgress = false;
+
+            LOGE() << "Update checks timed out...";
+            const Ret ret = network::make_ret(network::Err::Timeout);
+            (void)resolve(ret);
+        });
+
+        return muse::async::Promise<Ret>::dummy_result();
+    });
 }
 
 void StartupScenario::registerAudioPlugins()
@@ -136,7 +179,7 @@ void StartupScenario::registerAudioPlugins()
     //! (Thanks to the splashscreen, but this is not an obvious detail)
     qApp->setQuitLockEnabled(false);
 
-    Ret ret = registerAudioPluginsScenario()->updatePluginsRegistry();
+    Ret ret = registerAudioPluginsScenario()->registerNewPlugins();
     if (!ret) {
         LOGE() << ret.toString();
     }
@@ -148,39 +191,17 @@ void StartupScenario::runAfterSplashScreen()
 {
     TRACEFUNC;
 
-#ifdef MUSE_MULTICONTEXT_WIP
-    if (m_startupScoreFile.isValid()) {
-        muse::async::Channel<Uri> opened = interactive()->opened();
-        opened.onReceive(this, [this, opened](const Uri&) {
-            muse::async::Channel<Uri> mut = opened;
-            mut.disconnect(this);
-            openScore(m_startupScoreFile);
-            m_startupCompleted = true;
-        });
-        interactive()->open(HOME_URI);
-    } else if (isStartWithNewFileAsSecondaryInstance()) {
-        muse::async::Channel<Uri> opened = interactive()->opened();
-        opened.onReceive(this, [this, opened](const Uri&) {
-            muse::async::Channel<Uri> mut = opened;
-            mut.disconnect(this);
-            dispatcher()->dispatch("file-new");
-            m_startupCompleted = true;
-        });
-        interactive()->open(HOME_URI);
-    } else {
-        interactive()->open(HOME_URI);
-    }
-    return;
-#endif
-
     if (m_startupCompleted) {
         return;
     }
 
     StartupModeType modeType = resolveStartupModeType();
-    if (multiwindowsProvider()->isFirstWindow() && sessionsManager()->hasProjectsForRestore()) {
+    bool isMainInstance = multiInstancesProvider()->isMainInstance();
+    if (isMainInstance && sessionsManager()->hasProjectsForRestore()) {
         modeType = StartupModeType::Recovery;
     }
+
+    Uri startupUri = startupPageUri(modeType);
 
     muse::async::Channel<Uri> opened = interactive()->opened();
     opened.onReceive(this, [this, opened, modeType](const Uri&) {
@@ -194,18 +215,66 @@ void StartupScenario::runAfterSplashScreen()
 
         async::Async::call(this, [this, opened]() {
             muse::async::Channel<Uri> mut = opened;
-            mut.disconnect(this);
+            mut.resetOnReceive(this);
             m_startupCompleted = true;
         });
     });
 
-    const Uri& startupUri = startupPageUri(modeType);
     interactive()->open(startupUri);
 }
 
 bool StartupScenario::startupCompleted() const
 {
     return m_startupCompleted;
+}
+
+QList<QVariantMap> StartupScenario::welcomeDialogData() const
+{
+    QVariantMap item1;
+    item1.insert("title", muse::qtrc("appshell/welcome", "Enjoy free cloud storage"));
+    item1.insert("imageUrl", "qrc:/resources/welcomedialog/MuseScoreCom.png");
+    item1.insert("description", muse::qtrc("appshell/welcome",
+                                           "Save your scores privately on MuseScore.com to revisit past versions and invite others to view and comment – and when you’re ready, share your music with the world."));
+    item1.insert("buttonText", muse::qtrc("appshell/welcome", "View my scores online"));
+    item1.insert("destinationUrl",
+                 "https://musescore.com/my-scores?utm_source=mss-app-welcome-musescore-com&utm_medium=mss-app-welcome-musescore-com&utm_campaign=mss-app-welcome-musescore-com");
+
+    QVariantMap item2;
+    item2.insert("title", muse::qtrc("appshell/welcome", "What’s new in MuseScore Studio"));
+    item2.insert("imageUrl", "qrc:/resources/welcomedialog/WhatsNew.png");
+    item2.insert("description", muse::qtrc("appshell/welcome",
+                                           "Includes a new system for hiding empty staves, a new text editing widget, guitar notation improvements, engraving improvements and more."));
+    item2.insert("buttonText", muse::qtrc("appshell/welcome", "Watch video"));
+    item2.insert("destinationUrl",
+                 "https://www.youtube.com/watch?v=J2gY9CbMuoI&utm_source=mss-app-yt-4.6-release&utm_medium=mss-app-yt-4.6-release&utm_campaign=mss-app-yt-4.6-release");
+
+    QVariantMap item3;
+    item3.insert("title", muse::qtrc("appshell/welcome", "Install our free MuseSounds libraries"));
+    item3.insert("imageUrl", "qrc:/resources/welcomedialog/MuseSounds.png");
+    item3.insert("description", muse::qtrc("appshell/welcome",
+                                           "Explore our collection of realistic sample libraries, including solo instruments, marching percussion, and full orchestra - available for free on MuseHub."));
+    item3.insert("buttonText", muse::qtrc("appshell/welcome", "Get it on MuseHub"));
+    item3.insert("destinationUrl",
+                 "https://www.musehub.com/free-musesounds?utm_source=mss-app-welcome-free-musesounds&utm_medium=mss-app-welcome-free-musesounds&utm_campaign=mss-app-welcome-free-musesounds&utm_id=mss-app-welcome-free-musesounds");
+
+    QVariantMap item4;
+    item4.insert("title", muse::qtrc("appshell/welcome", "Explore our tutorials"));
+    item4.insert("imageUrl", "qrc:/resources/welcomedialog/ExploreTutorials.png");
+    item4.insert("description", muse::qtrc("appshell/welcome",
+                                           "We’ve put together a playlist of tutorials to help both beginners and experienced users get the most out of MuseScore Studio."));
+    item4.insert("buttonText", muse::qtrc("appshell/welcome", "View tutorials"));
+    item4.insert("destinationUrl",
+                 "https://www.youtube.com/playlist?list=PLTYuWi2LmaPECOZrC6bkPHBkYY9_WEexT&utm_source=mss-app-welcome-tutorials&utm_medium=mss-app-welcome-tutorials&utm_campaign=mss-app-welcome-tutorials&utm_id=mss-app-welcome-tutorials");
+
+    return { item1, item2, item3, item4 };
+}
+
+void StartupScenario::showWelcomeDialog()
+{
+    interactive()->openSync(WELCOME_DIALOG_URI);
+
+    const std::string version = configuration()->museScoreVersion();
+    configuration()->setWelcomeDialogLastShownVersion(version);
 }
 
 StartupModeType StartupScenario::resolveStartupModeType() const
@@ -225,10 +294,14 @@ void StartupScenario::onStartupPageOpened(StartupModeType modeType)
 {
     TRACEFUNC;
 
+    bool shouldCheckForMuseSamplerUpdate = false;
+
     switch (modeType) {
     case StartupModeType::StartEmpty:
+        shouldCheckForMuseSamplerUpdate = true;
         break;
     case StartupModeType::StartWithNewScore:
+        shouldCheckForMuseSamplerUpdate = true;
         dispatcher()->dispatch("file-new");
         break;
     case StartupModeType::ContinueLastSession:
@@ -245,106 +318,57 @@ void StartupScenario::onStartupPageOpened(StartupModeType modeType)
     } break;
     }
 
-    m_activeUpdateCheckCount = 0;
-
-    if (appUpdateScenario() && appUpdateScenario()->checkInProgress()) {
-        m_activeUpdateCheckCount++;
-        appUpdateScenario()->checkInProgressChanged().onNotify(this, [this, modeType]() {
-            appUpdateScenario()->checkInProgressChanged().disconnect(this);
-            m_activeUpdateCheckCount--;
-            showStartupDialogsIfNeed(modeType);
-        }, Asyncable::Mode::SetReplace);
-    }
-
-    if (museSoundsUpdateScenario() && museSoundsUpdateScenario()->checkInProgress()) {
-        m_activeUpdateCheckCount++;
-        museSoundsUpdateScenario()->checkInProgressChanged().onNotify(this, [this, modeType]() {
-            museSoundsUpdateScenario()->checkInProgressChanged().disconnect(this);
-            m_activeUpdateCheckCount--;
-            showStartupDialogsIfNeed(modeType);
-        }, Asyncable::Mode::SetReplace);
-    }
-
-    showStartupDialogsIfNeed(modeType);
-}
-
-void StartupScenario::showStartupDialogsIfNeed(StartupModeType modeType)
-{
-    TRACEFUNC;
-
-    if (m_activeUpdateCheckCount != 0) {
-        return;
+    if (appUpdateScenario() && appUpdateScenario()->hasUpdate()) {
+        appUpdateScenario()->showUpdate();
     }
 
     //! NOTE: The welcome dialog should not show if the first launch setup has not been completed, or if we're going
     //! to show a MuseSounds update dialog (see ProjectActionsController::doFinishOpenProject). MuseSampler's update
     //! dialog should be shown after the welcome dialog.
-    const auto showWelcomeDialogAndSamplerUpdateIfNeed = [this, modeType]() {
-        if (!configuration()->hasCompletedFirstLaunchSetup()) {
-            interactive()->open(FIRST_LAUNCH_SETUP_URI);
-            return;
-        }
 
-        const Version welcomeDialogLastShownVersion(configuration()->welcomeDialogLastShownVersion());
-        const Version currentMuseScoreVersion(configuration()->museScoreVersion());
-        if (welcomeDialogLastShownVersion < currentMuseScoreVersion) {
-            configuration()->setWelcomeDialogShowOnStartup(true); // override user preference
-            configuration()->setWelcomeDialogLastShownIndex(-1); // reset
-        }
-
-        const bool shouldCheckForMuseSamplerUpdate = modeType == StartupModeType::StartEmpty
-                                                     || modeType == StartupModeType::StartWithNewScore;
-
-        if (shouldShowWelcomeDialog(modeType)) {
-            interactive()->open(WELCOME_DIALOG_URI).onResolve(this, [this, shouldCheckForMuseSamplerUpdate](const Val&) {
-                configuration()->setWelcomeDialogLastShownVersion(configuration()->museScoreVersion());
-
-                if (shouldCheckForMuseSamplerUpdate) {
-                    checkAndShowMuseSamplerUpdateIfNeed();
-                }
-            });
-        } else if (shouldCheckForMuseSamplerUpdate) {
-            checkAndShowMuseSamplerUpdateIfNeed();
-        }
-    };
-
-    if (!appUpdateScenario() || !appUpdateScenario()->hasUpdate()) {
-        showWelcomeDialogAndSamplerUpdateIfNeed();
+    if (!configuration()->hasCompletedFirstLaunchSetup()) {
+        interactive()->open(FIRST_LAUNCH_SETUP_URI);
         return;
     }
 
-    auto promise = appUpdateScenario()->showUpdate();
-    promise.onResolve(this, [showWelcomeDialogAndSamplerUpdateIfNeed](const Ret& ret) {
-        if (ret.code() == static_cast<int>(Ret::Code::Ok)) {
-            return; // OK means the user wants to close and complete installation - don't show any more dialogs...
-        }
-        showWelcomeDialogAndSamplerUpdateIfNeed();
-    });
-}
-
-bool StartupScenario::shouldShowWelcomeDialog(StartupModeType modeType) const
-{
-    if (!configuration()->welcomeDialogShowOnStartup()) {
-        return false;
+    const Version welcomeDialogLastShownVersion(configuration()->welcomeDialogLastShownVersion());
+    const Version currentMuseScoreVersion(configuration()->museScoreVersion());
+    if (welcomeDialogLastShownVersion < currentMuseScoreVersion) {
+        configuration()->setWelcomeDialogShowOnStartup(true); // override user preference
+        configuration()->setWelcomeDialogLastShownIndex(-1); // reset
     }
 
-    if (!multiwindowsProvider()->isFirstWindow()) {
-        return false;
+    const size_t numInstances = multiInstancesProvider()->instances().size();
+    if (numInstances == 1 && configuration()->welcomeDialogShowOnStartup() && !museSoundsUpdateScenario()->hasUpdate()) {
+        showWelcomeDialog();
     }
 
-    if (museSoundsUpdateScenario() && museSoundsUpdateScenario()->hasUpdate()) {
-        return false;
+    if (shouldCheckForMuseSamplerUpdate) {
+        checkAndShowMuseSamplerUpdateIfNeed();
     }
-
-    const Uri& startupUri = startupPageUri(modeType);
-    return interactive()->currentUri().val == startupUri;
 }
 
 void StartupScenario::checkAndShowMuseSamplerUpdateIfNeed()
 {
-    if (museSamplerCheckForUpdateScenario() && !museSamplerCheckForUpdateScenario()->alreadyChecked()) {
-        museSamplerCheckForUpdateScenario()->checkAndShowUpdateIfNeed();
+    if (!museSamplerCheckForUpdateScenario() || museSamplerCheckForUpdateScenario()->alreadyChecked()) {
+        return;
     }
+    museSamplerCheckForUpdateScenario()->checkAndShowUpdateIfNeed();
+}
+
+muse::Uri StartupScenario::startupPageUri(StartupModeType modeType) const
+{
+    switch (modeType) {
+    case StartupModeType::StartEmpty:
+    case StartupModeType::StartWithNewScore:
+    case StartupModeType::Recovery:
+        return HOME_URI;
+    case StartupModeType::StartWithScore:
+    case StartupModeType::ContinueLastSession:
+        return NOTATION_URI;
+    }
+
+    return HOME_URI;
 }
 
 void StartupScenario::openScore(const project::ProjectFile& file)

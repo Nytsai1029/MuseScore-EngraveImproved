@@ -19,15 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-pragma ComponentBehavior: Bound
-
 import QtQuick
+import QtQuick.Layouts
 
 import Muse.UiComponents
 import Muse.Ui
 
-import MuseScore.NotationScene
+import MuseScore.CommonScene
 import MuseScore.Playback
 
 Item {
@@ -68,11 +66,10 @@ Item {
         delegate: FlatButton {
             id: btn
 
-            required property MenuItem item
-            required property int index
-
             width: 30
             height: width
+
+            property var item: Boolean(model) ? model.itemRole : null
 
             icon: Boolean(item) ? item.icon : IconCode.NONE
 
@@ -87,7 +84,7 @@ Item {
 
             navigation.panel: root.navPanel
             navigation.name: toolTipTitle
-            navigation.order: index
+            navigation.order: model.index
             accessible.name: (item.checkable ? (item.checked ? item.title + "  " + qsTrc("global", "On") :
                                                                item.title + "  " + qsTrc("global", "Off")) : item.title)
 

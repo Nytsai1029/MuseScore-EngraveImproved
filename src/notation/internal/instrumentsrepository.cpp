@@ -26,7 +26,6 @@
 #include "engraving/dom/instrtemplate.h"
 #include "engraving/types/types.h"
 
-#include "io/path.h"
 #include "mpe/playbacksetupdata.h"
 
 #include "log.h"
@@ -80,7 +79,7 @@ static size_t staffCount(musesampler::StaffType type)
 
 void InstrumentsRepository::init()
 {
-    configuration()->userInstrumentsFolderChanged().onReceive(this, [this](const auto&) {
+    configuration()->scoreOrderListPathsChanged().onNotify(this, [this]() {
         load();
     });
 
@@ -145,25 +144,16 @@ void InstrumentsRepository::load()
 
     m_instrumentTemplateList.clear();
     m_instrumentTemplateMap.clear();
+    mu::engraving::clearInstrumentTemplates();
 
-    // Templates are shared between contexts, do not reload them if already loaded
-    if (mu::engraving::instrumentGroups.empty()) {
-        mu::engraving::clearInstrumentTemplates();
+    path_t instrumentsPath = configuration()->instrumentListPath();
+    if (!mu::engraving::loadInstrumentTemplates(instrumentsPath)) {
+        LOGE() << "Could not load instruments from " << instrumentsPath << "!";
+    }
 
-        const path_t instrumentsXmlPath = configuration()->instrumentsXmlPath();
-        if (!mu::engraving::loadInstrumentTemplates(instrumentsXmlPath)) {
-            LOGE() << "Could not load instruments from " << instrumentsXmlPath;
-        }
-
-        const path_t scoreOrdersXmlPath = configuration()->scoreOrdersXmlPath();
-        if (!mu::engraving::loadInstrumentTemplates(scoreOrdersXmlPath)) {
-            LOGE() << "Could not load score orders from " << scoreOrdersXmlPath;
-        }
-
-        for (const path_t& path : configuration()->userInstrumentsAndScoreOrdersPaths()) {
-            if (!mu::engraving::loadInstrumentTemplates(path)) {
-                LOGE() << "Could not load user instruments and score orders from " << path;
-            }
+    for (const path_t& ordersPath : configuration()->scoreOrderListPaths()) {
+        if (!mu::engraving::loadInstrumentTemplates(ordersPath)) {
+            LOGE() << "Could not load orders from " << ordersPath << "!";
         }
     }
 
@@ -171,7 +161,7 @@ void InstrumentsRepository::load()
 
     for (const InstrumentGroup* group : mu::engraving::instrumentGroups) {
         for (const InstrumentTemplate* templ : group->instrumentTemplates) {
-            if (templ->trackName.isEmpty() || templ->longName.toString().empty()) {
+            if (templ->trackName.isEmpty() || templ->longNames.empty()) {
                 continue;
             }
 
@@ -291,8 +281,8 @@ void InstrumentsRepository::loadMuseInstruments(const InstrumentTemplateMap& sta
         templ->soundId = instrument.soundId;
         templ->musicXmlId = instrument.musicXmlId;
         templ->trackName = instrument.name;
-        templ->longName = StaffName(instrument.name);
-        templ->shortName = StaffName(instrument.abbreviation);
+        templ->longNames.emplace_back(StaffName(instrument.name));
+        templ->shortNames.emplace_back(StaffName(instrument.abbreviation));
         templ->staffCount = staffCount(instrument.staffType);
         mu::engraving::ClefType clefType = museSamplerClefTypeToEngravingClefType(instrument.clefType);
         templ->clefTypes[0].concertClef = clefType;
@@ -300,7 +290,7 @@ void InstrumentsRepository::loadMuseInstruments(const InstrumentTemplateMap& sta
 
         if (instrument.staffType == musesampler::StaffType::Grand) {
             templ->bracketSpan[0] = static_cast<int>(templ->staffCount);
-            templ->barlineSpan[0] = true;
+            templ->barlineSpan[0] = static_cast<int>(templ->staffCount);
 
             for (size_t i = 0; i < templ->staffCount; ++i) {
                 templ->bracket[i] = mu::engraving::BracketType::BRACE;

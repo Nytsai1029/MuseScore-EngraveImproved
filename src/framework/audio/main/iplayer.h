@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -36,8 +36,6 @@ public:
     virtual ~IPlayer() = default;
 
     virtual TrackSequenceId sequenceId() const = 0;
-
-    virtual async::Promise<Ret> prepareToPlay() = 0;
 
     virtual void play(const secs_t delay = 0) = 0;
     virtual void seek(const secs_t newPosition, const bool flushSound = true) = 0;

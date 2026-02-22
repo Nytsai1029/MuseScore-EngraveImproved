@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -22,7 +22,6 @@
 
 #include "vstplugininstance.h"
 
-#include "modularity/ioc.h"
 #include "vstpluginprovider.h"
 
 #include "log.h"
@@ -37,8 +36,8 @@ static const std::string_view CONTROLLER_STATE_KEY = "controllerState";
 
 static VstPluginInstanceId s_lastId = 0;
 
-VstPluginInstance::VstPluginInstance(const muse::audio::AudioResourceId& resourceId, const modularity::ContextPtr& iocCtx)
-    : muse::Contextable(iocCtx), m_resourceId(resourceId), m_componentHandlerPtr(new VstComponentHandler())
+VstPluginInstance::VstPluginInstance(const muse::audio::AudioResourceId& resourceId)
+    : m_resourceId(resourceId), m_componentHandlerPtr(new VstComponentHandler())
 {
     ONLY_AUDIO_THREAD(threadSecurer);
 

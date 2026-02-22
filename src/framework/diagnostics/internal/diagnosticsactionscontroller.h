@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -25,20 +25,20 @@
 #include "modularity/ioc.h"
 #include "actions/iactionsdispatcher.h"
 #include "actions/actionable.h"
-#include "interactive/iinteractive.h"
+#include "iinteractive.h"
 #include "accessibility/iaccessibilitycontroller.h"
 #include "isavediagnosticfilesscenario.h"
 
 namespace muse::diagnostics {
-class DiagnosticsActionsController : public Contextable, public actions::Actionable
+class DiagnosticsActionsController : public Injectable, public actions::Actionable
 {
-    ContextInject<actions::IActionsDispatcher> dispatcher = { this };
-    ContextInject<IInteractive> interactive = { this };
-    ContextInject<diagnostics::ISaveDiagnosticFilesScenario> saveDiagnosticsScenario = { this };
+    Inject<actions::IActionsDispatcher> dispatcher = { this };
+    Inject<IInteractive> interactive = { this };
+    Inject<diagnostics::ISaveDiagnosticFilesScenario> saveDiagnosticsScenario = { this };
 
 public:
     DiagnosticsActionsController(const modularity::ContextPtr& iocCtx)
-        : Contextable(iocCtx) {}
+        : Injectable(iocCtx) {}
 
     void init();
 

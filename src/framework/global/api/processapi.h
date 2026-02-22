@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2023 MuseScore Limited and others
+ * Copyright (C) 2023 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -34,7 +34,7 @@ class ProcessApi : public ApiObject
 {
     Q_OBJECT
 
-    GlobalInject<IProcess> process;
+    Inject<IProcess> process = { this };
 
 public:
     explicit ProcessApi(IApiEngine* e);

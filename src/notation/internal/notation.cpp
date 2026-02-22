@@ -26,9 +26,6 @@
 
 #include "engraving/dom/masterscore.h"
 
-#include "imasternotation.h"
-
-#include "masternotation.h"
 #include "notationpainting.h"
 #include "notationviewstate.h"
 #include "notationsolomutestate.h"
@@ -46,12 +43,11 @@
 using namespace mu::notation;
 using namespace mu::engraving;
 
-Notation::Notation(MasterNotation* master, const muse::modularity::ContextPtr& iocCtx, mu::engraving::Score* score)
-    : muse::Contextable(iocCtx)
-    , m_masterNotation(master)
+Notation::Notation(const muse::modularity::ContextPtr& iocCtx, mu::engraving::Score* score)
+    : muse::Injectable(iocCtx)
 {
-    m_painting = std::make_shared<NotationPainting>(this, iocCtx);
-    m_viewState = std::make_shared<NotationViewState>(this, iocCtx);
+    m_painting = std::make_shared<NotationPainting>(this);
+    m_viewState = std::make_shared<NotationViewState>(this);
     m_soloMuteState = std::make_shared<NotationSoloMuteState>();
     m_undoStack = std::make_shared<NotationUndoStack>(this, m_notationChanged);
     m_interaction = std::make_shared<NotationInteraction>(this, m_undoStack);
@@ -89,6 +85,10 @@ Notation::Notation(MasterNotation* master, const muse::modularity::ContextPtr& i
         notifyAboutNotationChanged();
     });
 
+    engravingConfiguration()->selectionColorChanged().onReceive(this, [this](int, const muse::draw::Color&) {
+        notifyAboutNotationChanged();
+    });
+
     configuration()->canvasOrientation().ch.onReceive(this, [this](muse::Orientation) {
         if (m_score && m_score->autoLayoutEnabled()) {
             m_score->doLayout();
@@ -114,16 +114,6 @@ Notation::~Notation()
     //! NOTE: The master score will be deleted later from ~EngravingProject()
     //! Its excerpts will be deleted directly in ~MasterScore()
     m_score = nullptr;
-}
-
-mu::project::INotationProject* Notation::project() const
-{
-    return m_masterNotation ? m_masterNotation->project() : nullptr;
-}
-
-IMasterNotationPtr Notation::masterNotation() const
-{
-    return m_masterNotation->shared_from_this();
 }
 
 void Notation::setScore(Score* score)
@@ -253,9 +243,9 @@ bool Notation::isMaster() const
     return m_score->isMaster();
 }
 
-void Notation::notifyAboutNotationChanged(const muse::RectF& updateRect)
+void Notation::notifyAboutNotationChanged()
 {
-    m_notationChanged.send(updateRect);
+    m_notationChanged.notify();
 }
 
 void Notation::setViewMode(const ViewMode& viewMode)
@@ -313,7 +303,7 @@ INotationStylePtr Notation::style() const
     return m_style;
 }
 
-muse::async::Channel<muse::RectF> Notation::notationChanged() const
+muse::async::Notification Notation::notationChanged() const
 {
     return m_notationChanged;
 }

@@ -70,7 +70,7 @@ namespace mu::engraving {
 
 SysStaff::~SysStaff()
 {
-    delete instrumentName;
+    muse::DeleteAll(instrumentNames);
 }
 
 //---------------------------------------------------------
@@ -133,6 +133,8 @@ System::~System()
     if (m_staffVisibilityIndicator) {
         delete m_staffVisibilityIndicator;
     }
+    delete m_systemDividerLeft;
+    delete m_systemDividerRight;
 }
 
 #ifndef ENGRAVING_NO_ACCESSIBILITY
@@ -216,10 +218,12 @@ void System::removeLastMeasure()
 
 Box* System::vbox() const
 {
-    if (!m_ml.empty() && m_ml.front()->isVBoxBase()) {
-        return toBox(m_ml.front());
+    if (!m_ml.empty()) {
+        if (m_ml[0]->isVBox() || m_ml[0]->isTBox() || m_ml[0]->isFBox()) {
+            return toBox(m_ml[0]);
+        }
     }
-    return nullptr;
+    return 0;
 }
 
 //---------------------------------------------------------
@@ -312,7 +316,7 @@ void System::setBracketsXPosition(const double xPosition)
         // For brackets that are drawn, we must correct for half line width
         double lineWidthCorrection = 0.0;
         if (bracketType == BracketType::NORMAL || bracketType == BracketType::LINE) {
-            lineWidthCorrection = style().styleAbsolute(Sid::bracketWidth) / 2;
+            lineWidthCorrection = style().styleMM(Sid::bracketWidth) / 2;
         }
         // Compute offset cause by other stacked brackets
         double xOffset = 0;
@@ -476,7 +480,7 @@ void System::add(EngravingItem* el)
     switch (el->type()) {
     case ElementType::INSTRUMENT_NAME:
 // LOGD("  staffIdx %d, staves %d", el->staffIdx(), _staves.size());
-        m_staves[el->staffIdx()]->instrumentName = toInstrumentName(el);
+        m_staves[el->staffIdx()]->instrumentNames.push_back(toInstrumentName(el));
         toInstrumentName(el)->setSysStaff(m_staves[el->staffIdx()]);
         break;
 
@@ -537,7 +541,7 @@ void System::add(EngravingItem* el)
     case ElementType::SYSTEM_DIVIDER:
     {
         SystemDivider* sd = toSystemDivider(el);
-        if (sd->dividerType() == SystemDividerType::LEFT) {
+        if (sd->dividerType() == SystemDivider::Type::LEFT) {
             m_systemDividerLeft = sd;
         } else {
             m_systemDividerRight = sd;
@@ -561,7 +565,7 @@ void System::remove(EngravingItem* el)
 {
     switch (el->type()) {
     case ElementType::INSTRUMENT_NAME:
-        m_staves[el->staffIdx()]->instrumentName = nullptr;
+        muse::remove(m_staves[el->staffIdx()]->instrumentNames, toInstrumentName(el));
         toInstrumentName(el)->setSysStaff(0);
         break;
     case ElementType::BEAM:
@@ -700,38 +704,37 @@ MeasureBase* System::nextMeasure(const MeasureBase* m) const
 //   scanElements
 //---------------------------------------------------------
 
-void System::scanElements(std::function<void(EngravingItem*)> func)
+void System::scanElements(void* data, void (* func)(void*, EngravingItem*), bool all)
 {
     if (vbox()) {
         return;
     }
     for (Bracket* b : m_brackets) {
-        func(b);
+        func(data, b);
     }
 
     if (m_systemDividerLeft) {
-        func(m_systemDividerLeft);
+        func(data, m_systemDividerLeft);
     }
     if (m_systemDividerRight) {
-        func(m_systemDividerRight);
+        func(data, m_systemDividerRight);
     }
 
     if (m_staffVisibilityIndicator) {
-        func(m_staffVisibilityIndicator);
+        func(data, m_staffVisibilityIndicator);
     }
 
     for (auto i : m_lockIndicators) {
-        func(i);
+        func(data, i);
     }
 
     for (const SysStaff* st : m_staves) {
-        if (st->show()) {
-            if (InstrumentName* t = st->instrumentName) {
-                func(t);
+        if (all || st->show()) {
+            for (InstrumentName* t : st->instrumentNames) {
+                func(data, t);
             }
         }
     }
-
     for (SpannerSegment* ss : m_spannerSegments) {
         staff_idx_t staffIdx = ss->spanner()->staffIdx();
         if (staffIdx == muse::nidx) {
@@ -757,9 +760,8 @@ void System::scanElements(std::function<void(EngravingItem*)> func)
             }
             v = v1 || v2;       // hide spanner if both chords are hidden
         }
-        if ((score()->staff(staffIdx)->show() && m_staves[staffIdx]->show() && v) || spanner->isVolta()
-            || spanner->systemFlag()) {
-            ss->scanElements(func);
+        if (all || (score()->staff(staffIdx)->show() && m_staves[staffIdx]->show() && v) || spanner->isVolta() || spanner->systemFlag()) {
+            ss->scanElements(data, func, all);
         }
     }
 }
@@ -1035,10 +1037,10 @@ Spacer* System::downSpacer(staff_idx_t staffIdx) const
 
 double System::firstNoteRestSegmentX(bool leading) const
 {
-    double margin = style().styleAbsolute(Sid::headerToLineStartDistance);
+    double margin = style().styleMM(Sid::headerToLineStartDistance);
     for (const MeasureBase* mb : measures()) {
         if (mb->isMeasure()) {
-            const Measure* measure = toMeasure(mb);
+            const Measure* measure = static_cast<const Measure*>(mb);
             margin = measure->firstNoteRestSegmentX(leading);
             break;
         }
@@ -1055,7 +1057,7 @@ double System::firstNoteRestSegmentX(bool leading) const
 
 double System::endingXForOpenEndedLines() const
 {
-    double margin = style().styleAbsolute(Sid::lineEndToBarlineDistance);
+    double margin = style().styleMM(Sid::lineEndToBarlineDistance);
     double systemEndX = ldata()->bbox().width();
 
     Measure* lastMeas = lastMeasure();
@@ -1075,7 +1077,7 @@ ChordRest* System::lastChordRest(track_idx_t track) const
 {
     for (auto measureBaseIter = measures().rbegin(); measureBaseIter != measures().rend(); measureBaseIter++) {
         if ((*measureBaseIter)->isMeasure()) {
-            const Measure* measure = toMeasure(*measureBaseIter);
+            const Measure* measure = static_cast<const Measure*>(*measureBaseIter);
             return measure->lastChordRest(track);
         }
     }
@@ -1093,7 +1095,7 @@ ChordRest* System::firstChordRest(track_idx_t track) const
         if (!mb->isMeasure()) {
             continue;
         }
-        const Measure* measure = toMeasure(mb);
+        const Measure* measure = static_cast<const Measure*>(mb);
         return measure->firstChordRest(track);
     }
     return nullptr;

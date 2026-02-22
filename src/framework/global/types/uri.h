@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,15 +19,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#pragma once
+#ifndef MUSE_GLOBAL_URI_H
+#define MUSE_GLOBAL_URI_H
 
 #include <string>
 #include <vector>
 #include <map>
 
-#include "global/logstream.h"
-#include "global/io/path.h"
 #include "val.h"
+#include "global/logstream.h"
 
 namespace muse {
 class Uri
@@ -36,17 +36,18 @@ public:
     Uri() = default;
     explicit Uri(const std::string& str);
     explicit Uri(const muse::String& str);
-    explicit Uri(const std::string& scheme, const std::string& path);
 
     using Scheme = std::string;
+    static const Scheme MuseScore;
+    static const Scheme Http;
+    static const Scheme Https;
 
     bool isValid() const;
 
-    const Scheme& scheme() const;
+    Scheme scheme() const;
     void setScheme(const Scheme& scheme);
 
-    const std::string& path() const;
-    void setPath(const std::string& path);
+    std::string path() const;
 
     inline bool operator==(const Uri& uri) const { return m_path == uri.m_path && m_scheme == uri.m_scheme; }
     inline bool operator!=(const Uri& uri) const { return !(*this == uri); }
@@ -59,9 +60,6 @@ public:
     }
 
     std::string toString() const;
-
-    io::path_t toLocalFile() const;
-    static Uri fromLocalFile(const io::path_t& path);
 
 private:
 
@@ -131,3 +129,5 @@ struct std::hash<muse::Uri>
         return std::hash<std::string> {}(uri.toString());
     }
 };
+
+#endif // MUSE_GLOBAL_URI_H

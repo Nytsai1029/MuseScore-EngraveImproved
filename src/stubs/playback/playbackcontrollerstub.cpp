@@ -5,7 +5,7 @@
  * MuseScore Studio
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited
+ * Copyright (C) 2021 MuseScore Limited
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -102,13 +102,13 @@ muse::async::Promise<muse::audio::SoundPresetList> PlaybackControllerStub::avail
     });
 }
 
-const PlaybackControllerStub::SoloMuteState& PlaybackControllerStub::trackSoloMuteState(const engraving::InstrumentTrackId&) const
+mu::notation::INotationSoloMuteState::SoloMuteState PlaybackControllerStub::trackSoloMuteState(const engraving::InstrumentTrackId&) const
 {
-    static const SoloMuteState state;
-    return state;
+    return notation::INotationSoloMuteState::SoloMuteState();
 }
 
-void PlaybackControllerStub::setTrackSoloMuteState(const engraving::InstrumentTrackId&, const SoloMuteState&)
+void PlaybackControllerStub::setTrackSoloMuteState(const engraving::InstrumentTrackId&,
+                                                   const notation::INotationSoloMuteState::SoloMuteState&)
 {
 }
 
@@ -147,9 +147,9 @@ muse::async::Channel<ActionCode> PlaybackControllerStub::actionCheckedChanged() 
     return {};
 }
 
-muse::secs_t PlaybackControllerStub::totalPlayTime() const
+QTime PlaybackControllerStub::totalPlayTime() const
 {
-    return muse::secs_t { 0.0 };
+    return {};
 }
 
 muse::async::Notification PlaybackControllerStub::totalPlayTimeChanged() const
@@ -157,10 +157,9 @@ muse::async::Notification PlaybackControllerStub::totalPlayTimeChanged() const
     return {};
 }
 
-const mu::notation::Tempo& PlaybackControllerStub::currentTempo() const
+mu::notation::Tempo PlaybackControllerStub::currentTempo() const
 {
-    static const mu::notation::Tempo dummyTempo;
-    return dummyTempo;
+    return {};
 }
 
 muse::async::Notification PlaybackControllerStub::currentTempoChanged() const

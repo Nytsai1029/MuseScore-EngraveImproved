@@ -41,15 +41,64 @@ echo "echo 'Setup MuseScore build environment'" >> $ENV_FILE
 # GET DEPENDENCIES
 ##########################################################################
 
-apt_packages=(
+# DISTRIBUTION PACKAGES
+
+# These are installed by default on Travis CI, but not on Docker
+apt_packages_basic=(
+  # Alphabetical order please!
+  file
+  git
+  software-properties-common # installs `add-apt-repository`
+  unzip
+  p7zip-full
+  )
+
+# These are the same as on Travis CI
+apt_packages_standard=(
   # Alphabetical order please!
   curl
-  p7zip-full
-  unzip
+  libasound2-dev 
+  libfontconfig1-dev
+  libfreetype6-dev
+  libfreetype6
+  libgl1-mesa-dev
+  libjack-dev
+  libnss3-dev
+  libportmidi-dev
+  libpulse-dev
+  libsndfile1-dev
+  make
   wget
   )
 
-sudo apt-get install -y --no-install-recommends "${apt_packages[@]}"
+# MuseScore compiles without these but won't run without them
+apt_packages_runtime=(
+  # Alphabetical order please!
+  libcups2
+  libdbus-1-3
+  libegl1-mesa-dev
+  libodbc1
+  libpq-dev
+  libxcomposite-dev
+  libxcursor-dev
+  libxi-dev
+  libxkbcommon-x11-0
+  libxrandr2
+  libxtst-dev
+  libdrm-dev
+  libxcb-icccm4
+  libxcb-image0
+  libxcb-keysyms1
+  libxcb-randr0
+  libxcb-render-util0
+  libxcb-xinerama0
+  )
+
+sudo apt-get update # no package lists in Docker image
+sudo apt-get install -y --no-install-recommends \
+  "${apt_packages_basic[@]}" \
+  "${apt_packages_standard[@]}" \
+  "${apt_packages_runtime[@]}" 
 
 
 ##########################################################################
@@ -70,13 +119,29 @@ echo export CXX="/usr/bin/g++-${gcc_version}" >> ${ENV_FILE}
 gcc-${gcc_version} --version
 g++-${gcc_version} --version 
 
-# CMake
-echo "cmake version"
-cmake --version
+# CMAKE
+# Get newer CMake (only used cached version if it is the same)
+cmake_version="3.16.0"
+cmake_dir="$BUILD_TOOLS/cmake/${cmake_version}"
+if [[ ! -d "$cmake_dir" ]]; then
+  mkdir -p "$cmake_dir"
+  cmake_url="https://cmake.org/files/v${cmake_version%.*}/cmake-${cmake_version}-Linux-x86_64.tar.gz"
+  wget -q --show-progress --no-check-certificate -O - "${cmake_url}" | tar --strip-components=1 -xz -C "${cmake_dir}"
+fi
+echo export PATH="$cmake_dir/bin:\${PATH}" >> ${ENV_FILE}
+$cmake_dir/bin/cmake --version
 
 # Ninja
+echo "Get Ninja"
+ninja_dir=$BUILD_TOOLS/Ninja
+if [[ ! -d "$ninja_dir" ]]; then
+  mkdir -p $ninja_dir
+  wget -q --show-progress -O $ninja_dir/ninja "https://s3.amazonaws.com/utils.musescore.org/build_tools/linux/Ninja/ninja"
+  chmod +x $ninja_dir/ninja
+fi
+echo export PATH="${ninja_dir}:\${PATH}" >> ${ENV_FILE}
 echo "ninja version"
-ninja --version
+$ninja_dir/ninja --version
 
 ##########################################################################
 # POST INSTALL

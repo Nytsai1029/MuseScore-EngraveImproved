@@ -24,10 +24,10 @@
 #include <gmock/gmock.h>
 #include <QMimeData>
 
-#include "engraving/dom/chord.h"
-#include "engraving/dom/note.h"
-#include "engraving/internal/qmimedataadapter.h"
+#include "dom/note.h"
+#include "dom/chord.h"
 
+#include "internal/qmimedataadapter.h"
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
 
@@ -37,8 +37,15 @@ static const String PARTIALTIE_DATA_DIR(u"partialtie_data/");
 class Engraving_PartialTieTests : public ::testing::Test
 {
 protected:
+    void SetUp() override
+    {
+        m_useRead302 = MScore::useRead302InTestMode;
+        MScore::useRead302InTestMode = false;
+    }
+
     void TearDown() override
     {
+        MScore::useRead302InTestMode = m_useRead302;
         delete m_masterScore;
     }
 
@@ -383,6 +390,8 @@ protected:
     }
 
 private:
+    bool m_useRead302 = false;
+
     MasterScore* m_masterScore = nullptr;
     Note* m_startNote = nullptr;
     std::vector<Note*> m_jumpPoints;

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2025 MuseScore Limited and others
+ * Copyright (C) 2025 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -36,17 +36,6 @@ using CallId = uint64_t;
 
 enum class Method {
     Undefined = 0,
-
-    // Init / Deinit
-    EngineRunning,
-    EngineInit,
-    EngineDeinit,
-
-    // Config
-    EngineConfigChanged,
-
-    // AudioEngine
-    SetOutputSpec,
 
     // Sequences
     AddSequence,
@@ -80,7 +69,6 @@ enum class Method {
     ClearSources,
 
     // Play
-    PrepareToPlay,
     Play,
     Seek,
     Stop,
@@ -116,24 +104,16 @@ enum class Method {
     // SoundFont
     LoadSoundFonts,
     AddSoundFont,
-    AddSoundFontData,
+
+    // AudioEngine
+    SetReadBufferSize,
+    SetSampleRate,
 };
 
 inline std::string to_string(Method m)
 {
     switch (m) {
     case Method::Undefined: return "Undefined";
-
-    // Init / Deinit
-    case Method::EngineRunning: return "EngineRunning";
-    case Method::EngineInit: return "EngineInit";
-    case Method::EngineDeinit: return "EngineDeinit";
-
-    // Config
-    case Method::EngineConfigChanged: return "EngineConfigChanged";
-
-    // AudioEngine
-    case Method::SetOutputSpec: return "SetOutputSpec";
 
     // Sequences
     case Method::AddSequence: return "AddSequence";
@@ -165,7 +145,6 @@ inline std::string to_string(Method m)
     case Method::ClearSources: return "ClearSources";
 
     // Play
-    case Method::PrepareToPlay: return "PrepareToPlay";
     case Method::Play: return "Play";
     case Method::Seek: return "Seek";
     case Method::Stop: return "Stop";
@@ -200,7 +179,10 @@ inline std::string to_string(Method m)
     // SoundFont
     case Method::LoadSoundFonts: return "LoadSoundFonts";
     case Method::AddSoundFont: return "AddSoundFont";
-    case Method::AddSoundFontData: return "AddSoundFontData";
+
+    // AudioEngine
+    case Method::SetReadBufferSize: return "SetReadBufferSize";
+    case Method::SetSampleRate: return "SetSampleRate";
     }
 
     assert(false && "unknown enum value");
@@ -240,7 +222,7 @@ using Handler = std::function<void (const Msg& msg)>;
 
 // stream
 enum class StreamName {
-    Undefined = 100,
+    Undefined = -1,
 
     PlaybackDataMainStream,
     PlaybackDataOffStream,
@@ -274,22 +256,11 @@ inline std::string to_string(StreamName n)
 }
 
 using StreamId = uint32_t;
-
-inline StreamId& last_stream_id()
-{
-    static StreamId lastStreamId = 0;
-    return lastStreamId;
-}
-
-inline void set_last_stream_id(StreamId id)
-{
-    last_stream_id() = id;
-}
-
 inline StreamId new_stream_id()
 {
-    ++last_stream_id();
-    return last_stream_id();
+    static StreamId lastId = 0;
+    ++lastId;
+    return lastId;
 }
 
 struct StreamMsg {
@@ -315,30 +286,19 @@ struct IRpcStream {
     virtual bool inited() const = 0;
 };
 
-using RpcStreamExec = std::function<void (const std::function<void ()>&)>;
-
 class IRpcChannel;
 template<typename ... Types>
 class RpcStream : public IRpcStream, public async::Asyncable
 {
 public:
-
-    RpcStream(IRpcChannel* rpc, StreamName name, StreamId id, StreamType type,
-              const async::Channel<Types...>& ch,
-              const RpcStreamExec& exec)
-        : m_rpc(rpc), m_name(name), m_streamId(id), m_type(type), m_ch(ch), m_exec(exec) {}
-
-    ~RpcStream()
-    {
-        deinit();
-    }
+    RpcStream(IRpcChannel* rpc, StreamName name, StreamId id, StreamType type, const async::Channel<Types...>& ch)
+        : m_rpc(rpc), m_name(name), m_streamId(id), m_type(type), m_ch(ch) {}
 
     StreamName name() const { return m_name; }
     StreamId streamId() const override { return m_streamId; }
     StreamType type() const override { return m_type; }
     void init() override;
     bool inited() const override { return m_inited; }
-    void deinit();
 
 private:
     IRpcChannel* m_rpc = nullptr;
@@ -346,18 +306,14 @@ private:
     StreamId m_streamId = 0;
     StreamType m_type = StreamType::Undefined;
     async::Channel<Types...> m_ch;
-    RpcStreamExec m_exec = nullptr;
     bool m_inited = false;
 };
 
-class IRpcChannel : MODULE_CONTEXT_INTERFACE
+class IRpcChannel : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IRpcChannel)
 public:
     virtual ~IRpcChannel() = default;
-
-    virtual void setupOnMain() = 0;
-    virtual void setupOnEngine() = 0;
 
     virtual void process() = 0;
 
@@ -370,16 +326,16 @@ public:
     StreamId addSendStream(StreamName name, const async::Channel<Types...>& ch)
     {
         StreamId id = new_stream_id();
-        auto s = new RpcStream<Types...>(this, name, id, StreamType::Send, ch, nullptr);
-        addStream(std::shared_ptr<IRpcStream>(s));
+        std::shared_ptr<IRpcStream> s = std::shared_ptr<IRpcStream>(new RpcStream<Types...>(this, name, id, StreamType::Send, ch));
+        addStream(s);
         return id;
     }
 
     template<typename ... Types>
-    void addReceiveStream(StreamName name, rpc::StreamId id, const async::Channel<Types...>& ch, const RpcStreamExec& exec = nullptr)
+    void addReceiveStream(StreamName name, rpc::StreamId id, const async::Channel<Types...>& ch)
     {
-        auto s = new RpcStream<Types...>(this, name, id, StreamType::Receive, ch, exec);
-        addStream(std::shared_ptr<IRpcStream>(s));
+        std::shared_ptr<IRpcStream> s = std::shared_ptr<IRpcStream>(new RpcStream<Types...>(this, name, id, StreamType::Receive, ch));
+        addStream(s);
     }
 
     virtual void addStream(std::shared_ptr<IRpcStream> s) = 0;
@@ -404,22 +360,15 @@ void RpcStream<Types...>::init()
     } break;
     case StreamType::Receive: {
         m_rpc->onStream(m_streamId, [this](const StreamMsg& msg) {
-                std::function<void()> func = [this, msg]() {
-                    std::tuple<Types...> values;
-                    bool success = std::apply([msg](auto&... args) {
-                        return RpcPacker::unpack(msg.data, args ...);
-                    }, values);
+                std::tuple<Types...> values;
+                bool success = std::apply([msg](auto&... args) {
+                    return RpcPacker::unpack(msg.data, args ...);
+                }, values);
 
-                    if (success) {
-                        std::apply([this](const auto&... args) {
-                            m_ch.send(args ...);
-                        }, values);
-                    }
-                };
-                if (m_exec) {
-                    m_exec(func);
-                } else {
-                    func();
+                if (success) {
+                    std::apply([this](const auto&... args) {
+                        m_ch.send(args ...);
+                    }, values);
                 }
             });
     } break;
@@ -428,27 +377,6 @@ void RpcStream<Types...>::init()
     }
 
     m_inited = true;
-}
-
-template<typename ... Types>
-void RpcStream<Types...>::deinit()
-{
-    if (!m_inited) {
-        return;
-    }
-
-    switch (m_type) {
-    case StreamType::Send: {
-        m_ch.disconnect(this);
-    } break;
-    case StreamType::Receive: {
-        m_rpc->onStream(m_streamId, nullptr);
-    } break;
-    case StreamType::Undefined: {
-    } break;
-    }
-
-    m_inited = false;
 }
 
 // msgs

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -19,14 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
-pragma ComponentBehavior: Bound
-
-import QtQuick
-import QtQuick.Controls
-
-import Muse.Ui
-import Muse.UiComponents
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
 
 GroupBox {
     id: root
@@ -39,6 +36,7 @@ GroupBox {
            ? root.topInset + root.implicitLabelHeight + root.spacing
            : root.topInset
 
+        width: parent.width
         height: root.height - y
 
         color: ui.theme.backgroundPrimaryColor
@@ -46,13 +44,24 @@ GroupBox {
         radius: 3
     }
 
-    label: StyledTextLabel {
-        visible: !isEmpty
-        x: root.leftInset
-        y: root.topInset
-        width: Math.min(root.availableWidth, implicitWidth)
-        text: root.title
-        horizontalAlignment: Text.AlignLeft
-        elide: Text.ElideRight
+    label: Loader {
+        sourceComponent: root.title ? titleLabel : emptyLabel
+    }
+
+    Component {
+        id: titleLabel
+        StyledTextLabel {
+            x: root.leftInset
+            y: root.topInset
+            width: root.availableWidth
+            text: root.title
+            horizontalAlignment: Text.AlignLeft
+            elide: Text.ElideRight
+        }
+    }
+
+    Component {
+        id: emptyLabel
+        Item {}
     }
 }

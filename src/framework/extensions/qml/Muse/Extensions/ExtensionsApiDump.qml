@@ -1,17 +1,18 @@
-import QtQuick
+import QtQuick 2.15
 
-import Muse.Ui
-import Muse.UiComponents
-import Muse.Extensions
+import Muse.Ui 1.0
+import Muse.UiComponents 1.0
+import Muse.Extensions 1.0
 
 Rectangle {
+
     id: root
 
     objectName: "DiagnosticExtensionsApiDump"
     color: ui.theme.backgroundPrimaryColor
 
     Component.onCompleted: {
-        apiModel.load();
+        apiModel.load()
     }
 
     Item {
@@ -81,31 +82,21 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-
         clip: true
         model: apiModel
-
-        section.property: "group"
+        section.property: "groupRole"
         section.delegate: Rectangle {
-            id: sectionDelegate
-            required property string section
-
             width: parent.width
             height: 24
             color: ui.theme.backgroundSecondaryColor
-
             StyledTextLabel {
                 anchors.fill: parent
                 anchors.margins: 2
                 horizontalAlignment: Qt.AlignLeft
-                text: sectionDelegate.section
+                text: section
             }
         }
-
         delegate: ListItemBlank {
-            id: itemDelegate
-
-            required property string itemData
 
             anchors.left: parent ? parent.left : undefined
             anchors.right: parent ? parent.right : undefined
@@ -117,7 +108,7 @@ Rectangle {
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignLeft
                 font.family: "Consolas"
-                text: itemDelegate.itemData
+                text: dataRole
             }
         }
     }

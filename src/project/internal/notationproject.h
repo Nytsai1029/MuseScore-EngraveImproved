@@ -33,6 +33,7 @@
 
 #include "engraving/engravingproject.h"
 
+#include "notation/inotationcreator.h"
 #include "notation/inotationconfiguration.h"
 #include "projectaudiosettings.h"
 #include "iprojectmigrator.h"
@@ -42,31 +43,27 @@
 namespace mu::engraving {
 class MscReader;
 class MscWriter;
-
-namespace write {
-class WriteContext;
-}
 }
 
 namespace mu::project {
-class NotationProject : public INotationProject, public muse::Contextable, public muse::async::Asyncable
+class NotationProject : public INotationProject, public muse::Injectable, public muse::async::Asyncable
 {
-    muse::GlobalInject<muse::io::IFileSystem> fileSystem;
-    muse::GlobalInject<IProjectConfiguration> configuration;
-    muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;
-    muse::GlobalInject<notation::INotationConfiguration> notationConfiguration;
-    muse::ContextInject<INotationReadersRegister> readers = { this };
-    muse::ContextInject<INotationWritersRegister> writers = { this };
-    muse::ContextInject<IProjectMigrator> migrator = { this };
+    muse::Inject<muse::io::IFileSystem> fileSystem = { this };
+    muse::Inject<IProjectConfiguration> configuration = { this };
+    muse::Inject<notation::INotationConfiguration> notationConfiguration = { this };
+    muse::Inject<notation::INotationCreator> notationCreator = { this };
+    muse::Inject<INotationReadersRegister> readers = { this };
+    muse::Inject<INotationWritersRegister> writers = { this };
+    muse::Inject<IProjectMigrator> migrator = { this };
+    muse::Inject<muse::IGlobalConfiguration> globalConfiguration = { this };
 
 public:
     NotationProject(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx) {}
+        : muse::Injectable(iocCtx) {}
     ~NotationProject() override;
 
-    static QString scoreDefaultTitle();
-
-    muse::Ret load(const muse::io::path_t& path, const OpenParams& params = {}, const std::string& format = "") override;
+    muse::Ret load(const muse::io::path_t& path,
+                   const muse::io::path_t& stylePath = muse::io::path_t(), bool forceMode = false, const std::string& format = "") override;
     muse::Ret createNew(const ProjectCreateOptions& projectInfo) override;
 
     muse::io::path_t path() const override;
@@ -114,8 +111,8 @@ private:
 
     muse::Ret loadTemplate(const ProjectCreateOptions& projectOptions);
 
-    muse::Ret doLoad(const muse::io::path_t& path, const OpenParams& params, const std::string& format);
-    muse::Ret doImport(const muse::io::path_t& path, const OpenParams& params);
+    muse::Ret doLoad(const muse::io::path_t& path, const muse::io::path_t& stylePath, bool forceMode, const std::string& format);
+    muse::Ret doImport(const muse::io::path_t& path, const muse::io::path_t& stylePath, bool forceMode);
 
     muse::Ret saveScore(const muse::io::path_t& path, const std::string& fileSuffix, bool generateBackup = true,
                         bool createThumbnail = true, bool isAutosave = false);
@@ -124,9 +121,9 @@ private:
     muse::Ret doSave(const muse::io::path_t& path, engraving::MscIoMode ioMode, bool generateBackup = true, bool createThumbnail = true,
                      bool isAutosave = false);
     muse::Ret makeBackup(muse::io::path_t filePath);
-    muse::Ret writeProject(const muse::io::path_t& path, const engraving::write::WriteContext* ctx = nullptr);
+    muse::Ret writeRange(const muse::io::path_t& path, const engraving::write::WriteRange& range);
     muse::Ret writeProject(engraving::MscWriter& msczWriter, bool createThumbnail = true,
-                           const engraving::write::WriteContext* ctx = nullptr);
+                           const engraving::write::WriteRange* range = nullptr);
     muse::Ret checkSavedFileForCorruption(engraving::MscIoMode ioMode, const muse::io::path_t& path, const muse::io::path_t& scoreFileName);
 
     void listenIfNeedSaveChanges();

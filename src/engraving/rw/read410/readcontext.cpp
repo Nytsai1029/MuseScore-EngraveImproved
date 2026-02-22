@@ -24,9 +24,8 @@
 
 #include "dom/linkedobjects.h"
 #include "dom/score.h"
-#include "dom/staff.h"
 #include "dom/trill.h"
-#include "editing/undo.h"
+#include "dom/undo.h"
 
 #include "connectorinforeader.h"
 
@@ -60,11 +59,6 @@ ReadContext::~ReadContext()
 Score* ReadContext::score() const
 {
     return m_score;
-}
-
-void ReadContext::setScore(Score* score)
-{
-    m_score = score;
 }
 
 const MStyle& ReadContext::style() const

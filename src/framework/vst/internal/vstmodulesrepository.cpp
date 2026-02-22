@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2021 MuseScore Limited and others
+ * Copyright (C) 2021 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -126,9 +126,8 @@ muse::audio::AudioResourceMetaList VstModulesRepository::modulesMetaList(const a
         return info.type == type && info.meta.type == muse::audio::AudioResourceType::VstPlugin && info.enabled;
     };
 
-    audioplugins::AudioPluginInfoList infoList = knownPlugins()->pluginInfoList(infoAccepted);
+    std::vector<audioplugins::AudioPluginInfo> infoList = knownPlugins()->pluginInfoList(infoAccepted);
     muse::audio::AudioResourceMetaList result;
-    result.reserve(infoList.size());
 
     for (const audioplugins::AudioPluginInfo& info : infoList) {
         result.push_back(info.meta);

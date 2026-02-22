@@ -9,7 +9,7 @@ on:
 
 jobs:
   tx_push:
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
 
     steps:
       - name: Check preconditions
@@ -27,7 +27,7 @@ jobs:
           fi
 
       - name: Clone repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Push strings to Transifex (tx push)
         uses: transifex/cli-action@v2

@@ -5,7 +5,7 @@
  * MuseScore
  * Music Composition & Notation
  *
- * Copyright (C) 2024 MuseScore Limited and others
+ * Copyright (C) 2024 MuseScore BVBA and others
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -25,7 +25,7 @@
 #include "global/serialization/json.h"
 #include "global/io/file.h"
 #include "global/io/dir.h"
-#include "multiwindows/resourcelockguard.h"
+#include "multiinstances/resourcelockguard.h"
 #include "legacy/extpluginsloader.h"
 
 #include "log.h"
@@ -104,7 +104,7 @@ Ret ExtensionsConfiguration::setManifestConfigs(const std::map<Uri, Manifest::Co
     Ret ret;
     ByteArray data = JsonDocument(arr).toJson();
     {
-        mi::WriteResourceLockGuard lock_guard(multiwindowsProvider.get(), EXTENSIONS_RESOURCE_NAME);
+        mi::WriteResourceLockGuard lock_guard(multiInstancesProvider.get(), EXTENSIONS_RESOURCE_NAME);
         ret = io::File::writeFile(userPath() + "/config.json", data);
     }
 
@@ -123,13 +123,11 @@ std::map<muse::Uri, Manifest::Config> ExtensionsConfiguration::manifestConfigs()
     //! NOTE Load current config
     if (io::File::exists(configPath)) {
         ByteArray data;
-        {
-            mi::ReadResourceLockGuard lock_guard(multiwindowsProvider.get(), EXTENSIONS_RESOURCE_NAME);
-            Ret ret = io::File::readFile(configPath, data);
-            if (!ret) {
-                LOGE() << "failed read config data, err: " << ret.toString() << ", file: " << configPath;
-                return {};
-            }
+        mi::ReadResourceLockGuard lock_guard(multiInstancesProvider.get(), EXTENSIONS_RESOURCE_NAME);
+        Ret ret = io::File::readFile(configPath, data);
+        if (!ret) {
+            LOGE() << "failed read config data, err: " << ret.toString() << ", file: " << configPath;
+            return {};
         }
 
         std::string err;
@@ -176,14 +174,11 @@ std::map<muse::Uri, Manifest::Config> ExtensionsConfiguration::manifestConfigs()
     //! NOTE Load old plugins config
     else {
         ByteArray data;
-
-        {
-            mi::ReadResourceLockGuard lock_guard(multiwindowsProvider.get(), EXTENSIONS_RESOURCE_NAME);
-            Ret ret = io::File::readFile(oldPluginsConfigPath, data);
-            if (!ret) {
-                LOGE() << "failed read config data, err: " << ret.toString() << ", file: " << oldPluginsConfigPath;
-                return {};
-            }
+        mi::ReadResourceLockGuard lock_guard(multiInstancesProvider.get(), EXTENSIONS_RESOURCE_NAME);
+        Ret ret = io::File::readFile(oldPluginsConfigPath, data);
+        if (!ret) {
+            LOGE() << "failed read config data, err: " << ret.toString() << ", file: " << oldPluginsConfigPath;
+            return {};
         }
 
         std::string err;

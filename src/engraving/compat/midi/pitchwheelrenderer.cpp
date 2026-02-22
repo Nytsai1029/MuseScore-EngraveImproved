@@ -67,15 +67,13 @@ void PitchWheelRenderer::renderChannelPitchWheel(EventsHolder& pitchWheelEvents,
         int32_t end = rit->second;
         int32_t tick = start;
 
-        std::vector<PitchWheelFunction> functionsToProcess;
-        functionsToProcess.reserve(functions.functions.size());
+        std::list<PitchWheelFunction> functionsToProcess;
         for (const auto& func : functions.functions) {
             if (func.mEndTick <= end) {
-                functionsToProcess.push_back(func);
+                functionsToProcess.insert(functionsToProcess.end(), func);
             }
         }
         std::vector<int> pitches;
-        pitches.reserve(functionsToProcess.size());
         for (size_t i = 0; i < functionsToProcess.size(); ++i) {
             pitches.push_back(0);
         }
@@ -120,7 +118,7 @@ void PitchWheelRenderer::renderChannelPitchWheel(EventsHolder& pitchWheelEvents,
     }
 }
 
-int32_t PitchWheelRenderer::findNextStartTick(const std::vector<PitchWheelFunction>& functions) const noexcept
+int32_t PitchWheelRenderer::findNextStartTick(const std::list<PitchWheelFunction>& functions) const noexcept
 {
     int32_t tick = std::numeric_limits<int32_t>::max();
     for (const auto& func : functions) {
@@ -130,7 +128,7 @@ int32_t PitchWheelRenderer::findNextStartTick(const std::vector<PitchWheelFuncti
     return tick;
 }
 
-int32_t PitchWheelRenderer::calculatePitchBend(const std::vector<PitchWheelFunction>& functions, int32_t tick) const noexcept
+int32_t PitchWheelRenderer::calculatePitchBend(const std::list<PitchWheelFunction>& functions, int32_t tick) const noexcept
 {
     int pitchValue = _wheelSpec.mLimit;
 
@@ -150,7 +148,7 @@ int32_t PitchWheelRenderer::calculatePitchBend(const std::vector<PitchWheelFunct
 // result           |--------------|
 // 3           |--------|            handleEndTick();
 // result      |-------------------|
-void PitchWheelRenderer::generateRanges(const std::vector<PitchWheelFunction>& functions, std::map<int, int, std::greater<> >& ranges)
+void PitchWheelRenderer::generateRanges(const std::list<PitchWheelFunction>& functions, std::map<int, int, std::greater<> >& ranges)
 {
     // !NOTE ranges map is reversed. Use reverse iterators
     auto handleEndTick = [&](const PitchWheelFunction& func) {

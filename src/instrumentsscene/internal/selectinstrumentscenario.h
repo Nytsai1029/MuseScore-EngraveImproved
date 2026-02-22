@@ -19,31 +19,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#ifndef MU_INSTRUMENTSSCENE_SELECTINSTRUMENTSSCENARIO_H
+#define MU_INSTRUMENTSSCENE_SELECTINSTRUMENTSSCENARIO_H
 
-#pragma once
-
-#include "notationscene/iselectinstrumentscenario.h"
+#include "notation/iselectinstrumentscenario.h"
 
 #include "global/modularity/ioc.h"
-#include "interactive/iinteractive.h"
+#include "global/iinteractive.h"
 #include "notation/iinstrumentsrepository.h"
 
 #include "global/async/asyncable.h"
 #include "global/async/promise.h"
 
 namespace mu::instrumentsscene {
-class SelectInstrumentsScenario : public notation::ISelectInstrumentsScenario, public muse::async::Asyncable, public muse::Contextable
+class SelectInstrumentsScenario : public notation::ISelectInstrumentsScenario, public muse::async::Asyncable
 {
-    muse::ContextInject<muse::IInteractive> interactive = { this };
-    muse::ContextInject<notation::IInstrumentsRepository> instrumentsRepository = { this };
+    muse::Inject<muse::IInteractive> interactive;
+    muse::Inject<notation::IInstrumentsRepository> instrumentsRepository;
 
 public:
-
-    SelectInstrumentsScenario(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx)
-    {
-    }
-
     muse::async::Promise<notation::PartInstrumentListScoreOrder> selectInstruments() const override;
     muse::async::Promise<notation::InstrumentTemplate> selectInstrument(
         const notation::InstrumentKey& currentInstrumentId = notation::InstrumentKey()) const override;
@@ -52,3 +46,5 @@ private:
     muse::async::Promise<notation::PartInstrumentListScoreOrder> selectInstruments(const muse::ValMap& params) const;
 };
 }
+
+#endif // MU_INSTRUMENTSSCENE_SELECTINSTRUMENTSSCENARIO_H

@@ -28,19 +28,19 @@
 #include "modularity/ioc.h"
 
 #ifndef ENGRAVING_NO_INTERACTIVE
-#include "interactive/iinteractive.h"
+#include "iinteractive.h"
 #endif
 
 namespace mu::engraving {
-class MessageBox : public muse::Contextable
+class MessageBox : public muse::Injectable
 {
 #ifndef ENGRAVING_NO_INTERACTIVE
-    muse::ContextInject<muse::IInteractive> interactive = { this };
+    muse::Inject<muse::IInteractive> interactive = { this };
 #endif
 public:
 
     MessageBox(const muse::modularity::ContextPtr& iocCtx)
-        : muse::Contextable(iocCtx) {}
+        : muse::Injectable(iocCtx) {}
 
     enum Button {
         Ok,
