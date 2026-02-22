@@ -619,6 +619,8 @@ Note::Note(const Note& n, bool link)
     m_userDotPosition   = n.m_userDotPosition;
     m_fixed             = n.m_fixed;
     m_fixedLine         = n.m_fixedLine;
+    m_ledgerLineLengthOffsetLeft = n.m_ledgerLineLengthOffsetLeft;
+    m_ledgerLineLengthOffsetRight = n.m_ledgerLineLengthOffsetRight;
     m_harmonic          = n.m_harmonic;
 
     if (n.m_accidental) {
@@ -2981,6 +2983,10 @@ PropertyValue Note::getProperty(Pid propertyId) const
         return fixed();
     case Pid::FIXED_LINE:
         return fixedLine();
+    case Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT:
+        return ledgerLineLengthOffsetLeft();
+    case Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT:
+        return ledgerLineLengthOffsetRight();
     case Pid::POSITION_LINKED_TO_MASTER:
     case Pid::APPEARANCE_LINKED_TO_MASTER:
         if (chord()) {
@@ -3087,6 +3093,12 @@ bool Note::setProperty(Pid propertyId, const PropertyValue& v)
     case Pid::FIXED_LINE:
         setFixedLine(v.toInt());
         break;
+    case Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT:
+        setLedgerLineLengthOffsetLeft(v.value<Spatium>());
+        break;
+    case Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT:
+        setLedgerLineLengthOffsetRight(v.value<Spatium>());
+        break;
     case Pid::HAS_PARENTHESES:
         setParenthesesMode(v.value<ParenthesesMode>());
         if (links()) {
@@ -3152,6 +3164,9 @@ PropertyValue Note::propertyDefault(Pid propertyId) const
         return false;
     case Pid::FIXED_LINE:
         return 0;
+    case Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT:
+    case Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT:
+        return Spatium(0.0);
     case Pid::TPC2:
         return getProperty(Pid::TPC1);
     case Pid::PITCH:

@@ -1303,8 +1303,9 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
         return;
     }
 
-    // the extra length of a ledger line to be added on each side of the notehead
-    const double extraLen = ctx.conf().style().styleMM(Sid::ledgerLineLength);
+    // Base extra length added on each side of the notehead.
+    // Each note can further override left/right sides independently.
+    const double baseExtraLen = ctx.conf().style().styleMM(Sid::ledgerLineLength);
 
     bool visible = false;
 
@@ -1361,8 +1362,13 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
 
             // ledger lines need the leftmost point of the notehead with a respect of bbox
             const double x = note->pos().x() + note->bboxXShift();
-            if (x - extraLen * note->mag() < minX) {
-                minX = x - extraLen * note->mag();
+            const double leftExtraLen = baseExtraLen * note->mag()
+                                        + note->ledgerLineLengthOffsetLeft().val() * note->spatium() * note->mag();
+            const double rightExtraLen = baseExtraLen * note->mag()
+                                         + note->ledgerLineLengthOffsetRight().val() * note->spatium() * note->mag();
+
+            if (x - leftExtraLen < minX) {
+                minX = x - leftExtraLen;
                 // increase width of all lines between this one and the staff
                 for (auto& d : vecLines) {
                     if (!d.accidental && ((l < 0 && d.line >= l) || (l > 0 && d.line <= l))) {
@@ -1370,9 +1376,9 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
                     }
                 }
             }
-            // same for left side
-            if (x + hw + extraLen * note->mag() > maxX) {
-                maxX = x + hw + extraLen * note->mag();
+            // same for right side
+            if (x + hw + rightExtraLen > maxX) {
+                maxX = x + hw + rightExtraLen;
                 for (auto& d : vecLines) {
                     if ((l < 0 && d.line >= l) || (l > 0 && d.line <= l)) {
                         d.maxX = maxX;

@@ -24544,6 +24544,16 @@ pickup measure</source>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="188"/>
+        <source>Left ledger line length</source>
+        <translation>左加线长</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="203"/>
+        <source>Right ledger line length</source>
+        <translation>右加线长</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="232"/>
         <source>Combine with voices that share the same stem direction</source>
         <translation>合并符干方向相同的声部</translation>
     </message>

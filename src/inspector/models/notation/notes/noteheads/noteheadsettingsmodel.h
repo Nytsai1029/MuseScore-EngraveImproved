@@ -38,6 +38,8 @@ class NoteheadSettingsModel : public AbstractInspectorModel
     Q_PROPERTY(PropertyItem * headSystem READ headSystem CONSTANT)
     Q_PROPERTY(PropertyItem * dotPosition READ dotPosition CONSTANT)
     Q_PROPERTY(PropertyItem * offset READ offset CONSTANT)
+    Q_PROPERTY(PropertyItem * ledgerLineLengthOffsetLeft READ ledgerLineLengthOffsetLeft CONSTANT)
+    Q_PROPERTY(PropertyItem * ledgerLineLengthOffsetRight READ ledgerLineLengthOffsetRight CONSTANT)
     Q_PROPERTY(bool isTrillCueNote READ isTrillCueNote NOTIFY isTrillCueNoteChanged)
 
 public:
@@ -52,6 +54,8 @@ public:
     PropertyItem* headSystem() const;
     PropertyItem* dotPosition() const;
     PropertyItem* offset() const;
+    PropertyItem* ledgerLineLengthOffsetLeft() const;
+    PropertyItem* ledgerLineLengthOffsetRight() const;
     bool isTrillCueNote() const;
 
     Q_INVOKABLE QVariantList possibleHeadSystemTypes() const;
@@ -82,6 +86,8 @@ private:
     PropertyItem* m_headSystem = nullptr;
     PropertyItem* m_dotPosition = nullptr;
     PointFPropertyItem* m_offset = nullptr;
+    PropertyItem* m_ledgerLineLengthOffsetLeft = nullptr;
+    PropertyItem* m_ledgerLineLengthOffsetRight = nullptr;
     bool m_isTrillCueNote = false;
 };
 }

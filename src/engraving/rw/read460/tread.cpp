@@ -3309,6 +3309,10 @@ bool TRead::readProperties(Note* n, XmlReader& e, ReadContext& ctx)
         n->setFixed(e.readBool());
     } else if (tag == "fixedLine") {
         n->setFixedLine(e.readInt());
+    } else if (tag == "ledgerLineLengthOffsetLeft") {
+        TRead::readProperty(n, e, ctx, Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT);
+    } else if (tag == "ledgerLineLengthOffsetRight") {
+        TRead::readProperty(n, e, ctx, Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT);
     } else if (tag == "headScheme") {
         TRead::readProperty(n, e, ctx, Pid::HEAD_SCHEME);
     } else if (tag == "head") {

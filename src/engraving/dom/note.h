@@ -213,6 +213,10 @@ public:
     void setFixed(bool v) { m_fixed = v; }
     int fixedLine() const { return m_fixedLine; }
     void setFixedLine(int v) { m_fixedLine = v; }
+    Spatium ledgerLineLengthOffsetLeft() const { return m_ledgerLineLengthOffsetLeft; }
+    void setLedgerLineLengthOffsetLeft(Spatium v) { m_ledgerLineLengthOffsetLeft = v; }
+    Spatium ledgerLineLengthOffsetRight() const { return m_ledgerLineLengthOffsetRight; }
+    void setLedgerLineLengthOffsetRight(Spatium v) { m_ledgerLineLengthOffsetRight = v; }
 
     int tpc() const;
     int tpc1() const { return m_tpc[0]; }                  // non transposed tpc
@@ -519,6 +523,8 @@ private:
     int m_userVelocity = 0;     // velocity user offset in percent, or absolute velocity for this note
     int m_fixedLine = 0;        // fixed line number if _fixed == true
     double m_tuning = 0.0;      // pitch offset in cent, playable only by internal synthesizer
+    Spatium m_ledgerLineLengthOffsetLeft = Spatium(0.0);
+    Spatium m_ledgerLineLengthOffsetRight = Spatium(0.0);
 
     Accidental* m_accidental = nullptr;
 

@@ -108,6 +108,8 @@ static constexpr PropertyMetaData propertyList[] = {
     { Pid::GHOST,                   true,  "ghost",                 P_TYPE::BOOL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "ghost") },
     { Pid::DEAD,                    true,  "dead",                  P_TYPE::BOOL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "dead") },
     { Pid::PLAY,                    false, "play",                  P_TYPE::BOOL,               PropertyGroup::NONE,            QT_TRANSLATE_NOOP("engraving/propertyName", "played") },
+    { Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT,  false, "ledgerLineLengthOffsetLeft", P_TYPE::SPATIUM, PropertyGroup::APPEARANCE, QT_TRANSLATE_NOOP("engraving/propertyName", "ledger line length offset left") },
+    { Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT, false, "ledgerLineLengthOffsetRight", P_TYPE::SPATIUM, PropertyGroup::APPEARANCE, QT_TRANSLATE_NOOP("engraving/propertyName", "ledger line length offset right") },
     { Pid::TIMESIG_NOMINAL,         false, "timesigNominal",        P_TYPE::FRACTION,           PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "nominal time signature") },
     { Pid::TIMESIG_ACTUAL,          true,  "timesigActual",         P_TYPE::FRACTION,           PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "actual time signature") },
     { Pid::NUMBER_TYPE,             false, "numberType",            P_TYPE::INT,                PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "number type") },

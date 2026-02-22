@@ -51,6 +51,8 @@ void NoteheadSettingsModel::createProperties()
     m_headSystem = buildPropertyItem(mu::engraving::Pid::HEAD_SCHEME);
     m_dotPosition = buildPropertyItem(mu::engraving::Pid::DOT_POSITION);
     m_offset = buildPointFPropertyItem(mu::engraving::Pid::OFFSET);
+    m_ledgerLineLengthOffsetLeft = buildPropertyItem(mu::engraving::Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT);
+    m_ledgerLineLengthOffsetRight = buildPropertyItem(mu::engraving::Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT);
 }
 
 void NoteheadSettingsModel::requestElements()
@@ -70,6 +72,8 @@ void NoteheadSettingsModel::loadProperties()
         Pid::HEAD_SCHEME,
         Pid::DOT_POSITION,
         Pid::OFFSET,
+        Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT,
+        Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT,
     };
 
     loadProperties(propertyIdSet);
@@ -87,6 +91,8 @@ void NoteheadSettingsModel::resetProperties()
     m_headSystem->resetToDefault();
     m_dotPosition->resetToDefault();
     m_offset->resetToDefault();
+    m_ledgerLineLengthOffsetLeft->resetToDefault();
+    m_ledgerLineLengthOffsetRight->resetToDefault();
 }
 
 void NoteheadSettingsModel::onNotationChanged(const mu::engraving::PropertyIdSet& changedPropertyIdSet, const mu::engraving::StyleIdSet&)
@@ -133,6 +139,14 @@ void NoteheadSettingsModel::loadProperties(const mu::engraving::PropertyIdSet& p
     if (muse::contains(propertyIdSet, Pid::OFFSET)) {
         loadPropertyItem(m_offset);
     }
+
+    if (muse::contains(propertyIdSet, Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT)) {
+        loadPropertyItem(m_ledgerLineLengthOffsetLeft);
+    }
+
+    if (muse::contains(propertyIdSet, Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT)) {
+        loadPropertyItem(m_ledgerLineLengthOffsetRight);
+    }
 }
 
 PropertyItem* NoteheadSettingsModel::isHeadHidden() const
@@ -178,6 +192,16 @@ PropertyItem* NoteheadSettingsModel::dotPosition() const
 PropertyItem* NoteheadSettingsModel::offset() const
 {
     return m_offset;
+}
+
+PropertyItem* NoteheadSettingsModel::ledgerLineLengthOffsetLeft() const
+{
+    return m_ledgerLineLengthOffsetLeft;
+}
+
+PropertyItem* NoteheadSettingsModel::ledgerLineLengthOffsetRight() const
+{
+    return m_ledgerLineLengthOffsetRight;
 }
 
 bool NoteheadSettingsModel::isTrillCueNote() const

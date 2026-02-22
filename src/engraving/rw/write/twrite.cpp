@@ -2356,7 +2356,8 @@ void TWrite::write(const Note* item, XmlWriter& xml, WriteContext& ctx)
     }
     for (Pid id : { Pid::PITCH, Pid::TPC1, Pid::TPC2, Pid::SMALL, Pid::MIRROR_HEAD, Pid::DOT_POSITION,
                     Pid::HEAD_SCHEME, Pid::HEAD_GROUP, Pid::USER_VELOCITY, Pid::PLAY, Pid::TUNING, Pid::FRET, Pid::STRING,
-                    Pid::GHOST, Pid::DEAD, Pid::HEAD_TYPE, Pid::FIXED, Pid::FIXED_LINE }) {
+                    Pid::GHOST, Pid::DEAD, Pid::HEAD_TYPE, Pid::FIXED, Pid::FIXED_LINE,
+                    Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT, Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT }) {
         writeProperty(item, xml, id);
     }
 
