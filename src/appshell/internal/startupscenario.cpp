@@ -331,17 +331,9 @@ void StartupScenario::onStartupPageOpened(StartupModeType modeType)
         return;
     }
 
-    const Version welcomeDialogLastShownVersion(configuration()->welcomeDialogLastShownVersion());
-    const Version currentMuseScoreVersion(configuration()->museScoreVersion());
-    if (welcomeDialogLastShownVersion < currentMuseScoreVersion) {
-        configuration()->setWelcomeDialogShowOnStartup(true); // override user preference
-        configuration()->setWelcomeDialogLastShownIndex(-1); // reset
-    }
-
-    const size_t numInstances = multiInstancesProvider()->instances().size();
-    if (numInstances == 1 && configuration()->welcomeDialogShowOnStartup() && !museSoundsUpdateScenario()->hasUpdate()) {
-        showWelcomeDialog();
-    }
+    // Disable startup marketing/welcome promotion dialog.
+    // The dialog can still be opened explicitly from other entry points if needed.
+    configuration()->setWelcomeDialogShowOnStartup(false);
 
     if (shouldCheckForMuseSamplerUpdate) {
         checkAndShowMuseSamplerUpdateIfNeed();

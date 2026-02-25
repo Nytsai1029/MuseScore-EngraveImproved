@@ -143,17 +143,20 @@ StyleDialogPage {
     StyledGroupBox {
         id: beamStyleGroup
         width: parent.width
-        height: beamStyleContent.implicitHeight + topPadding + bottomPadding
+        height: Math.max(168, Math.max(beamStyleOptions.contentHeight, beamStylePreview.height) + topPadding + bottomPadding + implicitLabelHeight + spacing)
 
         title: qsTrc("notation", "Beam style")
 
         RowLayout {
             id: beamStyleContent
             width: parent.width
+            implicitHeight: Math.max(beamStyleOptions.contentHeight, beamStylePreview.height)
             spacing: 12
 
             RadioButtonGroup {
+                id: beamStyleOptions
                 Layout.fillWidth: true
+                Layout.alignment: Qt.AlignTop
 
                 spacing: 12
                 orientation: ListView.Vertical
@@ -174,6 +177,8 @@ StyleDialogPage {
             }
 
             StyledImage {
+                id: beamStylePreview
+                Layout.alignment: Qt.AlignTop
                 forceWidth: 140
                 forceHeight: 52
                 verticalPadding: 12
@@ -194,7 +199,7 @@ StyleDialogPage {
     StyledGroupBox {
         id: customSlantGroup
         width: parent.width
-        height: customSlantContent.implicitHeight + topPadding + bottomPadding
+        height: Math.max(520, customSlantContent.implicitHeight + topPadding + bottomPadding + implicitLabelHeight + spacing)
         title: qsTrc("notation", "Custom slant rules")
         enabled: !beamsPageModel.useDefaultBeamSlantRules.value
         opacity: enabled ? 1.0 : 0.45
@@ -202,9 +207,16 @@ StyleDialogPage {
         ColumnLayout {
             id: customSlantContent
             width: parent.width
+            implicitHeight: twoNoteTitle.implicitHeight
+                            + twoNoteIntervalsRow.implicitHeight
+                            + multiNoteTitle.implicitHeight
+                            + multiNoteIntervalsRow.implicitHeight
+                            + customSlantHint.implicitHeight
+                            + spacing * 4
             spacing: 12
 
             StyledTextLabel {
+                id: twoNoteTitle
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignLeft
                 wrapMode: Text.WordWrap
@@ -212,11 +224,15 @@ StyleDialogPage {
             }
 
             RowLayout {
+                id: twoNoteIntervalsRow
                 Layout.fillWidth: true
+                implicitHeight: Math.max(twoNoteLeftColumn.implicitHeight, twoNoteRightColumn.implicitHeight)
                 spacing: 24
 
                 ColumnLayout {
+                    id: twoNoteLeftColumn
                     Layout.fillWidth: true
+                    implicitHeight: childrenRect.height
                     spacing: 8
 
                     RowLayout {
@@ -254,7 +270,9 @@ StyleDialogPage {
                 }
 
                 ColumnLayout {
+                    id: twoNoteRightColumn
                     Layout.fillWidth: true
+                    implicitHeight: childrenRect.height
                     spacing: 8
 
                     RowLayout {
@@ -286,6 +304,7 @@ StyleDialogPage {
             }
 
             StyledTextLabel {
+                id: multiNoteTitle
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignLeft
                 wrapMode: Text.WordWrap
@@ -293,11 +312,15 @@ StyleDialogPage {
             }
 
             RowLayout {
+                id: multiNoteIntervalsRow
                 Layout.fillWidth: true
+                implicitHeight: Math.max(multiNoteLeftColumn.implicitHeight, multiNoteRightColumn.implicitHeight)
                 spacing: 24
 
                 ColumnLayout {
+                    id: multiNoteLeftColumn
                     Layout.fillWidth: true
+                    implicitHeight: childrenRect.height
                     spacing: 8
 
                     RowLayout {
@@ -346,7 +369,9 @@ StyleDialogPage {
                 }
 
                 ColumnLayout {
+                    id: multiNoteRightColumn
                     Layout.fillWidth: true
+                    implicitHeight: childrenRect.height
                     spacing: 8
 
                     RowLayout {
@@ -400,6 +425,7 @@ StyleDialogPage {
             }
 
             StyledTextLabel {
+                id: customSlantHint
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignLeft
