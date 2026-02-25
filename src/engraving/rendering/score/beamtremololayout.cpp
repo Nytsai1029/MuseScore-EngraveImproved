@@ -123,6 +123,36 @@ static int customMaxSlopeByInterval(const BeamBase::LayoutData* ldata, int inter
     return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantGreaterThanOctave, 6));
 }
 
+static BeamBase::NotePosition chordNoteClosestToBeam(const Chord* chord, bool beamUp)
+{
+    IF_ASSERT_FAILED(chord) {
+        return BeamBase::NotePosition(0, muse::nidx);
+    }
+
+    const int line = beamUp ? chord->upLine() : chord->downLine();
+    return BeamBase::NotePosition(line, chord->vStaffIdx());
+}
+
+static std::vector<BeamBase::NotePosition> collectChordNotesClosestToBeam(const BeamBase::LayoutData* ldata)
+{
+    std::vector<BeamBase::NotePosition> notePositions;
+    if (!ldata) {
+        return notePositions;
+    }
+
+    notePositions.reserve(ldata->elements.size());
+    for (const ChordRest* cr : ldata->elements) {
+        if (!cr || !cr->isChord()) {
+            continue;
+        }
+        const Chord* chord = toChord(cr);
+        notePositions.push_back(chordNoteClosestToBeam(chord, ldata->up));
+    }
+
+    std::sort(notePositions.begin(), notePositions.end());
+    return notePositions;
+}
+
 void BeamTremoloLayout::setupLData(const BeamBase* item, BeamBase::LayoutData* ldata, const LayoutContext& ctx)
 {
     bool isGrace = false;
@@ -1281,10 +1311,12 @@ int BeamTremoloLayout::computeDesiredSlant(const BeamBase* item, const BeamBase:
 
         // Calculate slant between notes on stave closest to the beam
         size_t closestChordsSize = closestChordsToBeam.size();
-        BeamBase::NotePosition closestStartPos(closestChordsSize > 0 ? closestChordsToBeam.front()->line() : 0,
-                                               closestChordsSize > 0 ? closestChordsToBeam.front()->vStaffIdx() : 0);
-        BeamBase::NotePosition closestEndPos(closestChordsSize > 0 ? closestChordsToBeam.back()->line() : 0,
-                                             closestChordsSize > 0 ? closestChordsToBeam.back()->vStaffIdx() : 0);
+        BeamBase::NotePosition closestStartPos = closestChordsSize > 0
+                                                 ? chordNoteClosestToBeam(closestChordsToBeam.front(), ldata->up)
+                                                 : BeamBase::NotePosition(0, 0);
+        BeamBase::NotePosition closestEndPos = closestChordsSize > 0
+                                               ? chordNoteClosestToBeam(closestChordsToBeam.back(), ldata->up)
+                                               : BeamBase::NotePosition(0, 0);
         int staveClosestToBeamDir = closestStartPos == closestEndPos ? 0 : (closestStartPos > closestEndPos ? 1 : -1);
 
         // Contradiction, beam must be flat
@@ -1313,7 +1345,13 @@ int BeamTremoloLayout::computeDesiredSlant(const BeamBase* item, const BeamBase:
 SlopeConstraint BeamTremoloLayout::getSlopeConstraint(const BeamBase::LayoutData* ldata, const BeamBase::NotePosition& startPos,
                                                       const BeamBase::NotePosition& endPos)
 {
-    if (ldata->notePositions.empty()) {
+    std::vector<BeamBase::NotePosition> closestNotePositions = collectChordNotesClosestToBeam(ldata);
+    if (closestNotePositions.empty()) {
+        // Fallback to the legacy container in case no chord list is available.
+        closestNotePositions = ldata->notePositions;
+    }
+
+    if (closestNotePositions.empty()) {
         return SlopeConstraint::NO_CONSTRAINT;
     }
 
@@ -1328,7 +1366,7 @@ SlopeConstraint BeamTremoloLayout::getSlopeConstraint(const BeamBase::LayoutData
     // if a note is more extreme than the endpoints, slope is 0
     // p.s. _notes is a sorted vector
     const std::vector<ChordRest*>& elements = ldata->elements;
-    const std::vector<BeamBase::NotePosition>& notePositions = ldata->notePositions;
+    const std::vector<BeamBase::NotePosition>& notePositions = closestNotePositions;
 
     if (elements.size() > 2) {
         if (ldata->up) {
