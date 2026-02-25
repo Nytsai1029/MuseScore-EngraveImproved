@@ -2820,14 +2820,15 @@ void Note::horizontalDrag(EditData& ed)
     Segment* seg = ch->segment();
 
     NoteEditData* ned = static_cast<NoteEditData*>(ed.getData(this).get());
+    const bool autoPlacementEnabled = autoplace();
 
-    if (ed.moveDelta.x() < 0) {
+    if (autoPlacementEnabled && ed.moveDelta.x() < 0) {
         normalizeLeftDragDelta(seg, ed, ned);
     }
 
     const Spatium deltaSp = Spatium(ned->delta.x() / spatium());
 
-    if (seg->extraLeadingSpace() + deltaSp < Spatium(0)) {
+    if (autoPlacementEnabled && seg->extraLeadingSpace() + deltaSp < Spatium(0)) {
         return;
     }
 

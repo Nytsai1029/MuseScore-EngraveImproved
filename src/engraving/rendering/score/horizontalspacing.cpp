@@ -43,6 +43,53 @@
 using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
 
+static bool segmentHasAutoplaceDisabledChordNotes(const Segment* segment)
+{
+    if (!segment) {
+        return false;
+    }
+
+    for (const EngravingItem* item : segment->elist()) {
+        if (!item || !item->isChordRest()) {
+            continue;
+        }
+
+        const ChordRest* chordRest = toChordRest(item);
+        if (!chordRest->autoplace()) {
+            return true;
+        }
+        if (!chordRest->isChord()) {
+            continue;
+        }
+
+        const Chord* chord = toChord(chordRest);
+        for (const Note* note : chord->notes()) {
+            if (note && !note->autoplace()) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+static bool shouldIgnoreCollisionBoxes(const Segment* first, const Segment* second)
+{
+    if (!first || !second) {
+        return false;
+    }
+
+    if (!first->isChordRestType() || !second->isChordRestType()) {
+        return false;
+    }
+
+    if (!first->style().styleB(Sid::autoplaceEnabled)) {
+        return true;
+    }
+
+    return segmentHasAutoplaceDisabledChordNotes(first) || segmentHasAutoplaceDisabledChordNotes(second);
+}
+
 double HorizontalSpacing::computeSpacingForFullSystem(System* system, double stretchReduction, double squeezeFactor,
                                                       bool overrideMinMeasureWidth)
 {
@@ -299,7 +346,7 @@ std::vector<HorizontalSpacing::SegmentPosition> HorizontalSpacing::spaceSegments
                     nextSegLeadingSpace = std::max(nextSegLeadingSpace, -chordRestSegWidth);
                     curSeg->addWidthOffset(nextSegLeadingSpace);
                 }
-                if (nextSeg->isChordRestType()) {
+                if (nextSeg->isChordRestType() && !shouldIgnoreCollisionBoxes(curSeg, nextSeg)) {
                     applyCrossBeamSpacingCorrection(curSeg, nextSeg, chordRestSegWidth);
                 }
             }
@@ -370,8 +417,11 @@ void HorizontalSpacing::spaceAgainstPreviousSegments(Segment* segment, std::vect
         } else if (timeSigAboveRepeatKeySigCase) {
             x = xPrevSeg + prevSeg->minRight();
         } else {
-            double minHorDist = minHorizontalDistance(prevSeg, segment, ctx.squeezeFactor);
-            minHorDist = std::max(minHorDist, spaceLyricsAgainstBarlines(prevSeg, segment, ctx));
+            bool ignoreCollisionBoxes = shouldIgnoreCollisionBoxes(prevSeg, segment);
+            double minHorDist = ignoreCollisionBoxes ? 0.0 : minHorizontalDistance(prevSeg, segment, ctx.squeezeFactor);
+            if (!ignoreCollisionBoxes) {
+                minHorDist = std::max(minHorDist, spaceLyricsAgainstBarlines(prevSeg, segment, ctx));
+            }
             double xNonCollision = xPrevSeg + minHorDist;
             x = std::max(x, xNonCollision);
         }
@@ -1284,6 +1334,10 @@ double HorizontalSpacing::shapeSpatium(const Shape& s)
 
 double HorizontalSpacing::minHorizontalDistance(const Segment* f, const Segment* ns, double squeezeFactor)
 {
+    if (shouldIgnoreCollisionBoxes(f, ns)) {
+        return 0.0;
+    }
+
     if (f->segmentType() & SegmentType::BarLineType) {
         if (ns->isStartRepeatBarLineType()) {
             if (f->isBeginBarLineType()) {
