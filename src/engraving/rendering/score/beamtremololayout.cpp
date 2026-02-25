@@ -22,7 +22,9 @@
 
 #include "beamtremololayout.h"
 
+#include <algorithm>
 #include <array>
+#include <cmath>
 
 #include "../dom/beam.h"
 #include "../dom/chordrest.h"
@@ -46,6 +48,80 @@ using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
 
 constexpr std::array _maxSlopes = { 0, 1, 2, 3, 4, 5, 6, 7 };
+
+static bool useDefaultBeamSlantRules(const BeamBase::LayoutData* ldata)
+{
+    if (!ldata) {
+        return true;
+    }
+    if (ldata->beam) {
+        return ldata->beam->style().styleB(Sid::useDefaultBeamSlantRules);
+    }
+    if (ldata->trem) {
+        return ldata->trem->style().styleB(Sid::useDefaultBeamSlantRules);
+    }
+    return true;
+}
+
+static int styleIntForBeamSlantRule(const BeamBase::LayoutData* ldata, Sid sid, int defaultValue = 0)
+{
+    if (!ldata) {
+        return defaultValue;
+    }
+    if (ldata->beam) {
+        return ldata->beam->style().styleI(sid);
+    }
+    if (ldata->trem) {
+        return ldata->trem->style().styleI(sid);
+    }
+    return defaultValue;
+}
+
+static int customMaxSlopeByInterval(const BeamBase::LayoutData* ldata, int interval)
+{
+    if (!ldata) {
+        return 0;
+    }
+
+    if (ldata->elements.size() <= 2) {
+        if (interval <= 1) {
+            return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomTwoNoteMaxSlantSecondInterval, 2));
+        }
+        if (interval == 2) {
+            return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomTwoNoteMaxSlantThirdInterval, 3));
+        }
+        if (interval <= 8) {
+            return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomTwoNoteMaxSlantFourthToNinthInterval, 4));
+        }
+        if (interval == 9) {
+            return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomTwoNoteMaxSlantTenthInterval, 6));
+        }
+        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomTwoNoteMaxSlantGreaterThanTenthInterval, 8));
+    }
+
+    if (interval <= 1) {
+        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantSecondInterval, 1));
+    }
+    if (interval == 2) {
+        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantThirdInterval, 3));
+    }
+    if (interval == 3) {
+        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantFourthInterval, 4));
+    }
+    if (interval == 4) {
+        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantFifthInterval, 5));
+    }
+    if (interval == 5) {
+        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantSixthInterval, 6));
+    }
+    if (interval == 6) {
+        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantSeventhInterval, 6));
+    }
+    if (interval == 7) {
+        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantOctave, 6));
+    }
+    return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantGreaterThanOctave, 6));
+}
 
 void BeamTremoloLayout::setupLData(const BeamBase* item, BeamBase::LayoutData* ldata, const LayoutContext& ctx)
 {
@@ -104,7 +180,8 @@ void BeamTremoloLayout::offsetBeamToRemoveCollisions(const BeamBase* item, const
                                                      int& dictator,
                                                      int& pointer,
                                                      const double startX, const double endX,
-                                                     bool isFlat, bool isStartDictator)
+                                                     bool isFlat, bool isStartDictator, bool stemsUneven,
+                                                     bool preferDictatorForExtension)
 {
     if (endX == startX) {
         return;
@@ -166,7 +243,12 @@ void BeamTremoloLayout::offsetBeamToRemoveCollisions(const BeamBase* item, const
         // for horizontal spacing computations)
         if (!muse::RealIsEqual(endX, startX)) {
             const double proportionAlongX = (anchor.x() - startX) / (endX - startX);
+            int collisionAdjustments = 0;
             while (true) {
+                if (++collisionAdjustments > 2048) {
+                    LOGE() << "Beam collision adjustment exceeded iteration limit";
+                    break;
+                }
                 const int slope = std::abs(dictator - pointer);
                 double reduction = 0.0;
                 if (!isFlat) {
@@ -196,10 +278,18 @@ void BeamTremoloLayout::offsetBeamToRemoveCollisions(const BeamBase* item, const
                 if (isFlat || (isSmall && dictator == pointer)) {
                     dictator += ldata->up ? -1 : 1;
                     pointer += ldata->up ? -1 : 1;
-                } else if (std::abs(dictator - pointer) == 1) {
-                    dictator += ldata->up ? -1 : 1;
                 } else {
-                    pointer += ldata->up ? -1 : 1;
+                    if (stemsUneven) {
+                        if (preferDictatorForExtension) {
+                            dictator += ldata->up ? -1 : 1;
+                        } else {
+                            pointer += ldata->up ? -1 : 1;
+                        }
+                    } else if (std::abs(dictator - pointer) == 1) {
+                        dictator += ldata->up ? -1 : 1;
+                    } else {
+                        pointer += ldata->up ? -1 : 1;
+                    }
                 }
 
                 startY = (isStartDictator ? dictator : pointer) * ldata->spatium / 4 + tolerance;
@@ -212,7 +302,7 @@ void BeamTremoloLayout::offsetBeamToRemoveCollisions(const BeamBase* item, const
 
 void BeamTremoloLayout::offsetBeamWithAnchorShortening(const BeamBase::LayoutData* ldata, const std::vector<ChordRest*>& chordRests,
                                                        int& dictator, int& pointer, int staffLines, bool isStartDictator,
-                                                       int stemLengthDictator, const int targetLine)
+                                                       int stemLengthDictator, int stemLengthPointer, const int targetLine)
 {
     const Chord* startChord = nullptr;
     const Chord* endChord = nullptr;
@@ -240,6 +330,8 @@ void BeamTremoloLayout::offsetBeamWithAnchorShortening(const BeamBase::LayoutDat
     const BeamBase::NotePosition endPos = BeamBase::NotePosition(endChord->line(), endChord->vStaffIdx());
     bool isAscending = startPos > endPos;
     int towardBeam = ldata->up ? -1 : 1;
+    const bool stemsUneven = stemLengthDictator != stemLengthPointer;
+    const bool preferDictatorForExtension = stemLengthDictator > stemLengthPointer;
     int newDictator = dictator;
     int newPointer = pointer;
     int reduce = 0;
@@ -268,16 +360,37 @@ void BeamTremoloLayout::offsetBeamWithAnchorShortening(const BeamBase::LayoutDat
     // first, constrain pointer to valid position
     newPointer = ldata->up ? std::min(newPointer, targetLine) : std::max(newPointer, targetLine);
     // walk it back beamwards until we get a position that satisfies both pointer and dictator
+    int adjustmentIterations = 0;
     while (!fourBeamException(dictatorBeams, newDictator) && !fourBeamException(pointerBeams, newPointer)
            && (!isValidBeamPosition(ldata->up, newDictator, isStartDictator, isAscending, isFlat, staffLines, true)
                || !isValidBeamPosition(ldata->up, newPointer, !isStartDictator, isAscending, isFlat, staffLines, true))) {
+        if (++adjustmentIterations > 2048) {
+            LOGE() << "Beam anchor shortening exceeded iteration limit";
+            break;
+        }
+
+        const bool dictatorValid = isValidBeamPosition(ldata->up, newDictator, isStartDictator, isAscending, isFlat, staffLines, true);
+        const bool pointerValid = isValidBeamPosition(ldata->up, newPointer, !isStartDictator, isAscending, isFlat, staffLines, true);
+
         if (isFlat) {
             newDictator += towardBeam;
             newPointer += towardBeam;
-        } else if (std::abs(newDictator - newPointer) == 1) {
-            newDictator += towardBeam;
         } else {
-            newPointer += towardBeam;
+            if (stemsUneven) {
+                if (!dictatorValid && pointerValid) {
+                    newDictator += towardBeam;
+                } else if (dictatorValid && !pointerValid) {
+                    newPointer += towardBeam;
+                } else if (preferDictatorForExtension) {
+                    newDictator += towardBeam;
+                } else {
+                    newPointer += towardBeam;
+                }
+            } else if (std::abs(newDictator - newPointer) == 1) {
+                newDictator += towardBeam;
+            } else {
+                newPointer += towardBeam;
+            }
         }
     }
     dictator = newDictator;
@@ -700,10 +813,13 @@ bool BeamTremoloLayout::calculateAnchors(const BeamBase* item, BeamBase::LayoutD
     PointF endAnchor = ldata->endAnchor - item->pagePos();
     int dictator = round((isStartDictator ? startAnchor.y() : endAnchor.y()) / quarterSpace);
     int pointer = round((isStartDictator ? endAnchor.y() : startAnchor.y()) / quarterSpace);
+    const int defaultDictator = dictator;
+    const int defaultPointer = pointer;
 
     const int staffLines = ctx.dom().staff(closestStaffToBeam)->lines(ldata->tick);
     // This is the middle of the stave if the notes are normal size or the second line from the bottom if notes are small
     const int targetLine = getTargetStaffLine(ldata, ctx, startChord, endChord, staffLines, closestStaffToBeam, item->staffIdx());
+    const bool ignoreStaffLineCollisionLimits = !useDefaultBeamSlantRules(ldata);
 
     int slant
         = computeDesiredSlant(item, ldata, startPos, endPos, chordsClosestToBeam, targetLine, dictator, pointer);
@@ -722,6 +838,16 @@ bool BeamTremoloLayout::calculateAnchors(const BeamBase* item, BeamBase::LayoutD
             pointer = dictator + slant;
         }
     }
+    if (ignoreStaffLineCollisionLimits) {
+        const int dictatorShortening = ldata->up ? std::max(0, dictator - defaultDictator) : std::max(0, defaultDictator - dictator);
+        const int pointerShortening = ldata->up ? std::max(0, pointer - defaultPointer) : std::max(0, defaultPointer - pointer);
+        const int maxShortening = std::max(dictatorShortening, pointerShortening);
+        if (maxShortening > 0) {
+            const int extendDirection = ldata->up ? -1 : 1;
+            dictator += extendDirection * maxShortening;
+            pointer += extendDirection * maxShortening;
+        }
+    }
     bool isAscending = startPos > endPos;
     int beamCountD = strokeCount(ldata, isStartDictator ? startChord : endChord);
     int beamCountP = strokeCount(ldata, isStartDictator ? endChord : startChord);
@@ -729,31 +855,59 @@ bool BeamTremoloLayout::calculateAnchors(const BeamBase* item, BeamBase::LayoutD
     int stemLengthStart = std::abs(round((startAnchorBase - ldata->startAnchor.y()) / ldata->spatium * 4));
     int stemLengthEnd = std::abs(round((endAnchorBase - ldata->endAnchor.y()) / ldata->spatium * 4));
     int stemLengthDictator = isStartDictator ? stemLengthStart : stemLengthEnd;
+    int stemLengthPointer = isStartDictator ? stemLengthEnd : stemLengthStart;
+    const bool stemsUneven = stemLengthDictator != stemLengthPointer;
+    const bool preferDictatorForExtension = stemLengthDictator > stemLengthPointer;
     bool isSmall = ldata->mag() < 1. || ldata->isGrace;
     if (endAnchor.x() > startAnchor.x()) {
         /* When beam layout is called before horizontal spacing (see LayoutMeasure::getNextMeasure() to
          * know why) the x positions aren't yet determined and may be all zero, which would cause the
          * following function to get stuck in a loop. The if() condition avoids that case. */
 
-        // Make sure grace & small note inner beams are within the stave
-        setSmallInnerBeamPos(ldata, dictator, pointer, staffLines, isFlat, isSmall, ctx);
+        if (!ignoreStaffLineCollisionLimits) {
+            // Make sure grace & small note inner beams are within the stave
+            setSmallInnerBeamPos(ldata, dictator, pointer, staffLines, isFlat, isSmall, ctx);
+        }
 
-        if (!isSmall) {
+        if (!isSmall && !ignoreStaffLineCollisionLimits) {
             // Adjust anchor stems
             offsetBeamWithAnchorShortening(ldata, chordRests, dictator, pointer, staffLines, isStartDictator, stemLengthDictator,
-                                           targetLine);
+                                           stemLengthPointer, targetLine);
         }
         // Adjust inner stems
-        offsetBeamToRemoveCollisions(item, ldata, chordRests, dictator, pointer, startAnchor.x(), endAnchor.x(), isFlat, isStartDictator);
+        offsetBeamToRemoveCollisions(item, ldata, chordRests, dictator, pointer, startAnchor.x(), endAnchor.x(), isFlat,
+                                     isStartDictator, stemsUneven, preferDictatorForExtension);
     }
 
     int beamCount = std::max(beamCountD, beamCountP);
     if (!ldata->tab) {
-        if (!ldata->isGrace) {
+        if (!ldata->isGrace && !ignoreStaffLineCollisionLimits) {
             setValidBeamPositions(ldata, dictator, pointer, beamCountD, beamCountP, staffLines, isStartDictator, isFlat, isAscending);
         }
-        if (!forceFlat) {
+        if (!forceFlat && !ignoreStaffLineCollisionLimits) {
             addMiddleLineSlant(ldata, dictator, pointer, beamCount, targetLine, interval, smallSlant ? 1 : slant);
+        }
+    }
+
+    if (ignoreStaffLineCollisionLimits && !ldata->tab) {
+        auto touchesStaffLine = [](int yPos) {
+            int normalized = yPos % 4;
+            if (normalized < 0) {
+                normalized += 4;
+            }
+            return normalized != 2;
+        };
+
+        int startOuterBeamPos = isStartDictator ? dictator : pointer;
+        int endOuterBeamPos = isStartDictator ? pointer : dictator;
+        const int awayFromNote = ldata->up ? -1 : 1;
+        int attempts = 0;
+        while (attempts < 4 && (!touchesStaffLine(startOuterBeamPos) || !touchesStaffLine(endOuterBeamPos))) {
+            dictator += awayFromNote;
+            pointer += awayFromNote;
+            startOuterBeamPos += awayFromNote;
+            endOuterBeamPos += awayFromNote;
+            ++attempts;
         }
     }
 
@@ -764,7 +918,7 @@ bool BeamTremoloLayout::calculateAnchors(const BeamBase* item, BeamBase::LayoutD
     if (item->isType(ElementType::BEAM) && item_cast<const Beam*>(item)->userModified()) {
         add8th = false;
     }
-    if (!ldata->tab && add8th) {
+    if (!ldata->tab && add8th && !ignoreStaffLineCollisionLimits) {
         add8thSpaceSlant(ldata, isStartDictator ? ldata->startAnchor : ldata->endAnchor, dictator, pointer, beamCount, interval,
                          targetLine, isFlat);
     }
@@ -1090,17 +1244,20 @@ int BeamTremoloLayout::computeDesiredSlant(const BeamBase* item, const BeamBase:
     if (item->isType(ElementType::BEAM) && item_cast<const Beam*>(item)->noSlope()) {
         return 0;
     }
-    int dictatorExtension = targetLine - dictator; // we need to make sure that beams extended to the middle line
-    int pointerExtension = targetLine - pointer;  // are properly treated as flat.
-    if (ldata->up) {
-        dictatorExtension = std::min(dictatorExtension, 0);
-        pointerExtension = std::min(pointerExtension, 0);
-    } else {
-        dictatorExtension = std::max(dictatorExtension, 0);
-        pointerExtension = std::max(pointerExtension, 0);
-    }
-    if (dictator + dictatorExtension == targetLine && pointer + pointerExtension == targetLine) {
-        return 0;
+    const bool applyDefaultSlantRules = useDefaultBeamSlantRules(ldata);
+    if (applyDefaultSlantRules) {
+        int dictatorExtension = targetLine - dictator; // we need to make sure that beams extended to the middle line
+        int pointerExtension = targetLine - pointer;  // are properly treated as flat.
+        if (ldata->up) {
+            dictatorExtension = std::min(dictatorExtension, 0);
+            pointerExtension = std::min(pointerExtension, 0);
+        } else {
+            dictatorExtension = std::max(dictatorExtension, 0);
+            pointerExtension = std::max(pointerExtension, 0);
+        }
+        if (dictator + dictatorExtension == targetLine && pointer + pointerExtension == targetLine) {
+            return 0;
+        }
     }
     if (startPos == endPos) {
         return 0;
@@ -1109,7 +1266,9 @@ int BeamTremoloLayout::computeDesiredSlant(const BeamBase* item, const BeamBase:
     if (slopeConstrained == SlopeConstraint::FLAT) {
         return 0;
     } else if (slopeConstrained == SlopeConstraint::SMALL_SLOPE) {
-        return dictator > pointer ? -1 : 1;
+        // In custom mode, keep the legacy contour constraint but use a 1sp slant instead of 0.25sp.
+        const int constrainedSlope = applyDefaultSlantRules ? 1 : 4;
+        return dictator > pointer ? -constrainedSlope : constrainedSlope;
     }
 
     // calculate max slope based on distance between first and last chords
@@ -1142,7 +1301,12 @@ int BeamTremoloLayout::computeDesiredSlant(const BeamBase* item, const BeamBase:
     }
 
     // calculate max slope based on note interval
-    int interval = std::min(std::abs(endPos.line - startPos.line), (int)_maxSlopes.size() - 1);
+    const int rawInterval = std::abs(endPos.line - startPos.line);
+    if (!applyDefaultSlantRules) {
+        const int customMaxSlope = customMaxSlopeByInterval(ldata, rawInterval);
+        return customMaxSlope * (ldata->up ? 1 : -1);
+    }
+    int interval = std::min(rawInterval, (int)_maxSlopes.size() - 1);
     return std::min(maxSlope, _maxSlopes[interval]) * (ldata->up ? 1 : -1);
 }
 

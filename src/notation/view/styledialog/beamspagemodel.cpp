@@ -29,7 +29,22 @@ BeamsPageModel::BeamsPageModel(QObject* parent)
     StyleId::beamWidth,
     StyleId::beamMinLen,
     StyleId::beamNoSlope,
-    StyleId::frenchStyleBeams
+    StyleId::frenchStyleBeams,
+    StyleId::useDefaultBeamSlantRules,
+    StyleId::beamCustomMaxSlantForTwoNotes,
+    StyleId::beamCustomTwoNoteMaxSlantSecondInterval,
+    StyleId::beamCustomTwoNoteMaxSlantThirdInterval,
+    StyleId::beamCustomTwoNoteMaxSlantFourthToNinthInterval,
+    StyleId::beamCustomTwoNoteMaxSlantTenthInterval,
+    StyleId::beamCustomTwoNoteMaxSlantGreaterThanTenthInterval,
+    StyleId::beamCustomMaxSlantSecondInterval,
+    StyleId::beamCustomMaxSlantThirdInterval,
+    StyleId::beamCustomMaxSlantFourthInterval,
+    StyleId::beamCustomMaxSlantFifthInterval,
+    StyleId::beamCustomMaxSlantSixthInterval,
+    StyleId::beamCustomMaxSlantSeventhInterval,
+    StyleId::beamCustomMaxSlantOctave,
+    StyleId::beamCustomMaxSlantGreaterThanOctave
 })
 {
 }
@@ -57,4 +72,79 @@ StyleItem* BeamsPageModel::beamNoSlope() const
 StyleItem* BeamsPageModel::frenchStyleBeams() const
 {
     return styleItem(StyleId::frenchStyleBeams);
+}
+
+StyleItem* BeamsPageModel::useDefaultBeamSlantRules() const
+{
+    return styleItem(StyleId::useDefaultBeamSlantRules);
+}
+
+StyleItem* BeamsPageModel::beamCustomMaxSlantForTwoNotes() const
+{
+    return styleItem(StyleId::beamCustomMaxSlantForTwoNotes);
+}
+
+StyleItem* BeamsPageModel::beamCustomTwoNoteMaxSlantSecondInterval() const
+{
+    return styleItem(StyleId::beamCustomTwoNoteMaxSlantSecondInterval);
+}
+
+StyleItem* BeamsPageModel::beamCustomTwoNoteMaxSlantThirdInterval() const
+{
+    return styleItem(StyleId::beamCustomTwoNoteMaxSlantThirdInterval);
+}
+
+StyleItem* BeamsPageModel::beamCustomTwoNoteMaxSlantFourthToNinthInterval() const
+{
+    return styleItem(StyleId::beamCustomTwoNoteMaxSlantFourthToNinthInterval);
+}
+
+StyleItem* BeamsPageModel::beamCustomTwoNoteMaxSlantTenthInterval() const
+{
+    return styleItem(StyleId::beamCustomTwoNoteMaxSlantTenthInterval);
+}
+
+StyleItem* BeamsPageModel::beamCustomTwoNoteMaxSlantGreaterThanTenthInterval() const
+{
+    return styleItem(StyleId::beamCustomTwoNoteMaxSlantGreaterThanTenthInterval);
+}
+
+StyleItem* BeamsPageModel::beamCustomMaxSlantSecondInterval() const
+{
+    return styleItem(StyleId::beamCustomMaxSlantSecondInterval);
+}
+
+StyleItem* BeamsPageModel::beamCustomMaxSlantThirdInterval() const
+{
+    return styleItem(StyleId::beamCustomMaxSlantThirdInterval);
+}
+
+StyleItem* BeamsPageModel::beamCustomMaxSlantFourthInterval() const
+{
+    return styleItem(StyleId::beamCustomMaxSlantFourthInterval);
+}
+
+StyleItem* BeamsPageModel::beamCustomMaxSlantFifthInterval() const
+{
+    return styleItem(StyleId::beamCustomMaxSlantFifthInterval);
+}
+
+StyleItem* BeamsPageModel::beamCustomMaxSlantSixthInterval() const
+{
+    return styleItem(StyleId::beamCustomMaxSlantSixthInterval);
+}
+
+StyleItem* BeamsPageModel::beamCustomMaxSlantSeventhInterval() const
+{
+    return styleItem(StyleId::beamCustomMaxSlantSeventhInterval);
+}
+
+StyleItem* BeamsPageModel::beamCustomMaxSlantOctave() const
+{
+    return styleItem(StyleId::beamCustomMaxSlantOctave);
+}
+
+StyleItem* BeamsPageModel::beamCustomMaxSlantGreaterThanOctave() const
+{
+    return styleItem(StyleId::beamCustomMaxSlantGreaterThanOctave);
 }

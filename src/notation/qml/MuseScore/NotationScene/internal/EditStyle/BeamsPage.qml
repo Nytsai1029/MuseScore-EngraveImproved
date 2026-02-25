@@ -29,6 +29,22 @@ import Muse.Ui 1.0
 StyleDialogPage {
     id: root
 
+    readonly property var slantOptionsModel: [
+        { text: "0", value: 0 },
+        { text: "1/4", value: 1 },
+        { text: "1/2", value: 2 },
+        { text: "3/4", value: 3 },
+        { text: "1", value: 4 },
+        { text: "1 1/4", value: 5 },
+        { text: "1 1/2", value: 6 },
+        { text: "1 3/4", value: 7 },
+        { text: "2", value: 8 },
+        { text: "2 1/4", value: 9 },
+        { text: "2 1/2", value: 10 },
+        { text: "2 3/4", value: 11 },
+        { text: "3", value: 12 }
+    ]
+
     BeamsPageModel {
         id: beamsPageModel
     }
@@ -38,7 +54,7 @@ StyleDialogPage {
 
         RadioButtonGroup {
             width: 224
-            height: 70
+            height: 140
             spacing: 12
 
             model: [
@@ -125,13 +141,15 @@ StyleDialogPage {
     }
 
     StyledGroupBox {
+        id: beamStyleGroup
         width: parent.width
-        height: Math.max(120, implicitHeight)
+        height: beamStyleContent.implicitHeight + topPadding + bottomPadding
 
         title: qsTrc("notation", "Beam style")
 
         RowLayout {
-            anchors.fill: parent
+            id: beamStyleContent
+            width: parent.width
             spacing: 12
 
             RadioButtonGroup {
@@ -160,6 +178,233 @@ StyleDialogPage {
                 forceHeight: 52
                 verticalPadding: 12
                 source: beamsPageModel.frenchStyleBeams.value ? "beam_style_french.svg" : "beam_style_regular.svg"
+            }
+        }
+    }
+
+    CheckBox {
+        width: parent.width
+        text: qsTrc("notation", "Apply default beam slant rules")
+        checked: beamsPageModel.useDefaultBeamSlantRules.value
+        onClicked: {
+            beamsPageModel.useDefaultBeamSlantRules.value = !checked
+        }
+    }
+
+    StyledGroupBox {
+        id: customSlantGroup
+        width: parent.width
+        height: customSlantContent.implicitHeight + topPadding + bottomPadding
+        title: qsTrc("notation", "Custom slant rules")
+        enabled: !beamsPageModel.useDefaultBeamSlantRules.value
+        opacity: enabled ? 1.0 : 0.45
+
+        ColumnLayout {
+            id: customSlantContent
+            width: parent.width
+            spacing: 12
+
+            StyledTextLabel {
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignLeft
+                wrapMode: Text.WordWrap
+                text: qsTrc("notation", "Slant for beams of only two notes, by interval:")
+            }
+
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 24
+
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        StyledTextLabel { text: qsTrc("notation", "2nd:") }
+                        ComboBoxDropdown {
+                            Layout.preferredWidth: 120
+                            model: root.slantOptionsModel
+                            styleItem: beamsPageModel.beamCustomTwoNoteMaxSlantSecondInterval
+                        }
+                        StyledTextLabel { text: qsTrc("notation", "spaces") }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        StyledTextLabel { text: qsTrc("notation", "3rd:") }
+                        ComboBoxDropdown {
+                            Layout.preferredWidth: 120
+                            model: root.slantOptionsModel
+                            styleItem: beamsPageModel.beamCustomTwoNoteMaxSlantThirdInterval
+                        }
+                        StyledTextLabel { text: qsTrc("notation", "spaces") }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        StyledTextLabel { text: qsTrc("notation", "4th-9th:") }
+                        ComboBoxDropdown {
+                            Layout.preferredWidth: 120
+                            model: root.slantOptionsModel
+                            styleItem: beamsPageModel.beamCustomTwoNoteMaxSlantFourthToNinthInterval
+                        }
+                        StyledTextLabel { text: qsTrc("notation", "spaces") }
+                    }
+                }
+
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        StyledTextLabel { text: qsTrc("notation", "10th:") }
+                        ComboBoxDropdown {
+                            Layout.preferredWidth: 120
+                            model: root.slantOptionsModel
+                            styleItem: beamsPageModel.beamCustomTwoNoteMaxSlantTenthInterval
+                        }
+                        StyledTextLabel { text: qsTrc("notation", "spaces") }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        StyledTextLabel {
+                            Layout.fillWidth: true
+                            horizontalAlignment: Text.AlignLeft
+                            text: qsTrc("notation", "Greater than 10th:")
+                        }
+                        ComboBoxDropdown {
+                            Layout.preferredWidth: 120
+                            model: root.slantOptionsModel
+                            styleItem: beamsPageModel.beamCustomTwoNoteMaxSlantGreaterThanTenthInterval
+                        }
+                        StyledTextLabel { text: qsTrc("notation", "spaces") }
+                    }
+                }
+            }
+
+            StyledTextLabel {
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignLeft
+                wrapMode: Text.WordWrap
+                text: qsTrc("notation", "Slant for beams of more than two notes, by interval:")
+            }
+
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 24
+
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        StyledTextLabel { text: qsTrc("notation", "2nd:") }
+                        ComboBoxDropdown {
+                            Layout.preferredWidth: 120
+                            model: root.slantOptionsModel
+                            styleItem: beamsPageModel.beamCustomMaxSlantSecondInterval
+                        }
+                        StyledTextLabel { text: qsTrc("notation", "spaces") }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        StyledTextLabel { text: qsTrc("notation", "3rd:") }
+                        ComboBoxDropdown {
+                            Layout.preferredWidth: 120
+                            model: root.slantOptionsModel
+                            styleItem: beamsPageModel.beamCustomMaxSlantThirdInterval
+                        }
+                        StyledTextLabel { text: qsTrc("notation", "spaces") }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        StyledTextLabel { text: qsTrc("notation", "4th:") }
+                        ComboBoxDropdown {
+                            Layout.preferredWidth: 120
+                            model: root.slantOptionsModel
+                            styleItem: beamsPageModel.beamCustomMaxSlantFourthInterval
+                        }
+                        StyledTextLabel { text: qsTrc("notation", "spaces") }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        StyledTextLabel { text: qsTrc("notation", "5th:") }
+                        ComboBoxDropdown {
+                            Layout.preferredWidth: 120
+                            model: root.slantOptionsModel
+                            styleItem: beamsPageModel.beamCustomMaxSlantFifthInterval
+                        }
+                        StyledTextLabel { text: qsTrc("notation", "spaces") }
+                    }
+                }
+
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        StyledTextLabel { text: qsTrc("notation", "6th:") }
+                        ComboBoxDropdown {
+                            Layout.preferredWidth: 120
+                            model: root.slantOptionsModel
+                            styleItem: beamsPageModel.beamCustomMaxSlantSixthInterval
+                        }
+                        StyledTextLabel { text: qsTrc("notation", "spaces") }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        StyledTextLabel { text: qsTrc("notation", "7th:") }
+                        ComboBoxDropdown {
+                            Layout.preferredWidth: 120
+                            model: root.slantOptionsModel
+                            styleItem: beamsPageModel.beamCustomMaxSlantSeventhInterval
+                        }
+                        StyledTextLabel { text: qsTrc("notation", "spaces") }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        StyledTextLabel { text: qsTrc("notation", "Octave:") }
+                        ComboBoxDropdown {
+                            Layout.preferredWidth: 120
+                            model: root.slantOptionsModel
+                            styleItem: beamsPageModel.beamCustomMaxSlantOctave
+                        }
+                        StyledTextLabel { text: qsTrc("notation", "spaces") }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        StyledTextLabel {
+                            Layout.fillWidth: true
+                            horizontalAlignment: Text.AlignLeft
+                            text: qsTrc("notation", "Greater than an octave:")
+                        }
+                        ComboBoxDropdown {
+                            Layout.preferredWidth: 120
+                            model: root.slantOptionsModel
+                            styleItem: beamsPageModel.beamCustomMaxSlantGreaterThanOctave
+                        }
+                        StyledTextLabel { text: qsTrc("notation", "spaces") }
+                    }
+                }
+            }
+
+            StyledTextLabel {
+                Layout.fillWidth: true
+                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignLeft
+                font.italic: true
+                text: qsTrc("notation", "These options determine the ideal slant of the beam in terms of the vertical distance between the tips of the stems of the first and last notes within the beam, based on the interval between the first and last notes within the beam, provided the contour of the other notes within the beam is such that the beam should be slanted.")
             }
         }
     }

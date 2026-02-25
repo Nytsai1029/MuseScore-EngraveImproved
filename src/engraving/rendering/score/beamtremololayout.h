@@ -75,7 +75,7 @@ private:
     static SlopeConstraint getSlopeConstraint(const BeamBase::LayoutData* ldata, const BeamBase::NotePosition& startPos,
                                               const BeamBase::NotePosition& endPos);
     static void offsetBeamWithAnchorShortening(const BeamBase::LayoutData* ldata, const std::vector<ChordRest*>& chordRests, int& dictator,
-                                               int& pointer, int staffLines, bool isStartDictator, int stemLengthDictator,
+                                               int& pointer, int staffLines, bool isStartDictator, int stemLengthDictator, int stemLengthPointer,
                                                const int targetLine);
     static bool isValidBeamPosition(const bool isUp, int yPos, bool isStart, bool isAscending, bool isFlat, int staffLines, bool isOuter);
     static bool isBeamInsideStaff(int yPos, int staffLines, bool allowFloater);
@@ -84,7 +84,8 @@ private:
     static int getOuterBeamPosOffset(const BeamBase::LayoutData* ldata, int innerBeam, int beamCount, int staffLines);
     static void offsetBeamToRemoveCollisions(const BeamBase* item, const BeamBase::LayoutData* ldata,
                                              const std::vector<ChordRest*>& chordRests, int& dictator, int& pointer, const double startX,
-                                             const double endX, bool isFlat, bool isStartDictator);
+                                             const double endX, bool isFlat, bool isStartDictator, bool stemsUneven,
+                                             bool preferDictatorForExtension);
     static int getBeamCount(const BeamBase::LayoutData* ldata, const std::vector<const ChordRest*>& chordRests);
     static bool is64thBeamPositionException(const int beamSpacing, int& yPos, int staffLines);
     static int findValidBeamOffset(const BeamBase::LayoutData* ldata, int outer, int beamCount, int staffLines, bool isStart,
