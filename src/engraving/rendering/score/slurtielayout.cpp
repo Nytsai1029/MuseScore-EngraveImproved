@@ -957,12 +957,15 @@ void SlurTieLayout::avoidCollisions(SlurSegment* slurSeg, PointF& pp1, PointF& p
     double rightBalance = 0.0;
     computeAdjustmentBalance(slurSeg, startCR, endCR, leftBalance, rightBalance);
 
-    static constexpr unsigned MAX_ITER = 30;     // Max iterations allowed
+    // Keep collision pass responsive during frequent relayout (dragging/note entry),
+    // while still allowing enough iterations for long slurs.
+    const unsigned maxIter = slurLength > 12.0 ? 18u : 12u;
 
     double step = computeAdjustmentStep(upSign, spatium, slurLength);
 
     // Divide slur in several rectangles to localize collisions
-    const unsigned npoints = 20;
+    // Adaptive sampling: long slurs get more samples, short slurs fewer.
+    const unsigned npoints = std::clamp<unsigned>(unsigned(std::round(8.0 + slurLength * 0.8)), 10u, 18u);
     std::vector<RectF> slurRects;
     slurRects.reserve(npoints);
 
@@ -1112,7 +1115,7 @@ void SlurTieLayout::avoidCollisions(SlurSegment* slurSeg, PointF& pp1, PointF& p
         p4 = toSystemCoordinates.inverted().map(p4SysCoord);
 
         ++iter;
-    } while ((collision.left || collision.mid || collision.right) && iter < MAX_ITER);
+    } while ((collision.left || collision.mid || collision.right) && iter < maxIter);
 }
 
 Shape SlurTieLayout::getSegmentShapes(SlurSegment* slurSeg, ChordRest* startCR, ChordRest* endCR)
@@ -3430,9 +3433,11 @@ void SlurTieLayout::fillShape(SlurTieSegment* slurTieSeg, double slurTieLengthIn
     PointF startPoint = slurTieSeg->ups(Grip::START).pos();
 
     double midThickness = 2 * slurTieSeg->ldata()->midThickness();
-    int nbShapes = round(5.0 * slurTieLengthInSp);
-    nbShapes = std::max(nbShapes, 20);
-    nbShapes = std::min(nbShapes, 50);
+    // Lower sampling density to reduce layout cost; still dense enough for
+    // collision and hit-testing accuracy.
+    int nbShapes = int(std::round(3.0 * slurTieLengthInSp));
+    nbShapes = std::max(nbShapes, 12);
+    nbShapes = std::min(nbShapes, 30);
     const CubicBezier b(startPoint, slurTieSeg->ups(Grip::BEZIER1).pos(), slurTieSeg->ups(Grip::BEZIER2).pos(),
                         slurTieSeg->ups(Grip::END).pos());
     for (int i = 1; i <= nbShapes; i++) {

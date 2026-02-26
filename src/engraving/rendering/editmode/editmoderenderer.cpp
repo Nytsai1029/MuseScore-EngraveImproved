@@ -184,8 +184,9 @@ void EditModeRenderer::drawSlurTieSegment(SlurTieSegment* item, muse::draw::Pain
 {
     SlurSegment* slurSegment = item->isSlurSegment() ? static_cast<SlurSegment*>(item) : nullptr;
     if (slurSegment && slurSegment->useMultiBezier() && ed.grips > int(Grip::GRIPS)) {
-        painter->setPen(Pen(item->configuration()->scoreGreyColor(), 0.0));
         const int firstKnotGrip = int(Grip::GRIPS);
+
+        painter->setPen(Pen(item->configuration()->scoreGreyColor(), 0.0));
 
         // Draw endpoint half-tangent guides.
         const PointF start = PointF(ed.grip[int(Grip::START)].center());
@@ -204,16 +205,27 @@ void EditModeRenderer::drawSlurTieSegment(SlurTieSegment* item, muse::draw::Pain
             painter->drawLine(LineF(knot, outHandle));
         }
 
-        // Draw a lightweight guide through start, turning points and end.
-        PolygonF guide;
-        guide << start;
-        for (int i = firstKnotGrip; i + 2 < ed.grips; i += 3) {
-            guide << PointF(ed.grip[i + 1].center());
-        }
-        guide << end;
-        painter->drawPolyline(guide);
+        Pen gripPen(item->configuration()->scoreInversionEnabled()
+                    ? item->configuration()->scoreInversionColor()
+                    : item->configuration()->defaultColor(), 0.0);
+        painter->setPen(gripPen);
 
-        drawEngravingItem(item, painter, ed, currentViewScaling);
+        // Draw grips: keep default square grips, but render turning points (knot grips) as circular buttons.
+        for (int i = 0; i < ed.grips; ++i) {
+            if (Grip(i) == ed.curGrip) {
+                painter->setBrush(item->configuration()->scoreGreyColor());
+            } else {
+                painter->setBrush(BrushStyle::NoBrush);
+            }
+
+            const RectF& gripRect = ed.grip[i];
+            const bool isKnotGrip = i >= firstKnotGrip && ((i - firstKnotGrip) % 3 == 1);
+            if (isKnotGrip) {
+                painter->drawEllipse(gripRect.center(), gripRect.width() * 0.5, gripRect.height() * 0.5);
+            } else {
+                painter->drawRect(gripRect);
+            }
+        }
         return;
     }
 
