@@ -32,6 +32,7 @@ class SlurAndTieSettingsModel : public AbstractInspectorModel
     Q_PROPERTY(PropertyItem * direction READ direction CONSTANT)
     Q_PROPERTY(PropertyItem * tiePlacement READ tiePlacement CONSTANT)
     Q_PROPERTY(PropertyItem * minLength READ minLength CONSTANT)
+    Q_PROPERTY(PropertyItem * slurCurveMode READ slurCurveMode CONSTANT)
     Q_PROPERTY(PropertyItem * multiBezierEnabled READ multiBezierEnabled CONSTANT)
     Q_PROPERTY(PropertyItem * multiBezierKnotCount READ multiBezierKnotCount CONSTANT)
     Q_PROPERTY(bool isTiePlacementAvailable READ isTiePlacementAvailable NOTIFY isTiePlacementAvailableChanged)
@@ -55,6 +56,7 @@ public:
     PropertyItem* direction() const;
     PropertyItem* tiePlacement() const;
     PropertyItem* minLength() const;
+    PropertyItem* slurCurveMode() const;
     PropertyItem* multiBezierEnabled() const;
     PropertyItem* multiBezierKnotCount() const;
 
@@ -87,6 +89,7 @@ private:
     PropertyItem* m_direction = nullptr;
     PropertyItem* m_tiePlacement = nullptr;
     PropertyItem* m_minLength = nullptr;
+    PropertyItem* m_slurCurveMode = nullptr;
     PropertyItem* m_multiBezierEnabled = nullptr;
     PropertyItem* m_multiBezierKnotCount = nullptr;
 

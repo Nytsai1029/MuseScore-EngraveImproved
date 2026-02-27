@@ -3802,6 +3802,10 @@ bool TRead::readProperties(Slur* s, XmlReader& e, ReadContext& ctx)
         return true;
     }
 
+    if (TRead::readProperty(s, tag, e, ctx, Pid::SLUR_CURVE_MODE)) {
+        return true;
+    }
+
     if (TRead::readProperty(s, tag, e, ctx, Pid::PARTIAL_SPANNER_DIRECTION)) {
         return true;
     }

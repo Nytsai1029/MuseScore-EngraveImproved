@@ -25,10 +25,18 @@ using namespace muse::update;
 
 void UpdateActionController::init()
 {
+    if (!updateConfiguration()->isAppUpdatable()) {
+        return;
+    }
+
     dispatcher()->reg(this, "check-update", this, &UpdateActionController::checkForAppUpdate);
 }
 
 void UpdateActionController::checkForAppUpdate()
 {
+    if (!updateConfiguration()->isAppUpdatable()) {
+        return;
+    }
+
     updateScenario()->checkForUpdate(/*manual*/ true);
 }

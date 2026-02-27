@@ -36,6 +36,7 @@ using namespace mu::appshell;
 using namespace mu::notation;
 
 static const std::string module_name("appshell");
+static const std::string CUSTOM_APP_VERSION_TEXT("Designed for Engraving (Base on 4.6.5)");
 
 static const QString NOTATION_NAVIGATOR_VISIBLE_KEY("showNavigator");
 
@@ -45,7 +46,7 @@ void AppShellConfiguration::init()
 
 std::string AppShellConfiguration::museScoreVersion() const
 {
-    return String(application()->version().toString() + u"." + application()->build()).toStdString();
+    return CUSTOM_APP_VERSION_TEXT;
 }
 
 std::string AppShellConfiguration::museScoreRevision() const

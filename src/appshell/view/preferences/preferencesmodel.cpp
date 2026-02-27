@@ -141,10 +141,10 @@ void PreferencesModel::load(const QString& currentPageId)
     beginResetModel();
 
     if (!currentPageId.isEmpty()) {
-        setCurrentPageId(currentPageId);
+        setCurrentPageId(currentPageId == "update" ? "general" : currentPageId);
     } else {
         const QString& lastOpenedPageId = configuration()->preferencesDialogLastOpenedPageId();
-        if (lastOpenedPageId.isEmpty()) {
+        if (lastOpenedPageId.isEmpty() || lastOpenedPageId == "update") {
             setCurrentPageId("general");
         } else {
             setCurrentPageId(lastOpenedPageId);
@@ -186,9 +186,6 @@ void PreferencesModel::load(const QString& currentPageId)
 
         makeItem("shortcuts", QT_TRANSLATE_NOOP("appshell/preferences", "Shortcuts"), IconCode::Code::SHORTCUTS,
                  "Preferences/ShortcutsPreferencesPage.qml"),
-
-        makeItem("update", QT_TRANSLATE_NOOP("appshell/preferences", "Update"), IconCode::Code::UPDATE,
-                 "Preferences/UpdatePreferencesPage.qml"),
 
         makeItem("general-folders", QT_TRANSLATE_NOOP("appshell/preferences", "Folders"), IconCode::Code::OPEN_FILE,
                  "Preferences/FoldersPreferencesPage.qml"),

@@ -52,6 +52,7 @@ static const std::string MUSESCORE_ASK_FOR_HELP_URL_PATH("/redirect/post/questio
 static const std::string MUSESCORE_ACCESSIBILITY_STATEMENT_URL_PATH("/about/musescore-studio-accessibility-statement");
 static const std::string MUSESCORE_FORUM_URL_PATH("/forum");
 static const std::string MUSESCORE_CONTRIBUTE_URL_PATH("/contribute");
+static const std::string CUSTOM_APP_VERSION_TEXT("Designed for Engraving (Base on 4.6.5)");
 static const std::string MUSEHUB_FREE_MUSE_SOUNDS_URL("https://www.musehub.com/free-musesounds"
                                                       "?utm_source=mss-app-dialog-ms-free"
                                                       "&utm_medium=mss-app-dialog-ms-free"
@@ -240,7 +241,7 @@ std::string AppShellConfiguration::musicXMLLicenseDeedUrl() const
 
 std::string AppShellConfiguration::museScoreVersion() const
 {
-    return String(application()->version().toString() + u"." + application()->build()).toStdString();
+    return CUSTOM_APP_VERSION_TEXT;
 }
 
 std::string AppShellConfiguration::museScoreRevision() const

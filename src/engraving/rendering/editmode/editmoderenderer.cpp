@@ -183,7 +183,7 @@ void EditModeRenderer::drawDynamic(Dynamic* item, muse::draw::Painter* painter, 
 void EditModeRenderer::drawSlurTieSegment(SlurTieSegment* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling)
 {
     SlurSegment* slurSegment = item->isSlurSegment() ? static_cast<SlurSegment*>(item) : nullptr;
-    if (slurSegment && slurSegment->useMultiBezier() && ed.grips > int(Grip::GRIPS)) {
+    if (slurSegment && slurSegment->useBezierKnotControls() && ed.grips > int(Grip::GRIPS)) {
         const int firstKnotGrip = int(Grip::GRIPS);
 
         painter->setPen(Pen(item->configuration()->scoreGreyColor(), 0.0));
@@ -220,7 +220,8 @@ void EditModeRenderer::drawSlurTieSegment(SlurTieSegment* item, muse::draw::Pain
 
             const RectF& gripRect = ed.grip[i];
             const bool isKnotGrip = i >= firstKnotGrip && ((i - firstKnotGrip) % 3 == 1);
-            if (isKnotGrip) {
+            const bool isFlatShoulderGrip = slurSegment->useFlatCurve() && i == int(Grip::SHOULDER);
+            if (isKnotGrip || isFlatShoulderGrip) {
                 painter->drawEllipse(gripRect.center(), gripRect.width() * 0.5, gripRect.height() * 0.5);
             } else {
                 painter->drawRect(gripRect);

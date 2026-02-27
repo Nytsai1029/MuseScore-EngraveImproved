@@ -61,7 +61,7 @@ void UpdateConfiguration::init()
 
 bool UpdateConfiguration::isAppUpdatable() const
 {
-    return true;
+    return false;
 }
 
 bool UpdateConfiguration::allowUpdateOnPreRelease() const
@@ -76,12 +76,12 @@ void UpdateConfiguration::setAllowUpdateOnPreRelease(bool allow)
 
 bool UpdateConfiguration::needCheckForUpdate() const
 {
-    return settings()->value(CHECK_FOR_UPDATE_KEY).toBool();
+    return false;
 }
 
-void UpdateConfiguration::setNeedCheckForUpdate(bool needCheck)
+void UpdateConfiguration::setNeedCheckForUpdate(bool /*needCheck*/)
 {
-    settings()->setSharedValue(CHECK_FOR_UPDATE_KEY, Val(needCheck));
+    settings()->setSharedValue(CHECK_FOR_UPDATE_KEY, Val(false));
 }
 
 async::Notification UpdateConfiguration::needCheckForUpdateChanged() const

@@ -62,7 +62,18 @@ SlurSegment::SlurSegment(const SlurSegment& ss)
 bool SlurSegment::useMultiBezier() const
 {
     const Slur* parentSlur = slur();
-    return parentSlur && parentSlur->multiBezierEnabled() && multiBezierKnotCount() > 0;
+    return parentSlur && !parentSlur->isFlatMiddleCurve() && parentSlur->multiBezierEnabled() && multiBezierKnotCount() > 0;
+}
+
+bool SlurSegment::useFlatCurve() const
+{
+    const Slur* parentSlur = slur();
+    return parentSlur && parentSlur->isFlatMiddleCurve();
+}
+
+bool SlurSegment::useBezierKnotControls() const
+{
+    return (useMultiBezier() || useFlatCurve()) && multiBezierKnotCount() > 0;
 }
 
 int SlurSegment::multiBezierKnotCount() const
@@ -70,6 +81,10 @@ int SlurSegment::multiBezierKnotCount() const
     const Slur* parentSlur = slur();
     if (!parentSlur) {
         return 0;
+    }
+
+    if (parentSlur->isFlatMiddleCurve()) {
+        return 2;
     }
 
     return std::clamp(parentSlur->multiBezierKnotCount(), 0, 16);
@@ -251,7 +266,7 @@ bool SlurSegment::isEditAllowed(EditData& ed) const
         return true;
     }
 
-    if (useMultiBezier() && ed.key != Key_Home && isMultiBezierControlGripIndex(int(ed.curGrip))) {
+    if (useBezierKnotControls() && ed.key != Key_Home && isMultiBezierControlGripIndex(int(ed.curGrip))) {
         return false;
     }
 
@@ -284,7 +299,7 @@ bool SlurSegment::edit(EditData& ed)
         return false;
     }
 
-    if (useMultiBezier() && ed.key == Key_Home && ed.hasCurrentGrip()) {
+    if (useBezierKnotControls() && ed.key == Key_Home && ed.hasCurrentGrip()) {
         const int gripIndex = int(ed.curGrip);
         if (isMultiBezierControlGripIndex(gripIndex) || gripIndex == multiBezierDragGripIndex()
             || gripIndex == int(Grip::SHOULDER)) {
@@ -464,7 +479,7 @@ void SlurSegment::editDrag(EditData& ed)
 {
     Grip g = ed.curGrip;
 
-    if (useMultiBezier()) {
+    if (useBezierKnotControls()) {
         const int gripIndex = int(g);
         if (isMultiBezierControlGripIndex(gripIndex)) {
             ensureMultiBezierKnotData();
@@ -539,11 +554,30 @@ void SlurSegment::editDrag(EditData& ed)
             if (m_multiBezierKnotData.empty()) {
                 return;
             }
-            const int middleKnotIndex = std::clamp(multiBezierKnotCount() / 2, 0, int(m_multiBezierKnotData.size()) - 1);
-            MultiBezierKnot& knot = m_multiBezierKnotData[middleKnotIndex];
-            knot.inHandle.off += ed.delta;
-            knot.knot.off += ed.delta;
-            knot.outHandle.off += ed.delta;
+
+            if (useFlatCurve()) {
+                // In flat-middle mode, shoulder drag controls only the middle segment height.
+                const PointF startPos = ups(Grip::START).pos();
+                const PointF endPos = ups(Grip::END).pos();
+                PointF axis = endPos - startPos;
+                const double axisLen = std::hypot(axis.x(), axis.y());
+                const PointF normal = axisLen > 1e-6 ? PointF(-axis.y() / axisLen, axis.x() / axisLen) : PointF(0.0, 1.0);
+                const double deltaOnNormal = ed.delta.x() * normal.x() + ed.delta.y() * normal.y();
+                const PointF projectedDelta = normal * deltaOnNormal;
+
+                for (MultiBezierKnot& knot : m_multiBezierKnotData) {
+                    knot.inHandle.off += projectedDelta;
+                    knot.knot.off += projectedDelta;
+                    knot.outHandle.off += projectedDelta;
+                }
+            } else {
+                const int middleKnotIndex = std::clamp(multiBezierKnotCount() / 2, 0, int(m_multiBezierKnotData.size()) - 1);
+                MultiBezierKnot& knot = m_multiBezierKnotData[middleKnotIndex];
+                knot.inHandle.off += ed.delta;
+                knot.knot.off += ed.delta;
+                knot.outHandle.off += ed.delta;
+            }
+
             syncMultiBezierDataProperty();
             renderer()->computeBezier(this);
             triggerLayout();
@@ -646,7 +680,7 @@ void SlurSegment::reset()
 
 int SlurSegment::gripsCount() const
 {
-    if (useMultiBezier()) {
+    if (useBezierKnotControls()) {
         return multiBezierControlGripEndIndex();
     }
 
@@ -655,7 +689,7 @@ int SlurSegment::gripsCount() const
 
 Grip SlurSegment::defaultGrip() const
 {
-    if (useMultiBezier()) {
+    if (useBezierKnotControls()) {
         return Grip::DRAG;
     }
 
@@ -664,7 +698,7 @@ Grip SlurSegment::defaultGrip() const
 
 std::vector<PointF> SlurSegment::gripsPositions(const EditData& ed) const
 {
-    if (!useMultiBezier()) {
+    if (!useBezierKnotControls()) {
         return SlurTieSegment::gripsPositions(ed);
     }
 
@@ -760,6 +794,7 @@ Slur::Slur(const Slur& s)
     _partialSpannerDirection = s._partialSpannerDirection;
     _multiBezierEnabled = s._multiBezierEnabled;
     _multiBezierKnotCount = s._multiBezierKnotCount;
+    _curveMode = s._curveMode;
 }
 
 //---------------------------------------------------------
@@ -944,6 +979,8 @@ PropertyValue Slur::getProperty(Pid propertyId) const
         return multiBezierEnabled();
     case Pid::SLUR_MULTI_BEZIER_KNOT_COUNT:
         return multiBezierKnotCount();
+    case Pid::SLUR_CURVE_MODE:
+        return static_cast<int>(curveMode());
     default:
         return SlurTie::getProperty(propertyId);
     }
@@ -958,6 +995,8 @@ PropertyValue Slur::propertyDefault(Pid id) const
         return false;
     case Pid::SLUR_MULTI_BEZIER_KNOT_COUNT:
         return 2;
+    case Pid::SLUR_CURVE_MODE:
+        return static_cast<int>(CurveMode::Normal);
     default:
         return SlurTie::propertyDefault(id);
     }
@@ -970,7 +1009,11 @@ bool Slur::setProperty(Pid propertyId, const PropertyValue& v)
         setPartialSpannerDirection(v.value<PartialSpannerDirection>());
         break;
     case Pid::SLUR_MULTI_BEZIER_ENABLED:
-        setMultiBezierEnabled(v.toBool());
+        if (isFlatMiddleCurve()) {
+            setMultiBezierEnabled(false);
+        } else {
+            setMultiBezierEnabled(v.toBool());
+        }
         if (multiBezierEnabled() && multiBezierKnotCount() <= 0) {
             setMultiBezierKnotCount(2);
         }
@@ -978,6 +1021,15 @@ bool Slur::setProperty(Pid propertyId, const PropertyValue& v)
     case Pid::SLUR_MULTI_BEZIER_KNOT_COUNT:
         setMultiBezierKnotCount(std::clamp(v.toInt(), 0, 16));
         break;
+    case Pid::SLUR_CURVE_MODE:
+    {
+        const int mode = std::clamp(v.toInt(), int(CurveMode::Normal), int(CurveMode::FlatMiddle));
+        setCurveMode(static_cast<CurveMode>(mode));
+        if (isFlatMiddleCurve()) {
+            setMultiBezierEnabled(false);
+        }
+        break;
+    }
     default:
         return SlurTie::setProperty(propertyId, v);
     }

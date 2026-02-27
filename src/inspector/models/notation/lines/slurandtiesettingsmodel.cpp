@@ -88,6 +88,11 @@ PropertyItem* SlurAndTieSettingsModel::minLength() const
     return m_minLength;
 }
 
+PropertyItem* SlurAndTieSettingsModel::slurCurveMode() const
+{
+    return m_slurCurveMode;
+}
+
 PropertyItem* SlurAndTieSettingsModel::multiBezierEnabled() const
 {
     return m_multiBezierEnabled;
@@ -141,6 +146,7 @@ void SlurAndTieSettingsModel::createProperties()
     m_direction = buildPropertyItem(mu::engraving::Pid::SLUR_DIRECTION);
     m_tiePlacement = buildPropertyItem(mu::engraving::Pid::TIE_PLACEMENT);
     m_minLength = buildPropertyItem(mu::engraving::Pid::MIN_LENGTH);
+    m_slurCurveMode = buildPropertyItem(mu::engraving::Pid::SLUR_CURVE_MODE);
     m_multiBezierEnabled = buildPropertyItem(mu::engraving::Pid::SLUR_MULTI_BEZIER_ENABLED);
     m_multiBezierKnotCount = buildPropertyItem(mu::engraving::Pid::SLUR_MULTI_BEZIER_KNOT_COUNT);
     updateIsTiePlacementAvailable();
@@ -155,6 +161,7 @@ void SlurAndTieSettingsModel::loadProperties()
     loadPropertyItem(m_direction);
     loadPropertyItem(m_tiePlacement);
     loadPropertyItem(m_minLength);
+    loadPropertyItem(m_slurCurveMode);
     loadPropertyItem(m_multiBezierEnabled);
     loadPropertyItem(m_multiBezierKnotCount);
     updateIsTiePlacementAvailable();
@@ -169,6 +176,7 @@ void SlurAndTieSettingsModel::resetProperties()
     m_direction->resetToDefault();
     m_tiePlacement->resetToDefault();
     m_minLength->resetToDefault();
+    m_slurCurveMode->resetToDefault();
     m_multiBezierEnabled->resetToDefault();
     m_multiBezierKnotCount->resetToDefault();
 }

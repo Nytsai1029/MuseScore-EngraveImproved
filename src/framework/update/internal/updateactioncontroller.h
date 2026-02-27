@@ -27,12 +27,14 @@
 #include "modularity/ioc.h"
 #include "actions/iactionsdispatcher.h"
 #include "../iupdatescenario.h"
+#include "../iupdateconfiguration.h"
 
 namespace muse::update {
 class UpdateActionController : public Injectable, public muse::actions::Actionable
 {
     Inject<muse::actions::IActionsDispatcher> dispatcher = { this };
     Inject<IUpdateScenario> updateScenario = { this };
+    Inject<IUpdateConfiguration> updateConfiguration = { this };
 
 public:
     UpdateActionController(const modularity::ContextPtr& iocCtx)

@@ -92,7 +92,7 @@ void AboutModel::copyRevisionToClipboard() const
                 ? " or later" : ""))
         .arg(QSysInfo::currentCpuArchitecture())
         .arg(QSysInfo::WordSize)
-        .arg(application()->version().toString())
+        .arg(QString::fromStdString(configuration()->museScoreVersion()))
         .arg(application()->build())
         .arg(application()->revision()));
 }

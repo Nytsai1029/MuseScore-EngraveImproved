@@ -75,6 +75,8 @@ public:
 
     Slur* slur() const { return toSlur(spanner()); }
     bool useMultiBezier() const;
+    bool useFlatCurve() const;
+    bool useBezierKnotControls() const;
     int multiBezierKnotCount() const;
     int multiBezierDragGripIndex() const;
 
@@ -122,6 +124,11 @@ class Slur : public SlurTie
     DECLARE_CLASSOF(ElementType::SLUR)
 
 public:
+    enum class CurveMode : int {
+        Normal = 0,
+        FlatMiddle = 1,
+    };
+
     Slur(EngravingItem* parent, ElementType type = ElementType::SLUR);
     Slur(const Slur&);
 
@@ -174,6 +181,7 @@ public:
     void setOutgoing(bool outgoing);
     bool isIncoming() const;
     bool isOutgoing() const;
+    bool isFlatMiddleCurve() const { return curveMode() == CurveMode::FlatMiddle; }
 
     void undoChangeStartEndElements(ChordRest* scr, ChordRest* ecr);
 
@@ -182,6 +190,7 @@ private:
     M_PROPERTY2(PartialSpannerDirection, partialSpannerDirection, setPartialSpannerDirection, PartialSpannerDirection::NONE)
     M_PROPERTY2(bool, multiBezierEnabled, setMultiBezierEnabled, false)
     M_PROPERTY2(int, multiBezierKnotCount, setMultiBezierKnotCount, 2)
+    M_PROPERTY2(CurveMode, curveMode, setCurveMode, CurveMode::Normal)
 
     PartialSpannerDirection calcIncomingDirection(bool incoming);
     PartialSpannerDirection calcOutgoingDirection(bool outgoing);

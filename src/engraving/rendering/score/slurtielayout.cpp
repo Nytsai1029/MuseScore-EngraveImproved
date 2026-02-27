@@ -2815,7 +2815,8 @@ void SlurTieLayout::computeBezier(SlurSegment* slurSeg, PointF shoulderOffset)
     computeMidThickness(slurSeg, p2.x() / slurSeg->spatium());
     PointF thick(0.0, slurSeg->ldata()->midThickness());
 
-    if (slurSeg->useMultiBezier()) {
+    if (slurSeg->useBezierKnotControls()) {
+        const bool isFlatCurve = slurSeg->useFlatCurve();
         slurSeg->ensureMultiBezierKnotData();
         const int knotCount = slurSeg->multiBezierKnotCount();
         auto& knotData = slurSeg->multiBezierKnotData();
@@ -2838,11 +2839,25 @@ void SlurTieLayout::computeBezier(SlurSegment* slurSeg, PointF shoulderOffset)
 
             for (int i = 0; i < knotCount; ++i) {
                 const double t = double(i + 1) / double(knotCount + 1);
-                const PointF defaultKnot(c * t, 4.0 * arcY * t * (1.0 - t));
+                const PointF defaultKnot = isFlatCurve
+                                           ? PointF(c * t, arcY)
+                                           : PointF(c * t, 4.0 * arcY * t * (1.0 - t));
 
-                const double slope = muse::RealIsNull(c) ? 0.0 : (4.0 * arcY * (1.0 - 2.0 * t)) / c;
-                const double dx = tangentLen / std::sqrt(1.0 + slope * slope);
-                const PointF tangent(dx, slope * dx);
+                PointF tangent;
+                if (isFlatCurve) {
+                    const double previousT = (i == 0) ? 0.0 : double(i) / double(knotCount + 1);
+                    const double nextT = (i + 1 == knotCount) ? 1.0 : double(i + 2) / double(knotCount + 1);
+                    const PointF previousPoint(c * previousT, arcY);
+                    const PointF nextPoint(c * nextT, arcY);
+                    PointF axis = nextPoint - previousPoint;
+                    const double axisLen = std::hypot(axis.x(), axis.y());
+                    axis = axisLen > 1e-6 ? (axis / axisLen) : PointF(1.0, 0.0);
+                    tangent = axis * tangentLen;
+                } else {
+                    const double slope = muse::RealIsNull(c) ? 0.0 : (4.0 * arcY * (1.0 - 2.0 * t)) / c;
+                    const double dx = tangentLen / std::sqrt(1.0 + slope * slope);
+                    tangent = PointF(dx, slope * dx);
+                }
 
                 const PointF knotOffset = rotate.map(knotData[i].knot.off);
                 const PointF inHandleOffset = rotate.map(knotData[i].inHandle.off);
@@ -2877,16 +2892,60 @@ void SlurTieLayout::computeBezier(SlurSegment* slurSeg, PointF shoulderOffset)
                 knotData[i].outHandle.p = toSystemCoordinates.map(outHandlePoints[i]) - knotData[i].outHandle.off;
             }
 
-            const double startSlope = muse::RealIsNull(c) ? 0.0 : (4.0 * arcY) / c;
-            const double endSlope = -startSlope;
+            if (isFlatCurve && knotCount >= 2) {
+                PointF middleVector = knotPoints[1] - knotPoints[0];
+                const double middleLen = std::hypot(middleVector.x(), middleVector.y());
+                middleVector = middleLen > 1e-6 ? (middleVector / middleLen) : PointF(1.0, 0.0);
 
-            const auto tangentAt = [tangentLen](double slope) -> PointF {
-                const double dx = tangentLen / std::sqrt(1.0 + slope * slope);
-                return PointF(dx, slope * dx);
-            };
+                const auto projectedLen = [middleVector](const PointF& value) -> double {
+                    return std::abs(value.x() * middleVector.x() + value.y() * middleVector.y());
+                };
 
-            PointF startHandle = tangentAt(startSlope) + rotate.map(slurSeg->ups(Grip::BEZIER1).off);
-            PointF endHandle = p2 - tangentAt(endSlope) + rotate.map(slurSeg->ups(Grip::BEZIER2).off);
+                const double defaultMiddleLen = std::max(0.01, tangentLen * 0.6);
+                const double knot1Len = std::max({ defaultMiddleLen,
+                                                   projectedLen(inHandlePoints[0] - knotPoints[0]),
+                                                   projectedLen(outHandlePoints[0] - knotPoints[0]) });
+                const double knot2Len = std::max({ defaultMiddleLen,
+                                                   projectedLen(inHandlePoints[1] - knotPoints[1]),
+                                                   projectedLen(outHandlePoints[1] - knotPoints[1]) });
+
+                inHandlePoints[0] = knotPoints[0] - middleVector * knot1Len;
+                outHandlePoints[0] = knotPoints[0] + middleVector * knot1Len;
+                inHandlePoints[1] = knotPoints[1] - middleVector * knot2Len;
+                outHandlePoints[1] = knotPoints[1] + middleVector * knot2Len;
+
+                for (int i = 0; i < knotCount; ++i) {
+                    knotData[i].knot.p = toSystemCoordinates.map(knotPoints[i]) - knotData[i].knot.off;
+                    knotData[i].inHandle.p = toSystemCoordinates.map(inHandlePoints[i]) - knotData[i].inHandle.off;
+                    knotData[i].outHandle.p = toSystemCoordinates.map(outHandlePoints[i]) - knotData[i].outHandle.off;
+                }
+            }
+
+            PointF startHandle;
+            PointF endHandle;
+            if (isFlatCurve && !knotPoints.empty()) {
+                PointF startAxis = knotPoints.front();
+                const double startAxisLen = std::hypot(startAxis.x(), startAxis.y());
+                startAxis = startAxisLen > 1e-6 ? (startAxis / startAxisLen) : PointF(1.0, 0.0);
+
+                PointF endAxis = p2 - knotPoints.back();
+                const double endAxisLen = std::hypot(endAxis.x(), endAxis.y());
+                endAxis = endAxisLen > 1e-6 ? (endAxis / endAxisLen) : PointF(1.0, 0.0);
+
+                startHandle = startAxis * tangentLen + rotate.map(slurSeg->ups(Grip::BEZIER1).off);
+                endHandle = p2 - endAxis * tangentLen + rotate.map(slurSeg->ups(Grip::BEZIER2).off);
+            } else {
+                const double startSlope = muse::RealIsNull(c) ? 0.0 : (4.0 * arcY) / c;
+                const double endSlope = -startSlope;
+
+                const auto tangentAt = [tangentLen](double slope) -> PointF {
+                    const double dx = tangentLen / std::sqrt(1.0 + slope * slope);
+                    return PointF(dx, slope * dx);
+                };
+
+                startHandle = tangentAt(startSlope) + rotate.map(slurSeg->ups(Grip::BEZIER1).off);
+                endHandle = p2 - tangentAt(endSlope) + rotate.map(slurSeg->ups(Grip::BEZIER2).off);
+            }
 
             slurSeg->ups(Grip::BEZIER1).p = toSystemCoordinates.map(startHandle) - slurSeg->ups(Grip::BEZIER1).off;
             slurSeg->ups(Grip::BEZIER2).p = toSystemCoordinates.map(endHandle) - slurSeg->ups(Grip::BEZIER2).off;
@@ -3040,8 +3099,15 @@ void SlurTieLayout::computeBezier(SlurSegment* slurSeg, PointF shoulderOffset)
                 ++midIndex;
             }
 
-            const PointF dragPoint = samples[midIndex].point;
-            const PointF shoulderPoint = knotPoints.empty() ? dragPoint : knotPoints[size_t(knotCount / 2)];
+            const PointF dragPoint = isFlatCurve ? (0.5 * p2) : samples[midIndex].point;
+            PointF shoulderPoint = dragPoint;
+            if (!knotPoints.empty()) {
+                if (isFlatCurve && knotPoints.size() >= 2) {
+                    shoulderPoint = 0.5 * (knotPoints[0] + knotPoints[1]);
+                } else {
+                    shoulderPoint = knotPoints[size_t(knotCount / 2)];
+                }
+            }
             slurSeg->ups(Grip::DRAG).p = toSystemCoordinates.map(dragPoint);
             slurSeg->ups(Grip::SHOULDER).p = toSystemCoordinates.map(shoulderPoint);
 

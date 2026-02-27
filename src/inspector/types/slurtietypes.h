@@ -35,6 +35,12 @@ public:
         TIE_PLACEMENT_OUTSIDE,
     };
 
+    enum SlurCurveMode {
+        SLUR_CURVE_MODE_NORMAL = 0,
+        SLUR_CURVE_MODE_FLAT_MIDDLE = 1,
+    };
+
     Q_ENUM(TiePlacement)
+    Q_ENUM(SlurCurveMode)
 };
 }

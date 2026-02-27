@@ -37,10 +37,21 @@ Column {
     property int navigationRowStart: 1
 
     property bool isLaissezVib: model ? model.isLaissezVib : false
+    property bool isFlatMiddleCurve: slurCurveModeSection.propertyItem
+                                      ? Number(slurCurveModeSection.propertyItem.value) === SlurTieTypes.SLUR_CURVE_MODE_FLAT_MIDDLE
+                                      : false
 
     objectName: "SlurAndTieSettings"
 
     spacing: 12
+
+    onIsFlatMiddleCurveChanged: {
+        if (isFlatMiddleCurve
+                && multiBezierEnabledSection.propertyItem
+                && Boolean(multiBezierEnabledSection.propertyItem.value)) {
+            multiBezierEnabledSection.propertyItem.value = false
+        }
+    }
 
     function focusOnFirst() {
         styleSection.focusOnFirst()
@@ -81,15 +92,37 @@ Column {
         ]
     }
 
+    FlatRadioButtonGroupPropertyView {
+        id: slurCurveModeSection
+
+        visible: root.model ? root.model.isMultiBezierOptionsAvailable : false
+        propertyItem: root.model ? root.model.slurCurveMode : null
+        titleText: qsTrc("inspector", "Slur")
+
+        navigationPanel: root.navigationPanel
+        navigationRowStart: placementSection.navigationRowEnd + 1
+
+        model: [
+            { text: qsTrc("inspector", "Slur (normal)"), value: SlurTieTypes.SLUR_CURVE_MODE_NORMAL, title: qsTrc("inspector", "Slur (normal)") },
+            {
+                text: qsTrc("inspector", "Flat middle"),
+                value: SlurTieTypes.SLUR_CURVE_MODE_FLAT_MIDDLE,
+                title: qsTrc("inspector", "Flat middle"),
+                description: qsTrc("inspector", "A slur with a straight middle segment and curved ends.")
+            }
+        ]
+    }
+
     CheckBoxPropertyView {
         id: multiBezierEnabledSection
 
         visible: root.model ? root.model.isMultiBezierOptionsAvailable : false
+        enabled: !root.isFlatMiddleCurve
         propertyItem: root.model ? root.model.multiBezierEnabled : null
         titleText: qsTrc("inspector", "Apply multi-segment Bezier curves")
 
         navigationPanel: root.navigationPanel
-        navigationRowStart: placementSection.navigationRowEnd + 1
+        navigationRowStart: slurCurveModeSection.navigationRowEnd + 1
     }
 
     SpinBoxPropertyView {
@@ -98,7 +131,8 @@ Column {
         titleText: qsTrc("inspector", "Turning points")
         visible: root.model ? root.model.isMultiBezierOptionsAvailable : false
         propertyItem: root.model ? root.model.multiBezierKnotCount : null
-        enabled: multiBezierEnabledSection.propertyItem ? Boolean(multiBezierEnabledSection.propertyItem.value) : false
+        enabled: !root.isFlatMiddleCurve
+                 && (multiBezierEnabledSection.propertyItem ? Boolean(multiBezierEnabledSection.propertyItem.value) : false)
 
         step: 1
         maxValue: 16

@@ -40,6 +40,7 @@ static constexpr QRectF messageRect(48, 230, 0, 0);
 
 static const QString website("www.musescore.org");
 static constexpr QRectF websiteRect(loadingScreenSize.width() - 48, loadingScreenSize.height() - 48, 0, 0);
+static const QString customVersionText("Designed for Engraving (Base on 4.6.5)");
 
 static const QColor versionNumberColor("#19F3FF");
 static constexpr qreal versionNumberSpacing = 5.0;
@@ -96,5 +97,5 @@ void LoadingScreenView::draw(QPainter* painter)
 
     painter->drawText(websiteRect.translated(0.0, -websiteBoundingRect.height() - versionNumberSpacing),
                       Qt::AlignBottom | alignment | Qt::TextDontClip,
-                      muse::qtrc("appshell", "Version %1").arg(application()->fullVersion().toString()));
+                      muse::qtrc("appshell", "Version %1").arg(customVersionText));
 }

@@ -24392,6 +24392,21 @@ pickup measure</source>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/SlurAndTieSettings.qml" line="106"/>
+        <source>Slur (normal)</source>
+        <translation>圆滑线（正常）</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/SlurAndTieSettings.qml" line="108"/>
+        <source>Flat middle</source>
+        <translation>平连线</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/SlurAndTieSettings.qml" line="111"/>
+        <source>A slur with a straight middle segment and curved ends.</source>
+        <translation>一种中段为直线、两端为曲线的圆滑线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/SlurAndTieSettings.qml" line="106"/>
         <source>Minimum length</source>
         <translation>最小长度</translation>
     </message>

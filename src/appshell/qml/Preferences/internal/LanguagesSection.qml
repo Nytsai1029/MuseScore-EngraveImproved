@@ -20,7 +20,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import QtQuick 2.15
-import QtQuick.Controls 2.15
 
 import Muse.Ui 1.0
 import Muse.UiComponents 1.0
@@ -37,13 +36,6 @@ BaseSection {
     property bool restartRequired: false
 
     signal languageSelected(string languageCode)
-    signal checkForUpdateRequested()
-
-    function setUpdateProgress(current, total, status) {
-        progressBtn.to = total
-        progressBtn.value = current
-        progressBtn.progressStatus = status
-    }
 
     Row {
         spacing: 12
@@ -71,21 +63,6 @@ BaseSection {
             }
         }
 
-        ProgressButton {
-            id: progressBtn
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            text: qsTrc("appshell/preferences", "Check for language updates")
-
-            navigationName: "CheckForUpdate"
-            navigationPanel: root.navigation
-            navigationColumn: 2
-
-            onClicked: {
-                root.checkForUpdateRequested()
-            }
-        }
     }
 
     StyledTextLabel {

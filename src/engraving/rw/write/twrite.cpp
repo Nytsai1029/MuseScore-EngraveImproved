@@ -2654,6 +2654,7 @@ void TWrite::write(const Slur* item, XmlWriter& xml, WriteContext& ctx)
 
     writeProperty(item, xml, Pid::SLUR_MULTI_BEZIER_ENABLED);
     writeProperty(item, xml, Pid::SLUR_MULTI_BEZIER_KNOT_COUNT);
+    writeProperty(item, xml, Pid::SLUR_CURVE_MODE);
     writeProperty(item, xml, Pid::PARTIAL_SPANNER_DIRECTION);
 
     writeProperties(static_cast<const SlurTie*>(item), xml, ctx);

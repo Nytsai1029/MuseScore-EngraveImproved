@@ -36,10 +36,6 @@ PreferencesPage {
 
     GeneralPreferencesModel {
         id: preferencesModel
-
-        onReceivingUpdateForCurrentLanguage: function(current, total, status) {
-            languagesSection.setUpdateProgress(current, total, status)
-        }
     }
 
     Column {
@@ -58,10 +54,6 @@ PreferencesPage {
 
             onLanguageSelected: function(languageCode) {
                 preferencesModel.currentLanguageCode = languageCode
-            }
-
-            onCheckForUpdateRequested: {
-                preferencesModel.checkUpdateForCurrentLanguage()
             }
         }
 
