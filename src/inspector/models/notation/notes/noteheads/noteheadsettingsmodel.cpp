@@ -78,6 +78,7 @@ void NoteheadSettingsModel::loadProperties()
 
     loadProperties(propertyIdSet);
     updateIsTrillCueNote();
+    updateIsLedgerLineSelection();
 }
 
 void NoteheadSettingsModel::resetProperties()
@@ -209,6 +210,11 @@ bool NoteheadSettingsModel::isTrillCueNote() const
     return m_isTrillCueNote;
 }
 
+bool NoteheadSettingsModel::isLedgerLineSelection() const
+{
+    return m_isLedgerLineSelection;
+}
+
 QVariantList NoteheadSettingsModel::possibleHeadSystemTypes() const
 {
     QMap<mu::engraving::NoteHeadScheme, QString> types {
@@ -248,6 +254,26 @@ void NoteheadSettingsModel::updateIsTrillCueNote()
         }
     }
     setIsTrillCueNote(isTrillCueNote);
+}
+
+void NoteheadSettingsModel::updateIsLedgerLineSelection()
+{
+    bool isLedgerLineSelection = !m_elementList.empty();
+    if (isLedgerLineSelection) {
+        for (EngravingItem* item : m_elementList) {
+            if (!item || !item->isLedgerLine()) {
+                isLedgerLineSelection = false;
+                break;
+            }
+        }
+    }
+
+    if (m_isLedgerLineSelection == isLedgerLineSelection) {
+        return;
+    }
+
+    m_isLedgerLineSelection = isLedgerLineSelection;
+    emit isLedgerLineSelectionChanged(m_isLedgerLineSelection);
 }
 
 void NoteheadSettingsModel::setIsTrillCueNote(bool v)

@@ -32,6 +32,7 @@ using namespace mu::inspector;
 
 static const QMap<mu::engraving::ElementType, InspectorModelType> NOTE_PART_TYPES {
     { mu::engraving::ElementType::NOTEHEAD, InspectorModelType::TYPE_NOTEHEAD },
+    { mu::engraving::ElementType::LEDGER_LINE, InspectorModelType::TYPE_NOTEHEAD },
     { mu::engraving::ElementType::CHORD, InspectorModelType::TYPE_CHORD },
     { mu::engraving::ElementType::STEM, InspectorModelType::TYPE_STEM },
     { mu::engraving::ElementType::BEAM, InspectorModelType::TYPE_BEAM },
@@ -62,6 +63,20 @@ NoteSettingsProxyModel::NoteSettingsProxyModel(QObject* parent, IElementReposito
 
 void NoteSettingsProxyModel::onElementsUpdated(const QList<mu::engraving::EngravingItem*>& newElements)
 {
+    QList<mu::engraving::EngravingItem*> noteheadElements = m_repository->findElementsByType(mu::engraving::ElementType::NOTEHEAD);
+
+    bool isLedgerLineSelection = !noteheadElements.empty();
+    if (isLedgerLineSelection) {
+        for (const mu::engraving::EngravingItem* element : noteheadElements) {
+            if (!element || !element->isLedgerLine()) {
+                isLedgerLineSelection = false;
+                break;
+            }
+        }
+    }
+
+    setTitle(isLedgerLineSelection ? muse::qtrc("inspector", "Ledger lines") : muse::qtrc("inspector", "Note"));
+
     InspectorModelType defaultType = resolveDefaultSubModelType(newElements);
 
     setDefaultSubModelType(defaultType);

@@ -968,6 +968,28 @@ void TWrite::write(const Chord* item, XmlWriter& xml, WriteContext& ctx)
         write(note, xml, ctx);
     }
 
+    bool hasCustomLedgerLineOffsets = false;
+    for (const LedgerLine* ledgerLine : item->ledgerLines()) {
+        if (!ledgerLine) {
+            continue;
+        }
+
+        if (!ledgerLine->ledgerLineLengthOffsetLeft().isZero() || !ledgerLine->ledgerLineLengthOffsetRight().isZero()) {
+            hasCustomLedgerLineOffsets = true;
+            break;
+        }
+    }
+
+    if (hasCustomLedgerLineOffsets) {
+        for (const LedgerLine* ledgerLine : item->ledgerLines()) {
+            if (!ledgerLine) {
+                continue;
+            }
+
+            write(ledgerLine, xml, ctx);
+        }
+    }
+
     if (item->arpeggio()) {
         write(item->arpeggio(), xml, ctx);
     }
@@ -2202,6 +2224,8 @@ void TWrite::write(const LedgerLine* item, XmlWriter& xml, WriteContext&)
     xml.startElement(item);
     xml.tag("lineWidth", item->width() / item->spatium());
     xml.tag("lineLen", item->len() / item->spatium());
+    writeProperty(item, xml, Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT);
+    writeProperty(item, xml, Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT);
     if (!item->vertical()) {
         xml.tag("vertical", item->vertical());
     }

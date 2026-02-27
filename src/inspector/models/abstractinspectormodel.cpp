@@ -41,6 +41,7 @@ static const QMap<mu::engraving::ElementType, InspectorModelType> NOTATION_ELEME
     { mu::engraving::ElementType::STEM, InspectorModelType::TYPE_NOTE },
     { mu::engraving::ElementType::NOTEDOT, InspectorModelType::TYPE_NOTE },
     { mu::engraving::ElementType::NOTEHEAD, InspectorModelType::TYPE_NOTE },
+    { mu::engraving::ElementType::LEDGER_LINE, InspectorModelType::TYPE_NOTE },
     { mu::engraving::ElementType::NOTELINE, InspectorModelType::TYPE_NOTE },
     { mu::engraving::ElementType::SHADOW_NOTE, InspectorModelType::TYPE_NOTE },
     { mu::engraving::ElementType::HOOK, InspectorModelType::TYPE_NOTE },

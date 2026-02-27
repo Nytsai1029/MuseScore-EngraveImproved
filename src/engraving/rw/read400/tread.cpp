@@ -2345,6 +2345,12 @@ bool TRead::readProperties(Chord* ch, XmlReader& e, ReadContext& ctx)
         note->setParent(ch);
         TRead::read(note, e, ctx);
         ch->add(note);
+    } else if (tag == "LedgerLine") {
+        LedgerLine* ledgerLine = new LedgerLine(ch);
+        ledgerLine->setTrack(ch->track());
+        ledgerLine->setParent(ch);
+        TRead::read(ledgerLine, e, ctx);
+        ch->ledgerLines().push_back(ledgerLine);
     } else if (TRead::readProperties(static_cast<ChordRest*>(ch), e, ctx)) {
     } else if (tag == "Stem") {
         Stem* s = Factory::createStem(ch);
@@ -2875,7 +2881,7 @@ void TRead::read(LedgerLine* l, XmlReader& e, ReadContext& ctx)
     }
 }
 
-bool TRead::readProperties(LedgerLine* l, XmlReader& e, ReadContext&)
+bool TRead::readProperties(LedgerLine* l, XmlReader& e, ReadContext& ctx)
 {
     const AsciiStringView tag(e.name());
 
@@ -2885,6 +2891,10 @@ bool TRead::readProperties(LedgerLine* l, XmlReader& e, ReadContext&)
         ldata->lineWidth = (e.readDouble() * l->spatium());
     } else if (tag == "lineLen") {
         l->setLen(e.readDouble() * l->spatium());
+    } else if (tag == "ledgerLineLengthOffsetLeft") {
+        TRead::readProperty(l, e, ctx, Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT);
+    } else if (tag == "ledgerLineLengthOffsetRight") {
+        TRead::readProperty(l, e, ctx, Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT);
     } else if (tag == "vertical") {
         l->setVertical(e.readInt());
     } else {

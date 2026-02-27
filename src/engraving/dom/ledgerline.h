@@ -55,10 +55,29 @@ public:
     double len() const { return m_len; }
     void setLen(double v) { m_len = v; }
 
+    Spatium ledgerLineLengthOffsetLeft() const { return m_lengthOffsetLeft; }
+    void setLedgerLineLengthOffsetLeft(Spatium v) { m_lengthOffsetLeft = v; }
+    Spatium ledgerLineLengthOffsetRight() const { return m_lengthOffsetRight; }
+    void setLedgerLineLengthOffsetRight(Spatium v) { m_lengthOffsetRight = v; }
+
     void setVertical(bool v) { m_vertical = v; }
     bool vertical() const { return m_vertical; }
 
     double measureXPos() const;
+
+    PropertyValue getProperty(Pid propertyId) const override;
+    bool setProperty(Pid propertyId, const PropertyValue& value) override;
+    PropertyValue propertyDefault(Pid propertyId) const override;
+
+    void startEdit(EditData& ed) override;
+    void startEditDrag(EditData& ed) override;
+    void editDrag(EditData& ed) override;
+    void endEditDrag(EditData& ed) override;
+
+    int gripsCount() const override { return 2; }
+    Grip initialEditModeGrip() const override { return Grip::END; }
+    Grip defaultGrip() const override { return Grip::END; }
+    std::vector<PointF> gripsPositions(const EditData&) const override;
 
     void spatiumChanged(double /*oldValue*/, double /*newValue*/) override;
 
@@ -70,6 +89,8 @@ public:
 private:
 
     double m_len = 0.0;
+    Spatium m_lengthOffsetLeft = Spatium(0.0);
+    Spatium m_lengthOffsetRight = Spatium(0.0);
     bool m_vertical = false;
 };
 } // namespace mu::engraving

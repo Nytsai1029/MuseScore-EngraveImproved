@@ -41,6 +41,7 @@ class NoteheadSettingsModel : public AbstractInspectorModel
     Q_PROPERTY(PropertyItem * ledgerLineLengthOffsetLeft READ ledgerLineLengthOffsetLeft CONSTANT)
     Q_PROPERTY(PropertyItem * ledgerLineLengthOffsetRight READ ledgerLineLengthOffsetRight CONSTANT)
     Q_PROPERTY(bool isTrillCueNote READ isTrillCueNote NOTIFY isTrillCueNoteChanged)
+    Q_PROPERTY(bool isLedgerLineSelection READ isLedgerLineSelection NOTIFY isLedgerLineSelectionChanged)
 
 public:
     explicit NoteheadSettingsModel(QObject* parent, IElementRepositoryService* repository);
@@ -57,6 +58,7 @@ public:
     PropertyItem* ledgerLineLengthOffsetLeft() const;
     PropertyItem* ledgerLineLengthOffsetRight() const;
     bool isTrillCueNote() const;
+    bool isLedgerLineSelection() const;
 
     Q_INVOKABLE QVariantList possibleHeadSystemTypes() const;
 
@@ -65,6 +67,7 @@ public slots:
 
 signals:
     void isTrillCueNoteChanged(bool isTrillCueNote);
+    void isLedgerLineSelectionChanged(bool isLedgerLineSelection);
 
 private:
     void createProperties() override;
@@ -76,6 +79,7 @@ private:
 
     void loadProperties(const mu::engraving::PropertyIdSet& propertyIdSet);
     void updateIsTrillCueNote();
+    void updateIsLedgerLineSelection();
 
     PropertyItem* m_isHeadHidden = nullptr;
     PropertyItem* m_isHeadSmall = nullptr;
@@ -89,6 +93,7 @@ private:
     PropertyItem* m_ledgerLineLengthOffsetLeft = nullptr;
     PropertyItem* m_ledgerLineLengthOffsetRight = nullptr;
     bool m_isTrillCueNote = false;
+    bool m_isLedgerLineSelection = false;
 };
 }
 

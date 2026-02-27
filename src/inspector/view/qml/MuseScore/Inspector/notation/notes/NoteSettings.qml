@@ -42,6 +42,11 @@ Column {
     spacing: 12
 
     function focusOnFirst() {
+        if (root.isLedgerLineSelection) {
+            ledgerLineLengthOffsetLeftSection.focusOnFirst()
+            return
+        }
+
         tabBar.focusOnCurrentTab()
     }
 
@@ -50,9 +55,11 @@ Column {
     readonly property QtObject stemModel: model ? model.modelByType(Inspector.TYPE_STEM) : null
     readonly property QtObject hookModel: model ? model.modelByType(Inspector.TYPE_HOOK) : null
     readonly property QtObject beamModel: model ? model.modelByType(Inspector.TYPE_BEAM) : null
+    readonly property bool isLedgerLineSelection: root.headModel ? root.headModel.isLedgerLineSelection : false
 
     InspectorTabBar {
         id: tabBar
+        visible: !root.isLedgerLineSelection
 
         currentIndex: root.model ? indexByType(root.model.defaultSubModelType) : 0
 
@@ -96,10 +103,11 @@ Column {
     }
 
     StackLayout {
+        visible: !root.isLedgerLineSelection
         width: parent.width
         currentIndex: tabBar.currentIndex
 
-        height: itemAt(currentIndex).implicitHeight
+        height: visible ? itemAt(currentIndex).implicitHeight : 0
 
         HeadSettings {
             height: implicitHeight
@@ -129,6 +137,45 @@ Column {
 
             navigationPanel: root.navigationPanel
             navigationRowStart: root.navigationRowStart + 3000
+        }
+    }
+
+    Column {
+        visible: root.isLedgerLineSelection
+        width: parent.width
+        spacing: 12
+
+        SpinBoxPropertyView {
+            id: ledgerLineLengthOffsetLeftSection
+            width: parent.width
+
+            titleText: qsTrc("inspector", "Left ledger line length")
+            propertyItem: root.headModel ? root.headModel.ledgerLineLengthOffsetLeft : null
+
+            minValue: -5
+            maxValue: 5
+            step: 0.1
+
+            navigationName: "LedgerLineLengthOffsetLeft"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: root.navigationRowStart
+        }
+
+        SpinBoxPropertyView {
+            id: ledgerLineLengthOffsetRightSection
+            width: parent.width
+
+            titleText: qsTrc("inspector", "Right ledger line length")
+            propertyItem: root.headModel ? root.headModel.ledgerLineLengthOffsetRight : null
+
+            minValue: -5
+            maxValue: 5
+            step: 0.1
+            iconMode: IncrementalPropertyControl.Right
+
+            navigationName: "LedgerLineLengthOffsetRight"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: ledgerLineLengthOffsetLeftSection.navigationRowEnd + 1
         }
     }
 }

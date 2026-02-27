@@ -1372,6 +1372,7 @@ bool NotationInteraction::isOutgoingDragElementAllowed(const EngravingItem* elem
     case ElementType::GUITAR_BEND_TEXT:
     case ElementType::NOTELINE:
     case ElementType::NOTELINE_SEGMENT:
+    case ElementType::LEDGER_LINE:
         return false;
     default: return true;
     }
@@ -3632,7 +3633,7 @@ void NotationInteraction::drawGripPoints(muse::draw::Painter* painter)
     mu::engraving::EngravingItem* editedElement = m_editData.element;
     if (!editedElement) {
         EngravingItem* selectedElement = m_selection->element();
-        if (selectedElement && selectedElement->isDynamic()) {
+        if (selectedElement && (selectedElement->isDynamic() || selectedElement->isLedgerLine())) {
             editedElement = selectedElement;
         }
     }
@@ -5270,9 +5271,9 @@ void NotationInteraction::deleteSelection()
         return;
     }
 
-    startEdit(TranslatableString("undoableAction", "Delete"));
-
     if (isTextEditingStarted()) {
+        startEdit(TranslatableString("undoableAction", "Delete"));
+
         mu::engraving::TextBase* textBase = toTextBase(m_editData.element);
         if (!textBase->deleteSelectedText(m_editData)) {
             m_editData.key = Qt::Key_Backspace;
@@ -5282,7 +5283,39 @@ void NotationInteraction::deleteSelection()
     } else {
         doEndEditElement();
         resetGripEdit();
-        score()->cmdDeleteSelection();
+
+        bool hasLedgerLine = false;
+        bool hasNonLedgerLine = false;
+        const std::vector<EngravingItem*>& selectedElements = selection()->elements();
+        for (EngravingItem* item : selectedElements) {
+            if (!item) {
+                continue;
+            }
+
+            if (item->isLedgerLine()) {
+                hasLedgerLine = true;
+            } else {
+                hasNonLedgerLine = true;
+                break;
+            }
+        }
+
+        if (hasLedgerLine && !hasNonLedgerLine) {
+            startEdit(TranslatableString("undoableAction", "Reset"));
+
+            for (EngravingItem* item : selectedElements) {
+                if (!item || !item->isLedgerLine()) {
+                    continue;
+                }
+
+                item->undoResetProperty(Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT);
+                item->undoResetProperty(Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT);
+                item->triggerLayout();
+            }
+        } else {
+            startEdit(TranslatableString("undoableAction", "Delete"));
+            score()->cmdDeleteSelection();
+        }
     }
 
     checkAndShowError();

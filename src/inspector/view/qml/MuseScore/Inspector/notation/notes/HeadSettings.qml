@@ -180,6 +180,7 @@ FocusableItem {
 
                     width: parent.width
                     spacing: 12
+                    visible: root.headModel ? root.headModel.isLedgerLineSelection : false
 
                     SpinBoxPropertyView {
                         id: ledgerLineLengthOffsetLeftSection

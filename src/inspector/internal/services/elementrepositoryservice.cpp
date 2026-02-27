@@ -33,9 +33,9 @@
 #include "engraving/dom/hairpin.h"
 #include "engraving/dom/hook.h"
 #include "engraving/dom/layoutbreak.h"
+#include "engraving/dom/ledgerline.h"
 #include "engraving/dom/lyrics.h"
 #include "engraving/dom/mscore.h"
-#include "engraving/dom/note.h"
 #include "engraving/dom/note.h"
 #include "engraving/dom/pedal.h"
 #include "engraving/dom/playcounttext.h"
@@ -244,15 +244,20 @@ QList<mu::engraving::EngravingItem*> ElementRepositoryService::findNotes() const
 
 QList<mu::engraving::EngravingItem*> ElementRepositoryService::findNoteHeads() const
 {
-    QList<mu::engraving::EngravingItem*> resultList;
+    QSet<mu::engraving::EngravingItem*> resultSet;
 
     for (mu::engraving::EngravingItem* element : m_rawElementList) {
         if (element->isNote()) {
-            resultList << element;
+            resultSet << element;
+            continue;
+        }
+
+        if (element->isLedgerLine()) {
+            resultSet << element;
         }
     }
 
-    return resultList;
+    return QList<mu::engraving::EngravingItem*>(resultSet.begin(), resultSet.end());
 }
 
 QList<mu::engraving::EngravingItem*> ElementRepositoryService::findStems() const

@@ -31,6 +31,7 @@
 using namespace mu;
 
 namespace mu::engraving {
+
 //---------------------------------------------------------
 //   LedgerLine
 //---------------------------------------------------------
@@ -38,8 +39,9 @@ namespace mu::engraving {
 LedgerLine::LedgerLine(EngravingItem* s)
     : EngravingItem(ElementType::LEDGER_LINE, s)
 {
-    setSelectable(false);
-    m_len        = 0.;
+    setSelectable(true);
+    setGenerated(true);
+    m_len = 0.;
 }
 
 LedgerLine::~LedgerLine()
@@ -67,6 +69,138 @@ double LedgerLine::measureXPos() const
     xp += chord()->x();                  // segment relative
     xp += chord()->segment()->x();       // measure relative
     return xp;
+}
+
+//---------------------------------------------------------
+//   getProperty
+//---------------------------------------------------------
+
+PropertyValue LedgerLine::getProperty(Pid propertyId) const
+{
+    switch (propertyId) {
+    case Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT:
+        return ledgerLineLengthOffsetLeft();
+    case Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT:
+        return ledgerLineLengthOffsetRight();
+    default:
+        break;
+    }
+
+    return EngravingItem::getProperty(propertyId);
+}
+
+//---------------------------------------------------------
+//   setProperty
+//---------------------------------------------------------
+
+bool LedgerLine::setProperty(Pid propertyId, const PropertyValue& value)
+{
+    switch (propertyId) {
+    case Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT:
+        setLedgerLineLengthOffsetLeft(value.value<Spatium>());
+        break;
+    case Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT:
+        setLedgerLineLengthOffsetRight(value.value<Spatium>());
+        break;
+    default:
+        return EngravingItem::setProperty(propertyId, value);
+    }
+
+    triggerLayout();
+    return true;
+}
+
+//---------------------------------------------------------
+//   propertyDefault
+//---------------------------------------------------------
+
+PropertyValue LedgerLine::propertyDefault(Pid propertyId) const
+{
+    switch (propertyId) {
+    case Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT:
+    case Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT:
+        return Spatium(0.0);
+    default:
+        break;
+    }
+
+    return EngravingItem::propertyDefault(propertyId);
+}
+
+//---------------------------------------------------------
+//   startEdit
+//---------------------------------------------------------
+
+void LedgerLine::startEdit(EditData& ed)
+{
+    EngravingItem::startEdit(ed);
+    ElementEditDataPtr eed = ed.getData(this);
+    if (!eed) {
+        return;
+    }
+
+    eed->pushProperty(Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT);
+    eed->pushProperty(Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT);
+}
+
+//---------------------------------------------------------
+//   startEditDrag
+//---------------------------------------------------------
+
+void LedgerLine::startEditDrag(EditData& ed)
+{
+    EngravingItem::startEditDrag(ed);
+    ElementEditDataPtr eed = ed.getData(this);
+    if (!eed) {
+        return;
+    }
+
+    eed->pushProperty(Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT);
+    eed->pushProperty(Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT);
+}
+
+//---------------------------------------------------------
+//   editDrag
+//---------------------------------------------------------
+
+void LedgerLine::editDrag(EditData& ed)
+{
+    if (ed.curGrip != Grip::START && ed.curGrip != Grip::END) {
+        return;
+    }
+
+    const Spatium deltaSp(ed.delta.x() / spatium());
+    if (ed.curGrip == Grip::START) {
+        setLedgerLineLengthOffsetLeft(ledgerLineLengthOffsetLeft() - deltaSp);
+    } else {
+        setLedgerLineLengthOffsetRight(ledgerLineLengthOffsetRight() + deltaSp);
+    }
+
+    triggerLayout();
+}
+
+//---------------------------------------------------------
+//   endEditDrag
+//---------------------------------------------------------
+
+void LedgerLine::endEditDrag(EditData& ed)
+{
+    EngravingItem::endEditDrag(ed);
+}
+
+//---------------------------------------------------------
+//   gripsPositions
+//---------------------------------------------------------
+
+std::vector<PointF> LedgerLine::gripsPositions(const EditData&) const
+{
+    if (!chord()) {
+        return {};
+    }
+
+    const PointF startPos = pagePos();
+    const PointF endPos = vertical() ? startPos + PointF(0.0, len()) : startPos + PointF(len(), 0.0);
+    return { startPos, endPos };
 }
 
 //---------------------------------------------------------

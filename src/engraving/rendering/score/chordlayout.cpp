@@ -1427,8 +1427,10 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
         h->setParent(item);
         h->setTrack(track);
         h->setVisible(lld.visible && staffVisible);
-        h->setLen(lld.maxX - lld.minX);
-        h->setPos(lld.minX, lld.line * _spatium * stepDistance);
+        const double userLeftExtra = h->ledgerLineLengthOffsetLeft().val() * _spatium * item->mag();
+        const double userRightExtra = h->ledgerLineLengthOffsetRight().val() * _spatium * item->mag();
+        h->setLen((lld.maxX - lld.minX) + userLeftExtra + userRightExtra);
+        h->setPos(lld.minX - userLeftExtra, lld.line * _spatium * stepDistance);
     }
 
     for (LedgerLine* ll : item->ledgerLines()) {
