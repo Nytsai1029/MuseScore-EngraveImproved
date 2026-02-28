@@ -2974,6 +2974,10 @@ bool TRead::readProperties(LineSegment* l, XmlReader& e, ReadContext& ctx)
         l->setSpannerSegmentType(SpannerSegmentType(e.readInt()));
     } else if (tag == "off2") {
         l->setUserOff2(e.readPoint() * l->style().spatium());
+    } else if (l->isOttavaSegment() && TRead::readProperty(l, tag, e, ctx, Pid::OTTAVA_BREAK_POINT_1_OFFSET)) {
+    } else if (l->isOttavaSegment() && TRead::readProperty(l, tag, e, ctx, Pid::OTTAVA_BREAK_POINT_2_OFFSET)) {
+    } else if (l->isOttavaSegment() && TRead::readProperty(l, tag, e, ctx, Pid::OTTAVA_BREAK_POINT_3_OFFSET)) {
+    } else if (l->isOttavaSegment() && TRead::readProperty(l, tag, e, ctx, Pid::OTTAVA_BREAK_POINT_4_OFFSET)) {
     } else if (!readItemProperties(l, e, ctx)) {
         return false;
     }
@@ -3287,6 +3291,10 @@ bool TRead::readProperties(Ottava* o, XmlReader& e, ReadContext& ctx)
         } else {
             o->setOttavaType(OttavaType(idx));
         }
+    } else if (TRead::readProperty(o, tag, e, ctx, Pid::OTTAVA_ALLOW_BROKEN_LINE)) {
+        return true;
+    } else if (TRead::readProperty(o, tag, e, ctx, Pid::OTTAVA_BREAK_POINTS_COUNT)) {
+        return true;
     } else if (readStyledProperty(o, tag, e, ctx)) {
         return true;
     } else if (!readProperties(static_cast<TextLineBase*>(o), e, ctx)) {

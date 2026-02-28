@@ -23,6 +23,8 @@
 #ifndef MU_ENGRAVING_OTTAVA_H
 #define MU_ENGRAVING_OTTAVA_H
 
+#include <array>
+
 #include "types/translatablestring.h"
 
 #include "textlinebase.h"
@@ -88,17 +90,52 @@ class OttavaSegment final : public TextLineBaseSegment
     Sid getPropertyStyle(Pid) const override;
 
 public:
+    static constexpr int MAX_TURNING_POINTS = 4;
+
     OttavaSegment(Ottava* sp, System* parent);
 
     OttavaSegment* clone() const override { return new OttavaSegment(*this); }
     Ottava* ottava() const { return (Ottava*)spanner(); }
 
     EngravingItem* propertyDelegate(Pid) override;
+    PropertyValue getProperty(Pid propertyId) const override;
+    bool setProperty(Pid propertyId, const PropertyValue&) override;
+    PropertyValue propertyDefault(Pid propertyId) const override;
+    bool isUserModified() const override;
+
+    int gripsCount() const override;
+    std::vector<PointF> gripsPositions(const EditData&) const override;
+
+    void startEditDrag(EditData&) override;
+    void editDrag(EditData&) override;
+    void endEditDrag(EditData&) override;
+
+    int turningPointsCount() const;
+    PointF turningPointOffset(int pointIndex) const;
+    void setTurningPointOffset(int pointIndex, const PointF& offset);
+
+    void applyBrokenLineToPoints();
 
     bool canBeExcludedFromOtherParts() const override { return true; }
 
 private:
+    enum class SnapAxis : signed char {
+        NONE = 0,
+        HORIZONTAL,
+        VERTICAL
+    };
+
+    static Pid turningPointOffsetPid(int pointIndex);
+    bool mainLineRange(int& startPointIndex, int& endPointIndex) const;
+    PointF turningPointBasePosition(int pointIndex) const;
+    bool isTurningPointGrip(Grip grip) const;
+
     void rebaseOffsetsOnAnchorChanged(Grip grip, const PointF& oldPos, System* sys) override;
+
+    std::array<PointF, MAX_TURNING_POINTS> m_turningPointOffsets {};
+    std::array<PointF, MAX_TURNING_POINTS> m_turningPointUnsnappedOffsets {};
+    SnapAxis m_shiftSnapAxis = SnapAxis::NONE;
+    int m_shiftSnapPointIndex = -1;
 };
 
 //---------------------------------------------------------
@@ -125,6 +162,13 @@ public:
 
     bool numbersOnly() const { return m_numbersOnly; }
     void setNumbersOnly(bool val);
+
+    bool allowBrokenLine() const { return m_allowBrokenLine; }
+    void setAllowBrokenLine(bool val);
+
+    int breakPointsCount() const { return m_breakPointsCount; }
+    void setBreakPointsCount(int val);
+    int effectiveBreakPointsCount() const;
 
     void setPlacement(PlacementV);
 
@@ -154,6 +198,8 @@ private:
 
     OttavaType m_ottavaType = OttavaType::OTTAVA_8VA;
     bool m_numbersOnly = false;
+    bool m_allowBrokenLine = false;
+    int m_breakPointsCount = 1;
 };
 } // namespace mu::engraving
 

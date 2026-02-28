@@ -1446,6 +1446,7 @@ void SingleLayout::layout(Ottava* item, const Context& ctx)
 void SingleLayout::layout(OttavaSegment* item, const Context& ctx)
 {
     layoutTextLineBaseSegment(item, ctx);
+    item->applyBrokenLineToPoints();
     item->setOffset(PointF());
 }
 
@@ -1998,7 +1999,8 @@ void SingleLayout::layoutTextLineBaseSegment(TextLineBaseSegment* item, const Co
         ldata->setPosY(0.0);
     }
 
-    if (!tl->diagonal()) {
+    const bool preserveEndYForBrokenOttava = item->isOttavaSegment() && toOttavaSegment(item)->ottava()->allowBrokenLine();
+    if (!tl->diagonal() && !preserveEndYForBrokenOttava) {
         item->setUserYoffset2(0);
     }
 

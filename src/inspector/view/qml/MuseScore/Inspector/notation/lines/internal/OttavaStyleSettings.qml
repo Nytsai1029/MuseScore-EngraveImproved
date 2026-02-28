@@ -66,13 +66,43 @@ FocusableItem {
             navigation.row: typeSection.navigationRowEnd + 1
         }
 
+        PropertyCheckBox {
+            id: allowBrokenLineCheckBox
+            text: qsTrc("inspector", "Allow broken line")
+            propertyItem: root.model ? root.model.allowBrokenLine : null
+
+            navigation.name: "AllowBrokenLine"
+            navigation.panel: root.navigationPanel
+            navigation.row: showNumbersOnlyCheckBox.navigation.row + 1
+        }
+
+        SpinBoxPropertyView {
+            id: turningPointsCountSection
+
+            titleText: qsTrc("inspector", "Turning points")
+            propertyItem: root.model ? root.model.turningPointsCount : null
+
+            minValue: 0
+            maxValue: root.model ? root.model.maxTurningPointsCount : 4
+            step: 1
+            decimals: 0
+
+            visible: Boolean(root.model)
+                     && Boolean(root.model.allowBrokenLine)
+                     && !Boolean(root.model.allowBrokenLine.isUndefined)
+                     && Boolean(root.model.allowBrokenLine.value)
+
+            navigationPanel: root.navigationPanel
+            navigationRowStart: allowBrokenLineCheckBox.navigation.row + 1
+        }
+
         SeparatorLine { anchors.margins: -12 }
 
         LineWithHooksCommonStyleSettings {
             model: root.model
 
             navigationPanel: root.navigationPanel
-            navigationRowStart: showNumbersOnlyCheckBox.navigation.row + 1
+            navigationRowStart: turningPointsCountSection.navigationRowEnd + 1
         }
     }
 }

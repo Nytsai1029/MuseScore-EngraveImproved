@@ -185,6 +185,12 @@ static constexpr PropertyMetaData propertyList[] = {
 
     { Pid::OTTAVA_TYPE,             true,  "subtype",               P_TYPE::INT,                PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "ottava type") },
     { Pid::NUMBERS_ONLY,            false, "numbersOnly",           P_TYPE::BOOL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "numbers only") },
+    { Pid::OTTAVA_ALLOW_BROKEN_LINE, false, "allowBrokenLine",      P_TYPE::BOOL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "allow broken line") },
+    { Pid::OTTAVA_BREAK_POINTS_COUNT, false, "ottavaBreakPointsCount", P_TYPE::INT,              PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "ottava turning points count") },
+    { Pid::OTTAVA_BREAK_POINT_1_OFFSET, false, "ottavaBreakPoint1Offset", P_TYPE::POINT,          PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "ottava turning point 1 offset") },
+    { Pid::OTTAVA_BREAK_POINT_2_OFFSET, false, "ottavaBreakPoint2Offset", P_TYPE::POINT,          PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "ottava turning point 2 offset") },
+    { Pid::OTTAVA_BREAK_POINT_3_OFFSET, false, "ottavaBreakPoint3Offset", P_TYPE::POINT,          PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "ottava turning point 3 offset") },
+    { Pid::OTTAVA_BREAK_POINT_4_OFFSET, false, "ottavaBreakPoint4Offset", P_TYPE::POINT,          PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "ottava turning point 4 offset") },
     { Pid::TRILL_TYPE,              false, "subtype",               P_TYPE::INT,                PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "trill type") },
     { Pid::VIBRATO_TYPE,            false, "subtype",               P_TYPE::INT,                PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "vibrato type") },
     { Pid::HAIRPIN_CIRCLEDTIP,      false, "hairpinCircledTip",     P_TYPE::BOOL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "hairpin with circled tip") },

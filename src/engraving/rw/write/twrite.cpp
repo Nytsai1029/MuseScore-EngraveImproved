@@ -1644,10 +1644,20 @@ void TWrite::writeProperties(const SLine* item, XmlWriter& xml, WriteContext& ct
         writeProperty(seg, xml, Pid::MIN_DISTANCE);
         if (seg->isGuitarBendSegment()) {
             writeProperties(static_cast<const GuitarBendSegment*>(seg), xml, ctx);
+        } else if (seg->isOttavaSegment()) {
+            writeProperties(static_cast<const OttavaSegment*>(seg), xml, ctx);
         }
         writeItemProperties(seg, xml, ctx);
         xml.endElement();
     }
+}
+
+void TWrite::writeProperties(const OttavaSegment* item, XmlWriter& xml, WriteContext&)
+{
+    writeProperty(item, xml, Pid::OTTAVA_BREAK_POINT_1_OFFSET);
+    writeProperty(item, xml, Pid::OTTAVA_BREAK_POINT_2_OFFSET);
+    writeProperty(item, xml, Pid::OTTAVA_BREAK_POINT_3_OFFSET);
+    writeProperty(item, xml, Pid::OTTAVA_BREAK_POINT_4_OFFSET);
 }
 
 void TWrite::writeProperties(const Spanner* item, XmlWriter& xml, WriteContext& ctx)
@@ -2441,6 +2451,8 @@ void TWrite::write(const Ottava* item, XmlWriter& xml, WriteContext& ctx)
     writeProperty(item, xml, Pid::OTTAVA_TYPE);
     writeProperty(item, xml, Pid::PLACEMENT);
     writeProperty(item, xml, Pid::NUMBERS_ONLY);
+    writeProperty(item, xml, Pid::OTTAVA_ALLOW_BROKEN_LINE);
+    writeProperty(item, xml, Pid::OTTAVA_BREAK_POINTS_COUNT);
 //      for (const StyledProperty& spp : *styledProperties())
 //            writeProperty(xml, spp.pid);
     writeProperties(static_cast<const TextLineBase*>(item), xml, ctx);

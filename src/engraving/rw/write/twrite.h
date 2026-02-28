@@ -344,6 +344,7 @@ private:
 
     static void writeProperties(const SLine* item, XmlWriter& xml, WriteContext& ctx);
     static void writeProperties(const GuitarBendSegment* item, XmlWriter& xml, WriteContext& ctx);
+    static void writeProperties(const OttavaSegment* item, XmlWriter& xml, WriteContext& ctx);
     static void writeProperties(const Spanner* item, XmlWriter& xml, WriteContext& ctx);
     static void writeProperties(const BSymbol* item, XmlWriter& xml, WriteContext& ctx);
 

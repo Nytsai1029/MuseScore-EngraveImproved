@@ -24,6 +24,8 @@
 
 #include "translation.h"
 
+#include "engraving/dom/ottava.h"
+
 #include "ui/view/iconcodes.h"
 
 using namespace mu::inspector;
@@ -60,6 +62,21 @@ PropertyItem* OttavaSettingsModel::showNumbersOnly() const
     return m_showNumbersOnly;
 }
 
+PropertyItem* OttavaSettingsModel::allowBrokenLine() const
+{
+    return m_allowBrokenLine;
+}
+
+PropertyItem* OttavaSettingsModel::turningPointsCount() const
+{
+    return m_turningPointsCount;
+}
+
+int OttavaSettingsModel::maxTurningPointsCount() const
+{
+    return mu::engraving::OttavaSegment::MAX_TURNING_POINTS;
+}
+
 QVariantList OttavaSettingsModel::possibleOttavaTypes() const
 {
     QMap<mu::engraving::OttavaType, QString> ottavaTypes {
@@ -90,6 +107,8 @@ void OttavaSettingsModel::createProperties()
 
     m_ottavaType = buildPropertyItem(mu::engraving::Pid::OTTAVA_TYPE);
     m_showNumbersOnly = buildPropertyItem(mu::engraving::Pid::NUMBERS_ONLY);
+    m_allowBrokenLine = buildPropertyItem(mu::engraving::Pid::OTTAVA_ALLOW_BROKEN_LINE);
+    m_turningPointsCount = buildPropertyItem(mu::engraving::Pid::OTTAVA_BREAK_POINTS_COUNT);
 
     isLineVisible()->setIsVisible(true);
     allowDiagonal()->setIsVisible(true);
@@ -102,6 +121,8 @@ void OttavaSettingsModel::loadProperties()
 
     loadPropertyItem(m_ottavaType);
     loadPropertyItem(m_showNumbersOnly);
+    loadPropertyItem(m_allowBrokenLine);
+    loadPropertyItem(m_turningPointsCount);
 }
 
 void OttavaSettingsModel::resetProperties()
@@ -110,4 +131,6 @@ void OttavaSettingsModel::resetProperties()
 
     m_ottavaType->resetToDefault();
     m_showNumbersOnly->resetToDefault();
+    m_allowBrokenLine->resetToDefault();
+    m_turningPointsCount->resetToDefault();
 }

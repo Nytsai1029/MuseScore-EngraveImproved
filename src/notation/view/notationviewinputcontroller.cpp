@@ -1103,10 +1103,18 @@ void NotationViewInputController::mouseMoveEvent(QMouseEvent* event)
             }
 
             DragMode mode = DragMode::BothXY;
-            if (keyState & Qt::ShiftModifier) {
-                mode = DragMode::OnlyY;
-            } else if (keyState & Qt::ControlModifier) {
-                mode = DragMode::OnlyX;
+            bool isOttavaGripEdit = false;
+            if (viewInteraction()->isGripEditStarted()) {
+                const EngravingItem* selectedElement = viewInteraction()->selection()->element();
+                isOttavaGripEdit = selectedElement && selectedElement->isOttavaSegment();
+            }
+
+            if (!isOttavaGripEdit) {
+                if (keyState & Qt::ShiftModifier) {
+                    mode = DragMode::OnlyY;
+                } else if (keyState & Qt::ControlModifier) {
+                    mode = DragMode::OnlyX;
+                }
             }
 
             const std::vector<int> oldPitches = pitchesBeingDragged();

@@ -78,7 +78,7 @@ protected:
 
     Text* m_text = nullptr;
     Text* m_endText = nullptr;
-    PointF m_points[6];
+    PointF m_points[10];
     PolygonF m_joinedHairpin;
     int m_npoints = 0;
     double m_lineLength = 0;

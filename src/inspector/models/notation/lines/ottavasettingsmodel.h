@@ -31,12 +31,18 @@ class OttavaSettingsModel : public TextLineSettingsModel
 
     Q_PROPERTY(PropertyItem * ottavaType READ ottavaType CONSTANT)
     Q_PROPERTY(PropertyItem * showNumbersOnly READ showNumbersOnly CONSTANT)
+    Q_PROPERTY(PropertyItem * allowBrokenLine READ allowBrokenLine CONSTANT)
+    Q_PROPERTY(PropertyItem * turningPointsCount READ turningPointsCount CONSTANT)
+    Q_PROPERTY(int maxTurningPointsCount READ maxTurningPointsCount CONSTANT)
 
 public:
     explicit OttavaSettingsModel(QObject* parent, IElementRepositoryService* repository);
 
     PropertyItem* ottavaType() const;
     PropertyItem* showNumbersOnly() const;
+    PropertyItem* allowBrokenLine() const;
+    PropertyItem* turningPointsCount() const;
+    int maxTurningPointsCount() const;
 
     Q_INVOKABLE QVariantList possibleOttavaTypes() const;
 
@@ -47,6 +53,8 @@ private:
 
     PropertyItem* m_ottavaType = nullptr;
     PropertyItem* m_showNumbersOnly = nullptr;
+    PropertyItem* m_allowBrokenLine = nullptr;
+    PropertyItem* m_turningPointsCount = nullptr;
 };
 }
 

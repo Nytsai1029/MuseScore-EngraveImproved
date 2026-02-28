@@ -4635,6 +4635,7 @@ void TLayout::layoutOttavaSegment(OttavaSegment* item, LayoutContext& ctx)
     LAYOUT_CALL_ITEM(item);
     OttavaSegment::LayoutData* ldata = item->mutldata();
     layoutTextLineBaseSegment(item, ctx);
+    item->applyBrokenLineToPoints();
     Shape sh = textLineBaseSegmentShape(item);
     ldata->setShape(sh);
     Autoplace::autoplaceSpannerSegment(item, ldata, ctx.conf().spatium());
@@ -6253,7 +6254,8 @@ void TLayout::layoutTextLineBaseSegment(TextLineBaseSegment* item, LayoutContext
     // adjust Y pos to staffType offset
     ldata->moveY(item->staffOffsetY());
 
-    if (!tl->diagonal()) {
+    const bool preserveEndYForBrokenOttava = item->isOttavaSegment() && toOttavaSegment(item)->ottava()->allowBrokenLine();
+    if (!tl->diagonal() && !preserveEndYForBrokenOttava) {
         item->setUserYoffset2(0);
     }
 
