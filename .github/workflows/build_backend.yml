@@ -59,11 +59,11 @@ jobs:
     if: github.event_name != 'schedule' || github.repository == 'musescore/MuseScore'
     steps:
     - name: Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.12.1
+      uses: styfle/cancel-workflow-action@0.13.0
       with:
         access_token: ${{ github.token }}
     - name: Clone repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: "Configure workflow"
       run: |
@@ -161,7 +161,7 @@ jobs:
 
     - name: Upload artifacts on GitHub
       if: ${{ always() }}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ env.GITHUB_ARTIFACT_NAME }}
         path: ./build.artifacts/

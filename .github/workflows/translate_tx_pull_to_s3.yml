@@ -73,7 +73,7 @@ jobs:
           echo "DO_PUSH_TO_S3=$DO_PUSH_TO_S3" | tee -a $GITHUB_ENV
 
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install Qt for lrelease
         if: env.DO_PUSH_TO_S3 == 'true'
@@ -102,7 +102,7 @@ jobs:
 
       - name: Create Pull Request
         if: env.DO_CREATE_PR == 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
@@ -121,7 +121,7 @@ jobs:
 
       - name: Upload artifacts on GitHub
         if: env.DO_PUSH_TO_S3 == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: MuseScore_Studio_locale_${{ env.BUILD_NUMBER }}
           path: ./share/locale

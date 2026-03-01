@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-22.04-arm
     steps:
     - name: Clone repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Setup QEMU
       run: |
         sudo apt-get update
@@ -182,7 +182,7 @@ jobs:
       run: |
         bash ./buildscripts/ci/tools/osuosl/publish.sh -s ${{ secrets.OSUOSL_SSH_ENCRYPT_SECRET }} --os linux --arch armv7l -v 4
     - name: Upload artifacts on GitHub
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ env.UPLOAD_ARTIFACT_NAME }}
         path: ./build.artifacts/
