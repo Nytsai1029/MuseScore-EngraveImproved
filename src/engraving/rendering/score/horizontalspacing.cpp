@@ -90,6 +90,11 @@ static bool shouldIgnoreCollisionBoxes(const Segment* first, const Segment* seco
     return segmentHasAutoplaceDisabledChordNotes(first) || segmentHasAutoplaceDisabledChordNotes(second);
 }
 
+static bool shouldIgnoreHorizontalSpacingItem(const EngravingItem* item)
+{
+    return item && item->isLedgerLine();
+}
+
 double HorizontalSpacing::computeSpacingForFullSystem(System* system, double stretchReduction, double squeezeFactor,
                                                       bool overrideMinMeasureWidth)
 {
@@ -1264,6 +1269,10 @@ double HorizontalSpacing::minHorizontalDistance(const Shape& f, const Shape& s, 
         }
 
         const EngravingItem* item2 = r2.item();
+        if (shouldIgnoreHorizontalSpacingItem(item2)) {
+            continue;
+        }
+
         double by1 = r2.top();
         double by2 = r2.bottom();
         for (const ShapeElement& r1 : f.elements()) {
@@ -1272,6 +1281,9 @@ double HorizontalSpacing::minHorizontalDistance(const Shape& f, const Shape& s, 
             }
 
             const EngravingItem* item1 = r1.item();
+            if (shouldIgnoreHorizontalSpacingItem(item1)) {
+                continue;
+            }
 
             double ay1 = r1.top();
             double ay2 = r1.bottom();

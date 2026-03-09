@@ -6,4 +6,4 @@ Score engraving improvements for MuseScore Studio.
 
 ## Features
 
-- Multi-curve slur: This version allow you to create a multi-curve slur base on 
+- ...
