@@ -455,6 +455,8 @@ public:
     void setFrameType(FrameType val) { m_frameType = val; }
     double textLineSpacing() const { return m_textLineSpacing; }
     void setTextLineSpacing(double val) { m_textLineSpacing = val; }
+    double textLetterSpacing() const { return m_textLetterSpacing; }
+    void setTextLetterSpacing(double val) { m_textLetterSpacing = val; }
     Color bgColor() const { return m_bgColor; }
     void setBgColor(const Color& val) { m_bgColor = val; }
     Color frameColor() const { return m_frameColor; }
@@ -545,6 +547,7 @@ private:
 
     FrameType m_frameType = FrameType::NO_FRAME;
     double m_textLineSpacing = 1.0;
+    double m_textLetterSpacing = 0.0;
     Color m_bgColor;
     Color m_frameColor;
     Spatium m_frameWidth;

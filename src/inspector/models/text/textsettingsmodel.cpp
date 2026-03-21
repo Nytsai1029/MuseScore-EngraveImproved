@@ -60,6 +60,7 @@ void TextSettingsModel::createProperties()
     m_fontStyle = buildPropertyItem(mu::engraving::Pid::FONT_STYLE);
     m_fontSize = buildPropertyItem(mu::engraving::Pid::FONT_SIZE);
     m_textLineSpacing = buildPropertyItem(mu::engraving::Pid::TEXT_LINE_SPACING);
+    m_textLetterSpacing = buildPropertyItem(mu::engraving::Pid::TEXT_LETTER_SPACING);
 
     m_horizontalAlignment = buildPropertyItem(mu::engraving::Pid::ALIGN, [this](const mu::engraving::Pid pid, const QVariant& newValue) {
         onPropertyValueChanged(pid, QVariantList({ newValue.toInt(), m_verticalAlignment->value().toInt() }));
@@ -111,6 +112,7 @@ void TextSettingsModel::loadProperties()
         Pid::FONT_STYLE,
         Pid::FONT_SIZE,
         Pid::TEXT_LINE_SPACING,
+        Pid::TEXT_LETTER_SPACING,
         Pid::ALIGN,
         Pid::MUSIC_SYMBOL_SIZE,
         Pid::TEXT_SIZE_SPATIUM_DEPENDENT,
@@ -159,6 +161,10 @@ void TextSettingsModel::loadProperties(const PropertyIdSet& propertyIdSet)
 
     if (muse::contains(propertyIdSet, Pid::TEXT_LINE_SPACING)) {
         loadPropertyItem(m_textLineSpacing, formatDoubleFunc);
+    }
+
+    if (muse::contains(propertyIdSet, Pid::TEXT_LETTER_SPACING)) {
+        loadPropertyItem(m_textLetterSpacing, formatDoubleFunc);
     }
 
     if (muse::contains(propertyIdSet, Pid::ALIGN)) {
@@ -231,6 +237,7 @@ void TextSettingsModel::resetProperties()
     m_fontStyle->resetToDefault();
     m_fontSize->resetToDefault();
     m_textLineSpacing->resetToDefault();
+    m_textLetterSpacing->resetToDefault();
     m_isSizeSpatiumDependent->resetToDefault();
     m_symbolSize->resetToDefault();
 
@@ -300,6 +307,11 @@ PropertyItem* TextSettingsModel::fontSize() const
 PropertyItem* TextSettingsModel::textLineSpacing() const
 {
     return m_textLineSpacing;
+}
+
+PropertyItem* TextSettingsModel::textLetterSpacing() const
+{
+    return m_textLetterSpacing;
 }
 
 PropertyItem* TextSettingsModel::horizontalAlignment() const

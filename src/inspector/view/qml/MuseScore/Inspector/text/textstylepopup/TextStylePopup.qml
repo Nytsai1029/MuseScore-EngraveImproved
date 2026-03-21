@@ -398,6 +398,41 @@ AbstractElementPopup {
                         }
                     }
                 }
+
+                RowLayout {
+                    spacing: root.elementSpacing
+
+                    StyledTextLabel {
+                        width: 2 * root.elementSize + root.elementSpacing
+                        horizontalAlignment: Text.AlignLeft
+
+                        text: qsTrc("inspector", "Letter spacing:")
+                    }
+
+                    IncrementalPropertyControl {
+                        id: letterSpacingSpinBox
+
+                        navigation.name: "letterSpacingSpinBox"
+                        navigation.panel: textStyleSettingsNavPanel
+                        navigation.row: lineSpacingSpinBox.navigation.row + 1
+                        navigation.accessible.name: qsTrc("inspector", "Letter spacing")
+
+                        Layout.preferredWidth: 2 * root.elementSize + root.elementSpacing
+
+                        currentValue: textStyleModel.textSettingsModel.textLetterSpacing.value
+
+                        measureUnitsSymbol: "%"
+
+                        decimals: 0
+                        step: 1
+                        minValue: -95
+                        maxValue: 500
+
+                        onValueEditingFinished: function (newValue) {
+                            textStyleModel.textSettingsModel.textLetterSpacing.value = newValue;
+                        }
+                    }
+                }
             }
         }
 
@@ -458,7 +493,7 @@ AbstractElementPopup {
 
                     navigation.name: "framePopupButton"
                     navigation.panel: textStyleSettingsNavPanel
-                    navigation.row: lineSpacingSpinBox.navigation.row + 1
+                    navigation.row: letterSpacingSpinBox.navigation.row + 1
 
                     visible: !textStyleModel.textSettingsModel.isDynamicSpecificSettings
 

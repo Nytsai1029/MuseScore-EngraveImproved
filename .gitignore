@@ -86,3 +86,5 @@ CMakeUserPresets.json
 .cache/*
 compile_commands.json
 **/.qmlls.ini
+
+codex.md

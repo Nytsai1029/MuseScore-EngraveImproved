@@ -689,6 +689,8 @@ class EngravingItem : public apiv1::ScoreElement
     /// For text-based elements: The line spacing they use.
     ///\since MuseScore 4.6
     API_PROPERTY_T(qreal, lineSpacing,    TEXT_LINE_SPACING)
+    /// For text-based elements: The letter spacing they use, as a percentage delta.
+    API_PROPERTY_T(qreal, letterSpacing,  TEXT_LETTER_SPACING)
 
     /// For text-based elements: Their border type,
     /// one of PluginAPI::PluginAPI::FrameType values.

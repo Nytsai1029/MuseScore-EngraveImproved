@@ -343,6 +343,7 @@ enum class Pid {
     FONT_SIZE,
     FONT_STYLE,
     TEXT_LINE_SPACING,
+    TEXT_LETTER_SPACING,
 
     FRAME_TYPE,
     FRAME_WIDTH,

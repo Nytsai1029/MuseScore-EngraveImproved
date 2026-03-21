@@ -1119,6 +1119,15 @@ EditStyle::EditStyle(QWidget* parent)
         textStyleValueChanged(TextStylePropertyType::LineSpacing, textStyleLineSpacing->value());
     });
 
+    // letter spacing
+    WidgetUtils::setWidgetIcon(resetTextStyleLetterSpacing, IconCode::Code::UNDO);
+    connect(resetTextStyleLetterSpacing, &QToolButton::clicked, this, [=]() {
+        resetTextStyle(TextStylePropertyType::LetterSpacing);
+    });
+    connect(textStyleLetterSpacing, &QDoubleSpinBox::valueChanged, this, [=]() {
+        textStyleValueChanged(TextStylePropertyType::LetterSpacing, textStyleLetterSpacing->value());
+    });
+
     // font style
     WidgetUtils::setWidgetIcon(resetTextStyleFontStyle, IconCode::Code::UNDO);
     connect(resetTextStyleFontStyle, &QToolButton::clicked, this, [=]() {
@@ -2727,6 +2736,11 @@ void EditStyle::textStyleChanged(int row)
         case TextStylePropertyType::LineSpacing:
             textStyleLineSpacing->setValue(styleValue(a.sid).toDouble());
             resetTextStyleLineSpacing->setEnabled(styleValue(a.sid) != defaultStyleValue(a.sid));
+            break;
+
+        case TextStylePropertyType::LetterSpacing:
+            textStyleLetterSpacing->setValue(styleValue(a.sid).toDouble());
+            resetTextStyleLetterSpacing->setEnabled(styleValue(a.sid) != defaultStyleValue(a.sid));
             break;
 
         case TextStylePropertyType::MusicalSymbolsScale:

@@ -4467,11 +4467,12 @@ void TRead::read(compat::TremoloCompat* tc, XmlReader& e, ReadContext& ctx)
     }
 }
 
-static constexpr std::array<Pid, 18> TextBasePropertyId { {
+static constexpr std::array<Pid, 14> TextBasePropertyId { {
     Pid::TEXT_STYLE,
     Pid::FONT_FACE,
     Pid::FONT_SIZE,
     Pid::TEXT_LINE_SPACING,
+    Pid::TEXT_LETTER_SPACING,
     Pid::FONT_STYLE,
     Pid::COLOR,
     Pid::FRAME_TYPE,

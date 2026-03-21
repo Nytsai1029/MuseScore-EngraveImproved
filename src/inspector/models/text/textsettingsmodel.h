@@ -39,6 +39,7 @@ class TextSettingsModel : public AbstractInspectorModel
     Q_PROPERTY(PropertyItem * fontStyle READ fontStyle CONSTANT)
     Q_PROPERTY(PropertyItem * fontSize READ fontSize CONSTANT)
     Q_PROPERTY(PropertyItem * textLineSpacing READ textLineSpacing CONSTANT)
+    Q_PROPERTY(PropertyItem * textLetterSpacing READ textLetterSpacing CONSTANT)
     Q_PROPERTY(PropertyItem * horizontalAlignment READ horizontalAlignment CONSTANT)
     Q_PROPERTY(PropertyItem * verticalAlignment READ verticalAlignment CONSTANT)
 
@@ -85,6 +86,7 @@ public:
     PropertyItem* fontStyle() const;
     PropertyItem* fontSize() const;
     PropertyItem* textLineSpacing() const;
+    PropertyItem* textLetterSpacing() const;
     PropertyItem* horizontalAlignment() const;
     PropertyItem* verticalAlignment() const;
 
@@ -153,6 +155,7 @@ private:
     PropertyItem* m_fontStyle = nullptr;
     PropertyItem* m_fontSize = nullptr;
     PropertyItem* m_textLineSpacing = nullptr;
+    PropertyItem* m_textLetterSpacing = nullptr;
     PropertyItem* m_horizontalAlignment = nullptr;
     PropertyItem* m_verticalAlignment = nullptr;
 

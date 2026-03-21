@@ -121,6 +121,10 @@ public:
     bool strike() const;
     void setStrike(bool arg);
 
+    //! Percentage delta where 0.0 keeps the default glyph spacing.
+    double letterSpacing() const;
+    void setLetterSpacing(double spacing);
+
     void setNoFontMerging(bool arg);
     bool noFontMerging() const;
 
@@ -145,6 +149,7 @@ private:
     int m_pixelSize = -1;
     Weight m_weight = Weight::Normal;
     muse::Flags<Style> m_style{ Style::Normal };
+    double m_letterSpacing = 0.0;
     bool m_noFontMerging = false;
     Hinting m_hinting = Hinting::PreferDefaultHinting;
 };

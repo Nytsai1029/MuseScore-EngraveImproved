@@ -43,6 +43,7 @@ bool Font::operator ==(const Font& other) const
            && RealIsEqual(m_pointSizeF, other.m_pointSizeF)
            && m_weight == other.m_weight
            && m_style == other.m_style
+           && RealIsEqual(m_letterSpacing, other.m_letterSpacing)
            && m_noFontMerging == other.m_noFontMerging
            && m_hinting == other.m_hinting;
 }
@@ -135,6 +136,16 @@ void Font::setStrike(bool arg)
     m_style.setFlag(Style::Strike, arg);
 }
 
+double Font::letterSpacing() const
+{
+    return m_letterSpacing;
+}
+
+void Font::setLetterSpacing(double spacing)
+{
+    m_letterSpacing = spacing;
+}
+
 void Font::setNoFontMerging(bool arg)
 {
     m_noFontMerging = arg;
@@ -173,6 +184,9 @@ QFont Font::toQFont() const
     qf.setItalic(italic());
     qf.setUnderline(underline());
     qf.setStrikeOut(strike());
+    if (!RealIsNull(m_letterSpacing)) {
+        qf.setLetterSpacing(QFont::PercentageSpacing, 100.0 + m_letterSpacing);
+    }
     if (noFontMerging()) {
         qf.setStyleStrategy(QFont::NoFontMerging);
     }
@@ -194,6 +208,9 @@ Font Font::fromQFont(const QFont& qf, Font::Type type)
     f.setItalic(qf.italic());
     f.setUnderline(qf.underline());
     f.setStrike(qf.strikeOut());
+    if (qf.letterSpacingType() == QFont::PercentageSpacing) {
+        f.setLetterSpacing(qf.letterSpacing() - 100.0);
+    }
     if (qf.styleStrategy() == QFont::NoFontMerging) {
         f.setNoFontMerging(true);
     }

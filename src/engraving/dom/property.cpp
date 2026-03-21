@@ -335,6 +335,7 @@ static constexpr PropertyMetaData propertyList[] = {
     { Pid::FONT_SIZE,               false, "size",                  P_TYPE::REAL,               PropertyGroup::TEXT,            QT_TRANSLATE_NOOP("engraving/propertyName", "size") },
     { Pid::FONT_STYLE,              false, "fontStyle",             P_TYPE::INT,                PropertyGroup::TEXT,            QT_TRANSLATE_NOOP("engraving/propertyName", "font style") },
     { Pid::TEXT_LINE_SPACING,       false, "textLineSpacing",       P_TYPE::REAL,               PropertyGroup::TEXT,            QT_TRANSLATE_NOOP("engraving/propertyName", "user line distancing") },
+    { Pid::TEXT_LETTER_SPACING,     false, "textLetterSpacing",     P_TYPE::REAL,               PropertyGroup::TEXT,            QT_TRANSLATE_NOOP("engraving/propertyName", "letter spacing") },
 
     { Pid::FRAME_TYPE,              false, "frameType",             P_TYPE::INT,                PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "frame type") },
     { Pid::FRAME_WIDTH,             false, "frameWidth",            P_TYPE::SPATIUM,            PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "frame width") },

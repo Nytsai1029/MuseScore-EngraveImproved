@@ -994,6 +994,7 @@ Font TextFragment::font(const TextBase* t) const
     assert(m > 0.0);
 
     font.setPointSizeF(m * t->mag());
+    font.setLetterSpacing(t->textLetterSpacing());
     return font;
 }
 
@@ -2759,6 +2760,7 @@ Font TextBase::font() const
     if (strike()) {
         f.setStrike(strike());
     }
+    f.setLetterSpacing(textLetterSpacing());
 
     return f;
 }
@@ -2808,6 +2810,8 @@ PropertyValue TextBase::getProperty(Pid propertyId) const
         return static_cast<int>(m_cursor->selectedFragmentsFormat().style());
     case Pid::TEXT_LINE_SPACING:
         return textLineSpacing();
+    case Pid::TEXT_LETTER_SPACING:
+        return textLetterSpacing();
     case Pid::FRAME_TYPE:
         return static_cast<int>(frameType());
     case Pid::FRAME_WIDTH:
@@ -2875,6 +2879,9 @@ bool TextBase::setProperty(Pid pid, const PropertyValue& v)
         break;
     case Pid::TEXT_LINE_SPACING:
         setTextLineSpacing(v.toReal());
+        break;
+    case Pid::TEXT_LETTER_SPACING:
+        setTextLetterSpacing(v.toReal());
         break;
     case Pid::FRAME_TYPE:
         setFrameType(FrameType(v.toInt()));

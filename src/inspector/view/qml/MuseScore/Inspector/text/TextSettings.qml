@@ -165,6 +165,28 @@ Column {
         maxValue: 10
     }
 
+    SpinBoxPropertyView {
+        id: textLetterSpacingSection
+        anchors.left: parent.horizontalCenter
+        anchors.leftMargin: 2
+        anchors.right: parent.right
+
+        visible: root.model ? root.model.isLineSpacingAvailable : false
+
+        navigationName: "Letter Spacing"
+        navigationPanel: root.navigationPanel
+        navigationRowStart: textLineSpacingSection.navigationRowEnd + 1
+
+        titleText: qsTrc("inspector", "Letter spacing")
+        measureUnitsSymbol: "%"
+        propertyItem: root.model ? root.model.textLetterSpacing : null
+
+        decimals: 0
+        step: 1
+        minValue: -95
+        maxValue: 500
+    }
+
     SeparatorLine {
         visible: root.model ? !root.model.isDynamicSpecificSettings : false
         anchors.margins: -12
@@ -177,7 +199,7 @@ Column {
 
         navigationName: "Text style"
         navigationPanel: root.navigationPanel
-        navigationRowStart: textLineSpacingSection.navigationRowEnd + 1
+        navigationRowStart: textLetterSpacingSection.navigationRowEnd + 1
 
         visible: root.model ? !root.model.isDynamicSpecificSettings : false
         height: visible ? implicitHeight : 0

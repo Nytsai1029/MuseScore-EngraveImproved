@@ -228,3 +228,19 @@ TEST_F(Engraving_TextBaseTests, musicalSymbolsNotItalic)
     EXPECT_TRUE(fragmentList.front().font(dynamic).italic());
     EXPECT_TRUE(!std::next(fragmentList.begin())->font(dynamic).italic());
 }
+
+TEST_F(Engraving_TextBaseTests, letterSpacingAppliedToTextFonts)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    StaffText* staffText = addStaffText(score);
+    staffText->setPlainText(u"Spacing");
+    staffText->setProperty(Pid::TEXT_LETTER_SPACING, PropertyValue::fromValue(25.0));
+
+    EXPECT_DOUBLE_EQ(staffText->propertyDefault(Pid::TEXT_LETTER_SPACING).toDouble(), 0.0);
+    EXPECT_DOUBLE_EQ(staffText->font().letterSpacing(), 25.0);
+
+    score->renderer()->layoutItem(staffText);
+    auto fragmentList = staffText->fragmentList();
+    ASSERT_FALSE(fragmentList.empty());
+    EXPECT_DOUBLE_EQ(fragmentList.front().font(staffText).letterSpacing(), 25.0);
+}

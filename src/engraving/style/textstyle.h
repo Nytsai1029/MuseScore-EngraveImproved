@@ -31,6 +31,7 @@ enum class TextStylePropertyType : char {
     FontFace,
     FontSize,
     LineSpacing,
+    LetterSpacing,
     SizeSpatiumDependent,
     FontStyle,
     Color,
@@ -52,7 +53,7 @@ struct TextStyleProperty {
     Pid pid;
 };
 
-constexpr size_t TEXT_STYLE_SIZE = 16;
+constexpr size_t TEXT_STYLE_SIZE = 17;
 
 typedef std::array<TextStyleProperty, TEXT_STYLE_SIZE> TextStyle;
 
