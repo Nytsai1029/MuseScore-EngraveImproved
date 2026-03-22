@@ -182,6 +182,16 @@ void EditModeRenderer::drawDynamic(Dynamic* item, muse::draw::Painter* painter, 
 
 void EditModeRenderer::drawSlurTieSegment(SlurTieSegment* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling)
 {
+    if (ed.grips < int(Grip::GRIPS)) {
+        if (ed.grips >= 2) {
+            painter->setPen(Pen(item->configuration()->scoreGreyColor(), 0.0));
+            painter->drawLine(LineF(PointF(ed.grip[int(Grip::START)].center()), PointF(ed.grip[int(Grip::END)].center())));
+        }
+
+        drawEngravingItem(item, painter, ed, currentViewScaling);
+        return;
+    }
+
     SlurSegment* slurSegment = item->isSlurSegment() ? static_cast<SlurSegment*>(item) : nullptr;
     if (slurSegment && slurSegment->useBezierKnotControls() && ed.grips > int(Grip::GRIPS)) {
         const int firstKnotGrip = int(Grip::GRIPS);

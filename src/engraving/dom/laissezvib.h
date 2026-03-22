@@ -38,7 +38,9 @@ public:
 
     LaissezVib* laissezVib() const { return (LaissezVib*)spanner(); }
 
-    int gripsCount() const override { return 0; }
+    int gripsCount() const override { return 2; }
+    Grip initialEditModeGrip() const override { return Grip::END; }
+    Grip defaultGrip() const override { return Grip::END; }
     void editDrag(EditData&) override;
 
     struct LayoutData : public TieSegment::LayoutData {

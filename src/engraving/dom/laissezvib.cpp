@@ -106,9 +106,37 @@ LaissezVibSegment::LaissezVibSegment(const LaissezVibSegment& s)
 {
 }
 
-void LaissezVibSegment::editDrag(EditData&)
+void LaissezVibSegment::editDrag(EditData& ed)
 {
-    // do nothing: dragging is already done by the `drag` method
+    if (ed.curGrip != Grip::START && ed.curGrip != Grip::END) {
+        return;
+    }
+
+    consolidateAdjustmentOffsetIntoUserOffset();
+
+    double deltaX = ed.delta.x();
+    const double minWidth = 0.1 * spatium();
+    const double startX = ups(Grip::START).pos().x();
+    const double endX = ups(Grip::END).pos().x();
+    if (ed.curGrip == Grip::START) {
+        const double maxDeltaX = endX - startX - minWidth;
+        if (deltaX > maxDeltaX) {
+            deltaX = maxDeltaX;
+        }
+    } else {
+        const double minDeltaX = startX - endX + minWidth;
+        if (deltaX < minDeltaX) {
+            deltaX = minDeltaX;
+        }
+    }
+
+    if (muse::RealIsNull(deltaX)) {
+        return;
+    }
+
+    ups(ed.curGrip).off += PointF(deltaX, 0.0);
+    renderer()->computeBezier(this);
+    triggerLayout();
 }
 
 String LaissezVibSegment::formatBarsAndBeats() const

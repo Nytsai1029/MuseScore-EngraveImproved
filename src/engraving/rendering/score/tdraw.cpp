@@ -1994,7 +1994,7 @@ void TDraw::draw(const KeySig* item, Painter* painter)
 void TDraw::draw(const LaissezVibSegment* item, muse::draw::Painter* painter)
 {
     const LaissezVibSegment::LayoutData* ldata = item->ldata();
-    if (item->score()->style().styleB(Sid::laissezVibUseSmuflSym)) {
+    if (item->score()->style().styleB(Sid::laissezVibUseSmuflSym) && !item->isEdited()) {
         painter->setPen(item->curColor());
         item->drawSymbol(ldata->symbol, painter);
     } else {

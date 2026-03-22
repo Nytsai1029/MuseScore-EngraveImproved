@@ -1877,6 +1877,7 @@ LaissezVibSegment* SlurTieLayout::createLaissezVibSegment(LaissezVib* item)
 void SlurTieLayout::calculateLaissezVibX(LaissezVibSegment* segment, SlurTiePos& sPos, bool smufl)
 {
     LaissezVib* lv = segment->laissezVib();
+    const bool useSmuflSymbol = smufl && !segment->isEdited();
 
     computeStartAndEndSystem(lv, sPos);
     sPos.p1 = computeDefaultStartOrEndPoint(lv, Grip::START);
@@ -1887,7 +1888,7 @@ void SlurTieLayout::calculateLaissezVibX(LaissezVibSegment* segment, SlurTiePos&
         adjustX(segment, sPos, Grip::START);
     }
 
-    if (smufl) {
+    if (useSmuflSymbol) {
         LaissezVibSegment::LayoutData* ldata = segment->mutldata();
         ldata->symbol = lv->symId();
         ldata->setBbox(segment->symBbox(ldata->symbol));
@@ -1895,7 +1896,7 @@ void SlurTieLayout::calculateLaissezVibX(LaissezVibSegment* segment, SlurTiePos&
         ldata->setMag(segment->laissezVib()->startNote()->mag());
     }
 
-    const double width = smufl ? segment->width() : lv->absoluteFromSpatium(lv->minLength());
+    const double width = useSmuflSymbol ? segment->width() : lv->absoluteFromSpatium(lv->minLength());
 
     sPos.p2 = PointF(sPos.p1.x() + width, sPos.p1.y());
 }
@@ -2062,16 +2063,17 @@ void SlurTieLayout::layoutLaissezVibChord(Chord* chord, LayoutContext& ctx)
         LaissezVibSegment* lvSeg = segWithPos.first;
         const Note* note = lvSeg->laissezVib()->startNote();
         SlurTiePos sPos = segWithPos.second;
+        const bool useSmuflSymbol = smuflLayout && !lvSeg->isEdited();
         const double xDiff = chordLvEndPoint - sPos.p2.x();
         sPos.p2.setX(chordLvEndPoint);
-        if (smuflLayout) {
+        if (useSmuflSymbol) {
             sPos.p1.setX(sPos.p1.x() + xDiff);
         }
 
         calculateLaissezVibY(lvSeg, sPos);
 
         LaissezVibSegment::LayoutData* ldata = lvSeg->mutldata();
-        if (smuflLayout) {
+        if (useSmuflSymbol) {
             ldata->setBbox(lvSeg->symBbox(ldata->symbol));
             ldata->setShape(Shape(ldata->bbox(), lvSeg));
             ldata->setPos(sPos.p1);
