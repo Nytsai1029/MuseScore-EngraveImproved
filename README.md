@@ -6,4 +6,11 @@ Score engraving improvements for MuseScore Studio.
 
 ## Features
 
+- Broken slur / ottav
+- Editable ledger line lengths
+- Better horizontal spacing(still improving)
+- Editable beam slant rules
+- Note free to move if is not auto-places. (fewer limit)
+- Lv lines able to be longer.
+- Text spacing editable.
 - ...
