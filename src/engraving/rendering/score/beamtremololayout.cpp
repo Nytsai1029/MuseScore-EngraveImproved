@@ -123,6 +123,21 @@ static int customMaxSlopeByInterval(const BeamBase::LayoutData* ldata, int inter
     return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantGreaterThanOctave, 6));
 }
 
+static int maxCrossStaffCustomSlope(const BeamBase::LayoutData* ldata, int interval)
+{
+    return std::max(0, customMaxSlopeByInterval(ldata, interval));
+}
+
+static int clampCrossStaffSlantToCustomRules(const BeamBase::LayoutData* ldata, int desiredSlant, int interval)
+{
+    if (desiredSlant == 0 || useDefaultBeamSlantRules(ldata)) {
+        return desiredSlant;
+    }
+
+    int absSlant = std::min(std::abs(desiredSlant), maxCrossStaffCustomSlope(ldata, interval));
+    return desiredSlant < 0 ? -absSlant : absSlant;
+}
+
 static BeamBase::NotePosition chordNoteClosestToBeam(const Chord* chord, bool beamUp)
 {
     IF_ASSERT_FAILED(chord) {
@@ -1119,6 +1134,7 @@ bool BeamTremoloLayout::calculateAnchorsCross(const BeamBase* item, BeamBase::La
     ldata->endAnchor.setX(chordBeamAnchorX(ldata, endCr, ChordBeamAnchorType::End));
 
     ldata->slope = 0;
+    const bool applyDefaultSlantRules = useDefaultBeamSlantRules(ldata);
 
     // Calculates & sets slope
     if (!noSlope(ldata->beam)) {
@@ -1150,7 +1166,11 @@ bool BeamTremoloLayout::calculateAnchorsCross(const BeamBase* item, BeamBase::La
                 yLast = StemLayout::stemPos(topFirst).y();
             }
             int desiredSlant = round((yFirst - yLast) / spatium);
-            int slant = std::min(std::abs(desiredSlant), getMaxSlope(ldata));
+            int slantLimit = getMaxSlope(ldata);
+            if (!applyDefaultSlantRules) {
+                slantLimit = maxCrossStaffCustomSlope(ldata, std::abs(topFirstLine - bottomFirstLine));
+            }
+            int slant = std::min(std::abs(desiredSlant), slantLimit);
             slant *= (desiredSlant < 0) ? -quarterSpace : quarterSpace;
             ldata->startAnchor.ry() += (slant / 2);
             ldata->endAnchor.ry() -= (slant / 2);
@@ -1210,15 +1230,23 @@ bool BeamTremoloLayout::calculateAnchorsCross(const BeamBase* item, BeamBase::La
 
             if (!forceHoriz) {
                 int slant = 0;
+                int slantInterval = 0;
                 if (topSlant == 0) {
                     slant = bottomSlant;
+                    slantInterval = std::abs(bottomSlant);
                 } else if (bottomSlant == 0) {
                     slant = topSlant;
+                    slantInterval = std::abs(topSlant);
                 } else {
                     slant = (std::abs(topSlant) < std::abs(bottomSlant)) ? topSlant : bottomSlant;
+                    slantInterval = std::min(std::abs(topSlant), std::abs(bottomSlant));
                 }
 
-                const int absSlant = std::min(std::abs(slant), getMaxSlope(ldata));
+                int slantLimit = getMaxSlope(ldata);
+                if (!applyDefaultSlantRules) {
+                    slantLimit = maxCrossStaffCustomSlope(ldata, slantInterval);
+                }
+                const int absSlant = std::min(std::abs(slant), slantLimit);
                 const double slope = absSlant * ((slant < 0) ? -quarterSpace : quarterSpace);
                 ldata->startAnchor.ry() += (slope / 2);
                 ldata->endAnchor.ry() -= (slope / 2);
@@ -1327,7 +1355,8 @@ int BeamTremoloLayout::computeDesiredSlant(const BeamBase* item, const BeamBase:
         // When the notes on the stave closest to the beam have a neutral direction, set a slant of 1/-1 in the direction of the staff change between first and last chords
         if (staveClosestToBeamDir == 0 && beamDir != 0) {
             if (startPos.staff != endPos.staff) {
-                return std::abs(beamDir) * (ldata->up ? 1 : -1);
+                int desiredSlant = std::abs(beamDir) * (ldata->up ? 1 : -1);
+                return clampCrossStaffSlantToCustomRules(ldata, desiredSlant, std::abs(endPos.line - startPos.line));
             }
         }
     }

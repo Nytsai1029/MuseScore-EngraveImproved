@@ -22,13 +22,19 @@
 
 #include <gtest/gtest.h>
 
+#include <cmath>
+#include <set>
+
 #include "dom/beam.h"
 #include "dom/chord.h"
 #include "dom/chordrest.h"
 #include "dom/masterscore.h"
 #include "dom/measure.h"
 #include "dom/note.h"
+#include "dom/segment.h"
 #include "dom/tremolotwochord.h"
+
+#include "style/styledef.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
@@ -37,6 +43,35 @@ using namespace mu;
 using namespace mu::engraving;
 
 static const String BEAM_DATA_DIR("beam_data/");
+static const String MEASURE_DATA_DIR("measure_data/");
+
+static std::vector<Beam*> collectCrossStaffBeams(MasterScore* score)
+{
+    std::vector<Beam*> beams;
+    std::set<Beam*> seen;
+
+    for (Measure* measure = score->firstMeasure(); measure; measure = measure->nextMeasure()) {
+        for (Segment* segment = measure->first(SegmentType::ChordRest); segment; segment = segment->next(SegmentType::ChordRest)) {
+            for (track_idx_t track = 0; track < score->ntracks(); ++track) {
+                ChordRest* cr = segment->cr(track);
+                if (!cr) {
+                    continue;
+                }
+
+                Beam* beam = cr->beam();
+                if (!beam || !beam->cross() || beam->elements().empty() || beam->elements().front() != cr) {
+                    continue;
+                }
+
+                if (seen.insert(beam).second) {
+                    beams.push_back(beam);
+                }
+            }
+        }
+    }
+
+    return beams;
+}
 
 //---------------------------------------------------------
 //   TestBeam
@@ -104,6 +139,53 @@ TEST_F(Engraving_BeamTests, beamPositions)
 TEST_F(Engraving_BeamTests, beamNoSlope)
 {
     beam("beamNoSlope.mscx");
+}
+
+TEST_F(Engraving_BeamTests, crossStaffBeamsRespectCustomSlantRules)
+{
+    MasterScore* score = ScoreRW::readScore(MEASURE_DATA_DIR + u"measure-2.mscx");
+    EXPECT_TRUE(score);
+
+    score->doLayout();
+
+    std::vector<Beam*> defaultCrossBeams = collectCrossStaffBeams(score);
+    EXPECT_FALSE(defaultCrossBeams.empty());
+
+    int nonZeroDefaultSlopes = 0;
+    for (Beam* beam : defaultCrossBeams) {
+        if (std::abs(beam->slope()) > 0.001) {
+            ++nonZeroDefaultSlopes;
+        }
+    }
+    EXPECT_GT(nonZeroDefaultSlopes, 0);
+
+    score->style().set(Sid::useDefaultBeamSlantRules, false);
+    score->style().set(Sid::beamCustomMaxSlantForTwoNotes, 0);
+    score->style().set(Sid::beamCustomTwoNoteMaxSlantSecondInterval, 0);
+    score->style().set(Sid::beamCustomTwoNoteMaxSlantThirdInterval, 0);
+    score->style().set(Sid::beamCustomTwoNoteMaxSlantFourthToNinthInterval, 0);
+    score->style().set(Sid::beamCustomTwoNoteMaxSlantTenthInterval, 0);
+    score->style().set(Sid::beamCustomTwoNoteMaxSlantGreaterThanTenthInterval, 0);
+    score->style().set(Sid::beamCustomMaxSlantSecondInterval, 0);
+    score->style().set(Sid::beamCustomMaxSlantThirdInterval, 0);
+    score->style().set(Sid::beamCustomMaxSlantFourthInterval, 0);
+    score->style().set(Sid::beamCustomMaxSlantFifthInterval, 0);
+    score->style().set(Sid::beamCustomMaxSlantSixthInterval, 0);
+    score->style().set(Sid::beamCustomMaxSlantSeventhInterval, 0);
+    score->style().set(Sid::beamCustomMaxSlantOctave, 0);
+    score->style().set(Sid::beamCustomMaxSlantGreaterThanOctave, 0);
+
+    score->setLayoutAll();
+    score->doLayout();
+
+    std::vector<Beam*> customCrossBeams = collectCrossStaffBeams(score);
+    EXPECT_EQ(customCrossBeams.size(), defaultCrossBeams.size());
+
+    for (Beam* beam : customCrossBeams) {
+        EXPECT_NEAR(beam->slope(), 0.0, 0.001);
+    }
+
+    delete score;
 }
 
 TEST_F(Engraving_BeamTests, flippedDirection)
