@@ -251,6 +251,8 @@ const std::array<StyleDef::StyleValue, size_t(Sid::STYLES)> StyleDef::styleValue
     styleDef(alignOffsetOctaveAccidentals,               false),
 
     styleDef(keysigAccidentalDistance,                   Spatium(0.3)),
+    styleDef(keysigSharpAccidentalDistance,              Spatium(0.3)),
+    styleDef(keysigFlatAccidentalDistance,               Spatium(0.3)),
     styleDef(keysigNaturalDistance,                      Spatium(0.4)),
 
     styleDef(beamWidth,                                  Spatium(0.5)),

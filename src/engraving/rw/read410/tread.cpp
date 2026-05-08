@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#include <string>
+
 #include "tread.h"
 
 #include "../../types/typesconv.h"
@@ -1302,13 +1304,25 @@ void TRead::read(KeySig* s, XmlReader& e, ReadContext& ctx)
                     e.readNext();
                 } else if (t == "pos") { // for older files
                     double prevx = 0;
-                    double accidentalGap = ctx.score()->style().styleS(Sid::keysigAccidentalDistance).val();
+                    const std::string accidentalName(SymNames::nameForSymId(cd.sym).ascii());
+                    bool flat = accidentalName.find("Flat") != std::string::npos;
+                    auto accidentalGap = [&ctx](SymId sym) {
+                        const std::string name(SymNames::nameForSymId(sym).ascii());
+                        bool symbolFlat = name.find("Flat") != std::string::npos;
+                        bool symbolSharp = name.find("Sharp") != std::string::npos;
+                        Sid sid = symbolSharp ? Sid::keysigSharpAccidentalDistance
+                                  : symbolFlat ? Sid::keysigFlatAccidentalDistance
+                                               : Sid::keysigAccidentalDistance;
+                        return ctx.score()->style().styleS(sid).val();
+                    };
                     double _spatium = s->spatium();
                     // count default x position
-                    for (CustDef& cd2 : sig.customKeyDefs()) {
-                        prevx += s->symWidth(cd2.sym) / _spatium + accidentalGap + cd2.xAlt;
+                    const auto& customDefs = sig.customKeyDefs();
+                    for (size_t i = 0; i < customDefs.size(); ++i) {
+                        const CustDef& cd2 = customDefs[i];
+                        SymId nextSym = i + 1 < customDefs.size() ? customDefs[i + 1].sym : cd.sym;
+                        prevx += s->symWidth(cd2.sym) / _spatium + accidentalGap(nextSym) + cd2.xAlt;
                     }
-                    bool flat = std::string(SymNames::nameForSymId(cd.sym).ascii()).find("Flat") != std::string::npos;
                     // if x not there, use default step
                     cd.xAlt = e.doubleAttribute("x", prevx) - prevx;
                     // if y not there, use middle line

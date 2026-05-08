@@ -265,6 +265,8 @@ enum class Sid {
     keepAccidentalSecondsTogether,
     alignOffsetOctaveAccidentals,
     keysigAccidentalDistance,
+    keysigSharpAccidentalDistance,
+    keysigFlatAccidentalDistance,
     keysigNaturalDistance,
     beamWidth,
     useWideBeams,

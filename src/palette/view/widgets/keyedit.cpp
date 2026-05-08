@@ -26,6 +26,8 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 
+#include <string>
+
 #include "keyedit.h"
 
 #include "commonscene/commonscenetypes.h"
@@ -53,6 +55,23 @@ using namespace mu;
 using namespace muse::draw;
 using namespace mu::engraving;
 using namespace mu::palette;
+
+static Sid keySigAccidentalDistanceStyleId(SymId sym)
+{
+    const std::string accidentalName(SymNames::nameForSymId(sym).ascii());
+    if (accidentalName.find("Sharp") != std::string::npos) {
+        return Sid::keysigSharpAccidentalDistance;
+    }
+    if (accidentalName.find("Flat") != std::string::npos) {
+        return Sid::keysigFlatAccidentalDistance;
+    }
+    return Sid::keysigAccidentalDistance;
+}
+
+static qreal keySigAccidentalGap(SymId sym)
+{
+    return DefaultStyle::baseStyle().styleS(keySigAccidentalDistanceStyleId(sym)).val();
+}
 
 //---------------------------------------------------------
 //   KeyCanvas
@@ -288,7 +307,7 @@ void KeyCanvas::snap(Accidental* a)
     // take default xposition unless Control is pressed
     int i = accidentals.indexOf(a);
     if (i > 0) {
-        qreal accidentalGap = DefaultStyle::baseStyle().styleS(Sid::keysigAccidentalDistance).val() * _spatium;
+        qreal accidentalGap = keySigAccidentalGap(a->symId()) * _spatium;
         Accidental* prev = accidentals[i - 1];
         double prevX = prev->ldata()->pos().x();
         qreal prevWidth = prev->symWidth(prev->symId());
@@ -383,7 +402,6 @@ void KeyEditor::addClicked()
 
     KeySigEvent e;
     e.setCustom(true);
-    qreal accidentalGap = DefaultStyle::baseStyle().styleS(Sid::keysigAccidentalDistance).val();
     for (int i = 0; i < al.size(); ++i) {
         Accidental* a = al[i];
         CustDef c;
@@ -394,6 +412,7 @@ void KeyEditor::addClicked()
             Accidental* prev = al[i - 1];
             PointF prevPos = prev->ldata()->pos();
             qreal prevWidth = prev->symWidth(prev->symId());
+            qreal accidentalGap = keySigAccidentalGap(c.sym);
             c.xAlt -= (prevPos.x() - xoff + prevWidth) / spatium + accidentalGap;
         }
         int line = static_cast<int>(round((pos.y() / spatium) * 2));

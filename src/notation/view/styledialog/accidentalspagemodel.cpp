@@ -28,6 +28,9 @@ AccidentalsPageModel::AccidentalsPageModel(QObject* parent)
     StyleId::bracketedAccidentalPadding,
 
     StyleId::keySigNaturals,
+    StyleId::keysigSharpAccidentalDistance,
+    StyleId::keysigFlatAccidentalDistance,
+    StyleId::keysigNaturalDistance,
 
     StyleId::accidentalOrderFollowsNoteDisplacement,
     StyleId::alignAccidentalOctavesAcrossSubChords,
@@ -45,6 +48,21 @@ StyleItem* AccidentalsPageModel::bracketedAccidentalPadding() const
 StyleItem* AccidentalsPageModel::keySigNaturals() const
 {
     return styleItem(StyleId::keySigNaturals);
+}
+
+StyleItem* AccidentalsPageModel::keySigSharpAccidentalDistance() const
+{
+    return styleItem(StyleId::keysigSharpAccidentalDistance);
+}
+
+StyleItem* AccidentalsPageModel::keySigFlatAccidentalDistance() const
+{
+    return styleItem(StyleId::keysigFlatAccidentalDistance);
+}
+
+StyleItem* AccidentalsPageModel::keySigNaturalDistance() const
+{
+    return styleItem(StyleId::keysigNaturalDistance);
 }
 
 StyleItem* AccidentalsPageModel::accidFollowNoteOffset() const

@@ -22,10 +22,66 @@
 #include "font.h"
 #include "global/realfn.h"
 
+#ifndef NO_QT_SUPPORT
+#include <QFontDatabase>
+#endif
+
 using namespace muse;
 using namespace muse::draw;
 
 bool Font::g_disableFontMerging = false;
+
+#ifndef NO_QT_SUPPORT
+namespace {
+bool fontStyleNameHasItalic(const QString& styleName)
+{
+    return styleName.contains("italic", Qt::CaseInsensitive)
+           || styleName.contains("oblique", Qt::CaseInsensitive);
+}
+
+bool fontStyleNameHasBold(const QString& styleName)
+{
+    return styleName.contains("bold", Qt::CaseInsensitive);
+}
+
+QString matchingStyleName(const QString& family, bool bold, bool italic)
+{
+    if (!bold && !italic) {
+        return QString();
+    }
+
+    const QStringList styles = QFontDatabase::styles(family);
+    if (styles.empty()) {
+        return QString();
+    }
+
+    QStringList preferred;
+    if (bold && italic) {
+        preferred << "Bold Italic" << "Bold Oblique";
+    } else if (bold) {
+        preferred << "Bold";
+    } else {
+        preferred << "Italic" << "Oblique";
+    }
+
+    for (const QString& preferredStyle : preferred) {
+        for (const QString& style : styles) {
+            if (style.compare(preferredStyle, Qt::CaseInsensitive) == 0) {
+                return style;
+            }
+        }
+    }
+
+    for (const QString& style : styles) {
+        if (fontStyleNameHasBold(style) == bold && fontStyleNameHasItalic(style) == italic) {
+            return style;
+        }
+    }
+
+    return QString();
+}
+}
+#endif
 
 Font::Font(const FontFamily& family, Type type)
     : m_family(family), m_type(type)
@@ -173,6 +229,8 @@ void Font::setHinting(Hinting hinting)
 QFont Font::toQFont() const
 {
     QFont qf(family().id());
+    const bool isBold = bold();
+    const bool isItalic = italic();
 
     if (pointSizeF() > 0) {
         qf.setPointSizeF(pointSizeF());
@@ -180,10 +238,20 @@ QFont Font::toQFont() const
         qf.setPixelSize(pixelSize());
     }
     qf.setWeight(static_cast<QFont::Weight>(weight()));
-    qf.setBold(bold());
-    qf.setItalic(italic());
+    qf.setBold(isBold);
+    qf.setItalic(isItalic);
     qf.setUnderline(underline());
     qf.setStrikeOut(strike());
+
+    // Some PDF backends choose the regular face unless a concrete family style is set.
+    const QString styleName = matchingStyleName(family().id(), isBold, isItalic);
+    if (!styleName.isEmpty()) {
+        qf.setStyleName(styleName);
+        qf.setWeight(static_cast<QFont::Weight>(weight()));
+        qf.setBold(isBold);
+        qf.setItalic(isItalic);
+    }
+
     if (!RealIsNull(m_letterSpacing)) {
         qf.setLetterSpacing(QFont::PercentageSpacing, 100.0 + m_letterSpacing);
     }

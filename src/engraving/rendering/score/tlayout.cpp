@@ -20,6 +20,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 #include <cfloat>
+#include <string>
 
 #include "tlayout.h"
 
@@ -3646,6 +3647,45 @@ void TLayout::layoutJump(const Jump* item, Jump::LayoutData* ldata)
     Autoplace::autoplaceMeasureElement(item, ldata);
 }
 
+static bool isKeySigSharpAccidental(SymId sym)
+{
+    return std::string(SymNames::nameForSymId(sym).ascii()).find("Sharp") != std::string::npos;
+}
+
+static bool isKeySigFlatAccidental(SymId sym)
+{
+    return std::string(SymNames::nameForSymId(sym).ascii()).find("Flat") != std::string::npos;
+}
+
+static Sid keySigAccidentalDistanceStyleId(SymId sym)
+{
+    if (isKeySigSharpAccidental(sym)) {
+        return Sid::keysigSharpAccidentalDistance;
+    }
+    if (isKeySigFlatAccidental(sym)) {
+        return Sid::keysigFlatAccidentalDistance;
+    }
+    return Sid::keysigAccidentalDistance;
+}
+
+static double keySigAccidentalDistance(const LayoutConfiguration& conf, SymId sym)
+{
+    return conf.styleS(keySigAccidentalDistanceStyleId(sym)).val();
+}
+
+static double keySigAccidentalDistance(const LayoutConfiguration& conf, SymId previousSym, SymId sym)
+{
+    if (previousSym == SymId::accidentalNatural && sym == SymId::accidentalNatural) {
+        return conf.styleS(Sid::keysigNaturalDistance).val();
+    }
+
+    double accidentalGap = keySigAccidentalDistance(conf, sym);
+    if (previousSym != sym) {
+        accidentalGap *= 2;
+    }
+    return accidentalGap;
+}
+
 static void keySigAddLayout(const KeySig* item, const LayoutConfiguration& conf, SymId sym, int line, KeySig::LayoutData* ldata)
 {
     double _spatium = item->spatium();
@@ -3655,12 +3695,7 @@ static void keySigAddLayout(const KeySig* item, const LayoutConfiguration& conf,
     double x = 0.0;
     if (ldata->keySymbols.size() > 0) {
         const KeySym& previous = ldata->keySymbols.back();
-        double accidentalGap = conf.styleS(Sid::keysigAccidentalDistance).val();
-        if (previous.sym != sym) {
-            accidentalGap *= 2;
-        } else if (previous.sym == SymId::accidentalNatural && sym == SymId::accidentalNatural) {
-            accidentalGap = conf.styleS(Sid::keysigNaturalDistance).val();
-        }
+        double accidentalGap = keySigAccidentalDistance(conf, previous.sym, sym);
         double previousWidth = item->symWidth(previous.sym) / _spatium;
         x = previous.xPos + previousWidth + accidentalGap;
         bool isAscending = line < previous.line;
@@ -3724,7 +3759,8 @@ void TLayout::layoutKeySig(const KeySig* item, KeySig::LayoutData* ldata, const 
     int t1 = int(item->key());
 
     if (item->isCustom() && !item->isAtonal()) {
-        double accidentalGap = conf.styleS(Sid::keysigAccidentalDistance).val();
+        const SymId keyAccidentalSym = t1 > 0 ? SymId::accidentalSharp : SymId::accidentalFlat;
+        const double keyAccidentalGap = keySigAccidentalDistance(conf, keyAccidentalSym);
         // add standard key accidentals first, if necessary
         for (int i = 1; i <= std::abs(t1) && std::abs(t1) <= 7; ++i) {
             bool drop = false;
@@ -3739,12 +3775,12 @@ void TLayout::layoutKeySig(const KeySig* item, KeySig::LayoutData* ldata, const 
             if (!drop) {
                 KeySym ks;
                 int lineIndexOffset = t1 > 0 ? -1 : 6;
-                ks.sym = t1 > 0 ? SymId::accidentalSharp : SymId::accidentalFlat;
+                ks.sym = keyAccidentalSym;
                 ks.line = ClefInfo::lines(clef)[lineIndexOffset + i];
                 if (ldata->keySymbols.size() > 0) {
                     const KeySym& previous = ldata->keySymbols.back();
                     double previousWidth = item->symWidth(previous.sym) / spatium;
-                    ks.xPos = previous.xPos + previousWidth + accidentalGap;
+                    ks.xPos = previous.xPos + previousWidth + keyAccidentalGap;
                 } else {
                     ks.xPos = 0;
                 }
@@ -3760,6 +3796,7 @@ void TLayout::layoutKeySig(const KeySig* item, KeySig::LayoutData* ldata, const 
             accIdx = flat ? 13 - accIdx : accIdx;
             int line = ClefInfo::lines(clef)[accIdx] + cd.octAlt * 7;
             double xpos = cd.xAlt;
+            const double accidentalGap = keySigAccidentalDistance(conf, sym == SymId::noSym ? keyAccidentalSym : sym);
             if (ldata->keySymbols.size() > 0) {
                 const KeySym& previous = ldata->keySymbols.back();
                 double previousWidth = item->symWidth(previous.sym) / spatium;
@@ -3775,7 +3812,7 @@ void TLayout::layoutKeySig(const KeySig* item, KeySig::LayoutData* ldata, const 
                     ks.sym = SymId::accidentalDoubleSharp;
                     sym = SymId::accidentalDoubleSharp;
                 } else {
-                    ks.sym = t1 > 0 ? SymId::accidentalSharp : SymId::accidentalFlat;
+                    ks.sym = keyAccidentalSym;
                     sym = cd.sym;
                 }
                 ldata->keySymbols.push_back(ks);

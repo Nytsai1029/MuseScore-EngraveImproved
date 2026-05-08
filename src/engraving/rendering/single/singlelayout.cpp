@@ -20,6 +20,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <string>
+
 #include "singlelayout.h"
 
 #include "draw/fontmetrics.h"
@@ -1211,6 +1213,32 @@ void SingleLayout::layout(Jump* item, const Context& ctx)
     layoutTextBase(item, ctx, item->mutldata());
 }
 
+static bool isKeySigSharpAccidental(SymId sym)
+{
+    return std::string(SymNames::nameForSymId(sym).ascii()).find("Sharp") != std::string::npos;
+}
+
+static bool isKeySigFlatAccidental(SymId sym)
+{
+    return std::string(SymNames::nameForSymId(sym).ascii()).find("Flat") != std::string::npos;
+}
+
+static Sid keySigAccidentalDistanceStyleId(SymId sym)
+{
+    if (isKeySigSharpAccidental(sym)) {
+        return Sid::keysigSharpAccidentalDistance;
+    }
+    if (isKeySigFlatAccidental(sym)) {
+        return Sid::keysigFlatAccidentalDistance;
+    }
+    return Sid::keysigAccidentalDistance;
+}
+
+static double keySigAccidentalDistance(const MStyle& style, SymId sym)
+{
+    return style.styleS(keySigAccidentalDistanceStyleId(sym)).val();
+}
+
 void SingleLayout::layout(KeySig* item, const Context& ctx)
 {
     KeySig::LayoutData* ldata = item->mutldata();
@@ -1226,7 +1254,8 @@ void SingleLayout::layout(KeySig* item, const Context& ctx)
     int key = int(item->key());
 
     if (item->isCustom() && !item->isAtonal()) {
-        double accidentalGap = ctx.style().styleS(Sid::keysigAccidentalDistance).val();
+        const SymId keyAccidentalSym = key > 0 ? SymId::accidentalSharp : SymId::accidentalFlat;
+        const double keyAccidentalGap = keySigAccidentalDistance(ctx.style(), keyAccidentalSym);
         // add standard key accidentals first, if necessary
         for (int i = 1; i <= std::abs(key) && std::abs(key) <= 7; ++i) {
             bool drop = false;
@@ -1241,12 +1270,12 @@ void SingleLayout::layout(KeySig* item, const Context& ctx)
             if (!drop) {
                 KeySym ks;
                 int lineIndexOffset = key > 0 ? -1 : 6;
-                ks.sym = key > 0 ? SymId::accidentalSharp : SymId::accidentalFlat;
+                ks.sym = keyAccidentalSym;
                 ks.line = ClefInfo::lines(clef)[lineIndexOffset + i];
                 if (ldata->keySymbols.size() > 0) {
                     KeySym& previous = ldata->keySymbols.back();
                     double previousWidth = item->symWidth(previous.sym) / spatium;
-                    ks.xPos = previous.xPos + previousWidth + accidentalGap;
+                    ks.xPos = previous.xPos + previousWidth + keyAccidentalGap;
                 } else {
                     ks.xPos = 0;
                 }
@@ -1262,6 +1291,7 @@ void SingleLayout::layout(KeySig* item, const Context& ctx)
             accIdx = flat ? 13 - accIdx : accIdx;
             int line = ClefInfo::lines(clef)[accIdx] + cd.octAlt * 7;
             double xpos = cd.xAlt;
+            const double accidentalGap = keySigAccidentalDistance(ctx.style(), sym == SymId::noSym ? keyAccidentalSym : sym);
             if (ldata->keySymbols.size() > 0) {
                 KeySym& previous = ldata->keySymbols.back();
                 double previousWidth = item->symWidth(previous.sym) / spatium;
@@ -1277,7 +1307,7 @@ void SingleLayout::layout(KeySig* item, const Context& ctx)
                     ks.sym = SymId::accidentalDoubleSharp;
                     sym = SymId::accidentalDoubleSharp;
                 } else {
-                    ks.sym = key > 0 ? SymId::accidentalSharp : SymId::accidentalFlat;
+                    ks.sym = keyAccidentalSym;
                     sym = cd.sym;
                 }
                 ldata->keySymbols.push_back(ks);
@@ -1296,7 +1326,7 @@ void SingleLayout::layout(KeySig* item, const Context& ctx)
         if (std::abs(key) <= 7) {
             const signed char* lines = ClefInfo::lines(clef);
             SymId sym = key > 0 ? SymId::accidentalSharp : SymId::accidentalFlat;
-            double accidentalGap = ctx.style().styleS(Sid::keysigAccidentalDistance).val();
+            double accidentalGap = keySigAccidentalDistance(ctx.style(), sym);
             double previousWidth = item->symWidth(sym) / spatium;
             int lineIndexOffset = key > 0 ? 0 : 7;
             for (int i = 0; i < std::abs(key); ++i) {

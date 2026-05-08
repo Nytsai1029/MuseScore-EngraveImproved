@@ -86,6 +86,58 @@ StyledFlickable {
 
         StyledGroupBox {
             Layout.fillWidth: true
+            title: qsTrc("notation/editstyle/accidentals", "Accidentals in key signatures")
+
+            ColumnLayout {
+                width: parent.width
+                spacing: 8
+
+                StyleSpinboxWithReset {
+                    styleItem: accidentalsPageModel.keySigSharpAccidentalDistance
+                    label: qsTrc("notation/editstyle/accidentals", "Distance between sharps:")
+
+                    suffix: qsTrc("global", "sp")
+                    decimals: 3
+                    step: 0.1
+                    min: -10.0
+                    max: 10.0
+
+                    labelAreaWidth: -1
+                    controlAreaWidth: spinBoxWidth
+                }
+
+                StyleSpinboxWithReset {
+                    styleItem: accidentalsPageModel.keySigFlatAccidentalDistance
+                    label: qsTrc("notation/editstyle/accidentals", "Distance between flats:")
+
+                    suffix: qsTrc("global", "sp")
+                    decimals: 3
+                    step: 0.1
+                    min: -10.0
+                    max: 10.0
+
+                    labelAreaWidth: -1
+                    controlAreaWidth: spinBoxWidth
+                }
+
+                StyleSpinboxWithReset {
+                    styleItem: accidentalsPageModel.keySigNaturalDistance
+                    label: qsTrc("notation/editstyle/accidentals", "Distance between naturals:")
+
+                    suffix: qsTrc("global", "sp")
+                    decimals: 3
+                    step: 0.1
+                    min: -10.0
+                    max: 10.0
+
+                    labelAreaWidth: -1
+                    controlAreaWidth: spinBoxWidth
+                }
+            }
+        }
+
+        StyledGroupBox {
+            Layout.fillWidth: true
             title: qsTrc("notation/editstyle/accidentals", "Multiple accidentals in chords")
 
             ColumnLayout {

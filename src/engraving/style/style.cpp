@@ -117,6 +117,14 @@ bool MStyle::readProperties(XmlReader& e)
 {
     const AsciiStringView tag(e.name());
 
+    if (tag == "keysigAccidentalDistance") {
+        Spatium val(e.readDouble());
+        set(Sid::keysigAccidentalDistance, val);
+        set(Sid::keysigSharpAccidentalDistance, val);
+        set(Sid::keysigFlatAccidentalDistance, val);
+        return true;
+    }
+
     for (const StyleDef::StyleValue& t : StyleDef::styleValues) {
         Sid idx = t.styleIdx();
         if (t.name() == tag) {
