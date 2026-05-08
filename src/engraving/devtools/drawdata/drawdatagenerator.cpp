@@ -46,10 +46,10 @@ using namespace mu::engraving;
 //! 1. Make saving by relative paths
 //!    scoreDir = path/scores
 //!    outDir = path/json
-//!    scorePath = scoreDir/v3/score.mscz
+//!    scorePath = scoreDir/v3/score.msdz
 //! -> jsonPath = outDir/v3/score.json (now just outDir/score.json)
 
-static const std::vector<std::string> FILES_FILTER = { "*.mscz", "*.mscx", "*.gp", "*.gpx", "*.gp4", "*.gp5" };
+static const std::vector<std::string> FILES_FILTER = { "*.msdz", "*.mscz", "*.mscx", "*.gp", "*.gpx", "*.gp4", "*.gp5" };
 
 DrawDataGenerator::DrawDataGenerator(const muse::modularity::ContextPtr& iocCtx)
     : muse::Injectable(iocCtx)

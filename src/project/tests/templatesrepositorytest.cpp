@@ -139,11 +139,12 @@ TEST_F(Project_TemplatesRepositoryTest, Templates)
     .WillByDefault(Return(Ret(false)));
 
     io::paths_t otherUserTemplates {
+        "/path/to/user/templates/without/categories_json/AAA.msdz",
         "/path/to/user/templates/without/categories_json/AAA.mscz",
         "/path/to/user/templates/without/categories_json/BBB.mscx"
     };
 
-    std::vector<std::string> filters = { "*.mscz", "*.mscx" };
+    std::vector<std::string> filters = { "*.msdz", "*.mscz", "*.mscx" };
     ON_CALL(*m_fileSystem, scanFiles(otherUserTemplatesDir, filters, ScanMode::FilesInCurrentDirAndSubdirs))
     .WillByDefault(Return(RetVal<io::paths_t>::make_ok(otherUserTemplates)));
 

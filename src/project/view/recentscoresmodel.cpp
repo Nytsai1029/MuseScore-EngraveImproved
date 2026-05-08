@@ -75,7 +75,7 @@ void RecentScoresModel::updateRecentScores()
         QVariantMap obj;
 
         std::string suffix = io::suffix(file.path);
-        bool isSuffixInteresting = suffix != engraving::MSCZ;
+        bool isSuffixInteresting = suffix != engraving::MSDZ;
 
         RetVal<uint64_t> fileSize = fileSystem()->fileSize(file.path);
         QString fileSizeString = (fileSize.ret && fileSize.val > 0) ? DataFormatter::formatFileSize(fileSize.val).toQString() : QString();

@@ -61,6 +61,13 @@ static const QString OPEN_SCORE_URL_HOSTNAME("open-score");
 static constexpr int RETRY_SAVE_BTN_ID = int(IInteractive::Button::CustomButton);
 static constexpr int SAVE_AS_BTN_ID    = RETRY_SAVE_BTN_ID + 1;
 
+static muse::io::path_t correspondingMsdzPath(const muse::io::path_t& path)
+{
+    return muse::io::dirpath(path)
+           .appendingComponent(muse::io::completeBasename(path))
+           .appendingSuffix(mu::engraving::MSDZ);
+}
+
 void ProjectActionsController::init()
 {
     dispatcher()->reg(this, "file-new", this, &ProjectActionsController::newProject);
@@ -945,6 +952,15 @@ bool ProjectActionsController::saveProjectAt(const SaveLocation& location, SaveM
     }
 
     if (location.isLocal()) {
+        INotationProjectPtr project = currentNotationProject();
+        if (saveMode == SaveMode::SaveAs
+            && project
+            && muse::io::suffix(project->path()) == engraving::MSCZ
+            && muse::io::suffix(location.localPath()) == engraving::MSDZ
+            && !warnBeforeSavingLegacyMsczAsMsdz(project->path(), location.localPath())) {
+            return false;
+        }
+
         return saveProjectLocally(location.localPath(), saveMode);
     }
 
@@ -962,13 +978,23 @@ bool ProjectActionsController::saveProjectLocally(const muse::io::path_t& filePa
         return false;
     }
 
+    muse::io::path_t targetFilePath = filePath;
+    if (saveMode == SaveMode::Save
+        && targetFilePath.empty()
+        && muse::io::suffix(project->path()) == engraving::MSCZ) {
+        targetFilePath = correspondingMsdzPath(project->path());
+        if (!warnBeforeSavingLegacyMsczAsMsdz(project->path(), targetFilePath)) {
+            return false;
+        }
+    }
+
     Ret ret = make_ok();
     if (saveMode == SaveMode::Save) {
         ret = extensionsProvider()->performPoint(EXEC_ONPRE_PROJECT_SAVE);
     }
 
     if (ret) {
-        ret = project->save(filePath, saveMode, createBackup);
+        ret = project->save(targetFilePath, saveMode, createBackup);
     }
 
     if (!ret) {
@@ -978,11 +1004,11 @@ bool ProjectActionsController::saveProjectLocally(const muse::io::path_t& filePa
         } else {
             switch (warnScoreHasBecomeCorruptedAfterSave(ret)) {
             case RETRY_SAVE_BTN_ID:
-                async::Async::call(this, [this, filePath, saveMode]() {
+                async::Async::call(this, [this, targetFilePath, saveMode]() {
                     // Retry the save. Do not create a backup this time because the target file has been corrupted
                     // already. Creating a backup file of a corrupted file now makes no sense and will corrupt
                     // the healthy backup file created on the first save attempt.
-                    saveProjectLocally(filePath, saveMode, false /*createBackup*/);
+                    saveProjectLocally(targetFilePath, saveMode, false /*createBackup*/);
                 });
                 break;
 
@@ -1002,6 +1028,29 @@ bool ProjectActionsController::saveProjectLocally(const muse::io::path_t& filePa
 
     recentFilesController()->prependRecentFile(makeRecentFile(project));
     return true;
+}
+
+bool ProjectActionsController::warnBeforeSavingLegacyMsczAsMsdz(const muse::io::path_t& sourcePath,
+                                                                const muse::io::path_t& targetPath) const
+{
+    IInteractive::ButtonDatas buttons = {
+        interactive()->buttonData(IInteractive::Button::Cancel),
+        IInteractive::ButtonData(IInteractive::Button::Ok, muse::trc("project/save", "Save as .msdz"), true)
+    };
+
+    IInteractive::Result result = interactive()->warningSync(
+        muse::trc("project/save", "Save this score as an MSDZ file?"),
+        muse::qtrc("project/save",
+                   "This version saves MuseScore files with the .msdz extension. "
+                   "The opened .mscz file will not be overwritten.\n\n"
+                   "Current file:\n%1\n\n"
+                   "The score will be saved as:\n%2")
+        .arg(sourcePath.toQString(), targetPath.toQString())
+        .toStdString(),
+        buttons,
+        int(IInteractive::Button::Ok));
+
+    return result.standardButton() == IInteractive::Button::Ok;
 }
 
 bool ProjectActionsController::saveProjectToCloud(CloudProjectInfo info, SaveMode saveMode)
@@ -1896,11 +1945,12 @@ void ProjectActionsController::printScore()
 
 async::Promise<io::path_t> ProjectActionsController::selectScoreOpeningFile() const
 {
-    std::string allExt = "*.mscz *.mxl *.musicxml *.xml *.mid *.midi *.kar *.md *.mgu *.sgu *.cap *.capx "
-                         "*.ove *.scw *.bmw *.bww *.gtp *.gp3 *.gp4 *.gp5 *.gpx *.gp *.ptb *.mei *.tef *.mscx *.mscs *.mscz~";
+    std::string allExt = "*.msdz *.mscz *.mxl *.musicxml *.xml *.mid *.midi *.kar *.md *.mgu *.sgu *.cap *.capx "
+                         "*.ove *.scw *.bmw *.bww *.gtp *.gp3 *.gp4 *.gp5 *.gpx *.gp *.ptb *.mei *.tef *.mscx *.mscs "
+                         "*.msdz~ *.mscz~";
 
     std::vector<std::string> filter { muse::trc("project", "All supported files") + " (" + allExt + ")",
-                                      muse::trc("project", "MuseScore files") + " (*.mscz)",
+                                      muse::trc("project", "MuseScore files") + " (*.msdz *.mscz)",
                                       muse::trc("project", "MusicXML files") + " (*.mxl *.musicxml *.xml)",
                                       muse::trc("project", "MIDI files") + " (*.mid *.midi *.kar)",
                                       muse::trc("project", "MuseData files") + " (*.md)",
@@ -1914,7 +1964,7 @@ async::Promise<io::path_t> ProjectActionsController::selectScoreOpeningFile() co
                                       muse::trc("project", "TablEdit files (experimental)") + " (*.tef)",
                                       muse::trc("project", "Uncompressed MuseScore folders (experimental)") + " (*.mscx)",
                                       muse::trc("project", "MuseScore developer files") + " (*.mscs)",
-                                      muse::trc("project", "MuseScore backup files") + " (*.mscz~)" };
+                                      muse::trc("project", "MuseScore backup files") + " (*.msdz~ *.mscz~)" };
 
     muse::io::path_t defaultDir = configuration()->lastOpenedProjectsPath();
 

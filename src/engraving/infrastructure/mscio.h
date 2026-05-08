@@ -28,6 +28,9 @@
 
 namespace mu::engraving {
 //! NOTE The main format is MuseScore, is a zip archive with a specific structure
+static const std::string MSDZ = "msdz";
+
+//! NOTE Legacy compressed MuseScore file suffix, still supported for reading.
 static const std::string MSCZ = "mscz";
 
 //! NOTE Before MuseScore 4, MuseScore could save data in one xml file (excluding binary) with `.mscx` extension.
@@ -46,7 +49,7 @@ static const std::string MSCS = "mscs";
 
 inline bool isMuseScoreFile(const std::string& suffix)
 {
-    return suffix == MSCZ || suffix == MSCX || suffix == MSCS;
+    return suffix == MSDZ || suffix == MSCZ || suffix == MSCX || suffix == MSCS;
 }
 
 enum class MscIoMode : unsigned char {
@@ -58,7 +61,7 @@ enum class MscIoMode : unsigned char {
 
 inline MscIoMode mscIoModeBySuffix(const std::string& suffix)
 {
-    if (suffix == MSCZ) {
+    if (suffix == MSDZ || suffix == MSCZ) {
         return MscIoMode::Zip;
     } else if (suffix == MSCX) {
         return MscIoMode::Dir;

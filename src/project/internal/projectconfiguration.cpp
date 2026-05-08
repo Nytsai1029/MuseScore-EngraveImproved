@@ -65,8 +65,8 @@ static const Settings::Key SHOW_CLOUD_IS_NOT_AVAILABLE_WARNING(module_name, "pro
 static const Settings::Key DISABLE_VERSION_CHECKING(module_name, "project/disableVersionChecking");
 static const Settings::Key CREATE_BACKUP_BEFORE_SAVING(module_name, "project/createBackupBeforeSaving");
 
-static const std::string DEFAULT_FILE_SUFFIX(".mscz");
-static const std::string DEFAULT_FILE_FILTER("*.mscz");
+static const std::string DEFAULT_FILE_SUFFIX(".msdz");
+static const std::string DEFAULT_FILE_FILTER("*.msdz");
 
 void ProjectConfiguration::init()
 {
@@ -322,6 +322,9 @@ muse::io::path_t ProjectConfiguration::defaultSavingFilePath(INotationProjectPtr
 
             if (theSuffix.empty()) {
                 theSuffix = io::suffix(projectPath);
+                if (theSuffix == engraving::MSCZ) {
+                    theSuffix = engraving::MSDZ;
+                }
             }
         }
     }

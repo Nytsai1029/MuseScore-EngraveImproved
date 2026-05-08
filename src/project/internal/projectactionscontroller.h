@@ -135,6 +135,7 @@ private:
     void saveProjectAt(const muse::actions::ActionData& args);
     bool saveProjectAt(const SaveLocation& saveLocation, SaveMode saveMode = SaveMode::Save, bool force = false);
     bool saveProjectToCloud(CloudProjectInfo info, SaveMode saveMode = SaveMode::Save);
+    bool warnBeforeSavingLegacyMsczAsMsdz(const muse::io::path_t& sourcePath, const muse::io::path_t& targetPath) const;
 
     struct AudioFile {
         QString format;

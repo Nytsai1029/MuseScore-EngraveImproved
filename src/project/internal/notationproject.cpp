@@ -426,7 +426,7 @@ QString NotationProject::displayName() const
         return m_cloudInfo.name;
     }
 
-    bool isSuffixInteresting = io::suffix(m_path) != engraving::MSCZ;
+    bool isSuffixInteresting = io::suffix(m_path) != engraving::MSDZ;
     return io::filename(m_path, isSuffixInteresting).toQString();
 }
 
@@ -650,7 +650,8 @@ Ret NotationProject::doSave(const muse::io::path_t& path, engraving::MscIoMode i
         if (ioMode == MscIoMode::Zip
             && !isAutosave
             && globalConfiguration()->devModeEnabled()
-            && savePath.contains(" - ALL_ZEROS_CORRUPTED.mscz")) {
+            && (savePath.contains(" - ALL_ZEROS_CORRUPTED.msdz")
+                || savePath.contains(" - ALL_ZEROS_CORRUPTED.mscz"))) {
             // Create a corrupted file so devs/qa can simulate a saved corrupted file.
             params.device = new AllZerosFileCorruptor(savePath);
         }
@@ -747,8 +748,9 @@ Ret NotationProject::makeBackup(muse::io::path_t filePath)
 {
     TRACEFUNC;
 
-    if (io::suffix(filePath) != engraving::MSCZ) {
-        LOGW() << "backup allowed only for MSCZ, currently: " << filePath;
+    const std::string suffix = io::suffix(filePath);
+    if (suffix != engraving::MSDZ && suffix != engraving::MSCZ) {
+        LOGW() << "backup allowed only for compressed MuseScore files, currently: " << filePath;
         return make_ret(Ret::Code::Ok);
     }
 

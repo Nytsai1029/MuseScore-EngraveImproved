@@ -95,7 +95,7 @@ void WebApi::load(const void* source, unsigned int len)
 {
     LOGI() << source << ", len: " << len;
     ByteArray data = ByteArray::fromRawData(reinterpret_cast<const char*>(source), len);
-    io::path_t tempFilePath = "/mu/temp/current.mscz";
+    io::path_t tempFilePath = "/mu/temp/current.msdz";
 
     //! NOTE Remove last previous
     io::File::remove(tempFilePath);

@@ -53,7 +53,7 @@ Templates TemplatesRepository::readTemplates(const muse::io::path_t& dirPath) co
     muse::io::path_t categoriesJsonPath = configuration()->templateCategoriesJsonPath(dirPath);
 
     if (!fileSystem()->exists(categoriesJsonPath)) {
-        RetVal<io::paths_t> files = fileSystem()->scanFiles(dirPath, { "*.mscz", "*.mscx" });
+        RetVal<io::paths_t> files = fileSystem()->scanFiles(dirPath, { "*.msdz", "*.mscz", "*.mscx" });
         if (!files.ret) {
             LOGE() << files.ret.toString();
             return Templates();

@@ -241,7 +241,7 @@ void GeneralPreferencesModel::setStartupScorePath(const QString& scorePath)
 
 QStringList GeneralPreferencesModel::scorePathFilter() const
 {
-    return { muse::qtrc("appshell/preferences", "MuseScore file") + " (*.mscz)",
+    return { muse::qtrc("appshell/preferences", "MuseScore file") + " (*.msdz *.mscz)",
              muse::qtrc("appshell/preferences", "All") + " (*)" };
 }
 

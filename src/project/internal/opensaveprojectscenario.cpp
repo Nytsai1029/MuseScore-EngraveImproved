@@ -103,7 +103,7 @@ RetVal<muse::io::path_t> OpenSaveProjectScenario::askLocalPath(INotationProjectP
     muse::io::path_t defaultPath = configuration()->defaultSavingFilePath(project, filenameAddition);
 
     std::vector<std::string> filter {
-        muse::trc("project", "MuseScore file") + " (*.mscz)",
+        muse::trc("project", "MuseScore file") + " (*.msdz)",
         muse::trc("project", "Uncompressed MuseScore folder (experimental)")
 #ifdef Q_OS_MAC
         + " (*)"
@@ -116,6 +116,12 @@ RetVal<muse::io::path_t> OpenSaveProjectScenario::askLocalPath(INotationProjectP
 
     if (selectedPath.empty()) {
         return make_ret(Ret::Code::Cancel);
+    }
+
+    if (io::suffix(selectedPath) == engraving::MSCZ) {
+        selectedPath = io::dirpath(selectedPath)
+                       .appendingComponent(io::completeBasename(selectedPath))
+                       .appendingSuffix(engraving::MSDZ);
     }
 
     if (!engraving::isMuseScoreFile(io::suffix(selectedPath))) {

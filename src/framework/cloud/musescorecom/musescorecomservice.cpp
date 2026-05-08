@@ -471,7 +471,7 @@ RetVal<ValMap> MuseScoreComService::doUploadScore(INetworkManagerPtr uploadManag
 
     QHttpPart filePart;
     filePart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/octet-stream"));
-    QString contentDisposition = QString("form-data; name=\"score_data\"; filename=\"temp_%1.mscz\"").arg(generateFileNameNumber());
+    QString contentDisposition = QString("form-data; name=\"score_data\"; filename=\"temp_%1.msdz\"").arg(generateFileNameNumber());
     filePart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant(contentDisposition));
 
     filePart.setBodyDevice(&scoreData);
