@@ -198,6 +198,11 @@ jobs:
         token: ${{ secrets.TRANSIFEX_API_TOKEN }}
         args: "pull -f"
     - name: Build
+      env:
+        # Apple clang 17 on macOS 15 can crash in the frontend when compiling
+        # large Unity translation units. Keep macOS CI on normal translation
+        # units while other platforms keep the upstream default.
+        MUSESCORE_COMPILE_USE_UNITY: OFF
       run: |
         C_URL=${SENTRY_URL}; if [ -z "$C_URL" ]; then C_URL="''"; fi
         bash ./buildscripts/ci/macos/build.sh -n ${{ env.BUILD_NUMBER }} --crash_log_url $C_URL
