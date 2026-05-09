@@ -6,7 +6,7 @@ on:
     inputs:
       platforms:
         description: 'Platforms to build:'
-        default: 'linux_x64 linux_arm64'
+        default: 'linux_x64'
         required: true
       build_mode:
         description: 'Build mode: devel, nightly, testing, stable'
@@ -28,7 +28,7 @@ on:
     inputs:
       platforms:
         description: 'Platforms to build:'
-        default: 'linux_x64 linux_arm64'
+        default: 'linux_x64'
         type: string
         required: true
       build_mode:
@@ -72,19 +72,11 @@ jobs:
 
   build:
     needs: setup
-    if: github.event_name != 'workflow_dispatch' || contains(inputs.platforms, 'linux_x64') || contains(inputs.platforms, 'linux_arm64')
+    if: github.event_name != 'workflow_dispatch' || contains(inputs.platforms, 'linux_x64')
     runs-on: ${{ matrix.runs-on }}
     strategy:
       fail-fast: false
       matrix:
-        platform: ${{
-          (github.event_name != 'workflow_dispatch'
-           || (contains(inputs.platforms, 'linux_x64') && contains(inputs.platforms, 'linux_arm64')))
-          && fromJson('["linux_x64","linux_arm64"]')
-          || (contains(inputs.platforms, 'linux_x64') && fromJson('["linux_x64"]')
-          || (contains(inputs.platforms, 'linux_arm64') && fromJson('["linux_arm64"]')
-          || fromJson('[]')))
-          }}
         include:
           - platform: linux_x64
             arch: x86_64
@@ -93,12 +85,6 @@ jobs:
             qt-version: ${{ needs.setup.outputs.use_qt69 == 'on' && '6.9.2' || '6.2.4' }}
             qt-arch: ${{ needs.setup.outputs.use_qt69 == 'on' && 'linux_gcc_64' || 'gcc_64' }} 
             dump-symbols-arch: x86-64
-          - platform: linux_arm64
-            arch: aarch64
-            runs-on: ${{ needs.setup.outputs.use_qt69 == 'on' && 'ubuntu-24.04-arm' || 'ubuntu-22.04-arm' }}  
-            qt-host: linux_arm64
-            qt-arch: linux_gcc_arm64
-            dump-symbols-arch: aarch64
     steps:
     - name: Cancel Previous Runs
       uses: styfle/cancel-workflow-action@0.12.1
@@ -205,17 +191,12 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v4 
-      if: ${{ !(matrix.qt-host == 'linux_arm64' && env.USE_QT69 != 'on') }}
       with:
         version: ${{ env.USE_QT69 == 'on' && '6.9.2' || '6.2.4' }}
         host: ${{ matrix.qt-host }}
         target: 'desktop'
         arch: ${{ matrix.qt-arch }}
         modules: 'qt5compat qtnetworkauth qtscxml qtshadertools qtwebsockets'
-    - name: Install Qt 6.2.4 arm64
-      if: ${{ matrix.qt-host == 'linux_arm64' && env.USE_QT69 != 'on' }}  
-      run: |
-        bash ./buildscripts/ci/linux/arm64/install_qt.sh     
     - name: Setup environment
       run: |
         bash ./buildscripts/ci/linux/setup.sh --arch ${{ matrix.arch }}

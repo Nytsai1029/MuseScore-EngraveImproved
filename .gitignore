@@ -26,6 +26,11 @@ build.artifacts
 build.symbols
 vtest.artifacts
 MuseScorePortable
+
+# Required third-party header used by Crashpad's mini_chromium.
+!src/framework/diagnostics/thirdparty/google_crashpad_client/third_party/mini_chromium/mini_chromium/build/
+!src/framework/diagnostics/thirdparty/google_crashpad_client/third_party/mini_chromium/mini_chromium/build/build_config.h
+
 /*.config
 /*.creator
 /*.files
