@@ -2841,10 +2841,19 @@ void TDraw::draw(const Symbol* item, Painter* painter)
     bool tabStaff = item->staff() ? item->staff()->isTabStaff(item->tick()) : false;
 
     if (!item->isNoteDot() || !tabStaff) {
-        painter->setPen(item->curColor());
-        if (item->scoreFont()) {
+        if (item->isKeyboardHandBracketSymbol()) {
+            painter->save();
+            painter->rotate(item->symAngle());
+            painter->setPen(Pen(item->curColor(), item->keyboardHandBracketLineWidth(), PenStyle::SolidLine,
+                                PenCapStyle::FlatCap, PenJoinStyle::MiterJoin));
+            painter->setBrush(BrushStyle::NoBrush);
+            painter->drawPath(item->keyboardHandBracketPath());
+            painter->restore();
+        } else if (item->scoreFont()) {
+            painter->setPen(item->curColor());
             item->scoreFont()->draw(item->sym(), painter, item->magS() * item->symbolsSize(), PointF(), item->symAngle());
         } else {
+            painter->setPen(item->curColor());
             item->drawSymbol(item->sym(), painter);
         }
     }

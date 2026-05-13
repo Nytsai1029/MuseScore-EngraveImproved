@@ -1027,6 +1027,15 @@ class EngravingItem : public apiv1::ScoreElement
     /// For symbols: Their rotation angle.
     ///\since MuseScore 4.6
     API_PROPERTY_T(qreal, symbolAngle,    SYMBOL_ANGLE)
+    /// For keyboard left/right hand bracket symbols: Their short side length.
+    ///\since MuseScore 4.6
+    API_PROPERTY(keyboardHandShortSide,    SYMBOL_SHORT_SIDE_LENGTH)
+    /// For keyboard left/right hand bracket symbols: Their long side length.
+    ///\since MuseScore 4.6
+    API_PROPERTY(keyboardHandLongSide,     SYMBOL_LONG_SIDE_LENGTH)
+    /// For keyboard left/right hand bracket symbols: Their line thickness.
+    ///\since MuseScore 4.6
+    API_PROPERTY(keyboardHandLineWidth,     LINE_WIDTH)
 
     /// For sound flags: Whether they apply to all staves.
     ///\since MuseScore 4.6

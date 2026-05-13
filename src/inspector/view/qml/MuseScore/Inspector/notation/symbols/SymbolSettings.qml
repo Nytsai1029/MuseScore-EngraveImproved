@@ -91,13 +91,94 @@ Column {
         }
     }
 
+    Item {
+        readonly property bool showKeyboardHandControls: root.model
+            && root.model.keyboardHandShortSide
+            && root.model.keyboardHandShortSide.isVisible
+
+        height: showKeyboardHandControls ? childrenRect.height : 0
+        width: parent.width
+        visible: showKeyboardHandControls
+
+        SpinBoxPropertyView {
+            id: keyboardHandShortSide
+
+            anchors.left: parent.left
+            anchors.right: parent.horizontalCenter
+            anchors.rightMargin: 8
+
+            navigationName: "ShortSide"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: root.navigationRowStart + 2
+
+            titleText: qsTrc("inspector", "Short side")
+            measureUnitsSymbol: "sp"
+            propertyItem: root.model ? root.model.keyboardHandShortSide : null
+
+            decimals: 2
+            step: 0.1
+            minValue: 0.1
+            maxValue: 20
+        }
+
+        SpinBoxPropertyView {
+            id: keyboardHandLongSide
+
+            anchors.left: parent.horizontalCenter
+            anchors.right: parent.right
+
+            navigationName: "LongSide"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: root.navigationRowStart + 3
+
+            titleText: qsTrc("inspector", "Long side")
+            measureUnitsSymbol: "sp"
+            propertyItem: root.model ? root.model.keyboardHandLongSide : null
+
+            decimals: 2
+            step: 0.1
+            minValue: 0.1
+            maxValue: 40
+        }
+    }
+
+    Item {
+        readonly property bool showKeyboardHandControls: root.model
+            && root.model.keyboardHandLineWidth
+            && root.model.keyboardHandLineWidth.isVisible
+
+        height: showKeyboardHandControls ? childrenRect.height : 0
+        width: parent.width
+        visible: showKeyboardHandControls
+
+        SpinBoxPropertyView {
+            id: keyboardHandLineWidth
+
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            navigationName: "LineWidth"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: root.navigationRowStart + 4
+
+            titleText: qsTrc("inspector", "Thickness")
+            measureUnitsSymbol: "sp"
+            propertyItem: root.model ? root.model.keyboardHandLineWidth : null
+
+            decimals: 2
+            step: 0.01
+            minValue: 0.01
+            maxValue: 2
+        }
+    }
+
     DropdownPropertyView {
         id: scoreFontSection
         titleText: qsTrc("inspector", "Font")
         propertyItem: root.model ? root.model.scoreFont : null
 
         navigationPanel: root.navigationPanel
-        navigationRowStart: root.navigationRowStart + 2
+        navigationRowStart: root.navigationRowStart + 6
         
         model: root.model ? root.model.symFonts : []
     }

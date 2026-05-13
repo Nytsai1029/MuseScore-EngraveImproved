@@ -3056,8 +3056,15 @@ void TWrite::write(const Symbol* item, XmlWriter& xml, WriteContext& ctx)
     xml.tag("name", SymNames::nameForSymId(item->sym()));
     if (item->scoreFont()) {
         xml.tag("font", item->scoreFont()->name());
+    }
+    if (item->scoreFont() || item->isKeyboardHandBracketSymbol()) {
         writeProperty(item, xml, Pid::SYMBOLS_SIZE);
         writeProperty(item, xml, Pid::SYMBOL_ANGLE);
+    }
+    if (item->isKeyboardHandBracketSymbol()) {
+        writeProperty(item, xml, Pid::SYMBOL_SHORT_SIDE_LENGTH);
+        writeProperty(item, xml, Pid::SYMBOL_LONG_SIDE_LENGTH);
+        writeProperty(item, xml, Pid::LINE_WIDTH);
     }
     writeProperties(static_cast<const BSymbol*>(item), xml, ctx);
     xml.endElement();

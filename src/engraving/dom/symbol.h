@@ -23,12 +23,16 @@
 #ifndef MU_ENGRAVING_SYMBOL_H
 #define MU_ENGRAVING_SYMBOL_H
 
+#include <array>
 #include <memory>
+#include <vector>
 
 #include "draw/types/font.h"
+#include "draw/types/painterpath.h"
 
 #include "modularity/ioc.h"
 #include "../iengravingfontsprovider.h"
+#include "../types/dimension.h"
 
 #include "bsymbol.h"
 
@@ -63,6 +67,15 @@ public:
     double symbolsSize() const { return m_symbolsSize; }
     double symAngle() const { return m_symAngle; }
     AsciiStringView symName() const;
+    static bool isKeyboardHandBracketSymbol(SymId sym);
+    bool isKeyboardHandBracketSymbol() const { return isKeyboardHandBracketSymbol(m_sym); }
+    Spatium keyboardHandBracketShortSide() const { return m_keyboardHandBracketShortSide; }
+    Spatium keyboardHandBracketLongSide() const { return m_keyboardHandBracketLongSide; }
+    Spatium keyboardHandBracketLineWidthSpatium() const { return m_keyboardHandBracketLineWidth; }
+    double keyboardHandBracketLineWidth() const;
+    RectF keyboardHandBracketBBox() const;
+    std::array<LineF, 2> keyboardHandBracketLines() const;
+    PainterPath keyboardHandBracketPath() const;
 
     String accessibleInfo() const override;
 
@@ -73,6 +86,14 @@ public:
     bool setProperty(Pid, const PropertyValue&) override;
     PropertyValue propertyDefault(Pid) const override;
 
+    int gripsCount() const override { return isKeyboardHandBracketSymbol() ? 2 : 0; }
+    Grip initialEditModeGrip() const override { return isKeyboardHandBracketSymbol() ? Grip::END : Grip::NO_GRIP; }
+    Grip defaultGrip() const override { return initialEditModeGrip(); }
+    std::vector<PointF> gripsPositions(const EditData& = EditData()) const override;
+    std::vector<LineF> gripAnchorLines(Grip) const override;
+    void startEditDrag(EditData&) override;
+    void editDrag(EditData&) override;
+
     double baseLine() const override { return 0.0; }
     virtual Segment* segment() const { return (Segment*)explicitParent(); }
 
@@ -81,6 +102,9 @@ protected:
     std::shared_ptr<IEngravingFont> m_scoreFont = nullptr;
     double m_symbolsSize =  1.0;
     double m_symAngle = 0.0;
+    Spatium m_keyboardHandBracketShortSide;
+    Spatium m_keyboardHandBracketLongSide;
+    Spatium m_keyboardHandBracketLineWidth;
 };
 
 //---------------------------------------------------------

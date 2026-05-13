@@ -2052,6 +2052,9 @@ const std::array<StyleDef::StyleValue, size_t(Sid::STYLES)> StyleDef::styleValue
     styleDef(tabFretPadding,                             Spatium(0.1)),
 
     styleDef(chordlineThickness,                         Spatium(0.16)),
+    styleDef(keyboardHandBracketShortSide,               Spatium(1.564)),
+    styleDef(keyboardHandBracketLongSide,                Spatium(4.064)),
+    styleDef(keyboardHandBracketLineWidth,               Spatium(0.13)),
 
     styleDef(dummyMusicalSymbolsScale,                   1.0),
 

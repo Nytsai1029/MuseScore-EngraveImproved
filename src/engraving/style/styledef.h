@@ -2069,6 +2069,9 @@ enum class Sid {
     tabFretPadding,
 
     chordlineThickness,
+    keyboardHandBracketShortSide,
+    keyboardHandBracketLongSide,
+    keyboardHandBracketLineWidth,
 
     dummyMusicalSymbolsScale,
 

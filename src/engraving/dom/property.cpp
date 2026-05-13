@@ -476,6 +476,8 @@ static constexpr PropertyMetaData propertyList[] = {
     { Pid::SCORE_FONT,              true,  "scoreFont",             P_TYPE::STRING,             PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "score font") },
     { Pid::SYMBOLS_SIZE,            false, "symbolsSize",           P_TYPE::REAL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "symbols size") },
     { Pid::SYMBOL_ANGLE,            false, "symbolAngle",           P_TYPE::REAL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "symbol angle") },
+    { Pid::SYMBOL_SHORT_SIDE_LENGTH, false, "symbolShortSideLength", P_TYPE::SPATIUM,           PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "symbol short side length") },
+    { Pid::SYMBOL_LONG_SIDE_LENGTH, false,  "symbolLongSideLength",  P_TYPE::SPATIUM,           PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "symbol long side length") },
 
     { Pid::APPLY_TO_ALL_STAVES,     false, "applyToAllStaves",      P_TYPE::BOOL,               PropertyGroup::NONE,            QT_TRANSLATE_NOOP("engraving/propertyName", "apply to all staves") },
     { Pid::IS_COURTESY,             false, "isCourtesy",            P_TYPE::BOOL,               PropertyGroup::NONE,            QT_TRANSLATE_NOOP("engraving/propertyName", "is courtesy") },

@@ -21,11 +21,27 @@
  */
 #include "symbolsettingsmodel.h"
 
+#include "engraving/dom/symbol.h"
 #include "engraving/types/symnames.h"
 
 #include "translation.h"
 
 using namespace mu::inspector;
+
+namespace {
+QList<mu::engraving::EngravingItem*> keyboardHandBracketSymbols(const QList<mu::engraving::EngravingItem*>& elements)
+{
+    QList<mu::engraving::EngravingItem*> result;
+
+    for (mu::engraving::EngravingItem* element : elements) {
+        if (element && element->isSymbol() && mu::engraving::toSymbol(element)->isKeyboardHandBracketSymbol()) {
+            result << element;
+        }
+    }
+
+    return result;
+}
+}
 
 SymbolSettingsModel::SymbolSettingsModel(QObject* parent, IElementRepositoryService* repository)
     : AbstractInspectorModel(parent, repository)
@@ -49,6 +65,12 @@ void SymbolSettingsModel::createProperties()
         emit requestReloadPropertyItems();
     });
     m_symAngle = buildPropertyItem(mu::engraving::Pid::SYMBOL_ANGLE);
+    m_keyboardHandShortSide = buildPropertyItem(mu::engraving::Pid::SYMBOL_SHORT_SIDE_LENGTH);
+    m_keyboardHandLongSide = buildPropertyItem(mu::engraving::Pid::SYMBOL_LONG_SIDE_LENGTH);
+    m_keyboardHandLineWidth = buildPropertyItem(mu::engraving::Pid::LINE_WIDTH);
+    m_keyboardHandShortSide->setIsVisible(false);
+    m_keyboardHandLongSide->setIsVisible(false);
+    m_keyboardHandLineWidth->setIsVisible(false);
 }
 
 void SymbolSettingsModel::requestElements()
@@ -64,6 +86,16 @@ void SymbolSettingsModel::loadProperties()
         return muse::DataFormatter::roundDouble(elementPropertyValue.toDouble()) * 100;
     });
     loadPropertyItem(m_symAngle);
+
+    const QList<mu::engraving::EngravingItem*> keyboardHandElements = keyboardHandBracketSymbols(m_elementList);
+    loadPropertyItem(m_keyboardHandShortSide, keyboardHandElements);
+    loadPropertyItem(m_keyboardHandLongSide, keyboardHandElements);
+    loadPropertyItem(m_keyboardHandLineWidth, keyboardHandElements);
+
+    const bool showKeyboardHandProperties = !keyboardHandElements.empty();
+    m_keyboardHandShortSide->setIsVisible(showKeyboardHandProperties);
+    m_keyboardHandLongSide->setIsVisible(showKeyboardHandProperties);
+    m_keyboardHandLineWidth->setIsVisible(showKeyboardHandProperties);
 }
 
 void SymbolSettingsModel::resetProperties()
@@ -72,6 +104,15 @@ void SymbolSettingsModel::resetProperties()
     m_scoreFont->resetToDefault();
     m_symbolSize->resetToDefault();
     m_symAngle->resetToDefault();
+    if (m_keyboardHandShortSide->isVisible()) {
+        m_keyboardHandShortSide->resetToDefault();
+    }
+    if (m_keyboardHandLongSide->isVisible()) {
+        m_keyboardHandLongSide->resetToDefault();
+    }
+    if (m_keyboardHandLineWidth->isVisible()) {
+        m_keyboardHandLineWidth->resetToDefault();
+    }
 }
 
 PropertyItem* SymbolSettingsModel::sym() const
@@ -92,6 +133,21 @@ PropertyItem* SymbolSettingsModel::symbolSize() const
 PropertyItem* SymbolSettingsModel::symAngle() const
 {
     return m_symAngle;
+}
+
+PropertyItem* SymbolSettingsModel::keyboardHandShortSide() const
+{
+    return m_keyboardHandShortSide;
+}
+
+PropertyItem* SymbolSettingsModel::keyboardHandLongSide() const
+{
+    return m_keyboardHandLongSide;
+}
+
+PropertyItem* SymbolSettingsModel::keyboardHandLineWidth() const
+{
+    return m_keyboardHandLineWidth;
 }
 
 QVariantList SymbolSettingsModel::symFonts()

@@ -34,6 +34,9 @@ class SymbolSettingsModel : public AbstractInspectorModel
     Q_PROPERTY(PropertyItem * scoreFont READ scoreFont CONSTANT)
     Q_PROPERTY(PropertyItem * symbolSize READ symbolSize CONSTANT)
     Q_PROPERTY(PropertyItem * symAngle READ symAngle CONSTANT)
+    Q_PROPERTY(PropertyItem * keyboardHandShortSide READ keyboardHandShortSide CONSTANT)
+    Q_PROPERTY(PropertyItem * keyboardHandLongSide READ keyboardHandLongSide CONSTANT)
+    Q_PROPERTY(PropertyItem * keyboardHandLineWidth READ keyboardHandLineWidth CONSTANT)
 
     Q_PROPERTY(QVariantList symFonts READ symFonts NOTIFY symFontsChanged)
 
@@ -51,6 +54,9 @@ public:
     PropertyItem* scoreFont() const;
     PropertyItem* symbolSize() const;
     PropertyItem* symAngle() const;
+    PropertyItem* keyboardHandShortSide() const;
+    PropertyItem* keyboardHandLongSide() const;
+    PropertyItem* keyboardHandLineWidth() const;
 
     QVariantList symFonts();
 
@@ -62,6 +68,9 @@ private:
     PropertyItem* m_scoreFont = nullptr;
     PropertyItem* m_symbolSize = nullptr;
     PropertyItem* m_symAngle = nullptr;
+    PropertyItem* m_keyboardHandShortSide = nullptr;
+    PropertyItem* m_keyboardHandLongSide = nullptr;
+    PropertyItem* m_keyboardHandLineWidth = nullptr;
 
     QVariantList m_symFonts;
 };

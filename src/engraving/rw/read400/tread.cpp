@@ -2277,6 +2277,11 @@ void TRead::read(Symbol* sym, XmlReader& e, ReadContext& ctx)
             sym->setSym(symId);
         } else if (tag == "font") {
             fontName = e.readText();
+        } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOLS_SIZE)) {
+        } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOL_ANGLE)) {
+        } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOL_SHORT_SIDE_LENGTH)) {
+        } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOL_LONG_SIDE_LENGTH)) {
+        } else if (readProperty(sym, tag, e, ctx, Pid::LINE_WIDTH)) {
         } else if (tag == "Symbol") {
             Symbol* s = new Symbol(sym);
             TRead::read(s, e, ctx);

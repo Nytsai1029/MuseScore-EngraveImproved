@@ -1596,7 +1596,13 @@ void SingleLayout::layout(StringTunings* item, const Context& ctx)
 
 void SingleLayout::layout(Symbol* item, const Context&)
 {
-    item->setbbox(item->scoreFont() ? item->scoreFont()->bbox(item->sym(), item->magS()) : item->symBbox(item->sym()));
+    RectF bbox = item->symBbox(item->sym());
+    if (item->isKeyboardHandBracketSymbol()) {
+        bbox = item->keyboardHandBracketBBox();
+    } else if (item->scoreFont()) {
+        bbox = item->scoreFont()->bbox(item->sym(), item->magS() * item->symbolsSize());
+    }
+    item->setbbox(bbox);
     item->setOffset(0.0, 0.0);
     item->setPos(0.0, 0.0);
 }
