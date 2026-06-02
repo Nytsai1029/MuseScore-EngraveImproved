@@ -114,6 +114,16 @@ TEST_F(Draw_PainterTests, Painter_ViewportAndWindow)
     EXPECT_EQ(painter.provider()->transform(), worldTransform * expectedViewTransform);
 }
 
+TEST_F(Draw_PainterTests, Font_ToQFontInfersStyleFromFaceName)
+{
+    Font font(u"CenturyNo1SB-BoldIta", Font::Type::Text);
+
+    QFont qfont = font.toQFont();
+
+    EXPECT_TRUE(qfont.bold());
+    EXPECT_TRUE(qfont.italic());
+}
+
 TEST_F(Draw_PainterTests, Painter_SaveRestore)
 {
     //! GIVEN Painter

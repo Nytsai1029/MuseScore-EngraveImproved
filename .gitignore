@@ -92,4 +92,21 @@ CMakeUserPresets.json
 compile_commands.json
 **/.qmlls.ini
 
+# Local score and export scratch files
+/*.mscz
+/*.mscx
+/*.msdz
+/*.musicxml
+/*.pdf
+/*.png
+/*.svg
+
+# Local release packaging output
+/dist/
+/release/
+/release-artifacts/
+
+# Local agent/workspace instructions
+/AGENTS.md
+
 codex.md

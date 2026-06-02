@@ -1,0 +1,29 @@
+name: 'Project Hygiene'
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  docs-and-repo-checks:
+    name: Documentation and repository checks
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Check public documentation
+        run: |
+          test -s README.md
+          test -s docs/releases/beta.md
+          grep -q "MuseScore Engrave Improved" README.md
+          grep -q "Beta" docs/releases/beta.md
+
+      - name: Check local artifact ignore rules
+        run: |
+          grep -q '^/\*.msdz$' .gitignore
+          grep -q '^/\*.pdf$' .gitignore
+          grep -q '^/release-artifacts/$' .gitignore

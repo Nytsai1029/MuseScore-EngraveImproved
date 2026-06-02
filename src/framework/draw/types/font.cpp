@@ -35,13 +35,18 @@ bool Font::g_disableFontMerging = false;
 namespace {
 bool fontStyleNameHasItalic(const QString& styleName)
 {
-    return styleName.contains("italic", Qt::CaseInsensitive)
-           || styleName.contains("oblique", Qt::CaseInsensitive);
+    const QString lowerStyleName = styleName.toLower();
+    return lowerStyleName.contains("italic")
+           || lowerStyleName.contains("oblique")
+           || lowerStyleName.contains("boldita")
+           || lowerStyleName.contains("bdita");
 }
 
 bool fontStyleNameHasBold(const QString& styleName)
 {
-    return styleName.contains("bold", Qt::CaseInsensitive);
+    const QString lowerStyleName = styleName.toLower();
+    return lowerStyleName.contains("bold")
+           || lowerStyleName.contains("bdita");
 }
 
 QString matchingStyleName(const QString& family, bool bold, bool italic)
@@ -229,8 +234,8 @@ void Font::setHinting(Hinting hinting)
 QFont Font::toQFont() const
 {
     QFont qf(family().id());
-    const bool isBold = bold();
-    const bool isItalic = italic();
+    const bool isBold = bold() || fontStyleNameHasBold(family().id());
+    const bool isItalic = italic() || fontStyleNameHasItalic(family().id());
 
     if (pointSizeF() > 0) {
         qf.setPointSizeF(pointSizeF());
