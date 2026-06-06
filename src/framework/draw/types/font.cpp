@@ -23,7 +23,15 @@
 #include "global/realfn.h"
 
 #ifndef NO_QT_SUPPORT
+#include <QDir>
+#include <QDirIterator>
+#include <QFileInfo>
 #include <QFontDatabase>
+#include <QFontInfo>
+#include <QSet>
+#include <QStandardPaths>
+
+#include <mutex>
 #endif
 
 using namespace muse;
@@ -47,6 +55,116 @@ bool fontStyleNameHasBold(const QString& styleName)
     const QString lowerStyleName = styleName.toLower();
     return lowerStyleName.contains("bold")
            || lowerStyleName.contains("bdita");
+}
+
+QString matchingStyleName(const QString& family, bool bold, bool italic);
+
+QString normalizedFontFamilyName(const QString& name)
+{
+    QString normalized;
+    normalized.reserve(name.size());
+
+    for (const QChar& ch : name) {
+        if (ch.isLetterOrNumber()) {
+            normalized.append(ch.toLower());
+        }
+    }
+
+    return normalized;
+}
+
+QStringList fontSearchPaths()
+{
+    QStringList paths = QStandardPaths::standardLocations(QStandardPaths::FontsLocation);
+
+    const QString homePath = QDir::homePath();
+    if (!homePath.isEmpty()) {
+        paths << homePath + "/Library/Fonts";
+    }
+
+    const QString userName = qEnvironmentVariable("USER");
+    if (!userName.isEmpty()) {
+        paths << "/Users/" + userName + "/Library/Fonts";
+    }
+
+    paths << "/Library/Fonts"
+          << "/System/Library/Fonts"
+          << "/System/Library/Fonts/Supplemental";
+    paths.removeDuplicates();
+
+    return paths;
+}
+
+const QStringList& localFontFiles()
+{
+    static const QStringList files = []() {
+        QStringList result;
+        const QStringList filters {
+            "*.otf", "*.ttf", "*.otc", "*.ttc"
+        };
+
+        for (const QString& path : fontSearchPaths()) {
+            QDir dir(path);
+            if (!dir.exists()) {
+                continue;
+            }
+
+            QDirIterator it(dir.absolutePath(), filters, QDir::Files, QDirIterator::Subdirectories);
+            while (it.hasNext()) {
+                result << it.next();
+            }
+        }
+
+        result.removeDuplicates();
+        return result;
+    }();
+
+    return files;
+}
+
+bool hasRequestedFontStyle(const QString& family, bool bold, bool italic)
+{
+    if (!QFontDatabase::hasFamily(family)) {
+        return false;
+    }
+
+    if (!bold && !italic) {
+        return true;
+    }
+
+    return !matchingStyleName(family, bold, italic).isEmpty();
+}
+
+void ensureApplicationFontFamilyAvailable(const QString& family, bool bold, bool italic)
+{
+    if (family.isEmpty()) {
+        return;
+    }
+
+    if (!bold && !italic && hasRequestedFontStyle(family, bold, italic)) {
+        return;
+    }
+
+    const QString normalizedFamily = normalizedFontFamilyName(family);
+    if (normalizedFamily.isEmpty()) {
+        return;
+    }
+
+    static std::mutex mutex;
+    static QSet<QString> attemptedFamilies;
+
+    std::lock_guard<std::mutex> lock(mutex);
+    if (attemptedFamilies.contains(normalizedFamily)) {
+        return;
+    }
+    attemptedFamilies.insert(normalizedFamily);
+
+    for (const QString& path : localFontFiles()) {
+        const QString normalizedFileName = normalizedFontFamilyName(QFileInfo(path).completeBaseName());
+        if (normalizedFileName.contains(normalizedFamily)) {
+            QFontDatabase::addApplicationFont(path);
+        }
+    }
 }
 
 QString matchingStyleName(const QString& family, bool bold, bool italic)
@@ -84,6 +202,26 @@ QString matchingStyleName(const QString& family, bool bold, bool italic)
     }
 
     return QString();
+}
+
+void applyFontStyle(QFont& qf, QFont::Weight weight, bool bold, bool italic)
+{
+    qf.setWeight(weight);
+    qf.setBold(bold);
+    qf.setItalic(italic);
+}
+
+bool applyMatchingStyleName(QFont& qf, const QString& family, QFont::Weight weight, bool bold, bool italic)
+{
+    const QString styleName = matchingStyleName(family, bold, italic);
+    if (styleName.isEmpty()) {
+        return false;
+    }
+
+    qf.setFamily(family);
+    qf.setStyleName(styleName);
+    applyFontStyle(qf, weight, bold, italic);
+    return true;
 }
 }
 #endif
@@ -233,28 +371,31 @@ void Font::setHinting(Hinting hinting)
 #ifndef NO_QT_SUPPORT
 QFont Font::toQFont() const
 {
-    QFont qf(family().id());
-    const bool isBold = bold() || fontStyleNameHasBold(family().id());
-    const bool isItalic = italic() || fontStyleNameHasItalic(family().id());
+    const QString requestedFamily = family().id().toQString();
+    const bool isBold = bold() || fontStyleNameHasBold(requestedFamily);
+    const bool isItalic = italic() || fontStyleNameHasItalic(requestedFamily);
+    const QFont::Weight fontWeight = static_cast<QFont::Weight>(weight());
+
+    ensureApplicationFontFamilyAvailable(requestedFamily, isBold, isItalic);
+
+    QFont qf(requestedFamily);
 
     if (pointSizeF() > 0) {
         qf.setPointSizeF(pointSizeF());
     } else if (pixelSize() > 0) {
         qf.setPixelSize(pixelSize());
     }
-    qf.setWeight(static_cast<QFont::Weight>(weight()));
-    qf.setBold(isBold);
-    qf.setItalic(isItalic);
+    applyFontStyle(qf, fontWeight, isBold, isItalic);
     qf.setUnderline(underline());
     qf.setStrikeOut(strike());
 
     // Some PDF backends choose the regular face unless a concrete family style is set.
-    const QString styleName = matchingStyleName(family().id(), isBold, isItalic);
-    if (!styleName.isEmpty()) {
-        qf.setStyleName(styleName);
-        qf.setWeight(static_cast<QFont::Weight>(weight()));
-        qf.setBold(isBold);
-        qf.setItalic(isItalic);
+    const bool hasMatchingRequestedStyle = applyMatchingStyleName(qf, requestedFamily, fontWeight, isBold, isItalic);
+    if ((isBold || isItalic) && !hasMatchingRequestedStyle && !QFontDatabase::hasFamily(requestedFamily)) {
+        const QString fallbackFamily = QFontInfo(qf).family();
+        if (!fallbackFamily.isEmpty() && fallbackFamily.compare(requestedFamily, Qt::CaseInsensitive) != 0) {
+            applyMatchingStyleName(qf, fallbackFamily, fontWeight, isBold, isItalic);
+        }
     }
 
     if (!RealIsNull(m_letterSpacing)) {

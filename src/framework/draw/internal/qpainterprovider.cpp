@@ -21,14 +21,17 @@
  */
 #include "qpainterprovider.h"
 
+#include <QFontDatabase>
+#include <QFontMetricsF>
+#include <QGlyphRun>
+#include <QPaintEngine>
 #include <QPainter>
+#include <QPainterPath>
+#include <QPixmapCache>
 #include <QRawFont>
+#include <QStaticText>
 #include <QTextLayout>
 #include <QTextLine>
-#include <QGlyphRun>
-#include <QPixmapCache>
-#include <QStaticText>
-#include <QPainterPath>
 
 #include "draw/utils/drawlogger.h"
 #include "types/transform.h"
@@ -37,6 +40,231 @@
 #include "log.h"
 
 using namespace muse::draw;
+
+namespace {
+bool fontStyleNameHasItalic(const QString& styleName)
+{
+    const QString lowerStyleName = styleName.toLower();
+    return lowerStyleName.contains("italic")
+           || lowerStyleName.contains("oblique")
+           || lowerStyleName.contains("boldita")
+           || lowerStyleName.contains("bdita");
+}
+
+bool fontStyleNameHasBold(const QString& styleName)
+{
+    const QString lowerStyleName = styleName.toLower();
+    return lowerStyleName.contains("bold")
+           || lowerStyleName.contains("bdita");
+}
+
+bool familyHasMatchingItalicStyle(const QString& family, bool bold)
+{
+    for (const QString& style : QFontDatabase::styles(family)) {
+        if (fontStyleNameHasItalic(style) && fontStyleNameHasBold(style) == bold) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+QString matchingUprightStyleName(const QString& family, bool bold)
+{
+    const QStringList styles = QFontDatabase::styles(family);
+    if (styles.empty()) {
+        return QString();
+    }
+
+    QStringList preferred;
+    if (bold) {
+        preferred << "Bold";
+    } else {
+        preferred << "Regular" << "Roman" << "Book";
+    }
+
+    for (const QString& preferredStyle : preferred) {
+        for (const QString& style : styles) {
+            if (style.compare(preferredStyle, Qt::CaseInsensitive) == 0) {
+                return style;
+            }
+        }
+    }
+
+    for (const QString& style : styles) {
+        if (fontStyleNameHasBold(style) == bold && !fontStyleNameHasItalic(style)) {
+            return style;
+        }
+    }
+
+    return QString();
+}
+
+bool isPdfPainter(const QPainter* painter)
+{
+    return painter && painter->paintEngine() && painter->paintEngine()->type() == QPaintEngine::Pdf;
+}
+
+bool requestedItalicResolvesToBoldStyle(const Font& font, const QFont& qfont)
+{
+    if (font.bold() || !fontStyleNameHasItalic(qfont.styleName())) {
+        return false;
+    }
+
+    return fontStyleNameHasBold(qfont.styleName());
+}
+
+bool needsSyntheticPdfItalic(const Font& font, const QFont& qfont)
+{
+    if (!font.italic()) {
+        return false;
+    }
+
+    const QString requestedFamily = font.family().id().toQString();
+    if (requestedFamily.isEmpty() || fontStyleNameHasItalic(requestedFamily)) {
+        return false;
+    }
+
+    if (qfont.family().compare(requestedFamily, Qt::CaseInsensitive) != 0) {
+        return false;
+    }
+
+    if (!QFontDatabase::hasFamily(requestedFamily)) {
+        return false;
+    }
+
+    return !familyHasMatchingItalicStyle(requestedFamily, font.bold())
+           || requestedItalicResolvesToBoldStyle(font, qfont);
+}
+
+bool isCenturyOsMtStd(const Font& font)
+{
+    return font.family().id().toQString().compare("Century OS MT Std", Qt::CaseInsensitive) == 0;
+}
+
+bool needsPdfRegularPathWorkaround(const Font& font, const QFont& qfont)
+{
+    if (!isCenturyOsMtStd(font) || font.italic() || font.underline() || font.strike()) {
+        return false;
+    }
+
+    if (fontStyleNameHasItalic(qfont.styleName())) {
+        return false;
+    }
+
+    // Qt 6.10's PDF engine caches this family by the first face it writes. If the
+    // regular face is written first, later italic text is embedded as CenturyOSMTStd.
+    return true;
+}
+
+void drawTextPath(QPainter* painter, const QPainterPath& path)
+{
+    painter->save();
+    const QPen oldPen = painter->pen();
+    const QBrush textBrush = oldPen.style() == Qt::NoPen ? painter->brush() : oldPen.brush();
+    painter->setPen(Qt::NoPen);
+    painter->setBrush(textBrush);
+    painter->drawPath(path);
+    painter->restore();
+}
+
+void drawTextAsPath(QPainter* painter, const QPointF& point, const QString& text)
+{
+    QPainterPath path;
+    path.addText(point, painter->font(), text);
+
+    drawTextPath(painter, path);
+}
+
+QPointF alignedTextPoint(const QRectF& rect, int flags, double lineWidth, double textHeight,
+                         const QFontMetricsF& fontMetrics)
+{
+    double x = rect.left();
+    if (flags & AlignHCenter) {
+        x += (rect.width() - lineWidth) / 2.0;
+    } else if (flags & AlignRight) {
+        x = rect.right() - lineWidth;
+    }
+
+    double y = rect.top() + fontMetrics.ascent();
+    if (flags & AlignVCenter) {
+        y = rect.top() + ((rect.height() - textHeight) / 2.0) + fontMetrics.ascent();
+    } else if (flags & AlignBottom) {
+        y = rect.bottom() - textHeight + fontMetrics.ascent();
+    }
+
+    return QPointF(x, y);
+}
+
+void drawTextAsPath(QPainter* painter, const QRectF& rect, int flags, const QString& text)
+{
+    if (flags & (TextWordWrap | TextWrapAnywhere)) {
+        painter->drawText(rect, flags, text);
+        return;
+    }
+
+    const QFontMetricsF fontMetrics(painter->font());
+    QString normalizedText = text;
+    normalizedText.replace("\r\n", "\n");
+    normalizedText.replace('\r', '\n');
+    const QStringList lines = normalizedText.split('\n');
+
+    double textHeight = 0.0;
+    if (!lines.empty()) {
+        textHeight = fontMetrics.height() + (fontMetrics.lineSpacing() * (lines.size() - 1));
+    }
+
+    QPainterPath path;
+    double y = alignedTextPoint(rect, flags, 0.0, textHeight, fontMetrics).y();
+    for (const QString& line : lines) {
+        const double lineWidth = fontMetrics.horizontalAdvance(line);
+        QPointF point = alignedTextPoint(rect, flags, lineWidth, textHeight, fontMetrics);
+        point.setY(y);
+        path.addText(point, painter->font(), line);
+        y += fontMetrics.lineSpacing();
+    }
+
+    painter->save();
+    if (!(flags & TextDontClip)) {
+        painter->setClipRect(rect, Qt::IntersectClip);
+    }
+    drawTextPath(painter, path);
+    painter->restore();
+}
+
+void setSyntheticItalicBaseFont(QPainter* painter, bool bold)
+{
+    QFont qfont = painter->font();
+    const QString styleName = matchingUprightStyleName(qfont.family(), bold);
+    if (!styleName.isEmpty()) {
+        qfont.setStyleName(styleName);
+    }
+    qfont.setBold(bold);
+    qfont.setItalic(false);
+    qfont.setStyle(QFont::StyleNormal);
+    painter->setFont(qfont);
+}
+
+void drawTextWithSyntheticItalic(QPainter* painter, const QPointF& point, const QString& text, bool bold)
+{
+    painter->save();
+    setSyntheticItalicBaseFont(painter, bold);
+    painter->translate(point);
+    painter->shear(-0.25, 0.0);
+    painter->drawText(QPointF(0.0, 0.0), text);
+    painter->restore();
+}
+
+void drawTextWithSyntheticItalic(QPainter* painter, const QRectF& rect, int flags, const QString& text, bool bold)
+{
+    painter->save();
+    setSyntheticItalicBaseFont(painter, bold);
+    painter->translate(rect.topLeft());
+    painter->shear(-0.25, 0.0);
+    painter->drawText(QRectF(QPointF(0.0, 0.0), rect.size()), flags, text);
+    painter->restore();
+}
+}
 
 QPainterProvider::QPainterProvider(QPainter* painter, bool ownsPainter)
     : m_painter(painter), m_ownsPainter(ownsPainter), m_drawObjectsLogger(new DrawObjectsLogger())
@@ -234,12 +462,36 @@ void QPainterProvider::drawText(const PointF& point, const String& text)
 {
     QPointF p = point.toQPointF();
     QString t = text.toQString();
+
+    if (isPdfPainter(m_painter) && needsPdfRegularPathWorkaround(m_font, m_painter->font())) {
+        drawTextAsPath(m_painter, p, t);
+        return;
+    }
+
+    if (isPdfPainter(m_painter) && needsSyntheticPdfItalic(m_font, m_painter->font())) {
+        drawTextWithSyntheticItalic(m_painter, p, t, m_font.bold());
+        return;
+    }
+
     m_painter->drawText(p, t);
 }
 
 void QPainterProvider::drawText(const RectF& rect, int flags, const String& text)
 {
-    m_painter->drawText(rect.toQRectF(), flags, text);
+    QRectF r = rect.toQRectF();
+    QString t = text.toQString();
+
+    if (isPdfPainter(m_painter) && needsPdfRegularPathWorkaround(m_font, m_painter->font())) {
+        drawTextAsPath(m_painter, r, flags, t);
+        return;
+    }
+
+    if (isPdfPainter(m_painter) && needsSyntheticPdfItalic(m_font, m_painter->font())) {
+        drawTextWithSyntheticItalic(m_painter, r, flags, t, m_font.bold());
+        return;
+    }
+
+    m_painter->drawText(r, flags, t);
 }
 
 void QPainterProvider::drawTextWorkaround(const Font& f, const PointF& pos, const String& text)

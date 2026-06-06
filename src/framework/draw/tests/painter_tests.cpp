@@ -23,6 +23,8 @@
 
 #include <QPainter>
 #include <QImage>
+#include <QFontDatabase>
+#include <QFontInfo>
 
 #include "draw/painter.h"
 
@@ -39,6 +41,37 @@ public:
 static QPainter* getUnderlyingQPainter(const Painter* painter)
 {
     return dynamic_cast<QPainterProvider*>(painter->provider().get())->qpainter();
+}
+
+static bool fontStyleNameHasItalic(const QString& styleName)
+{
+    const QString lowerStyleName = styleName.toLower();
+    return lowerStyleName.contains("italic")
+           || lowerStyleName.contains("oblique")
+           || lowerStyleName.contains("boldita")
+           || lowerStyleName.contains("bdita");
+}
+
+static bool familyHasItalicStyle(const QString& family)
+{
+    for (const QString& style : QFontDatabase::styles(family)) {
+        if (fontStyleNameHasItalic(style)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+static QString familyWithoutItalicStyle()
+{
+    for (const QString& family : QFontDatabase::families()) {
+        if (!QFontDatabase::styles(family).empty() && !familyHasItalicStyle(family)) {
+            return family;
+        }
+    }
+
+    return QString();
 }
 
 TEST_F(Draw_PainterTests, Painter_FromNewQPainter)
@@ -122,6 +155,43 @@ TEST_F(Draw_PainterTests, Font_ToQFontInfersStyleFromFaceName)
 
     EXPECT_TRUE(qfont.bold());
     EXPECT_TRUE(qfont.italic());
+}
+
+TEST_F(Draw_PainterTests, Font_ToQFontKeepsItalicOnFallbackFamily)
+{
+    const QString missingFamily("MuseScoreMissingItalicFont");
+    QFont fallbackProbe(missingFamily);
+    fallbackProbe.setItalic(true);
+
+    const QString fallbackFamily = QFontInfo(fallbackProbe).family();
+    if (!familyHasItalicStyle(fallbackFamily)) {
+        GTEST_SKIP() << "Qt fallback family has no concrete italic style";
+    }
+
+    Font font(String::fromQString(missingFamily), Font::Type::Text);
+    font.setItalic(true);
+
+    QFont qfont = font.toQFont();
+
+    EXPECT_TRUE(qfont.italic());
+    EXPECT_EQ(qfont.family(), fallbackFamily);
+    EXPECT_TRUE(fontStyleNameHasItalic(qfont.styleName()));
+}
+
+TEST_F(Draw_PainterTests, Font_ToQFontKeepsFamilyWhenItalicFaceIsMissing)
+{
+    const QString regularOnlyFamily = familyWithoutItalicStyle();
+    if (regularOnlyFamily.isEmpty()) {
+        GTEST_SKIP() << "No regular-only family available";
+    }
+
+    Font font(String::fromQString(regularOnlyFamily), Font::Type::Text);
+    font.setItalic(true);
+
+    QFont qfont = font.toQFont();
+
+    EXPECT_TRUE(qfont.italic());
+    EXPECT_EQ(qfont.family(), regularOnlyFamily);
 }
 
 TEST_F(Draw_PainterTests, Painter_SaveRestore)
