@@ -45,6 +45,35 @@ using namespace mu::engraving;
 static const String BEAM_DATA_DIR("beam_data/");
 static const String MEASURE_DATA_DIR("measure_data/");
 
+static std::vector<Beam*> collectBeams(MasterScore* score)
+{
+    std::vector<Beam*> beams;
+    std::set<Beam*> seen;
+
+    for (Measure* measure = score->firstMeasure(); measure; measure = measure->nextMeasure()) {
+        for (Segment* segment = measure->first(SegmentType::ChordRest); segment;
+             segment = segment->next(SegmentType::ChordRest)) {
+            for (track_idx_t track = 0; track < score->ntracks(); ++track) {
+                ChordRest* cr = segment->cr(track);
+                if (!cr) {
+                    continue;
+                }
+
+                Beam* beam = cr->beam();
+                if (!beam || beam->elements().empty() || beam->elements().front() != cr) {
+                    continue;
+                }
+
+                if (seen.insert(beam).second) {
+                    beams.push_back(beam);
+                }
+            }
+        }
+    }
+
+    return beams;
+}
+
 static std::vector<Beam*> collectCrossStaffBeams(MasterScore* score)
 {
     std::vector<Beam*> beams;
@@ -203,6 +232,49 @@ TEST_F(Engraving_BeamTests, flatBeams)
     MasterScore* score = ScoreRW::readScore(BEAM_DATA_DIR + u"flatBeams.mscx");
     EXPECT_TRUE(score);
     EXPECT_TRUE(ScoreComp::saveCompareScore(score, u"flatBeams.mscx", BEAM_DATA_DIR + u"flatBeams-ref.mscx"));
+    delete score;
+}
+
+TEST_F(Engraving_BeamTests, twoPitchBeamSlantRules)
+{
+    MasterScore* score = ScoreRW::readScore(BEAM_DATA_DIR + u"twoPitchBeamSlantRules.mscx");
+    ASSERT_TRUE(score);
+
+    score->setLayoutAll();
+    score->doLayout();
+
+    std::vector<Beam*> beams = collectBeams(score);
+    ASSERT_EQ(beams.size(), 6);
+
+    auto expectFlat = [](const Beam* beam) {
+        ASSERT_TRUE(beam);
+        EXPECT_NEAR(beam->slope(), 0.0, 0.001);
+    };
+    auto expectSloped = [](const Beam* beam) {
+        ASSERT_TRUE(beam);
+        EXPECT_GT(std::abs(beam->slope()), 0.001);
+    };
+
+    expectSloped(beams[0]); // isolated closest-to-beam pitch at the start, stems up
+    expectFlat(beams[1]);  // isolated farthest-from-beam pitch at the start, stems up
+    expectSloped(beams[2]); // equal pitch counts with different endpoints, stems up
+    expectSloped(beams[3]); // isolated closest-to-beam pitch at the end, stems up
+    expectSloped(beams[4]); // isolated closest-to-beam pitch at the start, stems down
+    expectFlat(beams[5]);  // isolated farthest-from-beam pitch at the start, stems down
+
+    score->style().set(Sid::useDefaultBeamSlantRules, false);
+    score->setLayoutAll();
+    score->doLayout();
+
+    beams = collectBeams(score);
+    ASSERT_EQ(beams.size(), 6);
+    expectSloped(beams[0]);
+    expectFlat(beams[1]);
+    expectSloped(beams[2]);
+    expectSloped(beams[3]);
+    expectSloped(beams[4]);
+    expectFlat(beams[5]);
+
     delete score;
 }
 

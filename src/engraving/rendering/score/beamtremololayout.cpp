@@ -168,6 +168,84 @@ static std::vector<BeamBase::NotePosition> collectChordNotesClosestToBeam(const 
     return notePositions;
 }
 
+enum class TwoPitchBeamSlant : char
+{
+    None,
+    Flat,
+    Sloped
+};
+
+static TwoPitchBeamSlant twoPitchBeamSlantRule(const BeamBase::LayoutData* ldata)
+{
+    if (!ldata || ldata->beamType != BeamType::BEAM || !ldata->beam || ldata->beam->userModified()
+        || ldata->beam->noSlope() || ldata->isGrace || ldata->tab
+        || ldata->crossStaffBeamPos != BeamBase::CrossStaffBeamPosition::INVALID || ldata->elements.size() < 3) {
+        return TwoPitchBeamSlant::None;
+    }
+
+    std::vector<BeamBase::NotePosition> positions;
+    positions.reserve(ldata->elements.size());
+    for (const ChordRest* cr : ldata->elements) {
+        if (!cr || !cr->isChord()) {
+            return TwoPitchBeamSlant::None;
+        }
+        positions.push_back(chordNoteClosestToBeam(toChord(cr), ldata->up));
+    }
+
+    std::array<BeamBase::NotePosition, 2> pitches;
+    std::array<size_t, 2> counts = { 0, 0 };
+    int pitchCount = 0;
+    for (const BeamBase::NotePosition& pos : positions) {
+        int pitchIndex = -1;
+        for (int i = 0; i < pitchCount; ++i) {
+            if (pitches[i] == pos) {
+                pitchIndex = i;
+                break;
+            }
+        }
+        if (pitchIndex == -1) {
+            if (pitchCount == 2) {
+                return TwoPitchBeamSlant::None;
+            }
+            pitchIndex = pitchCount;
+            pitches[pitchCount] = pos;
+            ++pitchCount;
+        }
+        ++counts[pitchIndex];
+    }
+
+    if (pitchCount != 2) {
+        return TwoPitchBeamSlant::None;
+    }
+
+    const BeamBase::NotePosition nearestToBeam = ldata->up ? std::min(pitches[0], pitches[1])
+                                                  : std::max(pitches[0], pitches[1]);
+    for (int i = 0; i < pitchCount; ++i) {
+        if (counts[i] != 1) {
+            continue;
+        }
+
+        size_t isolatedIndex = 0;
+        for (; isolatedIndex < positions.size(); ++isolatedIndex) {
+            if (positions[isolatedIndex] == pitches[i]) {
+                break;
+            }
+        }
+
+        if (isolatedIndex != 0 && isolatedIndex != positions.size() - 1) {
+            return TwoPitchBeamSlant::None;
+        }
+
+        return pitches[i] == nearestToBeam ? TwoPitchBeamSlant::Sloped : TwoPitchBeamSlant::Flat;
+    }
+
+    if (counts[0] == counts[1] && positions.front() != positions.back()) {
+        return TwoPitchBeamSlant::Sloped;
+    }
+
+    return TwoPitchBeamSlant::None;
+}
+
 void BeamTremoloLayout::setupLData(const BeamBase* item, BeamBase::LayoutData* ldata, const LayoutContext& ctx)
 {
     bool isGrace = false;
@@ -1303,7 +1381,13 @@ int BeamTremoloLayout::computeDesiredSlant(const BeamBase* item, const BeamBase:
         return 0;
     }
     const bool applyDefaultSlantRules = useDefaultBeamSlantRules(ldata);
-    if (applyDefaultSlantRules) {
+    const TwoPitchBeamSlant twoPitchSlant = twoPitchBeamSlantRule(ldata);
+    if (twoPitchSlant == TwoPitchBeamSlant::Flat) {
+        return 0;
+    }
+
+    const bool forceTwoPitchSlant = applyDefaultSlantRules && twoPitchSlant == TwoPitchBeamSlant::Sloped;
+    if (applyDefaultSlantRules && !forceTwoPitchSlant) {
         int dictatorExtension = targetLine - dictator; // we need to make sure that beams extended to the middle line
         int pointerExtension = targetLine - pointer;  // are properly treated as flat.
         if (ldata->up) {
@@ -1320,13 +1404,15 @@ int BeamTremoloLayout::computeDesiredSlant(const BeamBase* item, const BeamBase:
     if (startPos == endPos) {
         return 0;
     }
-    SlopeConstraint slopeConstrained = getSlopeConstraint(ldata, startPos, endPos);
-    if (slopeConstrained == SlopeConstraint::FLAT) {
-        return 0;
-    } else if (slopeConstrained == SlopeConstraint::SMALL_SLOPE) {
-        // In custom mode, keep the legacy contour constraint but use a 1sp slant instead of 0.25sp.
-        const int constrainedSlope = applyDefaultSlantRules ? 1 : 4;
-        return dictator > pointer ? -constrainedSlope : constrainedSlope;
+    if (!forceTwoPitchSlant) {
+        SlopeConstraint slopeConstrained = getSlopeConstraint(ldata, startPos, endPos);
+        if (slopeConstrained == SlopeConstraint::FLAT) {
+            return 0;
+        } else if (slopeConstrained == SlopeConstraint::SMALL_SLOPE) {
+            // In custom mode, keep the legacy contour constraint but use a 1sp slant instead of 0.25sp.
+            const int constrainedSlope = applyDefaultSlantRules ? 1 : 4;
+            return dictator > pointer ? -constrainedSlope : constrainedSlope;
+        }
     }
 
     // calculate max slope based on distance between first and last chords
