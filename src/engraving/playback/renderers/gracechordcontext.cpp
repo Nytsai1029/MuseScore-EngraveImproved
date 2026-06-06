@@ -92,6 +92,20 @@ static RenderingContext buildGraceRenderingCtx(const RenderingContext& baseCtx,
     return result;
 }
 
+static void keepOnlyGraceNoteArticulation(RenderingContext& ctx, const ArticulationType type)
+{
+    auto it = ctx.commonArticulations.find(type);
+    if (it == ctx.commonArticulations.cend()) {
+        ctx.commonArticulations.clear();
+        return;
+    }
+
+    ArticulationAppliedData articulation = it->second;
+    ctx.commonArticulations.clear();
+    ctx.commonArticulations.emplace(type, std::move(articulation));
+    ctx.commonArticulations.preCalculateAverageData();
+}
+
 GraceChordCtx GraceChordCtx::buildCtx(const Chord* chord, const mpe::ArticulationType type, const RenderingContext& ctx)
 {
     std::vector<Chord*> graceChords;
@@ -124,6 +138,7 @@ GraceChordCtx GraceChordCtx::buildCtx(const Chord* chord, const mpe::Articulatio
             graceNotesDurationFactor * durationFromTempoAndTicks(ctx.beatsPerSecond.val, durationTicks), 0);
 
         RenderingContext graceNoteCtx = buildGraceRenderingCtx(ctx, graceChordTimestamp, duration);
+        keepOnlyGraceNoteArticulation(graceNoteCtx, type);
         result.graceChordCtxList.emplace_back(std::make_pair(graceChord, graceNoteCtx));
 
         graceChordTimestamp += duration;

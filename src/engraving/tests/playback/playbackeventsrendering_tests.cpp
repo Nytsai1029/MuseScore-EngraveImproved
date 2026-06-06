@@ -1544,6 +1544,92 @@ TEST_F(Engraving_PlaybackEventsRendererTests, GraceNoteWithTiedNotes)
 }
 
 /**
+ * @brief PlaybackEventsRendererTests_GraceNote_ChordArpeggio
+ * @details Grace note contexts should keep the grace-note articulation but not inherit
+ *          chord-level articulations from the principal arpeggiated chord.
+ */
+TEST_F(Engraving_PlaybackEventsRendererTests, GraceNote_ChordArpeggio)
+{
+    // [GIVEN] Simple piece of score (piano, 4/4, 120 bpm, Treble Cleff)
+    Score* score = ScoreRW::readScore(
+        PLAYBACK_EVENTS_RENDERING_DIR + "grace_note_chord_arpeggio/grace_note_chord_arpeggio.mscx");
+
+    Measure* firstMeasure = score->firstMeasure();
+    ASSERT_TRUE(firstMeasure);
+
+    Segment* firstSegment = firstMeasure->segments().firstCRSegment();
+    ASSERT_TRUE(firstSegment);
+
+    ChordRest* chord = firstSegment->nextChordRest(0);
+    ASSERT_TRUE(chord);
+
+    // [GIVEN] Expected disclosure
+    int expectedSubNotesCount = 4;
+    const duration_t graceNoteDuration = DEMI_SEMI_QUAVER_NOTE_DURATION / 2;
+    const duration_t principalChordDuration = SEMI_QUAVER_NOTE_DURATION - graceNoteDuration;
+    const duration_t arpeggioOffset = principalChordDuration / 3;
+
+    std::vector<duration_t> expectedDurations = {
+        graceNoteDuration,
+        principalChordDuration,
+        principalChordDuration - arpeggioOffset,
+        principalChordDuration - arpeggioOffset * 2
+    };
+
+    std::vector<timestamp_t> expectedTimestamps = {
+        0,
+        graceNoteDuration,
+        graceNoteDuration + arpeggioOffset,
+        graceNoteDuration + arpeggioOffset * 2
+    };
+
+    std::vector<pitch_level_t> expectedPitches = {
+        pitchLevel(PitchClass::G, 4),
+        pitchLevel(PitchClass::F, 4),
+        pitchLevel(PitchClass::A, 4),
+        pitchLevel(PitchClass::C, 5)
+    };
+
+    std::vector<ArticulationType> expectedArticulations = {
+        ArticulationType::Acciaccatura,
+        ArticulationType::Arpeggio,
+        ArticulationType::Arpeggio,
+        ArticulationType::Arpeggio,
+    };
+
+    // [GIVEN] Fulfill articulations profile with dummy patterns
+    m_defaultProfile->setPattern(ArticulationType::Acciaccatura, m_dummyPattern);
+    m_defaultProfile->setPattern(ArticulationType::Arpeggio, m_dummyPattern);
+
+    // [GIVEN] Dummy context
+    PlaybackContextPtr ctx = std::make_shared<PlaybackContext>();
+
+    // [WHEN] Request to render the principal arpeggiated chord
+    PlaybackEventsMap result;
+    m_renderer.render(chord, 0, m_defaultProfile, ctx, result);
+
+    for (const auto& pair : result) {
+        // [THEN] We expect that rendered note events number will match expectations
+        EXPECT_EQ(pair.second.size(), expectedSubNotesCount);
+
+        for (size_t i = 0; i < pair.second.size(); ++i) {
+            const mpe::NoteEvent& noteEvent = std::get<mpe::NoteEvent>(pair.second.at(i));
+
+            // [THEN] We expect that grace and arpeggio articulations are applied to their own chord events only
+            EXPECT_EQ(noteEvent.expressionCtx().articulations.size(), 1);
+            EXPECT_TRUE(noteEvent.expressionCtx().articulations.contains(expectedArticulations.at(i)));
+
+            // [THEN] We expect that each sub-note has expected duration
+            EXPECT_EQ(noteEvent.arrangementCtx().nominalDuration, expectedDurations.at(i));
+            EXPECT_EQ(noteEvent.arrangementCtx().nominalTimestamp, expectedTimestamps.at(i));
+
+            // [THEN] We expect that each note event will match expected pitch disclosure
+            EXPECT_EQ(noteEvent.pitchCtx().nominalPitchLevel, expectedPitches.at(i));
+        }
+    }
+}
+
+/**
  * @brief PlaybackEventsRendererTests_SingleNote_Appoggiatura_Post
  * @details In this case we're gonna render a simple piece of score with a single measure,
  *          which starts with the F4 quarter note prepended with G4 8-th appoggiatura note
