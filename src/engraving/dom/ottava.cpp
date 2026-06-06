@@ -222,6 +222,7 @@ void OttavaSegment::editDrag(EditData& ed)
         EditData adjustedEd = ed;
         PointF gripDelta = ed.evtDelta;
         double previousPointY = 0.0;
+        double endPointYOffsetFromPos2 = 0.0;
         PointF oldStartOffset;
         PointF oldEndPos;
 
@@ -236,8 +237,9 @@ void OttavaSegment::editDrag(EditData& ed)
             int endPointIndex = 0;
             if (mainLineRange(startPointIndex, endPointIndex) && endPointIndex - startPointIndex >= 2) {
                 previousPointY = points()[endPointIndex - 2].y();
+                endPointYOffsetFromPos2 = points()[endPointIndex - 1].y() - pos2().y();
             } else {
-                previousPointY = pos().y();
+                previousPointY = pos2().y();
             }
             gripDelta.setY(0.0);
         }
@@ -252,7 +254,7 @@ void OttavaSegment::editDrag(EditData& ed)
         LineSegment::editDrag(adjustedEd);
 
         if (snapEndToPreviousHorizontal) {
-            setUserYoffset2(userOff2().y() + (previousPointY - pos2().y()));
+            setUserYoffset2(userOff2().y() + (previousPointY - endPointYOffsetFromPos2 - pos2().y()));
         }
 
         if (preserveTurningPoints) {

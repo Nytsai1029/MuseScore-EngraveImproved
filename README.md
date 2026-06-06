@@ -44,6 +44,7 @@ over the final page.
 - Text letter spacing: adjust score text tracking directly from style and text settings.
 - Laissez vibrer editing: drag and extend laissez vibrer lines more freely.
 - Broken and shaped line workflows: more flexible ottava and slur-style presentation.
+- Ottava broken-line editing: Shift-drag endpoints align to the visible line anchor without small vertical drift.
 - Editable hand symbols: adjust hand-symbol appearance where the score requires it.
 
 ## How It Compares
