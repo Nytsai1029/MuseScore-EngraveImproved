@@ -27,8 +27,18 @@
 namespace mu::notation {
 class NotationPaintView : public AbstractNotationPaintView
 {
+    Q_OBJECT
+
+    Q_PROPERTY(bool syncViewState READ syncViewState WRITE setSyncViewState NOTIFY syncViewStateChanged)
+
 public:
     explicit NotationPaintView(QQuickItem* parent = nullptr);
+
+    bool syncViewState() const;
+    void setSyncViewState(bool sync);
+
+signals:
+    void syncViewStateChanged();
 
 private:
     void onLoadNotation(INotationPtr notation) override;
@@ -39,7 +49,16 @@ private:
     void onMatrixChanged(const muse::draw::Transform& oldMatrix, const muse::draw::Transform& newMatrix,
                          bool overrideZoomType = true) override;
 
+    bool isMatrixInited() const override;
+    void setMatrixInited(bool inited) override;
+    ZoomType zoomType() const override;
+    void setZoomType(ZoomType type) override;
+
     bool m_isLocalMatrixUpdate = false;
+    bool m_viewStateMatrixConnectionActive = false;
+    bool m_syncViewState = true;
+    bool m_isLocalMatrixInited = false;
+    ZoomType m_localZoomType = ZoomType::Percentage;
 };
 }
 

@@ -215,7 +215,7 @@ void NotationViewInputController::initZoom()
 
     ZoomType defaultZoomType = configuration()->defaultZoomType();
 
-    currentNotation()->viewState()->setZoomType(defaultZoomType);
+    m_view->setZoomType(defaultZoomType);
 
     switch (defaultZoomType) {
     case ZoomType::Percentage:
@@ -232,7 +232,7 @@ void NotationViewInputController::initZoom()
         break;
     }
 
-    currentNotation()->viewState()->setMatrixInited(true);
+    m_view->setMatrixInited(true);
 }
 
 void NotationViewInputController::initCanvasPos()
@@ -262,7 +262,7 @@ void NotationViewInputController::updateZoomAfterSizeChange()
         return;
     }
 
-    switch (currentNotation()->viewState()->zoomType().val) {
+    switch (m_view->zoomType()) {
     case ZoomType::Percentage:
         break;
     case ZoomType::PageWidth:
@@ -354,7 +354,7 @@ void NotationViewInputController::zoomToPageWidth()
         return;
     }
 
-    currentNotation()->viewState()->setZoomType(ZoomType::PageWidth);
+    m_view->setZoomType(ZoomType::PageWidth);
     doZoomToPageWidth();
 }
 
@@ -378,7 +378,7 @@ void NotationViewInputController::zoomToWholePage()
         return;
     }
 
-    currentNotation()->viewState()->setZoomType(ZoomType::WholePage);
+    m_view->setZoomType(ZoomType::WholePage);
     doZoomToWholePage();
 }
 
@@ -409,7 +409,7 @@ void NotationViewInputController::zoomToTwoPages()
         return;
     }
 
-    currentNotation()->viewState()->setZoomType(ZoomType::TwoPages);
+    m_view->setZoomType(ZoomType::TwoPages);
     doZoomToTwoPages();
 }
 

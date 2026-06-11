@@ -114,6 +114,10 @@ public:
     qreal currentScaling() const override;
     void setScaling(qreal scaling, const muse::PointF& pos, bool overrideZoomType = true) override;
     void scale(qreal factor, const muse::PointF& pos, bool overrideZoomType = true);
+    bool isMatrixInited() const override;
+    void setMatrixInited(bool inited) override;
+    ZoomType zoomType() const override;
+    void setZoomType(ZoomType type) override;
 
     Q_INVOKABLE void pinchToZoom(qreal scaleFactor, const QPointF& pos);
 
@@ -197,6 +201,7 @@ protected:
     virtual void initZoomAndPosition();
 
     virtual void onMatrixChanged(const muse::draw::Transform& oldMatrix, const muse::draw::Transform& newMatrix, bool overrideZoomType);
+    virtual bool shouldUpdateZoomAfterSizeChange() const;
 
 protected slots:
     virtual void onViewSizeChanged();

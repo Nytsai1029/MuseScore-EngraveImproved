@@ -231,7 +231,7 @@ void AbstractNotationPaintView::onCurrentNotationChanged()
 
 void AbstractNotationPaintView::onLoadNotation(INotationPtr)
 {
-    if (viewport().isValid() && !m_notation->viewState()->isMatrixInited()) {
+    if (viewport().isValid() && !isMatrixInited()) {
         initZoomAndPosition();
     }
 
@@ -386,6 +386,11 @@ void AbstractNotationPaintView::onMatrixChanged(const Transform& oldMatrix, cons
     onPlaybackCursorRectChanged();
 }
 
+bool AbstractNotationPaintView::shouldUpdateZoomAfterSizeChange() const
+{
+    return true;
+}
+
 void AbstractNotationPaintView::onViewSizeChanged()
 {
     TRACEFUNC;
@@ -395,9 +400,9 @@ void AbstractNotationPaintView::onViewSizeChanged()
     }
 
     if (viewport().isValid()) {
-        if (!notation()->viewState()->isMatrixInited()) {
+        if (!isMatrixInited()) {
             initZoomAndPosition();
-        } else {
+        } else if (shouldUpdateZoomAfterSizeChange()) {
             m_inputController->updateZoomAfterSizeChange();
         }
     }
@@ -1095,6 +1100,34 @@ void AbstractNotationPaintView::moveCanvasHorizontal(qreal dx)
 qreal AbstractNotationPaintView::currentScaling() const
 {
     return m_matrix.m11();
+}
+
+bool AbstractNotationPaintView::isMatrixInited() const
+{
+    return notation() && notation()->viewState()->isMatrixInited();
+}
+
+void AbstractNotationPaintView::setMatrixInited(bool inited)
+{
+    if (!notation()) {
+        return;
+    }
+
+    notation()->viewState()->setMatrixInited(inited);
+}
+
+ZoomType AbstractNotationPaintView::zoomType() const
+{
+    return notation() ? notation()->viewState()->zoomType().val : ZoomType::Percentage;
+}
+
+void AbstractNotationPaintView::setZoomType(ZoomType type)
+{
+    if (!notation()) {
+        return;
+    }
+
+    notation()->viewState()->setZoomType(type);
 }
 
 void AbstractNotationPaintView::setScaling(qreal scaling, const PointF& pos, bool overrideZoomType)

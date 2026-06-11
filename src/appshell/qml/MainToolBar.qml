@@ -26,6 +26,8 @@ import Muse.Ui 1.0
 import Muse.UiComponents 1.0
 import MuseScore.AppShell 1.0
 
+import "./PublishPage"
+
 Item {
     id: root
 
@@ -38,8 +40,30 @@ Item {
 
     signal selected(string uri)
 
+    property var publishPreviewWindow: null
+
     function select(uri) {
         root.selected(uri)
+    }
+
+    function openPublishPreviewWindow() {
+        if (Boolean(root.publishPreviewWindow)) {
+            root.publishPreviewWindow.show()
+            root.publishPreviewWindow.raise()
+            root.publishPreviewWindow.requestActivate()
+            return
+        }
+
+        root.publishPreviewWindow = publishPreviewWindowComponent.createObject(root)
+        if (!root.publishPreviewWindow) {
+            return
+        }
+
+        root.publishPreviewWindow.closed.connect(function() {
+            root.publishPreviewWindow = null
+        })
+        root.publishPreviewWindow.show()
+        root.publishPreviewWindow.requestActivate()
     }
 
     function focusOnFirst() {
@@ -62,6 +86,12 @@ Item {
         name: "MainToolBar"
         enabled: root.enabled && root.visible
         accessible.name: qsTrc("appshell", "Main toolbar") + " " + navPanel.directionInfo
+    }
+
+    Component {
+        id: publishPreviewWindowComponent
+
+        PublishPreviewWindow {}
     }
 
     RadioButtonGroup {
@@ -92,6 +122,35 @@ Item {
 
             onToggled: {
                 root.selected(model.uri)
+            }
+
+            MouseArea {
+                id: publishPreviewMenuMouseArea
+
+                anchors.fill: parent
+
+                enabled: model.uri === "musescore://publish"
+                acceptedButtons: Qt.RightButton
+
+                onClicked: function(mouse) {
+                    if (mouse.button === Qt.RightButton) {
+                        publishPreviewMenuLoader.show(Qt.point(mouse.x, mouse.y))
+                    }
+                }
+
+                ContextMenuLoader {
+                    id: publishPreviewMenuLoader
+
+                    items: [
+                        { id: "show-as-window", title: qsTrc("appshell", "显示为单独窗口") }
+                    ]
+
+                    onHandleMenuItem: function(itemId) {
+                        if (itemId === "show-as-window") {
+                            root.openPublishPreviewWindow()
+                        }
+                    }
+                }
             }
         }
     }

@@ -63,6 +63,10 @@ public:
     virtual muse::RectF notationContentRect() const = 0;
     virtual qreal currentScaling() const = 0;
     virtual void setScaling(qreal scaling, const muse::PointF& pos, bool overrideZoomType = true) = 0;
+    virtual bool isMatrixInited() const = 0;
+    virtual void setMatrixInited(bool inited) = 0;
+    virtual ZoomType zoomType() const = 0;
+    virtual void setZoomType(ZoomType type) = 0;
 
     virtual muse::PointF toLogical(const muse::PointF& p) const = 0;
     virtual muse::PointF toLogical(const QPointF& p) const = 0;

@@ -30,19 +30,48 @@ NotationPaintView::NotationPaintView(QQuickItem* parent)
 {
 }
 
+bool NotationPaintView::syncViewState() const
+{
+    return m_syncViewState;
+}
+
+void NotationPaintView::setSyncViewState(bool sync)
+{
+    if (m_syncViewState == sync) {
+        return;
+    }
+
+    if (!sync && m_viewStateMatrixConnectionActive && notation()) {
+        notation()->viewState()->matrixChanged().resetOnReceive(this);
+        m_viewStateMatrixConnectionActive = false;
+    }
+
+    m_syncViewState = sync;
+    emit syncViewStateChanged();
+}
+
 void NotationPaintView::onLoadNotation(INotationPtr notation)
 {
-    m_isLocalMatrixUpdate = true;
-    setMatrix(notation->viewState()->matrix());
-    m_isLocalMatrixUpdate = false;
+    m_isLocalMatrixInited = false;
 
-    notation->viewState()->matrixChanged().onReceive(this, [this](const Transform& matrix, NotationPaintView* sender) {
-        if (sender != this) {
-            m_isLocalMatrixUpdate = true;
-            setMatrix(matrix);
-            m_isLocalMatrixUpdate = false;
-        }
-    });
+    if (m_syncViewState) {
+        m_isLocalMatrixUpdate = true;
+        setMatrix(notation->viewState()->matrix());
+        m_isLocalMatrixUpdate = false;
+
+        notation->viewState()->matrixChanged().onReceive(this, [this](const Transform& matrix, NotationPaintView* sender) {
+            if (sender != this) {
+                m_isLocalMatrixUpdate = true;
+                setMatrix(matrix);
+                m_isLocalMatrixUpdate = false;
+            }
+        });
+        m_viewStateMatrixConnectionActive = true;
+    } else {
+        m_isLocalMatrixUpdate = true;
+        setMatrix(Transform());
+        m_isLocalMatrixUpdate = false;
+    }
 
     AbstractNotationPaintView::onLoadNotation(notation);
 }
@@ -51,20 +80,36 @@ void NotationPaintView::onUnloadNotation(INotationPtr notation)
 {
     AbstractNotationPaintView::onUnloadNotation(notation);
 
-    notation->viewState()->matrixChanged().resetOnReceive(this);
+    if (m_viewStateMatrixConnectionActive) {
+        notation->viewState()->matrixChanged().resetOnReceive(this);
+        m_viewStateMatrixConnectionActive = false;
+    }
 }
 
 void NotationPaintView::initZoomAndPosition()
 {
-    if (notation() && !notation()->viewState()->isMatrixInited()) {
-        inputController()->initZoom();
-        inputController()->initCanvasPos();
+    if (!notation()) {
+        return;
     }
+
+    if (m_syncViewState && AbstractNotationPaintView::isMatrixInited()) {
+        return;
+    }
+
+    inputController()->initZoom();
+    inputController()->initCanvasPos();
 }
 
 void NotationPaintView::onMatrixChanged(const Transform& oldMatrix, const Transform& newMatrix, bool overrideZoomType)
 {
     AbstractNotationPaintView::onMatrixChanged(oldMatrix, newMatrix, overrideZoomType);
+
+    if (!m_syncViewState) {
+        if (overrideZoomType) {
+            m_localZoomType = ZoomType::Percentage;
+        }
+        return;
+    }
 
     if (!m_isLocalMatrixUpdate && notation()) {
         notation()->viewState()->setMatrix(newMatrix, this);
@@ -73,4 +118,42 @@ void NotationPaintView::onMatrixChanged(const Transform& oldMatrix, const Transf
             notation()->viewState()->setZoomType(ZoomType::Percentage);
         }
     }
+}
+
+bool NotationPaintView::isMatrixInited() const
+{
+    if (m_syncViewState) {
+        return AbstractNotationPaintView::isMatrixInited();
+    }
+
+    return m_isLocalMatrixInited;
+}
+
+void NotationPaintView::setMatrixInited(bool inited)
+{
+    if (m_syncViewState) {
+        AbstractNotationPaintView::setMatrixInited(inited);
+        return;
+    }
+
+    m_isLocalMatrixInited = inited;
+}
+
+ZoomType NotationPaintView::zoomType() const
+{
+    if (m_syncViewState) {
+        return AbstractNotationPaintView::zoomType();
+    }
+
+    return m_localZoomType;
+}
+
+void NotationPaintView::setZoomType(ZoomType type)
+{
+    if (m_syncViewState) {
+        AbstractNotationPaintView::setZoomType(type);
+        return;
+    }
+
+    m_localZoomType = type;
 }

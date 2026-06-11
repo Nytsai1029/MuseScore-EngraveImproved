@@ -42,6 +42,10 @@ public:
     MOCK_METHOD(muse::RectF, notationContentRect, (), (const, override));
     MOCK_METHOD(qreal, currentScaling, (), (const, override));
     MOCK_METHOD(void, setScaling, (qreal, const muse::PointF&, bool), (override));
+    MOCK_METHOD(bool, isMatrixInited, (), (const, override));
+    MOCK_METHOD(void, setMatrixInited, (bool), (override));
+    MOCK_METHOD(ZoomType, zoomType, (), (const, override));
+    MOCK_METHOD(void, setZoomType, (ZoomType), (override));
 
     MOCK_METHOD(muse::PointF, toLogical, (const muse::PointF&), (const, override));
     MOCK_METHOD(muse::PointF, toLogical, (const QPointF&), (const, override));
