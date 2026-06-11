@@ -48,6 +48,10 @@ static constexpr double KEYBOARD_HAND_BRACKET_DEFAULT_SHORT_SIDE = 1.564;
 static constexpr double KEYBOARD_HAND_BRACKET_DEFAULT_LONG_SIDE = 4.064;
 static constexpr double KEYBOARD_HAND_BRACKET_DEFAULT_LINE_WIDTH = 0.13;
 static constexpr double KEYBOARD_HAND_BRACKET_MIN_SIDE = 0.1;
+static constexpr double TIME_SIG_BRACKET_DEFAULT_HEIGHT = 4.944;
+static constexpr double TIME_SIG_BRACKET_DEFAULT_HOOK = 0.472;
+static constexpr double TIME_SIG_BRACKET_DEFAULT_LINE_WIDTH = 0.13;
+static constexpr double TIME_SIG_BRACKET_MIN_SIDE = 0.1;
 static constexpr double DEGREES_TO_RADIANS = 3.14159265358979323846 / 180.0;
 
 static const ElementStyle symbolStyle {
@@ -84,6 +88,10 @@ Symbol::Symbol(const ElementType& type, EngravingItem* parent, ElementFlags f)
     m_keyboardHandBracketShortSide = Spatium(KEYBOARD_HAND_BRACKET_DEFAULT_SHORT_SIDE);
     m_keyboardHandBracketLongSide = Spatium(KEYBOARD_HAND_BRACKET_DEFAULT_LONG_SIDE);
     m_keyboardHandBracketLineWidth = Spatium(KEYBOARD_HAND_BRACKET_DEFAULT_LINE_WIDTH);
+    m_timeSigBracketHeight = Spatium(TIME_SIG_BRACKET_DEFAULT_HEIGHT);
+    m_timeSigBracketTopHook = Spatium(TIME_SIG_BRACKET_DEFAULT_HOOK);
+    m_timeSigBracketBottomHook = Spatium(TIME_SIG_BRACKET_DEFAULT_HOOK);
+    m_timeSigBracketLineWidth = Spatium(TIME_SIG_BRACKET_DEFAULT_LINE_WIDTH);
     initElementStyle(&symbolStyle);
 }
 
@@ -102,6 +110,10 @@ Symbol::Symbol(const Symbol& s)
     m_keyboardHandBracketShortSide = s.m_keyboardHandBracketShortSide;
     m_keyboardHandBracketLongSide = s.m_keyboardHandBracketLongSide;
     m_keyboardHandBracketLineWidth = s.m_keyboardHandBracketLineWidth;
+    m_timeSigBracketHeight = s.m_timeSigBracketHeight;
+    m_timeSigBracketTopHook = s.m_timeSigBracketTopHook;
+    m_timeSigBracketBottomHook = s.m_timeSigBracketBottomHook;
+    m_timeSigBracketLineWidth = s.m_timeSigBracketLineWidth;
 }
 
 //---------------------------------------------------------
@@ -123,6 +135,16 @@ bool Symbol::isKeyboardHandBracketSymbol(SymId sym)
            || sym == SymId::keyboardPlayWithLHEnd
            || sym == SymId::keyboardPlayWithRH
            || sym == SymId::keyboardPlayWithRHEnd;
+}
+
+//---------------------------------------------------------
+//   isTimeSigBracketSymbol
+//---------------------------------------------------------
+
+bool Symbol::isTimeSigBracketSymbol(SymId sym)
+{
+    return sym == SymId::timeSigBracketLeft
+           || sym == SymId::timeSigBracketRight;
 }
 
 //---------------------------------------------------------
@@ -197,19 +219,101 @@ PainterPath Symbol::keyboardHandBracketPath() const
 }
 
 //---------------------------------------------------------
+//   timeSigBracketLineWidth
+//---------------------------------------------------------
+
+double Symbol::timeSigBracketLineWidth() const
+{
+    return std::max(0.0, m_timeSigBracketLineWidth.val() * SPATIUM20 * magS() * m_symbolsSize);
+}
+
+//---------------------------------------------------------
+//   timeSigBracketBBox
+//---------------------------------------------------------
+
+RectF Symbol::timeSigBracketBBox() const
+{
+    const double scale = SPATIUM20 * magS() * m_symbolsSize;
+    const double hookLength = std::max(m_timeSigBracketTopHook.val(), m_timeSigBracketBottomHook.val());
+    const double width = std::max(0.0, hookLength * scale);
+    const double height = std::max(0.0, m_timeSigBracketHeight.val() * scale);
+    return RectF(0.0, -height * 0.5, width, height);
+}
+
+//---------------------------------------------------------
+//   timeSigBracketLines
+//---------------------------------------------------------
+
+std::array<LineF, 3> Symbol::timeSigBracketLines() const
+{
+    const RectF box = timeSigBracketBBox();
+    const double lw = timeSigBracketLineWidth();
+
+    const double left = std::min(lw * 0.5, box.width() * 0.5);
+    const double right = std::max(left, box.width() - lw * 0.5);
+    const double top = std::min(box.bottom() - lw * 0.5, box.top() + lw * 0.5);
+    const double bottom = std::max(top, box.bottom() - lw * 0.5);
+
+    const bool rightSide = m_sym == SymId::timeSigBracketRight;
+    const double x = rightSide ? right : left;
+    const double topHook = std::max(0.0, m_timeSigBracketTopHook.val() * SPATIUM20 * magS() * m_symbolsSize);
+    const double bottomHook = std::max(0.0, m_timeSigBracketBottomHook.val() * SPATIUM20 * magS() * m_symbolsSize);
+    const double topEnd = rightSide ? std::max(left, x - topHook) : std::min(right, x + topHook);
+    const double bottomEnd = rightSide ? std::max(left, x - bottomHook) : std::min(right, x + bottomHook);
+
+    return {
+        LineF(x, top, topEnd, top),
+        LineF(x, top, x, bottom),
+        LineF(x, bottom, bottomEnd, bottom)
+    };
+}
+
+//---------------------------------------------------------
+//   timeSigBracketPath
+//---------------------------------------------------------
+
+PainterPath Symbol::timeSigBracketPath() const
+{
+    const std::array<LineF, 3> lines = timeSigBracketLines();
+    const LineF& topHook = lines[0];
+    const LineF& vertical = lines[1];
+    const LineF& bottomHook = lines[2];
+
+    PainterPath path;
+    path.moveTo(topHook.p2());
+    path.lineTo(vertical.p1());
+    path.lineTo(vertical.p2());
+    path.lineTo(bottomHook.p2());
+    return path;
+}
+
+//---------------------------------------------------------
 //   gripsPositions
 //---------------------------------------------------------
 
 std::vector<PointF> Symbol::gripsPositions(const EditData&) const
 {
-    if (!isKeyboardHandBracketSymbol()) {
+    if (!isEditableBracketSymbol()) {
         return {};
+    }
+
+    if (isTimeSigBracketSymbol()) {
+        const std::array<LineF, 3> lines = timeSigBracketLines();
+        const LineF& topHook = lines[0];
+        const LineF& vertical = lines[1];
+        const LineF& bottomHook = lines[2];
+        const PointF origin = pagePos();
+
+        return {
+            origin + rotateKeyboardHandBracketPoint(topHook.p2(), m_symAngle),
+            origin + rotateKeyboardHandBracketPoint(bottomHook.p2(), m_symAngle),
+            origin + rotateKeyboardHandBracketPoint(vertical.p2(), m_symAngle)
+        };
     }
 
     const std::array<LineF, 2> lines = keyboardHandBracketLines();
     const LineF& vertical = lines[0];
     const LineF& horizontal = lines[1];
-
     const bool rightSide = m_sym == SymId::keyboardPlayWithLHEnd || m_sym == SymId::keyboardPlayWithRHEnd;
     const bool topSide = m_sym == SymId::keyboardPlayWithRH || m_sym == SymId::keyboardPlayWithRHEnd;
 
@@ -229,7 +333,27 @@ std::vector<PointF> Symbol::gripsPositions(const EditData&) const
 
 std::vector<LineF> Symbol::gripAnchorLines(Grip grip) const
 {
-    if (!isKeyboardHandBracketSymbol() || (grip != Grip::START && grip != Grip::END)) {
+    if (!isEditableBracketSymbol()) {
+        return {};
+    }
+
+    const int gripIndex = static_cast<int>(grip);
+    const std::vector<PointF> grips = gripsPositions();
+    if (gripIndex < 0 || gripIndex >= static_cast<int>(grips.size())) {
+        return {};
+    }
+
+    if (isTimeSigBracketSymbol()) {
+        const std::array<LineF, 3> lines = timeSigBracketLines();
+        const LineF& vertical = lines[1];
+        const PointF localAnchor = grip == Grip::END ? vertical.p2() : vertical.p1();
+        const Page* page = toPage(findAncestor(ElementType::PAGE));
+        const PointF pageOffset = page ? page->pos() : PointF();
+        const PointF anchor = pagePos() + rotateKeyboardHandBracketPoint(localAnchor, m_symAngle) + pageOffset;
+        return { LineF(anchor, grips[gripIndex] + pageOffset) };
+    }
+
+    if (grip != Grip::START && grip != Grip::END) {
         return {};
     }
 
@@ -241,11 +365,6 @@ std::vector<LineF> Symbol::gripAnchorLines(Grip grip) const
     const Page* page = toPage(findAncestor(ElementType::PAGE));
     const PointF pageOffset = page ? page->pos() : PointF();
     const PointF corner = pagePos() + rotateKeyboardHandBracketPoint(localCorner, m_symAngle) + pageOffset;
-    const std::vector<PointF> grips = gripsPositions();
-    const int gripIndex = static_cast<int>(grip);
-    if (gripIndex < 0 || gripIndex >= static_cast<int>(grips.size())) {
-        return {};
-    }
 
     return { LineF(corner, grips[gripIndex] + pageOffset) };
 }
@@ -256,7 +375,7 @@ std::vector<LineF> Symbol::gripAnchorLines(Grip grip) const
 
 void Symbol::startEditDrag(EditData& ed)
 {
-    if (!isKeyboardHandBracketSymbol()) {
+    if (!isEditableBracketSymbol()) {
         EngravingItem::startEditDrag(ed);
         return;
     }
@@ -268,8 +387,14 @@ void Symbol::startEditDrag(EditData& ed)
         ed.addData(eed);
     }
 
-    eed->pushProperty(Pid::SYMBOL_SHORT_SIDE_LENGTH);
-    eed->pushProperty(Pid::SYMBOL_LONG_SIDE_LENGTH);
+    if (isTimeSigBracketSymbol()) {
+        eed->pushProperty(Pid::SYMBOL_TOP_HOOK_LENGTH);
+        eed->pushProperty(Pid::SYMBOL_BOTTOM_HOOK_LENGTH);
+        eed->pushProperty(Pid::SYMBOL_LONG_SIDE_LENGTH);
+    } else {
+        eed->pushProperty(Pid::SYMBOL_SHORT_SIDE_LENGTH);
+        eed->pushProperty(Pid::SYMBOL_LONG_SIDE_LENGTH);
+    }
 }
 
 //---------------------------------------------------------
@@ -278,8 +403,30 @@ void Symbol::startEditDrag(EditData& ed)
 
 void Symbol::editDrag(EditData& ed)
 {
-    if (!isKeyboardHandBracketSymbol()) {
+    if (!isEditableBracketSymbol()) {
         EngravingItem::editDrag(ed);
+        return;
+    }
+
+    if (isTimeSigBracketSymbol()) {
+        if (ed.curGrip != Grip::START && ed.curGrip != Grip::END && ed.curGrip != Grip::MIDDLE) {
+            return;
+        }
+
+        const PointF localDelta = unrotateKeyboardHandBracketDelta(ed.delta, m_symAngle);
+        const bool rightSide = m_sym == SymId::timeSigBracketRight;
+        const double scale = std::max(0.001, SPATIUM20 * magS() * m_symbolsSize);
+
+        if (ed.curGrip == Grip::MIDDLE) {
+            m_timeSigBracketHeight = Spatium(std::max(TIME_SIG_BRACKET_MIN_SIDE,
+                                                       m_timeSigBracketHeight.val() + 2.0 * localDelta.y() / scale));
+        } else {
+            const double delta = rightSide ? -localDelta.x() : localDelta.x();
+            Spatium& hook = ed.curGrip == Grip::START ? m_timeSigBracketTopHook : m_timeSigBracketBottomHook;
+            hook = Spatium(std::max(TIME_SIG_BRACKET_MIN_SIDE, hook.val() + delta / scale));
+        }
+
+        triggerLayout();
         return;
     }
 
@@ -294,7 +441,8 @@ void Symbol::editDrag(EditData& ed)
 
     if (ed.curGrip == Grip::START) {
         const double delta = topSide ? localDelta.y() : -localDelta.y();
-        m_keyboardHandBracketLongSide = Spatium(std::max(KEYBOARD_HAND_BRACKET_MIN_SIDE, m_keyboardHandBracketLongSide.val() + delta / scale));
+        m_keyboardHandBracketLongSide = Spatium(std::max(KEYBOARD_HAND_BRACKET_MIN_SIDE,
+                                                          m_keyboardHandBracketLongSide.val() + delta / scale));
     } else {
         const double delta = rightSide ? -localDelta.x() : localDelta.x();
         m_keyboardHandBracketShortSide = Spatium(std::max(KEYBOARD_HAND_BRACKET_MIN_SIDE,
@@ -341,11 +489,26 @@ PropertyValue Symbol::getProperty(Pid propertyId) const
     case Pid::SYMBOL_ANGLE:
         return PropertyValue::fromValue(m_symAngle);
     case Pid::SYMBOL_SHORT_SIDE_LENGTH:
-        return isKeyboardHandBracketSymbol() ? PropertyValue::fromValue(m_keyboardHandBracketShortSide) : PropertyValue();
+        return isKeyboardHandBracketSymbol()
+               ? PropertyValue::fromValue(m_keyboardHandBracketShortSide) : PropertyValue();
     case Pid::SYMBOL_LONG_SIDE_LENGTH:
-        return isKeyboardHandBracketSymbol() ? PropertyValue::fromValue(m_keyboardHandBracketLongSide) : PropertyValue();
+        if (isKeyboardHandBracketSymbol()) {
+            return PropertyValue::fromValue(m_keyboardHandBracketLongSide);
+        } else if (isTimeSigBracketSymbol()) {
+            return PropertyValue::fromValue(m_timeSigBracketHeight);
+        }
+        return PropertyValue();
+    case Pid::SYMBOL_TOP_HOOK_LENGTH:
+        return isTimeSigBracketSymbol() ? PropertyValue::fromValue(m_timeSigBracketTopHook) : PropertyValue();
+    case Pid::SYMBOL_BOTTOM_HOOK_LENGTH:
+        return isTimeSigBracketSymbol() ? PropertyValue::fromValue(m_timeSigBracketBottomHook) : PropertyValue();
     case Pid::LINE_WIDTH:
-        return isKeyboardHandBracketSymbol() ? PropertyValue::fromValue(m_keyboardHandBracketLineWidth) : PropertyValue();
+        if (isKeyboardHandBracketSymbol()) {
+            return PropertyValue::fromValue(m_keyboardHandBracketLineWidth);
+        } else if (isTimeSigBracketSymbol()) {
+            return PropertyValue::fromValue(m_timeSigBracketLineWidth);
+        }
+        return PropertyValue();
     default:
         break;
     }
@@ -375,10 +538,24 @@ bool Symbol::setProperty(Pid propertyId, const PropertyValue& v)
         m_keyboardHandBracketShortSide = Spatium(std::max(0.0, v.value<Spatium>().val()));
         break;
     case Pid::SYMBOL_LONG_SIDE_LENGTH:
-        m_keyboardHandBracketLongSide = Spatium(std::max(0.0, v.value<Spatium>().val()));
+        if (isTimeSigBracketSymbol()) {
+            m_timeSigBracketHeight = Spatium(std::max(0.0, v.value<Spatium>().val()));
+        } else {
+            m_keyboardHandBracketLongSide = Spatium(std::max(0.0, v.value<Spatium>().val()));
+        }
+        break;
+    case Pid::SYMBOL_TOP_HOOK_LENGTH:
+        m_timeSigBracketTopHook = Spatium(std::max(0.0, v.value<Spatium>().val()));
+        break;
+    case Pid::SYMBOL_BOTTOM_HOOK_LENGTH:
+        m_timeSigBracketBottomHook = Spatium(std::max(0.0, v.value<Spatium>().val()));
         break;
     case Pid::LINE_WIDTH:
-        m_keyboardHandBracketLineWidth = Spatium(std::max(0.0, v.value<Spatium>().val()));
+        if (isTimeSigBracketSymbol()) {
+            m_timeSigBracketLineWidth = Spatium(std::max(0.0, v.value<Spatium>().val()));
+        } else {
+            m_keyboardHandBracketLineWidth = Spatium(std::max(0.0, v.value<Spatium>().val()));
+        }
         break;
     default:
         break;
@@ -408,18 +585,32 @@ PropertyValue Symbol::propertyDefault(Pid propertyId) const
         return v.isValid() ? v : PropertyValue::fromValue(Spatium(KEYBOARD_HAND_BRACKET_DEFAULT_SHORT_SIDE));
     }
     case Pid::SYMBOL_LONG_SIDE_LENGTH: {
-        if (!isKeyboardHandBracketSymbol()) {
-            return PropertyValue();
+        if (isKeyboardHandBracketSymbol()) {
+            PropertyValue v = EngravingObject::propertyDefault(propertyId);
+            return v.isValid() ? v : PropertyValue::fromValue(Spatium(KEYBOARD_HAND_BRACKET_DEFAULT_LONG_SIDE));
+        } else if (isTimeSigBracketSymbol()) {
+            return PropertyValue::fromValue(Spatium(TIME_SIG_BRACKET_DEFAULT_HEIGHT));
         }
-        PropertyValue v = EngravingObject::propertyDefault(propertyId);
-        return v.isValid() ? v : PropertyValue::fromValue(Spatium(KEYBOARD_HAND_BRACKET_DEFAULT_LONG_SIDE));
+        return PropertyValue();
     }
-    case Pid::LINE_WIDTH: {
-        if (!isKeyboardHandBracketSymbol()) {
+    case Pid::SYMBOL_TOP_HOOK_LENGTH:
+        if (!isTimeSigBracketSymbol()) {
             return PropertyValue();
         }
-        PropertyValue v = EngravingObject::propertyDefault(propertyId);
-        return v.isValid() ? v : PropertyValue::fromValue(Spatium(KEYBOARD_HAND_BRACKET_DEFAULT_LINE_WIDTH));
+        return PropertyValue::fromValue(Spatium(TIME_SIG_BRACKET_DEFAULT_HOOK));
+    case Pid::SYMBOL_BOTTOM_HOOK_LENGTH:
+        if (!isTimeSigBracketSymbol()) {
+            return PropertyValue();
+        }
+        return PropertyValue::fromValue(Spatium(TIME_SIG_BRACKET_DEFAULT_HOOK));
+    case Pid::LINE_WIDTH: {
+        if (isKeyboardHandBracketSymbol()) {
+            PropertyValue v = EngravingObject::propertyDefault(propertyId);
+            return v.isValid() ? v : PropertyValue::fromValue(Spatium(KEYBOARD_HAND_BRACKET_DEFAULT_LINE_WIDTH));
+        } else if (isTimeSigBracketSymbol()) {
+            return PropertyValue::fromValue(Spatium(TIME_SIG_BRACKET_DEFAULT_LINE_WIDTH));
+        }
+        return PropertyValue();
     }
     case Pid::SCORE_FONT:
         if (m_scoreFont) {

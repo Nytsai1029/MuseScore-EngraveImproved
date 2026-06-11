@@ -172,13 +172,115 @@ Column {
         }
     }
 
+    Item {
+        readonly property bool showTimeSigBracketControls: root.model
+            && root.model.timeSigBracketHeight
+            && root.model.timeSigBracketHeight.isVisible
+
+        height: showTimeSigBracketControls ? childrenRect.height : 0
+        width: parent.width
+        visible: showTimeSigBracketControls
+
+        SpinBoxPropertyView {
+            id: timeSigBracketHeight
+
+            anchors.left: parent.left
+            anchors.right: parent.horizontalCenter
+            anchors.rightMargin: 8
+
+            navigationName: "Height"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: root.navigationRowStart + 5
+
+            titleText: qsTrc("inspector", "Height")
+            measureUnitsSymbol: "sp"
+            propertyItem: root.model ? root.model.timeSigBracketHeight : null
+
+            decimals: 2
+            step: 0.1
+            minValue: 0.1
+            maxValue: 40
+        }
+
+        SpinBoxPropertyView {
+            id: timeSigBracketTopHook
+
+            anchors.left: parent.horizontalCenter
+            anchors.right: parent.right
+
+            navigationName: "TopHook"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: root.navigationRowStart + 6
+
+            titleText: qsTrc("inspector", "Top hook")
+            measureUnitsSymbol: "sp"
+            propertyItem: root.model ? root.model.timeSigBracketTopHook : null
+
+            decimals: 2
+            step: 0.1
+            minValue: 0.1
+            maxValue: 20
+        }
+    }
+
+    Item {
+        readonly property bool showTimeSigBracketControls: root.model
+            && root.model.timeSigBracketBottomHook
+            && root.model.timeSigBracketBottomHook.isVisible
+
+        height: showTimeSigBracketControls ? childrenRect.height : 0
+        width: parent.width
+        visible: showTimeSigBracketControls
+
+        SpinBoxPropertyView {
+            id: timeSigBracketBottomHook
+
+            anchors.left: parent.left
+            anchors.right: parent.horizontalCenter
+            anchors.rightMargin: 8
+
+            navigationName: "BottomHook"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: root.navigationRowStart + 7
+
+            titleText: qsTrc("inspector", "Bottom hook")
+            measureUnitsSymbol: "sp"
+            propertyItem: root.model ? root.model.timeSigBracketBottomHook : null
+
+            decimals: 2
+            step: 0.1
+            minValue: 0.1
+            maxValue: 20
+        }
+
+        SpinBoxPropertyView {
+            id: timeSigBracketLineWidth
+
+            anchors.left: parent.horizontalCenter
+            anchors.right: parent.right
+
+            navigationName: "BracketThickness"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: root.navigationRowStart + 8
+
+            titleText: qsTrc("inspector", "Thickness")
+            measureUnitsSymbol: "sp"
+            propertyItem: root.model ? root.model.timeSigBracketLineWidth : null
+
+            decimals: 2
+            step: 0.01
+            minValue: 0.01
+            maxValue: 2
+        }
+    }
+
     DropdownPropertyView {
         id: scoreFontSection
         titleText: qsTrc("inspector", "Font")
         propertyItem: root.model ? root.model.scoreFont : null
 
         navigationPanel: root.navigationPanel
-        navigationRowStart: root.navigationRowStart + 6
+        navigationRowStart: root.navigationRowStart + 10
         
         model: root.model ? root.model.symFonts : []
     }

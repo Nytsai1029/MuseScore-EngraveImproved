@@ -69,6 +69,9 @@ public:
     AsciiStringView symName() const;
     static bool isKeyboardHandBracketSymbol(SymId sym);
     bool isKeyboardHandBracketSymbol() const { return isKeyboardHandBracketSymbol(m_sym); }
+    static bool isTimeSigBracketSymbol(SymId sym);
+    bool isTimeSigBracketSymbol() const { return isTimeSigBracketSymbol(m_sym); }
+    bool isEditableBracketSymbol() const { return isKeyboardHandBracketSymbol() || isTimeSigBracketSymbol(); }
     Spatium keyboardHandBracketShortSide() const { return m_keyboardHandBracketShortSide; }
     Spatium keyboardHandBracketLongSide() const { return m_keyboardHandBracketLongSide; }
     Spatium keyboardHandBracketLineWidthSpatium() const { return m_keyboardHandBracketLineWidth; }
@@ -76,6 +79,14 @@ public:
     RectF keyboardHandBracketBBox() const;
     std::array<LineF, 2> keyboardHandBracketLines() const;
     PainterPath keyboardHandBracketPath() const;
+    Spatium timeSigBracketHeight() const { return m_timeSigBracketHeight; }
+    Spatium timeSigBracketTopHook() const { return m_timeSigBracketTopHook; }
+    Spatium timeSigBracketBottomHook() const { return m_timeSigBracketBottomHook; }
+    Spatium timeSigBracketLineWidthSpatium() const { return m_timeSigBracketLineWidth; }
+    double timeSigBracketLineWidth() const;
+    RectF timeSigBracketBBox() const;
+    std::array<LineF, 3> timeSigBracketLines() const;
+    PainterPath timeSigBracketPath() const;
 
     String accessibleInfo() const override;
 
@@ -86,8 +97,8 @@ public:
     bool setProperty(Pid, const PropertyValue&) override;
     PropertyValue propertyDefault(Pid) const override;
 
-    int gripsCount() const override { return isKeyboardHandBracketSymbol() ? 2 : 0; }
-    Grip initialEditModeGrip() const override { return isKeyboardHandBracketSymbol() ? Grip::END : Grip::NO_GRIP; }
+    int gripsCount() const override { return isKeyboardHandBracketSymbol() ? 2 : isTimeSigBracketSymbol() ? 3 : 0; }
+    Grip initialEditModeGrip() const override { return isEditableBracketSymbol() ? Grip::END : Grip::NO_GRIP; }
     Grip defaultGrip() const override { return initialEditModeGrip(); }
     std::vector<PointF> gripsPositions(const EditData& = EditData()) const override;
     std::vector<LineF> gripAnchorLines(Grip) const override;
@@ -105,6 +116,10 @@ protected:
     Spatium m_keyboardHandBracketShortSide;
     Spatium m_keyboardHandBracketLongSide;
     Spatium m_keyboardHandBracketLineWidth;
+    Spatium m_timeSigBracketHeight;
+    Spatium m_timeSigBracketTopHook;
+    Spatium m_timeSigBracketBottomHook;
+    Spatium m_timeSigBracketLineWidth;
 };
 
 //---------------------------------------------------------

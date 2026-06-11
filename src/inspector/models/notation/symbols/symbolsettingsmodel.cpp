@@ -41,6 +41,19 @@ QList<mu::engraving::EngravingItem*> keyboardHandBracketSymbols(const QList<mu::
 
     return result;
 }
+
+QList<mu::engraving::EngravingItem*> timeSigBracketSymbols(const QList<mu::engraving::EngravingItem*>& elements)
+{
+    QList<mu::engraving::EngravingItem*> result;
+
+    for (mu::engraving::EngravingItem* element : elements) {
+        if (element && element->isSymbol() && mu::engraving::toSymbol(element)->isTimeSigBracketSymbol()) {
+            result << element;
+        }
+    }
+
+    return result;
+}
 }
 
 SymbolSettingsModel::SymbolSettingsModel(QObject* parent, IElementRepositoryService* repository)
@@ -68,9 +81,17 @@ void SymbolSettingsModel::createProperties()
     m_keyboardHandShortSide = buildPropertyItem(mu::engraving::Pid::SYMBOL_SHORT_SIDE_LENGTH);
     m_keyboardHandLongSide = buildPropertyItem(mu::engraving::Pid::SYMBOL_LONG_SIDE_LENGTH);
     m_keyboardHandLineWidth = buildPropertyItem(mu::engraving::Pid::LINE_WIDTH);
+    m_timeSigBracketHeight = buildPropertyItem(mu::engraving::Pid::SYMBOL_LONG_SIDE_LENGTH);
+    m_timeSigBracketTopHook = buildPropertyItem(mu::engraving::Pid::SYMBOL_TOP_HOOK_LENGTH);
+    m_timeSigBracketBottomHook = buildPropertyItem(mu::engraving::Pid::SYMBOL_BOTTOM_HOOK_LENGTH);
+    m_timeSigBracketLineWidth = buildPropertyItem(mu::engraving::Pid::LINE_WIDTH);
     m_keyboardHandShortSide->setIsVisible(false);
     m_keyboardHandLongSide->setIsVisible(false);
     m_keyboardHandLineWidth->setIsVisible(false);
+    m_timeSigBracketHeight->setIsVisible(false);
+    m_timeSigBracketTopHook->setIsVisible(false);
+    m_timeSigBracketBottomHook->setIsVisible(false);
+    m_timeSigBracketLineWidth->setIsVisible(false);
 }
 
 void SymbolSettingsModel::requestElements()
@@ -96,6 +117,18 @@ void SymbolSettingsModel::loadProperties()
     m_keyboardHandShortSide->setIsVisible(showKeyboardHandProperties);
     m_keyboardHandLongSide->setIsVisible(showKeyboardHandProperties);
     m_keyboardHandLineWidth->setIsVisible(showKeyboardHandProperties);
+
+    const QList<mu::engraving::EngravingItem*> timeSigBracketElements = timeSigBracketSymbols(m_elementList);
+    loadPropertyItem(m_timeSigBracketHeight, timeSigBracketElements);
+    loadPropertyItem(m_timeSigBracketTopHook, timeSigBracketElements);
+    loadPropertyItem(m_timeSigBracketBottomHook, timeSigBracketElements);
+    loadPropertyItem(m_timeSigBracketLineWidth, timeSigBracketElements);
+
+    const bool showTimeSigBracketProperties = !timeSigBracketElements.empty();
+    m_timeSigBracketHeight->setIsVisible(showTimeSigBracketProperties);
+    m_timeSigBracketTopHook->setIsVisible(showTimeSigBracketProperties);
+    m_timeSigBracketBottomHook->setIsVisible(showTimeSigBracketProperties);
+    m_timeSigBracketLineWidth->setIsVisible(showTimeSigBracketProperties);
 }
 
 void SymbolSettingsModel::resetProperties()
@@ -112,6 +145,18 @@ void SymbolSettingsModel::resetProperties()
     }
     if (m_keyboardHandLineWidth->isVisible()) {
         m_keyboardHandLineWidth->resetToDefault();
+    }
+    if (m_timeSigBracketHeight->isVisible()) {
+        m_timeSigBracketHeight->resetToDefault();
+    }
+    if (m_timeSigBracketTopHook->isVisible()) {
+        m_timeSigBracketTopHook->resetToDefault();
+    }
+    if (m_timeSigBracketBottomHook->isVisible()) {
+        m_timeSigBracketBottomHook->resetToDefault();
+    }
+    if (m_timeSigBracketLineWidth->isVisible()) {
+        m_timeSigBracketLineWidth->resetToDefault();
     }
 }
 
@@ -148,6 +193,26 @@ PropertyItem* SymbolSettingsModel::keyboardHandLongSide() const
 PropertyItem* SymbolSettingsModel::keyboardHandLineWidth() const
 {
     return m_keyboardHandLineWidth;
+}
+
+PropertyItem* SymbolSettingsModel::timeSigBracketHeight() const
+{
+    return m_timeSigBracketHeight;
+}
+
+PropertyItem* SymbolSettingsModel::timeSigBracketTopHook() const
+{
+    return m_timeSigBracketTopHook;
+}
+
+PropertyItem* SymbolSettingsModel::timeSigBracketBottomHook() const
+{
+    return m_timeSigBracketBottomHook;
+}
+
+PropertyItem* SymbolSettingsModel::timeSigBracketLineWidth() const
+{
+    return m_timeSigBracketLineWidth;
 }
 
 QVariantList SymbolSettingsModel::symFonts()

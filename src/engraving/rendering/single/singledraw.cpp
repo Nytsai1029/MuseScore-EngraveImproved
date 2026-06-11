@@ -2231,6 +2231,14 @@ void SingleDraw::draw(const Symbol* item, Painter* painter)
             painter->setBrush(BrushStyle::NoBrush);
             painter->drawPath(item->keyboardHandBracketPath());
             painter->restore();
+        } else if (item->isTimeSigBracketSymbol()) {
+            painter->save();
+            painter->rotate(item->symAngle());
+            painter->setPen(Pen(item->curColor(), item->timeSigBracketLineWidth(), PenStyle::SolidLine,
+                                PenCapStyle::FlatCap, PenJoinStyle::MiterJoin));
+            painter->setBrush(BrushStyle::NoBrush);
+            painter->drawPath(item->timeSigBracketPath());
+            painter->restore();
         } else if (item->scoreFont()) {
             painter->setPen(item->curColor());
             item->scoreFont()->draw(item->sym(), painter, item->magS() * item->symbolsSize(), PointF(), item->symAngle());

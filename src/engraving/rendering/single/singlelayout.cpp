@@ -1599,6 +1599,8 @@ void SingleLayout::layout(Symbol* item, const Context&)
     RectF bbox = item->symBbox(item->sym());
     if (item->isKeyboardHandBracketSymbol()) {
         bbox = item->keyboardHandBracketBBox();
+    } else if (item->isTimeSigBracketSymbol()) {
+        bbox = item->timeSigBracketBBox();
     } else if (item->scoreFont()) {
         bbox = item->scoreFont()->bbox(item->sym(), item->magS() * item->symbolsSize());
     }

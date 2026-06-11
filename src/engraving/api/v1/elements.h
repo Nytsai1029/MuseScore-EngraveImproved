@@ -1036,6 +1036,18 @@ class EngravingItem : public apiv1::ScoreElement
     /// For keyboard left/right hand bracket symbols: Their line thickness.
     ///\since MuseScore 4.6
     API_PROPERTY(keyboardHandLineWidth,     LINE_WIDTH)
+    /// For whole time signature bracket symbols: Their height.
+    ///\since MuseScore 4.6
+    API_PROPERTY(timeSigBracketHeight,      SYMBOL_LONG_SIDE_LENGTH)
+    /// For whole time signature bracket symbols: Their upper hook length.
+    ///\since MuseScore 4.6
+    API_PROPERTY(timeSigBracketTopHook,     SYMBOL_TOP_HOOK_LENGTH)
+    /// For whole time signature bracket symbols: Their lower hook length.
+    ///\since MuseScore 4.6
+    API_PROPERTY(timeSigBracketBottomHook,  SYMBOL_BOTTOM_HOOK_LENGTH)
+    /// For whole time signature bracket symbols: Their line thickness.
+    ///\since MuseScore 4.6
+    API_PROPERTY(timeSigBracketLineWidth,   LINE_WIDTH)
 
     /// For sound flags: Whether they apply to all staves.
     ///\since MuseScore 4.6

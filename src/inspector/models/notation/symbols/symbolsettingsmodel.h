@@ -37,6 +37,10 @@ class SymbolSettingsModel : public AbstractInspectorModel
     Q_PROPERTY(PropertyItem * keyboardHandShortSide READ keyboardHandShortSide CONSTANT)
     Q_PROPERTY(PropertyItem * keyboardHandLongSide READ keyboardHandLongSide CONSTANT)
     Q_PROPERTY(PropertyItem * keyboardHandLineWidth READ keyboardHandLineWidth CONSTANT)
+    Q_PROPERTY(PropertyItem * timeSigBracketHeight READ timeSigBracketHeight CONSTANT)
+    Q_PROPERTY(PropertyItem * timeSigBracketTopHook READ timeSigBracketTopHook CONSTANT)
+    Q_PROPERTY(PropertyItem * timeSigBracketBottomHook READ timeSigBracketBottomHook CONSTANT)
+    Q_PROPERTY(PropertyItem * timeSigBracketLineWidth READ timeSigBracketLineWidth CONSTANT)
 
     Q_PROPERTY(QVariantList symFonts READ symFonts NOTIFY symFontsChanged)
 
@@ -57,6 +61,10 @@ public:
     PropertyItem* keyboardHandShortSide() const;
     PropertyItem* keyboardHandLongSide() const;
     PropertyItem* keyboardHandLineWidth() const;
+    PropertyItem* timeSigBracketHeight() const;
+    PropertyItem* timeSigBracketTopHook() const;
+    PropertyItem* timeSigBracketBottomHook() const;
+    PropertyItem* timeSigBracketLineWidth() const;
 
     QVariantList symFonts();
 
@@ -71,6 +79,10 @@ private:
     PropertyItem* m_keyboardHandShortSide = nullptr;
     PropertyItem* m_keyboardHandLongSide = nullptr;
     PropertyItem* m_keyboardHandLineWidth = nullptr;
+    PropertyItem* m_timeSigBracketHeight = nullptr;
+    PropertyItem* m_timeSigBracketTopHook = nullptr;
+    PropertyItem* m_timeSigBracketBottomHook = nullptr;
+    PropertyItem* m_timeSigBracketLineWidth = nullptr;
 
     QVariantList m_symFonts;
 };

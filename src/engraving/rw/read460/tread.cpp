@@ -2422,6 +2422,8 @@ void TRead::read(Symbol* sym, XmlReader& e, ReadContext& ctx)
         } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOL_ANGLE)) {
         } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOL_SHORT_SIDE_LENGTH)) {
         } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOL_LONG_SIDE_LENGTH)) {
+        } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOL_TOP_HOOK_LENGTH)) {
+        } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOL_BOTTOM_HOOK_LENGTH)) {
         } else if (readProperty(sym, tag, e, ctx, Pid::LINE_WIDTH)) {
         } else if (tag == "Symbol") {
             Symbol* s = new Symbol(sym);

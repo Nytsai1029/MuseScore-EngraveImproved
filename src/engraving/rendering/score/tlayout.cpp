@@ -5830,6 +5830,8 @@ void TLayout::layoutSymbol(const Symbol* item, Symbol::LayoutData* ldata, const 
     RectF bbox = item->symBbox(item->sym());
     if (item->isKeyboardHandBracketSymbol()) {
         bbox = item->keyboardHandBracketBBox();
+    } else if (item->isTimeSigBracketSymbol()) {
+        bbox = item->timeSigBracketBBox();
     } else if (item->scoreFont()) {
         bbox = item->scoreFont()->bbox(item->sym(), item->magS() * item->symbolsSize());
     }
