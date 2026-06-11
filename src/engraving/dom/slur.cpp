@@ -153,9 +153,10 @@ void SlurSegment::parseMultiBezierData()
 
         if (valueIdx >= static_cast<int>(values.size())) {
             MultiBezierKnot& knot = m_multiBezierKnotData[knotIdx];
-            knot.knot.off = PointF(values[0], values[1]);
-            knot.inHandle.off = PointF(values[2], values[3]);
-            knot.outHandle.off = PointF(values[4], values[5]);
+            const double sp = muse::RealIsNull(spatium()) ? 1.0 : spatium();
+            knot.knot.off = PointF(values[0], values[1]) * sp;
+            knot.inHandle.off = PointF(values[2], values[3]) * sp;
+            knot.outHandle.off = PointF(values[4], values[5]) * sp;
         }
 
         ++knotIdx;
@@ -193,15 +194,19 @@ void SlurSegment::syncMultiBezierDataProperty()
 
     std::ostringstream stream;
     stream << std::setprecision(12);
+    const double sp = muse::RealIsNull(spatium()) ? 1.0 : spatium();
     for (size_t i = 0; i < m_multiBezierKnotData.size(); ++i) {
         if (i > 0) {
             stream << ';';
         }
 
         const MultiBezierKnot& knot = m_multiBezierKnotData[i];
-        stream << knot.knot.off.x() << ',' << knot.knot.off.y() << ','
-               << knot.inHandle.off.x() << ',' << knot.inHandle.off.y() << ','
-               << knot.outHandle.off.x() << ',' << knot.outHandle.off.y();
+        const PointF knotOffset = knot.knot.off / sp;
+        const PointF inHandleOffset = knot.inHandle.off / sp;
+        const PointF outHandleOffset = knot.outHandle.off / sp;
+        stream << knotOffset.x() << ',' << knotOffset.y() << ','
+               << inHandleOffset.x() << ',' << inHandleOffset.y() << ','
+               << outHandleOffset.x() << ',' << outHandleOffset.y();
     }
 
     m_multiBezierData = stream.str();
@@ -676,6 +681,22 @@ void SlurSegment::reset()
 {
     SlurTieSegment::reset();
     undoResetProperty(Pid::SLUR_MULTI_BEZIER_DATA);
+}
+
+void SlurSegment::spatiumChanged(double oldValue, double newValue)
+{
+    SlurTieSegment::spatiumChanged(oldValue, newValue);
+    if (m_multiBezierKnotData.empty() || muse::RealIsNull(oldValue)) {
+        return;
+    }
+
+    const double diff = newValue / oldValue;
+    for (MultiBezierKnot& knot : m_multiBezierKnotData) {
+        knot.inHandle.off *= diff;
+        knot.knot.off *= diff;
+        knot.outHandle.off *= diff;
+    }
+    syncMultiBezierDataProperty();
 }
 
 int SlurSegment::gripsCount() const

@@ -67,6 +67,7 @@ public:
     bool setProperty(Pid propertyId, const PropertyValue& v) override;
     PropertyValue propertyDefault(Pid id) const override;
     void reset() override;
+    void spatiumChanged(double oldValue, double newValue) override;
 
     void editDrag(EditData& ed) override;
     int gripsCount() const override;
