@@ -23,6 +23,9 @@ IF /I "%1" == "--guid" SET UPGRADE_UUID=%2& SHIFT
 SHIFT
 IF NOT "%1" == "" GOTO GETOPTS
 
+IF %SIGN_KEY% == "''" SET SIGN_KEY=""
+IF %SIGN_SECRET% == "''" SET SIGN_SECRET=""
+
 : Try get from env
 IF %BUILD_MODE% == "" ( SET /p BUILD_MODE=<%ARTIFACTS_DIR%\env\build_mode.env)
 
