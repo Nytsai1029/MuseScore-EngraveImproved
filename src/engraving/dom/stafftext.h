@@ -52,9 +52,9 @@ public:
     SoundFlag* soundFlag() const;
     void setSoundFlag(SoundFlag* flag);
 
-private:
     PropertyValue propertyDefault(Pid id) const override;
 
+private:
     SoundFlag* m_soundFlag = nullptr;
 };
 } // namespace mu::engraving
