@@ -199,6 +199,14 @@ enum class AddRemoveSystemLockType : signed char
     MeasuresInterval
 };
 
+struct FitMusicReflowOptions
+{
+    bool relativeMode = false;
+    int targetSystemCount = 1;
+    int relativeDelta = 0;
+    bool smoothing = true;
+};
+
 enum class BoxType : unsigned char
 {
     Unknown,

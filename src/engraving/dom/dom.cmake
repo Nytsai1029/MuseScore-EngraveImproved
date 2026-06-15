@@ -113,6 +113,7 @@ set(DOM_SRC
     ${CMAKE_CURRENT_LIST_DIR}/figuredbass.h
     ${CMAKE_CURRENT_LIST_DIR}/fingering.cpp
     ${CMAKE_CURRENT_LIST_DIR}/fingering.h
+    ${CMAKE_CURRENT_LIST_DIR}/fitmusicoptions.h
     ${CMAKE_CURRENT_LIST_DIR}/fret.cpp
     ${CMAKE_CURRENT_LIST_DIR}/fret.h
     ${CMAKE_CURRENT_LIST_DIR}/glissando.cpp
@@ -330,6 +331,8 @@ set(DOM_SRC
     ${CMAKE_CURRENT_LIST_DIR}/synthesizerstate.h
     ${CMAKE_CURRENT_LIST_DIR}/systemlock.cpp
     ${CMAKE_CURRENT_LIST_DIR}/systemlock.h
+    ${CMAKE_CURRENT_LIST_DIR}/systemreflowsolver.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/systemreflowsolver.h
     ${CMAKE_CURRENT_LIST_DIR}/system.cpp
     ${CMAKE_CURRENT_LIST_DIR}/system.h
     ${CMAKE_CURRENT_LIST_DIR}/systemdivider.cpp

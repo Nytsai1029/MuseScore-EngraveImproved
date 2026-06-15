@@ -150,6 +150,7 @@ class ShadowNote;
 struct Interval;
 struct NoteVal;
 struct ShowAnchors;
+struct FitMusicOptions;
 
 enum class BeatType : unsigned char;
 enum class Key : signed char;
@@ -454,6 +455,8 @@ public:
     void realtimeAdvance(bool allowTransposition);
 
     void addRemoveSystemLocks(int interval, bool lock);
+
+    bool fitMusicReflow(const FitMusicOptions& options);
 
     bool transpose(Note* n, Interval, bool useSharpsFlats);
     void transposeKeys(staff_idx_t staffStart, staff_idx_t staffEnd, const Fraction& tickStart, const Fraction& tickEnd, bool flip = false);

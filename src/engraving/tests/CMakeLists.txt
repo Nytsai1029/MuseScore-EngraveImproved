@@ -84,6 +84,8 @@ set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/splitstaff_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/staffmove_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/system_locks_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/systemreflowsolver_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/fitmusicreflow_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/tempomap_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/textbase_tests.cpp
     #${CMAKE_CURRENT_LIST_DIR}/textedit_tests.cpp doesn't compile and needs actualization

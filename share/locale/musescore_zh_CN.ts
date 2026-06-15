@@ -7298,6 +7298,14 @@ followed by dashes</source>
         <translation>每行小节...</translation>
     </message>
     <message>
+        <source>&amp;Fit music…</source>
+        <translation>自动布局工具… (&amp;F)</translation>
+    </message>
+    <message>
+        <source>Fit music (distribute measures evenly across systems)…</source>
+        <translation>自动布局工具（将小节均匀分布到各行）…</translation>
+    </message>
+    <message>
         <location filename="../../src/notation/internal/notationuiactions.cpp" line="596"/>
         <source>Exchange voice &amp;1-2</source>
         <translation>对调 &amp;1-2 声部</translation>
@@ -35571,7 +35579,38 @@ failed: %2</source>
     </message>
 </context>
 <context>
+    <name>notation/fitmusic</name>
+    <message>
+        <source>Fit music</source>
+        <translation>自动布局工具</translation>
+    </message>
+    <message>
+        <source>Relative to current number of systems</source>
+        <translation>相对于当前系统数</translation>
+    </message>
+    <message>
+        <source>Number of systems:</source>
+        <translation>系统数：</translation>
+    </message>
+    <message>
+        <source>Change in number of systems:</source>
+        <translation>系统数增量：</translation>
+    </message>
+    <message>
+        <source>Smooth adjacent systems</source>
+        <translation>平滑相邻系统</translation>
+    </message>
+    <message>
+        <source>Cannot reflow the selection. Select at least two measures and choose a number of systems between 1 and the number of measures in the selection.</source>
+        <translation>无法重排所选内容。请至少选择两个小节，并将系统数设置为 1 到所选小节数之间。</translation>
+    </message>
+</context>
+<context>
     <name>undoableAction</name>
+    <message>
+        <source>Fit music (reflow systems)</source>
+        <translation>自动布局工具（重排系统）</translation>
+    </message>
     <message>
         <location filename="../../src/braille/internal/notationbraille.cpp" line="712"/>
         <location filename="../../src/engraving/dom/edit.cpp" line="2011"/>

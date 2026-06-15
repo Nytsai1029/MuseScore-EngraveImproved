@@ -43,6 +43,7 @@
 #include "drumset.h"
 #include "dynamic.h"
 #include "factory.h"
+#include "fitmusicoptions.h"
 #include "glissando.h"
 #include "guitarbend.h"
 #include "hairpin.h"
@@ -75,6 +76,7 @@
 #include "stem.h"
 #include "stringdata.h"
 #include "system.h"
+#include "systemreflowsolver.h"
 #include "spacer.h"
 #include "tie.h"
 #include "timesig.h"
@@ -4424,6 +4426,84 @@ void Score::addRemoveSystemLocks(int interval, bool lock)
             break;
         }
     }
+}
+
+//---------------------------------------------------------
+//   fitMusicReflow
+//    Distributes the selected region of measures evenly across a number of
+//    systems, balancing each system's width sum ("grey level"), then locks
+//    the resulting systems. Reuses the already-computed measure widths; does
+//    not recompute note-level spacing or change pitches/durations.
+//    Returns true if a reflow was applied.
+//---------------------------------------------------------
+
+bool Score::fitMusicReflow(const FitMusicOptions& options)
+{
+    const bool mmrests = style().styleB(Sid::createMultiMeasureRests);
+
+    MeasureBase* startMeasure = selection().startMeasureBase();
+    MeasureBase* endMeasure = selection().endMeasureBase();
+    if (!startMeasure || !endMeasure) {
+        return false;
+    }
+
+    // Collect the region's cells (measures and multimeasure rests). A
+    // multimeasure rest is one cell. Non-measure frames are skipped.
+    std::vector<MeasureBase*> cells;
+    std::vector<double> widths;
+    for (MeasureBase* mb = startMeasure; mb; mb = mmrests ? mb->nextMM() : mb->next()) {
+        if (mb->isMeasure()) {
+            cells.push_back(mb);
+            widths.push_back(mb->width());
+        }
+        if (mb == endMeasure) {
+            break;
+        }
+    }
+
+    const int cellCount = static_cast<int>(cells.size());
+    if (cellCount < 2) {
+        return false;
+    }
+
+    // Count the systems currently occupied by the region's cells.
+    int currentSystems = 0;
+    System* lastSystem = nullptr;
+    for (MeasureBase* mb : cells) {
+        System* sys = mb->system();
+        if (sys && sys != lastSystem) {
+            ++currentSystems;
+            lastSystem = sys;
+        }
+    }
+    if (currentSystems < 1) {
+        currentSystems = 1;
+    }
+
+    // Resolve the target number of systems.
+    int k = options.relativeMode
+            ? (options.relativeDelta == 0 ? currentSystems : currentSystems + options.relativeDelta)
+            : options.targetSystemCount;
+
+    if (k < 1 || k > cellCount) {
+        return false;
+    }
+
+    std::vector<SystemReflowSolver::Segment> segments = SystemReflowSolver::solve(widths, k, options.smoothing);
+    if (segments.empty()) {
+        return false;
+    }
+
+    // Apply each segment as a locked system. makeIntoSystem handles splitting
+    // any locks that straddle the region boundary, clearing locks inside the
+    // region, and adding the new lock.
+    for (const SystemReflowSolver::Segment& seg : segments) {
+        MeasureBase* first = cells[seg.startIndex];
+        MeasureBase* last = cells[seg.endIndex];
+        makeIntoSystem(first, last);
+    }
+
+    return true;
 }
 
 //---------------------------------------------------------

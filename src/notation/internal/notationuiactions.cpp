@@ -576,6 +576,12 @@ const UiActionList NotationUiActions::m_actions = {
              TranslatableString("action", "Measures per s&ystem…"),
              TranslatableString("action", "Measures per system…")
              ),
+    UiAction("fit-music-reflow",
+             mu::context::UiCtxProjectOpened,
+             mu::context::CTX_NOTATION_OPENED,
+             TranslatableString("action", "&Fit music…"),
+             TranslatableString("action", "Fit music (distribute measures evenly across systems)…")
+             ),
     UiAction("undo",
              mu::context::UiCtxProjectOpened,
              mu::context::CTX_NOTATION_OPENED,

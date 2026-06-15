@@ -152,6 +152,7 @@ private:
     void openStaffProperties();
     void openEditStringsDialog();
     void openBreaksDialog();
+    void openFitMusicDialog();
     void openTransposeDialog();
     void openPartsDialog();
     void openTupletOtherDialog();

@@ -314,6 +314,7 @@ void NotationActionController::init()
     registerAction("staff-properties", &Controller::openStaffProperties);
     registerAction("edit-strings", &Controller::openEditStringsDialog);
     registerAction("measures-per-system", &Controller::openBreaksDialog);
+    registerAction("fit-music-reflow", &Controller::openFitMusicDialog);
     registerAction("transpose", &Controller::openTransposeDialog);
     registerAction("parts", &Controller::openPartsDialog);
     registerAction("staff-text-properties", &Controller::openStaffTextPropertiesDialog);
@@ -1851,6 +1852,11 @@ void NotationActionController::openEditStringsDialog()
 void NotationActionController::openBreaksDialog()
 {
     interactive()->open("musescore://notation/breaks");
+}
+
+void NotationActionController::openFitMusicDialog()
+{
+    interactive()->open("musescore://notation/fitmusic");
 }
 
 void NotationActionController::openTransposeDialog()

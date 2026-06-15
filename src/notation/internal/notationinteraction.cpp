@@ -58,6 +58,7 @@
 #include "engraving/dom/dynamic.h"
 #include "engraving/dom/elementgroup.h"
 #include "engraving/dom/factory.h"
+#include "engraving/dom/fitmusicoptions.h"
 #include "engraving/dom/figuredbass.h"
 #include "engraving/dom/guitarbend.h"
 #include "engraving/dom/hammeronpulloff.h"
@@ -5868,6 +5869,25 @@ void NotationInteraction::addRemoveSystemLocks(AddRemoveSystemLockType intervalT
     startEdit(TranslatableString("undoableAction", "Measures per system"));
     score()->addRemoveSystemLocks(interval, afterEachSystem);
     apply();
+}
+
+bool NotationInteraction::fitMusicReflow(const FitMusicReflowOptions& options)
+{
+    mu::engraving::FitMusicOptions engravingOptions;
+    engravingOptions.relativeMode = options.relativeMode;
+    engravingOptions.targetSystemCount = options.targetSystemCount;
+    engravingOptions.relativeDelta = options.relativeDelta;
+    engravingOptions.smoothing = options.smoothing;
+
+    startEdit(TranslatableString("undoableAction", "Fit music (reflow systems)"));
+    bool changed = score()->fitMusicReflow(engravingOptions);
+    if (changed) {
+        apply();
+    } else {
+        rollback();
+    }
+
+    return changed;
 }
 
 bool NotationInteraction::transpose(const TransposeOptions& options)
