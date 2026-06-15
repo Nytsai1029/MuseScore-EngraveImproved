@@ -2420,11 +2420,11 @@ void TRead::read(Symbol* sym, XmlReader& e, ReadContext& ctx)
             fontName = e.readText();
         } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOLS_SIZE)) {
         } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOL_ANGLE)) {
-        } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOL_SHORT_SIDE_LENGTH)) {
-        } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOL_LONG_SIDE_LENGTH)) {
-        } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOL_TOP_HOOK_LENGTH)) {
-        } else if (readProperty(sym, tag, e, ctx, Pid::SYMBOL_BOTTOM_HOOK_LENGTH)) {
-        } else if (readProperty(sym, tag, e, ctx, Pid::LINE_WIDTH)) {
+        } else if (sym->isKeyboardHandBracketSymbol() && readProperty(sym, tag, e, ctx, Pid::SYMBOL_SHORT_SIDE_LENGTH)) {
+        } else if (sym->isEditableBracketSymbol() && readProperty(sym, tag, e, ctx, Pid::SYMBOL_LONG_SIDE_LENGTH)) {
+        } else if (sym->isTimeSigBracketSymbol() && readProperty(sym, tag, e, ctx, Pid::SYMBOL_TOP_HOOK_LENGTH)) {
+        } else if (sym->isTimeSigBracketSymbol() && readProperty(sym, tag, e, ctx, Pid::SYMBOL_BOTTOM_HOOK_LENGTH)) {
+        } else if (sym->isEditableBracketSymbol() && readProperty(sym, tag, e, ctx, Pid::LINE_WIDTH)) {
         } else if (tag == "Symbol") {
             Symbol* s = new Symbol(sym);
             TRead::read(s, e, ctx);
@@ -2512,11 +2512,16 @@ bool TRead::readProperties(Chord* ch, XmlReader& e, ReadContext& ctx)
         TRead::read(note, e, ctx);
         ch->add(note);
     } else if (tag == "LedgerLine") {
-        LedgerLine* ledgerLine = new LedgerLine(ch);
-        ledgerLine->setTrack(ch->track());
-        ledgerLine->setParent(ch);
-        TRead::read(ledgerLine, e, ctx);
-        ch->ledgerLines().push_back(ledgerLine);
+        static constexpr size_t MAX_LEDGER_LINES = 20;
+        if (ch->ledgerLines().size() >= MAX_LEDGER_LINES) {
+            e.skipCurrentElement();
+        } else {
+            LedgerLine* ledgerLine = new LedgerLine(ch);
+            ledgerLine->setTrack(ch->track());
+            ledgerLine->setParent(ch);
+            TRead::read(ledgerLine, e, ctx);
+            ch->ledgerLines().push_back(ledgerLine);
+        }
     } else if (TRead::readProperties(static_cast<ChordRest*>(ch), e, ctx)) {
     } else if (tag == "Stem") {
         Stem* s = Factory::createStem(ch);

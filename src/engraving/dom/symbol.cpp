@@ -489,26 +489,34 @@ PropertyValue Symbol::getProperty(Pid propertyId) const
     case Pid::SYMBOL_ANGLE:
         return PropertyValue::fromValue(m_symAngle);
     case Pid::SYMBOL_SHORT_SIDE_LENGTH:
-        return isKeyboardHandBracketSymbol()
-               ? PropertyValue::fromValue(m_keyboardHandBracketShortSide) : PropertyValue();
+        if (isKeyboardHandBracketSymbol()) {
+            return PropertyValue::fromValue(m_keyboardHandBracketShortSide);
+        }
+        break;
     case Pid::SYMBOL_LONG_SIDE_LENGTH:
         if (isKeyboardHandBracketSymbol()) {
             return PropertyValue::fromValue(m_keyboardHandBracketLongSide);
         } else if (isTimeSigBracketSymbol()) {
             return PropertyValue::fromValue(m_timeSigBracketHeight);
         }
-        return PropertyValue();
+        break;
     case Pid::SYMBOL_TOP_HOOK_LENGTH:
-        return isTimeSigBracketSymbol() ? PropertyValue::fromValue(m_timeSigBracketTopHook) : PropertyValue();
+        if (isTimeSigBracketSymbol()) {
+            return PropertyValue::fromValue(m_timeSigBracketTopHook);
+        }
+        break;
     case Pid::SYMBOL_BOTTOM_HOOK_LENGTH:
-        return isTimeSigBracketSymbol() ? PropertyValue::fromValue(m_timeSigBracketBottomHook) : PropertyValue();
+        if (isTimeSigBracketSymbol()) {
+            return PropertyValue::fromValue(m_timeSigBracketBottomHook);
+        }
+        break;
     case Pid::LINE_WIDTH:
         if (isKeyboardHandBracketSymbol()) {
             return PropertyValue::fromValue(m_keyboardHandBracketLineWidth);
         } else if (isTimeSigBracketSymbol()) {
             return PropertyValue::fromValue(m_timeSigBracketLineWidth);
         }
-        return PropertyValue();
+        break;
     default:
         break;
     }
@@ -579,7 +587,7 @@ PropertyValue Symbol::propertyDefault(Pid propertyId) const
         return 1.0;
     case Pid::SYMBOL_SHORT_SIDE_LENGTH: {
         if (!isKeyboardHandBracketSymbol()) {
-            return PropertyValue();
+            break;
         }
         PropertyValue v = EngravingObject::propertyDefault(propertyId);
         return v.isValid() ? v : PropertyValue::fromValue(Spatium(KEYBOARD_HAND_BRACKET_DEFAULT_SHORT_SIDE));
@@ -591,16 +599,16 @@ PropertyValue Symbol::propertyDefault(Pid propertyId) const
         } else if (isTimeSigBracketSymbol()) {
             return PropertyValue::fromValue(Spatium(TIME_SIG_BRACKET_DEFAULT_HEIGHT));
         }
-        return PropertyValue();
+        break;
     }
     case Pid::SYMBOL_TOP_HOOK_LENGTH:
         if (!isTimeSigBracketSymbol()) {
-            return PropertyValue();
+            break;
         }
         return PropertyValue::fromValue(Spatium(TIME_SIG_BRACKET_DEFAULT_HOOK));
     case Pid::SYMBOL_BOTTOM_HOOK_LENGTH:
         if (!isTimeSigBracketSymbol()) {
-            return PropertyValue();
+            break;
         }
         return PropertyValue::fromValue(Spatium(TIME_SIG_BRACKET_DEFAULT_HOOK));
     case Pid::LINE_WIDTH: {
@@ -610,7 +618,7 @@ PropertyValue Symbol::propertyDefault(Pid propertyId) const
         } else if (isTimeSigBracketSymbol()) {
             return PropertyValue::fromValue(Spatium(TIME_SIG_BRACKET_DEFAULT_LINE_WIDTH));
         }
-        return PropertyValue();
+        break;
     }
     case Pid::SCORE_FONT:
         if (m_scoreFont) {

@@ -29,6 +29,7 @@
 #include "iprojectconfiguration.h"
 #include "iprojectfilescontroller.h"
 #include "global/iinteractive.h"
+#include "io/ifilesystem.h"
 
 #include "cloud/musescorecom/imusescorecomservice.h"
 #include "cloud/audiocom/iaudiocomservice.h"
@@ -40,6 +41,7 @@ class OpenSaveProjectScenario : public IOpenSaveProjectScenario
     INJECT(IProjectConfiguration, configuration)
     INJECT(IProjectFilesController, projectFilesController)
     INJECT(muse::IInteractive, interactive)
+    INJECT(muse::io::IFileSystem, fileSystem)
     INJECT(muse::cloud::IMuseScoreComService, museScoreComService)
     INJECT(muse::cloud::IAudioComService, audioComService)
 

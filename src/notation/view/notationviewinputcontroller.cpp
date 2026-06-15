@@ -1097,9 +1097,9 @@ void NotationViewInputController::mouseMoveEvent(QMouseEvent* event)
             }
 
             if (viewInteraction()->isGripEditStarted() && !viewInteraction()->isDragStarted()) {
-                const EngravingItem* selectedElement = viewInteraction()->selection()->element();
-                ElementType type = selectedElement ? selectedElement->type() : ElementType::INVALID;
-                startDragElements(type, selectedElement->offset());
+                if (const EngravingItem* selectedElement = viewInteraction()->selection()->element()) {
+                    startDragElements(selectedElement->type(), selectedElement->offset());
+                }
             }
 
             DragMode mode = DragMode::BothXY;

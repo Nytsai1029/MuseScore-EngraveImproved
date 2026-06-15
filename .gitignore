@@ -108,5 +108,6 @@ compile_commands.json
 
 # Local agent/workspace instructions
 /AGENTS.md
+/Code_Guide.md
 
 codex.md

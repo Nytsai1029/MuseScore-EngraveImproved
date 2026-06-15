@@ -119,9 +119,36 @@ RetVal<muse::io::path_t> OpenSaveProjectScenario::askLocalPath(INotationProjectP
     }
 
     if (io::suffix(selectedPath) == engraving::MSCZ) {
-        selectedPath = io::dirpath(selectedPath)
-                       .appendingComponent(io::completeBasename(selectedPath))
-                       .appendingSuffix(engraving::MSDZ);
+        muse::io::path_t msdzPath = io::dirpath(selectedPath)
+                                    .appendingComponent(io::completeBasename(selectedPath))
+                                    .appendingSuffix(engraving::MSDZ);
+
+        // The native save dialog only asked about overwriting the .mscz name the user typed.
+        // Since the save is redirected to the corresponding .msdz file, confirm here before
+        // silently overwriting an existing .msdz with the same name.
+        if (msdzPath != selectedPath && fileSystem()->exists(msdzPath)) {
+            IInteractive::ButtonDatas buttons = {
+                interactive()->buttonData(IInteractive::Button::Cancel),
+                IInteractive::ButtonData(IInteractive::Button::Ok, muse::trc("project/save", "Replace"), true)
+            };
+
+            IInteractive::Result result = interactive()->warningSync(
+                muse::trc("project/save", "A file with this name already exists. Do you want to replace it?"),
+                muse::qtrc("project/save",
+                           "MuseScore files are saved with the .msdz extension. "
+                           "Replacing it will overwrite its current contents.\n\n"
+                           "The score will be saved as:\n%1")
+                .arg(msdzPath.toQString())
+                .toStdString(),
+                buttons,
+                int(IInteractive::Button::Cancel));
+
+            if (result.standardButton() != IInteractive::Button::Ok) {
+                return make_ret(Ret::Code::Cancel);
+            }
+        }
+
+        selectedPath = msdzPath;
     }
 
     if (!engraving::isMuseScoreFile(io::suffix(selectedPath))) {
