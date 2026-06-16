@@ -56,6 +56,65 @@ using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
 
 namespace {
+// Build the filled outline of a flat tie.
+//
+// Unlike the default slur/tie lens (two cubics sharing endpoints, whose gap
+// follows 6*th*t(1-t) and therefore peaks only at the exact mid-point), a flat
+// tie keeps full thickness across its straight middle and tapers only over the
+// curved ends. We sample the centreline and offset it perpendicular to the tie
+// chord (vertical in the normalized frame) by a thickness profile that is flat
+// in the middle and smoothly ramps to zero at both tips.
+//
+// All points are expressed in the tie's normalized frame, where the chord runs
+// horizontally from p0 to p3; the caller rotates/translates the result back.
+muse::draw::PainterPath buildFlatTieFillPath(const PointF& p0, const PointF& c1, const PointF& c2, const PointF& p3,
+                                             double plateauHalfThickness, double tieLengthInSp)
+{
+    // Fraction of the parameter range, at each end, over which the tie tapers.
+    // Roughly aligns the taper with the curved regions outside the shoulders.
+    constexpr double TAPER_FRACTION = 0.2;
+
+    int nbSamples = int(std::round(3.0 * tieLengthInSp));
+    nbSamples = std::clamp(nbSamples, 16, 48);
+
+    const CubicBezier centre(p0, c1, c2, p3);
+
+    auto halfThicknessAt = [&](double t) {
+        double taper = 1.0;
+        if (t < TAPER_FRACTION) {
+            const double s = t / TAPER_FRACTION;
+            taper = s * s * (3.0 - 2.0 * s);            // smoothstep up from the start tip
+        } else if (t > 1.0 - TAPER_FRACTION) {
+            const double s = (1.0 - t) / TAPER_FRACTION;
+            taper = s * s * (3.0 - 2.0 * s);            // smoothstep down to the end tip
+        }
+        return plateauHalfThickness * taper;
+    };
+
+    std::vector<PointF> topEdge;
+    std::vector<PointF> bottomEdge;
+    topEdge.reserve(nbSamples + 1);
+    bottomEdge.reserve(nbSamples + 1);
+    for (int i = 0; i <= nbSamples; ++i) {
+        const double t = double(i) / double(nbSamples);
+        const PointF c = centre.pointAtPercent(t);
+        const double h = halfThicknessAt(t);
+        topEdge.push_back(PointF(c.x(), c.y() - h));
+        bottomEdge.push_back(PointF(c.x(), c.y() + h));
+    }
+
+    muse::draw::PainterPath path;
+    path.moveTo(topEdge.front());
+    for (size_t i = 1; i < topEdge.size(); ++i) {
+        path.lineTo(topEdge[i]);
+    }
+    for (size_t i = bottomEdge.size(); i-- > 0;) {
+        path.lineTo(bottomEdge[i]);
+    }
+    path.closeSubpath();
+    return path;
+}
+
 struct SlurCubicChainSegment
 {
     PointF start;
@@ -3059,8 +3118,11 @@ void SlurTieLayout::computeBezier(TieSegment* tieSeg, PointF shoulderOffset)
     double shoulderW = 0.6; // TODO: style
 
     const double tieWidth = tieEndNormalized.x();
+    // Keep the two shoulder points equidistant from the tie's mid-point so the
+    // shape stays symmetric (both endpoints get the same slope). Any horizontal
+    // shoulder offset shifts both points by the same amount.
     const double bezier1X = (tieWidth - tieWidth * shoulderW) * .5 + shoulderOffset.x();
-    const double bezier2X = bezier1X + tieWidth * shoulderW + shoulderOffset.x();
+    const double bezier2X = bezier1X + tieWidth * shoulderW;
 
     const PointF tieDrag = PointF(tieWidth * .5, 0.0);
 
@@ -3069,7 +3131,8 @@ void SlurTieLayout::computeBezier(TieSegment* tieSeg, PointF shoulderOffset)
 
     computeMidThickness(tieSeg, tieLengthInSp);
 
-    PointF tieThickness(0.0, tieSeg->ldata()->midThickness());
+    const double midThickness = tieSeg->ldata()->midThickness();
+    PointF tieThickness(0.0, midThickness);
 
     const PointF bezier1Offset = t.map(tieSeg->ups(Grip::BEZIER1).off);
     const PointF bezier2Offset = t.map(tieSeg->ups(Grip::BEZIER2).off);
@@ -3082,10 +3145,17 @@ void SlurTieLayout::computeBezier(TieSegment* tieSeg, PointF shoulderOffset)
     //-----------------------------------
 
     PainterPath path = PainterPath();
-    path.moveTo(PointF());
-    path.cubicTo(bezier1 + bezier1Offset - tieThickness, bezier2 + bezier2Offset - tieThickness, tieEndNormalized);
     if (tieSeg->tie()->styleType() == SlurStyleType::Solid) {
-        path.cubicTo(bezier2 + bezier2Offset + tieThickness, bezier1 + bezier1Offset + tieThickness, PointF());
+        // Flat-tie thickness profile: keep the straight middle at full thickness
+        // and taper only the curved ends. The plateau half-thickness is 0.75 *
+        // midThickness so the body matches the previous lens' peak thickness
+        // (whose maximum gap was 1.5 * midThickness).
+        path = buildFlatTieFillPath(PointF(), bezier1Final, bezier2Final, tieEndNormalized,
+                                    0.75 * midThickness, tieLengthInSp);
+    } else {
+        // Dotted/dashed ties are a single thin line stroked along the top edge.
+        path.moveTo(PointF());
+        path.cubicTo(bezier1Final - tieThickness, bezier2Final - tieThickness, tieEndNormalized);
     }
 
     // translate back

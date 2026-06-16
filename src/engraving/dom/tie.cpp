@@ -118,6 +118,21 @@ void TieSegment::editDrag(EditData& ed)
     consolidateAdjustmentOffsetIntoUserOffset();
     Grip g = ed.curGrip;
 
+    // Express a system-space drag delta in the tie's local frame, where x runs
+    // along the tie axis (start -> end) and y is perpendicular to it. This lets
+    // us keep the tie symmetric while editing so both endpoints keep the same
+    // slope. Uses the same angle convention as SlurTieLayout::computeBezier().
+    auto toTieFrame = [this]() {
+        const PointF tieStart = ups(Grip::START).p + ups(Grip::START).off;
+        const PointF tieEnd = ups(Grip::END).p + ups(Grip::END).off;
+        const double dx = tieEnd.x() - tieStart.x();
+        const double dy = tieEnd.y() - tieStart.y();
+        const double tieAngle = std::abs(dx) < 1e-12 ? 0.0 : std::atan(dy / dx);
+        Transform toTie;
+        toTie.rotateRadians(-tieAngle);
+        return toTie;
+    };
+
     switch (g) {
     case Grip::START:
     case Grip::END:
@@ -151,16 +166,32 @@ void TieSegment::editDrag(EditData& ed)
         renderer()->computeBezier(this);
         break;
     case Grip::BEZIER1:
-    case Grip::BEZIER2:
+    case Grip::BEZIER2: {
+        // Mirror the shoulder edit onto the opposite handle about the tie's
+        // perpendicular bisector, so both endpoints keep the same slope.
+        const Transform toTie = toTieFrame();
+        const Transform fromTie = toTie.inverted();
+        const PointF deltaTie = toTie.map(ed.delta);
+        const PointF mirroredDelta = fromTie.map(PointF(-deltaTie.x(), deltaTie.y()));
+        const Grip otherGrip = (g == Grip::BEZIER1) ? Grip::BEZIER2 : Grip::BEZIER1;
         ups(g).off += ed.delta;
+        ups(otherGrip).off += mirroredDelta;
         renderer()->computeBezier(this);
         break;
-    case Grip::SHOULDER:
+    }
+    case Grip::SHOULDER: {
+        // Raise/lower both shoulders by the same perpendicular amount, dropping
+        // any motion along the tie axis, so the apex stays centered (symmetric).
         ups(g).off = PointF();
-        ups(Grip::BEZIER1).off += ed.delta;
-        ups(Grip::BEZIER2).off += ed.delta;
+        const Transform toTie = toTieFrame();
+        const Transform fromTie = toTie.inverted();
+        const PointF deltaTie = toTie.map(ed.delta);
+        const PointF verticalDelta = fromTie.map(PointF(0.0, deltaTie.y()));
+        ups(Grip::BEZIER1).off += verticalDelta;
+        ups(Grip::BEZIER2).off += verticalDelta;
         renderer()->computeBezier(this);
         break;
+    }
     case Grip::DRAG:
         ups(Grip::DRAG).off = PointF();
         roffset() += ed.delta;
