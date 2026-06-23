@@ -56,65 +56,6 @@ using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
 
 namespace {
-// Build the filled outline of a flat tie.
-//
-// Unlike the default slur/tie lens (two cubics sharing endpoints, whose gap
-// follows 6*th*t(1-t) and therefore peaks only at the exact mid-point), a flat
-// tie keeps full thickness across its straight middle and tapers only over the
-// curved ends. We sample the centreline and offset it perpendicular to the tie
-// chord (vertical in the normalized frame) by a thickness profile that is flat
-// in the middle and smoothly ramps to zero at both tips.
-//
-// All points are expressed in the tie's normalized frame, where the chord runs
-// horizontally from p0 to p3; the caller rotates/translates the result back.
-muse::draw::PainterPath buildFlatTieFillPath(const PointF& p0, const PointF& c1, const PointF& c2, const PointF& p3,
-                                             double plateauHalfThickness, double tieLengthInSp)
-{
-    // Fraction of the parameter range, at each end, over which the tie tapers.
-    // Roughly aligns the taper with the curved regions outside the shoulders.
-    constexpr double TAPER_FRACTION = 0.2;
-
-    int nbSamples = int(std::round(3.0 * tieLengthInSp));
-    nbSamples = std::clamp(nbSamples, 16, 48);
-
-    const CubicBezier centre(p0, c1, c2, p3);
-
-    auto halfThicknessAt = [&](double t) {
-        double taper = 1.0;
-        if (t < TAPER_FRACTION) {
-            const double s = t / TAPER_FRACTION;
-            taper = s * s * (3.0 - 2.0 * s);            // smoothstep up from the start tip
-        } else if (t > 1.0 - TAPER_FRACTION) {
-            const double s = (1.0 - t) / TAPER_FRACTION;
-            taper = s * s * (3.0 - 2.0 * s);            // smoothstep down to the end tip
-        }
-        return plateauHalfThickness * taper;
-    };
-
-    std::vector<PointF> topEdge;
-    std::vector<PointF> bottomEdge;
-    topEdge.reserve(nbSamples + 1);
-    bottomEdge.reserve(nbSamples + 1);
-    for (int i = 0; i <= nbSamples; ++i) {
-        const double t = double(i) / double(nbSamples);
-        const PointF c = centre.pointAtPercent(t);
-        const double h = halfThicknessAt(t);
-        topEdge.push_back(PointF(c.x(), c.y() - h));
-        bottomEdge.push_back(PointF(c.x(), c.y() + h));
-    }
-
-    muse::draw::PainterPath path;
-    path.moveTo(topEdge.front());
-    for (size_t i = 1; i < topEdge.size(); ++i) {
-        path.lineTo(topEdge[i]);
-    }
-    for (size_t i = bottomEdge.size(); i-- > 0;) {
-        path.lineTo(bottomEdge[i]);
-    }
-    path.closeSubpath();
-    return path;
-}
-
 struct SlurCubicChainSegment
 {
     PointF start;
@@ -160,12 +101,14 @@ PointF cubicDerivativeAt(const SlurCubicChainSegment& segment, double t)
 std::vector<SlurSamplePoint> sampleCubicChain(const std::vector<SlurCubicChainSegment>& chain)
 {
     std::vector<SlurSamplePoint> samples;
-    samples.reserve((chain.size() * 24) + 1);
+    // Dense, fixed-rate pass per segment (independent of knot/segment count) so
+    // the arc-length resampling that follows always has enough source points.
+    constexpr int samplesPerSegment = 32;
+    samples.reserve((chain.size() * samplesPerSegment) + 1);
 
     double accumulatedLength = 0.0;
     PointF previousPoint;
     bool hasPreviousPoint = false;
-    const int samplesPerSegment = std::max(16, 24 / std::max(1, int(chain.size())));
 
     for (size_t segmentIdx = 0; segmentIdx < chain.size(); ++segmentIdx) {
         const SlurCubicChainSegment& segment = chain[segmentIdx];
@@ -192,10 +135,51 @@ std::vector<SlurSamplePoint> sampleCubicChain(const std::vector<SlurCubicChainSe
     return samples;
 }
 
+// Resample a dense cubic-chain sampling to `count` points spaced evenly along
+// the arc length, interpolating position and tangent. Endpoints are preserved
+// exactly. This keeps the outline offset and the thickness profile uniform no
+// matter how fast individual cubic segments move.
+std::vector<SlurSamplePoint> resampleByArcLength(const std::vector<SlurSamplePoint>& dense, double totalLength, int count)
+{
+    if (dense.size() < 2 || count < 1) {
+        return dense;
+    }
+
+    std::vector<SlurSamplePoint> out;
+    out.reserve(size_t(count) + 1);
+    out.push_back(dense.front());
+
+    size_t j = 1;
+    for (int k = 1; k < count; ++k) {
+        const double targetLen = totalLength * double(k) / double(count);
+        while (j < dense.size() && dense[j].arcLength < targetLen) {
+            ++j;
+        }
+        if (j >= dense.size()) {
+            break;
+        }
+        const SlurSamplePoint& a = dense[j - 1];
+        const SlurSamplePoint& b = dense[j];
+        const double span = b.arcLength - a.arcLength;
+        const double u = span > 1e-9 ? (targetLen - a.arcLength) / span : 0.0;
+        out.push_back({ a.point + (b.point - a.point) * u,
+                        a.tangent + (b.tangent - a.tangent) * u,
+                        targetLen });
+    }
+
+    out.push_back(dense.back());
+    return out;
+}
+
 double slurThicknessAt(const SlurSegment* slurSeg, double totalLength, double arcLength)
 {
     const double t = std::clamp(arcLength / std::max(totalLength, 1e-6), 0.0, 1.0);
-    const double envelope = std::max(0.0, 1.0 - 2.0 * std::abs(0.5 - t));
+    // Smooth bell profile: full thickness at the centre, tapering to zero at the
+    // tips with continuous slope (sin^2 is C-infinity). The previous triangular
+    // envelope (1 - 2*|0.5 - t|) had a slope discontinuity at the mid-point that
+    // showed up as a bulge/kink at the slur apex.
+    const double s = std::sin(M_PI * t);
+    const double envelope = s * s;
     return envelope * 2.0 * slurSeg->ldata()->midThickness();
 }
 
@@ -482,12 +466,22 @@ bool computeMultiBezierPath(SlurSegment* slurSeg, const PointF& p2, const PointF
         segmentStart = segmentEnd;
     }
 
-    const std::vector<SlurSamplePoint> samples = sampleCubicChain(chain);
+    const std::vector<SlurSamplePoint> denseSamples = sampleCubicChain(chain);
+    if (denseSamples.size() < 2) {
+        return false;
+    }
+
+    const double totalLength = std::max(denseSamples.back().arcLength, 1e-6);
+    // Resample evenly by arc length (density tracks the slur length, like the
+    // tie shape) so the offset outline stays smooth and the thickness profile is
+    // applied uniformly regardless of how many knots the slur has.
+    int sampleCount = int(std::round(3.0 * totalLength / std::max(slurSeg->spatium(), 1e-6)));
+    sampleCount = std::clamp(sampleCount, 24, 96);
+    const std::vector<SlurSamplePoint> samples = resampleByArcLength(denseSamples, totalLength, sampleCount);
     if (samples.size() < 2) {
         return false;
     }
 
-    const double totalLength = std::max(samples.back().arcLength, 1e-6);
     const bool solidStyle = slurSeg->slur()->styleType() == SlurStyleType::Solid;
     PainterPath path = solidStyle
                        ? buildSolidMultiBezierPath(slurSeg, samples, totalLength)
@@ -3145,17 +3139,14 @@ void SlurTieLayout::computeBezier(TieSegment* tieSeg, PointF shoulderOffset)
     //-----------------------------------
 
     PainterPath path = PainterPath();
+    // Classic two-cubic "lens": the top and bottom edges are analytic cubic
+    // Beziers sharing the tie's endpoints, so the silhouette stays smooth at any
+    // zoom (no polyline faceting). Solid ties close the lens with the return
+    // cubic; dotted/dashed ties keep only the thin top edge to be stroked.
+    path.moveTo(PointF());
+    path.cubicTo(bezier1Final - tieThickness, bezier2Final - tieThickness, tieEndNormalized);
     if (tieSeg->tie()->styleType() == SlurStyleType::Solid) {
-        // Flat-tie thickness profile: keep the straight middle at full thickness
-        // and taper only the curved ends. The plateau half-thickness is 0.75 *
-        // midThickness so the body matches the previous lens' peak thickness
-        // (whose maximum gap was 1.5 * midThickness).
-        path = buildFlatTieFillPath(PointF(), bezier1Final, bezier2Final, tieEndNormalized,
-                                    0.75 * midThickness, tieLengthInSp);
-    } else {
-        // Dotted/dashed ties are a single thin line stroked along the top edge.
-        path.moveTo(PointF());
-        path.cubicTo(bezier1Final - tieThickness, bezier2Final - tieThickness, tieEndNormalized);
+        path.cubicTo(bezier2Final + tieThickness, bezier1Final + tieThickness, PointF());
     }
 
     // translate back
