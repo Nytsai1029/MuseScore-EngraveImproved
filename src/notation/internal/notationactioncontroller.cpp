@@ -315,6 +315,7 @@ void NotationActionController::init()
     registerAction("edit-strings", &Controller::openEditStringsDialog);
     registerAction("measures-per-system", &Controller::openBreaksDialog);
     registerAction("fit-music-reflow", &Controller::openFitMusicDialog);
+    registerAction("apply-japanese-spacing", &Controller::openJapaneseSpacingDialog);
     registerAction("transpose", &Controller::openTransposeDialog);
     registerAction("parts", &Controller::openPartsDialog);
     registerAction("staff-text-properties", &Controller::openStaffTextPropertiesDialog);
@@ -1857,6 +1858,11 @@ void NotationActionController::openBreaksDialog()
 void NotationActionController::openFitMusicDialog()
 {
     interactive()->open("musescore://notation/fitmusic");
+}
+
+void NotationActionController::openJapaneseSpacingDialog()
+{
+    interactive()->open("musescore://notation/japanesespacing");
 }
 
 void NotationActionController::openTransposeDialog()

@@ -25,6 +25,8 @@ set(WIDGETS_SRC
     ${CMAKE_CURRENT_LIST_DIR}/breaksdialog.h
     ${CMAKE_CURRENT_LIST_DIR}/fitmusicdialog.cpp
     ${CMAKE_CURRENT_LIST_DIR}/fitmusicdialog.h
+    ${CMAKE_CURRENT_LIST_DIR}/japanesespacingdialog.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/japanesespacingdialog.h
     ${CMAKE_CURRENT_LIST_DIR}/pagesettings.cpp
     ${CMAKE_CURRENT_LIST_DIR}/pagesettings.h
     ${CMAKE_CURRENT_LIST_DIR}/transposedialog.cpp

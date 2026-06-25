@@ -582,6 +582,12 @@ const UiActionList NotationUiActions::m_actions = {
              TranslatableString("action", "&Fit music…"),
              TranslatableString("action", "Fit music (distribute measures evenly across systems)…")
              ),
+    UiAction("apply-japanese-spacing",
+             mu::context::UiCtxProjectOpened,
+             mu::context::CTX_NOTATION_OPENED,
+             TranslatableString("action", "Apply &Japanese spacing…"),
+             TranslatableString("action", "Apply Japanese engraving spacing preset…")
+             ),
     UiAction("undo",
              mu::context::UiCtxProjectOpened,
              mu::context::CTX_NOTATION_OPENED,

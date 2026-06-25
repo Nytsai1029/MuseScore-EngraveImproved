@@ -153,6 +153,7 @@ private:
     void openEditStringsDialog();
     void openBreaksDialog();
     void openFitMusicDialog();
+    void openJapaneseSpacingDialog();
     void openTransposeDialog();
     void openPartsDialog();
     void openTupletOtherDialog();

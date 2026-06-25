@@ -415,6 +415,7 @@ MenuItem* AppMenuModel::makeToolsMenu()
         makeMenuItem("del-empty-measures"),
         makeSeparator(),
         makeMenuItem("fit-music-reflow"),
+        makeMenuItem("apply-japanese-spacing"),
     };
 
     return makeMenu(TranslatableString("appshell/menu/tools", "&Tools"), toolsItems, "menu-tools");
