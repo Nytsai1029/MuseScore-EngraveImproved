@@ -823,6 +823,9 @@ double HorizontalSpacing::chordRestSegmentNaturalWidth(Segment* segment, Horizon
 
     Measure* measure = segment->measure();
     double userStretch = std::clamp(measure->userStretch(), 0.1, 10.0); // TODO: enforce via UI, not here
+    if (segment->style().styleB(Sid::keepEqualDurationSpacing)) {
+        userStretch = 1.0; // equal-duration spacing ignores per-measure manual stretch
+    }
 
     double segTotalStretch = durationStretch * userStretch;
     segment->setStretch(segTotalStretch);
@@ -852,7 +855,12 @@ double HorizontalSpacing::computeSegmentDurationStretch(const Segment* curSeg, c
     const MStyle& style = curSeg->style();
     double slope = spacingRatio > 0.0 ? spacingRatio : style.styleD(Sid::measureSpacing);
 
-    if (hasAdjacent || curSeg->measure()->isMMRest()) {
+    // 日式间距: when keeping equal spacing for equal durations, space purely by this
+    // segment's own duration (skip the polyphony shortest-note scaling), so identical
+    // note values get identical width within a system.
+    bool equalDurationSpacing = style.styleB(Sid::keepEqualDurationSpacing) && curSeg->isChordRestType();
+
+    if (equalDurationSpacing || hasAdjacent || curSeg->measure()->isMMRest()) {
         durStretch = durationStretchForTicks(slope, segTicks);
     } else {
         // Polyrythms

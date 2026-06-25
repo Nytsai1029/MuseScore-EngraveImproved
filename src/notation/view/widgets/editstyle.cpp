@@ -390,6 +390,7 @@ EditStyle::EditStyle(QWidget* parent)
         { StyleId::useAdaptiveSpacingRatio, false, useAdaptiveSpacingRatio, 0 },
         { StyleId::spacingRatioDense,       false, spacingRatioDense,       0 },
         { StyleId::spacingRatioSparse,      false, spacingRatioSparse,      0 },
+        { StyleId::keepEqualDurationSpacing, false, keepEqualDurationSpacing, 0 },
 
         { StyleId::barWidth,                false, barWidth,                resetBarWidth },
         { StyleId::endBarWidth,             false, endBarWidth,             resetEndBarWidth },

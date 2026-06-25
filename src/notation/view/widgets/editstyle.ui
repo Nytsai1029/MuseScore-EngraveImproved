@@ -2969,7 +2969,7 @@
                  <item row="6" column="0" colspan="4">
                   <widget class="QGroupBox" name="groupBox_adaptiveSpacing">
                    <property name="title">
-                    <string>Adaptive spacing ratio (Japanese-style)</string>
+                    <string>Japanese-style spacing</string>
                    </property>
                    <layout class="QGridLayout" name="gridLayout_adaptiveSpacing">
                     <item row="0" column="0" colspan="2">
@@ -3034,6 +3034,13 @@
                       </property>
                       <property name="singleStep">
                        <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="0" colspan="2">
+                     <widget class="QCheckBox" name="keepEqualDurationSpacing">
+                      <property name="text">
+                       <string>Keep equal spacing for equal note values (per system)</string>
                       </property>
                      </widget>
                     </item>

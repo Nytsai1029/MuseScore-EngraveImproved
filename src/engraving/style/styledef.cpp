@@ -231,6 +231,7 @@ const std::array<StyleDef::StyleValue, size_t(Sid::STYLES)> StyleDef::styleValue
     styleDef(useAdaptiveSpacingRatio,                    false),
     styleDef(spacingRatioDense,                          1.5),
     styleDef(spacingRatioSparse,                         2.0),
+    styleDef(keepEqualDurationSpacing,                   false),
     styleDef(measureRepeatNumberPos,                     Spatium(-0.5)),
     styleDef(mrNumberSeries,                             false),
     styleDef(mrNumberEveryXMeasures,                     4),

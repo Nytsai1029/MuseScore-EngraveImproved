@@ -247,6 +247,7 @@ enum class Sid {
     useAdaptiveSpacingRatio, // 日式间距: vary the spacing ratio R per system according to note density
     spacingRatioDense,       // R used for dense (note-crowded) systems
     spacingRatioSparse,      // R used for sparse (note-sparse) systems
+    keepEqualDurationSpacing, // 日式间距: equal note values get equal spacing within a system (width follows density)
     measureRepeatNumberPos,
     mrNumberSeries,
     mrNumberEveryXMeasures,
