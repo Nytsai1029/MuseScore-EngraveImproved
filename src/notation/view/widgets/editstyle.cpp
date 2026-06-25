@@ -387,6 +387,9 @@ EditStyle::EditStyle(QWidget* parent)
         { StyleId::spacingDensity,          true,  spacingDensity,          resetSpacingDensity },
         { StyleId::minMeasureWidth,         false, minMeasureWidth_2,       resetMinMeasureWidth },
         { StyleId::measureSpacing,          false, measureSpacing,          resetMeasureSpacing },
+        { StyleId::useAdaptiveSpacingRatio, false, useAdaptiveSpacingRatio, 0 },
+        { StyleId::spacingRatioDense,       false, spacingRatioDense,       0 },
+        { StyleId::spacingRatioSparse,      false, spacingRatioSparse,      0 },
 
         { StyleId::barWidth,                false, barWidth,                resetBarWidth },
         { StyleId::endBarWidth,             false, endBarWidth,             resetEndBarWidth },

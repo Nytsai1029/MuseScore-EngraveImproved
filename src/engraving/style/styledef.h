@@ -244,6 +244,9 @@ enum class Sid {
 
     spacingDensity,
     measureSpacing, // At some point we should rename this. This name is a legacy relic. This is now the spacing ratio.
+    useAdaptiveSpacingRatio, // 日式间距: vary the spacing ratio R per system according to note density
+    spacingRatioDense,       // R used for dense (note-crowded) systems
+    spacingRatioSparse,      // R used for sparse (note-sparse) systems
     measureRepeatNumberPos,
     mrNumberSeries,
     mrNumberEveryXMeasures,

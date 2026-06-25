@@ -402,6 +402,12 @@ System* SystemLayout::collectSystem(LayoutContext& ctx)
     // Recompute spacing to account for the last changes (barlines, hidden staves, etc)
     curSysWidth = HorizontalSpacing::computeSpacingForFullSystem(system);
 
+    // 日式间距: optionally re-space using a spacing ratio adapted to this system's note density
+    double adaptiveRatio = HorizontalSpacing::computeAdaptiveSpacingRatio(system, targetSystemWidth);
+    if (adaptiveRatio > 0.0) {
+        curSysWidth = HorizontalSpacing::computeSpacingForFullSystem(system, 1.0, 1.0, false, adaptiveRatio);
+    }
+
     if (curSysWidth > targetSystemWidth) {
         HorizontalSpacing::squeezeSystemToFit(system, curSysWidth, targetSystemWidth);
     }

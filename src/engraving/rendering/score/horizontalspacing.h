@@ -45,10 +45,11 @@ class HorizontalSpacing
 public:
 
     static double computeSpacingForFullSystem(System* system, double stretchReduction = 1.0, double squeezeFactor = 1.0,
-                                              bool overrideMinMeasureWidth = false);
+                                              bool overrideMinMeasureWidth = false, double spacingRatio = 0.0);
     static double updateSpacingForLastAddedMeasure(System* system, bool startOfContinuousLayoutRegion = false);
     static void squeezeSystemToFit(System* system, double& curSysWidth, double targetSysWidth);
     static void justifySystem(System* system, double curSysWidth, double targetSystemWidth);
+    static double computeAdaptiveSpacingRatio(System* system, double targetSystemWidth);
 
     static double minHorizontalDistance(const Shape& f, const Shape& s, double spatium, double squeezeFactor = 1.0);
     //! NOTE Temporary solution
@@ -72,6 +73,7 @@ private:
         double stretchReduction = 1.0;
         double squeezeFactor = 1.0;
         double spacingDensity = 1.0;
+        double spacingRatio = 0.0; // 日式间距: effective spacing ratio R for this system; 0 = use Sid::measureSpacing
         bool overrideMinMeasureWidth = false;
     };
 
@@ -120,7 +122,7 @@ private:
                                                    double& curMinDist);
 
     static double chordRestSegmentNaturalWidth(Segment* segment, HorizontalSpacingContext& ctx);
-    static double computeSegmentDurationStretch(const Segment* curSeg, const Segment* prevSeg);
+    static double computeSegmentDurationStretch(const Segment* curSeg, const Segment* prevSeg, double spacingRatio = 0.0);
     static double durationStretchForMMRests(const Segment* segment);
     static double durationStretchForTicks(double slope, const Fraction& ticks);
     static bool needsCueSizeSpacing(const Segment* segment);

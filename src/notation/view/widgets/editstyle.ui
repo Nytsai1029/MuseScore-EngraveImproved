@@ -2966,6 +2966,80 @@
                    </property>
                   </widget>
                  </item>
+                 <item row="6" column="0" colspan="4">
+                  <widget class="QGroupBox" name="groupBox_adaptiveSpacing">
+                   <property name="title">
+                    <string>Adaptive spacing ratio (Japanese-style)</string>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_adaptiveSpacing">
+                    <item row="0" column="0" colspan="2">
+                     <widget class="QCheckBox" name="useAdaptiveSpacingRatio">
+                      <property name="text">
+                       <string>Vary spacing ratio by note density of each system</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="labelSpacingRatioDense">
+                      <property name="text">
+                       <string>Dense-line spacing ratio:</string>
+                      </property>
+                      <property name="buddy">
+                       <cstring>spacingRatioDense</cstring>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QDoubleSpinBox" name="spacingRatioDense">
+                      <property name="keyboardTracking">
+                       <bool>false</bool>
+                      </property>
+                      <property name="decimals">
+                       <number>3</number>
+                      </property>
+                      <property name="minimum">
+                       <double>1.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>2.000000000000000</double>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="labelSpacingRatioSparse">
+                      <property name="text">
+                       <string>Sparse-line spacing ratio:</string>
+                      </property>
+                      <property name="buddy">
+                       <cstring>spacingRatioSparse</cstring>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QDoubleSpinBox" name="spacingRatioSparse">
+                      <property name="keyboardTracking">
+                       <bool>false</bool>
+                      </property>
+                      <property name="decimals">
+                       <number>3</number>
+                      </property>
+                      <property name="minimum">
+                       <double>1.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>2.000000000000000</double>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
                 </layout>
                </widget>
               </item>

@@ -96,7 +96,7 @@ static bool shouldIgnoreHorizontalSpacingItem(const EngravingItem* item)
 }
 
 double HorizontalSpacing::computeSpacingForFullSystem(System* system, double stretchReduction, double squeezeFactor,
-                                                      bool overrideMinMeasureWidth)
+                                                      bool overrideMinMeasureWidth, double spacingRatio)
 {
     TRACEFUNC;
 
@@ -107,6 +107,7 @@ double HorizontalSpacing::computeSpacingForFullSystem(System* system, double str
     ctx.stretchReduction = stretchReduction;
     ctx.squeezeFactor = squeezeFactor;
     ctx.spacingDensity = system->style().styleD(Sid::spacingDensity);
+    ctx.spacingRatio = spacingRatio;
     ctx.overrideMinMeasureWidth = overrideMinMeasureWidth;
 
     ctx.xCur = system->leftMargin();
@@ -132,6 +133,49 @@ double HorizontalSpacing::computeSpacingForFullSystem(System* system, double str
     spaceMeasureGroup(measureGroup, ctx);
 
     return ctx.xCur;
+}
+
+double HorizontalSpacing::computeAdaptiveSpacingRatio(System* system, double targetSystemWidth)
+{
+    const MStyle& style = system->style();
+    if (!style.styleB(Sid::useAdaptiveSpacingRatio)) {
+        return 0.0; // disabled: caller falls back to Sid::measureSpacing
+    }
+
+    const double rDense = style.styleD(Sid::spacingRatioDense);
+    const double rSparse = style.styleD(Sid::spacingRatioSparse);
+
+    // Note density = number of chord/rest segments per spatium of available width.
+    // Dense (note-crowded) systems -> rDense (flatter curve, protects short notes);
+    // sparse systems -> rSparse (long notes spread proportionally to fill the line).
+    int noteCount = 0;
+    for (MeasureBase* mb : system->measures()) {
+        if (!mb->isMeasure()) {
+            continue;
+        }
+        for (Segment& seg : toMeasure(mb)->segments()) {
+            if (seg.isChordRestType() && seg.ticks() > Fraction(0, 1) && seg.visible()
+                && seg.enabled() && !seg.allElementsInvisible()) {
+                ++noteCount;
+            }
+        }
+    }
+
+    const double spatium = system->spatium();
+    if (noteCount == 0 || targetSystemWidth <= 0.0 || spatium <= 0.0) {
+        return rSparse;
+    }
+
+    const double density = noteCount / (targetSystemWidth / spatium); // notes per spatium
+
+    // Empirical thresholds (notes per spatium); may need tuning on reference scores
+    // (a line of whole notes is ~0.08, a line of sixteenths ~0.5).
+    static constexpr double DENSITY_SPARSE = 0.10;
+    static constexpr double DENSITY_DENSE = 0.40;
+    double t = (density - DENSITY_SPARSE) / (DENSITY_DENSE - DENSITY_SPARSE);
+    t = std::clamp(t, 0.0, 1.0);
+
+    return rSparse + t * (rDense - rSparse);
 }
 
 double HorizontalSpacing::updateSpacingForLastAddedMeasure(System* system, bool startOfContinuousLayoutRegion)
@@ -775,7 +819,7 @@ void HorizontalSpacing::checkCollisionsWithCrossStaffStems(const Segment* thisSe
 
 double HorizontalSpacing::chordRestSegmentNaturalWidth(Segment* segment, HorizontalSpacingContext& ctx)
 {
-    double durationStretch = computeSegmentDurationStretch(segment, segment->prev(SegmentType::ChordRest));
+    double durationStretch = computeSegmentDurationStretch(segment, segment->prev(SegmentType::ChordRest), ctx.spacingRatio);
 
     Measure* measure = segment->measure();
     double userStretch = std::clamp(measure->userStretch(), 0.1, 10.0); // TODO: enforce via UI, not here
@@ -791,7 +835,7 @@ double HorizontalSpacing::chordRestSegmentNaturalWidth(Segment* segment, Horizon
     return naturalWidth;
 }
 
-double HorizontalSpacing::computeSegmentDurationStretch(const Segment* curSeg, const Segment* prevSeg)
+double HorizontalSpacing::computeSegmentDurationStretch(const Segment* curSeg, const Segment* prevSeg, double spacingRatio)
 {
     if (curSeg->isMMRestSegment()) {
         return durationStretchForMMRests(curSeg);
@@ -806,7 +850,7 @@ double HorizontalSpacing::computeSegmentDurationStretch(const Segment* curSeg, c
 
     double durStretch;
     const MStyle& style = curSeg->style();
-    double slope = style.styleD(Sid::measureSpacing);
+    double slope = spacingRatio > 0.0 ? spacingRatio : style.styleD(Sid::measureSpacing);
 
     if (hasAdjacent || curSeg->measure()->isMMRest()) {
         durStretch = durationStretchForTicks(slope, segTicks);
