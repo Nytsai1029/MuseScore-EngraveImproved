@@ -211,5 +211,29 @@ InspectorSectionView {
                 }
             }
         }
+
+        FlatButton {
+            id: resetStretchButton
+            visible: root.model ? root.model.scoreIsInPageView : false
+
+            width: parent.width
+
+            navigation.panel: root.navigationPanel
+            navigation.name: "ResetStretch"
+            navigation.row: makeIntoOneSystem.navigation.row + 1
+
+            orientation: Qt.Horizontal
+            text: qsTrc("inspector", "Reset layout stretch")
+
+            toolTipTitle: qsTrc("inspector", "Reset layout stretch")
+            toolTipDescription: qsTrc("inspector", "Reset the horizontal stretch of the selected measure(s) to its default width")
+            toolTipShortcut: root.model ? root.model.shortcutResetStretch : ""
+
+            onClicked: {
+                if (root.model) {
+                    root.model.resetStretch()
+                }
+            }
+        }
     }
 }

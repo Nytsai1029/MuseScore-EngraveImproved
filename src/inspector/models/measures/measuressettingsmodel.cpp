@@ -233,3 +233,17 @@ QString MeasuresSettingsModel::shortcutMakeIntoSystem() const
 {
     return shortcutsForActionCode("make-into-system");
 }
+
+void MeasuresSettingsModel::resetStretch()
+{
+    if (!currentNotation()) {
+        return;
+    }
+
+    currentNotation()->interaction()->resetStretch();
+}
+
+QString MeasuresSettingsModel::shortcutResetStretch() const
+{
+    return shortcutsForActionCode("reset-stretch");
+}

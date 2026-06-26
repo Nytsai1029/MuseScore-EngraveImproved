@@ -36,6 +36,7 @@ class MeasuresSettingsModel : public AbstractInspectorModel
     Q_PROPERTY(QString shortcutMoveMeasureDown READ shortcutMoveMeasureDown CONSTANT)
     Q_PROPERTY(QString shortcutToggleSystemLock READ shortcutToggleSystemLock CONSTANT)
     Q_PROPERTY(QString shortcutMakeIntoSystem READ shortcutMakeIntoSystem CONSTANT)
+    Q_PROPERTY(QString shortcutResetStretch READ shortcutResetStretch CONSTANT)
     Q_PROPERTY(bool allSystemsAreLocked READ allSystemsAreLocked NOTIFY allSystemsAreLockedChanged)
     Q_PROPERTY(bool scoreIsInPageView READ scoreIsInPageView NOTIFY scoreIsInPageViewChanged)
     Q_PROPERTY(bool isMakeIntoSystemAvailable READ isMakeIntoSystemAvailable NOTIFY isMakeIntoSystemAvailableChanged)
@@ -75,6 +76,9 @@ public:
 
     Q_INVOKABLE void makeIntoSystem();
     QString shortcutMakeIntoSystem() const;
+
+    Q_INVOKABLE void resetStretch();
+    QString shortcutResetStretch() const;
 
     bool scoreIsInPageView() const;
     bool isMakeIntoSystemAvailable() const;
