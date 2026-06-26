@@ -871,8 +871,13 @@ double AccidentalsLayout::minAccidentalToAccidentalGroupDistance(Accidental* acc
         dist += curDist;
     } while (collisionFound && iter < safetyNet);
 
-    IF_ASSERT_FAILED(iter < safetyNet) {
-        LOGE() << "Accidental layout error.";
+    // Some malformed inputs (e.g. Sibelius direct-export MusicXML with overlapping
+    // ties/slurs and bad durations) can produce an accidental cluster this greedy
+    // collision solver cannot fully resolve. Don't assert/abort in that case: fall
+    // back to the best-effort distance accumulated so far so the score still opens.
+    if (iter >= safetyNet) {
+        LOGW() << "Accidental layout did not converge after " << safetyNet
+               << " iterations; using best-effort spacing.";
     }
 
     acc->mutldata()->column = column;
