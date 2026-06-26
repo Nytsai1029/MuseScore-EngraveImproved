@@ -823,9 +823,6 @@ double HorizontalSpacing::chordRestSegmentNaturalWidth(Segment* segment, Horizon
 
     Measure* measure = segment->measure();
     double userStretch = std::clamp(measure->userStretch(), 0.1, 10.0); // TODO: enforce via UI, not here
-    if (segment->style().styleB(Sid::keepEqualDurationSpacing)) {
-        userStretch = 1.0; // equal-duration spacing ignores per-measure manual stretch
-    }
 
     double segTotalStretch = durationStretch * userStretch;
     segment->setStretch(segTotalStretch);
