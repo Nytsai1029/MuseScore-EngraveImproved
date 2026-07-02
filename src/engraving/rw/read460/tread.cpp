@@ -786,6 +786,8 @@ void TRead::read(Expression* expr, XmlReader& xml, ReadContext& ctx)
         const AsciiStringView tag = xml.name();
         if (tag == "snapToDynamics") {
             readProperty(expr, xml, ctx, Pid::SNAP_TO_DYNAMICS);
+        } else if (tag == "snapBeforeDynamics") {
+            readProperty(expr, xml, ctx, Pid::SNAP_BEFORE_DYNAMICS);
         } else if (!readProperties(static_cast<TextBase*>(expr), xml, ctx)) {
             xml.unknown();
         }

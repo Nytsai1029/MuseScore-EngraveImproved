@@ -34,6 +34,7 @@ static const ElementStyle expressionStyle {
     { Sid::expressionPlacement, Pid::PLACEMENT },
     { Sid::expressionMinDistance, Pid::MIN_DISTANCE },
     { Sid::snapToDynamics, Pid::SNAP_TO_DYNAMICS },
+    { Sid::snapBeforeDynamics, Pid::SNAP_BEFORE_DYNAMICS },
 };
 
 Expression::Expression(Segment* parent)
@@ -46,6 +47,7 @@ Expression::Expression(const Expression& expression)
     : TextBase(expression)
 {
     _snapToDynamics = expression._snapToDynamics;
+    _snapBeforeDynamics = expression._snapBeforeDynamics;
 }
 
 bool Expression::isEditAllowed(EditData& ed) const
@@ -121,6 +123,8 @@ PropertyValue Expression::getProperty(Pid propertyId) const
     switch (propertyId) {
     case Pid::SNAP_TO_DYNAMICS:
         return _snapToDynamics;
+    case Pid::SNAP_BEFORE_DYNAMICS:
+        return _snapBeforeDynamics;
     default:
         return TextBase::getProperty(propertyId);
     }
@@ -134,6 +138,9 @@ bool Expression::setProperty(Pid propertyId, const PropertyValue& v)
             resetProperty(Pid::OFFSET);
         }
         setSnapToDynamics(v.toBool());
+        break;
+    case Pid::SNAP_BEFORE_DYNAMICS:
+        setSnapBeforeDynamics(v.toBool());
         break;
     default:
         if (!TextBase::setProperty(propertyId, v)) {

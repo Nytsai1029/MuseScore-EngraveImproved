@@ -54,11 +54,27 @@ Column {
         propertyItem: root.model?.snapExpression ?? null
     }
 
+    FlatRadioButtonGroupPropertyView {
+        id: snapBeforeDynamics
+
+        titleText: qsTrc("inspector", "Position relative to dynamic")
+        propertyItem: root.model?.snapBeforeDynamics ?? null
+
+        navigationName: "Expression dynamic position"
+        navigationPanel: root.navigationPanel
+        navigationRowStart: snapExpression.navigationRowEnd + 1
+
+        model: [
+            { text: qsTrc("inspector", "After"), value: false, title: qsTrc("inspector", "After dynamic") },
+            { text: qsTrc("inspector", "Before"), value: true, title: qsTrc("inspector", "Before dynamic") }
+        ]
+    }
+
     VoicesAndPositionSection {
         id: voicesAndPositionSection
 
         navigationPanel: root.navigationPanel
-        navigationRowStart: snapExpression.navigationRowEnd + 1
+        navigationRowStart: snapBeforeDynamics.navigationRowEnd + 1
 
         model: root.model
     }

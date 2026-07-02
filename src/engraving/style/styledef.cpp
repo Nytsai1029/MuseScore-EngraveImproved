@@ -786,6 +786,7 @@ const std::array<StyleDef::StyleValue, size_t(Sid::STYLES)> StyleDef::styleValue
     styleDef(dynamicsPosBelow,                           PointF(.0, 2.0)),
     styleDef(avoidBarLines,                              true),
     styleDef(snapToDynamics,                             true),
+    styleDef(snapBeforeDynamics,                         false),
     styleDef(centerOnNotehead,                           true),
     styleDef(dynamicsMinDistance,                        Spatium(0.5)),
     styleDef(autoplaceVerticalAlignRange,                int(VerticalAlignRange::SYSTEM)),

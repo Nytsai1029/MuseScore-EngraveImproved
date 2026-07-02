@@ -805,6 +805,9 @@ class EngravingItem : public apiv1::ScoreElement
     /// For expressions: Whether they align themselves to an accompanying dynamic
     ///\since MuseScore 4.6
     API_PROPERTY_T(bool, snapToDynamics,  SNAP_TO_DYNAMICS)
+    /// For expressions: Whether they align before the accompanying dynamic instead of after it.
+    ///\since MuseScore 4.6
+    API_PROPERTY_T(bool, snapBeforeDynamics, SNAP_BEFORE_DYNAMICS)
     /// For hairpins and gradual tempo changes:
     /// Whether they snap to the preceding element.
     ///\since MuseScore 4.6

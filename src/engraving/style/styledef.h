@@ -805,6 +805,7 @@ enum class Sid {
     dynamicsPosBelow,
     avoidBarLines,
     snapToDynamics,
+    snapBeforeDynamics,
     centerOnNotehead,
     dynamicsMinDistance,
     autoplaceVerticalAlignRange,

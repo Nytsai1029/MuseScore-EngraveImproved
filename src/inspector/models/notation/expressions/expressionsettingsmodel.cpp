@@ -39,6 +39,7 @@ void ExpressionSettingsModel::createProperties()
     InspectorModelWithVoiceAndPositionOptions::createProperties();
 
     m_snapExpression = buildPropertyItem(mu::engraving::Pid::SNAP_TO_DYNAMICS);
+    m_snapBeforeDynamics = buildPropertyItem(mu::engraving::Pid::SNAP_BEFORE_DYNAMICS);
 }
 
 void ExpressionSettingsModel::requestElements()
@@ -51,6 +52,7 @@ void ExpressionSettingsModel::loadProperties()
     InspectorModelWithVoiceAndPositionOptions::loadProperties();
 
     loadPropertyItem(m_snapExpression);
+    loadPropertyItem(m_snapBeforeDynamics);
 }
 
 void ExpressionSettingsModel::resetProperties()
@@ -58,9 +60,15 @@ void ExpressionSettingsModel::resetProperties()
     InspectorModelWithVoiceAndPositionOptions::resetProperties();
 
     m_snapExpression->resetToDefault();
+    m_snapBeforeDynamics->resetToDefault();
 }
 
 PropertyItem* ExpressionSettingsModel::snapExpression() const
 {
     return m_snapExpression;
+}
+
+PropertyItem* ExpressionSettingsModel::snapBeforeDynamics() const
+{
+    return m_snapBeforeDynamics;
 }

@@ -29,6 +29,7 @@ class Dynamic;
 class Expression final : public TextBase
 {
     M_PROPERTY(bool, snapToDynamics, setSnapToDynamics)
+    M_PROPERTY(bool, snapBeforeDynamics, setSnapBeforeDynamics)
     DECLARE_CLASSOF(ElementType::EXPRESSION)
 
 public:

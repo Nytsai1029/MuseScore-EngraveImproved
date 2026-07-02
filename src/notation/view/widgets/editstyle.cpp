@@ -584,6 +584,7 @@ EditStyle::EditStyle(QWidget* parent)
         { StyleId::dynamicsMinDistance,     false, dynamicsMinDistance,        resetDynamicsMinDistance },
         { StyleId::avoidBarLines,           false, avoidBarLines,              resetAvoidBarLines },
         { StyleId::snapToDynamics,          false, snapExpression,             resetSnapExpression },
+        { StyleId::snapBeforeDynamics,      false, snapBeforeDynamics,         resetSnapBeforeDynamics },
         { StyleId::dynamicsSize,            true,  dynamicsSize,               resetDynamicsSize },
         { StyleId::dynamicsOverrideFont,    false, dynamicsOverrideFont,       0 },
         { StyleId::dynamicsFont,            false, dynamicsFont,               0 },

@@ -387,6 +387,7 @@ static constexpr PropertyMetaData propertyList[] = {
     { Pid::ANCHOR_TO_END_OF_PREVIOUS, true, "anchorToEndOfPrevious", P_TYPE::BOOL,              PropertyGroup::NONE,            QT_TRANSLATE_NOOP("engraving/propertyName", "anchor to end of previous") },
 
     { Pid::SNAP_TO_DYNAMICS,         false, "snapToDynamics",       P_TYPE::BOOL,               PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "snap expression") }, // for expressions
+    { Pid::SNAP_BEFORE_DYNAMICS,     false, "snapBeforeDynamics",   P_TYPE::BOOL,               PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "place before dynamic") }, // for expressions
     { Pid::SNAP_BEFORE,              false, "snapBefore",           P_TYPE::BOOL,               PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "snap before") },     // <
     { Pid::SNAP_AFTER,               false, "snapAfter",            P_TYPE::BOOL,               PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "snap after") },      // < for hairpins
 

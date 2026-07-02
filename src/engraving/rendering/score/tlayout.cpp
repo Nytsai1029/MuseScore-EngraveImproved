@@ -2162,9 +2162,12 @@ void TLayout::layoutExpression(const Expression* item, Expression::LayoutData* l
 
     // If there is a dynamic on same segment and track make space for it horizontally
     double padding = item->computeDynamicExpressionDistance(dynamic);
-    double dynamicRight = dynamic->shape().translate(dynamic->pos()).right();
-    double expressionLeft = ldata->bbox().translated(item->pos()).left();
-    double difference = expressionLeft - dynamicRight - padding;
+    Shape dynamicShape = dynamic->shape().translate(dynamic->pos());
+    RectF dynamicRect = dynamic->ldata()->bbox().translated(dynamic->pos());
+    RectF expressionRect = ldata->bbox().translated(item->pos());
+    double difference = item->snapBeforeDynamics()
+                        ? expressionRect.right() - dynamicRect.left() + padding
+                        : expressionRect.left() - dynamicShape.right() - padding;
     ldata->moveX(-difference);
 
     if (item->snapToDynamics()) {

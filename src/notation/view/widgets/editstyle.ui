@@ -11421,6 +11421,26 @@ followed by dashes</string>
              </property>
             </widget>
            </item>
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="snapBeforeDynamics">
+             <property name="text">
+              <string>Place expression before dynamic</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QToolButton" name="resetSnapBeforeDynamics">
+             <property name="toolTip">
+              <string>Reset to default</string>
+             </property>
+             <property name="accessibleName">
+              <string>Reset 'Place expression before dynamic' value</string>
+             </property>
+             <property name="text">
+              <string notr="true"/>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -13630,6 +13650,8 @@ followed by dashes</string>
   <tabstop>resetLyricsMelismaForce</tabstop>
   <tabstop>snapExpression</tabstop>
   <tabstop>resetSnapExpression</tabstop>
+  <tabstop>snapBeforeDynamics</tabstop>
+  <tabstop>resetSnapBeforeDynamics</tabstop>
   <tabstop>rehearsalMarkPlacement</tabstop>
   <tabstop>resetRehearsalMarkPlacement</tabstop>
   <tabstop>rehearsalMarkPosAbove</tabstop>

@@ -396,6 +396,7 @@ enum class Pid {
     ANCHOR_TO_END_OF_PREVIOUS,
 
     SNAP_TO_DYNAMICS, // pre-4.4 version of the property, specific for expression
+    SNAP_BEFORE_DYNAMICS, // for expressions
     SNAP_BEFORE,
     SNAP_AFTER,
 

@@ -161,6 +161,7 @@
         <voice>
           <Expression>
             <eid>S_S</eid>
+            <snapBeforeDynamics>1</snapBeforeDynamics>
             <text><b>expression</b></text>
             </Expression>
           <Chord>
