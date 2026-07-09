@@ -248,6 +248,7 @@ enum class Sid {
     spacingRatioDense,       // R used for dense (note-crowded) systems
     spacingRatioSparse,      // R used for sparse (note-sparse) systems
     keepEqualDurationSpacing, // 日式间距: equal note values get equal spacing within a system (width follows density)
+    crossStaffBeamSpacingOffset, // when false, drop the ±notehead spacing offset for cross-staff beamed notes
     measureRepeatNumberPos,
     mrNumberSeries,
     mrNumberEveryXMeasures,

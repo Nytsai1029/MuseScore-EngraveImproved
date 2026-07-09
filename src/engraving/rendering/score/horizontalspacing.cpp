@@ -938,20 +938,24 @@ void HorizontalSpacing::applyCrossBeamSpacingCorrection(Segment* thisSeg, Segmen
 
     double displacement = score->noteHeadWidth() - style.styleMM(Sid::stemWidth);
 
-    if (crossBeamSpacing.upDown && crossBeamSpacing.canBeAdjusted) {
-        thisSeg->addWidthOffset(displacement);
-        width += displacement;
-    } else if (crossBeamSpacing.downUp && crossBeamSpacing.canBeAdjusted) {
-        thisSeg->addWidthOffset(-displacement);
-        width -= displacement;
-    }
+    // The ±notehead offset (push apart for up→down, tuck together for down→up) is optional. The
+    // anti-overlap safety below (preventCrossStaffKerning / ensureMinStemDistance) always applies.
+    if (style.styleB(Sid::crossStaffBeamSpacingOffset)) {
+        if (crossBeamSpacing.upDown && crossBeamSpacing.canBeAdjusted) {
+            thisSeg->addWidthOffset(displacement);
+            width += displacement;
+        } else if (crossBeamSpacing.downUp && crossBeamSpacing.canBeAdjusted) {
+            thisSeg->addWidthOffset(-displacement);
+            width -= displacement;
+        }
 
-    if (crossBeamSpacing.upDown) {
-        if (crossBeamSpacing.hasOpposingBeamlets) {
-            double minBeamletClearance = style.styleMM(Sid::beamMinLen) * 2.0 + paddingTable.at(ElementType::BEAM).at(ElementType::BEAM);
-            width = std::max(width, displacement + minBeamletClearance);
-        } else {
-            width = std::max(width, 2 * displacement);
+        if (crossBeamSpacing.upDown) {
+            if (crossBeamSpacing.hasOpposingBeamlets) {
+                double minBeamletClearance = style.styleMM(Sid::beamMinLen) * 2.0 + paddingTable.at(ElementType::BEAM).at(ElementType::BEAM);
+                width = std::max(width, displacement + minBeamletClearance);
+            } else {
+                width = std::max(width, 2 * displacement);
+            }
         }
     }
 

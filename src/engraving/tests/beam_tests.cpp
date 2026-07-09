@@ -309,6 +309,51 @@ TEST_F(Engraving_BeamTests, crossStaffBeamOffsetSurvivesReentry)
     delete score;
 }
 
+// The ±notehead cross-staff spacing offset can be disabled via Sid::crossStaffBeamSpacingOffset.
+// Verifies the whole chain: the style key is readable, defaults to on, and the gate in
+// applyCrossBeamSpacingCorrection actually drops the extra width when turned off.
+TEST_F(Engraving_BeamTests, crossStaffBeamSpacingOffsetToggle)
+{
+    MasterScore* score = ScoreRW::readScore(BEAM_DATA_DIR + u"crossStaffBeamReentry.mscx");
+    ASSERT_TRUE(score);
+
+    auto segAt = [score](int index) -> Segment* {
+        Measure* m = score->firstMeasure();
+        Segment* s = m ? m->first(SegmentType::ChordRest) : nullptr;
+        for (int i = 0; i < index && s; ++i) {
+            s = s->next(SegmentType::ChordRest);
+        }
+        return s;
+    };
+    auto chordAt = [&segAt](int index) -> Chord* {
+        Segment* s = segAt(index);
+        EngravingItem* e = s ? s->element(4) : nullptr;
+        return e && e->isChord() ? toChord(e) : nullptr;
+    };
+
+    // Make the 2nd eighth cross-staff: notes 1->2 straddle up->down, which adds the spacing offset.
+    score->doLayout();
+    ASSERT_TRUE(chordAt(1));
+    score->startCmd(TranslatableString::untranslatable("test"));
+    score->moveUp(chordAt(1));
+    score->endCmd();
+    ASSERT_TRUE(chordAt(1) && chordAt(1)->beam() && chordAt(1)->beam()->cross());
+
+    // Offset on (default): the gap between segments 1 and 2 includes the extra width.
+    EXPECT_TRUE(score->style().styleB(Sid::crossStaffBeamSpacingOffset));
+    double gapOn = segAt(1)->x() - segAt(0)->x();
+
+    // Offset off: the gate is skipped, so the gap shrinks.
+    score->style().set(Sid::crossStaffBeamSpacingOffset, false);
+    score->setLayoutAll();
+    score->doLayout();
+    double gapOff = segAt(1)->x() - segAt(0)->x();
+
+    EXPECT_GT(gapOn, gapOff);
+
+    delete score;
+}
+
 TEST_F(Engraving_BeamTests, flippedDirection)
 {
     beam("flippedDirection.mscx");
