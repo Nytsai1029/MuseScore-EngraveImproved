@@ -227,6 +227,14 @@ void BeamLayout::layout1(Beam* item, LayoutContext& ctx)
 
     item->setCross(item->minCRMove() != item->maxCRMove());
 
+    // A non-cross beam must not retain a stale cross-staff offset. crossStaffMove is meaningful only
+    // while the beam straddles staves; if it is left non-zero after the beam stops being cross, the
+    // same (reused) Beam object re-enters cross-staff with a shifted crossStaffIdx, which collapses
+    // the chords onto one side and silently drops the cross-staff spacing offset on re-entry.
+    if (!item->cross() && item->crossStaffMove() != 0) {
+        item->setCrossStaffMove(0);
+    }
+
     //
     // determine beam stem direction
     //

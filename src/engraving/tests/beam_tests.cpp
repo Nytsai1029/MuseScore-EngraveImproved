@@ -31,8 +31,10 @@
 #include "dom/masterscore.h"
 #include "dom/measure.h"
 #include "dom/note.h"
+#include "dom/property.h"
 #include "dom/segment.h"
 #include "dom/tremolotwochord.h"
+#include "dom/undo.h"
 
 #include "style/styledef.h"
 
@@ -213,6 +215,96 @@ TEST_F(Engraving_BeamTests, crossStaffBeamsRespectCustomSlantRules)
     for (Beam* beam : customCrossBeams) {
         EXPECT_NEAR(beam->slope(), 0.0, 0.001);
     }
+
+    delete score;
+}
+
+// A cross-staff beam gets a special horizontal-spacing offset when its chords straddle the two
+// staves with opposite stem directions. That straddle only holds while crossStaffMove == 0. If a
+// beam is made cross-staff, then a flip/drag seeds a non-zero crossStaffMove, then it is taken out
+// of and put back into cross-staff, the same (reused) Beam object must not retain the stale
+// crossStaffMove - otherwise crossStaffIdx is shifted, the chords no longer straddle, and the
+// spacing offset silently disappears on re-entry.
+TEST_F(Engraving_BeamTests, crossStaffBeamOffsetSurvivesReentry)
+{
+    MasterScore* score = ScoreRW::readScore(BEAM_DATA_DIR + u"crossStaffBeamReentry.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    // The 2nd eighth note of the beamed group on staff 2 (track 4 = staff idx 1, voice 0).
+    auto eighthAt = [score](int index) -> Chord* {
+        Measure* m = score->firstMeasure();
+        Segment* s = m ? m->first(SegmentType::ChordRest) : nullptr;
+        for (int i = 0; i < index && s; ++i) {
+            s = s->next(SegmentType::ChordRest);
+        }
+        EngravingItem* e = s ? s->element(4) : nullptr;   // staff 2 (idx 1), voice 0 -> track 4
+        return e && e->isChord() ? toChord(e) : nullptr;
+    };
+    auto firstEighth = [&eighthAt]() { return eighthAt(0); };
+    auto secondEighth = [&eighthAt]() { return eighthAt(1); };
+
+    Chord* target = secondEighth();
+    ASSERT_TRUE(target);
+    ASSERT_TRUE(target->beam());
+    EXPECT_FALSE(target->beam()->cross());
+
+    // First entry: move the note to the staff above -> cross-staff straddle, offset applies.
+    score->startCmd(TranslatableString::untranslatable("test"));
+    score->moveUp(target);
+    score->endCmd();
+
+    target = secondEighth();
+    ASSERT_TRUE(target);
+    Beam* beam = target->beam();
+    ASSERT_TRUE(beam);
+    EXPECT_TRUE(beam->cross());
+    EXPECT_EQ(beam->crossStaffMove(), 0);
+    // Straddle: the moved note has the opposite stem direction to its beam neighbour - exactly the
+    // condition the cross-staff spacing offset keys off (see horizontalspacing.cpp:1081).
+    Chord* neighbour = firstEighth();
+    ASSERT_TRUE(neighbour);
+    EXPECT_EQ(neighbour->beam(), beam);
+    EXPECT_NE(target->up(), neighbour->up());
+
+    // Seed a non-zero crossStaffMove, exactly as flipping (edit.cpp) or a beam drag would.
+    score->startCmd(TranslatableString::untranslatable("test"));
+    beam->undoChangeProperty(Pid::BEAM_CROSS_STAFF_MOVE, 1);
+    score->endCmd();
+
+    target = secondEighth();
+    ASSERT_TRUE(target);
+    beam = target->beam();
+    ASSERT_TRUE(beam);
+    EXPECT_EQ(beam->crossStaffMove(), 1);
+
+    // Exit cross-staff: move the note back. The beam is no longer cross.
+    score->startCmd(TranslatableString::untranslatable("test"));
+    score->moveDown(target);
+    score->endCmd();
+
+    target = secondEighth();
+    ASSERT_TRUE(target);
+    beam = target->beam();
+    ASSERT_TRUE(beam);
+    EXPECT_FALSE(beam->cross());
+    EXPECT_EQ(beam->crossStaffMove(), 0);   // <-- the fix: stale offset must be cleared on de-cross
+
+    // Re-enter cross-staff: the straddle (and its spacing offset) must be restored.
+    score->startCmd(TranslatableString::untranslatable("test"));
+    score->moveUp(target);
+    score->endCmd();
+
+    target = secondEighth();
+    ASSERT_TRUE(target);
+    beam = target->beam();
+    ASSERT_TRUE(beam);
+    EXPECT_TRUE(beam->cross());
+    EXPECT_EQ(beam->crossStaffMove(), 0);
+    neighbour = firstEighth();
+    ASSERT_TRUE(neighbour);
+    EXPECT_EQ(neighbour->beam(), beam);
+    EXPECT_NE(target->up(), neighbour->up());   // straddle (and its spacing offset) restored
 
     delete score;
 }
