@@ -102,3 +102,5 @@ including a sibling module's internals directly.
   isn't the shortest, say so and suggest a better one.
 - Keep commits scoped to one change with a short imperative subject; stage only related files; push only when
   explicitly asked.
+- **Do not add a `Co-Authored-By: Claude` (or any Claude/Anthropic) trailer to commit messages.** Commits
+  should be attributed to the maintainer only.
