@@ -96,6 +96,10 @@ private:
                                    int interval, int desiredSlant);
     static void add8thSpaceSlant(BeamBase::LayoutData* ldata, PointF& dictatorAnchor, int dictator, int pointer, int beamCount,
                                  int interval, int targetLine, bool Flat);
+    static void snapCustomBeamToStaffLine(const BeamBase::LayoutData* ldata, int& dictator, int& pointer, int refOffset, int staffLines);
+    static void enforceCustomDefaultStemLengths(const BeamBase* item, const BeamBase::LayoutData* ldata,
+                                                const std::vector<ChordRest*>& chordRests, int& dictator, int& pointer,
+                                                bool isStartDictator, double startX, double endX, bool ledgerGroup);
     static bool noSlope(const Beam* beam);
 
     static bool calculateAnchorsCross(const BeamBase* item, BeamBase::LayoutData* ldata, const LayoutConfiguration& conf);

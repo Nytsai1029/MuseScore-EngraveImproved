@@ -281,6 +281,7 @@ const std::array<StyleDef::StyleValue, size_t(Sid::STYLES)> StyleDef::styleValue
     styleDef(beamCustomMaxSlantSeventhInterval,          6),
     styleDef(beamCustomMaxSlantOctave,                   6),
     styleDef(beamCustomMaxSlantGreaterThanOctave,        6),
+    styleDef(beamCustomPositioningRules,                 true),
 
     styleDef(dotMag,                                     PropertyValue(1.0)),
     styleDef(dotNoteDistance,                            Spatium(0.5)),

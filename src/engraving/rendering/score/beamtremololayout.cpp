@@ -246,6 +246,107 @@ static TwoPitchBeamSlant twoPitchBeamSlantRule(const BeamBase::LayoutData* ldata
     return TwoPitchBeamSlant::None;
 }
 
+static bool useCustomBeamPositioningRules(const BeamBase::LayoutData* ldata)
+{
+    if (!ldata || useDefaultBeamSlantRules(ldata)) {
+        return false;
+    }
+    if (ldata->beam) {
+        return ldata->beam->style().styleB(Sid::beamCustomPositioningRules);
+    }
+    if (ldata->trem) {
+        return ldata->trem->style().styleB(Sid::beamCustomPositioningRules);
+    }
+    return false;
+}
+
+static bool customPositioningApplies(const BeamBase::LayoutData* ldata)
+{
+    if (!useCustomBeamPositioningRules(ldata)) {
+        return false;
+    }
+    if (ldata->beamType != BeamType::BEAM || !ldata->beam) {
+        return false;
+    }
+    if (ldata->tab || ldata->isBesideTabStaff) {
+        return false;
+    }
+    if (ldata->isGrace || ldata->mag() < 1.) {
+        return false;
+    }
+    if (ldata->crossStaffBeamPos != BeamBase::CrossStaffBeamPosition::INVALID) {
+        return false;
+    }
+    if (!muse::RealIsEqual(ldata->beam->growLeft(), ldata->beam->growRight())) {
+        return false;
+    }
+    return true;
+}
+
+// The custom positioning rules relate one specific beam line to the staff lines: the primary
+// (stem-tip) beam for one- and two-beam groups, the second beam counting from the note side
+// for three or more beams. Returns its offset from the primary beam in quarter spaces.
+static int customPositioningReferenceOffset(const BeamBase::LayoutData* ldata, int beamCountDictator)
+{
+    const int refLevel = std::max(0, beamCountDictator - 2);
+    return refLevel * (ldata->up ? ldata->beamSpacing : -ldata->beamSpacing);
+}
+
+static bool allNotesOnLedgerLines(const BeamBase::LayoutData* ldata, int staffLines)
+{
+    bool hasChord = false;
+    for (const ChordRest* cr : ldata->elements) {
+        if (!cr || !cr->isChord()) {
+            continue;
+        }
+        const Chord* chord = toChord(cr);
+        hasChord = true;
+        if (ldata->up) {
+            if (chord->upLine() < (staffLines - 1) * 2 + 2) {
+                return false;
+            }
+        } else if (chord->downLine() > -2) {
+            return false;
+        }
+    }
+    return hasChord;
+}
+
+static void applyCustomLedgerGroupPosition(const BeamBase::LayoutData* ldata, int& dictator, int& pointer,
+                                           int defaultDictator, int defaultPointer)
+{
+    int slantSign = 0;
+    if (pointer > dictator) {
+        slantSign = 1;
+    } else if (pointer < dictator) {
+        slantSign = -1;
+    }
+
+    // The end closer to the notes rests the staff-side edge of the primary beam on the line grid
+    // ("sitting" on a line for groups above the staff, "hanging" from one below it, ledger grid
+    // included); when the group has any slant the other end sinks one quarter space towards the
+    // staff, so it hugs the same line.
+    const bool dictatorIsBase = ldata->up ? dictator >= pointer : dictator <= pointer;
+    int base = dictatorIsBase ? dictator : pointer;
+    const int baseDefault = dictatorIsBase ? defaultDictator : defaultPointer;
+    const int targetResidual = ldata->up ? 1 : 3;
+    const int residual = ((base - targetResidual) % 4 + 4) % 4;
+    if (residual != 0) {
+        const int towardNotes = ldata->up ? 4 - residual : -residual;
+        const int awayFromNotes = ldata->up ? -residual : 4 - residual;
+        int delta = std::abs(towardNotes) < std::abs(awayFromNotes) ? towardNotes : awayFromNotes;
+        const bool shortensBase = ldata->up ? base + delta > baseDefault + 1 : base + delta < baseDefault - 1;
+        if (delta == towardNotes && shortensBase) {
+            delta = awayFromNotes;
+        }
+        base += delta;
+    }
+
+    const int other = slantSign == 0 ? base : base + (ldata->up ? -1 : 1);
+    dictator = dictatorIsBase ? base : other;
+    pointer = dictatorIsBase ? other : base;
+}
+
 void BeamTremoloLayout::setupLData(const BeamBase* item, BeamBase::LayoutData* ldata, const LayoutContext& ctx)
 {
     bool isGrace = false;
@@ -771,6 +872,115 @@ void BeamTremoloLayout::add8thSpaceSlant(BeamBase::LayoutData* ldata, PointF& di
     ldata->beamDist += 0.0625 * ldata->spatium;
 }
 
+void BeamTremoloLayout::snapCustomBeamToStaffLine(const BeamBase::LayoutData* ldata, int& dictator, int& pointer, int refOffset,
+                                                  int staffLines)
+{
+    const int refDictator = dictator + refOffset;
+    const int refPointer = pointer + refOffset;
+    if (!isBeamInsideStaff(refDictator, staffLines, false) || !isBeamInsideStaff(refPointer, staffLines, false)) {
+        return;
+    }
+
+    // A beam at its default position already touches the line grid with an edge (residual 1
+    // or 3: the default stem length ends on a line whenever the note sits on one) or with its
+    // centre (residual 0); those placements stay untouched. Only an end floating halfway
+    // between two lines (residual 2) is corrected: the whole group first moves a quarter space
+    // away from the notes to seat the dictator end, and if the pointer end still floats, the
+    // slant loses a quarter space towards the dictator (the "reduce 1/2 and 3/2 slants" rule) -
+    // both moves only ever lengthen stems.
+    if (((refDictator % 4) + 4) % 4 == 2) {
+        const int awayFromNotes = ldata->up ? -1 : 1;
+        dictator += awayFromNotes;
+        pointer += awayFromNotes;
+    }
+    if ((((pointer + refOffset) % 4) + 4) % 4 == 2) {
+        pointer += pointer > dictator ? -1 : 1;
+    }
+}
+
+void BeamTremoloLayout::enforceCustomDefaultStemLengths(const BeamBase* item, const BeamBase::LayoutData* ldata,
+                                                        const std::vector<ChordRest*>& chordRests, int& dictator, int& pointer,
+                                                        bool isStartDictator, double startX, double endX, bool ledgerGroup)
+{
+    if (muse::RealIsEqual(endX, startX)) {
+        return;
+    }
+
+    const double quarterSpace = ldata->spatium / 4;
+    struct StemAnchor {
+        double t = 0.0;
+        double defaultPos = 0.0;
+    };
+    std::vector<StemAnchor> anchors;
+    anchors.reserve(chordRests.size());
+    for (const ChordRest* cr : chordRests) {
+        if (!cr->isChord()) {
+            continue;
+        }
+        const double x = chordBeamAnchorX(ldata, cr, ChordBeamAnchorType::Middle) - item->pagePos().x();
+        const double defaultPos = (chordBeamAnchorY(ldata, cr) - item->pagePos().y()) / quarterSpace;
+        anchors.push_back({ (x - startX) / (endX - startX), defaultPos });
+    }
+    if (anchors.empty()) {
+        return;
+    }
+
+    auto maxDeficit = [&](int dict, int point) {
+        const double startY = isStartDictator ? dict : point;
+        const double endY = isStartDictator ? point : dict;
+        double worst = 0.0;
+        for (const StemAnchor& anchor : anchors) {
+            const double beamY = startY + anchor.t * (endY - startY);
+            const double deficit = ldata->up ? beamY - anchor.defaultPos : anchor.defaultPos - beamY;
+            worst = std::max(worst, deficit);
+        }
+        return worst;
+    };
+
+    // Reduce the slant a quarter space at a time around the dictator end for as long as that
+    // actually lengthens the shortest stem; a residual deficit (e.g. at the dictator end itself)
+    // is resolved by moving the whole group away from the notes instead.
+    const double epsilon = 0.01;
+
+    if (ledgerGroup) {
+        // A ledger-line group keeps its quarter-space slant and its seat on the line grid; the
+        // deep end may run up to a full space short of its natural stem length (the shallow end
+        // is already guarded by the snapping step). Beyond that the whole group moves towards
+        // the staff by whole spaces, so the grid seat is preserved.
+        const double ledgerTolerance = 4.0;
+        const double deficit = maxDeficit(dictator, pointer);
+        if (deficit > ledgerTolerance + epsilon) {
+            const int spaces = static_cast<int>(std::ceil((deficit - ledgerTolerance - epsilon) / 4.0));
+            const int shift = (ldata->up ? -4 : 4) * spaces;
+            dictator += shift;
+            pointer += shift;
+        }
+        return;
+    }
+
+    // Stems may run up to a quarter space short of their default length for line fitting
+    // (the same tolerance the snapping step uses); only deficits beyond that are corrected.
+    const double fittingTolerance = 1.0;
+    double deficit = maxDeficit(dictator, pointer);
+    while (deficit > fittingTolerance + epsilon && dictator != pointer) {
+        const int step = pointer > dictator ? -1 : 1;
+        const double reduced = maxDeficit(dictator, pointer + step);
+        // A deficit near the dictator end shrinks only marginally when the pointer moves (the
+        // anchors sit a hair inside the beam ends), so demand a substantial improvement per step
+        // or fall through to shifting the whole group.
+        if (reduced >= deficit - 0.5) {
+            break;
+        }
+        pointer += step;
+        deficit = reduced;
+    }
+    if (deficit > fittingTolerance + epsilon) {
+        const int shift = (ldata->up ? -1 : 1) * static_cast<int>(std::ceil(deficit - fittingTolerance - epsilon));
+        dictator += shift;
+        pointer += shift;
+    }
+}
+
 bool BeamTremoloLayout::computeTremoloUp(const BeamBase::LayoutData* ldata)
 {
     if (!ldata->beam || !ldata->beam->cross()) {
@@ -943,6 +1153,8 @@ bool BeamTremoloLayout::calculateAnchors(const BeamBase* item, BeamBase::LayoutD
     // This is the middle of the stave if the notes are normal size or the second line from the bottom if notes are small
     const int targetLine = getTargetStaffLine(ldata, ctx, startChord, endChord, staffLines, closestStaffToBeam, item->staffIdx());
     const bool ignoreStaffLineCollisionLimits = !useDefaultBeamSlantRules(ldata);
+    const bool applyCustomPositioning = ignoreStaffLineCollisionLimits && customPositioningApplies(ldata);
+    const bool customLedgerGroup = applyCustomPositioning && allNotesOnLedgerLines(ldata, staffLines);
 
     int slant
         = computeDesiredSlant(item, ldata, startPos, endPos, chordsClosestToBeam, targetLine, dictator, pointer);
@@ -969,6 +1181,15 @@ bool BeamTremoloLayout::calculateAnchors(const BeamBase* item, BeamBase::LayoutD
             const int extendDirection = ldata->up ? -1 : 1;
             dictator += extendDirection * maxShortening;
             pointer += extendDirection * maxShortening;
+        }
+        if (applyCustomPositioning) {
+            if (customLedgerGroup) {
+                applyCustomLedgerGroupPosition(ldata, dictator, pointer, defaultDictator, defaultPointer);
+            } else {
+                const int beamCountDictator = strokeCount(ldata, isStartDictator ? startChord : endChord);
+                const int refOffset = customPositioningReferenceOffset(ldata, beamCountDictator);
+                snapCustomBeamToStaffLine(ldata, dictator, pointer, refOffset, staffLines);
+            }
         }
     }
     bool isAscending = startPos > endPos;
@@ -997,9 +1218,11 @@ bool BeamTremoloLayout::calculateAnchors(const BeamBase* item, BeamBase::LayoutD
             offsetBeamWithAnchorShortening(ldata, chordRests, dictator, pointer, staffLines, isStartDictator, stemLengthDictator,
                                            stemLengthPointer, targetLine);
         }
-        // Adjust inner stems
-        offsetBeamToRemoveCollisions(item, ldata, chordRests, dictator, pointer, startAnchor.x(), endAnchor.x(), isFlat,
-                                     isStartDictator, stemsUneven, preferDictatorForExtension);
+        if (!applyCustomPositioning) {
+            // Adjust inner stems
+            offsetBeamToRemoveCollisions(item, ldata, chordRests, dictator, pointer, startAnchor.x(), endAnchor.x(), isFlat,
+                                         isStartDictator, stemsUneven, preferDictatorForExtension);
+        }
     }
 
     int beamCount = std::max(beamCountD, beamCountP);
@@ -1012,7 +1235,7 @@ bool BeamTremoloLayout::calculateAnchors(const BeamBase* item, BeamBase::LayoutD
         }
     }
 
-    if (ignoreStaffLineCollisionLimits && !ldata->tab) {
+    if (ignoreStaffLineCollisionLimits && !applyCustomPositioning && !ldata->tab) {
         auto touchesStaffLine = [](int yPos) {
             int normalized = yPos % 4;
             if (normalized < 0) {
@@ -1032,6 +1255,11 @@ bool BeamTremoloLayout::calculateAnchors(const BeamBase* item, BeamBase::LayoutD
             endOuterBeamPos += awayFromNote;
             ++attempts;
         }
+    }
+
+    if (applyCustomPositioning && endAnchor.x() > startAnchor.x()) {
+        enforceCustomDefaultStemLengths(item, ldata, chordRests, dictator, pointer, isStartDictator,
+                                        startAnchor.x(), endAnchor.x(), customLedgerGroup);
     }
 
     ldata->startAnchor.setY(quarterSpace * (isStartDictator ? dictator : pointer) + item->pagePos().y());

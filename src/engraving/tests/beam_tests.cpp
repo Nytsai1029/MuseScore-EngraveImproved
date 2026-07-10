@@ -415,6 +415,98 @@ TEST_F(Engraving_BeamTests, twoPitchBeamSlantRules)
     delete score;
 }
 
+TEST_F(Engraving_BeamTests, customBeamPositioningRules)
+{
+    MasterScore* score = ScoreRW::readScore(BEAM_DATA_DIR + u"customBeamPositioning.mscx");
+    ASSERT_TRUE(score);
+
+    score->style().set(Sid::useDefaultBeamSlantRules, false);
+    score->setLayoutAll();
+    score->doLayout();
+
+    std::vector<Beam*> beams = collectBeams(score);
+    ASSERT_EQ(beams.size(), 6);
+
+    const double quarterSpace = score->style().spatium() / 4;
+    auto slantQuarters = [quarterSpace](const Beam* beam) {
+        return (beam->endAnchor().y() - beam->startAnchor().y()) / quarterSpace;
+    };
+    // Staff-line grid origin (page y of the top staff line) recovered from a note of the beam:
+    // a note on line n sits n half spaces below the top line
+    auto gridOrigin = [quarterSpace](const Beam* beam) {
+        for (const ChordRest* cr : beam->elements()) {
+            if (cr->isChord()) {
+                const Note* note = toChord(cr)->upNote();
+                return note->pagePos().y() - note->line() * 2 * quarterSpace;
+            }
+        }
+        return 0.0;
+    };
+    // Final page-frame y of the primary (level 0) beam segment ends, in quarter spaces from
+    // the staff-line grid origin. The stored layout anchors live in a pre-positioning frame,
+    // so absolute positions must be read from the beam segments instead.
+    auto segmentEndPos = [quarterSpace, gridOrigin](const Beam* beam, bool left) {
+        for (const BeamSegment* seg : beam->beamSegments()) {
+            if (seg->level == 0 && !seg->isBeamlet) {
+                const double y = left ? seg->line.y1() : seg->line.y2();
+                return (y + beam->pagePos().y() - gridOrigin(beam)) / quarterSpace;
+            }
+        }
+        ADD_FAILURE() << "beam has no primary segment";
+        return 0.0;
+    };
+    auto residual = [](double pos) {
+        return std::abs(std::remainder(pos, 4.0));
+    };
+
+    // m1: in-staff second, both default ends already touch the line grid with an edge, so the
+    // default placement and the full table slant (1/2 sp) are kept: no stem gets lengthened
+    EXPECT_NEAR(std::abs(slantQuarters(beams[0])), 2.0, 0.01);
+    EXPECT_NEAR(std::min(segmentEndPos(beams[0], true), segmentEndPos(beams[0], false)), -1.0, 0.05);
+    EXPECT_NEAR(std::max(segmentEndPos(beams[0], true), segmentEndPos(beams[0], false)), 1.0, 0.05);
+
+    // m2: in-staff third (table slant 3/4 sp) keeps its slant, dictator end on a line
+    EXPECT_NEAR(std::abs(slantQuarters(beams[1])), 3.0, 0.01);
+    EXPECT_NEAR(std::min(residual(segmentEndPos(beams[1], true)), residual(segmentEndPos(beams[1], false))), 0.0, 0.05);
+
+    // m3: all notes on ledger lines above the staff: stems extend to the middle line and the
+    // beam edge of the base end rests on it, slanted end a quarter space towards the staff
+    EXPECT_NEAR(std::abs(slantQuarters(beams[2])), 1.0, 0.01);
+    EXPECT_NEAR(std::min(segmentEndPos(beams[2], true), segmentEndPos(beams[2], false)), 7.0, 0.05);
+    EXPECT_NEAR(std::max(segmentEndPos(beams[2], true), segmentEndPos(beams[2], false)), 8.0, 0.05);
+
+    // m4: concave flat group (E4 C5 E4, stems up): the beam stays flat and gets pushed away
+    // from the notes so the middle C5 keeps its (shortened, 2.5 sp) default stem length within
+    // the quarter-space fitting tolerance: beam anchor at one space above the top staff line
+    EXPECT_NEAR(slantQuarters(beams[3]), 0.0, 0.01);
+    EXPECT_NEAR(segmentEndPos(beams[3], true), -4.0, 0.05);
+
+    // m5: descending 16ths high above the staff: stems extend to the middle line, the beam keeps
+    // a quarter-space slant with the base end's beam edge resting on the middle line
+    EXPECT_NEAR(std::abs(slantQuarters(beams[4])), 1.0, 0.01);
+    EXPECT_NEAR(std::min(segmentEndPos(beams[4], true), segmentEndPos(beams[4], false)), 7.0, 0.05);
+    EXPECT_NEAR(std::max(segmentEndPos(beams[4], true), segmentEndPos(beams[4], false)), 8.0, 0.05);
+
+    // m6: two-note ledger group with a large drop (E6 to A5): stays slanted by a quarter space
+    // instead of being flattened, and the deep-end stem deficit moves the seat towards the
+    // staff by whole spaces (edge of the beam resting on the middle line)
+    EXPECT_NEAR(std::abs(slantQuarters(beams[5])), 1.0, 0.01);
+    EXPECT_NEAR(std::min(segmentEndPos(beams[5], true), segmentEndPos(beams[5], false)), 7.0, 0.05);
+    EXPECT_NEAR(std::max(segmentEndPos(beams[5], true), segmentEndPos(beams[5], false)), 8.0, 0.05);
+
+    // Disabling the positioning rules restores the plain custom slant behaviour (the ledger
+    // group keeps the full table slant instead of the quarter-space one)
+    score->style().set(Sid::beamCustomPositioningRules, false);
+    score->setLayoutAll();
+    score->doLayout();
+
+    beams = collectBeams(score);
+    ASSERT_EQ(beams.size(), 6);
+    EXPECT_NEAR(std::abs(slantQuarters(beams[4])), 4.0, 0.01);
+
+    delete score;
+}
+
 // cross staff beaming is not yet supported
 // in the new beams code
 TEST_F(Engraving_BeamTests, DISABLED_beamCrossMeasure2)

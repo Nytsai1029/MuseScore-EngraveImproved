@@ -294,6 +294,7 @@ enum class Sid {
     beamCustomMaxSlantSeventhInterval,
     beamCustomMaxSlantOctave,
     beamCustomMaxSlantGreaterThanOctave,
+    beamCustomPositioningRules,
 
     dotMag,
     dotNoteDistance,
