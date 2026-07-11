@@ -896,6 +896,20 @@ void BeamTremoloLayout::snapCustomBeamToStaffLine(const BeamBase::LayoutData* ld
     if ((((pointer + refOffset) % 4) + 4) % 4 == 2) {
         pointer += pointer > dictator ? -1 : 1;
     }
+
+    // A beam with exactly a half-space slant whose ends straddle a staff line (lower end
+    // hanging below it, upper end sitting above it) cuts thin wedges out of that line. The
+    // end farther from the notes gives up a quarter space and centres on the line instead -
+    // the one situation where a stem may dip a quarter below its computed length. A beam
+    // spanning the inside of a space (lower end sitting, upper end hanging) is fine as is.
+    if (std::abs(pointer - dictator) == 2) {
+        const int refLower = std::max(dictator, pointer) + refOffset;
+        if (((refLower % 4) + 4) % 4 == 1) {
+            int& fartherFromNotes = ldata->up ? (dictator < pointer ? dictator : pointer)
+                                    : (dictator > pointer ? dictator : pointer);
+            fartherFromNotes += ldata->up ? 1 : -1;
+        }
+    }
 }
 
 void BeamTremoloLayout::enforceCustomDefaultStemLengths(const BeamBase* item, const BeamBase::LayoutData* ldata,
@@ -910,28 +924,55 @@ void BeamTremoloLayout::enforceCustomDefaultStemLengths(const BeamBase* item, co
     struct StemAnchor {
         double t = 0.0;
         double defaultPos = 0.0;
+        bool relaxed = false;
     };
+
+    const Chord* dictatorChord = nullptr;
+    for (const ChordRest* cr : chordRests) {
+        if (cr->isChord()) {
+            dictatorChord = toChord(cr);
+            if (isStartDictator) {
+                break;
+            }
+        }
+    }
+    if (!dictatorChord) {
+        return;
+    }
+    const int dictatorLine = ldata->up ? dictatorChord->upLine() : dictatorChord->downLine();
+
     std::vector<StemAnchor> anchors;
     anchors.reserve(chordRests.size());
     for (const ChordRest* cr : chordRests) {
         if (!cr->isChord()) {
             continue;
         }
+        const Chord* chord = toChord(cr);
         const double x = chordBeamAnchorX(ldata, cr, ChordBeamAnchorType::Middle) - item->pagePos().x();
         const double defaultPos = (chordBeamAnchorY(ldata, cr) - item->pagePos().y()) / quarterSpace;
-        anchors.push_back({ (x - startX) / (endX - startX), defaultPos });
+        // An inner chord at the dictator's own note height belongs to the shape the slope rules
+        // sanctioned (two-pitch / neighbouring-note slants); its stem is inherently shorter.
+        const int line = ldata->up ? chord->upLine() : chord->downLine();
+        anchors.push_back({ (x - startX) / (endX - startX), defaultPos, line == dictatorLine });
     }
     if (anchors.empty()) {
         return;
     }
+    anchors.front().relaxed = true;
+    anchors.back().relaxed = true;
 
+    // Relaxed chords (the beam ends and dictator-height neighbours) may run short of their
+    // computed stem length by up to the quarter space the half-space-slant crossing rule is
+    // allowed to take, plus half a quarter of grid rounding. All other inner chords must reach
+    // their full length exactly (numerical slack only).
     auto maxDeficit = [&](int dict, int point) {
         const double startY = isStartDictator ? dict : point;
         const double endY = isStartDictator ? point : dict;
         double worst = 0.0;
         for (const StemAnchor& anchor : anchors) {
             const double beamY = startY + anchor.t * (endY - startY);
-            const double deficit = ldata->up ? beamY - anchor.defaultPos : anchor.defaultPos - beamY;
+            const double allowance = anchor.relaxed ? 1.5 : 0.05;
+            const double deficit = (ldata->up ? beamY - anchor.defaultPos : anchor.defaultPos - beamY) - allowance;
             worst = std::max(worst, deficit);
         }
         return worst;
@@ -958,24 +999,21 @@ void BeamTremoloLayout::enforceCustomDefaultStemLengths(const BeamBase* item, co
         return;
     }
 
-    // Stems may run up to a quarter space short of their default length for line fitting
-    // (the same tolerance the snapping step uses); only deficits beyond that are corrected.
-    const double fittingTolerance = 1.0;
     double deficit = maxDeficit(dictator, pointer);
-    while (deficit > fittingTolerance + epsilon && dictator != pointer) {
+    while (deficit > epsilon && dictator != pointer) {
         const int step = pointer > dictator ? -1 : 1;
         const double reduced = maxDeficit(dictator, pointer + step);
-        // A deficit near the dictator end shrinks only marginally when the pointer moves (the
-        // anchors sit a hair inside the beam ends), so demand a substantial improvement per step
-        // or fall through to shifting the whole group.
-        if (reduced >= deficit - 0.5) {
+        // A deficit near the dictator end barely shrinks when the pointer moves; unless the
+        // step resolves the deficit outright, demand a substantial improvement per step or
+        // fall through to shifting the whole group instead.
+        if (reduced > epsilon && reduced >= deficit - 0.3) {
             break;
         }
         pointer += step;
         deficit = reduced;
     }
-    if (deficit > fittingTolerance + epsilon) {
-        const int shift = (ldata->up ? -1 : 1) * static_cast<int>(std::ceil(deficit - fittingTolerance - epsilon));
+    if (deficit > epsilon) {
+        const int shift = (ldata->up ? -1 : 1) * static_cast<int>(std::ceil(deficit - epsilon));
         dictator += shift;
         pointer += shift;
     }
@@ -1260,6 +1298,12 @@ bool BeamTremoloLayout::calculateAnchors(const BeamBase* item, BeamBase::LayoutD
     if (applyCustomPositioning && endAnchor.x() > startAnchor.x()) {
         enforceCustomDefaultStemLengths(item, ldata, chordRests, dictator, pointer, isStartDictator,
                                         startAnchor.x(), endAnchor.x(), customLedgerGroup);
+        if (!customLedgerGroup) {
+            // Flattening or shifting must not leave the beam floating between staff lines
+            const int beamCountDictator = strokeCount(ldata, isStartDictator ? startChord : endChord);
+            const int refOffset = customPositioningReferenceOffset(ldata, beamCountDictator);
+            snapCustomBeamToStaffLine(ldata, dictator, pointer, refOffset, staffLines);
+        }
     }
 
     ldata->startAnchor.setY(quarterSpace * (isStartDictator ? dictator : pointer) + item->pagePos().y());

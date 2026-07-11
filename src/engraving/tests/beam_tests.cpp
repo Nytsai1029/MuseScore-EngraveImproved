@@ -425,7 +425,7 @@ TEST_F(Engraving_BeamTests, customBeamPositioningRules)
     score->doLayout();
 
     std::vector<Beam*> beams = collectBeams(score);
-    ASSERT_EQ(beams.size(), 6);
+    ASSERT_EQ(beams.size(), 9);
 
     const double quarterSpace = score->style().spatium() / 4;
     auto slantQuarters = [quarterSpace](const Beam* beam) {
@@ -459,10 +459,10 @@ TEST_F(Engraving_BeamTests, customBeamPositioningRules)
         return std::abs(std::remainder(pos, 4.0));
     };
 
-    // m1: in-staff second, both default ends already touch the line grid with an edge, so the
-    // default placement and the full table slant (1/2 sp) are kept: no stem gets lengthened
-    EXPECT_NEAR(std::abs(slantQuarters(beams[0])), 2.0, 0.01);
-    EXPECT_NEAR(std::min(segmentEndPos(beams[0], true), segmentEndPos(beams[0], false)), -1.0, 0.05);
+    // m1: in-staff second whose half-space slant straddles the top line: the end farther from
+    // the notes gives up a quarter space and centres on the line (slant reduced to 1/4 sp)
+    EXPECT_NEAR(std::abs(slantQuarters(beams[0])), 1.0, 0.01);
+    EXPECT_NEAR(std::min(segmentEndPos(beams[0], true), segmentEndPos(beams[0], false)), 0.0, 0.05);
     EXPECT_NEAR(std::max(segmentEndPos(beams[0], true), segmentEndPos(beams[0], false)), 1.0, 0.05);
 
     // m2: in-staff third (table slant 3/4 sp) keeps its slant, dictator end on a line
@@ -476,10 +476,10 @@ TEST_F(Engraving_BeamTests, customBeamPositioningRules)
     EXPECT_NEAR(std::max(segmentEndPos(beams[2], true), segmentEndPos(beams[2], false)), 8.0, 0.05);
 
     // m4: concave flat group (E4 C5 E4, stems up): the beam stays flat and gets pushed away
-    // from the notes so the middle C5 keeps its (shortened, 2.5 sp) default stem length within
-    // the quarter-space fitting tolerance: beam anchor at one space above the top staff line
+    // from the notes until the middle C5 reaches its full (shortened, 2.5 sp) default stem
+    // length - inner chords get no fitting allowance
     EXPECT_NEAR(slantQuarters(beams[3]), 0.0, 0.01);
-    EXPECT_NEAR(segmentEndPos(beams[3], true), -4.0, 0.05);
+    EXPECT_NEAR(segmentEndPos(beams[3], true), -5.0, 0.05);
 
     // m5: descending 16ths high above the staff: stems extend to the middle line, the beam keeps
     // a quarter-space slant with the base end's beam edge resting on the middle line
@@ -494,6 +494,26 @@ TEST_F(Engraving_BeamTests, customBeamPositioningRules)
     EXPECT_NEAR(std::min(segmentEndPos(beams[5], true), segmentEndPos(beams[5], false)), 7.0, 0.05);
     EXPECT_NEAR(std::max(segmentEndPos(beams[5], true), segmentEndPos(beams[5], false)), 8.0, 0.05);
 
+    // m7: in-staff second whose half-space slant spans the inside of the top space (lower end
+    // sitting on the second line, upper end hanging from the top line): left alone
+    EXPECT_NEAR(std::abs(slantQuarters(beams[6])), 2.0, 0.01);
+    EXPECT_NEAR(std::min(segmentEndPos(beams[6], true), segmentEndPos(beams[6], false)), 1.0, 0.05);
+    EXPECT_NEAR(std::max(segmentEndPos(beams[6], true), segmentEndPos(beams[6], false)), 3.0, 0.05);
+
+    // m8: descending 16ths with an inner chord (E5) that falls short of its stem length under
+    // the table slant: the slant is flattened until the inner stem fits and the beam still
+    // touches the line grid afterwards
+    EXPECT_NEAR(std::abs(slantQuarters(beams[7])), 1.0, 0.01);
+    EXPECT_NEAR(std::min(segmentEndPos(beams[7], true), segmentEndPos(beams[7], false)), 15.0, 0.05);
+    EXPECT_NEAR(std::max(segmentEndPos(beams[7], true), segmentEndPos(beams[7], false)), 16.0, 0.05);
+
+    // m9: stepwise descending 16ths (G5 F5 E5 D5): the un-shortened E5 in the first space
+    // misses 3.5 sp by a quarter under the full table slant, so the shallow end is pressed a
+    // quarter space towards the notes (slant 1 sp to 3/4 sp)
+    EXPECT_NEAR(std::abs(slantQuarters(beams[8])), 3.0, 0.01);
+    EXPECT_NEAR(std::min(segmentEndPos(beams[8], true), segmentEndPos(beams[8], false)), 13.0, 0.05);
+    EXPECT_NEAR(std::max(segmentEndPos(beams[8], true), segmentEndPos(beams[8], false)), 16.0, 0.05);
+
     // Disabling the positioning rules restores the plain custom slant behaviour (the ledger
     // group keeps the full table slant instead of the quarter-space one)
     score->style().set(Sid::beamCustomPositioningRules, false);
@@ -501,7 +521,7 @@ TEST_F(Engraving_BeamTests, customBeamPositioningRules)
     score->doLayout();
 
     beams = collectBeams(score);
-    ASSERT_EQ(beams.size(), 6);
+    ASSERT_EQ(beams.size(), 9);
     EXPECT_NEAR(std::abs(slantQuarters(beams[4])), 4.0, 0.01);
 
     delete score;
