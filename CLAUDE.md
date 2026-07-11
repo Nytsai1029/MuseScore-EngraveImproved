@@ -52,6 +52,28 @@ live in `src/<module>/tests/`, and load fixtures from adjacent `*_data/` directo
 `clangd` is configured (`.clangd`) but needs a non-unity compile DB: `./ninja_build.sh -t compile_commands`
 generates `build.tooldata/compile_commands.json` (unity OFF).
 
+## Translations (i18n)
+
+Every user-facing string must be translatable, and the source catalog `share/locale/musescore_en.ts` must
+stay in sync with the code. **This is checked before every commit** (see Conventions below).
+
+- **Mark strings.** QML: `qsTrc("context", "…")`. C++: `mtrc` / `qtrc` / `trc("context", "…")` or
+  `TranslatableString`. Qt Designer `.ui` strings are auto-extracted. A string that is kept as a plain
+  literal and only translated later at its *use* site (e.g. `qtrc(ctx, keyReturnedFromCpp)`) is invisible
+  to `lupdate` — mark it at its definition with `QT_TRANSLATE_NOOP("context", "…")` using the **same**
+  context as the use site (note-name pattern in [utils.cpp](src/framework/global/utils.cpp);
+  anchor descriptions in [fontdesigntypes.cpp](src/fontdesign/internal/fontdesigntypes.cpp)).
+- **Regenerate the catalog** whenever you add / change / remove a string (needs Qt's `lupdate` on `PATH`):
+  ```bash
+  bash tools/translations/run_lupdate.sh   # rewrites share/locale/musescore_en.ts, then sanity-checks it
+  ```
+  The postprocess step (`process_source_ts_files.py`) **fails** on straight quotes (`'` `"` → curly `‘’` `“”`
+  or `′` `″`), `...` (→ `…`), and leading/trailing/double spaces. Fix every reported error; only `editstyle.ui`
+  and `symnames.cpp` are exempt. Don't hand-edit the `.ts`; ignore `lupdate`'s pre-existing parser warnings
+  (`.mm`/`.js`/fluidsynth/`api/v1`).
+- **Commit `share/locale/musescore_en.ts` together with the code.** Only this one source file is edited here —
+  the other `*_<lang>.ts` and `instruments_*.ts` come from Transifex; never touch them.
+
 ## Architecture
 
 **Two namespace roots.** `muse::*` is the reusable "Muse framework" in `src/framework/` (draw, ui, audio,
@@ -102,5 +124,8 @@ including a sibling module's internals directly.
   isn't the shortest, say so and suggest a better one.
 - Keep commits scoped to one change with a short imperative subject; stage only related files; push only when
   explicitly asked.
+- **Before every commit, check and commit i18n.** If the change adds, edits, or removes any user-facing
+  string, run `bash tools/translations/run_lupdate.sh`, fix any postprocess errors, and stage the regenerated
+  `share/locale/musescore_en.ts` in the **same** commit as the code (see *Translations (i18n)* above).
 - **Do not add a `Co-Authored-By: Claude` (or any Claude/Anthropic) trailer to commit messages.** Commits
   should be attributed to the maintainer only.
