@@ -45,6 +45,39 @@ StyleDialogPage {
         { text: "3", value: 12 }
     ]
 
+    component SlantRuleColumn: ColumnLayout {
+        id: slantColumn
+
+        property var rows: []
+
+        Layout.fillWidth: true
+        Layout.alignment: Qt.AlignTop
+        spacing: 8
+
+        Repeater {
+            model: slantColumn.rows
+
+            delegate: RowLayout {
+                Layout.fillWidth: true
+                spacing: 8
+
+                StyledTextLabel {
+                    Layout.fillWidth: true
+                    horizontalAlignment: Text.AlignLeft
+                    text: modelData.label
+                }
+
+                ComboBoxDropdown {
+                    Layout.preferredWidth: 120
+                    model: root.slantOptionsModel
+                    styleItem: modelData.item
+                }
+
+                StyledTextLabel { text: qsTrc("notation", "spaces") }
+            }
+        }
+    }
+
     BeamsPageModel {
         id: beamsPageModel
     }
@@ -199,24 +232,46 @@ StyleDialogPage {
     StyledGroupBox {
         id: customSlantGroup
         width: parent.width
-        height: Math.max(520, customSlantContent.implicitHeight + topPadding + bottomPadding + implicitLabelHeight + spacing)
+        height: customSlantContent.implicitHeight + topPadding + bottomPadding + implicitLabelHeight + spacing
         title: qsTrc("notation", "Custom slant rules")
         enabled: !beamsPageModel.useDefaultBeamSlantRules.value
         opacity: enabled ? 1.0 : 0.45
 
+        readonly property var twoNoteRowsLeft: [
+            { label: qsTrc("notation", "2nd:"), item: beamsPageModel.beamCustomTwoNoteMaxSlantSecondInterval },
+            { label: qsTrc("notation", "3rd:"), item: beamsPageModel.beamCustomTwoNoteMaxSlantThirdInterval },
+            { label: qsTrc("notation", "4th:"), item: beamsPageModel.beamCustomTwoNoteMaxSlantFourthInterval },
+            { label: qsTrc("notation", "5th:"), item: beamsPageModel.beamCustomTwoNoteMaxSlantFifthInterval },
+            { label: qsTrc("notation", "6th:"), item: beamsPageModel.beamCustomTwoNoteMaxSlantSixthInterval }
+        ]
+        readonly property var twoNoteRowsRight: [
+            { label: qsTrc("notation", "7th:"), item: beamsPageModel.beamCustomTwoNoteMaxSlantSeventhInterval },
+            { label: qsTrc("notation", "8th:"), item: beamsPageModel.beamCustomTwoNoteMaxSlantOctaveInterval },
+            { label: qsTrc("notation", "9th:"), item: beamsPageModel.beamCustomTwoNoteMaxSlantNinthInterval },
+            { label: qsTrc("notation", "10th:"), item: beamsPageModel.beamCustomTwoNoteMaxSlantTenthInterval },
+            { label: qsTrc("notation", "Greater than 10th:"), item: beamsPageModel.beamCustomTwoNoteMaxSlantGreaterThanTenthInterval }
+        ]
+        readonly property var multiNoteRowsLeft: [
+            { label: qsTrc("notation", "2nd:"), item: beamsPageModel.beamCustomMaxSlantSecondInterval },
+            { label: qsTrc("notation", "3rd:"), item: beamsPageModel.beamCustomMaxSlantThirdInterval },
+            { label: qsTrc("notation", "4th:"), item: beamsPageModel.beamCustomMaxSlantFourthInterval },
+            { label: qsTrc("notation", "5th:"), item: beamsPageModel.beamCustomMaxSlantFifthInterval },
+            { label: qsTrc("notation", "6th:"), item: beamsPageModel.beamCustomMaxSlantSixthInterval }
+        ]
+        readonly property var multiNoteRowsRight: [
+            { label: qsTrc("notation", "7th:"), item: beamsPageModel.beamCustomMaxSlantSeventhInterval },
+            { label: qsTrc("notation", "8th:"), item: beamsPageModel.beamCustomMaxSlantOctave },
+            { label: qsTrc("notation", "9th:"), item: beamsPageModel.beamCustomMaxSlantNinthInterval },
+            { label: qsTrc("notation", "10th:"), item: beamsPageModel.beamCustomMaxSlantTenthInterval },
+            { label: qsTrc("notation", "Greater than 10th:"), item: beamsPageModel.beamCustomMaxSlantGreaterThanTenthInterval }
+        ]
+
         ColumnLayout {
             id: customSlantContent
             width: parent.width
-            implicitHeight: twoNoteTitle.implicitHeight
-                            + twoNoteIntervalsRow.implicitHeight
-                            + multiNoteTitle.implicitHeight
-                            + multiNoteIntervalsRow.implicitHeight
-                            + customSlantHint.implicitHeight
-                            + spacing * 4
             spacing: 12
 
             StyledTextLabel {
-                id: twoNoteTitle
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignLeft
                 wrapMode: Text.WordWrap
@@ -224,87 +279,14 @@ StyleDialogPage {
             }
 
             RowLayout {
-                id: twoNoteIntervalsRow
                 Layout.fillWidth: true
-                implicitHeight: Math.max(twoNoteLeftColumn.implicitHeight, twoNoteRightColumn.implicitHeight)
                 spacing: 24
 
-                ColumnLayout {
-                    id: twoNoteLeftColumn
-                    Layout.fillWidth: true
-                    implicitHeight: childrenRect.height
-                    spacing: 8
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        StyledTextLabel { text: qsTrc("notation", "2nd:") }
-                        ComboBoxDropdown {
-                            Layout.preferredWidth: 120
-                            model: root.slantOptionsModel
-                            styleItem: beamsPageModel.beamCustomTwoNoteMaxSlantSecondInterval
-                        }
-                        StyledTextLabel { text: qsTrc("notation", "spaces") }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        StyledTextLabel { text: qsTrc("notation", "3rd:") }
-                        ComboBoxDropdown {
-                            Layout.preferredWidth: 120
-                            model: root.slantOptionsModel
-                            styleItem: beamsPageModel.beamCustomTwoNoteMaxSlantThirdInterval
-                        }
-                        StyledTextLabel { text: qsTrc("notation", "spaces") }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        StyledTextLabel { text: qsTrc("notation", "4th-9th:") }
-                        ComboBoxDropdown {
-                            Layout.preferredWidth: 120
-                            model: root.slantOptionsModel
-                            styleItem: beamsPageModel.beamCustomTwoNoteMaxSlantFourthToNinthInterval
-                        }
-                        StyledTextLabel { text: qsTrc("notation", "spaces") }
-                    }
-                }
-
-                ColumnLayout {
-                    id: twoNoteRightColumn
-                    Layout.fillWidth: true
-                    implicitHeight: childrenRect.height
-                    spacing: 8
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        StyledTextLabel { text: qsTrc("notation", "10th:") }
-                        ComboBoxDropdown {
-                            Layout.preferredWidth: 120
-                            model: root.slantOptionsModel
-                            styleItem: beamsPageModel.beamCustomTwoNoteMaxSlantTenthInterval
-                        }
-                        StyledTextLabel { text: qsTrc("notation", "spaces") }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        StyledTextLabel {
-                            Layout.fillWidth: true
-                            horizontalAlignment: Text.AlignLeft
-                            text: qsTrc("notation", "Greater than 10th:")
-                        }
-                        ComboBoxDropdown {
-                            Layout.preferredWidth: 120
-                            model: root.slantOptionsModel
-                            styleItem: beamsPageModel.beamCustomTwoNoteMaxSlantGreaterThanTenthInterval
-                        }
-                        StyledTextLabel { text: qsTrc("notation", "spaces") }
-                    }
-                }
+                SlantRuleColumn { rows: customSlantGroup.twoNoteRowsLeft }
+                SlantRuleColumn { rows: customSlantGroup.twoNoteRowsRight }
             }
 
             StyledTextLabel {
-                id: multiNoteTitle
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignLeft
                 wrapMode: Text.WordWrap
@@ -312,120 +294,14 @@ StyleDialogPage {
             }
 
             RowLayout {
-                id: multiNoteIntervalsRow
                 Layout.fillWidth: true
-                implicitHeight: Math.max(multiNoteLeftColumn.implicitHeight, multiNoteRightColumn.implicitHeight)
                 spacing: 24
 
-                ColumnLayout {
-                    id: multiNoteLeftColumn
-                    Layout.fillWidth: true
-                    implicitHeight: childrenRect.height
-                    spacing: 8
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        StyledTextLabel { text: qsTrc("notation", "2nd:") }
-                        ComboBoxDropdown {
-                            Layout.preferredWidth: 120
-                            model: root.slantOptionsModel
-                            styleItem: beamsPageModel.beamCustomMaxSlantSecondInterval
-                        }
-                        StyledTextLabel { text: qsTrc("notation", "spaces") }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        StyledTextLabel { text: qsTrc("notation", "3rd:") }
-                        ComboBoxDropdown {
-                            Layout.preferredWidth: 120
-                            model: root.slantOptionsModel
-                            styleItem: beamsPageModel.beamCustomMaxSlantThirdInterval
-                        }
-                        StyledTextLabel { text: qsTrc("notation", "spaces") }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        StyledTextLabel { text: qsTrc("notation", "4th:") }
-                        ComboBoxDropdown {
-                            Layout.preferredWidth: 120
-                            model: root.slantOptionsModel
-                            styleItem: beamsPageModel.beamCustomMaxSlantFourthInterval
-                        }
-                        StyledTextLabel { text: qsTrc("notation", "spaces") }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        StyledTextLabel { text: qsTrc("notation", "5th:") }
-                        ComboBoxDropdown {
-                            Layout.preferredWidth: 120
-                            model: root.slantOptionsModel
-                            styleItem: beamsPageModel.beamCustomMaxSlantFifthInterval
-                        }
-                        StyledTextLabel { text: qsTrc("notation", "spaces") }
-                    }
-                }
-
-                ColumnLayout {
-                    id: multiNoteRightColumn
-                    Layout.fillWidth: true
-                    implicitHeight: childrenRect.height
-                    spacing: 8
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        StyledTextLabel { text: qsTrc("notation", "6th:") }
-                        ComboBoxDropdown {
-                            Layout.preferredWidth: 120
-                            model: root.slantOptionsModel
-                            styleItem: beamsPageModel.beamCustomMaxSlantSixthInterval
-                        }
-                        StyledTextLabel { text: qsTrc("notation", "spaces") }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        StyledTextLabel { text: qsTrc("notation", "7th:") }
-                        ComboBoxDropdown {
-                            Layout.preferredWidth: 120
-                            model: root.slantOptionsModel
-                            styleItem: beamsPageModel.beamCustomMaxSlantSeventhInterval
-                        }
-                        StyledTextLabel { text: qsTrc("notation", "spaces") }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        StyledTextLabel { text: qsTrc("notation", "Octave:") }
-                        ComboBoxDropdown {
-                            Layout.preferredWidth: 120
-                            model: root.slantOptionsModel
-                            styleItem: beamsPageModel.beamCustomMaxSlantOctave
-                        }
-                        StyledTextLabel { text: qsTrc("notation", "spaces") }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        StyledTextLabel {
-                            Layout.fillWidth: true
-                            horizontalAlignment: Text.AlignLeft
-                            text: qsTrc("notation", "Greater than an octave:")
-                        }
-                        ComboBoxDropdown {
-                            Layout.preferredWidth: 120
-                            model: root.slantOptionsModel
-                            styleItem: beamsPageModel.beamCustomMaxSlantGreaterThanOctave
-                        }
-                        StyledTextLabel { text: qsTrc("notation", "spaces") }
-                    }
-                }
+                SlantRuleColumn { rows: customSlantGroup.multiNoteRowsLeft }
+                SlantRuleColumn { rows: customSlantGroup.multiNoteRowsRight }
             }
 
             StyledTextLabel {
-                id: customSlantHint
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignLeft

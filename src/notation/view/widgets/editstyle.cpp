@@ -818,7 +818,13 @@ EditStyle::EditStyle(QWidget* parent)
         groupBox_beams,
         QUrl(QString::fromUtf8("qrc:/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml")));
     beamsPage.widget->setMinimumSize(224, 418);
+    // The page content is taller than the default group box slot: let the beams group take all
+    // of the page height (instead of the trailing spacer) so the QML page is not clipped.
+    beamsPage.widget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     groupBox_beams->layout()->addWidget(beamsPage.widget);
+    if (QBoxLayout* pageBeamsLayout = qobject_cast<QBoxLayout*>(PageBeams->layout())) {
+        pageBeamsLayout->setStretch(pageBeamsLayout->indexOf(groupBox_beams), 1);
+    }
 
     // ====================================================
     // BENDS (QML)

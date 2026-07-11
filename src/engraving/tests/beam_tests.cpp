@@ -194,7 +194,12 @@ TEST_F(Engraving_BeamTests, crossStaffBeamsRespectCustomSlantRules)
     score->style().set(Sid::beamCustomMaxSlantForTwoNotes, 0);
     score->style().set(Sid::beamCustomTwoNoteMaxSlantSecondInterval, 0);
     score->style().set(Sid::beamCustomTwoNoteMaxSlantThirdInterval, 0);
-    score->style().set(Sid::beamCustomTwoNoteMaxSlantFourthToNinthInterval, 0);
+    score->style().set(Sid::beamCustomTwoNoteMaxSlantFourthInterval, 0);
+    score->style().set(Sid::beamCustomTwoNoteMaxSlantFifthInterval, 0);
+    score->style().set(Sid::beamCustomTwoNoteMaxSlantSixthInterval, 0);
+    score->style().set(Sid::beamCustomTwoNoteMaxSlantSeventhInterval, 0);
+    score->style().set(Sid::beamCustomTwoNoteMaxSlantOctaveInterval, 0);
+    score->style().set(Sid::beamCustomTwoNoteMaxSlantNinthInterval, 0);
     score->style().set(Sid::beamCustomTwoNoteMaxSlantTenthInterval, 0);
     score->style().set(Sid::beamCustomTwoNoteMaxSlantGreaterThanTenthInterval, 0);
     score->style().set(Sid::beamCustomMaxSlantSecondInterval, 0);
@@ -204,7 +209,9 @@ TEST_F(Engraving_BeamTests, crossStaffBeamsRespectCustomSlantRules)
     score->style().set(Sid::beamCustomMaxSlantSixthInterval, 0);
     score->style().set(Sid::beamCustomMaxSlantSeventhInterval, 0);
     score->style().set(Sid::beamCustomMaxSlantOctave, 0);
-    score->style().set(Sid::beamCustomMaxSlantGreaterThanOctave, 0);
+    score->style().set(Sid::beamCustomMaxSlantNinthInterval, 0);
+    score->style().set(Sid::beamCustomMaxSlantTenthInterval, 0);
+    score->style().set(Sid::beamCustomMaxSlantGreaterThanTenthInterval, 0);
 
     score->setLayoutAll();
     score->doLayout();

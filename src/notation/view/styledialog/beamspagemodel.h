@@ -38,7 +38,12 @@ class BeamsPageModel : public AbstractStyleDialogModel
     Q_PROPERTY(StyleItem * beamCustomMaxSlantForTwoNotes READ beamCustomMaxSlantForTwoNotes CONSTANT)
     Q_PROPERTY(StyleItem * beamCustomTwoNoteMaxSlantSecondInterval READ beamCustomTwoNoteMaxSlantSecondInterval CONSTANT)
     Q_PROPERTY(StyleItem * beamCustomTwoNoteMaxSlantThirdInterval READ beamCustomTwoNoteMaxSlantThirdInterval CONSTANT)
-    Q_PROPERTY(StyleItem * beamCustomTwoNoteMaxSlantFourthToNinthInterval READ beamCustomTwoNoteMaxSlantFourthToNinthInterval CONSTANT)
+    Q_PROPERTY(StyleItem * beamCustomTwoNoteMaxSlantFourthInterval READ beamCustomTwoNoteMaxSlantFourthInterval CONSTANT)
+    Q_PROPERTY(StyleItem * beamCustomTwoNoteMaxSlantFifthInterval READ beamCustomTwoNoteMaxSlantFifthInterval CONSTANT)
+    Q_PROPERTY(StyleItem * beamCustomTwoNoteMaxSlantSixthInterval READ beamCustomTwoNoteMaxSlantSixthInterval CONSTANT)
+    Q_PROPERTY(StyleItem * beamCustomTwoNoteMaxSlantSeventhInterval READ beamCustomTwoNoteMaxSlantSeventhInterval CONSTANT)
+    Q_PROPERTY(StyleItem * beamCustomTwoNoteMaxSlantOctaveInterval READ beamCustomTwoNoteMaxSlantOctaveInterval CONSTANT)
+    Q_PROPERTY(StyleItem * beamCustomTwoNoteMaxSlantNinthInterval READ beamCustomTwoNoteMaxSlantNinthInterval CONSTANT)
     Q_PROPERTY(StyleItem * beamCustomTwoNoteMaxSlantTenthInterval READ beamCustomTwoNoteMaxSlantTenthInterval CONSTANT)
     Q_PROPERTY(StyleItem * beamCustomTwoNoteMaxSlantGreaterThanTenthInterval READ beamCustomTwoNoteMaxSlantGreaterThanTenthInterval CONSTANT)
     Q_PROPERTY(StyleItem * beamCustomMaxSlantSecondInterval READ beamCustomMaxSlantSecondInterval CONSTANT)
@@ -48,7 +53,9 @@ class BeamsPageModel : public AbstractStyleDialogModel
     Q_PROPERTY(StyleItem * beamCustomMaxSlantSixthInterval READ beamCustomMaxSlantSixthInterval CONSTANT)
     Q_PROPERTY(StyleItem * beamCustomMaxSlantSeventhInterval READ beamCustomMaxSlantSeventhInterval CONSTANT)
     Q_PROPERTY(StyleItem * beamCustomMaxSlantOctave READ beamCustomMaxSlantOctave CONSTANT)
-    Q_PROPERTY(StyleItem * beamCustomMaxSlantGreaterThanOctave READ beamCustomMaxSlantGreaterThanOctave CONSTANT)
+    Q_PROPERTY(StyleItem * beamCustomMaxSlantNinthInterval READ beamCustomMaxSlantNinthInterval CONSTANT)
+    Q_PROPERTY(StyleItem * beamCustomMaxSlantTenthInterval READ beamCustomMaxSlantTenthInterval CONSTANT)
+    Q_PROPERTY(StyleItem * beamCustomMaxSlantGreaterThanTenthInterval READ beamCustomMaxSlantGreaterThanTenthInterval CONSTANT)
 
 public:
     explicit BeamsPageModel(QObject* parent = nullptr);
@@ -62,7 +69,12 @@ public:
     StyleItem* beamCustomMaxSlantForTwoNotes() const;
     StyleItem* beamCustomTwoNoteMaxSlantSecondInterval() const;
     StyleItem* beamCustomTwoNoteMaxSlantThirdInterval() const;
-    StyleItem* beamCustomTwoNoteMaxSlantFourthToNinthInterval() const;
+    StyleItem* beamCustomTwoNoteMaxSlantFourthInterval() const;
+    StyleItem* beamCustomTwoNoteMaxSlantFifthInterval() const;
+    StyleItem* beamCustomTwoNoteMaxSlantSixthInterval() const;
+    StyleItem* beamCustomTwoNoteMaxSlantSeventhInterval() const;
+    StyleItem* beamCustomTwoNoteMaxSlantOctaveInterval() const;
+    StyleItem* beamCustomTwoNoteMaxSlantNinthInterval() const;
     StyleItem* beamCustomTwoNoteMaxSlantTenthInterval() const;
     StyleItem* beamCustomTwoNoteMaxSlantGreaterThanTenthInterval() const;
     StyleItem* beamCustomMaxSlantSecondInterval() const;
@@ -72,7 +84,9 @@ public:
     StyleItem* beamCustomMaxSlantSixthInterval() const;
     StyleItem* beamCustomMaxSlantSeventhInterval() const;
     StyleItem* beamCustomMaxSlantOctave() const;
-    StyleItem* beamCustomMaxSlantGreaterThanOctave() const;
+    StyleItem* beamCustomMaxSlantNinthInterval() const;
+    StyleItem* beamCustomMaxSlantTenthInterval() const;
+    StyleItem* beamCustomMaxSlantGreaterThanTenthInterval() const;
 };
 }
 

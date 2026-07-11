@@ -83,44 +83,39 @@ static int customMaxSlopeByInterval(const BeamBase::LayoutData* ldata, int inter
         return 0;
     }
 
-    if (ldata->elements.size() <= 2) {
-        if (interval <= 1) {
-            return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomTwoNoteMaxSlantSecondInterval, 2));
-        }
-        if (interval == 2) {
-            return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomTwoNoteMaxSlantThirdInterval, 3));
-        }
-        if (interval <= 8) {
-            return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomTwoNoteMaxSlantFourthToNinthInterval, 4));
-        }
-        if (interval == 9) {
-            return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomTwoNoteMaxSlantTenthInterval, 6));
-        }
-        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomTwoNoteMaxSlantGreaterThanTenthInterval, 8));
-    }
+    struct IntervalRule {
+        Sid sid;
+        int defaultValue;
+    };
+    // One rule per interval from a second up to a tenth, then everything larger
+    static const IntervalRule twoNoteRules[] = {
+        { Sid::beamCustomTwoNoteMaxSlantSecondInterval, 2 },
+        { Sid::beamCustomTwoNoteMaxSlantThirdInterval, 3 },
+        { Sid::beamCustomTwoNoteMaxSlantFourthInterval, 4 },
+        { Sid::beamCustomTwoNoteMaxSlantFifthInterval, 4 },
+        { Sid::beamCustomTwoNoteMaxSlantSixthInterval, 4 },
+        { Sid::beamCustomTwoNoteMaxSlantSeventhInterval, 4 },
+        { Sid::beamCustomTwoNoteMaxSlantOctaveInterval, 4 },
+        { Sid::beamCustomTwoNoteMaxSlantNinthInterval, 4 },
+        { Sid::beamCustomTwoNoteMaxSlantTenthInterval, 6 },
+        { Sid::beamCustomTwoNoteMaxSlantGreaterThanTenthInterval, 8 },
+    };
+    static const IntervalRule multiNoteRules[] = {
+        { Sid::beamCustomMaxSlantSecondInterval, 1 },
+        { Sid::beamCustomMaxSlantThirdInterval, 3 },
+        { Sid::beamCustomMaxSlantFourthInterval, 4 },
+        { Sid::beamCustomMaxSlantFifthInterval, 5 },
+        { Sid::beamCustomMaxSlantSixthInterval, 6 },
+        { Sid::beamCustomMaxSlantSeventhInterval, 6 },
+        { Sid::beamCustomMaxSlantOctave, 6 },
+        { Sid::beamCustomMaxSlantNinthInterval, 6 },
+        { Sid::beamCustomMaxSlantTenthInterval, 6 },
+        { Sid::beamCustomMaxSlantGreaterThanTenthInterval, 6 },
+    };
 
-    if (interval <= 1) {
-        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantSecondInterval, 1));
-    }
-    if (interval == 2) {
-        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantThirdInterval, 3));
-    }
-    if (interval == 3) {
-        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantFourthInterval, 4));
-    }
-    if (interval == 4) {
-        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantFifthInterval, 5));
-    }
-    if (interval == 5) {
-        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantSixthInterval, 6));
-    }
-    if (interval == 6) {
-        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantSeventhInterval, 6));
-    }
-    if (interval == 7) {
-        return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantOctave, 6));
-    }
-    return std::max(0, styleIntForBeamSlantRule(ldata, Sid::beamCustomMaxSlantGreaterThanOctave, 6));
+    const IntervalRule* rules = ldata->elements.size() <= 2 ? twoNoteRules : multiNoteRules;
+    const IntervalRule& rule = rules[std::min(std::max(interval - 1, 0), 9)];
+    return std::max(0, styleIntForBeamSlantRule(ldata, rule.sid, rule.defaultValue));
 }
 
 static int maxCrossStaffCustomSlope(const BeamBase::LayoutData* ldata, int interval)
