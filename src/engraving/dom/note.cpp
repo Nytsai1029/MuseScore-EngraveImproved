@@ -63,7 +63,9 @@
 #include "spanner.h"
 #include "staff.h"
 #include "stafftype.h"
+#include "stem.h"
 #include "stringdata.h"
+#include "system.h"
 #include "tie.h"
 #include "undo.h"
 #include "utils.h"
@@ -2778,6 +2780,104 @@ void Note::verticalDrag(EditData& ed)
 }
 
 //---------------------------------------------------------
+//   chordStemRefX
+//    Page x of a chord's stem line (its centre). Falls back to the
+//    reference notehead's stem-attachment point for stemless chords.
+//---------------------------------------------------------
+
+static double chordStemRefX(const Chord* chord)
+{
+    if (!chord) {
+        return 0.0;
+    }
+    if (const Stem* stem = chord->stem()) {
+        const RectF r = stem->pageBoundingRect();
+        return r.x() + r.width() * 0.5;
+    }
+    const Note* n = chord->up() ? chord->downNote() : chord->upNote();
+    if (!n) {
+        return chord->pageBoundingRect().x();
+    }
+    const PointF attach = chord->up() ? n->stemUpSE() : n->stemDownNW();
+    return n->pagePos().x() + attach.x();
+}
+
+//---------------------------------------------------------
+//   prevChordOnStaff
+//    Nearest earlier chord on the same staff (any voice), within the
+//    same system. Returns nullptr for the first chord of a system.
+//---------------------------------------------------------
+
+Chord* Note::prevChordOnStaff() const
+{
+    const Chord* ch = chord();
+    if (!ch) {
+        return nullptr;
+    }
+    const Segment* seg = ch->segment();
+    if (!seg) {
+        return nullptr;
+    }
+    const System* system = seg->system();
+    const staff_idx_t staffIdx = ch->staffIdx();
+    const track_idx_t startTrack = staff2track(staffIdx);
+    const track_idx_t endTrack = startTrack + VOICES;
+
+    for (Segment* s = seg->prev1(SegmentType::ChordRest); s; s = s->prev1(SegmentType::ChordRest)) {
+        if (system && s->system() != system) {
+            break;
+        }
+        for (track_idx_t track = startTrack; track < endTrack; ++track) {
+            EngravingItem* e = s->element(track);
+            if (e && e->isChord()) {
+                return toChord(e);
+            }
+        }
+    }
+    return nullptr;
+}
+
+//---------------------------------------------------------
+//   prevNoteDistance
+//    Stem-to-stem horizontal distance to the previous chord on the
+//    same staff, in spatium units.
+//---------------------------------------------------------
+
+Spatium Note::prevNoteDistance() const
+{
+    const Chord* prev = prevChordOnStaff();
+    if (!prev) {
+        return Spatium(0.0);
+    }
+    const double distMM = chordStemRefX(chord()) - chordStemRefX(prev);
+    return Spatium(distMM / spatium());
+}
+
+//---------------------------------------------------------
+//   minPrevNoteDistance
+//    Smallest distance to the previous note that the segment can reach:
+//    the note stops at the collision minimum from the previous segment,
+//    so it cannot be pulled any closer than this.
+//---------------------------------------------------------
+
+Spatium Note::minPrevNoteDistance() const
+{
+    const Chord* prevChord = prevChordOnStaff();
+    const Segment* seg = chord() ? chord()->segment() : nullptr;
+    const Segment* prevSeg = seg ? seg->prev() : nullptr;
+    if (!prevChord || !seg || !prevSeg) {
+        return Spatium(0.0);
+    }
+    // The note can be pulled left only as far as the spacing engine allows (its collision
+    // minimum, which already ignores ledger lines). For a note that has following notes this
+    // is also the practical limit — the engine won't let it overlap the previous note. This
+    // distance the segment can still travel left before hitting that minimum:
+    const double minDist = HorizontalSpacing::minHorizontalDistance(prevSeg, seg, 1.0);
+    const double availableLeft = seg->pageX() - (prevSeg->pageX() + minDist);
+    return Spatium(prevNoteDistance().val() - availableLeft / spatium());
+}
+
+//---------------------------------------------------------
 //   normalizeLeftDragDelta
 //---------------------------------------------------------
 
@@ -2822,17 +2922,39 @@ void Note::horizontalDrag(EditData& ed)
     NoteEditData* ned = static_cast<NoteEditData*>(ed.getData(this).get());
     const bool autoPlacementEnabled = autoplace();
 
-    if (autoPlacementEnabled && ed.moveDelta.x() < 0) {
+    if (ed.moveDelta.x() < 0 && autoPlacementEnabled) {
         normalizeLeftDragDelta(seg, ed, ned);
     }
 
     const Spatium deltaSp = Spatium(ned->delta.x() / spatium());
+    Spatium newLeadingSpace = seg->extraLeadingSpace() + deltaSp;
 
-    if (autoPlacementEnabled && seg->extraLeadingSpace() + deltaSp < Spatium(0)) {
-        return;
+    if (autoPlacementEnabled) {
+        if (newLeadingSpace < Spatium(0)) {
+            return;
+        }
+    } else {
+        // Auto-place off: allow pulling the note closer than the natural spacing, but not past
+        // the reachable limit — the spacing engine's collision minimum from the previous
+        // segment (which already ignores ledger lines). Clamp the leading-space *value* against
+        // the note's actual rendered position (not the mouse), so once the note has reached
+        // that limit the value stops decreasing instead of running away ("backward
+        // accumulation") and leaking into the gap after it.
+        Segment* previous = seg->prev();
+        const double minSegX = previous
+                               ? previous->pageX() + HorizontalSpacing::minHorizontalDistance(previous, seg, 1.0)
+                               : seg->measure()->pageX() + style().styleMM(Sid::barNoteDistance);
+        const Spatium floorLeadingSpace = seg->extraLeadingSpace() + Spatium((minSegX - seg->pageX()) / spatium());
+        if (newLeadingSpace < floorLeadingSpace) {
+            newLeadingSpace = floorLeadingSpace;
+        }
+        // Dragging left but the floor absorbed the whole move: leave the value untouched.
+        if (ned->delta.x() < 0 && newLeadingSpace.val() >= seg->extraLeadingSpace().val()) {
+            return;
+        }
     }
 
-    seg->undoChangeProperty(Pid::LEADING_SPACE, seg->extraLeadingSpace() + deltaSp);
+    seg->undoChangeProperty(Pid::LEADING_SPACE, newLeadingSpace);
 
     triggerLayout();
 }
@@ -2988,6 +3110,11 @@ PropertyValue Note::getProperty(Pid propertyId) const
         return ledgerLineLengthOffsetLeft();
     case Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT:
         return ledgerLineLengthOffsetRight();
+    case Pid::PREV_NOTE_DISTANCE:
+        if (!prevChordOnStaff()) {
+            return PropertyValue();       // no previous note: field disabled in inspector
+        }
+        return prevNoteDistance();
     case Pid::POSITION_LINKED_TO_MASTER:
     case Pid::APPEARANCE_LINKED_TO_MASTER:
         if (chord()) {
@@ -3168,6 +3295,14 @@ PropertyValue Note::propertyDefault(Pid propertyId) const
     case Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT:
     case Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT:
         return Spatium(0.0);
+    case Pid::PREV_NOTE_DISTANCE: {
+        if (!prevChordOnStaff()) {
+            return PropertyValue();
+        }
+        const Segment* seg = chord() ? chord()->segment() : nullptr;
+        const Spatium extra = seg ? seg->extraLeadingSpace() : Spatium(0.0);
+        return Spatium(prevNoteDistance().val() - extra.val());    // distance with leading space removed
+    }
     case Pid::TPC2:
         return getProperty(Pid::TPC1);
     case Pid::PITCH:
@@ -3192,6 +3327,24 @@ PropertyValue Note::propertyDefault(Pid propertyId) const
         break;
     }
     return EngravingItem::propertyDefault(propertyId);
+}
+
+//---------------------------------------------------------
+//   undoChangeProperty
+//---------------------------------------------------------
+
+void Note::undoChangeProperty(Pid id, const PropertyValue& val, PropertyFlags ps)
+{
+    if (id == Pid::AUTOPLACE && val.toBool() == true && !autoplace()) {
+        // Re-enabling auto-place: discard the manual leading-space adjustment made while it
+        // was off, so the note returns to its automatic horizontal position (leading space only).
+        Chord* ch = chord();
+        Segment* seg = ch ? ch->segment() : nullptr;
+        if (seg && seg->extraLeadingSpace().val() != 0.0) {
+            seg->undoResetProperty(Pid::LEADING_SPACE);
+        }
+    }
+    EngravingItem::undoChangeProperty(id, val, ps);
 }
 
 void Note::styleChanged()

@@ -492,6 +492,11 @@ static constexpr PropertyMetaData propertyList[] = {
 
     { Pid::ALIGN_WITH_OTHER_RESTS,  false, "alignWithOtherRests",   P_TYPE::BOOL,               PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "align with other rests in the same voice") },
 
+    { Pid::PREV_NOTE_DISTANCE,      false, "prevNoteDistance",      P_TYPE::SPATIUM,            PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "distance to previous note") },
+
+    { Pid::TUPLET_BRACKET_FIXED_SLANT, false, "bracketFixedSlant",  P_TYPE::BOOL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "bracket fixed slant") },
+    { Pid::TUPLET_BRACKET_GRADIENT, false, "bracketGradient",       P_TYPE::REAL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "bracket gradient") },
+
     { Pid::END,                     false, "++end++",               P_TYPE::INT,                PropertyGroup::NONE,            "" }
 };
 /* *INDENT-ON* */

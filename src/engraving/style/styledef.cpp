@@ -752,6 +752,7 @@ const std::array<StyleDef::StyleValue, size_t(Sid::STYLES)> StyleDef::styleValue
     styleDef(tupletDirection,                            DirectionV::AUTO),
     styleDef(tupletNumberType,                           int(TupletNumberType::SHOW_NUMBER)),
     styleDef(tupletBracketType,                          int(TupletBracketType::AUTO_BRACKET)),
+    styleDef(tupletBracketFixedSlant,                    false),
     styleDef(tupletFontFace,                             "Edwin"),
     styleDef(tupletFontSize,                             9.0),
     styleDef(tupletLineSpacing,                          1.0),

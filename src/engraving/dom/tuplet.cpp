@@ -48,6 +48,7 @@ static const ElementStyle tupletStyle {
     { Sid::tupletDirection,                    Pid::DIRECTION },
     { Sid::tupletNumberType,                   Pid::NUMBER_TYPE },
     { Sid::tupletBracketType,                  Pid::BRACKET_TYPE },
+    { Sid::tupletBracketFixedSlant,            Pid::TUPLET_BRACKET_FIXED_SLANT },
     { Sid::tupletBracketWidth,                 Pid::LINE_WIDTH },
     { Sid::tupletFontFace,                     Pid::FONT_FACE },
     { Sid::tupletFontSize,                     Pid::FONT_SIZE },
@@ -391,6 +392,7 @@ void Tuplet::startEditDrag(EditData& ed)
 
     eed->pushProperty(Pid::P1);
     eed->pushProperty(Pid::P2);
+    eed->pushProperty(Pid::TUPLET_BRACKET_FIXED_SLANT);
 }
 
 //---------------------------------------------------------
@@ -404,6 +406,13 @@ void Tuplet::editDrag(EditData& ed)
     }
     if (ed.curGrip == Grip::END || ed.curGrip == Grip::MIDDLE) {
         m_userP2 += ed.delta;
+    }
+
+    // Dragging a single end changes the bracket slope. A fixed slant follows the beam/stem
+    // line automatically, so a manual slope change turns that mode off (the middle grip only
+    // translates the bracket, so it keeps the fixed slant).
+    if (m_bracketFixedSlant && (ed.curGrip == Grip::START || ed.curGrip == Grip::END)) {
+        m_bracketFixedSlant = false;
     }
 
     setGenerated(false);
@@ -554,6 +563,19 @@ Fraction Tuplet::elementsDuration()
 }
 
 //---------------------------------------------------------
+//   bracketGradient
+//    Slope ratio of the drawn bracket. Positive = ascending L->R
+//    (screen y grows downward, so the sign is flipped). Uses the slope
+//    captured during layout, which is exact even after the bracket is
+//    widened to make room for the number.
+//---------------------------------------------------------
+
+double Tuplet::bracketGradient() const
+{
+    return -m_bracketSlope;
+}
+
+//---------------------------------------------------------
 //   getProperty
 //---------------------------------------------------------
 
@@ -566,6 +588,13 @@ PropertyValue Tuplet::getProperty(Pid propertyId) const
         return int(m_numberType);
     case Pid::BRACKET_TYPE:
         return int(m_bracketType);
+    case Pid::TUPLET_BRACKET_FIXED_SLANT:
+        return m_bracketFixedSlant;
+    case Pid::TUPLET_BRACKET_GRADIENT:
+        if (!hasBracket()) {
+            return PropertyValue();       // no bracket drawn: field disabled in inspector
+        }
+        return bracketGradient();
     case Pid::LINE_WIDTH:
         return m_bracketWidth;
     case Pid::NORMAL_NOTES:
@@ -603,6 +632,9 @@ bool Tuplet::setProperty(Pid propertyId, const PropertyValue& v)
         break;
     case Pid::BRACKET_TYPE:
         setBracketType(TupletBracketType(v.toInt()));
+        break;
+    case Pid::TUPLET_BRACKET_FIXED_SLANT:
+        setBracketFixedSlant(v.toBool());
         break;
     case Pid::LINE_WIDTH:
         setBracketWidth(v.value<Spatium>());

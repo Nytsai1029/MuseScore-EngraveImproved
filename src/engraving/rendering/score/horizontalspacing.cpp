@@ -377,6 +377,11 @@ std::vector<HorizontalSpacing::SegmentPosition> HorizontalSpacing::spaceSegments
 
         double leadingSpace = curSeg->extraLeadingSpace().toMM(ctx.spatium);
         placedSegments.back().xPosInSystemCoords += leadingSpace;
+        // Rigidly carry the leading-space shift into the running cursor so that every
+        // following segment moves with it. Without this, a negative leading space (a note
+        // dragged left with auto-place off) moves only its own segment while the next note
+        // stays put, so the removed space leaks into the gap after it.
+        ctx.xCur += leadingSpace;
 
         if (curSeg->isChordRestType()) {
             bool isFirstCROfSystem = curSeg->rtick().isZero() && curSeg->measure()->isFirstInSystem();

@@ -91,6 +91,10 @@ public:
     void setHasBracket(bool b) { m_hasBracket = b; }
     Spatium bracketWidth() const { return m_bracketWidth; }
     void setBracketWidth(Spatium s) { m_bracketWidth = s; }
+    bool bracketFixedSlant() const { return m_bracketFixedSlant; }
+    void setBracketFixedSlant(bool b) { m_bracketFixedSlant = b; }
+    void setBracketSlope(double v) { m_bracketSlope = v; }
+    double bracketGradient() const;
 
     const Fraction& ratio() const { return m_ratio; }
     void setRatio(const Fraction& r) { m_ratio = r; }
@@ -188,6 +192,8 @@ private:
     TupletNumberType m_numberType = TupletNumberType::SHOW_NUMBER;
     TupletBracketType m_bracketType = TupletBracketType::AUTO_BRACKET;
     Spatium m_bracketWidth;
+    bool m_bracketFixedSlant = false;
+    mutable double m_bracketSlope = 0.0;   // slope of the drawn bracket (page coords, y down)
 
     bool m_hasBracket = false;
     Fraction m_ratio;

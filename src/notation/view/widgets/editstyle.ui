@@ -6472,6 +6472,13 @@
                     </property>
                    </widget>
                   </item>
+                  <item row="4" column="0" colspan="4">
+                   <widget class="QCheckBox" name="tupletBracketFixedSlant">
+                    <property name="text">
+                     <string>Fixed slant (follow beam/stems)</string>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                 </widget>
                </item>
@@ -13442,6 +13449,7 @@ followed by dashes</string>
   <tabstop>tupletBracketHookHeight</tabstop>
   <tabstop>resetTupletBracketHookHeight</tabstop>
   <tabstop>tupletExtendToEndOfDuration</tabstop>
+  <tabstop>tupletBracketFixedSlant</tabstop>
   <tabstop>tupletMaxSlope</tabstop>
   <tabstop>resetTupletMaxSlope</tabstop>
   <tabstop>tupletVStemDistance</tabstop>

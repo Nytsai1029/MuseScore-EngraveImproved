@@ -184,6 +184,10 @@ public:
     double headBodyWidth() const;
     double outsideTieAttachX(bool up) const;
 
+    Chord* prevChordOnStaff() const;
+    Spatium prevNoteDistance() const;
+    Spatium minPrevNoteDistance() const;
+
     NoteHeadScheme headScheme() const { return m_headScheme; }
     void updateHeadGroup(const NoteHeadGroup headGroup);
     NoteHeadGroup headGroup() const { return m_headGroup; }
@@ -369,6 +373,8 @@ public:
     PropertyValue getProperty(Pid propertyId) const override;
     bool setProperty(Pid propertyId, const PropertyValue&) override;
     PropertyValue propertyDefault(Pid) const override;
+    void undoChangeProperty(Pid id, const PropertyValue&, PropertyFlags ps) override;
+    using EngravingItem::undoChangeProperty;
     void styleChanged() override;
 
     bool mark() const { return m_mark; }

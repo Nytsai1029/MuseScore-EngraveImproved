@@ -59,6 +59,16 @@ PropertyItem* TupletSettingsModel::lineThickness() const
     return m_lineThickness;
 }
 
+PropertyItem* TupletSettingsModel::bracketFixedSlant() const
+{
+    return m_bracketFixedSlant;
+}
+
+PropertyItem* TupletSettingsModel::bracketGradient() const
+{
+    return m_bracketGradient;
+}
+
 QVariantList TupletSettingsModel::possibleNumberTypes() const
 {
     using Type = mu::engraving::TupletNumberType;
@@ -91,6 +101,9 @@ void TupletSettingsModel::createProperties()
     m_numberType = buildPropertyItem(mu::engraving::Pid::NUMBER_TYPE);
     m_bracketType = buildPropertyItem(mu::engraving::Pid::BRACKET_TYPE);
     m_lineThickness = buildPropertyItem(mu::engraving::Pid::LINE_WIDTH);
+    m_bracketFixedSlant = buildPropertyItem(mu::engraving::Pid::TUPLET_BRACKET_FIXED_SLANT);
+    // Read-only readout of the drawn bracket slope.
+    m_bracketGradient = buildPropertyItem(mu::engraving::Pid::TUPLET_BRACKET_GRADIENT);
 }
 
 void TupletSettingsModel::loadProperties()
@@ -99,6 +112,8 @@ void TupletSettingsModel::loadProperties()
     loadPropertyItem(m_numberType);
     loadPropertyItem(m_bracketType);
     loadPropertyItem(m_lineThickness, formatDoubleFunc);
+    loadPropertyItem(m_bracketFixedSlant);
+    loadPropertyItem(m_bracketGradient, formatDoubleFunc);
 }
 
 void TupletSettingsModel::resetProperties()
@@ -107,4 +122,5 @@ void TupletSettingsModel::resetProperties()
     m_numberType->resetToDefault();
     m_bracketType->resetToDefault();
     m_lineThickness->resetToDefault();
+    m_bracketFixedSlant->resetToDefault();
 }

@@ -89,4 +89,37 @@ Column {
         maxValue: 1
         step: 0.1
     }
+
+    CheckBoxPropertyView {
+        id: fixedSlantSection
+        titleText: qsTrc("inspector", "Fixed slant (follow beam/stems)")
+        propertyItem: root.model ? root.model.bracketFixedSlant : null
+
+        navigationName: "BracketFixedSlant"
+        navigationPanel: root.navigationPanel
+        navigationRowStart: lineThicknessSection.navigationRowEnd + 1
+    }
+
+    InspectorPropertyView {
+        id: bracketGradientSection
+        titleText: qsTrc("inspector", "Bracket gradient")
+        propertyItem: root.model ? root.model.bracketGradient : null
+
+        navigationName: "BracketGradient"
+        navigationPanel: root.navigationPanel
+        navigationRowStart: fixedSlantSection.navigationRowEnd + 1
+
+        // Read-only readout of the drawn bracket slope.
+        showButton: false
+
+        StyledTextLabel {
+            width: parent.width
+            horizontalAlignment: Text.AlignLeft
+
+            text: {
+                let p = bracketGradientSection.propertyItem
+                return (p && p.isEnabled && !p.isUndefined) ? Number(p.value).toFixed(3) : "—"
+            }
+        }
+    }
 }

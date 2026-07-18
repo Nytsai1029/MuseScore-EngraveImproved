@@ -504,6 +504,11 @@ enum class Pid {
 
     ALIGN_WITH_OTHER_RESTS,
 
+    PREV_NOTE_DISTANCE, // computed: stem-to-stem distance to the previous note (for a Note)
+
+    TUPLET_BRACKET_FIXED_SLANT,
+    TUPLET_BRACKET_GRADIENT, // computed: slope ratio of the tuplet bracket
+
     END
 };
 

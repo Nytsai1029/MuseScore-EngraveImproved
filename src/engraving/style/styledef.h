@@ -770,6 +770,7 @@ enum class Sid {
     tupletDirection,
     tupletNumberType,
     tupletBracketType,
+    tupletBracketFixedSlant,
     tupletFontFace,
     tupletFontSize,
     tupletLineSpacing,

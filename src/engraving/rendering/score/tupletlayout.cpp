@@ -21,11 +21,15 @@
  */
 #include "tupletlayout.h"
 
+#include <algorithm>
+#include <cmath>
+
 #include "dom/chordrest.h"
 #include "dom/tuplet.h"
 #include "dom/text.h"
 #include "dom/factory.h"
 #include "dom/stafftype.h"
+#include "dom/beam.h"
 #include "dom/chord.h"
 #include "dom/note.h"
 #include "dom/stem.h"
@@ -291,6 +295,33 @@ void TupletLayout::layoutBracket(Tuplet* item, const ChordRest* cr1, const Chord
         }
     }
 
+    // Fixed slant: lock the bracket slope to the beam (when a single beam spans the whole
+    // tuplet) or, failing that, to the line through the first and last chords' stem tips.
+    // The slope is in page coordinates (y grows downward), matching p1/p2 below.
+    bool haveFixedSlope = false;
+    double fixedSlope = 0.0;
+    if (item->bracketFixedSlant() && cr1->isChord() && cr2->isChord()) {
+        const Chord* c1 = toChord(cr1);
+        const Chord* c2 = toChord(cr2);
+        const Beam* beam1 = c1->beam();
+        if (beam1 && c2->beam() == beam1) {
+            fixedSlope = beam1->slope();
+            haveFixedSlope = true;
+        } else if (c1->stem() && c2->stem()) {
+            const RectF r1 = c1->stem()->pageBoundingRect();
+            const RectF r2 = c2->stem()->pageBoundingRect();
+            const double x1 = r1.x() + r1.width() * 0.5;
+            const double x2 = r2.x() + r2.width() * 0.5;
+            const double y1 = c1->up() ? r1.top() : r1.bottom();
+            const double y2 = c2->up() ? r2.top() : r2.bottom();
+            const double dx = x2 - x1;
+            if (std::abs(dx) > 0.5 * spatium) {
+                fixedSlope = (y2 - y1) / dx;
+                haveFixedSlope = true;
+            }
+        }
+    }
+
     double l1  = style.styleMM(Sid::tupletBracketHookHeight) * item->mag();
     double l2l = vHeadDistance;      // left bracket vertical distance
     double l2r = vHeadDistance;      // right bracket vertical distance
@@ -381,14 +412,22 @@ void TupletLayout::layoutBracket(Tuplet* item, const ChordRest* cr1, const Chord
             }
         }
 
-        // check that slope is no more than max
         double d = (item->p2().y() - item->p1().y()) / (item->p2().x() - item->p1().x());
-        if (d < -maxSlope) {
-            // move p1 y up
-            item->p1().ry() = item->p2().y() + maxSlope * (item->p2().x() - item->p1().x());
-        } else if (d > maxSlope) {
-            // move p2 y up
-            item->p2().ry() = item->p1().ry() + maxSlope * (item->p2().x() - item->p1().x());
+        if (haveFixedSlope) {
+            // lock the bracket to the fixed slope, keeping it clear of both endpoints
+            const double dx = item->p2().x() - item->p1().x();
+            const double p1y = std::min(item->p1().y(), item->p2().y() - fixedSlope * dx);
+            item->p1().setY(p1y);
+            item->p2().setY(p1y + fixedSlope * dx);
+        } else {
+            // check that slope is no more than max
+            if (d < -maxSlope) {
+                // move p1 y up
+                item->p1().ry() = item->p2().y() + maxSlope * (item->p2().x() - item->p1().x());
+            } else if (d > maxSlope) {
+                // move p2 y up
+                item->p2().ry() = item->p1().ry() + maxSlope * (item->p2().x() - item->p1().x());
+            }
         }
 
         // check for collisions
@@ -473,14 +512,22 @@ void TupletLayout::layoutBracket(Tuplet* item, const ChordRest* cr1, const Chord
                 l2r = vStemDistance;
             }
         }
-        // check that slope is no more than max
         double d = (item->p2().y() - item->p1().y()) / (item->p2().x() - item->p1().x());
-        if (d < -maxSlope) {
-            // move p1 y up
-            item->p2().ry() = item->p1().y() - maxSlope * (item->p2().x() - item->p1().x());
-        } else if (d > maxSlope) {
-            // move p2 y up
-            item->p1().ry() = item->p2().ry() - maxSlope * (item->p2().x() - item->p1().x());
+        if (haveFixedSlope) {
+            // lock the bracket to the fixed slope, keeping it clear of both endpoints
+            const double dx = item->p2().x() - item->p1().x();
+            const double p1y = std::max(item->p1().y(), item->p2().y() - fixedSlope * dx);
+            item->p1().setY(p1y);
+            item->p2().setY(p1y + fixedSlope * dx);
+        } else {
+            // check that slope is no more than max
+            if (d < -maxSlope) {
+                // move p1 y up
+                item->p2().ry() = item->p1().y() - maxSlope * (item->p2().x() - item->p1().x());
+            } else if (d > maxSlope) {
+                // move p2 y up
+                item->p1().ry() = item->p2().ry() - maxSlope * (item->p2().x() - item->p1().x());
+            }
         }
 
         // check for collisions
@@ -533,6 +580,10 @@ void TupletLayout::layoutBracket(Tuplet* item, const ChordRest* cr1, const Chord
     item->p2() += item->userP2();
     xx1 -= mp.x();
 
+    if (haveFixedSlope) {
+        // symmetric hook drop keeps the fixed slope exact at both ends
+        l2l = l2r = std::max(l2l, l2r);
+    }
     item->p1().ry() -= l2l * (item->isUp() ? 1.0 : -1.0);
     item->p2().ry() -= l2r * (item->isUp() ? 1.0 : -1.0);
 
@@ -580,6 +631,7 @@ void TupletLayout::layoutBracket(Tuplet* item, const ChordRest* cr1, const Chord
 
     if (item->hasBracket()) {
         double slope = (item->p2().y() - item->p1().y()) / (item->p2().x() - item->p1().x());
+        item->setBracketSlope(slope);    // capture the drawn slope for the gradient readout
         const double numberGap = 0.35 * spatium;
 
         if (item->isUp()) {
