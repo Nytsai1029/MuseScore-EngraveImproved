@@ -335,6 +335,9 @@ void ChordLayout::layoutPitched(Chord* item, LayoutContext& ctx)
 
     layoutLvArticulation(item, ctx);
 
+    // whole-chord parentheses, laid out from the final note positions
+    ParenthesisLayout::layoutParentheses(item, ctx);
+
     fillShape(item, item->mutldata(), ctx.conf());
 }
 
@@ -693,6 +696,9 @@ void ChordLayout::layoutTablature(Chord* item, LayoutContext& ctx)
     }
 
     layoutLvArticulation(item, ctx);
+
+    // whole-chord parentheses, laid out from the final note positions
+    ParenthesisLayout::layoutParentheses(item, ctx);
 
     fillShape(item, item->mutldata(), ctx.conf());
 }
@@ -3385,6 +3391,12 @@ void ChordLayout::fillShape(const Chord* item, ChordRest::LayoutData* ldata)
     for (EngravingItem* e : item->el()) {
         if (e->addToSkyline()) {
             shape.add(e->shape().translate(e->pos()));
+        }
+    }
+
+    for (const Parenthesis* paren : { item->leftParen(), item->rightParen() }) {
+        if (paren && paren->addToSkyline() && paren->ldata()->isSetShape()) {
+            shape.add(paren->shape().translate(paren->pos()));
         }
     }
 

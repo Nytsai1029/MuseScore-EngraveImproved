@@ -44,6 +44,20 @@ public:
 
     String accessibleInfo() const override;
 
+    // user adjustments (in spatium units) to the top/bottom end of the parenthesis
+    double userStartYOffset() const { return m_userStartYOffset; }
+    void setUserStartYOffset(double v) { m_userStartYOffset = v; }
+    double userEndYOffset() const { return m_userEndYOffset; }
+    void setUserEndYOffset(double v) { m_userEndYOffset = v; }
+
+    bool needStartEditingAfterSelecting() const override { return true; }
+    int gripsCount() const override { return 2; }
+    Grip initialEditModeGrip() const override { return Grip::END; }
+    Grip defaultGrip() const override { return Grip::START; }
+    std::vector<PointF> gripsPositions(const EditData&) const override;
+    void editDrag(EditData&) override;
+    void reset() override;
+
     bool followParentCurColor() const;
     void setFollowParentColor(bool val);
 
@@ -63,5 +77,7 @@ public:
 
 private:
     bool m_followParentColor = false;
+    double m_userStartYOffset = 0.0;    // in spatium units
+    double m_userEndYOffset = 0.0;      // in spatium units
 };
 } // namespace engraving

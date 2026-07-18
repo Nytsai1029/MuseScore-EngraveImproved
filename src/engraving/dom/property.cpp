@@ -497,6 +497,14 @@ static constexpr PropertyMetaData propertyList[] = {
     { Pid::TUPLET_BRACKET_FIXED_SLANT, false, "bracketFixedSlant",  P_TYPE::BOOL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "bracket fixed slant") },
     { Pid::TUPLET_BRACKET_GRADIENT, false, "bracketGradient",       P_TYPE::REAL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "bracket gradient") },
 
+    { Pid::TREMOLO_START_X_OFFSET,  false, "tremStartXOffset",      P_TYPE::SPATIUM,            PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "tremolo stroke start X offset") },
+    { Pid::TREMOLO_START_Y_OFFSET,  false, "tremStartYOffset",      P_TYPE::SPATIUM,            PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "tremolo stroke start Y offset") },
+    { Pid::TREMOLO_END_X_OFFSET,    false, "tremEndXOffset",        P_TYPE::SPATIUM,            PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "tremolo stroke end X offset") },
+    { Pid::TREMOLO_END_Y_OFFSET,    false, "tremEndYOffset",        P_TYPE::SPATIUM,            PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "tremolo stroke end Y offset") },
+
+    { Pid::PAREN_START_Y_OFFSET,    false, "parenStartYOffset",     P_TYPE::SPATIUM,            PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "parenthesis top offset") },
+    { Pid::PAREN_END_Y_OFFSET,      false, "parenEndYOffset",       P_TYPE::SPATIUM,            PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "parenthesis bottom offset") },
+
     { Pid::END,                     false, "++end++",               P_TYPE::INT,                PropertyGroup::NONE,            "" }
 };
 /* *INDENT-ON* */

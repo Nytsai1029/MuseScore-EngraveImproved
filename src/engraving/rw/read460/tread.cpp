@@ -3555,6 +3555,8 @@ void TRead::read(Parenthesis* p, XmlReader& xml, ReadContext& ctx)
     while (xml.readNextStartElement()) {
         const AsciiStringView tag(xml.name());
         if (TRead::readProperty(p, tag, xml, ctx, Pid::HORIZONTAL_DIRECTION)) {
+        } else if (TRead::readProperty(p, tag, xml, ctx, Pid::PAREN_START_Y_OFFSET)) {
+        } else if (TRead::readProperty(p, tag, xml, ctx, Pid::PAREN_END_Y_OFFSET)) {
         } else if (!readItemProperties(p, xml, ctx)) {
             xml.unknown();
         }
@@ -4414,6 +4416,11 @@ void TRead::read(compat::TremoloCompat* tc, XmlReader& e, ReadContext& ctx)
             } else {
                 UNREACHABLE;
             }
+        } else if (tc->two
+                   && (TRead::readProperty(tc->two, tag, e, ctx, Pid::TREMOLO_START_X_OFFSET)
+                       || TRead::readProperty(tc->two, tag, e, ctx, Pid::TREMOLO_START_Y_OFFSET)
+                       || TRead::readProperty(tc->two, tag, e, ctx, Pid::TREMOLO_END_X_OFFSET)
+                       || TRead::readProperty(tc->two, tag, e, ctx, Pid::TREMOLO_END_Y_OFFSET))) {
         } else if (TRead::readStyledProperty(item(tc), tag, e, ctx)) {
         } else if (!readItemProperties(item(tc), e, ctx)) {
             e.unknown();

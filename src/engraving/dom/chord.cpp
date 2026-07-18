@@ -658,6 +658,10 @@ void Chord::add(EngravingItem* e)
         }
     }
     break;
+    case ElementType::PARENTHESIS:
+        // whole-chord parentheses are tracked by the EngravingItem base class
+        EngravingItem::add(e);
+        break;
     default:
         ChordRest::add(e);
         return;
@@ -749,6 +753,9 @@ void Chord::remove(EngravingItem* e)
         }
     }
     break;
+    case ElementType::PARENTHESIS:
+        EngravingItem::remove(e);
+        break;
     default:
         ChordRest::remove(e);
         return;
@@ -879,6 +886,12 @@ void Chord::processSiblings(std::function<void(EngravingItem*)> func, bool inclu
     }
     if (m_tremoloSingleChord) {
         func(m_tremoloSingleChord);
+    }
+    if (leftParen()) {
+        func(leftParen());
+    }
+    if (rightParen()) {
+        func(rightParen());
     }
     if (includeTemporarySiblings) {
         for (LedgerLine* ll : m_ledgerLines) {
@@ -1239,6 +1252,12 @@ void Chord::scanElements(void* data, void (* func)(void*, EngravingItem*), bool 
         for (LedgerLine* ll : m_ledgerLines) {
             func(data, ll);
         }
+    }
+    if (leftParen()) {
+        func(data, leftParen());
+    }
+    if (rightParen()) {
+        func(data, rightParen());
     }
     for (Note* note : m_notes) {
         note->scanElements(data, func, all);

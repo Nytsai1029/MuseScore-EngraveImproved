@@ -28,7 +28,7 @@
 using namespace mu::engraving;
 
 Parenthesis::Parenthesis(EngravingItem* parent)
-    : EngravingItem(ElementType::PARENTHESIS, parent)
+    : EngravingItem(ElementType::PARENTHESIS, parent, ElementFlag::MOVABLE)
 {
 }
 
@@ -36,6 +36,8 @@ Parenthesis::Parenthesis(const Parenthesis& p)
     : EngravingItem(p)
 {
     _direction = p._direction;
+    m_userStartYOffset = p.m_userStartYOffset;
+    m_userEndYOffset = p.m_userEndYOffset;
 }
 
 PropertyValue Parenthesis::getProperty(Pid pid) const
@@ -43,6 +45,10 @@ PropertyValue Parenthesis::getProperty(Pid pid) const
     switch (pid) {
     case Pid::HORIZONTAL_DIRECTION:
         return direction();
+    case Pid::PAREN_START_Y_OFFSET:
+        return Spatium(m_userStartYOffset);
+    case Pid::PAREN_END_Y_OFFSET:
+        return Spatium(m_userEndYOffset);
     default:
         return EngravingItem::getProperty(pid);
     }
@@ -54,10 +60,17 @@ bool Parenthesis::setProperty(Pid pid, const PropertyValue& v)
     case Pid::HORIZONTAL_DIRECTION:
         setDirection(v.value<DirectionH>());
         break;
+    case Pid::PAREN_START_Y_OFFSET:
+        m_userStartYOffset = v.value<Spatium>().val();
+        break;
+    case Pid::PAREN_END_Y_OFFSET:
+        m_userEndYOffset = v.value<Spatium>().val();
+        break;
     default:
         return EngravingItem::setProperty(pid, v);
     }
 
+    triggerLayout();
     return true;
 }
 
@@ -66,9 +79,44 @@ PropertyValue Parenthesis::propertyDefault(Pid pid) const
     switch (pid) {
     case Pid::HORIZONTAL_DIRECTION:
         return DirectionH::LEFT;
+    case Pid::PAREN_START_Y_OFFSET:
+    case Pid::PAREN_END_Y_OFFSET:
+        return Spatium(0.0);
     default:
         return EngravingItem::propertyDefault(pid);
     }
+}
+
+//---------------------------------------------------------
+//   edit support: the two grips move the top/bottom end of
+//   the parenthesis; dragging the body moves the whole one
+//---------------------------------------------------------
+
+std::vector<PointF> Parenthesis::gripsPositions(const EditData&) const
+{
+    const double sp = spatium();
+    const double height = ldata()->height + (m_userEndYOffset - m_userStartYOffset) * sp;
+    const PointF top = pagePos();
+
+    return { top, top + PointF(0.0, height) };
+}
+
+void Parenthesis::editDrag(EditData& ed)
+{
+    const double dySp = ed.delta.y() / spatium();
+    if (ed.curGrip == Grip::START) {
+        undoChangeProperty(Pid::PAREN_START_Y_OFFSET, Spatium(m_userStartYOffset + dySp));
+    } else if (ed.curGrip == Grip::END) {
+        undoChangeProperty(Pid::PAREN_END_Y_OFFSET, Spatium(m_userEndYOffset + dySp));
+    }
+    triggerLayout();
+}
+
+void Parenthesis::reset()
+{
+    undoResetProperty(Pid::PAREN_START_Y_OFFSET);
+    undoResetProperty(Pid::PAREN_END_Y_OFFSET);
+    EngravingItem::reset();
 }
 
 String Parenthesis::accessibleInfo() const

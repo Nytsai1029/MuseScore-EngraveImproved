@@ -340,6 +340,11 @@ void TremoloLayout::createBeamSegments(TremoloTwoChord* item, const LayoutContex
     PointF startAnchor = item->ldata()->startAnchor - PointF(0.0, pagePos.y());
     PointF endAnchor = item->ldata()->endAnchor - PointF(0.0, pagePos.y());
 
+    // user adjustments to the stroke group's start/end points; the strokes move
+    // freely, the stems keep their automatic length
+    startAnchor += item->userStartOffset() * item->spatium();
+    endAnchor += item->userEndOffset() * item->spatium();
+
     // inset trem from stems for default style
     const double slope = muse::divide(endAnchor.y() - startAnchor.y(), endAnchor.x() - startAnchor.x(), 0.0);
 

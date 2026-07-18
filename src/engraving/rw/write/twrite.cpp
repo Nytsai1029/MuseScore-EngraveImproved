@@ -2486,6 +2486,8 @@ void TWrite::write(const Parenthesis* item, XmlWriter& xml, WriteContext& ctx)
 
     xml.startElement(item);
     writeProperty(item, xml, Pid::HORIZONTAL_DIRECTION);
+    writeProperty(item, xml, Pid::PAREN_START_Y_OFFSET);
+    writeProperty(item, xml, Pid::PAREN_END_Y_OFFSET);
     writeItemProperties(item, xml, ctx);
     xml.endElement();
 }
@@ -3266,6 +3268,10 @@ void TWrite::write(const TremoloTwoChord* item, XmlWriter& xml, WriteContext& ct
     writeProperty(item, xml, Pid::TREMOLO_TYPE);
     writeProperty(item, xml, Pid::TREMOLO_STYLE);
     writeProperty(item, xml, Pid::PLAY);
+    writeProperty(item, xml, Pid::TREMOLO_START_X_OFFSET);
+    writeProperty(item, xml, Pid::TREMOLO_START_Y_OFFSET);
+    writeProperty(item, xml, Pid::TREMOLO_END_X_OFFSET);
+    writeProperty(item, xml, Pid::TREMOLO_END_Y_OFFSET);
     writeItemProperties(item, xml, ctx);
 
     // write manual adjustments to file

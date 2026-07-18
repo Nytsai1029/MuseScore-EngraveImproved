@@ -31,6 +31,11 @@ class TremoloSettingsModel : public AbstractInspectorModel
 
     Q_PROPERTY(PropertyItem * style READ style CONSTANT)
     Q_PROPERTY(PropertyItem * direction READ direction CONSTANT)
+    Q_PROPERTY(PropertyItem * strokeStartOffsetX READ strokeStartOffsetX CONSTANT)
+    Q_PROPERTY(PropertyItem * strokeStartOffsetY READ strokeStartOffsetY CONSTANT)
+    Q_PROPERTY(PropertyItem * strokeEndOffsetX READ strokeEndOffsetX CONSTANT)
+    Q_PROPERTY(PropertyItem * strokeEndOffsetY READ strokeEndOffsetY CONSTANT)
+    Q_PROPERTY(bool isStyleAvailable READ isStyleAvailable NOTIFY isStyleAvailableChanged)
 
 public:
     explicit TremoloSettingsModel(QObject* parent, IElementRepositoryService* repository);
@@ -44,12 +49,26 @@ public:
 
     PropertyItem* style() const;
     PropertyItem* direction() const;
+    PropertyItem* strokeStartOffsetX() const;
+    PropertyItem* strokeStartOffsetY() const;
+    PropertyItem* strokeEndOffsetX() const;
+    PropertyItem* strokeEndOffsetY() const;
+    bool isStyleAvailable() const;
+
+signals:
+    void isStyleAvailableChanged();
 
 private:
     void loadProperties(const mu::engraving::PropertyIdSet& allowedPropertyIdSet);
+    void updateIsStyleAvailable();
 
     PropertyItem* m_style = nullptr;
     PropertyItem* m_direction = nullptr;
+    PropertyItem* m_strokeStartOffsetX = nullptr;
+    PropertyItem* m_strokeStartOffsetY = nullptr;
+    PropertyItem* m_strokeEndOffsetX = nullptr;
+    PropertyItem* m_strokeEndOffsetY = nullptr;
+    bool m_isStyleAvailable = false;
 };
 }
 

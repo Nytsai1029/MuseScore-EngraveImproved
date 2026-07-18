@@ -41,13 +41,19 @@ Column {
     spacing: 12
 
     function focusOnFirst() {
-        styleSection.focusOnFirst()
+        if (styleSection.visible) {
+            styleSection.focusOnFirst()
+        } else {
+            strokeStartOffsetXSection.focusOnFirst()
+        }
     }
 
     FlatRadioButtonGroupPropertyView {
         id: styleSection
         titleText: qsTrc("inspector", "Style (between notes)")
         propertyItem: root.model ? root.model.style : null
+
+        visible: root.model ? root.model.isStyleAvailable : true
 
         navigationPanel: root.navigationPanel
         navigationRowStart: root.navigationRowStart + 1
@@ -67,5 +73,83 @@ Column {
 
         navigationPanel: root.navigationPanel
         navigationRowStart: root.navigationRowStart + 2
+    }
+
+    Row {
+        width: parent.width
+        spacing: 8
+
+        SpinBoxPropertyView {
+            id: strokeStartOffsetXSection
+            width: (parent.width - parent.spacing) / 2
+
+            titleText: qsTrc("inspector", "Start offset X")
+            propertyItem: root.model ? root.model.strokeStartOffsetX : null
+
+            minValue: -99
+            maxValue: 99
+            step: 0.1
+            decimals: 2
+
+            navigationName: "StrokeStartOffsetX"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: directionSection.navigationRowEnd + 1
+        }
+
+        SpinBoxPropertyView {
+            id: strokeStartOffsetYSection
+            width: (parent.width - parent.spacing) / 2
+
+            titleText: qsTrc("inspector", "Start offset Y")
+            propertyItem: root.model ? root.model.strokeStartOffsetY : null
+
+            minValue: -99
+            maxValue: 99
+            step: 0.1
+            decimals: 2
+
+            navigationName: "StrokeStartOffsetY"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: strokeStartOffsetXSection.navigationRowEnd + 1
+        }
+    }
+
+    Row {
+        width: parent.width
+        spacing: 8
+
+        SpinBoxPropertyView {
+            id: strokeEndOffsetXSection
+            width: (parent.width - parent.spacing) / 2
+
+            titleText: qsTrc("inspector", "End offset X")
+            propertyItem: root.model ? root.model.strokeEndOffsetX : null
+
+            minValue: -99
+            maxValue: 99
+            step: 0.1
+            decimals: 2
+
+            navigationName: "StrokeEndOffsetX"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: strokeStartOffsetYSection.navigationRowEnd + 1
+        }
+
+        SpinBoxPropertyView {
+            id: strokeEndOffsetYSection
+            width: (parent.width - parent.spacing) / 2
+
+            titleText: qsTrc("inspector", "End offset Y")
+            propertyItem: root.model ? root.model.strokeEndOffsetY : null
+
+            minValue: -99
+            maxValue: 99
+            step: 0.1
+            decimals: 2
+
+            navigationName: "StrokeEndOffsetY"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: strokeEndOffsetXSection.navigationRowEnd + 1
+        }
     }
 }

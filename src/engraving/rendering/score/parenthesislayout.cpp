@@ -30,6 +30,7 @@
 #include "dom/segment.h"
 #include "dom/slurtie.h"
 #include "dom/staff.h"
+#include "dom/stem.h"
 #include "dom/timesig.h"
 #include "horizontalspacing.h"
 #include "parenthesislayout.h"
@@ -52,6 +53,13 @@ void ParenthesisLayout::layoutParentheses(const EngravingItem* parent, const Lay
 
     if (rightParen) {
         layoutParenthesis(parent->rightParen(), parent->rightParen()->mutldata(), ctx);
+    }
+
+    if (parent->isChord()) {
+        // whole-chord parentheses: positioned directly from the chord's noteheads
+        // in setChordValues(), no skyline-based padding against the chord shape
+        // (which is not filled yet at this point of the layout)
+        return;
     }
 
     bool itemAddToSkyline = parent->autoplace() && !parent->ldata()->isSkipDraw();
@@ -230,8 +238,10 @@ void ParenthesisLayout::createPathAndShape(Parenthesis* item, Parenthesis::Layou
     const double spatium = item->spatium();
     const bool leftBracket = item->direction() == DirectionH::LEFT;
 
-    const double startY = ldata->startY;
-    const double height = ldata->height;
+    // user adjustments to the two ends of the parenthesis
+    const double minHeight = 0.5 * spatium;
+    const double startY = ldata->startY + item->userStartYOffset() * spatium;
+    const double height = std::max(ldata->height + (item->userEndYOffset() - item->userStartYOffset()) * spatium, minHeight);
     const double xPos = ldata->pos().x();
     const double mag = ldata->mag();
     const double maxMidPointThickness = 0.2 * spatium;
@@ -316,6 +326,9 @@ void ParenthesisLayout::setLayoutValues(Parenthesis* item, Parenthesis::LayoutDa
     case ElementType::NOTE:
         setNoteValues(item, ldata);
         break;
+    case ElementType::CHORD:
+        setChordValues(item, ldata);
+        break;
     // height & startY are set in MeasureLayout for clef, timesig and keysig
     // TODO: create generic way of matching height & startY between parentheses on different items
     case ElementType::CLEF:
@@ -392,6 +405,50 @@ void ParenthesisLayout::setNoteValues(Parenthesis* item, Parenthesis::LayoutData
         ldata->midPointThickness.set_value(ldata->height / 30 * ldata->mag());
         ldata->endPointThickness.set_value(0.05);
     }
+}
+
+void ParenthesisLayout::setChordValues(Parenthesis* item, Parenthesis::LayoutData* ldata)
+{
+    // Parentheses around a whole chord span from the top to the bottom notehead
+    // and sit outside the noteheads (and their accidentals) on either side
+    const double spatium = item->spatium();
+    Chord* chord = toChord(item->parentItem());
+
+    RectF box;
+    bool boxValid = false;
+    for (const Note* note : chord->notes()) {
+        RectF noteBox = note->ldata()->bbox().translated(note->pos());
+        box = boxValid ? box.united(noteBox) : noteBox;
+        boxValid = true;
+
+        const Accidental* acc = note->accidental();
+        if (acc && acc->addToSkyline()) {
+            box = box.united(acc->ldata()->bbox().translated(note->pos() + acc->pos()));
+        }
+    }
+
+    if (!boxValid) {
+        setDefaultValues(item, ldata);
+        return;
+    }
+
+    ldata->setMag(chord->mag());
+    ldata->startY = box.top() - 0.25 * spatium;
+    ldata->height = box.height() + 0.5 * spatium;
+    ldata->midPointThickness.set_value(ldata->height / 60 * ldata->mag());
+    ldata->endPointThickness.set_value(0.05);
+
+    const double padding = 0.2 * spatium;
+    const bool leftBracket = item->direction() == DirectionH::LEFT;
+    double x = leftBracket ? box.left() - padding : box.right() + padding;
+
+    // keep clear of the stem when it sits on the side of this parenthesis
+    const Stem* stem = chord->stem();
+    if (stem && ((chord->up() && !leftBracket) || (!chord->up() && leftBracket))) {
+        x += (leftBracket ? -1.0 : 1.0) * stem->lineWidthMag();
+    }
+
+    ldata->setPosX(x);
 }
 
 void ParenthesisLayout::setHarmonyValues(Parenthesis* item, Parenthesis::LayoutData* ldata)

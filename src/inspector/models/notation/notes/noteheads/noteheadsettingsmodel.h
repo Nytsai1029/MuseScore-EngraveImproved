@@ -40,6 +40,8 @@ class NoteheadSettingsModel : public AbstractInspectorModel
     Q_PROPERTY(PropertyItem * offset READ offset CONSTANT)
     Q_PROPERTY(PropertyItem * ledgerLineLengthOffsetLeft READ ledgerLineLengthOffsetLeft CONSTANT)
     Q_PROPERTY(PropertyItem * ledgerLineLengthOffsetRight READ ledgerLineLengthOffsetRight CONSTANT)
+    Q_PROPERTY(PropertyItem * prevNoteDistance READ prevNoteDistance CONSTANT)
+    Q_PROPERTY(qreal prevNoteDistanceMin READ prevNoteDistanceMin NOTIFY prevNoteDistanceMinChanged)
     Q_PROPERTY(bool isTrillCueNote READ isTrillCueNote NOTIFY isTrillCueNoteChanged)
     Q_PROPERTY(bool isLedgerLineSelection READ isLedgerLineSelection NOTIFY isLedgerLineSelectionChanged)
 
@@ -57,6 +59,8 @@ public:
     PropertyItem* offset() const;
     PropertyItem* ledgerLineLengthOffsetLeft() const;
     PropertyItem* ledgerLineLengthOffsetRight() const;
+    PropertyItem* prevNoteDistance() const;
+    qreal prevNoteDistanceMin() const;
     bool isTrillCueNote() const;
     bool isLedgerLineSelection() const;
 
@@ -68,6 +72,7 @@ public slots:
 signals:
     void isTrillCueNoteChanged(bool isTrillCueNote);
     void isLedgerLineSelectionChanged(bool isLedgerLineSelection);
+    void prevNoteDistanceMinChanged();
 
 private:
     void createProperties() override;
@@ -78,6 +83,8 @@ private:
                            const mu::engraving::StyleIdSet& changedStyleIdSet) override;
 
     void loadProperties(const mu::engraving::PropertyIdSet& propertyIdSet);
+    void loadPrevNoteDistance();
+    void applyPrevNoteDistance(const QVariant& newValue);
     void updateIsTrillCueNote();
     void updateIsLedgerLineSelection();
 
@@ -92,6 +99,8 @@ private:
     PointFPropertyItem* m_offset = nullptr;
     PropertyItem* m_ledgerLineLengthOffsetLeft = nullptr;
     PropertyItem* m_ledgerLineLengthOffsetRight = nullptr;
+    PropertyItem* m_prevNoteDistance = nullptr;
+    qreal m_prevNoteDistanceMin = 0.0;
     bool m_isTrillCueNote = false;
     bool m_isLedgerLineSelection = false;
 };

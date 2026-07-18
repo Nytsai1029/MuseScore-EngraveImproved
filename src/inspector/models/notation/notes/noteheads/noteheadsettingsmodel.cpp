@@ -21,7 +21,15 @@
  */
 #include "noteheadsettingsmodel.h"
 
+#include <algorithm>
+#include <limits>
+
 #include "engraving/types/types.h"
+#include "engraving/dom/note.h"
+#include "engraving/dom/chord.h"
+#include "engraving/dom/segment.h"
+
+#include "types/commontypes.h"
 
 #include "translation.h"
 
@@ -53,6 +61,30 @@ void NoteheadSettingsModel::createProperties()
     m_offset = buildPointFPropertyItem(mu::engraving::Pid::OFFSET);
     m_ledgerLineLengthOffsetLeft = buildPropertyItem(mu::engraving::Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT);
     m_ledgerLineLengthOffsetRight = buildPropertyItem(mu::engraving::Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT);
+
+    // Distance to the previous note. Computed (not stored): edits are applied through the
+    // segment's leading space, and reset restores the natural spacing.
+    m_prevNoteDistance = buildPropertyItem(mu::engraving::Pid::PREV_NOTE_DISTANCE,
+                                           [this](const mu::engraving::Pid, const QVariant& newValue) {
+        applyPrevNoteDistance(newValue);
+    }, nullptr, [this](const mu::engraving::Pid) {
+        if (m_elementList.empty()) {
+            return;
+        }
+        beginCommand(muse::TranslatableString("undoableAction", "Reset %1").arg(propertyUserName(Pid::PREV_NOTE_DISTANCE)));
+        for (EngravingItem* item : m_elementList) {
+            if (!item || !item->isNote()) {
+                continue;
+            }
+            Chord* chord = toNote(item)->chord();
+            Segment* seg = chord ? chord->segment() : nullptr;
+            if (seg) {
+                seg->undoResetProperty(Pid::LEADING_SPACE);
+            }
+        }
+        updateNotation();
+        endCommand();
+    });
 }
 
 void NoteheadSettingsModel::requestElements()
@@ -74,6 +106,7 @@ void NoteheadSettingsModel::loadProperties()
         Pid::OFFSET,
         Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT,
         Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT,
+        Pid::PREV_NOTE_DISTANCE,
     };
 
     loadProperties(propertyIdSet);
@@ -94,6 +127,7 @@ void NoteheadSettingsModel::resetProperties()
     m_offset->resetToDefault();
     m_ledgerLineLengthOffsetLeft->resetToDefault();
     m_ledgerLineLengthOffsetRight->resetToDefault();
+    m_prevNoteDistance->resetToDefault();
 }
 
 void NoteheadSettingsModel::onNotationChanged(const mu::engraving::PropertyIdSet& changedPropertyIdSet, const mu::engraving::StyleIdSet&)
@@ -148,6 +182,78 @@ void NoteheadSettingsModel::loadProperties(const mu::engraving::PropertyIdSet& p
     if (muse::contains(propertyIdSet, Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT)) {
         loadPropertyItem(m_ledgerLineLengthOffsetRight);
     }
+
+    // The distance also changes when the note is moved (leading space / offset) or when
+    // auto-place is toggled, so reload it on any of those.
+    if (muse::contains(propertyIdSet, Pid::PREV_NOTE_DISTANCE)
+        || muse::contains(propertyIdSet, Pid::LEADING_SPACE)
+        || muse::contains(propertyIdSet, Pid::OFFSET)
+        || muse::contains(propertyIdSet, Pid::AUTOPLACE)) {
+        loadPrevNoteDistance();
+    }
+}
+
+void NoteheadSettingsModel::loadPrevNoteDistance()
+{
+    loadPropertyItem(m_prevNoteDistance, formatDoubleFunc);
+
+    // loadPropertyItem enables the field when a previous note exists; additionally, only
+    // allow editing when auto-place is off for every selected note.
+    if (m_prevNoteDistance->isEnabled()) {
+        bool autoplaceOff = !m_elementList.empty();
+        for (EngravingItem* item : m_elementList) {
+            if (!item || item->getProperty(Pid::AUTOPLACE).toBool()) {
+                autoplaceOff = false;
+                break;
+            }
+        }
+        m_prevNoteDistance->setIsEnabled(autoplaceOff);
+    }
+
+    // Lower limit shown next to the field: the closest the note can be pulled to the
+    // previous one (the collision minimum). Use the most restrictive across the selection.
+    qreal minDistance = -std::numeric_limits<qreal>::max();
+    for (EngravingItem* item : m_elementList) {
+        if (item && item->isNote()) {
+            minDistance = std::max(minDistance, toNote(item)->minPrevNoteDistance().val());
+        }
+    }
+    if (minDistance == -std::numeric_limits<qreal>::max()) {
+        minDistance = 0.0;
+    }
+    if (!qFuzzyCompare(m_prevNoteDistanceMin, minDistance)) {
+        m_prevNoteDistanceMin = minDistance;
+        emit prevNoteDistanceMinChanged();
+    }
+}
+
+void NoteheadSettingsModel::applyPrevNoteDistance(const QVariant& newValue)
+{
+    if (m_elementList.empty()) {
+        return;
+    }
+
+    const double requestedSp = newValue.toDouble();
+
+    beginCommand(muse::TranslatableString("undoableAction", "Edit %1").arg(propertyUserName(Pid::PREV_NOTE_DISTANCE)));
+    for (EngravingItem* item : m_elementList) {
+        if (!item || !item->isNote()) {
+            continue;
+        }
+        Note* note = toNote(item);
+        Chord* chord = note->chord();
+        Segment* seg = chord ? chord->segment() : nullptr;
+        if (!seg || !note->prevChordOnStaff()) {
+            continue;
+        }
+        // Never closer than the note's own collision minimum.
+        const double targetSp = std::max(requestedSp, note->minPrevNoteDistance().val());
+        const double curSp = note->prevNoteDistance().val();
+        const Spatium newLeadingSpace = seg->extraLeadingSpace() + Spatium(targetSp - curSp);
+        seg->undoChangeProperty(Pid::LEADING_SPACE, newLeadingSpace);
+    }
+    updateNotation();
+    endCommand();
 }
 
 PropertyItem* NoteheadSettingsModel::isHeadHidden() const
@@ -203,6 +309,16 @@ PropertyItem* NoteheadSettingsModel::ledgerLineLengthOffsetLeft() const
 PropertyItem* NoteheadSettingsModel::ledgerLineLengthOffsetRight() const
 {
     return m_ledgerLineLengthOffsetRight;
+}
+
+PropertyItem* NoteheadSettingsModel::prevNoteDistance() const
+{
+    return m_prevNoteDistance;
+}
+
+qreal NoteheadSettingsModel::prevNoteDistanceMin() const
+{
+    return m_prevNoteDistanceMin;
 }
 
 bool NoteheadSettingsModel::isTrillCueNote() const

@@ -3361,7 +3361,54 @@ void Score::cmdAddBracket()
 
 void Score::cmdAddParentheses()
 {
-    for (EngravingItem* el : selection().elements()) {
+    const std::vector<EngravingItem*>& elements = selection().elements();
+
+    // When every note of a multi-note chord is selected, parenthesize the chord
+    // as a whole instead of each note individually
+    std::map<Chord*, size_t> selectedNotesPerChord;
+    for (EngravingItem* el : elements) {
+        if (el->isNote()) {
+            selectedNotesPerChord[toNote(el)->chord()]++;
+        }
+    }
+
+    std::set<Chord*> wholeChords;
+    for (const auto& pair : selectedNotesPerChord) {
+        Chord* chord = pair.first;
+        if (chord->notes().size() > 1 && pair.second == chord->notes().size()) {
+            wholeChords.insert(chord);
+        }
+    }
+
+    for (EngravingItem* el : elements) {
+        if (el->isChord() && toChord(el)->notes().size() > 1) {
+            wholeChords.insert(toChord(el));
+        }
+    }
+
+    for (Chord* chord : wholeChords) {
+        const bool addParens = !(chord->leftParen() || chord->rightParen());
+        if (addParens) {
+            // per-note parentheses would double up with the chord-level ones
+            for (Note* note : chord->notes()) {
+                if (note->leftParen() || note->rightParen()) {
+                    note->undoChangeProperty(Pid::HAS_PARENTHESES, ParenthesesMode::NONE);
+                }
+            }
+        }
+        chord->undoChangeProperty(Pid::HAS_PARENTHESES, addParens ? ParenthesesMode::BOTH : ParenthesesMode::NONE);
+    }
+
+    for (EngravingItem* el : elements) {
+        if (el->isChord()) {
+            continue;
+        }
+        // anything belonging to a chord handled as a whole (notes, stems,
+        // accidentals, dots, …) must not get its own parentheses on top
+        EngravingItem* ancestorChord = el->findAncestor(ElementType::CHORD);
+        if (ancestorChord && muse::contains(wholeChords, toChord(ancestorChord))) {
+            continue;
+        }
         cmdAddParentheses(el);
     }
 }

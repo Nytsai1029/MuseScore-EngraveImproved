@@ -509,6 +509,14 @@ enum class Pid {
     TUPLET_BRACKET_FIXED_SLANT,
     TUPLET_BRACKET_GRADIENT, // computed: slope ratio of the tuplet bracket
 
+    TREMOLO_START_X_OFFSET, // user offsets (sp) for the stroke group of a two-note tremolo
+    TREMOLO_START_Y_OFFSET,
+    TREMOLO_END_X_OFFSET,
+    TREMOLO_END_Y_OFFSET,
+
+    PAREN_START_Y_OFFSET, // user offsets (sp) for the top/bottom end of a parenthesis
+    PAREN_END_Y_OFFSET,
+
     END
 };
 

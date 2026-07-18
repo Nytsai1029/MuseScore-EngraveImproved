@@ -90,6 +90,14 @@ public:
 
     TremoloStyle tremoloStyle() const { return m_style; }
     void setTremoloStyle(TremoloStyle v) { m_style = v; }
+
+    // user offsets (in spatium units) applied to the start/end of the stroke group,
+    // so strokes that are not attached to the stems can be repositioned freely
+    const PointF& userStartOffset() const { return m_userStartOffset; }
+    void setUserStartOffset(const PointF& p) { m_userStartOffset = p; }
+    const PointF& userEndOffset() const { return m_userEndOffset; }
+    void setUserEndOffset(const PointF& p) { m_userEndOffset = p; }
+
     void setDirection(DirectionV v) override;
     void setBeamFragment(const BeamFragment& bf) { m_beamFragment = bf; }
     const BeamFragment& beamFragment() const { return m_beamFragment; }
@@ -141,6 +149,8 @@ private:
 
     int m_lines = 0;         // derived from _subtype
     TremoloStyle m_style = TremoloStyle::DEFAULT;
+    PointF m_userStartOffset;   // in spatium units
+    PointF m_userEndOffset;     // in spatium units
     // for _startAnchor and _slope, once we decide to change trems so that they can
     // continue from one system to the other (or indeed, one measure to the other)
     // we will want a vector of fragments similar to Beam's _beamFragments structure.

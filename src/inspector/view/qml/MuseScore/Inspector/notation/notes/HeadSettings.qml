@@ -111,6 +111,39 @@ FocusableItem {
             ]
         }
 
+        Column {
+            id: prevNoteDistanceColumn
+            visible: root.headModel ? !root.headModel.isTrillCueNote : true
+            width: parent.width
+            spacing: 4
+
+            SpinBoxPropertyView {
+                id: prevNoteDistanceSection
+                width: parent.width
+
+                titleText: qsTrc("inspector", "Distance to previous note")
+                propertyItem: root.headModel ? root.headModel.prevNoteDistance : null
+
+                // Can't be pulled closer than the collision minimum with the previous note.
+                minValue: root.headModel ? root.headModel.prevNoteDistanceMin : 0
+                maxValue: 99
+                step: 0.1
+                decimals: 2
+
+                navigationName: "PrevNoteDistance"
+                navigationPanel: root.navigationPanel
+                navigationRowStart: durationDotPosition.navigationRowEnd + 1
+            }
+
+            StyledTextLabel {
+                width: parent.width
+                horizontalAlignment: Text.AlignLeft
+                opacity: 0.6
+                visible: root.headModel && root.headModel.prevNoteDistance && root.headModel.prevNoteDistance.isEnabled
+                text: qsTrc("inspector", "Minimum: %1 sp").arg((root.headModel ? root.headModel.prevNoteDistanceMin : 0).toFixed(2))
+            }
+        }
+
         ExpandableBlank {
             id: showItem
             visible: root.headModel ? !root.headModel.isTrillCueNote : true
@@ -122,7 +155,7 @@ FocusableItem {
             width: parent.width
 
             navigation.panel: root.navigationPanel
-            navigation.row: durationDotPosition.navigationRowEnd + 1
+            navigation.row: prevNoteDistanceSection.navigationRowEnd + 1
 
             contentItemComponent: Column {
                 height: implicitHeight
