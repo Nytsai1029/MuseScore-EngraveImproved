@@ -512,6 +512,22 @@ bool computeMultiBezierPath(SlurSegment* slurSeg, const PointF& p2, const PointF
 }
 }
 
+static double systemEndBarlineX(const System* system)
+{
+    // a slur/tie continuing on the next system ends flush with the last barline
+    // of this system, not lineEndToBarlineDistance before it
+    const Measure* lastMeas = system->lastMeasure();
+    Segment* barlineSeg = lastMeas ? lastMeas->last() : nullptr;
+    while (barlineSeg && !barlineSeg->isType(SegmentType::BarLineType)) {
+        barlineSeg = barlineSeg->prevEnabled();
+    }
+    if (!barlineSeg) {
+        return system->endingXForOpenEndedLines();
+    }
+
+    return barlineSeg->x() + lastMeas->x();
+}
+
 SpannerSegment* SlurTieLayout::layoutSystem(Slur* item, System* system, LayoutContext& ctx)
 {
     const double horizontalTieClearance = 0.35 * item->spatium();
@@ -719,7 +735,7 @@ SpannerSegment* SlurTieLayout::layoutSystem(Slur* item, System* system, LayoutCo
             }
         }
 
-        double endingX = outgoingPartialSlur ? measure->endingXForOpenEndedLines() : system->endingXForOpenEndedLines();
+        double endingX = outgoingPartialSlur ? measure->endingXForOpenEndedLines() : systemEndBarlineX(system);
         p2 = PointF(endingX, y);
 
         // adjust for ties at the end of the system
@@ -2008,7 +2024,7 @@ TieSegment* SlurTieLayout::layoutTieFor(Tie* item, System* system)
 
     int segmentCount = sPos.system1 == sPos.system2 ? 1 : 2;
     if (segmentCount == 2) {
-        sPos.p2 = PointF(system->endingXForOpenEndedLines(), sPos.p1.y());
+        sPos.p2 = PointF(systemEndBarlineX(system), sPos.p1.y());
     } else {
         sPos.p2 = computeDefaultStartOrEndPoint(item, Grip::END);
     }
