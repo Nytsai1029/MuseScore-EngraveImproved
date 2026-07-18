@@ -39,6 +39,7 @@ static const muse::Uri HOME_PAGE_URI("musescore://home");
 static const muse::Uri NOTATION_PAGE_URI("musescore://notation");
 static const muse::Uri PUBLISH_PAGE_URI("musescore://publish");
 static const muse::Uri DEVTOOLS_PAGE_URI("musescore://devtools");
+static const muse::Uri FONTDESIGN_PAGE_URI("musescore://fontdesign");
 
 static const muse::Uri EXTENSIONS_DIALOG_URI("muse://extensions/viewer");
 
@@ -140,6 +141,10 @@ UiContext UiContextResolver::currentUiContext() const
 
     if (currentUri == DEVTOOLS_PAGE_URI) {
         return context::UiCtxDevToolsOpened;
+    }
+
+    if (currentUri == FONTDESIGN_PAGE_URI) {
+        return context::UiCtxFontDesignOpened;
     }
 
     if (interactive()->isCurrentUriDialog().val) {
@@ -251,6 +256,8 @@ bool UiContextResolver::isShortcutContextAllowed(const std::string& scContext) c
             return false;
         }
         return !notation->interaction()->selection()->isRange();
+    } else if (CTX_FONTDESIGN_OPENED == scContext) {
+        return matchWithCurrent(context::UiCtxFontDesignOpened);
     }
 
     IF_ASSERT_FAILED(CTX_ANY == scContext) {

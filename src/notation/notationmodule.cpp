@@ -37,6 +37,7 @@
 #include "internal/instrumentsrepository.h"
 #include "internal/notationcreator.h"
 #include "internal/engravingfontscontroller.h"
+#include "iengravingfontsscanner.h"
 
 #include "view/notationpaintview.h"
 #include "view/notationswitchlistmodel.h"
@@ -140,6 +141,7 @@ void NotationModule::registerExports()
 
 #ifdef MUE_BUILD_ENGRAVING_FONTSCONTROLLER
     m_engravingFontsController = std::make_shared<EngravingFontsController>();
+    ioc()->registerExport<IEngravingFontsScanner>(moduleName(), m_engravingFontsController);
 #endif
 
     ioc()->registerExport<INotationConfiguration>(moduleName(), m_configuration);

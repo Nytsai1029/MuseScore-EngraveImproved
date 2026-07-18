@@ -187,11 +187,44 @@ void StartupScenario::registerAudioPlugins()
     qApp->setQuitLockEnabled(true);
 }
 
+void StartupScenario::setStartupFontDesignFile(const std::optional<QString>& path)
+{
+    m_startupFontDesignFile = path;
+}
+
+//! --fontdesign <path>：直接打开字体设计编辑器（“在新窗口打开字体”的新实例走这里）。
+//! IFontDesignService 弱解析：模块被关闭时退回常规启动。
+bool StartupScenario::tryStartupFontDesign()
+{
+    if (!m_startupFontDesignFile.has_value()) {
+        return false;
+    }
+
+    if (!fontDesignService()) {
+        LOGW() << "font design module is not available";
+        return false;
+    }
+
+    muse::Ret ret = fontDesignService()->openProject(muse::io::path_t(m_startupFontDesignFile.value()));
+    if (!ret) {
+        LOGE() << "failed to open font for design: " << m_startupFontDesignFile.value() << ", err: " << ret.toString();
+        return false;
+    }
+
+    interactive()->open(muse::Uri("musescore://fontdesign"));
+    m_startupCompleted = true;
+    return true;
+}
+
 void StartupScenario::runAfterSplashScreen()
 {
     TRACEFUNC;
 
     if (m_startupCompleted) {
+        return;
+    }
+
+    if (tryStartupFontDesign()) {
         return;
     }
 

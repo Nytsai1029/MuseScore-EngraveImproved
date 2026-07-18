@@ -59,6 +59,7 @@ public:
 
     const std::string& name() const override;
     const std::string& family() const override;
+    const muse::io::path_t& fontPath() const override { return m_fontPath; }
 
     std::unordered_map<Sid, PropertyValue> engravingDefaults() const override;
     double textEnclosureThickness();

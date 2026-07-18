@@ -25,11 +25,12 @@
 #include "async/asyncable.h"
 #include "modularity/ioc.h"
 #include "inotationconfiguration.h"
+#include "iengravingfontsscanner.h"
 #include "draw/internal/ifontsdatabase.h"
 #include "ui/iuiconfiguration.h"
 
 namespace mu::notation {
-class EngravingFontsController : public muse::async::Asyncable, muse::Injectable
+class EngravingFontsController : public IEngravingFontsScanner, public muse::async::Asyncable, public muse::Injectable
 {
     muse::Inject<mu::notation::INotationConfiguration> configuration = { this };
     muse::Inject<mu::engraving::IEngravingFontsProvider> engravingFonts = { this };
@@ -38,6 +39,8 @@ class EngravingFontsController : public muse::async::Asyncable, muse::Injectable
 
 public:
     void init();
+
+    void rescanFonts() override;
 
 private:
     void scanAllDirectories() const;

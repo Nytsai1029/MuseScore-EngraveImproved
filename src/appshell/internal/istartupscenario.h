@@ -42,6 +42,9 @@ public:
     virtual const project::ProjectFile& startupScoreFile() const = 0;
     virtual void setStartupScoreFile(const std::optional<project::ProjectFile>& file) = 0;
 
+    //! 启动即打开字体设计编辑器（--fontdesign <path>；“在新窗口打开字体”用）
+    virtual void setStartupFontDesignFile(const std::optional<QString>& path) = 0;
+
     virtual muse::async::Promise<muse::Ret> runOnSplashScreen() = 0;
     virtual void runAfterSplashScreen() = 0;
     virtual bool startupCompleted() const = 0;

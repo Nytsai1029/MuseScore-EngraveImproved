@@ -88,7 +88,8 @@ Item {
                 { "name": "scores", "title": qsTrc("appshell", "Scores"), "icon": IconCode.MUSIC_NOTES },
                 { "name": "extensions", "title": qsTrc("appshell", "Plugins"), "icon":  IconCode.PLUGIN },
                 { "name": "musesounds", "title": qsTrc("appshell", "MuseSounds"), "icon": IconCode.PLAY },
-                { "name": "learn", "title": qsTrc("appshell", "Learn"), "icon":  IconCode.MORTAR_BOARD }
+                { "name": "learn", "title": qsTrc("appshell", "Learn"), "icon":  IconCode.MORTAR_BOARD },
+                { "name": "fontdesign", "title": qsTrc("appshell", "Font design"), "icon": IconCode.BRUSH }
             ]
 
             currentIndex: 0

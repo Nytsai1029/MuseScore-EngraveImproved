@@ -181,6 +181,10 @@ void CommandLineParser::init()
     // Internal
     m_parser.addOption(internalCommandLineOption("score-display-name-override",
                                                  "Display name to be shown in splash screen for the score that is being opened", "name"));
+
+    // Font design
+    m_parser.addOption(QCommandLineOption("fontdesign",
+                                          "Open the font design editor with the given SMuFL font file", "path"));
 }
 
 void CommandLineParser::parse(int argc, char** argv)
@@ -538,6 +542,10 @@ void CommandLineParser::parse(int argc, char** argv)
 
         if (m_parser.isSet("score-display-name-override")) {
             m_options.startup.scoreDisplayNameOverride = m_parser.value("score-display-name-override");
+        }
+
+        if (m_parser.isSet("fontdesign")) {
+            m_options.startup.fontDesignFile = m_parser.value("fontdesign");
         }
     }
 }

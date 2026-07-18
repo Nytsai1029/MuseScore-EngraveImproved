@@ -134,6 +134,16 @@ INotationSelectionPtr ProjectActionsController::currentNotationSelection() const
 
 bool ProjectActionsController::canReceiveAction(const ActionCode& code) const
 {
+    //! NOTE file-save / file-close 是 CTX_ANY：在字体设计页不屏蔽的话，
+    //! macOS 原生菜单的 key equivalent 会抢先吞掉 Cmd+S / Cmd+W，
+    //! 使 fontdesign-save / fontdesign-close 永远收不到快捷键。
+    if (code == "file-save" || code == "file-close") {
+        static const muse::Uri FONTDESIGN_PAGE_URI("musescore://fontdesign");
+        if (interactive()->currentUri().val == FONTDESIGN_PAGE_URI) {
+            return false;
+        }
+    }
+
     if (!currentNotationProject()) {
         static const std::unordered_set<ActionCode> DONT_REQUIRE_OPEN_PROJECT {
             "file-new",

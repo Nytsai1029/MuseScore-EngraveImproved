@@ -30,6 +30,7 @@ import Muse.UiComponents 1.0
 import "./HomePage"
 import "./NotationPage"
 import "./PublishPage"
+import "./FontDesignPage"
 import "./DevTools"
 
 DockWindow {
@@ -105,6 +106,8 @@ DockWindow {
         PublishPage {
             topToolbarKeyNavSec: topToolbarKeyNavSec
         },
+
+        FontDesignPage {},
 
         DevToolsPage {}
     ]

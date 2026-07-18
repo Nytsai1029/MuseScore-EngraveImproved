@@ -99,6 +99,7 @@ struct CmdOptions {
         std::optional<std::string> type;
         std::optional<QUrl> scoreUrl;
         std::optional<QString> scoreDisplayNameOverride;
+        std::optional<QString> fontDesignFile;
     } startup;
 
     struct ConverterTask {

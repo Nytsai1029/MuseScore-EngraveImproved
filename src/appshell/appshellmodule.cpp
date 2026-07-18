@@ -124,6 +124,7 @@ void AppShellModule::resolveImports()
         ir->registerUri(Uri("musescore://notation"), ContainerMeta(ContainerType::PrimaryPage));
         ir->registerUri(Uri("musescore://sequencer"), ContainerMeta(ContainerType::PrimaryPage));
         ir->registerUri(Uri("musescore://publish"), ContainerMeta(ContainerType::PrimaryPage));
+        ir->registerUri(Uri("musescore://fontdesign"), ContainerMeta(ContainerType::PrimaryPage));
         ir->registerUri(Uri("musescore://devtools"), ContainerMeta(ContainerType::PrimaryPage));
         ir->registerUri(Uri("musescore://about/musescore"), ContainerMeta(ContainerType::QmlDialog, "AboutDialog.qml"));
         ir->registerUri(Uri("musescore://about/musicxml"), ContainerMeta(ContainerType::QmlDialog, "AboutMusicXMLDialog.qml"));

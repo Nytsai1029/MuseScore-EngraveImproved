@@ -29,6 +29,7 @@ using namespace mu::appshell;
 static const QString HOME_PAGE("musescore://home");
 static const QString NOTATION_PAGE("musescore://notation");
 static const QString PUBLISH_PAGE("musescore://publish");
+static const QString FONTDESIGN_PAGE("musescore://fontdesign");
 static const QString DEVTOOLS_PAGE("musescore://devtools");
 
 static const QString TITLE_KEY("title");
@@ -90,6 +91,7 @@ void MainToolBarModel::load()
     m_items << buildItem(muse::qtrc("appshell", "Home"), HOME_PAGE);
     m_items << buildItem(muse::qtrc("appshell", "Score"), NOTATION_PAGE);
     m_items << buildItem(muse::qtrc("appshell", "Publish"), PUBLISH_PAGE);
+    m_items << buildItem(muse::qtrc("appshell", "Font design"), FONTDESIGN_PAGE);
 
     if (globalConfiguration()->devModeEnabled()) {
         m_items << buildItem(muse::qtrc("appshell", "DevTools"), DEVTOOLS_PAGE);

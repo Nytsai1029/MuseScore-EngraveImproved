@@ -346,6 +346,10 @@ void GuiApp::applyCommandLineOptions(const CmdOptions& options)
         startupScenario()->setStartupScoreFile(file);
     }
 
+    if (options.startup.fontDesignFile.has_value()) {
+        startupScenario()->setStartupFontDesignFile(options.startup.fontDesignFile);
+    }
+
     if (options.app.loggerLevel) {
         m_globalModule.setLoggerLevel(options.app.loggerLevel.value());
     }

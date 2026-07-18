@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/MuseScore/FontDesign/qmldir</file>
+        <file>qml/MuseScore/FontDesign/FontDesignHomeSection.qml</file>
+        <file>qml/MuseScore/FontDesign/NewFontDialog.qml</file>
+        <file>qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml</file>
+        <file>qml/MuseScore/FontDesign/FontLintDialog.qml</file>
+        <file>qml/MuseScore/FontDesign/FontDesignCentral.qml</file>
+        <file>qml/MuseScore/FontDesign/GlyphBrowserPanel.qml</file>
+        <file>qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml</file>
+    </qresource>
+</RCC>

@@ -42,6 +42,7 @@ static constexpr muse::ui::UiContext UiCtxDialogOpened = muse::ui::UiCtxDialogOp
 // application-specific contexts
 static constexpr muse::ui::UiContext UiCtxPublishOpened = "UiCtxPublishOpened";
 static constexpr muse::ui::UiContext UiCtxDevToolsOpened = "UiCtxDevToolsOpened";
+static constexpr muse::ui::UiContext UiCtxFontDesignOpened = "UiCtxFontDesignOpened";
 }
 
 #endif // MU_CONTEXT_UICONTEXT_H

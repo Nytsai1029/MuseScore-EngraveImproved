@@ -29,6 +29,7 @@ import Muse.Cloud 1.0
 import Muse.Learn 1.0
 import MuseScore.Project 1.0
 import MuseScore.MuseSounds 1.0
+import MuseScore.FontDesign 1.0
 
 DockPage {
     id: root
@@ -68,6 +69,7 @@ DockPage {
         case "extensions": root.central = extensionsComp; break
         case "musesounds": root.central = museSoundsComp; break
         case "learn": root.central = learnComp; break
+        case "fontdesign": root.central = fontDesignComp; break
         case "account": root.central = accountComp; break
         }
     }
@@ -137,5 +139,11 @@ DockPage {
         LearnPage {
             section: root.subSection
         }
+    }
+
+    Component {
+        id: fontDesignComp
+
+        FontDesignHomeSection {}
     }
 }

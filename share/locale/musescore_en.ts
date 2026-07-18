@@ -6355,6 +6355,7 @@ followed by dashes</translation>
     <message>
         <location filename="../../src/appshell/view/appmenumodel.cpp" line="281"/>
         <location filename="../../src/appshell_web/view/appmenumodel.cpp" line="159"/>
+        <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="39"/>
         <location filename="../../src/notation/internal/notationuiactions.cpp" line="594"/>
         <location filename="../../src/notation/internal/notationuiactions.cpp" line="595"/>
         <location filename="../../src/notation/view/internal/undoredotoolbarmodel.cpp" line="76"/>
@@ -6371,6 +6372,7 @@ followed by dashes</translation>
     <message>
         <location filename="../../src/appshell/view/appmenumodel.cpp" line="287"/>
         <location filename="../../src/appshell_web/view/appmenumodel.cpp" line="165"/>
+        <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="45"/>
         <location filename="../../src/notation/internal/notationuiactions.cpp" line="601"/>
         <location filename="../../src/notation/internal/notationuiactions.cpp" line="602"/>
         <location filename="../../src/notation/view/internal/undoredotoolbarmodel.cpp" line="84"/>
@@ -10261,6 +10263,66 @@ followed by dashes</translation>
         <source>Clear list of recent files</source>
         <translation type="unfinished">Clear list of recent files</translation>
     </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="40"/>
+        <source>Undo last font-design edit</source>
+        <translation type="unfinished">Undo last font-design edit</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="46"/>
+        <source>Redo last font-design edit</source>
+        <translation type="unfinished">Redo last font-design edit</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="51"/>
+        <source>Save font</source>
+        <translation type="unfinished">Save font</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="52"/>
+        <source>Save font and metadata</source>
+        <translation type="unfinished">Save font and metadata</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="57"/>
+        <source>Close font</source>
+        <translation type="unfinished">Close font</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="58"/>
+        <source>Close the current font project</source>
+        <translation type="unfinished">Close the current font project</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="63"/>
+        <source>Copy glyph outline</source>
+        <translation type="unfinished">Copy glyph outline</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="64"/>
+        <source>Copy the current glyph outline</source>
+        <translation type="unfinished">Copy the current glyph outline</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="69"/>
+        <source>Paste glyph outline</source>
+        <translation type="unfinished">Paste glyph outline</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="70"/>
+        <source>Paste the copied outline into the current glyph</source>
+        <translation type="unfinished">Paste the copied outline into the current glyph</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="75"/>
+        <source>Select all points</source>
+        <translation type="unfinished">Select all points</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="76"/>
+        <source>Select all points of the current glyph outline</source>
+        <translation type="unfinished">Select all points of the current glyph outline</translation>
+    </message>
 </context>
 <context>
     <name>appshell</name>
@@ -10479,12 +10541,12 @@ This action will not delete any of your scores.</translation>
         <translation type="unfinished">Restart</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="373"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="406"/>
         <source>The previous session quit unexpectedly.</source>
         <translation type="unfinished">The previous session quit unexpectedly.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="374"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="407"/>
         <source>Do you want to restore the session?</source>
         <translation type="unfinished">Do you want to restore the session?</translation>
     </message>
@@ -11881,62 +11943,62 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Don’t show welcome dialog on startup</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="234"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="267"/>
         <source>Enjoy free cloud storage</source>
         <translation type="unfinished">Enjoy free cloud storage</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="236"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="269"/>
         <source>Save your scores privately on MuseScore.com to revisit past versions and invite others to view and comment – and when you’re ready, share your music with the world.</source>
         <translation type="unfinished">Save your scores privately on MuseScore.com to revisit past versions and invite others to view and comment – and when you’re ready, share your music with the world.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="238"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="271"/>
         <source>View my scores online</source>
         <translation type="unfinished">View my scores online</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="243"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="276"/>
         <source>What’s new in MuseScore Studio</source>
         <translation type="unfinished">What’s new in MuseScore Studio</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="245"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="278"/>
         <source>Includes a new system for hiding empty staves, a new text editing widget, guitar notation improvements, engraving improvements and more.</source>
         <translation type="unfinished">Includes a new system for hiding empty staves, a new text editing widget, guitar notation improvements, engraving improvements and more.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="247"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="280"/>
         <source>Watch video</source>
         <translation type="unfinished">Watch video</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="252"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="285"/>
         <source>Install our free MuseSounds libraries</source>
         <translation type="unfinished">Install our free MuseSounds libraries</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="254"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="287"/>
         <source>Explore our collection of realistic sample libraries, including solo instruments, marching percussion, and full orchestra - available for free on MuseHub.</source>
         <translation type="unfinished">Explore our collection of realistic sample libraries, including solo instruments, marching percussion, and full orchestra - available for free on MuseHub.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="256"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="289"/>
         <source>Get it on MuseHub</source>
         <translation type="unfinished">Get it on MuseHub</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="261"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="294"/>
         <source>Explore our tutorials</source>
         <translation type="unfinished">Explore our tutorials</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="263"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="296"/>
         <source>We’ve put together a playlist of tutorials to help both beginners and experienced users get the most out of MuseScore Studio.</source>
         <translation type="unfinished">We’ve put together a playlist of tutorials to help both beginners and experienced users get the most out of MuseScore Studio.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="265"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="298"/>
         <source>View tutorials</source>
         <translation type="unfinished">View tutorials</translation>
     </message>
@@ -12152,8 +12214,8 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <location filename="../../src/engraving/dom/barline.cpp" line="1031"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1092"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1103"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3477"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3489"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3513"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3525"/>
         <location filename="../../src/engraving/dom/segment.cpp" line="2562"/>
         <source>Start of %1</source>
         <translation type="unfinished">Start of %1</translation>
@@ -12162,8 +12224,8 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <location filename="../../src/engraving/dom/barline.cpp" line="1034"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1095"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1105"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3481"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3497"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3517"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3533"/>
         <location filename="../../src/engraving/dom/segment.cpp" line="2577"/>
         <source>End of %1</source>
         <translation type="unfinished">End of %1</translation>
@@ -12290,12 +12352,12 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Start and end of %1</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/cmd.cpp" line="3596"/>
+        <location filename="../../src/engraving/dom/cmd.cpp" line="3643"/>
         <source>Current contents of measures will be replaced</source>
         <translation type="unfinished">Current contents of measures will be replaced</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/cmd.cpp" line="3597"/>
+        <location filename="../../src/engraving/dom/cmd.cpp" line="3644"/>
         <source>Continue with inserting measure repeat?</source>
         <translation type="unfinished">Continue with inserting measure repeat?</translation>
     </message>
@@ -12494,77 +12556,77 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Note</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3384"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3422"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3420"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3458"/>
         <location filename="../../src/engraving/dom/rest.cpp" line="543"/>
         <location filename="../../src/engraving/dom/rest.cpp" line="555"/>
         <source>Voice: %1</source>
         <translation type="unfinished">Voice: %1</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3392"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3428"/>
         <source>(on %1‰ off %2‰)</source>
         <extracomment>Note-on and note-off times relative to note duration, expressed in thousandths (per mille)</extracomment>
         <translation type="unfinished">(on %1‰ off %2‰)</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3398"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3427"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3434"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3463"/>
         <source>Beat slash</source>
         <translation type="unfinished">Beat slash</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3398"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3427"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3434"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3463"/>
         <source>Rhythm slash</source>
         <translation type="unfinished">Rhythm slash</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3402"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3431"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3438"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3467"/>
         <source>%1; String: %2; Fret: %3</source>
         <translation type="unfinished">%1; String: %2; Fret: %3</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3408"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3444"/>
         <source>%1; Pitch: %2; Duration: %3%4%5</source>
         <translation type="unfinished">%1; Pitch: %2; Duration: %3%4%5</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3437"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3473"/>
         <source>%1 head %2</source>
         <extracomment>head as in note head. %1 is head type (circle, cross, etc.). %2 is pitch (e.g. Db4).</extracomment>
         <translation type="unfinished">%1 head %2</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3439"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3475"/>
         <location filename="../../src/engraving/dom/rest.cpp" line="558"/>
         <source>Cross-staff above</source>
         <translation type="unfinished">Cross-staff above</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3441"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3477"/>
         <location filename="../../src/engraving/dom/rest.cpp" line="560"/>
         <source>Cross-staff below</source>
         <translation type="unfinished">Cross-staff below</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3445"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3481"/>
         <source>too low</source>
         <translation type="unfinished">too low</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3447"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3483"/>
         <source>too high</source>
         <translation type="unfinished">too high</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3449"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3485"/>
         <source>too low for amateurs</source>
         <translation type="unfinished">too low for amateurs</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3451"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3487"/>
         <source>too high for amateurs</source>
         <translation type="unfinished">too high for amateurs</translation>
     </message>
@@ -20253,6 +20315,36 @@ Fret %1 on strings %2</translation>
         <source>bracket gradient</source>
         <translation type="unfinished">bracket gradient</translation>
     </message>
+    <message>
+        <location filename="../../src/engraving/dom/property.cpp" line="500"/>
+        <source>tremolo stroke start X offset</source>
+        <translation type="unfinished">tremolo stroke start X offset</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/dom/property.cpp" line="501"/>
+        <source>tremolo stroke start Y offset</source>
+        <translation type="unfinished">tremolo stroke start Y offset</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/dom/property.cpp" line="502"/>
+        <source>tremolo stroke end X offset</source>
+        <translation type="unfinished">tremolo stroke end X offset</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/dom/property.cpp" line="503"/>
+        <source>tremolo stroke end Y offset</source>
+        <translation type="unfinished">tremolo stroke end Y offset</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/dom/property.cpp" line="505"/>
+        <source>parenthesis top offset</source>
+        <translation type="unfinished">parenthesis top offset</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/dom/property.cpp" line="506"/>
+        <source>parenthesis bottom offset</source>
+        <translation type="unfinished">parenthesis bottom offset</translation>
+    </message>
 </context>
 <context>
     <name>engraving/scoreorder</name>
@@ -22815,70 +22907,267 @@ Fret %1 on strings %2</translation>
 <context>
     <name>fontdesign</name>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="71"/>
         <source>Save</source>
         <translation type="unfinished">Save</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="80"/>
         <source>Export…</source>
         <translation type="unfinished">Export…</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="89"/>
         <source>Install</source>
         <translation type="unfinished">Install</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="91"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="209"/>
+        <source>Save font</source>
+        <translation type="unfinished">Save font</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="221"/>
+        <source>Export font as…</source>
+        <translation type="unfinished">Export font as…</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="232"/>
         <source>Install to MuseScore music fonts folder</source>
         <translation type="unfinished">Install to MuseScore music fonts folder</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="103"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="248"/>
         <source>Undo</source>
         <translation type="unfinished">Undo</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="115"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="260"/>
         <source>Redo</source>
         <translation type="unfinished">Redo</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="172"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="277"/>
+        <source>Fit glyph to view</source>
+        <translation type="unfinished">Fit glyph to view</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="289"/>
+        <source>Import reference image (Alt+drag to move, Alt+wheel to scale)</source>
+        <translation type="unfinished">Import reference image (Alt+drag to move, Alt+wheel to scale)</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="300"/>
+        <source>Add glyph from another font…</source>
+        <translation type="unfinished">Add glyph from another font…</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="311"/>
+        <source>Check font (SMuFL validation)</source>
+        <translation type="unfinished">Check font (SMuFL validation)</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="335"/>
+        <source>Show/hide the glyph browser panel</source>
+        <translation type="unfinished">Show/hide the glyph browser panel</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="346"/>
+        <source>Show/hide the properties panel</source>
+        <translation type="unfinished">Show/hide the properties panel</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="386"/>
+        <source>Select / move (V)</source>
+        <translation type="unfinished">Select / move (V)</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="387"/>
+        <source>Edit nodes (A)</source>
+        <translation type="unfinished">Edit nodes (A)</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="388"/>
+        <source>Pen — straight (P)</source>
+        <translation type="unfinished">Pen — straight (P)</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="389"/>
+        <source>Pen — curve (C)</source>
+        <translation type="unfinished">Pen — curve (C)</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="390"/>
+        <source>Rectangle (R)</source>
+        <translation type="unfinished">Rectangle (R)</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="391"/>
+        <source>Ellipse (E)</source>
+        <translation type="unfinished">Ellipse (E)</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="521"/>
+        <source>Snap to units, staff lines and advance</source>
+        <translation type="unfinished">Snap to units, staff lines and advance</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="544"/>
+        <source>Union — merge selected contours, or all when nothing is selected</source>
+        <translation type="unfinished">Union — merge selected contours, or all when nothing is selected</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="562"/>
+        <source>Subtract — cut the selected contours out of the rest</source>
+        <translation type="unfinished">Subtract — cut the selected contours out of the rest</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="580"/>
+        <source>Intersect — keep the overlap of the selected contours and the rest</source>
+        <translation type="unfinished">Intersect — keep the overlap of the selected contours and the rest</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="603"/>
+        <source>Flip horizontally</source>
+        <translation type="unfinished">Flip horizontally</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="621"/>
+        <source>Flip vertically</source>
+        <translation type="unfinished">Flip vertically</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="639"/>
+        <source>Correct path directions — make nested contours punch holes</source>
+        <translation type="unfinished">Correct path directions — make nested contours punch holes</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="676"/>
+        <source>Reference</source>
+        <translation type="unfinished">Reference</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="695"/>
+        <source>Reset image to staff height</source>
+        <translation type="unfinished">Reset image to staff height</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="705"/>
+        <source>Remove reference image</source>
+        <translation type="unfinished">Remove reference image</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="734"/>
+        <source>Open path — click the start point or press Enter to close · Esc discards · Backspace removes the last point</source>
+        <translation type="unfinished">Open path — click the start point or press Enter to close · Esc discards · Backspace removes the last point</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="759"/>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="218"/>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="101"/>
         <source>No font project is open</source>
         <translation type="unfinished">No font project is open</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="181"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="768"/>
         <source>Open a SMuFL font (OTF/TTF) to browse and edit its glyphs and metadata.</source>
         <translation type="unfinished">Open a SMuFL font (OTF/TTF) to browse and edit its glyphs and metadata.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="192"/>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="74"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="779"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="102"/>
+        <source>New font…</source>
+        <translation type="unfinished">New font…</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="788"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="111"/>
         <source>Open font…</source>
         <translation type="unfinished">Open font…</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="201"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="796"/>
         <source>Go to font design home</source>
         <translation type="unfinished">Go to font design home</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="54"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="82"/>
         <source>Font design</source>
         <translation type="unfinished">Font design</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="63"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="91"/>
         <source>Design SMuFL music fonts: open an existing font, edit glyphs and metadata, and try the result directly in your scores.</source>
         <translation type="unfinished">Design SMuFL music fonts: open an existing font, edit glyphs and metadata, and try the result directly in your scores.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="83"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="119"/>
         <source>Open font design workspace</source>
         <translation type="unfinished">Open font design workspace</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="132"/>
+        <source>Recent fonts</source>
+        <translation type="unfinished">Recent fonts</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="168"/>
+        <source>Installed music fonts</source>
+        <translation type="unfinished">Installed music fonts</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="182"/>
+        <source>Refresh</source>
+        <translation type="unfinished">Refresh</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="196"/>
+        <source>No fonts installed yet. Use “Install” in the font design editor to make a font available to MuseScore.</source>
+        <translation type="unfinished">No fonts installed yet. Use “Install” in the font design editor to make a font available to MuseScore.</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="231"/>
+        <source>No metadata</source>
+        <translation type="unfinished">No metadata</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="241"/>
+        <source>Open</source>
+        <translation type="unfinished">Open</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="243"/>
+        <source>Open in the font design editor</source>
+        <translation type="unfinished">Open in the font design editor</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="251"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="357"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="112"/>
+        <source>New window</source>
+        <translation type="unfinished">New window</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="253"/>
+        <source>Open in a new window</source>
+        <translation type="unfinished">Open in a new window</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="261"/>
+        <source>Reveal</source>
+        <translation type="unfinished">Reveal</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="263"/>
+        <source>Show the font file in the file manager</source>
+        <translation type="unfinished">Show the font file in the file manager</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="271"/>
+        <source>Uninstall</source>
+        <translation type="unfinished">Uninstall</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="273"/>
+        <source>Move the installed font folder to the trash</source>
+        <translation type="unfinished">Move the installed font folder to the trash</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="46"/>
@@ -23189,154 +23478,178 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Horizontal offset for aligning repeat-dot pairs or similar repeated marks.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="98"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="106"/>
+        <location filename="../../src/fontdesign/internal/fontdesignactioncontroller.cpp" line="166"/>
+        <location filename="../../src/fontdesign/internal/fontdesignactioncontroller.cpp" line="206"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="148"/>
         <source>Unable to save font</source>
         <translation type="unfinished">Unable to save font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="99"/>
+        <location filename="../../src/fontdesign/internal/fontdesignactioncontroller.cpp" line="192"/>
+        <source>Close font</source>
+        <translation type="unfinished">Close font</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignactioncontroller.cpp" line="193"/>
+        <source>Do you want to save changes before closing?</source>
+        <translation type="unfinished">Do you want to save changes before closing?</translation>
+    </message>
+    <message>
         <source>No font file path is associated with this project.</source>
         <translation type="unfinished">No font file path is associated with this project.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="112"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="69"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="72"/>
         <source>Unable to save metadata</source>
         <translation type="unfinished">Unable to save metadata</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="124"/>
+        <location filename="../../src/fontdesign/internal/fontdesignactioncontroller.cpp" line="179"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="161"/>
         <source>Font saved with warnings</source>
         <translation type="unfinished">Font saved with warnings</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="142"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="149"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="156"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="163"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="171"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="179"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="186"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="193"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="200"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="208"/>
         <source>Cannot install font</source>
         <translation type="unfinished">Cannot install font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="143"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="180"/>
         <source>Font name must not contain “Text” (reserved for text companion fonts).</source>
         <translation type="unfinished">Font name must not contain “Text” (reserved for text companion fonts).</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="150"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="187"/>
         <source>Font name contains invalid path characters.</source>
         <translation type="unfinished">Font name contains invalid path characters.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="157"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="194"/>
         <source>Notation configuration is unavailable.</source>
         <translation type="unfinished">Notation configuration is unavailable.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="164"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="201"/>
         <source>User music fonts path is not configured.</source>
         <translation type="unfinished">User music fonts path is not configured.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="172"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="209"/>
         <source>Failed to create font directory.</source>
         <translation type="unfinished">Failed to create font directory.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="181"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="218"/>
         <source>Overwrite installed font?</source>
         <translation type="unfinished">Overwrite installed font?</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="182"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="219"/>
         <source>A font with this name is already installed. Replace it?</source>
         <translation type="unfinished">A font with this name is already installed. Replace it?</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="193"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="230"/>
         <source>Unable to install font</source>
         <translation type="unfinished">Unable to install font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="199"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="236"/>
         <source>Font written but metadata failed</source>
         <translation type="unfinished">Font written but metadata failed</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="206"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="210"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="243"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="247"/>
         <source>Font installed</source>
         <translation type="unfinished">Font installed</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="207"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="244"/>
         <source>The font is available under Format → Style → Score → Musical symbol font.</source>
         <translation type="unfinished">The font is available under Format → Style → Score → Musical symbol font.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="211"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="248"/>
         <source>Files were written, but the font scanner is unavailable. Restart MuseScore to use the font.</source>
         <translation type="unfinished">Files were written, but the font scanner is unavailable. Restart MuseScore to use the font.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="221"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="258"/>
         <source>Installed with validation warnings</source>
         <translation type="unfinished">Installed with validation warnings</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="232"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="269"/>
         <source>OpenType font</source>
         <translation type="unfinished">OpenType font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="239"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="276"/>
         <source>Export font</source>
         <translation type="unfinished">Export font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="249"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="286"/>
         <source>Unable to export font</source>
         <translation type="unfinished">Unable to export font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="258"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="295"/>
         <source>Font exported but metadata failed</source>
         <translation type="unfinished">Font exported but metadata failed</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="268"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="305"/>
         <source>Font exported with warnings</source>
         <translation type="unfinished">Font exported with warnings</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="285"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="50"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="322"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="53"/>
         <source>Save changes?</source>
         <translation type="unfinished">Save changes?</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="286"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="51"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="323"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="54"/>
         <source>The current font has unsaved metadata changes.</source>
         <translation type="unfinished">The current font has unsaved metadata changes.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="308"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="85"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="341"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="84"/>
         <source>SMuFL fonts</source>
         <translation type="unfinished">SMuFL fonts</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="311"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="88"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="344"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="354"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="87"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="109"/>
         <source>Open font</source>
         <translation type="unfinished">Open font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="318"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="95"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="355"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="110"/>
+        <source>A font is already open. Where do you want to open the new one?</source>
+        <translation type="unfinished">A font is already open. Where do you want to open the new one?</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="356"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="111"/>
+        <source>This window</source>
+        <translation type="unfinished">This window</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="374"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="129"/>
         <source>Unable to open font</source>
         <translation type="unfinished">Unable to open font</translation>
     </message>
@@ -23399,6 +23712,337 @@ Fret %1 on strings %2</translation>
         <location filename="../../src/fontdesign/view/inspectors/setsmodel.cpp" line="118"/>
         <source>Set not found</source>
         <translation type="unfinished">Set not found</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="32"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="63"/>
+        <source>Add glyph from font</source>
+        <translation type="unfinished">Add glyph from font</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="70"/>
+        <source>The loaded outline is appended to the current glyph, scaled to this font’s units per em.</source>
+        <translation type="unfinished">The loaded outline is appended to the current glyph, scaled to this font’s units per em.</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="83"/>
+        <source>Source codepoint (hex):</source>
+        <translation type="unfinished">Source codepoint (hex):</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="110"/>
+        <source>Music font:</source>
+        <translation type="unfinished">Music font:</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="125"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="159"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="202"/>
+        <source>Load</source>
+        <translation type="unfinished">Load</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="142"/>
+        <source>Font file:</source>
+        <translation type="unfinished">Font file:</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="150"/>
+        <source>Fonts</source>
+        <translation type="unfinished">Fonts</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="151"/>
+        <source>Choose font file</source>
+        <translation type="unfinished">Choose font file</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="175"/>
+        <source>Text font:</source>
+        <translation type="unfinished">Text font:</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="192"/>
+        <source>Char</source>
+        <translation type="unfinished">Char</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="241"/>
+        <source>No glyph loaded</source>
+        <translation type="unfinished">No glyph loaded</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="290"/>
+        <source>Add to current glyph</source>
+        <translation type="unfinished">Add to current glyph</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontLintDialog.qml" line="32"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontLintDialog.qml" line="57"/>
+        <source>Check font (SMuFL)</source>
+        <translation type="unfinished">Check font (SMuFL)</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontLintDialog.qml" line="76"/>
+        <source>Click an issue to jump to the glyph.</source>
+        <translation type="unfinished">Click an issue to jump to the glyph.</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontLintDialog.qml" line="95"/>
+        <source>No issues found</source>
+        <translation type="unfinished">No issues found</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontLintDialog.qml" line="163"/>
+        <source>Re-run checks</source>
+        <translation type="unfinished">Re-run checks</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="32"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="60"/>
+        <source>New font</source>
+        <translation type="unfinished">New font</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="67"/>
+        <source>The font and its SMuFL metadata will be written to the chosen folder on first save.</source>
+        <translation type="unfinished">The font and its SMuFL metadata will be written to the chosen folder on first save.</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="80"/>
+        <source>Name:</source>
+        <translation type="unfinished">Name:</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="88"/>
+        <source>e.g. MyMusicFont</source>
+        <translation type="unfinished">e.g. MyMusicFont</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="96"/>
+        <source>Version:</source>
+        <translation type="unfinished">Version:</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="111"/>
+        <source>Units per em:</source>
+        <translation type="unfinished">Units per em:</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="130"/>
+        <source>Copyright:</source>
+        <translation type="unfinished">Copyright:</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="138"/>
+        <source>Optional</source>
+        <translation type="unfinished">Optional</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="148"/>
+        <source>Save in:</source>
+        <translation type="unfinished">Save in:</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="158"/>
+        <source>Choose folder</source>
+        <translation type="unfinished">Choose folder</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="196"/>
+        <source>Create</source>
+        <translation type="unfinished">Create</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="108"/>
+        <source>Enter a valid codepoint (e.g. E050)</source>
+        <translation type="unfinished">Enter a valid codepoint (e.g. E050)</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="117"/>
+        <source>Unable to read the font resource</source>
+        <translation type="unfinished">Unable to read the font resource</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="120"/>
+        <source>Unable to create a temporary file</source>
+        <translation type="unfinished">Unable to create a temporary file</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="136"/>
+        <source>The glyph exists but has an empty outline</source>
+        <translation type="unfinished">The glyph exists but has an empty outline</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="138"/>
+        <source>%1 · U+%2 · %3 contours</source>
+        <translation type="unfinished">%1 · U+%2 · %3 contours</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="147"/>
+        <source>U+%1 is not present in this font</source>
+        <translation type="unfinished">U+%1 is not present in this font</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="158"/>
+        <source>Unknown engraving font</source>
+        <translation type="unfinished">Unknown engraving font</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="164"/>
+        <source>Choose a font file first</source>
+        <translation type="unfinished">Choose a font file first</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="173"/>
+        <source>Choose a font family and enter a character</source>
+        <translation type="unfinished">Choose a font family and enter a character</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="183"/>
+        <source>Unable to load the text font</source>
+        <translation type="unfinished">Unable to load the text font</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="188"/>
+        <source>The character is not present in this font</source>
+        <translation type="unfinished">The character is not present in this font</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="193"/>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="201"/>
+        <source>The character has an empty outline</source>
+        <translation type="unfinished">The character has an empty outline</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="204"/>
+        <source>%1 · “%2” · %3 contours</source>
+        <translation type="unfinished">%1 · “%2” · %3 contours</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="213"/>
+        <source>Load a glyph first</source>
+        <translation type="unfinished">Load a glyph first</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="221"/>
+        <source>Select a target codepoint in the glyph browser first</source>
+        <translation type="unfinished">Select a target codepoint in the glyph browser first</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="999"/>
+        <source>Images</source>
+        <translation type="unfinished">Images</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1002"/>
+        <source>Import reference image</source>
+        <translation type="unfinished">Import reference image</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1009"/>
+        <source>Unable to import image</source>
+        <translation type="unfinished">Unable to import image</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1010"/>
+        <source>The file could not be read as an image.</source>
+        <translation type="unfinished">The file could not be read as an image.</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="119"/>
+        <source>Font name is empty</source>
+        <translation type="unfinished">Font name is empty</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="122"/>
+        <source>Font name contains “Text” — the installer skips such folders (reserved for text companion fonts)</source>
+        <translation type="unfinished">Font name contains “Text” — the installer skips such folders (reserved for text companion fonts)</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="126"/>
+        <source>Font name contains invalid path characters</source>
+        <translation type="unfinished">Font name contains invalid path characters</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="134"/>
+        <source>Missing core glyph %1</source>
+        <translation type="unfinished">Missing core glyph %1</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="144"/>
+        <source>%1 has no outline</source>
+        <translation type="unfinished">%1 has no outline</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="149"/>
+        <source>%1 has no advance width</source>
+        <translation type="unfinished">%1 has no advance width</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="163"/>
+        <source>%1 has %2 contour(s) with wrong winding direction — holes may render filled (use “Correct path directions”)</source>
+        <translation type="unfinished">%1 has %2 contour(s) with wrong winding direction — holes may render filled (use “Correct path directions”)</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="183"/>
+        <source>Optional glyphs share codepoint %1: %2</source>
+        <translation type="unfinished">Optional glyphs share codepoint %1: %2</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="187"/>
+        <source>Optional glyph %1 lies in the recommended range (optional glyphs start at U+F400)</source>
+        <translation type="unfinished">Optional glyph %1 lies in the recommended range (optional glyphs start at U+F400)</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="203"/>
+        <source>All checks passed — %1 glyphs</source>
+        <translation type="unfinished">All checks passed — %1 glyphs</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="206"/>
+        <source>%1 errors · %2 warnings · %3 notes</source>
+        <translation type="unfinished">%1 errors · %2 warnings · %3 notes</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="149"/>
+        <source>Uninstall font</source>
+        <translation type="unfinished">Uninstall font</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="150"/>
+        <source>Remove “%1” from the MuseScore music fonts folder? The folder will be moved to the trash.</source>
+        <translation type="unfinished">Remove “%1” from the MuseScore music fonts folder? The folder will be moved to the trash.</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="161"/>
+        <source>Unable to uninstall font</source>
+        <translation type="unfinished">Unable to uninstall font</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="162"/>
+        <source>The font folder could not be moved to the trash.</source>
+        <translation type="unfinished">The font folder could not be moved to the trash.</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/newfontmodel.cpp" line="53"/>
+        <source>Font name is required</source>
+        <translation type="unfinished">Font name is required</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/newfontmodel.cpp" line="58"/>
+        <source>Font name contains invalid characters</source>
+        <translation type="unfinished">Font name contains invalid characters</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/newfontmodel.cpp" line="63"/>
+        <source>Choose a folder to save the font in</source>
+        <translation type="unfinished">Choose a folder to save the font in</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/newfontmodel.cpp" line="66"/>
+        <source>The chosen folder does not exist</source>
+        <translation type="unfinished">The chosen folder does not exist</translation>
     </message>
 </context>
 <context>
@@ -23474,6 +24118,8 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Unknown</translation>
     </message>
     <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="282"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="188"/>
         <location filename="../../src/framework/cloud/qml/Muse/Cloud/RequireAuthorizationDialog.qml" line="71"/>
         <location filename="../../src/framework/ui/qml/Muse/Ui/internal/ProgressDialog.qml" line="98"/>
         <location filename="../../src/palette/qml/MuseScore/Palette/internal/CreateCustomPalettePopup.qml" line="86"/>
@@ -23557,6 +24203,7 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Delete</translation>
     </message>
     <message>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontLintDialog.qml" line="171"/>
         <location filename="../../src/framework/uicomponents/qml/Muse/UiComponents/PopupPanel.qml" line="160"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/NotationSwitchButton.qml" line="82"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/PartsBottomPanel.qml" line="52"/>
@@ -23991,7 +24638,7 @@ Fret %1 on strings %2</translation>
     </message>
     <message>
         <location filename="../../src/project/qml/MuseScore/Project/ProjectUploadedDialog.qml" line="108"/>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1456"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1466"/>
         <source>Success!</source>
         <translation type="unfinished">Success!</translation>
     </message>
@@ -24543,13 +25190,13 @@ pickup measure</translation>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/SlurAndTieSettings.qml" line="89"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/SlurAndTieSettings.qml" line="160"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="108"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="259"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="274"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/internal/NoteheadTypeSelector.qml" line="39"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/ornaments/OrnamentSettings.qml" line="205"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/ornaments/OrnamentSettings.qml" line="231"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/playcounttext/PlayCountSettings.qml" line="67"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/stafftype/StaffTypeSettings.qml" line="190"/>
-        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="313"/>
+        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="337"/>
         <location filename="../../src/inspector/models/notation/tuplets/tupletsettingsmodel.cpp" line="90"/>
         <source>Auto</source>
         <translation type="unfinished">Auto</translation>
@@ -24756,14 +25403,14 @@ pickup measure</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/common/VoicesAndPositionSection.qml" line="196"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="260"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="275"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/ornaments/OrnamentSettings.qml" line="206"/>
         <source>On</source>
         <translation type="unfinished">On</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/common/VoicesAndPositionSection.qml" line="197"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="261"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="276"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/ornaments/OrnamentSettings.qml" line="207"/>
         <source>Off</source>
         <translation type="unfinished">Off</translation>
@@ -25152,7 +25799,7 @@ pickup measure</translation>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="122"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="90"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/BeamSettings.qml" line="239"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="138"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="153"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/StemSettings.qml" line="145"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextInspectorView.qml" line="331"/>
         <source>Show less</source>
@@ -25163,7 +25810,7 @@ pickup measure</translation>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="122"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="90"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/BeamSettings.qml" line="239"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="138"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="153"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/StemSettings.qml" line="145"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextInspectorView.qml" line="331"/>
         <source>Show more</source>
@@ -25282,7 +25929,7 @@ pickup measure</translation>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="225"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/ornaments/OrnamentSettings.qml" line="188"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="56"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="62"/>
         <source>Default</source>
         <translation type="unfinished">Default</translation>
     </message>
@@ -25806,7 +26453,7 @@ pickup measure</translation>
         <location filename="../../src/inspector/models/notation/lines/textlinesettingsmodel.cpp" line="44"/>
         <location filename="../../src/inspector/models/notation/lines/textlinesettingsmodel.cpp" line="53"/>
         <location filename="../../src/inspector/models/notation/lines/voltasettingsmodel.cpp" line="43"/>
-        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="314"/>
+        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="338"/>
         <source>Normal</source>
         <translation type="unfinished">Normal</translation>
     </message>
@@ -26288,45 +26935,50 @@ pickup measure</translation>
         <translation type="unfinished">Duration dot position</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="119"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="124"/>
         <source>Distance to previous note</source>
         <translation type="unfinished">Distance to previous note</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="154"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="143"/>
+        <source>Minimum: %1 sp</source>
+        <translation type="unfinished">Minimum: %1 sp</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="169"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/stafftype/StaffTypeSettings.qml" line="183"/>
         <source>Notehead scheme</source>
         <translation type="unfinished">Notehead scheme</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="166"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="181"/>
         <source>Override visual duration</source>
         <translation type="unfinished">Override visual duration</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="177"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="192"/>
         <source>Note direction</source>
         <translation type="unfinished">Note direction</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="188"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="203"/>
         <source>Notehead offset</source>
         <translation type="unfinished">Notehead offset</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="207"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="222"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/NoteSettings.qml" line="152"/>
         <source>Left ledger line length</source>
         <translation type="unfinished">Left ledger line length</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="223"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="238"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/NoteSettings.qml" line="168"/>
         <source>Right ledger line length</source>
         <translation type="unfinished">Right ledger line length</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="247"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="262"/>
         <source>Combine with voices that share the same stem direction</source>
         <translation type="unfinished">Combine with voices that share the same stem direction</translation>
     </message>
@@ -26373,7 +27025,7 @@ pickup measure</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/StemSettings.qml" line="75"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="65"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="71"/>
         <source>Stem direction</source>
         <translation type="unfinished">Stem direction</translation>
     </message>
@@ -26615,13 +27267,13 @@ pickup measure</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/stafftype/StaffTypeSettings.qml" line="192"/>
-        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="315"/>
+        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="339"/>
         <source>Pitch names</source>
         <translation type="unfinished">Pitch names</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/stafftype/StaffTypeSettings.qml" line="193"/>
-        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="316"/>
+        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="340"/>
         <source>German pitch names</source>
         <translation type="unfinished">German pitch names</translation>
     </message>
@@ -26637,25 +27289,25 @@ pickup measure</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/stafftype/StaffTypeSettings.qml" line="196"/>
-        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="319"/>
+        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="343"/>
         <source>4-shape (Walker)</source>
         <translation type="unfinished">4-shape (Walker)</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/stafftype/StaffTypeSettings.qml" line="197"/>
-        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="320"/>
+        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="344"/>
         <source>7-shape (Aikin)</source>
         <translation type="unfinished">7-shape (Aikin)</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/stafftype/StaffTypeSettings.qml" line="198"/>
-        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="321"/>
+        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="345"/>
         <source>7-shape (Funk)</source>
         <translation type="unfinished">7-shape (Funk)</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/stafftype/StaffTypeSettings.qml" line="199"/>
-        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="322"/>
+        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="346"/>
         <source>7-shape (Walker)</source>
         <translation type="unfinished">7-shape (Walker)</translation>
     </message>
@@ -26804,19 +27456,39 @@ pickup measure</translation>
         <translation type="unfinished">You have multiple tremolo bars selected. Select a single one to edit its settings.</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="49"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="53"/>
         <source>Style (between notes)</source>
         <translation type="unfinished">Style (between notes)</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="57"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="63"/>
         <source>Traditional</source>
         <translation type="unfinished">Traditional</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="58"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="64"/>
         <source>Traditional alternative</source>
         <translation type="unfinished">Traditional alternative</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="86"/>
+        <source>Start offset X</source>
+        <translation type="unfinished">Start offset X</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="103"/>
+        <source>Start offset Y</source>
+        <translation type="unfinished">Start offset Y</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="125"/>
+        <source>End offset X</source>
+        <translation type="unfinished">End offset X</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="142"/>
+        <source>End offset Y</source>
+        <translation type="unfinished">End offset Y</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tuplets/TupletSettings.qml" line="58"/>
@@ -27466,17 +28138,17 @@ pickup measure</translation>
         <translation type="unfinished">Flag</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="41"/>
+        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="42"/>
         <source>Head</source>
         <translation type="unfinished">Head</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="317"/>
+        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="341"/>
         <source>Solfège movable do</source>
         <translation type="unfinished">Solfège movable do</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="318"/>
+        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="342"/>
         <source>Solfège fixed do</source>
         <translation type="unfinished">Solfège fixed do</translation>
     </message>
@@ -35261,7 +35933,7 @@ failed: %2</translation>
     </message>
     <message>
         <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2406"/>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1844"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1854"/>
         <source>File “%1” is corrupted</source>
         <translation type="unfinished">File “%1” is corrupted</translation>
     </message>
@@ -35291,217 +35963,217 @@ failed: %2</translation>
         <translation type="unfinished">This score is invalid.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="751"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="761"/>
         <source>Do you want to save changes to the score “%1” before closing?</source>
         <translation type="unfinished">Do you want to save changes to the score “%1” before closing?</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="754"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="764"/>
         <source>Your changes will be lost if you don’t save them.</source>
         <translation type="unfinished">Your changes will be lost if you don’t save them.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1580"/>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1672"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1590"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1682"/>
         <source>Your score cannot be uploaded to the cloud</source>
         <translation type="unfinished">Your score cannot be uploaded to the cloud</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1583"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1593"/>
         <source>This score has become corrupted and contains errors. You can fix the errors manually, or save the score to your computer and get help for this issue on MuseScore.org.</source>
         <translation type="unfinished">This score has become corrupted and contains errors. You can fix the errors manually, or save the score to your computer and get help for this issue on MuseScore.org.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1591"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1601"/>
         <source>Save as…</source>
         <translation type="unfinished">Save as…</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1596"/>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1638"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1606"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1648"/>
         <source>Revert to last saved</source>
         <translation type="unfinished">Revert to last saved</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1619"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1629"/>
         <source>This score has become corrupted and contains errors</source>
         <translation type="unfinished">This score has become corrupted and contains errors</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1623"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1633"/>
         <source>You can continue saving it locally, although the file may become unusable. You can try to fix the errors manually, or get help for this issue on MuseScore.org.</source>
         <translation type="unfinished">You can continue saving it locally, although the file may become unusable. You can try to fix the errors manually, or get help for this issue on MuseScore.org.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1625"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1635"/>
         <source>You can continue saving it locally, although the file may become unusable. To preserve your score, revert to the last saved version, or fix the errors manually. You can also get help for this issue on MuseScore.org.</source>
         <translation type="unfinished">You can continue saving it locally, although the file may become unusable. To preserve your score, revert to the last saved version, or fix the errors manually. You can also get help for this issue on MuseScore.org.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1633"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1643"/>
         <source>Save anyway</source>
         <translation type="unfinished">Save anyway</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1671"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1681"/>
         <source>Your score cannot be saved</source>
         <translation type="unfinished">Your score cannot be saved</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1675"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1685"/>
         <source>This score is corrupted. You can get help for this issue on MuseScore.org.</source>
         <translation type="unfinished">This score is corrupted. You can get help for this issue on MuseScore.org.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1678"/>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1866"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1688"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1876"/>
         <source>Get help</source>
         <translation type="unfinished">Get help</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1728"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1738"/>
         <source>Try again</source>
         <translation type="unfinished">Try again</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1743"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1753"/>
         <source>Revert to last saved?</source>
         <translation type="unfinished">Revert to last saved?</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1744"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1754"/>
         <source>Your changes will be lost. This action cannot be undone.</source>
         <translation type="unfinished">Your changes will be lost. This action cannot be undone.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1824"/>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1849"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1834"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1859"/>
         <source>Open anyway</source>
         <translation type="unfinished">Open anyway</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1836"/>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1880"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1846"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1890"/>
         <source>Cannot read file %1</source>
         <translation type="unfinished">Cannot read file %1</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1837"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1847"/>
         <source>This file was saved using a newer version of MuseScore Studio. Please visit &lt;a href=&quot;%1&quot;&gt;MuseScore.org&lt;/a&gt; to obtain the latest version.</source>
         <translation type="unfinished">This file was saved using a newer version of MuseScore Studio. Please visit &lt;a href=&quot;%1&quot;&gt;MuseScore.org&lt;/a&gt; to obtain the latest version.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1846"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1856"/>
         <source>This file contains errors that could cause MuseScore Studio to malfunction.</source>
         <translation type="unfinished">This file contains errors that could cause MuseScore Studio to malfunction.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1861"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1871"/>
         <source>File “%1” is corrupted and cannot be opened</source>
         <translation type="unfinished">File “%1” is corrupted and cannot be opened</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1863"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1873"/>
         <source>Get help for this issue on MuseScore.org.</source>
         <translation type="unfinished">Get help for this issue on MuseScore.org.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1885"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1895"/>
         <source>This file does not exist or cannot be accessed at the moment.</source>
         <translation type="unfinished">This file does not exist or cannot be accessed at the moment.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1888"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1898"/>
         <source>This file could not be opened. Please make sure that MuseScore Studio has permission to read this file.</source>
         <translation type="unfinished">This file could not be opened. Please make sure that MuseScore Studio has permission to read this file.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1895"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1905"/>
         <source>An error occurred while reading this file.</source>
         <translation type="unfinished">An error occurred while reading this file.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1952"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1962"/>
         <source>All supported files</source>
         <translation type="unfinished">All supported files</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1953"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1963"/>
         <source>MuseScore files</source>
         <translation type="unfinished">MuseScore files</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1954"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1964"/>
         <source>MusicXML files</source>
         <translation type="unfinished">MusicXML files</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1955"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1965"/>
         <source>MIDI files</source>
         <translation type="unfinished">MIDI files</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1956"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1966"/>
         <source>MuseData files</source>
         <translation type="unfinished">MuseData files</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1957"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1967"/>
         <source>Capella files</source>
         <translation type="unfinished">Capella files</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1958"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1968"/>
         <source>BB files (experimental)</source>
         <translation type="unfinished">BB files (experimental)</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1959"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1969"/>
         <source>Overture / Score Writer files (experimental)</source>
         <translation type="unfinished">Overture / Score Writer files (experimental)</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1960"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1970"/>
         <source>Bagpipe Music Writer files (experimental)</source>
         <translation type="unfinished">Bagpipe Music Writer files (experimental)</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1961"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1971"/>
         <source>Guitar Pro files</source>
         <translation type="unfinished">Guitar Pro files</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1962"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1972"/>
         <source>Power Tab Editor files (experimental)</source>
         <translation type="unfinished">Power Tab Editor files (experimental)</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1963"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1973"/>
         <source>MEI files</source>
         <translation type="unfinished">MEI files</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1964"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1974"/>
         <source>TablEdit files (experimental)</source>
         <translation type="unfinished">TablEdit files (experimental)</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1965"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1975"/>
         <source>Uncompressed MuseScore folders (experimental)</source>
         <translation type="unfinished">Uncompressed MuseScore folders (experimental)</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1966"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1976"/>
         <source>MuseScore developer files</source>
         <translation type="unfinished">MuseScore developer files</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1967"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1977"/>
         <source>MuseScore backup files</source>
         <translation type="unfinished">MuseScore backup files</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1979"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1989"/>
         <source>Open</source>
         <translation type="unfinished">Open</translation>
     </message>
@@ -36686,7 +37358,7 @@ The score will be saved as:
     </message>
     <message>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="267"/>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1074"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1084"/>
         <source>Log in to MuseScore.com to save this score to the cloud.</source>
         <translation type="unfinished">Log in to MuseScore.com to save this score to the cloud.</translation>
     </message>
@@ -36735,7 +37407,7 @@ The score will be saved as:
     </message>
     <message>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="443"/>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1528"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1538"/>
         <source>Unable to connect to the cloud</source>
         <translation type="unfinished">Unable to connect to the cloud</translation>
     </message>
@@ -36798,28 +37470,28 @@ The score will be saved as:
     </message>
     <message>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="619"/>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1724"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1734"/>
         <source>Save as…</source>
         <translation type="unfinished">Save as…</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="466"/>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="563"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="476"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="573"/>
         <source>Log in or create a free account on MuseScore.com to open this score.</source>
         <translation type="unfinished">Log in or create a free account on MuseScore.com to open this score.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1038"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1048"/>
         <source>Save as .msdz</source>
         <translation type="unfinished">Save as .msdz</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1042"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1052"/>
         <source>Save this score as an MSDZ file?</source>
         <translation type="unfinished">Save this score as an MSDZ file?</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1043"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1053"/>
         <source>This version saves MuseScore files with the .msdz extension. The opened .mscz file will not be overwritten.
 
 Current file:
@@ -36836,42 +37508,42 @@ The score will be saved as:
 %2</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1450"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1460"/>
         <source>View online</source>
         <translation type="unfinished">View online</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1453"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1463"/>
         <source>All saved changes will now update to the cloud. You can manage this file in the score manager on MuseScore.com.</source>
         <translation type="unfinished">All saved changes will now update to the cloud. You can manage this file in the score manager on MuseScore.com.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1529"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1539"/>
         <source>Your changes will be saved to a local file until the connection resumes.</source>
         <translation type="unfinished">Your changes will be saved to a local file until the connection resumes.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1544"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1554"/>
         <source>Please add at least one instrument to enable saving.</source>
         <translation type="unfinished">Please add at least one instrument to enable saving.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1694"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1704"/>
         <source>An unknown error occurred while saving this file.</source>
         <translation type="unfinished">An unknown error occurred while saving this file.</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1702"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1712"/>
         <source>Your score could not be saved</source>
         <translation type="unfinished">Your score could not be saved</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1712"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1722"/>
         <source>An error occurred while saving your score</source>
         <translation type="unfinished">An error occurred while saving your score</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1714"/>
+        <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1724"/>
         <source>To preserve your score, try saving it again. If this message still appears, please save your score as new copy. You can also get help for this issue on %1.&lt;br/&gt;&lt;br/&gt;Error details (please cite when asking for support): %2</source>
         <translation type="unfinished">To preserve your score, try saving it again. If this message still appears, please save your score as new copy. You can also get help for this issue on %1.&lt;br/&gt;&lt;br/&gt;Error details (please cite when asking for support): %2</translation>
     </message>
@@ -37614,7 +38286,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/inspector/models/abstractinspectormodel.cpp" line="413"/>
         <location filename="../../src/inspector/models/notation/frames/verticalframesettingsmodel.cpp" line="65"/>
-        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="221"/>
+        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="238"/>
         <location filename="../../src/notation/view/abstractelementpopupmodel.cpp" line="208"/>
         <location filename="../../src/notation/view/abstractelementpopupmodel.cpp" line="220"/>
         <source>Edit %1</source>
@@ -37623,7 +38295,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/inspector/models/abstractinspectormodel.cpp" line="446"/>
         <location filename="../../src/inspector/models/notation/frames/verticalframesettingsmodel.cpp" line="97"/>
-        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="73"/>
+        <location filename="../../src/inspector/models/notation/notes/noteheads/noteheadsettingsmodel.cpp" line="74"/>
         <source>Reset %1</source>
         <translation type="unfinished">Reset %1</translation>
     </message>

@@ -1186,4 +1186,39 @@
     <key>grace-note-bend</key>
     <seq>Ctrl+Alt+B</seq>
     </SC>
+<!-- Font Design (only active on the font design page; Ctrl maps to Cmd on macOS) -->
+  <SC>
+    <key>fontdesign-undo</key>
+    <seq>Ctrl+Z</seq>
+    </SC>
+  <SC>
+    <key>fontdesign-redo</key>
+    <seq>Ctrl+Shift+Z</seq>
+    <seq>Ctrl+Y</seq>
+    </SC>
+  <SC>
+    <key>fontdesign-save</key>
+    <seq>Ctrl+S</seq>
+    <autorepeat>0</autorepeat>
+    </SC>
+  <SC>
+    <key>fontdesign-close</key>
+    <seq>Ctrl+W</seq>
+    <autorepeat>0</autorepeat>
+    </SC>
+  <SC>
+    <key>fontdesign-copy-glyph</key>
+    <seq>Ctrl+C</seq>
+    <autorepeat>0</autorepeat>
+    </SC>
+  <SC>
+    <key>fontdesign-paste-glyph</key>
+    <seq>Ctrl+V</seq>
+    <autorepeat>0</autorepeat>
+    </SC>
+  <SC>
+    <key>fontdesign-select-all</key>
+    <seq>Ctrl+A</seq>
+    <autorepeat>0</autorepeat>
+    </SC>
   </Shortcuts>

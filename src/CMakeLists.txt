@@ -48,6 +48,10 @@ endif()
 
 add_subdirectory(engraving)
 
+if (MUE_BUILD_FONTDESIGN_MODULE)
+    add_subdirectory(fontdesign)
+endif()
+
 add_subdirectory(importexport)
 
 if (MUE_BUILD_INSPECTOR_MODULE)

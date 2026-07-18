@@ -182,6 +182,10 @@
 #include "importexport/tabledit/tableditmodule.h"
 #endif
 
+#ifdef MUE_BUILD_FONTDESIGN_MODULE
+#include "fontdesign/fontdesignmodule.h"
+#endif
+
 #include "inspector/inspectormodule.h"
 
 #ifdef MUE_BUILD_INSTRUMENTSSCENE_MODULE
@@ -352,6 +356,9 @@ std::shared_ptr<muse::IApplication> AppFactory::newGuiApp(const CmdOptions& opti
     app->addModule(new mu::iex::tabledit::TablEditModule());
 #endif
 
+#ifdef MUE_BUILD_FONTDESIGN_MODULE
+    app->addModule(new mu::fontdesign::FontDesignModule());
+#endif
     app->addModule(new mu::inspector::InspectorModule());
     app->addModule(new mu::instrumentsscene::InstrumentsSceneModule());
     app->addModule(new muse::languages::LanguagesModule());

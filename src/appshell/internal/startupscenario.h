@@ -38,6 +38,7 @@
 #include "update/iupdatescenario.h"
 #include "musesounds/imusesoundscheckupdatescenario.h"
 #include "musesounds/imusesamplercheckupdatescenario.h"
+#include "fontdesign/ifontdesignservice.h"
 
 namespace mu::appshell {
 class StartupScenario : public IStartupScenario, public muse::Injectable, public muse::async::Asyncable
@@ -53,12 +54,17 @@ class StartupScenario : public IStartupScenario, public muse::Injectable, public
     muse::Inject<muse::update::IUpdateScenario> appUpdateScenario = { this };
     muse::Inject<mu::musesounds::IMuseSoundsCheckUpdateScenario> museSoundsUpdateScenario = { this };
     muse::Inject<musesounds::IMuseSamplerCheckUpdateScenario> museSamplerCheckForUpdateScenario = { this };
+    //! 弱依赖：fontdesign 模块关闭时解析为空，退回常规启动
+    muse::Inject<mu::fontdesign::IFontDesignService> fontDesignService = { this };
 
 public:
     StartupScenario(const muse::modularity::ContextPtr& iocCtx)
         : muse::Injectable(iocCtx) {}
 
     void setStartupType(const std::optional<std::string>& type) override;
+
+    void setStartupFontDesignFile(const std::optional<QString>& path) override;
+    bool tryStartupFontDesign();
 
     bool isStartWithNewFileAsSecondaryInstance() const override;
 
@@ -89,6 +95,7 @@ private:
 
     std::string m_startupTypeStr;
     project::ProjectFile m_startupScoreFile;
+    std::optional<QString> m_startupFontDesignFile;
     bool m_startupCompleted = false;
 
     bool m_updateChecksInProgress = false;

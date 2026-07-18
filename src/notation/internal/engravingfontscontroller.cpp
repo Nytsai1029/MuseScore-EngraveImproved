@@ -39,6 +39,11 @@ void EngravingFontsController::init()
     scanAllDirectories();
 }
 
+void EngravingFontsController::rescanFonts()
+{
+    scanAllDirectories();
+}
+
 void EngravingFontsController::scanAllDirectories() const
 {
     engravingFonts()->clearExternalFonts();

@@ -5,6 +5,7 @@
 
 #include "global/types/string.h"
 #include "draw/types/geometry.h"
+#include "io/path.h"
 
 #include "types/symid.h"
 #include "style/styledef.h"
@@ -25,6 +26,8 @@ public:
 
     virtual const std::string& name() const = 0;
     virtual const std::string& family() const = 0;
+    //! 字体文件路径（内置字体为 qrc 路径 ":/fonts/…"）；fontdesign 组合来源用
+    virtual const muse::io::path_t& fontPath() const = 0;
 
     // Misc
     virtual bool isValid(SymId id) const = 0;
