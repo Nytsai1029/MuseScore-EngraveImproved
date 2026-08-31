@@ -235,6 +235,21 @@ enum class Sid {
     stemLengthSmall,
     shortStemStartLocation,
     shortestStem,
+
+    // Custom stem lengths, used instead of the default shortening rules when
+    // useDefaultStemShorteningRules is off. One entry per half space, counted from the staff line
+    // nearest the stem tip (top line for stem up, bottom line for stem down) towards the staff.
+    useDefaultStemShorteningRules,
+    stemCustomLengthFirstLine,
+    stemCustomLengthFirstSpace,
+    stemCustomLengthSecondLine,
+    stemCustomLengthSecondSpace,
+    stemCustomLengthThirdLine,
+    stemCustomLengthThirdSpace,
+    stemCustomLengthFourthLine,
+    stemCustomLengthFourthSpace,
+    stemCustomLengthFifthLine,
+
     combineVoice,
     beginRepeatLeftMargin,
     minNoteDistance,

@@ -79,6 +79,26 @@ FocusableItem {
             navigationRowStart: root.navigationRowStart + 3
         }
 
+        SpinBoxPropertyView {
+            id: stemLengthSection
+            width: parent.width
+
+            // Actual drawn stem length. For a beamed stem the beam moves with it, since the
+            // stem has to reach the beam.
+            titleText: qsTrc("inspector", "Stem length")
+            propertyItem: root.stemModel ? root.stemModel.stemLength : null
+
+            minValue: 0
+            maxValue: 99
+            step: 0.25
+            decimals: 2
+            measureUnitsSymbol: qsTrc("global", "sp")
+
+            navigationName: "StemLength"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: stemDirectionGroup.navigationRowEnd + 1
+        }
+
         Column {
             width: parent.width
             spacing: 8
@@ -96,7 +116,7 @@ FocusableItem {
                 width: parent.width
                 height: 70
 
-                readonly property int navigationRowStart: stemDirectionGroup.navigationRowEnd + 1
+                readonly property int navigationRowStart: stemLengthSection.navigationRowEnd + 1
                 readonly property int navigationRowEnd: navigationRowStart + count
 
                 model: [

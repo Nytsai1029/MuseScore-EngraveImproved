@@ -81,6 +81,8 @@ public:
 
 private:
     static int stemLengthBeamAddition(const Chord* item, const LayoutContext& ctx);
+    static int calcCustomStemLength(const Chord* item, const LayoutContext& ctx, int staffLineCount, bool tabStaff);
+    static int hookStemLengthAddition(const Chord* item, const LayoutContext& ctx);
     static int maxReduction(const Chord* item, const LayoutContext& ctx, int extensionOutsideStaff);
     static int stemOpticalAdjustment(const Chord* item, int stemEndPosition);
     static int calcMinStemLength(Chord* item, const LayoutContext& ctx);

@@ -219,6 +219,19 @@ const std::array<StyleDef::StyleValue, size_t(Sid::STYLES)> StyleDef::styleValue
     styleDef(stemLengthSmall,                            PropertyValue(2.25)),
     styleDef(shortStemStartLocation,                     1),
     styleDef(shortestStem,                               PropertyValue(2.5)),
+
+    styleDef(useDefaultStemShorteningRules,              true),
+    // Defaults reproduce the lengths the default rules give an unbeamed note at each position
+    styleDef(stemCustomLengthFirstLine,                  PropertyValue(2.5)),
+    styleDef(stemCustomLengthFirstSpace,                 PropertyValue(2.5)),
+    styleDef(stemCustomLengthSecondLine,                 PropertyValue(2.5)),
+    styleDef(stemCustomLengthSecondSpace,                PropertyValue(2.75)),
+    styleDef(stemCustomLengthThirdLine,                  PropertyValue(3.0)),
+    styleDef(stemCustomLengthThirdSpace,                 PropertyValue(3.25)),
+    styleDef(stemCustomLengthFourthLine,                 PropertyValue(3.5)),
+    styleDef(stemCustomLengthFourthSpace,                PropertyValue(3.5)),
+    styleDef(stemCustomLengthFifthLine,                  PropertyValue(3.5)),
+
     styleDef(combineVoice,                               true),
     styleDef(beginRepeatLeftMargin,                      Spatium(1.0)),
     styleDef(minNoteDistance,                            Spatium(0.35)),

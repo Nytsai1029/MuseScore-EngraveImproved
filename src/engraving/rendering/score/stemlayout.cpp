@@ -21,6 +21,9 @@
  */
 
 #include "stemlayout.h"
+
+#include <array>
+
 #include "dom/chord.h"
 #include "dom/hook.h"
 #include "dom/note.h"
@@ -81,7 +84,27 @@ double StemLayout::calcDefaultStemLength(Chord* item, const LayoutContext& ctx)
                                      useWideBeams, !(item->isGrace() || item->isSmall()));
     int idealStemLength = defaultStemLength;
 
-    if (ldata->up) {
+    // Custom shortening: the length comes straight from the per-position table, so the reduction
+    // table and the shortest stem floor do not apply. The beam addition, the minimum lengths and
+    // the optical adjustment (within the same band as the default rules) still do.
+    int customStemLength = calcCustomStemLength(item, ctx, staffLineCount, tab != nullptr);
+
+    if (customStemLength > 0) {
+        idealStemLength = customStemLength + stemLengthBeamAddition(item, ctx);
+        int startLine = (ldata->up ? item->upLine() : item->downLine()) * quarterSpacesPerLine;
+        int stemEndPosition = ldata->up ? startLine - idealStemLength : startLine + idealStemLength;
+        double stemEndPositionMag = ldata->up
+                                    ? (double)startLine - (idealStemLength * item->intrinsicMag())
+                                    : (double)startLine + (idealStemLength * item->intrinsicMag());
+        int downShortStemStart = (staffLineCount - 1) * (2 * quarterSpacesPerLine) + shortStemStart;
+        bool inOpticalAdjustmentBand = ldata->up
+                                       ? (stemEndPositionMag > -shortStemStart && stemEndPosition <= middleLine)
+                                       : (stemEndPositionMag < downShortStemStart && stemEndPosition >= middleLine);
+        if (inOpticalAdjustmentBand) {
+            idealStemLength -= stemOpticalAdjustment(item, stemEndPosition);
+        }
+        stemLength = std::max({ idealStemLength, minStemLengthQuarterSpaces, hookStemLengthAddition(item, ctx) });
+    } else if (ldata->up) {
         int stemEndPosition = item->upLine() * quarterSpacesPerLine - defaultStemLength;
         double stemEndPositionMag = (double)item->upLine() * quarterSpacesPerLine - (defaultStemLength * item->intrinsicMag());
 
@@ -340,6 +363,77 @@ int StemLayout::stemLengthBeamAddition(const Chord* item, const LayoutContext& c
     }
 }
 
+//-----------------------------------------------------------------------------
+//   calcCustomStemLength
+///   Stem length in quarter spaces, read from the custom per-position table (the table is indexed
+///   by the distance, in half spaces, from the notehead the stem starts at to the staff line
+///   nearest the stem tip; noteheads past that line share the first entry).
+///   Returns 0 when the default rules apply instead: when they are switched on, on tab staves, and
+///   for noteheads past the staff line opposite the stem tip, where the stem is stretched towards
+///   the middle line rather than shortened.
+//-----------------------------------------------------------------------------
+int StemLayout::calcCustomStemLength(const Chord* item, const LayoutContext& ctx, int staffLineCount, bool tabStaff)
+{
+    const MStyle& style = ctx.conf().style();
+    if (style.styleB(Sid::useDefaultStemShorteningRules) || tabStaff) {
+        return 0;
+    }
+
+    static const std::array<Sid, 9> CUSTOM_LENGTH_SIDS { {
+        Sid::stemCustomLengthFirstLine,
+        Sid::stemCustomLengthFirstSpace,
+        Sid::stemCustomLengthSecondLine,
+        Sid::stemCustomLengthSecondSpace,
+        Sid::stemCustomLengthThirdLine,
+        Sid::stemCustomLengthThirdSpace,
+        Sid::stemCustomLengthFourthLine,
+        Sid::stemCustomLengthFourthSpace,
+        Sid::stemCustomLengthFifthLine
+    } };
+
+    int staffSpan = (staffLineCount - 1) * 2; // half spaces between the outermost staff lines
+    int position = item->ldata()->up ? item->upLine() : staffSpan - item->downLine();
+    if (position > staffSpan) {
+        return 0;
+    }
+
+    size_t index = std::min<int>(std::max(position, 0), int(CUSTOM_LENGTH_SIDS.size()) - 1);
+    return std::lround(style.styleD(CUSTOM_LENGTH_SIDS[index]) * 4.0);
+}
+
+//-----------------------------------------------------------------------------
+//   hookStemLengthAddition
+///   Quarter spaces of stem the chord's hook needs for itself, so that its lowest (highest) flag
+///   does not reach the notehead. Zero for chords without a hook.
+//-----------------------------------------------------------------------------
+int StemLayout::hookStemLengthAddition(const Chord* item, const LayoutContext& ctx)
+{
+    const Hook* hook = item->hook();
+    if (!hook) {
+        return 0;
+    }
+
+    bool straightFlags = ctx.conf().style().styleB(Sid::useStraightNoteFlags);
+    double smuflAnchor = hook->smuflAnchor().y() * (item->ldata()->up ? 1 : -1);
+    int hookOffset = floor((hook->height() / item->intrinsicMag() + smuflAnchor) / item->spatium() * 4)
+                     - (straightFlags ? 0 : 2);
+    // some fonts have hooks that extend very far down (making the height of the hook very large)
+    // so we constrain to a reasonable maximum for hook length
+    hookOffset = std::min(hookOffset, 11);
+    // TODO: when the SMuFL metadata includes a cutout for flags, replace this with that metadata
+    // https://github.com/w3c/smufl/issues/203
+    int cutout = item->ldata()->up ? 5 : 7;
+    if (straightFlags) {
+        // don't need cutout for straight flags (they are similar to beams)
+        cutout = 0;
+    } else if (item->beams() >= 2) {
+        // beams greater than two extend outwards and thus don't factor into the cutout
+        cutout -= 2;
+    }
+
+    return hookOffset - cutout;
+}
+
 int StemLayout::maxReduction(const Chord* item, const LayoutContext& ctx, int extensionOutsideStaff)
 {
     const MStyle& style = ctx.conf().style();
@@ -444,30 +538,11 @@ int StemLayout::calcMinStemLength(Chord* item, const LayoutContext& ctx)
         }
         minStemLength += (outSidePadding + std::max(noteSidePadding, outsideStaffOffset));
 
-        if (item->hook()) {
-            bool straightFlags = style.styleB(Sid::useStraightNoteFlags);
-            double smuflAnchor = item->hook()->smuflAnchor().y() * (ldata->up ? 1 : -1);
-            int hookOffset = floor((item->hook()->height() / item->intrinsicMag() + smuflAnchor) / spatium * 4) - (straightFlags ? 0 : 2);
-            // some fonts have hooks that extend very far down (making the height of the hook very large)
-            // so we constrain to a reasonable maximum for hook length
-            hookOffset = std::min(hookOffset, 11);
-            // TODO: when the SMuFL metadata includes a cutout for flags, replace this with that metadata
-            // https://github.com/w3c/smufl/issues/203
-            int cutout = ldata->up ? 5 : 7;
-            if (straightFlags) {
-                // don't need cutout for straight flags (they are similar to beams)
-                cutout = 0;
-            } else if (item->beams() >= 2) {
-                // beams greater than two extend outwards and thus don't factor into the cutout
-                cutout -= 2;
-            }
+        minStemLength += hookStemLengthAddition(item, ctx);
 
-            minStemLength += hookOffset - cutout;
-
-            // hooks with trems inside them no longer ceil (snap) to nearest 0.5sp.
-            // if we want to add that back in, here is the place to do it:
-            // minStemLength = ceil(minStemLength / 2.0) * 2;
-        }
+        // hooks with trems inside them no longer ceil (snap) to nearest 0.5sp.
+        // if we want to add that back in, here is the place to do it:
+        // minStemLength = ceil(minStemLength / 2.0) * 2;
     }
     if (item->beam() || item->tremoloTwoChord()) {
         int beamCount = calcBeamCount(item);

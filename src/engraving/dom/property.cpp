@@ -505,6 +505,8 @@ static constexpr PropertyMetaData propertyList[] = {
     { Pid::PAREN_START_Y_OFFSET,    false, "parenStartYOffset",     P_TYPE::SPATIUM,            PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "parenthesis top offset") },
     { Pid::PAREN_END_Y_OFFSET,      false, "parenEndYOffset",       P_TYPE::SPATIUM,            PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "parenthesis bottom offset") },
 
+    { Pid::STEM_LENGTH,             false, "stemLength",            P_TYPE::SPATIUM,            PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "stem length") },
+
     { Pid::END,                     false, "++end++",               P_TYPE::INT,                PropertyGroup::NONE,            "" }
 };
 /* *INDENT-ON* */

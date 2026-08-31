@@ -794,6 +794,20 @@ EditStyle::EditStyle(QWidget* parent)
     groupBox_noteFlags->layout()->addWidget(noteFlagsTypeSelector.widget);
 
     // ====================================================
+    // Stem length (QML)
+    // ====================================================
+
+    auto stemLengthSection = createQmlWidget(
+        groupBox_stemLength,
+        QUrl(QString::fromUtf8("qrc:/qml/MuseScore/NotationScene/internal/EditStyle/StemLengthSection.qml")));
+    // Diagram plus nine position rows: taller than a default group box slot. The section scrolls
+    // on its own (the mouse wheel does not reach the page scroll area through the QML window
+    // container), and takes any height the page has to spare.
+    stemLengthSection.widget->setMinimumSize(224, 420);
+    stemLengthSection.widget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    groupBox_stemLength->layout()->addWidget(stemLengthSection.widget);
+
+    // ====================================================
     // Rests (QML)
     // ====================================================
 

@@ -25,7 +25,17 @@ using namespace mu::notation;
 
 NotesPageModel::NotesPageModel(QObject* parent)
     : AbstractStyleDialogModel(parent, {
-    StyleId::useStraightNoteFlags
+    StyleId::useStraightNoteFlags,
+    StyleId::useDefaultStemShorteningRules,
+    StyleId::stemCustomLengthFirstLine,
+    StyleId::stemCustomLengthFirstSpace,
+    StyleId::stemCustomLengthSecondLine,
+    StyleId::stemCustomLengthSecondSpace,
+    StyleId::stemCustomLengthThirdLine,
+    StyleId::stemCustomLengthThirdSpace,
+    StyleId::stemCustomLengthFourthLine,
+    StyleId::stemCustomLengthFourthSpace,
+    StyleId::stemCustomLengthFifthLine
 })
 {
 }
@@ -33,4 +43,54 @@ NotesPageModel::NotesPageModel(QObject* parent)
 StyleItem* NotesPageModel::useStraightNoteFlags() const
 {
     return styleItem(StyleId::useStraightNoteFlags);
+}
+
+StyleItem* NotesPageModel::useDefaultStemShorteningRules() const
+{
+    return styleItem(StyleId::useDefaultStemShorteningRules);
+}
+
+StyleItem* NotesPageModel::stemCustomLengthFirstLine() const
+{
+    return styleItem(StyleId::stemCustomLengthFirstLine);
+}
+
+StyleItem* NotesPageModel::stemCustomLengthFirstSpace() const
+{
+    return styleItem(StyleId::stemCustomLengthFirstSpace);
+}
+
+StyleItem* NotesPageModel::stemCustomLengthSecondLine() const
+{
+    return styleItem(StyleId::stemCustomLengthSecondLine);
+}
+
+StyleItem* NotesPageModel::stemCustomLengthSecondSpace() const
+{
+    return styleItem(StyleId::stemCustomLengthSecondSpace);
+}
+
+StyleItem* NotesPageModel::stemCustomLengthThirdLine() const
+{
+    return styleItem(StyleId::stemCustomLengthThirdLine);
+}
+
+StyleItem* NotesPageModel::stemCustomLengthThirdSpace() const
+{
+    return styleItem(StyleId::stemCustomLengthThirdSpace);
+}
+
+StyleItem* NotesPageModel::stemCustomLengthFourthLine() const
+{
+    return styleItem(StyleId::stemCustomLengthFourthLine);
+}
+
+StyleItem* NotesPageModel::stemCustomLengthFourthSpace() const
+{
+    return styleItem(StyleId::stemCustomLengthFourthSpace);
+}
+
+StyleItem* NotesPageModel::stemCustomLengthFifthLine() const
+{
+    return styleItem(StyleId::stemCustomLengthFifthLine);
 }

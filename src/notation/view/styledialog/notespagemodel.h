@@ -31,10 +31,32 @@ class NotesPageModel : public AbstractStyleDialogModel
 
     Q_PROPERTY(StyleItem * useStraightNoteFlags READ useStraightNoteFlags CONSTANT)
 
+    Q_PROPERTY(StyleItem * useDefaultStemShorteningRules READ useDefaultStemShorteningRules CONSTANT)
+    Q_PROPERTY(StyleItem * stemCustomLengthFirstLine READ stemCustomLengthFirstLine CONSTANT)
+    Q_PROPERTY(StyleItem * stemCustomLengthFirstSpace READ stemCustomLengthFirstSpace CONSTANT)
+    Q_PROPERTY(StyleItem * stemCustomLengthSecondLine READ stemCustomLengthSecondLine CONSTANT)
+    Q_PROPERTY(StyleItem * stemCustomLengthSecondSpace READ stemCustomLengthSecondSpace CONSTANT)
+    Q_PROPERTY(StyleItem * stemCustomLengthThirdLine READ stemCustomLengthThirdLine CONSTANT)
+    Q_PROPERTY(StyleItem * stemCustomLengthThirdSpace READ stemCustomLengthThirdSpace CONSTANT)
+    Q_PROPERTY(StyleItem * stemCustomLengthFourthLine READ stemCustomLengthFourthLine CONSTANT)
+    Q_PROPERTY(StyleItem * stemCustomLengthFourthSpace READ stemCustomLengthFourthSpace CONSTANT)
+    Q_PROPERTY(StyleItem * stemCustomLengthFifthLine READ stemCustomLengthFifthLine CONSTANT)
+
 public:
     explicit NotesPageModel(QObject* parent = nullptr);
 
     StyleItem* useStraightNoteFlags() const;
+
+    StyleItem* useDefaultStemShorteningRules() const;
+    StyleItem* stemCustomLengthFirstLine() const;
+    StyleItem* stemCustomLengthFirstSpace() const;
+    StyleItem* stemCustomLengthSecondLine() const;
+    StyleItem* stemCustomLengthSecondSpace() const;
+    StyleItem* stemCustomLengthThirdLine() const;
+    StyleItem* stemCustomLengthThirdSpace() const;
+    StyleItem* stemCustomLengthFourthLine() const;
+    StyleItem* stemCustomLengthFourthSpace() const;
+    StyleItem* stemCustomLengthFifthLine() const;
 };
 }
 

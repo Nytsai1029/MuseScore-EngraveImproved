@@ -517,6 +517,8 @@ enum class Pid {
     PAREN_START_Y_OFFSET, // user offsets (sp) for the top/bottom end of a parenthesis
     PAREN_END_Y_OFFSET,
 
+    STEM_LENGTH, // computed: actual stem length (base + user length), for a Stem
+
     END
 };
 

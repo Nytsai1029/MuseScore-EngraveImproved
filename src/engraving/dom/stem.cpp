@@ -23,8 +23,10 @@
 
 #include <cmath>
 
+#include "beam.h"
 #include "chord.h"
 #include "hook.h"
+#include "note.h"
 
 #include "tremolosinglechord.h"
 
@@ -37,6 +39,27 @@ using namespace mu::engraving;
 static const ElementStyle stemStyle {
     { Sid::stemWidth, Pid::LINE_WIDTH }
 };
+
+//---------------------------------------------------------
+//   noteClusterSpreadSp
+//    Vertical distance (sp) between a chord's top and bottom noteheads.
+//    The stem attaches to the outermost note (farthest from its tip);
+//    subtracting this spread reports the stem length from the notehead
+//    nearest the tip instead. Zero for a single-note chord.
+//---------------------------------------------------------
+
+static double noteClusterSpreadSp(const Chord* chord)
+{
+    if (!chord) {
+        return 0.0;
+    }
+    const Note* upNote = chord->upNote();
+    const Note* downNote = chord->downNote();
+    if (!upNote || !downNote || upNote == downNote || chord->spatium() <= 0.0) {
+        return 0.0;
+    }
+    return std::abs(downNote->pos().y() - upNote->pos().y()) / chord->spatium();
+}
 
 Stem::Stem(Chord* parent)
     : EngravingItem(ElementType::STEM, parent)
@@ -149,6 +172,11 @@ PropertyValue Stem::getProperty(Pid propertyId) const
         return lineWidth();
     case Pid::USER_LEN:
         return userLength();
+    case Pid::STEM_LENGTH:
+        // Actual drawn length: the layout-computed base (which already reaches the beam,
+        // when there is one) plus the user adjustment. For a chord it is measured from the
+        // notehead nearest the stem tip, so the note cluster's spread is removed.
+        return Spatium((baseLength() + userLength()).val() - noteClusterSpreadSp(chord()));
     case Pid::STEM_DIRECTION:
         return PropertyValue::fromValue<DirectionV>(chord()->stemDirection());
     case Pid::APPEARANCE_LINKED_TO_MASTER:
@@ -188,6 +216,17 @@ PropertyValue Stem::propertyDefault(Pid id) const
     switch (id) {
     case Pid::USER_LEN:
         return 0.0;
+    case Pid::STEM_LENGTH: {
+        // Automatic length is the base with the user adjustment removed (still measured from
+        // the notehead nearest the tip). For a beamed stem whose beam was positioned by hand
+        // the automatic length is not recoverable here, so report no value: that marks the
+        // inspector field as modified, enabling its reset.
+        const Beam* beam = chord() ? chord()->beam() : nullptr;
+        if (beam && beam->userModified()) {
+            return PropertyValue();
+        }
+        return Spatium(baseLength().val() - noteClusterSpreadSp(chord()));
+    }
     case Pid::STEM_DIRECTION:
         return PropertyValue::fromValue<DirectionV>(DirectionV::AUTO);
     default:

@@ -31,6 +31,7 @@ class StemSettingsModel : public AbstractInspectorModel
 
     Q_PROPERTY(PropertyItem * thickness READ thickness CONSTANT)
     Q_PROPERTY(PropertyItem * length READ length CONSTANT)
+    Q_PROPERTY(PropertyItem * stemLength READ stemLength CONSTANT)
     Q_PROPERTY(PropertyItem * offset READ offset CONSTANT)
     Q_PROPERTY(PropertyItem * stemDirection READ stemDirection CONSTANT)
 
@@ -41,6 +42,7 @@ public:
 
     PropertyItem* thickness() const;
     PropertyItem* length() const;
+    PropertyItem* stemLength() const;
 
     PropertyItem* offset() const;
     PropertyItem* stemDirection() const;
@@ -63,8 +65,11 @@ private:
 
     void loadProperties(const mu::engraving::PropertyIdSet& propertyIdSet);
 
+    void applyStemLength(const QVariant& newValue);
+
     PropertyItem* m_thickness = nullptr;
     PropertyItem* m_length = nullptr;
+    PropertyItem* m_stemLength = nullptr;
     PointFPropertyItem* m_offset = nullptr;
     PropertyItem* m_stemDirection = nullptr;
 };
