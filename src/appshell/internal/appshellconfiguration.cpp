@@ -302,6 +302,12 @@ void AppShellConfiguration::rollbackSettings()
 void AppShellConfiguration::revertToFactorySettings(bool keepDefaultSettings, bool notifyAboutChanges, bool notifyOtherInstances) const
 {
     settings()->reset(keepDefaultSettings, notifyAboutChanges, notifyOtherInstances);
+    m_factorySettingsReverted.notify();
+}
+
+muse::async::Notification AppShellConfiguration::factorySettingsReverted() const
+{
+    return m_factorySettingsReverted;
 }
 
 muse::io::paths_t AppShellConfiguration::sessionProjectsPaths() const

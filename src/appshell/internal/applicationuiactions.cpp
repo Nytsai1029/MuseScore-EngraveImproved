@@ -91,6 +91,12 @@ const UiActionList ApplicationUiActions::m_actions = {
              mu::context::CTX_ANY,
              TranslatableString("action", "Accessibility &statement")
              ),
+    UiAction("usage-statistics",
+             mu::context::UiCtxAny,
+             mu::context::CTX_ANY,
+             TranslatableString("action", "Usage &statistics…"),
+             TranslatableString("action", "Usage statistics…")
+             ),
     UiAction("revert-factory",
              mu::context::UiCtxAny,
              mu::context::CTX_ANY,

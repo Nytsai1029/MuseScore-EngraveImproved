@@ -63,6 +63,7 @@ void ApplicationActionController::init()
     dispatcher()->reg(this, "about-musescore", this, &ApplicationActionController::openAboutDialog);
     dispatcher()->reg(this, "about-qt", this, &ApplicationActionController::openAboutQtDialog);
     dispatcher()->reg(this, "about-musicxml", this, &ApplicationActionController::openAboutMusicXMLDialog);
+    dispatcher()->reg(this, "usage-statistics", this, &ApplicationActionController::openUsageStatisticsDialog);
     dispatcher()->reg(this, "online-handbook", this, &ApplicationActionController::openOnlineHandbookPage);
     dispatcher()->reg(this, "ask-help", this, &ApplicationActionController::openAskForHelpPage);
     dispatcher()->reg(this, "accessibility-statement", this, &ApplicationActionController::openAccessibilityStatementPage);
@@ -273,6 +274,11 @@ void ApplicationActionController::openAboutMusicXMLDialog()
     interactive()->open("musescore://about/musicxml");
 }
 
+void ApplicationActionController::openUsageStatisticsDialog()
+{
+    interactive()->open("musescore://usage-statistics");
+}
+
 void ApplicationActionController::openOnlineHandbookPage()
 {
     std::string handbookUrl = configuration()->handbookUrl();
@@ -324,7 +330,7 @@ void ApplicationActionController::revertToFactorySettings()
 {
     std::string title = muse::trc("appshell", "Are you sure you want to revert to factory settings?");
     std::string question = muse::trc("appshell", "This action will reset all your app preferences and delete all custom palettes and custom shortcuts. "
-                                                 "The list of recent scores will also be cleared.\n\n"
+                                                 "The list of recent scores and usage statistics will also be cleared.\n\n"
                                                  "This action will not delete any of your scores.");
 
     IInteractive::ButtonData cancelBtn = interactive()->buttonData(IInteractive::Button::Cancel);

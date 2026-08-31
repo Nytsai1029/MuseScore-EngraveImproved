@@ -32,6 +32,7 @@ class ApplicationActionController;
 class ApplicationUiActions;
 class AppShellConfiguration;
 class SessionsManager;
+class UsageStatistics;
 #if QT_VERSION < QT_VERSION_CHECK(6, 9, 0) && defined(Q_OS_MAC)
 class MacOSScrollingHook;
 #endif
@@ -57,6 +58,7 @@ private:
     std::shared_ptr<ApplicationUiActions> m_applicationUiActions;
     std::shared_ptr<AppShellConfiguration> m_appShellConfiguration;
     std::shared_ptr<SessionsManager> m_sessionsManager;
+    std::shared_ptr<UsageStatistics> m_usageStatistics;
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 9, 0) && defined(Q_OS_MAC)
     std::shared_ptr<MacOSScrollingHook> m_scrollingHook;

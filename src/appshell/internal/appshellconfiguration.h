@@ -108,6 +108,7 @@ public:
 
     void revertToFactorySettings(bool keepDefaultSettings = false, bool notifyAboutChanges = true,
                                  bool notifyOtherInstances = true) const override;
+    muse::async::Notification factorySettingsReverted() const override;
 
     muse::io::paths_t sessionProjectsPaths() const override;
     muse::Ret setSessionProjectsPaths(const muse::io::paths_t& paths) override;
@@ -131,6 +132,7 @@ private:
 
     muse::async::Notification m_startupModeTypeChanged;
     muse::async::Notification m_startupScorePathChanged;
+    mutable muse::async::Notification m_factorySettingsReverted;
 };
 }
 

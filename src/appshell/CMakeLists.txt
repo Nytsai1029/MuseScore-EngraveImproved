@@ -27,11 +27,16 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/appshellmodule.cpp
     ${CMAKE_CURRENT_LIST_DIR}/appshellmodule.h
     ${CMAKE_CURRENT_LIST_DIR}/iappshellconfiguration.h
+    ${CMAKE_CURRENT_LIST_DIR}/iusagestatistics.h
     ${CMAKE_CURRENT_LIST_DIR}/appshelltypes.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/applicationuiactions.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/applicationuiactions.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/appshellconfiguration.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/appshellconfiguration.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/usagestatistics.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/usagestatistics.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/usagestatisticsdata.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/usagestatisticsdata.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/applicationactioncontroller.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/applicationactioncontroller.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/istartupscenario.h
@@ -52,6 +57,8 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/view/notationstatusbarmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/aboutmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/aboutmodel.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/usagestatisticsmodel.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/usagestatisticsmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/welcomedialogmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/welcomedialogmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/firstlaunchsetup/firstlaunchsetupmodel.cpp
@@ -148,3 +155,7 @@ if (QT_SUPPORT)
 endif()
 
 setup_module()
+
+if (MUE_BUILD_APPSHELL_TESTS AND MUSE_ENABLE_UNIT_TESTS)
+    add_subdirectory(tests)
+endif()

@@ -96,6 +96,7 @@ private:
     void openAboutDialog();
     void openAboutQtDialog();
     void openAboutMusicXMLDialog();
+    void openUsageStatisticsDialog();
 
     void openOnlineHandbookPage();
     void openAskForHelpPage();

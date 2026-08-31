@@ -461,6 +461,9 @@ MenuItem* AppMenuModel::makeHelpMenu(bool addDiagnosticsSubMenu)
         helpItems << makeSeparator();
     }
 
+    helpItems << makeMenuItem("usage-statistics");
+    helpItems << makeSeparator();
+
     helpItems << makeMenuItem("about-musescore", MenuItemRole::AboutRole);
     helpItems << makeMenuItem("about-qt", MenuItemRole::AboutQtRole);
     helpItems << makeMenuItem("about-musicxml");
