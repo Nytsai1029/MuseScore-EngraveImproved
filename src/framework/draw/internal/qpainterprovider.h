@@ -31,10 +31,10 @@ class DrawObjectsLogger;
 class QPainterProvider : public IPaintProvider
 {
 public:
-    QPainterProvider(QPainter* painter, bool ownsPainter = false);
+    QPainterProvider(QPainter* painter, bool ownsPainter = false, bool drawTextAsPath = false);
     ~QPainterProvider();
 
-    static IPaintProviderPtr make(QPaintDevice* dp);
+    static IPaintProviderPtr make(QPaintDevice* dp, bool drawTextAsPath = false);
     static IPaintProviderPtr make(QPainter* qp, bool ownsPainter = false);
 
     QPainter* qpainter() const;
@@ -95,6 +95,7 @@ protected:
 
 private:
     bool m_ownsPainter = false;
+    bool m_drawTextAsPath = false;
     DrawObjectsLogger* m_drawObjectsLogger = nullptr;
     Font m_font;
     Pen m_pen;

@@ -426,6 +426,21 @@ void ExportDialogModel::setPdfTransparentBackground(const bool& transparent)
     emit pdfTransparentBackgroundChanged(transparent);
 }
 
+bool ExportDialogModel::pdfVectorizeText() const
+{
+    return imageExportConfiguration()->exportPdfWithVectorizedText();
+}
+
+void ExportDialogModel::setPdfVectorizeText(bool vectorized)
+{
+    if (vectorized == pdfVectorizeText()) {
+        return;
+    }
+
+    imageExportConfiguration()->setExportPdfWithVectorizedText(vectorized);
+    emit pdfVectorizeTextChanged(vectorized);
+}
+
 int ExportDialogModel::pngResolution() const
 {
     return imageExportConfiguration()->exportPngDpiResolution();

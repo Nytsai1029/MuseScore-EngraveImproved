@@ -70,4 +70,20 @@ ExportSettingsPage {
             root.model.pdfTransparentBackground = !checked
         }
     }
+
+    CheckBox {
+        width: parent.width
+        //: Convert text and music symbols to vector paths instead of embedding font subsets in the PDF.
+        text: qsTrc("project/export", "Vectorize text")
+
+        navigation.name: "VectorizeTextCheckbox"
+        navigation.panel: root.navigationPanel
+        navigation.row: root.navigationOrder + 3
+
+        checked: root.model.pdfVectorizeText
+
+        onClicked: {
+            root.model.pdfVectorizeText = !checked
+        }
+    }
 }

@@ -44,10 +44,15 @@ namespace muse::draw {
 class Painter
 {
 public:
+    enum class TextDrawingMode {
+        Native,
+        Paths
+    };
+
     Painter(IPaintProviderPtr provider, const std::string& name);
 
 #ifndef NO_QT_SUPPORT
-    Painter(QPaintDevice* dp, const std::string& name);
+    Painter(QPaintDevice* dp, const std::string& name, TextDrawingMode textDrawingMode = TextDrawingMode::Native);
     Painter(QPainter* qp, const std::string& name, bool ownsQPainter = false);
 #endif
 

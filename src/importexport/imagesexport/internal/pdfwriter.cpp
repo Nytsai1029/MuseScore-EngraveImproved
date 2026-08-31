@@ -60,7 +60,10 @@ Ret PdfWriter::write(INotationPtr notation, io::IODevice& destinationDevice, con
     QPdfWriter pdfWriter(&buf);
     preparePdfWriter(pdfWriter, notation->projectWorkTitleAndPartName(), notation->painting()->pageSizeInch().toQSizeF());
 
-    Painter painter(&pdfWriter, "pdfwriter");
+    const Painter::TextDrawingMode textDrawingMode = configuration()->exportPdfWithVectorizedText()
+                                                     ? Painter::TextDrawingMode::Paths
+                                                     : Painter::TextDrawingMode::Native;
+    Painter painter(&pdfWriter, "pdfwriter", textDrawingMode);
     if (!painter.isActive()) {
         return false;
     }
@@ -112,7 +115,10 @@ Ret PdfWriter::writeList(const INotationPtrList& notations, io::IODevice& destin
     QPdfWriter pdfWriter(&buf);
     preparePdfWriter(pdfWriter, firstNotation->projectWorkTitle(), firstNotation->painting()->pageSizeInch().toQSizeF());
 
-    Painter painter(&pdfWriter, "pdfwriter");
+    const Painter::TextDrawingMode textDrawingMode = configuration()->exportPdfWithVectorizedText()
+                                                     ? Painter::TextDrawingMode::Paths
+                                                     : Painter::TextDrawingMode::Native;
+    Painter painter(&pdfWriter, "pdfwriter", textDrawingMode);
     if (!painter.isActive()) {
         return false;
     }

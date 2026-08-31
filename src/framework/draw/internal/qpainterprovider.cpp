@@ -32,6 +32,7 @@
 #include <QStaticText>
 #include <QTextLayout>
 #include <QTextLine>
+#include <QTextOption>
 
 #include "draw/utils/drawlogger.h"
 #include "types/transform.h"
@@ -171,9 +172,74 @@ void drawTextPath(QPainter* painter, const QPainterPath& path)
 void drawTextAsPath(QPainter* painter, const QPointF& point, const QString& text)
 {
     QPainterPath path;
+    path.setFillRule(Qt::WindingFill);
     path.addText(point, painter->font(), text);
 
     drawTextPath(painter, path);
+}
+
+struct TextPathLine {
+    QString text;
+    double width = 0.0;
+};
+
+std::vector<TextPathLine> textPathLines(QPainter* painter, const QRectF& rect, int flags, const QString& text)
+{
+    QString normalizedText = text;
+    normalizedText.replace("\r\n", "\n");
+    normalizedText.replace('\r', '\n');
+
+    if (flags & TextSingleLine) {
+        normalizedText.replace('\n', ' ');
+    }
+
+    if (flags & TextExpandTabs) {
+        normalizedText.replace("\t", "        ");
+    }
+
+    const QFontMetricsF fontMetrics(painter->font());
+    std::vector<TextPathLine> result;
+
+    if (!(flags & (TextWordWrap | TextWrapAnywhere))) {
+        const QStringList lines = normalizedText.split('\n');
+        result.reserve(lines.size());
+        for (const QString& line : lines) {
+            result.push_back({ line, fontMetrics.horizontalAdvance(line) });
+        }
+        return result;
+    }
+
+    const QTextOption::WrapMode wrapMode = flags & TextWrapAnywhere
+                                           ? QTextOption::WrapAnywhere
+                                           : QTextOption::WordWrap;
+
+    const QStringList paragraphs = normalizedText.split('\n');
+    for (const QString& paragraph : paragraphs) {
+        if (paragraph.isEmpty()) {
+            result.push_back({});
+            continue;
+        }
+
+        QTextLayout textLayout(paragraph, painter->font(), painter->device());
+        QTextOption textOption = textLayout.textOption();
+        textOption.setUseDesignMetrics(true);
+        textOption.setWrapMode(wrapMode);
+        textLayout.setTextOption(textOption);
+
+        textLayout.beginLayout();
+        while (true) {
+            QTextLine line = textLayout.createLine();
+            if (!line.isValid()) {
+                break;
+            }
+
+            line.setLineWidth(rect.width());
+            result.push_back({ paragraph.mid(line.textStart(), line.textLength()), line.naturalTextWidth() });
+        }
+        textLayout.endLayout();
+    }
+
+    return result;
 }
 
 QPointF alignedTextPoint(const QRectF& rect, int flags, double lineWidth, double textHeight,
@@ -198,16 +264,8 @@ QPointF alignedTextPoint(const QRectF& rect, int flags, double lineWidth, double
 
 void drawTextAsPath(QPainter* painter, const QRectF& rect, int flags, const QString& text)
 {
-    if (flags & (TextWordWrap | TextWrapAnywhere)) {
-        painter->drawText(rect, flags, text);
-        return;
-    }
-
     const QFontMetricsF fontMetrics(painter->font());
-    QString normalizedText = text;
-    normalizedText.replace("\r\n", "\n");
-    normalizedText.replace('\r', '\n');
-    const QStringList lines = normalizedText.split('\n');
+    const std::vector<TextPathLine> lines = textPathLines(painter, rect, flags, text);
 
     double textHeight = 0.0;
     if (!lines.empty()) {
@@ -215,12 +273,12 @@ void drawTextAsPath(QPainter* painter, const QRectF& rect, int flags, const QStr
     }
 
     QPainterPath path;
+    path.setFillRule(Qt::WindingFill);
     double y = alignedTextPoint(rect, flags, 0.0, textHeight, fontMetrics).y();
-    for (const QString& line : lines) {
-        const double lineWidth = fontMetrics.horizontalAdvance(line);
-        QPointF point = alignedTextPoint(rect, flags, lineWidth, textHeight, fontMetrics);
+    for (const TextPathLine& line : lines) {
+        QPointF point = alignedTextPoint(rect, flags, line.width, textHeight, fontMetrics);
         point.setY(y);
-        path.addText(point, painter->font(), line);
+        path.addText(point, painter->font(), line.text);
         y += fontMetrics.lineSpacing();
     }
 
@@ -245,29 +303,39 @@ void setSyntheticItalicBaseFont(QPainter* painter, bool bold)
     painter->setFont(qfont);
 }
 
-void drawTextWithSyntheticItalic(QPainter* painter, const QPointF& point, const QString& text, bool bold)
+void drawTextWithSyntheticItalic(QPainter* painter, const QPointF& point, const QString& text, bool bold, bool asPath)
 {
     painter->save();
     setSyntheticItalicBaseFont(painter, bold);
     painter->translate(point);
     painter->shear(-0.25, 0.0);
-    painter->drawText(QPointF(0.0, 0.0), text);
+    if (asPath) {
+        drawTextAsPath(painter, QPointF(0.0, 0.0), text);
+    } else {
+        painter->drawText(QPointF(0.0, 0.0), text);
+    }
     painter->restore();
 }
 
-void drawTextWithSyntheticItalic(QPainter* painter, const QRectF& rect, int flags, const QString& text, bool bold)
+void drawTextWithSyntheticItalic(QPainter* painter, const QRectF& rect, int flags, const QString& text, bool bold, bool asPath)
 {
     painter->save();
     setSyntheticItalicBaseFont(painter, bold);
     painter->translate(rect.topLeft());
     painter->shear(-0.25, 0.0);
-    painter->drawText(QRectF(QPointF(0.0, 0.0), rect.size()), flags, text);
+    const QRectF translatedRect(QPointF(0.0, 0.0), rect.size());
+    if (asPath) {
+        drawTextAsPath(painter, translatedRect, flags, text);
+    } else {
+        painter->drawText(translatedRect, flags, text);
+    }
     painter->restore();
 }
 }
 
-QPainterProvider::QPainterProvider(QPainter* painter, bool ownsPainter)
-    : m_painter(painter), m_ownsPainter(ownsPainter), m_drawObjectsLogger(new DrawObjectsLogger())
+QPainterProvider::QPainterProvider(QPainter* painter, bool ownsPainter, bool drawTextAsPath)
+    : m_painter(painter), m_ownsPainter(ownsPainter), m_drawTextAsPath(drawTextAsPath),
+    m_drawObjectsLogger(new DrawObjectsLogger())
 {
     if (painter->isActive()) {
         m_font = Font::fromQFont(m_painter->font(), Font::Type::Undefined);
@@ -286,9 +354,9 @@ QPainterProvider::~QPainterProvider()
     delete m_drawObjectsLogger;
 }
 
-IPaintProviderPtr QPainterProvider::make(QPaintDevice* dp)
+IPaintProviderPtr QPainterProvider::make(QPaintDevice* dp, bool drawTextAsPath)
 {
-    return std::make_shared<QPainterProvider>(new QPainter(dp), true);
+    return std::make_shared<QPainterProvider>(new QPainter(dp), true, drawTextAsPath);
 }
 
 IPaintProviderPtr QPainterProvider::make(QPainter* qp, bool ownsPainter)
@@ -462,14 +530,24 @@ void QPainterProvider::drawText(const PointF& point, const String& text)
 {
     QPointF p = point.toQPointF();
     QString t = text.toQString();
+    const bool needsSyntheticItalic = isPdfPainter(m_painter) && needsSyntheticPdfItalic(m_font, m_painter->font());
+
+    if (m_drawTextAsPath) {
+        if (needsSyntheticItalic) {
+            drawTextWithSyntheticItalic(m_painter, p, t, m_font.bold(), true);
+        } else {
+            drawTextAsPath(m_painter, p, t);
+        }
+        return;
+    }
 
     if (isPdfPainter(m_painter) && needsPdfRegularPathWorkaround(m_font, m_painter->font())) {
         drawTextAsPath(m_painter, p, t);
         return;
     }
 
-    if (isPdfPainter(m_painter) && needsSyntheticPdfItalic(m_font, m_painter->font())) {
-        drawTextWithSyntheticItalic(m_painter, p, t, m_font.bold());
+    if (needsSyntheticItalic) {
+        drawTextWithSyntheticItalic(m_painter, p, t, m_font.bold(), false);
         return;
     }
 
@@ -480,14 +558,24 @@ void QPainterProvider::drawText(const RectF& rect, int flags, const String& text
 {
     QRectF r = rect.toQRectF();
     QString t = text.toQString();
+    const bool needsSyntheticItalic = isPdfPainter(m_painter) && needsSyntheticPdfItalic(m_font, m_painter->font());
+
+    if (m_drawTextAsPath) {
+        if (needsSyntheticItalic) {
+            drawTextWithSyntheticItalic(m_painter, r, flags, t, m_font.bold(), true);
+        } else {
+            drawTextAsPath(m_painter, r, flags, t);
+        }
+        return;
+    }
 
     if (isPdfPainter(m_painter) && needsPdfRegularPathWorkaround(m_font, m_painter->font())) {
         drawTextAsPath(m_painter, r, flags, t);
         return;
     }
 
-    if (isPdfPainter(m_painter) && needsSyntheticPdfItalic(m_font, m_painter->font())) {
-        drawTextWithSyntheticItalic(m_painter, r, flags, t, m_font.bold());
+    if (needsSyntheticItalic) {
+        drawTextWithSyntheticItalic(m_painter, r, flags, t, m_font.bold(), false);
         return;
     }
 
@@ -496,6 +584,18 @@ void QPainterProvider::drawText(const RectF& rect, int flags, const String& text
 
 void QPainterProvider::drawTextWorkaround(const Font& f, const PointF& pos, const String& text)
 {
+    if (m_drawTextAsPath) {
+        m_painter->save();
+        m_painter->setFont(f.toQFont());
+        if (isPdfPainter(m_painter) && needsSyntheticPdfItalic(f, m_painter->font())) {
+            drawTextWithSyntheticItalic(m_painter, pos.toQPointF(), text.toQString(), f.bold(), true);
+        } else {
+            drawTextAsPath(m_painter, pos.toQPointF(), text.toQString());
+        }
+        m_painter->restore();
+        return;
+    }
+
     m_painter->save();
     double mm = m_painter->worldTransform().m11();
     double dx = m_painter->worldTransform().dx();

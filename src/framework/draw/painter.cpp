@@ -43,10 +43,10 @@ Painter::Painter(IPaintProviderPtr provider, const std::string& name)
 }
 
 #ifndef NO_QT_SUPPORT
-Painter::Painter(QPaintDevice* dp, const std::string& name)
+Painter::Painter(QPaintDevice* dp, const std::string& name, TextDrawingMode textDrawingMode)
     : m_name(name)
 {
-    m_provider = QPainterProvider::make(dp);
+    m_provider = QPainterProvider::make(dp, textDrawingMode == TextDrawingMode::Paths);
     init();
 }
 

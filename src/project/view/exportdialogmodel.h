@@ -69,6 +69,7 @@ class ExportDialogModel : public QAbstractListModel, public muse::async::Asyncab
     Q_PROPERTY(int pdfResolution READ pdfResolution WRITE setPdfResolution NOTIFY pdfResolutionChanged)
     Q_PROPERTY(
         bool pdfTransparentBackground READ pdfTransparentBackground WRITE setPdfTransparentBackground NOTIFY pdfTransparentBackgroundChanged)
+    Q_PROPERTY(bool pdfVectorizeText READ pdfVectorizeText WRITE setPdfVectorizeText NOTIFY pdfVectorizeTextChanged)
 
     Q_PROPERTY(int pngResolution READ pngResolution WRITE setPngResolution NOTIFY pngResolutionChanged)
     Q_PROPERTY(
@@ -124,6 +125,9 @@ public:
 
     bool pdfTransparentBackground() const;
     void setPdfTransparentBackground(const bool& transparent);
+
+    bool pdfVectorizeText() const;
+    void setPdfVectorizeText(bool vectorized);
 
     int pngResolution() const;
     void setPngResolution(const int& resolution);
@@ -182,6 +186,7 @@ signals:
 
     void pdfResolutionChanged(int resolution);
     void pdfTransparentBackgroundChanged(bool transparent);
+    void pdfVectorizeTextChanged(bool vectorized);
 
     void pngResolutionChanged(int resolution);
     void pngTransparentBackgroundChanged(bool transparent);

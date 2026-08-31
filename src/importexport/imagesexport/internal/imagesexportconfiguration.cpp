@@ -31,6 +31,7 @@ using namespace mu::iex::imagesexport;
 
 static const Settings::Key EXPORT_PDF_DPI_RESOLUTION_KEY("iex_imagesexport", "export/pdf/dpi");
 static const Settings::Key EXPORT_PDF_USE_TRANSPARENCY_KEY("iex_imagesexport", "export/pdf/useTransparency");
+static const Settings::Key EXPORT_PDF_VECTORIZE_TEXT_KEY("iex_imagesexport", "export/pdf/vectorizeText");
 static const Settings::Key EXPORT_PNG_DPI_RESOLUTION_KEY("iex_imagesexport", "export/png/resolution");
 static const Settings::Key EXPORT_PNG_USE_TRANSPARENCY_KEY("iex_imagesexport", "export/png/useTransparency");
 static const Settings::Key EXPORT_SVG_USE_TRANSPARENCY_KEY("iex_imagesexport", "export/svg/useTransparency");
@@ -40,6 +41,7 @@ void ImagesExportConfiguration::init()
 {
     settings()->setDefaultValue(EXPORT_PNG_DPI_RESOLUTION_KEY, Val(mu::engraving::DPI));
     settings()->setDefaultValue(EXPORT_PDF_DPI_RESOLUTION_KEY, Val(mu::engraving::DPI));
+    settings()->setDefaultValue(EXPORT_PDF_VECTORIZE_TEXT_KEY, Val(false));
     settings()->setDefaultValue(EXPORT_PNG_USE_TRANSPARENCY_KEY, Val(false));
     settings()->setDefaultValue(EXPORT_SVG_ILLUSTRATOR_COMPAT, Val(false));
 }
@@ -62,6 +64,16 @@ bool ImagesExportConfiguration::exportPdfWithTransparentBackground() const
 void ImagesExportConfiguration::setExportPdfWithTransparentBackground(bool transparent)
 {
     settings()->setSharedValue(EXPORT_PDF_USE_TRANSPARENCY_KEY, Val(transparent));
+}
+
+bool ImagesExportConfiguration::exportPdfWithVectorizedText() const
+{
+    return settings()->value(EXPORT_PDF_VECTORIZE_TEXT_KEY).toBool();
+}
+
+void ImagesExportConfiguration::setExportPdfWithVectorizedText(bool vectorized)
+{
+    settings()->setSharedValue(EXPORT_PDF_VECTORIZE_TEXT_KEY, Val(vectorized));
 }
 
 float ImagesExportConfiguration::exportPngDpiResolution() const
