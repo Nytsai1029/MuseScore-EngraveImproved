@@ -127,5 +127,6 @@ including a sibling module's internals directly.
 - **Before every commit, check and commit i18n.** If the change adds, edits, or removes any user-facing
   string, run `bash tools/translations/run_lupdate.sh`, fix any postprocess errors, and stage the regenerated
   `share/locale/musescore_en.ts` in the **same** commit as the code (see *Translations (i18n)* above).
-- **Do not add a `Co-Authored-By: Claude` (or any Claude/Anthropic) trailer to commit messages.** Commits
-  should be attributed to the maintainer only.
+- **Do not add any AI `Co-Authored-By` / `Co-authored-by` trailer to commit messages.** This includes
+  Claude, Anthropic, Cursor, and any other assistant. Commits should be attributed to the maintainer
+  only. If a tool injects such a trailer, strip it before the commit is finished.
