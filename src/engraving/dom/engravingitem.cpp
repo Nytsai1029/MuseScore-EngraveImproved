@@ -2324,6 +2324,42 @@ std::vector<LineF> EngravingItem::genericDragAnchorLines() const
     return { anchorLine };
 }
 
+PointF EngravingItem::canvasPosFromPagePos(const PointF& pagePoint) const
+{
+    return pagePoint - pagePos() + canvasPos();
+}
+
+std::vector<LineF> EngravingItem::alignmentGuideLinesFromCanvasOrigin(const PointF& origin) const
+{
+    RectF spanRect;
+    if (const Page* page = toPage(findAncestor(ElementType::PAGE))) {
+        spanRect = page->canvasBoundingRect();
+    } else {
+        const double pad = spatium() * 8.0;
+        spanRect = RectF(origin.x() - pad, origin.y() - pad, pad * 2.0, pad * 2.0);
+    }
+
+    return {
+        LineF(PointF(spanRect.left(), origin.y()), PointF(spanRect.right(), origin.y())),
+        LineF(PointF(origin.x(), spanRect.top()), PointF(origin.x(), spanRect.bottom()))
+    };
+}
+
+std::vector<LineF> EngravingItem::alignmentGuideLinesFromGrip(Grip grip) const
+{
+    if (grip == Grip::NO_GRIP) {
+        grip = defaultGrip();
+    }
+
+    const std::vector<PointF> grips = gripsPositions();
+    const int idx = int(grip);
+    if (idx < 0 || idx >= int(grips.size())) {
+        return {};
+    }
+
+    return alignmentGuideLinesFromCanvasOrigin(canvasPosFromPagePos(grips.at(size_t(idx))));
+}
+
 //---------------------------------------------------------
 //   updateGrips
 //---------------------------------------------------------

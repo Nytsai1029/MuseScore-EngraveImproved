@@ -123,6 +123,9 @@ public:
     Grip defaultGrip() const override { return Grip::DRAG; }
     std::vector<PointF> gripsPositions(const EditData& = EditData()) const override;
 
+    std::vector<LineF> dragAlignmentGuideLines() const override;
+    std::vector<LineF> gripAlignmentGuideLines(Grip grip) const override;
+
     virtual bool isUserModified() const override;
 
     virtual double endWidth() const = 0;

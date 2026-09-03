@@ -3420,11 +3420,18 @@ void NotationInteraction::doFinishAddFretboardDiagram()
 void NotationInteraction::setAnchorLines(const std::vector<LineF>& anchorList)
 {
     m_anchorLines = anchorList;
+    m_alignmentGuideLines.clear();
+}
+
+void NotationInteraction::setAlignmentGuideLines(const std::vector<LineF>& lines)
+{
+    m_alignmentGuideLines = lines;
 }
 
 void NotationInteraction::resetAnchorLines()
 {
     m_anchorLines.clear();
+    m_alignmentGuideLines.clear();
 }
 
 double NotationInteraction::currentScaling(Painter* painter) const
@@ -3561,26 +3568,49 @@ void NotationInteraction::drawInputPreview(Painter* painter)
 
 void NotationInteraction::drawAnchorLines(Painter* painter)
 {
-    if (m_anchorLines.empty()) {
+    if (!m_anchorLines.empty()) {
+        const auto dropAnchorColor = score()->configuration()->formattingColor();
+        Pen pen(dropAnchorColor, 2.0 / currentScaling(painter), PenStyle::DotLine);
+
+        for (const LineF& anchor : m_anchorLines) {
+            painter->setPen(pen);
+            painter->drawLine(anchor);
+
+            qreal d = 4.0 / currentScaling(painter);
+            RectF rect(-d, -d, 2 * d, 2 * d);
+
+            painter->setBrush(Brush(dropAnchorColor));
+            painter->setNoPen();
+            rect.moveCenter(anchor.p1());
+            painter->drawEllipse(rect);
+            rect.moveCenter(anchor.p2());
+            painter->drawEllipse(rect);
+        }
+    }
+
+    drawAlignmentGuideLines(painter);
+}
+
+void NotationInteraction::drawAlignmentGuideLines(Painter* painter)
+{
+    if (m_alignmentGuideLines.empty()) {
         return;
     }
 
-    const auto dropAnchorColor = score()->configuration()->formattingColor();
-    Pen pen(dropAnchorColor, 2.0 / currentScaling(painter), PenStyle::DotLine);
+    const auto guideColor = score()->configuration()->formattingColor();
+    Pen pen(guideColor, 1.0 / currentScaling(painter), PenStyle::DotLine);
+    painter->setPen(pen);
 
-    for (const LineF& anchor : m_anchorLines) {
-        painter->setPen(pen);
-        painter->drawLine(anchor);
+    for (const LineF& line : m_alignmentGuideLines) {
+        painter->drawLine(line);
+    }
 
-        qreal d = 4.0 / currentScaling(painter);
-        RectF rect(-d, -d, 2 * d, 2 * d);
-
-        painter->setBrush(Brush(dropAnchorColor));
-        painter->setNoPen();
-        rect.moveCenter(anchor.p1());
-        painter->drawEllipse(rect);
-        rect.moveCenter(anchor.p2());
-        painter->drawEllipse(rect);
+    const qreal d = 3.0 / currentScaling(painter);
+    painter->setBrush(Brush(guideColor));
+    painter->setNoPen();
+    for (size_t i = 0; i + 1 < m_alignmentGuideLines.size(); i += 2) {
+        const PointF origin(m_alignmentGuideLines[i + 1].x1(), m_alignmentGuideLines[i].y1());
+        painter->drawEllipse(RectF(origin.x() - d, origin.y() - d, 2 * d, 2 * d));
     }
 }
 
@@ -4647,11 +4677,13 @@ void NotationInteraction::updateGripAnchorLines()
     }
 
     setAnchorLines(lines);
+    setAlignmentGuideLines(m_editData.element->gripAlignmentGuideLines(anchorLinesGrip));
 }
 
 void NotationInteraction::updateDragAnchorLines()
 {
     std::vector<LineF> anchorLines;
+    std::vector<LineF> guideLines;
     for (const EngravingItem* e : selection()->elements()) {
         std::vector<LineF> elAnchorLines = e->dragAnchorLines();
         if (!elAnchorLines.empty()) {
@@ -4659,9 +4691,16 @@ void NotationInteraction::updateDragAnchorLines()
                 anchorLines.push_back(l);
             }
         }
+        std::vector<LineF> elGuideLines = e->dragAlignmentGuideLines();
+        if (!elGuideLines.empty()) {
+            for (LineF& l : elGuideLines) {
+                guideLines.push_back(l);
+            }
+        }
     }
 
     setAnchorLines(anchorLines);
+    setAlignmentGuideLines(guideLines);
 }
 
 bool NotationInteraction::isElementEditStarted() const

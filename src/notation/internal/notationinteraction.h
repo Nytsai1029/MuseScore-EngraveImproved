@@ -414,6 +414,7 @@ private:
     void updateGripAnchorLines();
     void updateDragAnchorLines();
     void setAnchorLines(const std::vector<muse::LineF>& anchorList);
+    void setAlignmentGuideLines(const std::vector<muse::LineF>& lines);
     void resetAnchorLines();
 
     double currentScaling(muse::draw::Painter* painter) const;
@@ -424,6 +425,7 @@ private:
     void drawInputPreview(muse::draw::Painter* painter);
 
     void drawAnchorLines(muse::draw::Painter* painter);
+    void drawAlignmentGuideLines(muse::draw::Painter* painter);
     void drawTextEditMode(muse::draw::Painter* painter);
     void drawSelectionRange(muse::draw::Painter* painter);
     void drawGripPoints(muse::draw::Painter* painter);
@@ -530,6 +532,7 @@ private:
     DragData m_dragData;
     muse::async::Notification m_dragChanged;
     std::vector<muse::LineF> m_anchorLines;
+    std::vector<muse::LineF> m_alignmentGuideLines;
 
     QDrag* m_outgoingDrag = nullptr;
 

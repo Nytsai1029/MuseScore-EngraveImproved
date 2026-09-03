@@ -180,6 +180,16 @@ std::vector<PointF> SlurTieSegment::gripsPositions(const EditData&) const
     return grips;
 }
 
+std::vector<LineF> SlurTieSegment::dragAlignmentGuideLines() const
+{
+    return alignmentGuideLinesFromGrip(defaultGrip());
+}
+
+std::vector<LineF> SlurTieSegment::gripAlignmentGuideLines(Grip grip) const
+{
+    return alignmentGuideLinesFromGrip(grip);
+}
+
 bool SlurTieSegment::isUserModified() const
 {
     return SpannerSegment::isUserModified() || !(visible() && autoplace()

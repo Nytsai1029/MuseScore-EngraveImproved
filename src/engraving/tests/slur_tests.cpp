@@ -124,3 +124,24 @@ TEST_F(Engraving_SlurTests, multiBezierDataIsStoredRelativeToSpatium)
     const std::string stored = segment->getProperty(Pid::SLUR_MULTI_BEZIER_DATA).value<muse::String>().toStdString();
     EXPECT_EQ(stored, "2,-3,0.25,1.25,-1.5,4.5;-2,3,0,-0.5,1,-3");
 }
+
+TEST_F(Engraving_SlurTests, slurGripAlignmentGuidesUseDragPoint)
+{
+    MasterScore* score = nullptr;
+    SlurSegment* segment = createMultiBezierSegment(score);
+    ASSERT_NE(segment, nullptr);
+
+    const std::vector<LineF> startGuides = segment->gripAlignmentGuideLines(Grip::START);
+    ASSERT_EQ(startGuides.size(), 2);
+    const PointF startGrip = segment->gripsPositions().at(size_t(int(Grip::START)));
+    const PointF startOrigin = startGrip - segment->pagePos() + segment->canvasPos();
+    EXPECT_NEAR(startGuides.at(0).y1(), startOrigin.y(), POINT_TOLERANCE);
+    EXPECT_NEAR(startGuides.at(1).x1(), startOrigin.x(), POINT_TOLERANCE);
+
+    const std::vector<LineF> dragGuides = segment->gripAlignmentGuideLines(Grip::DRAG);
+    ASSERT_EQ(dragGuides.size(), 2);
+    const PointF dragGrip = segment->gripsPositions().at(size_t(int(Grip::DRAG)));
+    const PointF dragOrigin = dragGrip - segment->pagePos() + segment->canvasPos();
+    EXPECT_NEAR(dragGuides.at(0).y1(), dragOrigin.y(), POINT_TOLERANCE);
+    EXPECT_NEAR(dragGuides.at(1).x1(), dragOrigin.x(), POINT_TOLERANCE);
+}

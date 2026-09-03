@@ -284,6 +284,10 @@ public:
     virtual void endDrag(EditData&);
     /** muse::Returns anchor lines displayed while dragging element in canvas coordinates. */
     virtual std::vector<LineF> dragAnchorLines() const { return std::vector<LineF>(); }
+    /** muse::Returns page-spanning H/V alignment guides while dragging, in canvas coordinates. */
+    virtual std::vector<LineF> dragAlignmentGuideLines() const { return {}; }
+    /** muse::Returns page-spanning H/V alignment guides while dragging a grip, in canvas coordinates. */
+    virtual std::vector<LineF> gripAlignmentGuideLines(Grip) const { return {}; }
     /**
      * A generic \ref dragAnchorLines() implementation which can be used in
      * dragAnchorLines() overrides in descendants. It is not made its default
@@ -716,6 +720,10 @@ public:
 protected:
     EngravingItem(const ElementType& type, EngravingObject* parent = nullptr, ElementFlags = ElementFlag::NOTHING);
     EngravingItem(const EngravingItem&, bool link = false);
+
+    std::vector<LineF> alignmentGuideLinesFromCanvasOrigin(const PointF& origin) const;
+    std::vector<LineF> alignmentGuideLinesFromGrip(Grip grip) const;
+    PointF canvasPosFromPagePos(const PointF& pagePoint) const;
 
 #ifndef ENGRAVING_NO_ACCESSIBILITY
     virtual AccessibleItemPtr createAccessible();

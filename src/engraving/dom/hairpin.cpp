@@ -33,6 +33,7 @@
 #include "score.h"
 #include "segment.h"
 #include "system.h"
+#include "text.h"
 
 #include "log.h"
 
@@ -178,6 +179,40 @@ std::vector<PointF> HairpinSegment::gripsPositions(const EditData&) const
     }
 
     return grips;
+}
+
+std::vector<LineF> HairpinSegment::lineTypeTextGuideLines() const
+{
+    const Text* t = text();
+    if (!t || t->empty()) {
+        t = endText();
+    }
+    if (!t || t->empty()) {
+        return alignmentGuideLinesFromGrip(Grip::START);
+    }
+
+    PointF localOrigin;
+    if (!t->dragReferenceOrigin(localOrigin)) {
+        return alignmentGuideLinesFromGrip(Grip::START);
+    }
+
+    return alignmentGuideLinesFromCanvasOrigin(t->canvasPos() + localOrigin);
+}
+
+std::vector<LineF> HairpinSegment::dragAlignmentGuideLines() const
+{
+    if (hairpin()->isLineType()) {
+        return lineTypeTextGuideLines();
+    }
+    return alignmentGuideLinesFromGrip(Grip::MIDDLE);
+}
+
+std::vector<LineF> HairpinSegment::gripAlignmentGuideLines(Grip grip) const
+{
+    if (hairpin()->isLineType() && (grip == Grip::MIDDLE || grip == Grip::NO_GRIP)) {
+        return lineTypeTextGuideLines();
+    }
+    return alignmentGuideLinesFromGrip(grip);
 }
 
 //---------------------------------------------------------

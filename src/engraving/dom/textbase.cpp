@@ -20,7 +20,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <algorithm>
 #include <cmath>
+#include <limits>
 #include <stack>
 
 #include "draw/fontmetrics.h"
@@ -2423,6 +2425,66 @@ std::vector<LineF> TextBase::dragAnchorLines() const
     }
 
     return result;
+}
+
+bool TextBase::showsDragAlignmentGuides() const
+{
+    return isDynamic()
+           || isExpression()
+           || isStaffTextBase()
+           || isTempoText()
+           || isRehearsalMark()
+           || isInstrumentChange();
+}
+
+bool TextBase::dragReferenceOrigin(PointF& origin) const
+{
+    const LayoutData* data = ldata();
+    if (!data || data->blocks.empty()) {
+        return false;
+    }
+
+    double left = std::numeric_limits<double>::infinity();
+    double baseline = std::numeric_limits<double>::quiet_NaN();
+
+    for (const TextBlock& block : data->blocks) {
+        bool blockHasText = false;
+        for (const TextFragment& fragment : block.fragments()) {
+            if (fragment.text.empty()) {
+                continue;
+            }
+            blockHasText = true;
+            const FontMetrics fm(fragment.font(this));
+            const RectF ink = fm.tightBoundingRect(fragment.text);
+            left = std::min(left, fragment.pos.x() + ink.left());
+        }
+        if (blockHasText) {
+            baseline = block.y();
+        }
+    }
+
+    if (!std::isfinite(left) || !std::isfinite(baseline)) {
+        origin = PointF(data->bbox().left(), data->blocks.front().y());
+        return true;
+    }
+
+    origin = PointF(left, baseline);
+    return true;
+}
+
+std::vector<LineF> TextBase::dragAlignmentGuideLines() const
+{
+    if (!showsDragAlignmentGuides()) {
+        return {};
+    }
+
+    PointF localOrigin;
+    if (!dragReferenceOrigin(localOrigin)) {
+        return {};
+    }
+
+    const PointF origin = canvasPos() + localOrigin;
+    return alignmentGuideLinesFromCanvasOrigin(origin);
 }
 
 //---------------------------------------------------------

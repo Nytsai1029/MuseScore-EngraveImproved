@@ -371,6 +371,8 @@ public:
     void dragTo(EditData&);
 
     std::vector<LineF> dragAnchorLines() const override;
+    std::vector<LineF> dragAlignmentGuideLines() const override;
+    bool dragReferenceOrigin(PointF& origin) const;
 
     virtual bool acceptDrop(EditData&) const override;
     virtual EngravingItem* drop(EditData&) override;
@@ -521,6 +523,8 @@ protected:
     bool m_layoutToParentWidth = false;
 
 private:
+    bool showsDragAlignmentGuides() const;
+
     void insert(TextCursor*, char32_t code, LayoutData* ldata) const;
     String genText(const LayoutData* ldata) const;
 

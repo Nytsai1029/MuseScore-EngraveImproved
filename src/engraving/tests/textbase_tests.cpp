@@ -23,11 +23,19 @@
 #pragma warning(disable: 4459) // _t hides global declaration
 #endif
 
+#include <algorithm>
+#include <limits>
+
 #include <gtest/gtest.h>
+
+#include "draw/fontmetrics.h"
 
 #include "dom/chordrest.h"
 #include "dom/dynamic.h"
+#include "dom/factory.h"
+#include "dom/lyrics.h"
 #include "dom/masterscore.h"
+#include "dom/page.h"
 #include "dom/segment.h"
 #include "dom/stafftext.h"
 #include "dom/textedit.h"
@@ -243,4 +251,79 @@ TEST_F(Engraving_TextBaseTests, letterSpacingAppliedToTextFonts)
     auto fragmentList = staffText->fragmentList();
     ASSERT_FALSE(fragmentList.empty());
     EXPECT_DOUBLE_EQ(fragmentList.front().font(staffText).letterSpacing(), 25.0);
+}
+
+static PointF expectedTextDragOrigin(const TextBase* text)
+{
+    const TextBase::LayoutData* data = text->ldata();
+    double left = std::numeric_limits<double>::infinity();
+    double baseline = 0.0;
+    for (const TextBlock& block : data->blocks) {
+        for (const TextFragment& fragment : block.fragments()) {
+            if (fragment.text.empty()) {
+                continue;
+            }
+            const muse::draw::FontMetrics fm(fragment.font(text));
+            left = std::min(left, fragment.pos.x() + fm.tightBoundingRect(fragment.text).left());
+            baseline = block.y();
+        }
+    }
+    return text->canvasPos() + PointF(left, baseline);
+}
+
+TEST_F(Engraving_TextBaseTests, dragAlignmentGuideLines)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    StaffText* staffText = addStaffText(score);
+    staffText->setPlainText(u"Align");
+    score->doLayout();
+
+    const std::vector<LineF> guides = staffText->dragAlignmentGuideLines();
+    ASSERT_EQ(guides.size(), 2);
+
+    const PointF origin = expectedTextDragOrigin(staffText);
+    EXPECT_NEAR(guides.at(0).y1(), origin.y(), 1e-6);
+    EXPECT_NEAR(guides.at(0).y2(), origin.y(), 1e-6);
+    EXPECT_NEAR(guides.at(1).x1(), origin.x(), 1e-6);
+    EXPECT_NEAR(guides.at(1).x2(), origin.x(), 1e-6);
+
+    const Page* page = toPage(staffText->findAncestor(ElementType::PAGE));
+    ASSERT_TRUE(page);
+    const RectF pageRect = page->canvasBoundingRect();
+    EXPECT_NEAR(guides.at(0).x1(), pageRect.left(), 1e-6);
+    EXPECT_NEAR(guides.at(0).x2(), pageRect.right(), 1e-6);
+    EXPECT_NEAR(guides.at(1).y1(), pageRect.top(), 1e-6);
+    EXPECT_NEAR(guides.at(1).y2(), pageRect.bottom(), 1e-6);
+}
+
+TEST_F(Engraving_TextBaseTests, dynamicDragAlignmentGuideUsesInkNotCollisionBox)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    Dynamic* dynamic = addDynamic(score);
+    score->doLayout();
+
+    const std::vector<LineF> guides = dynamic->dragAlignmentGuideLines();
+    ASSERT_EQ(guides.size(), 2);
+
+    const PointF origin = expectedTextDragOrigin(dynamic);
+    EXPECT_NEAR(guides.at(1).x1(), origin.x(), 1e-6);
+    EXPECT_NEAR(guides.at(0).y1(), origin.y(), 1e-6);
+
+    const double collisionLeft = dynamic->canvasPos().x() + dynamic->ldata()->bbox().left();
+    if (std::abs(origin.x() - collisionLeft) > 1e-4) {
+        EXPECT_GT(std::abs(guides.at(1).x1() - collisionLeft), 1e-4);
+    }
+}
+
+TEST_F(Engraving_TextBaseTests, lyricsHaveNoDragAlignmentGuideLines)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ChordRest* chordRest = score->firstSegment(SegmentType::ChordRest)->nextChordRest(0);
+    ASSERT_TRUE(chordRest);
+    Lyrics* lyrics = Factory::createLyrics(chordRest);
+    lyrics->setPlainText(u"la");
+    chordRest->add(lyrics);
+    score->doLayout();
+
+    EXPECT_TRUE(lyrics->dragAlignmentGuideLines().empty());
 }

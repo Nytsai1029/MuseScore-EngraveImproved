@@ -66,6 +66,9 @@ public:
     int gripsCount() const override;
     std::vector<PointF> gripsPositions(const EditData& = EditData()) const override;
 
+    std::vector<LineF> dragAlignmentGuideLines() const override;
+    std::vector<LineF> gripAlignmentGuideLines(Grip grip) const override;
+
     std::unique_ptr<ElementGroup> getDragGroup(std::function<bool(const EngravingItem*)> isDragged) override;
 
     bool hasVoiceAssignmentProperties() const override { return spanner()->hasVoiceAssignmentProperties(); }
@@ -88,6 +91,8 @@ private:
     EngravingItem* drop(EditData&) override;
 
     void setPropertyFlags(Pid id, PropertyFlags f) override;
+
+    std::vector<LineF> lineTypeTextGuideLines() const;
 
     bool m_drawCircledTip = false;
     PointF m_circledTip;
