@@ -26,6 +26,9 @@ using namespace mu::notation;
 AccidentalsPageModel::AccidentalsPageModel(QObject* parent)
     : AbstractStyleDialogModel(parent, {
     StyleId::bracketedAccidentalPadding,
+    StyleId::accidentalNoteDistance,
+    StyleId::accidentalDistance,
+    StyleId::accidentalFlushToLedgerLine,
 
     StyleId::keySigNaturals,
     StyleId::keysigSharpAccidentalDistance,
@@ -43,6 +46,21 @@ AccidentalsPageModel::AccidentalsPageModel(QObject* parent)
 StyleItem* AccidentalsPageModel::bracketedAccidentalPadding() const
 {
     return styleItem(StyleId::bracketedAccidentalPadding);
+}
+
+StyleItem* AccidentalsPageModel::accidentalNoteDistance() const
+{
+    return styleItem(StyleId::accidentalNoteDistance);
+}
+
+StyleItem* AccidentalsPageModel::accidentalDistance() const
+{
+    return styleItem(StyleId::accidentalDistance);
+}
+
+StyleItem* AccidentalsPageModel::accidentalFlushToLedgerLine() const
+{
+    return styleItem(StyleId::accidentalFlushToLedgerLine);
 }
 
 StyleItem* AccidentalsPageModel::keySigNaturals() const

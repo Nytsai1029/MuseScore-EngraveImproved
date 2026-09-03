@@ -43,6 +43,49 @@ StyledFlickable {
 
         StyledGroupBox {
             Layout.fillWidth: true
+            title: qsTrc("notation/editstyle/accidentals", "Accidental spacing")
+
+            ColumnLayout {
+                width: parent.width
+                spacing: 8
+
+                StyleSpinboxWithReset {
+                    styleItem: accidentalsPageModel.accidentalNoteDistance
+                    label: qsTrc("notation/editstyle/accidentals", "Accidental to note distance:")
+
+                    suffix: qsTrc("global", "sp")
+                    decimals: 3
+                    step: 0.1
+                    min: -10.0
+                    max: 10.0
+
+                    labelAreaWidth: -1
+                    controlAreaWidth: spinBoxWidth
+                }
+
+                StyleSpinboxWithReset {
+                    styleItem: accidentalsPageModel.accidentalDistance
+                    label: qsTrc("notation/editstyle/accidentals", "Accidental to accidental distance:")
+
+                    suffix: qsTrc("global", "sp")
+                    decimals: 3
+                    step: 0.1
+                    min: -10.0
+                    max: 10.0
+
+                    labelAreaWidth: -1
+                    controlAreaWidth: spinBoxWidth
+                }
+
+                StyleToggle {
+                    styleItem: accidentalsPageModel.accidentalFlushToLedgerLine
+                    text: qsTrc("notation/editstyle/accidentals", "Keep rightmost accidental flush with ledger lines")
+                }
+            }
+        }
+
+        StyledGroupBox {
+            Layout.fillWidth: true
             title: qsTrc("notation/editstyle/accidentals", "Accidentals")
 
             StyleSpinboxWithReset {

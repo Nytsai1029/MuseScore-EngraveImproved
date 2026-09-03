@@ -20,6 +20,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 #include <cfloat>
+#include <cmath>
 
 #include "accidentalslayout.h"
 #include "layoutcontext.h"
@@ -32,6 +33,8 @@
 #include "dom/ledgerline.h"
 #include "dom/note.h"
 #include "dom/score.h"
+#include "dom/staff.h"
+#include "dom/stem.h"
 
 using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
@@ -59,6 +62,7 @@ void AccidentalsLayout::AccidentalsLayoutContext::initConstants()
     m_xPosSplitThreshold = 0.5 * m_spatium;
     m_xVerticalAlignmentThreshold = 0.75 * m_spatium;
     m_sharpAndNaturalLedgerLinePadding = 0.1 * m_spatium;
+    m_flushToLedgerLineInset = 0.05 * m_spatium;
     m_reducedFlatToNotePadding = 0.15 * m_spatium;
     m_flatKerningOfFourth = -0.15 * m_spatium;
     m_naturalKerningOfFourth = -0.05 * m_spatium;
@@ -69,6 +73,7 @@ void AccidentalsLayout::AccidentalsLayoutContext::initConstants()
     m_alignOctavesAcrossSubChords = style.styleB(Sid::alignAccidentalOctavesAcrossSubChords);
     m_keepSecondsTogether = style.styleB(Sid::keepAccidentalSecondsTogether);
     m_alignOffsetOctaves = style.styleB(Sid::alignOffsetOctaveAccidentals);
+    m_flushToLedgerLine = style.styleB(Sid::accidentalFlushToLedgerLine);
 }
 
 void AccidentalsLayout::layoutAccidentals(const std::vector<Chord*>& chords, LayoutContext& ctx)
@@ -773,6 +778,18 @@ double AccidentalsLayout::minAccidentalToChordDistance(Accidental* acc, const Sh
     return dist;
 }
 
+static bool accidentalNoteSitsOnLedger(const Accidental* acc)
+{
+    const Note* note = acc ? acc->note() : nullptr;
+    if (!note || !note->staff()) {
+        return false;
+    }
+
+    const int line = note->line();
+    const int lineBelow = (note->staff()->lines(note->tick()) - 1) * 2;
+    return line <= -2 || line >= lineBelow + 2;
+}
+
 double AccidentalsLayout::kerningLimitationsIntoChord(Accidental* acc, const Shape& accShape, const ShapeElement& chordElement,
                                                       const AccidentalsLayoutContext& ctx)
 {
@@ -784,7 +801,10 @@ double AccidentalsLayout::kerningLimitationsIntoChord(Accidental* acc, const Sha
     AccidentalType accType = acc->accidentalType();
     if (chordItem->isLedgerLine() && (accType == AccidentalType::NATURAL || accType == AccidentalType::SHARP)) {
         if (chordItem->y() > accShape.top() && chordItem->y() < accShape.bottom()) {
-            return accShape.right() - chordElement.left() + ctx.sharpAndNaturalLedgerLinePadding();
+            const double ledgerPad = ctx.flushToLedgerLine()
+                                    ? -ctx.flushToLedgerLineInset()
+                                    : ctx.sharpAndNaturalLedgerLinePadding();
+            return accShape.right() - chordElement.left() + ledgerPad;
         }
     }
 
@@ -811,6 +831,15 @@ double AccidentalsLayout::computePadding(Accidental* acc, const EngravingItem* c
     bool kernFlatIntoNote = isFlat && chordElement->isNote() && chordElement->y() > acc->note()->y();
     if (kernFlatIntoNote) {
         return ctx.reducedFlatToNotePadding();
+    }
+
+    if (ctx.flushToLedgerLine() && accidentalNoteSitsOnLedger(acc)) {
+        if (chordElement->isLedgerLine()) {
+            return -ctx.flushToLedgerLineInset();
+        }
+        if (chordElement->isNote() || chordElement->isStem()) {
+            return 0.0;
+        }
     }
 
     const PaddingTable& paddingTable = acc->score()->paddingTable();

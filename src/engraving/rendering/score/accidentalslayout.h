@@ -64,6 +64,7 @@ private:
         double xPosSplitThreshold() const { return m_xPosSplitThreshold; }
         double xVerticalAlignmentThreshold() const { return m_xVerticalAlignmentThreshold; }
         double sharpAndNaturalLedgerLinePadding() const { return m_sharpAndNaturalLedgerLinePadding; }
+        double flushToLedgerLineInset() const { return m_flushToLedgerLineInset; }
         double reducedFlatToNotePadding() const { return m_reducedFlatToNotePadding; }
         double flatKerningOfFourth() const { return m_flatKerningOfFourth; }
         double naturalKerningOfFourth() const { return m_naturalKerningOfFourth; }
@@ -72,6 +73,7 @@ private:
         bool alignOctavesAcrossSubChords() const { return m_alignOctavesAcrossSubChords; }
         bool keepSecondsTogether() const { return m_keepSecondsTogether; }
         bool alignOffsetOctaves() const { return m_alignOffsetOctaves; }
+        bool flushToLedgerLine() const { return m_flushToLedgerLine; }
         size_t largeGroupLimit() const { return m_largeGroupLimit; }
         size_t smallGroupLimit() const { return m_smallGroupLimit; }
 
@@ -87,6 +89,7 @@ private:
         double m_xPosSplitThreshold = 0.0;
         double m_xVerticalAlignmentThreshold = 0.0;
         double m_sharpAndNaturalLedgerLinePadding = 0.0;
+        double m_flushToLedgerLineInset = 0.0;
         double m_reducedFlatToNotePadding = 0.0;
         double m_flatKerningOfFourth = 0.0;
         double m_naturalKerningOfFourth = 0.0;
@@ -94,6 +97,7 @@ private:
         bool m_alignOctavesAcrossSubChords = false;
         bool m_keepSecondsTogether = false;
         bool m_alignOffsetOctaves = false;
+        bool m_flushToLedgerLine = false;
 
         static constexpr size_t m_smallGroupLimit = 3;
         static constexpr size_t m_largeGroupLimit = 6;

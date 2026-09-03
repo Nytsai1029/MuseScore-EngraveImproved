@@ -284,6 +284,7 @@ enum class Sid {
     alignAccidentalOctavesAcrossSubChords,
     keepAccidentalSecondsTogether,
     alignOffsetOctaveAccidentals,
+    accidentalFlushToLedgerLine,
     keysigAccidentalDistance,
     keysigSharpAccidentalDistance,
     keysigFlatAccidentalDistance,
