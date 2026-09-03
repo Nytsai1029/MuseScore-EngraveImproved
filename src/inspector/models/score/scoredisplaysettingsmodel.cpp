@@ -72,6 +72,7 @@ void ScoreSettingsModel::resetProperties()
     setShouldShowFormatting(false);
     setShouldShowFrames(false);
     setShouldShowPageMargins(false);
+    setShouldShowAlignmentGuides(true);
 }
 
 ScoreConfig ScoreSettingsModel::scoreConfig() const
@@ -106,6 +107,11 @@ bool ScoreSettingsModel::shouldShowPageMargins() const
 bool ScoreSettingsModel::shouldShowSoundFlags() const
 {
     return m_shouldShowSoundFlags;
+}
+
+bool ScoreSettingsModel::shouldShowAlignmentGuides() const
+{
+    return m_shouldShowAlignmentGuides;
 }
 
 void ScoreSettingsModel::setShouldShowInvisible(bool shouldShowInvisible)
@@ -158,6 +164,16 @@ void ScoreSettingsModel::setShouldShowSoundFlags(bool shouldShowSoundFlags)
     updateShouldShowSoundFlags(shouldShowSoundFlags);
 }
 
+void ScoreSettingsModel::setShouldShowAlignmentGuides(bool shouldShowAlignmentGuides)
+{
+    if (m_shouldShowAlignmentGuides == shouldShowAlignmentGuides) {
+        return;
+    }
+
+    dispatcher()->dispatch("show-alignment-guides");
+    updateShouldShowAlignmentGuides(shouldShowAlignmentGuides);
+}
+
 void ScoreSettingsModel::updateShouldShowInvisible(bool isVisible)
 {
     if (isVisible == m_shouldShowInvisible) {
@@ -208,6 +224,16 @@ void ScoreSettingsModel::updateShouldShowSoundFlags(bool isVisible)
     emit shouldShowSoundFlagsChanged(isVisible);
 }
 
+void ScoreSettingsModel::updateShouldShowAlignmentGuides(bool isVisible)
+{
+    if (isVisible == m_shouldShowAlignmentGuides) {
+        return;
+    }
+
+    m_shouldShowAlignmentGuides = isVisible;
+    emit shouldShowAlignmentGuidesChanged(isVisible);
+}
+
 void ScoreSettingsModel::updateFromConfig(ScoreConfigType configType)
 {
     switch (configType) {
@@ -226,6 +252,9 @@ void ScoreSettingsModel::updateFromConfig(ScoreConfigType configType)
     case notation::ScoreConfigType::ShowSoundFlags:
         updateShouldShowSoundFlags(scoreConfig().isShowSoundFlags);
         break;
+    case notation::ScoreConfigType::ShowAlignmentGuides:
+        updateShouldShowAlignmentGuides(scoreConfig().isShowAlignmentGuides);
+        break;
     default:
         break;
     }
@@ -239,5 +268,6 @@ void ScoreSettingsModel::updateAll()
     updateShouldShowFormatting(config.isShowUnprintableElements);
     updateShouldShowFrames(config.isShowFrames);
     updateShouldShowSoundFlags(config.isShowSoundFlags);
+    updateShouldShowAlignmentGuides(config.isShowAlignmentGuides);
     updateShouldShowPageMargins(config.isShowPageMargins);
 }

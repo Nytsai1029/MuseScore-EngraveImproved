@@ -779,6 +779,7 @@ MenuItemList AppMenuModel::makeShowItems()
         makeMenuItem("show-pageborders"),
         makeMenuItem("show-irregular"),
         makeMenuItem("show-soundflags"),
+        makeMenuItem("show-alignment-guides"),
     };
 
     return items;

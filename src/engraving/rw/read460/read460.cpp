@@ -158,6 +158,8 @@ bool Read460::readScore410(Score* score, XmlReader& e, ReadContext& ctx)
             score->m_showPageborders = e.readInt();
         } else if (tag == "showSoundFlags") {
             score->m_showSoundFlags = e.readInt();
+        } else if (tag == "showAlignmentGuides") {
+            score->m_showAlignmentGuides = e.readInt();
         } else if (tag == "markIrregularMeasures") {
             score->m_markIrregularMeasures = e.readInt();
         } else if (tag == "copyright" || tag == "rights") {

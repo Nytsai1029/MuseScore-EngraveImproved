@@ -294,6 +294,11 @@ TEST_F(Engraving_TextBaseTests, dragAlignmentGuideLines)
     EXPECT_NEAR(guides.at(0).x2(), pageRect.right(), 1e-6);
     EXPECT_NEAR(guides.at(1).y1(), pageRect.top(), 1e-6);
     EXPECT_NEAR(guides.at(1).y2(), pageRect.bottom(), 1e-6);
+
+    EXPECT_TRUE(score->showAlignmentGuides());
+    score->setShowAlignmentGuides(false);
+    EXPECT_FALSE(score->showAlignmentGuides());
+    EXPECT_EQ(staffText->dragAlignmentGuideLines().size(), 2);
 }
 
 TEST_F(Engraving_TextBaseTests, dynamicDragAlignmentGuideUsesInkNotCollisionBox)

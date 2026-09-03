@@ -107,5 +107,20 @@ InspectorSectionView {
             isVisible: model ? model.shouldShowSoundFlags : false
             onVisibleToggled: { model.shouldShowSoundFlags = !model.shouldShowSoundFlags }
         }
+
+        VisibilityBox {
+            Layout.fillWidth: true
+            Layout.maximumWidth: parent.width / 2
+
+            navigation.panel: root.navigationPanel
+            navigation.name: "Guides"
+            navigation.row: root.navigationRow(7)
+
+            //: Alignment guides shown while dragging
+            text: qsTrc("inspector", "Guides")
+            accessibleText: qsTrc("inspector", "Alignment guides")
+            isVisible: model ? model.shouldShowAlignmentGuides : false
+            onVisibleToggled: { model.shouldShowAlignmentGuides = !model.shouldShowAlignmentGuides }
+        }
     }
 }

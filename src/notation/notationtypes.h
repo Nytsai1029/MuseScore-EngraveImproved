@@ -504,6 +504,7 @@ enum class ScoreConfigType : unsigned char
     ShowFrames,
     ShowPageMargins,
     ShowSoundFlags,
+    ShowAlignmentGuides,
     MarkIrregularMeasures
 };
 
@@ -514,6 +515,7 @@ struct ScoreConfig
     bool isShowFrames = false;
     bool isShowPageMargins = false;
     bool isShowSoundFlags = false;
+    bool isShowAlignmentGuides = true;
     bool isMarkIrregularMeasures = false;
 
     bool operator==(const ScoreConfig& conf) const
@@ -523,6 +525,7 @@ struct ScoreConfig
         equal &= (isShowFrames == conf.isShowFrames);
         equal &= (isShowPageMargins == conf.isShowPageMargins);
         equal &= (isShowSoundFlags == conf.isShowSoundFlags);
+        equal &= (isShowAlignmentGuides == conf.isShowAlignmentGuides);
         equal &= (isMarkIrregularMeasures == conf.isMarkIrregularMeasures);
 
         return equal;

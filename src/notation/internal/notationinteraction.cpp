@@ -3593,7 +3593,7 @@ void NotationInteraction::drawAnchorLines(Painter* painter)
 
 void NotationInteraction::drawAlignmentGuideLines(Painter* painter)
 {
-    if (m_alignmentGuideLines.empty()) {
+    if (m_alignmentGuideLines.empty() || !score()->showAlignmentGuides()) {
         return;
     }
 
@@ -6457,6 +6457,7 @@ ScoreConfig NotationInteraction::scoreConfig() const
     config.isShowFrames = score()->showFrames();
     config.isShowPageMargins = score()->showPageborders();
     config.isShowSoundFlags = score()->showSoundFlags();
+    config.isShowAlignmentGuides = score()->showAlignmentGuides();
     config.isMarkIrregularMeasures = score()->markIrregularMeasures();
 
     return config;
@@ -6476,6 +6477,7 @@ void NotationInteraction::setScoreConfig(const ScoreConfig& config)
     score()->setShowFrames(config.isShowFrames);
     score()->setShowPageborders(config.isShowPageMargins);
     score()->setShowSoundFlags(config.isShowSoundFlags);
+    score()->setShowAlignmentGuides(config.isShowAlignmentGuides);
     score()->setMarkIrregularMeasures(config.isMarkIrregularMeasures);
 
     EngravingItem* selectedElement = selection()->element();

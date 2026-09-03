@@ -36,6 +36,7 @@ class ScoreSettingsModel : public AbstractInspectorModel
     Q_PROPERTY(bool shouldShowFrames READ shouldShowFrames WRITE setShouldShowFrames NOTIFY shouldShowFramesChanged)
     Q_PROPERTY(bool shouldShowPageMargins READ shouldShowPageMargins WRITE setShouldShowPageMargins NOTIFY shouldShowPageMarginsChanged)
     Q_PROPERTY(bool shouldShowSoundFlags READ shouldShowSoundFlags WRITE setShouldShowSoundFlags NOTIFY shouldShowSoundFlagsChanged)
+    Q_PROPERTY(bool shouldShowAlignmentGuides READ shouldShowAlignmentGuides WRITE setShouldShowAlignmentGuides NOTIFY shouldShowAlignmentGuidesChanged)
 
 public:
     explicit ScoreSettingsModel(QObject* parent, IElementRepositoryService* repository);
@@ -52,6 +53,7 @@ public:
     bool shouldShowFrames() const;
     bool shouldShowPageMargins() const;
     bool shouldShowSoundFlags() const;
+    bool shouldShowAlignmentGuides() const;
 
 public slots:
     void setShouldShowInvisible(bool shouldShowInvisible);
@@ -59,6 +61,7 @@ public slots:
     void setShouldShowFrames(bool shouldShowFrames);
     void setShouldShowPageMargins(bool shouldShowPageMargins);
     void setShouldShowSoundFlags(bool shouldShowSoundFlags);
+    void setShouldShowAlignmentGuides(bool shouldShowAlignmentGuides);
 
 signals:
     void shouldShowInvisibleChanged(bool shouldShowInvisible);
@@ -66,6 +69,7 @@ signals:
     void shouldShowFramesChanged(bool shouldShowFrames);
     void shouldShowPageMarginsChanged(bool shouldShowPageMargins);
     void shouldShowSoundFlagsChanged(bool shouldShowSoundFlags);
+    void shouldShowAlignmentGuidesChanged(bool shouldShowAlignmentGuides);
 
 private:
     void updateShouldShowInvisible(bool isVisible);
@@ -73,6 +77,7 @@ private:
     void updateShouldShowFrames(bool isVisible);
     void updateShouldShowPageMargins(bool isVisible);
     void updateShouldShowSoundFlags(bool isVisible);
+    void updateShouldShowAlignmentGuides(bool isVisible);
 
     notation::ScoreConfig scoreConfig() const;
 
@@ -85,6 +90,7 @@ private:
     bool m_shouldShowFrames = false;
     bool m_shouldShowPageMargins = false;
     bool m_shouldShowSoundFlags;
+    bool m_shouldShowAlignmentGuides = true;
 };
 }
 

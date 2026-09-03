@@ -785,6 +785,11 @@ void Score::setShowSoundFlags(bool v)
     setLayoutAll();
 }
 
+void Score::setShowAlignmentGuides(bool v)
+{
+    m_showAlignmentGuides = v;
+}
+
 //---------------------------------------------------------
 //   setMarkIrregularMeasures
 //---------------------------------------------------------
