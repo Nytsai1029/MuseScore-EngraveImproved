@@ -25,6 +25,7 @@
 #include <cmath>
 #include <set>
 
+#include "dom/anchors.h"
 #include "dom/beam.h"
 #include "dom/chord.h"
 #include "dom/chordrest.h"
@@ -357,6 +358,131 @@ TEST_F(Engraving_BeamTests, crossStaffBeamSpacingOffsetToggle)
     double gapOff = segAt(1)->x() - segAt(0)->x();
 
     EXPECT_GT(gapOn, gapOff);
+
+    delete score;
+}
+
+// TimeTick anchors (inserted while dragging dynamics / hairpins / staff text) must not change
+// the cross-staff beam spacing offset. spaceSegments used to take segList[i+1] as nextSeg, so a
+// TimeTick sitting between two ChordRest segments skipped applyCrossBeamSpacingCorrection.
+TEST_F(Engraving_BeamTests, crossStaffBeamOffsetSurvivesTimeTickAnchors)
+{
+    MasterScore* score = ScoreRW::readScore(BEAM_DATA_DIR + u"crossStaffBeamReentry.mscx");
+    ASSERT_TRUE(score);
+
+    auto segAt = [score](int index) -> Segment* {
+        Measure* m = score->firstMeasure();
+        Segment* s = m ? m->first(SegmentType::ChordRest) : nullptr;
+        for (int i = 0; i < index && s; ++i) {
+            s = s->next(SegmentType::ChordRest);
+        }
+        return s;
+    };
+    auto chordAt = [&segAt](int index) -> Chord* {
+        Segment* s = segAt(index);
+        EngravingItem* e = s ? s->element(4) : nullptr;
+        return e && e->isChord() ? toChord(e) : nullptr;
+    };
+
+    score->doLayout();
+    ASSERT_TRUE(chordAt(1));
+    score->startCmd(TranslatableString::untranslatable("test"));
+    score->moveUp(chordAt(1));
+    score->endCmd();
+    ASSERT_TRUE(chordAt(1) && chordAt(1)->beam() && chordAt(1)->beam()->cross());
+
+    double gapBefore = segAt(1)->x() - segAt(0)->x();
+
+    Measure* measure = score->firstMeasure();
+    ASSERT_TRUE(measure);
+    EditTimeTickAnchors::updateAnchors(measure, 1);
+    score->setLayoutAll();
+    score->doLayout();
+
+    double gapAfter = segAt(1)->x() - segAt(0)->x();
+    EXPECT_NEAR(gapBefore, gapAfter, 0.01);
+
+    delete score;
+}
+
+// extraLeadingSpace must still be applied when TimeTick anchors sit in front of the next
+// ChordRest segment. Otherwise justifySystem treats that space as stretchable and notes jump.
+TEST_F(Engraving_BeamTests, leadingSpaceSurvivesTimeTickAnchors)
+{
+    MasterScore* score = ScoreRW::readScore(BEAM_DATA_DIR + u"crossStaffBeamReentry.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    Measure* measure = score->firstMeasure();
+    ASSERT_TRUE(measure);
+    Segment* firstCR = measure->first(SegmentType::ChordRest);
+    Segment* secondCR = firstCR ? firstCR->next(SegmentType::ChordRest) : nullptr;
+    ASSERT_TRUE(firstCR);
+    ASSERT_TRUE(secondCR);
+
+    score->startCmd(TranslatableString::untranslatable("test"));
+    secondCR->undoChangeProperty(Pid::LEADING_SPACE, Spatium(1.0));
+    score->endCmd();
+
+    const double xFirstBefore = firstCR->x();
+    const double xSecondBefore = secondCR->x();
+
+    EditTimeTickAnchors::updateAnchors(measure, 1);
+    score->setLayoutAll();
+    score->doLayout();
+
+    EXPECT_NEAR(firstCR->x(), xFirstBefore, 0.01);
+    EXPECT_NEAR(secondCR->x(), xSecondBefore, 0.01);
+
+    delete score;
+}
+
+// Score already saved with a cross-staff note (staffMove). First layout after load must apply
+// the same ±notehead spacing offset as a subsequent full relayout.
+TEST_F(Engraving_BeamTests, crossStaffBeamOffsetOnColdLoad)
+{
+    MasterScore* score = ScoreRW::readScore(BEAM_DATA_DIR + u"crossStaffBeamAlreadyCross.mscx");
+    ASSERT_TRUE(score);
+
+    auto segAt = [score](int index) -> Segment* {
+        Measure* m = score->firstMeasure();
+        Segment* s = m ? m->first(SegmentType::ChordRest) : nullptr;
+        for (int i = 0; i < index && s; ++i) {
+            s = s->next(SegmentType::ChordRest);
+        }
+        return s;
+    };
+
+    Chord* first = nullptr;
+    Chord* second = nullptr;
+    if (Segment* s0 = segAt(0)) {
+        EngravingItem* e = s0->element(4);
+        first = e && e->isChord() ? toChord(e) : nullptr;
+    }
+    if (Segment* s1 = segAt(1)) {
+        EngravingItem* e = s1->element(4);
+        second = e && e->isChord() ? toChord(e) : nullptr;
+    }
+    ASSERT_TRUE(first);
+    ASSERT_TRUE(second);
+    ASSERT_TRUE(second->beam());
+    EXPECT_TRUE(second->beam()->cross());
+    EXPECT_NE(first->up(), second->up());
+
+    const double gap1 = segAt(1)->x() - segAt(0)->x();
+
+    score->setLayoutAll();
+    score->doLayout();
+
+    const double gap2 = segAt(1)->x() - segAt(0)->x();
+    EXPECT_NEAR(gap1, gap2, 0.01);
+
+    EXPECT_TRUE(score->style().styleB(Sid::crossStaffBeamSpacingOffset));
+    score->style().set(Sid::crossStaffBeamSpacingOffset, false);
+    score->setLayoutAll();
+    score->doLayout();
+    const double gapOff = segAt(1)->x() - segAt(0)->x();
+    EXPECT_GT(gap1, gapOff);
 
     delete score;
 }
