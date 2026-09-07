@@ -624,6 +624,9 @@ EngravingObjectList Tuplet::scanChildren() const
 
 EngravingObject* BarLine::scanParent() const
 {
+    if (isSpanConnector() && explicitParent() && explicitParent()->isBarLine()) {
+        return explicitParent();
+    }
     return segment();
 }
 

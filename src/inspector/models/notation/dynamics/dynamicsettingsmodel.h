@@ -29,6 +29,7 @@ class DynamicsSettingsModel : public InspectorModelWithVoiceAndPositionOptions
     Q_OBJECT
 
     Q_PROPERTY(PropertyItem * avoidBarLines READ avoidBarLines CONSTANT)
+    Q_PROPERTY(PropertyItem * maskBarlines READ maskBarlines CONSTANT)
     Q_PROPERTY(PropertyItem * dynamicSize READ dynamicSize CONSTANT)
     Q_PROPERTY(PropertyItem * centerOnNotehead READ centerOnNotehead CONSTANT)
 
@@ -49,6 +50,7 @@ public:
     void resetProperties() override;
 
     PropertyItem* avoidBarLines() const;
+    PropertyItem* maskBarlines() const;
     PropertyItem* dynamicSize() const;
     PropertyItem* centerOnNotehead() const;
 
@@ -64,6 +66,7 @@ private:
 
 private:
     PropertyItem* m_avoidBarLines = nullptr;
+    PropertyItem* m_maskBarlines = nullptr;
     PropertyItem* m_dynamicSize = nullptr;
     PropertyItem* m_centerOnNotehead = nullptr;
 

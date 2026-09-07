@@ -42,6 +42,7 @@ void DynamicsSettingsModel::createProperties()
     InspectorModelWithVoiceAndPositionOptions::createProperties();
 
     m_avoidBarLines = buildPropertyItem(Pid::AVOID_BARLINES);
+    m_maskBarlines = buildPropertyItem(Pid::MASK_BARLINES);
     m_dynamicSize = buildPropertyItem(Pid::DYNAMICS_SIZE,
                                       [this](const Pid pid, const QVariant& newValue) {
         onPropertyValueChanged(pid, newValue.toDouble() / 100);
@@ -73,6 +74,7 @@ void DynamicsSettingsModel::loadProperties()
     InspectorModelWithVoiceAndPositionOptions::loadProperties();
 
     loadPropertyItem(m_avoidBarLines);
+    loadPropertyItem(m_maskBarlines);
     loadPropertyItem(m_dynamicSize, [](const QVariant& elementPropertyValue) -> QVariant {
         return muse::DataFormatter::roundDouble(elementPropertyValue.toDouble()) * 100;
     });
@@ -93,6 +95,7 @@ void DynamicsSettingsModel::resetProperties()
     InspectorModelWithVoiceAndPositionOptions::resetProperties();
 
     m_avoidBarLines->resetToDefault();
+    m_maskBarlines->resetToDefault();
     m_dynamicSize->resetToDefault();
     m_centerOnNotehead->resetToDefault();
 
@@ -107,6 +110,11 @@ void DynamicsSettingsModel::resetProperties()
 PropertyItem* DynamicsSettingsModel::avoidBarLines() const
 {
     return m_avoidBarLines;
+}
+
+PropertyItem* DynamicsSettingsModel::maskBarlines() const
+{
+    return m_maskBarlines;
 }
 
 PropertyItem* DynamicsSettingsModel::dynamicSize() const

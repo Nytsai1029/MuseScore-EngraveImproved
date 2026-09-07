@@ -154,7 +154,7 @@ const std::array<StyleDef::StyleValue, size_t(Sid::STYLES)> StyleDef::styleValue
     styleDef(repeatBarTips,                              false),
     styleDef(startBarlineSingle,                         false),
     styleDef(startBarlineMultiple,                       true),
-    styleDef(maskBarlinesForText,                        true),
+    styleDef(maskBarlinesForText,                        false),
 
     styleDef(bracketWidth,                               Spatium(0.45)),
     styleDef(bracketDistance,                            Spatium(0.45)),

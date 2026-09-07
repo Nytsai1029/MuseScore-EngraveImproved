@@ -45,6 +45,7 @@ class TextSettingsModel : public AbstractInspectorModel
 
     Q_PROPERTY(PropertyItem * symbolSize READ symbolSize CONSTANT)
     Q_PROPERTY(PropertyItem * isSizeSpatiumDependent READ isSizeSpatiumDependent CONSTANT)
+    Q_PROPERTY(PropertyItem * maskBarlines READ maskBarlines CONSTANT)
     Q_PROPERTY(PropertyItem * frameType READ frameType CONSTANT)
     Q_PROPERTY(PropertyItem * frameBorderColor READ frameBorderColor CONSTANT)
     Q_PROPERTY(PropertyItem * frameFillColor READ frameFillColor CONSTANT)
@@ -92,6 +93,7 @@ public:
 
     PropertyItem* symbolSize() const;
     PropertyItem* isSizeSpatiumDependent() const;
+    PropertyItem* maskBarlines() const;
     PropertyItem* frameType() const;
     PropertyItem* frameBorderColor() const;
     PropertyItem* frameFillColor() const;
@@ -161,6 +163,7 @@ private:
 
     PropertyItem* m_symbolSize = nullptr;
     PropertyItem* m_isSizeSpatiumDependent = nullptr;
+    PropertyItem* m_maskBarlines = nullptr;
     PropertyItem* m_frameType = nullptr;
     PropertyItem* m_frameBorderColor = nullptr;
     PropertyItem* m_frameFillColor = nullptr;

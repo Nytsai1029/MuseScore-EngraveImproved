@@ -699,7 +699,17 @@ void TWrite::write(const BarLine* item, XmlWriter& xml, WriteContext& ctx)
     writeProperty(item, xml, Pid::BARLINE_SPAN_FROM);
     writeProperty(item, xml, Pid::BARLINE_SPAN_TO);
 
+    if (item->isSpanConnector()) {
+        xml.tag("spanConnector", true);
+    }
+
     for (const EngravingItem* e : *item->el()) {
+        if (e->isBarLine()) {
+            const BarLine* connector = toBarLine(e);
+            if (connector->generated() && connector->barLineType() == item->barLineType()) {
+                continue;
+            }
+        }
         writeItem(e, xml, ctx);
     }
 
@@ -1278,6 +1288,7 @@ void TWrite::writeProperties(const TextBase* item, XmlWriter& xml, WriteContext&
     }
 
     writeProperty(item, xml, Pid::TEXT_LINKED_TO_MASTER);
+    writeProperty(item, xml, Pid::MASK_BARLINES);
 }
 
 void TWrite::write(const Fermata* item, XmlWriter& xml, WriteContext& ctx)

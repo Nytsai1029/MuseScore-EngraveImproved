@@ -40,6 +40,7 @@ class BarlineSettingsModel : public AbstractInspectorModel
     Q_PROPERTY(bool isRepeatStyleChangingAllowed READ isRepeatStyleChangingAllowed NOTIFY isRepeatStyleChangingAllowedChanged)
     Q_PROPERTY(bool showPlayCountSettings READ showPlayCountSettings NOTIFY showPlayCountSettingsChanged FINAL)
     Q_PROPERTY(bool showPlayCount READ showPlayCount NOTIFY showPlayCountChanged FINAL)
+    Q_PROPERTY(bool isSpanConnector READ isSpanConnector NOTIFY isSpanConnectorChanged FINAL)
 
 public:
     explicit BarlineSettingsModel(QObject* parent, IElementRepositoryService* repository);
@@ -59,11 +60,13 @@ public:
     bool isRepeatStyleChangingAllowed() const;
     bool showPlayCountSettings() const;
     bool showPlayCount() const;
+    bool isSpanConnector() const;
 
 signals:
     void isRepeatStyleChangingAllowedChanged();
     void showPlayCountSettingsChanged(bool show);
     void showPlayCountChanged(bool show);
+    void isSpanConnectorChanged(bool isSpanConnector);
 
 private:
     void createProperties() override;
@@ -77,6 +80,7 @@ private:
 
     void updateShowPlayCount();
     void updateShowPlayCountSettings();
+    void updateIsSpanConnector();
 
     PropertyItem* m_type = nullptr;
     PropertyItem* m_playCount = nullptr;
@@ -89,6 +93,7 @@ private:
 
     bool m_showPlayCount = false;
     bool m_showPlayCountSettings = false;
+    bool m_isSpanConnector = false;
 };
 }
 

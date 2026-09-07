@@ -24,10 +24,13 @@
 
 #include "dom/barline.h"
 #include "dom/bracket.h"
+#include "dom/editdata.h"
 #include "dom/factory.h"
 #include "dom/layoutbreak.h"
 #include "dom/masterscore.h"
 #include "dom/measure.h"
+#include "dom/score.h"
+#include "dom/staff.h"
 #include "dom/system.h"
 #include "dom/timesig.h"
 #include "dom/undo.h"
@@ -306,6 +309,186 @@ TEST_F(Engraving_BarlineTests, barline06)
 
         msr = msr->nextMeasure();
     }
+
+    delete score;
+}
+
+//---------------------------------------------------------
+//   endBarLineAt
+//---------------------------------------------------------
+
+static BarLine* endBarLineAt(Measure* measure, staff_idx_t staffIdx)
+{
+    Segment* seg = measure->findSegment(SegmentType::EndBarLine, measure->endTick());
+    if (!seg) {
+        return nullptr;
+    }
+    EngravingItem* el = seg->element(staffIdx * VOICES);
+    return el && el->isBarLine() ? toBarLine(el) : nullptr;
+}
+
+//---------------------------------------------------------
+//   changeTypeAffectsOnlySelectedStaff
+//   Changing an end-barline type from the inspector / property path
+//   (and dropping a type onto a selected barline) must not rewrite
+//   other staves on the same vertical line.
+//---------------------------------------------------------
+TEST_F(Engraving_BarlineTests, changeTypeAffectsOnlySelectedStaff)
+{
+    Score* score = ScoreRW::readScore(BARLINE_DATA_DIR + u"barline06.mscx");
+    ASSERT_TRUE(score);
+
+    Measure* measure = score->firstMeasure();
+    ASSERT_TRUE(measure);
+
+    BarLine* staff0 = endBarLineAt(measure, 0);
+    BarLine* staff1 = endBarLineAt(measure, 1);
+    BarLine* staff2 = endBarLineAt(measure, 2);
+    ASSERT_TRUE(staff0);
+    ASSERT_TRUE(staff1);
+    ASSERT_TRUE(staff2);
+
+    EXPECT_EQ(staff0->barLineType(), BarLineType::DOUBLE);
+    EXPECT_EQ(staff1->barLineType(), BarLineType::NORMAL);
+    EXPECT_EQ(staff2->barLineType(), BarLineType::NORMAL);
+
+    score->startCmd(TranslatableString::untranslatable("Engraving barline tests"));
+    staff1->undoChangeProperty(Pid::BARLINE_TYPE, PropertyValue::fromValue(BarLineType::DOTTED));
+    score->endCmd();
+
+    EXPECT_EQ(staff0->barLineType(), BarLineType::DOUBLE);
+    EXPECT_EQ(staff1->barLineType(), BarLineType::DOTTED);
+    EXPECT_EQ(staff2->barLineType(), BarLineType::NORMAL);
+
+    EditData dropData(0);
+    BarLine* heavy = Factory::createBarLine(score->dummy()->segment());
+    heavy->setBarLineType(BarLineType::HEAVY);
+    dropData.dropElement = heavy;
+    score->startCmd(TranslatableString::untranslatable("Drop heavy barline test"));
+    staff2->drop(dropData);
+    score->endCmd();
+
+    EXPECT_EQ(staff0->barLineType(), BarLineType::DOUBLE);
+    EXPECT_EQ(staff1->barLineType(), BarLineType::DOTTED);
+    EXPECT_EQ(staff2->barLineType(), BarLineType::HEAVY);
+
+    score->startCmd(TranslatableString::untranslatable("Engraving barline tests"));
+    score->undoChangeBarLineType(staff0, BarLineType::BROKEN, true);
+    score->endCmd();
+
+    EXPECT_EQ(staff0->barLineType(), BarLineType::BROKEN);
+    EXPECT_EQ(staff1->barLineType(), BarLineType::BROKEN);
+    EXPECT_EQ(staff2->barLineType(), BarLineType::BROKEN);
+
+    delete score;
+}
+
+//---------------------------------------------------------
+//   spanningBarlineSplitsStaffAndConnector
+//   A spanning barline is three independently selectable pieces:
+//   this staff, the gap connector, and the next staff.
+//---------------------------------------------------------
+TEST_F(Engraving_BarlineTests, spanningBarlineSplitsStaffAndConnector)
+{
+    Score* score = ScoreRW::readScore(BARLINE_DATA_DIR + u"barline01.mscx");
+    ASSERT_TRUE(score);
+
+    score->doLayout();
+
+    Measure* measure = score->firstMeasure();
+    ASSERT_TRUE(measure);
+    System* system = measure->system();
+    ASSERT_TRUE(system);
+
+    BarLine* staff0 = endBarLineAt(measure, 0);
+    BarLine* staff1 = endBarLineAt(measure, 1);
+    ASSERT_TRUE(staff0);
+    ASSERT_TRUE(staff1);
+    ASSERT_TRUE(staff0->spanStaff());
+
+    BarLine* connector = staff0->spanConnector();
+    ASSERT_TRUE(connector);
+    EXPECT_TRUE(connector->isSpanConnector());
+    EXPECT_FALSE(staff0->isSpanConnector());
+    EXPECT_FALSE(staff1->isSpanConnector());
+    EXPECT_EQ(connector->spanParent(), staff0);
+    EXPECT_EQ(connector->scanParent(), staff0);
+
+    const BarLine::LayoutData* staffData = staff0->ldata();
+    const BarLine::LayoutData* connectorData = connector->ldata();
+    ASSERT_TRUE(staffData);
+    ASSERT_TRUE(connectorData);
+    ASSERT_FALSE(connectorData->isSkipDraw());
+
+    const double spatium = score->style().spatium();
+    EXPECT_NEAR(connectorData->y1, staffData->y2, 0.01);
+    EXPECT_GT(connectorData->y2, connectorData->y1);
+    EXPECT_LT(staffData->y2 - staffData->y1, 6.0 * spatium);
+
+    const double nextStaffTop = system->staff(1)->y() - system->staff(0)->y();
+    EXPECT_NEAR(connectorData->y2, nextStaffTop, 0.5 * spatium);
+    EXPECT_LT(connectorData->y2, nextStaffTop + spatium);
+
+    delete score;
+}
+
+//---------------------------------------------------------
+//   spanningBarlineTypesAreIndependent
+//   Staff, connector, and next-staff barlines keep independent
+//   appearance types after inspector / drop changes.
+//---------------------------------------------------------
+TEST_F(Engraving_BarlineTests, spanningBarlineTypesAreIndependent)
+{
+    Score* score = ScoreRW::readScore(BARLINE_DATA_DIR + u"barline06.mscx");
+    ASSERT_TRUE(score);
+
+    score->startCmd(TranslatableString::untranslatable("Enable barline span"));
+    score->undo(new ChangeProperty(score->staff(0), Pid::STAFF_BARLINE_SPAN, 1));
+    score->endCmd();
+    score->doLayout();
+
+    Measure* measure = score->firstMeasure();
+    ASSERT_TRUE(measure);
+
+    BarLine* staff0 = endBarLineAt(measure, 0);
+    BarLine* staff1 = endBarLineAt(measure, 1);
+    ASSERT_TRUE(staff0);
+    ASSERT_TRUE(staff1);
+
+    BarLine* connector = staff0->spanConnector();
+    ASSERT_TRUE(connector);
+
+    EXPECT_EQ(staff0->barLineType(), BarLineType::DOUBLE);
+    EXPECT_EQ(connector->barLineType(), BarLineType::DOUBLE);
+    EXPECT_EQ(staff1->barLineType(), BarLineType::NORMAL);
+
+    score->startCmd(TranslatableString::untranslatable("Change staff barline type"));
+    staff0->undoChangeProperty(Pid::BARLINE_TYPE, PropertyValue::fromValue(BarLineType::HEAVY));
+    score->endCmd();
+
+    EXPECT_EQ(staff0->barLineType(), BarLineType::HEAVY);
+    EXPECT_EQ(connector->barLineType(), BarLineType::DOUBLE);
+    EXPECT_EQ(staff1->barLineType(), BarLineType::NORMAL);
+
+    score->startCmd(TranslatableString::untranslatable("Change connector barline type"));
+    connector->undoChangeProperty(Pid::BARLINE_TYPE, PropertyValue::fromValue(BarLineType::DOTTED));
+    score->endCmd();
+
+    EXPECT_EQ(staff0->barLineType(), BarLineType::HEAVY);
+    EXPECT_EQ(connector->barLineType(), BarLineType::DOTTED);
+    EXPECT_EQ(staff1->barLineType(), BarLineType::NORMAL);
+
+    EditData dropData(0);
+    BarLine* broken = Factory::createBarLine(score->dummy()->segment());
+    broken->setBarLineType(BarLineType::BROKEN);
+    dropData.dropElement = broken;
+    score->startCmd(TranslatableString::untranslatable("Drop dashed barline on connector"));
+    connector->drop(dropData);
+    score->endCmd();
+
+    EXPECT_EQ(staff0->barLineType(), BarLineType::HEAVY);
+    EXPECT_EQ(connector->barLineType(), BarLineType::BROKEN);
+    EXPECT_EQ(staff1->barLineType(), BarLineType::NORMAL);
 
     delete score;
 }

@@ -40,6 +40,7 @@ void ExpressionSettingsModel::createProperties()
 
     m_snapExpression = buildPropertyItem(mu::engraving::Pid::SNAP_TO_DYNAMICS);
     m_snapBeforeDynamics = buildPropertyItem(mu::engraving::Pid::SNAP_BEFORE_DYNAMICS);
+    m_maskBarlines = buildPropertyItem(mu::engraving::Pid::MASK_BARLINES);
 }
 
 void ExpressionSettingsModel::requestElements()
@@ -53,6 +54,7 @@ void ExpressionSettingsModel::loadProperties()
 
     loadPropertyItem(m_snapExpression);
     loadPropertyItem(m_snapBeforeDynamics);
+    loadPropertyItem(m_maskBarlines);
 }
 
 void ExpressionSettingsModel::resetProperties()
@@ -61,6 +63,7 @@ void ExpressionSettingsModel::resetProperties()
 
     m_snapExpression->resetToDefault();
     m_snapBeforeDynamics->resetToDefault();
+    m_maskBarlines->resetToDefault();
 }
 
 PropertyItem* ExpressionSettingsModel::snapExpression() const
@@ -71,4 +74,9 @@ PropertyItem* ExpressionSettingsModel::snapExpression() const
 PropertyItem* ExpressionSettingsModel::snapBeforeDynamics() const
 {
     return m_snapBeforeDynamics;
+}
+
+PropertyItem* ExpressionSettingsModel::maskBarlines() const
+{
+    return m_maskBarlines;
 }

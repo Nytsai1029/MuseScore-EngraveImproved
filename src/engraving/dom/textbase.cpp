@@ -1788,6 +1788,7 @@ TextBase::TextBase(const TextBase& st)
     m_direction = st.m_direction;
     m_centerBetweenStaves = st.m_centerBetweenStaves;
     m_anchorToEndOfPrevious = st.m_anchorToEndOfPrevious;
+    m_maskBarlines = st.m_maskBarlines;
 
     size_t n = m_elementStyle->size() + TEXT_STYLE_SIZE;
     delete[] m_propertyFlagsList;
@@ -2904,6 +2905,8 @@ PropertyValue TextBase::getProperty(Pid propertyId) const
         return voiceAssignment();
     case Pid::MUSIC_SYMBOL_SIZE:
         return symbolSize();
+    case Pid::MASK_BARLINES:
+        return maskBarlines();
     default:
         return EngravingItem::getProperty(propertyId);
     }
@@ -2996,6 +2999,9 @@ bool TextBase::setProperty(Pid pid, const PropertyValue& v)
     case Pid::MUSIC_SYMBOL_SIZE:
         setSymbolSize(v.toDouble());
         break;
+    case Pid::MASK_BARLINES:
+        setMaskBarlines(v.toBool());
+        break;
     default:
         rv = EngravingItem::setProperty(pid, v);
         break;
@@ -3045,6 +3051,8 @@ PropertyValue TextBase::propertyDefault(Pid id) const
         return VoiceAssignment::ALL_VOICE_IN_INSTRUMENT;
     case Pid::MUSIC_SYMBOL_SIZE:
         return styleValue(Pid::FONT_SIZE, getPropertyStyle(Pid::FONT_SIZE));
+    case Pid::MASK_BARLINES:
+        return false;
     default:
         for (const auto& p : *textStyle(TextStyleType::DEFAULT)) {
             if (p.pid == id) {

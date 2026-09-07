@@ -74,7 +74,7 @@ Column {
         titleText: qsTrc("inspector", "Repeat style")
         propertyItem: root.model ? root.model.hasToShowTips : null
 
-        visible: root.model && root.model.isRepeatStyleChangingAllowed
+        visible: root.model && root.model.isRepeatStyleChangingAllowed && !root.model.isSpanConnector
 
         navigationName: "RepeatStyle"
         navigationPanel: root.navigationPanel
@@ -118,6 +118,7 @@ Column {
     ExpandableBlank {
         id: showItem
         isExpanded: false
+        visible: root.model && !root.model.isSpanConnector
 
         title: isExpanded ? qsTrc("inspector", "Show less") : qsTrc("inspector", "Show more")
 

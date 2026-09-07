@@ -1067,6 +1067,9 @@ void TLayout::layoutBarLine(const BarLine* item, BarLine::LayoutData* ldata, con
             // LD_CONDITION(parentLD->isSetBbox());
             LD_INDEPENDENT;
             break;
+        case ElementType::BAR_LINE:
+            LD_INDEPENDENT;
+            break;
         default:
             UNREACHABLE;
         }
@@ -1136,6 +1139,8 @@ void TLayout::layoutBarLine(const BarLine* item, BarLine::LayoutData* ldata, con
             Image* im = item_cast<Image*>(e);
             TLayout::layoutImage(im, im->mutldata());
         } break;
+        case ElementType::BAR_LINE:
+            break;
         default:
             UNREACHABLE;
         }
@@ -1155,6 +1160,11 @@ void TLayout::updateBarlineShape(const BarLine* item, BarLine::LayoutData* ldata
     LAYOUT_CALL_ITEM(item);
 
     RectF bb = ldata->bbox();
+    if (item->isSpanConnector()) {
+        ldata->setShape(Shape(bb, item));
+        return;
+    }
+
     if (item->staff()) {
         // actual height may include span to next staff
         // but this should not be included in shapes or skylines
@@ -1207,6 +1217,11 @@ void TLayout::layoutBarLine2(BarLine* item, LayoutContext& ctx)
     BarLine::LayoutData* ldata = item->mutldata();
 
     if (ldata->isSkipDraw()) {
+        if (!item->isSpanConnector()) {
+            if (BarLine* connector = item->spanConnector()) {
+                connector->mutldata()->setIsSkipDraw(true);
+            }
+        }
         return;
     }
 
@@ -1215,7 +1230,7 @@ void TLayout::layoutBarLine2(BarLine* item, LayoutContext& ctx)
     bbox.setTop(ldata->y1);
     bbox.setBottom(ldata->y2);
 
-    if (ctx.conf().styleB(Sid::repeatBarTips)) {
+    if (ctx.conf().styleB(Sid::repeatBarTips) && !item->isSpanConnector()) {
         switch (item->barLineType()) {
         case BarLineType::START_REPEAT:
             bbox.unite(item->symBbox(SymId::bracketTop).translated(0, ldata->y1));
@@ -1243,6 +1258,34 @@ void TLayout::layoutBarLine2(BarLine* item, LayoutContext& ctx)
     }
 
     ldata->setBbox(bbox);
+
+    if (item->isSpanConnector()) {
+        return;
+    }
+
+    if (!item->actuallySpansToNextStaff()) {
+        if (BarLine* connector = item->spanConnector()) {
+            connector->mutldata()->setIsSkipDraw(true);
+        }
+        return;
+    }
+
+    item->ensureSpanConnector();
+    BarLine* connector = item->spanConnector();
+    if (!connector) {
+        return;
+    }
+
+    if (connector->generated() && item->generated()) {
+        connector->setBarLineType(item->barLineType());
+    }
+    if (connector->generated()) {
+        connector->setVisible(item->visible());
+    }
+
+    layoutBarLine(connector, connector->mutldata(), ctx);
+    layoutBarLine2(connector, ctx);
+    updateBarlineShape(connector, connector->mutldata(), ctx);
 }
 
 void TLayout::layoutBeam(Beam* item, const LayoutContext& ctx)

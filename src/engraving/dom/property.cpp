@@ -507,6 +507,8 @@ static constexpr PropertyMetaData propertyList[] = {
 
     { Pid::STEM_LENGTH,             false, "stemLength",            P_TYPE::SPATIUM,            PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "stem length") },
 
+    { Pid::MASK_BARLINES,           false, "maskBarlines",          P_TYPE::BOOL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "mask barlines") },
+
     { Pid::END,                     false, "++end++",               P_TYPE::INT,                PropertyGroup::NONE,            "" }
 };
 /* *INDENT-ON* */

@@ -393,7 +393,16 @@ std::vector<HorizontalSpacing::SegmentPosition> HorizontalSpacing::spaceSegments
 
             double chordRestSegWidth = chordRestSegmentNaturalWidth(curSeg, ctx);
 
-            Segment* nextSeg = i < segList.size() - 1 ? segList[i + 1] : nullptr;
+            // Skip TimeTick / disabled / fully-invisible segments. Dragging dynamics, hairpins
+            // or staff text inserts TimeTick anchors between ChordRest segments; those must not
+            // steal extraLeadingSpace or suppress applyCrossBeamSpacingCorrection.
+            Segment* nextSeg = nullptr;
+            for (size_t j = i + 1; j < segList.size(); ++j) {
+                if (!ignoreSegmentForSpacing(segList[j])) {
+                    nextSeg = segList[j];
+                    break;
+                }
+            }
             if (nextSeg) {
                 double nextSegLeadingSpace = nextSeg->extraLeadingSpace().toMM(ctx.spatium);
                 if (!muse::RealIsNull(nextSegLeadingSpace)) {

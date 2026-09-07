@@ -1743,18 +1743,17 @@ EngravingItem* Measure::drop(EditData& data)
                 }
             }
         } else {
-            // drop to first end barline
+            // Applying a type to the measure (not a specific staff barline) still changes all staves.
             seg = findSegmentR(SegmentType::EndBarLine, ticks());
             if (seg) {
                 for (EngravingItem* ee : seg->elist()) {
-                    if (ee) {
-                        ee->drop(data);
+                    if (ee && ee->isBarLine()) {
+                        score()->undoChangeBarLineType(toBarLine(ee), bl->barLineType(), true);
                         break;
                     }
                 }
-            } else {
-                delete e;
             }
+            delete e;
         }
         break;
     }

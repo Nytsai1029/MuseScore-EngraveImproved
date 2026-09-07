@@ -151,6 +151,7 @@ void BarlineSettingsModel::loadProperties(const mu::engraving::PropertyIdSet& pr
 
     updateShowPlayCount();
     updateShowPlayCountSettings();
+    updateIsSpanConnector();
 }
 
 void BarlineSettingsModel::updateShowPlayCount()
@@ -325,4 +326,25 @@ bool BarlineSettingsModel::showPlayCountSettings() const
 bool BarlineSettingsModel::showPlayCount() const
 {
     return m_showPlayCount;
+}
+
+bool BarlineSettingsModel::isSpanConnector() const
+{
+    return m_isSpanConnector;
+}
+
+void BarlineSettingsModel::updateIsSpanConnector()
+{
+    bool isConnector = !m_elementList.empty();
+    for (mu::engraving::EngravingItem* item : m_elementList) {
+        if (!item->isBarLine() || !toBarLine(item)->isSpanConnector()) {
+            isConnector = false;
+            break;
+        }
+    }
+
+    if (isConnector != m_isSpanConnector) {
+        m_isSpanConnector = isConnector;
+        emit isSpanConnectorChanged(m_isSpanConnector);
+    }
 }

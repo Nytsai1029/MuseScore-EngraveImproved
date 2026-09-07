@@ -156,17 +156,36 @@ void EditModeRenderer::drawBarline(BarLine* item, muse::draw::Painter* painter, 
 {
     drawEngravingItem(item, painter, ed, currentViewScaling);
     BarLineEditData* bed = static_cast<BarLineEditData*>(ed.getData(item).get());
-    // Create a copy of the layout data
+    if (!bed) {
+        return;
+    }
+
     BarLine::LayoutData* ldata = item->mutldata();
+    BarLine* connector = item->spanConnector();
+    BarLine::LayoutData* connectorData = (connector && connector->ldata() && !connector->ldata()->isSkipDraw())
+                                         ? connector->mutldata() : nullptr;
+
     ldata->y1 += bed->yoff1;
-    ldata->y2 += bed->yoff2;
+    if (connectorData) {
+        connectorData->y2 += bed->yoff2;
+    } else {
+        ldata->y2 += bed->yoff2;
+    }
+
     PointF pos(item->canvasPos());
     painter->translate(pos);
 
     score::TDraw::drawItem(item, painter);
+    if (connectorData) {
+        score::TDraw::drawItem(connector, painter);
+    }
 
     ldata->y1 -= bed->yoff1;
-    ldata->y2 -= bed->yoff2;
+    if (connectorData) {
+        connectorData->y2 -= bed->yoff2;
+    } else {
+        ldata->y2 -= bed->yoff2;
+    }
     painter->translate(-pos);
 }
 

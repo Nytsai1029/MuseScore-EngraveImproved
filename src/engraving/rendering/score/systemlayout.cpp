@@ -1383,6 +1383,9 @@ void SystemLayout::collectElementsToLayout(Measure* measure, ElementsToLayout& e
             if (s->isType(SegmentType::BarLineType)) {
                 if (BarLine* bl = toBarLine(s->element(track))) {
                     elements.barlines.push_back(bl);
+                    if (BarLine* connector = bl->spanConnector()) {
+                        elements.barlines.push_back(connector);
+                    }
                 }
                 track += VOICES;
                 continue;

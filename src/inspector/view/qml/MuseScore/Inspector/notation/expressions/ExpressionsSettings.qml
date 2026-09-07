@@ -70,11 +70,22 @@ Column {
         ]
     }
 
+    CheckBoxPropertyView {
+        id: maskBarlines
+
+        navigationName: "Mask barlines"
+        navigationPanel: root.navigationPanel
+        navigationRowStart: snapBeforeDynamics.navigationRowEnd + 1
+
+        titleText: qsTrc("inspector", "Mask barlines")
+        propertyItem: root.model ? root.model.maskBarlines : null
+    }
+
     VoicesAndPositionSection {
         id: voicesAndPositionSection
 
         navigationPanel: root.navigationPanel
-        navigationRowStart: snapBeforeDynamics.navigationRowEnd + 1
+        navigationRowStart: maskBarlines.navigationRowEnd + 1
 
         model: root.model
     }

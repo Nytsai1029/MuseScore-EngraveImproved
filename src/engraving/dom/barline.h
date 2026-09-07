@@ -84,6 +84,7 @@ public:
 
     BarLine& operator=(const BarLine&) = delete;
 
+    using EngravingObject::setParent;
     void setParent(Segment* parent);
 
     // Score Tree functions
@@ -95,16 +96,16 @@ public:
     PointF canvasPos() const override;      ///< position in canvas coordinates
     PointF pagePos() const override;        ///< position in page coordinates
 
+    Segment* segment() const;
+    Measure* measure() const;
+
     void scanElements(void* data, void (* func)(void*, EngravingItem*), bool all=true) override;
     void setTrack(track_idx_t t) override;
     void add(EngravingItem*) override;
     void remove(EngravingItem*) override;
     bool acceptDrop(EditData&) const override;
     EngravingItem* drop(EditData&) override;
-    bool isEditable() const override { return true; }
-
-    Segment* segment() const { return toSegment(explicitParent()); }
-    Measure* measure() const { return explicitParent() ? toMeasure(explicitParent()->explicitParent()) : nullptr; }
+    bool isEditable() const override { return !m_spanConnector; }
 
     void setSpanStaff(int val) { m_spanStaff = val; }
     void setSpanFrom(int val) { m_spanFrom = val; }
@@ -114,6 +115,14 @@ public:
     int spanFrom() const { return m_spanFrom; }
     int spanTo() const { return m_spanTo; }
     bool showTips() const;
+
+    bool isSpanConnector() const { return m_spanConnector; }
+    void setSpanConnector(bool val) { m_spanConnector = val; }
+    BarLine* spanConnector() const;
+    BarLine* spanParent() const;
+    bool actuallySpansToNextStaff() const;
+    void ensureSpanConnector();
+    double spanEndY() const;
 
     void startEdit(EditData& ed) override;
     bool isEditAllowed(EditData&) const override;
@@ -153,8 +162,8 @@ public:
     String accessibleExtraInfo() const override;
 
     void setSelected(bool f) override;
-    bool needStartEditingAfterSelecting() const override { return true; }
-    int gripsCount() const override { return 1; }
+    bool needStartEditingAfterSelecting() const override { return !m_spanConnector; }
+    int gripsCount() const override { return m_spanConnector ? 0 : 1; }
     Grip initialEditModeGrip() const override { return Grip::START; }
     Grip defaultGrip() const override { return Grip::START; }
     std::vector<PointF> gripsPositions(const EditData&) const override;
@@ -181,6 +190,7 @@ private:
     int m_spanStaff = 0;         // span barline to next staff if true, values > 1 are used for importing from 2.x
     int m_spanFrom = 0;          // line number on start and end staves
     int m_spanTo = 0;
+    bool m_spanConnector = false; // true if this barline is the inter-staff connector segment
     BarLineType m_barLineType = BarLineType::NORMAL;
 
     ElementList m_el;          ///< fermata or other articulations

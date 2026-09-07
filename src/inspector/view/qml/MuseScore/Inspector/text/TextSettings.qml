@@ -121,13 +121,27 @@ Column {
         }
     }
 
+    CheckBoxPropertyView {
+        id: maskBarlines
+
+        navigationName: "Mask barlines"
+        navigationPanel: root.navigationPanel
+        navigationRowStart: subscriptOptionsButtonList.navigationRowEnd + 1
+
+        titleText: qsTrc("inspector", "Mask barlines")
+        propertyItem: root.model ? root.model.maskBarlines : null
+
+        visible: root.model ? !root.model.isDynamicSpecificSettings : false
+        height: visible ? implicitHeight : 0
+    }
+
     FrameSettings {
         id: frameSettings
         visible: root.model ? !root.model.isDynamicSpecificSettings : false
         height: visible ? implicitHeight : 0
 
         navigationPanel: root.navigationPanel
-        navigationRowStart: subscriptOptionsButtonList.navigationRowEnd + 1
+        navigationRowStart: maskBarlines.navigationRowEnd + 1
 
         frameType: root.model ? root.model.frameType : null
         frameBorderColor: root.model ? root.model.frameBorderColor : null

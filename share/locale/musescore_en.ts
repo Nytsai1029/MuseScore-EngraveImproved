@@ -12272,7 +12272,7 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Articulation</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/barline.cpp" line="1031"/>
+        <location filename="../../src/engraving/dom/barline.cpp" line="1162"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1092"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1103"/>
         <location filename="../../src/engraving/dom/note.cpp" line="3513"/>
@@ -12282,7 +12282,7 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Start of %1</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/barline.cpp" line="1034"/>
+        <location filename="../../src/engraving/dom/barline.cpp" line="1165"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1095"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1105"/>
         <location filename="../../src/engraving/dom/note.cpp" line="3517"/>
@@ -12428,18 +12428,18 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Cannot create tuplet with ratio %1 for duration %2</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/edit.cpp" line="8020"/>
-        <location filename="../../src/engraving/dom/edit.cpp" line="8168"/>
+        <location filename="../../src/engraving/dom/edit.cpp" line="8019"/>
+        <location filename="../../src/engraving/dom/edit.cpp" line="8167"/>
         <source>Remove stale partial tie</source>
         <translation type="unfinished">Remove stale partial tie</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/edit.cpp" line="8078"/>
+        <location filename="../../src/engraving/dom/edit.cpp" line="8077"/>
         <source>Reset incoming partial slur</source>
         <translation type="unfinished">Reset incoming partial slur</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/edit.cpp" line="8088"/>
+        <location filename="../../src/engraving/dom/edit.cpp" line="8087"/>
         <source>Reset outgoing partial slur</source>
         <translation type="unfinished">Reset outgoing partial slur</translation>
     </message>
@@ -12619,8 +12619,8 @@ Fret %1 on strings %2</translation>
     <message>
         <location filename="../../src/engraving/dom/note.cpp" line="3420"/>
         <location filename="../../src/engraving/dom/note.cpp" line="3458"/>
-        <location filename="../../src/engraving/dom/rest.cpp" line="543"/>
-        <location filename="../../src/engraving/dom/rest.cpp" line="555"/>
+        <location filename="../../src/engraving/dom/rest.cpp" line="542"/>
+        <location filename="../../src/engraving/dom/rest.cpp" line="554"/>
         <source>Voice: %1</source>
         <translation type="unfinished">Voice: %1</translation>
     </message>
@@ -12661,13 +12661,13 @@ Fret %1 on strings %2</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/note.cpp" line="3475"/>
-        <location filename="../../src/engraving/dom/rest.cpp" line="558"/>
+        <location filename="../../src/engraving/dom/rest.cpp" line="557"/>
         <source>Cross-staff above</source>
         <translation type="unfinished">Cross-staff above</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/note.cpp" line="3477"/>
-        <location filename="../../src/engraving/dom/rest.cpp" line="560"/>
+        <location filename="../../src/engraving/dom/rest.cpp" line="559"/>
         <source>Cross-staff below</source>
         <translation type="unfinished">Cross-staff below</translation>
     </message>
@@ -12712,7 +12712,7 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Ornament</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/rest.cpp" line="544"/>
+        <location filename="../../src/engraving/dom/rest.cpp" line="543"/>
         <source>%1; Duration: %2; %3</source>
         <translation type="unfinished">%1; Duration: %2; %3</translation>
     </message>
@@ -20411,6 +20411,11 @@ Fret %1 on strings %2</translation>
         <source>stem length</source>
         <translation type="unfinished">stem length</translation>
     </message>
+    <message>
+        <location filename="../../src/engraving/dom/property.cpp" line="510"/>
+        <source>mask barlines</source>
+        <translation type="unfinished">mask barlines</translation>
+    </message>
 </context>
 <context>
     <name>engraving/scoreorder</name>
@@ -24624,7 +24629,7 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">s</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="159"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="173"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/textstylepopup/TextStylePopup.qml" line="389"/>
         <source>li</source>
         <extracomment>Stands for &quot;Lines&quot;. Used for text line spacing controls, for example.</extracomment>
@@ -25866,8 +25871,8 @@ pickup measure</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/ambituses/AmbitusSettings.qml" line="188"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="122"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="90"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="123"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="101"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/BeamSettings.qml" line="239"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="153"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/StemSettings.qml" line="165"/>
@@ -25877,8 +25882,8 @@ pickup measure</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/ambituses/AmbitusSettings.qml" line="188"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="122"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="90"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="123"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="101"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/BeamSettings.qml" line="239"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="153"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/StemSettings.qml" line="165"/>
@@ -25972,54 +25977,54 @@ pickup measure</translation>
         <translation type="unfinished">Play count</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="142"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="143"/>
         <source>Span to next staff</source>
         <translation type="unfinished">Span to next staff</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="156"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="157"/>
         <source>Span from</source>
         <translation type="unfinished">Span from</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="175"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="176"/>
         <source>Span to</source>
         <translation type="unfinished">Span to</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="193"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="194"/>
         <source>Set as staff default</source>
         <translation type="unfinished">Set as staff default</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="216"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="217"/>
         <source>Span presets</source>
         <translation type="unfinished">Span presets</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="225"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="226"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/ornaments/OrnamentSettings.qml" line="188"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="62"/>
         <source>Default</source>
         <translation type="unfinished">Default</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="237"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="238"/>
         <source>Tick 1</source>
         <translation type="unfinished">Tick 1</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="249"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="250"/>
         <source>Tick 2</source>
         <translation type="unfinished">Tick 2</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="266"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="267"/>
         <source>Short 1</source>
         <translation type="unfinished">Short 1</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="278"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/barlines/BarlineSettings.qml" line="279"/>
         <source>Short 2</source>
         <translation type="unfinished">Short 2</translation>
     </message>
@@ -26239,17 +26244,24 @@ pickup measure</translation>
         <translation type="unfinished">Avoid barlines</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="107"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="85"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/expressions/ExpressionsSettings.qml" line="80"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="131"/>
+        <source>Mask barlines</source>
+        <translation type="unfinished">Mask barlines</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="118"/>
         <source>Alignment with notehead</source>
         <translation type="unfinished">Alignment with notehead</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="114"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="125"/>
         <source>Center on notehead</source>
         <translation type="unfinished">Center on notehead</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="115"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="126"/>
         <source>Use text centering</source>
         <translation type="unfinished">Use text centering</translation>
     </message>
@@ -27785,26 +27797,26 @@ pickup measure</translation>
         <translation type="unfinished">Superscript</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="157"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="171"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/textstylepopup/TextStylePopup.qml" line="383"/>
         <source>Line spacing</source>
         <translation type="unfinished">Line spacing</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="180"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="194"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/textstylepopup/TextStylePopup.qml" line="418"/>
         <source>Letter spacing</source>
         <translation type="unfinished">Letter spacing</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="197"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="211"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/textstylepopup/TextStylePopup.qml" line="476"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/textstylepopup/TextStyleSubPopup.qml" line="56"/>
         <source>Text style</source>
         <translation type="unfinished">Text style</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="229"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="243"/>
         <source>Staff text properties</source>
         <translation type="unfinished">Staff text properties</translation>
     </message>
@@ -38525,7 +38537,7 @@ The score will be saved as:
         <translation type="unfinished">Change voice</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/models/notation/barlines/barlinesettingsmodel.cpp" line="233"/>
+        <location filename="../../src/inspector/models/notation/barlines/barlinesettingsmodel.cpp" line="234"/>
         <source>Set barline span interval as staff default</source>
         <translation type="unfinished">Set barline span interval as staff default</translation>
     </message>

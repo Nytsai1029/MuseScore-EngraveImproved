@@ -332,3 +332,33 @@ TEST_F(Engraving_TextBaseTests, lyricsHaveNoDragAlignmentGuideLines)
 
     EXPECT_TRUE(lyrics->dragAlignmentGuideLines().empty());
 }
+
+TEST_F(Engraving_TextBaseTests, maskBarlinesDefaultsOff)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    Dynamic* dynamic = addDynamic(score);
+    StaffText* staffText = addStaffText(score);
+
+    EXPECT_FALSE(dynamic->maskBarlines());
+    EXPECT_FALSE(staffText->maskBarlines());
+    EXPECT_FALSE(dynamic->propertyDefault(Pid::MASK_BARLINES).toBool());
+    EXPECT_FALSE(staffText->propertyDefault(Pid::MASK_BARLINES).toBool());
+
+    dynamic->setProperty(Pid::MASK_BARLINES, true);
+    staffText->setProperty(Pid::MASK_BARLINES, true);
+    EXPECT_TRUE(dynamic->maskBarlines());
+    EXPECT_TRUE(staffText->maskBarlines());
+
+    Dynamic* readDynamic = toDynamic(ScoreRW::writeReadElement(dynamic));
+    StaffText* readStaffText = toStaffText(ScoreRW::writeReadElement(staffText));
+    ASSERT_TRUE(readDynamic);
+    ASSERT_TRUE(readStaffText);
+    EXPECT_TRUE(readDynamic->maskBarlines());
+    EXPECT_TRUE(readStaffText->maskBarlines());
+    delete readDynamic;
+    delete readStaffText;
+
+    delete score;
+}

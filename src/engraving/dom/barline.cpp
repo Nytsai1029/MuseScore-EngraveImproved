@@ -27,6 +27,7 @@
 #include "types/symnames.h"
 
 #include "articulation.h"
+#include "factory.h"
 #include "marker.h"
 #include "masterscore.h"
 #include "measure.h"
@@ -48,6 +49,8 @@ using namespace muse;
 using namespace muse::draw;
 using namespace mu::engraving;
 using namespace mu::engraving::read400;
+
+static staff_idx_t nextVisibleSpannedStaff(const BarLine* bl);
 
 //---------------------------------------------------------
 //   BarLineTable
@@ -97,6 +100,7 @@ BarLine::BarLine(const BarLine& bl)
     m_spanStaff   = bl.m_spanStaff;
     m_spanFrom    = bl.m_spanFrom;
     m_spanTo      = bl.m_spanTo;
+    m_spanConnector = bl.m_spanConnector;
     m_barLineType = bl.m_barLineType;
     m_playCount   = bl.m_playCount;
 
@@ -115,12 +119,96 @@ void BarLine::setParent(Segment* parent)
     EngravingItem::setParent(parent);
 }
 
+Segment* BarLine::segment() const
+{
+    EngravingObject* p = explicitParent();
+    if (p && p->isBarLine()) {
+        return toBarLine(p)->segment();
+    }
+    return p && p->isSegment() ? toSegment(p) : nullptr;
+}
+
+Measure* BarLine::measure() const
+{
+    Segment* s = segment();
+    return s ? toMeasure(s->explicitParent()) : nullptr;
+}
+
+BarLine* BarLine::spanConnector() const
+{
+    for (EngravingItem* e : m_el) {
+        if (e->isBarLine() && toBarLine(e)->isSpanConnector()) {
+            return toBarLine(e);
+        }
+    }
+    return nullptr;
+}
+
+BarLine* BarLine::spanParent() const
+{
+    if (m_spanConnector && explicitParent() && explicitParent()->isBarLine()) {
+        return toBarLine(explicitParent());
+    }
+    return nullptr;
+}
+
+bool BarLine::actuallySpansToNextStaff() const
+{
+    const BarLine* source = spanParent() ? spanParent() : this;
+    if (!source->spanStaff() || source->isSpanConnector()) {
+        return false;
+    }
+    return nextVisibleSpannedStaff(source) != source->staffIdx();
+}
+
+void BarLine::ensureSpanConnector()
+{
+    if (isSpanConnector() || !actuallySpansToNextStaff()) {
+        return;
+    }
+    if (spanConnector()) {
+        return;
+    }
+
+    Segment* seg = segment();
+    if (!seg) {
+        return;
+    }
+
+    BarLine* connector = Factory::createBarLine(seg);
+    connector->setSpanConnector(true);
+    connector->setGenerated(true);
+    connector->setBarLineType(barLineType());
+    connector->setTrack(track());
+    connector->setColor(color());
+    connector->setVisible(visible());
+    add(connector);
+}
+
+double BarLine::spanEndY() const
+{
+    const BarLine::LayoutData* data = ldata();
+    double y2 = data ? data->y2 : 0.0;
+    if (const BarLine* connector = spanConnector()) {
+        const BarLine::LayoutData* cdata = connector->ldata();
+        if (cdata && !cdata->isSkipDraw()) {
+            y2 = cdata->y2;
+        }
+    }
+    return y2;
+}
+
 //---------------------------------------------------------
 //   canvasPos
 //---------------------------------------------------------
 
 PointF BarLine::canvasPos() const
 {
+    if (isSpanConnector()) {
+        EngravingItem* parent = parentItem();
+        return parent ? parent->canvasPos() + pos() : EngravingItem::canvasPos();
+    }
+
     PointF pos = EngravingItem::canvasPos();
     if (explicitParent()) {
         System* system = measure()->system();
@@ -136,6 +224,11 @@ PointF BarLine::canvasPos() const
 
 PointF BarLine::pagePos() const
 {
+    if (isSpanConnector()) {
+        EngravingItem* parent = parentItem();
+        return parent ? parent->pagePos() + pos() : EngravingItem::pagePos();
+    }
+
     if (segment() == 0) {
         return pos();
     }
@@ -238,9 +331,10 @@ void BarLine::calcY()
         data->y2 = (8 - m_spanTo) * _spatium * .5;
         return;
     }
-    staff_idx_t staffIdx1 = staffIdx();
-    staff_idx_t staffIdx2 = m_spanStaff ? nextVisibleSpannedStaff(this) : staffIdx1;
 
+    const BarLine* spanSource = spanParent() ? spanParent() : this;
+    staff_idx_t staffIdx1 = staffIdx();
+    staff_idx_t staffIdx2 = spanSource->spanStaff() ? nextVisibleSpannedStaff(spanSource) : staffIdx1;
     bool spanStaff = staffIdx2 != staffIdx1;
 
     Measure* measure = segment()->measure();
@@ -255,14 +349,22 @@ void BarLine::calcY()
 
     bool oneLine = staffType1->lines() <= 1;
 
-    int from = m_spanFrom;
-    int to = m_spanTo;
+    int from = spanSource->spanFrom();
+    int to = spanSource->spanTo();
+    int toThisStaff = to;
 
-    if (oneLine && m_spanFrom == 0 && m_spanTo == 0) {
+    if (oneLine && spanSource->spanFrom() == 0 && spanSource->spanTo() == 0) {
         from = BARLINE_SPAN_1LINESTAFF_FROM;
+        toThisStaff = BARLINE_SPAN_1LINESTAFF_TO;
         if (!spanStaff) {
             to = BARLINE_SPAN_1LINESTAFF_TO;
         }
+    }
+
+    if (spanStaff) {
+        // spanTo belongs to the connector end on the next staff; this staff always ends at its bottom
+        toThisStaff = (oneLine && spanSource->spanFrom() == 0 && spanSource->spanTo() == 0)
+                      ? BARLINE_SPAN_1LINESTAFF_TO : 0;
     }
 
     double spatium1 = staffType1->spatium();
@@ -271,38 +373,42 @@ void BarLine::calcY()
     double lineWidth = style().styleS(Sid::staffLineWidth).val() * spatium1 * .5;
 
     double y1 = offset + from * lineDistance * .5 - lineWidth;
+    double y2ThisStaff = offset + (staffType1->lines() * 2 - 2 + toThisStaff) * lineDistance * .5 + lineWidth;
     double y2 = offset + (staffType1->lines() * 2 - 2 + to) * lineDistance * .5 + lineWidth;
 
     if (spanStaff) {
-        // we need spatium and line distance of bottom staff
-        // as it may be scalled diferently
         const Staff* staff2 = score()->staff(staffIdx2);
         const StaffType* staffType2 = staff2 ? staff2->staffType(tick) : staffType1;
         double spatium2 = staffType2->spatium();
         double lineDistance2 = staffType2->lineDistance().val() * spatium2;
         double startStaffY = system->staff(staffIdx1)->y();
 
-        y2 = measure->staffLines(staffIdx2)->y1() - startStaffY - to * lineDistance2 * 0.5;
-
-        // if bottom staff is single line, set span-to zeropoint to the top of the standard barline
+        double y2Span = measure->staffLines(staffIdx2)->y1() - startStaffY - to * lineDistance2 * 0.5;
         if (staffType2->lines() <= 1) {
-            y2 += BARLINE_SPAN_1LINESTAFF_FROM * lineDistance2 * 0.5;
+            y2Span += BARLINE_SPAN_1LINESTAFF_FROM * lineDistance2 * 0.5;
+        }
+
+        if (isSpanConnector()) {
+            y1 = y2ThisStaff;
+            y2 = y2Span;
+        } else {
+            y2 = y2ThisStaff;
         }
     }
 
     // if stafftype change in next measure, check new staff positions
     Fraction tickNext = tick + measure->ticks();
-    if (staff1->isStaffTypeStartFrom(tickNext)) {
+    if (!isSpanConnector() && staff1->isStaffTypeStartFrom(tickNext)) {
         Measure* measureNext = measure->nextMeasure();
         System* systemNext = measureNext ? measureNext->system() : nullptr;
         const StaffType* staffType1Next = staff1->staffType(tickNext);
         bool oneLineNext = staffType1Next->lines() <= 1;
         if (systemNext && systemNext == system && staffType1Next != staffType1) {
             if (oneLine && !oneLineNext) {
-                from = m_spanFrom;
-                to = m_spanTo;
+                from = spanSource->spanFrom();
+                to = spanSource->spanTo();
             }
-            if (oneLineNext && m_spanFrom == 0 && m_spanTo == 0) {
+            if (oneLineNext && spanSource->spanFrom() == 0 && spanSource->spanTo() == 0) {
                 from = BARLINE_SPAN_1LINESTAFF_FROM;
                 if (!spanStaff) {
                     to = BARLINE_SPAN_1LINESTAFF_TO;
@@ -341,6 +447,9 @@ void BarLine::calcY()
 
 bool BarLine::isTop() const
 {
+    if (isSpanConnector()) {
+        return false;
+    }
     staff_idx_t idx = staffIdx();
     if (idx == 0) {
         return true;
@@ -355,6 +464,9 @@ bool BarLine::isTop() const
 
 bool BarLine::isBottom() const
 {
+    if (isSpanConnector()) {
+        return false;
+    }
     if (!m_spanStaff) {
         return true;
     }
@@ -421,31 +533,32 @@ EngravingItem* BarLine::drop(EditData& data)
         bool newRepeat = bl->barLineType() & bt;
 
         Measure* m = measure();
-        if (bl->playCount() != -1) {
+        if (bl->playCount() != -1 && m) {
             m->undoChangeProperty(Pid::REPEAT_COUNT, bl->playCount());
         }
 
-        // if ctrl was used and repeats are not involved,
-        // or if drop refers to span rather than subtype =>
-        // single bar line drop
+        if (isSpanConnector()) {
+            undoChangeProperty(Pid::BARLINE_TYPE, PropertyValue::fromValue(st));
+            if (m) {
+                score()->undoUpdatePlayCountText(m);
+            }
+            delete e;
+            return nullptr;
+        }
 
-        if ((data.control() && !oldRepeat && !newRepeat) || (bl->spanFrom() || bl->spanTo())) {
-            // if drop refers to span, update this bar line span
-            if (bl->spanFrom() || bl->spanTo()) {
-                // if dropped spanFrom or spanTo are below the middle of standard staff (5 lines)
-                // adjust to the number of staff lines
-                int spanFrom   = bl->spanFrom();
-                int spanTo     = bl->spanTo();
-                undoChangeProperty(Pid::BARLINE_SPAN, false);
-                undoChangeProperty(Pid::BARLINE_SPAN_FROM, spanFrom);
-                undoChangeProperty(Pid::BARLINE_SPAN_TO, spanTo);
-            }
-            // if drop refers to subtype, update this bar line subtype
-            else {
-                score()->undoChangeBarLineType(this, st, false);
-            }
+        // Span presets apply to this barline only. Appearance types also apply only to the
+        // selected staff; repeat barlines remain measure-wide because they are measure properties.
+        if (bl->spanFrom() || bl->spanTo()) {
+            // if dropped spanFrom or spanTo are below the middle of standard staff (5 lines)
+            // adjust to the number of staff lines
+            int spanFrom   = bl->spanFrom();
+            int spanTo     = bl->spanTo();
+            undoChangeProperty(Pid::BARLINE_SPAN, false);
+            undoChangeProperty(Pid::BARLINE_SPAN_FROM, spanFrom);
+            undoChangeProperty(Pid::BARLINE_SPAN_TO, spanTo);
         } else {
-            score()->undoChangeBarLineType(this, st, true);
+            const bool applyToAllStaves = oldRepeat || newRepeat;
+            score()->undoChangeBarLineType(this, st, applyToAllStaves);
         }
         score()->undoUpdatePlayCountText(m);
         delete e;
@@ -536,8 +649,7 @@ std::vector<PointF> BarLine::gripsPositions(const EditData& ed) const
     const PointF pp = pagePos();
 
     return {
-        //PointF(lw * .5, y1 + bed->yoff1) + pp,
-        PointF(lw * .5, ldata()->y2 + bed->yoff2) + pp
+        PointF(lw * .5, spanEndY() + bed->yoff2) + pp
     };
 }
 
@@ -602,13 +714,14 @@ void BarLine::editDrag(EditData& ed)
     if (ed.curGrip != Grip::START) {
         return;
     } else {
+        const double endY = spanEndY();
         // min for bottom grip is 1 line below top grip
-        const double min = ldata()->y1 - ldata()->y2 + lineDist;
+        const double min = ldata()->y1 - endY + lineDist;
         // max is the bottom of the system
         const System* system = segment() ? segment()->system() : nullptr;
         const staff_idx_t st = staffIdx();
         const double max = (system && st != muse::nidx)
-                           ? (system->height() - ldata()->y2 - system->staff(st)->y())
+                           ? (system->height() - endY - system->staff(st)->y())
                            : std::numeric_limits<double>::max();
         // update yoff2 and bring it within limit
         bed->yoff2 += ed.delta.y();
@@ -631,7 +744,7 @@ void BarLine::endEditDrag(EditData& ed)
     calcY();
     BarLineEditData* bed = static_cast<BarLineEditData*>(ed.getData(this).get());
     mutldata()->y1 += bed->yoff1;
-    mutldata()->y2 += bed->yoff2;
+    mutldata()->y2 = spanEndY() + bed->yoff2;
 
     double ay0      = pagePos().y();
     double ay2      = ay0 + mutldata()->y2;                       // absolute (page-relative) bar line bottom coord
@@ -714,6 +827,10 @@ void BarLine::endEditDrag(EditData& ed)
 
 void BarLine::scanElements(void* data, void (* func)(void*, EngravingItem*), bool all)
 {
+    if (isSpanConnector() && ldata() && ldata()->isSkipDraw() && !all) {
+        return;
+    }
+
     // if no width (staff has bar lines turned off) and not all requested, do nothing
     if (RealIsNull(width()) && !all) {
         return;
@@ -745,6 +862,12 @@ void BarLine::add(EngravingItem* e)
 {
     e->setParent(this);
     switch (e->type()) {
+    case ElementType::BAR_LINE:
+        toBarLine(e)->setSpanConnector(true);
+        e->setTrack(track());
+        m_el.push_back(e);
+        e->added();
+        break;
     case ElementType::ARTICULATION:
     case ElementType::SYMBOL:
     case ElementType::IMAGE:
@@ -766,6 +889,7 @@ void BarLine::add(EngravingItem* e)
 void BarLine::remove(EngravingItem* e)
 {
     switch (e->type()) {
+    case ElementType::BAR_LINE:
     case ElementType::ARTICULATION:
     case ElementType::SYMBOL:
     case ElementType::IMAGE:
@@ -854,7 +978,14 @@ void BarLine::undoChangeProperty(Pid id, const PropertyValue& v, PropertyFlags p
     }
 
     if (id == Pid::BARLINE_TYPE && segment()) {
-        score()->undoChangeBarLineType(this, v.value<BarLineType>(), true, true);
+        if (isSpanConnector()) {
+            EngravingObject::undoChangeProperty(id, v, ps);
+            return;
+        }
+        const BarLineType barType = v.value<BarLineType>();
+        const BarLineType repeatTypes = BarLineType::START_REPEAT | BarLineType::END_REPEAT | BarLineType::END_START_REPEAT;
+        const bool applyToAllStaves = (barLineType() & repeatTypes) || (barType & repeatTypes);
+        score()->undoChangeBarLineType(this, barType, applyToAllStaves, true);
     } else {
         EngravingObject::undoChangeProperty(id, v, ps);
     }

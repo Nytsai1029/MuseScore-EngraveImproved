@@ -519,6 +519,8 @@ enum class Pid {
 
     STEM_LENGTH, // computed: actual stem length (base + user length), for a Stem
 
+    MASK_BARLINES, // text / dynamics punch through intersecting barlines
+
     END
 };
 

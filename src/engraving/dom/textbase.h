@@ -343,6 +343,9 @@ public:
     bool anchorToEndOfPrevious() const { return m_anchorToEndOfPrevious; }
     void setAnchorToEndOfPrevious(bool v) { m_anchorToEndOfPrevious = v; }
 
+    bool maskBarlines() const { return m_maskBarlines; }
+    void setMaskBarlines(bool v) { m_maskBarlines = v; }
+
     bool hasParentSegment() const { return explicitParent() && parent()->isSegment(); }
     virtual bool allowTimeAnchor() const override { return hasParentSegment(); }
     virtual void startEdit(EditData&) override;
@@ -577,6 +580,7 @@ private:
     DirectionV m_direction = DirectionV::AUTO;
     AutoOnOff m_centerBetweenStaves = AutoOnOff::AUTO;
     bool m_anchorToEndOfPrevious = false;
+    bool m_maskBarlines = false;
 };
 
 inline bool isTextNavigationKey(int key, KeyboardModifiers modifiers)

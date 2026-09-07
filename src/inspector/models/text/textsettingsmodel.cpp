@@ -79,6 +79,7 @@ void TextSettingsModel::createProperties()
 
     m_symbolSize = buildPropertyItem(mu::engraving::Pid::MUSIC_SYMBOL_SIZE);
     m_isSizeSpatiumDependent = buildPropertyItem(mu::engraving::Pid::SIZE_SPATIUM_DEPENDENT);
+    m_maskBarlines = buildPropertyItem(mu::engraving::Pid::MASK_BARLINES);
 
     m_frameType = buildPropertyItem(mu::engraving::Pid::FRAME_TYPE, [this](const mu::engraving::Pid pid, const QVariant& newValue) {
         onPropertyValueChanged(pid, newValue);
@@ -116,6 +117,7 @@ void TextSettingsModel::loadProperties()
         Pid::ALIGN,
         Pid::MUSIC_SYMBOL_SIZE,
         Pid::TEXT_SIZE_SPATIUM_DEPENDENT,
+        Pid::MASK_BARLINES,
         Pid::FRAME_TYPE,
         Pid::FRAME_BG_COLOR,
         Pid::FRAME_FG_COLOR,
@@ -187,6 +189,10 @@ void TextSettingsModel::loadProperties(const PropertyIdSet& propertyIdSet)
         loadPropertyItem(m_isSizeSpatiumDependent);
     }
 
+    if (muse::contains(propertyIdSet, Pid::MASK_BARLINES)) {
+        loadPropertyItem(m_maskBarlines);
+    }
+
     if (muse::contains(propertyIdSet, Pid::FRAME_TYPE)) {
         loadPropertyItem(m_frameType);
     }
@@ -239,6 +245,7 @@ void TextSettingsModel::resetProperties()
     m_textLineSpacing->resetToDefault();
     m_textLetterSpacing->resetToDefault();
     m_isSizeSpatiumDependent->resetToDefault();
+    m_maskBarlines->resetToDefault();
     m_symbolSize->resetToDefault();
 
     m_frameType->resetToDefault();
@@ -332,6 +339,11 @@ PropertyItem* TextSettingsModel::symbolSize() const
 PropertyItem* TextSettingsModel::isSizeSpatiumDependent() const
 {
     return m_isSizeSpatiumDependent;
+}
+
+PropertyItem* TextSettingsModel::maskBarlines() const
+{
+    return m_maskBarlines;
 }
 
 PropertyItem* TextSettingsModel::frameType() const

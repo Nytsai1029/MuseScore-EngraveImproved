@@ -36,6 +36,7 @@
 #include "dom/stafflines.h"
 #include "dom/system.h"
 #include "dom/page.h"
+#include "dom/textbase.h"
 #include "dom/textlinebase.h"
 
 using namespace mu::engraving;
@@ -45,10 +46,17 @@ void MaskLayout::computeMasks(LayoutContext& ctx, Page* page)
 {
     TRACEFUNC;
 
-    bool maskBarlines = ctx.conf().styleB(Sid::maskBarlinesForText);
+    const bool maskAllText = ctx.conf().styleB(Sid::maskBarlinesForText);
 
     for (const System* system : page->systems()) {
         std::vector<TextBase*> allSystemText = collectAllSystemText(system);
+        std::vector<TextBase*> maskingText;
+        maskingText.reserve(allSystemText.size());
+        for (TextBase* text : allSystemText) {
+            if (maskAllText || text->maskBarlines()) {
+                maskingText.push_back(text);
+            }
+        }
 
         for (MeasureBase* mb : system->measures()) {
             if (!mb->isMeasure()) {
@@ -56,11 +64,9 @@ void MaskLayout::computeMasks(LayoutContext& ctx, Page* page)
             }
             Measure* measure = toMeasure(mb);
 
-            if (maskBarlines) {
-                for (const Segment& seg : measure->segments()) {
-                    if (seg.isType(SegmentType::BarLineType)) {
-                        computeBarlineMasks(&seg, system, allSystemText, ctx);
-                    }
+            for (const Segment& seg : measure->segments()) {
+                if (seg.isType(SegmentType::BarLineType)) {
+                    computeBarlineMasks(&seg, system, maskingText, ctx);
                 }
             }
         }
@@ -84,10 +90,17 @@ void MaskLayout::computeBarlineMasks(const Segment* barlineSement, const System*
             continue;
         }
         BarLine* barline = toBarLine(barlineSement->element(staff2track(staffIdx)));
-        if (!barline || barline->spanStaff() == 0) {
+        if (!barline) {
             continue;
         }
-        maskBarlineForText(barline, allSystemText);
+        if (barline->spanStaff() != 0) {
+            maskBarlineForText(barline, allSystemText);
+        }
+        if (BarLine* connector = barline->spanConnector()) {
+            if (connector->ldata() && !connector->ldata()->isSkipDraw()) {
+                maskBarlineForText(connector, allSystemText);
+            }
+        }
     }
 }
 

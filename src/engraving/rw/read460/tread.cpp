@@ -2084,6 +2084,13 @@ void TRead::read(BarLine* b, XmlReader& e, ReadContext& ctx)
             b->setSpanFrom(e.readInt());
         } else if (tag == "spanToOffset") {
             b->setSpanTo(e.readInt());
+        } else if (tag == "spanConnector") {
+            b->setSpanConnector(e.readBool());
+        } else if (tag == "BarLine") {
+            BarLine* nested = Factory::createBarLine(b->score()->dummy()->segment());
+            TRead::read(nested, e, ctx);
+            nested->setSpanConnector(true);
+            b->add(nested);
         } else if (tag == "Articulation") {
             Articulation* a = Factory::createArticulation(b->score()->dummy()->chord());
             TRead::read(a, e, ctx);
@@ -4512,6 +4519,7 @@ bool TRead::readProperties(TextBase* t, XmlReader& e, ReadContext& ctx)
     } else if (readProperty(t, tag, e, ctx, Pid::DIRECTION)) {
     } else if (readProperty(t, tag, e, ctx, Pid::CENTER_BETWEEN_STAVES)) {
     } else if (readProperty(t, tag, e, ctx, Pid::MUSIC_SYMBOL_SIZE)) {
+    } else if (readProperty(t, tag, e, ctx, Pid::MASK_BARLINES)) {
     } else if (!readItemProperties(t, e, ctx)) {
         return false;
     }

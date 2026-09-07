@@ -5643,7 +5643,9 @@ void Score::undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
         Segment* segment = bl->segment();
         SegmentType segmentType = segment->segmentType();
 
-        if (segmentType == SegmentType::EndBarLine) {
+        if (segmentType == SegmentType::EndBarLine
+            || segmentType == SegmentType::BeginBarLine
+            || segmentType == SegmentType::BarLine) {
             bool generated = false;
             if (bl->barLineType() == barType) {
                 generated = bl->generated();                // no change: keep current status
@@ -5671,7 +5673,8 @@ void Score::undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
                     segment = m2->undoGetSegment(segment->segmentType(), segment->tick());
                 }
             }
-            const std::vector<EngravingItem*>& elist = allStaves ? segment->elist() : std::vector<EngravingItem*> { bl };
+            std::vector<EngravingItem*> selectedBarlines { bl };
+            const std::vector<EngravingItem*>& elist = allStaves ? segment->elist() : selectedBarlines;
             for (EngravingItem* e : elist) {
                 if (!e || !e->staff() || !e->isBarLine()) {
                     continue;
@@ -5693,13 +5696,22 @@ void Score::undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
                         continue;
                     }
 
-                    lmeasure->undoChangeProperty(Pid::REPEAT_END, false);
+                    if (segmentType == SegmentType::EndBarLine) {
+                        lmeasure->undoChangeProperty(Pid::REPEAT_END, false);
 
-                    Measure* nextMeasure = lmeasure->nextMeasure();
-                    if (nextMeasure && !keepStartRepeat) {
-                        nextMeasure->undoChangeProperty(Pid::REPEAT_START, false);
+                        Measure* nextMeasure = lmeasure->nextMeasure();
+                        if (nextMeasure && !keepStartRepeat) {
+                            nextMeasure->undoChangeProperty(Pid::REPEAT_START, false);
+                        }
                     }
-                    Segment* lsegment = lmeasure->undoGetSegmentR(SegmentType::EndBarLine, lmeasure->ticks());
+
+                    Fraction rtick = segment->rtick();
+                    if (segmentType == SegmentType::EndBarLine) {
+                        rtick = lmeasure->ticks();
+                    } else if (segmentType == SegmentType::BeginBarLine) {
+                        rtick = Fraction(0, 1);
+                    }
+                    Segment* lsegment = lmeasure->undoGetSegmentR(segmentType, rtick);
                     BarLine* lbl = toBarLine(lsegment->element(ltrack));
                     if (!lbl) {
                         lbl = Factory::createBarLine(lsegment);
@@ -5729,19 +5741,6 @@ void Score::undoChangeBarLineType(BarLine* bl, BarLineType barType, bool allStav
                                 lscore->doUndoRemoveElement(linkedOnCoveringMMRest);
                             }
                         }
-                    }
-                }
-            }
-        } else if (segmentType == SegmentType::BeginBarLine) {
-            for (Score* lscore : m2->score()->scoreList()) {
-                Measure* lmeasure = lscore->tick2measure(m2->tick());
-                Segment* segment1 = lmeasure->undoGetSegmentR(SegmentType::BeginBarLine, Fraction(0, 1));
-                for (EngravingItem* e : segment1->elist()) {
-                    if (e) {
-                        lscore->undo(new ChangeProperty(e, Pid::GENERATED, false, PropertyFlags::NOSTYLE));
-                        lscore->undo(new ChangeProperty(e, Pid::BARLINE_TYPE, PropertyValue::fromValue(barType), PropertyFlags::NOSTYLE));
-                        // set generated flag before and after so it sticks on type change and also works on undo/redo
-                        lscore->undo(new ChangeProperty(e, Pid::GENERATED, false, PropertyFlags::NOSTYLE));
                     }
                 }
             }

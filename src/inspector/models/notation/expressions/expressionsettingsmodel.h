@@ -30,6 +30,7 @@ class ExpressionSettingsModel : public InspectorModelWithVoiceAndPositionOptions
 
     Q_PROPERTY(PropertyItem * snapExpression READ snapExpression CONSTANT)
     Q_PROPERTY(PropertyItem * snapBeforeDynamics READ snapBeforeDynamics CONSTANT)
+    Q_PROPERTY(PropertyItem * maskBarlines READ maskBarlines CONSTANT)
 
 public:
     explicit ExpressionSettingsModel(QObject* parent, IElementRepositoryService* repository);
@@ -41,9 +42,11 @@ public:
 
     PropertyItem* snapExpression() const;
     PropertyItem* snapBeforeDynamics() const;
+    PropertyItem* maskBarlines() const;
 
 private:
     PropertyItem* m_snapExpression = nullptr;
     PropertyItem* m_snapBeforeDynamics = nullptr;
+    PropertyItem* m_maskBarlines = nullptr;
 };
 }

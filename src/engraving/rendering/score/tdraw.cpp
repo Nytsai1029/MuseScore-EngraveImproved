@@ -634,6 +634,10 @@ void TDraw::draw(const BagpipeEmbellishment* item, Painter* painter)
 
 static void drawDots(const BarLine* item, Painter* painter, double x)
 {
+    if (item->isSpanConnector()) {
+        return;
+    }
+
     double spatium = item->spatium();
 
     double y1l;
@@ -839,7 +843,7 @@ void TDraw::draw(const BarLine* item, Painter* painter)
     break;
     }
     Segment* s = item->segment();
-    if (s && s->isEndBarLineType() && !item->score()->printing()) {
+    if (s && s->isEndBarLineType() && !item->score()->printing() && !item->isSpanConnector()) {
         Measure* m = s->measure();
         if (m->isIrregular() && item->score()->markIrregularMeasures() && !m->isMMRest()) {
             painter->setPen(item->configuration()->invisibleColor());
