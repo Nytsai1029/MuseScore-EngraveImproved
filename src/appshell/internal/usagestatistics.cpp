@@ -32,8 +32,8 @@
 #include <QUuid>
 #include <QWindow>
 
-#include "engraving/dom/masterscore.h"
 #include "multiinstances/resourcelockguard.h"
+#include "project/types/projecttypes.h"
 
 #include "log.h"
 
@@ -218,6 +218,7 @@ void UsageStatistics::bindCurrentProject(const project::INotationProjectPtr& pro
     const qint64 now = nowMilliseconds();
     const QString oldKey = m_currentScoreKey;
 
+    m_pathChangePending = false;
     m_accumulator.setCurrentScoreKey(QString(), now);
     if (!oldKey.isEmpty() && !isPersistentUsageStatisticsKey(oldKey)) {
         m_accumulator.discardScoreKey(oldKey);
@@ -240,9 +241,19 @@ void UsageStatistics::bindCurrentProject(const project::INotationProjectPtr& pro
 
         const std::weak_ptr<project::INotationProject> weakProject(m_currentProject);
         m_currentProject->pathChanged().onNotify(this, [this, weakProject]() {
-            if (weakProject.lock() == m_currentProject) {
-                refreshCurrentProjectIdentity();
+            if (weakProject.lock() != m_currentProject) {
+                return;
             }
+
+            m_pathChangePending = true;
+            QTimer::singleShot(0, this, [this, weakProject]() {
+                if (weakProject.lock() != m_currentProject || !m_pathChangePending) {
+                    return;
+                }
+
+                m_pathChangePending = false;
+                refreshCurrentProjectIdentity(true);
+            });
         });
         m_currentProject->displayNameChanged().onNotify(this, [this, weakProject]() {
             if (weakProject.lock() == m_currentProject) {
@@ -251,18 +262,23 @@ void UsageStatistics::bindCurrentProject(const project::INotationProjectPtr& pro
             }
         });
         m_currentProject->saveComplited().onReceive(
-            this, [this, weakProject](const muse::io::path_t&, project::SaveMode) {
-                if (weakProject.lock() == m_currentProject) {
-                    refreshCurrentProjectIdentity();
-                    flush();
+            this, [this, weakProject](const muse::io::path_t&, project::SaveMode saveMode) {
+                if (weakProject.lock() != m_currentProject) {
+                    return;
                 }
+
+                m_pathChangePending = false;
+                const bool continueSameScore = saveMode == project::SaveMode::Save
+                                               || saveMode == project::SaveMode::AutoSave;
+                refreshCurrentProjectIdentity(continueSameScore);
+                flush();
             });
     }
 
     m_statisticsChanged.notify();
 }
 
-void UsageStatistics::refreshCurrentProjectIdentity()
+void UsageStatistics::refreshCurrentProjectIdentity(bool continueSameScore)
 {
     if (!m_currentProject) {
         return;
@@ -279,13 +295,23 @@ void UsageStatistics::refreshCurrentProjectIdentity()
 
     const qint64 now = nowMilliseconds();
     const QString oldKey = m_currentScoreKey;
-    m_accumulator.migrateScoreKey(oldKey, newKey, now);
-    if (isPersistentUsageStatisticsKey(oldKey) && isPersistentUsageStatisticsKey(newKey)) {
-        m_pendingMigrations.push_back({ oldKey, newKey });
+    const bool startFresh = isPersistentUsageStatisticsKey(oldKey)
+                            && isPersistentUsageStatisticsKey(newKey)
+                            && !continueSameScore;
+
+    if (startFresh) {
+        m_accumulator.setCurrentScoreKey(newKey, now);
+    } else {
+        m_accumulator.migrateScoreKey(oldKey, newKey, now);
+        if (isPersistentUsageStatisticsKey(oldKey) && isPersistentUsageStatisticsKey(newKey)) {
+            m_pendingMigrations.push_back({ oldKey, newKey });
+        }
     }
 
     m_currentScoreKey = newKey;
-    m_runtimeScoreKey.clear();
+    if (isPersistentUsageStatisticsKey(newKey)) {
+        m_runtimeScoreKey.clear();
+    }
     m_statisticsChanged.notify();
 }
 
@@ -295,20 +321,17 @@ QString UsageStatistics::scoreKey(const project::INotationProjectPtr& project) c
         return {};
     }
 
-    if (project->isNewlyCreated() && project->path().empty()) {
+    const muse::io::path_t path = project->path();
+    if (path.empty()) {
         return {};
     }
 
-    const notation::IMasterNotationPtr masterNotation = project->masterNotation();
-    const engraving::MasterScore* score = masterNotation ? masterNotation->masterScore() : nullptr;
-    if (score) {
-        const engraving::EID eid = score->eid();
-        if (eid.isValid()) {
-            return QStringLiteral("eid:") + QString::fromStdString(eid.toStdString());
-        }
+    // Identify by path so copies of a file start a new timer. Unsaved scores stay runtime-keyed.
+    if (project->isNewlyCreated() && !fileSystem()->exists(path)) {
+        return {};
     }
 
-    return pathScoreKey(project->path());
+    return pathScoreKey(path);
 }
 
 QString UsageStatistics::pathScoreKey(const muse::io::path_t& path) const

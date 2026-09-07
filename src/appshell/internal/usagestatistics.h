@@ -77,7 +77,7 @@ private:
     void updateActiveState();
 
     void bindCurrentProject(const project::INotationProjectPtr& project);
-    void refreshCurrentProjectIdentity();
+    void refreshCurrentProjectIdentity(bool continueSameScore);
     QString scoreKey(const project::INotationProjectPtr& project) const;
     QString pathScoreKey(const muse::io::path_t& path) const;
 
@@ -106,6 +106,7 @@ private:
     bool m_resetPending = false;
     bool m_hasPersistedData = false;
     bool m_initialized = false;
+    bool m_pathChangePending = false;
 
     muse::async::Notification m_statisticsChanged;
 };

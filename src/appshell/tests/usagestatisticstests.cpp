@@ -38,6 +38,8 @@ namespace {
 const QString SCORE_A = QStringLiteral("eid:score-a");
 const QString SCORE_B = QStringLiteral("eid:score-b");
 const QString PATH_SCORE = QStringLiteral("path:legacy-score");
+const QString PATH_A = QStringLiteral("path:score-a");
+const QString PATH_B = QStringLiteral("path:score-b");
 
 class UsageStatisticsStub : public IUsageStatistics
 {
@@ -116,6 +118,18 @@ TEST(UsageStatisticsAccumulatorTests, MigratesPendingPathTimeToEid)
     EXPECT_EQ(accumulator.pendingScoreMilliseconds(SCORE_A, 90000), 90000);
 }
 
+TEST(UsageStatisticsAccumulatorTests, StartsFreshWhenCopyingToNewScoreKey)
+{
+    UsageStatisticsAccumulator accumulator;
+    accumulator.setCurrentScoreKey(PATH_A, 0);
+    accumulator.setActive(true, 0);
+    accumulator.setCurrentScoreKey(PATH_B, 60000);
+
+    EXPECT_EQ(accumulator.currentScoreKey(), PATH_B);
+    EXPECT_EQ(accumulator.pendingScoreMilliseconds(PATH_A, 90000), 60000);
+    EXPECT_EQ(accumulator.pendingScoreMilliseconds(PATH_B, 90000), 30000);
+}
+
 TEST(UsageStatisticsAccumulatorTests, RetainsPendingDeltasUntilClearedAfterWrite)
 {
     UsageStatisticsAccumulator accumulator;
@@ -190,14 +204,28 @@ TEST(UsageStatisticsDataTests, MergesIndependentInstanceDeltasByAddition)
     EXPECT_EQ(data.scoreActiveMilliseconds.value(SCORE_B), 75000);
 }
 
-TEST(UsageStatisticsDataTests, CopiesWithSameEidShareTimeAndDifferentEidsDoNot)
+TEST(UsageStatisticsDataTests, CopiedFilesDoNotShareTime)
 {
     UsageStatisticsData data;
-    mergeUsageStatisticsDeltas(data, 0, { { SCORE_A, 60000 } });
+    mergeUsageStatisticsDeltas(data, 0, { { PATH_A, 60000 } });
+    mergeUsageStatisticsDeltas(data, 0, { { PATH_B, 15000 } });
 
-    const QString copiedScoreKey = SCORE_A;
-    EXPECT_EQ(data.scoreActiveMilliseconds.value(copiedScoreKey), 60000);
-    EXPECT_EQ(data.scoreActiveMilliseconds.value(SCORE_B), 0);
+    EXPECT_EQ(data.scoreActiveMilliseconds.value(PATH_A), 60000);
+    EXPECT_EQ(data.scoreActiveMilliseconds.value(PATH_B), 15000);
+    EXPECT_EQ(usageStatisticsScoreMilliseconds(data, PATH_A), 60000);
+    EXPECT_EQ(usageStatisticsScoreMilliseconds(data, PATH_B), 15000);
+}
+
+TEST(UsageStatisticsDataTests, MigratesTimeWhenSameScoreChangesPath)
+{
+    UsageStatisticsData data;
+    data.scoreActiveMilliseconds.insert(PATH_A, 60000);
+
+    applyUsageStatisticsMigrations(data, { { PATH_A, PATH_B } });
+
+    EXPECT_FALSE(data.scoreActiveMilliseconds.contains(PATH_A));
+    EXPECT_EQ(data.scoreActiveMilliseconds.value(PATH_B), 60000);
+    EXPECT_EQ(resolveUsageStatisticsScoreKey(data, PATH_A), PATH_B);
 }
 
 TEST(UsageStatisticsDataTests, MigratesPathFallbackIntoExistingEidTotal)
