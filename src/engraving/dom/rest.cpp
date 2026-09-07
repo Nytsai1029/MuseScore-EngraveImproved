@@ -114,8 +114,9 @@ void Rest::hack_toRestType()
 
 void Rest::setOffset(const PointF& o)
 {
-    double _spatium = spatium();
-    int line = lrint(o.y() / _spatium);
+    const StaffType* st = staff() ? staff()->staffTypeForElement(this) : nullptr;
+    const double lineDist = st ? st->lineDistance().val() : 1.0;
+    const int line = lrint(o.y() / (lineDist * spatium()));
 
     //! NOTE We need to find out why this is being done here.
     //! We rewrite sym in the layout (we get from the Rest::getSymbol method )
@@ -146,17 +147,15 @@ RectF Rest::drag(EditData& ed)
         return RectF();
     }
 
-    PointF s(ed.delta);
-    RectF r(pageBoundingRect());
+    RectF r = EngravingItem::drag(ed);
 
     // Limit horizontal drag range
     static const double xDragRange = spatium() * 5;
-    if (std::fabs(s.x()) > xDragRange) {
-        s.rx() = xDragRange * (s.x() < 0 ? -1.0 : 1.0);
+    PointF o = offset();
+    if (std::fabs(o.x()) > xDragRange) {
+        o.setX(xDragRange * (o.x() < 0 ? -1.0 : 1.0));
+        setOffset(o);
     }
-    setOffset(PointF(s.x(), s.y()));
-
-    renderer()->layoutItem(this);
 
     score()->rebuildBspTree();
     return pageBoundingRect().united(r);

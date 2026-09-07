@@ -2940,7 +2940,7 @@ void Note::horizontalDrag(EditData& ed)
         // the note's actual rendered position (not the mouse), so once the note has reached
         // that limit the value stops decreasing instead of running away ("backward
         // accumulation") and leaking into the gap after it.
-        Segment* previous = seg->prev();
+        Segment* previous = seg->prevActive();
         const double minSegX = previous
                                ? previous->pageX() + HorizontalSpacing::minHorizontalDistance(previous, seg, 1.0)
                                : seg->measure()->pageX() + style().styleMM(Sid::barNoteDistance);

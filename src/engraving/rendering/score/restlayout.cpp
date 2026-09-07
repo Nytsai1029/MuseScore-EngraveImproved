@@ -212,9 +212,6 @@ void RestLayout::resolveRestVSChord(std::vector<Rest*>& rests, std::vector<Chord
 
             bool restAbove = rest->voice() < chord->voice() || (chord->slash() && !(rest->voice() % 2));
             int upSign = restAbove ? -1 : 1;
-            double restYOffset = rest->offset().y();
-            bool ignoreYOffset = (restAbove && restYOffset > 0) || (!restAbove && restYOffset < 0);
-            PointF offset = ignoreYOffset ? PointF(0, restYOffset) : PointF(0, 0);
 
             Shape chordShape = chord->shape().translate(chord->pos());
             chordShape.removeInvisibles();
@@ -224,7 +221,7 @@ void RestLayout::resolveRestVSChord(std::vector<Rest*>& rests, std::vector<Chord
             }
 
             double clearance = 0.0;
-            Shape restShape = rest->shape().translate(rest->pos() - offset);
+            Shape restShape = rest->shape().translate(rest->pos() - rest->offset());
             if (chord->segment() == rest->segment()) {
                 clearance = restAbove
                             ? restShape.verticalClearance(chordShape)
@@ -775,7 +772,7 @@ void RestLayout::updateSymbol(const Rest* item, Rest::LayoutData* ldata)
     int lines = st->lines(t);
 
     double y = item->pos().y();
-    int line = floor(y / lineDistance);
+    int line = lrint(y / lineDistance);
 
     ldata->sym = item->getSymbol(item->durationType().type(), line, lines);
 }
