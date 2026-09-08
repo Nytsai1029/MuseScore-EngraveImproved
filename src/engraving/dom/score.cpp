@@ -804,6 +804,12 @@ void Score::setShowAnchors(const ShowAnchors& showAnchors)
     m_showAnchors = showAnchors;
 }
 
+void Score::hideAnchors()
+{
+    m_showAnchors.reset();
+    EditTimeTickAnchors::cleanupUnusedAnchors(this);
+}
+
 //---------------------------------------------------------
 //   readOnly
 //---------------------------------------------------------

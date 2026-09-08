@@ -22,13 +22,27 @@
 
 #include <gtest/gtest.h>
 
+#include <algorithm>
+#include <memory>
+#include <sstream>
+#include <string>
+#include <vector>
+
+#include "dom/anchors.h"
 #include "dom/chordrest.h"
+#include "dom/editdata.h"
+#include "dom/expression.h"
+#include "dom/factory.h"
 #include "dom/hairpin.h"
 #include "dom/masterscore.h"
+#include "dom/measure.h"
 #include "dom/segment.h"
+#include "dom/slur.h"
 #include "dom/text.h"
+#include "dom/textbase.h"
 
 #include "engraving/compat/scoreaccess.h"
+#include "infrastructure/shape.h"
 #include "utils/scorerw.h"
 
 using namespace mu;
@@ -113,4 +127,381 @@ TEST_F(Engraving_HairpinTests, crescLineAlignmentGuidesUseTextOrigin)
     const PointF origin = seg->text()->canvasPos() + localOrigin;
     EXPECT_NEAR(guides.at(0).y1(), origin.y(), 1e-6);
     EXPECT_NEAR(guides.at(1).x1(), origin.x(), 1e-6);
+}
+
+namespace {
+int countTimeTickSegments(const Score* score)
+{
+    int count = 0;
+    for (const Measure* measure = score->firstMeasure(); measure; measure = measure->nextMeasure()) {
+        for (const Segment* segment = measure->first(SegmentType::TimeTick); segment;
+             segment = segment->next(SegmentType::TimeTick)) {
+            ++count;
+        }
+    }
+    return count;
+}
+
+Segment* findTimeTickSegment(Score* score, const Fraction& tick)
+{
+    for (Measure* measure = score->firstMeasure(); measure; measure = measure->nextMeasure()) {
+        for (Segment* segment = measure->first(SegmentType::TimeTick); segment;
+             segment = segment->next(SegmentType::TimeTick)) {
+            if (segment->tick() == tick) {
+                return segment;
+            }
+        }
+    }
+    return nullptr;
+}
+
+Segment* firstTimeTickSegment(Score* score)
+{
+    for (Measure* measure = score->firstMeasure(); measure; measure = measure->nextMeasure()) {
+        if (Segment* segment = measure->first(SegmentType::TimeTick)) {
+            return segment;
+        }
+    }
+    return nullptr;
+}
+
+std::vector<double> chordRestXs(const Score* score)
+{
+    std::vector<double> xs;
+    const Measure* measure = score->firstMeasure();
+    if (!measure) {
+        return xs;
+    }
+    for (const Segment* segment = measure->first(SegmentType::ChordRest); segment;
+         segment = segment->next(SegmentType::ChordRest)) {
+        xs.push_back(segment->x());
+    }
+    return xs;
+}
+
+std::vector<std::string> staffShapeTypeNames(const Segment* segment, staff_idx_t staffIdx)
+{
+    std::vector<std::string> names;
+    for (const ShapeElement& shapeEl : segment->staffShape(staffIdx).elements()) {
+        if (shapeEl.item()) {
+            names.emplace_back(shapeEl.item()->typeName());
+        }
+    }
+    std::sort(names.begin(), names.end());
+    return names;
+}
+
+std::string joinNames(const std::vector<std::string>& names)
+{
+    std::ostringstream out;
+    for (size_t i = 0; i < names.size(); ++i) {
+        if (i) {
+            out << ',';
+        }
+        out << names[i];
+    }
+    return out.str();
+}
+
+Slur* firstSlur(Score* score)
+{
+    for (auto& pair : score->spanner()) {
+        if (pair.second->isSlur()) {
+            return toSlur(pair.second);
+        }
+    }
+    return nullptr;
+}
+
+struct SlurGeometrySnapshot {
+    PointF start;
+    PointF end;
+    PointF bezier1;
+    PointF bezier2;
+};
+
+SlurGeometrySnapshot captureSlurGeometry(const Slur* slur)
+{
+    const SlurSegment* slurSeg = slur->frontSegment();
+    SlurGeometrySnapshot snapshot;
+    snapshot.start = slurSeg->ups(Grip::START).p;
+    snapshot.end = slurSeg->ups(Grip::END).p;
+    snapshot.bezier1 = slurSeg->ups(Grip::BEZIER1).p;
+    snapshot.bezier2 = slurSeg->ups(Grip::BEZIER2).p;
+    return snapshot;
+}
+
+void expectPointNear(const PointF& actual, const PointF& expected, double epsilon, const char* label)
+{
+    EXPECT_NEAR(actual.x(), expected.x(), epsilon) << label << ".x";
+    EXPECT_NEAR(actual.y(), expected.y(), epsilon) << label << ".y";
+}
+
+void expectXsNear(const std::vector<double>& actual, const std::vector<double>& expected, double epsilon)
+{
+    ASSERT_EQ(actual.size(), expected.size());
+    for (size_t i = 0; i < actual.size(); ++i) {
+        EXPECT_NEAR(actual[i], expected[i], epsilon) << "ChordRest x[" << i << "]";
+    }
+}
+
+Hairpin* addHairpinOverFirstMeasure(MasterScore* score)
+{
+    Measure* measure = score->firstMeasure();
+    if (!measure) {
+        return nullptr;
+    }
+    Segment* firstCR = measure->first(SegmentType::ChordRest);
+    Segment* lastCR = measure->last(SegmentType::ChordRest);
+    if (!firstCR || !lastCR) {
+        return nullptr;
+    }
+    ChordRest* cr1 = toChordRest(firstCR->element(0));
+    ChordRest* cr2 = toChordRest(lastCR->element(0));
+    if (!cr1 || !cr2) {
+        return nullptr;
+    }
+    return score->addHairpin(HairpinType::CRESC_HAIRPIN, cr1, cr2);
+}
+
+Expression* addExpressionOnFirstChord(MasterScore* score)
+{
+    Measure* measure = score->firstMeasure();
+    if (!measure) {
+        return nullptr;
+    }
+    Segment* firstCR = measure->first(SegmentType::ChordRest);
+    if (!firstCR) {
+        return nullptr;
+    }
+    Expression* expression = Factory::createExpression(firstCR, true);
+    expression->setTrack(0);
+    expression->setXmlText(u"dolce");
+    firstCR->add(expression);
+    return expression;
+}
+
+void prepareElementEditData(EditData& ed, EngravingItem* item)
+{
+    auto eed = std::make_shared<ElementEditData>();
+    eed->e = item;
+    ed.addData(eed);
+}
+
+void expectStableSlurAfterOffsetOnlyMove(MasterScore* score, const Slur* slur, const Segment* firstCR,
+                                         int timeTicksBefore, const std::vector<double>& noteXsBefore,
+                                         const SlurGeometrySnapshot& slurBefore,
+                                         const std::vector<std::string>& staffShapeBefore)
+{
+    const int timeTicksAfter = countTimeTickSegments(score);
+    const std::vector<double> noteXsAfter = chordRestXs(score);
+    const SlurGeometrySnapshot slurAfter = captureSlurGeometry(slur);
+    const std::vector<std::string> staffShapeAfter = staffShapeTypeNames(firstCR, 0);
+
+    EXPECT_EQ(timeTicksAfter, timeTicksBefore)
+        << "TimeTick count before=" << timeTicksBefore << " after=" << timeTicksAfter;
+    expectXsNear(noteXsAfter, noteXsBefore, 1e-4);
+    expectPointNear(slurAfter.start, slurBefore.start, 1e-4, "slur START");
+    expectPointNear(slurAfter.end, slurBefore.end, 1e-4, "slur END");
+    expectPointNear(slurAfter.bezier1, slurBefore.bezier1, 1e-4, "slur BEZIER1");
+    expectPointNear(slurAfter.bezier2, slurBefore.bezier2, 1e-4, "slur BEZIER2");
+    EXPECT_EQ(staffShapeAfter, staffShapeBefore)
+        << "staffShape before=[" << joinNames(staffShapeBefore) << "] after=["
+        << joinNames(staffShapeAfter) << "]";
+}
+}
+
+TEST_F(Engraving_HairpinTests, verticalHairpinDragKeepsSlurGeometry)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    Hairpin* hp = addHairpinOverFirstMeasure(score);
+    ASSERT_TRUE(hp);
+    score->doLayout();
+    ASSERT_FALSE(hp->segmentsEmpty());
+
+    Slur* slur = firstSlur(score);
+    ASSERT_TRUE(slur);
+    ASSERT_FALSE(slur->segmentsEmpty());
+
+    HairpinSegment* hairpinSeg = toHairpinSegment(hp->frontSegment());
+    ASSERT_TRUE(hairpinSeg);
+
+    const int timeTicksBefore = countTimeTickSegments(score);
+    const std::vector<double> noteXsBefore = chordRestXs(score);
+    const SlurGeometrySnapshot slurBefore = captureSlurGeometry(slur);
+    const Measure* firstMeasure = score->firstMeasure();
+    ASSERT_TRUE(firstMeasure);
+    const Segment* firstCR = firstMeasure->first(SegmentType::ChordRest);
+    ASSERT_TRUE(firstCR);
+    const std::vector<std::string> staffShapeBefore = staffShapeTypeNames(firstCR, 0);
+
+    EditData ed;
+    ed.curGrip = Grip::MIDDLE;
+    ed.evtDelta = PointF(0.0, hairpinSeg->spatium());
+    prepareElementEditData(ed, hairpinSeg);
+    static_cast<EngravingItem*>(hairpinSeg)->startEditDrag(ed);
+    static_cast<EngravingItem*>(hairpinSeg)->editDrag(ed);
+    score->doLayout();
+
+    const int timeTicksAfterDrag = countTimeTickSegments(score);
+    EXPECT_EQ(timeTicksAfterDrag, timeTicksBefore)
+        << "startEditDrag + vertical middle drag must not insert a TimeTick grid"
+        << " (before=" << timeTicksBefore << " afterDrag=" << timeTicksAfterDrag << ")";
+
+    score->hideAnchors();
+    score->doLayout();
+
+    expectStableSlurAfterOffsetOnlyMove(score, slur, firstCR, timeTicksBefore, noteXsBefore, slurBefore, staffShapeBefore);
+
+    delete score;
+}
+
+TEST_F(Engraving_HairpinTests, verticalHairpinEndGripDragKeepsSlurGeometry)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    Hairpin* hp = addHairpinOverFirstMeasure(score);
+    ASSERT_TRUE(hp);
+    score->doLayout();
+    ASSERT_FALSE(hp->segmentsEmpty());
+
+    Slur* slur = firstSlur(score);
+    ASSERT_TRUE(slur);
+    ASSERT_FALSE(slur->segmentsEmpty());
+
+    HairpinSegment* hairpinSeg = toHairpinSegment(hp->frontSegment());
+    ASSERT_TRUE(hairpinSeg);
+
+    const int timeTicksBefore = countTimeTickSegments(score);
+    const std::vector<double> noteXsBefore = chordRestXs(score);
+    const SlurGeometrySnapshot slurBefore = captureSlurGeometry(slur);
+    const Measure* firstMeasure = score->firstMeasure();
+    ASSERT_TRUE(firstMeasure);
+    const Segment* firstCR = firstMeasure->first(SegmentType::ChordRest);
+    ASSERT_TRUE(firstCR);
+    const std::vector<std::string> staffShapeBefore = staffShapeTypeNames(firstCR, 0);
+
+    EditData ed;
+    ed.curGrip = Grip::END;
+    ed.evtDelta = PointF(0.0, hairpinSeg->spatium());
+    ed.pos = canvasOriginFromPageGrip(hairpinSeg, Grip::END);
+    prepareElementEditData(ed, hairpinSeg);
+    static_cast<EngravingItem*>(hairpinSeg)->startEditDrag(ed);
+    static_cast<EngravingItem*>(hairpinSeg)->editDrag(ed);
+    score->doLayout();
+
+    const int timeTicksAfterDrag = countTimeTickSegments(score);
+    EXPECT_EQ(timeTicksAfterDrag, timeTicksBefore)
+        << "startEditDrag + vertical end-grip drag must not insert a TimeTick grid"
+        << " (before=" << timeTicksBefore << " afterDrag=" << timeTicksAfterDrag << ")";
+
+    score->hideAnchors();
+    score->doLayout();
+
+    expectStableSlurAfterOffsetOnlyMove(score, slur, firstCR, timeTicksBefore, noteXsBefore, slurBefore, staffShapeBefore);
+
+    delete score;
+}
+
+TEST_F(Engraving_HairpinTests, verticalExpressionDragKeepsSlurGeometry)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    Expression* expression = addExpressionOnFirstChord(score);
+    ASSERT_TRUE(expression);
+    score->doLayout();
+
+    Slur* slur = firstSlur(score);
+    ASSERT_TRUE(slur);
+    ASSERT_FALSE(slur->segmentsEmpty());
+
+    const int timeTicksBefore = countTimeTickSegments(score);
+    const std::vector<double> noteXsBefore = chordRestXs(score);
+    const SlurGeometrySnapshot slurBefore = captureSlurGeometry(slur);
+    const Measure* firstMeasure = score->firstMeasure();
+    ASSERT_TRUE(firstMeasure);
+    const Segment* firstCR = firstMeasure->first(SegmentType::ChordRest);
+    ASSERT_TRUE(firstCR);
+    const std::vector<std::string> staffShapeBefore = staffShapeTypeNames(firstCR, 0);
+
+    EditData ed;
+    ed.evtDelta = PointF(0.0, expression->spatium());
+    ed.moveDelta = PointF(0.0, expression->spatium());
+    static_cast<TextBase*>(expression)->drag(ed);
+    score->doLayout();
+
+    const int timeTicksAfterDrag = countTimeTickSegments(score);
+    EXPECT_EQ(timeTicksAfterDrag, timeTicksBefore)
+        << "vertical expression drag must not insert a TimeTick grid"
+        << " (before=" << timeTicksBefore << " afterDrag=" << timeTicksAfterDrag << ")";
+
+    score->hideAnchors();
+    score->doLayout();
+
+    expectStableSlurAfterOffsetOnlyMove(score, slur, firstCR, timeTicksBefore, noteXsBefore, slurBefore, staffShapeBefore);
+
+    delete score;
+}
+
+TEST_F(Engraving_HairpinTests, hideAnchorsRemovesUnusedTimeTickGrid)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    Hairpin* hp = addHairpinOverFirstMeasure(score);
+    ASSERT_TRUE(hp);
+    score->doLayout();
+    ASSERT_FALSE(hp->segmentsEmpty());
+
+    HairpinSegment* hairpinSeg = toHairpinSegment(hp->frontSegment());
+    ASSERT_TRUE(hairpinSeg);
+
+    const int timeTicksBefore = countTimeTickSegments(score);
+    EditTimeTickAnchors::updateAnchors(hairpinSeg);
+    EXPECT_GT(countTimeTickSegments(score), timeTicksBefore);
+
+    score->hideAnchors();
+    EXPECT_EQ(countTimeTickSegments(score), timeTicksBefore);
+
+    delete score;
+}
+
+TEST_F(Engraving_HairpinTests, hideAnchorsKeepsNeededTimeTick)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    Hairpin* hp = addHairpinOverFirstMeasure(score);
+    ASSERT_TRUE(hp);
+    score->doLayout();
+    ASSERT_FALSE(hp->segmentsEmpty());
+
+    HairpinSegment* hairpinSeg = toHairpinSegment(hp->frontSegment());
+    ASSERT_TRUE(hairpinSeg);
+
+    const int timeTicksBefore = countTimeTickSegments(score);
+    EditTimeTickAnchors::updateAnchors(hairpinSeg);
+    EXPECT_GT(countTimeTickSegments(score), timeTicksBefore);
+
+    Segment* kept = firstTimeTickSegment(score);
+    ASSERT_TRUE(kept);
+    const Fraction keptTick = kept->tick();
+
+    Expression* expression = Factory::createExpression(kept, true);
+    expression->setTrack(0);
+    expression->setXmlText(u"dolce");
+    kept->add(expression);
+
+    score->hideAnchors();
+
+    Segment* stillThere = findTimeTickSegment(score, keptTick);
+    ASSERT_TRUE(stillThere);
+    EXPECT_FALSE(stillThere->annotations().empty());
+    EXPECT_EQ(countTimeTickSegments(score), timeTicksBefore + 1);
+
+    delete score;
 }

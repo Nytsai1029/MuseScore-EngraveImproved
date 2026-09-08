@@ -3666,10 +3666,11 @@ void Measure::respaceSegments()
     double x = 0.0;
     // Find starting x position (i.e. position of first relevant segment)
     for (Segment& s : m_segments) {
-        if (s.enabled() && s.visible() && !s.allElementsInvisible()) {
-            x = s.x();
-            break;
+        if (!s.isActive() || s.allElementsInvisible()) {
+            continue;
         }
+        x = s.x();
+        break;
     }
     // Start respacing segments
     for (Segment& s : m_segments) {

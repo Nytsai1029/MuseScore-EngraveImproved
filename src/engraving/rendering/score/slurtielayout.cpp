@@ -1741,6 +1741,11 @@ Shape SlurTieLayout::getSegmentShape(SlurSegment* slurSeg, Segment* seg, ChordRe
         if (item->isFermata()) {
             return true;
         }
+        // Hairpins and other staff lines are laid out after slurs; they must not feed back
+        // into slur collision avoidance if they ever appear in staffShape.
+        if (item->isTextLineBaseSegment()) {
+            return true;
+        }
         // Ignore fret diagrams
         if (item->isFretDiagram()) {
             return true;

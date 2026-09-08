@@ -22,6 +22,7 @@
 
 #include "line.h"
 
+#include <cmath>
 #include <vector>
 
 #include "containers.h"
@@ -214,7 +215,7 @@ void LineSegment::startEditDrag(EditData& ed)
         setAutoplace(false);
     }
 
-    EditTimeTickAnchors::updateAnchors(this);
+    EditTimeTickAnchors::showAnchorGuides(this);
 }
 
 bool LineSegment::isEditAllowed(EditData& ed) const
@@ -704,6 +705,9 @@ void LineSegment::editDrag(EditData& ed)
 {
     // Only for resizing according to the diagonal properties
     const PointF deltaResize(ed.evtDelta.x(), line()->diagonal() ? ed.evtDelta.y() : 0.0);
+    SLine* l = line();
+    const Fraction oldTick = l->tick();
+    const Fraction oldTick2 = l->tick2();
 
     switch (ed.curGrip) {
     case Grip::START:         // Resize the begin of element (left grip)
@@ -720,28 +724,25 @@ void LineSegment::editDrag(EditData& ed)
         m_offset2 += deltaResize;
         rebaseAnchors(ed, ed.curGrip);
         break;
-    case Grip::MIDDLE: {         // Move the element (middle grip)
-        // Only for moving, no y limitation
+    case Grip::MIDDLE: {         // Move the element (middle grip): offset only
         const PointF deltaMove(ed.evtDelta);
         setOffset(offset() + deltaMove);
         setOffsetChanged(true);
         if (isStyled(Pid::OFFSET)) {
             setPropertyFlags(Pid::OFFSET, PropertyFlags::UNSTYLED);
         }
-        rebaseAnchors(ed, ed.curGrip);
     }
     break;
     default:
         break;
     }
-    if (line()->anchor() == Spanner::Anchor::NOTE && ed.isStartEndGrip()) {
+    if (l->anchor() == Spanner::Anchor::NOTE && ed.isStartEndGrip()) {
         //
         // if we touch a different note, change anchor
         //
         EngravingItem* e = ed.view()->elementNear(ed.pos);
         if (e && e->isNote()) {
-            SLine* l = line();
-            if (ed.curGrip == Grip::END && e != line()->endElement()) {
+            if (ed.curGrip == Grip::END && e != l->endElement()) {
                 LOGD("LineSegment: move end anchor");
                 Note* noteOld = toNote(l->endElement());
                 Note* noteNew = toNote(e);
@@ -758,8 +759,16 @@ void LineSegment::editDrag(EditData& ed)
         }
     }
 
-    EditTimeTickAnchors::updateAnchors(this);
+    if (ed.isStartEndGrip() && (l->tick() != oldTick || l->tick2() != oldTick2)) {
+        if (l->tick() != oldTick) {
+            EditTimeTickAnchors::ensureSingleTimeTick(l, true);
+        }
+        if (l->tick2() != oldTick2) {
+            EditTimeTickAnchors::ensureSingleTimeTick(l, false);
+        }
+    }
 
+    EditTimeTickAnchors::showAnchorGuides(this);
     triggerLayout();
 }
 
@@ -819,7 +828,7 @@ RectF LineSegment::drag(EditData& ed)
         setPropertyFlags(Pid::OFFSET, PropertyFlags::UNSTYLED);
     }
 
-    rebaseAnchors(ed, Grip::MIDDLE);
+    EditTimeTickAnchors::showAnchorGuides(this);
 
     return canvasBoundingRect();
 }

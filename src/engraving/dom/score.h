@@ -669,7 +669,7 @@ public:
     void setMarkIrregularMeasures(bool v);
     void setShowInstrumentNames(bool v) { m_showInstrumentNames = v; }
 
-    void hideAnchors() { m_showAnchors.reset(); }
+    void hideAnchors();
     void setShowAnchors(const ShowAnchors& showAnchors);
     const ShowAnchors& showAnchors() const { return m_showAnchors; }
 

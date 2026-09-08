@@ -21,6 +21,9 @@
  */
 
 #include <climits>
+#include <cmath>
+#include <set>
+#include <vector>
 
 #include "anchors.h"
 #include "dom/utils.h"
@@ -28,8 +31,10 @@
 #include "figuredbass.h"
 #include "fret.h"
 #include "harmony.h"
+#include "measure.h"
 #include "page.h"
 #include "score.h"
+#include "segment.h"
 #include "spanner.h"
 #include "staff.h"
 #include "system.h"
@@ -44,20 +49,51 @@ namespace mu::engraving {
  * EditTimeTickAnchors
  * ************************************/
 
-void EditTimeTickAnchors::updateAnchors(const EngravingItem* item)
+static bool itemAnchorRange(const EngravingItem* item, Fraction& startTickMainRegion, Fraction& endTickMainRegion,
+                            Measure*& startMeasure, Measure*& endMeasure)
+{
+    startTickMainRegion = item->isSpannerSegment() ? toSpannerSegment(item)->spanner()->tick() : item->tick();
+    endTickMainRegion = item->isSpannerSegment() ? toSpannerSegment(item)->spanner()->tick2() : item->tick();
+
+    Score* score = item->score();
+    startMeasure = score->tick2measure(startTickMainRegion);
+    endMeasure = score->tick2measure(endTickMainRegion);
+    return startMeasure && endMeasure;
+}
+
+void EditTimeTickAnchors::showAnchorGuides(const EngravingItem* item)
 {
     if (!item->allowTimeAnchor()) {
         item->score()->hideAnchors();
         return;
     }
 
-    Fraction startTickMainRegion = item->isSpannerSegment() ? toSpannerSegment(item)->spanner()->tick() : item->tick();
-    Fraction endTickMainRegion = item->isSpannerSegment() ? toSpannerSegment(item)->spanner()->tick2() : item->tick();
+    Fraction startTickMainRegion;
+    Fraction endTickMainRegion;
+    Measure* startMeasure = nullptr;
+    Measure* endMeasure = nullptr;
+    if (!itemAnchorRange(item, startTickMainRegion, endTickMainRegion, startMeasure, endMeasure)) {
+        return;
+    }
 
-    Score* score = item->score();
-    Measure* startMeasure = score->tick2measure(startTickMainRegion);
-    Measure* endMeasure = score->tick2measure(endTickMainRegion);
-    if (!startMeasure || !endMeasure) {
+    voice_idx_t voiceIdx = item->hasVoiceAssignmentProperties() && item->getProperty(Pid::VOICE_ASSIGNMENT).value<VoiceAssignment>()
+                           != VoiceAssignment::CURRENT_VOICE_ONLY ? VOICES : item->voice();
+
+    item->score()->setShowAnchors(ShowAnchors(voiceIdx, item->staffIdx(), startTickMainRegion, endTickMainRegion,
+                                              startMeasure->tick(), endMeasure->endTick()));
+}
+
+void EditTimeTickAnchors::ensureSnapGrid(const EngravingItem* item)
+{
+    if (!item->allowTimeAnchor()) {
+        return;
+    }
+
+    Fraction startTickMainRegion;
+    Fraction endTickMainRegion;
+    Measure* startMeasure = nullptr;
+    Measure* endMeasure = nullptr;
+    if (!itemAnchorRange(item, startTickMainRegion, endTickMainRegion, startMeasure, endMeasure)) {
         return;
     }
 
@@ -69,16 +105,55 @@ void EditTimeTickAnchors::updateAnchors(const EngravingItem* item)
         }
         updateAnchors(toMeasure(mb), staff);
     }
+}
 
-    Fraction startTickExtendedRegion = startMeasure->tick();
-    Fraction endTickExtendedRegion = endMeasure->endTick();
-    voice_idx_t voiceIdx =  item->hasVoiceAssignmentProperties() && item->getProperty(Pid::VOICE_ASSIGNMENT).value<VoiceAssignment>()
-                           != VoiceAssignment::CURRENT_VOICE_ONLY ? VOICES : item->voice();
+void EditTimeTickAnchors::updateAnchors(const EngravingItem* item)
+{
+    if (!item->allowTimeAnchor()) {
+        item->score()->hideAnchors();
+        return;
+    }
 
-    score->setShowAnchors(ShowAnchors(voiceIdx, staff, startTickMainRegion, endTickMainRegion, startTickExtendedRegion,
-                                      endTickExtendedRegion));
-
+    ensureSnapGrid(item);
+    showAnchorGuides(item);
     item->triggerLayout();
+}
+
+static bool chordRestCoversSpannerAnchor(const Score* score, const Fraction& tick, const Spanner* spanner, bool isStart,
+                                         bool mmRest)
+{
+    const track_idx_t trackIdx = isStart ? spanner->track() : spanner->effectiveTrack2();
+    const staff_idx_t staffIdx = track2staff(trackIdx);
+    const Segment* crSeg = score->tick2segment(tick, true, SegmentType::ChordRest, mmRest);
+    if (!crSeg || !crSeg->hasElements(staffIdx)) {
+        return false;
+    }
+    if (spanner->isVoiceSpecific() && !crSeg->elementAt(trackIdx)) {
+        return false;
+    }
+    return true;
+}
+
+void EditTimeTickAnchors::ensureSingleTimeTick(const Spanner* spanner, bool isStart)
+{
+    if (!spanner || !spanner->allowTimeAnchor() || spanner->anchor() != Spanner::Anchor::SEGMENT) {
+        return;
+    }
+
+    const Fraction tick = isStart ? spanner->tick() : spanner->tick2();
+    Score* score = spanner->score();
+    const bool mmRest = score->style().styleB(Sid::createMultiMeasureRests);
+    if (chordRestCoversSpannerAnchor(score, tick, spanner, isStart, mmRest)) {
+        return;
+    }
+    Measure* measure = mmRest ? score->tick2measureMM(tick) : score->tick2measure(tick);
+    if (!measure) {
+        return;
+    }
+
+    const track_idx_t trackIdx = isStart ? spanner->track() : spanner->effectiveTrack2();
+    createTimeTickAnchor(measure, tick - measure->tick(), track2staff(trackIdx));
+    updateLayout(measure);
 }
 
 void EditTimeTickAnchors::updateAnchors(Measure* measure, staff_idx_t staffIdx, const std::set<Fraction>& additionalAnchorRelTicks)
@@ -150,6 +225,84 @@ void EditTimeTickAnchors::updateLayout(Measure* measure)
     Score* score = measure->score();
     LayoutContext ctx(score);
     MeasureLayout::layoutTimeTickAnchors(measure, ctx);
+}
+
+static bool timeTickSegmentHasNonAnchorContent(const Segment* segment)
+{
+    if (!segment->annotations().empty()) {
+        return true;
+    }
+    for (const EngravingItem* item : segment->elist()) {
+        if (item && !item->isTimeTickAnchor()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+static std::set<Fraction> ticksNeedingTimeTickAnchor(const Score* score)
+{
+    std::set<Fraction> ticks;
+    const bool mmRest = score->style().styleB(Sid::createMultiMeasureRests);
+    for (const auto& pair : score->spanner()) {
+        const Spanner* spanner = pair.second;
+        if (!spanner || !spanner->allowTimeAnchor() || spanner->anchor() != Spanner::Anchor::SEGMENT) {
+            continue;
+        }
+        if (!chordRestCoversSpannerAnchor(score, spanner->tick(), spanner, true, mmRest)) {
+            ticks.insert(spanner->tick());
+        }
+        if (!chordRestCoversSpannerAnchor(score, spanner->tick2(), spanner, false, mmRest)) {
+            ticks.insert(spanner->tick2());
+        }
+    }
+    return ticks;
+}
+
+void EditTimeTickAnchors::cleanupUnusedAnchors(Score* score)
+{
+    if (!score) {
+        return;
+    }
+
+    std::vector<Segment*> candidates;
+    for (Measure* measure = score->firstMeasure(); measure; measure = measure->nextMeasure()) {
+        for (Segment* segment = measure->first(SegmentType::TimeTick); segment;
+             segment = segment->next(SegmentType::TimeTick)) {
+            if (!timeTickSegmentHasNonAnchorContent(segment)) {
+                candidates.push_back(segment);
+            }
+        }
+    }
+
+    if (candidates.empty()) {
+        return;
+    }
+
+    const std::set<Fraction> neededTicks = ticksNeedingTimeTickAnchor(score);
+
+    std::vector<Segment*> unused;
+    unused.reserve(candidates.size());
+    for (Segment* segment : candidates) {
+        if (!neededTicks.count(segment->tick())) {
+            unused.push_back(segment);
+        }
+    }
+
+    std::set<Measure*> dirtyMeasures;
+    for (Segment* segment : unused) {
+        dirtyMeasures.insert(segment->measure());
+        segment->measure()->remove(segment);
+        delete segment;
+    }
+
+    for (Measure* measure : dirtyMeasures) {
+        if (!measure) {
+            continue;
+        }
+        const staff_idx_t lastStaff = score->nstaves() ? score->nstaves() - 1 : 0;
+        score->setLayout(measure->tick(), measure->endTick(), 0, lastStaff, measure);
+    }
 }
 
 void MoveElementAnchors::moveElementAnchors(EngravingItem* element, KeyboardKey key, KeyboardModifier mod)
@@ -236,11 +389,21 @@ void MoveElementAnchors::moveElementAnchorsOnDrag(EngravingItem* element, EditDa
         return;
     }
 
-    EditTimeTickAnchors::updateAnchors(element);
+    EditTimeTickAnchors::showAnchorGuides(element);
+
+    const double horizontalThreshold = 0.25 * element->spatium();
+    const bool significantHorizontalMove = std::abs(ed.moveDelta.x()) > horizontalThreshold
+                                           || std::abs(ed.evtDelta.x()) > horizontalThreshold;
+    if (significantHorizontalMove) {
+        EditTimeTickAnchors::ensureSnapGrid(element);
+    }
 
     Segment* newSeg = findNewAnchorableSegmentFromDrag(element, segment);
 
     if (newSeg && (newSeg != segment && !newSeg->measure()->isMMRest())) {
+        if (!significantHorizontalMove) {
+            EditTimeTickAnchors::ensureSnapGrid(element);
+        }
         PointF curOffset = element->offset();
         moveSegment(element, newSeg, newSeg->tick() - segment->tick());
         rebaseOffsetOnMoveSegment(element, curOffset, newSeg, segment);

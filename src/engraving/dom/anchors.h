@@ -27,14 +27,19 @@
 
 namespace mu::engraving {
 class Factory;
+class Spanner;
 
 class EditTimeTickAnchors
 {
 public:
     static void updateAnchors(const EngravingItem* item);
     static void updateAnchors(Measure* measure, staff_idx_t staffIdx, const std::set<Fraction>& additionalAnchorRelTicks = {});
+    static void showAnchorGuides(const EngravingItem* item);
+    static void ensureSnapGrid(const EngravingItem* item);
+    static void ensureSingleTimeTick(const Spanner* spanner, bool isStart);
     static TimeTickAnchor* createTimeTickAnchor(Measure* measure, Fraction relTick, staff_idx_t staffIdx);
     static void updateLayout(Measure* measure);
+    static void cleanupUnusedAnchors(Score* score);
 };
 
 class MoveElementAnchors
