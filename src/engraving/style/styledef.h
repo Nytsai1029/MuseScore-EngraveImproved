@@ -239,6 +239,7 @@ enum class Sid {
     // Custom stem lengths, used instead of the default shortening rules when
     // useDefaultStemShorteningRules is off. One entry per half space, counted from the staff line
     // nearest the stem tip (top line for stem up, bottom line for stem down) towards the staff.
+    // Flagged notes ignore this table and keep Sid::stemLength (3.5sp by default).
     useDefaultStemShorteningRules,
     stemCustomLengthFirstLine,
     stemCustomLengthFirstSpace,

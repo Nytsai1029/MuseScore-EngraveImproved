@@ -221,7 +221,7 @@ const std::array<StyleDef::StyleValue, size_t(Sid::STYLES)> StyleDef::styleValue
     styleDef(shortestStem,                               PropertyValue(2.5)),
 
     styleDef(useDefaultStemShorteningRules,              true),
-    // Defaults reproduce the lengths the default rules give an unbeamed note at each position
+    // Defaults reproduce the lengths the default rules give an unbeamed quarter at each position
     styleDef(stemCustomLengthFirstLine,                  PropertyValue(2.5)),
     styleDef(stemCustomLengthFirstSpace,                 PropertyValue(2.5)),
     styleDef(stemCustomLengthSecondLine,                 PropertyValue(2.5)),

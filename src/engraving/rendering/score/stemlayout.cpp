@@ -87,9 +87,12 @@ double StemLayout::calcDefaultStemLength(Chord* item, const LayoutContext& ctx)
     // Custom shortening: the length comes straight from the per-position table, so the reduction
     // table and the shortest stem floor do not apply. The beam addition, the minimum lengths and
     // the optical adjustment (within the same band as the default rules) still do.
+    // Flagged notes are excluded: they always keep the unshortened default stem length.
     int customStemLength = calcCustomStemLength(item, ctx, staffLineCount, tab != nullptr);
 
-    if (customStemLength > 0) {
+    if (item->shouldHaveHook()) {
+        stemLength = std::max({ idealStemLength, minStemLengthQuarterSpaces, hookStemLengthAddition(item, ctx) });
+    } else if (customStemLength > 0) {
         idealStemLength = customStemLength + stemLengthBeamAddition(item, ctx);
         int startLine = (ldata->up ? item->upLine() : item->downLine()) * quarterSpacesPerLine;
         int stemEndPosition = ldata->up ? startLine - idealStemLength : startLine + idealStemLength;
@@ -368,14 +371,15 @@ int StemLayout::stemLengthBeamAddition(const Chord* item, const LayoutContext& c
 ///   Stem length in quarter spaces, read from the custom per-position table (the table is indexed
 ///   by the distance, in half spaces, from the notehead the stem starts at to the staff line
 ///   nearest the stem tip; noteheads past that line share the first entry).
-///   Returns 0 when the default rules apply instead: when they are switched on, on tab staves, and
+///   Returns 0 when the default rules apply instead: when they are switched on, on tab staves,
+///   for flagged (unbeamed) notes — those always use the unshortened default stem length — and
 ///   for noteheads past the staff line opposite the stem tip, where the stem is stretched towards
 ///   the middle line rather than shortened.
 //-----------------------------------------------------------------------------
 int StemLayout::calcCustomStemLength(const Chord* item, const LayoutContext& ctx, int staffLineCount, bool tabStaff)
 {
     const MStyle& style = ctx.conf().style();
-    if (style.styleB(Sid::useDefaultStemShorteningRules) || tabStaff) {
+    if (style.styleB(Sid::useDefaultStemShorteningRules) || tabStaff || item->shouldHaveHook()) {
         return 0;
     }
 

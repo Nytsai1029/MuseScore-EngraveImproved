@@ -153,7 +153,7 @@ StyleDialogPage {
                 horizontalAlignment: Text.AlignLeft
                 wrapMode: Text.WordWrap
                 font.italic: true
-                text: qsTrc("notation/editstyle/notes", "Positions are shown for stems pointing up on a five-line staff; stems pointing down mirror them. On other staves they are counted from the staff line nearest the stem tip. Noteheads beyond the opposite staff line keep the default rules, and stems still lengthen for beams and flags that would otherwise collide.")
+                text: qsTrc("notation/editstyle/notes", "Positions are shown for stems pointing up on a five-line staff; stems pointing down mirror them. On other staves they are counted from the staff line nearest the stem tip. Noteheads beyond the opposite staff line keep the default rules. Flagged notes always use the standard stem length. Stems still lengthen for beams and flags that would otherwise collide.")
             }
         }
     }

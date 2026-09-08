@@ -31686,6 +31686,10 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/StemLengthSection.qml" line="156"/>
+        <source>Positions are shown for stems pointing up on a five-line staff; stems pointing down mirror them. On other staves they are counted from the staff line nearest the stem tip. Noteheads beyond the opposite staff line keep the default rules. Flagged notes always use the standard stem length. Stems still lengthen for beams and flags that would otherwise collide.</source>
+        <translation type="unfinished">Positions are shown for stems pointing up on a five-line staff; stems pointing down mirror them. On other staves they are counted from the staff line nearest the stem tip. Noteheads beyond the opposite staff line keep the default rules. Flagged notes always use the standard stem length. Stems still lengthen for beams and flags that would otherwise collide.</translation>
+    </message>
+    <message>
         <source>Positions are shown for stems pointing up on a five-line staff; stems pointing down mirror them. On other staves they are counted from the staff line nearest the stem tip. Noteheads beyond the opposite staff line keep the default rules, and stems still lengthen for beams and flags that would otherwise collide.</source>
         <translation type="unfinished">Positions are shown for stems pointing up on a five-line staff; stems pointing down mirror them. On other staves they are counted from the staff line nearest the stem tip. Noteheads beyond the opposite staff line keep the default rules, and stems still lengthen for beams and flags that would otherwise collide.</translation>
     </message>

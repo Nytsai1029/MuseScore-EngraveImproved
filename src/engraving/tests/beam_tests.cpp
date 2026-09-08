@@ -34,6 +34,7 @@
 #include "dom/note.h"
 #include "dom/property.h"
 #include "dom/segment.h"
+#include "dom/stem.h"
 #include "dom/tremolotwochord.h"
 #include "dom/undo.h"
 
@@ -656,6 +657,63 @@ TEST_F(Engraving_BeamTests, customBeamPositioningRules)
     beams = collectBeams(score);
     ASSERT_EQ(beams.size(), 9);
     EXPECT_NEAR(std::abs(slantQuarters(beams[4])), 4.0, 0.01);
+
+    delete score;
+}
+
+TEST_F(Engraving_BeamTests, flaggedNotesKeepStandardStemLength)
+{
+    MasterScore* score = ScoreRW::readScore(BEAM_DATA_DIR + u"flaggedStemLength.mscx");
+    ASSERT_TRUE(score);
+
+    auto stemLengthSp = [](const Chord* chord) {
+        return chord->stem()->getProperty(Pid::STEM_LENGTH).value<Spatium>().val();
+    };
+    auto collectChords = [score]() {
+        std::vector<Chord*> chords;
+        for (Measure* measure = score->firstMeasure(); measure; measure = measure->nextMeasure()) {
+            for (Segment* segment = measure->first(SegmentType::ChordRest); segment;
+                 segment = segment->next(SegmentType::ChordRest)) {
+                ChordRest* cr = segment->cr(0);
+                if (cr && cr->isChord()) {
+                    chords.push_back(toChord(cr));
+                }
+            }
+        }
+        return chords;
+    };
+    auto expectFlaggedStandardLength = [&]() {
+        std::vector<Chord*> chords = collectChords();
+        ASSERT_EQ(chords.size(), 7);
+        for (size_t i = 0; i < chords.size(); ++i) {
+            if (i == 4) {
+                continue;
+            }
+            EXPECT_TRUE(chords[i]->hook());
+            EXPECT_FALSE(chords[i]->beam());
+            EXPECT_NEAR(stemLengthSp(chords[i]), 3.5, 0.05) << "flagged chord " << i;
+        }
+    };
+
+    expectFlaggedStandardLength();
+    EXPECT_NEAR(stemLengthSp(collectChords()[4]), 2.5, 0.05);
+
+    score->style().set(Sid::useDefaultStemShorteningRules, false);
+    score->style().set(Sid::stemCustomLengthFirstLine, 2.0);
+    score->style().set(Sid::stemCustomLengthFirstSpace, 2.0);
+    score->style().set(Sid::stemCustomLengthSecondLine, 2.0);
+    score->style().set(Sid::stemCustomLengthSecondSpace, 2.0);
+    score->style().set(Sid::stemCustomLengthThirdLine, 2.0);
+    score->style().set(Sid::stemCustomLengthThirdSpace, 2.0);
+    score->style().set(Sid::stemCustomLengthFourthLine, 2.0);
+    score->style().set(Sid::stemCustomLengthFourthSpace, 2.0);
+    score->style().set(Sid::stemCustomLengthFifthLine, 2.0);
+    score->style().set(Sid::beamCustomPositioningRules, true);
+    score->setLayoutAll();
+    score->doLayout();
+
+    expectFlaggedStandardLength();
+    EXPECT_NEAR(stemLengthSp(collectChords()[4]), 2.0, 0.05);
 
     delete score;
 }
