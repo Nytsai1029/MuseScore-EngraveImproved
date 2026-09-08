@@ -37,17 +37,30 @@ endif()
 # If not MUE_COMPILE_USE_SYSTEM_HARFBUZZ, or if it was not found,
 # download and build harfbuzz
 
-set(REMOTE_ROOT_URL https://raw.githubusercontent.com/musescore/muse_deps/main)
+# muse_deps/main was rewritten to the new recipe/prebuilt layout.
+# Packaged sources used by this 4.6 tree live on the legacy branch.
+set(REMOTE_ROOT_URL https://raw.githubusercontent.com/musescore/muse_deps/legacy)
 set(remote_url ${REMOTE_ROOT_URL}/harfbuzz/7.1.0)
 set(local_path ${PROJECT_BINARY_DIR}/_deps/harfbuzz)
 if (NOT EXISTS ${local_path}/harfbuzz.cmake)
     file(MAKE_DIRECTORY ${local_path})
     file(DOWNLOAD ${remote_url}/harfbuzz.cmake ${local_path}/harfbuzz.cmake
         HTTPHEADER "Cache-Control: no-cache"
+        STATUS _harfbuzz_cmake_status
     )
+    list(GET _harfbuzz_cmake_status 0 _harfbuzz_cmake_status_code)
+    if (NOT _harfbuzz_cmake_status_code EQUAL 0)
+        file(REMOVE ${local_path}/harfbuzz.cmake)
+        list(GET _harfbuzz_cmake_status 1 _harfbuzz_cmake_status_text)
+        message(FATAL_ERROR "Failed to download harfbuzz.cmake from ${remote_url}: ${_harfbuzz_cmake_status_text}")
+    endif()
 endif()
 
 include(${local_path}/harfbuzz.cmake)
+
+if (NOT COMMAND harfbuzz_Populate)
+    message(FATAL_ERROR "Downloaded harfbuzz.cmake from ${remote_url} does not define harfbuzz_Populate")
+endif()
 
 # func from ${name}.cmake)
 cmake_language(CALL harfbuzz_Populate ${remote_url} ${local_path} "source" "" "")

@@ -27,17 +27,30 @@ else()
     # If not set MUSE_MODULE_VST_VST3_SDK_PATH
     # download vst3sdk source
 
-    set(REMOTE_ROOT_URL https://raw.githubusercontent.com/musescore/muse_deps/main)
+    # muse_deps/main was rewritten to the new recipe/prebuilt layout.
+    # Packaged sources used by this 4.6 tree live on the legacy branch.
+    set(REMOTE_ROOT_URL https://raw.githubusercontent.com/musescore/muse_deps/legacy)
     set(remote_url ${REMOTE_ROOT_URL}/vst3sdk/v3.7.12_build_20)
     set(local_path ${PROJECT_BINARY_DIR}/_deps/vst3sdk)
     if (NOT EXISTS ${local_path}/vst3sdk.cmake)
         file(MAKE_DIRECTORY ${local_path})
         file(DOWNLOAD ${remote_url}/vst3sdk.cmake ${local_path}/vst3sdk.cmake
             HTTPHEADER "Cache-Control: no-cache"
+            STATUS _vst3sdk_cmake_status
         )
+        list(GET _vst3sdk_cmake_status 0 _vst3sdk_cmake_status_code)
+        if (NOT _vst3sdk_cmake_status_code EQUAL 0)
+            file(REMOVE ${local_path}/vst3sdk.cmake)
+            list(GET _vst3sdk_cmake_status 1 _vst3sdk_cmake_status_text)
+            message(FATAL_ERROR "Failed to download vst3sdk.cmake from ${remote_url}: ${_vst3sdk_cmake_status_text}")
+        endif()
     endif()
 
     include(${local_path}/vst3sdk.cmake)
+
+    if (NOT COMMAND vst3sdk_Populate)
+        message(FATAL_ERROR "Downloaded vst3sdk.cmake from ${remote_url} does not define vst3sdk_Populate")
+    endif()
 
     # func from ${name}.cmake)
     cmake_language(CALL vst3sdk_Populate ${remote_url} ${local_path} "source" "" "")
