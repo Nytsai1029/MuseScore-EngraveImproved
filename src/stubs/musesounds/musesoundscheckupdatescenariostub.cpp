@@ -22,6 +22,7 @@
 #include "musesoundscheckupdatescenariostub.h"
 
 using namespace mu::musesounds;
+using namespace muse;
 
 bool MuseSoundsCheckUpdateScenarioStub::needCheckForUpdate() const
 {
@@ -30,7 +31,7 @@ bool MuseSoundsCheckUpdateScenarioStub::needCheckForUpdate() const
 
 muse::async::Promise<muse::Ret> MuseSoundsCheckUpdateScenarioStub::checkForUpdate(bool)
 {
-    return muse::async::make_promise<Ret>([this](auto, auto) {
+    return muse::async::make_promise<Ret>([](auto, auto) {
         return muse::async::Promise<muse::Ret>::dummy_result();
     });
 }
