@@ -36,6 +36,8 @@
 #include "dom/hairpin.h"
 #include "dom/masterscore.h"
 #include "dom/measure.h"
+#include "dom/ottava.h"
+#include "dom/page.h"
 #include "dom/segment.h"
 #include "dom/slur.h"
 #include "dom/text.h"
@@ -262,6 +264,54 @@ Hairpin* addHairpinOverFirstMeasure(MasterScore* score)
         return nullptr;
     }
     return score->addHairpin(HairpinType::CRESC_HAIRPIN, cr1, cr2);
+}
+
+std::string timeTickTicksDebug(const Score* score)
+{
+    std::ostringstream out;
+    for (const Measure* measure = score->firstMeasure(); measure; measure = measure->nextMeasure()) {
+        for (const Segment* segment = measure->first(SegmentType::TimeTick); segment;
+             segment = segment->next(SegmentType::TimeTick)) {
+            out << segment->tick().numerator() << '/' << segment->tick().denominator() << ' ';
+        }
+    }
+    return out.str();
+}
+
+Ottava* addOttavaOnStaff2ToBeatTwo(MasterScore* score)
+{
+    Measure* measure = score->firstMeasure();
+    if (!measure) {
+        return nullptr;
+    }
+
+    // Staff 2 is a full-measure rest, so 2/4 has no ChordRest there. Create the same
+    // TimeTick Spanner::endSegment() would insert, then attach the ottava to it.
+    EditTimeTickAnchors::createTimeTickAnchor(measure, Fraction(1, 2), 1);
+    EditTimeTickAnchors::updateLayout(measure);
+
+    Ottava* ottava = Factory::createOttava(score->dummy());
+    ottava->setOttavaType(OttavaType::OTTAVA_8VA);
+    ottava->setTrack(staff2track(1));
+    ottava->setTrack2(staff2track(1));
+    ottava->setTick(Fraction(0, 1));
+    ottava->setTick2(Fraction(1, 2));
+    score->addSpanner(ottava);
+    return ottava;
+}
+
+int countTimeTickAnchorsInPageBsp(Page* page)
+{
+    int count = 0;
+    if (!page) {
+        return count;
+    }
+    for (EngravingItem* item : page->items(page->pageBoundingRect())) {
+        if (item && item->isTimeTickAnchor()) {
+            ++count;
+        }
+    }
+    return count;
 }
 
 Expression* addExpressionOnFirstChord(MasterScore* score)
@@ -502,6 +552,84 @@ TEST_F(Engraving_HairpinTests, hideAnchorsKeepsNeededTimeTick)
     ASSERT_TRUE(stillThere);
     EXPECT_FALSE(stillThere->annotations().empty());
     EXPECT_EQ(countTimeTickSegments(score), timeTicksBefore + 1);
+
+    delete score;
+}
+
+TEST_F(Engraving_HairpinTests, hideAnchorsKeepsTimeTickNeededByOttava)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    Ottava* ottava = addOttavaOnStaff2ToBeatTwo(score);
+    ASSERT_TRUE(ottava);
+    score->doLayout();
+
+    ASSERT_EQ(score->nstaves(), 2u);
+    EXPECT_EQ(ottava->staffIdx(), 1u);
+    EXPECT_EQ(ottava->tick(), Fraction(0, 1));
+    EXPECT_EQ(ottava->tick2(), Fraction(1, 2));
+
+    const Fraction endTick = Fraction(1, 2);
+    Segment* endTimeTick = findTimeTickSegment(score, endTick);
+    ASSERT_TRUE(endTimeTick)
+        << "Ottava ending mid-rest must keep a TimeTick at 2/4; existing ticks=["
+        << timeTickTicksDebug(score) << "] endElement="
+        << (ottava->endElement() ? ottava->endElement()->typeName() : "null");
+
+    EngravingItem* timeTickAnchor = endTimeTick->element(staff2track(1));
+    ASSERT_TRUE(timeTickAnchor);
+    ASSERT_TRUE(timeTickAnchor->isTimeTickAnchor());
+
+    score->hideAnchors();
+
+    Segment* stillThere = findTimeTickSegment(score, endTick);
+    ASSERT_TRUE(stillThere) << "hideAnchors must not drop a TimeTick required by Ottava";
+    EXPECT_EQ(stillThere, endTimeTick);
+    EngravingItem* stillAnchor = stillThere->element(staff2track(1));
+    ASSERT_TRUE(stillAnchor);
+    ASSERT_TRUE(stillAnchor->isTimeTickAnchor());
+    EXPECT_EQ(toSegment(stillAnchor->explicitParent())->element(stillAnchor->track()), stillAnchor);
+
+    delete score;
+}
+
+TEST_F(Engraving_HairpinTests, hideAnchorsInvalidatesPageBspTree)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    Hairpin* hp = addHairpinOverFirstMeasure(score);
+    ASSERT_TRUE(hp);
+    score->doLayout();
+    ASSERT_FALSE(hp->segmentsEmpty());
+
+    HairpinSegment* hairpinSeg = toHairpinSegment(hp->frontSegment());
+    ASSERT_TRUE(hairpinSeg);
+
+    EditTimeTickAnchors::updateAnchors(hairpinSeg);
+    score->doLayout();
+
+    ASSERT_FALSE(score->pages().empty());
+    Page* page = score->pages().front();
+    ASSERT_TRUE(page);
+
+    const int anchorsBeforeCleanup = countTimeTickAnchorsInPageBsp(page);
+    EXPECT_GT(anchorsBeforeCleanup, 0);
+
+    score->hideAnchors();
+
+    const int anchorsAfterCleanup = countTimeTickAnchorsInPageBsp(page);
+    EXPECT_LT(anchorsAfterCleanup, anchorsBeforeCleanup);
+
+    for (EngravingItem* item : page->items(page->pageBoundingRect())) {
+        if (!item || !item->isTimeTickAnchor()) {
+            continue;
+        }
+        ASSERT_TRUE(item->explicitParent());
+        ASSERT_TRUE(item->explicitParent()->isSegment());
+        EXPECT_EQ(toSegment(item->explicitParent())->element(item->track()), item);
+    }
 
     delete score;
 }

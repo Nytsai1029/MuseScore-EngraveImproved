@@ -21,6 +21,7 @@
  */
 
 #include <csignal>
+#include <cstdlib>
 
 #include <QTextCodec>
 #include <QApplication>
@@ -59,7 +60,7 @@ static void crashCallback(int signum)
         break;
     }
     LOGE() << "Oops! Application crashed with signal: [" << signum << "] " << signame << "-" << sigdescript;
-    exit(EXIT_FAILURE);
+    abort();
 }
 
 #endif

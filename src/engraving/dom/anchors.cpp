@@ -244,10 +244,9 @@ static std::set<Fraction> ticksNeedingTimeTickAnchor(const Score* score)
 {
     std::set<Fraction> ticks;
     const bool mmRest = score->style().styleB(Sid::createMultiMeasureRests);
-    for (const auto& pair : score->spanner()) {
-        const Spanner* spanner = pair.second;
-        if (!spanner || !spanner->allowTimeAnchor() || spanner->anchor() != Spanner::Anchor::SEGMENT) {
-            continue;
+    auto collectNeededTicks = [&](const Spanner* spanner) {
+        if (!spanner || spanner->anchor() != Spanner::Anchor::SEGMENT) {
+            return;
         }
         if (!chordRestCoversSpannerAnchor(score, spanner->tick(), spanner, true, mmRest)) {
             ticks.insert(spanner->tick());
@@ -255,8 +254,48 @@ static std::set<Fraction> ticksNeedingTimeTickAnchor(const Score* score)
         if (!chordRestCoversSpannerAnchor(score, spanner->tick2(), spanner, false, mmRest)) {
             ticks.insert(spanner->tick2());
         }
+    };
+    for (const auto& pair : score->spanner()) {
+        collectNeededTicks(pair.second);
+    }
+    for (const Spanner* spanner : score->unmanagedSpanners()) {
+        collectNeededTicks(spanner);
     }
     return ticks;
+}
+
+static void collectSpannerAnchorElements(const Score* score, std::set<const EngravingItem*>& referenced)
+{
+    auto collect = [&](const Spanner* spanner) {
+        if (!spanner) {
+            return;
+        }
+        if (const EngravingItem* start = spanner->startElement()) {
+            referenced.insert(start);
+        }
+        if (const EngravingItem* end = spanner->endElement()) {
+            referenced.insert(end);
+        }
+    };
+    for (const auto& pair : score->spanner()) {
+        collect(pair.second);
+    }
+    for (const Spanner* spanner : score->unmanagedSpanners()) {
+        collect(spanner);
+    }
+}
+
+static bool timeTickSegmentIsReferenced(const Segment* segment, const std::set<const EngravingItem*>& referenced)
+{
+    if (referenced.count(segment)) {
+        return true;
+    }
+    for (const EngravingItem* item : segment->elist()) {
+        if (item && referenced.count(item)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void EditTimeTickAnchors::cleanupUnusedAnchors(Score* score)
@@ -280,13 +319,23 @@ void EditTimeTickAnchors::cleanupUnusedAnchors(Score* score)
     }
 
     const std::set<Fraction> neededTicks = ticksNeedingTimeTickAnchor(score);
+    std::set<const EngravingItem*> referenced;
+    collectSpannerAnchorElements(score, referenced);
 
     std::vector<Segment*> unused;
     unused.reserve(candidates.size());
     for (Segment* segment : candidates) {
-        if (!neededTicks.count(segment->tick())) {
-            unused.push_back(segment);
+        if (neededTicks.count(segment->tick())) {
+            continue;
         }
+        if (timeTickSegmentIsReferenced(segment, referenced)) {
+            continue;
+        }
+        unused.push_back(segment);
+    }
+
+    if (unused.empty()) {
+        return;
     }
 
     std::set<Measure*> dirtyMeasures;
@@ -295,6 +344,8 @@ void EditTimeTickAnchors::cleanupUnusedAnchors(Score* score)
         segment->measure()->remove(segment);
         delete segment;
     }
+
+    score->rebuildBspTree();
 
     for (Measure* measure : dirtyMeasures) {
         if (!measure) {

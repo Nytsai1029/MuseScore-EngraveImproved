@@ -4875,6 +4875,8 @@ void NotationInteraction::endEditElement()
     doEndEditElement();
     resetAnchorLines();
 
+    score()->update();
+
     notifyAboutNotationChanged();
 }
 
