@@ -24,7 +24,7 @@
 
 #include "dom/accidental.h"
 #include "dom/articulation.h"
-#include "dom/articulation.h"
+#include "dom/barline.h"
 #include "dom/chord.h"
 #include "dom/chordrest.h"
 #include "dom/factory.h"
@@ -32,7 +32,9 @@
 #include "dom/measure.h"
 #include "dom/mscore.h"
 #include "dom/note.h"
+#include "dom/noteval.h"
 #include "dom/pitchspelling.h"
+#include "dom/property.h"
 #include "dom/segment.h"
 #include "dom/tremolosinglechord.h"
 
@@ -547,4 +549,92 @@ TEST_F(Engraving_NoteTests, LongNoteAfterShort_183746)
     }
     Fraction breveTicks = TDuration(DurationType::V_BREVE).ticks();
     EXPECT_TRUE(totalTicks == breveTicks);   // total duration same as a breve
+}
+
+static Chord* chordAtMeasureStart(Measure* measure)
+{
+    Chord* chord = measure->findChord(measure->tick(), 0);
+    EXPECT_TRUE(chord);
+    return chord;
+}
+
+TEST_F(Engraving_NoteTests, graceBeforeBarlineRoundtrip)
+{
+    MasterScore* score = ScoreRW::readScore(NOTE_DATA_DIR + u"grace-before-barline.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    Measure* m2 = score->firstMeasure()->nextMeasure();
+    ASSERT_TRUE(m2);
+    Chord* chord = chordAtMeasureStart(m2);
+    ASSERT_TRUE(chord);
+    Note* graceNote = score->setGraceNote(chord, 74, NoteType::ACCIACCATURA, Constants::DIVISION / 2);
+    ASSERT_TRUE(graceNote);
+    Chord* gc = graceNote->chord();
+    gc->undoChangeProperty(Pid::GRACE_BEFORE_BARLINE, true);
+
+    EXPECT_TRUE(gc->graceBeforeBarline());
+    EXPECT_TRUE(gc->placeGraceNotesBeforeBarline());
+
+    const String saveName(u"/tmp/musescore-graceBeforeBarline-test.mscx");
+    ASSERT_TRUE(ScoreRW::saveScore(score, saveName));
+
+    const bool useRead302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
+    MasterScore* restored = ScoreRW::readScore(saveName, true);
+    MScore::useRead302InTestMode = useRead302;
+    ASSERT_TRUE(restored);
+
+    Measure* restoredM2 = restored->firstMeasure()->nextMeasure();
+    ASSERT_TRUE(restoredM2);
+    Chord* restoredChord = chordAtMeasureStart(restoredM2);
+    ASSERT_TRUE(restoredChord);
+    ASSERT_FALSE(restoredChord->graceNotesBefore().empty());
+    EXPECT_TRUE(restoredChord->graceNotesBefore().front()->graceBeforeBarline());
+
+    delete restored;
+    delete score;
+}
+
+TEST_F(Engraving_NoteTests, graceBeforeBarlineGroupAndLayout)
+{
+    MasterScore* score = ScoreRW::readScore(NOTE_DATA_DIR + u"grace-before-barline.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    Measure* m1 = score->firstMeasure();
+    Measure* m2 = m1->nextMeasure();
+    ASSERT_TRUE(m2);
+    Chord* chord = chordAtMeasureStart(m2);
+    ASSERT_TRUE(chord);
+
+    Note* grace1 = score->setGraceNote(chord, 74, NoteType::ACCIACCATURA, Constants::DIVISION / 2);
+    Note* grace2 = score->setGraceNote(chord, 76, NoteType::ACCIACCATURA, Constants::DIVISION / 2);
+    ASSERT_TRUE(grace1);
+    ASSERT_TRUE(grace2);
+
+    Chord* gc1 = grace1->chord();
+    Chord* gc2 = grace2->chord();
+    gc1->undoChangeProperty(Pid::GRACE_BEFORE_BARLINE, true);
+
+    EXPECT_TRUE(gc1->graceBeforeBarline());
+    EXPECT_TRUE(gc2->graceBeforeBarline());
+
+    score->doLayout();
+
+    Segment* barlineSeg = m1->findSegmentR(SegmentType::EndBarLine, m1->ticks());
+    ASSERT_TRUE(barlineSeg);
+    EngravingItem* barline = barlineSeg->element(0);
+    ASSERT_TRUE(barline);
+
+    const double barlineX = barline->pagePos().x();
+    const double measure1X = m1->pagePos().x();
+    EXPECT_LT(gc1->pagePos().x(), barlineX);
+    EXPECT_LT(gc2->pagePos().x(), barlineX);
+    EXPECT_GT(gc1->pagePos().x(), measure1X);
+    EXPECT_GT(gc2->pagePos().x(), measure1X);
+    EXPECT_TRUE(gc1->placeGraceNotesBeforeBarline());
+    EXPECT_EQ(chord->graceNotesBefore().appendedSegment(), barlineSeg);
+
+    delete score;
 }

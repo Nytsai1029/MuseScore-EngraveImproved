@@ -107,7 +107,9 @@ public:
     static void layoutLedgerLines(const std::vector<Chord*>& chords, LayoutContext& ctx);
     static void getNoteListForDots(Chord* c, std::vector<Note*>&, std::vector<Note*>&, std::vector<int>&);
     static void repositionGraceNotesAfter(Segment* segment, size_t tracks);
+    static void repositionGraceNotesBeforeBarline(Measure* measure);
     static void appendGraceNotes(Chord* chord);
+    static void appendIncomingGraceNotesBeforeBarline(Measure* measure, Measure* nextMeasure);
     static void clearLineAttachPoints(Measure* measure);
     static void updateLineAttachPoints(Chord* chord, bool isFirstInMeasure, LayoutContext& ctx);
 

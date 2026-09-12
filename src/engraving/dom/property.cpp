@@ -509,6 +509,8 @@ static constexpr PropertyMetaData propertyList[] = {
 
     { Pid::MASK_BARLINES,           false, "maskBarlines",          P_TYPE::BOOL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "mask barlines") },
 
+    { Pid::GRACE_BEFORE_BARLINE,    true,  "graceBeforeBarline",    P_TYPE::BOOL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "show at end of previous measure") },
+
     { Pid::END,                     false, "++end++",               P_TYPE::INT,                PropertyGroup::NONE,            "" }
 };
 /* *INDENT-ON* */

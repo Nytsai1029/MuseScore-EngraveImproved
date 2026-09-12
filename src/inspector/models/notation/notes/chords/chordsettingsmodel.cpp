@@ -21,6 +21,9 @@
  */
 #include "chordsettingsmodel.h"
 
+#include "engraving/dom/chord.h"
+#include "engraving/dom/measure.h"
+
 #include "translation.h"
 
 using namespace mu::inspector;
@@ -45,6 +48,7 @@ void ChordSettingsModel::createProperties()
 
     m_combineVoice = buildPropertyItem(Pid::COMBINE_VOICE);
     m_showStemSlash = buildPropertyItem(Pid::SHOW_STEM_SLASH);
+    m_graceBeforeBarline = buildPropertyItem(Pid::GRACE_BEFORE_BARLINE);
 }
 
 void ChordSettingsModel::requestElements()
@@ -56,15 +60,19 @@ void ChordSettingsModel::loadProperties()
 {
     loadPropertyItem(m_isStemless);
     loadPropertyItem(m_showStemSlash);
+    loadPropertyItem(m_graceBeforeBarline);
     loadPropertyItem(m_combineVoice);
     updateShowStemSlashVisible();
     updateShowStemSlashEnabled();
+    updateGraceBeforeBarlineVisible();
+    updateGraceBeforeBarlineEnabled();
 }
 
 void ChordSettingsModel::resetProperties()
 {
     m_isStemless->resetToDefault();
     m_showStemSlash->resetToDefault();
+    m_graceBeforeBarline->resetToDefault();
     updateShowStemSlashEnabled();
 }
 
@@ -76,6 +84,11 @@ PropertyItem* ChordSettingsModel::isStemless() const
 PropertyItem* ChordSettingsModel::showStemSlash() const
 {
     return m_showStemSlash;
+}
+
+PropertyItem* ChordSettingsModel::graceBeforeBarline() const
+{
+    return m_graceBeforeBarline;
 }
 
 PropertyItem* ChordSettingsModel::combineVoice() const
@@ -91,6 +104,16 @@ bool ChordSettingsModel::showStemSlashVisible() const
 bool ChordSettingsModel::showStemSlashEnabled() const
 {
     return m_showStemSlashEnabled;
+}
+
+bool ChordSettingsModel::graceBeforeBarlineVisible() const
+{
+    return m_graceBeforeBarlineVisible;
+}
+
+bool ChordSettingsModel::graceBeforeBarlineEnabled() const
+{
+    return m_graceBeforeBarlineEnabled;
 }
 
 void ChordSettingsModel::updateShowStemSlashVisible()
@@ -143,4 +166,66 @@ void ChordSettingsModel::setShowStemSlashEnabled(bool enabled)
 
     m_showStemSlashEnabled = enabled;
     emit showStemSlashEnabledChanged(m_showStemSlashEnabled);
+}
+
+void ChordSettingsModel::updateGraceBeforeBarlineVisible()
+{
+    bool visible = false;
+    for (EngravingItem* element : m_elementList) {
+        engraving::EngravingItem* elementBase = element->elementBase();
+        if (elementBase->isChord()) {
+            engraving::Chord* chord = engraving::toChord(elementBase);
+            if (chord->isGraceBefore()) {
+                visible = true;
+                break;
+            }
+        }
+    }
+    setGraceBeforeBarlineVisible(visible);
+}
+
+void ChordSettingsModel::updateGraceBeforeBarlineEnabled()
+{
+    bool enabled = false;
+    for (EngravingItem* element : m_elementList) {
+        engraving::EngravingItem* elementBase = element->elementBase();
+        if (!elementBase->isChord()) {
+            continue;
+        }
+        engraving::Chord* chord = engraving::toChord(elementBase);
+        if (!chord->isGraceBefore()) {
+            continue;
+        }
+        engraving::Chord* main = (chord->explicitParent() && chord->explicitParent()->isChord())
+                                 ? engraving::toChord(chord->explicitParent()) : chord;
+        if (!main->rtick().isZero()) {
+            continue;
+        }
+        engraving::Measure* measure = main->measure();
+        if (measure && measure->prevMeasure()) {
+            enabled = true;
+            break;
+        }
+    }
+    setGraceBeforeBarlineEnabled(enabled);
+}
+
+void ChordSettingsModel::setGraceBeforeBarlineVisible(bool visible)
+{
+    if (visible == m_graceBeforeBarlineVisible) {
+        return;
+    }
+
+    m_graceBeforeBarlineVisible = visible;
+    emit graceBeforeBarlineVisibleChanged(m_graceBeforeBarlineVisible);
+}
+
+void ChordSettingsModel::setGraceBeforeBarlineEnabled(bool enabled)
+{
+    if (enabled == m_graceBeforeBarlineEnabled) {
+        return;
+    }
+
+    m_graceBeforeBarlineEnabled = enabled;
+    emit graceBeforeBarlineEnabledChanged(m_graceBeforeBarlineEnabled);
 }

@@ -69,6 +69,17 @@ FocusableItem {
             navigation.row: root.navigationRowStart + 2
         }
 
+        PropertyCheckBox {
+            text: qsTrc("inspector", "Show at end of previous measure")
+            propertyItem: root.chordModel ? root.chordModel.graceBeforeBarline : null
+            visible: root.chordModel ? root.chordModel.graceBeforeBarlineVisible : false
+            enabled: root.chordModel ? root.chordModel.graceBeforeBarlineEnabled : false
+
+            navigation.name: "Show at end of previous measure"
+            navigation.panel: root.navigationPanel
+            navigation.row: root.navigationRowStart + 3
+        }
+
         DirectionSection {
             id: stemDirectionGroup
 
@@ -76,7 +87,7 @@ FocusableItem {
             propertyItem: root.stemModel ? root.stemModel.stemDirection : null
 
             navigationPanel: root.navigationPanel
-            navigationRowStart: root.navigationRowStart + 3
+            navigationRowStart: root.navigationRowStart + 4
         }
 
         SpinBoxPropertyView {

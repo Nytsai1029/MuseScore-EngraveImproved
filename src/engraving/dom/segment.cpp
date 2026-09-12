@@ -1480,6 +1480,36 @@ void Segment::scanElements(void* data, void (* func)(void*, EngravingItem*), boo
             e->scanElements(data,  func, all);
         }
     }
+
+    if (isEndBarLineType()) {
+        Measure* nextMeasure = measure()->nextMeasure();
+        Segment* firstCr = nextMeasure ? nextMeasure->first(SegmentType::ChordRest) : nullptr;
+        if (firstCr && firstCr->rtick().isZero()) {
+            for (EngravingItem* el : firstCr->elist()) {
+                if (!el || !el->isChord()) {
+                    continue;
+                }
+                Chord* chord = toChord(el);
+                if (!chord->placeGraceNotesBeforeBarline()) {
+                    continue;
+                }
+                GraceNotesGroup& gnb = chord->graceNotesBefore();
+                if (gnb.appendedSegment() != this) {
+                    continue;
+                }
+                Segment* parentSeg = chord->segment();
+                if (!parentSeg || !parentSeg->system() || !system() || parentSeg->system() == system()) {
+                    continue;
+                }
+                if (!all && !measure()->visible(chord->staffIdx())) {
+                    continue;
+                }
+                for (Chord* grace : gnb) {
+                    grace->scanElements(data, func, all);
+                }
+            }
+        }
+    }
 }
 
 RectF Segment::contentRect() const

@@ -627,7 +627,7 @@ void ChordLayout::layoutTablature(Chord* item, LayoutContext& ctx)
 
     std::vector<Chord*> graceNotesBefore = item->Chord::graceNotesBefore();
     size_t nb = graceNotesBefore.size();
-    if (nb) {
+    if (nb && !item->placeGraceNotesBeforeBarline()) {
         double xl = -(item->spaceLw() + minNoteDistance);
         for (int i = static_cast<int>(nb) - 1; i >= 0; --i) {
             Chord* c = graceNotesBefore.at(i);
@@ -2906,7 +2906,7 @@ void ChordLayout::appendGraceNotes(Chord* chord)
     GraceNotesGroup& gna = chord->graceNotesAfter();
 
     //Attach graceNotesBefore of this chord to *this* segment
-    if (!gnb.empty()) {
+    if (!gnb.empty() && !chord->placeGraceNotesBeforeBarline()) {
         // If this segment already contains grace notes in the same voice (could happen if a
         // previous chord has appended grace-notes-after here) put them in the same vector.
         EngravingItem* item = segment->preAppendedItem(track);
@@ -2934,6 +2934,89 @@ void ChordLayout::appendGraceNotes(Chord* chord)
     }
 }
 
+void ChordLayout::appendIncomingGraceNotesBeforeBarline(Measure* measure, Measure* nextMeasure)
+{
+    Segment* barlineSeg = measure->findSegmentR(SegmentType::EndBarLine, measure->ticks());
+    if (!barlineSeg) {
+        barlineSeg = measure->last();
+    }
+    if (!barlineSeg) {
+        return;
+    }
+
+    Segment* firstCr = nextMeasure->first(SegmentType::ChordRest);
+    if (!firstCr || !firstCr->rtick().isZero()) {
+        return;
+    }
+
+    for (EngravingItem* el : firstCr->elist()) {
+        if (!el || !el->isChord()) {
+            continue;
+        }
+        Chord* chord = toChord(el);
+        if (!chord->placeGraceNotesBeforeBarline()) {
+            continue;
+        }
+        GraceNotesGroup& gnb = chord->graceNotesBefore();
+        if (gnb.empty()) {
+            continue;
+        }
+        const track_idx_t track = chord->track();
+        gnb.setAppendedSegment(barlineSeg);
+        EngravingItem* item = barlineSeg->preAppendedItem(track);
+        if (item && item->isGraceNotesGroup() && item != &gnb) {
+            // Slot already taken (e.g. grace-after of the previous measure). Keep appendedSegment
+            // so this group can still be laid out against the barline.
+            continue;
+        }
+        barlineSeg->preAppend(&gnb, track);
+    }
+}
+
+void ChordLayout::repositionGraceNotesBeforeBarline(Measure* measure)
+{
+    Measure* nextMeasure = measure->nextMeasure();
+    if (!nextMeasure) {
+        return;
+    }
+    Segment* barlineSeg = measure->findSegmentR(SegmentType::EndBarLine, measure->ticks());
+    if (!barlineSeg) {
+        return;
+    }
+    System* barlineSys = barlineSeg->system();
+    if (!barlineSys) {
+        return;
+    }
+
+    Segment* firstCr = nextMeasure->first(SegmentType::ChordRest);
+    if (!firstCr || !firstCr->rtick().isZero()) {
+        return;
+    }
+
+    for (EngravingItem* el : firstCr->elist()) {
+        if (!el || !el->isChord()) {
+            continue;
+        }
+        Chord* chord = toChord(el);
+        if (!chord->placeGraceNotesBeforeBarline()) {
+            continue;
+        }
+        GraceNotesGroup& gnb = chord->graceNotesBefore();
+        if (gnb.appendedSegment() != barlineSeg) {
+            continue;
+        }
+        Segment* parentSeg = chord->segment();
+        if (!parentSeg || parentSeg->system() != barlineSys) {
+            continue;
+        }
+        const double offset = (barlineSeg->ldata()->pos().x() + measure->x())
+                              - (parentSeg->ldata()->pos().x() + nextMeasure->x());
+        for (Chord* grace : gnb) {
+            grace->setPos(grace->ldata()->pos().x() + offset, 0.0);
+        }
+    }
+}
+
 /* Grace-notes-after have the special property of belonging to
 *  a segment but being pre-appended to another. This repositioning
 *  is needed and must be called AFTER horizontal spacing is calculated. */
@@ -2946,7 +3029,25 @@ void ChordLayout::repositionGraceNotesAfter(Segment* segment, size_t tracks)
         }
         GraceNotesGroup* gng = toGraceNotesGroup(item);
         for (Chord* chord : *gng) {
-            double offset = segment->ldata()->pos().x() - chord->parentItem()->parentItem()->ldata()->pos().x();
+            EngravingItem* parentChord = chord->parentItem();
+            if (!parentChord) {
+                continue;
+            }
+            EngravingItem* parentSegItem = parentChord->parentItem();
+            if (!parentSegItem || !parentSegItem->isSegment()) {
+                continue;
+            }
+            const Segment* parentSeg = toSegment(parentSegItem);
+            const Measure* parentMeasure = parentSeg->measure();
+            const Measure* appendedMeasure = segment->measure();
+            if (!parentMeasure || !appendedMeasure) {
+                continue;
+            }
+            if (parentMeasure != appendedMeasure) {
+                // Cross-measure (grace before barline): handled in repositionGraceNotesBeforeBarline().
+                continue;
+            }
+            double offset = segment->ldata()->pos().x() - parentSeg->ldata()->pos().x();
             // Difference between the segment they "belong" and the segment they are "appended" to.
             chord->setPos(chord->ldata()->pos().x() + offset, 0.0);
         }

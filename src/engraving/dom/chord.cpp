@@ -46,6 +46,7 @@
 #include "noteevent.h"
 #include "noteline.h"
 #include "ornament.h"
+#include "page.h"
 #include "part.h"
 #include "rest.h"
 #include "score.h"
@@ -265,6 +266,7 @@ Chord::Chord(Segment* parent)
     m_stemSlash        = 0;
     m_noStem           = false;
     m_showStemSlash    = m_noteType == NoteType::ACCIACCATURA;
+    m_graceBeforeBarline = false;
     m_playEventType    = PlayEventType::Auto;
     m_spaceLw          = 0.;
     m_spaceRw          = 0.;
@@ -307,6 +309,7 @@ Chord::Chord(const Chord& c, bool link)
     m_graceIndex     = c.m_graceIndex;
     m_noStem         = c.m_noStem;
     m_showStemSlash  = c.m_showStemSlash;
+    m_graceBeforeBarline = c.m_graceBeforeBarline;
     m_playEventType  = c.m_playEventType;
     m_stemDirection  = c.m_stemDirection;
     m_noteType       = c.m_noteType;
@@ -1200,6 +1203,18 @@ void Chord::cmdUpdateNotes(AccidentalState* as, staff_idx_t staffIdx)
 //   pagePos
 //---------------------------------------------------------
 
+static const Segment* graceGroupAppendedSegment(const Chord* grace)
+{
+    if (!grace->isGrace() || !grace->explicitParent() || !grace->explicitParent()->isChord()) {
+        return nullptr;
+    }
+    const Chord* parent = toChord(grace->explicitParent());
+    if (grace->isGraceBefore()) {
+        return parent->graceNotesBefore().appendedSegment();
+    }
+    return parent->graceNotesAfter().appendedSegment();
+}
+
 PointF Chord::pagePos() const
 {
     if (isGrace()) {
@@ -1207,10 +1222,22 @@ PointF Chord::pagePos() const
         if (explicitParent() == 0) {
             return p;
         }
-        p.rx() = pageX();
 
         const Chord* pc = static_cast<const Chord*>(explicitParent());
-        System* system = pc->segment()->system();
+        const Segment* appended = graceGroupAppendedSegment(this);
+        const Segment* parentSeg = pc->segment();
+        const bool crossSystem = appended && parentSeg && appended->system() && parentSeg->system()
+                                 && appended->system() != parentSeg->system();
+        if (crossSystem) {
+            System* system = appended->system();
+            p.rx() = appended->pagePos().x() + x() + pc->x();
+            p.ry() += system->staffYpage(vStaffIdx()) + staffOffsetY();
+            return p;
+        }
+
+        p.rx() = pageX();
+
+        System* system = parentSeg ? parentSeg->system() : nullptr;
         if (!system) {
             return p;
         }
@@ -1218,6 +1245,62 @@ PointF Chord::pagePos() const
         return p;
     }
     return EngravingItem::pagePos();
+}
+
+PointF Chord::canvasPos() const
+{
+    if (isGrace()) {
+        PointF p = pagePos();
+        const Segment* appended = graceGroupAppendedSegment(this);
+        const Chord* pc = explicitParent() && explicitParent()->isChord() ? toChord(explicitParent()) : nullptr;
+        const Segment* parentSeg = pc ? pc->segment() : nullptr;
+        const bool crossSystem = appended && parentSeg && appended->system() && parentSeg->system()
+                                 && appended->system() != parentSeg->system();
+        const System* system = crossSystem ? appended->system() : (parentSeg ? parentSeg->system() : nullptr);
+        if (system && system->page()) {
+            p += system->page()->pos();
+        }
+        return p;
+    }
+    return EngravingItem::canvasPos();
+}
+
+void Chord::triggerLayout() const
+{
+    if (isGraceBefore()) {
+        const Chord* main = (explicitParent() && explicitParent()->isChord()) ? toChord(explicitParent()) : this;
+        Measure* m = main->measure();
+        const Fraction startTick = (m && m->prevMeasure()) ? m->prevMeasure()->tick() : tick();
+        if (explicitParent()) {
+            score()->setLayout(startTick, tick(), staffIdx(), staffIdx(), this);
+            return;
+        }
+    }
+    EngravingItem::triggerLayout();
+}
+
+bool Chord::placeGraceNotesBeforeBarline() const
+{
+    const Chord* main = this;
+    if (isGrace()) {
+        if (!explicitParent() || !explicitParent()->isChord()) {
+            return false;
+        }
+        main = toChord(explicitParent());
+    }
+    if (main->isGrace() || !main->rtick().isZero()) {
+        return false;
+    }
+    Measure* m = main->measure();
+    if (!m || !m->prevMeasure()) {
+        return false;
+    }
+    for (const Chord* g : main->graceNotesBefore()) {
+        if (g->graceBeforeBarline()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 //---------------------------------------------------------
@@ -1262,7 +1345,13 @@ void Chord::scanElements(void* data, void (* func)(void*, EngravingItem*), bool 
     for (Note* note : m_notes) {
         note->scanElements(data, func, all);
     }
+    const Segment* appendedBefore = isGrace() ? nullptr : graceNotesBefore().appendedSegment();
+    const bool skipCrossSystemGraces = appendedBefore && segment() && appendedBefore->system() && segment()->system()
+                                       && appendedBefore->system() != segment()->system();
     for (Chord* chord : m_graceNotes) {
+        if (skipCrossSystemGraces && chord->isGraceBefore()) {
+            continue;
+        }
         chord->scanElements(data, func, all);
     }
     for (EngravingItem* e : el()) {
@@ -1565,6 +1654,7 @@ PropertyValue Chord::getProperty(Pid propertyId) const
     switch (propertyId) {
     case Pid::NO_STEM:         return noStem();
     case Pid::SHOW_STEM_SLASH: return showStemSlash();
+    case Pid::GRACE_BEFORE_BARLINE: return graceBeforeBarline();
     case Pid::SMALL:           return isSmall();
     case Pid::STEM_DIRECTION:  return PropertyValue::fromValue<DirectionV>(stemDirection());
     case Pid::PLAY: return isChordPlayable();
@@ -1584,6 +1674,7 @@ PropertyValue Chord::propertyDefault(Pid propertyId) const
     switch (propertyId) {
     case Pid::NO_STEM:         return false;
     case Pid::SHOW_STEM_SLASH: return noteType() == NoteType::ACCIACCATURA;
+    case Pid::GRACE_BEFORE_BARLINE: return false;
     case Pid::SMALL:           return false;
     case Pid::STEM_DIRECTION:  return PropertyValue::fromValue<DirectionV>(DirectionV::AUTO);
     case Pid::PLAY: return true;
@@ -1596,6 +1687,9 @@ PropertyValue Chord::propertyDefault(Pid propertyId) const
 bool Chord::isUserModified() const
 {
     if (showStemSlash() != propertyDefault(Pid::SHOW_STEM_SLASH).toBool()) {
+        return true;
+    }
+    if (graceBeforeBarline() != propertyDefault(Pid::GRACE_BEFORE_BARLINE).toBool()) {
         return true;
     }
 
@@ -1614,6 +1708,9 @@ bool Chord::setProperty(Pid propertyId, const PropertyValue& v)
         break;
     case Pid::SHOW_STEM_SLASH:
         requestShowStemSlash(v.toBool());
+        break;
+    case Pid::GRACE_BEFORE_BARLINE:
+        setGraceBeforeBarline(v.toBool());
         break;
     case Pid::SMALL:
         setSmall(v.toBool());
@@ -2644,6 +2741,19 @@ void Chord::undoChangeProperty(Pid id, const PropertyValue& newValue, PropertyFl
         processSiblings([=](EngravingItem* element) {
             element->undoChangeProperty(id, newValue, ps);
         }, false);
+    }
+
+    if (id == Pid::GRACE_BEFORE_BARLINE && isGraceBefore()) {
+        ChordRest::undoChangeProperty(id, newValue, ps);
+        if (explicitParent() && explicitParent()->isChord()) {
+            Chord* main = toChord(explicitParent());
+            for (Chord* g : main->graceNotesBefore()) {
+                if (g != this && g->getProperty(id) != newValue) {
+                    g->undoChangeProperty(id, newValue, ps);
+                }
+            }
+        }
+        return;
     }
 
     ChordRest::undoChangeProperty(id, newValue, ps);

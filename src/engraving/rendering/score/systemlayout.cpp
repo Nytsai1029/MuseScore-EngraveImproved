@@ -1170,6 +1170,27 @@ void SystemLayout::layoutSystemElements(System* system, LayoutContext& ctx)
         TLayout::layoutGraceNotesGroup2(&graceAfter, graceAfter.mutldata());
     }
 
+    if (!elementsToLayout.measures.empty()) {
+        Measure* lastMeasure = elementsToLayout.measures.back();
+        Measure* nextMeasure = lastMeasure->nextMeasure();
+        if (nextMeasure && nextMeasure->system() != system) {
+            Segment* firstCr = nextMeasure->first(SegmentType::ChordRest);
+            if (firstCr && firstCr->rtick().isZero()) {
+                for (EngravingItem* el : firstCr->elist()) {
+                    if (!el || !el->isChord()) {
+                        continue;
+                    }
+                    Chord* chord = toChord(el);
+                    if (!chord->placeGraceNotesBeforeBarline()) {
+                        continue;
+                    }
+                    GraceNotesGroup& gnb = chord->graceNotesBefore();
+                    TLayout::layoutGraceNotesGroup2(&gnb, gnb.mutldata());
+                }
+            }
+        }
+    }
+
     for (ChordRest* cr : elementsToLayout.chordRests) {
         BeamLayout::layoutNonCrossBeams(cr, ctx);
     }
@@ -1571,6 +1592,31 @@ void SystemLayout::createSkylines(const ElementsToLayout& elementsToLayout, Layo
                     if (bl && bl->addToSkyline()) {
                         skyline.add(bl->shape().translated(bl->pos() + p + bl->staffOffset()));
                     }
+                    Measure* nextMeasure = m->nextMeasure();
+                    Segment* firstCr = nextMeasure ? nextMeasure->first(SegmentType::ChordRest) : nullptr;
+                    if (firstCr && firstCr->rtick().isZero()) {
+                        for (EngravingItem* el : firstCr->elist()) {
+                            if (!el || !el->isChord()) {
+                                continue;
+                            }
+                            Chord* chord = toChord(el);
+                            if (chord->staffIdx() != staffIdx && chord->vStaffIdx() != staffIdx) {
+                                continue;
+                            }
+                            if (!chord->placeGraceNotesBeforeBarline()) {
+                                continue;
+                            }
+                            GraceNotesGroup& gnb = chord->graceNotesBefore();
+                            if (gnb.appendedSegment() != &s) {
+                                continue;
+                            }
+                            Segment* parentSeg = chord->segment();
+                            if (!parentSeg || !parentSeg->system() || parentSeg->system() == system) {
+                                continue;
+                            }
+                            skyline.add(gnb.shape().translate(gnb.pos() + p + chord->staffOffset()));
+                        }
+                    }
                 } else if (s.isType(SegmentType::TimeSigType)) {
                     TimeSig* ts = toTimeSig(s.element(staffIdx * VOICES));
                     if (ts && ts->addToSkyline() && ts->showOnThisStaff()) {
@@ -1601,7 +1647,12 @@ void SystemLayout::createSkylines(const ElementsToLayout& elementsToLayout, Layo
                                 GraceNotesGroup& graceBefore = chord->graceNotesBefore();
                                 GraceNotesGroup& graceAfter = chord->graceNotesAfter();
                                 if (!graceBefore.empty()) {
-                                    skyline.add(graceBefore.shape().translate(graceBefore.pos() + p + offset));
+                                    Segment* app = graceBefore.appendedSegment();
+                                    const bool crossSystem = app && app->system() && chord->segment() && chord->segment()->system()
+                                                             && app->system() != chord->segment()->system();
+                                    if (!crossSystem) {
+                                        skyline.add(graceBefore.shape().translate(graceBefore.pos() + p + offset));
+                                    }
                                 }
                                 if (!graceAfter.empty()) {
                                     skyline.add(graceAfter.shape().translate(graceAfter.pos() + p + offset));

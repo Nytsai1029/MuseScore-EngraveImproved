@@ -3005,6 +3005,9 @@ void TLayout::layoutGraceNotesGroup(GraceNotesGroup* item, LayoutContext& ctx)
     }
 
     const Segment* appendedSeg = item->appendedSegment();
+    if (!appendedSeg) {
+        return;
+    }
     Chord* parentChord = toChord(item->parent());
     Shape staffShape = appendedSeg->staffShape(parentChord->staffIdx());
     bool isTabStaff = parentChord->staffType() && parentChord->staffType()->isTabStaff();

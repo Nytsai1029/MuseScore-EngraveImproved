@@ -521,6 +521,8 @@ enum class Pid {
 
     MASK_BARLINES, // text / dynamics punch through intersecting barlines
 
+    GRACE_BEFORE_BARLINE, // prefix grace notes drawn at the end of the previous measure
+
     END
 };
 

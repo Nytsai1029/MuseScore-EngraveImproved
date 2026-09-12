@@ -200,6 +200,10 @@ public:
     void setShowStemSlashInAdvance();
     void requestShowStemSlash(bool show);
     void setShowStemSlash(bool show) { m_showStemSlash = show; }
+
+    bool graceBeforeBarline() const { return m_graceBeforeBarline; }
+    void setGraceBeforeBarline(bool v) { m_graceBeforeBarline = v; }
+    bool placeGraceNotesBeforeBarline() const;
     bool slash();
     void setSlash(bool flag, bool stemless);
     void removeMarkings(bool keepTremolo = false) override;
@@ -235,6 +239,8 @@ public:
     Note* selectedNote() const;
 
     PointF pagePos() const override;        ///< position in page coordinates
+    PointF canvasPos() const override;
+    void triggerLayout() const override;
     void cmdUpdateNotes(AccidentalState*, staff_idx_t staffIdx);
 
     NoteType noteType() const { return m_noteType; }
@@ -378,6 +384,7 @@ private:
     Hook* m_hook = nullptr;
     StemSlash* m_stemSlash = nullptr;     // for grace notes
     bool m_showStemSlash = false;
+    bool m_graceBeforeBarline = false;
 
     Arpeggio* m_arpeggio = nullptr;       // arpeggio which starts on the chord
     Arpeggio* m_spanArpeggio = nullptr;   // arpeggio which spans over this chord

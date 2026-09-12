@@ -31,28 +31,38 @@ class ChordSettingsModel : public AbstractInspectorModel
 
     Q_PROPERTY(PropertyItem * isStemless READ isStemless CONSTANT)
     Q_PROPERTY(PropertyItem * showStemSlash READ showStemSlash CONSTANT)
+    Q_PROPERTY(PropertyItem * graceBeforeBarline READ graceBeforeBarline CONSTANT)
     Q_PROPERTY(PropertyItem * combineVoice READ combineVoice CONSTANT)
 
     Q_PROPERTY(bool showStemSlashVisible READ showStemSlashVisible NOTIFY showStemSlashVisibleChanged)
     Q_PROPERTY(bool showStemSlashEnabled READ showStemSlashEnabled NOTIFY showStemSlashEnabledChanged)
+    Q_PROPERTY(bool graceBeforeBarlineVisible READ graceBeforeBarlineVisible NOTIFY graceBeforeBarlineVisibleChanged)
+    Q_PROPERTY(bool graceBeforeBarlineEnabled READ graceBeforeBarlineEnabled NOTIFY graceBeforeBarlineEnabledChanged)
 
 public:
     explicit ChordSettingsModel(QObject* parent, IElementRepositoryService* repository);
 
     PropertyItem* isStemless() const;
     PropertyItem* showStemSlash() const;
+    PropertyItem* graceBeforeBarline() const;
     PropertyItem* combineVoice() const;
 
     bool showStemSlashVisible() const;  //  chord is grace
     bool showStemSlashEnabled() const;  //  chord is not stemless
+    bool graceBeforeBarlineVisible() const; // prefix grace note
+    bool graceBeforeBarlineEnabled() const; // parent chord at start of measure with a previous measure
 
 public slots:
     void setShowStemSlashVisible(bool showStemSlashVisible);
     void setShowStemSlashEnabled(bool showStemSlashEnabled);
+    void setGraceBeforeBarlineVisible(bool graceBeforeBarlineVisible);
+    void setGraceBeforeBarlineEnabled(bool graceBeforeBarlineEnabled);
 
 signals:
     void showStemSlashVisibleChanged(bool showStemSlashVisible);
     void showStemSlashEnabledChanged(bool showStemSlashEnabled);
+    void graceBeforeBarlineVisibleChanged(bool graceBeforeBarlineVisible);
+    void graceBeforeBarlineEnabledChanged(bool graceBeforeBarlineEnabled);
 
 private:
     void createProperties() override;
@@ -62,13 +72,18 @@ private:
 
     void updateShowStemSlashVisible();
     void updateShowStemSlashEnabled();
+    void updateGraceBeforeBarlineVisible();
+    void updateGraceBeforeBarlineEnabled();
 
     PropertyItem* m_isStemless = nullptr;
     PropertyItem* m_showStemSlash = nullptr;
+    PropertyItem* m_graceBeforeBarline = nullptr;
     PropertyItem* m_combineVoice = nullptr;
 
     bool m_showStemSlashVisible = false;
     bool m_showStemSlashEnabled = false;
+    bool m_graceBeforeBarlineVisible = false;
+    bool m_graceBeforeBarlineEnabled = false;
 };
 }
 

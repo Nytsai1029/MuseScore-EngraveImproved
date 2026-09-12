@@ -885,6 +885,13 @@ Note* Score::setGraceNote(Chord* ch, int pitch, NoteType type, int len)
     chord->setTicks(d.fraction());
     chord->setNoteType(type);
     chord->setShowStemSlashInAdvance();
+    if (type == NoteType::ACCIACCATURA || type == NoteType::APPOGGIATURA
+        || type == NoteType::GRACE4 || type == NoteType::GRACE16 || type == NoteType::GRACE32) {
+        const GraceNotesGroup& existing = ch->graceNotesBefore();
+        if (!existing.empty()) {
+            chord->setGraceBeforeBarline(existing.front()->graceBeforeBarline());
+        }
+    }
     chord->mutldata()->setMag(ch->staff()->staffMag(chord->tick()) * style().styleD(Sid::graceNoteMag));
 
     undoAddElement(chord);

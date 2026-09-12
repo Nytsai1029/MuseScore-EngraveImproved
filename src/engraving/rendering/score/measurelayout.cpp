@@ -1134,6 +1134,10 @@ void MeasureLayout::updateGraceNotes(Measure* measure, LayoutContext& ctx)
         }
     }
 
+    if (Measure* nextMeasure = measure->nextMeasure()) {
+        ChordLayout::appendIncomingGraceNotesBeforeBarline(measure, nextMeasure);
+    }
+
     // Layout grace note groups
     for (Segment& s : measure->segments()) {
         for (track_idx_t track = 0; track < ctx.dom().ntracks(); ++track) {
@@ -1142,6 +1146,32 @@ void MeasureLayout::updateGraceNotes(Measure* measure, LayoutContext& ctx)
                 GraceNotesGroup* gng = toGraceNotesGroup(e);
                 TLayout::layoutGraceNotesGroup(gng, ctx);
                 gng->addToShape();
+            }
+        }
+    }
+
+    // Incoming before-barline groups that could not occupy the preAppended slot still need layout.
+    if (Measure* nextMeasure = measure->nextMeasure()) {
+        Segment* barlineSeg = measure->findSegmentR(SegmentType::EndBarLine, measure->ticks());
+        Segment* firstCr = nextMeasure->first(SegmentType::ChordRest);
+        if (barlineSeg && firstCr && firstCr->rtick().isZero()) {
+            for (EngravingItem* el : firstCr->elist()) {
+                if (!el || !el->isChord()) {
+                    continue;
+                }
+                Chord* chord = toChord(el);
+                if (!chord->placeGraceNotesBeforeBarline()) {
+                    continue;
+                }
+                GraceNotesGroup& gnb = chord->graceNotesBefore();
+                if (gnb.empty() || gnb.appendedSegment() != barlineSeg) {
+                    continue;
+                }
+                if (barlineSeg->preAppendedItem(chord->track()) == &gnb) {
+                    continue;
+                }
+                TLayout::layoutGraceNotesGroup(&gnb, ctx);
+                gnb.addToShape();
             }
         }
     }
@@ -1430,6 +1460,8 @@ void MeasureLayout::layoutMeasureElements(Measure* m, LayoutContext& ctx)
     //---------------------------------------------------
     //    layout individual elements
     //---------------------------------------------------
+
+    ChordLayout::repositionGraceNotesBeforeBarline(m);
 
     for (Segment& s : m->segments()) {
         if (!s.enabled()) {
@@ -2919,6 +2951,8 @@ void MeasureLayout::stretchMeasureInPracticeMode(Measure* m, double targetWidth,
     //---------------------------------------------------
     //    layout individual elements
     //---------------------------------------------------
+
+    ChordLayout::repositionGraceNotesBeforeBarline(m);
 
     for (Segment& s : m->segments()) {
         if (!s.enabled()) {
