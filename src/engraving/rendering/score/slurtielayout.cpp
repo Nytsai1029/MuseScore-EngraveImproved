@@ -71,6 +71,8 @@ struct SlurSamplePoint
     double arcLength = 0.0;
 };
 
+constexpr int kCubicSamplesPerSegment = 32;
+
 double slurAngleFromEndpoints(const PointF& start, const PointF& end)
 {
     double angle = std::atan2(end.y() - start.y(), end.x() - start.x());
@@ -103,8 +105,7 @@ std::vector<SlurSamplePoint> sampleCubicChain(const std::vector<SlurCubicChainSe
     std::vector<SlurSamplePoint> samples;
     // Dense, fixed-rate pass per segment (independent of knot/segment count) so
     // the arc-length resampling that follows always has enough source points.
-    constexpr int samplesPerSegment = 32;
-    samples.reserve((chain.size() * samplesPerSegment) + 1);
+    samples.reserve((chain.size() * kCubicSamplesPerSegment) + 1);
 
     double accumulatedLength = 0.0;
     PointF previousPoint;
@@ -112,12 +113,12 @@ std::vector<SlurSamplePoint> sampleCubicChain(const std::vector<SlurCubicChainSe
 
     for (size_t segmentIdx = 0; segmentIdx < chain.size(); ++segmentIdx) {
         const SlurCubicChainSegment& segment = chain[segmentIdx];
-        for (int i = 0; i <= samplesPerSegment; ++i) {
+        for (int i = 0; i <= kCubicSamplesPerSegment; ++i) {
             if (segmentIdx > 0 && i == 0) {
                 continue;
             }
 
-            const double t = double(i) / double(samplesPerSegment);
+            const double t = double(i) / double(kCubicSamplesPerSegment);
             const PointF point = cubicPointAt(segment, t);
             const PointF tangent = cubicDerivativeAt(segment, t);
 
@@ -183,105 +184,143 @@ double slurThicknessAt(const SlurSegment* slurSeg, double totalLength, double ar
     return envelope * 2.0 * slurSeg->ldata()->midThickness();
 }
 
-PointF limitedVector(PointF vector, double maxLength)
+void splitCubic(const SlurCubicChainSegment& segment, double t, SlurCubicChainSegment& left, SlurCubicChainSegment& right)
 {
-    const double length = std::hypot(vector.x(), vector.y());
-    if (length > maxLength && length > 1e-6) {
-        vector *= maxLength / length;
-    }
-    return vector;
+    const double r = 1.0 - t;
+    const PointF p01 = r * segment.start + t * segment.c1;
+    const PointF p12 = r * segment.c1 + t * segment.c2;
+    const PointF p23 = r * segment.c2 + t * segment.end;
+    const PointF p012 = r * p01 + t * p12;
+    const PointF p123 = r * p12 + t * p23;
+    const PointF mid = r * p012 + t * p123;
+    left = { segment.start, p01, p012, mid };
+    right = { mid, p123, p23, segment.end };
 }
 
-PointF normalizedTangentAt(const std::vector<SlurSamplePoint>& samples, size_t index)
+// Equal-parameter de Casteljau split of one cubic into knotCount+1 cubics. The
+// concatenated chain is the original curve, so unedited multi-bezier slurs stay
+// C-infinity at the knots instead of approximating a parabola with short handles.
+std::vector<SlurCubicChainSegment> subdivideCubic(const SlurCubicChainSegment& cubic, int knotCount)
 {
-    const auto normalized = [](PointF tangent) -> PointF {
-        const double length = std::hypot(tangent.x(), tangent.y());
-        return length > 1e-6 ? (tangent / length) : PointF();
-    };
-
-    PointF tangent = normalized(samples[index].tangent);
-    if (!tangent.isNull()) {
-        return tangent;
+    std::vector<SlurCubicChainSegment> segments;
+    segments.reserve(size_t(knotCount + 1));
+    SlurCubicChainSegment remaining = cubic;
+    for (int i = 0; i < knotCount; ++i) {
+        SlurCubicChainSegment left;
+        SlurCubicChainSegment right;
+        splitCubic(remaining, 1.0 / double(knotCount + 1 - i), left, right);
+        segments.push_back(left);
+        remaining = right;
     }
-
-    for (size_t i = index; i > 0; --i) {
-        tangent = normalized(samples[i - 1].tangent);
-        if (!tangent.isNull()) {
-            return tangent;
-        }
-    }
-
-    for (size_t i = index + 1; i < samples.size(); ++i) {
-        tangent = normalized(samples[i].tangent);
-        if (!tangent.isNull()) {
-            return tangent;
-        }
-    }
-
-    if (index > 0) {
-        tangent = normalized(samples[index].point - samples[index - 1].point);
-    } else if (index + 1 < samples.size()) {
-        tangent = normalized(samples[index + 1].point - samples[index].point);
-    }
-
-    return tangent.isNull() ? PointF(1.0, 0.0) : tangent;
+    segments.push_back(remaining);
+    return segments;
 }
 
-void appendSmoothCurve(PainterPath& path, const std::vector<PointF>& points, bool reverse)
+void makeHandlesCollinear(PointF& inHandle, PointF& outHandle, const PointF& knot, const PointF& fallbackTangent)
+{
+    PointF inVector = inHandle - knot;
+    PointF outVector = outHandle - knot;
+    double inLen = std::hypot(inVector.x(), inVector.y());
+    double outLen = std::hypot(outVector.x(), outVector.y());
+    PointF axis;
+    if (outLen > 1e-6) {
+        axis = outVector / outLen;
+    } else if (inLen > 1e-6) {
+        axis = -inVector / inLen;
+    } else {
+        const double fallbackLen = std::hypot(fallbackTangent.x(), fallbackTangent.y());
+        axis = fallbackLen > 1e-6 ? (fallbackTangent / fallbackLen) : PointF(1.0, 0.0);
+        inLen = fallbackLen;
+        outLen = fallbackLen;
+    }
+
+    inHandle = knot - axis * inLen;
+    outHandle = knot + axis * outLen;
+}
+
+double lensHalfThicknessAt(double t, double midThickness)
+{
+    const double s = std::clamp(t, 0.0, 1.0);
+    return 3.0 * s * (1.0 - s) * midThickness;
+}
+
+PointF unitNormalFromTangent(const PointF& tangent, PointF& previousNormal, bool& hasPrevious)
+{
+    const double length = std::hypot(tangent.x(), tangent.y());
+    const PointF unit = length > 1e-6 ? (tangent / length) : PointF(1.0, 0.0);
+    PointF normal(-unit.y(), unit.x());
+    if (hasPrevious && (normal.x() * previousNormal.x() + normal.y() * previousNormal.y()) < 0.0) {
+        normal = -normal;
+    }
+    previousNormal = normal;
+    hasPrevious = true;
+    return normal;
+}
+
+void appendCatmullRom(PainterPath& path, const std::vector<PointF>& points, bool reverse)
 {
     const int count = int(points.size());
     if (count < 2) {
         return;
     }
 
-    const auto pointAt = [&points, reverse, count](int idx) -> PointF {
+    const auto pointAt = [count, reverse, &points](int idx) -> PointF {
         return reverse ? points[size_t(count - 1 - idx)] : points[size_t(idx)];
     };
 
-    constexpr double smoothFactor = 1.0 / 6.0;
     for (int i = 0; i < count - 1; ++i) {
         const PointF p0 = pointAt(std::max(i - 1, 0));
         const PointF p1 = pointAt(i);
         const PointF p2 = pointAt(i + 1);
         const PointF p3 = pointAt(std::min(i + 2, count - 1));
-
-        const double maxControlLength = 0.5 * std::hypot(p2.x() - p1.x(), p2.y() - p1.y());
-        const PointF c1 = p1 + limitedVector((p2 - p0) * smoothFactor, maxControlLength);
-        const PointF c2 = p2 - limitedVector((p3 - p1) * smoothFactor, maxControlLength);
-        path.cubicTo(c1, c2, p2);
+        path.cubicTo(p1 + (p2 - p0) / 6.0, p2 - (p3 - p1) / 6.0, p2);
     }
 }
 
-PainterPath buildSolidMultiBezierPath(const SlurSegment* slurSeg, const std::vector<SlurSamplePoint>& samples,
-                                      double totalLength)
+// Offset every arc-length sample along its centerline normal. Knot-only offsets
+// collapse on Z-curves, where a cubic's normal rotates a lot between joints.
+PainterPath buildSolidWithEnvelope(const std::vector<SlurSamplePoint>& denseSamples,
+                                   double totalLength, double midThickness, double spatium)
 {
-    std::vector<PointF> upperPoints;
-    std::vector<PointF> lowerPoints;
-    upperPoints.reserve(samples.size());
-    lowerPoints.reserve(samples.size());
+    PainterPath path;
+    if (denseSamples.size() < 2) {
+        return path;
+    }
+
+    int sampleCount = int(std::round(16.0 * totalLength / std::max(spatium, 1e-6)));
+    sampleCount = std::clamp(sampleCount, 96, 256);
+    const std::vector<SlurSamplePoint> samples = resampleByArcLength(denseSamples, totalLength, sampleCount);
+    if (samples.size() < 2) {
+        return path;
+    }
+
+    std::vector<PointF> upper;
+    std::vector<PointF> lower;
+    upper.reserve(samples.size());
+    lower.reserve(samples.size());
 
     PointF previousNormal;
     bool hasPreviousNormal = false;
     for (size_t i = 0; i < samples.size(); ++i) {
-        const PointF tangent = normalizedTangentAt(samples, i);
-        PointF normal(-tangent.y(), tangent.x());
-        if (hasPreviousNormal && (normal.x() * previousNormal.x() + normal.y() * previousNormal.y()) < 0.0) {
-            normal = -normal;
+        PointF tangent;
+        if (i == 0) {
+            tangent = samples[1].point - samples[0].point;
+        } else if (i + 1 == samples.size()) {
+            tangent = samples[i].point - samples[i - 1].point;
+        } else {
+            tangent = samples[i + 1].point - samples[i - 1].point;
         }
-        previousNormal = normal;
-        hasPreviousNormal = true;
 
-        const double halfThickness = 0.5 * slurThicknessAt(slurSeg, totalLength, samples[i].arcLength);
-        upperPoints.push_back(samples[i].point - normal * halfThickness);
-        lowerPoints.push_back(samples[i].point + normal * halfThickness);
+        const PointF normal = unitNormalFromTangent(tangent, previousNormal, hasPreviousNormal);
+        const double s = samples[i].arcLength / std::max(totalLength, 1e-6);
+        const double half = lensHalfThicknessAt(s, midThickness);
+        upper.push_back(samples[i].point - normal * half);
+        lower.push_back(samples[i].point + normal * half);
     }
 
-    PainterPath path;
-    path.moveTo(upperPoints.front());
-    appendSmoothCurve(path, upperPoints, false);
-    path.lineTo(lowerPoints.back());
-    appendSmoothCurve(path, lowerPoints, true);
-    path.closeSubpath();
+    path.moveTo(upper.front());
+    appendCatmullRom(path, upper, false);
+    appendCatmullRom(path, lower, true);
     return path;
 }
 
@@ -342,14 +381,21 @@ bool computeMultiBezierPath(SlurSegment* slurSeg, const PointF& p2, const PointF
     std::vector<PointF> inHandlePoints(knotCount);
     std::vector<PointF> outHandlePoints(knotCount);
 
-    for (int i = 0; i < knotCount; ++i) {
-        const double t = double(i + 1) / double(knotCount + 1);
-        const PointF defaultKnot = isFlatCurve
-                                   ? PointF(c * t, arcY)
-                                   : PointF(c * t, 4.0 * arcY * t * (1.0 - t));
+    std::vector<SlurCubicChainSegment> defaultCubicSegments;
+    if (!isFlatCurve) {
+        defaultCubicSegments = subdivideCubic({ PointF(), baseBezier1, baseBezier2, p2 }, knotCount);
+    }
 
-        PointF tangent;
+    for (int i = 0; i < knotCount; ++i) {
+        PointF defaultKnot;
+        PointF defaultIn;
+        PointF defaultOut;
+        PointF fallbackTangent;
+
         if (isFlatCurve) {
+            const double t = double(i + 1) / double(knotCount + 1);
+            defaultKnot = PointF(c * t, arcY);
+
             const double previousT = (i == 0) ? 0.0 : double(i) / double(knotCount + 1);
             const double nextT = (i + 1 == knotCount) ? 1.0 : double(i + 2) / double(knotCount + 1);
             const PointF previousPoint(c * previousT, arcY);
@@ -357,39 +403,20 @@ bool computeMultiBezierPath(SlurSegment* slurSeg, const PointF& p2, const PointF
             PointF axis = nextPoint - previousPoint;
             const double axisLen = std::hypot(axis.x(), axis.y());
             axis = axisLen > 1e-6 ? (axis / axisLen) : PointF(1.0, 0.0);
-            tangent = axis * tangentLen;
+            fallbackTangent = axis * tangentLen;
+            defaultIn = defaultKnot - fallbackTangent;
+            defaultOut = defaultKnot + fallbackTangent;
         } else {
-            const double slope = muse::RealIsNull(c) ? 0.0 : (4.0 * arcY * (1.0 - 2.0 * t)) / c;
-            const double dx = tangentLen / std::sqrt(1.0 + slope * slope);
-            tangent = PointF(dx, slope * dx);
+            defaultKnot = defaultCubicSegments[size_t(i)].end;
+            defaultIn = defaultCubicSegments[size_t(i)].c2;
+            defaultOut = defaultCubicSegments[size_t(i + 1)].c1;
+            fallbackTangent = defaultOut - defaultKnot;
         }
 
-        const PointF knotOffset = rotate.map(knotData[i].knot.off);
-        const PointF inHandleOffset = rotate.map(knotData[i].inHandle.off);
-        const PointF outHandleOffset = rotate.map(knotData[i].outHandle.off);
-
-        knotPoints[i] = defaultKnot + knotOffset;
-        inHandlePoints[i] = defaultKnot - tangent + inHandleOffset;
-        outHandlePoints[i] = defaultKnot + tangent + outHandleOffset;
-
-        PointF inVector = inHandlePoints[i] - knotPoints[i];
-        PointF outVector = outHandlePoints[i] - knotPoints[i];
-        double inLen = std::hypot(inVector.x(), inVector.y());
-        double outLen = std::hypot(outVector.x(), outVector.y());
-        PointF axis;
-        if (outLen > 1e-6) {
-            axis = outVector / outLen;
-        } else if (inLen > 1e-6) {
-            axis = -inVector / inLen;
-        } else {
-            const double tangentLenNorm = std::hypot(tangent.x(), tangent.y());
-            axis = tangentLenNorm > 1e-6 ? (tangent / tangentLenNorm) : PointF(1.0, 0.0);
-            inLen = tangentLenNorm;
-            outLen = tangentLenNorm;
-        }
-
-        inHandlePoints[i] = knotPoints[i] - axis * inLen;
-        outHandlePoints[i] = knotPoints[i] + axis * outLen;
+        knotPoints[i] = defaultKnot + rotate.map(knotData[i].knot.off);
+        inHandlePoints[i] = defaultIn + rotate.map(knotData[i].inHandle.off);
+        outHandlePoints[i] = defaultOut + rotate.map(knotData[i].outHandle.off);
+        makeHandlesCollinear(inHandlePoints[i], outHandlePoints[i], knotPoints[i], fallbackTangent);
 
         knotData[i].knot.p = toSystemCoordinates.map(knotPoints[i]) - knotData[i].knot.off;
         knotData[i].inHandle.p = toSystemCoordinates.map(inHandlePoints[i]) - knotData[i].inHandle.off;
@@ -439,16 +466,8 @@ bool computeMultiBezierPath(SlurSegment* slurSeg, const PointF& p2, const PointF
         startHandle = startAxis * tangentLen + rotate.map(slurSeg->ups(Grip::BEZIER1).off);
         endHandle = p2 - endAxis * tangentLen + rotate.map(slurSeg->ups(Grip::BEZIER2).off);
     } else {
-        const double startSlope = muse::RealIsNull(c) ? 0.0 : (4.0 * arcY) / c;
-        const double endSlope = -startSlope;
-
-        const auto tangentAt = [tangentLen](double slope) -> PointF {
-            const double dx = tangentLen / std::sqrt(1.0 + slope * slope);
-            return PointF(dx, slope * dx);
-        };
-
-        startHandle = tangentAt(startSlope) + rotate.map(slurSeg->ups(Grip::BEZIER1).off);
-        endHandle = p2 - tangentAt(endSlope) + rotate.map(slurSeg->ups(Grip::BEZIER2).off);
+        startHandle = defaultCubicSegments.front().c1 + rotate.map(slurSeg->ups(Grip::BEZIER1).off);
+        endHandle = defaultCubicSegments.back().c2 + rotate.map(slurSeg->ups(Grip::BEZIER2).off);
     }
 
     slurSeg->ups(Grip::BEZIER1).p = toSystemCoordinates.map(startHandle) - slurSeg->ups(Grip::BEZIER1).off;
@@ -472,9 +491,6 @@ bool computeMultiBezierPath(SlurSegment* slurSeg, const PointF& p2, const PointF
     }
 
     const double totalLength = std::max(denseSamples.back().arcLength, 1e-6);
-    // Resample evenly by arc length (density tracks the slur length, like the
-    // tie shape) so the offset outline stays smooth and the thickness profile is
-    // applied uniformly regardless of how many knots the slur has.
     int sampleCount = int(std::round(3.0 * totalLength / std::max(slurSeg->spatium(), 1e-6)));
     sampleCount = std::clamp(sampleCount, 24, 96);
     const std::vector<SlurSamplePoint> samples = resampleByArcLength(denseSamples, totalLength, sampleCount);
@@ -484,7 +500,8 @@ bool computeMultiBezierPath(SlurSegment* slurSeg, const PointF& p2, const PointF
 
     const bool solidStyle = slurSeg->slur()->styleType() == SlurStyleType::Solid;
     PainterPath path = solidStyle
-                       ? buildSolidMultiBezierPath(slurSeg, samples, totalLength)
+                       ? buildSolidWithEnvelope(denseSamples, totalLength, slurSeg->ldata()->midThickness(),
+                                                slurSeg->spatium())
                        : buildOpenMultiBezierPath(chain);
     path = toSystemCoordinates.map(path);
     slurSeg->mutldata()->path.set_value(path);

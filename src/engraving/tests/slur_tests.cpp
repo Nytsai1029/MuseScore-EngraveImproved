@@ -22,18 +22,23 @@
 
 #include <gtest/gtest.h>
 
+#include <algorithm>
+#include <cmath>
 #include <string>
+#include <vector>
 
 #include "dom/factory.h"
 #include "dom/masterscore.h"
 #include "dom/slur.h"
 
+#include "draw/types/painterpath.h"
 #include "engraving/compat/scoreaccess.h"
 #include "rendering/score/slurtielayout.h"
 
 using namespace mu;
 using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
+using muse::draw::PainterPath;
 
 namespace {
 static constexpr double POINT_TOLERANCE = 1e-6;
@@ -42,6 +47,39 @@ void expectPointNear(const PointF& actual, const PointF& expected)
 {
     EXPECT_NEAR(actual.x(), expected.x(), POINT_TOLERANCE);
     EXPECT_NEAR(actual.y(), expected.y(), POINT_TOLERANCE);
+}
+
+struct PathCubic
+{
+    PointF start;
+    PointF c1;
+    PointF c2;
+    PointF end;
+};
+
+std::vector<PathCubic> pathCubics(const PainterPath& path)
+{
+    std::vector<PathCubic> cubics;
+    PointF current;
+    for (size_t i = 0; i < path.elementCount(); ++i) {
+        const PainterPath::Element element = path.elementAt(i);
+        if (element.isMoveTo()) {
+            current = PointF(element);
+        } else if (element.isCurveTo()) {
+            if (i + 2 >= path.elementCount()) {
+                break;
+            }
+            const PointF c1(element);
+            const PointF c2(path.elementAt(i + 1));
+            const PointF end(path.elementAt(i + 2));
+            cubics.push_back({ current, c1, c2, end });
+            current = end;
+            i += 2;
+        } else if (element.isLineTo()) {
+            current = PointF(element);
+        }
+    }
+    return cubics;
 }
 
 SlurSegment* createMultiBezierSegment(MasterScore*& score)
@@ -123,6 +161,163 @@ TEST_F(Engraving_SlurTests, multiBezierDataIsStoredRelativeToSpatium)
     segment->syncMultiBezierDataProperty();
     const std::string stored = segment->getProperty(Pid::SLUR_MULTI_BEZIER_DATA).value<muse::String>().toStdString();
     EXPECT_EQ(stored, "2,-3,0.25,1.25,-1.5,4.5;-2,3,0,-0.5,1,-3");
+}
+
+TEST_F(Engraving_SlurTests, uneditedMultiBezierMatchesSingleCubic)
+{
+    MasterScore* score = nullptr;
+    SlurSegment* segment = createMultiBezierSegment(score);
+    ASSERT_NE(score, nullptr);
+
+    segment->slur()->setMultiBezierEnabled(false);
+    SlurTieLayout::computeBezier(segment);
+
+    const CubicBezier singleCubic(segment->ups(Grip::START).pos(),
+                                  segment->ups(Grip::BEZIER1).pos(),
+                                  segment->ups(Grip::BEZIER2).pos(),
+                                  segment->ups(Grip::END).pos());
+
+    segment->slur()->setMultiBezierEnabled(true);
+    segment->slur()->setMultiBezierKnotCount(2);
+    SlurTieLayout::computeBezier(segment);
+
+    ASSERT_EQ(segment->multiBezierKnotData().size(), 2u);
+    expectPointNear(segment->multiBezierKnotData()[0].knot.pos(), singleCubic.pointAtPercent(1.0 / 3.0));
+    expectPointNear(segment->multiBezierKnotData()[1].knot.pos(), singleCubic.pointAtPercent(2.0 / 3.0));
+}
+
+TEST_F(Engraving_SlurTests, multiBezierThicknessFollowsArcLengthFraction)
+{
+    MasterScore* score = nullptr;
+    SlurSegment* segment = createMultiBezierSegment(score);
+    ASSERT_NE(score, nullptr);
+
+    SlurTieLayout::computeBezier(segment);
+    const double midThickness = segment->ldata()->midThickness();
+    ASSERT_GT(midThickness, 1e-9);
+
+    auto halfThicknessAtFirstKnot = [](SlurSegment* slurSeg) {
+        const std::vector<PathCubic> cubics = pathCubics(slurSeg->ldata()->path());
+        if (cubics.empty() || slurSeg->multiBezierKnotData().empty()) {
+            return -1.0;
+        }
+        const PointF knot = slurSeg->multiBezierKnotData()[0].knot.pos();
+        double nearest = 1e9;
+        for (const PathCubic& cubic : cubics) {
+            nearest = std::min(nearest, std::hypot(cubic.start.x() - knot.x(), cubic.start.y() - knot.y()));
+            nearest = std::min(nearest, std::hypot(cubic.end.x() - knot.x(), cubic.end.y() - knot.y()));
+        }
+        return nearest;
+    };
+
+    const double halfNearThird = halfThicknessAtFirstKnot(segment);
+    ASSERT_GT(halfNearThird, 0.0);
+    // First default knot sits near s=1/3, where 3s(1-s) is about 2/3.
+    EXPECT_NEAR(halfNearThird, (2.0 / 3.0) * midThickness, 0.08 * midThickness);
+
+    const PointF towardStart(-35.0, 0.0);
+    segment->multiBezierKnotData()[0].knot.off += towardStart;
+    segment->multiBezierKnotData()[0].inHandle.off += towardStart;
+    segment->multiBezierKnotData()[0].outHandle.off += towardStart;
+    SlurTieLayout::computeBezier(segment);
+
+    const double halfNearStart = halfThicknessAtFirstKnot(segment);
+    ASSERT_GT(halfNearStart, 0.0);
+    // Index-based Y offset would keep ~2/3 midThickness. Near the slur tip the
+    // arc-length fraction must taper.
+    EXPECT_LT(halfNearStart, 0.45 * midThickness);
+    EXPECT_LT(halfNearStart, halfNearThird * 0.85);
+}
+
+TEST_F(Engraving_SlurTests, solidMultiBezierPathUsesCubicLens)
+{
+    MasterScore* score = nullptr;
+    SlurSegment* segment = createMultiBezierSegment(score);
+    ASSERT_NE(score, nullptr);
+
+    SlurTieLayout::computeBezier(segment);
+
+    const int knotCount = segment->multiBezierKnotCount();
+    ASSERT_EQ(knotCount, 2);
+
+    const PainterPath& path = segment->ldata()->path();
+    size_t cubicCount = 0;
+    size_t lineCount = 0;
+    for (size_t i = 0; i < path.elementCount(); ++i) {
+        const PainterPath::Element element = path.elementAt(i);
+        if (element.isCurveTo()) {
+            ++cubicCount;
+        } else if (element.isLineTo()) {
+            ++lineCount;
+        }
+    }
+
+    EXPECT_GE(cubicCount, size_t(2 * (knotCount + 1)));
+    EXPECT_EQ(lineCount, 0u);
+
+    segment->multiBezierKnotData()[0].knot.off += PointF(10.0, -8.0);
+    segment->multiBezierKnotData()[0].inHandle.off += PointF(10.0, -8.0);
+    segment->multiBezierKnotData()[0].outHandle.off += PointF(10.0, -8.0);
+    SlurTieLayout::computeBezier(segment);
+
+    cubicCount = 0;
+    lineCount = 0;
+    const PainterPath& editedPath = segment->ldata()->path();
+    for (size_t i = 0; i < editedPath.elementCount(); ++i) {
+        const PainterPath::Element element = editedPath.elementAt(i);
+        if (element.isCurveTo()) {
+            ++cubicCount;
+        } else if (element.isLineTo()) {
+            ++lineCount;
+        }
+    }
+
+    EXPECT_GE(cubicCount, size_t(2 * (knotCount + 1)));
+    EXPECT_EQ(lineCount, 0u);
+}
+
+TEST_F(Engraving_SlurTests, solidMultiBezierZShapeKeepsThicknessAtBends)
+{
+    MasterScore* score = nullptr;
+    SlurSegment* segment = createMultiBezierSegment(score);
+    ASSERT_NE(score, nullptr);
+
+    SlurTieLayout::computeBezier(segment);
+    ASSERT_EQ(segment->multiBezierKnotData().size(), 2u);
+
+    const PointF up(0.0, 50.0);
+    const PointF down(0.0, -50.0);
+    segment->multiBezierKnotData()[0].knot.off += up;
+    segment->multiBezierKnotData()[0].inHandle.off += up;
+    segment->multiBezierKnotData()[0].outHandle.off += up;
+    segment->multiBezierKnotData()[1].knot.off += down;
+    segment->multiBezierKnotData()[1].inHandle.off += down;
+    segment->multiBezierKnotData()[1].outHandle.off += down;
+    SlurTieLayout::computeBezier(segment);
+
+    const double midThickness = segment->ldata()->midThickness();
+    ASSERT_GT(midThickness, 1e-9);
+
+    const std::vector<PathCubic> cubics = pathCubics(segment->ldata()->path());
+    ASSERT_GE(cubics.size(), 8u);
+    const size_t upperCount = cubics.size() / 2;
+    const size_t sampleCount = upperCount + 1;
+    const size_t begin = std::max(size_t(1), size_t(0.2 * double(sampleCount)));
+    const size_t end = std::min(sampleCount - 2, size_t(0.8 * double(sampleCount)));
+    ASSERT_LT(begin, end);
+
+    double minWidth = 1e9;
+    for (size_t j = begin; j <= end; ++j) {
+        const PointF upper = cubics[j - 1].end;
+        const size_t lowerIndex = upperCount + (sampleCount - 2 - j);
+        ASSERT_LT(lowerIndex, cubics.size());
+        const PointF lower = cubics[lowerIndex].end;
+        minWidth = std::min(minWidth, std::hypot(upper.x() - lower.x(), upper.y() - lower.y()));
+    }
+
+    // Knot-only offsets pinch the steep Z folds toward zero width. A sampled
+    // parallel curve must keep a lens envelope through those bends.
+    EXPECT_GT(minWidth, 0.6 * midThickness);
 }
 
 TEST_F(Engraving_SlurTests, slurGripAlignmentGuidesUseDragPoint)
