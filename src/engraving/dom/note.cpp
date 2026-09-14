@@ -60,6 +60,7 @@
 #include "pitchspelling.h"
 #include "score.h"
 #include "segment.h"
+#include "shape.h"
 #include "spanner.h"
 #include "staff.h"
 #include "stafftype.h"
@@ -2332,7 +2333,9 @@ void Note::setTrack(track_idx_t val)
 void Note::reset()
 {
     undoChangeProperty(Pid::OFFSET, PointF());
-    undoResetProperty(Pid::LEADING_SPACE);
+    if (EngravingItem* leadingItem = prevNoteDistanceLeadingItem()) {
+        leadingItem->undoResetProperty(Pid::LEADING_SPACE);
+    }
     chord()->undoChangeProperty(Pid::OFFSET, PropertyValue::fromValue(PointF()));
     chord()->undoChangeProperty(Pid::STEM_DIRECTION, PropertyValue::fromValue<DirectionV>(DirectionV::AUTO));
 }
@@ -2689,14 +2692,18 @@ void Note::endDrag(EditData& ed)
 //   editDrag
 //---------------------------------------------------------
 
+static Spatium extraLeadingOf(const EngravingItem* item);
+
 void Note::editDrag(EditData& editData)
 {
     Chord* ch = chord();
-    Segment* seg = ch->segment();
 
     if (editData.modifiers & ShiftModifier) {
         const Spatium deltaSp = Spatium(editData.delta.x() / spatium());
-        seg->undoChangeProperty(Pid::LEADING_SPACE, seg->extraLeadingSpace() + deltaSp);
+        EngravingItem* leadingItem = prevNoteDistanceLeadingItem();
+        if (leadingItem) {
+            leadingItem->undoChangeProperty(Pid::LEADING_SPACE, extraLeadingOf(leadingItem) + deltaSp);
+        }
     } else if (ch->notes().size() == 1) {
         // if the chord contains only this note, then move the whole chord
         // including stem, flag etc.
@@ -2803,9 +2810,50 @@ static double chordStemRefX(const Chord* chord)
 }
 
 //---------------------------------------------------------
+//   prevGraceInSameGroup
+//    Previous grace chord to the left in the same before/after group.
+//---------------------------------------------------------
+
+static Chord* prevGraceInSameGroup(const Chord* ch)
+{
+    if (!ch || !ch->isGrace() || !ch->explicitParent() || !ch->explicitParent()->isChord()) {
+        return nullptr;
+    }
+    Chord* main = toChord(ch->explicitParent());
+    const GraceNotesGroup& before = main->graceNotesBefore();
+    for (size_t i = 0; i < before.size(); ++i) {
+        if (before.at(i) == ch) {
+            return i > 0 ? before.at(i - 1) : nullptr;
+        }
+    }
+    const GraceNotesGroup& after = main->graceNotesAfter();
+    for (size_t i = 0; i < after.size(); ++i) {
+        if (after.at(i) == ch) {
+            return i > 0 ? after.at(i - 1) : nullptr;
+        }
+    }
+    return nullptr;
+}
+
+static Spatium extraLeadingOf(const EngravingItem* item)
+{
+    if (!item) {
+        return Spatium(0.0);
+    }
+    if (item->isChord()) {
+        return toChord(item)->extraLeadingSpace();
+    }
+    if (item->isSegment()) {
+        return toSegment(item)->extraLeadingSpace();
+    }
+    return Spatium(0.0);
+}
+
+//---------------------------------------------------------
 //   prevChordOnStaff
 //    Nearest earlier chord on the same staff (any voice), within the
-//    same system. Returns nullptr for the first chord of a system.
+//    same system. For a grace note, prefers the previous grace in the
+//    same group. Returns nullptr for the first chord of a system.
 //---------------------------------------------------------
 
 Chord* Note::prevChordOnStaff() const
@@ -2813,6 +2861,9 @@ Chord* Note::prevChordOnStaff() const
     const Chord* ch = chord();
     if (!ch) {
         return nullptr;
+    }
+    if (Chord* prevGrace = prevGraceInSameGroup(ch)) {
+        return prevGrace;
     }
     const Segment* seg = ch->segment();
     if (!seg) {
@@ -2822,9 +2873,10 @@ Chord* Note::prevChordOnStaff() const
     const staff_idx_t staffIdx = ch->staffIdx();
     const track_idx_t startTrack = staff2track(staffIdx);
     const track_idx_t endTrack = startTrack + VOICES;
+    const bool allowCrossSystem = ch->isGrace() && ch->placeGraceNotesBeforeBarline();
 
     for (Segment* s = seg->prev1(SegmentType::ChordRest); s; s = s->prev1(SegmentType::ChordRest)) {
-        if (system && s->system() != system) {
+        if (system && s->system() && s->system() != system && !allowCrossSystem) {
             break;
         }
         for (track_idx_t track = startTrack; track < endTrack; ++track) {
@@ -2835,6 +2887,20 @@ Chord* Note::prevChordOnStaff() const
         }
     }
     return nullptr;
+}
+
+EngravingItem* Note::prevNoteDistanceLeadingItem() const
+{
+    Chord* ch = chord();
+    if (!ch) {
+        return nullptr;
+    }
+    if (ch->isGrace()) {
+        if (prevGraceInSameGroup(ch) || ch->placeGraceNotesBeforeBarline()) {
+            return ch;
+        }
+    }
+    return ch->segment();
 }
 
 //---------------------------------------------------------
@@ -2863,9 +2929,23 @@ Spatium Note::prevNoteDistance() const
 Spatium Note::minPrevNoteDistance() const
 {
     const Chord* prevChord = prevChordOnStaff();
-    const Segment* seg = chord() ? chord()->segment() : nullptr;
+    const Chord* ch = chord();
+    if (!prevChord || !ch) {
+        return Spatium(0.0);
+    }
+
+    const EngravingItem* leadingItem = prevNoteDistanceLeadingItem();
+    if (leadingItem && leadingItem->isChord()) {
+        const Shape prevShape = prevChord->shape().translated(prevChord->pagePos());
+        const Shape thisShape = ch->shape().translated(ch->pagePos());
+        const double minNeeded = HorizontalSpacing::minHorizontalDistance(prevShape, thisShape, spatium());
+        const double availableLeft = std::max(0.0, -minNeeded);
+        return Spatium(prevNoteDistance().val() - availableLeft / spatium());
+    }
+
+    const Segment* seg = ch->segment();
     const Segment* prevSeg = seg ? seg->prev() : nullptr;
-    if (!prevChord || !seg || !prevSeg) {
+    if (!seg || !prevSeg) {
         return Spatium(0.0);
     }
     // The note can be pulled left only as far as the spacing engine allows (its collision
@@ -2917,23 +2997,28 @@ void Note::normalizeLeftDragDelta(Segment* seg, EditData& ed, NoteEditData* ned)
 void Note::horizontalDrag(EditData& ed)
 {
     Chord* ch = chord();
-    Segment* seg = ch->segment();
+    EngravingItem* leadingItem = prevNoteDistanceLeadingItem();
+    if (!ch || !leadingItem) {
+        return;
+    }
 
     NoteEditData* ned = static_cast<NoteEditData*>(ed.getData(this).get());
     const bool autoPlacementEnabled = autoplace();
+    const Spatium currentExtra = extraLeadingOf(leadingItem);
 
-    if (ed.moveDelta.x() < 0 && autoPlacementEnabled) {
-        normalizeLeftDragDelta(seg, ed, ned);
+    if (ed.moveDelta.x() < 0 && autoPlacementEnabled && leadingItem->isSegment()) {
+        normalizeLeftDragDelta(toSegment(leadingItem), ed, ned);
     }
 
     const Spatium deltaSp = Spatium(ned->delta.x() / spatium());
-    Spatium newLeadingSpace = seg->extraLeadingSpace() + deltaSp;
+    Spatium newLeadingSpace = currentExtra + deltaSp;
 
     if (autoPlacementEnabled) {
         if (newLeadingSpace < Spatium(0)) {
             return;
         }
-    } else {
+    } else if (leadingItem->isSegment()) {
+        Segment* seg = toSegment(leadingItem);
         // Auto-place off: allow pulling the note closer than the natural spacing, but not past
         // the reachable limit — the spacing engine's collision minimum from the previous
         // segment (which already ignores ledger lines). Clamp the leading-space *value* against
@@ -2944,17 +3029,26 @@ void Note::horizontalDrag(EditData& ed)
         const double minSegX = previous
                                ? previous->pageX() + HorizontalSpacing::minHorizontalDistance(previous, seg, 1.0)
                                : seg->measure()->pageX() + style().styleMM(Sid::barNoteDistance);
-        const Spatium floorLeadingSpace = seg->extraLeadingSpace() + Spatium((minSegX - seg->pageX()) / spatium());
+        const Spatium floorLeadingSpace = currentExtra + Spatium((minSegX - seg->pageX()) / spatium());
         if (newLeadingSpace < floorLeadingSpace) {
             newLeadingSpace = floorLeadingSpace;
         }
         // Dragging left but the floor absorbed the whole move: leave the value untouched.
-        if (ned->delta.x() < 0 && newLeadingSpace.val() >= seg->extraLeadingSpace().val()) {
+        if (ned->delta.x() < 0 && newLeadingSpace.val() >= currentExtra.val()) {
+            return;
+        }
+    } else {
+        const Spatium minDist = minPrevNoteDistance();
+        const Spatium newDist = prevNoteDistance() + deltaSp;
+        if (newDist < minDist) {
+            newLeadingSpace = currentExtra + (minDist - prevNoteDistance());
+        }
+        if (ned->delta.x() < 0 && newLeadingSpace.val() >= currentExtra.val()) {
             return;
         }
     }
 
-    seg->undoChangeProperty(Pid::LEADING_SPACE, newLeadingSpace);
+    leadingItem->undoChangeProperty(Pid::LEADING_SPACE, newLeadingSpace);
 
     triggerLayout();
 }
@@ -3299,8 +3393,7 @@ PropertyValue Note::propertyDefault(Pid propertyId) const
         if (!prevChordOnStaff()) {
             return PropertyValue();
         }
-        const Segment* seg = chord() ? chord()->segment() : nullptr;
-        const Spatium extra = seg ? seg->extraLeadingSpace() : Spatium(0.0);
+        const Spatium extra = extraLeadingOf(prevNoteDistanceLeadingItem());
         return Spatium(prevNoteDistance().val() - extra.val());    // distance with leading space removed
     }
     case Pid::TPC2:
@@ -3338,10 +3431,9 @@ void Note::undoChangeProperty(Pid id, const PropertyValue& val, PropertyFlags ps
     if (id == Pid::AUTOPLACE && val.toBool() == true && !autoplace()) {
         // Re-enabling auto-place: discard the manual leading-space adjustment made while it
         // was off, so the note returns to its automatic horizontal position (leading space only).
-        Chord* ch = chord();
-        Segment* seg = ch ? ch->segment() : nullptr;
-        if (seg && seg->extraLeadingSpace().val() != 0.0) {
-            seg->undoResetProperty(Pid::LEADING_SPACE);
+        EngravingItem* leadingItem = prevNoteDistanceLeadingItem();
+        if (leadingItem && extraLeadingOf(leadingItem).val() != 0.0) {
+            leadingItem->undoResetProperty(Pid::LEADING_SPACE);
         }
     }
     EngravingItem::undoChangeProperty(id, val, ps);

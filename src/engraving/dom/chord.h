@@ -204,6 +204,9 @@ public:
     bool graceBeforeBarline() const { return m_graceBeforeBarline; }
     void setGraceBeforeBarline(bool v) { m_graceBeforeBarline = v; }
     bool placeGraceNotesBeforeBarline() const;
+
+    Spatium extraLeadingSpace() const { return m_extraLeadingSpace; }
+    void setExtraLeadingSpace(Spatium v) { m_extraLeadingSpace = v; }
     bool slash();
     void setSlash(bool flag, bool stemless);
     void removeMarkings(bool keepTremolo = false) override;
@@ -385,6 +388,7 @@ private:
     StemSlash* m_stemSlash = nullptr;     // for grace notes
     bool m_showStemSlash = false;
     bool m_graceBeforeBarline = false;
+    Spatium m_extraLeadingSpace { Spatium(0.0) };
 
     Arpeggio* m_arpeggio = nullptr;       // arpeggio which starts on the chord
     Arpeggio* m_spanArpeggio = nullptr;   // arpeggio which spans over this chord

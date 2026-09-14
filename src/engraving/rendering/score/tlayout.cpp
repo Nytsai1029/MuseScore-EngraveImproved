@@ -3005,47 +3005,74 @@ void TLayout::layoutGraceNotesGroup(GraceNotesGroup* item, LayoutContext& ctx)
     }
 
     const Segment* appendedSeg = item->appendedSegment();
-    if (!appendedSeg) {
-        return;
-    }
     Chord* parentChord = toChord(item->parent());
-    Shape staffShape = appendedSeg->staffShape(parentChord->staffIdx());
     bool isTabStaff = parentChord->staffType() && parentChord->staffType()->isTabStaff();
-    if (isTabStaff) {
-        staffShape.remove_if([](ShapeElement& el) {
-            // Ignore stems on tab staves
-            return el.item() && el.item()->isStem();
-        });
-    }
-    double _shapeSpatium = HorizontalSpacing::shapeSpatium(_shape);
-    double xPos = -HorizontalSpacing::minHorizontalDistance(_shape, staffShape, _shapeSpatium);
+    if (appendedSeg) {
+        Shape staffShape = appendedSeg->staffShape(parentChord->staffIdx());
+        if (isTabStaff) {
+            staffShape.remove_if([](ShapeElement& el) {
+                // Ignore stems on tab staves
+                return el.item() && el.item()->isStem();
+            });
+        }
+        double _shapeSpatium = HorizontalSpacing::shapeSpatium(_shape);
+        double xPos = -HorizontalSpacing::minHorizontalDistance(_shape, staffShape, _shapeSpatium);
 
-    // If the parent chord is cross-staff, also check against shape in the other staff and take the minimum
-    if (item->parent()->staffMove() != 0) {
-        double xPosCross = -HorizontalSpacing::minHorizontalDistance(_shape,
-                                                                     appendedSeg->staffShape(item->parent()->vStaffIdx()),
-                                                                     _shapeSpatium);
-        xPos = std::min(xPos, xPosCross);
-    }
-    // Same if the grace note itself is cross-staff
-    Chord* firstGN = item->back();
-    if (firstGN->staffMove() != 0) {
-        double xPosCross = -HorizontalSpacing::minHorizontalDistance(_shape,
-                                                                     appendedSeg->staffShape(firstGN->vStaffIdx()),
-                                                                     _shapeSpatium);
-        xPos = std::min(xPos, xPosCross);
-    }
-    // Safety net in case the shape checks don't succeed
-    xPos = std::min(xPos, -double(ctx.conf().styleMM(Sid::graceToMainNoteDist) + firstGN->notes().front()->headWidth() / 2));
+        // If the parent chord is cross-staff, also check against shape in the other staff and take the minimum
+        if (item->parent()->staffMove() != 0) {
+            double xPosCross = -HorizontalSpacing::minHorizontalDistance(_shape,
+                                                                         appendedSeg->staffShape(item->parent()->vStaffIdx()),
+                                                                         _shapeSpatium);
+            xPos = std::min(xPos, xPosCross);
+        }
+        // Same if the grace note itself is cross-staff
+        Chord* firstGN = item->back();
+        if (firstGN->staffMove() != 0) {
+            double xPosCross = -HorizontalSpacing::minHorizontalDistance(_shape,
+                                                                         appendedSeg->staffShape(firstGN->vStaffIdx()),
+                                                                         _shapeSpatium);
+            xPos = std::min(xPos, xPosCross);
+        }
+        // Safety net in case the shape checks don't succeed
+        xPos = std::min(xPos, -double(ctx.conf().styleMM(Sid::graceToMainNoteDist) + firstGN->notes().front()->headWidth() / 2));
 
-    // Exceptions for bends in TAB staves
-    if (firstGN->preOrGraceBendSpacingExceptionInTab()) {
-        xPos = 0.0;
+        // Exceptions for bends in TAB staves
+        if (firstGN->preOrGraceBendSpacingExceptionInTab()) {
+            xPos = 0.0;
+        }
+
+        item->setPos(xPos, 0.0);
     }
 
-    item->setPos(xPos, 0.0);
+    // Extra leading: insert space to the left of that grace.
+    // Not hanging: that grace and those to its right move right.
+    // Hanging on the previous barline: leftmost extra is extra leading of the barline
+    // (not a slide into the next measure). Later extras push earlier graces left so the
+    // group stays on this side of the barline.
+    const bool hanging = parentChord->placeGraceNotesBeforeBarline();
+    if (hanging) {
+        for (size_t i = 0; i < item->size(); ++i) {
+            Chord* grace = item->at(i);
+            double leftShift = 0.0;
+            for (size_t j = i + 1; j < item->size(); ++j) {
+                leftShift += item->at(j)->extraLeadingSpace().toMM(item->at(j)->spatium());
+            }
+            if (!muse::RealIsNull(leftShift)) {
+                grace->mutldata()->move(PointF(-leftShift, 0.0));
+            }
+        }
+    } else {
+        double accumRight = 0.0;
+        for (size_t i = 0; i < item->size(); ++i) {
+            Chord* grace = item->at(i);
+            accumRight += grace->extraLeadingSpace().toMM(grace->spatium());
+            if (!muse::RealIsNull(accumRight)) {
+                grace->mutldata()->move(PointF(accumRight, 0.0));
+            }
+        }
+    }
 
-    if (isTabStaff) {
+    if (appendedSeg && isTabStaff) {
         ChordLayout::layoutStem(parentChord, ctx);
     }
 }

@@ -267,6 +267,7 @@ Chord::Chord(Segment* parent)
     m_noStem           = false;
     m_showStemSlash    = m_noteType == NoteType::ACCIACCATURA;
     m_graceBeforeBarline = false;
+    m_extraLeadingSpace  = Spatium(0.0);
     m_playEventType    = PlayEventType::Auto;
     m_spaceLw          = 0.;
     m_spaceRw          = 0.;
@@ -310,6 +311,7 @@ Chord::Chord(const Chord& c, bool link)
     m_noStem         = c.m_noStem;
     m_showStemSlash  = c.m_showStemSlash;
     m_graceBeforeBarline = c.m_graceBeforeBarline;
+    m_extraLeadingSpace = c.m_extraLeadingSpace;
     m_playEventType  = c.m_playEventType;
     m_stemDirection  = c.m_stemDirection;
     m_noteType       = c.m_noteType;
@@ -1655,6 +1657,11 @@ PropertyValue Chord::getProperty(Pid propertyId) const
     case Pid::NO_STEM:         return noStem();
     case Pid::SHOW_STEM_SLASH: return showStemSlash();
     case Pid::GRACE_BEFORE_BARLINE: return graceBeforeBarline();
+    case Pid::LEADING_SPACE:
+        if (isGrace()) {
+            return extraLeadingSpace();
+        }
+        return ChordRest::getProperty(propertyId);
     case Pid::SMALL:           return isSmall();
     case Pid::STEM_DIRECTION:  return PropertyValue::fromValue<DirectionV>(stemDirection());
     case Pid::PLAY: return isChordPlayable();
@@ -1675,6 +1682,11 @@ PropertyValue Chord::propertyDefault(Pid propertyId) const
     case Pid::NO_STEM:         return false;
     case Pid::SHOW_STEM_SLASH: return noteType() == NoteType::ACCIACCATURA;
     case Pid::GRACE_BEFORE_BARLINE: return false;
+    case Pid::LEADING_SPACE:
+        if (isGrace()) {
+            return Spatium(0.0);
+        }
+        return ChordRest::propertyDefault(propertyId);
     case Pid::SMALL:           return false;
     case Pid::STEM_DIRECTION:  return PropertyValue::fromValue<DirectionV>(DirectionV::AUTO);
     case Pid::PLAY: return true;
@@ -1690,6 +1702,9 @@ bool Chord::isUserModified() const
         return true;
     }
     if (graceBeforeBarline() != propertyDefault(Pid::GRACE_BEFORE_BARLINE).toBool()) {
+        return true;
+    }
+    if (isGrace() && extraLeadingSpace() != propertyDefault(Pid::LEADING_SPACE).value<Spatium>()) {
         return true;
     }
 
@@ -1711,6 +1726,12 @@ bool Chord::setProperty(Pid propertyId, const PropertyValue& v)
         break;
     case Pid::GRACE_BEFORE_BARLINE:
         setGraceBeforeBarline(v.toBool());
+        break;
+    case Pid::LEADING_SPACE:
+        if (!isGrace()) {
+            return ChordRest::setProperty(propertyId, v);
+        }
+        setExtraLeadingSpace(v.value<Spatium>());
         break;
     case Pid::SMALL:
         setSmall(v.toBool());
@@ -2894,6 +2915,9 @@ void GraceNotesGroup::setPos(double x, double y)
 
 void GraceNotesGroup::addToShape()
 {
+    if (!_appendedSegment) {
+        return;
+    }
     for (Chord* grace : *this) {
         const PointF yOffset = grace->staffOffset();
         staff_idx_t staffIdx = grace->staffIdx();

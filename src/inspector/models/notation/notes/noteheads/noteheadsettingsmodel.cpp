@@ -77,9 +77,12 @@ void NoteheadSettingsModel::createProperties()
                 continue;
             }
             Chord* chord = toNote(item)->chord();
-            Segment* seg = chord ? chord->segment() : nullptr;
-            if (seg) {
-                seg->undoResetProperty(Pid::LEADING_SPACE);
+            if (!chord) {
+                continue;
+            }
+            EngravingItem* leadingItem = toNote(item)->prevNoteDistanceLeadingItem();
+            if (leadingItem) {
+                leadingItem->undoResetProperty(Pid::LEADING_SPACE);
             }
         }
         updateNotation();
@@ -242,15 +245,16 @@ void NoteheadSettingsModel::applyPrevNoteDistance(const QVariant& newValue)
         }
         Note* note = toNote(item);
         Chord* chord = note->chord();
-        Segment* seg = chord ? chord->segment() : nullptr;
-        if (!seg || !note->prevChordOnStaff()) {
+        EngravingItem* leadingItem = note->prevNoteDistanceLeadingItem();
+        if (!chord || !leadingItem || !note->prevChordOnStaff()) {
             continue;
         }
         // Never closer than the note's own collision minimum.
         const double targetSp = std::max(requestedSp, note->minPrevNoteDistance().val());
         const double curSp = note->prevNoteDistance().val();
-        const Spatium newLeadingSpace = seg->extraLeadingSpace() + Spatium(targetSp - curSp);
-        seg->undoChangeProperty(Pid::LEADING_SPACE, newLeadingSpace);
+        const Spatium extra = leadingItem->getProperty(Pid::LEADING_SPACE).value<Spatium>();
+        const Spatium newLeadingSpace = extra + Spatium(targetSp - curSp);
+        leadingItem->undoChangeProperty(Pid::LEADING_SPACE, newLeadingSpace);
     }
     updateNotation();
     endCommand();

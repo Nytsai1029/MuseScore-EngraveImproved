@@ -2576,6 +2576,8 @@ bool TRead::readProperties(Chord* ch, XmlReader& e, ReadContext& ctx)
         ch->setShowStemSlash(e.readBool());
     } else if (tag == "graceBeforeBarline") {
         ch->setGraceBeforeBarline(e.readBool());
+    } else if (tag == "leadingSpace") {
+        ch->setExtraLeadingSpace(Spatium(e.readDouble()));
     } else if (tag == "Arpeggio") {
         Arpeggio* arpeggio = Factory::createArpeggio(ch);
         arpeggio->setTrack(ch->track());

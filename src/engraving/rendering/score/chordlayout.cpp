@@ -3014,6 +3014,17 @@ void ChordLayout::repositionGraceNotesBeforeBarline(Measure* measure)
         for (Chord* grace : gnb) {
             grace->setPos(grace->ldata()->pos().x() + offset, 0.0);
         }
+
+        EngravingItem* barline = barlineSeg->element(0);
+        if (barline) {
+            const double limitX = barline->pagePos().x();
+            for (Chord* grace : gnb) {
+                const double right = grace->pageBoundingRect().right();
+                if (right > limitX) {
+                    grace->mutldata()->move(PointF(limitX - right, 0.0));
+                }
+            }
+        }
     }
 }
 

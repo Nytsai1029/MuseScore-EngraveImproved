@@ -187,6 +187,8 @@ public:
     Chord* prevChordOnStaff() const;
     Spatium prevNoteDistance() const;
     Spatium minPrevNoteDistance() const;
+    // Segment or grace Chord whose LEADING_SPACE is edited for prev-note-distance.
+    EngravingItem* prevNoteDistanceLeadingItem() const;
 
     NoteHeadScheme headScheme() const { return m_headScheme; }
     void updateHeadGroup(const NoteHeadGroup headGroup);

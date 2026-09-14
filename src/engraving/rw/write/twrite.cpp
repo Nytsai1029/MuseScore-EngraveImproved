@@ -966,6 +966,9 @@ void TWrite::write(const Chord* item, XmlWriter& xml, WriteContext& ctx)
         xml.tag("showStemSlash", item->showStemSlash());
     }
     writeProperty(item, xml, Pid::GRACE_BEFORE_BARLINE);
+    if (item->isGrace()) {
+        writeProperty(item, xml, Pid::LEADING_SPACE);
+    }
     if (item->stemSlash() && item->stemSlash()->isUserModified()) {
         write(item->stemSlash(), xml, ctx);
     }

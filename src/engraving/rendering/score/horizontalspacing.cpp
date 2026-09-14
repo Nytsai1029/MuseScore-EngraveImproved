@@ -30,6 +30,7 @@
 #include "dom/engravingitem.h"
 #include "dom/glissando.h"
 #include "dom/lyrics.h"
+#include "dom/measure.h"
 #include "dom/note.h"
 #include "dom/rest.h"
 #include "dom/score.h"
@@ -92,7 +93,55 @@ static bool shouldIgnoreCollisionBoxes(const Segment* first, const Segment* seco
 
 static bool shouldIgnoreHorizontalSpacingItem(const EngravingItem* item)
 {
-    return item && item->isLedgerLine();
+    if (!item) {
+        return false;
+    }
+    if (item->isLedgerLine()) {
+        return true;
+    }
+    // With autoplace off, displaced grace noteheads (seconds) must not inflate packing.
+    if (item->autoplace()) {
+        return false;
+    }
+    if (item->isNote()) {
+        return toNote(item)->isGrace();
+    }
+    if (item->isAccidental() || item->isNoteDot()) {
+        const EngravingItem* parent = item->parentItem();
+        return parent && parent->isNote() && toNote(parent)->isGrace();
+    }
+    return false;
+}
+
+static double hungGraceLeftmostExtraMM(const Segment* seg)
+{
+    if (!seg || !seg->isEndBarLineType()) {
+        return 0.0;
+    }
+    const Measure* measure = seg->measure();
+    const Measure* nextMeasure = measure ? measure->nextMeasure() : nullptr;
+    const Segment* firstCr = nextMeasure ? nextMeasure->first(SegmentType::ChordRest) : nullptr;
+    if (!firstCr || !firstCr->rtick().isZero()) {
+        return 0.0;
+    }
+
+    double extraMM = 0.0;
+    for (const EngravingItem* el : firstCr->elist()) {
+        if (!el || !el->isChord()) {
+            continue;
+        }
+        const Chord* chord = toChord(el);
+        if (!chord->placeGraceNotesBeforeBarline()) {
+            continue;
+        }
+        const GraceNotesGroup& gnb = chord->graceNotesBefore();
+        if (gnb.empty() || gnb.appendedSegment() != seg) {
+            continue;
+        }
+        const Chord* leftmost = gnb.front();
+        extraMM = std::max(extraMM, double(leftmost->extraLeadingSpace().toMM(leftmost->spatium())));
+    }
+    return extraMM;
 }
 
 double HorizontalSpacing::computeSpacingForFullSystem(System* system, double stretchReduction, double squeezeFactor,
@@ -375,7 +424,8 @@ std::vector<HorizontalSpacing::SegmentPosition> HorizontalSpacing::spaceSegments
             spaceAgainstPreviousSegments(curSeg, placedSegments, ctx);
         }
 
-        double leadingSpace = curSeg->extraLeadingSpace().toMM(ctx.spatium);
+        double leadingSpace = curSeg->extraLeadingSpace().toMM(ctx.spatium)
+                              + hungGraceLeftmostExtraMM(curSeg);
         placedSegments.back().xPosInSystemCoords += leadingSpace;
         // Rigidly carry the leading-space shift into the running cursor so that every
         // following segment moves with it. Without this, a negative leading space (a note
@@ -404,7 +454,8 @@ std::vector<HorizontalSpacing::SegmentPosition> HorizontalSpacing::spaceSegments
                 }
             }
             if (nextSeg) {
-                double nextSegLeadingSpace = nextSeg->extraLeadingSpace().toMM(ctx.spatium);
+                double nextSegLeadingSpace = nextSeg->extraLeadingSpace().toMM(ctx.spatium)
+                                             + hungGraceLeftmostExtraMM(nextSeg);
                 if (!muse::RealIsNull(nextSegLeadingSpace)) {
                     nextSegLeadingSpace = std::max(nextSegLeadingSpace, -chordRestSegWidth);
                     curSeg->addWidthOffset(nextSegLeadingSpace);

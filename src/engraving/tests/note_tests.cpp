@@ -638,3 +638,141 @@ TEST_F(Engraving_NoteTests, graceBeforeBarlineGroupAndLayout)
 
     delete score;
 }
+
+static Chord* lastChordInMeasure(Measure* measure)
+{
+    for (Segment* s = measure->last(); s; s = s->prev()) {
+        if (!s->isChordRestType()) {
+            continue;
+        }
+        EngravingItem* e = s->element(0);
+        if (e && e->isChord()) {
+            return toChord(e);
+        }
+    }
+    return nullptr;
+}
+
+TEST_F(Engraving_NoteTests, graceGroupInternalSpacingDoesNotChangeNextMeasureLeading)
+{
+    MasterScore* score = ScoreRW::readScore(NOTE_DATA_DIR + u"grace-before-barline.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    Measure* m1 = score->firstMeasure();
+    Measure* m2 = m1->nextMeasure();
+    ASSERT_TRUE(m2);
+    Chord* principal = chordAtMeasureStart(m2);
+    ASSERT_TRUE(principal);
+
+    Note* added1 = score->setGraceNote(principal, 74, NoteType::ACCIACCATURA, Constants::DIVISION / 2);
+    Note* added2 = score->setGraceNote(principal, 76, NoteType::ACCIACCATURA, Constants::DIVISION / 2);
+    ASSERT_TRUE(added1);
+    ASSERT_TRUE(added2);
+    score->doLayout();
+
+    GraceNotesGroup& gnb = principal->graceNotesBefore();
+    ASSERT_EQ(gnb.size(), 2u);
+    Chord* leftmost = gnb.front();
+    Chord* second = gnb.at(1);
+    Note* leftmostNote = leftmost->notes().front();
+    Note* secondNote = second->notes().front();
+    ASSERT_TRUE(leftmostNote);
+    ASSERT_TRUE(secondNote);
+
+    EXPECT_EQ(secondNote->prevChordOnStaff(), leftmost);
+    EXPECT_EQ(secondNote->prevNoteDistanceLeadingItem(), second);
+    EXPECT_EQ(leftmostNote->prevNoteDistanceLeadingItem(), principal->segment());
+
+    const double gapBefore = second->pagePos().x() - leftmost->pagePos().x();
+
+    second->undoChangeProperty(Pid::LEADING_SPACE, Spatium(1.0));
+    score->doLayout();
+
+    EXPECT_GT(second->pagePos().x() - leftmost->pagePos().x(), gapBefore);
+    EXPECT_DOUBLE_EQ(principal->segment()->extraLeadingSpace().val(), 0.0);
+    EXPECT_DOUBLE_EQ(second->extraLeadingSpace().val(), 1.0);
+
+    leftmost->undoChangeProperty(Pid::GRACE_BEFORE_BARLINE, true);
+    score->doLayout();
+
+    EXPECT_EQ(leftmostNote->prevNoteDistanceLeadingItem(), leftmost);
+
+    Chord* prevMeasureChord = lastChordInMeasure(m1);
+    ASSERT_TRUE(prevMeasureChord);
+    const double distToPrev = leftmost->pagePos().x() - prevMeasureChord->pagePos().x();
+    const double distToPrevStem = leftmostNote->prevNoteDistance().val();
+
+    leftmost->undoChangeProperty(Pid::LEADING_SPACE, Spatium(1.0));
+    score->doLayout();
+
+    EXPECT_GT(leftmost->pagePos().x() - prevMeasureChord->pagePos().x(), distToPrev);
+    EXPECT_GT(leftmostNote->prevNoteDistance().val(), distToPrevStem);
+    EXPECT_DOUBLE_EQ(principal->segment()->extraLeadingSpace().val(), 0.0);
+    EXPECT_DOUBLE_EQ(leftmost->extraLeadingSpace().val(), 1.0);
+
+    Segment* barlineSeg = m1->findSegmentR(SegmentType::EndBarLine, m1->ticks());
+    ASSERT_TRUE(barlineSeg);
+    EXPECT_DOUBLE_EQ(barlineSeg->extraLeadingSpace().val(), 0.0);
+
+    const double innerGap = second->pagePos().x() - leftmost->pagePos().x();
+    second->undoChangeProperty(Pid::LEADING_SPACE, Spatium(2.0));
+    score->doLayout();
+    EXPECT_GT(second->pagePos().x() - leftmost->pagePos().x(), innerGap);
+    EXPECT_DOUBLE_EQ(principal->segment()->extraLeadingSpace().val(), 0.0);
+    EXPECT_DOUBLE_EQ(barlineSeg->extraLeadingSpace().val(), 0.0);
+
+    EngravingItem* barline = barlineSeg->element(0);
+    ASSERT_TRUE(barline);
+    second->undoChangeProperty(Pid::LEADING_SPACE, Spatium(20.0));
+    leftmost->undoChangeProperty(Pid::LEADING_SPACE, Spatium(20.0));
+    score->doLayout();
+    EXPECT_LT(leftmost->pagePos().x(), barline->pagePos().x());
+    EXPECT_LT(second->pagePos().x(), barline->pagePos().x());
+    EXPECT_DOUBLE_EQ(principal->segment()->extraLeadingSpace().val(), 0.0);
+
+    delete score;
+}
+
+TEST_F(Engraving_NoteTests, graceSecondSpacingClearsWhenAutoplaceOff)
+{
+    MasterScore* score = ScoreRW::readScore(NOTE_DATA_DIR + u"grace-before-barline.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    Measure* m2 = score->firstMeasure()->nextMeasure();
+    ASSERT_TRUE(m2);
+    Chord* principal = chordAtMeasureStart(m2);
+    ASSERT_TRUE(principal);
+
+    Note* added1 = score->setGraceNote(principal, 71, NoteType::ACCIACCATURA, Constants::DIVISION / 2);
+    Note* added2 = score->setGraceNote(principal, 72, NoteType::ACCIACCATURA, Constants::DIVISION / 2);
+    ASSERT_TRUE(added1);
+    ASSERT_TRUE(added2);
+
+    Chord* leftmost = added2->chord();
+    Note* dyad = Factory::createNote(leftmost);
+    dyad->setPitch(73);
+    dyad->setTpcFromPitch();
+    leftmost->add(dyad);
+    score->doLayout();
+
+    GraceNotesGroup& gnb = principal->graceNotesBefore();
+    ASSERT_EQ(gnb.size(), 2u);
+    Chord* second = gnb.at(1);
+    ASSERT_EQ(gnb.front(), leftmost);
+    ASSERT_EQ(leftmost->notes().size(), 2u);
+    const double gapWithAutoplace = second->pagePos().x() - leftmost->pagePos().x();
+
+    for (Chord* grace : gnb) {
+        for (Note* note : grace->notes()) {
+            note->undoChangeProperty(Pid::AUTOPLACE, false);
+        }
+    }
+    score->doLayout();
+
+    EXPECT_LE(second->pagePos().x() - leftmost->pagePos().x(), gapWithAutoplace);
+    EXPECT_DOUBLE_EQ(principal->segment()->extraLeadingSpace().val(), 0.0);
+
+    delete score;
+}
