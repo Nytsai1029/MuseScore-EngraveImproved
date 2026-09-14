@@ -134,6 +134,22 @@ static bool chordRestCoversSpannerAnchor(const Score* score, const Fraction& tic
     return true;
 }
 
+static void createSingleTimeTickAt(Score* score, const Fraction& tick, staff_idx_t staffIdx)
+{
+    if (!score) {
+        return;
+    }
+
+    const bool mmRest = score->style().styleB(Sid::createMultiMeasureRests);
+    Measure* measure = mmRest ? score->tick2measureMM(tick) : score->tick2measure(tick);
+    if (!measure) {
+        return;
+    }
+
+    EditTimeTickAnchors::createTimeTickAnchor(measure, tick - measure->tick(), staffIdx);
+    EditTimeTickAnchors::updateLayout(measure);
+}
+
 void EditTimeTickAnchors::ensureSingleTimeTick(const Spanner* spanner, bool isStart)
 {
     if (!spanner || !spanner->allowTimeAnchor() || spanner->anchor() != Spanner::Anchor::SEGMENT) {
@@ -146,14 +162,26 @@ void EditTimeTickAnchors::ensureSingleTimeTick(const Spanner* spanner, bool isSt
     if (chordRestCoversSpannerAnchor(score, tick, spanner, isStart, mmRest)) {
         return;
     }
-    Measure* measure = mmRest ? score->tick2measureMM(tick) : score->tick2measure(tick);
-    if (!measure) {
+
+    const track_idx_t trackIdx = isStart ? spanner->track() : spanner->effectiveTrack2();
+    createSingleTimeTickAt(score, tick, track2staff(trackIdx));
+}
+
+void EditTimeTickAnchors::ensureSingleTimeTick(const EngravingItem* item)
+{
+    if (!item || !item->allowTimeAnchor()) {
         return;
     }
 
-    const track_idx_t trackIdx = isStart ? spanner->track() : spanner->effectiveTrack2();
-    createTimeTickAnchor(measure, tick - measure->tick(), track2staff(trackIdx));
-    updateLayout(measure);
+    Score* score = item->score();
+    const Fraction tick = item->tick();
+    const bool mmRest = score->style().styleB(Sid::createMultiMeasureRests);
+    const Segment* crSeg = score->tick2segment(tick, true, SegmentType::ChordRest, mmRest);
+    if (crSeg && crSeg->hasElements(item->staffIdx())) {
+        return;
+    }
+
+    createSingleTimeTickAt(score, tick, item->staffIdx());
 }
 
 void EditTimeTickAnchors::updateAnchors(Measure* measure, staff_idx_t staffIdx, const std::set<Fraction>& additionalAnchorRelTicks)
@@ -338,22 +366,12 @@ void EditTimeTickAnchors::cleanupUnusedAnchors(Score* score)
         return;
     }
 
-    std::set<Measure*> dirtyMeasures;
     for (Segment* segment : unused) {
-        dirtyMeasures.insert(segment->measure());
         segment->measure()->remove(segment);
         delete segment;
     }
 
     score->rebuildBspTree();
-
-    for (Measure* measure : dirtyMeasures) {
-        if (!measure) {
-            continue;
-        }
-        const staff_idx_t lastStaff = score->nstaves() ? score->nstaves() - 1 : 0;
-        score->setLayout(measure->tick(), measure->endTick(), 0, lastStaff, measure);
-    }
 }
 
 void MoveElementAnchors::moveElementAnchors(EngravingItem* element, KeyboardKey key, KeyboardModifier mod)
@@ -442,22 +460,13 @@ void MoveElementAnchors::moveElementAnchorsOnDrag(EngravingItem* element, EditDa
 
     EditTimeTickAnchors::showAnchorGuides(element);
 
-    const double horizontalThreshold = 0.25 * element->spatium();
-    const bool significantHorizontalMove = std::abs(ed.moveDelta.x()) > horizontalThreshold
-                                           || std::abs(ed.evtDelta.x()) > horizontalThreshold;
-    if (significantHorizontalMove) {
-        EditTimeTickAnchors::ensureSnapGrid(element);
-    }
-
     Segment* newSeg = findNewAnchorableSegmentFromDrag(element, segment);
 
     if (newSeg && (newSeg != segment && !newSeg->measure()->isMMRest())) {
-        if (!significantHorizontalMove) {
-            EditTimeTickAnchors::ensureSnapGrid(element);
-        }
         PointF curOffset = element->offset();
         moveSegment(element, newSeg, newSeg->tick() - segment->tick());
         rebaseOffsetOnMoveSegment(element, curOffset, newSeg, segment);
+        EditTimeTickAnchors::ensureSingleTimeTick(element);
     }
 }
 
@@ -760,7 +769,8 @@ TimeTickAnchor::TimeTickAnchor(Segment* parent)
     : EngravingItem(ElementType::TIME_TICK_ANCHOR, parent,
                     ElementFlag::ON_STAFF
                     | ElementFlag::NOT_SELECTABLE
-                    | ElementFlag::GENERATED)
+                    | ElementFlag::GENERATED
+                    | ElementFlag::NO_AUTOPLACE)
 {
     setZ(-INT_MAX); // Make sure it is behind everything
 }

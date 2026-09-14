@@ -1163,7 +1163,9 @@ void ChordLayout::layoutArticulations2(Chord* item, LayoutContext& ctx, bool lay
             } else {
                 Autoplace::autoplaceSegmentElement(a, a->mutldata(), a->up(), true);
             }
-            if (a->addToSkyline()) {
+            // Close-to-note marks are already in staffShape via Segment::createShapes.
+            // Adding them again here stacks a second copy and can shove autoplaced marks.
+            if (a->addToSkyline() && !a->layoutCloseToNote()) {
                 a->segment()->staffShape(a->vStaffIdx()).add(a->shape().translated(a->pos() + item->pos() + item->staffOffset()));
             }
         }

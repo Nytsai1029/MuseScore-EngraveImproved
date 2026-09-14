@@ -37,6 +37,7 @@ public:
     static void showAnchorGuides(const EngravingItem* item);
     static void ensureSnapGrid(const EngravingItem* item);
     static void ensureSingleTimeTick(const Spanner* spanner, bool isStart);
+    static void ensureSingleTimeTick(const EngravingItem* item);
     static TimeTickAnchor* createTimeTickAnchor(Measure* measure, Fraction relTick, staff_idx_t staffIdx);
     static void updateLayout(Measure* measure);
     static void cleanupUnusedAnchors(Score* score);

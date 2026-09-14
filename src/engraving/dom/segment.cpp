@@ -2660,6 +2660,9 @@ void Segment::createShape(staff_idx_t staffIdx)
             if (e->isMMRest() || (e->isMeasureRepeat() && toMeasureRepeat(e)->numMeasures() > 1)) {
                 continue;
             }
+            if (e->isTimeTickAnchor()) {
+                continue;
+            }
             if (e->addToSkyline() || (e->isChordRest() && toChordRest(e)->lyrics().size() > 0)) {
                 s.add(e->shape().translate((e->isClef() ? e->ldata()->pos() : e->pos()) + e->staffOffset()));
             }

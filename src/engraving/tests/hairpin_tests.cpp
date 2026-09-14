@@ -29,22 +29,35 @@
 #include <vector>
 
 #include "dom/anchors.h"
+#include "dom/articulation.h"
+#include "dom/chord.h"
 #include "dom/chordrest.h"
+#include "dom/dynamic.h"
 #include "dom/editdata.h"
 #include "dom/expression.h"
 #include "dom/factory.h"
+#include "dom/fermata.h"
+#include "dom/fingering.h"
 #include "dom/hairpin.h"
 #include "dom/masterscore.h"
 #include "dom/measure.h"
+#include "dom/note.h"
+#include "dom/noteval.h"
 #include "dom/ottava.h"
 #include "dom/page.h"
 #include "dom/segment.h"
 #include "dom/slur.h"
+#include "dom/stafftext.h"
+#include "dom/stem.h"
+#include "dom/system.h"
 #include "dom/text.h"
 #include "dom/textbase.h"
 
+#include "types/symid.h"
+
 #include "engraving/compat/scoreaccess.h"
 #include "infrastructure/shape.h"
+#include "types/translatablestring.h"
 #include "utils/scorerw.h"
 
 using namespace mu;
@@ -331,6 +344,166 @@ Expression* addExpressionOnFirstChord(MasterScore* score)
     return expression;
 }
 
+StaffText* addStaffTextOnFirstChord(MasterScore* score)
+{
+    Measure* measure = score->firstMeasure();
+    if (!measure) {
+        return nullptr;
+    }
+    Segment* firstCR = measure->first(SegmentType::ChordRest);
+    if (!firstCR) {
+        return nullptr;
+    }
+    StaffText* text = Factory::createStaffText(firstCR, TextStyleType::STAFF, true);
+    text->setTrack(0);
+    text->setXmlText(u"solo");
+    firstCR->add(text);
+    return text;
+}
+
+Dynamic* addDynamicOnFirstChord(MasterScore* score)
+{
+    Measure* measure = score->firstMeasure();
+    if (!measure) {
+        return nullptr;
+    }
+    Segment* firstCR = measure->first(SegmentType::ChordRest);
+    if (!firstCR) {
+        return nullptr;
+    }
+    Dynamic* dynamic = Factory::createDynamic(firstCR, true);
+    dynamic->setTrack(0);
+    dynamic->setDynamicType(u"f");
+    firstCR->add(dynamic);
+    return dynamic;
+}
+
+struct HairpinAnchorSnapshot {
+    PointF posRelToStartCR;
+    PointF pos2;
+    PointF startGripRel;
+    PointF endGripRel;
+};
+
+HairpinAnchorSnapshot captureHairpinAnchorsRel(const HairpinSegment* hairpinSeg, const EngravingItem* startCR)
+{
+    HairpinAnchorSnapshot snapshot;
+    const PointF origin = startCR->canvasPos();
+    snapshot.posRelToStartCR = hairpinSeg->canvasPos() - origin;
+    snapshot.pos2 = hairpinSeg->pos2();
+    snapshot.startGripRel = canvasOriginFromPageGrip(hairpinSeg, Grip::START) - origin;
+    snapshot.endGripRel = canvasOriginFromPageGrip(hairpinSeg, Grip::END) - origin;
+    return snapshot;
+}
+
+Articulation* addChordArticulation(Chord* chord, SymId id)
+{
+    Articulation* articulation = Factory::createArticulation(chord);
+    articulation->setSymId(id);
+    articulation->setParent(chord);
+    articulation->setTrack(chord->track());
+    chord->add(articulation);
+    return articulation;
+}
+
+Fermata* addFermataOnChord(Chord* chord)
+{
+    Segment* segment = chord->segment();
+    Fermata* fermata = Factory::createFermata(segment);
+    fermata->setTrack(chord->track());
+    fermata->setSymId(SymId::fermataAbove);
+    fermata->setPlacement(PlacementV::ABOVE);
+    segment->add(fermata);
+    return fermata;
+}
+
+Fingering* addFingeringOnNote(Note* note, const String& text)
+{
+    Fingering* fingering = Factory::createFingering(note);
+    fingering->setXmlText(text);
+    note->add(fingering);
+    return fingering;
+}
+
+struct NextMeasureMarksSnapshot {
+    PointF staccatoRel;
+    PointF tenutoRel;
+    PointF accentRel;
+    PointF marcatoRel;
+    PointF fermataRel;
+    PointF fingeringRel;
+    double stemLength = 0.0;
+    PointF notePos;
+    PointF noteCanvas;
+};
+
+NextMeasureMarksSnapshot captureNextMeasureMarks(const Articulation* staccato, const Articulation* tenuto,
+                                                 const Articulation* accent, const Articulation* marcato,
+                                                 const Fermata* fermata, const Fingering* fingering,
+                                                 const Chord* startChord, const Chord* endChord)
+{
+    NextMeasureMarksSnapshot snapshot;
+    const Note* startNote = startChord->upNote();
+    const Note* endNote = endChord->upNote();
+    const PointF startOrigin = startNote->canvasPos();
+    const PointF endOrigin = endNote->canvasPos();
+    snapshot.staccatoRel = staccato->canvasPos() - startOrigin;
+    snapshot.tenutoRel = tenuto->canvasPos() - startOrigin;
+    snapshot.fingeringRel = fingering->canvasPos() - startOrigin;
+    snapshot.accentRel = accent->canvasPos() - endOrigin;
+    snapshot.marcatoRel = marcato->canvasPos() - endOrigin;
+    snapshot.fermataRel = fermata->canvasPos() - endOrigin;
+    snapshot.notePos = startNote->pos();
+    snapshot.noteCanvas = startOrigin;
+    if (const Stem* stem = startChord->stem()) {
+        snapshot.stemLength = stem->length();
+    }
+    return snapshot;
+}
+
+void expectNextMeasureMarksStable(const NextMeasureMarksSnapshot& after, const NextMeasureMarksSnapshot& before)
+{
+    expectPointNear(after.staccatoRel, before.staccatoRel, 1e-4, "next-measure staccato");
+    expectPointNear(after.tenutoRel, before.tenutoRel, 1e-4, "next-measure tenuto");
+    expectPointNear(after.accentRel, before.accentRel, 1e-4, "next-measure accent");
+    expectPointNear(after.marcatoRel, before.marcatoRel, 1e-4, "next-measure marcato");
+    expectPointNear(after.fermataRel, before.fermataRel, 1e-4, "next-measure fermata");
+    expectPointNear(after.fingeringRel, before.fingeringRel, 1e-4, "next-measure fingering");
+    EXPECT_NEAR(after.stemLength, before.stemLength, 1e-4)
+        << "next-measure stem length (note canvas y before=" << before.noteCanvas.y()
+        << " after=" << after.noteCanvas.y() << ")";
+    expectPointNear(after.notePos, before.notePos, 1e-4, "next-measure note pos");
+}
+
+Measure* appendMeasureWithTwoQuarters(MasterScore* score)
+{
+    score->startCmd(TranslatableString::untranslatable("Hairpin tests"));
+    score->appendMeasures(1);
+    score->endCmd();
+
+    Measure* measure = score->lastMeasure();
+    if (!measure) {
+        return nullptr;
+    }
+
+    Segment* firstCR = measure->first(SegmentType::ChordRest);
+    if (!firstCR) {
+        return nullptr;
+    }
+
+    score->startCmd(TranslatableString::untranslatable("Hairpin tests"));
+    score->setNoteRest(firstCR, 0, NoteVal(64), Fraction(1, 4));
+    Segment* secondCR = firstCR->next(SegmentType::ChordRest);
+    if (!secondCR) {
+        secondCR = measure->findSegmentR(SegmentType::ChordRest, Fraction(1, 4));
+    }
+    if (secondCR) {
+        score->setNoteRest(secondCR, 0, NoteVal(65), Fraction(1, 4));
+    }
+    score->endCmd();
+    return measure;
+}
+
 void prepareElementEditData(EditData& ed, EngravingItem* item)
 {
     auto eed = std::make_shared<ElementEditData>();
@@ -479,8 +652,9 @@ TEST_F(Engraving_HairpinTests, verticalExpressionDragKeepsSlurGeometry)
     const std::vector<std::string> staffShapeBefore = staffShapeTypeNames(firstCR, 0);
 
     EditData ed;
-    ed.evtDelta = PointF(0.0, expression->spatium());
-    ed.moveDelta = PointF(0.0, expression->spatium());
+    const double spatium = expression->spatium();
+    ed.evtDelta = PointF(0.3 * spatium, spatium);
+    ed.moveDelta = ed.evtDelta;
     static_cast<TextBase*>(expression)->drag(ed);
     score->doLayout();
 
@@ -493,6 +667,248 @@ TEST_F(Engraving_HairpinTests, verticalExpressionDragKeepsSlurGeometry)
     score->doLayout();
 
     expectStableSlurAfterOffsetOnlyMove(score, slur, firstCR, timeTicksBefore, noteXsBefore, slurBefore, staffShapeBefore);
+
+    delete score;
+}
+
+TEST_F(Engraving_HairpinTests, staffTextDragDoesNotShiftHairpinOrDynamicY)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    Hairpin* hp = addHairpinOverFirstMeasure(score);
+    ASSERT_TRUE(hp);
+    Dynamic* dynamic = addDynamicOnFirstChord(score);
+    ASSERT_TRUE(dynamic);
+    StaffText* staffText = addStaffTextOnFirstChord(score);
+    ASSERT_TRUE(staffText);
+    score->doLayout();
+    ASSERT_FALSE(hp->segmentsEmpty());
+
+    HairpinSegment* hairpinSeg = toHairpinSegment(hp->frontSegment());
+    ASSERT_TRUE(hairpinSeg);
+
+    Slur* slur = firstSlur(score);
+    ASSERT_TRUE(slur);
+    ASSERT_FALSE(slur->segmentsEmpty());
+
+    const int timeTicksBefore = countTimeTickSegments(score);
+    const std::vector<double> noteXsBefore = chordRestXs(score);
+    const SlurGeometrySnapshot slurBefore = captureSlurGeometry(slur);
+    const Segment* staffTextParentBefore = staffText->segment();
+
+    const Measure* firstMeasure = score->firstMeasure();
+    ASSERT_TRUE(firstMeasure);
+    const Segment* firstCR = firstMeasure->first(SegmentType::ChordRest);
+    ASSERT_TRUE(firstCR);
+    const std::vector<std::string> staffShapeBefore = staffShapeTypeNames(firstCR, 0);
+
+    const double spatium = staffText->spatium();
+    EditData ed;
+    ed.evtDelta = PointF(0.3 * spatium, spatium);
+    ed.moveDelta = ed.evtDelta;
+    static_cast<EngravingItem*>(staffText)->startDrag(ed);
+    static_cast<EngravingItem*>(staffText)->drag(ed);
+    score->doLayout();
+
+    EXPECT_EQ(staffText->segment(), staffTextParentBefore);
+    EXPECT_EQ(countTimeTickSegments(score), timeTicksBefore)
+        << "offset-only staff text drag must not insert a TimeTick grid";
+
+    const double hairpinYDuringDrag = hairpinSeg->canvasPos().y();
+    const double dynamicYDuringDrag = dynamic->canvasPos().y();
+
+    static_cast<EngravingItem*>(staffText)->endDrag(ed);
+    score->doLayout();
+
+    EXPECT_EQ(countTimeTickSegments(score), timeTicksBefore);
+    EXPECT_NEAR(hairpinSeg->canvasPos().y(), hairpinYDuringDrag, 1e-4) << "hairpin y jumped on mouse-up";
+    EXPECT_NEAR(dynamic->canvasPos().y(), dynamicYDuringDrag, 1e-4) << "dynamic y jumped on mouse-up";
+
+    expectStableSlurAfterOffsetOnlyMove(score, slur, firstCR, timeTicksBefore, noteXsBefore, slurBefore, staffShapeBefore);
+
+    delete score;
+}
+
+TEST_F(Engraving_HairpinTests, dynamicDragDoesNotJumpHairpinYOnRelease)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    Hairpin* hp = addHairpinOverFirstMeasure(score);
+    ASSERT_TRUE(hp);
+    Dynamic* dynamic = addDynamicOnFirstChord(score);
+    ASSERT_TRUE(dynamic);
+    score->doLayout();
+    ASSERT_FALSE(hp->segmentsEmpty());
+
+    HairpinSegment* hairpinSeg = toHairpinSegment(hp->frontSegment());
+    ASSERT_TRUE(hairpinSeg);
+
+    const int timeTicksBefore = countTimeTickSegments(score);
+    const Segment* dynamicParentBefore = dynamic->segment();
+
+    const double spatium = dynamic->spatium();
+    EditData ed;
+    ed.evtDelta = PointF(0.3 * spatium, spatium);
+    ed.moveDelta = ed.evtDelta;
+    static_cast<EngravingItem*>(dynamic)->startDrag(ed);
+    static_cast<EngravingItem*>(dynamic)->drag(ed);
+    score->doLayout();
+
+    EXPECT_EQ(dynamic->segment(), dynamicParentBefore);
+    EXPECT_EQ(countTimeTickSegments(score), timeTicksBefore)
+        << "offset-only dynamic drag must not insert a TimeTick grid";
+
+    const double hairpinYDuringDrag = hairpinSeg->canvasPos().y();
+    const double dynamicYDuringDrag = dynamic->canvasPos().y();
+
+    static_cast<EngravingItem*>(dynamic)->endDrag(ed);
+    score->doLayout();
+
+    EXPECT_EQ(countTimeTickSegments(score), timeTicksBefore);
+    EXPECT_NEAR(hairpinSeg->canvasPos().y(), hairpinYDuringDrag, 1e-4) << "hairpin y jumped on mouse-up";
+    EXPECT_NEAR(dynamic->canvasPos().y(), dynamicYDuringDrag, 1e-4) << "dynamic y jumped on mouse-up";
+
+    delete score;
+}
+
+TEST_F(Engraving_HairpinTests, dynamicDragRangeLayoutKeepsNextMeasureSlurHairpinAnchors)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    Measure* secondMeasure = appendMeasureWithTwoQuarters(score);
+    ASSERT_TRUE(secondMeasure);
+
+    Segment* m2FirstCRSeg = secondMeasure->first(SegmentType::ChordRest);
+    Segment* m2SecondCRSeg = m2FirstCRSeg ? m2FirstCRSeg->next(SegmentType::ChordRest) : nullptr;
+    ASSERT_TRUE(m2FirstCRSeg);
+    ASSERT_TRUE(m2SecondCRSeg);
+    ChordRest* m2StartCR = toChordRest(m2FirstCRSeg->element(0));
+    ChordRest* m2EndCR = toChordRest(m2SecondCRSeg->element(0));
+    ASSERT_TRUE(m2StartCR);
+    ASSERT_TRUE(m2EndCR);
+    ASSERT_TRUE(m2StartCR->isChord());
+    ASSERT_TRUE(m2EndCR->isChord());
+    Chord* m2StartChord = toChord(m2StartCR);
+    Chord* m2EndChord = toChord(m2EndCR);
+    Note* m2StartNote = m2StartChord->upNote();
+    ASSERT_TRUE(m2StartNote);
+
+    Articulation* staccato = addChordArticulation(m2StartChord, SymId::articStaccatoAbove);
+    Articulation* tenuto = addChordArticulation(m2StartChord, SymId::articTenutoAbove);
+    Fingering* fingering = addFingeringOnNote(m2StartNote, u"3");
+    Articulation* accent = addChordArticulation(m2EndChord, SymId::articAccentAbove);
+    Articulation* marcato = addChordArticulation(m2EndChord, SymId::articMarcatoAbove);
+    Fermata* fermata = addFermataOnChord(m2EndChord);
+    ASSERT_TRUE(staccato);
+    ASSERT_TRUE(tenuto);
+    ASSERT_TRUE(fingering);
+    ASSERT_TRUE(accent);
+    ASSERT_TRUE(marcato);
+    ASSERT_TRUE(fermata);
+
+    Slur* nextSlur = score->addSlur(m2StartCR, m2EndCR, nullptr);
+    Hairpin* nextHairpin = score->addHairpin(HairpinType::CRESC_HAIRPIN, m2StartCR, m2EndCR);
+    Dynamic* dynamic = addDynamicOnFirstChord(score);
+    ASSERT_TRUE(nextSlur);
+    ASSERT_TRUE(nextHairpin);
+    ASSERT_TRUE(dynamic);
+
+    score->doLayout();
+    ASSERT_FALSE(nextSlur->segmentsEmpty());
+    ASSERT_FALSE(nextHairpin->segmentsEmpty());
+    ASSERT_TRUE(score->firstMeasure()->system());
+    ASSERT_EQ(score->firstMeasure()->system(), secondMeasure->system());
+
+    HairpinSegment* nextHairpinSeg = toHairpinSegment(nextHairpin->frontSegment());
+    ASSERT_TRUE(nextHairpinSeg);
+
+    const int timeTicksBefore = countTimeTickSegments(score);
+    const Segment* dynamicParentBefore = dynamic->segment();
+    const SlurGeometrySnapshot slurBefore = captureSlurGeometry(nextSlur);
+    const HairpinAnchorSnapshot hairpinBefore = captureHairpinAnchorsRel(nextHairpinSeg, m2StartCR);
+    const NextMeasureMarksSnapshot marksBefore = captureNextMeasureMarks(staccato, tenuto, accent, marcato,
+                                                                         fermata, fingering, m2StartChord, m2EndChord);
+
+    const double spatium = dynamic->spatium();
+    EditData ed;
+    ed.evtDelta = PointF(0.3 * spatium, spatium);
+    ed.moveDelta = ed.evtDelta;
+    static_cast<EngravingItem*>(dynamic)->startDrag(ed);
+    static_cast<EngravingItem*>(dynamic)->drag(ed);
+
+    EXPECT_EQ(dynamic->segment(), dynamicParentBefore);
+    EXPECT_EQ(countTimeTickSegments(score), timeTicksBefore)
+        << "offset-only dynamic drag must not insert a TimeTick grid";
+
+    static_cast<EngravingItem*>(dynamic)->endDrag(ed);
+    score->doLayoutRange(dynamic->tick(), dynamic->tick());
+
+    EXPECT_EQ(dynamic->segment(), dynamicParentBefore);
+    EXPECT_EQ(countTimeTickSegments(score), timeTicksBefore);
+
+    ASSERT_FALSE(nextSlur->segmentsEmpty());
+    ASSERT_FALSE(nextHairpin->segmentsEmpty());
+    nextHairpinSeg = toHairpinSegment(nextHairpin->frontSegment());
+    ASSERT_TRUE(nextHairpinSeg);
+
+    const SlurGeometrySnapshot slurAfter = captureSlurGeometry(nextSlur);
+    const HairpinAnchorSnapshot hairpinAfter = captureHairpinAnchorsRel(nextHairpinSeg, m2StartCR);
+    expectPointNear(slurAfter.start, slurBefore.start, 1e-4, "next-measure slur START");
+    expectPointNear(slurAfter.end, slurBefore.end, 1e-4, "next-measure slur END");
+    expectPointNear(slurAfter.bezier1, slurBefore.bezier1, 1e-4, "next-measure slur BEZIER1");
+    expectPointNear(slurAfter.bezier2, slurBefore.bezier2, 1e-4, "next-measure slur BEZIER2");
+    expectPointNear(hairpinAfter.posRelToStartCR, hairpinBefore.posRelToStartCR, 1e-4,
+                    "next-measure hairpin pos");
+    expectPointNear(hairpinAfter.pos2, hairpinBefore.pos2, 1e-4, "next-measure hairpin pos2");
+    expectPointNear(hairpinAfter.startGripRel, hairpinBefore.startGripRel, 1e-4,
+                    "next-measure hairpin START grip");
+    expectPointNear(hairpinAfter.endGripRel, hairpinBefore.endGripRel, 1e-4,
+                    "next-measure hairpin END grip");
+
+    const NextMeasureMarksSnapshot marksAfter = captureNextMeasureMarks(staccato, tenuto, accent, marcato,
+                                                                        fermata, fingering, m2StartChord, m2EndChord);
+    expectNextMeasureMarksStable(marksAfter, marksBefore);
+
+    delete score;
+}
+
+TEST_F(Engraving_HairpinTests, timeTickAnchorsAreNotStaffShapeObstacles)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    Hairpin* hp = addHairpinOverFirstMeasure(score);
+    ASSERT_TRUE(hp);
+    score->doLayout();
+    ASSERT_FALSE(hp->segmentsEmpty());
+
+    HairpinSegment* hairpinSeg = toHairpinSegment(hp->frontSegment());
+    ASSERT_TRUE(hairpinSeg);
+
+    EditTimeTickAnchors::updateAnchors(hairpinSeg);
+    score->doLayout();
+    EXPECT_GT(countTimeTickSegments(score), 0);
+
+    for (Measure* measure = score->firstMeasure(); measure; measure = measure->nextMeasure()) {
+        for (Segment* segment = measure->first(SegmentType::TimeTick); segment;
+             segment = segment->next(SegmentType::TimeTick)) {
+            for (EngravingItem* item : segment->elist()) {
+                if (item && item->isTimeTickAnchor()) {
+                    EXPECT_FALSE(item->addToSkyline());
+                    EXPECT_FALSE(item->autoplace());
+                }
+            }
+        }
+        for (Segment* segment = measure->first(); segment; segment = segment->next()) {
+            const std::vector<std::string> names = staffShapeTypeNames(segment, 0);
+            for (const std::string& name : names) {
+                EXPECT_STRNE(name.c_str(), "TimeTickAnchor") << "staffShape must not include TimeTickAnchor";
+            }
+        }
+    }
 
     delete score;
 }

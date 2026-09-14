@@ -6055,14 +6055,17 @@ void Score::doLayoutRange(const Fraction& st, const Fraction& et)
     Fraction start = st;
     Fraction end = et;
 
-    auto spanners = score()->spannerMap().findOverlapping(st.ticks(), et.ticks());
-    for (auto interval : spanners) {
-        Spanner* spanner = interval.value;
-        if (!spanner->staff()->visible()) {
-            continue;
+    // et < 0 means layout-all; do not shrink that sentinel via spanner expansion.
+    if (et >= Fraction(0, 1)) {
+        auto spanners = score()->spannerMap().findOverlapping(st.ticks(), et.ticks());
+        for (auto interval : spanners) {
+            Spanner* spanner = interval.value;
+            if (!spanner->staff() || !spanner->staff()->visible()) {
+                continue;
+            }
+            start = std::min(start, spanner->tick());
+            end = std::max(end, spanner->tick2());
         }
-        start = std::min(st, spanner->tick());
-        end = std::max(et, spanner->tick2());
     }
 
     m_engravingFont = engravingFonts()->fontByName(style().value(Sid::musicalSymbolFont).value<String>().toStdString());
