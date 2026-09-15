@@ -424,8 +424,10 @@ std::vector<HorizontalSpacing::SegmentPosition> HorizontalSpacing::spaceSegments
             spaceAgainstPreviousSegments(curSeg, placedSegments, ctx);
         }
 
-        double leadingSpace = curSeg->extraLeadingSpace().toMM(ctx.spatium)
-                              + hungGraceLeftmostExtraMM(curSeg);
+        // Hung leftmost extra widens the previous CR (nextSegLeadingSpace steal) and must
+        // not also shift the EndBarLine itself — at system end that pushes the barline
+        // past the right margin and the extra is lost.
+        double leadingSpace = curSeg->extraLeadingSpace().toMM(ctx.spatium);
         placedSegments.back().xPosInSystemCoords += leadingSpace;
         // Rigidly carry the leading-space shift into the running cursor so that every
         // following segment moves with it. Without this, a negative leading space (a note

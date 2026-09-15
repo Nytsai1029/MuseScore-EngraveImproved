@@ -25,9 +25,11 @@
 #include "dom/accidental.h"
 #include "dom/articulation.h"
 #include "dom/barline.h"
+#include "dom/beam.h"
 #include "dom/chord.h"
 #include "dom/chordrest.h"
 #include "dom/factory.h"
+#include "dom/layoutbreak.h"
 #include "dom/masterscore.h"
 #include "dom/measure.h"
 #include "dom/mscore.h"
@@ -36,6 +38,7 @@
 #include "dom/pitchspelling.h"
 #include "dom/property.h"
 #include "dom/segment.h"
+#include "dom/system.h"
 #include "dom/tremolosinglechord.h"
 
 #include "engraving/compat/scoreaccess.h"
@@ -774,5 +777,111 @@ TEST_F(Engraving_NoteTests, graceSecondSpacingClearsWhenAutoplaceOff)
     EXPECT_LE(second->pagePos().x() - leftmost->pagePos().x(), gapWithAutoplace);
     EXPECT_DOUBLE_EQ(principal->segment()->extraLeadingSpace().val(), 0.0);
 
+    delete score;
+}
+
+static void addLineBreak(Score* score, Measure* measure)
+{
+    LayoutBreak* lb = Factory::createLayoutBreak(measure);
+    lb->setLayoutBreakType(LayoutBreakType::LINE);
+    lb->setTrack(0);
+    lb->setParent(measure);
+    score->undoAddElement(lb);
+}
+
+TEST_F(Engraving_NoteTests, graceBeforeBarlineAcrossSystem)
+{
+    MasterScore* score = ScoreRW::readScore(NOTE_DATA_DIR + u"grace-before-barline.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    Measure* m1 = score->firstMeasure();
+    Measure* m2 = m1->nextMeasure();
+    ASSERT_TRUE(m2);
+    Chord* principal = chordAtMeasureStart(m2);
+    ASSERT_TRUE(principal);
+
+    Note* added1 = score->setGraceNote(principal, 74, NoteType::ACCIACCATURA, Constants::DIVISION / 2);
+    Note* added2 = score->setGraceNote(principal, 76, NoteType::ACCIACCATURA, Constants::DIVISION / 2);
+    ASSERT_TRUE(added1);
+    ASSERT_TRUE(added2);
+    principal->graceNotesBefore().front()->undoChangeProperty(Pid::GRACE_BEFORE_BARLINE, true);
+    addLineBreak(score, m1);
+    score->doLayout();
+
+    ASSERT_TRUE(m1->system());
+    ASSERT_TRUE(m2->system());
+    EXPECT_NE(m1->system(), m2->system());
+
+    GraceNotesGroup& gnb = principal->graceNotesBefore();
+    ASSERT_EQ(gnb.size(), 2u);
+    Chord* leftmost = gnb.front();
+    Chord* second = gnb.at(1);
+
+    Segment* barlineSeg = m1->findSegmentR(SegmentType::EndBarLine, m1->ticks());
+    ASSERT_TRUE(barlineSeg);
+    EngravingItem* barline = barlineSeg->element(0);
+    ASSERT_TRUE(barline);
+
+    EXPECT_LT(leftmost->pagePos().x(), barline->pagePos().x());
+    EXPECT_LT(second->pagePos().x(), barline->pagePos().x());
+    EXPECT_GT(leftmost->pagePos().x(), m1->pagePos().x());
+    EXPECT_GT(second->pagePos().x(), m1->pagePos().x());
+
+    const double yGrace = leftmost->pagePos().y();
+    EXPECT_LT(std::abs(yGrace - m1->system()->staffYpage(0)), std::abs(yGrace - m2->system()->staffYpage(0)));
+
+    if (Beam* beam = leftmost->beam()) {
+        EXPECT_EQ(beam->system(), m1->system());
+    }
+
+    for (Chord* grace : gnb) {
+        for (Note* note : grace->notes()) {
+            note->undoChangeProperty(Pid::AUTOPLACE, false);
+        }
+    }
+    score->doLayout();
+
+    Chord* prevMeasureChord = lastChordInMeasure(m1);
+    ASSERT_TRUE(prevMeasureChord);
+    const double distToPrev = leftmost->pagePos().x() - prevMeasureChord->pagePos().x();
+    const double distToPrevStem = leftmost->notes().front()->prevNoteDistance().val();
+
+    second->undoChangeProperty(Pid::LEADING_SPACE, Spatium(1.0));
+    leftmost->undoChangeProperty(Pid::LEADING_SPACE, Spatium(1.0));
+    score->doLayout();
+
+    EXPECT_DOUBLE_EQ(principal->segment()->extraLeadingSpace().val(), 0.0);
+    EXPECT_DOUBLE_EQ(barlineSeg->extraLeadingSpace().val(), 0.0);
+    EXPECT_DOUBLE_EQ(second->extraLeadingSpace().val(), 1.0);
+    EXPECT_DOUBLE_EQ(leftmost->extraLeadingSpace().val(), 1.0);
+    EXPECT_GT(leftmost->pagePos().x() - prevMeasureChord->pagePos().x(), distToPrev);
+    EXPECT_GT(leftmost->notes().front()->prevNoteDistance().val(), distToPrevStem);
+
+    const String saveName(u"/tmp/musescore-graceBeforeBarline-system-test.mscx");
+    ASSERT_TRUE(ScoreRW::saveScore(score, saveName));
+
+    const bool useRead302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
+    MasterScore* restored = ScoreRW::readScore(saveName, true);
+    MScore::useRead302InTestMode = useRead302;
+    ASSERT_TRUE(restored);
+    restored->doLayout();
+
+    Measure* restoredM1 = restored->firstMeasure();
+    Measure* restoredM2 = restoredM1->nextMeasure();
+    ASSERT_TRUE(restoredM2);
+    Chord* restoredPrincipal = chordAtMeasureStart(restoredM2);
+    ASSERT_TRUE(restoredPrincipal);
+    GraceNotesGroup& restoredGnb = restoredPrincipal->graceNotesBefore();
+    ASSERT_EQ(restoredGnb.size(), 2u);
+    EXPECT_DOUBLE_EQ(restoredGnb.front()->extraLeadingSpace().val(), 1.0);
+    EXPECT_DOUBLE_EQ(restoredGnb.at(1)->extraLeadingSpace().val(), 1.0);
+
+    Chord* restoredPrev = lastChordInMeasure(restoredM1);
+    ASSERT_TRUE(restoredPrev);
+    EXPECT_GT(restoredGnb.front()->pagePos().x() - restoredPrev->pagePos().x(), distToPrev);
+
+    delete restored;
     delete score;
 }

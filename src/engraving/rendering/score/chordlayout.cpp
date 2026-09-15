@@ -3008,13 +3008,13 @@ void ChordLayout::repositionGraceNotesBeforeBarline(Measure* measure)
             continue;
         }
         Segment* parentSeg = chord->segment();
-        if (!parentSeg || parentSeg->system() != barlineSys) {
-            continue;
-        }
-        const double offset = (barlineSeg->ldata()->pos().x() + measure->x())
-                              - (parentSeg->ldata()->pos().x() + nextMeasure->x());
-        for (Chord* grace : gnb) {
-            grace->setPos(grace->ldata()->pos().x() + offset, 0.0);
+        const bool sameSystem = parentSeg && parentSeg->system() == barlineSys;
+        if (sameSystem) {
+            const double offset = (barlineSeg->ldata()->pos().x() + measure->x())
+                                  - (parentSeg->ldata()->pos().x() + nextMeasure->x());
+            for (Chord* grace : gnb) {
+                grace->setPos(grace->ldata()->pos().x() + offset, 0.0);
+            }
         }
 
         EngravingItem* barline = barlineSeg->element(0);

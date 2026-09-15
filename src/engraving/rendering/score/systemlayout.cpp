@@ -1615,6 +1615,12 @@ void SystemLayout::createSkylines(const ElementsToLayout& elementsToLayout, Layo
                                 continue;
                             }
                             skyline.add(gnb.shape().translate(gnb.pos() + p + chord->staffOffset()));
+                            if (!gnb.empty()) {
+                                Beam* beam = gnb.front()->beam();
+                                if (beam && beam->elements().front() == gnb.front()) {
+                                    beam->addSkyline(skyline);
+                                }
+                            }
                         }
                     }
                 } else if (s.isType(SegmentType::TimeSigType)) {

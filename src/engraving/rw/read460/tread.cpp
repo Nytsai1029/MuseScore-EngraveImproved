@@ -2531,6 +2531,10 @@ bool TRead::readProperties(Chord* ch, XmlReader& e, ReadContext& ctx)
             TRead::read(ledgerLine, e, ctx);
             ch->ledgerLines().push_back(ledgerLine);
         }
+    } else if (tag == "leadingSpace") {
+        // Grace chords store extra leading here. Must run before ChordRest::readProperties,
+        // which still treats leadingSpace as obsolete and would skip the value.
+        ch->setExtraLeadingSpace(Spatium(e.readDouble()));
     } else if (TRead::readProperties(static_cast<ChordRest*>(ch), e, ctx)) {
     } else if (tag == "Stem") {
         Stem* s = Factory::createStem(ch);
@@ -2576,8 +2580,6 @@ bool TRead::readProperties(Chord* ch, XmlReader& e, ReadContext& ctx)
         ch->setShowStemSlash(e.readBool());
     } else if (tag == "graceBeforeBarline") {
         ch->setGraceBeforeBarline(e.readBool());
-    } else if (tag == "leadingSpace") {
-        ch->setExtraLeadingSpace(Spatium(e.readDouble()));
     } else if (tag == "Arpeggio") {
         Arpeggio* arpeggio = Factory::createArpeggio(ch);
         arpeggio->setTrack(ch->track());

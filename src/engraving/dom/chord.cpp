@@ -52,6 +52,7 @@
 #include "score.h"
 #include "segment.h"
 #include "staff.h"
+#include "stafflines.h"
 #include "stafftype.h"
 #include "stem.h"
 #include "stemslash.h"
@@ -1217,6 +1218,12 @@ static const Segment* graceGroupAppendedSegment(const Chord* grace)
     return parent->graceNotesAfter().appendedSegment();
 }
 
+static bool graceUsesAppendedSystem(const Segment* appended, const Segment* parentSeg)
+{
+    return appended && appended->system()
+           && (!parentSeg || !parentSeg->system() || appended->system() != parentSeg->system());
+}
+
 PointF Chord::pagePos() const
 {
     if (isGrace()) {
@@ -1228,12 +1235,15 @@ PointF Chord::pagePos() const
         const Chord* pc = static_cast<const Chord*>(explicitParent());
         const Segment* appended = graceGroupAppendedSegment(this);
         const Segment* parentSeg = pc->segment();
-        const bool crossSystem = appended && parentSeg && appended->system() && parentSeg->system()
-                                 && appended->system() != parentSeg->system();
-        if (crossSystem) {
+        if (graceUsesAppendedSystem(appended, parentSeg)) {
             System* system = appended->system();
             p.rx() = appended->pagePos().x() + x() + pc->x();
             p.ry() += system->staffYpage(vStaffIdx()) + staffOffsetY();
+            if (Measure* am = appended->measure()) {
+                if (const StaffLines* sl = am->staffLines(vStaffIdx())) {
+                    p.ry() += sl->y();
+                }
+            }
             return p;
         }
 
@@ -1256,9 +1266,9 @@ PointF Chord::canvasPos() const
         const Segment* appended = graceGroupAppendedSegment(this);
         const Chord* pc = explicitParent() && explicitParent()->isChord() ? toChord(explicitParent()) : nullptr;
         const Segment* parentSeg = pc ? pc->segment() : nullptr;
-        const bool crossSystem = appended && parentSeg && appended->system() && parentSeg->system()
-                                 && appended->system() != parentSeg->system();
-        const System* system = crossSystem ? appended->system() : (parentSeg ? parentSeg->system() : nullptr);
+        const System* system = graceUsesAppendedSystem(appended, parentSeg)
+                               ? appended->system()
+                               : (parentSeg ? parentSeg->system() : nullptr);
         if (system && system->page()) {
             p += system->page()->pos();
         }

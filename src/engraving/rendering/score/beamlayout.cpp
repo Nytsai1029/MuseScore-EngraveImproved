@@ -56,6 +56,21 @@
 using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
 
+static System* beamVisualSystem(const ChordRest* cr)
+{
+    if (cr && cr->isChord()) {
+        const Chord* chord = toChord(cr);
+        if (chord->isGraceBefore() && chord->placeGraceNotesBeforeBarline()
+            && chord->explicitParent() && chord->explicitParent()->isChord()) {
+            const Segment* appended = toChord(chord->explicitParent())->graceNotesBefore().appendedSegment();
+            if (appended && appended->system()) {
+                return appended->system();
+            }
+        }
+    }
+    return (cr && cr->measure()) ? cr->measure()->system() : nullptr;
+}
+
 void BeamLayout::layout(Beam* item, const LayoutContext& ctx)
 {
     TRACEFUNC;
@@ -67,14 +82,14 @@ void BeamLayout::layout(Beam* item, const LayoutContext& ctx)
               [](const ChordRest* a, const ChordRest* b) -> bool {
         return a->tick() < b->tick();
     });
-    System* system = item->elements().front()->measure()->system();
+    System* system = beamVisualSystem(item->elements().front());
     item->setParent(system);
 
     std::vector<ChordRest*> crl;
 
     size_t n = 0;
     for (ChordRest* cr : item->elements()) {
-        auto newSystem = cr->measure()->system();
+        System* newSystem = beamVisualSystem(cr);
         if (newSystem && newSystem != system) {
             SpannerSegmentType st;
             if (n == 0) {
@@ -88,7 +103,7 @@ void BeamLayout::layout(Beam* item, const LayoutContext& ctx)
             }
             layout2(item, ctx, crl, st, static_cast<int>(n) - 1);
             crl.clear();
-            system = cr->measure()->system();
+            system = newSystem;
         }
         crl.push_back(cr);
     }
