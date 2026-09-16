@@ -286,6 +286,8 @@ enum class Sid {
     keepAccidentalSecondsTogether,
     alignOffsetOctaveAccidentals,
     accidentalFlushToLedgerLine,
+    showCautionaryAccidentals,
+    cautionaryAccidentalsInParentheses,
     keysigAccidentalDistance,
     keysigSharpAccidentalDistance,
     keysigFlatAccidentalDistance,

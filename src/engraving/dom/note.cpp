@@ -2152,6 +2152,10 @@ void Note::updateAccidental(AccidentalState* as)
             LOGD("error accidentalVal()");
             return;
         }
+        const bool isCautionary = (accVal == absLineAccVal) && as->forceRestateAccidental(eAbsLine) && !hidden();
+        const AccidentalBracket desiredBracket = (isCautionary && style().styleB(Sid::cautionaryAccidentalsInParentheses))
+                                                 ? AccidentalBracket::PARENTHESIS
+                                                 : AccidentalBracket::NONE;
         if ((accVal != absLineAccVal) || hidden() || as->tieContext(eAbsLine) || as->forceRestateAccidental(eAbsLine)) {
             as->setAccidentalVal(eAbsLine, accVal, m_tieBack != 0 && m_accidental == 0);
             acci = Accidental::value2subtype(accVal);
@@ -2172,12 +2176,18 @@ void Note::updateAccidental(AccidentalState* as)
                 a->setParent(this);
                 a->setAccidentalType(acci);
                 a->setVisible(visible());
+                a->setBracket(desiredBracket);
                 score()->undoAddElement(a);
             } else if (m_accidental->accidentalType() != acci) {
                 Accidental* a = m_accidental->clone();
                 a->setParent(this);
                 a->setAccidentalType(acci);
+                if (a->role() == AccidentalRole::AUTO) {
+                    a->setBracket(desiredBracket);
+                }
                 score()->undoChangeElement(m_accidental, a);
+            } else if (m_accidental->role() == AccidentalRole::AUTO && m_accidental->bracket() != desiredBracket) {
+                m_accidental->undoChangeProperty(Pid::ACCIDENTAL_BRACKET, int(desiredBracket));
             }
         } else {
             if (m_accidental) {

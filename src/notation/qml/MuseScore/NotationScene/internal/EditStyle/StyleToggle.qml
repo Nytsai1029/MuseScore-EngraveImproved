@@ -36,6 +36,7 @@ RowLayout {
     property alias text : label.text
 
     ToggleButton {
+        enabled: root.enabled
         checked: root.styleItem.value === true
         onToggled: {
             root.styleItem.value = !root.styleItem.value

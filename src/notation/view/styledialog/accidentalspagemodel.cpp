@@ -29,6 +29,8 @@ AccidentalsPageModel::AccidentalsPageModel(QObject* parent)
     StyleId::accidentalNoteDistance,
     StyleId::accidentalDistance,
     StyleId::accidentalFlushToLedgerLine,
+    StyleId::showCautionaryAccidentals,
+    StyleId::cautionaryAccidentalsInParentheses,
 
     StyleId::keySigNaturals,
     StyleId::keysigSharpAccidentalDistance,
@@ -61,6 +63,16 @@ StyleItem* AccidentalsPageModel::accidentalDistance() const
 StyleItem* AccidentalsPageModel::accidentalFlushToLedgerLine() const
 {
     return styleItem(StyleId::accidentalFlushToLedgerLine);
+}
+
+StyleItem* AccidentalsPageModel::showCautionaryAccidentals() const
+{
+    return styleItem(StyleId::showCautionaryAccidentals);
+}
+
+StyleItem* AccidentalsPageModel::cautionaryAccidentalsInParentheses() const
+{
+    return styleItem(StyleId::cautionaryAccidentalsInParentheses);
 }
 
 StyleItem* AccidentalsPageModel::keySigNaturals() const

@@ -268,6 +268,8 @@ const std::array<StyleDef::StyleValue, size_t(Sid::STYLES)> StyleDef::styleValue
     styleDef(keepAccidentalSecondsTogether,              false),
     styleDef(alignOffsetOctaveAccidentals,               false),
     styleDef(accidentalFlushToLedgerLine,                false),
+    styleDef(showCautionaryAccidentals,                  false),
+    styleDef(cautionaryAccidentalsInParentheses,         false),
 
     styleDef(keysigAccidentalDistance,                   Spatium(0.3)),
     styleDef(keysigSharpAccidentalDistance,              Spatium(0.3)),

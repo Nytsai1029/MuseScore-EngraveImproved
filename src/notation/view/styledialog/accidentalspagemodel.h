@@ -33,6 +33,8 @@ class AccidentalsPageModel : public AbstractStyleDialogModel
     Q_PROPERTY(StyleItem * accidentalNoteDistance READ accidentalNoteDistance CONSTANT)
     Q_PROPERTY(StyleItem * accidentalDistance READ accidentalDistance CONSTANT)
     Q_PROPERTY(StyleItem * accidentalFlushToLedgerLine READ accidentalFlushToLedgerLine CONSTANT)
+    Q_PROPERTY(StyleItem * showCautionaryAccidentals READ showCautionaryAccidentals CONSTANT)
+    Q_PROPERTY(StyleItem * cautionaryAccidentalsInParentheses READ cautionaryAccidentalsInParentheses CONSTANT)
 
     Q_PROPERTY(StyleItem * keySigNaturals READ keySigNaturals CONSTANT)
     Q_PROPERTY(StyleItem * keySigSharpAccidentalDistance READ keySigSharpAccidentalDistance CONSTANT)
@@ -51,6 +53,8 @@ public:
     StyleItem* accidentalNoteDistance() const;
     StyleItem* accidentalDistance() const;
     StyleItem* accidentalFlushToLedgerLine() const;
+    StyleItem* showCautionaryAccidentals() const;
+    StyleItem* cautionaryAccidentalsInParentheses() const;
 
     StyleItem* keySigNaturals() const;
     StyleItem* keySigSharpAccidentalDistance() const;

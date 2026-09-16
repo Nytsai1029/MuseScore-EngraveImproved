@@ -22,6 +22,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <vector>
 
 #include <gtest/gtest.h>
 
@@ -31,8 +32,11 @@
 #include "dom/masterscore.h"
 #include "dom/measure.h"
 #include "dom/note.h"
+#include "dom/segment.h"
 
 #include "style/styledef.h"
+
+#include "types/types.h"
 
 #include "utils/scorerw.h"
 
@@ -55,6 +59,33 @@ static Chord* chordAt(MasterScore* score, int measureIndex)
         return nullptr;
     }
     return measure->findChord(measure->tick(), 0);
+}
+
+static Measure* measureAt(MasterScore* score, int measureIndex)
+{
+    Measure* measure = score->firstMeasure();
+    for (int i = 0; i < measureIndex && measure; ++i) {
+        measure = measure->nextMeasure();
+    }
+    return measure;
+}
+
+static std::vector<Note*> notesInMeasure(Measure* measure, track_idx_t track = 0)
+{
+    std::vector<Note*> notes;
+    if (!measure) {
+        return notes;
+    }
+    for (Segment* segment = measure->first(SegmentType::ChordRest); segment; segment = segment->next(SegmentType::ChordRest)) {
+        EngravingItem* element = segment->element(track);
+        if (!element || !element->isChord()) {
+            continue;
+        }
+        for (Note* note : toChord(element)->notes()) {
+            notes.push_back(note);
+        }
+    }
+    return notes;
 }
 
 static double accidentalToNoteGap(const Note* note)
@@ -189,6 +220,191 @@ TEST_F(Engraving_AccidentalTests, flushKeepsChordStacking)
         minLedgerGap = std::min(minLedgerGap, ledger->pageBoundingRect().left() - rightmostX);
     }
     EXPECT_NEAR(minLedgerGap, -0.05 * score->style().spatium(), 0.12 * score->style().spatium());
+
+    delete score;
+}
+
+TEST_F(Engraving_AccidentalTests, cautionaryAccidentalsDefaultOff)
+{
+    MasterScore* score = ScoreRW::readScore(ACCIDENTAL_DATA_DIR + u"cautionary-octaves.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    std::vector<Note*> notes = notesInMeasure(measureAt(score, 1));
+    ASSERT_EQ(notes.size(), 4);
+    EXPECT_FALSE(notes[0]->accidental());
+    EXPECT_FALSE(notes[1]->accidental());
+    EXPECT_FALSE(notes[2]->accidental());
+    EXPECT_FALSE(notes[3]->accidental());
+
+    delete score;
+}
+
+TEST_F(Engraving_AccidentalTests, cautionaryAccidentalsAllOctavesFirstOnly)
+{
+    MasterScore* score = ScoreRW::readScore(ACCIDENTAL_DATA_DIR + u"cautionary-octaves.mscx");
+    ASSERT_TRUE(score);
+    score->style().set(Sid::showCautionaryAccidentals, true);
+    relayoutWithStyle(score);
+
+    std::vector<Note*> notes = notesInMeasure(measureAt(score, 1));
+    ASSERT_EQ(notes.size(), 4);
+
+    ASSERT_TRUE(notes[0]->accidental());
+    EXPECT_EQ(notes[0]->accidental()->accidentalType(), AccidentalType::NATURAL);
+    EXPECT_EQ(notes[0]->accidental()->role(), AccidentalRole::AUTO);
+    EXPECT_EQ(notes[0]->accidental()->bracket(), AccidentalBracket::NONE);
+
+    ASSERT_TRUE(notes[1]->accidental());
+    EXPECT_EQ(notes[1]->accidental()->accidentalType(), AccidentalType::NATURAL);
+
+    ASSERT_TRUE(notes[2]->accidental());
+    EXPECT_EQ(notes[2]->accidental()->accidentalType(), AccidentalType::NATURAL);
+
+    EXPECT_FALSE(notes[3]->accidental());
+
+    delete score;
+}
+
+TEST_F(Engraving_AccidentalTests, cautionaryAccidentalsCancelledByKeySpelling)
+{
+    MasterScore* score = ScoreRW::readScore(ACCIDENTAL_DATA_DIR + u"cautionary-cancelled.mscx");
+    ASSERT_TRUE(score);
+    score->style().set(Sid::showCautionaryAccidentals, true);
+    relayoutWithStyle(score);
+
+    std::vector<Note*> notes = notesInMeasure(measureAt(score, 1));
+    ASSERT_EQ(notes.size(), 1);
+    EXPECT_FALSE(notes[0]->accidental());
+
+    delete score;
+}
+
+TEST_F(Engraving_AccidentalTests, cautionaryAccidentalsFollowLastState)
+{
+    MasterScore* score = ScoreRW::readScore(ACCIDENTAL_DATA_DIR + u"cautionary-realtered.mscx");
+    ASSERT_TRUE(score);
+    score->style().set(Sid::showCautionaryAccidentals, true);
+    relayoutWithStyle(score);
+
+    std::vector<Note*> notes = notesInMeasure(measureAt(score, 1));
+    ASSERT_EQ(notes.size(), 1);
+    ASSERT_TRUE(notes[0]->accidental());
+    EXPECT_EQ(notes[0]->accidental()->accidentalType(), AccidentalType::NATURAL);
+
+    delete score;
+}
+
+TEST_F(Engraving_AccidentalTests, cautionaryAccidentalsUseCurrentKey)
+{
+    MasterScore* score = ScoreRW::readScore(ACCIDENTAL_DATA_DIR + u"cautionary-gmajor.mscx");
+    ASSERT_TRUE(score);
+    score->style().set(Sid::showCautionaryAccidentals, true);
+    relayoutWithStyle(score);
+
+    std::vector<Note*> notes = notesInMeasure(measureAt(score, 1));
+    ASSERT_EQ(notes.size(), 1);
+    ASSERT_TRUE(notes[0]->accidental());
+    EXPECT_EQ(notes[0]->accidental()->accidentalType(), AccidentalType::SHARP);
+    EXPECT_EQ(notes[0]->accidental()->bracket(), AccidentalBracket::NONE);
+
+    delete score;
+}
+
+TEST_F(Engraving_AccidentalTests, cautionaryAccidentalsParenthesesFollowStyle)
+{
+    MasterScore* score = ScoreRW::readScore(ACCIDENTAL_DATA_DIR + u"cautionary-octaves.mscx");
+    ASSERT_TRUE(score);
+    score->style().set(Sid::showCautionaryAccidentals, true);
+    score->style().set(Sid::cautionaryAccidentalsInParentheses, true);
+    relayoutWithStyle(score);
+
+    std::vector<Note*> notes = notesInMeasure(measureAt(score, 1));
+    ASSERT_EQ(notes.size(), 4);
+    ASSERT_TRUE(notes[0]->accidental());
+    EXPECT_EQ(notes[0]->accidental()->bracket(), AccidentalBracket::PARENTHESIS);
+    ASSERT_TRUE(notes[1]->accidental());
+    EXPECT_EQ(notes[1]->accidental()->bracket(), AccidentalBracket::PARENTHESIS);
+
+    score->style().set(Sid::cautionaryAccidentalsInParentheses, false);
+    relayoutWithStyle(score);
+
+    notes = notesInMeasure(measureAt(score, 1));
+    ASSERT_EQ(notes.size(), 4);
+    ASSERT_TRUE(notes[0]->accidental());
+    EXPECT_EQ(notes[0]->accidental()->bracket(), AccidentalBracket::NONE);
+
+    score->style().set(Sid::showCautionaryAccidentals, false);
+    relayoutWithStyle(score);
+
+    notes = notesInMeasure(measureAt(score, 1));
+    ASSERT_EQ(notes.size(), 4);
+    EXPECT_FALSE(notes[0]->accidental());
+    EXPECT_FALSE(notes[1]->accidental());
+    EXPECT_FALSE(notes[2]->accidental());
+    EXPECT_FALSE(notes[3]->accidental());
+
+    delete score;
+}
+
+TEST_F(Engraving_AccidentalTests, cautionaryAccidentalsSurviveRelayoutAfterLineBreak)
+{
+    MasterScore* score = ScoreRW::readScore(ACCIDENTAL_DATA_DIR + u"cautionary-linebreak.mscx");
+    ASSERT_TRUE(score);
+    score->style().set(Sid::showCautionaryAccidentals, true);
+    relayoutWithStyle(score);
+
+    std::vector<Note*> notes = notesInMeasure(measureAt(score, 1));
+    ASSERT_EQ(notes.size(), 4);
+    ASSERT_TRUE(notes[0]->accidental());
+    EXPECT_EQ(notes[0]->accidental()->accidentalType(), AccidentalType::NATURAL);
+    ASSERT_TRUE(notes[1]->accidental());
+    EXPECT_EQ(notes[1]->accidental()->accidentalType(), AccidentalType::NATURAL);
+    ASSERT_TRUE(notes[2]->accidental());
+    EXPECT_EQ(notes[2]->accidental()->accidentalType(), AccidentalType::NATURAL);
+    EXPECT_FALSE(notes[3]->accidental());
+
+    // Second layout: system header KeySig already exists, as on editing the next system.
+    score->doLayout();
+
+    notes = notesInMeasure(measureAt(score, 1));
+    ASSERT_EQ(notes.size(), 4);
+    ASSERT_TRUE(notes[0]->accidental());
+    EXPECT_EQ(notes[0]->accidental()->accidentalType(), AccidentalType::NATURAL);
+    ASSERT_TRUE(notes[1]->accidental());
+    EXPECT_EQ(notes[1]->accidental()->accidentalType(), AccidentalType::NATURAL);
+    ASSERT_TRUE(notes[2]->accidental());
+    EXPECT_EQ(notes[2]->accidental()->accidentalType(), AccidentalType::NATURAL);
+    EXPECT_FALSE(notes[3]->accidental());
+
+    delete score;
+}
+
+TEST_F(Engraving_AccidentalTests, cautionaryAccidentalsCrossStaff)
+{
+    MasterScore* score = ScoreRW::readScore(ACCIDENTAL_DATA_DIR + u"cautionary-piano.mscx");
+    ASSERT_TRUE(score);
+    score->style().set(Sid::showCautionaryAccidentals, true);
+    relayoutWithStyle(score);
+
+    static constexpr track_idx_t TREBLE_TRACK = 0;
+    static constexpr track_idx_t BASS_TRACK = 4;
+
+    // Previous measure bass F# should caution both staves' first F in the next measure.
+    std::vector<Note*> treble = notesInMeasure(measureAt(score, 1), TREBLE_TRACK);
+    ASSERT_EQ(treble.size(), 1);
+    ASSERT_TRUE(treble[0]->accidental());
+    EXPECT_EQ(treble[0]->accidental()->accidentalType(), AccidentalType::NATURAL);
+
+    std::vector<Note*> bass = notesInMeasure(measureAt(score, 1), BASS_TRACK);
+    ASSERT_EQ(bass.size(), 1);
+    ASSERT_TRUE(bass[0]->accidental());
+    EXPECT_EQ(bass[0]->accidental()->accidentalType(), AccidentalType::NATURAL);
+
+    // Bass F# then treble F-natural later in the same measure cancels courtesy for the next bar.
+    treble = notesInMeasure(measureAt(score, 3), TREBLE_TRACK);
+    ASSERT_EQ(treble.size(), 1);
+    EXPECT_FALSE(treble[0]->accidental());
 
     delete score;
 }

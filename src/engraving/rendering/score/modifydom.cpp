@@ -21,6 +21,8 @@
  */
 #include "modifydom.h"
 
+#include <array>
+
 #include "dom/measure.h"
 #include "dom/staff.h"
 #include "dom/spannermap.h"
@@ -33,9 +35,85 @@
 #include "dom/keysig.h"
 #include "dom/hook.h"
 #include "dom/part.h"
+#include "dom/pitchspelling.h"
+#include "dom/score.h"
 #include "rendering/score/chordlayout.h"
+#include "style/style.h"
 
+using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
+
+static void applyCautionaryAccidentalsFromPreviousMeasure(AccidentalState& as, const Measure* measure, const Staff* staff)
+{
+    if (!measure->score()->style().styleB(Sid::showCautionaryAccidentals)) {
+        return;
+    }
+
+    const Measure* prev = measure->prevMeasure();
+    if (!prev) {
+        return;
+    }
+
+    for (const MeasureBase* mb = prev; mb && mb != measure; mb = mb->next()) {
+        if (mb->sectionBreak()) {
+            return;
+        }
+    }
+
+    const KeySigEvent prevKey = staff->keySigEvent(prev->endTick() - Fraction::fromTicks(1));
+    const KeySigEvent curKey = staff->keySigEvent(measure->tick());
+    if (prevKey != curKey) {
+        return;
+    }
+
+    std::array<bool, STEP_DELTA_OCTAVE> seen{};
+    std::array<AccidentalVal, STEP_DELTA_OCTAVE> lastAlter{};
+
+    auto considerChord = [&](const Chord* chord) {
+        for (const Note* note : chord->notes()) {
+            const int step = tpc2step(note->tpc());
+            if (step < 0 || step >= STEP_DELTA_OCTAVE) {
+                continue;
+            }
+            seen[static_cast<size_t>(step)] = true;
+            lastAlter[static_cast<size_t>(step)] = tpc2alter(note->tpc());
+        }
+    };
+
+    const track_idx_t startTrack = staff->part()->startTrack();
+    const track_idx_t endTrack = staff->part()->endTrack();
+
+    for (const Segment& segment : prev->segments()) {
+        if (!segment.isJustType(SegmentType::ChordRest)) {
+            continue;
+        }
+        for (track_idx_t t = startTrack; t < endTrack; ++t) {
+            Chord* chord = item_cast<Chord*>(segment.element(t), CastMode::MAYBE_BAD);
+            if (!chord) {
+                continue;
+            }
+            for (Chord* grace : chord->graceNotesBefore()) {
+                considerChord(grace);
+            }
+            considerChord(chord);
+            for (Chord* grace : chord->graceNotesAfter()) {
+                considerChord(grace);
+            }
+        }
+    }
+
+    for (int step = 0; step < STEP_DELTA_OCTAVE; ++step) {
+        if (!seen[static_cast<size_t>(step)]) {
+            continue;
+        }
+        if (lastAlter[static_cast<size_t>(step)] == as.accidentalVal(step)) {
+            continue;
+        }
+        for (int line = step; line < MAX_ACC_STATE; line += STEP_DELTA_OCTAVE) {
+            as.setForceRestateAccidental(line, true);
+        }
+    }
+}
 
 void ModifyDom::setCrossMeasure(const Measure* measure, LayoutContext& ctx)
 {
@@ -105,6 +183,8 @@ void ModifyDom::cmdUpdateNotes(const Measure* measure, const DomAccessor& dom)
                     as.setForceRestateAccidental(line, true);
                 }
             }
+
+            applyCautionaryAccidentalsFromPreviousMeasure(as, measure, staff);
         }
 
         track_idx_t startTrack = staff->part()->startTrack();
@@ -112,7 +192,7 @@ void ModifyDom::cmdUpdateNotes(const Measure* measure, const DomAccessor& dom)
         track_idx_t endTrack = staff->part()->endTrack();
 
         for (const Segment& segment : measure->segments()) {
-            if (segment.isJustType(SegmentType::KeySig)) {
+            if (segment.isJustType(SegmentType::KeySig) && !segment.header() && !segment.trailer()) {
                 KeySig* ks = item_cast<KeySig*>(segment.element(mainTrack));
                 if (ks) {
                     Fraction tick = segment.tick();

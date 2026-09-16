@@ -88,18 +88,34 @@ StyledFlickable {
             Layout.fillWidth: true
             title: qsTrc("notation/editstyle/accidentals", "Accidentals")
 
-            StyleSpinboxWithReset {
-                styleItem: accidentalsPageModel.bracketedAccidentalPadding
-                label: qsTrc("notation/editstyle/accidentals", "Padding inside parentheses:")
+            ColumnLayout {
+                width: parent.width
+                spacing: 8
 
-                suffix: qsTrc("global", "sp")
-                decimals: 3
-                step: 0.1
-                min: -10.0
-                max: 10.0
+                StyleToggle {
+                    styleItem: accidentalsPageModel.showCautionaryAccidentals
+                    text: qsTrc("notation/editstyle/accidentals", "Show cautionary accidentals")
+                }
 
-                labelAreaWidth: -1
-                controlAreaWidth: spinBoxWidth
+                StyleToggle {
+                    enabled: accidentalsPageModel.showCautionaryAccidentals.value === true
+                    styleItem: accidentalsPageModel.cautionaryAccidentalsInParentheses
+                    text: qsTrc("notation/editstyle/accidentals", "Put cautionary accidentals in parentheses")
+                }
+
+                StyleSpinboxWithReset {
+                    styleItem: accidentalsPageModel.bracketedAccidentalPadding
+                    label: qsTrc("notation/editstyle/accidentals", "Padding inside parentheses:")
+
+                    suffix: qsTrc("global", "sp")
+                    decimals: 3
+                    step: 0.1
+                    min: -10.0
+                    max: 10.0
+
+                    labelAreaWidth: -1
+                    controlAreaWidth: spinBoxWidth
+                }
             }
         }
 
