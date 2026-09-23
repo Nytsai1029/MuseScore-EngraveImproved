@@ -126,12 +126,6 @@ Every user-facing string must be translatable, and `share/locale/musescore_en.ts
   `symnames.cpp` are exempt. Ignore lupdate's pre-existing parser warnings (`.mm`/`.js`/fluidsynth/`api/v1`).
 - Never hand-edit the `.ts`. Never touch other `*_<lang>.ts` / `instruments_*.ts` — they come from Transifex.
 
-## Feature specs
-
-In-progress fork features have specs in `.kiro/specs/<feature>/` (`requirements.md` in EARS format,
-`design.md`, `tasks.md`), e.g. `fit-music-reflow`, `font-design`, `split-tie`. Read the spec before working on
-that feature.
-
 ## Gotchas
 
 - Unity builds can hide a missing `#include`; the non-unity `compile_commands` build exposes it.
