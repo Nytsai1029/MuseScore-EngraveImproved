@@ -49,6 +49,7 @@ public:
     glyph_idx_t glyphIndex(char32_t ucs4) const override;
     glyph_idx_t glyphIndex(const std::string& glyphName) const override;
     char32_t findCharCode(glyph_idx_t idx) const override;
+    std::vector<char32_t> characterCodes() const override;
 
     FBBox glyphBbox(glyph_idx_t idx) const override;
     f26dot6_t glyphAdvance(glyph_idx_t idx) const override;

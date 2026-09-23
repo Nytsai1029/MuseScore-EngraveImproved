@@ -2485,11 +2485,15 @@ void TRead::read(FSymbol* sym, XmlReader& e, ReadContext& ctx)
     while (e.readNextStartElement()) {
         const AsciiStringView tag(e.name());
         if (tag == "font") {
-            font.setFamily(e.readText(), Font::Type::Unknown);
+            font.setFamily(e.readText(), font.type());
         } else if (tag == "fontsize") {
             font.setPointSizeF(e.readDouble());
         } else if (tag == "code") {
             sym->setCode(e.readInt());
+        } else if (tag == "fonttype") {
+            if (e.readText() == "MusicSymbolText") {
+                font.setFamily(font.family(), Font::Type::MusicSymbolText);
+            }
         } else if (!TRead::readProperties(static_cast<BSymbol*>(sym), e, ctx)) {
             e.unknown();
         }

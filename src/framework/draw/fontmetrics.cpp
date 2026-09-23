@@ -114,6 +114,11 @@ bool FontMetrics::inFontUcs4(char32_t ucs4) const
     return fontProvider()->inFontUcs4(m_font, ucs4);
 }
 
+std::vector<char32_t> FontMetrics::characterCodes() const
+{
+    return fontProvider()->characterCodes(m_font);
+}
+
 // Static
 
 double FontMetrics::width(const Font& f, const String& string)

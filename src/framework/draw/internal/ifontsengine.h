@@ -22,6 +22,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "global/modularity/imoduleinterface.h"
 #include "types/font.h"
@@ -43,6 +44,8 @@ public:
     virtual double descent(const Font& f) const = 0;
 
     virtual bool inFontUcs4(const Font& f, char32_t ucs4) const = 0;
+    //! Unicode cmap of the requested face only; empty if the family would fall back to another font.
+    virtual std::vector<char32_t> characterCodes(const Font& f) const = 0;
 
     virtual double horizontalAdvance(const Font& f, const char32_t& ch) const = 0;
     virtual double horizontalAdvance(const Font& f, const std::u32string& text) const = 0;

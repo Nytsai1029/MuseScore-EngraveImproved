@@ -1689,11 +1689,24 @@ TextBlock TextBlock::split(int column, TextCursor* cursor)
     return tl;
 }
 
+static std::shared_ptr<IEngravingFontsProvider> engravingFontsProvider()
+{
+    static std::shared_ptr<IEngravingFontsProvider> provider
+        = muse::modularity::globalIoc()->resolve<IEngravingFontsProvider>("engraving");
+    return provider;
+}
+
+static SymId symIdFromTextChar(Char c)
+{
+    return engravingFontsProvider()->fallbackFont()->fromCode(c.unicode());
+}
+
 static String toSymbolXml(Char c)
 {
-    static std::shared_ptr<IEngravingFontsProvider> provider = muse::modularity::globalIoc()->resolve<IEngravingFontsProvider>("engraving");
-
-    SymId symId = provider->fallbackFont()->fromCode(c.unicode());
+    const SymId symId = symIdFromTextChar(c);
+    if (symId == SymId::noSym) {
+        return String::toXmlEscaped(c.unicode());
+    }
     return u"<sym>" + String::fromAscii(SymNames::nameForSymId(symId).ascii()) + u"</sym>";
 }
 
@@ -2315,7 +2328,12 @@ String TextBase::genText(const LayoutData* ldata) const
             }
             if (format.fontFamily() == u"ScoreText") {
                 for (size_t i = 0; i < f.text.size(); ++i) {
-                    text += toSymbolXml(f.text.at(i));
+                    const Char c = f.text.at(i);
+                    if (symIdFromTextChar(c) == SymId::noSym && fmt.fontFamily() != u"ScoreText") {
+                        text += String(u"<font face=\"ScoreText\"/>");
+                        fmt.setFontFamily(u"ScoreText");
+                    }
+                    text += toSymbolXml(c);
                 }
             } else {
                 text += XmlWriter::xmlString(f.text);

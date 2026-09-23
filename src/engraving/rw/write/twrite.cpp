@@ -3099,6 +3099,9 @@ void TWrite::write(const FSymbol* item, XmlWriter& xml, WriteContext& ctx)
     xml.tag("font",     item->font().family().id());
     xml.tag("fontsize", item->font().pointSizeF());
     xml.tag("code",     item->code());
+    if (item->font().type() == muse::draw::Font::Type::MusicSymbolText) {
+        xml.tag("fonttype", String(u"MusicSymbolText"));
+    }
     writeProperties(static_cast<const BSymbol*>(item), xml, ctx);
     xml.endElement();
 }

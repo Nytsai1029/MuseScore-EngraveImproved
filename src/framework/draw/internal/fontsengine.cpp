@@ -159,6 +159,26 @@ bool FontsEngine::inFontUcs4(const Font& f, char32_t ucs4) const
     return rf->face->glyphIndex(ucs4) != 0;
 }
 
+std::vector<char32_t> FontsEngine::characterCodes(const Font& f) const
+{
+    FaceKey requireKey = faceKeyForFont(f);
+    if (requireKey.type == Font::Type::Undefined || requireKey.type == Font::Type::Unknown) {
+        requireKey.type = Font::Type::Text;
+    }
+
+    const FontDataKey actualDataKey = fontsDatabase()->actualFont(requireKey.dataKey, requireKey.type);
+    if (actualDataKey != requireKey.dataKey) {
+        return {};
+    }
+
+    RequireFace* rf = fontFace(f);
+    if (!rf || !rf->face) {
+        return {};
+    }
+
+    return rf->face->characterCodes();
+}
+
 double FontsEngine::horizontalAdvance(const Font& f, const char32_t& ch) const
 {
     RequireFace* rf = fontFace(f);

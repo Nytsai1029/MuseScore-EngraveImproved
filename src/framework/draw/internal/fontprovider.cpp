@@ -73,6 +73,11 @@ bool FontProvider::inFontUcs4(const muse::draw::Font& f, char32_t ucs4) const
     return fontsEngine()->inFontUcs4(f, ucs4);
 }
 
+std::vector<char32_t> FontProvider::characterCodes(const muse::draw::Font& f) const
+{
+    return fontsEngine()->characterCodes(f);
+}
+
 // Text
 double FontProvider::horizontalAdvance(const muse::draw::Font& f, const muse::String& string) const
 {

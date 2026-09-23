@@ -25,6 +25,8 @@
 #include <msdfgen.h>
 #endif
 
+#include <vector>
+
 #include "global/io/path.h"
 #include "types/fontstypes.h"
 
@@ -62,6 +64,7 @@ public:
     virtual glyph_idx_t glyphIndex(char32_t ucs4) const = 0;
     virtual glyph_idx_t glyphIndex(const std::string& glyphName) const = 0;
     virtual char32_t findCharCode(glyph_idx_t idx) const = 0; // for tests
+    virtual std::vector<char32_t> characterCodes() const = 0;
 
     virtual FBBox glyphBbox(glyph_idx_t idx) const = 0;
     virtual f26dot6_t glyphAdvance(glyph_idx_t idx) const = 0;

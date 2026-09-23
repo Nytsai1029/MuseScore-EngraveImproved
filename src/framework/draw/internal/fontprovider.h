@@ -48,6 +48,7 @@ public:
 
     bool inFont(const Font& f, Char ch) const override;
     bool inFontUcs4(const Font& f, char32_t ucs4) const override;
+    std::vector<char32_t> characterCodes(const Font& f) const override;
 
     // Text
     double horizontalAdvance(const Font& f, const String& string) const override;

@@ -21,18 +21,31 @@
  */
 #include "specialcharactersdialog.h"
 
+#include <QLabel>
 #include <QListWidget>
 #include <QSplitter>
+#include <QVBoxLayout>
+#include <QWidget>
+
+#include <unordered_map>
 
 #include "palettewidget.h"
 
 #include "translation.h"
 
+#include "draw/fontmetrics.h"
+
 #include "engraving/dom/masterscore.h"
 #include "engraving/dom/score.h"
 #include "engraving/dom/symbol.h"
-#include "engraving/types/symnames.h"
+#include "engraving/dom/textbase.h"
 #include "engraving/infrastructure/smufl.h"
+#include "engraving/style/styledef.h"
+#include "engraving/types/symnames.h"
+
+#include "notation/inotation.h"
+#include "notation/inotationinteraction.h"
+#include "notation/inotationstyle.h"
 
 #include "ui/view/widgetstatestore.h"
 
@@ -41,6 +54,7 @@ static const QString SPECIAL_CHARACTERS_DIALOG_NAME("SpecialCharactersDialog");
 using namespace mu::engraving;
 using namespace mu::notation;
 using namespace mu::palette;
+using namespace muse;
 using namespace muse::ui;
 
 static constexpr SymId commonScoreSymbols[] = {
@@ -404,6 +418,51 @@ static constexpr UnicodeRange unicodeRanges[] = {
     { 0x100000, 0x10FFFD, QT_TRANSLATE_NOOP("palette/unicodeRanges", "Supplementary Private Use Area-B") }
 };
 
+static constexpr int UNICODE_RANGE_COUNT = static_cast<int>(sizeof(unicodeRanges) / sizeof(unicodeRanges[0]));
+static constexpr int MUSIC_TEXT_RANGE_ALL = -1;
+static constexpr int MUSIC_TEXT_RANGE_OTHER = -2;
+
+static int unicodeRangeIndexForCode(char32_t code)
+{
+    for (int i = 0; i < UNICODE_RANGE_COUNT; ++i) {
+        if (code >= unicodeRanges[i].first && code <= unicodeRanges[i].last) {
+            return i;
+        }
+    }
+    return MUSIC_TEXT_RANGE_OTHER;
+}
+
+static SymId symIdForSmuflCode(char32_t code)
+{
+    static std::unordered_map<char32_t, SymId> map;
+    if (map.empty()) {
+        for (size_t i = 1; i < size_t(SymId::lastSym); ++i) {
+            const SymId id = static_cast<SymId>(i);
+            const Smufl::Code smufl = Smufl::code(id);
+            if (smufl.smuflCode) {
+                map.emplace(smufl.smuflCode, id);
+            }
+            if (smufl.musicSymBlockCode) {
+                map.emplace(smufl.musicSymBlockCode, id);
+            }
+        }
+    }
+
+    auto it = map.find(code);
+    return it == map.end() ? SymId::noSym : it->second;
+}
+
+static QString musicTextGlyphName(char32_t code)
+{
+    const SymId id = symIdForSmuflCode(code);
+    if (id != SymId::noSym) {
+        return SymNames::translatedUserNameForSymId(id);
+    }
+
+    const QString hex = QString::number(static_cast<uint>(code), 16).toUpper();
+    return QString("U+%1").arg(hex.rightJustified(4, QLatin1Char('0')));
+}
+
 //---------------------------------------------------------
 //   SpecialCharactersDialog
 //---------------------------------------------------------
@@ -430,6 +489,11 @@ SpecialCharactersDialog::SpecialCharactersDialog(QWidget* parent)
     m_pUnicode->setGridSize(33, 60);
     m_pUnicode->setReadOnly(true);
 
+    m_pMusicText = new PaletteWidget;
+    m_pMusicText->setMag(0.8);
+    m_pMusicText->setGridSize(33, 60);
+    m_pMusicText->setReadOnly(true);
+
     PaletteScrollArea* psa = new PaletteScrollArea(m_pCommon);
     psa->setRestrictHeight(false);
 
@@ -454,6 +518,25 @@ SpecialCharactersDialog::SpecialCharactersDialog(QWidget* parent)
     ws->addWidget(psa);
 
     tabWidget->addTab(ws, muse::qtrc("palette", "Musical symbols"));
+
+    QWidget* musicTextPage = new QWidget;
+    QVBoxLayout* musicTextLayout = new QVBoxLayout(musicTextPage);
+    musicTextLayout->setContentsMargins(6, 6, 6, 0);
+    musicTextLayout->setSpacing(6);
+
+    m_musicTextFontLabel = new QLabel;
+    musicTextLayout->addWidget(m_musicTextFontLabel);
+
+    PaletteScrollArea* pmt = new PaletteScrollArea(m_pMusicText);
+    pmt->setRestrictHeight(false);
+
+    QSplitter* wmt = new QSplitter;
+    m_lwmt = new QListWidget;
+    wmt->addWidget(m_lwmt);
+    wmt->addWidget(pmt);
+    musicTextLayout->addWidget(wmt, 1);
+
+    tabWidget->addTab(musicTextPage, muse::qtrc("palette", "Music text"));
 
     psa = new PaletteScrollArea(m_pUnicode);
     psa->setRestrictHeight(false);
@@ -480,9 +563,12 @@ SpecialCharactersDialog::SpecialCharactersDialog(QWidget* parent)
 
     connect(m_lws, &QListWidget::currentRowChanged, this, &SpecialCharactersDialog::populateSmufl);
     connect(m_lwu, &QListWidget::currentRowChanged, this, &SpecialCharactersDialog::populateUnicode);
+    connect(m_lwmt, &QListWidget::currentRowChanged, this, &SpecialCharactersDialog::populateMusicText);
 
     // others are done in setFont
     populateSmufl();
+    listenToMusicTextFontChanges();
+    refreshMusicText();
 
     setFocusPolicy(Qt::NoFocus);
 
@@ -499,6 +585,7 @@ void SpecialCharactersDialog::showEvent(QShowEvent* event)
 {
     WidgetStateStore::restoreGeometry(this);
     TopLevelDialog::showEvent(event);
+    refreshMusicText();
 }
 
 void SpecialCharactersDialog::hideEvent(QHideEvent* event)
@@ -725,4 +812,134 @@ void SpecialCharactersDialog::setFont(const muse::draw::Font& font)
     populateUnicode();
     populateCommon();
     update();
+}
+
+muse::draw::Font SpecialCharactersDialog::currentMusicTextFont() const
+{
+    String family(u"Leland Text");
+    INotationPtr notation = globalContext()->currentNotation();
+    if (notation && notation->style()) {
+        const String styleFamily = notation->style()->styleValue(Sid::musicalTextFont).value<String>();
+        if (!styleFamily.empty()) {
+            family = styleFamily;
+        }
+    }
+
+    muse::draw::Font font(family, muse::draw::Font::Type::MusicSymbolText);
+    font.setPointSizeF(20);
+    font.setNoFontMerging(true);
+    return font;
+}
+
+void SpecialCharactersDialog::listenToMusicTextFontChanges()
+{
+    auto subscribeToStyle = [this]() {
+        INotationPtr notation = globalContext()->currentNotation();
+        if (notation && notation->style()) {
+            notation->style()->styleChanged().onNotify(this, [this]() {
+                refreshMusicText();
+            });
+        }
+    };
+
+    globalContext()->currentNotationChanged().onNotify(this, [this, subscribeToStyle]() {
+        subscribeToStyle();
+        refreshMusicText();
+    });
+
+    subscribeToStyle();
+}
+
+void SpecialCharactersDialog::refreshMusicText()
+{
+    m_musicTextFont = currentMusicTextFont();
+    if (m_musicTextFontLabel) {
+        m_musicTextFontLabel->setText(m_musicTextFont.family().id().toQString());
+    }
+
+    if (!m_lwmt) {
+        return;
+    }
+
+    muse::draw::FontMetrics fm(m_musicTextFont);
+    m_musicTextCodes = fm.characterCodes();
+
+    QString previousRange;
+    if (m_lwmt->currentItem()) {
+        previousRange = m_lwmt->currentItem()->data(Qt::UserRole).toString();
+    }
+
+    std::vector<char> rangeHasGlyph(UNICODE_RANGE_COUNT, 0);
+    bool hasOther = false;
+    for (char32_t code : m_musicTextCodes) {
+        const int index = unicodeRangeIndexForCode(code);
+        if (index == MUSIC_TEXT_RANGE_OTHER) {
+            hasOther = true;
+        } else {
+            rangeHasGlyph[index] = 1;
+        }
+    }
+
+    m_lwmt->blockSignals(true);
+    m_lwmt->clear();
+
+    QListWidgetItem* itemToSelect = nullptr;
+    auto addRangeItem = [this, &previousRange, &itemToSelect](const QString& name, int role) {
+        QListWidgetItem* item = new QListWidgetItem(name);
+        item->setData(Qt::UserRole, role);
+        m_lwmt->addItem(item);
+        if (QString::number(role) == previousRange) {
+            itemToSelect = item;
+        }
+    };
+
+    if (!m_musicTextCodes.empty()) {
+        addRangeItem(muse::qtrc("palette", "All glyphs"), MUSIC_TEXT_RANGE_ALL);
+    }
+
+    for (int i = 0; i < UNICODE_RANGE_COUNT; ++i) {
+        if (!rangeHasGlyph[i]) {
+            continue;
+        }
+        addRangeItem(muse::qtrc("palette/unicodeRanges", unicodeRanges[i].name), i);
+    }
+
+    if (hasOther) {
+        addRangeItem(muse::qtrc("palette", "Other"), MUSIC_TEXT_RANGE_OTHER);
+    }
+
+    if (!itemToSelect && m_lwmt->count() > 0) {
+        itemToSelect = m_lwmt->item(0);
+    }
+    m_lwmt->setCurrentItem(itemToSelect);
+    m_lwmt->blockSignals(false);
+
+    populateMusicText();
+}
+
+void SpecialCharactersDialog::populateMusicText()
+{
+    m_pMusicText->clear();
+    if (!m_lwmt || !m_lwmt->currentItem()) {
+        return;
+    }
+
+    const int rangeIdx = m_lwmt->currentItem()->data(Qt::UserRole).toInt();
+    for (char32_t code : m_musicTextCodes) {
+        if (rangeIdx >= 0) {
+            const UnicodeRange& range = unicodeRanges[rangeIdx];
+            if (code < range.first || code > range.last) {
+                continue;
+            }
+        } else if (rangeIdx == MUSIC_TEXT_RANGE_OTHER) {
+            if (unicodeRangeIndexForCode(code) != MUSIC_TEXT_RANGE_OTHER) {
+                continue;
+            }
+        }
+
+        std::shared_ptr<FSymbol> fs = std::make_shared<FSymbol>(gpaletteScore->dummy());
+        fs->setCode(code);
+        fs->setFont(m_musicTextFont);
+        m_pMusicText->appendElement(fs, musicTextGlyphName(code));
+    }
 }

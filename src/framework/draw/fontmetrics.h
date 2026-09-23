@@ -25,6 +25,8 @@
 #include "global/types/string.h"
 #include "global/modularity/ioc.h"
 
+#include <vector>
+
 #include "types/font.h"
 #include "types/geometry.h"
 
@@ -59,6 +61,7 @@ public:
 
     bool inFont(Char ch) const;
     bool inFontUcs4(char32_t ucs4) const;
+    std::vector<char32_t> characterCodes() const;
 
     static double width(const Font& f, const String& string);
     static RectF boundingRect(const Font& f, const String& string);

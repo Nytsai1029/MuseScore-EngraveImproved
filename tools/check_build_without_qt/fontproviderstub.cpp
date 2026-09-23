@@ -48,6 +48,11 @@ bool FontProviderStub::inFontUcs4(const Font&, char32_t) const
     return false;
 }
 
+std::vector<char32_t> FontProviderStub::characterCodes(const Font&) const
+{
+    return {};
+}
+
 // Text
 double FontProviderStub::horizontalAdvance(const Font&, const String&) const
 {

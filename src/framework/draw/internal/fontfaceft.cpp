@@ -259,6 +259,27 @@ char32_t FontFaceFT::findCharCode(glyph_idx_t idx) const
     return c;
 }
 
+std::vector<char32_t> FontFaceFT::characterCodes() const
+{
+    std::vector<char32_t> codes;
+    if (!m_data || !m_data->face) {
+        return codes;
+    }
+
+    FT_Face face = m_data->face;
+    if (face->num_glyphs > 0) {
+        codes.reserve(static_cast<size_t>(face->num_glyphs));
+    }
+
+    FT_UInt gindex = 0;
+    FT_ULong charcode = FT_Get_First_Char(face, &gindex);
+    while (gindex != 0) {
+        codes.push_back(static_cast<char32_t>(charcode));
+        charcode = FT_Get_Next_Char(face, charcode, &gindex);
+    }
+    return codes;
+}
+
 FBBox FontFaceFT::glyphBbox(glyph_idx_t idx) const
 {
     if (isSymbolMode()) {

@@ -82,6 +82,11 @@ bool FontProviderDispatcher::inFontUcs4(const muse::draw::Font& f, char32_t ucs4
     return ret;
 }
 
+std::vector<char32_t> FontProviderDispatcher::characterCodes(const muse::draw::Font& f) const
+{
+    return m_mainFProvider->characterCodes(f);
+}
+
 // Text
 double FontProviderDispatcher::horizontalAdvance(const muse::draw::Font& f, const muse::String& string) const
 {

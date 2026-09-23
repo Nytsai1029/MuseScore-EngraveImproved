@@ -170,6 +170,11 @@ char32_t FontFaceDU::findCharCode(glyph_idx_t idx) const
     return m_origin->findCharCode(idx);
 }
 
+std::vector<char32_t> FontFaceDU::characterCodes() const
+{
+    return m_origin->characterCodes();
+}
+
 FBBox FontFaceDU::glyphBbox(glyph_idx_t idx) const
 {
     if (idx == 0) {

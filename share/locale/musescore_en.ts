@@ -33967,1536 +33967,1551 @@ failed: %2</translation>
         <translation type="unfinished">Are you sure you want to delete palette cell “%1”?</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="437"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="501"/>
         <source>Common symbols</source>
         <translation type="unfinished">Common symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="456"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="520"/>
         <source>Musical symbols</source>
         <translation type="unfinished">Musical symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="479"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="539"/>
+        <source>Music text</source>
+        <translation type="unfinished">Music text</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="562"/>
         <source>Unicode symbols</source>
         <translation type="unfinished">Unicode symbols</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="897"/>
+        <source>All glyphs</source>
+        <translation type="unfinished">All glyphs</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="908"/>
+        <source>Other</source>
+        <translation type="unfinished">Other</translation>
     </message>
 </context>
 <context>
     <name>palette/unicodeRanges</name>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="102"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="116"/>
         <source>Basic Latin</source>
         <extracomment>For strings in the &quot;palette/unicodeRanges&quot; context, it may help to refer to https://en.wikipedia.org/wiki/Unicode_block or translated versions of this resource.</extracomment>
         <translation type="unfinished">Basic Latin</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="103"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="117"/>
         <source>Latin-1 Supplement</source>
         <translation type="unfinished">Latin-1 Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="104"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="118"/>
         <source>Latin Extended-A</source>
         <translation type="unfinished">Latin Extended-A</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="105"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="119"/>
         <source>Latin Extended-B</source>
         <translation type="unfinished">Latin Extended-B</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="106"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="120"/>
         <source>IPA Extensions</source>
         <translation type="unfinished">IPA Extensions</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="107"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="121"/>
         <source>Spacing Modifier Letters</source>
         <translation type="unfinished">Spacing Modifier Letters</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="108"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="122"/>
         <source>Combining Diacritical Marks</source>
         <translation type="unfinished">Combining Diacritical Marks</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="109"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="123"/>
         <source>Greek and Coptic</source>
         <translation type="unfinished">Greek and Coptic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="110"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="124"/>
         <source>Cyrillic</source>
         <translation type="unfinished">Cyrillic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="111"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="125"/>
         <source>Cyrillic Supplement</source>
         <translation type="unfinished">Cyrillic Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="112"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="126"/>
         <source>Armenian</source>
         <translation type="unfinished">Armenian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="113"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="127"/>
         <source>Hebrew</source>
         <translation type="unfinished">Hebrew</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="114"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="128"/>
         <source>Arabic</source>
         <translation type="unfinished">Arabic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="115"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="129"/>
         <source>Syriac</source>
         <translation type="unfinished">Syriac</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="116"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="130"/>
         <source>Arabic Supplement</source>
         <translation type="unfinished">Arabic Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="117"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="131"/>
         <source>Thaana</source>
         <translation type="unfinished">Thaana</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="118"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="132"/>
         <source>NKo</source>
         <translation type="unfinished">NKo</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="119"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="133"/>
         <source>Samaritan</source>
         <translation type="unfinished">Samaritan</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="120"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="134"/>
         <source>Mandaic</source>
         <translation type="unfinished">Mandaic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="121"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="135"/>
         <source>Syriac Supplement</source>
         <translation type="unfinished">Syriac Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="122"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="136"/>
         <source>Arabic Extended-A</source>
         <translation type="unfinished">Arabic Extended-A</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="123"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="137"/>
         <source>Devanagari</source>
         <translation type="unfinished">Devanagari</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="124"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="138"/>
         <source>Bengali</source>
         <translation type="unfinished">Bengali</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="125"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="139"/>
         <source>Gurmukhi</source>
         <translation type="unfinished">Gurmukhi</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="126"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="140"/>
         <source>Gujarati</source>
         <translation type="unfinished">Gujarati</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="127"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="141"/>
         <source>Oriya</source>
         <translation type="unfinished">Oriya</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="128"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="142"/>
         <source>Tamil</source>
         <translation type="unfinished">Tamil</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="129"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="143"/>
         <source>Telugu</source>
         <translation type="unfinished">Telugu</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="130"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="144"/>
         <source>Kannada</source>
         <translation type="unfinished">Kannada</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="131"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="145"/>
         <source>Malayalam</source>
         <translation type="unfinished">Malayalam</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="132"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="146"/>
         <source>Sinhala</source>
         <translation type="unfinished">Sinhala</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="133"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="147"/>
         <source>Thai</source>
         <translation type="unfinished">Thai</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="134"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="148"/>
         <source>Lao</source>
         <translation type="unfinished">Lao</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="135"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="149"/>
         <source>Tibetan</source>
         <translation type="unfinished">Tibetan</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="136"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="150"/>
         <source>Myanmar</source>
         <translation type="unfinished">Myanmar</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="137"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="151"/>
         <source>Georgian</source>
         <translation type="unfinished">Georgian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="138"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="152"/>
         <source>Hangul Jamo</source>
         <translation type="unfinished">Hangul Jamo</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="139"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="153"/>
         <source>Ethiopic</source>
         <translation type="unfinished">Ethiopic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="140"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="154"/>
         <source>Ethiopic Supplement</source>
         <translation type="unfinished">Ethiopic Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="141"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="155"/>
         <source>Cherokee</source>
         <translation type="unfinished">Cherokee</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="142"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="156"/>
         <source>Unified Canadian Aboriginal Syllabics</source>
         <translation type="unfinished">Unified Canadian Aboriginal Syllabics</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="143"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="157"/>
         <source>Ogham</source>
         <translation type="unfinished">Ogham</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="144"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="158"/>
         <source>Runic</source>
         <translation type="unfinished">Runic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="145"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="159"/>
         <source>Tagalog</source>
         <translation type="unfinished">Tagalog</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="146"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="160"/>
         <source>Hanunoo</source>
         <translation type="unfinished">Hanunoo</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="147"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="161"/>
         <source>Buhid</source>
         <translation type="unfinished">Buhid</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="148"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="162"/>
         <source>Tagbanwa</source>
         <translation type="unfinished">Tagbanwa</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="149"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="163"/>
         <source>Khmer</source>
         <translation type="unfinished">Khmer</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="150"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="164"/>
         <source>Mongolian</source>
         <translation type="unfinished">Mongolian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="151"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="165"/>
         <source>Unified Canadian Aboriginal Syllabics Extended</source>
         <translation type="unfinished">Unified Canadian Aboriginal Syllabics Extended</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="152"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="166"/>
         <source>Limbu</source>
         <translation type="unfinished">Limbu</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="153"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="167"/>
         <source>Tai Le</source>
         <translation type="unfinished">Tai Le</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="154"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="168"/>
         <source>New Tai Lue</source>
         <translation type="unfinished">New Tai Lue</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="155"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="169"/>
         <source>Khmer Symbols</source>
         <translation type="unfinished">Khmer Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="156"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="170"/>
         <source>Buginese</source>
         <translation type="unfinished">Buginese</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="157"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="171"/>
         <source>Tai Tham</source>
         <translation type="unfinished">Tai Tham</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="158"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="172"/>
         <source>Combining Diacritical Marks Extended</source>
         <translation type="unfinished">Combining Diacritical Marks Extended</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="159"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="173"/>
         <source>Balinese</source>
         <translation type="unfinished">Balinese</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="160"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="174"/>
         <source>Sundanese</source>
         <translation type="unfinished">Sundanese</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="161"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="175"/>
         <source>Batak</source>
         <translation type="unfinished">Batak</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="162"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="176"/>
         <source>Lepcha</source>
         <translation type="unfinished">Lepcha</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="163"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="177"/>
         <source>Ol Chiki</source>
         <translation type="unfinished">Ol Chiki</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="164"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="178"/>
         <source>Cyrillic Extended-C</source>
         <translation type="unfinished">Cyrillic Extended-C</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="165"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="179"/>
         <source>Georgian Extended</source>
         <translation type="unfinished">Georgian Extended</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="166"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="180"/>
         <source>Sundanese Supplement</source>
         <translation type="unfinished">Sundanese Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="167"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="181"/>
         <source>Vedic Extensions</source>
         <translation type="unfinished">Vedic Extensions</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="168"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="182"/>
         <source>Phonetic Extensions</source>
         <translation type="unfinished">Phonetic Extensions</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="169"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="183"/>
         <source>Phonetic Extensions Supplement</source>
         <translation type="unfinished">Phonetic Extensions Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="170"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="184"/>
         <source>Combining Diacritical Marks Supplement</source>
         <translation type="unfinished">Combining Diacritical Marks Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="171"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="185"/>
         <source>Latin Extended Additional</source>
         <translation type="unfinished">Latin Extended Additional</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="172"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="186"/>
         <source>Greek Extended</source>
         <translation type="unfinished">Greek Extended</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="173"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="187"/>
         <source>General Punctuation</source>
         <translation type="unfinished">General Punctuation</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="174"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="188"/>
         <source>Superscripts and Subscripts</source>
         <translation type="unfinished">Superscripts and Subscripts</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="175"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="189"/>
         <source>Currency Symbols</source>
         <translation type="unfinished">Currency Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="176"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="190"/>
         <source>Combining Diacritical Marks for Symbols</source>
         <translation type="unfinished">Combining Diacritical Marks for Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="177"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="191"/>
         <source>Letterlike Symbols</source>
         <translation type="unfinished">Letterlike Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="178"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="192"/>
         <source>Number Forms</source>
         <translation type="unfinished">Number Forms</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="179"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="193"/>
         <source>Arrows</source>
         <translation type="unfinished">Arrows</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="180"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="194"/>
         <source>Mathematical Operators</source>
         <translation type="unfinished">Mathematical Operators</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="181"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="195"/>
         <source>Miscellaneous Technical</source>
         <translation type="unfinished">Miscellaneous Technical</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="182"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="196"/>
         <source>Control Pictures</source>
         <translation type="unfinished">Control Pictures</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="183"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="197"/>
         <source>Optical Character Recognition</source>
         <translation type="unfinished">Optical Character Recognition</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="184"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="198"/>
         <source>Enclosed Alphanumerics</source>
         <translation type="unfinished">Enclosed Alphanumerics</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="185"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="199"/>
         <source>Box Drawing</source>
         <translation type="unfinished">Box Drawing</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="186"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="200"/>
         <source>Block Elements</source>
         <translation type="unfinished">Block Elements</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="187"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="201"/>
         <source>Geometric Shapes</source>
         <translation type="unfinished">Geometric Shapes</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="188"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="202"/>
         <source>Miscellaneous Symbols</source>
         <translation type="unfinished">Miscellaneous Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="189"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="203"/>
         <source>Dingbats</source>
         <translation type="unfinished">Dingbats</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="190"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="204"/>
         <source>Miscellaneous Mathematical Symbols-A</source>
         <translation type="unfinished">Miscellaneous Mathematical Symbols-A</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="191"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="205"/>
         <source>Supplemental Arrows-A</source>
         <translation type="unfinished">Supplemental Arrows-A</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="192"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="206"/>
         <source>Braille Patterns</source>
         <translation type="unfinished">Braille Patterns</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="193"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="207"/>
         <source>Supplemental Arrows-B</source>
         <translation type="unfinished">Supplemental Arrows-B</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="194"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="208"/>
         <source>Miscellaneous Mathematical Symbols-B</source>
         <translation type="unfinished">Miscellaneous Mathematical Symbols-B</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="195"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="209"/>
         <source>Supplemental Mathematical Operators</source>
         <translation type="unfinished">Supplemental Mathematical Operators</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="196"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="210"/>
         <source>Miscellaneous Symbols and Arrows</source>
         <translation type="unfinished">Miscellaneous Symbols and Arrows</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="197"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="211"/>
         <source>Glagolitic</source>
         <translation type="unfinished">Glagolitic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="198"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="212"/>
         <source>Latin Extended-C</source>
         <translation type="unfinished">Latin Extended-C</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="199"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="213"/>
         <source>Coptic</source>
         <translation type="unfinished">Coptic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="200"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="214"/>
         <source>Georgian Supplement</source>
         <translation type="unfinished">Georgian Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="201"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="215"/>
         <source>Tifinagh</source>
         <translation type="unfinished">Tifinagh</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="202"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="216"/>
         <source>Ethiopic Extended</source>
         <translation type="unfinished">Ethiopic Extended</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="203"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="217"/>
         <source>Cyrillic Extended-A</source>
         <translation type="unfinished">Cyrillic Extended-A</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="204"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="218"/>
         <source>Supplemental Punctuation</source>
         <translation type="unfinished">Supplemental Punctuation</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="205"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="219"/>
         <source>CJK Radicals Supplement</source>
         <translation type="unfinished">CJK Radicals Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="206"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="220"/>
         <source>Kangxi Radicals</source>
         <translation type="unfinished">Kangxi Radicals</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="207"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="221"/>
         <source>Ideographic Description Characters</source>
         <translation type="unfinished">Ideographic Description Characters</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="208"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="222"/>
         <source>CJK Symbols and Punctuation</source>
         <translation type="unfinished">CJK Symbols and Punctuation</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="209"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="223"/>
         <source>Hiragana</source>
         <translation type="unfinished">Hiragana</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="210"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="224"/>
         <source>Katakana</source>
         <translation type="unfinished">Katakana</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="211"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="225"/>
         <source>Bopomofo</source>
         <translation type="unfinished">Bopomofo</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="212"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="226"/>
         <source>Hangul Compatibility Jamo</source>
         <translation type="unfinished">Hangul Compatibility Jamo</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="213"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="227"/>
         <source>Kanbun</source>
         <translation type="unfinished">Kanbun</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="214"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="228"/>
         <source>Bopomofo Extended</source>
         <translation type="unfinished">Bopomofo Extended</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="215"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="229"/>
         <source>CJK Strokes</source>
         <translation type="unfinished">CJK Strokes</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="216"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="230"/>
         <source>Katakana Phonetic Extensions</source>
         <translation type="unfinished">Katakana Phonetic Extensions</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="217"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="231"/>
         <source>Enclosed CJK Letters and Months</source>
         <translation type="unfinished">Enclosed CJK Letters and Months</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="218"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="232"/>
         <source>CJK Compatibility</source>
         <translation type="unfinished">CJK Compatibility</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="219"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="233"/>
         <source>CJK Unified Ideographs Extension A</source>
         <translation type="unfinished">CJK Unified Ideographs Extension A</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="220"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="234"/>
         <source>Yijing Hexagram Symbols</source>
         <translation type="unfinished">Yijing Hexagram Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="221"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="235"/>
         <source>CJK Unified Ideographs</source>
         <translation type="unfinished">CJK Unified Ideographs</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="222"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="236"/>
         <source>Yi Syllables</source>
         <translation type="unfinished">Yi Syllables</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="223"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="237"/>
         <source>Yi Radicals</source>
         <translation type="unfinished">Yi Radicals</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="224"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="238"/>
         <source>Lisu</source>
         <translation type="unfinished">Lisu</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="225"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="239"/>
         <source>Vai</source>
         <translation type="unfinished">Vai</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="226"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="240"/>
         <source>Cyrillic Extended-B</source>
         <translation type="unfinished">Cyrillic Extended-B</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="227"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="241"/>
         <source>Bamum</source>
         <translation type="unfinished">Bamum</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="228"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="242"/>
         <source>Modifier Tone Letters</source>
         <translation type="unfinished">Modifier Tone Letters</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="229"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="243"/>
         <source>Latin Extended-D</source>
         <translation type="unfinished">Latin Extended-D</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="230"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="244"/>
         <source>Syloti Nagri</source>
         <translation type="unfinished">Syloti Nagri</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="231"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="245"/>
         <source>Common Indic Number Forms</source>
         <translation type="unfinished">Common Indic Number Forms</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="232"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="246"/>
         <source>Phags-pa</source>
         <translation type="unfinished">Phags-pa</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="233"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="247"/>
         <source>Saurashtra</source>
         <translation type="unfinished">Saurashtra</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="234"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="248"/>
         <source>Devanagari Extended</source>
         <translation type="unfinished">Devanagari Extended</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="235"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="249"/>
         <source>Kayah Li</source>
         <translation type="unfinished">Kayah Li</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="236"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="250"/>
         <source>Rejang</source>
         <translation type="unfinished">Rejang</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="237"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="251"/>
         <source>Hangul Jamo Extended-A</source>
         <translation type="unfinished">Hangul Jamo Extended-A</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="238"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="252"/>
         <source>Javanese</source>
         <translation type="unfinished">Javanese</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="239"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="253"/>
         <source>Myanmar Extended-B</source>
         <translation type="unfinished">Myanmar Extended-B</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="240"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="254"/>
         <source>Cham</source>
         <translation type="unfinished">Cham</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="241"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="255"/>
         <source>Myanmar Extended-A</source>
         <translation type="unfinished">Myanmar Extended-A</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="242"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="256"/>
         <source>Tai Viet</source>
         <translation type="unfinished">Tai Viet</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="243"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="257"/>
         <source>Meetei Mayek Extensions</source>
         <translation type="unfinished">Meetei Mayek Extensions</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="244"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="258"/>
         <source>Ethiopic Extended-A</source>
         <translation type="unfinished">Ethiopic Extended-A</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="245"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="259"/>
         <source>Latin Extended-E</source>
         <translation type="unfinished">Latin Extended-E</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="246"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="260"/>
         <source>Cherokee Supplement</source>
         <translation type="unfinished">Cherokee Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="247"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="261"/>
         <source>Meetei Mayek</source>
         <translation type="unfinished">Meetei Mayek</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="248"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="262"/>
         <source>Hangul Syllables</source>
         <translation type="unfinished">Hangul Syllables</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="249"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="263"/>
         <source>Hangul Jamo Extended-B</source>
         <translation type="unfinished">Hangul Jamo Extended-B</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="250"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="264"/>
         <source>High Surrogates</source>
         <translation type="unfinished">High Surrogates</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="251"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="265"/>
         <source>High Private Use Surrogates</source>
         <translation type="unfinished">High Private Use Surrogates</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="252"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="266"/>
         <source>Low Surrogates</source>
         <translation type="unfinished">Low Surrogates</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="253"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="267"/>
         <source>Private Use Area</source>
         <translation type="unfinished">Private Use Area</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="254"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="268"/>
         <source>CJK Compatibility Ideographs</source>
         <translation type="unfinished">CJK Compatibility Ideographs</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="255"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="269"/>
         <source>Alphabetic Presentation Forms</source>
         <translation type="unfinished">Alphabetic Presentation Forms</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="256"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="270"/>
         <source>Arabic Presentation Forms-A</source>
         <translation type="unfinished">Arabic Presentation Forms-A</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="257"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="271"/>
         <source>Variation Selectors</source>
         <translation type="unfinished">Variation Selectors</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="258"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="272"/>
         <source>Vertical Forms</source>
         <translation type="unfinished">Vertical Forms</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="259"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="273"/>
         <source>Combining Half Marks</source>
         <translation type="unfinished">Combining Half Marks</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="260"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="274"/>
         <source>CJK Compatibility Forms</source>
         <translation type="unfinished">CJK Compatibility Forms</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="261"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="275"/>
         <source>Small Form Variants</source>
         <translation type="unfinished">Small Form Variants</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="262"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="276"/>
         <source>Arabic Presentation Forms-B</source>
         <translation type="unfinished">Arabic Presentation Forms-B</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="263"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="277"/>
         <source>Halfwidth and Fullwidth Forms</source>
         <translation type="unfinished">Halfwidth and Fullwidth Forms</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="264"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="278"/>
         <source>Specials</source>
         <translation type="unfinished">Specials</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="265"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="279"/>
         <source>Linear B Syllabary</source>
         <translation type="unfinished">Linear B Syllabary</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="266"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="280"/>
         <source>Linear B Ideograms</source>
         <translation type="unfinished">Linear B Ideograms</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="267"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="281"/>
         <source>Aegean Numbers</source>
         <translation type="unfinished">Aegean Numbers</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="268"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="282"/>
         <source>Ancient Greek Numbers</source>
         <translation type="unfinished">Ancient Greek Numbers</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="269"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="283"/>
         <source>Ancient Symbols</source>
         <translation type="unfinished">Ancient Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="270"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="284"/>
         <source>Phaistos Disc</source>
         <translation type="unfinished">Phaistos Disc</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="271"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="285"/>
         <source>Lycian</source>
         <translation type="unfinished">Lycian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="272"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="286"/>
         <source>Carian</source>
         <translation type="unfinished">Carian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="273"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="287"/>
         <source>Coptic Epact Numbers</source>
         <translation type="unfinished">Coptic Epact Numbers</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="274"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="288"/>
         <source>Old Italic</source>
         <translation type="unfinished">Old Italic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="275"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="289"/>
         <source>Gothic</source>
         <translation type="unfinished">Gothic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="276"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="290"/>
         <source>Old Permic</source>
         <translation type="unfinished">Old Permic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="277"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="291"/>
         <source>Ugaritic</source>
         <translation type="unfinished">Ugaritic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="278"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="292"/>
         <source>Old Persian</source>
         <translation type="unfinished">Old Persian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="279"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="293"/>
         <source>Deseret</source>
         <translation type="unfinished">Deseret</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="280"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="294"/>
         <source>Shavian</source>
         <translation type="unfinished">Shavian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="281"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="295"/>
         <source>Osmanya</source>
         <translation type="unfinished">Osmanya</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="282"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="296"/>
         <source>Osage</source>
         <translation type="unfinished">Osage</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="283"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="297"/>
         <source>Elbasan</source>
         <translation type="unfinished">Elbasan</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="284"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="298"/>
         <source>Caucasian Albanian</source>
         <translation type="unfinished">Caucasian Albanian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="285"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="299"/>
         <source>Linear A</source>
         <translation type="unfinished">Linear A</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="286"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="300"/>
         <source>Cypriot Syllabary</source>
         <translation type="unfinished">Cypriot Syllabary</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="287"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="301"/>
         <source>Imperial Aramaic</source>
         <translation type="unfinished">Imperial Aramaic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="288"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="302"/>
         <source>Palmyrene</source>
         <translation type="unfinished">Palmyrene</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="289"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="303"/>
         <source>Nabataean</source>
         <translation type="unfinished">Nabataean</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="290"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="304"/>
         <source>Hatran</source>
         <translation type="unfinished">Hatran</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="291"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="305"/>
         <source>Phoenician</source>
         <translation type="unfinished">Phoenician</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="292"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="306"/>
         <source>Lydian</source>
         <translation type="unfinished">Lydian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="293"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="307"/>
         <source>Meroitic Hieroglyphs</source>
         <translation type="unfinished">Meroitic Hieroglyphs</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="294"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="308"/>
         <source>Meroitic Cursive</source>
         <translation type="unfinished">Meroitic Cursive</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="295"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="309"/>
         <source>Kharoshthi</source>
         <translation type="unfinished">Kharoshthi</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="296"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="310"/>
         <source>Old South Arabian</source>
         <translation type="unfinished">Old South Arabian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="297"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="311"/>
         <source>Old North Arabian</source>
         <translation type="unfinished">Old North Arabian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="298"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="312"/>
         <source>Manichaean</source>
         <translation type="unfinished">Manichaean</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="299"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="313"/>
         <source>Avestan</source>
         <translation type="unfinished">Avestan</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="300"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="314"/>
         <source>Inscriptional Parthian</source>
         <translation type="unfinished">Inscriptional Parthian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="301"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="315"/>
         <source>Inscriptional Pahlavi</source>
         <translation type="unfinished">Inscriptional Pahlavi</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="302"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="316"/>
         <source>Psalter Pahlavi</source>
         <translation type="unfinished">Psalter Pahlavi</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="303"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="317"/>
         <source>Old Turkic</source>
         <translation type="unfinished">Old Turkic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="304"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="318"/>
         <source>Old Hungarian</source>
         <translation type="unfinished">Old Hungarian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="305"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="319"/>
         <source>Hanifi Rohingya</source>
         <translation type="unfinished">Hanifi Rohingya</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="306"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="320"/>
         <source>Rumi Numeral Symbols</source>
         <translation type="unfinished">Rumi Numeral Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="307"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="321"/>
         <source>Yezidi</source>
         <translation type="unfinished">Yezidi</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="308"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="322"/>
         <source>Old Sogdian</source>
         <translation type="unfinished">Old Sogdian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="309"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="323"/>
         <source>Sogdian</source>
         <translation type="unfinished">Sogdian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="310"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="324"/>
         <source>Chorasmian</source>
         <translation type="unfinished">Chorasmian</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="311"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="325"/>
         <source>Elymaic</source>
         <translation type="unfinished">Elymaic</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="312"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="326"/>
         <source>Brahmi</source>
         <translation type="unfinished">Brahmi</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="313"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="327"/>
         <source>Kaithi</source>
         <translation type="unfinished">Kaithi</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="314"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="328"/>
         <source>Sora Sompeng</source>
         <translation type="unfinished">Sora Sompeng</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="315"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="329"/>
         <source>Chakma</source>
         <translation type="unfinished">Chakma</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="316"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="330"/>
         <source>Mahajani</source>
         <translation type="unfinished">Mahajani</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="317"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="331"/>
         <source>Sharada</source>
         <translation type="unfinished">Sharada</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="318"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="332"/>
         <source>Sinhala Archaic Numbers</source>
         <translation type="unfinished">Sinhala Archaic Numbers</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="319"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="333"/>
         <source>Khojki</source>
         <translation type="unfinished">Khojki</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="320"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="334"/>
         <source>Multani</source>
         <translation type="unfinished">Multani</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="321"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="335"/>
         <source>Khudawadi</source>
         <translation type="unfinished">Khudawadi</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="322"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="336"/>
         <source>Grantha</source>
         <translation type="unfinished">Grantha</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="323"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="337"/>
         <source>Newa</source>
         <translation type="unfinished">Newa</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="324"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="338"/>
         <source>Tirhuta</source>
         <translation type="unfinished">Tirhuta</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="325"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="339"/>
         <source>Siddham</source>
         <translation type="unfinished">Siddham</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="326"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="340"/>
         <source>Modi</source>
         <translation type="unfinished">Modi</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="327"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="341"/>
         <source>Mongolian Supplement</source>
         <translation type="unfinished">Mongolian Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="328"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="342"/>
         <source>Takri</source>
         <translation type="unfinished">Takri</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="329"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="343"/>
         <source>Ahom</source>
         <translation type="unfinished">Ahom</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="330"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="344"/>
         <source>Dogra</source>
         <translation type="unfinished">Dogra</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="331"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="345"/>
         <source>Warang Citi</source>
         <translation type="unfinished">Warang Citi</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="332"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="346"/>
         <source>Dives Akuru</source>
         <translation type="unfinished">Dives Akuru</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="333"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="347"/>
         <source>Nandinagari</source>
         <translation type="unfinished">Nandinagari</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="334"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="348"/>
         <source>Zanabazer Square</source>
         <translation type="unfinished">Zanabazer Square</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="335"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="349"/>
         <source>Soyombo</source>
         <translation type="unfinished">Soyombo</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="336"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="350"/>
         <source>Pau Cin Hau</source>
         <translation type="unfinished">Pau Cin Hau</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="337"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="351"/>
         <source>Bhaiksuki</source>
         <translation type="unfinished">Bhaiksuki</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="338"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="352"/>
         <source>Marchen</source>
         <translation type="unfinished">Marchen</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="339"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="353"/>
         <source>Masaram Gondi</source>
         <translation type="unfinished">Masaram Gondi</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="340"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="354"/>
         <source>Gunjala Gondi</source>
         <translation type="unfinished">Gunjala Gondi</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="341"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="355"/>
         <source>Makasar</source>
         <translation type="unfinished">Makasar</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="342"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="356"/>
         <source>Lisu Supplement</source>
         <translation type="unfinished">Lisu Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="343"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="357"/>
         <source>Tamil Supplement</source>
         <translation type="unfinished">Tamil Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="344"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="358"/>
         <source>Cuneiform</source>
         <translation type="unfinished">Cuneiform</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="345"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="359"/>
         <source>Cuneiform Numbers and Punctuation</source>
         <translation type="unfinished">Cuneiform Numbers and Punctuation</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="346"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="360"/>
         <source>Early Dynastic Cuneiform</source>
         <translation type="unfinished">Early Dynastic Cuneiform</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="347"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="361"/>
         <source>Egyptian Hieroglyphs</source>
         <translation type="unfinished">Egyptian Hieroglyphs</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="348"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="362"/>
         <source>Egyptian Hieroglyph Format Controls</source>
         <translation type="unfinished">Egyptian Hieroglyph Format Controls</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="349"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="363"/>
         <source>Anatolian Hieroglyphs</source>
         <translation type="unfinished">Anatolian Hieroglyphs</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="350"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="364"/>
         <source>Bamum Supplement</source>
         <translation type="unfinished">Bamum Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="351"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="365"/>
         <source>Mro</source>
         <translation type="unfinished">Mro</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="352"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="366"/>
         <source>Bassa Vah</source>
         <translation type="unfinished">Bassa Vah</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="353"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="367"/>
         <source>Pahawh Hmong</source>
         <translation type="unfinished">Pahawh Hmong</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="354"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="368"/>
         <source>Medefaidrin</source>
         <translation type="unfinished">Medefaidrin</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="355"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="369"/>
         <source>Miao</source>
         <translation type="unfinished">Miao</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="356"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="370"/>
         <source>Ideographic Symbols and Punctuation</source>
         <translation type="unfinished">Ideographic Symbols and Punctuation</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="357"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="371"/>
         <source>Tangut Components</source>
         <translation type="unfinished">Tangut Components</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="358"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="372"/>
         <source>Khitan Small Script</source>
         <translation type="unfinished">Khitan Small Script</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="359"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="373"/>
         <source>Tangut Supplement</source>
         <translation type="unfinished">Tangut Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="360"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="374"/>
         <source>Kana Supplement</source>
         <translation type="unfinished">Kana Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="361"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="375"/>
         <source>Kana Extended-A</source>
         <translation type="unfinished">Kana Extended-A</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="362"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="376"/>
         <source>Small Kana Extension</source>
         <translation type="unfinished">Small Kana Extension</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="363"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="377"/>
         <source>Nushu</source>
         <translation type="unfinished">Nushu</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="364"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="378"/>
         <source>Duployan</source>
         <translation type="unfinished">Duployan</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="365"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="379"/>
         <source>Shorthand Format Controls</source>
         <translation type="unfinished">Shorthand Format Controls</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="366"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="380"/>
         <source>Byzantine Musical Symbols</source>
         <translation type="unfinished">Byzantine Musical Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="367"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="381"/>
         <source>Musical Symbols</source>
         <translation type="unfinished">Musical Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="368"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="382"/>
         <source>Ancient Greek Musical Notation</source>
         <translation type="unfinished">Ancient Greek Musical Notation</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="369"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="383"/>
         <source>Tai Xuan Jing Symbols</source>
         <translation type="unfinished">Tai Xuan Jing Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="370"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="384"/>
         <source>Counting Rod Numerals</source>
         <translation type="unfinished">Counting Rod Numerals</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="371"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="385"/>
         <source>Mathematical Alphanumeric Symbols</source>
         <translation type="unfinished">Mathematical Alphanumeric Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="372"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="386"/>
         <source>Sutton SignWriting</source>
         <translation type="unfinished">Sutton SignWriting</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="373"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="387"/>
         <source>Glagolitic Supplement</source>
         <translation type="unfinished">Glagolitic Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="374"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="388"/>
         <source>Nyiakeng Puachue Hmong</source>
         <translation type="unfinished">Nyiakeng Puachue Hmong</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="375"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="389"/>
         <source>Wancho</source>
         <translation type="unfinished">Wancho</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="376"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="390"/>
         <source>Mende Kikakui</source>
         <translation type="unfinished">Mende Kikakui</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="377"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="391"/>
         <source>Adlam</source>
         <translation type="unfinished">Adlam</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="378"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="392"/>
         <source>Indic Siyaq Numbers</source>
         <translation type="unfinished">Indic Siyaq Numbers</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="379"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="393"/>
         <source>Ottoman Siyaq Numbers</source>
         <translation type="unfinished">Ottoman Siyaq Numbers</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="380"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="394"/>
         <source>Arabic Mathematical Alphabetic Symbols</source>
         <translation type="unfinished">Arabic Mathematical Alphabetic Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="381"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="395"/>
         <source>Mahjong Tiles</source>
         <translation type="unfinished">Mahjong Tiles</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="382"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="396"/>
         <source>Domino Tiles</source>
         <translation type="unfinished">Domino Tiles</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="383"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="397"/>
         <source>Playing Cards</source>
         <translation type="unfinished">Playing Cards</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="384"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="398"/>
         <source>Enclosed Alphanumeric Supplement</source>
         <translation type="unfinished">Enclosed Alphanumeric Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="385"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="399"/>
         <source>Enclosed Ideographic Supplement</source>
         <translation type="unfinished">Enclosed Ideographic Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="386"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="400"/>
         <source>Miscellaneous Symbols and Pictographs</source>
         <translation type="unfinished">Miscellaneous Symbols and Pictographs</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="387"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="401"/>
         <source>Emoticons (Emoji)</source>
         <translation type="unfinished">Emoticons (Emoji)</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="388"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="402"/>
         <source>Ornamental Dingbats</source>
         <translation type="unfinished">Ornamental Dingbats</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="389"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="403"/>
         <source>Transport and Map Symbols</source>
         <translation type="unfinished">Transport and Map Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="390"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="404"/>
         <source>Alchemical Symbols</source>
         <translation type="unfinished">Alchemical Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="391"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="405"/>
         <source>Geometric Shapes Extended</source>
         <translation type="unfinished">Geometric Shapes Extended</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="392"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="406"/>
         <source>Supplemental Arrows-C</source>
         <translation type="unfinished">Supplemental Arrows-C</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="393"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="407"/>
         <source>Supplemental Symbols and Pictographs</source>
         <translation type="unfinished">Supplemental Symbols and Pictographs</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="394"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="408"/>
         <source>Chess Symbols</source>
         <translation type="unfinished">Chess Symbols</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="395"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="409"/>
         <source>Symbols and Pictographs Extended-A</source>
         <translation type="unfinished">Symbols and Pictographs Extended-A</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="396"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="410"/>
         <source>Symbols for Legacy Computing</source>
         <translation type="unfinished">Symbols for Legacy Computing</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="397"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="411"/>
         <source>CJK Unified Ideographs Extension B</source>
         <translation type="unfinished">CJK Unified Ideographs Extension B</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="398"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="412"/>
         <source>CJK Unified Ideographs Extension C</source>
         <translation type="unfinished">CJK Unified Ideographs Extension C</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="399"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="413"/>
         <source>CJK Unified Ideographs Extension D</source>
         <translation type="unfinished">CJK Unified Ideographs Extension D</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="400"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="414"/>
         <source>CJK Compatibility Ideographs Supplement</source>
         <translation type="unfinished">CJK Compatibility Ideographs Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="401"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="415"/>
         <source>Tags</source>
         <translation type="unfinished">Tags</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="402"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="416"/>
         <source>Variation Selectors Supplement</source>
         <translation type="unfinished">Variation Selectors Supplement</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="403"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="417"/>
         <source>Supplementary Private Use Area-A</source>
         <translation type="unfinished">Supplementary Private Use Area-A</translation>
     </message>
     <message>
-        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="404"/>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="418"/>
         <source>Supplementary Private Use Area-B</source>
         <translation type="unfinished">Supplementary Private Use Area-B</translation>
     </message>
@@ -38493,7 +38508,7 @@ The score will be saved as:
         <translation type="unfinished">Update play count text</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/textedit.cpp" line="915"/>
+        <location filename="../../src/engraving/dom/textedit.cpp" line="922"/>
         <source>Paste text</source>
         <translation type="unfinished">Paste text</translation>
     </message>

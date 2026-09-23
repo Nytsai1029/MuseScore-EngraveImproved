@@ -112,6 +112,11 @@ bool QFontProvider::inFontUcs4(const Font& f, char32_t ucs4) const
     return symBBox(f, ucs4, 1.).isValid();
 }
 
+std::vector<char32_t> QFontProvider::characterCodes(const Font&) const
+{
+    return {};
+}
+
 double QFontProvider::horizontalAdvance(const Font& f, const String& string) const
 {
     return QFontMetricsF(f.toQFont(), &device).horizontalAdvance(string);

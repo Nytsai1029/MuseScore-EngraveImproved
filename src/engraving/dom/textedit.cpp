@@ -31,6 +31,8 @@
 #include "score.h"
 #include "dynamic.h"
 #include "lyrics.h"
+#include "symbol.h"
+#include "style/style.h"
 
 #include "log.h"
 
@@ -876,11 +878,16 @@ EngravingItem* TextBase::drop(EditData& ed)
 
     case ElementType::FSYMBOL:
     {
-        String s = toFSymbol(e)->toString();
+        FSymbol* fs = toFSymbol(e);
+        String s = fs->toString();
+        const bool isMusicText = fs->font().type() == muse::draw::Font::Type::MusicSymbolText
+                                 || fs->font().family().id() == score()->style().styleSt(Sid::musicalTextFont);
         delete e;
 
         CharFormat* currentFormat = cursor->format();
-        if (currentFormat->fontFamily() == u"ScoreText") {
+        if (isMusicText) {
+            currentFormat->setFontFamily(u"ScoreText");
+        } else if (currentFormat->fontFamily() == u"ScoreText") {
             currentFormat->setFontFamily(propertyDefault(Pid::FONT_FACE).value<String>());
         }
 

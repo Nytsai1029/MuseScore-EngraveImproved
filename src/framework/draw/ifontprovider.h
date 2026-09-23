@@ -23,6 +23,8 @@
 #ifndef MUSE_DRAW_IFONTPROVIDER_H
 #define MUSE_DRAW_IFONTPROVIDER_H
 
+#include <vector>
+
 #include "global/modularity/imoduleinterface.h"
 #include "global/io/path.h"
 #include "global/types/string.h"
@@ -49,6 +51,7 @@ public:
 
     virtual bool inFont(const Font& f, Char ch) const = 0;
     virtual bool inFontUcs4(const Font& f, char32_t ucs4) const = 0;
+    virtual std::vector<char32_t> characterCodes(const Font& f) const = 0;
 
     // Text
     virtual double horizontalAdvance(const Font& f, const String& string) const = 0;
