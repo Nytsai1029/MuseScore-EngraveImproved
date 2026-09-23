@@ -107,7 +107,6 @@ compile_commands.json
 /release-artifacts/
 
 # Local agent/workspace instructions
-/AGENTS.md
 /Code_Guide.md
 .kiro/
 codex.md
