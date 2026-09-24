@@ -331,6 +331,7 @@ const std::array<StyleDef::StyleValue, size_t(Sid::STYLES)> StyleDef::styleValue
     styleDef(hairpinLinePosBelow,                        PointF(.0, 2.0)),
     styleDef(hairpinHeight,                              Spatium(1.15)),
     styleDef(hairpinContHeight,                          Spatium(0.5)),
+    styleDef(hairpinVerticalEnds,                        false),
     styleDef(hairpinLineWidth,                           Spatium(0.12)),
     styleDef(hairpinFontFace,                            "Edwin"),
     styleDef(hairpinFontSize,                            10.0),

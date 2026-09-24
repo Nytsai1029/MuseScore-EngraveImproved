@@ -46,6 +46,11 @@ PropertyItem* HairpinSettingsModel::isNienteCircleVisible() const
     return m_isNienteCircleVisible;
 }
 
+PropertyItem* HairpinSettingsModel::verticalEnds() const
+{
+    return m_verticalEnds;
+}
+
 PropertyItem* HairpinSettingsModel::height() const
 {
     return m_height;
@@ -71,6 +76,7 @@ void HairpinSettingsModel::createProperties()
     TextLineSettingsModel::createProperties();
 
     m_isNienteCircleVisible = buildPropertyItem(mu::engraving::Pid::HAIRPIN_CIRCLEDTIP);
+    m_verticalEnds = buildPropertyItem(mu::engraving::Pid::HAIRPIN_VERTICAL_ENDS);
     m_height = buildPropertyItem(mu::engraving::Pid::HAIRPIN_HEIGHT);
     m_continuousHeight = buildPropertyItem(mu::engraving::Pid::HAIRPIN_CONT_HEIGHT);
 
@@ -88,6 +94,7 @@ void HairpinSettingsModel::loadProperties()
 
     const static PropertyIdSet propertyIdSet {
         Pid::HAIRPIN_CIRCLEDTIP,
+        Pid::HAIRPIN_VERTICAL_ENDS,
         Pid::HAIRPIN_HEIGHT,
         Pid::HAIRPIN_CONT_HEIGHT,
         Pid::SNAP_BEFORE,
@@ -102,6 +109,7 @@ void HairpinSettingsModel::resetProperties()
     TextLineSettingsModel::resetProperties();
 
     m_isNienteCircleVisible->resetToDefault();
+    m_verticalEnds->resetToDefault();
     m_height->resetToDefault();
     m_continuousHeight->resetToDefault();
     m_snapBefore->resetToDefault();
@@ -132,6 +140,10 @@ void HairpinSettingsModel::loadProperties(const PropertyIdSet& propertyIdSet)
 {
     if (muse::contains(propertyIdSet, Pid::HAIRPIN_CIRCLEDTIP)) {
         loadPropertyItem(m_isNienteCircleVisible);
+    }
+
+    if (muse::contains(propertyIdSet, Pid::HAIRPIN_VERTICAL_ENDS)) {
+        loadPropertyItem(m_verticalEnds);
     }
 
     if (muse::contains(propertyIdSet, Pid::HAIRPIN_HEIGHT)) {

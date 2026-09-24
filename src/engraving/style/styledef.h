@@ -346,6 +346,7 @@ enum class Sid {
     hairpinLinePosBelow,
     hairpinHeight,
     hairpinContHeight,
+    hairpinVerticalEnds,
     hairpinLineWidth,
     hairpinFontFace,
     hairpinFontSize,

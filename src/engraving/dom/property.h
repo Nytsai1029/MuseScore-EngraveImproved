@@ -523,6 +523,8 @@ enum class Pid {
 
     GRACE_BEFORE_BARLINE, // prefix grace notes drawn at the end of the previous measure
 
+    HAIRPIN_VERTICAL_ENDS, // diagonal hairpin is sheared instead of rotated, keeping its open ends vertical
+
     END
 };
 

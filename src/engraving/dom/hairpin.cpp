@@ -25,6 +25,7 @@
 #include <cmath>
 
 #include "draw/types/transform.h"
+#include "realfn.h"
 
 #include "types/typesconv.h"
 
@@ -64,6 +65,7 @@ static const ElementStyle hairpinStyle {
     { Sid::hairpinLineWidth,                   Pid::LINE_WIDTH },
     { Sid::hairpinHeight,                      Pid::HAIRPIN_HEIGHT },
     { Sid::hairpinContHeight,                  Pid::HAIRPIN_CONT_HEIGHT },
+    { Sid::hairpinVerticalEnds,                Pid::HAIRPIN_VERTICAL_ENDS },
     { Sid::hairpinPosBelow,                    Pid::OFFSET },
     { Sid::hairpinLineStyle,                   Pid::LINE_STYLE },
     { Sid::hairpinLineDashLineLen,             Pid::DASH_LINE_LEN },
@@ -154,11 +156,18 @@ std::vector<PointF> HairpinSegment::gripsPositions(const EditData&) const
 
     if (!hairpin()->isLineType()) {
         // Calc PointF for Grip Aperture
+        // Same mapping as the layout: shear for vertical open ends, otherwise rotate
         Transform doRotation;
         PointF gripLineAperturePoint;
         double h1 = hairpin()->hairpinHeight().val() * spatium() * .5;
         double len = sqrt(x * x + y * y);
-        doRotation.rotateRadians(asin(y / len));
+        const bool verticalEnds = hairpin()->verticalEnds() && !muse::RealIsNull(y);
+        if (verticalEnds) {
+            doRotation.shear(0.0, y / x);
+            len = x;
+        } else {
+            doRotation.rotateRadians(asin(y / len));
+        }
         double lineApertureX;
         double offsetX = 10;                                 // Horizontal offset for x Grip
         if (len < offsetX * 3) {                            // For small hairpin, offset = 30% of len
@@ -270,6 +279,7 @@ EngravingItem* HairpinSegment::propertyDelegate(Pid pid)
         || pid == Pid::HAIRPIN_CIRCLEDTIP
         || pid == Pid::HAIRPIN_HEIGHT
         || pid == Pid::HAIRPIN_CONT_HEIGHT
+        || pid == Pid::HAIRPIN_VERTICAL_ENDS
         || pid == Pid::LINE_STYLE
         || pid == Pid::VOICE_ASSIGNMENT
         || pid == Pid::DIRECTION
@@ -641,6 +651,8 @@ PropertyValue Hairpin::getProperty(Pid id) const
         return m_hairpinHeight;
     case Pid::HAIRPIN_CONT_HEIGHT:
         return m_hairpinContHeight;
+    case Pid::HAIRPIN_VERTICAL_ENDS:
+        return m_verticalEnds;
     case Pid::SINGLE_NOTE_DYNAMICS:
         return m_singleNoteDynamics;
     case Pid::VELO_CHANGE_METHOD:
@@ -682,6 +694,9 @@ bool Hairpin::setProperty(Pid id, const PropertyValue& v)
         break;
     case Pid::HAIRPIN_CONT_HEIGHT:
         m_hairpinContHeight = v.value<Spatium>();
+        break;
+    case Pid::HAIRPIN_VERTICAL_ENDS:
+        m_verticalEnds = v.toBool();
         break;
     case Pid::SINGLE_NOTE_DYNAMICS:
         m_singleNoteDynamics = v.toBool();

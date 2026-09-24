@@ -1737,6 +1737,7 @@ void TWrite::write(const Hairpin* item, XmlWriter& xml, WriteContext& ctx)
 
     writeProperty(item, xml, Pid::HAIRPIN_HEIGHT);
     writeProperty(item, xml, Pid::HAIRPIN_CONT_HEIGHT);
+    writeProperty(item, xml, Pid::HAIRPIN_VERTICAL_ENDS);
 
     writeProperties(static_cast<const TextLineBase*>(item), xml, ctx);
     xml.endElement();

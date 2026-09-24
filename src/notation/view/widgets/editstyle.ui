@@ -7471,6 +7471,13 @@
                  </property>
                 </spacer>
                </item>
+               <item row="7" column="0" colspan="3">
+                <widget class="QCheckBox" name="hairpinVerticalEnds">
+                 <property name="text">
+                  <string>Vertical ends on diagonal hairpins</string>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </widget>
             </item>
@@ -13534,6 +13541,7 @@ followed by dashes</string>
   <tabstop>resetAutoplaceHairpinDynamicsDistance</tabstop>
   <tabstop>hairpinLineWidth</tabstop>
   <tabstop>resetHairpinLineWidth</tabstop>
+  <tabstop>hairpinVerticalEnds</tabstop>
   <tabstop>ottavaNumbersOnly</tabstop>
   <tabstop>resetOttavaNumbersOnly</tabstop>
   <tabstop>ottavaPosAbove</tabstop>

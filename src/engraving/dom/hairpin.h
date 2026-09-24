@@ -138,6 +138,9 @@ public:
     Spatium hairpinContHeight() const { return m_hairpinContHeight; }
     void setHairpinContHeight(Spatium val) { m_hairpinContHeight = val; }
 
+    bool verticalEnds() const { return m_verticalEnds; }
+    void setVerticalEnds(bool val) { m_verticalEnds = val; }
+
     bool singleNoteDynamics() const { return m_singleNoteDynamics; }
     void setSingleNoteDynamics(bool val) { m_singleNoteDynamics = val; }
 
@@ -197,6 +200,7 @@ private:
 
     Spatium m_hairpinHeight;
     Spatium m_hairpinContHeight;
+    bool m_verticalEnds = false;
 
     VoiceAssignment m_voiceAssignment = VoiceAssignment::ALL_VOICE_IN_INSTRUMENT;
     DirectionV m_direction = DirectionV::AUTO;

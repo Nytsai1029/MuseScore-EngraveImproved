@@ -456,6 +456,7 @@ EditStyle::EditStyle(QWidget* parent)
         { StyleId::hairpinLineWidth,        false, hairpinLineWidth,        resetHairpinLineWidth },
         { StyleId::hairpinHeight,           false, hairpinHeight,           resetHairpinHeight },
         { StyleId::hairpinContHeight,       false, hairpinContinueHeight,   resetHairpinContinueHeight },
+        { StyleId::hairpinVerticalEnds,     false, hairpinVerticalEnds,     0 },
 
         { StyleId::dotNoteDistance,         false, noteDotDistance,         0 },
         { StyleId::dotDotDistance,          false, dotDotDistance,          0 },

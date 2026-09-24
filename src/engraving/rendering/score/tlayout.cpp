@@ -3271,10 +3271,22 @@ void TLayout::layoutHairpinSegment(HairpinSegment* item, LayoutContext& ctx)
         }
         double y = item->pos2().y();
         double len = sqrt(x * x + y * y);
-        t.rotateRadians(asin(y / len));
+
+        // The hairpin is built flat along x, then either rotated onto its axis (open ends perpendicular to the axis)
+        // or sheared onto it (open ends vertical, heights measured vertically).
+        const bool verticalEnds = item->hairpin()->verticalEnds() && !RealIsNull(y);
+        const double axisLen = verticalEnds ? x : len;
+        // Converts a distance along the axis to its extent in the flat hairpin, so the niente circle stays tangent
+        const double tipScale = verticalEnds ? x / len : 1.0;
+        if (verticalEnds) {
+            t.shear(0.0, y / x);
+        } else {
+            t.rotateRadians(asin(y / len));
+        }
 
         item->setDrawCircledTip(item->hairpin()->hairpinCircledTip());
         item->setCircledTipRadius(item->drawCircledTip() ? 0.6 * _spatium * .5 : 0.0);
+        const double tipRadius = item->circledTipRadius() * tipScale;
 
         LineF l1, l2;
 
@@ -3283,10 +3295,10 @@ void TLayout::layoutHairpinSegment(HairpinSegment* item, LayoutContext& ctx)
             switch (item->spannerSegmentType()) {
             case SpannerSegmentType::SINGLE:
             case SpannerSegmentType::BEGIN: {
-                l1.setLine(x1 + item->circledTipRadius() * 2.0, 0.0, len, h1);
-                l2.setLine(x1 + item->circledTipRadius() * 2.0, 0.0, len, -h1);
+                l1.setLine(x1 + tipRadius * 2.0, 0.0, axisLen, h1);
+                l2.setLine(x1 + tipRadius * 2.0, 0.0, axisLen, -h1);
                 PointF circledTip;
-                circledTip.setX(x1 + item->circledTipRadius());
+                circledTip.setX(x1 + tipRadius);
                 circledTip.setY(0.0);
                 item->setCircledTip(circledTip);
             } break;
@@ -3294,8 +3306,8 @@ void TLayout::layoutHairpinSegment(HairpinSegment* item, LayoutContext& ctx)
             case SpannerSegmentType::MIDDLE:
             case SpannerSegmentType::END:
                 item->setDrawCircledTip(false);
-                l1.setLine(x1,  h2, len, h1);
-                l2.setLine(x1, -h2, len, -h1);
+                l1.setLine(x1,  h2, axisLen, h1);
+                l2.setLine(x1, -h2, axisLen, -h1);
                 break;
             }
         }
@@ -3304,18 +3316,18 @@ void TLayout::layoutHairpinSegment(HairpinSegment* item, LayoutContext& ctx)
             switch (item->spannerSegmentType()) {
             case SpannerSegmentType::SINGLE:
             case SpannerSegmentType::END: {
-                l1.setLine(x1,  h1, len - item->circledTipRadius() * 2, 0.0);
-                l2.setLine(x1, -h1, len - item->circledTipRadius() * 2, 0.0);
+                l1.setLine(x1,  h1, axisLen - tipRadius * 2, 0.0);
+                l2.setLine(x1, -h1, axisLen - tipRadius * 2, 0.0);
                 PointF circledTip;
-                circledTip.setX(len - item->circledTipRadius());
+                circledTip.setX(axisLen - tipRadius);
                 circledTip.setY(0.0);
                 item->setCircledTip(circledTip);
             } break;
             case SpannerSegmentType::BEGIN:
             case SpannerSegmentType::MIDDLE:
                 item->setDrawCircledTip(false);
-                l1.setLine(x1,  h1, len, +h2);
-                l2.setLine(x1, -h1, len, -h2);
+                l1.setLine(x1,  h1, axisLen, +h2);
+                l2.setLine(x1, -h1, axisLen, -h2);
                 break;
             }
         }

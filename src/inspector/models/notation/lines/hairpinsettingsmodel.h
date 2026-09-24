@@ -30,6 +30,7 @@ class HairpinSettingsModel : public TextLineSettingsModel
     Q_OBJECT
 
     Q_PROPERTY(PropertyItem * isNienteCircleVisible READ isNienteCircleVisible CONSTANT)
+    Q_PROPERTY(PropertyItem * verticalEnds READ verticalEnds CONSTANT)
 
     Q_PROPERTY(PropertyItem * height READ height CONSTANT)
     Q_PROPERTY(PropertyItem * continuousHeight READ continuousHeight CONSTANT)
@@ -40,6 +41,7 @@ public:
     explicit HairpinSettingsModel(QObject* parent, IElementRepositoryService* repository);
 
     PropertyItem* isNienteCircleVisible() const;
+    PropertyItem* verticalEnds() const;
 
     PropertyItem* height() const;
     PropertyItem* continuousHeight() const;
@@ -58,6 +60,7 @@ private:
     void loadProperties(const mu::engraving::PropertyIdSet& propertyIdSet);
 
     PropertyItem* m_isNienteCircleVisible = nullptr;
+    PropertyItem* m_verticalEnds = nullptr;
 
     PropertyItem* m_height = nullptr;
     PropertyItem* m_continuousHeight = nullptr;

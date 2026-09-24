@@ -77,6 +77,26 @@ FocusableItem {
             }
         }
 
+        Item {
+            height: childrenRect.height
+            width: parent.width
+
+            PropertyCheckBox {
+                anchors.left: parent.horizontalCenter
+                anchors.leftMargin: 2
+                anchors.right: parent.right
+
+                enabled: root.model ? Boolean(root.model.allowDiagonal.value) : false
+
+                text: qsTrc("inspector", "Vertical ends")
+                propertyItem: root.model ? root.model.verticalEnds : null
+
+                navigation.name: "VerticalEndsCheckBox"
+                navigation.panel: root.navigationPanel
+                navigation.row: root.navigationRowStart + 3
+            }
+        }
+
         LineStyleSection {
             id: lineStyleSection
             lineStyle: root.model ? root.model.lineStyle : null
@@ -84,7 +104,7 @@ FocusableItem {
             dashGapLength: root.model ? root.model.dashGapLength : null
 
             navigationPanel: root.navigationPanel
-            navigationRowStart: root.navigationRowStart + 3
+            navigationRowStart: root.navigationRowStart + 4
         }
 
         SeparatorLine { anchors.margins: -12 }
