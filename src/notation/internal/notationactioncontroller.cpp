@@ -1084,7 +1084,10 @@ void NotationActionController::move(MoveDirection direction, bool quickly)
     const bool previousSelectionExists = currentNotationScore() && currentNotationScore()->selection().currentCR();
     if (interaction->selection()->isNone() && previousSelectionExists) {
         // Try to restore the previous selection...
-        interaction->moveSelection(direction, MoveSelectionType::EngravingItem);
+        // EngravingItem moves only accept Left/Right; the direction is irrelevant when restoring,
+        // so Up/Down (pitch keys) restore the selection too instead of tripping the assert.
+        const MoveDirection restoreDirection = (direction == MoveDirection::Left) ? direction : MoveDirection::Right;
+        interaction->moveSelection(restoreDirection, MoveSelectionType::EngravingItem);
         seekAndPlaySelectedElement(true);
         return;
     }
