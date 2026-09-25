@@ -38,6 +38,20 @@
 using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
 
+namespace {
+// Unit normal of the direction from -> to, on the side the parenthesis bulges towards (the sign of direction)
+PointF bulgeNormal(const PointF& from, const PointF& to, int direction)
+{
+    const PointF d = to - from;
+    const double len = std::hypot(d.x(), d.y());
+    if (len < 1e-9) {
+        return PointF(direction, 0.0);
+    }
+    const PointF normal(d.y() / len, -d.x() / len);
+    return normal.x() * direction < 0.0 ? -normal : normal;
+}
+}
+
 void ParenthesisLayout::layoutParentheses(const EngravingItem* parent, const LayoutContext& ctx)
 {
     // Layout parentheses surrounding an engraving item. Handle padding and placement
@@ -274,11 +288,25 @@ void ParenthesisLayout::createPathAndShape(Parenthesis* item, Parenthesis::Layou
     const PointF bezier2for = PointF(shoulderForX, endNormalised.y() - shoulderYOffset);
     const PointF bezier1back = PointF(shoulderBackX, endNormalised.y() - shoulderYOffset);
     const PointF bezier2back = PointF(shoulderBackX, shoulderYOffset);
+    const PointF bezier1mid = bezier1for - PointF(midPointThickness * direction, 0.0);
+    const PointF bezier2mid = bezier2for - PointF(midPointThickness * direction, 0.0);
+
+    // The end thickness is built into a closed outline instead of being drawn with a pen: PDF viewers widen thin
+    // strokes to at least one device pixel when zoomed out, which makes a stroked outline look heavy, while a fill
+    // keeps its true proportions. Both ends are cut square to the centre curve.
+    const double staffMag = item->staff() ? item->staff()->staffMag(item->tick()) : 1.0;
+    const double endHalfWidth = 0.5 * ldata->endPointThickness * spatium * staffMag;
+    const PointF widened = PointF(direction * endHalfWidth, 0.0);
+    const PointF startOffset = bulgeNormal(PointF(), bezier1mid, direction) * endHalfWidth;
+    const PointF endOffset = bulgeNormal(bezier2mid, endNormalised, direction) * endHalfWidth;
 
     PainterPath path = PainterPath();
-    path.moveTo(PointF());
-    path.cubicTo(bezier1for, bezier2for, endNormalised);
-    path.cubicTo(bezier1back, bezier2back, PointF());
+    path.setFillRule(PainterPath::FillRule::WindingFill);
+    path.moveTo(startOffset);
+    path.cubicTo(bezier1for + widened, bezier2for + widened, endNormalised + endOffset);
+    path.lineTo(endNormalised - endOffset);
+    path.cubicTo(bezier1back - widened, bezier2back - widened, -startOffset);
+    path.closeSubpath();
 
     ldata->path = path;
 
@@ -289,8 +317,6 @@ void ParenthesisLayout::createPathAndShape(Parenthesis* item, Parenthesis::Layou
     double midThickness = 2 * midPointThickness;
     int nbShapes = round(5.0 * heightInSpatium);
     nbShapes = std::clamp(nbShapes, 20, 50);
-    PointF bezier1mid = bezier1for - PointF(midPointThickness * direction, 0.0);
-    PointF bezier2mid = bezier2for - PointF(midPointThickness * direction, 0.0);
     const CubicBezier b(startPoint, bezier1mid, bezier2mid, endNormalised);
     for (int i = 1; i <= nbShapes; i++) {
         double percent = pow(sin(0.5 * M_PI * (double(i) / double(nbShapes))), 2);

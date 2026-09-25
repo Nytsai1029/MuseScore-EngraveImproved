@@ -22,6 +22,8 @@
 
 #include <gtest/gtest.h>
 
+#include <cmath>
+
 #include "dom/accidental.h"
 #include "dom/articulation.h"
 #include "dom/barline.h"
@@ -35,9 +37,11 @@
 #include "dom/mscore.h"
 #include "dom/note.h"
 #include "dom/noteval.h"
+#include "dom/parenthesis.h"
 #include "dom/pitchspelling.h"
 #include "dom/property.h"
 #include "dom/segment.h"
+#include "dom/staff.h"
 #include "dom/system.h"
 #include "dom/tremolosinglechord.h"
 
@@ -883,5 +887,65 @@ TEST_F(Engraving_NoteTests, graceBeforeBarlineAcrossSystem)
     EXPECT_GT(restoredGnb.front()->pagePos().x() - restoredPrev->pagePos().x(), distToPrev);
 
     delete restored;
+    delete score;
+}
+
+TEST_F(Engraving_NoteTests, parenthesisOutlineIncludesEndWidth)
+{
+    MasterScore* score = ScoreRW::readScore(NOTE_DATA_DIR + u"grace-before-barline.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    Chord* chord = chordAtMeasureStart(score->firstMeasure());
+    ASSERT_TRUE(chord);
+    Note* note = chord->upNote();
+    note->setParenthesesMode(ParenthesesMode::BOTH);
+    score->doLayout();
+
+    for (const Parenthesis* paren : { note->leftParen(), note->rightParen() }) {
+        ASSERT_TRUE(paren);
+
+        // Filled without a pen, so the end width must be part of the closed outline:
+        // moveTo, outer cubic, bottom end cut, inner cubic, top end cut
+        const PainterPath& path = paren->ldata()->path();
+        EXPECT_EQ(path.fillRule(), PainterPath::FillRule::WindingFill);
+        ASSERT_EQ(path.elementCount(), 9u);
+        EXPECT_TRUE(path.elementAt(0).isMoveTo());
+        EXPECT_TRUE(path.elementAt(4).isLineTo());
+        EXPECT_TRUE(path.elementAt(8).isLineTo());
+
+        const PointF topOuter(path.elementAt(0));
+        const PointF topInner(path.elementAt(7));
+        const PointF bottomOuter(path.elementAt(3));
+        const PointF bottomInner(path.elementAt(4));
+        const PointF closing(path.elementAt(8));
+        EXPECT_NEAR(closing.x(), topOuter.x(), 1e-6);
+        EXPECT_NEAR(closing.y(), topOuter.y(), 1e-6);
+
+        const double endWidth = paren->ldata()->endPointThickness.value() * paren->spatium()
+                                * note->staff()->staffMag(note->tick());
+        ASSERT_GT(endWidth, 1e-9);
+        EXPECT_NEAR(std::hypot(topOuter.x() - topInner.x(), topOuter.y() - topInner.y()), endWidth, 1e-6);
+        EXPECT_NEAR(std::hypot(bottomOuter.x() - bottomInner.x(), bottomOuter.y() - bottomInner.y()), endWidth, 1e-6);
+
+        // Both ends stay centred on the tips of the parenthesis
+        const PointF topMid = 0.5 * (topOuter + topInner);
+        const PointF bottomMid = 0.5 * (bottomOuter + bottomInner);
+        EXPECT_NEAR(topMid.x(), 0.0, 1e-6);
+        EXPECT_NEAR(topMid.y(), 0.0, 1e-6);
+        EXPECT_NEAR(bottomMid.x(), 0.0, 1e-6);
+        EXPECT_GT(bottomMid.y(), 0.0);
+
+        // The top end is cut square to the centre curve, whose first control point lies midway between the edges'
+        const PointF centreControl = 0.5 * (PointF(path.elementAt(1)) + PointF(path.elementAt(6)));
+        const PointF topCut = topOuter - topInner;
+        EXPECT_NEAR(topCut.x() * centreControl.x() + topCut.y() * centreControl.y(), 0.0, 1e-6);
+
+        // The outer edge bulges further than the inner one, away from the note
+        const double direction = paren->direction() == DirectionH::LEFT ? -1.0 : 1.0;
+        EXPECT_GT(direction * PointF(path.elementAt(1)).x(), direction * PointF(path.elementAt(6)).x());
+        EXPECT_GT(direction * topOuter.x(), 0.0);
+    }
+
     delete score;
 }

@@ -1872,6 +1872,8 @@ void TDraw::draw(const Harmony* item, Painter* painter)
             painter->translate(parenItem->pos());
             draw(p, painter);
             painter->translate(-parenItem->pos());
+            // The parenthesis is filled without a pen, restore the one the text is drawn with
+            painter->setPen(color);
         }
     }
 
@@ -2390,22 +2392,14 @@ void TDraw::draw(const Parenthesis* item, muse::draw::Painter* painter)
         return;
     }
 
-    Color penColor = item->curColor();
-
-    Pen pen(penColor);
-    double mag = item->staff() ? item->staff()->staffMag(item->tick()) : 1.0;
-
     if (item->ldata()->symId != SymId::noSym) {
         item->drawSymbol(item->ldata()->symId, painter);
         return;
     }
 
-    painter->setBrush(Brush(pen.color()));
-    pen.setCapStyle(PenCapStyle::RoundCap);
-    pen.setJoinStyle(PenJoinStyle::RoundJoin);
-    pen.setWidthF(item->ldata()->endPointThickness * item->spatium() * mag);
-
-    painter->setPen(pen);
+    // The outline already includes the end width (see ParenthesisLayout::createPathAndShape), so it is only filled
+    painter->setNoPen();
+    painter->setBrush(Brush(item->curColor()));
     painter->drawPath(item->ldata()->path());
 }
 
