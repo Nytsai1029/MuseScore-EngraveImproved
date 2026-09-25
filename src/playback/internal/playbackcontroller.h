@@ -243,6 +243,7 @@ private:
     muse::async::Channel<muse::actions::ActionCode> m_actionCheckedChanged;
 
     muse::audio::TrackSequenceId m_currentSequenceId = -1;
+    uint64_t m_addSequenceRequestId = 0;
 
     muse::async::Notification m_currentSequenceIdChanged;
     muse::midi::tick_t m_currentTick = 0;

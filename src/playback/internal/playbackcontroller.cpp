@@ -127,6 +127,9 @@ void PlaybackController::init()
     });
 
     globalContext()->currentProjectChanged().onNotify(this, [this]() {
+        //! NOTE Invalidates a sequence request that may still be in progress for the previous project
+        const uint64_t requestId = ++m_addSequenceRequestId;
+
         if (m_currentSequenceId != -1) {
             resetCurrentSequence();
         }
@@ -137,7 +140,13 @@ void PlaybackController::init()
 
         m_loadingProgress.start();
 
-        playback()->addSequence().onResolve(this, [this](const TrackSequenceId& sequenceId) {
+        playback()->addSequence().onResolve(this, [this, requestId](const TrackSequenceId& sequenceId) {
+            //! NOTE The project was closed (or another one was opened) before the sequence was added
+            if (requestId != m_addSequenceRequestId) {
+                playback()->removeSequence(sequenceId);
+                return;
+            }
+
             setupNewCurrentSequence(sequenceId);
         });
     });
