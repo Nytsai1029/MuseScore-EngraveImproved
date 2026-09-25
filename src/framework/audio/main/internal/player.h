@@ -23,6 +23,8 @@
 #ifndef MUSE_AUDIO_PLAYER_H
 #define MUSE_AUDIO_PLAYER_H
 
+#include <memory>
+
 #include "../iplayer.h"
 
 #include "global/async/asyncable.h"
@@ -31,7 +33,7 @@
 #include "audio/common/rpc/irpcchannel.h"
 
 namespace muse::audio {
-class Player : public IPlayer, public async::Asyncable
+class Player : public IPlayer, public async::Asyncable, public std::enable_shared_from_this<Player>
 {
     Inject<rpc::IRpcChannel> channel;
 

@@ -40,6 +40,9 @@ void Player::init()
 {
     ONLY_AUDIO_MAIN_THREAD;
 
+    //! NOTE The player may be destroyed (e.g. the score was closed) before the worker responds
+    std::weak_ptr<Player> weakThis = weak_from_this();
+
     //! NOTE Subscribe and request initial state
 
     {
@@ -48,8 +51,13 @@ void Player::init()
         });
 
         Msg msg = rpc::make_request(Method::GetPlaybackStatus, RpcPacker::pack(m_sequenceId));
-        channel()->send(msg, [this](const Msg& res) {
+        channel()->send(msg, [this, weakThis](const Msg& res) {
             ONLY_AUDIO_MAIN_THREAD;
+            std::shared_ptr<Player> self = weakThis.lock();
+            if (!self) {
+                return;
+            }
+
             PlaybackStatus status = PlaybackStatus::Stopped;
             StreamId streamId = 0;
             IF_ASSERT_FAILED(RpcPacker::unpack(res.data, status, streamId)) {
@@ -68,8 +76,13 @@ void Player::init()
         });
 
         Msg msg = rpc::make_request(Method::GetPlaybackPosition, RpcPacker::pack(m_sequenceId));
-        channel()->send(msg, [this](const Msg& res) {
+        channel()->send(msg, [this, weakThis](const Msg& res) {
             ONLY_AUDIO_MAIN_THREAD;
+            std::shared_ptr<Player> self = weakThis.lock();
+            if (!self) {
+                return;
+            }
+
             secs_t pos = 0.0;
             StreamId streamId = 0;
             IF_ASSERT_FAILED(RpcPacker::unpack(res.data, pos, streamId)) {
