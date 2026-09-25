@@ -47,7 +47,6 @@ using namespace mu;
 using namespace mu::engraving;
 
 static const String BEAM_DATA_DIR("beam_data/");
-static const String MEASURE_DATA_DIR("measure_data/");
 
 static std::vector<Beam*> collectBeams(MasterScore* score)
 {
@@ -176,8 +175,8 @@ TEST_F(Engraving_BeamTests, beamNoSlope)
 
 TEST_F(Engraving_BeamTests, crossStaffBeamsRespectCustomSlantRules)
 {
-    MasterScore* score = ScoreRW::readScore(MEASURE_DATA_DIR + u"measure-2.mscx");
-    EXPECT_TRUE(score);
+    MasterScore* score = ScoreRW::readScore(BEAM_DATA_DIR + u"crossStaffBeamCustomSlant.mscx");
+    ASSERT_TRUE(score);
 
     score->doLayout();
 
