@@ -25,6 +25,7 @@
 #include "dom/editdata.h"
 #include "dom/laissezvib.h"
 #include "dom/masterscore.h"
+#include "dom/mscore.h"
 #include "dom/note.h"
 
 #include "utils/scorerw.h"
@@ -50,6 +51,21 @@ void findLaissezVibNote(void* data, EngravingItem* item)
 
 class Engraving_LaissezVibTests : public ::testing::Test
 {
+protected:
+    // The fixture is a 4.60 score containing LaissezVib/PartialTie, which the 3.02 reader cannot read.
+    void SetUp() override
+    {
+        m_useRead302 = MScore::useRead302InTestMode;
+        MScore::useRead302InTestMode = false;
+    }
+
+    void TearDown() override
+    {
+        MScore::useRead302InTestMode = m_useRead302;
+    }
+
+private:
+    bool m_useRead302 = false;
 };
 
 TEST_F(Engraving_LaissezVibTests, gripsAreHorizontal)
