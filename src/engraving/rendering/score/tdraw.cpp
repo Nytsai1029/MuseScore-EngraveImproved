@@ -2592,10 +2592,9 @@ void TDraw::draw(const SlurSegment* item, Painter* painter)
 
     switch (item->slurTie()->styleType()) {
     case SlurStyleType::Solid:
+        // The outline already includes the end width (see SlurTieLayout::computeBezier), so it is only filled
         painter->setBrush(Brush(pen.color()));
-        pen.setCapStyle(PenCapStyle::RoundCap);
-        pen.setJoinStyle(PenJoinStyle::RoundJoin);
-        pen.setWidthF(item->endWidth() * mag);
+        pen.setStyle(PenStyle::NoPen);
         break;
     case SlurStyleType::Dotted:
         painter->setBrush(BrushStyle::NoBrush);
@@ -3071,10 +3070,9 @@ void TDraw::draw(const TieSegment* item, Painter* painter)
 
     switch (item->slurTie()->styleType()) {
     case SlurStyleType::Solid:
+        // The outline already includes the end width (see SlurTieLayout::computeBezier), so it is only filled
         painter->setBrush(Brush(pen.color()));
-        pen.setCapStyle(PenCapStyle::RoundCap);
-        pen.setJoinStyle(PenJoinStyle::RoundJoin);
-        pen.setWidthF(item->endWidth() * mag);
+        pen.setStyle(PenStyle::NoPen);
         break;
     case SlurStyleType::Dotted:
         painter->setBrush(BrushStyle::NoBrush);

@@ -244,6 +244,47 @@ double lensHalfThicknessAt(double t, double midThickness)
     return 3.0 * s * (1.0 - s) * midThickness;
 }
 
+// Half of the thickness a solid slur or tie keeps at its ends. It is built into the outline instead of being
+// drawn with a pen: PDF viewers widen thin strokes to at least one device pixel when zoomed out, which makes a
+// stroked outline look heavy and lose its taper, while a fill keeps its true proportions.
+double solidEndHalfWidth(const SlurTieSegment* segment)
+{
+    const Staff* staff = segment->staff();
+    const double mag = staff ? staff->staffMag(segment->slurTie()->tick()) : 1.0;
+    return 0.5 * segment->endWidth() * mag;
+}
+
+// Unit normal of the direction from -> to, on the negative y side, where the "- thickness" edge of a lens lies
+PointF lensEndNormal(const PointF& from, const PointF& to)
+{
+    const PointF d = to - from;
+    const double len = std::hypot(d.x(), d.y());
+    if (len < 1e-9) {
+        return PointF(0.0, -1.0);
+    }
+    const PointF normal(d.y() / len, -d.x() / len);
+    return normal.y() > 0.0 ? -normal : normal;
+}
+
+// Closed two-cubic lens between start and end, widened by endHalfWidth on each side and cut square to the curve
+// at both ends, to be filled without a pen
+PainterPath buildSolidLensPath(const PointF& start, const PointF& c1, const PointF& c2, const PointF& end,
+                               const PointF& thickness, double endHalfWidth)
+{
+    const PointF startOffset = lensEndNormal(start, c1) * endHalfWidth;
+    const PointF endOffset = lensEndNormal(c2, end) * endHalfWidth;
+    const PointF widened = thickness + PointF(0.0, endHalfWidth);
+
+    PainterPath path;
+    path.setFillRule(PainterPath::FillRule::WindingFill);
+    path.moveTo(start + startOffset);
+    path.cubicTo(c1 - widened, c2 - widened, end + endOffset);
+    path.lineTo(end - endOffset);
+    path.cubicTo(c2 + widened, c1 + widened, start - startOffset);
+    path.closeSubpath();
+    return path;
+}
+
 PointF unitNormalFromTangent(const PointF& tangent, PointF& previousNormal, bool& hasPrevious)
 {
     const double length = std::hypot(tangent.x(), tangent.y());
@@ -279,8 +320,9 @@ void appendCatmullRom(PainterPath& path, const std::vector<PointF>& points, bool
 
 // Offset every arc-length sample along its centerline normal. Knot-only offsets
 // collapse on Z-curves, where a cubic's normal rotates a lot between joints.
+// The envelope keeps endHalfWidth on each side at the tips and is closed there, to be filled without a pen.
 PainterPath buildSolidWithEnvelope(const std::vector<SlurSamplePoint>& denseSamples,
-                                   double totalLength, double midThickness, double spatium)
+                                   double totalLength, double midThickness, double endHalfWidth, double spatium)
 {
     PainterPath path;
     if (denseSamples.size() < 2) {
@@ -313,14 +355,17 @@ PainterPath buildSolidWithEnvelope(const std::vector<SlurSamplePoint>& denseSamp
 
         const PointF normal = unitNormalFromTangent(tangent, previousNormal, hasPreviousNormal);
         const double s = samples[i].arcLength / std::max(totalLength, 1e-6);
-        const double half = lensHalfThicknessAt(s, midThickness);
+        const double half = lensHalfThicknessAt(s, midThickness) + endHalfWidth;
         upper.push_back(samples[i].point - normal * half);
         lower.push_back(samples[i].point + normal * half);
     }
 
+    path.setFillRule(PainterPath::FillRule::WindingFill);
     path.moveTo(upper.front());
     appendCatmullRom(path, upper, false);
+    path.lineTo(lower.back());
     appendCatmullRom(path, lower, true);
+    path.closeSubpath();
     return path;
 }
 
@@ -501,7 +546,7 @@ bool computeMultiBezierPath(SlurSegment* slurSeg, const PointF& p2, const PointF
     const bool solidStyle = slurSeg->slur()->styleType() == SlurStyleType::Solid;
     PainterPath path = solidStyle
                        ? buildSolidWithEnvelope(denseSamples, totalLength, slurSeg->ldata()->midThickness(),
-                                                slurSeg->spatium())
+                                                solidEndHalfWidth(slurSeg), slurSeg->spatium())
                        : buildOpenMultiBezierPath(chain);
     path = toSystemCoordinates.map(path);
     slurSeg->mutldata()->path.set_value(path);
@@ -3176,15 +3221,17 @@ void SlurTieLayout::computeBezier(TieSegment* tieSeg, PointF shoulderOffset)
     const PointF tieShoulder = 0.5 * (bezier1Final + bezier2Final);
     //-----------------------------------
 
-    PainterPath path = PainterPath();
+    PainterPath path;
     // Classic two-cubic "lens": the top and bottom edges are analytic cubic
-    // Beziers sharing the tie's endpoints, so the silhouette stays smooth at any
-    // zoom (no polyline faceting). Solid ties close the lens with the return
-    // cubic; dotted/dashed ties keep only the thin top edge to be stroked.
-    path.moveTo(PointF());
-    path.cubicTo(bezier1Final - tieThickness, bezier2Final - tieThickness, tieEndNormalized);
+    // Beziers, so the silhouette stays smooth at any zoom (no polyline faceting).
+    // Solid ties are a closed lens that includes the end width, to be filled
+    // without a pen; dotted/dashed ties keep only the thin top edge to be stroked.
     if (tieSeg->tie()->styleType() == SlurStyleType::Solid) {
-        path.cubicTo(bezier2Final + tieThickness, bezier1Final + tieThickness, PointF());
+        path = buildSolidLensPath(PointF(), bezier1Final, bezier2Final, tieEndNormalized, tieThickness,
+                                  solidEndHalfWidth(tieSeg));
+    } else {
+        path.moveTo(PointF());
+        path.cubicTo(bezier1Final - tieThickness, bezier2Final - tieThickness, tieEndNormalized);
     }
 
     // translate back
@@ -3340,12 +3387,14 @@ void SlurTieLayout::computeBezier(SlurSegment* slurSeg, PointF shoulderOffset)
     slurSeg->ups(Grip::DRAG).p     = toSystemCoordinates.map(p5);
     slurSeg->ups(Grip::SHOULDER).p = toSystemCoordinates.map(p6);
 
-    // Set path
-    PainterPath path = PainterPath();
-    path.moveTo(PointF());
-    path.cubicTo(p3 - thick, p4 - thick, p2);
+    // Set path: solid slurs are a closed lens that includes the end width, to be filled without a pen;
+    // dotted/dashed slurs keep only the top edge to be stroked
+    PainterPath path;
     if (slurSeg->slur()->styleType() == SlurStyleType::Solid) {
-        path.cubicTo(p4 + thick, p3 + thick, PointF());
+        path = buildSolidLensPath(PointF(), p3, p4, p2, thick, solidEndHalfWidth(slurSeg));
+    } else {
+        path.moveTo(PointF());
+        path.cubicTo(p3 - thick, p4 - thick, p2);
     }
 
     path = toSystemCoordinates.map(path);

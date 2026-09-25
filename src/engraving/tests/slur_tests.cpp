@@ -195,8 +195,10 @@ TEST_F(Engraving_SlurTests, multiBezierThicknessFollowsArcLengthFraction)
     SlurTieLayout::computeBezier(segment);
     const double midThickness = segment->ldata()->midThickness();
     ASSERT_GT(midThickness, 1e-9);
+    // The solid outline also carries half the end width on each side
+    const double endHalfWidth = 0.5 * segment->endWidth();
 
-    auto halfThicknessAtFirstKnot = [](SlurSegment* slurSeg) {
+    auto halfThicknessAtFirstKnot = [endHalfWidth](SlurSegment* slurSeg) {
         const std::vector<PathCubic> cubics = pathCubics(slurSeg->ldata()->path());
         if (cubics.empty() || slurSeg->multiBezierKnotData().empty()) {
             return -1.0;
@@ -207,7 +209,7 @@ TEST_F(Engraving_SlurTests, multiBezierThicknessFollowsArcLengthFraction)
             nearest = std::min(nearest, std::hypot(cubic.start.x() - knot.x(), cubic.start.y() - knot.y()));
             nearest = std::min(nearest, std::hypot(cubic.end.x() - knot.x(), cubic.end.y() - knot.y()));
         }
-        return nearest;
+        return nearest - endHalfWidth;
     };
 
     const double halfNearThird = halfThicknessAtFirstKnot(segment);
@@ -253,7 +255,7 @@ TEST_F(Engraving_SlurTests, solidMultiBezierPathUsesCubicLens)
     }
 
     EXPECT_GE(cubicCount, size_t(2 * (knotCount + 1)));
-    EXPECT_EQ(lineCount, 0u);
+    EXPECT_EQ(lineCount, 2u); // the two square end caps
 
     segment->multiBezierKnotData()[0].knot.off += PointF(10.0, -8.0);
     segment->multiBezierKnotData()[0].inHandle.off += PointF(10.0, -8.0);
@@ -273,7 +275,7 @@ TEST_F(Engraving_SlurTests, solidMultiBezierPathUsesCubicLens)
     }
 
     EXPECT_GE(cubicCount, size_t(2 * (knotCount + 1)));
-    EXPECT_EQ(lineCount, 0u);
+    EXPECT_EQ(lineCount, 2u); // the two square end caps
 }
 
 TEST_F(Engraving_SlurTests, solidMultiBezierZShapeKeepsThicknessAtBends)
@@ -318,6 +320,38 @@ TEST_F(Engraving_SlurTests, solidMultiBezierZShapeKeepsThicknessAtBends)
     // Knot-only offsets pinch the steep Z folds toward zero width. A sampled
     // parallel curve must keep a lens envelope through those bends.
     EXPECT_GT(minWidth, 0.6 * midThickness);
+}
+
+TEST_F(Engraving_SlurTests, solidSlurOutlineIncludesEndWidth)
+{
+    MasterScore* score = nullptr;
+    SlurSegment* segment = createMultiBezierSegment(score);
+    ASSERT_NE(score, nullptr);
+
+    segment->slur()->setMultiBezierEnabled(false);
+    SlurTieLayout::computeBezier(segment);
+
+    // Filled without a pen, so the end width must be part of the closed outline:
+    // moveTo, cubic, end cap, cubic, start cap
+    const PainterPath& path = segment->ldata()->path();
+    EXPECT_EQ(path.fillRule(), PainterPath::FillRule::WindingFill);
+    ASSERT_EQ(path.elementCount(), 9u);
+    EXPECT_TRUE(path.elementAt(0).isMoveTo());
+    EXPECT_TRUE(path.elementAt(4).isLineTo());
+    EXPECT_TRUE(path.elementAt(8).isLineTo());
+    expectPointNear(PointF(path.elementAt(8)), PointF(path.elementAt(0)));
+
+    const double endWidth = segment->endWidth();
+    ASSERT_GT(endWidth, 1e-9);
+
+    const PointF startOuter(path.elementAt(0));
+    const PointF startInner(path.elementAt(7));
+    const PointF endOuter(path.elementAt(3));
+    const PointF endInner(path.elementAt(4));
+    EXPECT_NEAR(std::hypot(startOuter.x() - startInner.x(), startOuter.y() - startInner.y()), endWidth, 1e-6);
+    EXPECT_NEAR(std::hypot(endOuter.x() - endInner.x(), endOuter.y() - endInner.y()), endWidth, 1e-6);
+    expectPointNear(0.5 * (startOuter + startInner), segment->ups(Grip::START).pos());
+    expectPointNear(0.5 * (endOuter + endInner), segment->ups(Grip::END).pos());
 }
 
 TEST_F(Engraving_SlurTests, slurGripAlignmentGuidesUseDragPoint)
