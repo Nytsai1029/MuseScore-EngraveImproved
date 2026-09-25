@@ -61,6 +61,10 @@ public:
     PointF circledTip() const { return m_circledTip; }
     void setCircledTip(const PointF& p) { m_circledTip = p; }
 
+    // Filled outline of the lines with vertically cut open ends; drawn instead of the stroke when not empty
+    const std::vector<PolygonF>& verticalEndsOutline() const { return m_verticalEndsOutline; }
+    void setVerticalEndsOutline(const std::vector<PolygonF>& outline) { m_verticalEndsOutline = outline; }
+
     EngravingItem* propertyDelegate(Pid) override;
 
     int gripsCount() const override;
@@ -97,6 +101,7 @@ private:
     bool m_drawCircledTip = false;
     PointF m_circledTip;
     double m_circledTipRadius = 0.0;
+    std::vector<PolygonF> m_verticalEndsOutline;
 };
 
 //---------------------------------------------------------

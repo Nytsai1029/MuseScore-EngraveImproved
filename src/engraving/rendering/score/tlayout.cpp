@@ -3221,6 +3221,75 @@ void TLayout::fillGuitarBendSegmentShape(const GuitarBendSegment* item, GuitarBe
     ldata->setShape(shape);
 }
 
+enum class HairpinTip : unsigned char {
+    NONE,       // both ends open (continuation segment)
+    AT_START,   // the lines meet at p1 (crescendo)
+    AT_END,     // the lines meet at p2 (diminuendo)
+};
+
+// Half the height of a stroke along l, measured vertically: a vertical slice is thicker than a perpendicular one
+static double hairpinVerticalHalfWidth(const LineF& l, double halfWidth)
+{
+    const double dx = l.x2() - l.x1();
+    return halfWidth * std::hypot(dx, l.y2() - l.y1()) / std::abs(dx);
+}
+
+// Outline of the two hairpin lines as filled shapes whose open ends are cut vertically through the line ends, so both
+// lines end on the same vertical (a flat-capped stroke ends square to its own slope instead). The tip keeps the bevel
+// join the stroke uses. Returns nothing when a line is too short to cut, so the caller keeps the stroke.
+static std::vector<PolygonF> hairpinVerticalEndsOutline(const LineF& upper, const LineF& lower, HairpinTip tip,
+                                                        double lineWidth)
+{
+    const double halfWidth = lineWidth * 0.5;
+    if (upper.x2() - upper.x1() <= halfWidth || lower.x2() - lower.x1() <= halfWidth) {
+        return {};
+    }
+    const double upperHalfHeight = hairpinVerticalHalfWidth(upper, halfWidth);
+    const double lowerHalfHeight = hairpinVerticalHalfWidth(lower, halfWidth);
+
+    if (tip == HairpinTip::NONE) {
+        auto band = [](const LineF& l, double halfHeight) {
+            PolygonF polygon;
+            polygon << PointF(l.x1(), l.y1() - halfHeight) << PointF(l.x2(), l.y2() - halfHeight)
+                    << PointF(l.x2(), l.y2() + halfHeight) << PointF(l.x1(), l.y1() + halfHeight);
+            return polygon;
+        };
+        return { band(upper, upperHalfHeight), band(lower, lowerHalfHeight) };
+    }
+
+    const bool atStart = tip == HairpinTip::AT_START;
+    const PointF t = atStart ? upper.p1() : upper.p2();
+    const PointF a = atStart ? upper.p2() : upper.p1(); // open end of the upper line
+    const PointF b = atStart ? lower.p2() : lower.p1(); // open end of the lower line
+
+    // Bevel corners at the tip: on the outer edge of each line, half the width away perpendicular to it
+    auto outerCorner = [&t, halfWidth](const PointF& end, double upOrDown) {
+        const PointF d = end - t;
+        PointF normal = PointF(d.y(), -d.x()) / std::hypot(d.x(), d.y());
+        if (normal.y() * upOrDown < 0.0) {
+            normal = -normal;
+        }
+        return t + normal * halfWidth;
+    };
+
+    PolygonF outline;
+    outline << PointF(a.x(), a.y() - upperHalfHeight) << outerCorner(a, -1.0)
+            << outerCorner(b, 1.0) << PointF(b.x(), b.y() + lowerHalfHeight);
+
+    // The inner edges meet inside the hairpin, unless the lines are so close that they overlap up to the open end
+    const double upperSlope = (a.y() - t.y()) / (a.x() - t.x());
+    const double lowerSlope = (b.y() - t.y()) / (b.x() - t.x());
+    if (!RealIsNull(lowerSlope - upperSlope)) {
+        const double dx = (upperHalfHeight + lowerHalfHeight) / (lowerSlope - upperSlope);
+        if (std::abs(dx) < std::abs(a.x() - t.x())) {
+            outline << PointF(b.x(), b.y() - lowerHalfHeight)
+                    << PointF(t.x() + dx, t.y() + upperSlope * dx + upperHalfHeight)
+                    << PointF(a.x(), a.y() + upperHalfHeight);
+        }
+    }
+    return { outline };
+}
+
 void TLayout::layoutHairpinSegment(HairpinSegment* item, LayoutContext& ctx)
 {
     LAYOUT_CALL_ITEM(item);
@@ -3246,6 +3315,7 @@ void TLayout::layoutHairpinSegment(HairpinSegment* item, LayoutContext& ctx)
         layoutTextLineBaseSegment(item, ctx);
         item->setDrawCircledTip(false);
         item->setCircledTipRadius(0.0);
+        item->setVerticalEndsOutline({});
     } else {
         item->setTwoLines(true);
 
@@ -3274,7 +3344,7 @@ void TLayout::layoutHairpinSegment(HairpinSegment* item, LayoutContext& ctx)
 
         // The hairpin is built flat along x, then either rotated onto its axis (open ends perpendicular to the axis)
         // or sheared onto it (open ends vertical, heights measured vertically).
-        const bool verticalEnds = item->hairpin()->verticalEnds() && !RealIsNull(y);
+        const bool verticalEnds = item->hairpin()->verticalEnds() && item->hairpin()->diagonal();
         const double axisLen = verticalEnds ? x : len;
         // Converts a distance along the axis to its extent in the flat hairpin, so the niente circle stays tangent
         const double tipScale = verticalEnds ? x / len : 1.0;
@@ -3358,7 +3428,21 @@ void TLayout::layoutHairpinSegment(HairpinSegment* item, LayoutContext& ctx)
             }
         }
 
+        std::vector<PolygonF> verticalEndsOutline;
+        if (verticalEnds && item->hairpin()->lineStyle() == LineType::SOLID) {
+            HairpinTip tip = HairpinTip::NONE;
+            if (!item->joinedHairpin().empty()) {
+                tip = type == HairpinType::CRESC_HAIRPIN ? HairpinTip::AT_START : HairpinTip::AT_END;
+            }
+            const double lineWidth = item->hairpin()->absoluteFromSpatium(item->hairpin()->lineWidth());
+            verticalEndsOutline = hairpinVerticalEndsOutline(l2, l1, tip, lineWidth); // l2 is the upper line
+        }
+        item->setVerticalEndsOutline(verticalEndsOutline);
+
         RectF r = RectF(l1.p1(), l1.p2()).normalized().united(RectF(l2.p1(), l2.p2()).normalized());
+        for (const PolygonF& polygon : verticalEndsOutline) {
+            r.unite(polygon.boundingRect());
+        }
         if (!item->text()->empty()) {
             r.unite(item->text()->ldata()->bbox());
         }
