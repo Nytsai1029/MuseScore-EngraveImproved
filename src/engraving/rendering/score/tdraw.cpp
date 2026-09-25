@@ -1697,11 +1697,11 @@ void TDraw::drawTextLineBaseSegment(const TextLineBaseSegment* item, Painter* pa
 
     // Draw lines
     if (item->twoLines()) { // hairpins
-        const std::vector<PolygonF>& verticalEndsOutline = toHairpinSegment(item)->verticalEndsOutline();
-        if (!verticalEndsOutline.empty()) {
+        const std::vector<PolygonF>& fillOutline = toHairpinSegment(item)->fillOutline();
+        if (!fillOutline.empty()) {
             painter->setNoPen();
             painter->setBrush(Brush(color));
-            for (const PolygonF& polygon : verticalEndsOutline) {
+            for (const PolygonF& polygon : fillOutline) {
                 painter->drawPolygon(polygon);
             }
             painter->setBrush(BrushStyle::NoBrush);

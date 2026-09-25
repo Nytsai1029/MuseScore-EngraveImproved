@@ -3234,11 +3234,13 @@ static double hairpinVerticalHalfWidth(const LineF& l, double halfWidth)
     return halfWidth * std::hypot(dx, l.y2() - l.y1()) / std::abs(dx);
 }
 
-// Outline of the two hairpin lines as filled shapes whose open ends are cut vertically through the line ends, so both
-// lines end on the same vertical (a flat-capped stroke ends square to its own slope instead). The tip keeps the bevel
-// join the stroke uses. Returns nothing when a line is too short to cut, so the caller keeps the stroke.
-static std::vector<PolygonF> hairpinVerticalEndsOutline(const LineF& upper, const LineF& lower, HairpinTip tip,
-                                                        double lineWidth)
+// Outline of the two hairpin lines as filled shapes, so a solid hairpin is filled instead of stroked: PDF viewers
+// widen thin strokes to at least one device pixel when zoomed out, which makes a stroked hairpin look heavy. With
+// verticalEnds the open ends are cut vertically through the line ends, so both lines end on the same vertical;
+// otherwise each line ends square to its own slope, as a flat-capped stroke does. The tip keeps the bevel join the
+// stroke uses. Returns nothing when a line is too short to cut, so the caller keeps the stroke.
+static std::vector<PolygonF> hairpinOutline(const LineF& upper, const LineF& lower, HairpinTip tip, double lineWidth,
+                                            bool verticalEnds)
 {
     const double halfWidth = lineWidth * 0.5;
     if (upper.x2() - upper.x1() <= halfWidth || lower.x2() - lower.x1() <= halfWidth) {
@@ -3247,14 +3249,25 @@ static std::vector<PolygonF> hairpinVerticalEndsOutline(const LineF& upper, cons
     const double upperHalfHeight = hairpinVerticalHalfWidth(upper, halfWidth);
     const double lowerHalfHeight = hairpinVerticalHalfWidth(lower, halfWidth);
 
+    // Offset from an end of l to the edge above it; the edge below is the opposite offset
+    auto endOffset = [verticalEnds, halfWidth](const LineF& l, double halfHeight) {
+        if (verticalEnds) {
+            return PointF(0.0, -halfHeight);
+        }
+        const double dx = l.x2() - l.x1();
+        const double dy = l.y2() - l.y1();
+        return PointF(dy, -dx) * (halfWidth / std::hypot(dx, dy));
+    };
+    const PointF upperOffset = endOffset(upper, upperHalfHeight);
+    const PointF lowerOffset = endOffset(lower, lowerHalfHeight);
+
     if (tip == HairpinTip::NONE) {
-        auto band = [](const LineF& l, double halfHeight) {
+        auto band = [](const LineF& l, const PointF& offset) {
             PolygonF polygon;
-            polygon << PointF(l.x1(), l.y1() - halfHeight) << PointF(l.x2(), l.y2() - halfHeight)
-                    << PointF(l.x2(), l.y2() + halfHeight) << PointF(l.x1(), l.y1() + halfHeight);
+            polygon << l.p1() + offset << l.p2() + offset << l.p2() - offset << l.p1() - offset;
             return polygon;
         };
-        return { band(upper, upperHalfHeight), band(lower, lowerHalfHeight) };
+        return { band(upper, upperOffset), band(lower, lowerOffset) };
     }
 
     const bool atStart = tip == HairpinTip::AT_START;
@@ -3273,8 +3286,7 @@ static std::vector<PolygonF> hairpinVerticalEndsOutline(const LineF& upper, cons
     };
 
     PolygonF outline;
-    outline << PointF(a.x(), a.y() - upperHalfHeight) << outerCorner(a, -1.0)
-            << outerCorner(b, 1.0) << PointF(b.x(), b.y() + lowerHalfHeight);
+    outline << a + upperOffset << outerCorner(a, -1.0) << outerCorner(b, 1.0) << b - lowerOffset;
 
     // The inner edges meet inside the hairpin, unless the lines are so close that they overlap up to the open end
     const double upperSlope = (a.y() - t.y()) / (a.x() - t.x());
@@ -3282,9 +3294,9 @@ static std::vector<PolygonF> hairpinVerticalEndsOutline(const LineF& upper, cons
     if (!RealIsNull(lowerSlope - upperSlope)) {
         const double dx = (upperHalfHeight + lowerHalfHeight) / (lowerSlope - upperSlope);
         if (std::abs(dx) < std::abs(a.x() - t.x())) {
-            outline << PointF(b.x(), b.y() - lowerHalfHeight)
+            outline << b + lowerOffset
                     << PointF(t.x() + dx, t.y() + upperSlope * dx + upperHalfHeight)
-                    << PointF(a.x(), a.y() + upperHalfHeight);
+                    << a - upperOffset;
         }
     }
     return { outline };
@@ -3315,7 +3327,7 @@ void TLayout::layoutHairpinSegment(HairpinSegment* item, LayoutContext& ctx)
         layoutTextLineBaseSegment(item, ctx);
         item->setDrawCircledTip(false);
         item->setCircledTipRadius(0.0);
-        item->setVerticalEndsOutline({});
+        item->setFillOutline({});
     } else {
         item->setTwoLines(true);
 
@@ -3428,20 +3440,23 @@ void TLayout::layoutHairpinSegment(HairpinSegment* item, LayoutContext& ctx)
             }
         }
 
-        std::vector<PolygonF> verticalEndsOutline;
-        if (verticalEnds && item->hairpin()->lineStyle() == LineType::SOLID) {
+        std::vector<PolygonF> fillOutline;
+        if (item->hairpin()->lineStyle() == LineType::SOLID) {
             HairpinTip tip = HairpinTip::NONE;
             if (!item->joinedHairpin().empty()) {
                 tip = type == HairpinType::CRESC_HAIRPIN ? HairpinTip::AT_START : HairpinTip::AT_END;
             }
             const double lineWidth = item->hairpin()->absoluteFromSpatium(item->hairpin()->lineWidth());
-            verticalEndsOutline = hairpinVerticalEndsOutline(l2, l1, tip, lineWidth); // l2 is the upper line
+            fillOutline = hairpinOutline(l2, l1, tip, lineWidth, verticalEnds); // l2 is the upper line
         }
-        item->setVerticalEndsOutline(verticalEndsOutline);
+        item->setFillOutline(fillOutline);
 
         RectF r = RectF(l1.p1(), l1.p2()).normalized().united(RectF(l2.p1(), l2.p2()).normalized());
-        for (const PolygonF& polygon : verticalEndsOutline) {
-            r.unite(polygon.boundingRect());
+        if (verticalEnds) {
+            // Vertical cuts can reach past the stroke margin added below; square ends stay within it
+            for (const PolygonF& polygon : fillOutline) {
+                r.unite(polygon.boundingRect());
+            }
         }
         if (!item->text()->empty()) {
             r.unite(item->text()->ldata()->bbox());
