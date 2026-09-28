@@ -45,6 +45,10 @@ public:
     virtual bool exportPdfWithVectorizedText() const = 0;
     virtual void setExportPdfWithVectorizedText(bool vectorized) = 0;
 
+    //! NOTE Index into PdfWriter's creator presets (0 = MuseScore Studio)
+    virtual int exportPdfCreatorPreset() const = 0;
+    virtual void setExportPdfCreatorPreset(int preset) = 0;
+
     // Png
     virtual float exportPngDpiResolution() const = 0;
     virtual void setExportPngDpiResolution(float dpi) = 0;

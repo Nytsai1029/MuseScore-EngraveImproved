@@ -86,4 +86,33 @@ ExportSettingsPage {
             root.model.pdfVectorizeText = !checked
         }
     }
+
+    ExportOptionItem {
+        id: creatorLabel
+        //: Program name written into the PDF metadata as the document's creator.
+        text: qsTrc("project/export", "PDF creator:")
+
+        StyledDropdown {
+            Layout.preferredWidth: 160
+
+            navigation.name: "CreatorPresetDropdown"
+            navigation.panel: root.navigationPanel
+            navigation.row: root.navigationOrder + 4
+            navigation.accessible.name: creatorLabel.text + " " + currentText
+
+            // Order must match the preset table in pdfwriter.cpp
+            model: [
+                { text: "MuseScore Studio", value: 0 },
+                { text: "Dorico", value: 1 },
+                { text: "Finale", value: 2 },
+                { text: "Sibelius", value: 3 }
+            ]
+
+            currentIndex: indexOfValue(root.model.pdfCreatorPreset)
+
+            onActivated: function(index, value) {
+                root.model.pdfCreatorPreset = value
+            }
+        }
+    }
 }

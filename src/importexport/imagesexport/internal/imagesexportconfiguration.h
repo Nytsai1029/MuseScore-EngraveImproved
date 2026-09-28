@@ -39,6 +39,9 @@ public:
     bool exportPdfWithVectorizedText() const override;
     void setExportPdfWithVectorizedText(bool vectorized) override;
 
+    int exportPdfCreatorPreset() const override;
+    void setExportPdfCreatorPreset(int preset) override;
+
     float exportPngDpiResolution() const override;
     void setExportPngDpiResolution(float dpi) override;
     void setExportPngDpiResolutionOverride(std::optional<float> dpi) override;

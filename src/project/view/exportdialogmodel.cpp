@@ -441,6 +441,21 @@ void ExportDialogModel::setPdfVectorizeText(bool vectorized)
     emit pdfVectorizeTextChanged(vectorized);
 }
 
+int ExportDialogModel::pdfCreatorPreset() const
+{
+    return imageExportConfiguration()->exportPdfCreatorPreset();
+}
+
+void ExportDialogModel::setPdfCreatorPreset(int preset)
+{
+    if (preset == pdfCreatorPreset()) {
+        return;
+    }
+
+    imageExportConfiguration()->setExportPdfCreatorPreset(preset);
+    emit pdfCreatorPresetChanged(preset);
+}
+
 int ExportDialogModel::pngResolution() const
 {
     return imageExportConfiguration()->exportPngDpiResolution();
