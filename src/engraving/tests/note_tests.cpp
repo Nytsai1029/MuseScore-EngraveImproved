@@ -36,6 +36,7 @@
 #include "dom/measure.h"
 #include "dom/mscore.h"
 #include "dom/note.h"
+#include "dom/notedot.h"
 #include "dom/noteval.h"
 #include "dom/parenthesis.h"
 #include "dom/pitchspelling.h"
@@ -946,6 +947,38 @@ TEST_F(Engraving_NoteTests, parenthesisOutlineIncludesEndWidth)
         EXPECT_GT(direction * PointF(path.elementAt(1)).x(), direction * PointF(path.elementAt(6)).x());
         EXPECT_GT(direction * topOuter.x(), 0.0);
     }
+
+    delete score;
+}
+
+//---------------------------------------------------------
+///   crossStaffDottedChordMovedUp
+///   Moving a dotted chord up into a staff whose own chord at that tick has a note on a line
+///   must still find that note when placing dots, and put the moved chord's dot in a space
+//---------------------------------------------------------
+
+TEST_F(Engraving_NoteTests, crossStaffDottedChordMovedUp)
+{
+    MasterScore* score = ScoreRW::readScore(NOTE_DATA_DIR + u"crossStaffDots.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    Segment* segment = score->firstMeasure()->first(SegmentType::ChordRest);
+    ASSERT_TRUE(segment);
+    ASSERT_TRUE(segment->element(0) && segment->element(0)->isChord());
+    ASSERT_TRUE(segment->element(VOICES) && segment->element(VOICES)->isChord());
+    Chord* lower = toChord(segment->element(VOICES));
+
+    score->startCmd(TranslatableString::untranslatable("Engraving note tests"));
+    score->moveUp(lower);
+    score->endCmd();
+
+    EXPECT_EQ(lower->vStaffIdx(), 0u);
+
+    // E4 sits on the bottom treble line, so its dot moves into an adjacent space
+    Note* note = lower->upNote();
+    ASSERT_EQ(note->dots().size(), 1u);
+    EXPECT_NEAR(std::abs(note->dots().front()->ldata()->pos().y()), 0.5 * note->spatium(), 1e-6);
 
     delete score;
 }
