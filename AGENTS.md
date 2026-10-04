@@ -38,7 +38,7 @@ Headless smoke test (rendering / import-export / notation changes); write output
 
 ```bash
 env HOME=/private/tmp/musescore-home QT_QPA_PLATFORM=offscreen \
-  build.install/mscore.app/Contents/MacOS/mscore -F -f -o /tmp/out.pdf input.msdz
+  build.install/mscore.app/Contents/MacOS/mscore -f -o /tmp/out.pdf input.msdz
 ```
 
 Unit tests (GoogleTest) are off in `ninja_build.sh` by default. The script's env var
@@ -131,6 +131,9 @@ Every user-facing string must be translatable, and `share/locale/musescore_en.ts
 - Unity builds can hide a missing `#include`; the non-unity `compile_commands` build exposes it.
 - Root-level `*.mscx` files are gitignored scratch scores and `tmp/` is untracked scratch — never stage them.
 - Do final runtime checks on the installed `build.install` bundle, not the raw `build.debug` binary.
+- Never pass `-F` / `-R` when running the app on macOS: they clear the real preferences plist
+  (`~/Library/Preferences/org.musescore.MuseScore4Development.plist`) regardless of `HOME`. A `HOME` override does
+  not isolate a run — preferences and Application Support (workspaces, logs, session) stay in the real `~/Library`.
 
 ## Commits and PRs
 

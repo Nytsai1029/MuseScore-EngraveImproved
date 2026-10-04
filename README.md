@@ -101,7 +101,7 @@ Use the installed app bundle for headless export checks:
 ```bash
 env HOME=/private/tmp/musescore-home QT_QPA_PLATFORM=offscreen \
   build.install/mscore.app/Contents/MacOS/mscore \
-  -F -f -o /tmp/out.pdf input.msdz
+  -f -o /tmp/out.pdf input.msdz
 ```
 
 ## Local Development
