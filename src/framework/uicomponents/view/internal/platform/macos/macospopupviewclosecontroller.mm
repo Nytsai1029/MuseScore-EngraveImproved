@@ -23,6 +23,7 @@
 #include "macospopupviewclosecontroller.h"
 
 #include <AppKit/NSEvent.h>
+#include <QGuiApplication>
 #include <QQuickWindow>
 
 using namespace muse::uicomponents;
@@ -68,6 +69,11 @@ bool MacOSPopupViewCloseController::nativeEventFilter(const QByteArray& eventTyp
 
 void MacOSPopupViewCloseController::initWindowMinimizedObserver()
 {
+    // winId() is an NSView only on the cocoa platform (not e.g. offscreen)
+    if (QGuiApplication::platformName() != "cocoa") {
+        return;
+    }
+
     WId wid = parentItem()->window()->winId();
     NSView* nsView = (__bridge NSView*)reinterpret_cast<void*>(wid);
     NSWindow* nsWindow = [nsView window];

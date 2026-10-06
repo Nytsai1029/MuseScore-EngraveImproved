@@ -93,6 +93,11 @@ void MacOSPlatformTheme::applyPlatformStyleOnWindowForTheme(QWindow* window, con
         return;
     }
 
+    // winId() is an NSView only on the cocoa platform (not e.g. offscreen)
+    if (QGuiApplication::platformName() != "cocoa") {
+        return;
+    }
+
     QColor backgroundColor = QApplication::palette().window().color();
     NSView* nsView = (__bridge NSView*)reinterpret_cast<void*>(window->winId());
     NSWindow* nsWindow = [nsView window];

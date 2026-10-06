@@ -22,6 +22,7 @@
 #include "macosmainwindowbridge.h"
 
 #include <Cocoa/Cocoa.h>
+#include <QGuiApplication>
 #include <QWindow>
 
 using namespace muse::ui;
@@ -29,6 +30,11 @@ using namespace muse::ui;
 static NSWindow* nsWindowForQWindow(QWindow* qWindow)
 {
     if (!qWindow) {
+        return nullptr;
+    }
+
+    // winId() is an NSView only on the cocoa platform (not e.g. offscreen)
+    if (QGuiApplication::platformName() != "cocoa") {
         return nullptr;
     }
 
