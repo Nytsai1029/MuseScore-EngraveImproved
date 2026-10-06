@@ -33,12 +33,50 @@
 #include "engraving/dom/select.h"
 
 #include "commonscene/commonscenetypes.h"
+#include "ui/view/iconcodes.h"
 
 #include "translation.h"
 
 using namespace mu;
 using namespace mu::palette;
 using namespace mu::engraving;
+
+//! NOTE The icon which represents the palette as a whole (e.g. in the palettes toolbox).
+//! The palettes without such an icon can be represented by one of their cells
+static muse::ui::IconCode::Code iconForPaletteType(Palette::Type type)
+{
+    using IconCode = muse::ui::IconCode;
+
+    switch (type) {
+    case Palette::Type::Clef: return IconCode::Code::CLEF_TREBLE;
+    case Palette::Type::KeySig: return IconCode::Code::KEY_SIGNATURE;
+    case Palette::Type::TimeSig: return IconCode::Code::TIME_SIGNATURE;
+    case Palette::Type::Tempo: return IconCode::Code::METRONOME;
+    case Palette::Type::Pitch: return IconCode::Code::OTTAVA;
+    case Palette::Type::Accidental: return IconCode::Code::ACCIDENTAL_SHARP;
+    case Palette::Type::Dynamic: return IconCode::Code::DYNAMIC_FORTE;
+    case Palette::Type::Articulation: return IconCode::Code::ARTICULATION;
+    case Palette::Type::Text: return IconCode::Code::TEXT_ABOVE_STAFF;
+    case Palette::Type::Keyboard: return IconCode::Code::PEDAL_MARKING;
+    case Palette::Type::Repeat: return IconCode::Code::REPEAT_START;
+    case Palette::Type::BarLine: return IconCode::Code::DOUBLE_BAR_LINE;
+    case Palette::Type::Layout: return IconCode::Code::SECTION_BREAK;
+    case Palette::Type::Bracket: return IconCode::Code::BRACKET;
+    case Palette::Type::Ornament: return IconCode::Code::ORNAMENT;
+    case Palette::Type::Breath: return IconCode::Code::FERMATA;
+    case Palette::Type::GraceNote: return IconCode::Code::GRACE4;
+    case Palette::Type::NoteHead: return IconCode::Code::NOTE_HEAD;
+    case Palette::Type::Line: return IconCode::Code::LINE_WITH_END_HOOK;
+    case Palette::Type::Arpeggio: return IconCode::Code::GLISSANDO;
+    case Palette::Type::Tremolo: return IconCode::Code::TREMOLO_TWO_NOTES;
+    case Palette::Type::FretboardDiagram: return IconCode::Code::FRETBOARD_DIAGRAM;
+    case Palette::Type::Guitar: return IconCode::Code::GUITAR_BEND;
+    case Palette::Type::Beam: return IconCode::Code::BEAM_JOIN;
+    default: break;
+    }
+
+    return IconCode::Code::NONE;
+}
 
 //---------------------------------------------------------
 //   PaletteTreeModel::PaletteTreeModel
@@ -316,6 +354,8 @@ QVariant PaletteTreeModel::data(const QModelIndex& index, int role) const
             return QVariant::fromValue(pp->type());
         case PaletteContentTypeRole:
             return QVariant::fromValue(pp->contentType());
+        case PaletteIconRole:
+            return static_cast<int>(iconForPaletteType(pp->type()));
         }
         return QVariant();
     }
@@ -553,6 +593,7 @@ QHash<int, QByteArray> PaletteTreeModel::roleNames() const
     roles[EditableRole] = "editable";
     roles[PaletteExpandedRole] = "expanded";
     roles[CellActiveRole] = "cellActive";
+    roles[PaletteIconRole] = "paletteIcon";
     roles[Qt::AccessibleTextRole] = "accessibleText";
     return roles;
 }

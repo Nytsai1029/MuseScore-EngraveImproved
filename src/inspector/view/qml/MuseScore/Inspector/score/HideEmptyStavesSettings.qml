@@ -42,6 +42,9 @@ Column {
 
     CheckBox {
         id: dontHideEmptyStavesInFirstSystem
+
+        showAsSwitch: ui.theme.skin === "dorico"
+
         width: parent.width
 
         navigation.name: "DontHideEmptyStavesInFirstSystem"
@@ -59,6 +62,8 @@ Column {
     }
 
     CheckBox {
+        showAsSwitch: ui.theme.skin === "dorico"
+
         width: parent.width
 
         navigation.name: "ShowBracketsWhenSpanningSingleStaff"

@@ -64,7 +64,7 @@ Column {
 
     width: parent.width
 
-    spacing: 8
+    spacing: ui.theme.skin === "dorico" ? 4 : 8
 
     //! NOTE Overridden in instances and specializations of InspectorPropertyView
     function focusOnFirst() {

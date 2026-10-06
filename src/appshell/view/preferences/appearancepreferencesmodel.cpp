@@ -35,6 +35,21 @@ using namespace muse::ui;
 
 static constexpr int INVALID_INDEX = -1;
 
+static const SkinCode DORICO_SKIN_CODE("dorico");
+
+static QString titleForSkin(const SkinCode& skinCode)
+{
+    if (skinCode == DEFAULT_SKIN_CODE) {
+        //: The name of the default look of the user interface
+        return muse::qtrc("appshell/preferences", "Default");
+    } else if (skinCode == DORICO_SKIN_CODE) {
+        //: The name of a look of the user interface that is arranged and colored like Dorico
+        return muse::qtrc("appshell/preferences", "Dorico");
+    }
+
+    return QString::fromStdString(skinCode);
+}
+
 AppearancePreferencesModel::AppearancePreferencesModel(QObject* parent)
     : QObject(parent), muse::Injectable(muse::iocCtxForQmlObject(this))
 {
@@ -42,6 +57,10 @@ AppearancePreferencesModel::AppearancePreferencesModel(QObject* parent)
 
 void AppearancePreferencesModel::init()
 {
+    uiConfiguration()->currentSkinChanged().onNotify(this, [this]() {
+        emit currentSkinCodeChanged();
+    });
+
     uiConfiguration()->isFollowSystemTheme().notification.onNotify(this, [this]() {
         emit isFollowSystemThemeChanged();
     });
@@ -72,6 +91,35 @@ void AppearancePreferencesModel::init()
         emit foregroundUseColorChanged();
         emit foregroundWallpaperPathChanged();
     });
+}
+
+QVariantList AppearancePreferencesModel::skins() const
+{
+    QVariantList result;
+
+    for (const SkinCode& skinCode : uiConfiguration()->skins()) {
+        QVariantMap obj;
+        obj["code"] = QString::fromStdString(skinCode);
+        obj["title"] = titleForSkin(skinCode);
+
+        result << obj;
+    }
+
+    return result;
+}
+
+QString AppearancePreferencesModel::currentSkinCode() const
+{
+    return QString::fromStdString(uiConfiguration()->currentSkin());
+}
+
+void AppearancePreferencesModel::setCurrentSkinCode(const QString& skinCode)
+{
+    if (skinCode == currentSkinCode()) {
+        return;
+    }
+
+    uiConfiguration()->setCurrentSkin(skinCode.toStdString());
 }
 
 bool AppearancePreferencesModel::isFollowSystemThemeAvailable() const

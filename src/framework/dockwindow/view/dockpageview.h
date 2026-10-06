@@ -59,6 +59,11 @@ class DockPageView : public QQuickItem, public muse::Injectable
     Q_PROPERTY(muse::dock::DockCentralView * centralDock READ centralDock WRITE setCentralDock NOTIFY centralDockChanged)
     Q_PROPERTY(muse::dock::DockStatusBarView * statusBar READ statusBar WRITE setStatusBar NOTIFY statusBarChanged)
 
+    //! NOTE If true, the top and bottom panels are placed between the side panels by default,
+    //! otherwise they take the whole width of the window
+    Q_PROPERTY(
+        bool horizontalPanelsBetweenSidePanels READ horizontalPanelsBetweenSidePanels WRITE setHorizontalPanelsBetweenSidePanels NOTIFY horizontalPanelsBetweenSidePanelsChanged)
+
     Q_PROPERTY(QVariant tours READ tours WRITE setTours NOTIFY toursChanged)
 
     Inject<ui::INavigationController> navigationController = { this };
@@ -89,6 +94,8 @@ public:
     QList<DockingHolderView*> panelsHolders() const;
     QList<DockBase*> allDocks() const;
 
+    bool horizontalPanelsBetweenSidePanels() const;
+
     DockBase* dockByName(const QString& dockName) const;
     DockingHolderView* holder(DockType type, Location location) const;
 
@@ -113,6 +120,7 @@ public slots:
     void setUri(const QString& uri);
     void setCentralDock(DockCentralView* central);
     void setStatusBar(DockStatusBarView* statusBar);
+    void setHorizontalPanelsBetweenSidePanels(bool between);
 
 signals:
     void inited();
@@ -120,6 +128,7 @@ signals:
     void uriChanged(const QString& uri);
     void centralDockChanged(DockCentralView* central);
     void statusBarChanged(DockStatusBarView* statusBar);
+    void horizontalPanelsBetweenSidePanelsChanged();
 
     void toursChanged();
     void layoutRequested();
@@ -140,6 +149,7 @@ private:
     uicomponents::QmlListProperty<DockingHolderView> m_panelsDockingHolders;
     DockCentralView* m_central = nullptr;
     DockStatusBarView* m_statusBar = nullptr;
+    bool m_horizontalPanelsBetweenSidePanels = false;
 
     QVariant m_tours;
 };

@@ -46,6 +46,11 @@ class IUiConfiguration : MODULE_EXPORT_INTERFACE
 public:
     virtual ~IUiConfiguration() = default;
 
+    virtual std::vector<SkinCode> skins() const = 0;
+    virtual SkinCode currentSkin() const = 0;
+    virtual void setCurrentSkin(const SkinCode& skinCode) = 0;
+    virtual async::Notification currentSkinChanged() const = 0;
+
     virtual ThemeList themes() const = 0;
     virtual QStringList possibleAccentColors() const = 0;
     virtual QStringList possibleFontFamilies() const = 0;

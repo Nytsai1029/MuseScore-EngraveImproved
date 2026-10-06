@@ -10407,51 +10407,51 @@ followed by dashes</translation>
         <translation type="unfinished">All</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/MainToolBar.qml" line="88"/>
+        <location filename="../../src/appshell/qml/MainToolBar.qml" line="92"/>
         <location filename="../../src/appshell/qml/WindowContent.qml" line="66"/>
         <source>Main toolbar</source>
         <translation type="unfinished">Main toolbar</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/MainToolBar.qml" line="145"/>
+        <location filename="../../src/appshell/qml/MainToolBar.qml" line="168"/>
         <source>显示为单独窗口</source>
         <translation type="unfinished">显示为单独窗口</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="119"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="129"/>
         <location filename="../../src/appshell/qml/PublishPage/PublishPage.qml" line="55"/>
         <source>Notation toolbar</source>
         <translation type="unfinished">Notation toolbar</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="141"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="151"/>
         <location filename="../../src/appshell/qml/PublishPage/PublishPage.qml" line="77"/>
         <source>Playback controls</source>
         <translation type="unfinished">Playback controls</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="168"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="178"/>
         <source>Extensions toolbar</source>
         <translation type="unfinished">Extensions toolbar</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="196"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="206"/>
         <source>Undo/redo</source>
         <translation type="unfinished">Undo/redo</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="220"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="230"/>
         <source>Note input</source>
         <translation type="unfinished">Note input</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="252"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="265"/>
         <location filename="../../src/appshell_web/qml/NotationFrame.qml" line="62"/>
         <source>Palettes</source>
         <translation type="unfinished">Palettes</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="281"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="330"/>
         <location filename="../../src/appshell_web/qml/NotationFrame.qml" line="65"/>
         <source>Layout</source>
         <translation type="unfinished">Layout</translation>
@@ -10463,38 +10463,38 @@ followed by dashes</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/FontDesignPage/FontDesignPage.qml" line="56"/>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="310"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="365"/>
         <location filename="../../src/appshell_web/qml/NotationFrame.qml" line="68"/>
         <source>Properties</source>
         <translation type="unfinished">Properties</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="336"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="396"/>
         <source>Selection filter</source>
         <translation type="unfinished">Selection filter</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="397"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="457"/>
         <source>Mixer</source>
         <translation type="unfinished">Mixer</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="450"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="510"/>
         <source>Piano keyboard</source>
         <translation type="unfinished">Piano keyboard</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="484"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="544"/>
         <source>Timeline</source>
         <translation type="unfinished">Timeline</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="514"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="574"/>
         <source>Drumset tools</source>
         <translation type="unfinished">Drumset tools</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="540"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="600"/>
         <source>Percussion</source>
         <translation type="unfinished">Percussion</translation>
     </message>
@@ -11071,22 +11071,22 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Value</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="144"/>
+        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="166"/>
         <source>Background</source>
         <translation type="unfinished">Background</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="145"/>
+        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="167"/>
         <source>Choose background wallpaper</source>
         <translation type="unfinished">Choose background wallpaper</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="184"/>
+        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="206"/>
         <source>Paper</source>
         <translation type="unfinished">Paper</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="185"/>
+        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="207"/>
         <source>Choose notepaper</source>
         <translation type="unfinished">Choose notepaper</translation>
     </message>
@@ -11704,12 +11704,24 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Preferences</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="167"/>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="44"/>
+        <source>Default</source>
+        <extracomment>The name of the default look of the user interface</extracomment>
+        <translation type="unfinished">Default</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="47"/>
+        <source>Dorico</source>
+        <extracomment>The name of a look of the user interface that is arranged and colored like Dorico</extracomment>
+        <translation type="unfinished">Dorico</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="215"/>
         <source>Images</source>
         <translation type="unfinished">Images</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="168"/>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="216"/>
         <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="245"/>
         <source>All</source>
         <translation type="unfinished">All</translation>
@@ -11956,6 +11968,11 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <location filename="../../src/appshell/view/preferences/scorepreferencesmodel.cpp" line="214"/>
         <source>Choose default style for parts</source>
         <translation type="unfinished">Choose default style for parts</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Preferences/internal/SkinSection.qml" line="31"/>
+        <source>Interface skin</source>
+        <translation type="unfinished">Interface skin</translation>
     </message>
 </context>
 <context>
@@ -24674,7 +24691,7 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">This setting can be changed at any time in Preferences</translation>
     </message>
     <message>
-        <location filename="../../src/palette/qml/MuseScore/Palette/PalettesPanel.qml" line="126"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PalettesPanel.qml" line="136"/>
         <location filename="../../src/project/qml/MuseScore/Project/internal/NewScore/TitleListView.qml" line="123"/>
         <location filename="../../src/project/qml/MuseScore/Project/internal/ScoresPage/ScoreGridItem.qml" line="293"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresGridView.qml" line="202"/>
@@ -25521,12 +25538,12 @@ pickup measure</translation>
         <translation type="unfinished">Show empty staves</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/appearance/internal/AppearanceOffsetSection.qml" line="65"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/appearance/internal/AppearanceOffsetSection.qml" line="68"/>
         <source>Snap to grid</source>
         <translation type="unfinished">Snap to grid</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/appearance/internal/AppearanceOffsetSection.qml" line="82"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/appearance/internal/AppearanceOffsetSection.qml" line="85"/>
         <source>Configure grid</source>
         <translation type="unfinished">Configure grid</translation>
     </message>
@@ -26525,22 +26542,22 @@ pickup measure</translation>
         <translation type="unfinished">Settings</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="65"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="67"/>
         <source>Barré</source>
         <translation type="unfinished">Barré</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="83"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="87"/>
         <source>Multiple dots</source>
         <translation type="unfinished">Multiple dots</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="101"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="105"/>
         <source>Marker type</source>
         <translation type="unfinished">Marker type</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="114"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="118"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/internal/LineStyleSection.qml" line="82"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/stafftype/StaffTypeSettings.qml" line="191"/>
         <location filename="../../src/inspector/models/general/playback/internal_models/gradualtempochangeplaybackmodel.cpp" line="52"/>
@@ -26555,22 +26572,22 @@ pickup measure</translation>
         <translation type="unfinished">Normal</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="115"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="119"/>
         <source>Cross</source>
         <translation type="unfinished">Cross</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="116"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="120"/>
         <source>Square</source>
         <translation type="unfinished">Square</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="117"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="121"/>
         <source>Triangle</source>
         <translation type="unfinished">Triangle</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="143"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretGeneralSettingsTab.qml" line="147"/>
         <source>You have multiple fretboard diagrams selected. Select a single diagram to edit its settings.</source>
         <translation type="unfinished">You have multiple fretboard diagrams selected. Select a single diagram to edit its settings.</translation>
     </message>
@@ -26602,7 +26619,7 @@ pickup measure</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/instrumentname/InstrumentNameSettings.qml" line="53"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/score/ScoreAppearanceInspectorView.qml" line="117"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/score/ScoreAppearanceInspectorView.qml" line="119"/>
         <source>Style settings</source>
         <translation type="unfinished">Style settings</translation>
     </message>
@@ -27486,18 +27503,18 @@ pickup measure</translation>
         <translation type="unfinished">Font</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tempos/TempoRestorePreviousSettings.qml" line="53"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tempos/TempoRestorePreviousSettings.qml" line="56"/>
         <source>Set specific tempo</source>
         <translation type="unfinished">Set specific tempo</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tempos/TempoRestorePreviousSettings.qml" line="73"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tempos/TempoRestorePreviousSettings.qml" line="76"/>
         <location filename="../../src/inspector/models/notation/tempos/temposettingsmodel.cpp" line="42"/>
         <source>Tempo</source>
         <translation type="unfinished">Tempo</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tempos/TempoRestorePreviousSettings.qml" line="77"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tempos/TempoRestorePreviousSettings.qml" line="80"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tempos/TempoSettings.qml" line="61"/>
         <source>BPM</source>
         <translation type="unfinished">BPM</translation>
@@ -27638,12 +27655,12 @@ pickup measure</translation>
         <translation type="unfinished">Exclude from parts</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/score/HideEmptyStavesSettings.qml" line="51"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/score/HideEmptyStavesSettings.qml" line="54"/>
         <source>Don’t hide empty staves in first system</source>
         <translation type="unfinished">Don’t hide empty staves in first system</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/score/HideEmptyStavesSettings.qml" line="68"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/score/HideEmptyStavesSettings.qml" line="73"/>
         <source>Show brackets when spanning a single staff</source>
         <translation type="unfinished">Show brackets when spanning a single staff</translation>
     </message>
@@ -27653,17 +27670,17 @@ pickup measure</translation>
         <translation type="unfinished">Score style preset</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/score/ScoreAppearanceInspectorView.qml" line="50"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/score/ScoreAppearanceInspectorView.qml" line="52"/>
         <source>Automatically hide all empty staves</source>
         <translation type="unfinished">Automatically hide all empty staves</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/score/ScoreAppearanceInspectorView.qml" line="77"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/score/ScoreAppearanceInspectorView.qml" line="79"/>
         <source>Show options for hiding empty staves</source>
         <translation type="unfinished">Show options for hiding empty staves</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/score/ScoreAppearanceInspectorView.qml" line="101"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/score/ScoreAppearanceInspectorView.qml" line="103"/>
         <source>Page settings</source>
         <translation type="unfinished">Page settings</translation>
     </message>
@@ -29026,7 +29043,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
 <context>
     <name>notation</name>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="364"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="424"/>
         <source>History</source>
         <translation type="unfinished">History</translation>
     </message>
@@ -32884,17 +32901,17 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Properties…</translation>
     </message>
     <message>
-        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PalettesPanelHeader.qml" line="120"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PalettesPanelHeader.qml" line="125"/>
         <source>Add palettes</source>
         <translation type="unfinished">Add palettes</translation>
     </message>
     <message>
-        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PalettesPanelHeader.qml" line="160"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PalettesPanelHeader.qml" line="165"/>
         <source>Search palettes</source>
         <translation type="unfinished">Search palettes</translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteTree.qml" line="527"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteTree.qml" line="608"/>
         <source>%1, contains %n matching element(s)</source>
         <translation type="unfinished">
             <numerusform>%1, contains %n matching element(s)</numerusform>
@@ -32902,14 +32919,14 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         </translation>
     </message>
     <message>
-        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteTree.qml" line="528"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteTree.qml" line="609"/>
         <source>%1 expanded</source>
         <comment>tree item not collapsed</comment>
         <translation type="unfinished">%1 expanded</translation>
     </message>
     <message>
-        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteTree.qml" line="665"/>
-        <location filename="../../src/palette/view/palettemodel.cpp" line="836"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteTree.qml" line="746"/>
+        <location filename="../../src/palette/view/palettemodel.cpp" line="877"/>
         <source>Untitled palette</source>
         <translation type="unfinished">Untitled palette</translation>
     </message>
@@ -33027,7 +33044,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Show grid</translation>
     </message>
     <message>
-        <location filename="../../src/palette/qml/MuseScore/Palette/PalettesPanel.qml" line="111"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PalettesPanel.qml" line="121"/>
         <source>Start typing to search all palettes</source>
         <translation type="unfinished">Start typing to search all palettes</translation>
     </message>
@@ -34010,6 +34027,11 @@ failed: %2</translation>
         <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="908"/>
         <source>Other</source>
         <translation type="unfinished">Other</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PalettesToolbox.qml" line="64"/>
+        <source>Palettes toolbox</source>
+        <translation type="unfinished">Palettes toolbox</translation>
     </message>
 </context>
 <context>
@@ -35534,7 +35556,7 @@ failed: %2</translation>
 <context>
     <name>playback</name>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="624"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="684"/>
         <source>This sound processes online</source>
         <translation type="unfinished">This sound processes online</translation>
     </message>
@@ -35543,19 +35565,19 @@ failed: %2</translation>
         <translation type="unfinished">An animated bar will let you know when sounds are processing online. You’ll also see a notification in the status bar. You can change when these notifications appear in Preferences &gt; Audio &amp; MIDI…</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="625"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="685"/>
         <source>Audio is processed in the background while you work. To trigger processing yourself, turn off automatic processing in Preferences &gt; Audio &amp; MIDI &gt; Online sounds.</source>
         <translation type="unfinished">Audio is processed in the background while you work. To trigger processing yourself, turn off automatic processing in Preferences &gt; Audio &amp; MIDI &gt; Online sounds.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="639"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="699"/>
         <location filename="../../src/playback/qml/MuseScore/Playback/OnlineSoundsStatusView.qml" line="116"/>
         <location filename="../../src/playback/qml/MuseScore/Playback/OnlineSoundsStatusView.qml" line="126"/>
         <source>Online sounds</source>
         <translation type="unfinished">Online sounds</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="640"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="700"/>
         <source>Click to manually process online sounds.</source>
         <translation type="unfinished">Click to manually process online sounds.</translation>
     </message>
@@ -38289,25 +38311,25 @@ The score will be saved as:
         <translation type="unfinished">Hidden</translation>
     </message>
     <message>
-        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="76"/>
+        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="83"/>
         <source>Light</source>
         <extracomment>The name of the light ui theme</extracomment>
         <translation type="unfinished">Light</translation>
     </message>
     <message>
-        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="79"/>
+        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="86"/>
         <source>Dark</source>
         <extracomment>The name of the dark ui theme</extracomment>
         <translation type="unfinished">Dark</translation>
     </message>
     <message>
-        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="82"/>
+        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="89"/>
         <source>White</source>
         <extracomment>The name of the high contrast light ui theme</extracomment>
         <translation type="unfinished">White</translation>
     </message>
     <message>
-        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="85"/>
+        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="92"/>
         <source>Black</source>
         <extracomment>The name of the high contrast dark ui theme</extracomment>
         <translation type="unfinished">Black</translation>

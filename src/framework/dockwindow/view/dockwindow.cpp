@@ -22,6 +22,8 @@
 
 #include "dockwindow.h"
 
+#include <algorithm>
+
 #include "thirdparty/KDDockWidgets/src/DockWidgetQuick.h"
 #include "thirdparty/KDDockWidgets/src/LayoutSaver.h"
 #include "thirdparty/KDDockWidgets/src/private/quick/MainWindowQuick_p.h"
@@ -205,6 +207,11 @@ void DockWindow::init()
         reloadCurrentPage();
     });
 
+    m_currentSkin = uiConfiguration()->currentSkin();
+    uiConfiguration()->currentSkinChanged().onNotify(this, [this]() {
+        onCurrentSkinChanged();
+    });
+
     workspaceManager()->currentWorkspaceAboutToBeChanged().onNotify(this, [this]() {
         if (const DockPageView* page = currentPage()) {
             savePageState(page->objectName());
@@ -329,7 +336,7 @@ void DockWindow::restoreDefaultLayout()
 
     m_reloadCurrentPageAllowed = false;
     for (const DockPageView* page : m_pages.list()) {
-        uiConfiguration()->setPageState(page->objectName(), QByteArray());
+        uiConfiguration()->setPageState(pageStateKey(page->objectName()), QByteArray());
     }
 
     uiConfiguration()->setWindowGeometry(QByteArray());
@@ -389,7 +396,12 @@ void DockWindow::loadPanels(const DockPageView* page)
 {
     TRACEFUNC;
 
-    for (DockPanelView* panel : page->panels()) {
+    QList<DockPanelView*> panels = page->panels();
+    std::stable_sort(panels.begin(), panels.end(), [](const DockPanelView* panel1, const DockPanelView* panel2) {
+        return panel1->defaultOrder() < panel2->defaultOrder();
+    });
+
+    for (DockPanelView* panel : panels) {
         if (DockPanelView* destinationPanel = page->findPanelForTab(panel)) {
             addPanelAsTab(panel, destinationPanel);
             continue;
@@ -397,7 +409,8 @@ void DockWindow::loadPanels(const DockPageView* page)
 
         const Location location = panel->location();
         const bool isSideLocation = location == Location::Left || location == Location::Right;
-        addDock(panel, location, isSideLocation ? page->centralDock() : nullptr);
+        const bool isRelativeToCentral = isSideLocation || page->horizontalPanelsBetweenSidePanels();
+        addDock(panel, location, isRelativeToCentral ? page->centralDock() : nullptr);
     }
 
     for (Location location : POSSIBLE_LOCATIONS) {
@@ -604,8 +617,40 @@ void DockWindow::savePageState(const QString& pageName)
     TRACEFUNC;
 
     m_reloadCurrentPageAllowed = false;
-    uiConfiguration()->setPageState(pageName, windowState());
+    uiConfiguration()->setPageState(pageStateKey(pageName), windowState());
     m_reloadCurrentPageAllowed = true;
+}
+
+QString DockWindow::pageStateKey(const QString& pageName) const
+{
+    //! NOTE: each skin has its own default arrangement of the docks, so their states are stored separately
+    if (m_currentSkin == ui::DEFAULT_SKIN_CODE) {
+        return pageName;
+    }
+
+    return pageName + "@" + QString::fromStdString(m_currentSkin);
+}
+
+void DockWindow::onCurrentSkinChanged()
+{
+    if (!m_currentPage) {
+        m_currentSkin = uiConfiguration()->currentSkin();
+        return;
+    }
+
+    savePageState(m_currentPage->objectName());
+
+    m_currentSkin = uiConfiguration()->currentSkin();
+
+    //! NOTE: let the pages update the default locations of their docks first
+    async::Async::call(this, [this]() {
+        reloadCurrentPage();
+
+        if (m_currentPage && checkLayoutIsCorrupted()) {
+            LOGE() << "Layout is corrupted, restoring default";
+            restoreDefaultLayout();
+        }
+    });
 }
 
 void DockWindow::restorePageState(const DockPageView* page)
@@ -614,7 +659,7 @@ void DockWindow::restorePageState(const DockPageView* page)
 
     const QString& pageName = page->objectName();
 
-    ValNt<QByteArray> pageStateValNt = uiConfiguration()->pageState(pageName);
+    ValNt<QByteArray> pageStateValNt = uiConfiguration()->pageState(pageStateKey(pageName));
     const bool layoutIsEmpty = pageStateValNt.val.isEmpty();
 
     QSet<DockBase*> unknownDocks;
@@ -675,6 +720,18 @@ bool DockWindow::checkLayoutIsCorrupted() const
 
         if (!dock->floatable() && dock->floating()) {
             return true;
+        }
+    }
+
+    //! NOTE: a panel can share its frame only with the panels of its group
+    //! (a saved layout may break this, if the groups of the panels have changed since then)
+    const QList<DockPanelView*> panels = m_currentPage->panels();
+    for (const DockPanelView* panel : panels) {
+        for (const DockPanelView* otherPanel : panels) {
+            if (panel != otherPanel && panel->groupName() != otherPanel->groupName()
+                && panel->isInSameFrame(otherPanel)) {
+                return true;
+            }
         }
     }
 

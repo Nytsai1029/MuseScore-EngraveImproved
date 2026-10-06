@@ -46,6 +46,7 @@ class DockFrameModel : public QObject, public muse::Injectable
     Q_PROPERTY(QQmlComponent * titleBar READ titleBar NOTIFY titleBarChanged)
     Q_PROPERTY(bool titleBarAllowed READ titleBarAllowed NOTIFY titleBarAllowedChanged)
     Q_PROPERTY(bool isHorizontalPanel READ isHorizontalPanel NOTIFY isHorizontalPanelChanged)
+    Q_PROPERTY(bool isToolBar READ isToolBar NOTIFY isToolBarChanged)
     Q_PROPERTY(QObject * navigationSection READ navigationSection NOTIFY navigationSectionChanged)
     Q_PROPERTY(QString currentDockUniqueName READ currentDockUniqueName NOTIFY currentDockChanged)
 
@@ -63,6 +64,7 @@ public:
     QQmlComponent* titleBar() const;
     bool titleBarAllowed() const;
     bool isHorizontalPanel() const;
+    bool isToolBar() const;
     QObject* navigationSection() const;
     QString currentDockUniqueName() const;
 
@@ -79,6 +81,7 @@ signals:
     void titleBarChanged();
     void titleBarAllowedChanged(bool visible);
     void isHorizontalPanelChanged();
+    void isToolBarChanged();
     void navigationSectionChanged();
     void currentDockChanged();
     void highlightingVisibleChanged();
@@ -95,6 +98,7 @@ private:
     void listenChangesInFrame();
     void setTitleBarAllowed(bool allowed);
     void setIsHorizontalPanel(bool is);
+    void setIsToolBar(bool is);
 
     KDDockWidgets::DockWidgetBase* currentDockWidget() const;
     QVariant currentDockProperty(const char* propertyName) const;
@@ -109,6 +113,7 @@ private:
     QQmlComponent* m_titleBar = nullptr;
     bool m_titleBarAllowed = false;
     bool m_isHorizontalPanel = false;
+    bool m_isToolBar = false;
     QObject* m_navigationSection = nullptr;
 
     DockTabsModel* m_tabsModel = nullptr;

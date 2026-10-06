@@ -388,6 +388,21 @@ void DockPageView::setStatusBar(DockStatusBarView* statusBar)
     emit statusBarChanged(statusBar);
 }
 
+bool DockPageView::horizontalPanelsBetweenSidePanels() const
+{
+    return m_horizontalPanelsBetweenSidePanels;
+}
+
+void DockPageView::setHorizontalPanelsBetweenSidePanels(bool between)
+{
+    if (between == m_horizontalPanelsBetweenSidePanels) {
+        return;
+    }
+
+    m_horizontalPanelsBetweenSidePanels = between;
+    emit horizontalPanelsBetweenSidePanelsChanged();
+}
+
 void DockPageView::componentComplete()
 {
     QQuickItem::componentComplete();

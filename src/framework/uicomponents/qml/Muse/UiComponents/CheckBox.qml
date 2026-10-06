@@ -32,6 +32,9 @@ FocusScope {
     property alias hovered: clickableArea.containsMouse
     property bool isIndeterminate: false
 
+    //! NOTE: shows a switch instead of the box
+    property bool showAsSwitch: false
+
     property alias text: label.text
     property alias font: label.font
     property alias backgroundColor: box.color
@@ -50,6 +53,17 @@ FocusScope {
         if (!root.activeFocus) {
             root.forceActiveFocus()
         }
+    }
+
+    QtObject {
+        id: prv
+
+        readonly property bool isOn: root.checked || root.isIndeterminate
+
+        //! NOTE: the switch and the filled box (if the theme asks for it) show their state by the accent color
+        readonly property bool isFilled: root.showAsSwitch || ui.theme.filledCheckBoxes
+        readonly property color borderColor: ui.theme.controlBorderColor.valid ? ui.theme.controlBorderColor
+                                                                               : ui.theme.strokeColor
     }
 
     NavigationControl {
@@ -77,23 +91,53 @@ FocusScope {
         Rectangle {
             id: box
 
-            height: 20
-            width: 20
+            height: root.showAsSwitch ? 14 : (prv.isFilled ? 16 : 20)
+            width: root.showAsSwitch ? 26 : height
 
-            opacity: ui.theme.buttonOpacityNormal
+            opacity: prv.isFilled ? 1.0 : ui.theme.buttonOpacityNormal
 
-            border.width: ui.theme.borderWidth
-            border.color: ui.theme.strokeColor
-            color: ui.theme.buttonColor
+            border.width: prv.isFilled ? (prv.isOn ? 0 : 1) : ui.theme.borderWidth
+            border.color: prv.isFilled ? prv.borderColor : ui.theme.strokeColor
+            color: {
+                if (!prv.isFilled) {
+                    return ui.theme.buttonColor
+                }
 
-            radius: 2
+                if (prv.isOn) {
+                    return ui.theme.accentColor
+                }
+
+                return root.showAsSwitch ? ui.theme.backgroundSecondaryColor : ui.theme.textFieldColor
+            }
+
+            radius: root.showAsSwitch ? height / 2 : 2
 
             NavigationFocusBorder { navigationCtrl: navCtrl }
 
             StyledIconLabel {
                 anchors.fill: parent
                 iconCode: root.isIndeterminate ? IconCode.MINUS : IconCode.TICK_RIGHT_ANGLE
-                visible: root.checked || root.isIndeterminate
+                font.pixelSize: prv.isFilled ? 12 : ui.theme.iconsFont.pixelSize
+                color: prv.isFilled ? "#FFFFFF" : ui.theme.fontPrimaryColor
+                visible: prv.isOn && !root.showAsSwitch
+            }
+
+            Rectangle {
+                id: switchHandle
+
+                readonly property real margin: 2
+
+                anchors.verticalCenter: parent.verticalCenter
+                x: root.isIndeterminate ? (parent.width - width) / 2
+                                        : root.checked ? parent.width - width - margin : margin
+
+                width: parent.height - 2 * margin
+                height: width
+                radius: width / 2
+
+                color: prv.isOn ? "#FFFFFF" : ui.theme.fontPrimaryColor
+                opacity: prv.isOn ? 1.0 : 0.35
+                visible: root.showAsSwitch
             }
         }
 
@@ -135,7 +179,7 @@ FocusScope {
 
             PropertyChanges {
                 target: box
-                opacity: ui.theme.buttonOpacityHover
+                opacity: prv.isFilled ? 0.8 : ui.theme.buttonOpacityHover
             }
         },
 
@@ -145,7 +189,7 @@ FocusScope {
 
             PropertyChanges {
                 target: box
-                opacity: ui.theme.buttonOpacityHit
+                opacity: prv.isFilled ? 0.6 : ui.theme.buttonOpacityHit
             }
         }
     ]

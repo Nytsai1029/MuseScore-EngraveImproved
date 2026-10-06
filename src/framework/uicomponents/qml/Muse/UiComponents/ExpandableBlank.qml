@@ -36,6 +36,8 @@ FocusScope {
 
     property alias isExpanded: expandableSection.isExpanded
 
+    readonly property alias titleHeight: expandableSection.height
+
     property alias navigation: expandableSection.navigation
 
     implicitHeight: contentColumn.height

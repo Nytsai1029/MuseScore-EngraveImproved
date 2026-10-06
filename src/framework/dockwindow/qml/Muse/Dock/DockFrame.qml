@@ -43,7 +43,8 @@ Rectangle {
     readonly property bool hasTabBar: frameModel.titleBarAllowed && (prv.tabsModel.numTabs > 1 || frameModel.isHorizontalPanel)
 
     anchors.fill: parent
-    color: ui.theme.backgroundPrimaryColor
+    color: (frameModel.isToolBar && ui.theme.backgroundTertiaryColor.valid) ? ui.theme.backgroundTertiaryColor
+                                                                            : ui.theme.backgroundPrimaryColor
 
     onFrameCppChanged: {
         if (Boolean(frameCpp)) {

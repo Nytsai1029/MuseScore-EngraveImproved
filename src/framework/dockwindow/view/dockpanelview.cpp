@@ -183,6 +183,21 @@ void DockPanelView::setGroupName(const QString& name)
     emit groupNameChanged();
 }
 
+int DockPanelView::defaultOrder() const
+{
+    return m_defaultOrder;
+}
+
+void DockPanelView::setDefaultOrder(int order)
+{
+    if (m_defaultOrder == order) {
+        return;
+    }
+
+    m_defaultOrder = order;
+    emit defaultOrderChanged();
+}
+
 void DockPanelView::componentComplete()
 {
     DockBase::componentComplete();

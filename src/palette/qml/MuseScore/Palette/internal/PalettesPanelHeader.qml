@@ -56,6 +56,11 @@ Item {
         Qt.callLater(addPalettesButton.navigation.requestActive)
     }
 
+    function cancelSearch() {
+        //! NOTE: this also ends the search, see `onTextCleared`
+        searchField.clear()
+    }
+
     NavigationPanel {
         id: navPanel
         name: "PalettesHeader"

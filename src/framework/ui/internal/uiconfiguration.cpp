@@ -26,6 +26,7 @@
 #include "settings.h"
 #include "themeconverter.h"
 
+#include <QFile>
 #include <QFontDatabase>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -47,6 +48,7 @@ using namespace muse::ui;
 using namespace muse::async;
 
 static const Settings::Key UI_THEMES_KEY("ui", "ui/application/themes");
+static const Settings::Key UI_CURRENT_SKIN_CODE_KEY("ui", "ui/application/currentSkinCode");
 static const Settings::Key UI_CURRENT_THEME_CODE_KEY("ui", "ui/application/currentThemeCode");
 static const Settings::Key UI_CUSTOM_COLORS_KEY("ui", "ui/application/customColors");
 static const Settings::Key UI_FOLLOW_SYSTEM_THEME_KEY("ui", "ui/application/followSystemTheme");
@@ -86,10 +88,40 @@ static std::vector<Val> readLegacyCustomColors()
     return legacyValues;
 }
 
+//! NOTE The modified themes are stored as whole snapshots, so each skin needs its own storage
+static Settings::Key themesKey(const SkinCode& skinCode)
+{
+    if (skinCode == DEFAULT_SKIN_CODE) {
+        return UI_THEMES_KEY;
+    }
+
+    return Settings::Key("ui", "ui/application/themes_" + skinCode);
+}
+
+static QString themeConfigPath(const SkinCode& skinCode, const ThemeCode& themeCode)
+{
+    const QString themeCodeStr = QString::fromStdString(themeCode);
+
+    if (skinCode != DEFAULT_SKIN_CODE) {
+        const QString skinPath = QString(":/configs/skins/%1/%2.cfg").arg(QString::fromStdString(skinCode), themeCodeStr);
+        if (QFile::exists(skinPath)) {
+            return skinPath;
+        }
+    }
+
+    return QString(":/configs/%1.cfg").arg(themeCodeStr);
+}
+
 void UiConfiguration::init()
 {
     m_config = ConfigReader::read(":/configs/ui.cfg");
 
+    m_skins = { DEFAULT_SKIN_CODE };
+    for (const Val& skinCode : m_config.value("skins").toList()) {
+        m_skins.push_back(skinCode.toString());
+    }
+
+    settings()->setDefaultValue(UI_CURRENT_SKIN_CODE_KEY, Val(DEFAULT_SKIN_CODE));
     settings()->setDefaultValue(UI_CURRENT_THEME_CODE_KEY, Val(LIGHT_THEME_CODE));
     settings()->setDefaultValue(UI_CUSTOM_COLORS_KEY, Val(readLegacyCustomColors()));
     settings()->setDefaultValue(UI_FOLLOW_SYSTEM_THEME_KEY, Val(false));
@@ -100,11 +132,23 @@ void UiConfiguration::init()
     settings()->setDefaultValue(UI_MUSICAL_FONT_SIZE_KEY, Val(24));
     settings()->setDefaultValue(UI_MUSICAL_TEXT_FONT_FAMILY_KEY, Val("Leland Text"));
     settings()->setDefaultValue(UI_MUSICAL_TEXT_FONT_SIZE_KEY, Val(defaultFontSize()));
-    settings()->setDefaultValue(UI_THEMES_KEY, Val(""));
 
-    settings()->valueChanged(UI_THEMES_KEY).onReceive(this, [this](const Val&) {
-        updateThemes();
-        notifyAboutCurrentThemeChanged();
+    for (const SkinCode& skinCode : m_skins) {
+        const Settings::Key key = themesKey(skinCode);
+        settings()->setDefaultValue(key, Val(""));
+
+        settings()->valueChanged(key).onReceive(this, [this, skinCode](const Val&) {
+            if (skinCode != currentSkin()) {
+                return;
+            }
+
+            updateThemes();
+            notifyAboutCurrentThemeChanged();
+        });
+    }
+
+    settings()->valueChanged(UI_CURRENT_SKIN_CODE_KEY).onReceive(this, [this](const Val&) {
+        onCurrentSkinChanged();
     });
 
     settings()->valueChanged(UI_CURRENT_THEME_CODE_KEY).onReceive(this, [this](const Val&) {
@@ -154,6 +198,47 @@ void UiConfiguration::load()
 void UiConfiguration::deinit()
 {
     platformTheme()->stopListening();
+}
+
+std::vector<SkinCode> UiConfiguration::skins() const
+{
+    return m_skins;
+}
+
+SkinCode UiConfiguration::currentSkin() const
+{
+    SkinCode skinCode = settings()->value(UI_CURRENT_SKIN_CODE_KEY).toString();
+    if (std::find(m_skins.begin(), m_skins.end(), skinCode) == m_skins.end()) {
+        return DEFAULT_SKIN_CODE;
+    }
+
+    return skinCode;
+}
+
+void UiConfiguration::setCurrentSkin(const SkinCode& skinCode)
+{
+    settings()->setSharedValue(UI_CURRENT_SKIN_CODE_KEY, Val(skinCode));
+}
+
+muse::async::Notification UiConfiguration::currentSkinChanged() const
+{
+    return m_currentSkinChanged;
+}
+
+void UiConfiguration::onCurrentSkinChanged()
+{
+    //! NOTE updateThemes() only overlays the modified themes, so drop the themes of the previous skin first
+    m_themes.clear();
+    for (const ThemeCode& codeKey : allStandardThemeCodes()) {
+        m_themes.push_back(makeStandardTheme(codeKey));
+    }
+
+    updateThemes();
+
+    //! NOTE Notify about the skin first, so that the current arrangement of the docks can be saved
+    //! before the pages start to apply the default arrangement of the new skin
+    m_currentSkinChanged.notify();
+    notifyAboutCurrentThemeChanged();
 }
 
 void UiConfiguration::initThemes()
@@ -218,8 +303,18 @@ void UiConfiguration::updateThemes()
         });
 
         bool isModified = it != modifiedThemes.end();
-        if (isModified) {
-            theme = *it;
+        if (!isModified) {
+            continue;
+        }
+
+        //! NOTE: a modified theme overrides only the values which it contains,
+        //! so the values which have been added to the standard themes since it was saved are kept
+        theme.title = it->title;
+
+        for (auto valueIt = it->values.constBegin(); valueIt != it->values.constEnd(); ++valueIt) {
+            if (valueIt.key() != UNKNOWN) {
+                theme.values[valueIt.key()] = valueIt.value();
+            }
         }
     }
 }
@@ -269,7 +364,7 @@ ThemeInfo UiConfiguration::makeStandardTheme(const ThemeCode& codeKey) const
     ThemeInfo theme;
     theme.codeKey = codeKey;
 
-    Config config = ConfigReader::read(QString(":/configs/%1.cfg").arg(QString::fromStdString(codeKey)));
+    Config config = ConfigReader::read(themeConfigPath(currentSkin(), codeKey));
 
     theme.values = {
         { BACKGROUND_PRIMARY_COLOR, config.value("background_primary_color").toQString() },
@@ -291,9 +386,13 @@ ThemeInfo UiConfiguration::makeStandardTheme(const ThemeCode& codeKey) const
         { BLACK_COLOR, config.value("black_color").toQString() },
         { PLAY_COLOR, config.value("play_color").toQString() },
         { RECORD_COLOR, config.value("record_color").toQString() },
+        { CANVAS_BACKGROUND_COLOR, config.value("canvas_background_color").toQString() },
+        { CANVAS_BACKGROUND_GRADIENT_COLOR, config.value("canvas_background_gradient_color").toQString() },
+        { CONTROL_BORDER_COLOR, config.value("control_border_color").toQString() },
 
         { BORDER_WIDTH, config.value("border_width").toDouble() },
         { NAVIGATION_CONTROL_BORDER_WIDTH, config.value("navigation_control_border_width").toDouble() },
+        { CONTROL_HEIGHT, config.value("control_height").toDouble() },
 
         { ACCENT_OPACITY_NORMAL, config.value("accent_opacity_normal").toDouble() },
         { ACCENT_OPACITY_HOVER, config.value("accent_opacity_hover").toDouble() },
@@ -303,7 +402,10 @@ ThemeInfo UiConfiguration::makeStandardTheme(const ThemeCode& codeKey) const
         { BUTTON_OPACITY_HOVER, config.value("button_opacity_hover").toDouble() },
         { BUTTON_OPACITY_HIT, config.value("button_opacity_hit").toDouble() },
 
-        { ITEM_OPACITY_DISABLED, config.value("item_opacity_disabled").toDouble() }
+        { ITEM_OPACITY_DISABLED, config.value("item_opacity_disabled").toDouble() },
+
+        { JOINED_BUTTON_GROUPS, config.value("joined_button_groups").toBool() },
+        { FILLED_CHECK_BOXES, config.value("filled_check_boxes").toBool() }
     };
 
     return theme;
@@ -315,7 +417,7 @@ ThemeList UiConfiguration::readThemes() const
 
     ThemeList result;
 
-    QByteArray json = QByteArray::fromStdString(settings()->value(UI_THEMES_KEY).toString());
+    QByteArray json = QByteArray::fromStdString(settings()->value(themesKey(currentSkin())).toString());
     if (json.isEmpty()) {
         return result;
     }
@@ -353,7 +455,7 @@ void UiConfiguration::writeThemes(const ThemeList& themes)
     QJsonDocument jsonDoc(jsonArray);
 
     Val value(jsonDoc.toJson(QJsonDocument::Compact).constData());
-    settings()->setSharedValue(UI_THEMES_KEY, value);
+    settings()->setSharedValue(themesKey(currentSkin()), value);
 }
 
 ThemeList UiConfiguration::themes() const

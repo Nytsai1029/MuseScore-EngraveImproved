@@ -422,30 +422,38 @@ QColor NotationConfiguration::notationColor() const
     return engravingConfiguration()->defaultColor().toQColor();
 }
 
+static const Settings::Key& scoreBackgroundColorKey(const ThemeCode& themeCode)
+{
+    if (themeCode == LIGHT_THEME_CODE) {
+        return LIGHT_SCORE_BACKGROUND_COLOR;
+    } else if (themeCode == DARK_THEME_CODE) {
+        return DARK_SCORE_BACKGROUND_COLOR;
+    } else if (themeCode == HIGH_CONTRAST_BLACK_THEME_CODE) {
+        return HC_BLACK_SCORE_BACKGROUND_COLOR;
+    }
+
+    return HC_WHITE_SCORE_BACKGROUND_COLOR;
+}
+
 QColor NotationConfiguration::backgroundColor() const
 {
-    if (uiConfiguration()->currentTheme().codeKey == LIGHT_THEME_CODE) {
-        return settings()->value(LIGHT_SCORE_BACKGROUND_COLOR).toQColor();
-    } else if (uiConfiguration()->currentTheme().codeKey == DARK_THEME_CODE) {
-        return settings()->value(DARK_SCORE_BACKGROUND_COLOR).toQColor();
-    } else if (uiConfiguration()->currentTheme().codeKey == HIGH_CONTRAST_BLACK_THEME_CODE) {
-        return settings()->value(HC_BLACK_SCORE_BACKGROUND_COLOR).toQColor();
-    } else {
-        return settings()->value(HC_WHITE_SCORE_BACKGROUND_COLOR).toQColor();
+    const ThemeInfo& theme = uiConfiguration()->currentTheme();
+    const Settings::Key& key = scoreBackgroundColorKey(theme.codeKey);
+
+    const QColor color = settings()->value(key).toQColor();
+
+    //! NOTE The theme (skin) can bring its own canvas color, it is used until the user chooses a color
+    const QColor themeColor(theme.values.value(CANVAS_BACKGROUND_COLOR).toString());
+    if (themeColor.isValid() && color == settings()->defaultValue(key).toQColor()) {
+        return themeColor;
     }
+
+    return color;
 }
 
 void NotationConfiguration::setBackgroundColor(const QColor& color)
 {
-    if (uiConfiguration()->currentTheme().codeKey == LIGHT_THEME_CODE) {
-        settings()->setSharedValue(LIGHT_SCORE_BACKGROUND_COLOR, Val(color));
-    } else if (uiConfiguration()->currentTheme().codeKey == DARK_THEME_CODE) {
-        settings()->setSharedValue(DARK_SCORE_BACKGROUND_COLOR, Val(color));
-    } else if (uiConfiguration()->currentTheme().codeKey == HIGH_CONTRAST_BLACK_THEME_CODE) {
-        settings()->setSharedValue(HC_BLACK_SCORE_BACKGROUND_COLOR, Val(color));
-    } else {
-        settings()->setSharedValue(HC_WHITE_SCORE_BACKGROUND_COLOR, Val(color));
-    }
+    settings()->setSharedValue(scoreBackgroundColorKey(uiConfiguration()->currentTheme().codeKey), Val(color));
 }
 
 muse::io::path_t NotationConfiguration::backgroundWallpaperPath() const

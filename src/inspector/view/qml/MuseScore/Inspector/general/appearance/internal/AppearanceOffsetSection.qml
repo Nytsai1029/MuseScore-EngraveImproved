@@ -56,6 +56,9 @@ Column {
 
     CheckBox {
         id: snapToGridCheckbox
+
+        showAsSwitch: ui.theme.skin === "dorico"
+
         width: parent.width
 
         navigation.name: "Snap to grid"

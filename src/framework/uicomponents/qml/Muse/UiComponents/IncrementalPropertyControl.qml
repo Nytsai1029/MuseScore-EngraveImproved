@@ -61,7 +61,7 @@ Item {
     signal accepted()
     signal escaped()
 
-    implicitHeight: 30
+    implicitHeight: ui.theme.controlHeight
     implicitWidth: parent.width
 
     navigation.name: Boolean(root.objectName) ? root.objectName : "IncrementalControl"

@@ -3,6 +3,7 @@
         <file>qml/MuseScore/Palette/qmldir</file>
         <file>qml/MuseScore/Palette/PalettesPanel.qml</file>
         <file>qml/MuseScore/Palette/internal/PalettesPanelHeader.qml</file>
+        <file>qml/MuseScore/Palette/internal/PalettesToolbox.qml</file>
         <file>qml/MuseScore/Palette/internal/AddPalettesPopup.qml</file>
         <file>qml/MuseScore/Palette/internal/CreateCustomPalettePopup.qml</file>
         <file>qml/MuseScore/Palette/internal/MoreElementsPopup.qml</file>

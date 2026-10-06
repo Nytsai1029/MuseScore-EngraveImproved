@@ -56,6 +56,8 @@ FocusableItem {
             CheckBox {
                 id: barreModeCheckBox
 
+                showAsSwitch: ui.theme.skin === "dorico"
+
                 anchors.left: parent.left
                 anchors.right: parent.horizontalCenter
                 anchors.rightMargin: 2
@@ -73,6 +75,8 @@ FocusableItem {
 
             CheckBox {
                 id: multipleDotsModeCheckBox
+
+                showAsSwitch: ui.theme.skin === "dorico"
 
                 anchors.left: parent.horizontalCenter
                 anchors.leftMargin: 2
@@ -105,7 +109,7 @@ FocusableItem {
             RadioButtonGroup {
                 id: lineStyleButtonList
 
-                height: 30
+                height: ui.theme.controlHeight
                 width: parent.width
 
                 enabled: root.model ? !root.model.isBarreModeOn : false

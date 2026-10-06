@@ -130,6 +130,9 @@ private:
 
     void savePageState(const QString& pageName);
     void restorePageState(const DockPageView* page);
+    QString pageStateKey(const QString& pageName) const;
+
+    void onCurrentSkinChanged();
 
     void reloadCurrentPage();
     bool restoreLayout(const QByteArray& layout, bool restoreRelativeToMainWindow = false);
@@ -152,6 +155,8 @@ private:
 
     class UniqueConnectionHolder;
     QHash<DockPageView*, UniqueConnectionHolder*> m_pageConnections;
+
+    ui::SkinCode m_currentSkin = ui::DEFAULT_SKIN_CODE;
 
     bool m_hasGeometryBeenRestored = false;
     bool m_reloadCurrentPageAllowed = false;

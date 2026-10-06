@@ -48,6 +48,13 @@ RadioDelegate {
     property alias navigation: navCtrl
     property alias navigationFocusBorder: navigationFocusBorder
 
+    //! NOTE: if the theme asks for it, the buttons of a horizontal list are joined into one strip:
+    //! they fill the spacing between them (except for a thin divider), and only the ends of the strip are rounded
+    readonly property bool isJoined: ui.theme.joinedButtonGroups && !transparent && Boolean(ListView.view)
+                                     && ListView.view.orientation === ListView.Horizontal && ListView.view.count > 1
+    readonly property bool isFirstInStrip: !isJoined || root.x < 1
+    readonly property bool isLastInStrip: !isJoined || root.x + root.width > ListView.view.contentWidth - 1
+
     ButtonGroup.group: ListView.view && ListView.view instanceof RadioButtonGroup ? ListView.view.radioButtonGroup : null
 
     implicitHeight: {
@@ -103,45 +110,71 @@ RadioDelegate {
         onTriggered: root.toggled()
     }
 
-    background: Rectangle {
-        id: backgroundRect
+    background: Item {
+        id: backgroundItem
+
+        readonly property real dividerWidth: 1
+        readonly property real spacingToFill: root.isJoined ? Math.max(root.ListView.view.spacing - dividerWidth, 0)
+                                                            : 0
+
+        //! NOTE: used by the navigation focus border
+        readonly property real radius: backgroundRect.radius
+
         anchors.fill: parent
+        anchors.leftMargin: root.isFirstInStrip ? 0 : -Math.floor(spacingToFill / 2)
+        anchors.rightMargin: root.isLastInStrip ? 0 : -Math.ceil(spacingToFill / 2)
+
+        Item {
+            anchors.fill: parent
+
+            //! NOTE: clips the rounded corners away from the sides at which the strip continues
+            clip: root.isJoined
+
+            Rectangle {
+                id: backgroundRect
+
+                anchors.fill: parent
+                anchors.leftMargin: root.isFirstInStrip ? 0 : -radius
+                anchors.rightMargin: root.isLastInStrip ? 0 : -radius
+
+                color: root.checked ? root.checkedColor : root.normalColor
+                opacity: root.isJoined && root.checked ? 1.0 : ui.theme.buttonOpacityNormal
+
+                border.width: ui.theme.borderWidth
+                border.color: ui.theme.strokeColor
+                radius: root.isJoined ? 3 : 2
+
+                states: [
+                    State {
+                        name: "HOVERED"
+                        when: root.hovered && !root.pressed
+
+                        PropertyChanges {
+                            target: backgroundRect
+                            color: root.checked ? root.checkedColor : root.hoverHitColor
+                            opacity: root.isJoined && root.checked ? 0.9 : ui.theme.buttonOpacityHover
+                        }
+                    },
+
+                    State {
+                        name: "PRESSED"
+                        when: root.pressed
+
+                        PropertyChanges {
+                            target: backgroundRect
+                            color: root.checked ? root.checkedColor : root.hoverHitColor
+                            opacity: root.isJoined && root.checked ? 0.8 : ui.theme.buttonOpacityHit
+                        }
+                    }
+                ]
+            }
+        }
 
         NavigationFocusBorder {
             id: navigationFocusBorder
             navigationCtrl: navCtrl
+            opacity: backgroundRect.opacity
         }
-
-        color: root.checked ? root.checkedColor : root.normalColor
-        opacity: ui.theme.buttonOpacityNormal
-
-        border.width: ui.theme.borderWidth
-        border.color: ui.theme.strokeColor
-        radius: 2
-
-        states: [
-            State {
-                name: "HOVERED"
-                when: root.hovered && !root.pressed
-
-                PropertyChanges {
-                    target: backgroundRect
-                    color: root.checked ? root.checkedColor : root.hoverHitColor
-                    opacity: ui.theme.buttonOpacityHover
-                }
-            },
-
-            State {
-                name: "PRESSED"
-                when: root.pressed
-
-                PropertyChanges {
-                    target: backgroundRect
-                    color: root.checked ? root.checkedColor : root.hoverHitColor
-                    opacity: ui.theme.buttonOpacityHit
-                }
-            }
-        ]
     }
 
     contentItem: Loader {
@@ -165,6 +198,7 @@ RadioDelegate {
             StyledIconLabel {
                 iconCode: root.iconCode
                 font.pixelSize: root.iconFontSize
+                color: root.isJoined && root.checked ? "#FFFFFF" : ui.theme.fontPrimaryColor
             }
         }
 
@@ -174,6 +208,7 @@ RadioDelegate {
             StyledTextLabel {
                 text: root.text
                 maximumLineCount: 1
+                color: root.isJoined && root.checked ? "#FFFFFF" : ui.theme.fontPrimaryColor
             }
         }
     }

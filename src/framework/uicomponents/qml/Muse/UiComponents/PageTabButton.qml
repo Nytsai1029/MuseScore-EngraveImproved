@@ -35,6 +35,10 @@ RadioDelegate {
     property int orientation: Qt.Vertical
     readonly property bool isVertical: orientation === Qt.Vertical
 
+    //! NOTE: a segment of a segmented control: the selected button is filled instead of underlined,
+    //! and the track behind the buttons is drawn by the owner
+    property bool segmented: false
+
     property font normalStateFont: ui.theme.largeBodyFont
     property font selectedStateFont: ui.theme.largeBodyBoldFont
 
@@ -72,8 +76,9 @@ RadioDelegate {
         id: backgroundRect
         anchors.fill: parent
 
-        color: ui.theme.backgroundPrimaryColor
+        color: root.segmented ? "transparent" : ui.theme.backgroundPrimaryColor
         opacity: ui.theme.buttonOpacityNormal
+        radius: root.segmented ? 3 : 0
 
         border.color: navCtrl.highlight ? ui.theme.fontPrimaryColor : ui.theme.strokeColor
         border.width: navCtrl.highlight ? ui.theme.navCtrlBorderWidth : ui.theme.borderWidth
@@ -199,13 +204,14 @@ RadioDelegate {
 
             PropertyChanges {
                 target: backgroundRect
-                color: Utils.colorWithAlpha(ui.theme.accentColor, 0.1)
+                color: (root.segmented && ui.theme.projectTabColor.valid) ? ui.theme.projectTabColor
+                                                                          : Utils.colorWithAlpha(ui.theme.accentColor, 0.1)
                 opacity: 1.0
             }
 
             PropertyChanges {
                 target: line
-                visible: true
+                visible: !root.segmented
             }
 
             PropertyChanges {

@@ -89,7 +89,7 @@ FocusableItem {
                     property int navigationRowStart: beamTypeSection.navigationRowEnd + 1
                     property int navigationRowEnd: navigationRowStart + model.length
 
-                    height: 30
+                    height: ui.theme.controlHeight
                     width: parent.width
 
                     model: [

@@ -29,6 +29,11 @@ namespace muse::ui {
 class UiConfigurationMock : public IUiConfiguration
 {
 public:
+    MOCK_METHOD(std::vector<SkinCode>, skins, (), (const, override));
+    MOCK_METHOD(SkinCode, currentSkin, (), (const, override));
+    MOCK_METHOD(void, setCurrentSkin, (const SkinCode&), (override));
+    MOCK_METHOD(async::Notification, currentSkinChanged, (), (const, override));
+
     MOCK_METHOD(ThemeList, themes, (), (const, override));
     MOCK_METHOD(QStringList, possibleAccentColors, (), (const, override));
     MOCK_METHOD(QStringList, possibleFontFamilies, (), (const, override));

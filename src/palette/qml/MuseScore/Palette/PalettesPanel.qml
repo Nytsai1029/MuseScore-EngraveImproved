@@ -40,6 +40,14 @@ Item {
 
     readonly property PaletteProvider paletteProvider: paletteRootModel.paletteProvider
 
+    //! NOTE: In the toolbox mode, the panel has a strip with a button for each palette (the toolbox),
+    //! and shows only the palettes chosen there. While no palette is chosen, only the toolbox is shown,
+    //! so the panel can be as narrow as the toolbox
+    property bool toolboxMode: false
+    property int toolboxWidth: 48
+    readonly property bool isContentVisible: !toolboxMode || paletteTree.expandedPalettesCount > 0
+                                             || palettesPanelHeader.isSearchOpened || paletteTree.count === 0
+
     implicitHeight: 4 * palettesPanelHeader.implicitHeight
     implicitWidth: paletteTree.implicitWidth
 
@@ -77,9 +85,11 @@ Item {
 
         anchors.fill: parent
         anchors.leftMargin: sideMargin
-        anchors.rightMargin: sideMargin
+        anchors.rightMargin: sideMargin + (root.toolboxMode ? toolbox.width + toolboxSeparator.width : 0)
 
         spacing: sideMargin
+
+        visible: root.isContentVisible
 
         PalettesPanelHeader {
             id: palettesPanelHeader
@@ -147,8 +157,46 @@ Item {
             filter: palettesPanelHeader.searchText
             enableAnimations: !palettesPanelHeader.isSearchFieldFocused
             searchOpened: palettesPanelHeader.isSearchOpened
+            toolboxMode: root.toolboxMode
 
             visible: !searchHint.visible
+        }
+    }
+
+    SeparatorLine {
+        id: toolboxSeparator
+
+        anchors.right: toolbox.left
+        orientation: Qt.Vertical
+
+        visible: root.toolboxMode && root.isContentVisible
+    }
+
+    PalettesToolbox {
+        id: toolbox
+
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        width: root.toolboxWidth
+
+        visible: root.toolboxMode
+        paletteModel: paletteTree.paletteModel
+
+        navigation.section: root.navigationSection
+        navigation.order: paletteTree.navigation.order + 1
+
+        onPaletteClicked: function(row) {
+            if (palettesPanelHeader.isSearchOpened) {
+                //! NOTE: the rows are different while the palettes are filtered by the search
+                const name = paletteTree.paletteName(row)
+                palettesPanelHeader.cancelSearch()
+                row = paletteTree.rowOfPalette(name)
+            }
+
+            if (row >= 0) {
+                paletteTree.togglePaletteInToolbox(row)
+            }
         }
     }
 }

@@ -45,6 +45,8 @@ InspectorSectionView {
             spacing: 4
 
             CheckBox {
+                showAsSwitch: ui.theme.skin === "dorico"
+
                 Layout.fillWidth: true
 
                 text: qsTrc("inspector", "Automatically hide all empty staves")

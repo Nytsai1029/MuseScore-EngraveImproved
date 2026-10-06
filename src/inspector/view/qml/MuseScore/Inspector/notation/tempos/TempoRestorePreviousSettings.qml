@@ -48,6 +48,9 @@ Column {
         // the negation of the boolean model property
 
         id: setSpecificTempoCheckBox
+
+        showAsSwitch: ui.theme.skin === "dorico"
+
         property PropertyItem followText: root.model ? root.model.followText : null
 
         text: qsTrc("inspector", "Set specific tempo")

@@ -38,6 +38,7 @@ class ThemeApi : public api::ApiObject, public async::Asyncable
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString skin READ skin NOTIFY themeChanged)
     Q_PROPERTY(bool isDark READ isDark NOTIFY themeChanged)
 
     Q_PROPERTY(QColor backgroundPrimaryColor READ backgroundPrimaryColor NOTIFY themeChanged)
@@ -45,6 +46,7 @@ class ThemeApi : public api::ApiObject, public async::Asyncable
     Q_PROPERTY(QColor backgroundTertiaryColor READ backgroundTertiaryColor NOTIFY themeChanged)
     Q_PROPERTY(QColor backgroundQuarternaryColor READ backgroundQuarternaryColor NOTIFY themeChanged)
     Q_PROPERTY(QColor popupBackgroundColor READ popupBackgroundColor NOTIFY themeChanged)
+    Q_PROPERTY(QColor projectTabColor READ projectTabColor NOTIFY themeChanged)
     Q_PROPERTY(QColor textFieldColor READ textFieldColor NOTIFY themeChanged)
     Q_PROPERTY(QColor strokeColor READ strokeColor NOTIFY themeChanged)
     Q_PROPERTY(QColor accentColor READ accentColor NOTIFY themeChanged)
@@ -87,6 +89,12 @@ class ThemeApi : public api::ApiObject, public async::Asyncable
 
     Q_PROPERTY(qreal defaultButtonSize READ defaultButtonSize NOTIFY themeChanged)
 
+    //! NOTE The style of the controls, which a theme can redefine
+    Q_PROPERTY(QColor controlBorderColor READ controlBorderColor NOTIFY themeChanged)
+    Q_PROPERTY(qreal controlHeight READ controlHeight NOTIFY themeChanged)
+    Q_PROPERTY(bool joinedButtonGroups READ joinedButtonGroups NOTIFY themeChanged)
+    Q_PROPERTY(bool filledCheckBoxes READ filledCheckBoxes NOTIFY themeChanged)
+
     Q_PROPERTY(int flickableMaxVelocity READ flickableMaxVelocity CONSTANT)
 
     Q_PROPERTY(int tooltipDelay READ tooltipDelay CONSTANT)
@@ -102,6 +110,7 @@ public:
     void init();
     void update();
 
+    QString skin() const;
     bool isDark() const;
 
     QColor backgroundPrimaryColor() const;
@@ -109,6 +118,7 @@ public:
     QColor backgroundTertiaryColor() const;
     QColor backgroundQuarternaryColor() const;
     QColor popupBackgroundColor() const;
+    QColor projectTabColor() const;
     QColor textFieldColor() const;
     QColor accentColor() const;
     QColor strokeColor() const;
@@ -136,6 +146,11 @@ public:
     QFont defaultFont() const;
 
     qreal defaultButtonSize() const;
+
+    QColor controlBorderColor() const;
+    qreal controlHeight() const;
+    bool joinedButtonGroups() const;
+    bool filledCheckBoxes() const;
     qreal borderWidth() const;
     qreal navCtrlBorderWidth() const;
     qreal accentOpacityNormal() const;
@@ -195,6 +210,7 @@ private:
     QColor m_backgroundTertiaryColor;
     QColor m_backgroundQuarternaryColor;
     QColor m_popupBackgroundColor;
+    QColor m_projectTabColor;
     QColor m_textFieldColor;
     QColor m_accentColor;
     QColor m_strokeColor;
@@ -205,6 +221,11 @@ private:
     QColor m_focusColor;
 
     qreal m_defaultButtonSize = 0;
+
+    QColor m_controlBorderColor;
+    qreal m_controlHeight = 0;
+    bool m_joinedButtonGroups = false;
+    bool m_filledCheckBoxes = false;
     qreal m_borderWidth = 0;
     qreal m_navCtrlBorderWidth = 0;
     qreal m_accentOpacityNormal = 0;

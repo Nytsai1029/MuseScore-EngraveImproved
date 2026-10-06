@@ -31,8 +31,12 @@ import "./PublishPage"
 Item {
     id: root
 
-    width: radioButtonList.width
-    height: radioButtonList.height
+    //! NOTE: the Dorico skin shows the page tabs as one segmented control
+    readonly property bool segmented: ui.theme.skin === "dorico"
+    readonly property int segmentedMargin: 6
+
+    width: radioButtonList.width + (root.segmented ? 2 * root.segmentedMargin : 0)
+    height: root.segmented ? 36 : radioButtonList.height
 
     property alias navigation: navPanel
 
@@ -94,8 +98,20 @@ Item {
         PublishPreviewWindow {}
     }
 
+    Rectangle {
+        anchors.fill: radioButtonList
+
+        visible: root.segmented
+        radius: 4
+        color: Utils.colorWithAlpha(ui.theme.buttonColor, ui.theme.buttonOpacityNormal)
+    }
+
     RadioButtonGroup {
         id: radioButtonList
+
+        anchors.verticalCenter: parent.verticalCenter
+        x: root.segmented ? root.segmentedMargin : 0
+
         spacing: 0
 
         model: toolBarModel
@@ -108,10 +124,17 @@ Item {
 
             ButtonGroup.group: radioButtonList.radioButtonGroup
 
-            spacing: 0
-            leftPadding: 12
+            segmented: root.segmented
+            height: root.segmented ? 28 : 36
 
-            normalStateFont: model.isTitleBold ? ui.theme.largeBodyBoldFont : ui.theme.largeBodyFont
+            spacing: 0
+            leftPadding: root.segmented ? 10 : 12
+            rightPadding: root.segmented ? 10 : 0
+
+            //! NOTE: the segments use the smaller font, so that the segmented control is not wider than the tabs
+            normalStateFont: root.segmented ? (model.isTitleBold ? ui.theme.bodyBoldFont : ui.theme.bodyFont)
+                                            : (model.isTitleBold ? ui.theme.largeBodyBoldFont : ui.theme.largeBodyFont)
+            selectedStateFont: root.segmented ? ui.theme.bodyBoldFont : ui.theme.largeBodyBoldFont
 
             navigation.name: model.title
             navigation.panel: navPanel

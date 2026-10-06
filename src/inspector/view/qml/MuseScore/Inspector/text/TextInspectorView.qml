@@ -87,7 +87,7 @@ InspectorSectionView {
 
                 RadioButtonGroup {
                     id: styleGroup
-                    height: 30
+                    height: ui.theme.controlHeight
                     width: implicitWidth
 
                     property int navigationRowStart: styleSection.navigationRowStart + 1
@@ -199,7 +199,7 @@ InspectorSectionView {
                     anchors.right: parent.horizontalCenter
                     anchors.rightMargin: 2
 
-                    height: 30
+                    height: ui.theme.controlHeight
 
                     model: [
                         {
@@ -253,7 +253,7 @@ InspectorSectionView {
                     anchors.leftMargin: 2
                     anchors.right: parent.right
 
-                    height: 30
+                    height: ui.theme.controlHeight
 
                     model: [
                         {

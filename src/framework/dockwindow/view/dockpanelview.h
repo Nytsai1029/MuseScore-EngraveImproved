@@ -39,6 +39,11 @@ class DockPanelView : public DockBase
     Q_OBJECT
 
     Q_PROPERTY(QString groupName READ groupName WRITE setGroupName NOTIFY groupNameChanged)
+
+    //! NOTE The panels with a lower order are added to the default layout first,
+    //! so they come first among the tabs of their group
+    Q_PROPERTY(int defaultOrder READ defaultOrder WRITE setDefaultOrder NOTIFY defaultOrderChanged)
+
     Q_PROPERTY(
         muse::uicomponents::AbstractMenuModel
         * contextMenuModel READ contextMenuModel WRITE setContextMenuModel NOTIFY contextMenuModelChanged)
@@ -50,6 +55,7 @@ public:
     ~DockPanelView() override;
 
     QString groupName() const;
+    int defaultOrder() const;
     uicomponents::AbstractMenuModel* contextMenuModel() const;
     QQmlComponent* titleBar() const;
     QQmlComponent* toolbarComponent() const;
@@ -60,12 +66,14 @@ public:
 
 public slots:
     void setGroupName(const QString& name);
+    void setDefaultOrder(int order);
     void setContextMenuModel(uicomponents::AbstractMenuModel* model);
     void setTitleBar(QQmlComponent* titleBar);
     void setToolbarComponent(QQmlComponent* component);
 
 signals:
     void groupNameChanged();
+    void defaultOrderChanged();
     void contextMenuModelChanged();
     void titleBarChanged();
     void toolbarComponentChanged();
@@ -76,6 +84,7 @@ private:
     void componentComplete() override;
 
     QString m_groupName;
+    int m_defaultOrder = 0;
 
     class DockPanelMenuModel;
     DockPanelMenuModel* m_menuModel = nullptr;

@@ -145,12 +145,12 @@ FlatRadioButton {
 
                 PropertyChanges {
                     target: background
-                    color: ui.theme.popupBackgroundColor
+                    color: ui.theme.projectTabColor.valid ? ui.theme.projectTabColor : ui.theme.popupBackgroundColor
                 }
 
                 PropertyChanges {
                     target: backgroundInner
-                    visible: true
+                    visible: !ui.theme.projectTabColor.valid
                 }
             },
 

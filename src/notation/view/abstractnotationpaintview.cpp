@@ -21,6 +21,7 @@
  */
 #include "abstractnotationpaintview.h"
 
+#include <QLinearGradient>
 #include <QPainter>
 #include <QMimeData>
 
@@ -651,7 +652,7 @@ void AbstractNotationPaintView::paint(QPainter* qp)
     muse::draw::Painter mup(qp, objectName().toStdString());
     muse::draw::Painter* painter = &mup;
 
-    paintBackground(rect, painter);
+    paintBackground(rect, painter, qp);
 
     if (!isInited()) {
         return;
@@ -723,14 +724,28 @@ void AbstractNotationPaintView::onNotationSetup()
     });
 }
 
-void AbstractNotationPaintView::paintBackground(const RectF& rect, muse::draw::Painter* painter)
+void AbstractNotationPaintView::paintBackground(const RectF& rect, muse::draw::Painter* painter, QPainter* qp)
 {
     TRACEFUNC;
 
     const QPixmap& wallpaper = configuration()->backgroundWallpaper();
 
     if (configuration()->backgroundUseColor() || wallpaper.isNull()) {
-        painter->fillRect(rect, configuration()->backgroundColor());
+        const QColor color = configuration()->backgroundColor();
+
+        //! NOTE The theme (skin) can ask for a gradient, it is used until the user chooses a color
+        const QMap<ThemeStyleKey, QVariant>& themeValues = uiConfiguration()->currentTheme().values;
+        const QColor themeColor(themeValues.value(CANVAS_BACKGROUND_COLOR).toString());
+        const QColor themeGradientColor(themeValues.value(CANVAS_BACKGROUND_GRADIENT_COLOR).toString());
+
+        if (themeGradientColor.isValid() && color == themeColor) {
+            QLinearGradient gradient(0.0, 0.0, 0.0, height());
+            gradient.setColorAt(0.0, color);
+            gradient.setColorAt(1.0, themeGradientColor);
+            qp->fillRect(rect.toQRectF(), gradient);
+        } else {
+            painter->fillRect(rect, color);
+        }
     } else {
         painter->drawTiledPixmap(rect, wallpaper, rect.topLeft() - PointF(m_matrix.m31(), m_matrix.m32()));
     }

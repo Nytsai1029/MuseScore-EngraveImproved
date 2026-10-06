@@ -46,6 +46,39 @@ static bool sizeInRange(const QSize& size, const QSize& min, const QSize& max)
     return widthInRange && heightInRange;
 }
 
+static bool containsCentralDock(const Layouting::ItemBoxContainer* container)
+{
+    for (const Layouting::Item* item : container->items_recursive()) {
+        const auto frame = qobject_cast<const KDDockWidgets::Frame*>(item->guestAsQObject());
+        if (!frame) {
+            continue;
+        }
+
+        for (const KDDockWidgets::DockWidgetBase* dockWidget : frame->dockWidgets()) {
+            if (muse::dock::readPropertiesFromObject(dockWidget).type == muse::dock::DockType::Central) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+//! NOTE: Makes the items of the container and of its nested containers equal in size (as far as their constraints allow).
+//! A nested container which holds the central dock is left as it is: the central dock takes the space which is left,
+//! and the docks placed next to it there (e.g. the panels below it) keep the sizes chosen by the user
+static void layoutEquallyKeepingCentralContainer(Layouting::ItemBoxContainer* container)
+{
+    container->layoutEqually();
+
+    for (Layouting::Item* item : container->childItems()) {
+        auto nestedContainer = qobject_cast<Layouting::ItemBoxContainer*>(item);
+        if (nestedContainer && !containsCentralDock(nestedContainer)) {
+            nestedContainer->layoutEqually_recursive();
+        }
+    }
+}
+
 class DockWidgetImpl : public KDDockWidgets::DockWidgetQuick
 {
 public:
@@ -333,6 +366,7 @@ void DockBase::setFloatable(bool floatable)
     }
 
     m_properties.floatable = floatable;
+    writeProperties();
     emit floatableChanged();
 }
 
@@ -343,6 +377,7 @@ void DockBase::setClosable(bool closable)
     }
 
     m_properties.closable = closable;
+    writeProperties();
     emit closableChanged();
 }
 
@@ -722,7 +757,7 @@ void DockBase::applySizeConstraints()
 
     if (const Layouting::Item* layout = frame->layoutItem()) {
         if (Layouting::ItemBoxContainer* container = layout->parentBoxContainer()) {
-            container->layoutEqually_recursive();
+            layoutEquallyKeepingCentralContainer(container);
         }
     }
 }

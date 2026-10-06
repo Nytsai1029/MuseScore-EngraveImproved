@@ -100,6 +100,8 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/models/text/textsettingsmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/models/text/textstylepopupmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/models/text/textstylepopupmodel.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/widgets/columnsflow.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/widgets/columnsflow.h
     ${CMAKE_CURRENT_LIST_DIR}/view/widgets/fretcanvas.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/widgets/fretcanvas.h
     ${CMAKE_CURRENT_LIST_DIR}/view/widgets/bendgridcanvas.cpp

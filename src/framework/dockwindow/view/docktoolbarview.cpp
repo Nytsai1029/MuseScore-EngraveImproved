@@ -195,7 +195,8 @@ void DockToolBarView::resetToDefault()
 {
     DockBase::resetToDefault();
 
-    setOrientation(Qt::Horizontal);
+    const bool isSideLocation = location() == Location::Left || location() == Location::Right;
+    setOrientation(isSideLocation ? Qt::Vertical : Qt::Horizontal);
 }
 
 void DockToolBarView::onGripDoubleClicked()

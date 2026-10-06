@@ -55,9 +55,13 @@ static const std::vector<std::pair<ThemeStyleKey, QString > > s_keys = {
     { BLACK_COLOR, "blackColor" },
     { PLAY_COLOR, "playColor" },
     { RECORD_COLOR, "recordColor" },
+    { CANVAS_BACKGROUND_COLOR, "canvasBackgroundColor" },
+    { CANVAS_BACKGROUND_GRADIENT_COLOR, "canvasBackgroundGradientColor" },
+    { CONTROL_BORDER_COLOR, "controlBorderColor" },
 
     { BORDER_WIDTH, "borderWidth" },
     { NAVIGATION_CONTROL_BORDER_WIDTH, "navigationControlBorderWidth" },
+    { CONTROL_HEIGHT, "controlHeight" },
 
     { ACCENT_OPACITY_NORMAL, "accentOpacityNormal" },
     { ACCENT_OPACITY_HOVER, "accentOpacityHover" },
@@ -67,6 +71,9 @@ static const std::vector<std::pair<ThemeStyleKey, QString > > s_keys = {
     { BUTTON_OPACITY_HIT, "buttonOpacityHit" },
 
     { ITEM_OPACITY_DISABLED, "itemOpacityDisabled" },
+
+    { JOINED_BUTTON_GROUPS, "joinedButtonGroups" },
+    { FILLED_CHECK_BOXES, "filledCheckBoxes" },
 };
 
 static QString titleForTheme(const ThemeInfo& theme)

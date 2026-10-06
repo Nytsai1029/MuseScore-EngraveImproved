@@ -139,7 +139,7 @@ Column {
                 navigationRowStart: allVoicesButton.navigation.row + 1
 
                 Layout.fillWidth: true
-                height: 30
+                height: ui.theme.controlHeight
 
                 currentValue: voiceAssignmentSection.propertyItem && !voiceAssignmentSection.propertyItem.isUndefined && voiceAssignmentSection.propertyItem.value === VoiceTypes.VOICE_CURRENT_ONLY
                               ? root.model ? root.model.voice.value : undefined

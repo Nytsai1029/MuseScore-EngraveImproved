@@ -89,7 +89,7 @@ Column {
             property int navigationRowEnd: navigationRowStart + count
 
             anchors.right: parent.right
-            height: 30
+            height: ui.theme.controlHeight
 
             visible: root.model ? root.model.isScriptSizeAvailable : false
 

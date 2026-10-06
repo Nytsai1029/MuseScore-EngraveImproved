@@ -42,6 +42,28 @@ PreferencesPage {
         width: parent.width
         spacing: root.sectionsSpacing
 
+        SkinSection {
+            width: parent.width
+
+            skins: appearanceModel.skins
+            currentSkinCode: appearanceModel.currentSkinCode
+
+            navigation.section: root.navigationSection
+            navigation.order: root.navigationOrderStart
+
+            onSkinChangeRequested: function(newSkinCode) {
+                appearanceModel.currentSkinCode = newSkinCode
+            }
+
+            onFocusChanged: {
+                if (activeFocus) {
+                    root.ensureContentVisibleRequested(Qt.rect(x, y, width, height))
+                }
+            }
+        }
+
+        SeparatorLine {}
+
         ThemesSection {
             width: parent.width
 

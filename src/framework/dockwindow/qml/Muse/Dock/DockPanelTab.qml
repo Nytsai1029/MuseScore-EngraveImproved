@@ -102,7 +102,7 @@ StyledTabButton {
 
                 PropertyChanges {
                     target: backgroundRect
-                    color: ui.theme.backgroundPrimaryColor
+                    color: ui.theme.projectTabColor.valid ? ui.theme.projectTabColor : ui.theme.backgroundPrimaryColor
                 }
             }
         ]

@@ -78,6 +78,12 @@ inline bool isHighContrastTheme(const ThemeCode& themeCode)
            || themeCode == HIGH_CONTRAST_BLACK_THEME_CODE;
 }
 
+//! NOTE A skin is a family of themes (its own light/dark colors) plus a default arrangement of the docks.
+//! It is orthogonal to the theme code: each skin has a "light" and a "dark" theme
+using SkinCode = std::string;
+
+static const SkinCode DEFAULT_SKIN_CODE("default");
+
 enum ThemeStyleKey
 {
     UNKNOWN = -1,
@@ -101,9 +107,13 @@ enum ThemeStyleKey
     BLACK_COLOR,
     PLAY_COLOR,
     RECORD_COLOR,
+    CANVAS_BACKGROUND_COLOR,
+    CANVAS_BACKGROUND_GRADIENT_COLOR,
+    CONTROL_BORDER_COLOR,
 
     BORDER_WIDTH,
     NAVIGATION_CONTROL_BORDER_WIDTH,
+    CONTROL_HEIGHT,
 
     ACCENT_OPACITY_NORMAL,
     ACCENT_OPACITY_HOVER,
@@ -113,7 +123,10 @@ enum ThemeStyleKey
     BUTTON_OPACITY_HOVER,
     BUTTON_OPACITY_HIT,
 
-    ITEM_OPACITY_DISABLED
+    ITEM_OPACITY_DISABLED,
+
+    JOINED_BUTTON_GROUPS,
+    FILLED_CHECK_BOXES
 };
 
 struct ThemeInfo

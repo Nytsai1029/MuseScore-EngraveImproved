@@ -57,7 +57,7 @@ Item {
 
     signal activated(int index, var value)
 
-    height: 30
+    height: ui.theme.controlHeight
     width: 126
 
     function indexOfValue(value) {
@@ -124,6 +124,9 @@ Item {
 
         property color hoveredColor: backgroundItem.color
 
+        //! NOTE: if the theme defines the border of the controls, the dropdown looks like the input fields
+        readonly property bool isFieldStyle: ui.theme.controlBorderColor.valid
+
         property alias navigation: navCtrl
 
         NavigationControl {
@@ -146,11 +149,11 @@ Item {
         Rectangle {
             id: backgroundItem
             anchors.fill: parent
-            border.width: ui.theme.borderWidth
-            border.color: ui.theme.strokeColor
-            color: ui.theme.buttonColor
+            border.width: mainItem.isFieldStyle ? Math.max(ui.theme.borderWidth, 1) : ui.theme.borderWidth
+            border.color: mainItem.isFieldStyle ? ui.theme.controlBorderColor : ui.theme.strokeColor
+            color: mainItem.isFieldStyle ? ui.theme.textFieldColor : ui.theme.buttonColor
             radius: 3
-            opacity: 0.7
+            opacity: mainItem.isFieldStyle ? 1.0 : 0.7
 
             NavigationFocusBorder { navigationCtrl: navCtrl }
         }
@@ -237,8 +240,10 @@ Item {
 
                 PropertyChanges {
                     target: backgroundItem
-                    opacity: ui.theme.buttonOpacityHover
+                    opacity: mainItem.isFieldStyle ? 1.0 : ui.theme.buttonOpacityHover
                     color: mainItem.hoveredColor
+                    border.color: mainItem.isFieldStyle ? Utils.colorWithAlpha(ui.theme.accentColor, 0.6)
+                                                        : ui.theme.strokeColor
                 }
             },
 
@@ -248,7 +253,8 @@ Item {
 
                 PropertyChanges {
                     target: backgroundItem
-                    opacity: ui.theme.buttonOpacityHit
+                    opacity: mainItem.isFieldStyle ? 1.0 : ui.theme.buttonOpacityHit
+                    border.color: mainItem.isFieldStyle ? ui.theme.accentColor : ui.theme.strokeColor
                 }
             },
 

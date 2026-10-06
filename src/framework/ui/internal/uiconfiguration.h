@@ -50,6 +50,11 @@ public:
     void load();
     void deinit();
 
+    std::vector<SkinCode> skins() const override;
+    SkinCode currentSkin() const override;
+    void setCurrentSkin(const SkinCode& skinCode) override;
+    async::Notification currentSkinChanged() const override;
+
     ThemeList themes() const override;
     QStringList possibleAccentColors() const override;
     QStringList possibleFontFamilies() const override;
@@ -142,6 +147,8 @@ private:
     void updateCurrentTheme();
     void updateThemes();
 
+    void onCurrentSkinChanged();
+
     void updateSystemThemeListeningStatus();
     void synchThemeWithSystemIfNecessary();
 
@@ -158,6 +165,7 @@ private:
 
     UiArrangement m_uiArrangement;
 
+    async::Notification m_currentSkinChanged;
     async::Notification m_currentThemeChanged;
     async::Notification m_fontChanged;
     async::Notification m_musicalFontChanged;
@@ -166,6 +174,8 @@ private:
     async::Notification m_windowGeometryChanged;
 
     ValNt<bool> m_isFollowSystemTheme;
+
+    std::vector<SkinCode> m_skins;
 
     ThemeList m_themes;
     size_t m_currentThemeIndex = 0;

@@ -95,7 +95,7 @@ FocusScope {
         }
     }
 
-    implicitHeight: 30
+    implicitHeight: ui.theme.controlHeight
     implicitWidth: parent.width
 
     opacity: root.enabled ? 1.0 : ui.theme.itemOpacityDisabled
@@ -136,7 +136,7 @@ FocusScope {
         NavigationFocusBorder { navigationCtrl: navCtrl }
 
         color: ui.theme.textFieldColor
-        border.color: ui.theme.strokeColor
+        border.color: ui.theme.controlBorderColor.valid ? ui.theme.controlBorderColor : ui.theme.strokeColor
         border.width: Math.max(ui.theme.borderWidth, 1)
         radius: 3
     }

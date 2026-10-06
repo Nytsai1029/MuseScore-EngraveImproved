@@ -44,6 +44,7 @@ using namespace muse::api;
 static const QPen NO_BORDER(Qt::transparent, 0);
 static const QBrush NO_FILL(Qt::transparent);
 static const int DEFAULT_RADIUS = 3;
+static const qreal DEFAULT_CONTROL_HEIGHT = 30.0;
 
 static const int GROUP_BOX_LABEL_SPACING = 2;
 
@@ -127,6 +128,7 @@ void ThemeApi::initThemeValues()
     m_backgroundTertiaryColor = themeValues[BACKGROUND_TERTIARY_COLOR].toString();
     m_backgroundQuarternaryColor = themeValues[BACKGROUND_QUARTERNARY_COLOR].toString();
     m_popupBackgroundColor = themeValues[POPUP_BACKGROUND_COLOR].toString();
+    m_projectTabColor = themeValues[PROJECT_TAB_COLOR].toString();
     m_textFieldColor = themeValues[TEXT_FIELD_COLOR].toString();
     m_accentColor = themeValues[ACCENT_COLOR].toString();
     m_strokeColor = themeValues[STROKE_COLOR].toString();
@@ -145,14 +147,24 @@ void ThemeApi::initThemeValues()
     m_buttonOpacityHover = themeValues[BUTTON_OPACITY_HOVER].toReal();
     m_buttonOpacityHit = themeValues[BUTTON_OPACITY_HIT].toReal();
     m_itemOpacityDisabled = themeValues[ITEM_OPACITY_DISABLED].toReal();
+
+    m_controlBorderColor = themeValues[CONTROL_BORDER_COLOR].toString();
+    m_controlHeight = themeValues[CONTROL_HEIGHT].toReal();
+    m_joinedButtonGroups = themeValues[JOINED_BUTTON_GROUPS].toBool();
+    m_filledCheckBoxes = themeValues[FILLED_CHECK_BOXES].toBool();
 }
 
 void ThemeApi::update()
 {
-    calculateDefaultButtonSize();
     initThemeValues();
+    calculateDefaultButtonSize();
     setupWidgetTheme();
     notifyAboutThemeChanged();
+}
+
+QString ThemeApi::skin() const
+{
+    return QString::fromStdString(configuration()->currentSkin());
 }
 
 bool ThemeApi::isDark() const
@@ -183,6 +195,11 @@ QColor ThemeApi::backgroundQuarternaryColor() const
 QColor ThemeApi::popupBackgroundColor() const
 {
     return m_popupBackgroundColor;
+}
+
+QColor ThemeApi::projectTabColor() const
+{
+    return m_projectTabColor;
 }
 
 QColor ThemeApi::textFieldColor() const
@@ -298,6 +315,26 @@ QFont ThemeApi::defaultFont() const
 qreal ThemeApi::defaultButtonSize() const
 {
     return m_defaultButtonSize;
+}
+
+QColor ThemeApi::controlBorderColor() const
+{
+    return m_controlBorderColor;
+}
+
+qreal ThemeApi::controlHeight() const
+{
+    return m_controlHeight > 0.0 ? m_controlHeight : DEFAULT_CONTROL_HEIGHT;
+}
+
+bool ThemeApi::joinedButtonGroups() const
+{
+    return m_joinedButtonGroups;
+}
+
+bool ThemeApi::filledCheckBoxes() const
+{
+    return m_filledCheckBoxes;
 }
 
 qreal ThemeApi::borderWidth() const
@@ -447,7 +484,7 @@ void ThemeApi::setupMusicTextFont()
 
 void ThemeApi::calculateDefaultButtonSize()
 {
-    constexpr qreal MINIMUM_BUTTON_SIZE = 30.0;
+    const qreal MINIMUM_BUTTON_SIZE = controlHeight();
     constexpr qreal BUTTON_PADDING = 8.0;
 
     QFontMetricsF bodyFontMetrics(m_bodyFont);

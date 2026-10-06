@@ -34,6 +34,9 @@ class AppearancePreferencesModel : public QObject, public muse::Injectable, publ
 {
     Q_OBJECT
 
+    Q_PROPERTY(QVariantList skins READ skins CONSTANT)
+    Q_PROPERTY(QString currentSkinCode READ currentSkinCode WRITE setCurrentSkinCode NOTIFY currentSkinCodeChanged)
+
     Q_PROPERTY(bool isFollowSystemThemeAvailable READ isFollowSystemThemeAvailable CONSTANT)
     Q_PROPERTY(bool isFollowSystemTheme READ isFollowSystemTheme WRITE setFollowSystemTheme NOTIFY isFollowSystemThemeChanged)
 
@@ -77,6 +80,9 @@ public:
     };
     Q_ENUM(ColorType)
 
+    QVariantList skins() const;
+    QString currentSkinCode() const;
+
     bool isFollowSystemThemeAvailable() const;
     bool isFollowSystemTheme() const;
 
@@ -109,6 +115,7 @@ public:
     Q_INVOKABLE QString wallpapersDir() const;
 
 public slots:
+    void setCurrentSkinCode(const QString& skinCode);
     void setFollowSystemTheme(bool enabled);
     void setHighContrastEnabled(bool enabled);
     void setCurrentThemeCode(const QString& themeCode);
@@ -124,6 +131,7 @@ public slots:
     void setScoreInversionEnabled(bool value);
 
 signals:
+    void currentSkinCodeChanged();
     void isFollowSystemThemeChanged();
     void themesChanged();
     void currentFontIndexChanged();

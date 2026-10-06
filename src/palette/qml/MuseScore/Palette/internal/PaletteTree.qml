@@ -52,6 +52,82 @@ StyledListView {
     property bool enableAnimations: true
     property int expandDuration: enableAnimations ? 150 : 0 // duration of expand / collapse animations
 
+    //! NOTE: in the toolbox mode, the palettes are chosen in the toolbox,
+    //! so the collapsed palettes are hidden instead of being shown as headers
+    property bool toolboxMode: false
+    property int expandedPalettesCount: 0
+
+    function updateExpandedPalettesCount() {
+        let result = 0
+
+        if (paletteModel) {
+            for (let idx = 0; idx < paletteModel.rowCount(); idx++) {
+                if (paletteModel.data(paletteModel.index(idx, 0), PaletteTreeModel.PaletteExpandedRole)) {
+                    result++
+                }
+            }
+        }
+
+        expandedPalettesCount = result
+    }
+
+    function paletteName(row) {
+        return paletteModel.data(paletteModel.index(row, 0), Qt.DisplayRole)
+    }
+
+    function rowOfPalette(name) {
+        for (let idx = 0; idx < paletteModel.rowCount(); idx++) {
+            if (paletteName(idx) === name) {
+                return idx
+            }
+        }
+
+        return -1
+    }
+
+    //! NOTE: shows only the given palette, or hides it if it was the only one shown
+    function togglePaletteInToolbox(row) {
+        const paletteIndex = paletteModel.index(row, 0)
+        const wasExpanded = Boolean(paletteModel.data(paletteIndex, PaletteTreeModel.PaletteExpandedRole))
+        const hide = wasExpanded && expandedPalettesCount === 1
+
+        for (let idx = 0; idx < paletteModel.rowCount(); idx++) {
+            if (idx !== row) {
+                paletteModel.setData(paletteModel.index(idx, 0), false, PaletteTreeModel.PaletteExpandedRole)
+            }
+        }
+
+        paletteModel.setData(paletteIndex, !hide, PaletteTreeModel.PaletteExpandedRole)
+
+        if (!hide) {
+            currentIndex = row
+            positionViewAtIndex(row, ListView.Beginning)
+        }
+    }
+
+    onPaletteModelChanged: {
+        updateExpandedPalettesCount()
+    }
+
+    Component.onCompleted: {
+        updateExpandedPalettesCount()
+    }
+
+    Connections {
+        target: paletteTree.paletteModel
+
+        function onDataChanged(topLeft, bottomRight, roles) {
+            if (roles.length === 0 || roles.indexOf(PaletteTreeModel.PaletteExpandedRole) !== -1) {
+                paletteTree.updateExpandedPalettesCount()
+            }
+        }
+
+        function onRowsInserted() { paletteTree.updateExpandedPalettesCount() }
+        function onRowsRemoved() { paletteTree.updateExpandedPalettesCount() }
+        function onModelReset() { paletteTree.updateExpandedPalettesCount() }
+        function onLayoutChanged() { paletteTree.updateExpandedPalettesCount() }
+    }
+
     preferredHighlightBegin: Math.min(48, Math.floor(0.1 * height))
     preferredHighlightEnd: Math.ceil(height - preferredHighlightBegin)
     highlightRangeMode: itemDragged ? ListView.ApplyRange : ListView.NoHighlightRange
@@ -424,6 +500,11 @@ StyledListView {
             }
 
             readonly property bool expanded: paletteTree.searchOpened || Boolean(model.expanded)
+
+            //! NOTE: see `paletteTree.toolboxMode`
+            readonly property bool hiddenInToolbox: paletteTree.toolboxMode && !expanded && !Drag.active
+            visible: !hiddenInToolbox
+            height: hiddenInToolbox ? 0 : implicitHeight
 
             function toggleExpand() {
                 model.expanded = !expanded

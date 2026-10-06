@@ -49,7 +49,7 @@ InspectorPropertyView {
         property int navigationRowStart: root.navigationRowStart + 1
         property int navigationRowEnd: navigationRowStart + count
 
-        height: 30
+        height: ui.theme.controlHeight
 
         model: [
             {

@@ -38,6 +38,9 @@ FlatButton {
     property int popupAvailableWidth: parent ? parent.width : 0
     property var anchorItem: null
 
+    //! NOTE: when the inspector is horizontal (docked below the score), there is no room below the button
+    readonly property bool openAbove: Boolean(root.anchorItem) && Boolean(root.anchorItem.isHorizontal)
+
     signal ensureContentVisibleRequested(int invisibleContentHeight)
     signal popupOpened(var popup, var control)
 
@@ -68,7 +71,7 @@ FlatButton {
         contentWidth: contentLoader.width
         contentHeight: contentLoader.height
 
-        placementPolicies: PopupView.PreferBelow | PopupView.IgnoreFit
+        placementPolicies: root.openAbove ? PopupView.PreferAbove : PopupView.PreferBelow | PopupView.IgnoreFit
 
         closePolicies: PopupView.NoAutoClose
 
@@ -122,6 +125,10 @@ FlatButton {
         }
 
         function checkForInsufficientSpace() {
+            if (root.openAbove) {
+                return
+            }
+
             var buttonGlobalPos = root.mapToItem(root.anchorItem, Qt.point(0, 0))
             var popupHeight = contentHeight + padding*2 + margins*2
 

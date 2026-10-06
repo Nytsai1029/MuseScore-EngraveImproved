@@ -42,6 +42,7 @@
         <file>qml/Preferences/PreferencesDialog.qml</file>
         <file>qml/Preferences/internal/PreferencesButtonsPanel.qml</file>
         <file>qml/Preferences/internal/PreferencesMenu.qml</file>
+        <file>qml/Preferences/internal/SkinSection.qml</file>
         <file>qml/Preferences/internal/ThemesSection.qml</file>
         <file>qml/Preferences/internal/AccentColorsSection.qml</file>
         <file>qml/Preferences/internal/UiFontSection.qml</file>

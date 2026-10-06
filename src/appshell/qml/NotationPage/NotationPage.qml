@@ -88,7 +88,16 @@ DockPage {
         Qt.callLater(pageModel.init)
     }
 
+    //! NOTE: the Dorico skin arranges the docks in zones by default: the note input bar on the left,
+    //! the palettes (as a toolbox) on the right, and the properties and the layout (with the other horizontal panels)
+    //! below the score. The other vertical panels open on the left
+    readonly property bool zonesLayout: ui.theme.skin === "dorico"
+
+    horizontalPanelsBetweenSidePanels: root.zonesLayout
+
     readonly property int verticalPanelDefaultWidth: 300
+    readonly property int palettesToolboxWidth: 48
+    readonly property int propertiesPanelDefaultHeight: 260
 
     readonly property int horizontalPanelMinHeight: 100
     readonly property int horizontalPanelMaxHeight: 520
@@ -98,6 +107,7 @@ DockPage {
 
     readonly property string verticalPanelsGroup: "VERTICAL_PANELS"
     readonly property string horizontalPanelsGroup: "HORIZONTAL_PANELS"
+    readonly property string palettesToolboxGroup: "PALETTES_TOOLBOX"
 
     readonly property var verticalPanelDropDestinations: [
         { "dock": root.centralDock, "dropLocation": Location.Left, "dropDistance": root.verticalPanelDefaultWidth },
@@ -219,6 +229,9 @@ DockPage {
             objectName: root.pageModel.noteInputBarName()
             title: qsTrc("appshell", "Note input")
 
+            location: root.zonesLayout ? Location.Left : Location.Top
+            orientation: root.zonesLayout ? Qt.Vertical : Qt.Horizontal
+
             dropDestinations: [
                 root.toolBarTopDropDestination,
                 root.toolBarBottomDropDestination,
@@ -253,20 +266,56 @@ DockPage {
 
             navigationSection: root.navigationPanelSec(palettesPanel.location)
 
-            width: root.verticalPanelDefaultWidth
-            minimumWidth: root.verticalPanelDefaultWidth
-            maximumWidth: root.verticalPanelDefaultWidth
+            //! NOTE: in the zones layout, the palettes are shown as a toolbox on the right:
+            //! the panel is as narrow as the toolbox until a palette is chosen there
+            property bool isContentVisible: true
+            readonly property int panelWidth: {
+                if (!root.zonesLayout) {
+                    return root.verticalPanelDefaultWidth
+                }
+
+                return isContentVisible ? root.verticalPanelDefaultWidth + root.palettesToolboxWidth
+                                        : root.palettesToolboxWidth
+            }
+
+            function applyPanelWidth() {
+                palettesPanel.resize(palettesPanel.panelWidth, palettesPanel.height)
+            }
+
+            onPanelWidthChanged: {
+                Qt.callLater(palettesPanel.applyPanelWidth)
+            }
+
+            width: panelWidth
+            minimumWidth: panelWidth
+            maximumWidth: panelWidth
 
             minimumHeight: root.panelMinDimension
             maximumHeight: root.panelMaxDimension
 
-            groupName: root.verticalPanelsGroup
+            groupName: root.zonesLayout ? root.palettesToolboxGroup : root.verticalPanelsGroup
+            location: root.zonesLayout ? Location.Right : Location.Left
+
+            //! NOTE: the toolbox stays in its place and has no title bar
+            floatable: !root.zonesLayout
+            closable: !root.zonesLayout
 
             dropDestinations: root.verticalPanelDropDestinations
 
             PalettesPanel {
+                id: palettesPanelContent
+
                 navigationSection: palettesPanel.navigationSection
                 navigationOrderStart: palettesPanel.contentNavigationPanelOrderStart
+
+                toolboxMode: root.zonesLayout
+                toolboxWidth: root.palettesToolboxWidth
+
+                Binding {
+                    target: palettesPanel
+                    property: "isContentVisible"
+                    value: palettesPanelContent.isContentVisible
+                }
 
                 Component.onCompleted: {
                     palettesPanel.contextMenuModel = contextMenuModel
@@ -282,16 +331,22 @@ DockPage {
 
             navigationSection: root.navigationPanelSec(layoutPanel.location)
 
-            width: root.verticalPanelDefaultWidth
-            minimumWidth: root.verticalPanelDefaultWidth
-            maximumWidth: root.verticalPanelDefaultWidth
+            //! NOTE: in the zones layout this is a horizontal panel, which opens below the score
+            width: root.zonesLayout ? undefined : root.verticalPanelDefaultWidth
+            minimumWidth: root.zonesLayout ? root.panelMinDimension : root.verticalPanelDefaultWidth
+            maximumWidth: root.zonesLayout ? root.panelMaxDimension : root.verticalPanelDefaultWidth
 
-            minimumHeight: root.panelMinDimension
-            maximumHeight: root.panelMaxDimension
+            height: root.zonesLayout ? root.propertiesPanelDefaultHeight : undefined
+            minimumHeight: root.zonesLayout ? root.horizontalPanelMinHeight : root.panelMinDimension
+            maximumHeight: root.zonesLayout ? root.horizontalPanelMaxHeight : root.panelMaxDimension
 
-            groupName: root.verticalPanelsGroup
+            groupName: root.zonesLayout ? root.horizontalPanelsGroup : root.verticalPanelsGroup
+            location: root.zonesLayout ? Location.Bottom : Location.Left
 
-            dropDestinations: root.verticalPanelDropDestinations
+            //! NOTE: in the zones layout, the properties are the first of the panels below the score
+            defaultOrder: root.zonesLayout ? 1 : 0
+
+            dropDestinations: root.zonesLayout ? root.horizontalPanelDropDestinations : root.verticalPanelDropDestinations
 
             LayoutPanel {
                 navigationSection: layoutPanel.navigationSection
@@ -311,18 +366,23 @@ DockPage {
 
             navigationSection: root.navigationPanelSec(inspectorPanel.location)
 
-            width: root.verticalPanelDefaultWidth
-            minimumWidth: root.verticalPanelDefaultWidth
-            maximumWidth: root.verticalPanelDefaultWidth
+            //! NOTE: in the zones layout this is a horizontal panel, which opens below the score
+            width: root.zonesLayout ? undefined : root.verticalPanelDefaultWidth
+            minimumWidth: root.zonesLayout ? root.panelMinDimension : root.verticalPanelDefaultWidth
+            maximumWidth: root.zonesLayout ? root.panelMaxDimension : root.verticalPanelDefaultWidth
 
-            minimumHeight: root.panelMinDimension
-            maximumHeight: root.panelMaxDimension
+            height: root.zonesLayout ? root.propertiesPanelDefaultHeight : undefined
+            minimumHeight: root.zonesLayout ? root.horizontalPanelMinHeight : root.panelMinDimension
+            maximumHeight: root.zonesLayout ? root.horizontalPanelMaxHeight : root.panelMaxDimension
 
-            groupName: root.verticalPanelsGroup
+            groupName: root.zonesLayout ? root.horizontalPanelsGroup : root.verticalPanelsGroup
+            location: root.zonesLayout ? Location.Bottom : Location.Left
 
-            dropDestinations: root.verticalPanelDropDestinations
+            dropDestinations: root.zonesLayout ? root.horizontalPanelDropDestinations : root.verticalPanelDropDestinations
 
             InspectorForm {
+                orientation: root.zonesLayout ? Qt.Horizontal : Qt.Vertical
+
                 navigationSection: inspectorPanel.navigationSection
                 navigationOrderStart: inspectorPanel.contentNavigationPanelOrderStart
                 notationView: root.notationView
@@ -373,7 +433,7 @@ DockPage {
             maximumHeight: root.panelMaxDimension
 
             groupName: root.verticalPanelsGroup
-            location: Location.Right
+            location: root.zonesLayout ? Location.Left : Location.Right
 
             //! NOTE: hidden by default
             visible: false

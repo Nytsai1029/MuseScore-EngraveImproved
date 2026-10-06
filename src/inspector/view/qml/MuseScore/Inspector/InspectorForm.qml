@@ -37,7 +37,29 @@ Rectangle {
     property NavigationSection navigationSection: null
     property int navigationOrderStart: 1
 
-    color: ui.theme.backgroundPrimaryColor
+    //! NOTE: when horizontal (the panel is docked above or below the score), the sections are placed side by side,
+    //! and the content of a section continues in the next column when it is higher than the panel
+    property int orientation: Qt.Vertical
+    readonly property bool isHorizontal: orientation === Qt.Horizontal
+    readonly property int sectionColumnWidth: 300
+
+    //! NOTE: in the Dorico skin, each section is a card with a title bar, on a darker background
+    readonly property bool cardStyle: ui.theme.skin === "dorico"
+    readonly property int cardSpacing: 3
+    readonly property int cardTitlePadding: 6
+    readonly property int cardTitleRowHeight: 20
+    readonly property int cardBottomPadding: 10
+
+    //! NOTE: the titles are centered in the title bars, which have the same height for all sections
+    function cardTitleY(titleHeight) {
+        return cardTitlePadding + Math.max((cardTitleRowHeight - titleHeight) / 2, 0)
+    }
+
+    function cardTitleBarHeight(titleHeight) {
+        return 2 * cardTitlePadding + Math.max(cardTitleRowHeight, titleHeight)
+    }
+
+    color: root.cardStyle ? ui.theme.backgroundSecondaryColor : ui.theme.backgroundPrimaryColor
 
     onVisibleChanged: {
         inspectorListModel.setInspectorVisible(root.visible)
@@ -74,6 +96,19 @@ Rectangle {
         id: popupController
     }
 
+    Rectangle {
+        //! NOTE: a horizontal panel has a margin between its tabs and its content (see DockFrame.qml),
+        //! which has the color of the panel itself
+        readonly property int panelContentTopMargin: 12
+
+        anchors.bottom: parent.top
+        width: parent.width
+        height: panelContentTopMargin
+
+        color: root.color
+        visible: root.cardStyle && root.isHorizontal
+    }
+
     Component.onCompleted: {
         popupController.load()
     }
@@ -82,12 +117,18 @@ Rectangle {
         id: sectionList
         anchors.fill: parent
 
-        topMargin: 12
-        bottomMargin: 12
+        orientation: root.isHorizontal ? ListView.Horizontal : ListView.Vertical
 
-        spacing: 12
+        topMargin: root.isHorizontal || root.cardStyle ? 0 : 12
+        bottomMargin: root.isHorizontal || root.cardStyle ? 0 : 12
+
+        spacing: root.cardStyle ? root.cardSpacing : (root.isHorizontal ? 0 : 12)
 
         function ensureContentVisible(invisibleContentHeight) {
+            if (root.isHorizontal) {
+                return
+            }
+
             if (sectionList.contentY + invisibleContentHeight > 0) {
                 sectionList.contentY += invisibleContentHeight
             } else {
@@ -111,7 +152,20 @@ Rectangle {
             }
         }
 
-        delegate: Column {
+        onContentWidthChanged: {
+            if (root.isHorizontal && contentWidth > cacheBuffer) {
+                cacheBuffer = contentWidth
+            }
+        }
+
+        delegate: root.isHorizontal ? sectionColumnComp
+                                    : (root.cardStyle ? sectionCardRowComp : sectionRowComp)
+    }
+
+    Component {
+        id: sectionRowComp
+
+        Column {
             width: ListView.view.width
             spacing: sectionList.spacing
 
@@ -141,6 +195,129 @@ Rectangle {
                 onPopupOpened: function(openedPopup, visualControl) {
                     prv.closePreviousOpenedPopup(openedPopup, visualControl)
                 }
+            }
+        }
+    }
+
+    Component {
+        id: sectionCardRowComp
+
+        Item {
+            width: ListView.view.width
+            height: _item.y + _item.height + root.cardBottomPadding
+
+            property var navigationPanel: _item.navigationPanel
+
+            Rectangle {
+                anchors.fill: parent
+                color: ui.theme.backgroundPrimaryColor
+            }
+
+            Rectangle {
+                width: parent.width
+                height: root.cardTitleBarHeight(_item.titleHeight)
+                color: ui.theme.backgroundTertiaryColor
+            }
+
+            InspectorSectionDelegate {
+                id: _item
+
+                x: 12
+                y: root.cardTitleY(titleHeight)
+                width: parent.width - 2 * x
+
+                sectionModel: model.inspectorSectionModel
+                anchorItem: root
+                navigationPanel.section: root.navigationSection
+                navigationPanel.order: root.navigationOrderStart + model.index
+
+                onEnsureContentVisibleRequested: function(invisibleContentHeight) {
+                    sectionList.ensureContentVisible(invisibleContentHeight)
+                }
+
+                onPopupOpened: function(openedPopup, visualControl) {
+                    prv.closePreviousOpenedPopup(openedPopup, visualControl)
+                }
+            }
+        }
+    }
+
+    Component {
+        id: sectionColumnComp
+
+        Item {
+            id: sectionColumn
+
+            width: 2 * _item.x + columnsFlow.contentWidth + (root.cardStyle ? 0 : separator.width)
+            height: ListView.view.height
+
+            property var navigationPanel: _item.navigationPanel
+
+            readonly property real topPadding: root.cardStyle ? root.cardTitleY(_item.titleHeight) : 12
+            readonly property real bottomPadding: root.cardStyle ? root.cardBottomPadding : 12
+
+            //! NOTE: the height of the section without its content (the title)
+            readonly property real headerHeight: _item.contentItem ? _item.height - _item.contentItem.height
+                                                                   : _item.height
+
+            //! NOTE: the content which is higher than the panel continues in the next columns
+            ColumnsFlow {
+                id: columnsFlow
+
+                target: _item.contentItem
+
+                columnWidth: _item.width
+                columnHeight: sectionColumn.height - sectionColumn.headerHeight
+                              - sectionColumn.topPadding - sectionColumn.bottomPadding
+                columnSpacing: 2 * _item.x
+            }
+
+            Rectangle {
+                anchors.fill: parent
+                color: ui.theme.backgroundPrimaryColor
+                visible: root.cardStyle
+            }
+
+            StyledFlickable {
+                anchors.fill: parent
+                anchors.rightMargin: root.cardStyle ? 0 : separator.width
+
+                contentWidth: width
+                contentHeight: sectionColumn.headerHeight + columnsFlow.contentHeight
+                               + sectionColumn.topPadding + sectionColumn.bottomPadding
+
+                Rectangle {
+                    width: parent.width
+                    height: root.cardTitleBarHeight(_item.titleHeight)
+                    color: ui.theme.backgroundTertiaryColor
+                    visible: root.cardStyle
+                }
+
+                InspectorSectionDelegate {
+                    id: _item
+
+                    x: 12
+                    y: sectionColumn.topPadding
+                    width: root.sectionColumnWidth - 2 * x
+
+                    sectionModel: model.inspectorSectionModel
+                    anchorItem: root
+                    navigationPanel.section: root.navigationSection
+                    navigationPanel.order: root.navigationOrderStart + model.index
+
+                    onPopupOpened: function(openedPopup, visualControl) {
+                        prv.closePreviousOpenedPopup(openedPopup, visualControl)
+                    }
+                }
+            }
+
+            SeparatorLine {
+                id: separator
+
+                anchors.right: parent.right
+                orientation: Qt.Vertical
+
+                visible: !root.cardStyle
             }
         }
     }

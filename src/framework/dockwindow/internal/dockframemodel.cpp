@@ -117,6 +117,11 @@ bool DockFrameModel::isHorizontalPanel() const
     return m_isHorizontalPanel;
 }
 
+bool DockFrameModel::isToolBar() const
+{
+    return m_isToolBar;
+}
+
 void DockFrameModel::setFrame(QQuickItem* frame)
 {
     if (frame == m_frame) {
@@ -152,6 +157,7 @@ void DockFrameModel::listenChangesInFrame()
         bool isHorizontalPanel = (properties.type == DockType::Panel)
                                  && (properties.location == Location::Top || properties.location == Location::Bottom);
         setIsHorizontalPanel(isHorizontalPanel);
+        setIsToolBar(properties.type == DockType::ToolBar || properties.type == DockType::StatusBar);
 
         updateTitleBar();
 
@@ -186,6 +192,16 @@ void DockFrameModel::setIsHorizontalPanel(bool is)
 
     m_isHorizontalPanel = is;
     emit isHorizontalPanelChanged();
+}
+
+void DockFrameModel::setIsToolBar(bool is)
+{
+    if (is == m_isToolBar) {
+        return;
+    }
+
+    m_isToolBar = is;
+    emit isToolBarChanged();
 }
 
 QObject* DockFrameModel::currentNavigationSection() const
