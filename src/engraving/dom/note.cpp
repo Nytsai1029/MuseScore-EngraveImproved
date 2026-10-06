@@ -2765,18 +2765,20 @@ void Note::verticalDrag(EditData& ed)
             }
         }
     } else {
+        static constexpr int HIGHEST_STEP = 74; // G9, MIDI 127
+
         staff_idx_t idx = chord()->vStaffIdx();
+        ClefType clef = score()->staff(idx)->clef(_tick);
+        // Stop at the lowest and highest pitch, so that pitch and tpc keep describing the same note
+        int nStep = std::clamp(absStep(ned->line + lineOffset, clef), 0, HIGHEST_STEP);
         bool error = false;
         AccidentalVal accOffs = firstTiedNote()->chord()->measure()->findAccidental(
-            firstTiedNote()->chord()->segment(), idx, ned->line + lineOffset, error);
+            firstTiedNote()->chord()->segment(), idx, relStep(nStep, clef), error);
         if (error) {
             accOffs = Accidental::subtype2value(AccidentalType::NONE);
         }
-        int nStep = absStep(ned->line + lineOffset, score()->staff(idx)->clef(_tick));
-        nStep = std::max(0, nStep);
         int octave = nStep / 7;
         int newPitch = step2pitch(nStep) + octave * 12 + int(accOffs);
-        newPitch = std::clamp(newPitch, 0, 127);
 
         int newTpc1 = step2tpc(nStep % 7, accOffs);
         int newTpc2 = newTpc1;
@@ -2786,6 +2788,7 @@ void Note::verticalDrag(EditData& ed)
             newPitch += staff()->transpose(_tick).chromatic;
             newTpc1 = transposeTpc(newTpc2);
         }
+        newPitch = std::clamp(newPitch, 0, 127);
 
         for (Note* nn : tiedNotes()) {
             nn->setAccidentalType(AccidentalType::NONE);

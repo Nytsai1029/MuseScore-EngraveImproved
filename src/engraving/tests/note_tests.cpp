@@ -30,7 +30,9 @@
 #include "dom/beam.h"
 #include "dom/chord.h"
 #include "dom/chordrest.h"
+#include "dom/editdata.h"
 #include "dom/factory.h"
+#include "dom/key.h"
 #include "dom/layoutbreak.h"
 #include "dom/masterscore.h"
 #include "dom/measure.h"
@@ -45,6 +47,7 @@
 #include "dom/staff.h"
 #include "dom/system.h"
 #include "dom/tremolosinglechord.h"
+#include "dom/utils.h"
 
 #include "engraving/compat/scoreaccess.h"
 #include "utils/scorerw.h"
@@ -981,4 +984,68 @@ TEST_F(Engraving_NoteTests, crossStaffDottedChordMovedUp)
     EXPECT_NEAR(std::abs(note->dots().front()->ldata()->pos().y()), 0.5 * note->spatium(), 1e-6);
 
     delete score;
+}
+
+//---------------------------------------------------------
+///   dragAboveHighestPitch
+///   Dragging a note above the highest pitch keeps pitch and spelling consistent,
+///   so the next drag step can still look up the note's accidental
+//---------------------------------------------------------
+
+TEST_F(Engraving_NoteTests, dragAboveHighestPitch)
+{
+    MasterScore* score = ScoreRW::readScore(NOTE_DATA_DIR + u"crossStaffDots.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    Segment* segment = score->firstMeasure()->first(SegmentType::ChordRest);
+    ASSERT_TRUE(segment);
+    ASSERT_TRUE(segment->element(0) && segment->element(0)->isChord());
+    Note* note = toChord(segment->element(0))->upNote();
+    EngravingItem* item = note;
+
+    // Two steps above G9 (MIDI 127), where the pitch can no longer follow the staff line
+    const int targetStep = MAX_ACC_STATE + 1;
+    const int lineOffset = absStep(note->tpc(), note->epitch()) - targetStep;
+
+    score->startCmd(TranslatableString::untranslatable("Engraving note tests"));
+    EditData ed;
+    item->startDrag(ed);
+    ed.evtDelta = PointF(0.0, lineOffset * 0.5 * note->spatium());
+    ed.moveDelta = ed.evtDelta;
+
+    // The second step reads back what the first one wrote
+    item->drag(ed);
+    score->update();
+    item->drag(ed);
+    item->endDrag(ed);
+    score->endCmd();
+
+    EXPECT_EQ(note->pitch(), 127);
+    EXPECT_LT(absStep(note->tpc(), note->epitch()), MAX_ACC_STATE);
+
+    delete score;
+}
+
+//---------------------------------------------------------
+///   accidentalStateOutOfRangeLine
+///   Lines outside the accidental state (e.g. A double flat 9, MIDI 127) read as natural and are not stored
+//---------------------------------------------------------
+
+TEST_F(Engraving_NoteTests, accidentalStateOutOfRangeLine)
+{
+    AccidentalState state;
+    state.init(Key::C);
+
+    for (int line : { MIN_ACC_STATE - 1, MAX_ACC_STATE }) {
+        state.setAccidentalVal(line, AccidentalVal::SHARP);
+        state.setForceRestateAccidental(line, true);
+
+        EXPECT_EQ(state.accidentalVal(line), AccidentalVal::NATURAL);
+        EXPECT_FALSE(state.forceRestateAccidental(line));
+        EXPECT_FALSE(state.tieContext(line));
+    }
+
+    // The neighbouring valid line is untouched
+    EXPECT_EQ(state.accidentalVal(MAX_ACC_STATE - 1), AccidentalVal::NATURAL);
 }
