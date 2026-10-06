@@ -28,6 +28,7 @@
 #include "draw/fontmetrics.h"
 #include "draw/types/pen.h"
 #include "draw/types/brush.h"
+#include "draw/types/transform.h"
 
 #include "iengravingfont.h"
 
@@ -640,7 +641,12 @@ void TextCursor::selectWord()
 bool TextCursor::set(const PointF& p, TextCursor::MoveMode mode)
 {
     PointF pt  = p - m_text->canvasPos();
-    if (!m_text->ldata()->bbox().contains(pt)) {
+    if (m_text->isSlanted()) {
+        pt = m_text->slantTransform().inverted().map(pt);
+        if (!m_text->ldata()->unslantedBbox.contains(pt)) {
+            return false;
+        }
+    } else if (!m_text->ldata()->bbox().contains(pt)) {
         return false;
     }
 
@@ -1802,6 +1808,8 @@ TextBase::TextBase(const TextBase& st)
     m_centerBetweenStaves = st.m_centerBetweenStaves;
     m_anchorToEndOfPrevious = st.m_anchorToEndOfPrevious;
     m_maskBarlines = st.m_maskBarlines;
+    m_diagonal = st.m_diagonal;
+    m_slantAngle = st.m_slantAngle;
 
     size_t n = m_elementStyle->size() + TEXT_STYLE_SIZE;
     delete[] m_propertyFlagsList;
@@ -2446,6 +2454,129 @@ std::vector<LineF> TextBase::dragAnchorLines() const
     return result;
 }
 
+//---------------------------------------------------------
+//   slant
+//---------------------------------------------------------
+
+static constexpr double MAX_SLANT_ANGLE = 90.0;
+
+bool TextBase::supportsSlant() const
+{
+    switch (type()) {
+    case ElementType::STAFF_TEXT:
+    case ElementType::SYSTEM_TEXT:
+    case ElementType::EXPRESSION:
+    case ElementType::DYNAMIC:
+    case ElementType::TEMPO_TEXT:
+    case ElementType::REHEARSAL_MARK:
+    case ElementType::INSTRUMENT_CHANGE:
+    case ElementType::PLAYTECH_ANNOTATION:
+        return true;
+    default:
+        return false;
+    }
+}
+
+void TextBase::setSlantAngle(double degrees)
+{
+    m_slantAngle = std::clamp(degrees, -MAX_SLANT_ANGLE, MAX_SLANT_ANGLE);
+}
+
+//! Like resetting a hairpin, this makes a slanted text horizontal again
+void TextBase::reset()
+{
+    undoResetProperty(Pid::TEXT_SLANT_ANGLE);
+    EngravingItem::reset();
+}
+
+bool TextBase::isSlanted() const
+{
+    return !muse::RealIsNull(effectiveSlantAngle());
+}
+
+//! Maps the text's own (unrotated) coordinates to item coordinates.
+//! The pivot is the item origin, i.e. the alignment anchor of the text.
+Transform TextBase::slantTransform() const
+{
+    Transform t;
+    t.rotate(-effectiveSlantAngle()); // y points down: a negative rotation rises to the right
+    return t;
+}
+
+bool TextBase::hasSlantGrip() const
+{
+    if (!m_diagonal || !supportsSlant() || empty()) {
+        return false;
+    }
+    return !(m_cursor && m_cursor->editing());
+}
+
+bool TextBase::isSlantGrip(Grip grip) const
+{
+    // The slant grip always comes last (after the hairpin grips of a dynamic)
+    return hasSlantGrip() && int(grip) == gripsCount() - 1;
+}
+
+//! Position of the slant grip in the text's own (unrotated) coordinates:
+//! on the first baseline, past the end of the text that lies farther from the pivot.
+PointF TextBase::slantGripRestPos() const
+{
+    const LayoutData* data = ldata();
+    const RectF& bbox = data->unslantedBbox;
+    // keep clear of the hairpin grips of a dynamic
+    const double gap = (isDynamic() ? 2.5 + style().styleS(Sid::hairpinMinDistance).val() : 1.0) * spatium();
+    const double y = data->blocks.empty() ? 0.0 : data->blocks.front().y();
+    const double x = bbox.right() >= -bbox.left() ? bbox.right() + gap : bbox.left() - gap;
+    return PointF(x, y);
+}
+
+int TextBase::gripsCount() const
+{
+    return hasSlantGrip() ? 1 : 0;
+}
+
+std::vector<PointF> TextBase::gripsPositions(const EditData&) const
+{
+    if (!hasSlantGrip()) {
+        return {};
+    }
+    return { pagePos() + slantTransform().map(slantGripRestPos()) };
+}
+
+void TextBase::startEditDrag(EditData& ed)
+{
+    EngravingItem::startEditDrag(ed);
+    if (isSlantGrip(ed.curGrip)) {
+        ed.getData(this)->pushProperty(Pid::TEXT_SLANT_ANGLE);
+    }
+}
+
+void TextBase::editDrag(EditData& ed)
+{
+    if (!isSlantGrip(ed.curGrip)) {
+        EngravingItem::editDrag(ed);
+        return;
+    }
+
+    // Turn the text so that its grip points at the mouse
+    const PointF toMouse = ed.pos - canvasPos();
+    const PointF toGrip = slantGripRestPos();
+    if (muse::RealIsNull(toMouse.x()) && muse::RealIsNull(toMouse.y())) {
+        return;
+    }
+
+    double degrees = (std::atan2(-toMouse.y(), toMouse.x()) - std::atan2(-toGrip.y(), toGrip.x())) * 180.0 / M_PI;
+    if (degrees > 180.0) {
+        degrees -= 360.0;
+    } else if (degrees <= -180.0) {
+        degrees += 360.0;
+    }
+
+    score()->addRefresh(canvasBoundingRect());
+    setSlantAngle(std::round(degrees * 10.0) / 10.0);
+    triggerLayout();
+}
+
 bool TextBase::showsDragAlignmentGuides() const
 {
     return isDynamic()
@@ -2488,6 +2619,9 @@ bool TextBase::dragReferenceOrigin(PointF& origin) const
     }
 
     origin = PointF(left, baseline);
+    if (isSlanted()) {
+        origin = slantTransform().map(origin);
+    }
     return true;
 }
 
@@ -2925,6 +3059,10 @@ PropertyValue TextBase::getProperty(Pid propertyId) const
         return symbolSize();
     case Pid::MASK_BARLINES:
         return maskBarlines();
+    case Pid::DIAGONAL:
+        return diagonal();
+    case Pid::TEXT_SLANT_ANGLE:
+        return slantAngle();
     default:
         return EngravingItem::getProperty(propertyId);
     }
@@ -3020,6 +3158,12 @@ bool TextBase::setProperty(Pid pid, const PropertyValue& v)
     case Pid::MASK_BARLINES:
         setMaskBarlines(v.toBool());
         break;
+    case Pid::DIAGONAL:
+        setDiagonal(v.toBool());
+        break;
+    case Pid::TEXT_SLANT_ANGLE:
+        setSlantAngle(v.toDouble());
+        break;
     default:
         rv = EngravingItem::setProperty(pid, v);
         break;
@@ -3071,6 +3215,10 @@ PropertyValue TextBase::propertyDefault(Pid id) const
         return styleValue(Pid::FONT_SIZE, getPropertyStyle(Pid::FONT_SIZE));
     case Pid::MASK_BARLINES:
         return false;
+    case Pid::DIAGONAL:
+        return false;
+    case Pid::TEXT_SLANT_ANGLE:
+        return 0.0;
     default:
         for (const auto& p : *textStyle(TextStyleType::DEFAULT)) {
             if (p.pid == id) {

@@ -191,12 +191,7 @@ void EditModeRenderer::drawBarline(BarLine* item, muse::draw::Painter* painter, 
 
 void EditModeRenderer::drawDynamic(Dynamic* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling)
 {
-    if (item->cursor() && item->cursor()->editing()) {
-        drawTextBase(item, painter, ed, currentViewScaling);
-        return;
-    }
-
-    drawEngravingItem(item, painter, ed, currentViewScaling);
+    drawTextBase(item, painter, ed, currentViewScaling);
 }
 
 void EditModeRenderer::drawSlurTieSegment(SlurTieSegment* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling)
@@ -286,8 +281,11 @@ static void drawTextBaseSelection(TextBase* item, Painter* painter, const RectF&
 
 void EditModeRenderer::drawTextBase(TextBase* item, muse::draw::Painter* painter, EditData& ed, double currentViewScaling)
 {
-    PointF pos(item->canvasPos());
-    painter->translate(pos);
+    if (!(item->cursor() && item->cursor()->editing())) {
+        // not editing the text: only the grips are shown
+        drawEngravingItem(item, painter, ed, currentViewScaling);
+        return;
+    }
 
     TextEditData* ted = static_cast<TextEditData*>(ed.getData(item).get());
     if (!ted) {
@@ -299,6 +297,14 @@ void EditModeRenderer::drawTextBase(TextBase* item, muse::draw::Painter* painter
     const TextBase::LayoutData* ldata = item->ldata();
     IF_ASSERT_FAILED(ldata) {
         return;
+    }
+
+    // Selection and cursor are drawn in the text's own coordinates, so they follow its slant
+    PointF pos(item->canvasPos());
+    const bool slanted = item->isSlanted();
+    painter->translate(pos);
+    if (slanted) {
+        painter->rotate(-item->effectiveSlantAngle());
     }
 
     if (cursor->hasSelection()) {
@@ -340,6 +346,9 @@ void EditModeRenderer::drawTextBase(TextBase* item, muse::draw::Painter* painter
         painter->drawRect(cursor->cursorRect());
     }
 
+    if (slanted) {
+        painter->rotate(item->effectiveSlantAngle());
+    }
     painter->translate(-pos);
     painter->setPen(Pen(item->configuration()->frameColor(), 2.0 / currentViewScaling)); // 2 pixel pen size
     painter->setBrush(BrushStyle::NoBrush);

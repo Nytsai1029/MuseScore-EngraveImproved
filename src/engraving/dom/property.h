@@ -525,6 +525,8 @@ enum class Pid {
 
     HAIRPIN_VERTICAL_ENDS, // diagonal hairpin is sheared instead of rotated, keeping its open ends vertical
 
+    TEXT_SLANT_ANGLE, // degrees, positive rises to the right; only applied to text with DIAGONAL set
+
     END
 };
 

@@ -4530,6 +4530,8 @@ bool TRead::readProperties(TextBase* t, XmlReader& e, ReadContext& ctx)
     } else if (readProperty(t, tag, e, ctx, Pid::CENTER_BETWEEN_STAVES)) {
     } else if (readProperty(t, tag, e, ctx, Pid::MUSIC_SYMBOL_SIZE)) {
     } else if (readProperty(t, tag, e, ctx, Pid::MASK_BARLINES)) {
+    } else if (readProperty(t, tag, e, ctx, Pid::DIAGONAL)) {
+    } else if (readProperty(t, tag, e, ctx, Pid::TEXT_SLANT_ANGLE)) {
     } else if (!readItemProperties(t, e, ctx)) {
         return false;
     }

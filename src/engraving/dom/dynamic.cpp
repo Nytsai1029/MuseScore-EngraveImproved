@@ -342,24 +342,6 @@ int Dynamic::dynamicVelocity(DynamicType t)
     return DYN_LIST[int(t)].velocity;
 }
 
-void Dynamic::startEdit(EditData& ed)
-{
-    if (ed.curGrip != Grip::NO_GRIP) {
-        EngravingItem::startEdit(ed);
-    } else {
-        TextBase::startEdit(ed);
-    }
-}
-
-void Dynamic::endEdit(EditData& ed)
-{
-    if (cursor() && cursor()->editing()) {
-        TextBase::endEdit(ed);
-    } else {
-        EngravingItem::endEdit(ed);
-    }
-}
-
 TranslatableString Dynamic::subtypeUserName() const
 {
     if (dynamicType() == DynamicType::OTHER) {
@@ -593,15 +575,6 @@ String Dynamic::screenReaderInfo() const
 }
 }
 
-bool Dynamic::isEditAllowed(EditData& ed) const
-{
-    if (!dynamic_cast<TextEditData*>(ed.getData(this).get())) {
-        return EngravingItem::isEditAllowed(ed);
-    }
-
-    return TextBase::isEditAllowed(ed);
-}
-
 //---------------------------------------------------------
 //   hasLeftHairpin
 //---------------------------------------------------------
@@ -676,16 +649,8 @@ int Dynamic::gripsCount() const
         return 0;
     }
 
-    const bool hasLeftGrip = this->hasLeftGrip();
-    const bool hasRightGrip = this->hasRightGrip();
-
-    if (hasLeftGrip && hasRightGrip) {
-        return 2;
-    } else if (hasLeftGrip || hasRightGrip) {
-        return 1;
-    } else {
-        return 0;
-    }
+    // The slant grip (if any) comes after the hairpin grips
+    return int(hasLeftGrip()) + int(hasRightGrip()) + TextBase::gripsCount();
 }
 
 //---------------------------------------------------------
@@ -704,16 +669,16 @@ std::vector<PointF> Dynamic::gripsPositions(const EditData&) const
     PointF leftOffset(-ldata->bbox().width() / 2 - md + m_leftDragOffset, GRIP_VERTICAL_OFFSET);
     PointF rightOffset(ldata->bbox().width() / 2 + md + m_rightDragOffset, GRIP_VERTICAL_OFFSET);
 
-    const bool hasLeftGrip = this->hasLeftGrip();
-    const bool hasRightGrip = this->hasRightGrip();
-
-    if (hasLeftGrip && hasRightGrip) {
-        return { pp + leftOffset, pp + rightOffset };
-    } else if (hasLeftGrip) {
-        return { pp + leftOffset };
-    } else if (hasRightGrip) {
-        return { pp + rightOffset };
-    } else {
-        return {};
+    std::vector<PointF> positions;
+    if (hasLeftGrip()) {
+        positions.push_back(pp + leftOffset);
     }
+    if (hasRightGrip()) {
+        positions.push_back(pp + rightOffset);
+    }
+
+    const std::vector<PointF> slantGrip = TextBase::gripsPositions();
+    positions.insert(positions.end(), slantGrip.begin(), slantGrip.end());
+
+    return positions;
 }

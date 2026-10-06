@@ -81,6 +81,13 @@ void TextSettingsModel::createProperties()
     m_isSizeSpatiumDependent = buildPropertyItem(mu::engraving::Pid::SIZE_SPATIUM_DEPENDENT);
     m_maskBarlines = buildPropertyItem(mu::engraving::Pid::MASK_BARLINES);
 
+    m_allowDiagonal = buildPropertyItem(mu::engraving::Pid::DIAGONAL, [this](const mu::engraving::Pid pid, const QVariant& newValue) {
+        onPropertyValueChanged(pid, newValue);
+
+        updateSlantPropertiesAvailability();
+    });
+    m_slantAngle = buildPropertyItem(mu::engraving::Pid::TEXT_SLANT_ANGLE);
+
     m_frameType = buildPropertyItem(mu::engraving::Pid::FRAME_TYPE, [this](const mu::engraving::Pid pid, const QVariant& newValue) {
         onPropertyValueChanged(pid, newValue);
 
@@ -118,6 +125,8 @@ void TextSettingsModel::loadProperties()
         Pid::MUSIC_SYMBOL_SIZE,
         Pid::TEXT_SIZE_SPATIUM_DEPENDENT,
         Pid::MASK_BARLINES,
+        Pid::DIAGONAL,
+        Pid::TEXT_SLANT_ANGLE,
         Pid::FRAME_TYPE,
         Pid::FRAME_BG_COLOR,
         Pid::FRAME_FG_COLOR,
@@ -193,6 +202,14 @@ void TextSettingsModel::loadProperties(const PropertyIdSet& propertyIdSet)
         loadPropertyItem(m_maskBarlines);
     }
 
+    if (muse::contains(propertyIdSet, Pid::DIAGONAL)) {
+        loadPropertyItem(m_allowDiagonal);
+    }
+
+    if (muse::contains(propertyIdSet, Pid::TEXT_SLANT_ANGLE)) {
+        loadPropertyItem(m_slantAngle, formatDoubleFunc);
+    }
+
     if (muse::contains(propertyIdSet, Pid::FRAME_TYPE)) {
         loadPropertyItem(m_frameType);
     }
@@ -235,6 +252,7 @@ void TextSettingsModel::loadProperties(const PropertyIdSet& propertyIdSet)
     updateIsSymbolSizeAvailable();
     updateIsScriptSizeAvailable();
     updateIsLineSpacingAvailable();
+    updateSlantPropertiesAvailability();
 }
 
 void TextSettingsModel::resetProperties()
@@ -246,6 +264,8 @@ void TextSettingsModel::resetProperties()
     m_textLetterSpacing->resetToDefault();
     m_isSizeSpatiumDependent->resetToDefault();
     m_maskBarlines->resetToDefault();
+    m_allowDiagonal->resetToDefault();
+    m_slantAngle->resetToDefault();
     m_symbolSize->resetToDefault();
 
     m_frameType->resetToDefault();
@@ -344,6 +364,16 @@ PropertyItem* TextSettingsModel::isSizeSpatiumDependent() const
 PropertyItem* TextSettingsModel::maskBarlines() const
 {
     return m_maskBarlines;
+}
+
+PropertyItem* TextSettingsModel::allowDiagonal() const
+{
+    return m_allowDiagonal;
+}
+
+PropertyItem* TextSettingsModel::slantAngle() const
+{
+    return m_slantAngle;
 }
 
 PropertyItem* TextSettingsModel::frameType() const
@@ -453,6 +483,11 @@ bool TextSettingsModel::isLineSpacingAvailable() const
     return m_isLineSpacingAvailable;
 }
 
+bool TextSettingsModel::isSlantAvailable() const
+{
+    return m_isSlantAvailable;
+}
+
 void TextSettingsModel::setAreTextPropertiesAvailable(bool areTextPropertiesAvailable)
 {
     if (m_areTextPropertiesAvailable == areTextPropertiesAvailable) {
@@ -531,6 +566,16 @@ void TextSettingsModel::setIsLineSpacingAvailable(bool isLineSpacingAvailable)
 
     m_isLineSpacingAvailable = isLineSpacingAvailable;
     emit isLineSpacingAvailableChanged(m_isLineSpacingAvailable);
+}
+
+void TextSettingsModel::setIsSlantAvailable(bool isSlantAvailable)
+{
+    if (isSlantAvailable == m_isSlantAvailable) {
+        return;
+    }
+
+    m_isSlantAvailable = isSlantAvailable;
+    emit isSlantAvailableChanged(m_isSlantAvailable);
 }
 
 void TextSettingsModel::updateFramePropertiesAvailability()
@@ -619,6 +664,22 @@ void TextSettingsModel::updateIsLineSpacingAvailable()
     }
 
     setIsLineSpacingAvailable(available);
+}
+
+void TextSettingsModel::updateSlantPropertiesAvailability()
+{
+    bool available = !m_elementList.isEmpty();
+    for (EngravingItem* item : m_elementList) {
+        if (!item->isTextBase() || !toTextBase(item)->supportsSlant()) {
+            available = false;
+            break;
+        }
+    }
+
+    setIsSlantAvailable(available);
+
+    // Like the end of a hairpin, the text can only be slanted once "Allow diagonal" is on
+    m_slantAngle->setIsEnabled(m_allowDiagonal->value().toBool());
 }
 
 bool TextSettingsModel::isTextEditingStarted() const

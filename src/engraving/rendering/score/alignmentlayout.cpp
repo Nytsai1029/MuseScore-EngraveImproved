@@ -200,7 +200,7 @@ double AlignmentLayout::yOpticalCenter(const EngravingItem* item)
     {
         curY += item->staffOffsetY();
         AlignV vertAlign = toTextBase(item)->align().vertical;
-        double bboxHeight = item->ldata()->bbox().height();
+        double bboxHeight = toTextBase(item)->ldata()->unslantedBbox.height();
         switch (vertAlign) {
         case AlignV::TOP:
             curY += 0.5 * bboxHeight;

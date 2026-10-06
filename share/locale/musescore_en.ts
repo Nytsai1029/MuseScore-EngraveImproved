@@ -20448,6 +20448,11 @@ Fret %1 on strings %2</translation>
         <source>hairpin vertical ends</source>
         <translation type="unfinished">hairpin vertical ends</translation>
     </message>
+    <message>
+        <location filename="../../src/engraving/dom/property.cpp" line="516"/>
+        <source>slant angle</source>
+        <translation type="unfinished">slant angle</translation>
+    </message>
 </context>
 <context>
     <name>engraving/scoreorder</name>
@@ -26745,6 +26750,7 @@ pickup measure</translation>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/internal/GradualTempoChangeStyleTab.qml" line="58"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/internal/HairpinStyleSettings.qml" line="71"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/internal/LineWithHooksCommonStyleSettings.qml" line="58"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="214"/>
         <source>Allow diagonal</source>
         <translation type="unfinished">Allow diagonal</translation>
     </message>
@@ -27851,14 +27857,19 @@ pickup measure</translation>
         <translation type="unfinished">Letter spacing</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="211"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="230"/>
+        <source>Slant angle</source>
+        <translation type="unfinished">Slant angle</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="247"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/textstylepopup/TextStylePopup.qml" line="476"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/textstylepopup/TextStyleSubPopup.qml" line="56"/>
         <source>Text style</source>
         <translation type="unfinished">Text style</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="243"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="279"/>
         <source>Staff text properties</source>
         <translation type="unfinished">Staff text properties</translation>
     </message>
@@ -38551,7 +38562,7 @@ The score will be saved as:
         <translation type="unfinished">Update play count text</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/textedit.cpp" line="922"/>
+        <location filename="../../src/engraving/dom/textedit.cpp" line="937"/>
         <source>Paste text</source>
         <translation type="unfinished">Paste text</translation>
     </message>

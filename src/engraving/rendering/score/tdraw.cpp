@@ -1625,6 +1625,11 @@ void TDraw::drawTextBase(const TextBase* item, Painter* painter)
 {
     TRACE_DRAW_ITEM;
     const TextBase::LayoutData* ldata = item->ldata();
+    const bool slanted = item->isSlanted();
+    if (slanted) {
+        painter->save();
+        painter->rotate(-item->effectiveSlantAngle());
+    }
     if (item->hasFrame()) {
         double baseSpatium = DefaultStyle::baseStyle().value(Sid::spatium).toReal();
         if (!RealIsNull(item->frameWidth().val())) {
@@ -1654,6 +1659,9 @@ void TDraw::drawTextBase(const TextBase* item, Painter* painter)
     painter->setPen(item->textColor());
     for (const TextBlock& t : ldata->blocks) {
         t.draw(painter, item);
+    }
+    if (slanted) {
+        painter->restore();
     }
 }
 

@@ -1275,7 +1275,7 @@ void NotationInteraction::drag(const PointF& fromPos, const PointF& toPos, DragM
         m_dragData.ed.addData(m_editData.getData(m_editData.element));
         m_editData.element->editDrag(m_dragData.ed);
 
-        if (m_editData.element->isDynamic()) {
+        if (m_editData.element->isDynamic() && !toDynamic(m_editData.element)->isSlantGrip(m_editData.curGrip)) {
             // When the dynamic has no left grip, the right grip will have index zero, a.k.a. Grip::LEFT.
             // TODO: refactor all code that works with Grips, so that this is not necessary
             Dynamic* dynamic = toDynamic(m_editData.element);
@@ -3664,7 +3664,7 @@ void NotationInteraction::drawGripPoints(muse::draw::Painter* painter)
     mu::engraving::EngravingItem* editedElement = m_editData.element;
     if (!editedElement) {
         EngravingItem* selectedElement = m_selection->element();
-        if (selectedElement && (selectedElement->isDynamic() || selectedElement->isLedgerLine())) {
+        if (selectedElement && (selectedElement->isTextBase() || selectedElement->isLedgerLine())) {
             editedElement = selectedElement;
         }
     }

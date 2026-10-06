@@ -29,6 +29,7 @@
 #include <gtest/gtest.h>
 
 #include "draw/fontmetrics.h"
+#include "draw/types/transform.h"
 
 #include "dom/chordrest.h"
 #include "dom/dynamic.h"
@@ -359,6 +360,142 @@ TEST_F(Engraving_TextBaseTests, maskBarlinesDefaultsOff)
     EXPECT_TRUE(readStaffText->maskBarlines());
     delete readDynamic;
     delete readStaffText;
+
+    delete score;
+}
+
+TEST_F(Engraving_TextBaseTests, slantDefaultsOffAndRoundTrips)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    Dynamic* dynamic = addDynamic(score);
+    StaffText* staffText = addStaffText(score);
+
+    EXPECT_TRUE(dynamic->supportsSlant());
+    EXPECT_TRUE(staffText->supportsSlant());
+    EXPECT_FALSE(staffText->diagonal());
+    EXPECT_FALSE(staffText->propertyDefault(Pid::DIAGONAL).toBool());
+    EXPECT_DOUBLE_EQ(staffText->propertyDefault(Pid::TEXT_SLANT_ANGLE).toDouble(), 0.0);
+
+    // Like the end of a hairpin, the angle only applies once the text is allowed to be diagonal
+    staffText->setProperty(Pid::TEXT_SLANT_ANGLE, 12.5);
+    EXPECT_DOUBLE_EQ(staffText->slantAngle(), 12.5);
+    EXPECT_FALSE(staffText->isSlanted());
+    staffText->setProperty(Pid::DIAGONAL, true);
+    EXPECT_TRUE(staffText->isSlanted());
+    EXPECT_DOUBLE_EQ(staffText->effectiveSlantAngle(), 12.5);
+
+    staffText->setProperty(Pid::TEXT_SLANT_ANGLE, 400.0);
+    EXPECT_DOUBLE_EQ(staffText->slantAngle(), 90.0);
+    staffText->setProperty(Pid::TEXT_SLANT_ANGLE, 12.5);
+
+    dynamic->setProperty(Pid::DIAGONAL, true);
+    dynamic->setProperty(Pid::TEXT_SLANT_ANGLE, -8.0);
+
+    Dynamic* readDynamic = toDynamic(ScoreRW::writeReadElement(dynamic));
+    StaffText* readStaffText = toStaffText(ScoreRW::writeReadElement(staffText));
+    ASSERT_TRUE(readDynamic);
+    ASSERT_TRUE(readStaffText);
+    EXPECT_TRUE(readDynamic->diagonal());
+    EXPECT_DOUBLE_EQ(readDynamic->slantAngle(), -8.0);
+    EXPECT_TRUE(readStaffText->diagonal());
+    EXPECT_DOUBLE_EQ(readStaffText->slantAngle(), 12.5);
+    delete readDynamic;
+    delete readStaffText;
+
+    // Lyrics cannot be slanted, whatever their properties say
+    ChordRest* chordRest = score->firstSegment(SegmentType::ChordRest)->nextChordRest(0);
+    ASSERT_TRUE(chordRest);
+    Lyrics* lyrics = Factory::createLyrics(chordRest);
+    lyrics->setPlainText(u"la");
+    chordRest->add(lyrics);
+    lyrics->setProperty(Pid::DIAGONAL, true);
+    lyrics->setProperty(Pid::TEXT_SLANT_ANGLE, 20.0);
+    EXPECT_FALSE(lyrics->supportsSlant());
+    EXPECT_FALSE(lyrics->isSlanted());
+    EXPECT_EQ(lyrics->gripsCount(), 0);
+
+    delete score;
+}
+
+TEST_F(Engraving_TextBaseTests, slantRotatesShapeOnlyWhenDiagonal)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    StaffText* staffText = addStaffText(score);
+    staffText->setPlainText(u"cresc. poco a poco");
+    score->doLayout();
+    const RectF flat = staffText->ldata()->bbox();
+    EXPECT_EQ(staffText->gripsCount(), 0);
+
+    staffText->setProperty(Pid::TEXT_SLANT_ANGLE, 20.0);
+    score->doLayout();
+    EXPECT_NEAR(staffText->ldata()->bbox().top(), flat.top(), 1e-6);
+    EXPECT_NEAR(staffText->ldata()->bbox().height(), flat.height(), 1e-6);
+
+    staffText->setProperty(Pid::DIAGONAL, true);
+    score->doLayout();
+    const RectF rising = staffText->ldata()->bbox();
+    const RectF unslanted = staffText->ldata()->unslantedBbox;
+    EXPECT_GT(rising.height(), flat.height() + 1.0);
+    EXPECT_LT(rising.top(), flat.top() - 1.0);
+    EXPECT_NEAR(unslanted.top(), flat.top(), 1e-6);
+    EXPECT_NEAR(unslanted.width(), flat.width(), 1e-6);
+    EXPECT_NEAR(unslanted.height(), flat.height(), 1e-6);
+    // the outline follows the slant instead of being one tall box...
+    const Shape slantedShape = staffText->ldata()->shape();
+    EXPECT_GT(slantedShape.elements().size(), 1u);
+    // ...and stays one unbroken band along the text, gaps between the words included
+    const muse::draw::Transform slant = staffText->slantTransform();
+    for (int i = 1; i < 20; ++i) {
+        const PointF onCentreLine(unslanted.left() + unslanted.width() * i / 20.0, unslanted.center().y());
+        EXPECT_TRUE(slantedShape.contains(slant.map(onCentreLine))) << "at " << i << "/20 of the text";
+    }
+
+    staffText->setProperty(Pid::TEXT_SLANT_ANGLE, -20.0);
+    score->doLayout();
+    EXPECT_GT(staffText->ldata()->bbox().bottom(), flat.bottom() + 1.0);
+
+    delete score;
+}
+
+TEST_F(Engraving_TextBaseTests, slantGripTurnsTextTowardsMouse)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    StaffText* staffText = addStaffText(score);
+    staffText->setPlainText(u"cresc.");
+    staffText->setProperty(Pid::DIAGONAL, true);
+    score->doLayout();
+
+    ASSERT_EQ(staffText->gripsCount(), 1);
+    const std::vector<PointF> grips = staffText->gripsPositions();
+    ASSERT_EQ(grips.size(), 1u);
+    // unslanted: the grip sits on the baseline, past the end of the text
+    EXPECT_NEAR(grips.front().y(), staffText->pagePos().y(), 1e-6);
+    EXPECT_GT(grips.front().x(), staffText->pagePos().x() + staffText->ldata()->bbox().right());
+
+    EditData ed;
+    ed.curGrip = Grip::START;
+    ASSERT_TRUE(staffText->isSlantGrip(ed.curGrip));
+    staffText->startEdit(ed);
+    staffText->startEditDrag(ed);
+
+    ed.pos = staffText->canvasPos() + PointF(100.0, -100.0);
+    staffText->editDrag(ed);
+    EXPECT_NEAR(staffText->slantAngle(), 45.0, 0.1);
+
+    ed.pos = staffText->canvasPos() + PointF(100.0, 100.0);
+    staffText->editDrag(ed);
+    EXPECT_NEAR(staffText->slantAngle(), -45.0, 0.1);
+
+    // never upside down
+    ed.pos = staffText->canvasPos() + PointF(-100.0, -10.0);
+    staffText->editDrag(ed);
+    EXPECT_DOUBLE_EQ(staffText->slantAngle(), 90.0);
 
     delete score;
 }

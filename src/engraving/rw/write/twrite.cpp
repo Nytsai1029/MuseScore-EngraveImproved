@@ -1293,6 +1293,8 @@ void TWrite::writeProperties(const TextBase* item, XmlWriter& xml, WriteContext&
 
     writeProperty(item, xml, Pid::TEXT_LINKED_TO_MASTER);
     writeProperty(item, xml, Pid::MASK_BARLINES);
+    writeProperty(item, xml, Pid::DIAGONAL);
+    writeProperty(item, xml, Pid::TEXT_SLANT_ANGLE);
 }
 
 void TWrite::write(const Fermata* item, XmlWriter& xml, WriteContext& ctx)

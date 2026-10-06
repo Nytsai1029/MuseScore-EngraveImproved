@@ -6243,6 +6243,42 @@ void TLayout::layoutBaseTextBase(TextBase* item, LayoutContext&)
     layoutBaseTextBase(item, item->mutldata());
 }
 
+//! The text itself is drawn rotated, but shapes are made of upright rectangles.
+//! So cut every rectangle into short pieces along the text, rotate each of them and keep its enclosing box:
+//! together they follow the slant closely, and stay one unbroken band (a click between two words still hits).
+static Shape slantedTextShape(const Shape& shape, const Transform& slant, const TextBase* item)
+{
+    static constexpr int MAX_PIECES = 128;
+
+    Shape slanted;
+    for (const ShapeElement& el : shape.elements()) {
+        const RectF& rect = el;
+        int pieces = 1;
+        if (rect.height() > 0.0 && rect.width() > 0.0) {
+            pieces = std::clamp(int(std::ceil(rect.width() / (0.5 * rect.height()))), 1, MAX_PIECES);
+        }
+        const double pieceWidth = rect.width() / pieces;
+        for (int i = 0; i < pieces; ++i) {
+            const RectF piece(rect.x() + i * pieceWidth, rect.y(), pieceWidth, rect.height());
+            slanted.add(ShapeElement(slant.map(piece), el.item() ? el.item() : item, el.ignoreForLayout()));
+        }
+    }
+    return slanted;
+}
+
+static void applyTextSlant(const TextBase* item, TextBase::LayoutData* ldata, const Shape& textShape,
+                           bool hasHighResShape)
+{
+    const Transform slant = item->slantTransform();
+
+    if (hasHighResShape) {
+        ldata->highResShape = slantedTextShape(ldata->highResShape.value(), slant, item);
+    }
+
+    const Shape unslantedShape = item->hasFrame() ? Shape(ldata->bbox(), item) : textShape;
+    ldata->setShape(slantedTextShape(unslantedShape, slant, item));
+}
+
 void TLayout::layoutBaseTextBase1(const TextBase* item, TextBase::LayoutData* ldata)
 {
     if (item->explicitParent() && item->layoutToParentWidth()) {
@@ -6349,8 +6385,14 @@ void TLayout::layoutBaseTextBase1(const TextBase* item, TextBase::LayoutData* ld
         item->layoutFrame(ldata);
     }
 
-    if (!item->isDynamic() && !(item->explicitParent() && item->parent()->isBox())) {
+    const bool hasHighResShape = !item->isDynamic() && !(item->explicitParent() && item->parent()->isBox());
+    if (hasHighResShape) {
         computeTextHighResShape(item, ldata);
+    }
+
+    ldata->unslantedBbox = ldata->bbox();
+    if (item->isSlanted()) {
+        applyTextSlant(item, ldata, shape, hasHighResShape);
     }
 }
 

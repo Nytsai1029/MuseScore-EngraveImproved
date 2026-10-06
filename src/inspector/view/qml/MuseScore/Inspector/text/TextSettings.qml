@@ -201,6 +201,42 @@ Column {
         maxValue: 500
     }
 
+    CheckBoxPropertyView {
+        id: allowDiagonalSection
+
+        visible: root.model ? root.model.isSlantAvailable : false
+        height: visible ? implicitHeight : 0
+
+        navigationName: "Allow diagonal"
+        navigationPanel: root.navigationPanel
+        navigationRowStart: textLetterSpacingSection.navigationRowEnd + 1
+
+        titleText: qsTrc("inspector", "Allow diagonal")
+        propertyItem: root.model ? root.model.allowDiagonal : null
+    }
+
+    SpinBoxPropertyView {
+        id: slantAngleSection
+        anchors.left: parent.left
+        anchors.right: parent.horizontalCenter
+        anchors.rightMargin: 2
+
+        visible: root.model ? root.model.isSlantAvailable : false
+
+        navigationName: "Slant angle"
+        navigationPanel: root.navigationPanel
+        navigationRowStart: allowDiagonalSection.navigationRowEnd + 1
+
+        titleText: qsTrc("inspector", "Slant angle")
+        measureUnitsSymbol: "°"
+        propertyItem: root.model ? root.model.slantAngle : null
+
+        decimals: 1
+        step: 1
+        minValue: -90
+        maxValue: 90
+    }
+
     SeparatorLine {
         visible: root.model ? !root.model.isDynamicSpecificSettings : false
         anchors.margins: -12
@@ -213,7 +249,7 @@ Column {
 
         navigationName: "Text style"
         navigationPanel: root.navigationPanel
-        navigationRowStart: textLetterSpacingSection.navigationRowEnd + 1
+        navigationRowStart: slantAngleSection.navigationRowEnd + 1
 
         visible: root.model ? !root.model.isDynamicSpecificSettings : false
         height: visible ? implicitHeight : 0

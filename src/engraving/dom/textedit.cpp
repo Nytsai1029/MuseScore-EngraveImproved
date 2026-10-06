@@ -109,6 +109,12 @@ void TextBase::editInsertText(TextCursor* cursor, const String& s)
 
 void TextBase::startEdit(EditData& ed)
 {
+    if (ed.curGrip != Grip::NO_GRIP) {
+        // dragging a grip, not editing the text
+        EngravingItem::startEdit(ed);
+        return;
+    }
+
     std::shared_ptr<TextEditData> ted = std::make_shared<TextEditData>(this);
     ted->e = this;
     ted->cursor()->startEdit();
@@ -139,6 +145,11 @@ void TextBase::startEdit(EditData& ed)
 
 void TextBase::endEdit(EditData& ed)
 {
+    if (!(m_cursor && m_cursor->editing())) {
+        EngravingItem::endEdit(ed);
+        return;
+    }
+
     TextEditData* ted = static_cast<TextEditData*>(ed.getData(this).get());
     IF_ASSERT_FAILED(ted && ted->cursor()) {
         return;
@@ -284,6 +295,10 @@ void TextBase::insertText(EditData& ed, const String& s)
 
 bool TextBase::isEditAllowed(EditData& ed) const
 {
+    if (!dynamic_cast<TextEditData*>(ed.getData(this).get())) {
+        return EngravingItem::isEditAllowed(ed);
+    }
+
     // Keep this method closely in sync with TextBase::edit()!
 
     if (ed.key == Key_Shift || ed.key == Key_Escape || ed.key == Key_Tab) {
@@ -414,9 +429,9 @@ bool TextBase::edit(EditData& ed)
         return false;
     }
 
-    TextEditData* ted = static_cast<TextEditData*>(ed.getData(this).get());
+    TextEditData* ted = dynamic_cast<TextEditData*>(ed.getData(this).get());
     if (!ted) {
-        return false;
+        return EngravingItem::edit(ed);
     }
     TextCursor* cursor = ted->cursor();
     CharFormat* currentFormat = cursor->format();

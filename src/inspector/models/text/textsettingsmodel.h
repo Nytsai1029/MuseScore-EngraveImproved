@@ -46,6 +46,8 @@ class TextSettingsModel : public AbstractInspectorModel
     Q_PROPERTY(PropertyItem * symbolSize READ symbolSize CONSTANT)
     Q_PROPERTY(PropertyItem * isSizeSpatiumDependent READ isSizeSpatiumDependent CONSTANT)
     Q_PROPERTY(PropertyItem * maskBarlines READ maskBarlines CONSTANT)
+    Q_PROPERTY(PropertyItem * allowDiagonal READ allowDiagonal CONSTANT)
+    Q_PROPERTY(PropertyItem * slantAngle READ slantAngle CONSTANT)
     Q_PROPERTY(PropertyItem * frameType READ frameType CONSTANT)
     Q_PROPERTY(PropertyItem * frameBorderColor READ frameBorderColor CONSTANT)
     Q_PROPERTY(PropertyItem * frameFillColor READ frameFillColor CONSTANT)
@@ -68,6 +70,7 @@ class TextSettingsModel : public AbstractInspectorModel
     Q_PROPERTY(bool isSymbolSizeAvailable READ isSymbolSizeAvailable NOTIFY isSymbolSizeAvailableChanged)
     Q_PROPERTY(bool isScriptSizeAvailable READ isScriptSizeAvailable NOTIFY isScriptSizeAvailableChanged)
     Q_PROPERTY(bool isLineSpacingAvailable READ isLineSpacingAvailable NOTIFY isLineSpacingAvailableChanged)
+    Q_PROPERTY(bool isSlantAvailable READ isSlantAvailable NOTIFY isSlantAvailableChanged)
 
 public:
     explicit TextSettingsModel(QObject* parent, IElementRepositoryService* repository);
@@ -94,6 +97,8 @@ public:
     PropertyItem* symbolSize() const;
     PropertyItem* isSizeSpatiumDependent() const;
     PropertyItem* maskBarlines() const;
+    PropertyItem* allowDiagonal() const;
+    PropertyItem* slantAngle() const;
     PropertyItem* frameType() const;
     PropertyItem* frameBorderColor() const;
     PropertyItem* frameFillColor() const;
@@ -115,6 +120,7 @@ public:
     bool isSymbolSizeAvailable() const;
     bool isScriptSizeAvailable() const;
     bool isLineSpacingAvailable() const;
+    bool isSlantAvailable() const;
 
 public slots:
     void setAreTextPropertiesAvailable(bool areTextPropertiesAvailable);
@@ -125,6 +131,7 @@ public slots:
     void setIsSymbolSizeAvailable(bool isSymbolSizeAvailable);
     void setIsScriptSizeAvailable(bool isScriptSizeAvailable);
     void setIsLineSpacingAvailable(bool isScriptSizeAvailable);
+    void setIsSlantAvailable(bool isSlantAvailable);
 
 signals:
     void textStylesChanged();
@@ -137,6 +144,7 @@ signals:
     void isSymbolSizeAvailableChanged(bool isSymbolSizeAvailable);
     void isScriptSizeAvailableChanged(bool isSymbolSizeAvailable);
     void isLineSpacingAvailableChanged(bool isSymbolSizeAvailable);
+    void isSlantAvailableChanged(bool isSlantAvailable);
 
 private:
     bool isTextEditingStarted() const;
@@ -150,6 +158,7 @@ private:
     void updateIsSymbolSizeAvailable();
     void updateIsScriptSizeAvailable();
     void updateIsLineSpacingAvailable();
+    void updateSlantPropertiesAvailability();
 
     void loadProperties(const mu::engraving::PropertyIdSet& propertyIdSet);
 
@@ -164,6 +173,8 @@ private:
     PropertyItem* m_symbolSize = nullptr;
     PropertyItem* m_isSizeSpatiumDependent = nullptr;
     PropertyItem* m_maskBarlines = nullptr;
+    PropertyItem* m_allowDiagonal = nullptr;
+    PropertyItem* m_slantAngle = nullptr;
     PropertyItem* m_frameType = nullptr;
     PropertyItem* m_frameBorderColor = nullptr;
     PropertyItem* m_frameFillColor = nullptr;
@@ -185,6 +196,7 @@ private:
     bool m_isSymbolSizeAvailable = false;
     bool m_isScriptSizeAvailable = false;
     bool m_isLineSpacingAvailable = false;
+    bool m_isSlantAvailable = false;
 };
 }
 

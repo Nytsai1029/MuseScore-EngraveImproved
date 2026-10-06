@@ -691,6 +691,9 @@ class EngravingItem : public apiv1::ScoreElement
     API_PROPERTY_T(qreal, lineSpacing,    TEXT_LINE_SPACING)
     /// For text-based elements: The letter spacing they use, as a percentage delta.
     API_PROPERTY_T(qreal, letterSpacing,  TEXT_LETTER_SPACING)
+    /// For staff text, expressions, dynamics etc. with \ref diagonal set:
+    /// the angle in degrees by which the text is slanted, positive rising to the right.
+    API_PROPERTY_T(qreal, slantAngle,     TEXT_SLANT_ANGLE)
 
     /// For text-based elements: Their border type,
     /// one of PluginAPI::PluginAPI::FrameType values.

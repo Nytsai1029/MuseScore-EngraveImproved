@@ -513,6 +513,8 @@ static constexpr PropertyMetaData propertyList[] = {
 
     { Pid::HAIRPIN_VERTICAL_ENDS,   false, "hairpinVerticalEnds",   P_TYPE::BOOL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "hairpin vertical ends") },
 
+    { Pid::TEXT_SLANT_ANGLE,        false, "textSlantAngle",        P_TYPE::REAL,               PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "slant angle") },
+
     { Pid::END,                     false, "++end++",               P_TYPE::INT,                PropertyGroup::NONE,            "" }
 };
 /* *INDENT-ON* */

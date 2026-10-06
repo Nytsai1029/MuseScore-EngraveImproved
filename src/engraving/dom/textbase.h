@@ -33,6 +33,10 @@
 #include "property.h"
 #include "../types/types.h"
 
+namespace muse::draw {
+class Transform;
+}
+
 namespace mu::engraving {
 class TextBase;
 class TextBlock;
@@ -346,6 +350,16 @@ public:
     bool maskBarlines() const { return m_maskBarlines; }
     void setMaskBarlines(bool v) { m_maskBarlines = v; }
 
+    // Slant: like a diagonal hairpin, the text is rotated about its alignment anchor
+    bool supportsSlant() const;
+    bool diagonal() const { return m_diagonal; }
+    void setDiagonal(bool v) { m_diagonal = v; }
+    double slantAngle() const { return m_slantAngle; }
+    void setSlantAngle(double degrees);
+    double effectiveSlantAngle() const { return m_diagonal && supportsSlant() ? m_slantAngle : 0.0; }
+    bool isSlanted() const;
+    muse::draw::Transform slantTransform() const;
+
     bool hasParentSegment() const { return explicitParent() && parent()->isSegment(); }
     virtual bool allowTimeAnchor() const override { return hasParentSegment(); }
     virtual void startEdit(EditData&) override;
@@ -354,6 +368,13 @@ public:
     virtual void editCut(EditData&) override;
     virtual void editCopy(EditData&) override;
     virtual void endEdit(EditData&) override;
+    void reset() override;
+    int gripsCount() const override;
+    std::vector<PointF> gripsPositions(const EditData& = EditData()) const override;
+    void startEditDrag(EditData&) override;
+    void editDrag(EditData&) override;
+    bool hasSlantGrip() const;
+    bool isSlantGrip(Grip grip) const;
     virtual RectF drag(EditData&) override;
     virtual void endDrag(EditData&) override;
     void movePosition(EditData&, TextCursor::MoveOperation);
@@ -478,6 +499,7 @@ public:
         bool layoutInvalid = true;
 
         RectF frame;
+        RectF unslantedBbox; // bbox before the slant is applied, in the text's own (unrotated) coordinates
 
         size_t rows() const { return blocks.size(); }
         const TextBlock& textBlock(size_t i) const { return blocks.at(i); }
@@ -527,6 +549,7 @@ protected:
 
 private:
     bool showsDragAlignmentGuides() const;
+    PointF slantGripRestPos() const;
 
     void insert(TextCursor*, char32_t code, LayoutData* ldata) const;
     String genText(const LayoutData* ldata) const;
@@ -581,6 +604,8 @@ private:
     AutoOnOff m_centerBetweenStaves = AutoOnOff::AUTO;
     bool m_anchorToEndOfPrevious = false;
     bool m_maskBarlines = false;
+    bool m_diagonal = false;
+    double m_slantAngle = 0.0;
 };
 
 inline bool isTextNavigationKey(int key, KeyboardModifiers modifiers)
