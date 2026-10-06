@@ -116,6 +116,8 @@ private:
     void loadPanels(const DockPageView* page);
     void loadTopLevelToolBars(const DockPageView* page);
     void alignTopLevelToolBars(const DockPageView* page);
+    void scheduleFitLayoutIntoWindow();
+    void fitLayoutIntoWindow();
 
     void addDock(DockBase* dock, Location location = Location::Left, const DockBase* relativeTo = nullptr);
     void addPanelAsTab(DockPanelView* panel, DockPanelView* destinationPanel);
@@ -159,6 +161,7 @@ private:
     ui::SkinCode m_currentSkin = ui::DEFAULT_SKIN_CODE;
 
     bool m_hasGeometryBeenRestored = false;
+    bool m_fitLayoutIntoWindowScheduled = false;
     bool m_reloadCurrentPageAllowed = false;
 };
 }

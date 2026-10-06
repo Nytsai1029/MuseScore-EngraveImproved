@@ -28,6 +28,7 @@
 #include "thirdparty/KDDockWidgets/src/LayoutSaver.h"
 #include "thirdparty/KDDockWidgets/src/private/quick/MainWindowQuick_p.h"
 #include "thirdparty/KDDockWidgets/src/private/DockRegistry_p.h"
+#include "thirdparty/KDDockWidgets/src/private/LayoutWidget_p.h"
 #include "thirdparty/KDDockWidgets/src/Config.h"
 
 #include "dockcentralview.h"
@@ -472,6 +473,50 @@ void DockWindow::alignTopLevelToolBars(const DockPageView* page)
 
     lastLeftToolBar->setMinimumWidth(lastLeftToolBar->contentWidth() + deltaForLastLeftToolbar);
     lastCentralToolBar->setMinimumWidth(lastCentralToolBar->contentWidth() + deltaForLastCentralToolBar);
+
+    scheduleFitLayoutIntoWindow();
+}
+
+void DockWindow::scheduleFitLayoutIntoWindow()
+{
+    if (m_fitLayoutIntoWindowScheduled) {
+        return;
+    }
+
+    m_fitLayoutIntoWindowScheduled = true;
+
+    async::Async::call(this, [this]() {
+        m_fitLayoutIntoWindowScheduled = false;
+        fitLayoutIntoWindow();
+    });
+}
+
+//! NOTE: When the content of a toolbar grows, the other toolbars may have no space to give away at that moment
+//! (their minimum widths are updated only after that), so the layout becomes wider than the window,
+//! and its right part gets out of sight. Fit the layout back when the minimum widths allow it
+void DockWindow::fitLayoutIntoWindow()
+{
+    if (!m_mainWindow || KDDockWidgets::LayoutSaver::restoreInProgress()) {
+        return;
+    }
+
+    KDDockWidgets::LayoutWidget* layout = m_mainWindow->layoutWidget();
+    if (!layout) {
+        return;
+    }
+
+    const int windowWidth = qFloor(width());
+    const QSize layoutSize = layout->size();
+
+    if (layoutSize.width() <= windowWidth) {
+        return;
+    }
+
+    if (layout->layoutMinimumSize().width() > windowWidth) {
+        return;
+    }
+
+    layout->setLayoutSize(QSize(windowWidth, layoutSize.height()));
 }
 
 void DockWindow::addDock(DockBase* dock, Location location, const DockBase* relativeTo)
