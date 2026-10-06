@@ -608,8 +608,10 @@ void Score::cmdPasteStaffList(muse::ByteArray& data, Fraction scale)
     }
 
     XmlReader e(data);
-    IF_ASSERT_FAILED(pasteStaff(e, cr->segment(), cr->staffIdx(), scale)) {
-        LOGE() << "Failed to paste staff";
+    // A refused paste (e.g. a tuplet across a barline) has set MScore::_error,
+    // so the command is rolled back and the caller shows the message
+    if (!pasteStaff(e, cr->segment(), cr->staffIdx(), scale)) {
+        LOGD() << "Failed to paste staff";
     }
 }
 

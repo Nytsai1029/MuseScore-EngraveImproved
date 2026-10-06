@@ -31,6 +31,7 @@
 #include "dom/durationtype.h"
 #include "dom/masterscore.h"
 #include "dom/measure.h"
+#include "dom/mscore.h"
 #include "dom/note.h"
 #include "dom/segment.h"
 
@@ -499,6 +500,64 @@ TEST_F(Engraving_CopyPasteTests, copypasteTuplet01)
 TEST_F(Engraving_CopyPasteTests, copypasteTuplet02)
 {
     copypastetuplet("02");
+}
+
+static std::string describeFirstTrack(Score* score)
+{
+    std::string result;
+    for (Segment* s = score->firstSegment(SegmentType::ChordRest); s; s = s->next1(SegmentType::ChordRest)) {
+        EngravingItem* e = s->element(0);
+        if (!e) {
+            continue;
+        }
+        result += std::to_string(s->tick().ticks()) + (e->isRest() ? "r" : "c")
+                  + std::to_string(toChordRest(e)->ticks().ticks()) + " ";
+    }
+    return result;
+}
+
+//---------------------------------------------------------
+///   pasteTupletAcrossBarlineIsRefused
+///   A paste that would put a tuplet across a barline reports an error and leaves the score unchanged
+//---------------------------------------------------------
+
+TEST_F(Engraving_CopyPasteTests, pasteTupletAcrossBarlineIsRefused)
+{
+    MasterScore* score = ScoreRW::readScore(COPYPASTE_DATA_DIR + String("copypaste_tuplet_01.mscx"));
+    ASSERT_TRUE(score);
+
+    Measure* m1 = score->firstMeasure();
+    Measure* m2 = m1->nextMeasure();
+    ASSERT_TRUE(m1);
+    ASSERT_TRUE(m2);
+
+    // The range starts 3/8 into measure 1, so pasted at the start of measure 1
+    // the tuplet of measure 2 begins an eighth before the barline
+    Segment* firstSegment = m1->findSegment(SegmentType::ChordRest, m1->tick() + Fraction(3, 8));
+    Segment* lastSegment = m2->findSegment(SegmentType::ChordRest, m2->tick() + Fraction(1, 2));
+    ASSERT_TRUE(firstSegment && firstSegment->element(0));
+    ASSERT_TRUE(lastSegment && lastSegment->element(0));
+
+    score->select(firstSegment->element(0));
+    score->select(lastSegment->element(0), SelectType::RANGE);
+    ASSERT_TRUE(score->selection().canCopy());
+
+    QMimeData mimeData;
+    mimeData.setData(score->selection().mimeType(), score->selection().mimeData().toQByteArray());
+
+    const std::string before = describeFirstTrack(score);
+
+    score->select(m1->first(SegmentType::ChordRest)->element(0));
+    score->startCmd(TranslatableString::untranslatable("Copy/paste tests"));
+    QMimeDataAdapter ma(&mimeData);
+    score->cmdPaste(&ma, nullptr);
+    EXPECT_EQ(MScore::_error, MsError::TUPLET_CROSSES_BAR);
+    score->endCmd();
+
+    EXPECT_EQ(describeFirstTrack(score), before);
+
+    MScore::setError(MsError::MS_NO_ERROR);
+    delete score;
 }
 
 void Engraving_CopyPasteTests::copypastenote(const String& idx, Fraction scale)
