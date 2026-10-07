@@ -1434,6 +1434,8 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
         LedgerLine* h = item->ledgerLines()[i];
         h->setParent(item);
         h->setTrack(track);
+        h->setLine(lld.line);
+        h->moveLegacyOffsetsToChord();
         h->setVisible(lld.visible && staffVisible);
         const double userLeftExtra = h->ledgerLineLengthOffsetLeft().val() * _spatium * item->mag();
         const double userRightExtra = h->ledgerLineLengthOffsetRight().val() * _spatium * item->mag();

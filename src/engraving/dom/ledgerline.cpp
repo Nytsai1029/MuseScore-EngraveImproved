@@ -24,7 +24,9 @@
 
 #include "chord.h"
 #include "measure.h"
+#include "score.h"
 #include "system.h"
+#include "undo.h"
 
 #include "log.h"
 
@@ -69,6 +71,66 @@ double LedgerLine::measureXPos() const
     xp += chord()->x();                  // segment relative
     xp += chord()->segment()->x();       // measure relative
     return xp;
+}
+
+//---------------------------------------------------------
+//   length offsets
+//---------------------------------------------------------
+
+bool LedgerLine::storesOffsetsOnChord() const
+{
+    return m_line != NO_LINE && explicitParent() && explicitParent()->isChord();
+}
+
+Spatium LedgerLine::ledgerLineLengthOffsetLeft() const
+{
+    return storesOffsetsOnChord() ? chord()->ledgerLineOffsets(m_line).left : m_legacyOffsetLeft;
+}
+
+void LedgerLine::setLedgerLineLengthOffsetLeft(Spatium v)
+{
+    if (!storesOffsetsOnChord()) {
+        m_legacyOffsetLeft = v;
+        return;
+    }
+
+    LedgerLineOffsets offsets = chord()->ledgerLineOffsets(m_line);
+    offsets.left = v;
+    chord()->setLedgerLineOffsets(m_line, offsets);
+}
+
+Spatium LedgerLine::ledgerLineLengthOffsetRight() const
+{
+    return storesOffsetsOnChord() ? chord()->ledgerLineOffsets(m_line).right : m_legacyOffsetRight;
+}
+
+void LedgerLine::setLedgerLineLengthOffsetRight(Spatium v)
+{
+    if (!storesOffsetsOnChord()) {
+        m_legacyOffsetRight = v;
+        return;
+    }
+
+    LedgerLineOffsets offsets = chord()->ledgerLineOffsets(m_line);
+    offsets.right = v;
+    chord()->setLedgerLineOffsets(m_line, offsets);
+}
+
+//---------------------------------------------------------
+//   moveLegacyOffsetsToChord
+//    Scores saved before the offsets were kept on the chord stored them on the n-th ledger line.
+//    Layout calls this once it has told the line which staff line it is on.
+//---------------------------------------------------------
+
+void LedgerLine::moveLegacyOffsetsToChord()
+{
+    if (!storesOffsetsOnChord() || (m_legacyOffsetLeft.isZero() && m_legacyOffsetRight.isZero())) {
+        return;
+    }
+
+    chord()->setLedgerLineOffsets(m_line, { m_legacyOffsetLeft, m_legacyOffsetRight });
+    m_legacyOffsetLeft = Spatium(0.0);
+    m_legacyOffsetRight = Spatium(0.0);
 }
 
 //---------------------------------------------------------
@@ -128,19 +190,28 @@ PropertyValue LedgerLine::propertyDefault(Pid propertyId) const
 }
 
 //---------------------------------------------------------
-//   startEdit
+//   undoChangeProperty
+//    Layout creates and deletes ledger lines freely, so nothing on the undo stack may point at one.
+//    The length offsets go through a command on the chord; layout sets everything else about a
+//    ledger line anew each time, so other property changes are not recorded.
 //---------------------------------------------------------
 
-void LedgerLine::startEdit(EditData& ed)
+void LedgerLine::undoChangeProperty(Pid id, const PropertyValue& v, PropertyFlags)
 {
-    EngravingItem::startEdit(ed);
-    ElementEditDataPtr eed = ed.getData(this);
-    if (!eed) {
+    if (id != Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT && id != Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT) {
+        return;
+    }
+    if (!storesOffsetsOnChord()) {
         return;
     }
 
-    eed->pushProperty(Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT);
-    eed->pushProperty(Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT);
+    LedgerLineOffsets offsets = chord()->ledgerLineOffsets(m_line);
+    if (id == Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT) {
+        offsets.left = v.value<Spatium>();
+    } else {
+        offsets.right = v.value<Spatium>();
+    }
+    chord()->undoChangeLedgerLineOffsets(m_line, offsets);
 }
 
 //---------------------------------------------------------
@@ -149,12 +220,14 @@ void LedgerLine::startEdit(EditData& ed)
 
 void LedgerLine::startEditDrag(EditData& ed)
 {
-    EngravingItem::startEditDrag(ed);
     ElementEditDataPtr eed = ed.getData(this);
     if (!eed) {
-        return;
+        eed = std::make_shared<ElementEditData>();
+        eed->e = this;
+        ed.addData(eed);
     }
 
+    eed->propertyData.clear();
     eed->pushProperty(Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT);
     eed->pushProperty(Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT);
 }
@@ -181,11 +254,30 @@ void LedgerLine::editDrag(EditData& ed)
 
 //---------------------------------------------------------
 //   endEditDrag
+//    Not the base implementation: that one records the change against this ledger line (see undoChangeProperty)
 //---------------------------------------------------------
 
 void LedgerLine::endEditDrag(EditData& ed)
 {
-    EngravingItem::endEditDrag(ed);
+    ElementEditDataPtr eed = ed.getData(this);
+    if (eed && storesOffsetsOnChord()) {
+        const LedgerLineOffsets after = chord()->ledgerLineOffsets(m_line);
+        LedgerLineOffsets before = after;
+        for (const PropertyData& pd : eed->propertyData) {
+            if (pd.id == Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT) {
+                before.left = pd.data.value<Spatium>();
+            } else if (pd.id == Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT) {
+                before.right = pd.data.value<Spatium>();
+            }
+        }
+        eed->propertyData.clear();
+
+        if (before != after) {
+            score()->undoStack()->pushWithoutPerforming(new ChangeLedgerLineOffsets(chord(), m_line, before));
+        }
+    }
+
+    score()->hideAnchors();
 }
 
 //---------------------------------------------------------

@@ -318,6 +318,7 @@ Chord::Chord(const Chord& c, bool link)
     m_noteType       = c.m_noteType;
     m_crossMeasure   = CrossMeasure::UNKNOWN;
     m_combineVoice     = c.m_combineVoice;
+    m_ledgerLineOffsets = c.m_ledgerLineOffsets;
 
     if (c.m_stem) {
         add(Factory::copyStem(*(c.m_stem)));
@@ -992,6 +993,29 @@ void Chord::resizeLedgerLinesTo(size_t newSize)
     }
 
     assert(m_ledgerLines.size() == newSize);
+}
+
+LedgerLineOffsets Chord::ledgerLineOffsets(int line) const
+{
+    auto it = m_ledgerLineOffsets.find(line);
+    return it != m_ledgerLineOffsets.end() ? it->second : LedgerLineOffsets();
+}
+
+void Chord::setLedgerLineOffsets(int line, const LedgerLineOffsets& offsets)
+{
+    if (offsets.isZero()) {
+        m_ledgerLineOffsets.erase(line);
+    } else {
+        m_ledgerLineOffsets[line] = offsets;
+    }
+}
+
+void Chord::undoChangeLedgerLineOffsets(int line, const LedgerLineOffsets& offsets)
+{
+    if (ledgerLineOffsets(line) == offsets) {
+        return;
+    }
+    score()->undo(new ChangeLedgerLineOffsets(this, line, offsets));
 }
 
 void Chord::setBeamExtension(double extension)

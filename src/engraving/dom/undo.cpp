@@ -2224,6 +2224,25 @@ void ChangePageNumberOffset::flip(EditData*)
 }
 
 //---------------------------------------------------------
+//   ChangeLedgerLineOffsets
+//---------------------------------------------------------
+
+ChangeLedgerLineOffsets::ChangeLedgerLineOffsets(Chord* c, int l, const LedgerLineOffsets& o)
+    : chord(c), line(l), offsets(o)
+{
+}
+
+void ChangeLedgerLineOffsets::flip(EditData*)
+{
+    const LedgerLineOffsets current = chord->ledgerLineOffsets(line);
+
+    chord->setLedgerLineOffsets(line, offsets);
+    chord->triggerLayout();
+
+    offsets = current;
+}
+
+//---------------------------------------------------------
 //   ChangeChordStaffMove
 //---------------------------------------------------------
 

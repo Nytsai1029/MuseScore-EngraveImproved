@@ -982,26 +982,11 @@ void TWrite::write(const Chord* item, XmlWriter& xml, WriteContext& ctx)
         write(note, xml, ctx);
     }
 
-    bool hasCustomLedgerLineOffsets = false;
-    for (const LedgerLine* ledgerLine : item->ledgerLines()) {
-        if (!ledgerLine) {
-            continue;
-        }
-
-        if (!ledgerLine->ledgerLineLengthOffsetLeft().isZero() || !ledgerLine->ledgerLineLengthOffsetRight().isZero()) {
-            hasCustomLedgerLineOffsets = true;
-            break;
-        }
-    }
-
-    if (hasCustomLedgerLineOffsets) {
-        for (const LedgerLine* ledgerLine : item->ledgerLines()) {
-            if (!ledgerLine) {
-                continue;
-            }
-
-            write(ledgerLine, xml, ctx);
-        }
+    for (const auto& [line, offsets] : item->ledgerLineOffsets()) {
+        xml.startElement("LedgerLineLength", { { "line", line } });
+        xml.tag("left", offsets.left.val(), 0.0);
+        xml.tag("right", offsets.right.val(), 0.0);
+        xml.endElement();
     }
 
     if (item->arpeggio()) {

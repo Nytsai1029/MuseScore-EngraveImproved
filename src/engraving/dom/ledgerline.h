@@ -23,6 +23,8 @@
 #ifndef MU_ENGRAVING_LEDGERLINE_H
 #define MU_ENGRAVING_LEDGERLINE_H
 
+#include <limits>
+
 #include "engravingitem.h"
 
 namespace mu::engraving {
@@ -55,10 +57,16 @@ public:
     double len() const { return m_len; }
     void setLen(double v) { m_len = v; }
 
-    Spatium ledgerLineLengthOffsetLeft() const { return m_lengthOffsetLeft; }
-    void setLedgerLineLengthOffsetLeft(Spatium v) { m_lengthOffsetLeft = v; }
-    Spatium ledgerLineLengthOffsetRight() const { return m_lengthOffsetRight; }
-    void setLedgerLineLengthOffsetRight(Spatium v) { m_lengthOffsetRight = v; }
+    // The staff line this ledger line sits on, set by layout. The length offsets are kept on the chord under this key.
+    static constexpr int NO_LINE = std::numeric_limits<int>::min();
+    int line() const { return m_line; }
+    void setLine(int v) { m_line = v; }
+
+    Spatium ledgerLineLengthOffsetLeft() const;
+    void setLedgerLineLengthOffsetLeft(Spatium v);
+    Spatium ledgerLineLengthOffsetRight() const;
+    void setLedgerLineLengthOffsetRight(Spatium v);
+    void moveLegacyOffsetsToChord();
 
     void setVertical(bool v) { m_vertical = v; }
     bool vertical() const { return m_vertical; }
@@ -69,7 +77,9 @@ public:
     bool setProperty(Pid propertyId, const PropertyValue& value) override;
     PropertyValue propertyDefault(Pid propertyId) const override;
 
-    void startEdit(EditData& ed) override;
+    void undoChangeProperty(Pid id, const PropertyValue& v, PropertyFlags ps) override;
+    using EngravingItem::undoChangeProperty;
+
     void startEditDrag(EditData& ed) override;
     void editDrag(EditData& ed) override;
     void endEditDrag(EditData& ed) override;
@@ -88,9 +98,13 @@ public:
 
 private:
 
+    bool storesOffsetsOnChord() const;
+
     double m_len = 0.0;
-    Spatium m_lengthOffsetLeft = Spatium(0.0);
-    Spatium m_lengthOffsetRight = Spatium(0.0);
+    int m_line = NO_LINE;
+    // Offsets read from a score that still stored them per ledger line, held until layout knows the staff line
+    Spatium m_legacyOffsetLeft = Spatium(0.0);
+    Spatium m_legacyOffsetRight = Spatium(0.0);
     bool m_vertical = false;
 };
 } // namespace mu::engraving

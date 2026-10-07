@@ -2524,7 +2524,23 @@ bool TRead::readProperties(Chord* ch, XmlReader& e, ReadContext& ctx)
         note->setParent(ch);
         TRead::read(note, e, ctx);
         ch->add(note);
+    } else if (tag == "LedgerLineLength") {
+        const int line = e.intAttribute("line");
+        LedgerLineOffsets offsets;
+        while (e.readNextStartElement()) {
+            const AsciiStringView offsetTag(e.name());
+            if (offsetTag == "left") {
+                offsets.left = Spatium(e.readDouble());
+            } else if (offsetTag == "right") {
+                offsets.right = Spatium(e.readDouble());
+            } else {
+                e.unknown();
+            }
+        }
+        ch->setLedgerLineOffsets(line, offsets);
     } else if (tag == "LedgerLine") {
+        // Written by earlier builds of this fork, which kept the length offsets on the n-th ledger line.
+        // Layout moves them to the chord once it knows the staff line (LedgerLine::moveLegacyOffsetsToChord).
         static constexpr size_t MAX_LEDGER_LINES = 20;
         if (ch->ledgerLines().size() >= MAX_LEDGER_LINES) {
             e.skipCurrentElement();

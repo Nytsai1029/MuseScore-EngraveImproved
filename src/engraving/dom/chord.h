@@ -28,6 +28,7 @@
 */
 
 #include <functional>
+#include <map>
 #include <set>
 #include <vector>
 
@@ -62,6 +63,16 @@ enum class NoteType : unsigned char {
     GRACE32_AFTER = 0x80,
     INVALID       = 0xFF
                     ///\}
+};
+
+// What the user added to (or took from) the length of a ledger line, on each side
+struct LedgerLineOffsets {
+    Spatium left = Spatium(0.0);
+    Spatium right = Spatium(0.0);
+
+    bool isZero() const { return left.isZero() && right.isZero(); }
+    bool operator==(const LedgerLineOffsets& other) const { return left == other.left && right == other.right; }
+    bool operator!=(const LedgerLineOffsets& other) const { return !(*this == other); }
 };
 
 constexpr NoteType operator|(NoteType t1, NoteType t2)
@@ -154,6 +165,13 @@ public:
     const std::vector<LedgerLine*>& ledgerLines() const { return m_ledgerLines; }
     std::vector<LedgerLine*>& ledgerLines() { return m_ledgerLines; }
     void resizeLedgerLinesTo(size_t newSize);
+
+    // The length offsets of the ledger lines are kept here, by the staff line the ledger line sits on:
+    // the ledger lines themselves are thrown away and rebuilt by layout whenever the notes change
+    const std::map<int, LedgerLineOffsets>& ledgerLineOffsets() const { return m_ledgerLineOffsets; }
+    LedgerLineOffsets ledgerLineOffsets(int line) const;
+    void setLedgerLineOffsets(int line, const LedgerLineOffsets& offsets);
+    void undoChangeLedgerLineOffsets(int line, const LedgerLineOffsets& offsets);
 
     double defaultStemLength() const { return m_defaultStemLength; }
     void setDefaultStemLength(double l) { m_defaultStemLength = l; }
@@ -382,6 +400,7 @@ private:
 
     std::vector<Note*> m_notes;           // sorted to decreasing line step
     std::vector<LedgerLine*> m_ledgerLines;
+    std::map<int, LedgerLineOffsets> m_ledgerLineOffsets;
 
     Stem* m_stem = nullptr;
     Hook* m_hook = nullptr;
