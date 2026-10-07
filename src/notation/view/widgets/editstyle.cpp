@@ -463,6 +463,7 @@ EditStyle::EditStyle(QWidget* parent)
         { StyleId::stemWidth,               false, stemWidth,               0 },
         { StyleId::ledgerLineWidth,         false, ledgerLineWidth,         0 },
         { StyleId::ledgerLineLength,        false, ledgerLineLength,        0 },
+        { StyleId::ledgerLineAutoCut,       false, ledgerLineAutoCut,       0 },
         { StyleId::shortestStem,            false, shortestStem,            0 },
         { StyleId::combineVoice,            false, combineVoices,           resetCombineVoices },
         { StyleId::arpeggioNoteDistance,    false, arpeggioNoteDistance,    0 },

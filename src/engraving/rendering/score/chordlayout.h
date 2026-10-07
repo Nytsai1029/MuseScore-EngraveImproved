@@ -105,6 +105,7 @@ public:
     static double layoutChords2(std::vector<Note*>& notes, bool up, LayoutContext& ctx);
     static void layoutChords3(const std::vector<Chord*>&, const std::vector<Note*>&, const Staff*, LayoutContext& ctx);
     static void layoutLedgerLines(const std::vector<Chord*>& chords, LayoutContext& ctx);
+    static void cutTouchingLedgerLines(const std::vector<Chord*>& chords, const LayoutContext& ctx);
     static void getNoteListForDots(Chord* c, std::vector<Note*>&, std::vector<Note*>&, std::vector<int>&);
     static void repositionGraceNotesAfter(Segment* segment, size_t tracks);
     static void repositionGraceNotesBeforeBarline(Measure* measure);

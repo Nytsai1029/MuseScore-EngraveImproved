@@ -1202,6 +1202,9 @@ void SystemLayout::layoutSystemElements(System* system, LayoutContext& ctx)
         TLayout::updateBarlineShape(bl, bl->mutldata(), ctx);
     }
 
+    // The notes are in their final horizontal place now; ties, laid out below, steer clear of the ledger lines
+    ChordLayout::cutTouchingLedgerLines(elementsToLayout.chords, ctx);
+
     createSkylines(elementsToLayout, ctx);
 
     layoutTiesAndBends(elementsToLayout, ctx);

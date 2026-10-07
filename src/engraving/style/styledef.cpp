@@ -255,6 +255,7 @@ const std::array<StyleDef::StyleValue, size_t(Sid::STYLES)> StyleDef::styleValue
     styleDef(staffLineWidth,                             Spatium(0.11)),
     styleDef(ledgerLineWidth,                            Spatium(0.16)),  // 0.1875
     styleDef(ledgerLineLength,                           Spatium(0.33)),  // notehead width * this value
+    styleDef(ledgerLineAutoCut,                          false),
     styleDef(stemSlashPosition,                          Spatium(2.0)),
     styleDef(stemSlashAngle,                             40.0),
     styleDef(stemSlashThickness,                         Spatium(0.125)),

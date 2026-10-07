@@ -274,6 +274,7 @@ enum class Sid {
     staffLineWidth,
     ledgerLineWidth,
     ledgerLineLength,
+    ledgerLineAutoCut,       // shorten the ledger lines of neighbouring notes that would run into each other
     stemSlashPosition,
     stemSlashAngle,
     stemSlashThickness,

@@ -93,6 +93,14 @@ public:
 
     struct LayoutData : public EngravingItem::LayoutData {
         double lineWidth = 0.0;
+        // How far the line reaches past the noteheads on each side by default; the most that can be cut from a side
+        double defaultExtension = 0.0;
+        // What the user added on each side (negative: took away), on top of the automatic length
+        double userExtensionLeft = 0.0;
+        double userExtensionRight = 0.0;
+        // What was taken from each side to keep the line apart from its neighbours (Sid::ledgerLineAutoCut)
+        double autoCutLeft = 0.0;
+        double autoCutRight = 0.0;
     };
     DECLARE_LAYOUTDATA_METHODS(LedgerLine);
 

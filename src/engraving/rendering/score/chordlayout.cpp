@@ -19,7 +19,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#include <algorithm>
 #include <cfloat>
+#include <map>
 
 #include "chordlayout.h"
 #include "accidentalslayout.h"
@@ -1443,10 +1445,131 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
         const double userRightExtra = h->ledgerLineLengthOffsetRight().val() * _spatium * item->mag();
         h->setLen((lld.maxX - lld.minX) + userLeftExtra + userRightExtra);
         h->setPos(lld.minX - userLeftExtra, lld.line * _spatium * stepDistance);
+
+        LedgerLine::LayoutData* ldata = h->mutldata();
+        ldata->defaultExtension = baseExtraLen * item->mag();
+        ldata->userExtensionLeft = userLeftExtra;
+        ldata->userExtensionRight = userRightExtra;
+        ldata->autoCutLeft = 0.0;
+        ldata->autoCutRight = 0.0;
     }
 
     for (LedgerLine* ll : item->ledgerLines()) {
         TLayout::layoutLedgerLine(ll, ctx);
+    }
+}
+
+//---------------------------------------------------------
+//   cutTouchingLedgerLines
+//    Sid::ledgerLineAutoCut. Horizontal spacing does not count ledger lines, so in tight spacing the
+//    lines of neighbouring notes run into each other. Here, once the notes have their final positions,
+//    such neighbours are shortened on their facing sides until they are a minimum gap apart.
+//    Only the part reaching past the noteheads is cut, and the user's length offsets stay on top.
+//---------------------------------------------------------
+
+static void setLedgerLineCut(LedgerLine* line, double cutLeft, double cutRight)
+{
+    LedgerLine::LayoutData* ldata = line->mutldata();
+    const double moreLeft = cutLeft - ldata->autoCutLeft;
+    const double moreRight = cutRight - ldata->autoCutRight;
+    if (muse::RealIsNull(moreLeft) && muse::RealIsNull(moreRight)) {
+        return;
+    }
+
+    line->setLen(line->len() - moreLeft - moreRight);
+    ldata->moveX(moreLeft);
+    ldata->autoCutLeft = cutLeft;
+    ldata->autoCutRight = cutRight;
+
+    const double w2 = ldata->lineWidth * 0.5;
+    ldata->setBbox(0.0, -w2, line->len(), 2 * w2);
+}
+
+void ChordLayout::cutTouchingLedgerLines(const std::vector<Chord*>& chords, const LayoutContext& ctx)
+{
+    if (chords.empty() || !ctx.conf().styleB(Sid::ledgerLineAutoCut)) {
+        return;
+    }
+
+    struct Candidate {
+        LedgerLine* line = nullptr;
+        // extent at the automatic length (no cut, no user offsets), in page coordinates
+        double left = 0.0;
+        double right = 0.0;
+        double extension = 0.0;
+        double mag = 1.0;
+    };
+
+    // Only lines at the same height of the same staff can run into each other
+    std::map<std::pair<staff_idx_t, int>, std::vector<Candidate> > rows;
+
+    auto collect = [&rows](const Chord* chord) {
+        for (LedgerLine* line : chord->ledgerLines()) {
+            if (line->line() == LedgerLine::NO_LINE || !line->visible()) {
+                continue;
+            }
+            setLedgerLineCut(line, 0.0, 0.0); // start again from the uncut line
+            const LedgerLine::LayoutData* ldata = line->ldata();
+            const double x = line->pageX();
+            Candidate candidate;
+            candidate.line = line;
+            candidate.left = x + ldata->userExtensionLeft;
+            candidate.right = x + line->len() - ldata->userExtensionRight;
+            candidate.extension = ldata->defaultExtension;
+            candidate.mag = chord->mag();
+            rows[{ line->staffIdx(), line->line() }].push_back(candidate);
+        }
+    };
+
+    for (const Chord* chord : chords) {
+        collect(chord);
+        for (const Chord* grace : chord->graceNotes()) {
+            collect(grace);
+        }
+    }
+
+    // Shortened lines may come closer than spacing would leave them: half of that padding
+    const PaddingTable& paddingTable = chords.front()->score()->paddingTable();
+    const double shortenedLinesGap = 0.5 * paddingTable.at(ElementType::LEDGER_LINE).at(ElementType::LEDGER_LINE);
+
+    for (auto& row : rows) {
+        std::vector<Candidate>& candidates = row.second;
+        std::sort(candidates.begin(), candidates.end(), [](const Candidate& a, const Candidate& b) {
+            return a.left < b.left;
+        });
+
+        const size_t n = candidates.size();
+        std::vector<double> cutLeft(n, 0.0);
+        std::vector<double> cutRight(n, 0.0);
+
+        for (size_t i = 0; i + 1 < n; ++i) {
+            const Candidate& a = candidates[i];
+            const double aHeadsRight = a.right - a.extension;
+
+            for (size_t j = i + 1; j < n; ++j) {
+                const Candidate& b = candidates[j];
+                const double bHeadsLeft = b.left + b.extension;
+                if (bHeadsLeft < aHeadsRight) {
+                    // noteheads at the same place (another voice): the two lines are one line to the eye
+                    continue;
+                }
+
+                const double minGap = shortenedLinesGap * (a.mag + b.mag) * 0.5;
+                if (b.left - a.right < minGap) {
+                    // the room left between the noteheads, less the gap, is shared in proportion to the extensions
+                    const double extensions = a.extension + b.extension;
+                    const double room = std::max(bHeadsLeft - aHeadsRight - minGap, 0.0);
+                    const double kept = extensions > 0.0 ? std::min(room / extensions, 1.0) : 1.0;
+                    cutRight[i] = std::max(cutRight[i], a.extension * (1.0 - kept));
+                    cutLeft[j] = std::max(cutLeft[j], b.extension * (1.0 - kept));
+                }
+                break;
+            }
+        }
+
+        for (size_t i = 0; i < n; ++i) {
+            setLedgerLineCut(candidates[i].line, cutLeft[i], cutRight[i]);
+        }
     }
 }
 
