@@ -499,3 +499,37 @@ TEST_F(Engraving_TextBaseTests, slantGripTurnsTextTowardsMouse)
 
     delete score;
 }
+
+TEST_F(Engraving_TextBaseTests, editDragWithoutGripDoesNotMoveText)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ASSERT_TRUE(score);
+
+    // After its slant grip was used, a text can still be the edited element when it is dragged as a whole.
+    // The move itself is done by drag(); editDrag() without a grip must not add the drag distance again.
+    StaffText* staffText = addStaffText(score);
+    staffText->setPlainText(u"cresc.");
+    staffText->setProperty(Pid::DIAGONAL, true);
+    staffText->setProperty(Pid::TEXT_SLANT_ANGLE, 20.0);
+    Dynamic* dynamic = addDynamic(score);
+    score->doLayout();
+
+    for (TextBase* text : std::vector<TextBase*> { staffText, dynamic }) {
+        const PointF offsetBefore = text->offset();
+        const double angleBefore = text->slantAngle();
+
+        EditData ed;
+        ed.curGrip = Grip::NO_GRIP;
+        ed.delta = PointF(50.0, 30.0);
+        ed.evtDelta = PointF(5.0, 3.0);
+        ed.moveDelta = PointF(50.0, 30.0);
+        ed.pos = text->canvasPos() + PointF(50.0, 30.0);
+        text->editDrag(ed);
+        text->editDrag(ed);
+
+        EXPECT_EQ(text->offset(), offsetBefore);
+        EXPECT_DOUBLE_EQ(text->slantAngle(), angleBefore);
+    }
+
+    delete score;
+}

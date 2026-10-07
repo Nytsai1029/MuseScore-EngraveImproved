@@ -2554,7 +2554,8 @@ void TextBase::startEditDrag(EditData& ed)
 void TextBase::editDrag(EditData& ed)
 {
     if (!isSlantGrip(ed.curGrip)) {
-        EngravingItem::editDrag(ed);
+        // Only the slant grip is edited here. Moving the text is done by drag(): this is also called during
+        // a plain drag when the text was left as the edited element, and must not move it a second time.
         return;
     }
 

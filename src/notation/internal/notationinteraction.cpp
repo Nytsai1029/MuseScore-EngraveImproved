@@ -1315,6 +1315,11 @@ void NotationInteraction::doEndDrag()
     if (isGripEditStarted()) {
         m_editData.element->endEditDrag(m_editData);
         m_editData.element->endEdit(m_editData);
+        if (m_editData.element->isTextBase()) {
+            // The handles of a text are one-off controls: unlike the grips of a line, they must not leave
+            // the text behind as the edited element, or later drags and key presses are taken as edits of it
+            m_editData.clear();
+        }
     } else {
         for (auto& group : m_dragData.dragGroups) {
             group->endDrag(m_dragData.ed);
@@ -4653,7 +4658,12 @@ void NotationInteraction::endEditGrip()
         return;
     }
 
-    m_editData.curGrip = Grip::NO_GRIP;
+    if (m_editData.element && m_editData.element->isTextBase() && !isTextEditingStarted()) {
+        // see doEndDrag(): a text does not stay the edited element after one of its handles was used
+        doEndEditElement();
+    } else {
+        m_editData.curGrip = Grip::NO_GRIP;
+    }
     notifyAboutNotationChanged();
 }
 
