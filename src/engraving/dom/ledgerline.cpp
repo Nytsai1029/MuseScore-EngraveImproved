@@ -242,7 +242,8 @@ void LedgerLine::editDrag(EditData& ed)
         return;
     }
 
-    const Spatium deltaSp(ed.delta.x() / spatium());
+    // same scale as layout applies to the offsets, so that the handle follows the pointer on small chords too
+    const Spatium deltaSp(ed.delta.x() / (spatium() * chord()->mag()));
     if (ed.curGrip == Grip::START) {
         setLedgerLineLengthOffsetLeft(ledgerLineLengthOffsetLeft() - deltaSp);
     } else {

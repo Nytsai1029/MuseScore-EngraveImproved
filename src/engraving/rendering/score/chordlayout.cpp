@@ -445,6 +445,7 @@ void ChordLayout::layoutTablature(Chord* item, LayoutContext& ctx)
             LedgerLine* ldgLin = item->ledgerLines()[i];
             ldgLin->setParent(item);
             ldgLin->setTrack(item->track());
+            ldgLin->setSelectable(false); // their length is fixed: there is nothing to adjust
             ldgLin->setVisible(item->visible());
             ldgLin->setLen(headWidth + extraLen);
             ldgLin->setPos(llX, llY);
@@ -1434,6 +1435,7 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
         LedgerLine* h = item->ledgerLines()[i];
         h->setParent(item);
         h->setTrack(track);
+        h->setSelectable(true);
         h->setLine(lld.line);
         h->moveLegacyOffsetsToChord();
         h->setVisible(lld.visible && staffVisible);
