@@ -481,6 +481,7 @@ bool Accidental::setProperty(Pid propertyId, const PropertyValue& v)
         break;
     case Pid::ACCIDENTAL_BRACKET:
         m_bracket = AccidentalBracket(v.toInt());
+        m_bracketFromStyle = false;
         break;
     case Pid::ACCIDENTAL_ROLE:
         m_role = v.value<AccidentalRole>();

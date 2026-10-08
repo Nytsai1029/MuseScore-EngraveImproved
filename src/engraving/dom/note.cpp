@@ -2130,6 +2130,25 @@ static bool hasAlteredUnison(Note* note)
 }
 
 //---------------------------------------------------------
+//   automaticBracket
+//    The bracket of an automatic accidental. Parentheses asked for by the
+//    cautionary-accidental style come and go with that style; a bracket the
+//    user chose is left alone.
+//---------------------------------------------------------
+
+static AccidentalBracket automaticBracket(const Accidental* accidental, AccidentalBracket styleBracket, bool& fromStyle)
+{
+    const AccidentalBracket bracket = accidental->bracket();
+    if (styleBracket != AccidentalBracket::NONE) {
+        fromStyle = bracket == AccidentalBracket::NONE || bracket == styleBracket;
+        return fromStyle ? styleBracket : bracket;
+    }
+
+    fromStyle = false;
+    return accidental->bracketFromStyle() ? AccidentalBracket::NONE : bracket;
+}
+
+//---------------------------------------------------------
 //   updateAccidental
 //    set _accidental and _line depending on tpc
 //---------------------------------------------------------
@@ -2177,17 +2196,25 @@ void Note::updateAccidental(AccidentalState* as)
                 a->setAccidentalType(acci);
                 a->setVisible(visible());
                 a->setBracket(desiredBracket);
+                a->setBracketFromStyle(desiredBracket != AccidentalBracket::NONE);
                 score()->undoAddElement(a);
             } else if (m_accidental->accidentalType() != acci) {
                 Accidental* a = m_accidental->clone();
                 a->setParent(this);
                 a->setAccidentalType(acci);
                 if (a->role() == AccidentalRole::AUTO) {
-                    a->setBracket(desiredBracket);
+                    bool fromStyle = false;
+                    a->setBracket(automaticBracket(a, desiredBracket, fromStyle));
+                    a->setBracketFromStyle(fromStyle);
                 }
                 score()->undoChangeElement(m_accidental, a);
-            } else if (m_accidental->role() == AccidentalRole::AUTO && m_accidental->bracket() != desiredBracket) {
-                m_accidental->undoChangeProperty(Pid::ACCIDENTAL_BRACKET, int(desiredBracket));
+            } else if (m_accidental->role() == AccidentalRole::AUTO) {
+                bool fromStyle = false;
+                const AccidentalBracket bracket = automaticBracket(m_accidental, desiredBracket, fromStyle);
+                if (m_accidental->bracket() != bracket) {
+                    m_accidental->undoChangeProperty(Pid::ACCIDENTAL_BRACKET, int(bracket));
+                }
+                m_accidental->setBracketFromStyle(fromStyle);
             }
         } else {
             if (m_accidental) {

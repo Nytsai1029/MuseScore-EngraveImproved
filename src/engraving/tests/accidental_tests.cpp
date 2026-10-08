@@ -429,6 +429,67 @@ TEST_F(Engraving_AccidentalTests, parenthesisedAccidentalGlyphFollowsStyle)
     delete score;
 }
 
+// A bracket the user puts on an automatic accidental stays there. Only parentheses that came from
+// Sid::cautionaryAccidentalsInParentheses follow that style.
+TEST_F(Engraving_AccidentalTests, userBracketOnAutomaticAccidentalIsKept)
+{
+    MasterScore* score = ScoreRW::readScore(ACCIDENTAL_DATA_DIR + u"cautionary-octaves.mscx");
+    ASSERT_TRUE(score);
+    score->style().set(Sid::showCautionaryAccidentals, true);
+    relayoutWithStyle(score);
+
+    auto setBracket = [score](Accidental* accidental, AccidentalBracket bracket) {
+        score->startCmd(TranslatableString::untranslatable("Engraving accidental tests"));
+        accidental->undoChangeProperty(Pid::ACCIDENTAL_BRACKET, int(bracket));
+        score->endCmd();
+        score->doLayout();
+    };
+    auto bracketOf = [score](int measureIndex, size_t noteIndex) {
+        const std::vector<Note*> notes = notesInMeasure(measureAt(score, measureIndex));
+        const Accidental* accidental = noteIndex < notes.size() ? notes[noteIndex]->accidental() : nullptr;
+        // BRACE is not used in this test: it stands for "no accidental"
+        return accidental ? accidental->bracket() : AccidentalBracket::BRACE;
+    };
+
+    // The ordinary sharp of the first measure
+    Accidental* sharp = notesInMeasure(measureAt(score, 0)).at(0)->accidental();
+    ASSERT_TRUE(sharp);
+    ASSERT_EQ(sharp->role(), AccidentalRole::AUTO);
+    setBracket(sharp, AccidentalBracket::PARENTHESIS);
+    EXPECT_EQ(bracketOf(0, 0), AccidentalBracket::PARENTHESIS);
+
+    // The cautionary naturals of the second measure
+    ASSERT_EQ(bracketOf(1, 0), AccidentalBracket::NONE);
+    ASSERT_EQ(bracketOf(1, 1), AccidentalBracket::NONE);
+    Accidental* cautionary = notesInMeasure(measureAt(score, 1)).at(0)->accidental();
+    ASSERT_EQ(cautionary->role(), AccidentalRole::AUTO);
+    setBracket(cautionary, AccidentalBracket::BRACKET);
+    EXPECT_EQ(bracketOf(1, 0), AccidentalBracket::BRACKET);
+    EXPECT_EQ(bracketOf(1, 1), AccidentalBracket::NONE);
+
+    // The style adds parentheses where the user chose nothing...
+    score->style().set(Sid::cautionaryAccidentalsInParentheses, true);
+    relayoutWithStyle(score);
+    EXPECT_EQ(bracketOf(0, 0), AccidentalBracket::PARENTHESIS);
+    EXPECT_EQ(bracketOf(1, 0), AccidentalBracket::BRACKET);
+    EXPECT_EQ(bracketOf(1, 1), AccidentalBracket::PARENTHESIS);
+
+    // ...and takes only its own away again
+    score->style().set(Sid::cautionaryAccidentalsInParentheses, false);
+    relayoutWithStyle(score);
+    EXPECT_EQ(bracketOf(0, 0), AccidentalBracket::PARENTHESIS);
+    EXPECT_EQ(bracketOf(1, 0), AccidentalBracket::BRACKET);
+    EXPECT_EQ(bracketOf(1, 1), AccidentalBracket::NONE);
+
+    // The user's own parentheses on a cautionary accidental stay as well
+    cautionary = notesInMeasure(measureAt(score, 1)).at(1)->accidental();
+    ASSERT_TRUE(cautionary);
+    setBracket(cautionary, AccidentalBracket::PARENTHESIS);
+    EXPECT_EQ(bracketOf(1, 1), AccidentalBracket::PARENTHESIS);
+
+    delete score;
+}
+
 TEST_F(Engraving_AccidentalTests, cautionaryAccidentalsCrossStaff)
 {
     MasterScore* score = ScoreRW::readScore(ACCIDENTAL_DATA_DIR + u"cautionary-piano.mscx");

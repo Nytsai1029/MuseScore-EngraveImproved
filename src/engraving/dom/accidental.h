@@ -254,6 +254,10 @@ public:
 
     AccidentalBracket bracket() const { return m_bracket; }
     void setBracket(AccidentalBracket val) { m_bracket = val; }
+
+    // whether the bracket was put there by the cautionary-accidental style rather than chosen by the user
+    bool bracketFromStyle() const { return m_bracketFromStyle; }
+    void setBracketFromStyle(bool val) { m_bracketFromStyle = val; }
     bool parentNoteHasParentheses() const;
 
     bool isSmall() const { return m_isSmall; }
@@ -321,6 +325,7 @@ private:
 
     AccidentalType m_accidentalType = AccidentalType::NONE;
     AccidentalBracket m_bracket = AccidentalBracket::NONE;
+    bool m_bracketFromStyle = false;
     AccidentalRole m_role = AccidentalRole::AUTO;
     bool m_isSmall = false;
     int m_stackingOrderOffset = 0;
