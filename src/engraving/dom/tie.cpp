@@ -137,7 +137,8 @@ void TieSegment::editDrag(EditData& ed)
     case Grip::START:
     case Grip::END:
         ups(g).off += ed.delta;
-        if (!isPartialTieSegment()) {
+        // partial ties and laissez vibrer have no note at the other end to re-anchor to
+        if (!isPartialTieSegment() && !isLaissezVibSegment()) {
             //
             // move anchor for slurs/ties
             //
