@@ -380,6 +380,55 @@ TEST_F(Engraving_AccidentalTests, cautionaryAccidentalsSurviveRelayoutAfterLineB
     delete score;
 }
 
+// Parenthesised standard accidentals are built from separate parentheses, like every other accidental,
+// unless Sid::bracketedAccidentalUseSmuflSym asks for the font's glyph with built-in parentheses.
+TEST_F(Engraving_AccidentalTests, parenthesisedAccidentalGlyphFollowsStyle)
+{
+    MasterScore* score = ScoreRW::readScore(ACCIDENTAL_DATA_DIR + u"cautionary-octaves.mscx");
+    ASSERT_TRUE(score);
+    EXPECT_FALSE(score->style().styleB(Sid::bracketedAccidentalUseSmuflSym));
+    score->style().set(Sid::showCautionaryAccidentals, true);
+    score->style().set(Sid::cautionaryAccidentalsInParentheses, true);
+
+    auto parenthesisedNatural = [score]() -> const Accidental* {
+        relayoutWithStyle(score);
+        std::vector<Note*> notes = notesInMeasure(measureAt(score, 1));
+        const Accidental* accidental = notes.empty() ? nullptr : notes[0]->accidental();
+        if (!accidental || accidental->accidentalType() != AccidentalType::NATURAL
+            || accidental->bracket() != AccidentalBracket::PARENTHESIS) {
+            return nullptr;
+        }
+        return accidental;
+    };
+
+    auto expectSeparateParentheses = [](const Accidental* accidental) {
+        ASSERT_TRUE(accidental);
+        ASSERT_EQ(accidental->ldata()->syms.size(), 3u);
+        EXPECT_EQ(accidental->ldata()->syms[0].sym, SymId::accidentalParensLeft);
+        EXPECT_EQ(accidental->ldata()->syms[1].sym, SymId::accidentalNatural);
+        EXPECT_EQ(accidental->ldata()->syms[2].sym, SymId::accidentalParensRight);
+    };
+
+    expectSeparateParentheses(parenthesisedNatural());
+
+    // Leland has no such glyphs (its metadata only lists them as ligatures, at code points holding other glyphs)
+    score->style().set(Sid::bracketedAccidentalUseSmuflSym, true);
+    expectSeparateParentheses(parenthesisedNatural());
+
+    // Bravura declares them as optional glyphs
+    score->style().set(Sid::musicalSymbolFont, String(u"Bravura"));
+    score->setEngravingFont(score->engravingFonts()->fontByName("Bravura"));
+    const Accidental* accidental = parenthesisedNatural();
+    ASSERT_TRUE(accidental);
+    ASSERT_EQ(accidental->ldata()->syms.size(), 1u);
+    EXPECT_EQ(accidental->ldata()->syms[0].sym, SymId::accidentalNaturalParens);
+
+    score->style().set(Sid::bracketedAccidentalUseSmuflSym, false);
+    expectSeparateParentheses(parenthesisedNatural());
+
+    delete score;
+}
+
 TEST_F(Engraving_AccidentalTests, cautionaryAccidentalsCrossStaff)
 {
     MasterScore* score = ScoreRW::readScore(ACCIDENTAL_DATA_DIR + u"cautionary-piano.mscx");

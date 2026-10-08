@@ -521,10 +521,15 @@ void TLayout::layoutAccidental(const Accidental* item, Accidental::LayoutData* l
 
     ldata->column = 0;
 
-    auto accidentalSingleSym = [](const Accidental* item) -> SymId
+    auto accidentalSingleSym = [&conf](const Accidental* item) -> SymId
     {
         // if the accidental is standard (doubleflat, flat, natural, sharp or double sharp)
         // and it has either no bracket or parentheses, then we have glyphs straight from smufl.
+        // They are opt-in: by default the parentheses are separate glyphs, as for every other accidental.
+
+        if (!conf.styleB(Sid::bracketedAccidentalUseSmuflSym)) {
+            return SymId::noSym;
+        }
 
         if (item->bracket() == AccidentalBracket::PARENTHESIS && !item->parentNoteHasParentheses()) {
             switch (item->accidentalType()) {

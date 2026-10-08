@@ -122,6 +122,7 @@ private:
     void loadGlyphsWithAnchors(const muse::JsonObject& glyphsWithAnchors);
     void loadComposedGlyphs();
     void loadStylisticAlternates(const muse::JsonObject& glyphsWithAlternatesObject);
+    void loadParenthesisedAccidentals(const muse::JsonObject& optionalGlyphs, const muse::JsonObject& glyphBBoxes);
     void loadEngravingDefaults(const muse::JsonObject& engravingDefaultsObject);
     void computeMetrics(Sym& sym, const Smufl::Code& code);
 

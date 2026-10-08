@@ -139,6 +139,8 @@ void EngravingFont::ensureLoad()
     loadGlyphsWithAnchors(metadataJson.value("glyphsWithAnchors").toObject());
     loadComposedGlyphs();
     loadStylisticAlternates(metadataJson.value("glyphsWithAlternates").toObject());
+    loadParenthesisedAccidentals(metadataJson.value("optionalGlyphs").toObject(),
+                                 metadataJson.value("glyphBBoxes").toObject());
     loadEngravingDefaults(metadataJson.value("engravingDefaults").toObject());
 
     m_loaded = true;
@@ -689,6 +691,81 @@ void EngravingFont::loadStylisticAlternates(const JsonObject& glyphsWithAlternat
                 }
             }
         }
+    }
+}
+
+void EngravingFont::loadParenthesisedAccidentals(const JsonObject& optionalGlyphs, const JsonObject& glyphBBoxes)
+{
+    if (!optionalGlyphs.isValid() || !glyphBBoxes.isValid()) {
+        return;
+    }
+
+    // Accidentals with built-in parentheses are not standard SMuFL glyphs: a font that has them lists its own
+    // code points as optional glyphs, and those differ from font to font and between versions of one font.
+    // Metadata that does not belong to the font file in use would therefore silently draw another accidental.
+    // So a glyph is only taken if the font's outline at that code point has the bounding box that the metadata
+    // states for it, and if any of them does not, none is used.
+    // (The "ligatures" section is deliberately not read: Leland lists them there with wrong code points.)
+    static const SymId PARENTHESISED_ACCIDENTALS[] = {
+        SymId::accidentalDoubleFlatParens,
+        SymId::accidentalFlatParens,
+        SymId::accidentalNaturalParens,
+        SymId::accidentalSharpParens,
+        SymId::accidentalDoubleSharpParens
+    };
+    static constexpr double BBOX_TOLERANCE = 0.03 * SPATIUM20;
+
+    std::vector<std::pair<SymId, Sym> > verified;
+
+    for (SymId id : PARENTHESISED_ACCIDENTALS) {
+        const std::string name(SymNames::nameForSymId(id).ascii());
+        if (!optionalGlyphs.contains(name)) {
+            continue;
+        }
+
+        bool ok = false;
+        Smufl::Code code;
+        code.smuflCode = optionalGlyphs.value(name).toObject().value("codepoint").toString().mid(2).toUInt(&ok, 16);
+        if (!ok || !code.isValid()) {
+            continue;
+        }
+
+        Sym candidate = {};
+        computeMetrics(candidate, code);
+        if (!candidate.isValid()) {
+            continue;
+        }
+
+        const JsonObject statedBBox = glyphBBoxes.value(name).toObject();
+        const JsonArray northEast = statedBBox.value("bBoxNE").toArray();
+        const JsonArray southWest = statedBBox.value("bBoxSW").toArray();
+        if (northEast.size() != 2 || southWest.size() != 2) {
+            return;
+        }
+
+        const double left = southWest.at(0).toDouble() * SPATIUM20;
+        const double right = northEast.at(0).toDouble() * SPATIUM20;
+        const double top = -northEast.at(1).toDouble() * SPATIUM20;
+        const double bottom = -southWest.at(1).toDouble() * SPATIUM20;
+        const RectF& bbox = candidate.bbox;
+        const bool matches = std::abs(bbox.left() - left) <= BBOX_TOLERANCE
+                             && std::abs(bbox.right() - right) <= BBOX_TOLERANCE
+                             && std::abs(bbox.top() - top) <= BBOX_TOLERANCE
+                             && std::abs(bbox.bottom() - bottom) <= BBOX_TOLERANCE;
+        if (!matches) {
+            LOGW() << "Music font " << m_family << ": the glyph for " << name
+                   << " does not match the font's metadata; accidentals with built-in parentheses are not used";
+            return;
+        }
+
+        verified.emplace_back(id, candidate);
+    }
+
+    for (const auto& [id, candidate] : verified) {
+        Sym& sym = this->sym(id);
+        sym.code = candidate.code;
+        sym.bbox = candidate.bbox;
+        sym.advance = candidate.advance;
     }
 }
 

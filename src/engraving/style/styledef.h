@@ -281,6 +281,7 @@ enum class Sid {
     accidentalDistance,
     accidentalNoteDistance,
     bracketedAccidentalPadding,
+    bracketedAccidentalUseSmuflSym, // use the font's glyphs with built-in parentheses (accidentalFlatParens etc.)
     alignAccidentalsLeft,
     accidentalOrderFollowsNoteDisplacement,
     alignAccidentalOctavesAcrossSubChords,

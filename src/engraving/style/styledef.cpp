@@ -262,6 +262,7 @@ const std::array<StyleDef::StyleValue, size_t(Sid::STYLES)> StyleDef::styleValue
     styleDef(accidentalDistance,                         Spatium(0.25)),
     styleDef(accidentalNoteDistance,                     Spatium(0.25)),
     styleDef(bracketedAccidentalPadding,                 Spatium(0.175)), //padding inside parentheses for bracketed accidentals
+    styleDef(bracketedAccidentalUseSmuflSym,             false),
     styleDef(alignAccidentalsLeft,                       false),          // OBSOLETE
 
     styleDef(accidentalOrderFollowsNoteDisplacement,     false),

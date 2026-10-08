@@ -116,6 +116,11 @@ StyledFlickable {
                     labelAreaWidth: -1
                     controlAreaWidth: spinBoxWidth
                 }
+
+                StyleToggle {
+                    styleItem: accidentalsPageModel.bracketedAccidentalUseSmuflSym
+                    text: qsTrc("notation/editstyle/accidentals", "Use SMuFL symbols with built-in parentheses")
+                }
             }
         }
 
