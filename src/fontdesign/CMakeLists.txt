@@ -30,6 +30,7 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/fontdesignmodule.cpp
     ${CMAKE_CURRENT_LIST_DIR}/fontdesignmodule.h
     ${CMAKE_CURRENT_LIST_DIR}/ifontdesignservice.h
+    ${CMAKE_CURRENT_LIST_DIR}/ifontdesignprojectscenario.h
     ${CMAKE_CURRENT_LIST_DIR}/ifontdesigneditsurface.h
     ${CMAKE_CURRENT_LIST_DIR}/ifontdesignconfiguration.h
 
@@ -41,6 +42,8 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/internal/fontdesignservice.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/fontdesignconfiguration.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/fontdesignconfiguration.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/fontdesignprojectscenario.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/fontdesignprojectscenario.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/fontdesignactioncontroller.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/fontdesignactioncontroller.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/fontdesignuiactions.cpp
@@ -75,6 +78,8 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/internal/io/sfntwriter.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/io/fontexporter.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/io/fontexporter.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/io/projectfiles.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/io/projectfiles.h
 
     ${CMAKE_CURRENT_LIST_DIR}/view/projectspagemodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/projectspagemodel.h

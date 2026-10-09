@@ -22,6 +22,7 @@
 #include <gtest/gtest.h>
 
 #include "fontdesign/internal/fontdesigntypes.h"
+#include "fontdesign/internal/io/metadatareader.h"
 #include "fontdesign/internal/puaallocator.h"
 #include "fontdesign/internal/project/fontdesignproject.h"
 #include "fontdesign/internal/smufldatabase.h"
@@ -54,4 +55,32 @@ TEST(FontDesign_PuaAllocatorTests, NextFreeSkipsUsed)
     char32_t next = PuaAllocator::nextFreePua(project);
     ASSERT_GE(next, SMUFL_OPTIONAL_START);
     EXPECT_FALSE(PuaAllocator::isUsed(project, next));
+}
+
+//! 码位解析必须严格：宽松解析会把写坏的值读成另一个码位，保存时就指向了另一个字形
+TEST(FontDesign_PuaAllocatorTests, CodepointParsingIsStrict)
+{
+    EXPECT_EQ(SmuflDatabase::codepointFromString(" U+E0A4 "), 0xE0A4u);
+    EXPECT_EQ(SmuflDatabase::codepointFromString("U+1D100"), 0x1D100u);
+    EXPECT_EQ(SmuflDatabase::codepointFromString("U+10FFFF"), 0x10FFFFu);
+
+    EXPECT_EQ(SmuflDatabase::codepointFromString("U+E0A4xyz"), 0u);
+    EXPECT_EQ(SmuflDatabase::codepointFromString("U+110000"), 0u);
+    EXPECT_EQ(SmuflDatabase::codepointFromString("U+1234567"), 0u);
+    EXPECT_EQ(SmuflDatabase::codepointFromString("U+"), 0u);
+    EXPECT_EQ(SmuflDatabase::codepointFromString("E0A4"), 0u);
+    EXPECT_EQ(SmuflDatabase::codepointFromString(""), 0u);
+}
+
+TEST(FontDesign_PuaAllocatorTests, UniGlyphNames)
+{
+    EXPECT_EQ(MetadataReader::codepointFromUniName("uniE0A4"), 0xE0A4u);
+    EXPECT_EQ(MetadataReader::codepointFromUniName("uni1D15E"), 0x1D15Eu);
+    EXPECT_EQ(MetadataReader::codepointFromUniName("u1D15E"), 0x1D15Eu);
+    EXPECT_EQ(MetadataReader::codepointFromUniName("u0266D"), 0x266Du);
+
+    EXPECT_EQ(MetadataReader::codepointFromUniName("uniform"), 0u);
+    EXPECT_EQ(MetadataReader::codepointFromUniName("ufaced"), 0u);      // 小写不是 uniXXXX 命名
+    EXPECT_EQ(MetadataReader::codepointFromUniName("uniE0"), 0u);
+    EXPECT_EQ(MetadataReader::codepointFromUniName("noteheadBlack"), 0u);
 }

@@ -26,6 +26,9 @@ set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/puaallocator_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/fontexport_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/curvefitter_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/projectfiles_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/service_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/undostack_tests.cpp
 )
 
 set(MODULE_TEST_LINK

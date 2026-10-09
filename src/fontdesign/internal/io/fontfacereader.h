@@ -39,6 +39,8 @@ class FontFaceReader
 public:
     struct FaceGlyph {
         char32_t codepoint = 0;
+        //! 字体自带的字形名（post / CFF charset）；字体不带名字时为空
+        std::string name;
         GlyphOutline outline;
         double advance = 0.0;
     };
@@ -51,6 +53,9 @@ public:
 
         //! 源字体的 OS/2 fsType 嵌入许可位；导出派生字体时原样保留
         uint16_t fsType = 0;
+        //! 源字体的 OS/2 achVendID（4 字符）；无 OS/2 表时为空。
+        //! 本模块导出的字体写 VENDOR_ID，据此区分「自己写出的字体」与外来字体
+        std::string vendorId;
         //! 源字体 name 表中需保留的法律/署名记录（nameID → UTF-8）：
         //! 版权(0)、商标(7)、制造商(8)、设计师(9)、描述(10)、
         //! 厂商URL(11)、设计师URL(12)、许可证(13)、许可证URL(14)。
@@ -59,5 +64,8 @@ public:
     };
 
     static muse::Ret read(const muse::io::path_t& path, FaceData& out);
+
+    //! SfntWriter 写入 OS/2 achVendID 的值
+    static constexpr const char* VENDOR_ID = "MUE ";
 };
 }

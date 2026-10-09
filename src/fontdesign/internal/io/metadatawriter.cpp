@@ -26,7 +26,8 @@
 #include <map>
 #include <set>
 
-#include <QFile>
+#include <QByteArray>
+#include <QSaveFile>
 #include <QPainterPath>
 
 #include "../fontdesigntypes.h"
@@ -79,6 +80,11 @@ struct Writer {
 
     void number(double v)
     {
+        //! JSON 没有 NaN/Infinity：写出去整份文件就读不回来
+        if (!std::isfinite(v)) {
+            v = 0.0;
+        }
+
         if (std::abs(v - std::round(v)) < 1e-9 && std::abs(v) < 1e15) {
             char buf[32];
             std::snprintf(buf, sizeof(buf), "%lld", static_cast<long long>(std::llround(v)));
@@ -86,9 +92,9 @@ struct Writer {
             return;
         }
 
-        char buf[64];
-        std::snprintf(buf, sizeof(buf), "%.5f", v);
-        std::string s(buf);
+        //! QByteArray::number 恒用 C locale；snprintf("%f") 的小数点随 LC_NUMERIC 变化，
+        //! 逗号小数点的系统上会写出非法 JSON
+        std::string s = QByteArray::number(v, 'f', 5).toStdString();
 
         while (!s.empty() && s.back() == '0') {
             s.pop_back();
@@ -224,7 +230,8 @@ std::string MetadataWriter::toJsonText(const FontDesignProject& project)
         w.coords(metadata.sizeRange->first, metadata.sizeRange->second);
     }
 
-    if (!metadata.engravingDefaults.empty() || !metadata.textFontFamily.empty()) {
+    if (!metadata.engravingDefaults.empty() || !metadata.textFontFamily.empty()
+        || !metadata.passthroughEngravingDefaults.empty()) {
         section("engravingDefaults");
         w.out += "{";
         w.indent += 1;
@@ -279,20 +286,47 @@ std::string MetadataWriter::toJsonText(const FontDesignProject& project)
             entry(pair.first);
             w.number(pair.second);
         }
+        // 类型不在预期内的值原样带回（已由上面写出的键不重复）
+        for (const std::string& k : metadata.passthroughEngravingDefaults.keys()) {
+            if (metadata.engravingDefaults.count(k) > 0
+                || (k == "textFontFamily" && !metadata.textFontFamily.empty())) {
+                continue;
+            }
+            entry(k);
+            w.jsonValue(metadata.passthroughEngravingDefaults.value(k));
+        }
         w.indent -= 1;
         w.nl();
         w.out += "}";
     }
 
-    // glyphAdvanceWidths / glyphBBoxes：按当前字体数据自动生成（仅命名字形）
+    // glyphAdvanceWidths / glyphBBoxes：命名字形按当前字体数据自动生成；
+    //! 读入时就有、但对不上任何字形的条目（名字只在 ligatures 等处声明，或无处声明）原样带回，
+    //! 不能因为「读入→保存」就丢掉。
+    auto writePreserved = [&w](const JsonObject& source, const std::set<std::string>& written, bool& first) {
+        for (const std::string& name : source.keys()) {
+            if (written.count(name) > 0) {
+                continue;
+            }
+            if (!first) {
+                w.out += ",";
+            }
+            first = false;
+            w.nl();
+            w.key(name);
+            w.jsonValue(source.value(name));
+        }
+    };
+
     {
         section("glyphAdvanceWidths");
         w.out += "{";
         w.indent += 1;
         bool first = true;
+        std::set<std::string> written;
         for (const auto& pair : project.glyphs()) {
             const GlyphItem& glyph = pair.second;
-            if (glyph.smuflName.empty()) {
+            if (glyph.smuflName.empty() || !written.insert(glyph.smuflName).second) {
                 continue;
             }
             if (!first) {
@@ -303,6 +337,7 @@ std::string MetadataWriter::toJsonText(const FontDesignProject& project)
             w.key(glyph.smuflName);
             w.number(glyph.advance / spatium);
         }
+        writePreserved(metadata.sourceGlyphAdvanceWidths, written, first);
         w.indent -= 1;
         w.nl();
         w.out += "}";
@@ -313,9 +348,10 @@ std::string MetadataWriter::toJsonText(const FontDesignProject& project)
         w.out += "{";
         w.indent += 1;
         bool first = true;
+        std::set<std::string> written;
         for (const auto& pair : project.glyphs()) {
             const GlyphItem& glyph = pair.second;
-            if (glyph.smuflName.empty() || glyph.outline.isEmpty()) {
+            if (glyph.smuflName.empty() || glyph.outline.isEmpty() || !written.insert(glyph.smuflName).second) {
                 continue;
             }
 
@@ -341,6 +377,7 @@ std::string MetadataWriter::toJsonText(const FontDesignProject& project)
             w.nl();
             w.out += "}";
         }
+        writePreserved(metadata.sourceGlyphBBoxes, written, first);
         w.indent -= 1;
         w.nl();
         w.out += "}";
@@ -385,6 +422,7 @@ std::string MetadataWriter::toJsonText(const FontDesignProject& project)
                 w.indent += 1;
 
                 bool firstAnchor = true;
+                std::set<std::string> writtenAnchors;
 
                 auto byNameIt = byName.find(name);
                 if (byNameIt != byName.end()) {
@@ -396,14 +434,20 @@ std::string MetadataWriter::toJsonText(const FontDesignProject& project)
                         w.nl();
                         w.key(anchorNameById(anchorPair.first));
                         w.coords(anchorPair.second.x(), anchorPair.second.y());
+                        writtenAnchors.insert(anchorNameById(anchorPair.first));
                     }
                 }
 
-                // 透传该字形的未识别锚点（键在 reader 侧已保证与结构化锚点不重名）
-                if (metadata.passthroughAnchors.isValid() && metadata.passthroughAnchors.contains(name)) {
+                //! 透传该字形的未识别锚点。整条透传的条目（读入时字体里还没有这个字形）里
+                //! 可能含有与结构化锚点同名的键：以结构化的为准，绝不写出重复键
+                if (metadata.passthroughAnchors.isValid() && metadata.passthroughAnchors.contains(name)
+                    && metadata.passthroughAnchors.value(name).isObject()) {
                     JsonObject extra = metadata.passthroughAnchors.value(name).toObject();
                     if (extra.isValid()) {
                         for (const std::string& anchorName : extra.keys()) {
+                            if (writtenAnchors.count(anchorName) > 0) {
+                                continue;
+                            }
                             if (!firstAnchor) {
                                 w.out += ",";
                             }
@@ -666,15 +710,18 @@ Ret MetadataWriter::write(const FontDesignProject& project, const io::path_t& pa
 {
     std::string json = toJsonText(project);
 
-    QFile file(path.toQString());
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+    //! QSaveFile：先写临时文件，commit 时原子替换；写失败不会留下截断的元数据
+    QSaveFile file(path.toQString());
+    if (!file.open(QIODevice::WriteOnly)) {
         return make_ret(Ret::Code::UnknownError, std::string("failed to open for writing: ") + path.toStdString());
     }
 
-    qint64 written = file.write(json.data(), static_cast<qint64>(json.size()));
-    file.close();
+    if (file.write(json.data(), static_cast<qint64>(json.size())) != static_cast<qint64>(json.size())) {
+        file.cancelWriting();
+        return make_ret(Ret::Code::UnknownError, std::string("failed to write: ") + path.toStdString());
+    }
 
-    if (written != static_cast<qint64>(json.size())) {
+    if (!file.commit()) {
         return make_ret(Ret::Code::UnknownError, std::string("failed to write: ") + path.toStdString());
     }
 

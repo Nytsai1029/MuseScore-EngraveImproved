@@ -78,6 +78,12 @@ struct FontMetadata {
     std::map<std::string, SetInfo> sets;
 
     muse::JsonObject passthrough;                      // 未识别的顶层键
-    muse::JsonObject passthroughAnchors;               // 无法解析的 glyphsWithAnchors 条目
+    muse::JsonObject passthroughAnchors;               // 无法解析/对不上字形的 glyphsWithAnchors 条目
+    muse::JsonObject passthroughEngravingDefaults;     // 类型不在预期内的 engravingDefaults 值
+
+    //! 读入的 glyphBBoxes / glyphAdvanceWidths 原文。写出时能对上字形的条目按当前轮廓重新生成，
+    //! 其余条目（名字只在字体别处声明、或根本无处声明）从这里原样带回。
+    muse::JsonObject sourceGlyphBBoxes;
+    muse::JsonObject sourceGlyphAdvanceWidths;
 };
 }

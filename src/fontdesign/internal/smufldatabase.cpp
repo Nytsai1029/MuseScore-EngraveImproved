@@ -22,7 +22,6 @@
 #include "smufldatabase.h"
 
 #include <algorithm>
-#include <cstdlib>
 
 #include <QFile>
 
@@ -170,9 +169,34 @@ std::vector<std::string> SmuflDatabase::classesOfGlyph(const std::string& glyphN
 
 char32_t SmuflDatabase::codepointFromString(const std::string& str)
 {
-    if (str.size() < 3 || (str[0] != 'U' && str[0] != 'u') || str[1] != '+') {
+    //! 严格解析：首尾空白之外只接受 "U+" 加 1–6 位十六进制，且落在 Unicode 范围内。
+    //! 宽松解析会把 "U+E0A4xyz" 读成 E0A4、把超范围的值当成码位，写回时就成了另一个字形。
+    const size_t first = str.find_first_not_of(" \t\r\n");
+    if (first == std::string::npos) {
+        return 0;
+    }
+    const size_t last = str.find_last_not_of(" \t\r\n");
+    const size_t len = last - first + 1;
+
+    if (len < 3 || len > 8 || (str[first] != 'U' && str[first] != 'u') || str[first + 1] != '+') {
         return 0;
     }
 
-    return static_cast<char32_t>(std::strtoul(str.c_str() + 2, nullptr, 16));
+    char32_t code = 0;
+    for (size_t i = first + 2; i <= last; ++i) {
+        const char c = str[i];
+        int v = 0;
+        if (c >= '0' && c <= '9') {
+            v = c - '0';
+        } else if (c >= 'A' && c <= 'F') {
+            v = c - 'A' + 10;
+        } else if (c >= 'a' && c <= 'f') {
+            v = c - 'a' + 10;
+        } else {
+            return 0;
+        }
+        code = code * 16 + static_cast<char32_t>(v);
+    }
+
+    return code <= 0x10FFFF ? code : 0;
 }

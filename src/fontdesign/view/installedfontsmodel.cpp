@@ -23,6 +23,7 @@
 
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 
 #include "translation.h"
 
@@ -70,7 +71,17 @@ void InstalledFontsModel::load()
 
     //! 与 engravingfontscontroller 的扫描约定一致：
     //! userMusicFontsPath 下每个子目录 = 一个字体，目录内同名 .otf/.ttf + 任意 *.json
-    QDir root(notationConfiguration()->userMusicFontsPath().toQString());
+    //! 路径未设置时（默认即为空）不能继续：QDir("") 是进程的当前工作目录，
+    //! 会把那里的子文件夹当成「已安装字体」列出来，卸载时把它们移进废纸篓
+    const QString rootPath = notationConfiguration()
+                             ? notationConfiguration()->userMusicFontsPath().toQString() : QString();
+    if (rootPath.isEmpty()) {
+        endResetModel();
+        emit countChanged();
+        return;
+    }
+
+    QDir root(rootPath);
     const QStringList dirs = root.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name);
 
     for (const QString& dirName : dirs) {
@@ -145,6 +156,18 @@ void InstalledFontsModel::uninstall(int row)
 
     const Item item = m_items[row];
 
+    //! 只允许移走音乐字体文件夹的直接子目录（路径设置在列表加载后可能已改变）
+    const QString rootPath = notationConfiguration()
+                             ? notationConfiguration()->userMusicFontsPath().toQString() : QString();
+    const QFileInfo dirInfo(item.dir.toQString());
+    if (rootPath.isEmpty() || !dirInfo.isDir()
+        || dirInfo.dir().canonicalPath() != QDir(rootPath).canonicalPath()) {
+        interactive()->error(trc("fontdesign", "Unable to uninstall font"),
+                             trc("fontdesign", "The font folder is not inside the MuseScore music fonts folder."));
+        load();
+        return;
+    }
+
     IInteractive::Result res = interactive()->questionSync(
         trc("fontdesign", "Uninstall font"),
         qtrc("fontdesign", "Remove “%1” from the MuseScore music fonts folder? The folder will be moved to the trash.")
@@ -163,6 +186,8 @@ void InstalledFontsModel::uninstall(int row)
         return;
     }
 
-    fontsScanner()->rescanFonts();
+    if (fontsScanner()) {
+        fontsScanner()->rescanFonts();
+    }
     load();
 }

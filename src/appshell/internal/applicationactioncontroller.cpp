@@ -217,6 +217,11 @@ bool ApplicationActionController::quit(bool isAllInstances, const muse::io::path
         m_quiting = false;
     };
 
+    //! 字体设计页的项目不归 projectFilesController 管：退出前单独确认未保存的修改
+    if (fontDesignScenario() && !fontDesignScenario()->confirmDiscardOrSave()) {
+        return false;
+    }
+
     if (!projectFilesController()->closeOpenedProject(false)) {
         return false;
     }
@@ -243,6 +248,10 @@ bool ApplicationActionController::quit(bool isAllInstances, const muse::io::path
 
 void ApplicationActionController::restart()
 {
+    if (fontDesignScenario() && !fontDesignScenario()->confirmDiscardOrSave()) {
+        return;
+    }
+
     if (projectFilesController()->closeOpenedProject(false)) {
         if (multiInstancesProvider()->instances().size() == 1) {
             application()->restart();

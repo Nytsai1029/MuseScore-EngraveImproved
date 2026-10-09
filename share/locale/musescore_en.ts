@@ -10537,7 +10537,7 @@ followed by dashes</translation>
         <translation type="unfinished">Accounts</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="331"/>
+        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="340"/>
         <source>Are you sure you want to revert to factory settings?</source>
         <translation type="unfinished">Are you sure you want to revert to factory settings?</translation>
     </message>
@@ -10550,7 +10550,7 @@ This action will not delete any of your scores.</source>
 This action will not delete any of your scores.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="332"/>
+        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="341"/>
         <source>This action will reset all your app preferences and delete all custom palettes and custom shortcuts. The list of recent scores and usage statistics will also be cleared.
 
 This action will not delete any of your scores.</source>
@@ -10559,27 +10559,27 @@ This action will not delete any of your scores.</source>
 This action will not delete any of your scores.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="342"/>
+        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="351"/>
         <source>Revert</source>
         <translation type="unfinished">Revert</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="344"/>
+        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="353"/>
         <source>Revert to factory settings</source>
         <translation type="unfinished">Revert to factory settings</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="356"/>
+        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="365"/>
         <source>Would you like to restart MuseScore Studio now?</source>
         <translation type="unfinished">Would you like to restart MuseScore Studio now?</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="357"/>
+        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="366"/>
         <source>MuseScore Studio needs to be restarted for these changes to take effect.</source>
         <translation type="unfinished">MuseScore Studio needs to be restarted for these changes to take effect.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="362"/>
+        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="371"/>
         <source>Restart</source>
         <translation type="unfinished">Restart</translation>
     </message>
@@ -12302,8 +12302,8 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <location filename="../../src/engraving/dom/barline.cpp" line="1162"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1092"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1103"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3618"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3630"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3645"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3657"/>
         <location filename="../../src/engraving/dom/segment.cpp" line="2592"/>
         <source>Start of %1</source>
         <translation type="unfinished">Start of %1</translation>
@@ -12312,8 +12312,8 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <location filename="../../src/engraving/dom/barline.cpp" line="1165"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1095"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1105"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3622"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3638"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3649"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3665"/>
         <location filename="../../src/engraving/dom/segment.cpp" line="2607"/>
         <source>End of %1</source>
         <translation type="unfinished">End of %1</translation>
@@ -12619,102 +12619,102 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">%1 (sounding as %2%3)</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="2243"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="2270"/>
         <source>Acciaccatura</source>
         <translation type="unfinished">Acciaccatura</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="2245"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="2272"/>
         <source>Appoggiatura</source>
         <translation type="unfinished">Appoggiatura</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="2249"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="2276"/>
         <source>Grace note after</source>
         <translation type="unfinished">Grace note after</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="2253"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="2280"/>
         <source>Grace note before</source>
         <translation type="unfinished">Grace note before</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="2255"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="2282"/>
         <source>Note</source>
         <translation type="unfinished">Note</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3525"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3563"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3552"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3590"/>
         <location filename="../../src/engraving/dom/rest.cpp" line="542"/>
         <location filename="../../src/engraving/dom/rest.cpp" line="554"/>
         <source>Voice: %1</source>
         <translation type="unfinished">Voice: %1</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3533"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3560"/>
         <source>(on %1‰ off %2‰)</source>
         <extracomment>Note-on and note-off times relative to note duration, expressed in thousandths (per mille)</extracomment>
         <translation type="unfinished">(on %1‰ off %2‰)</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3539"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3568"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3566"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3595"/>
         <source>Beat slash</source>
         <translation type="unfinished">Beat slash</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3539"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3568"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3566"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3595"/>
         <source>Rhythm slash</source>
         <translation type="unfinished">Rhythm slash</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3543"/>
-        <location filename="../../src/engraving/dom/note.cpp" line="3572"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3570"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3599"/>
         <source>%1; String: %2; Fret: %3</source>
         <translation type="unfinished">%1; String: %2; Fret: %3</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3549"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3576"/>
         <source>%1; Pitch: %2; Duration: %3%4%5</source>
         <translation type="unfinished">%1; Pitch: %2; Duration: %3%4%5</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3578"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3605"/>
         <source>%1 head %2</source>
         <extracomment>head as in note head. %1 is head type (circle, cross, etc.). %2 is pitch (e.g. Db4).</extracomment>
         <translation type="unfinished">%1 head %2</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3580"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3607"/>
         <location filename="../../src/engraving/dom/rest.cpp" line="557"/>
         <source>Cross-staff above</source>
         <translation type="unfinished">Cross-staff above</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3582"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3609"/>
         <location filename="../../src/engraving/dom/rest.cpp" line="559"/>
         <source>Cross-staff below</source>
         <translation type="unfinished">Cross-staff below</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3586"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3613"/>
         <source>too low</source>
         <translation type="unfinished">too low</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3588"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3615"/>
         <source>too high</source>
         <translation type="unfinished">too high</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3590"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3617"/>
         <source>too low for amateurs</source>
         <translation type="unfinished">too low for amateurs</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/note.cpp" line="3592"/>
+        <location filename="../../src/engraving/dom/note.cpp" line="3619"/>
         <source>too high for amateurs</source>
         <translation type="unfinished">too high for amateurs</translation>
     </message>
@@ -23252,8 +23252,8 @@ Fret %1 on strings %2</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="251"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="357"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="112"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="344"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="73"/>
         <source>New window</source>
         <translation type="unfinished">New window</translation>
     </message>
@@ -23591,19 +23591,41 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Horizontal offset for aligning repeat-dot pairs or similar repeated marks.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/internal/fontdesignactioncontroller.cpp" line="166"/>
-        <location filename="../../src/fontdesign/internal/fontdesignactioncontroller.cpp" line="206"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="148"/>
+        <location filename="../../src/fontdesign/internal/fontdesignprojectscenario.cpp" line="48"/>
+        <location filename="../../src/fontdesign/internal/fontdesignprojectscenario.cpp" line="69"/>
         <source>Unable to save font</source>
         <translation type="unfinished">Unable to save font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/internal/fontdesignactioncontroller.cpp" line="192"/>
+        <location filename="../../src/fontdesign/internal/fontdesignprojectscenario.cpp" line="56"/>
+        <source>Replace existing files?</source>
+        <translation type="unfinished">Replace existing files?</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignprojectscenario.cpp" line="57"/>
+        <source>Saving this font will replace files that do not belong to it:</source>
+        <translation type="unfinished">Saving this font will replace files that do not belong to it:</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignprojectscenario.cpp" line="74"/>
+        <source>Original font kept</source>
+        <translation type="unfinished">Original font kept</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignprojectscenario.cpp" line="75"/>
+        <source>This font was not created in Font design. Saving rebuilds it from its outlines, advance widths and metadata only, so the original files were kept as:</source>
+        <translation type="unfinished">This font was not created in Font design. Saving rebuilds it from its outlines, advance widths and metadata only, so the original files were kept as:</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignprojectscenario.cpp" line="105"/>
+        <source>The font “%1” has unsaved changes.</source>
+        <translation type="unfinished">The font “%1” has unsaved changes.</translation>
+    </message>
+    <message>
         <source>Close font</source>
         <translation type="unfinished">Close font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/internal/fontdesignactioncontroller.cpp" line="193"/>
         <source>Do you want to save changes before closing?</source>
         <translation type="unfinished">Do you want to save changes before closing?</translation>
     </message>
@@ -23612,157 +23634,168 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">No font file path is associated with this project.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="72"/>
         <source>Unable to save metadata</source>
         <translation type="unfinished">Unable to save metadata</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/internal/fontdesignactioncontroller.cpp" line="179"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="161"/>
+        <location filename="../../src/fontdesign/internal/fontdesignprojectscenario.cpp" line="90"/>
         <source>Font saved with warnings</source>
         <translation type="unfinished">Font saved with warnings</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="179"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="186"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="193"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="200"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="208"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="159"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="166"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="173"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="180"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="188"/>
         <source>Cannot install font</source>
         <translation type="unfinished">Cannot install font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="180"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="160"/>
         <source>Font name must not contain “Text” (reserved for text companion fonts).</source>
         <translation type="unfinished">Font name must not contain “Text” (reserved for text companion fonts).</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="187"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="167"/>
         <source>Font name contains invalid path characters.</source>
         <translation type="unfinished">Font name contains invalid path characters.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="194"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="174"/>
         <source>Notation configuration is unavailable.</source>
         <translation type="unfinished">Notation configuration is unavailable.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="201"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="181"/>
         <source>User music fonts path is not configured.</source>
         <translation type="unfinished">User music fonts path is not configured.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="209"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="189"/>
         <source>Failed to create font directory.</source>
         <translation type="unfinished">Failed to create font directory.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="218"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="198"/>
         <source>Overwrite installed font?</source>
         <translation type="unfinished">Overwrite installed font?</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="219"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="199"/>
         <source>A font with this name is already installed. Replace it?</source>
         <translation type="unfinished">A font with this name is already installed. Replace it?</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="230"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="223"/>
         <source>Unable to install font</source>
         <translation type="unfinished">Unable to install font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="236"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="229"/>
         <source>Font written but metadata failed</source>
         <translation type="unfinished">Font written but metadata failed</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="243"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="247"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="236"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="241"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="245"/>
         <source>Font installed</source>
         <translation type="unfinished">Font installed</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="244"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="237"/>
+        <source>A font with this name was already loaded. Restart MuseScore to see the updated glyphs.</source>
+        <translation type="unfinished">A font with this name was already loaded. Restart MuseScore to see the updated glyphs.</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="242"/>
         <source>The font is available under Format → Style → Score → Musical symbol font.</source>
         <translation type="unfinished">The font is available under Format → Style → Score → Musical symbol font.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="248"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="246"/>
         <source>Files were written, but the font scanner is unavailable. Restart MuseScore to use the font.</source>
         <translation type="unfinished">Files were written, but the font scanner is unavailable. Restart MuseScore to use the font.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="258"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="256"/>
         <source>Installed with validation warnings</source>
         <translation type="unfinished">Installed with validation warnings</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="269"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="267"/>
         <source>OpenType font</source>
         <translation type="unfinished">OpenType font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="276"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="274"/>
         <source>Export font</source>
         <translation type="unfinished">Export font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="286"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="284"/>
         <source>Unable to export font</source>
         <translation type="unfinished">Unable to export font</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="295"/>
+        <source>Replace existing metadata?</source>
+        <translation type="unfinished">Replace existing metadata?</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="296"/>
+        <source>The font was exported. A metadata file with the same name already exists. Replace it?</source>
+        <translation type="unfinished">The font was exported. A metadata file with the same name already exists. Replace it?</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="307"/>
         <source>Font exported but metadata failed</source>
         <translation type="unfinished">Font exported but metadata failed</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="305"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="317"/>
         <source>Font exported with warnings</source>
         <translation type="unfinished">Font exported with warnings</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="322"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="53"/>
+        <location filename="../../src/fontdesign/internal/fontdesignprojectscenario.cpp" line="104"/>
         <source>Save changes?</source>
         <translation type="unfinished">Save changes?</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="323"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="54"/>
         <source>The current font has unsaved metadata changes.</source>
         <translation type="unfinished">The current font has unsaved metadata changes.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="341"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="84"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="328"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="45"/>
         <source>SMuFL fonts</source>
         <translation type="unfinished">SMuFL fonts</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="344"/>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="354"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="87"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="109"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="331"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="341"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="48"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="70"/>
         <source>Open font</source>
         <translation type="unfinished">Open font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="355"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="110"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="342"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="71"/>
         <source>A font is already open. Where do you want to open the new one?</source>
         <translation type="unfinished">A font is already open. Where do you want to open the new one?</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="356"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="111"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="343"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="72"/>
         <source>This window</source>
         <translation type="unfinished">This window</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="374"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="129"/>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="361"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="90"/>
         <source>Unable to open font</source>
         <translation type="unfinished">Unable to open font</translation>
     </message>
@@ -24043,22 +24076,22 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Select a target codepoint in the glyph browser first</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="999"/>
+        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1021"/>
         <source>Images</source>
         <translation type="unfinished">Images</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1002"/>
+        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1024"/>
         <source>Import reference image</source>
         <translation type="unfinished">Import reference image</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1009"/>
+        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1031"/>
         <source>Unable to import image</source>
         <translation type="unfinished">Unable to import image</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1010"/>
+        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1032"/>
         <source>The file could not be read as an image.</source>
         <translation type="unfinished">The file could not be read as an image.</translation>
     </message>
@@ -24108,32 +24141,78 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Optional glyph %1 lies in the recommended range (optional glyphs start at U+F400)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="203"/>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="196"/>
+        <source>%1 “%2” has no valid codepoint</source>
+        <translation type="unfinished">%1 “%2” has no valid codepoint</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="199"/>
+        <source>%1 “%2” is declared at %3, but the font has no glyph there</source>
+        <translation type="unfinished">%1 “%2” is declared at %3, but the font has no glyph there</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="205"/>
+        <source>Optional glyph</source>
+        <translation type="unfinished">Optional glyph</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="208"/>
+        <source>Ligature</source>
+        <translation type="unfinished">Ligature</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="212"/>
+        <source>Alternate</source>
+        <translation type="unfinished">Alternate</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="217"/>
+        <source>Stylistic set glyph</source>
+        <translation type="unfinished">Stylistic set glyph</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="232"/>
+        <source>Ligature “%1” refers to an unknown component glyph “%2”</source>
+        <translation type="unfinished">Ligature “%1” refers to an unknown component glyph “%2”</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="250"/>
+        <source>Metadata entries kept unchanged because no glyph in the font matches their name: %1</source>
+        <translation type="unfinished">Metadata entries kept unchanged because no glyph in the font matches their name: %1</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="265"/>
         <source>All checks passed — %1 glyphs</source>
         <translation type="unfinished">All checks passed — %1 glyphs</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="206"/>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="268"/>
         <source>%1 errors · %2 warnings · %3 notes</source>
         <translation type="unfinished">%1 errors · %2 warnings · %3 notes</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="149"/>
+        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="172"/>
         <source>Uninstall font</source>
         <translation type="unfinished">Uninstall font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="150"/>
+        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="173"/>
         <source>Remove “%1” from the MuseScore music fonts folder? The folder will be moved to the trash.</source>
         <translation type="unfinished">Remove “%1” from the MuseScore music fonts folder? The folder will be moved to the trash.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="161"/>
+        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="165"/>
+        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="184"/>
         <source>Unable to uninstall font</source>
         <translation type="unfinished">Unable to uninstall font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="162"/>
+        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="166"/>
+        <source>The font folder is not inside the MuseScore music fonts folder.</source>
+        <translation type="unfinished">The font folder is not inside the MuseScore music fonts folder.</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="185"/>
         <source>The font folder could not be moved to the trash.</source>
         <translation type="unfinished">The font folder could not be moved to the trash.</translation>
     </message>
@@ -24156,6 +24235,31 @@ Fret %1 on strings %2</translation>
         <location filename="../../src/fontdesign/view/newfontmodel.cpp" line="66"/>
         <source>The chosen folder does not exist</source>
         <translation type="unfinished">The chosen folder does not exist</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/io/fontexporter.cpp" line="91"/>
+        <source>Units per em must be between %1 and %2.</source>
+        <translation type="unfinished">Units per em must be between %1 and %2.</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/io/fontexporter.cpp" line="97"/>
+        <source>The font has too many glyphs to export (%1; the limit is %2).</source>
+        <translation type="unfinished">The font has too many glyphs to export (%1; the limit is %2).</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/io/fontexporter.cpp" line="104"/>
+        <source>Glyph %1 has an advance width outside the supported range (0 to %2 font units).</source>
+        <translation type="unfinished">Glyph %1 has an advance width outside the supported range (0 to %2 font units).</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/io/fontexporter.cpp" line="109"/>
+        <source>Glyph %1 has outline coordinates outside the supported range (±%2 font units).</source>
+        <translation type="unfinished">Glyph %1 has outline coordinates outside the supported range (±%2 font units).</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/io/fontexporter.cpp" line="230"/>
+        <source>The exported font failed validation (glyph count mismatch).</source>
+        <translation type="unfinished">The exported font failed validation (glyph count mismatch).</translation>
     </message>
 </context>
 <context>

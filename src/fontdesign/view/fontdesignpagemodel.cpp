@@ -30,6 +30,7 @@
 
 #include "../internal/io/fontexporter.h"
 #include "../internal/io/metadatawriter.h"
+#include "../internal/io/projectfiles.h"
 
 using namespace mu::fontdesign;
 using namespace muse;
@@ -138,28 +139,7 @@ void FontDesignPageModel::redo()
 
 void FontDesignPageModel::save()
 {
-    if (!fontDesignService()->hasCurrentProject()) {
-        return;
-    }
-
-    std::vector<std::string> warnings;
-    Ret ret = fontDesignService()->saveProject(warnings);
-    if (!ret) {
-        interactive()->error(trc("fontdesign", "Unable to save font"), ret.text());
-        return;
-    }
-
-    if (!warnings.empty()) {
-        std::string detail;
-        for (const std::string& w : warnings) {
-            if (!detail.empty()) {
-                detail += "\n";
-            }
-            detail += "• ";
-            detail += w;
-        }
-        interactive()->warning(trc("fontdesign", "Font saved with warnings"), detail);
-    }
+    projectScenario()->saveCurrentProject();
 }
 
 void FontDesignPageModel::installToMuseScore()
@@ -224,6 +204,19 @@ void FontDesignPageModel::installToMuseScore()
         }
     }
 
+    //! 同名字体若已被本次运行加载：重扫描只会换上新的元数据，
+    //! 字体引擎里缓存的字形轮廓仍是旧的，要重启才更新
+    bool alreadyLoaded = false;
+    if (engravingFonts()) {
+        const QString installName = QString::fromStdString(fontName);
+        for (const auto& font : engravingFonts()->fonts()) {
+            if (QString::fromStdString(font->name()).compare(installName, Qt::CaseInsensitive) == 0) {
+                alreadyLoaded = true;
+                break;
+            }
+        }
+    }
+
     FontExporter::Report report;
     Ret fontRet = FontExporter::exportFont(*project, otfPath, &report);
     if (!fontRet) {
@@ -238,7 +231,12 @@ void FontDesignPageModel::installToMuseScore()
     }
 
     // 即时重扫描（弱依赖）
-    if (fontsScanner()) {
+    if (fontsScanner() && alreadyLoaded) {
+        fontsScanner()->rescanFonts();
+        interactive()->info(trc("fontdesign", "Font installed"),
+                            trc("fontdesign", "A font with this name was already loaded. Restart MuseScore to see the updated glyphs.")
+                            + "\n" + fontDirPath.toStdString());
+    } else if (fontsScanner()) {
         fontsScanner()->rescanFonts();
         interactive()->info(trc("fontdesign", "Font installed"),
                             trc("fontdesign", "The font is available under Format → Style → Score → Musical symbol font.")
@@ -290,6 +288,20 @@ void FontDesignPageModel::exportFontAs()
     // 同步写出 metadata 到同目录（与字体同名）
     io::FileInfo fi(path);
     io::path_t metaPath = fi.dirPath() + "/" + fi.baseName() + ".json";
+
+    //! 字体文件的覆盖由系统保存对话框确认过；同名 JSON 是顺带写出的，已存在时要另问
+    if (QFile::exists(metaPath.toQString()) && !ProjectFiles::isSameFile(metaPath, project->metadataPath())) {
+        IInteractive::Result result = interactive()->questionSync(
+            trc("fontdesign", "Replace existing metadata?"),
+            trc("fontdesign", "The font was exported. A metadata file with the same name already exists. Replace it?")
+            + "\n" + metaPath.toStdString(),
+            { IInteractive::Button::Yes, IInteractive::Button::No },
+            IInteractive::Button::No);
+        if (result.standardButton() != IInteractive::Button::Yes) {
+            return;
+        }
+    }
+
     Ret metaRet = MetadataWriter::write(*project, metaPath);
     if (!metaRet) {
         interactive()->error(trc("fontdesign", "Font exported but metadata failed"), metaRet.text());
@@ -309,31 +321,6 @@ void FontDesignPageModel::exportFontAs()
 void FontDesignPageModel::goToProjectsSection()
 {
     interactive()->open("musescore://home?section=fontdesign");
-}
-
-bool FontDesignPageModel::confirmDiscardOrSave()
-{
-    FontDesignProjectPtr project = fontDesignService()->currentProject();
-    if (!project || !project->isDirty()) {
-        return true;
-    }
-
-    IInteractive::Result result = interactive()->questionSync(
-        trc("fontdesign", "Save changes?"),
-        trc("fontdesign", "The current font has unsaved metadata changes."),
-        { IInteractive::Button::Save, IInteractive::Button::DontSave, IInteractive::Button::Cancel },
-        IInteractive::Button::Save);
-
-    if (result.standardButton() == IInteractive::Button::Cancel) {
-        return false;
-    }
-
-    if (result.standardButton() == IInteractive::Button::Save) {
-        save();
-        return !fontDesignService()->currentProject()->isDirty();
-    }
-
-    return true;
 }
 
 void FontDesignPageModel::openFont()
@@ -364,7 +351,7 @@ void FontDesignPageModel::openFont()
         if (res.button() != replaceBtn) {
             return;
         }
-        if (!confirmDiscardOrSave()) {
+        if (!projectScenario()->confirmDiscardOrSave()) {
             return;
         }
     }
@@ -377,7 +364,7 @@ void FontDesignPageModel::openFont()
 
 void FontDesignPageModel::newFont()
 {
-    if (!confirmDiscardOrSave()) {
+    if (!projectScenario()->confirmDiscardOrSave()) {
         return;
     }
 

@@ -207,6 +207,10 @@ std::vector<uint8_t> buildCmap(const std::map<char32_t, uint16_t>& cmap)
     for (size_t i = 0; i < segs.size(); ++i) {
         appendU16(fmt4, 0); // idRangeOffset = 0 → use delta
     }
+    //! format 4 的 length 为 16 位：离散区段过多时放不下，交由调用方报错而不是写出截断的长度
+    if (fmt4.size() > 0xFFFF) {
+        return {};
+    }
     // patch length
     const uint16_t fmt4Len = static_cast<uint16_t>(fmt4.size());
     fmt4[2] = static_cast<uint8_t>((fmt4Len >> 8) & 0xFF);
@@ -358,21 +362,11 @@ std::vector<uint8_t> buildOS2(const SfntWriter::Metrics& m)
     // ySubscriptXSize etc. leave 0
     // sFamilyClass 0
     // panose 10 bytes zero
-    // ulUnicodeRange — set PUA bit (bit 57 → range 1 bit 25? )
-    // Unicode range bit 57 is Private Use (plane 0): in ulUnicodeRange2 bit 25
-    out[36] = 0;
-    out[37] = 0;
-    out[38] = 0x02; // bit 25 of range2? ranges are 4 uint32 LE in file as BE...
-    // Actually OS/2 stores as big-endian uint32. Bit 57 overall → range index 57, which is in ulUnicodeRange1 (bits 32-63) bit 25.
-    // ulUnicodeRange1 at offset 46 (after version through panose...)
-    // Layout: version(2) avgCharWidth(2) weight(2) width(2) fsType(2) subscript(10) superscript(10) strikeout(4) familyClass(2) panose(10) = 46
-    // ulUnicodeRange1 at 46, range2 at 50, range3 at 54, range4 at 58
-    // Bit 57 → range1 bit (57-32)=25
-    out[46 + 0] = 0;
-    out[46 + 1] = 0;
-    out[46 + 2] = 0x02; // bit 25 in high half? BE: byte0 is MSB bits 24-31
-    out[46 + 3] = 0;
-    // Actually bit 25 in a BE uint32 is in byte 0 (bits 24-31), value 0x02 is bit 25. Yes.
+    // ulUnicodeRange：置 bit 57（Private Use Area, plane 0）。
+    // 布局：version(2) xAvgCharWidth(2) weight(2) width(2) fsType(2) subscript(8) superscript(8)
+    // strikeout(4) familyClass(2) panose(10) = 42 → ulUnicodeRange1..4 位于 42/46/50/54。
+    // bit 57 = ulUnicodeRange2 的 bit 25；大端 uint32 的 bit 24-31 在首字节，bit 25 = 0x02。
+    out[46] = 0x02;
 
     // achVendID "MUE " 
     out[58] = 'M';
@@ -408,7 +402,7 @@ std::vector<uint8_t> buildPost()
     appendU32(out, 0); // italicAngle
     appendI16(out, 0); // underlinePosition
     appendI16(out, 0); // underlineThickness
-    appendU32(out, 1); // isFixedPitch
+    appendU32(out, 0); // isFixedPitch
     appendU32(out, 0);
     appendU32(out, 0);
     appendU32(out, 0);
@@ -438,6 +432,10 @@ Ret SfntWriter::write(const Input& input, std::vector<uint8_t>& out)
         return make_ret(Ret::Code::UnknownError, std::string("sfnt: no glyph metrics"));
     }
 
+    if (input.glyphMetrics.size() > 0xFFFF) {
+        return make_ret(Ret::Code::UnknownError, std::string("sfnt: more than 65535 glyphs"));
+    }
+
     const uint16_t numGlyphs = static_cast<uint16_t>(input.glyphMetrics.size());
 
     // advanceWidthMax for hhea
@@ -454,7 +452,12 @@ Ret SfntWriter::write(const Input& input, std::vector<uint8_t>& out)
     std::vector<Table> tables;
     tables.push_back({ { 'C', 'F', 'F', ' ' }, input.cffTable });
     tables.push_back({ { 'O', 'S', '/', '2' }, buildOS2(input.metrics) });
-    tables.push_back({ { 'c', 'm', 'a', 'p' }, buildCmap(input.cmap) });
+    std::vector<uint8_t> cmap = buildCmap(input.cmap);
+    if (cmap.empty()) {
+        return make_ret(Ret::Code::UnknownError,
+                        std::string("sfnt: too many separate codepoint ranges for the cmap table"));
+    }
+    tables.push_back({ { 'c', 'm', 'a', 'p' }, std::move(cmap) });
     // head with checkSumAdjustment=0 first
     tables.push_back({ { 'h', 'e', 'a', 'd' }, buildHead(input.metrics, 0) });
     tables.push_back({ { 'h', 'h', 'e', 'a' }, std::move(hhea) });

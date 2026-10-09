@@ -30,6 +30,7 @@
 
 #include "internal/fontdesignservice.h"
 #include "internal/fontdesignconfiguration.h"
+#include "internal/fontdesignprojectscenario.h"
 #include "internal/fontdesignactioncontroller.h"
 #include "internal/fontdesignuiactions.h"
 
@@ -70,11 +71,13 @@ void FontDesignModule::registerExports()
 {
     m_service = std::make_shared<FontDesignService>();
     m_configuration = std::make_shared<FontDesignConfiguration>();
+    m_projectScenario = std::make_shared<FontDesignProjectScenario>();
     m_actionController = std::make_shared<FontDesignActionController>();
     m_uiActions = std::make_shared<FontDesignUiActions>(m_actionController);
 
     ioc()->registerExport<IFontDesignService>(moduleName(), m_service);
     ioc()->registerExport<IFontDesignConfiguration>(moduleName(), m_configuration);
+    ioc()->registerExport<IFontDesignProjectScenario>(moduleName(), m_projectScenario);
 }
 
 void FontDesignModule::resolveImports()
@@ -135,7 +138,9 @@ void FontDesignModule::onDeinit()
 {
     ioc()->unregisterIfRegistered<IFontDesignService>(moduleName(), m_service);
     ioc()->unregisterIfRegistered<IFontDesignConfiguration>(moduleName(), m_configuration);
+    ioc()->unregisterIfRegistered<IFontDesignProjectScenario>(moduleName(), m_projectScenario);
 
     m_service.reset();
     m_configuration.reset();
+    m_projectScenario.reset();
 }

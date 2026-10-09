@@ -59,5 +59,9 @@ public:
 
     //! 从项目组装 Input（排序码位、保证 .notdef）
     static Input fromProject(const FontDesignProject& project);
+
+    //! 字体名 → PostScript 名（仅 [A-Za-z0-9_-]，空格转 '-'，其余丢弃；空则 "Font"）。
+    //! CFF Name INDEX 与 name 表 nameID 6 共用，保证两处一致
+    static std::string postScriptName(const std::string& fontName);
 };
 }

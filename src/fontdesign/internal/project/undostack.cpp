@@ -34,6 +34,17 @@ void UndoStack::push(std::unique_ptr<UndoCommand> cmd)
 
     cmd->redo();
     m_commands.push_back(std::move(cmd));
+
+    //! 命令是快照式的（元数据表命令每条存两份完整表）：不设上限的话长时间编辑会一直涨内存。
+    //! 超限时丢最旧的；clean 位置随之前移，被丢掉则再也回不到 clean 状态
+    if (m_commands.size() > MAX_COMMANDS) {
+        const size_t excess = m_commands.size() - MAX_COMMANDS;
+        m_commands.erase(m_commands.begin(), m_commands.begin() + excess);
+        if (m_cleanIndex >= 0) {
+            m_cleanIndex = m_cleanIndex >= static_cast<int>(excess) ? m_cleanIndex - static_cast<int>(excess) : -1;
+        }
+    }
+
     m_index = m_commands.size();
 
     m_stackChanged.notify();

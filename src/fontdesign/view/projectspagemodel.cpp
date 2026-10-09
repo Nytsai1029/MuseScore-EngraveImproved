@@ -27,8 +27,6 @@
 #include "io/fileinfo.h"
 #include "translation.h"
 
-#include "../internal/io/metadatawriter.h"
-
 using namespace mu::fontdesign;
 using namespace muse;
 
@@ -40,43 +38,6 @@ ProjectsPageModel::ProjectsPageModel(QObject* parent)
 void ProjectsPageModel::openFontDesignPage()
 {
     interactive()->open("musescore://fontdesign");
-}
-
-bool ProjectsPageModel::confirmDiscardOrSave()
-{
-    FontDesignProjectPtr project = fontDesignService()->currentProject();
-    if (!project || !project->isDirty()) {
-        return true;
-    }
-
-    IInteractive::Result result = interactive()->questionSync(
-        trc("fontdesign", "Save changes?"),
-        trc("fontdesign", "The current font has unsaved metadata changes."),
-        { IInteractive::Button::Save, IInteractive::Button::DontSave, IInteractive::Button::Cancel },
-        IInteractive::Button::Save);
-
-    if (result.standardButton() == IInteractive::Button::Cancel) {
-        return false;
-    }
-
-    if (result.standardButton() == IInteractive::Button::Save) {
-        io::path_t path = project->metadataPath();
-        if (path.empty()) {
-            io::FileInfo fontInfo(project->fontPath());
-            path = fontInfo.dirPath() + "/" + fontInfo.baseName() + ".json";
-            project->setMetadataPath(path);
-        }
-
-        Ret ret = MetadataWriter::write(*project, path);
-        if (!ret) {
-            interactive()->error(trc("fontdesign", "Unable to save metadata"), ret.text());
-            return false;
-        }
-
-        project->undoStack().markClean();
-    }
-
-    return true;
 }
 
 void ProjectsPageModel::openFont()
@@ -119,7 +80,7 @@ void ProjectsPageModel::openFontPath(const io::path_t& path)
         if (res.button() != replaceBtn) {
             return;
         }
-        if (!confirmDiscardOrSave()) {
+        if (!projectScenario()->confirmDiscardOrSave()) {
             return;
         }
     }
@@ -152,7 +113,7 @@ QVariantList ProjectsPageModel::recentFonts() const
 
 void ProjectsPageModel::newFont()
 {
-    if (!confirmDiscardOrSave()) {
+    if (!projectScenario()->confirmDiscardOrSave()) {
         return;
     }
 

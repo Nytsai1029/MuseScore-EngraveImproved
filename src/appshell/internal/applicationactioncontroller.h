@@ -40,6 +40,7 @@
 #include "iapplication.h"
 #include "extensions/iextensioninstaller.h"
 #include "context/iglobalcontext.h"
+#include "fontdesign/ifontdesignprojectscenario.h"
 
 class QDragEnterEvent;
 class QDragMoveEvent;
@@ -61,6 +62,8 @@ class ApplicationActionController : public QObject, public muse::Injectable, pub
     muse::Inject<muse::IApplication> application = { this };
     muse::Inject<muse::extensions::IExtensionInstaller> extensionInstaller = { this };
     muse::Inject<context::IGlobalContext> globalContext = { this };
+    //! 弱依赖：fontdesign 模块关闭时解析为空
+    muse::Inject<mu::fontdesign::IFontDesignProjectScenario> fontDesignScenario = { this };
 
 public:
     ApplicationActionController(const muse::modularity::ContextPtr& iocCtx)

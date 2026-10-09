@@ -194,10 +194,32 @@ void GlyphCanvas::resetInteraction()
     m_shapeDragging = false;
     m_marqueeActive = false;
     m_bendingSegment = false;
-    m_dragAnchor.reset();
-    m_dragAnchorOldValue.reset();
+    cancelAnchorDrag();
     m_hoverView.reset();
     clearSelection();
+}
+
+void GlyphCanvas::cancelAnchorDrag()
+{
+    if (m_dragAnchor.has_value()) {
+        //! 拖拽过程中锚点是直接写进模型的（检查器实时显示坐标），松手才入撤销栈。
+        //! 中途被打断就得还原，否则数据变了却既不能撤销、也不算未保存。
+        //! 换项目时旧项目已被丢弃，无需也不能再碰它（m_attachedProject 此时可能已悬空）。
+        FontDesignProjectPtr proj = project();
+        GlyphItem* glyph = proj && proj.get() == m_attachedProject ? proj->glyphMut(m_dragAnchorGlyph) : nullptr;
+        if (glyph) {
+            if (m_dragAnchorOldValue.has_value()) {
+                glyph->anchors[m_dragAnchor.value()] = m_dragAnchorOldValue.value();
+            } else {
+                glyph->anchors.erase(m_dragAnchor.value());
+            }
+            proj->notifyChanged();
+        }
+    }
+
+    m_dragAnchor.reset();
+    m_dragAnchorOldValue.reset();
+    m_dragAnchorGlyph = 0;
 }
 
 void GlyphCanvas::resetView()
@@ -1277,8 +1299,13 @@ void GlyphCanvas::toggleCurveModeAt(const QPointF& viewPos)
                                   && pts[(prevOn + 1) % n].type == PointType::Control;
             const bool target = !(inCurved && outCurved);
 
-            //! 先出段（编辑位置在节点之后），再入段（重新扫描起点下标）
+            //! 先出段（编辑位置在节点之后），再入段。出段的编辑会在节点之后增删两个控制点：
+            //! 节点是轮廓首点时，上一个 on-curve 排在它后面（绕回），下标要跟着平移
+            const int sizeBefore = static_cast<int>(pts.size());
             setSegmentCurved(ref.contour, ref.index, target);
+            if (prevOn > ref.index) {
+                prevOn += static_cast<int>(pts.size()) - sizeBefore;
+            }
             if (prevOn >= 0) {
                 setSegmentCurved(ref.contour, prevOn, target);
             }
@@ -1663,6 +1690,7 @@ void GlyphCanvas::mousePressEvent(QMouseEvent* event)
             const GlyphItem* glyph = currentGlyph();
             m_dragAnchor = anchor;
             m_dragAnchorOldValue = glyph->anchors.at(anchor.value());
+            m_dragAnchorGlyph = glyph->codepoint;
             return;
         }
     }
@@ -1764,7 +1792,8 @@ void GlyphCanvas::mouseMoveEvent(QMouseEvent* event)
 
     if (m_dragAnchor.has_value()) {
         FontDesignProjectPtr proj = project();
-        GlyphItem* glyph = proj ? proj->glyphMut(proj->currentGlyph()) : nullptr;
+        GlyphItem* glyph = proj && proj->currentGlyph() == m_dragAnchorGlyph
+                           ? proj->glyphMut(m_dragAnchorGlyph) : nullptr;
         if (glyph) {
             PointF fontPos = snapPoint(fromView(pos));
             glyph->anchors[m_dragAnchor.value()] = PointF(fontPos.x() / proj->spatium(), fontPos.y() / proj->spatium());
@@ -1840,6 +1869,7 @@ void GlyphCanvas::mouseReleaseEvent(QMouseEvent* event)
         }
         m_dragAnchor.reset();
         m_dragAnchorOldValue.reset();
+        m_dragAnchorGlyph = 0;
         return;
     }
 

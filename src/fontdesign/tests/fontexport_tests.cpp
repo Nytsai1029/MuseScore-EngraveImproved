@@ -21,6 +21,8 @@
  */
 #include <gtest/gtest.h>
 
+#include <clocale>
+
 #include <QTemporaryDir>
 
 #include "fontdesign/internal/io/fontexporter.h"
@@ -209,4 +211,115 @@ TEST_F(FontDesign_FontExportTests, EditedAdvanceSurvivesExport)
         }
     }
     EXPECT_TRUE(found);
+}
+
+//! 16 位字段放不下的数值必须报错，而不是回绕后写出坏字体
+TEST_F(FontDesign_FontExportTests, RejectsOutOfRangeAdvance)
+{
+    FontDesignProject project;
+    ASSERT_TRUE(project.load(fontsRoot() + "/leland/Leland.otf",
+                             fontsRoot() + "/leland/leland_metadata.json", m_db));
+
+    project.undoStack().push(std::make_unique<SetAdvanceCommand>(&project, 0xE0A4, 40000.0));
+
+    std::vector<uint8_t> bytes;
+    EXPECT_FALSE(FontExporter::buildFontBytes(project, bytes));
+
+    project.undoStack().undo();
+    EXPECT_TRUE(FontExporter::buildFontBytes(project, bytes));
+}
+
+TEST_F(FontDesign_FontExportTests, RejectsOutOfRangeCoordinates)
+{
+    FontDesignProject project;
+    ASSERT_TRUE(project.load(fontsRoot() + "/leland/Leland.otf",
+                             fontsRoot() + "/leland/leland_metadata.json", m_db));
+
+    GlyphOutline outline;
+    outline.contours().push_back(GlyphOutline::rectContour(RectF(0, 0, 40000, 100)));
+    project.undoStack().push(std::make_unique<ReplaceOutlineCommand>(&project, 0xE0A4, outline));
+
+    std::vector<uint8_t> bytes;
+    EXPECT_FALSE(FontExporter::buildFontBytes(project, bytes));
+}
+
+//! upem ≠ 1000 时 CFF 要写 FontMatrix（实数）。曾用 snprintf 格式化：
+//! 小数点为逗号的 locale 下逗号被丢弃，矩阵变成天文数字
+TEST_F(FontDesign_FontExportTests, BytesDoNotDependOnNumericLocale)
+{
+    QTemporaryDir dir;
+    ASSERT_TRUE(dir.isValid());
+
+    NewFontParams params;
+    params.fontName = "LocaleProbe";
+    params.fontVersion = 1.25;
+    params.upem = 2048.0;
+    params.folder = io::path_t(dir.path().toStdString());
+
+    FontDesignProject project;
+    ASSERT_TRUE(project.createNew(params, m_db));
+
+    const RectF rect(100, 200, 600, 400);
+    GlyphOutline outline;
+    outline.contours().push_back(GlyphOutline::rectContour(rect));
+    project.undoStack().push(std::make_unique<ReplaceOutlineCommand>(&project, 0xE0A4, outline));
+
+    std::vector<uint8_t> reference;
+    ASSERT_TRUE(FontExporter::buildFontBytes(project, reference));
+
+    const std::string previous = std::setlocale(LC_NUMERIC, nullptr);
+    if (!std::setlocale(LC_NUMERIC, "de_DE.UTF-8")) {
+        GTEST_SKIP() << "de_DE.UTF-8 locale is not available";
+    }
+    std::vector<uint8_t> underCommaLocale;
+    Ret ret = FontExporter::buildFontBytes(project, underCommaLocale);
+    std::setlocale(LC_NUMERIC, previous.c_str());
+
+    ASSERT_TRUE(ret) << ret.toString();
+    EXPECT_EQ(reference, underCommaLocale);
+
+    // 回读：upem 与轮廓坐标原样（FontMatrix 写坏的话坐标会被缩放）
+    const io::path_t outPath = io::path_t(dir.path().toStdString()) + "/LocaleProbe.otf";
+    ASSERT_TRUE(FontExporter::writeFontBytes(reference, outPath));
+
+    FontFaceReader::FaceData face;
+    ASSERT_TRUE(FontFaceReader::read(outPath, face));
+    EXPECT_DOUBLE_EQ(face.upem, 2048.0);
+    ASSERT_EQ(face.glyphs.size(), 1u);
+    const RectF bbox = face.glyphs.front().outline.boundingRect();
+    EXPECT_NEAR(bbox.x(), rect.x(), 1.0);
+    EXPECT_NEAR(bbox.y(), rect.y(), 1.0);
+    EXPECT_NEAR(bbox.width(), rect.width(), 1.0);
+    EXPECT_NEAR(bbox.height(), rect.height(), 1.0);
+}
+
+//! 本模块写出的字体带自己的 vendor ID 与字形名：再次打开时据此判断无需备份、并能按名字对上元数据
+TEST_F(FontDesign_FontExportTests, ExportedFontCarriesVendorIdAndGlyphNames)
+{
+    FontDesignProject project;
+    ASSERT_TRUE(project.load(fontsRoot() + "/leland/Leland.otf",
+                             fontsRoot() + "/leland/leland_metadata.json", m_db));
+    EXPECT_TRUE(project.backupBeforeOverwrite());      // Leland 不是本模块写出的
+
+    QTemporaryDir dir;
+    ASSERT_TRUE(dir.isValid());
+    const io::path_t outPath = io::path_t(dir.path().toStdString()) + "/Leland.otf";
+    ASSERT_TRUE(FontExporter::exportFont(project, outPath));
+
+    FontFaceReader::FaceData face;
+    ASSERT_TRUE(FontFaceReader::read(outPath, face));
+    EXPECT_EQ(face.vendorId, std::string(FontFaceReader::VENDOR_ID));
+
+    FontDesignProject reopened;
+    ASSERT_TRUE(reopened.load(outPath, io::path_t(), m_db));
+    EXPECT_FALSE(reopened.backupBeforeOverwrite());
+
+    bool foundName = false;
+    for (const FontFaceReader::FaceGlyph& g : face.glyphs) {
+        if (g.codepoint == 0xE0A4) {
+            foundName = true;
+            EXPECT_EQ(g.name, std::string("noteheadBlack"));
+        }
+    }
+    EXPECT_TRUE(foundName);
 }

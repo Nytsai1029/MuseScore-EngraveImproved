@@ -189,6 +189,68 @@ void FontLintModel::run()
         }
     }
 
+    // 7. 元数据里声明的 名字→码位 与字体对不上（排版程序按码位取字形，对不上就是取不到或取错）
+    const FontMetadata& metadata = project->metadata();
+    auto checkDeclared = [this, &project](const QString& kind, const std::string& name, char32_t code) {
+        if (code == 0) {
+            addItem("error", qtrc("fontdesign", "%1 “%2” has no valid codepoint")
+                    .arg(kind, QString::fromStdString(name)));
+        } else if (!project->glyph(code)) {
+            addItem("warning", qtrc("fontdesign", "%1 “%2” is declared at %3, but the font has no glyph there")
+                    .arg(kind, QString::fromStdString(name), codeHex(code)), code);
+        }
+    };
+
+    for (const auto& pair : metadata.optionalGlyphs) {
+        checkDeclared(qtrc("fontdesign", "Optional glyph"), pair.first, pair.second.codepoint);
+    }
+    for (const auto& pair : metadata.ligatures) {
+        checkDeclared(qtrc("fontdesign", "Ligature"), pair.first, pair.second.codepoint);
+    }
+    for (const auto& pair : metadata.alternates) {
+        for (const AlternateInfo& alt : pair.second) {
+            checkDeclared(qtrc("fontdesign", "Alternate"), alt.name, alt.codepoint);
+        }
+    }
+    for (const auto& pair : metadata.sets) {
+        for (const SetGlyphInfo& glyph : pair.second.glyphs) {
+            checkDeclared(qtrc("fontdesign", "Stylistic set glyph"), glyph.name, glyph.codepoint);
+        }
+    }
+
+    // 8. 连字的组成字形名要能查到
+    std::set<std::string> glyphNames;
+    for (const auto& pair : project->glyphs()) {
+        if (!pair.second.smuflName.empty()) {
+            glyphNames.insert(pair.second.smuflName);
+        }
+    }
+    for (const auto& pair : metadata.ligatures) {
+        for (const std::string& component : pair.second.componentGlyphs) {
+            if (!db.infoByName(component) && metadata.optionalGlyphs.count(component) == 0
+                && glyphNames.count(component) == 0) {
+                addItem("warning", qtrc("fontdesign", "Ligature “%1” refers to an unknown component glyph “%2”")
+                        .arg(QString::fromStdString(pair.first), QString::fromStdString(component)),
+                        pair.second.codepoint);
+            }
+        }
+    }
+
+    // 9. 对不上任何字形的元数据条目：保存时原样保留，但不会随轮廓更新
+    std::set<std::string> unmatched;
+    for (const JsonObject* source : { &metadata.sourceGlyphBBoxes, &metadata.sourceGlyphAdvanceWidths,
+                                      &metadata.passthroughAnchors }) {
+        for (const std::string& name : source->keys()) {
+            if (glyphNames.count(name) == 0) {
+                unmatched.insert(name);
+            }
+        }
+    }
+    if (!unmatched.empty()) {
+        addItem("info", qtrc("fontdesign", "Metadata entries kept unchanged because no glyph in the font matches their name: %1")
+                .arg(unmatched.size()));
+    }
+
     // 汇总
     int errors = 0;
     int warnings = 0;

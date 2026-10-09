@@ -30,10 +30,12 @@
 #include "dockwindow/idockwindowprovider.h"
 #include "multiinstances/imultiinstancesprovider.h"
 
+#include "engraving/iengravingfontsprovider.h"
 #include "notation/iengravingfontsscanner.h"
 #include "notation/inotationconfiguration.h"
 
 #include "../ifontdesignconfiguration.h"
+#include "../ifontdesignprojectscenario.h"
 #include "../ifontdesignservice.h"
 
 namespace mu::fontdesign {
@@ -50,12 +52,14 @@ class FontDesignPageModel : public QObject, public muse::Injectable, public muse
     Q_PROPERTY(bool inspectorPanelOpen READ inspectorPanelOpen NOTIFY panelsOpenChanged)
 
     muse::Inject<IFontDesignService> fontDesignService = { this };
+    muse::Inject<IFontDesignProjectScenario> projectScenario = { this };
     muse::Inject<IFontDesignConfiguration> configuration = { this };
     muse::Inject<muse::IInteractive> interactive = { this };
     muse::Inject<muse::dock::IDockWindowProvider> dockWindowProvider = { this };
     muse::Inject<muse::mi::IMultiInstancesProvider> multiInstancesProvider = { this };
     muse::Inject<mu::notation::INotationConfiguration> notationConfiguration = { this };
     muse::Inject<mu::notation::IEngravingFontsScanner> fontsScanner = { this };
+    muse::Inject<mu::engraving::IEngravingFontsProvider> engravingFonts = { this };
 
 public:
     explicit FontDesignPageModel(QObject* parent = nullptr);
@@ -95,8 +99,6 @@ private:
     void listenDocksOpenStatus();
     bool isDockOpen(const QString& dockName) const;
     void toggleDock(const QString& dockName);
-    //! 若当前项目脏：Save/DontSave/Cancel；返回 false 表示用户取消
-    bool confirmDiscardOrSave();
 
     const FontDesignProject* m_attachedProject = nullptr;
 };

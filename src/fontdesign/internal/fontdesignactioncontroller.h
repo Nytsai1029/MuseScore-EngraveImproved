@@ -27,6 +27,7 @@
 #include "async/asyncable.h"
 #include "iinteractive.h"
 
+#include "../ifontdesignprojectscenario.h"
 #include "../ifontdesignservice.h"
 #include "project/glyphoutline.h"
 
@@ -41,6 +42,7 @@ class FontDesignActionController : public muse::actions::Actionable, public muse
     INJECT(muse::actions::IActionsDispatcher, dispatcher)
     INJECT(muse::IInteractive, interactive)
     INJECT(IFontDesignService, fontDesignService)
+    INJECT(IFontDesignProjectScenario, projectScenario)
 
 public:
     FontDesignActionController() = default;

@@ -21,8 +21,12 @@
  */
 #include <gtest/gtest.h>
 
+#include <clocale>
 #include <cmath>
+#include <cstdio>
+#include <set>
 
+#include <QFile>
 #include <QTemporaryDir>
 
 #include "serialization/json.h"
@@ -292,4 +296,248 @@ TEST_F(FontDesign_MetadataRoundTripTests, MixedAndPassthroughAnchorsMergeNoDupli
     // 结构化锚点与透传锚点都须存在（若重复键把二者互相覆盖，此断言会失败）
     EXPECT_TRUE(merged.contains("customVendorAnchor")) << "passthrough anchor lost";
     EXPECT_GE(merged.keys().size(), 2u) << "structured anchors clobbered by duplicate key";
+}
+
+namespace {
+JsonObject readJsonFile(const io::path_t& path)
+{
+    QFile file(path.toQString());
+    EXPECT_TRUE(file.open(QIODevice::ReadOnly)) << path.toStdString();
+    const QByteArray data = file.readAll();
+    return parseJson(std::string(data.constData(), static_cast<size_t>(data.size())));
+}
+
+JsonObject sectionOf(const JsonObject& root, const std::string& key)
+{
+    JsonValue val = root.value(key);
+    return val.isObject() ? val.toObject() : JsonObject();
+}
+
+//! 文本的 glyphsWithAnchors 段里 "<glyphKey>": { … } 这个对象中 anchorName 出现的次数。
+//! 锚点对象里只有数组、没有嵌套对象，第一个 '}' 即对象结尾。
+//! （解析后再数没用：重复键在解析时后者静默覆盖前者）
+int anchorOccurrences(const std::string& text, const std::string& glyphKey, const std::string& anchorName)
+{
+    const size_t section = text.find("\"glyphsWithAnchors\": {");
+    if (section == std::string::npos) {
+        return -1;
+    }
+    const size_t start = text.find("\"" + glyphKey + "\": {", section + 1);
+    if (start == std::string::npos) {
+        return -1;
+    }
+    const size_t end = text.find('}', start);
+    const std::string needle = "\"" + anchorName + "\"";
+
+    int count = 0;
+    size_t pos = text.find(needle, start);
+    while (pos != std::string::npos && pos < end) {
+        ++count;
+        pos = text.find(needle, pos + 1);
+    }
+    return count;
+}
+}
+
+//! 「读入→保存」不得丢条目。曾经只给 glyphnames / optionalGlyphs 里有名字的字形写 bbox：
+//! Leland 丢 49 条、MuseJazz 15 条、Gootville 90 条（名字只在 ligatures / alternates
+//! 里声明，或只是字体自带的字形名）。
+TEST_F(FontDesign_MetadataRoundTripTests, LoadWriteKeepsEveryGlyphEntry)
+{
+    const std::vector<std::pair<io::path_t, io::path_t> > fonts = {
+        { lelandFontPath(), lelandMetadataPath() },
+        { bravuraFontPath(), bravuraMetadataPath() },
+        { fontsRoot() + "/musejazz/MuseJazz.otf", fontsRoot() + "/musejazz/metadata.json" },
+        { fontsRoot() + "/gootville/Gootville.otf", fontsRoot() + "/gootville/metadata.json" },
+    };
+
+    for (const auto& font : fonts) {
+        SCOPED_TRACE(font.second.toStdString());
+
+        FontDesignProject project;
+        ASSERT_TRUE(project.load(font.first, font.second, m_db));
+
+        const JsonObject source = readJsonFile(font.second);
+        const JsonObject written = parseJson(MetadataWriter::toJsonText(project));
+
+        for (const char* section : { "glyphBBoxes", "glyphAdvanceWidths", "glyphsWithAnchors" }) {
+            const JsonObject before = sectionOf(source, section);
+            const JsonObject after = sectionOf(written, section);
+            for (const std::string& name : before.keys()) {
+                EXPECT_TRUE(after.contains(name)) << section << " lost " << name;
+            }
+        }
+
+        // 锚点条目内部的每个锚点名也都在
+        const JsonObject anchorsBefore = sectionOf(source, "glyphsWithAnchors");
+        const JsonObject anchorsAfter = sectionOf(written, "glyphsWithAnchors");
+        for (const std::string& name : anchorsBefore.keys()) {
+            if (!anchorsBefore.value(name).isObject() || !anchorsAfter.value(name).isObject()) {
+                continue;
+            }
+            const JsonObject after = anchorsAfter.value(name).toObject();
+            for (const std::string& anchor : anchorsBefore.value(name).toObject().keys()) {
+                EXPECT_TRUE(after.contains(anchor)) << name << " lost anchor " << anchor;
+            }
+        }
+    }
+}
+
+//! 对不上字形的 bbox 条目原样带回，数值不变
+TEST_F(FontDesign_MetadataRoundTripTests, UnmatchedBBoxValuesAreUnchanged)
+{
+    FontDesignProject project;
+    ASSERT_TRUE(project.load(lelandFontPath(), lelandMetadataPath(), m_db));
+
+    std::set<std::string> glyphNames;
+    for (const auto& pair : project.glyphs()) {
+        glyphNames.insert(pair.second.smuflName);
+    }
+
+    const JsonObject before = sectionOf(readJsonFile(lelandMetadataPath()), "glyphBBoxes");
+    const JsonObject after = sectionOf(parseJson(MetadataWriter::toJsonText(project)), "glyphBBoxes");
+
+    int unmatched = 0;
+    for (const std::string& name : before.keys()) {
+        if (glyphNames.count(name) > 0) {
+            continue;
+        }
+        ++unmatched;
+        ASSERT_TRUE(after.value(name).isObject()) << name;
+        for (const char* corner : { "bBoxNE", "bBoxSW" }) {
+            JsonArray a = before.value(name).toObject().value(corner).toArray();
+            JsonArray b = after.value(name).toObject().value(corner).toArray();
+            ASSERT_EQ(a.size(), 2u);
+            ASSERT_EQ(b.size(), 2u);
+            EXPECT_TRUE(nearlyEqual(a.at(0).toDouble(), b.at(0).toDouble())) << name;
+            EXPECT_TRUE(nearlyEqual(a.at(1).toDouble(), b.at(1).toDouble())) << name;
+        }
+    }
+    EXPECT_GT(unmatched, 0) << "Leland is expected to have bbox entries no glyph name resolves to";
+}
+
+//! 无名字形的锚点以 uniXXXX 为键写出；读回时必须重新挂到字形上，
+//! 再次编辑后同一对象里不得出现重复键
+TEST_F(FontDesign_MetadataRoundTripTests, AnchorOnUnnamedGlyphReattachesAfterReload)
+{
+    FontDesignProject project;
+    ASSERT_TRUE(project.load(lelandFontPath(), lelandMetadataPath(), m_db));
+
+    char32_t code = 0;
+    for (const auto& pair : project.glyphs()) {
+        if (pair.second.smuflName.empty() && pair.second.anchors.empty() && !pair.second.outline.isEmpty()) {
+            code = pair.first;
+            break;
+        }
+    }
+    ASSERT_NE(code, 0u) << "Leland is expected to contain an unnamed glyph";
+
+    project.undoStack().push(std::make_unique<SetAnchorCommand>(&project, code, AnchorId::stemUpSE,
+                                                                PointF(1.25, -0.5)));
+
+    QTemporaryDir dir;
+    ASSERT_TRUE(dir.isValid());
+    const io::path_t tempPath = io::path_t(dir.path().toStdString()) + "/leland_roundtrip.json";
+    ASSERT_TRUE(MetadataWriter::write(project, tempPath));
+
+    FontDesignProject reloaded;
+    ASSERT_TRUE(reloaded.load(lelandFontPath(), tempPath, m_db));
+    const GlyphItem* glyph = reloaded.glyph(code);
+    ASSERT_NE(glyph, nullptr);
+    ASSERT_TRUE(glyph->anchors.count(AnchorId::stemUpSE)) << "anchor detached from its glyph after reload";
+    EXPECT_TRUE(nearlyEqual(glyph->anchors.at(AnchorId::stemUpSE).x(), 1.25));
+    EXPECT_TRUE(nearlyEqual(glyph->anchors.at(AnchorId::stemUpSE).y(), -0.5));
+
+    reloaded.undoStack().push(std::make_unique<SetAnchorCommand>(&reloaded, code, AnchorId::stemUpSE,
+                                                                 PointF(2.0, 0.0)));
+
+    char key[16];
+    std::snprintf(key, sizeof(key), "uni%04X", static_cast<unsigned>(code));
+    EXPECT_EQ(anchorOccurrences(MetadataWriter::toJsonText(reloaded), key, "stemUpSE"), 1);
+}
+
+//! 整条透传的锚点对象（读入时字体里还没有这个字形）与结构化锚点同名时，只写结构化的那个
+TEST_F(FontDesign_MetadataRoundTripTests, PassthroughAnchorNeverDuplicatesStructuredKey)
+{
+    FontDesignProject project;
+    ASSERT_TRUE(project.load(lelandFontPath(), lelandMetadataPath(), m_db));
+
+    std::string sampleName;
+    std::string anchorName;
+    for (const auto& pair : project.glyphs()) {
+        if (!pair.second.anchors.empty() && !pair.second.smuflName.empty()) {
+            sampleName = pair.second.smuflName;
+            anchorName = anchorNameById(pair.second.anchors.begin()->first);
+            break;
+        }
+    }
+    ASSERT_FALSE(sampleName.empty());
+
+    JsonArray coord;
+    coord.append(9.0);
+    coord.append(9.0);
+    JsonObject inner;
+    inner.set(anchorName, coord);
+    inner.set("customVendorAnchor", coord);
+    JsonObject passthrough;
+    passthrough.set(sampleName, inner);
+    project.metadata().passthroughAnchors = passthrough;
+
+    const std::string text = MetadataWriter::toJsonText(project);
+    EXPECT_EQ(anchorOccurrences(text, sampleName, anchorName), 1);
+    EXPECT_EQ(anchorOccurrences(text, sampleName, "customVendorAnchor"), 1);
+}
+
+//! 小数点为逗号的 locale 下，snprintf("%f") 会写出 "0,25" —— 非法 JSON
+TEST_F(FontDesign_MetadataRoundTripTests, JsonDoesNotDependOnNumericLocale)
+{
+    FontDesignProject project;
+    ASSERT_TRUE(project.load(lelandFontPath(), lelandMetadataPath(), m_db));
+
+    const std::string reference = MetadataWriter::toJsonText(project);
+
+    const std::string previous = std::setlocale(LC_NUMERIC, nullptr);
+    if (!std::setlocale(LC_NUMERIC, "de_DE.UTF-8")) {
+        GTEST_SKIP() << "de_DE.UTF-8 locale is not available";
+    }
+    const std::string underCommaLocale = MetadataWriter::toJsonText(project);
+    std::setlocale(LC_NUMERIC, previous.c_str());
+
+    EXPECT_EQ(reference, underCommaLocale);
+}
+
+//! 类型不在预期内的值不解释、不丢弃
+TEST_F(FontDesign_MetadataRoundTripTests, UnexpectedValueTypesPassThrough)
+{
+    QTemporaryDir dir;
+    ASSERT_TRUE(dir.isValid());
+    const io::path_t jsonPath = io::path_t(dir.path().toStdString()) + "/odd.json";
+    {
+        QFile file(jsonPath.toQString());
+        ASSERT_TRUE(file.open(QIODevice::WriteOnly));
+        file.write(R"({
+            "fontName": "Leland",
+            "fontVersion": 1.5,
+            "engravingDefaults": { "stemThickness": 0.12, "futureKey": "text value" },
+            "glyphsWithAnchors": {
+                "noteheadBlack": { "stemUpSE": [1.3, 0.16], "cutOutNE": [1.0] },
+                "glyphTheFontDoesNotHave": { "stemUpSE": [1.0, 2.0] }
+            }
+        })");
+    }
+
+    FontDesignProject project;
+    ASSERT_TRUE(project.load(lelandFontPath(), jsonPath, m_db));
+
+    const JsonObject written = parseJson(MetadataWriter::toJsonText(project));
+
+    const JsonObject defaults = sectionOf(written, "engravingDefaults");
+    EXPECT_TRUE(nearlyEqual(defaults.value("stemThickness").toDouble(), 0.12));
+    EXPECT_EQ(defaults.value("futureKey").toStdString(), std::string("text value"));
+
+    const JsonObject anchors = sectionOf(written, "glyphsWithAnchors");
+    ASSERT_TRUE(anchors.value("noteheadBlack").isObject());
+    EXPECT_TRUE(anchors.value("noteheadBlack").toObject().contains("stemUpSE"));
+    EXPECT_TRUE(anchors.value("noteheadBlack").toObject().contains("cutOutNE")) << "malformed anchor dropped";
+    EXPECT_TRUE(anchors.contains("glyphTheFontDoesNotHave")) << "anchors of an absent glyph dropped";
 }

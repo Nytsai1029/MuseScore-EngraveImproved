@@ -26,6 +26,8 @@
 #include <cstdio>
 #include <map>
 
+#include <QByteArray>
+
 #include "../project/fontdesignproject.h"
 
 using namespace mu::fontdesign;
@@ -145,7 +147,6 @@ void encodeNumber(std::vector<uint8_t>& out, double v)
 }
 
 // Type2 operators
-constexpr uint8_t OP_HSTEM = 1;
 constexpr uint8_t OP_VMOVETO = 4;
 constexpr uint8_t OP_RLINETO = 5;
 constexpr uint8_t OP_RRCURVETO = 8;
@@ -159,7 +160,8 @@ std::vector<uint8_t> encodeCharstring(const GlyphOutline& outline, int advance, 
 
     // 宽度前缀：若 advance ≠ defaultWidthX，写 (advance - nominalWidthX)
     if (advance != defaultWidthX) {
-        encodeInt(cs, advance - nominalWidthX);
+        //! encodeNumber：超出 16 位时走 16.16 定点，绝不产生仅 DICT 合法的 5 字节整数（29）
+        encodeNumber(cs, advance - nominalWidthX);
     }
 
     double curX = 0.0;
@@ -264,11 +266,44 @@ void dictOp2(std::vector<uint8_t>& out, uint8_t b0, uint8_t b1)
     appendU8(out, b1);
 }
 
+//! CFF DICT 实数（操作符 30，半字节编码）。
+//! QByteArray::number 恒用 C locale（snprintf 的小数点随 LC_NUMERIC 变化，逗号会被丢掉）。
+void dictReal(std::vector<uint8_t>& out, double v)
+{
+    const QByteArray text = QByteArray::number(v, 'g', 8);
+
+    std::vector<uint8_t> nibbles;
+    for (qsizetype i = 0; i < text.size(); ++i) {
+        const char c = text.at(i);
+        if (c >= '0' && c <= '9') {
+            nibbles.push_back(static_cast<uint8_t>(c - '0'));
+        } else if (c == '.') {
+            nibbles.push_back(0xA);
+        } else if (c == 'e' || c == 'E') {
+            // 0xB = 'E'，0xC = 'E-'；指数的 '+' 省略
+            const char sign = i + 1 < text.size() ? text.at(i + 1) : '\0';
+            nibbles.push_back(sign == '-' ? 0xC : 0xB);
+            if (sign == '-' || sign == '+') {
+                ++i;
+            }
+        } else if (c == '-') {
+            nibbles.push_back(0xE);
+        }
+    }
+    nibbles.push_back(0xF);
+    if (nibbles.size() % 2 != 0) {
+        nibbles.push_back(0xF);
+    }
+
+    appendU8(out, 30);
+    for (size_t i = 0; i < nibbles.size(); i += 2) {
+        appendU8(out, static_cast<uint8_t>((nibbles[i] << 4) | nibbles[i + 1]));
+    }
+}
+
 std::string makeVersionString(double version)
 {
-    char buf[32];
-    std::snprintf(buf, sizeof(buf), "%.3f", version);
-    return buf;
+    return QByteArray::number(version, 'f', 3).toStdString();
 }
 
 std::string glyphNameOf(const CffWriter::GlyphInput& g)
@@ -280,6 +315,23 @@ std::string glyphNameOf(const CffWriter::GlyphInput& g)
     std::snprintf(buf, sizeof(buf), "uni%04X", static_cast<unsigned>(g.codepoint));
     return buf;
 }
+}
+
+std::string CffWriter::postScriptName(const std::string& fontName)
+{
+    std::string out;
+    out.reserve(fontName.size());
+    for (char c : fontName) {
+        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '_' || c == '-') {
+            out.push_back(c);
+        } else if (c == ' ') {
+            out.push_back('-');
+        }
+    }
+    if (out.empty()) {
+        out = "Font";
+    }
+    return out;
 }
 
 CffWriter::Input CffWriter::fromProject(const FontDesignProject& project)
@@ -398,6 +450,11 @@ Ret CffWriter::write(const Input& input, std::vector<uint8_t>& out)
         charsetSids.push_back(sidOf(glyphNameOf(input.glyphs[i])));
     }
 
+    //! SID 为 16 位且上限 64999
+    if (390 + customStrings.size() > 64999) {
+        return make_ret(Ret::Code::UnknownError, std::string("CFF: too many glyph names"));
+    }
+
     // CharStrings
     std::vector<std::vector<uint8_t> > charstrings;
     charstrings.reserve(input.glyphs.size());
@@ -420,16 +477,9 @@ Ret CffWriter::write(const Input& input, std::vector<uint8_t>& out)
     // Charsets | CharStrings INDEX | Private DICT
 
     // Name INDEX
-    std::vector<uint8_t> nameBytes(input.fontName.begin(), input.fontName.end());
-    // PostScript 名：仅允许有限字符
-    for (uint8_t& c : nameBytes) {
-        if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '_' || c == '-')) {
-            c = '-';
-        }
-    }
-    if (nameBytes.empty()) {
-        nameBytes = { 'F', 'o', 'n', 't' };
-    }
+    //! 与 name 表 nameID 6 用同一套清洗规则，两处的 PostScript 名保持一致
+    const std::string psName = postScriptName(input.fontName);
+    const std::vector<uint8_t> nameBytes(psName.begin(), psName.end());
     const std::vector<uint8_t> nameIndex = buildIndex({ nameBytes });
 
     // String INDEX
@@ -451,251 +501,61 @@ Ret CffWriter::write(const Input& input, std::vector<uint8_t>& out)
 
     const std::vector<uint8_t> charStringsIndex = buildIndex(charstrings);
 
-    // 计算各段绝对偏移（相对 CFF 起点）
-    // Header = 4 bytes
-    const size_t headerSize = 4;
-    size_t cursor = headerSize;
-    cursor += nameIndex.size();
-
-    // Top DICT INDEX 大小未知（含偏移操作数）——先构造 Top DICT 内容时用 5 字节整数编码偏移
+    // Top DICT 中的偏移操作数一律用定长 5 字节整数（29），其长度与偏移数值无关：
+    // 先以 0 占位得到 Top DICT INDEX 的长度，再按真实偏移构建一次即可。
     auto encodeOffsetOperand = [](std::vector<uint8_t>& d, uint32_t off) {
-        // 用 5-byte integer (29) 保证宽度固定，便于预留
         appendU8(d, 29);
         appendU32BE(d, off);
     };
 
-    // 预计算 Top DICT 之后的偏移
-    // topDictIndex = 2 + 1 + offSize*(count+1) + topDictData
-    // 我们 count=1，先估算 topDict 数据长度
+    auto buildTopDict = [&](uint32_t charsetOffset, uint32_t charStringsOffset, uint32_t privateOffset) {
+        std::vector<uint8_t> d;
+        dictInt(d, versionSid);
+        dictOp(d, 0); // version
+        dictInt(d, fullNameSid);
+        dictOp(d, 2); // FullName
+        dictInt(d, familySid);
+        dictOp(d, 3); // FamilyName
+        dictInt(d, weightSid);
+        dictOp(d, 4); // Weight
+        dictInt(d, input.fontBBoxXMin);
+        dictInt(d, input.fontBBoxYMin);
+        dictInt(d, input.fontBBoxXMax);
+        dictInt(d, input.fontBBoxYMax);
+        dictOp(d, 5); // FontBBox
+        if (input.upem != 1000) {
+            const double s = 1.0 / static_cast<double>(input.upem);
+            dictReal(d, s);
+            dictReal(d, 0);
+            dictReal(d, 0);
+            dictReal(d, s);
+            dictReal(d, 0);
+            dictReal(d, 0);
+            dictOp2(d, 12, 7); // FontMatrix
+        }
+        encodeOffsetOperand(d, charsetOffset);
+        dictOp(d, 15); // charset
+        encodeOffsetOperand(d, charStringsOffset);
+        dictOp(d, 17); // CharStrings
+        encodeOffsetOperand(d, static_cast<uint32_t>(privateDict.size())); // size
+        encodeOffsetOperand(d, privateOffset);
+        dictOp(d, 18); // Private
+        return d;
+    };
 
-    // 先假设 topDict 数据长度，迭代一次即可（偏移用 5 字节定长）
-    std::vector<uint8_t> topDictData;
-    // version
-    dictInt(topDictData, versionSid);
-    dictOp(topDictData, 0);
-    // FullName
-    dictInt(topDictData, fullNameSid);
-    dictOp(topDictData, 2);
-    // FamilyName
-    dictInt(topDictData, familySid);
-    dictOp(topDictData, 3);
-    // Weight
-    dictInt(topDictData, weightSid);
-    dictOp2(topDictData, 12, 1);
-    // FontBBox
-    dictInt(topDictData, input.fontBBoxXMin);
-    dictInt(topDictData, input.fontBBoxYMin);
-    dictInt(topDictData, input.fontBBoxXMax);
-    dictInt(topDictData, input.fontBBoxYMax);
-    dictOp(topDictData, 5);
-    // FontMatrix if upem != 1000
-    if (input.upem != 1000) {
-        const double s = 1.0 / static_cast<double>(input.upem);
-        // real encoding for matrix is painful; use 16.16 via encodeReal path in dict
-        // CFF real format (30) — 使用简化：写整数近似不精确。改用标准 real nibble。
-        auto appendReal = [](std::vector<uint8_t>& d, double v) {
-            // CFF real: operator 30, nibbles
-            char buf[64];
-            std::snprintf(buf, sizeof(buf), "%.8g", v);
-            std::string s = buf;
-            std::vector<uint8_t> nibbles;
-            for (char c : s) {
-                if (c >= '0' && c <= '9') {
-                    nibbles.push_back(static_cast<uint8_t>(c - '0'));
-                } else if (c == '.') {
-                    nibbles.push_back(0xA);
-                } else if (c == 'E' || c == 'e') {
-                    nibbles.push_back(0xB);
-                } else if (c == '-') {
-                    nibbles.push_back(0xE);
-                } else if (c == '+') {
-                    // skip
-                }
-            }
-            nibbles.push_back(0xF);
-            appendU8(d, 30);
-            for (size_t i = 0; i < nibbles.size(); i += 2) {
-                uint8_t hi = nibbles[i];
-                uint8_t lo = (i + 1 < nibbles.size()) ? nibbles[i + 1] : 0xF;
-                appendU8(d, static_cast<uint8_t>((hi << 4) | lo));
-            }
-        };
-        appendReal(topDictData, s);
-        appendReal(topDictData, 0);
-        appendReal(topDictData, 0);
-        appendReal(topDictData, s);
-        appendReal(topDictData, 0);
-        appendReal(topDictData, 0);
-        dictOp2(topDictData, 12, 7); // FontMatrix
-    }
+    // 各段绝对偏移（相对 CFF 起点）；Header = 4 bytes
+    const size_t headerSize = 4;
+    const size_t topDictIndexSize = buildIndex({ buildTopDict(0, 0, 0) }).size();
 
-    // charset offset, CharStrings offset, Private size/offset — 先写占位再回填
-    const size_t charsetOpPos = topDictData.size();
-    encodeOffsetOperand(topDictData, 0);
-    dictOp(topDictData, 15); // charset
-
-    const size_t charStringsOpPos = topDictData.size();
-    encodeOffsetOperand(topDictData, 0);
-    dictOp(topDictData, 17); // CharStrings
-
-    const size_t privateOpPos = topDictData.size();
-    encodeOffsetOperand(topDictData, static_cast<uint32_t>(privateDict.size())); // size
-    encodeOffsetOperand(topDictData, 0); // offset
-    dictOp(topDictData, 18); // Private
-
-    const std::vector<uint8_t> topDictIndex = buildIndex({ topDictData });
-
-    // 绝对偏移
-    size_t pos = headerSize;
-    pos += nameIndex.size();
-    pos += topDictIndex.size();
-    pos += stringIndex.size();
-    pos += globalSubrIndex.size();
+    size_t pos = headerSize + nameIndex.size() + topDictIndexSize + stringIndex.size() + globalSubrIndex.size();
     const uint32_t charsetOffset = static_cast<uint32_t>(pos);
     pos += charset.size();
     const uint32_t charStringsOffset = static_cast<uint32_t>(pos);
     pos += charStringsIndex.size();
     const uint32_t privateOffset = static_cast<uint32_t>(pos);
 
-    // 回填 topDictData 中的偏移（在 INDEX 数据区内）
-    // topDict 在 topDictIndex 内的数据起点：
-    // 2 (count) + 1 (offSize) + offSize*2 (offsets for count=1) 
-    auto patchU32 = [](std::vector<uint8_t>& buf, size_t at, uint32_t v) {
-        // at 指向 op 29 之后的 4 字节
-        buf[at + 0] = static_cast<uint8_t>((v >> 24) & 0xFF);
-        buf[at + 1] = static_cast<uint8_t>((v >> 16) & 0xFF);
-        buf[at + 2] = static_cast<uint8_t>((v >> 8) & 0xFF);
-        buf[at + 3] = static_cast<uint8_t>(v & 0xFF);
-    };
-
-    // 重建 topDict 带正确偏移
-    topDictData.clear();
-    dictInt(topDictData, versionSid);
-    dictOp(topDictData, 0);
-    dictInt(topDictData, fullNameSid);
-    dictOp(topDictData, 2);
-    dictInt(topDictData, familySid);
-    dictOp(topDictData, 3);
-    dictInt(topDictData, weightSid);
-    dictOp2(topDictData, 12, 1);
-    dictInt(topDictData, input.fontBBoxXMin);
-    dictInt(topDictData, input.fontBBoxYMin);
-    dictInt(topDictData, input.fontBBoxXMax);
-    dictInt(topDictData, input.fontBBoxYMax);
-    dictOp(topDictData, 5);
-    if (input.upem != 1000) {
-        const double s = 1.0 / static_cast<double>(input.upem);
-        auto appendReal = [](std::vector<uint8_t>& d, double v) {
-            char buf[64];
-            std::snprintf(buf, sizeof(buf), "%.8g", v);
-            std::string str = buf;
-            std::vector<uint8_t> nibbles;
-            for (char c : str) {
-                if (c >= '0' && c <= '9') {
-                    nibbles.push_back(static_cast<uint8_t>(c - '0'));
-                } else if (c == '.') {
-                    nibbles.push_back(0xA);
-                } else if (c == 'E' || c == 'e') {
-                    nibbles.push_back(0xB);
-                } else if (c == '-') {
-                    nibbles.push_back(0xE);
-                }
-            }
-            nibbles.push_back(0xF);
-            appendU8(d, 30);
-            for (size_t i = 0; i < nibbles.size(); i += 2) {
-                uint8_t hi = nibbles[i];
-                uint8_t lo = (i + 1 < nibbles.size()) ? nibbles[i + 1] : 0xF;
-                appendU8(d, static_cast<uint8_t>((hi << 4) | lo));
-            }
-        };
-        appendReal(topDictData, s);
-        appendReal(topDictData, 0);
-        appendReal(topDictData, 0);
-        appendReal(topDictData, s);
-        appendReal(topDictData, 0);
-        appendReal(topDictData, 0);
-        dictOp2(topDictData, 12, 7);
-    }
-    encodeOffsetOperand(topDictData, charsetOffset);
-    dictOp(topDictData, 15);
-    encodeOffsetOperand(topDictData, charStringsOffset);
-    dictOp(topDictData, 17);
-    encodeOffsetOperand(topDictData, static_cast<uint32_t>(privateDict.size()));
-    encodeOffsetOperand(topDictData, privateOffset);
-    dictOp(topDictData, 18);
-
-    const std::vector<uint8_t> topDictIndexFinal = buildIndex({ topDictData });
-
-    // 若 topDict 长度变化导致后续偏移变化，需重算——因我们用绝对偏移且 topDict 在 charset 之前，
-    // topDict 变长会平移 charset 等。重新计算偏移。
-    pos = headerSize + nameIndex.size() + topDictIndexFinal.size() + stringIndex.size() + globalSubrIndex.size();
-    const uint32_t charsetOffset2 = static_cast<uint32_t>(pos);
-    pos += charset.size();
-    const uint32_t charStringsOffset2 = static_cast<uint32_t>(pos);
-    pos += charStringsIndex.size();
-    const uint32_t privateOffset2 = static_cast<uint32_t>(pos);
-
-    // 第三次写 topDict（偏移已稳定：topDict 自身长度与 charsetOffset 无关的部分固定，
-    // 但 encodeOffsetOperand 定长 5 字节，topDict 长度在 charset 偏移写入前后不变！）
-    // 第一次估算与第二次 topDict 结构相同（仅偏移数值不同），长度相同 → 偏移稳定。
-    topDictData.clear();
-    dictInt(topDictData, versionSid);
-    dictOp(topDictData, 0);
-    dictInt(topDictData, fullNameSid);
-    dictOp(topDictData, 2);
-    dictInt(topDictData, familySid);
-    dictOp(topDictData, 3);
-    dictInt(topDictData, weightSid);
-    dictOp2(topDictData, 12, 1);
-    dictInt(topDictData, input.fontBBoxXMin);
-    dictInt(topDictData, input.fontBBoxYMin);
-    dictInt(topDictData, input.fontBBoxXMax);
-    dictInt(topDictData, input.fontBBoxYMax);
-    dictOp(topDictData, 5);
-    if (input.upem != 1000) {
-        const double s = 1.0 / static_cast<double>(input.upem);
-        auto appendReal = [](std::vector<uint8_t>& d, double v) {
-            char buf[64];
-            std::snprintf(buf, sizeof(buf), "%.8g", v);
-            std::string str = buf;
-            std::vector<uint8_t> nibbles;
-            for (char c : str) {
-                if (c >= '0' && c <= '9') {
-                    nibbles.push_back(static_cast<uint8_t>(c - '0'));
-                } else if (c == '.') {
-                    nibbles.push_back(0xA);
-                } else if (c == 'E' || c == 'e') {
-                    nibbles.push_back(0xB);
-                } else if (c == '-') {
-                    nibbles.push_back(0xE);
-                }
-            }
-            nibbles.push_back(0xF);
-            appendU8(d, 30);
-            for (size_t i = 0; i < nibbles.size(); i += 2) {
-                uint8_t hi = nibbles[i];
-                uint8_t lo = (i + 1 < nibbles.size()) ? nibbles[i + 1] : 0xF;
-                appendU8(d, static_cast<uint8_t>((hi << 4) | lo));
-            }
-        };
-        appendReal(topDictData, s);
-        appendReal(topDictData, 0);
-        appendReal(topDictData, 0);
-        appendReal(topDictData, s);
-        appendReal(topDictData, 0);
-        appendReal(topDictData, 0);
-        dictOp2(topDictData, 12, 7);
-    }
-    encodeOffsetOperand(topDictData, charsetOffset2);
-    dictOp(topDictData, 15);
-    encodeOffsetOperand(topDictData, charStringsOffset2);
-    dictOp(topDictData, 17);
-    encodeOffsetOperand(topDictData, static_cast<uint32_t>(privateDict.size()));
-    encodeOffsetOperand(topDictData, privateOffset2);
-    dictOp(topDictData, 18);
-
-    const std::vector<uint8_t> topDictIndexOk = buildIndex({ topDictData });
+    const std::vector<uint8_t> topDictIndexOk
+        = buildIndex({ buildTopDict(charsetOffset, charStringsOffset, privateOffset) });
 
     // 组装
     out.reserve(headerSize + nameIndex.size() + topDictIndexOk.size() + stringIndex.size()
@@ -714,12 +574,6 @@ Ret CffWriter::write(const Input& input, std::vector<uint8_t>& out)
     out.insert(out.end(), charset.begin(), charset.end());
     out.insert(out.end(), charStringsIndex.begin(), charStringsIndex.end());
     out.insert(out.end(), privateDict.begin(), privateDict.end());
-
-    (void)charsetOpPos;
-    (void)charStringsOpPos;
-    (void)privateOpPos;
-    (void)patchU32;
-    (void)OP_HSTEM;
 
     return make_ok();
 }

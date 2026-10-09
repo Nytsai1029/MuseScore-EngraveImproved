@@ -50,6 +50,12 @@ Ret FontDesignProject::load(const io::path_t& fontPath, const io::path_t& metada
     m_sourceFsType = faceData.fsType;
     m_sourceLegalNameRecords = std::move(faceData.legalNameRecords);
 
+    //! 本模块自己写出的字体可以无损地再写一遍；外来字体首次被覆盖前要留备份
+    m_backupBeforeOverwrite = faceData.vendorId != FontFaceReader::VENDOR_ID;
+
+    MetadataReader::FontGlyphIndex fontIndex;
+    std::map<char32_t, std::string> fontGlyphNames;
+
     m_glyphs.clear();
     for (FontFaceReader::FaceGlyph& faceGlyph : faceData.glyphs) {
         GlyphItem item;
@@ -61,22 +67,41 @@ Ret FontDesignProject::load(const io::path_t& fontPath, const io::path_t& metada
             item.smuflName = info->name;
         }
 
+        fontIndex.codepoints.insert(faceGlyph.codepoint);
+        if (!faceGlyph.name.empty()) {
+            fontIndex.codepointByName.emplace(faceGlyph.name, faceGlyph.codepoint);
+            fontGlyphNames.emplace(faceGlyph.codepoint, std::move(faceGlyph.name));
+        }
+
         m_glyphs.emplace(item.codepoint, std::move(item));
     }
 
     if (!metadataPath.empty()) {
-        FontMetadata metadata;
-        std::map<char32_t, std::map<AnchorId, PointF>> anchorsByCode;
-        Ret metaRet = MetadataReader::read(metadataPath, db, metadata, anchorsByCode);
+        MetadataReader::Output metaOut;
+        Ret metaRet = MetadataReader::read(metadataPath, db, fontIndex, metaOut);
         if (metaRet) {
             m_metadataPath = metadataPath;
-            m_metadata = std::move(metadata);
+            m_metadata = std::move(metaOut.metadata);
+            const std::map<char32_t, std::map<AnchorId, PointF>>& anchorsByCode = metaOut.anchorsByCode;
 
             // 可选字形（元数据声明的名字）也回填到字形项
             for (const auto& pair : m_metadata.optionalGlyphs) {
                 auto it = m_glyphs.find(pair.second.codepoint);
                 if (it != m_glyphs.end() && it->second.smuflName.empty()) {
                     it->second.smuflName = pair.first;
+                }
+            }
+
+            //! 仍无名的字形：字体自带的字形名若被元数据用作键（Gootville 的 "u0266D"、
+            //! MuseJazz 的 "cClefFrench"…），沿用它——否则这些条目对不上字形，
+            //! bbox/advance 不会随轮廓更新，锚点也不可见
+            for (auto& pair : m_glyphs) {
+                if (!pair.second.smuflName.empty()) {
+                    continue;
+                }
+                auto nameIt = fontGlyphNames.find(pair.first);
+                if (nameIt != fontGlyphNames.end() && metaOut.glyphKeys.count(nameIt->second) > 0) {
+                    pair.second.smuflName = nameIt->second;
                 }
             }
 
@@ -131,6 +156,7 @@ Ret FontDesignProject::createNew(const NewFontParams& params, const SmuflDatabas
 
     m_currentGlyph = 0;
     m_neverSaved = true;    // 文件尚未写盘：关闭前提示保存
+    m_backupBeforeOverwrite = false;
 
     return make_ok();
 }

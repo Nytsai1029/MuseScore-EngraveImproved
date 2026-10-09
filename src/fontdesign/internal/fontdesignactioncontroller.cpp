@@ -30,8 +30,6 @@
 #include <QJsonObject>
 #include <QMimeData>
 
-#include "translation.h"
-
 #include "../ifontdesigneditsurface.h"
 #include "project/projectcommands.h"
 
@@ -156,57 +154,18 @@ void FontDesignActionController::redo()
 
 void FontDesignActionController::save()
 {
-    if (!fontDesignService()->hasCurrentProject()) {
-        return;
-    }
-
-    std::vector<std::string> warnings;
-    Ret ret = fontDesignService()->saveProject(warnings);
-    if (!ret) {
-        interactive()->error(trc("fontdesign", "Unable to save font"), ret.text());
-        return;
-    }
-
-    if (!warnings.empty()) {
-        std::string detail;
-        for (const std::string& w : warnings) {
-            if (!detail.empty()) {
-                detail += "\n";
-            }
-            detail += "• ";
-            detail += w;
-        }
-        interactive()->warning(trc("fontdesign", "Font saved with warnings"), detail);
-    }
+    projectScenario()->saveCurrentProject();
 }
 
 void FontDesignActionController::close()
 {
-    FontDesignProjectPtr p = project();
-    if (!p) {
+    if (!project()) {
         return;
     }
 
-    if (p->isDirty()) {
-        IInteractive::Result res = interactive()->questionSync(
-            trc("fontdesign", "Close font"),
-            trc("fontdesign", "Do you want to save changes before closing?"),
-            { interactive()->buttonData(IInteractive::Button::Save),
-              interactive()->buttonData(IInteractive::Button::DontSave),
-              interactive()->buttonData(IInteractive::Button::Cancel) });
-
-        if (res.standardButton() == IInteractive::Button::Cancel) {
-            return;
-        }
-
-        if (res.standardButton() == IInteractive::Button::Save) {
-            std::vector<std::string> warnings;
-            Ret ret = fontDesignService()->saveProject(warnings);
-            if (!ret) {
-                interactive()->error(trc("fontdesign", "Unable to save font"), ret.text());
-                return;
-            }
-        }
+    //! 有未保存修改：保存 / 不保存 / 取消（取消或保存失败则不关闭）
+    if (!projectScenario()->confirmDiscardOrSave()) {
+        return;
     }
 
     fontDesignService()->closeProject();

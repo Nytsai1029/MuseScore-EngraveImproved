@@ -24,10 +24,13 @@
 #include <cmath>
 #include <cstdio>
 
-#include <QFile>
+#include <QByteArray>
+#include <QSaveFile>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
+
+#include "translation.h"
 
 #include "cffwriter.h"
 #include "sfntwriter.h"
@@ -40,21 +43,75 @@ using namespace mu::fontdesign;
 using namespace muse;
 
 namespace {
-std::string sanitizePsName(const std::string& name)
+//! 导出格式的数值上限：超出时各表里的 16 位字段会回绕，写出的是坏字体，必须拒绝导出。
+constexpr int MIN_UPEM = 16;
+constexpr int MAX_UPEM = 16384;
+constexpr size_t MAX_GLYPHS = 64000;        // CFF SID ≤ 64999，sfnt 字形索引 16 位
+constexpr int MAX_ADVANCE = 32767;          // Type2 charstring 数值为 16.16 定点
+constexpr double MAX_COORD = 32767.0;       // head/CFF FontBBox 为 int16
+
+QString glyphLabel(const CffWriter::GlyphInput& glyph)
 {
-    std::string out;
-    out.reserve(name.size());
-    for (char c : name) {
-        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '_' || c == '-') {
-            out.push_back(c);
-        } else if (c == ' ') {
-            out.push_back('-');
+    return QStringLiteral("U+%1 %2")
+           .arg(QString::number(static_cast<uint>(glyph.codepoint), 16).toUpper().rightJustified(4, u'0'),
+                QString::fromStdString(glyph.name));
+}
+
+//! 按 charstring 的写法走一遍轮廓：绝对坐标要落在 int16 内，
+//! 相邻点的相对位移（charstring 写的是位移）也要落在 16.16 定点范围内
+bool outlineEncodable(const GlyphOutline& outline)
+{
+    auto fits = [](double v) {
+        return std::isfinite(v) && std::abs(v) <= MAX_COORD;
+    };
+
+    double curX = 0.0;
+    double curY = 0.0;
+    for (const GlyphOutline::Contour& contour : outline.contours()) {
+        const auto& pts = contour.points;
+        if (pts.size() < 2) {
+            continue;
+        }
+        for (size_t i = 0; i <= pts.size(); ++i) {
+            const muse::PointF& p = pts[i % pts.size()].pos;     // 末尾回到起点（闭合）
+            if (!fits(p.x()) || !fits(p.y()) || !fits(p.x() - curX) || !fits(p.y() - curY)) {
+                return false;
+            }
+            curX = p.x();
+            curY = p.y();
         }
     }
-    if (out.empty()) {
-        out = "Font";
+    return true;
+}
+
+Ret checkExportLimits(const CffWriter::Input& input)
+{
+    if (input.upem < MIN_UPEM || input.upem > MAX_UPEM) {
+        return make_ret(Ret::Code::UnknownError,
+                        qtrc("fontdesign", "Units per em must be between %1 and %2.")
+                        .arg(MIN_UPEM).arg(MAX_UPEM).toStdString());
     }
-    return out;
+
+    if (input.glyphs.size() > MAX_GLYPHS) {
+        return make_ret(Ret::Code::UnknownError,
+                        qtrc("fontdesign", "The font has too many glyphs to export (%1; the limit is %2).")
+                        .arg(input.glyphs.size()).arg(MAX_GLYPHS).toStdString());
+    }
+
+    for (const CffWriter::GlyphInput& glyph : input.glyphs) {
+        if (glyph.advance < 0 || glyph.advance > MAX_ADVANCE) {
+            return make_ret(Ret::Code::UnknownError,
+                            qtrc("fontdesign", "Glyph %1 has an advance width outside the supported range (0 to %2 font units).")
+                            .arg(glyphLabel(glyph)).arg(MAX_ADVANCE).toStdString());
+        }
+        if (!outlineEncodable(glyph.outline)) {
+            return make_ret(Ret::Code::UnknownError,
+                            qtrc("fontdesign", "Glyph %1 has outline coordinates outside the supported range (±%2 font units).")
+                            .arg(glyphLabel(glyph)).arg(static_cast<int>(MAX_COORD)).toStdString());
+        }
+    }
+
+    return make_ok();
 }
 }
 
@@ -67,6 +124,11 @@ Ret FontExporter::buildFontBytes(const FontDesignProject& project, std::vector<u
     CffWriter::Input cffIn = CffWriter::fromProject(project);
     if (cffIn.glyphs.empty()) {
         return make_ret(Ret::Code::UnknownError, std::string("no glyphs to export"));
+    }
+
+    Ret limitsRet = checkExportLimits(cffIn);
+    if (!limitsRet) {
+        return limitsRet;
     }
 
     // 保证 glyph 0 = .notdef（空白新建字体可能一个字形都没有）
@@ -99,10 +161,9 @@ Ret FontExporter::buildFontBytes(const FontDesignProject& project, std::vector<u
     sfntIn.names.family = family;
     sfntIn.names.subfamily = "Regular";
     sfntIn.names.fullName = family;
-    sfntIn.names.postScriptName = sanitizePsName(family);
-    char verBuf[64];
-    std::snprintf(verBuf, sizeof(verBuf), "Version %.3f", cffIn.fontVersion);
-    sfntIn.names.version = verBuf;
+    sfntIn.names.postScriptName = CffWriter::postScriptName(family);
+    //! QByteArray::number 恒用 C locale（snprintf 的小数点随 LC_NUMERIC 变化）
+    sfntIn.names.version = "Version " + QByteArray::number(cffIn.fontVersion, 'f', 3).toStdString();
     // 保留源字体的版权/许可证/署名记录（OFL 要求派生字体保留）
     sfntIn.names.legalRecords = project.sourceLegalNameRecords();
 
@@ -159,11 +220,15 @@ Ret FontExporter::buildFontBytes(const FontDesignProject& project, std::vector<u
         return make_ret(Ret::Code::UnknownError, rep.message);
     }
 
+    //! 字形数对不上 = 字形表结构已坏，不是可以带着告警写盘的问题
     if (static_cast<int>(face->num_glyphs) != rep.numGlyphs) {
-        char buf[128];
-        std::snprintf(buf, sizeof(buf), "glyph count mismatch: exported %d, FT %ld",
-                      rep.numGlyphs, static_cast<long>(face->num_glyphs));
-        rep.warnings.push_back(buf);
+        LOGE() << "FontExporter: glyph count mismatch: exported " << rep.numGlyphs
+               << ", FreeType reads " << static_cast<long>(face->num_glyphs);
+        FT_Done_Face(face);
+        FT_Done_FreeType(library);
+        rep.ok = false;
+        rep.message = trc("fontdesign", "The exported font failed validation (glyph count mismatch).");
+        return make_ret(Ret::Code::UnknownError, rep.message);
     }
 
     if (face->units_per_EM != cffIn.upem) {
@@ -233,17 +298,28 @@ Ret FontExporter::exportFont(const FontDesignProject& project, const io::path_t&
         return ret;
     }
 
-    QFile file(path.toQString());
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+    return writeFontBytes(bytes, path);
+}
+
+Ret FontExporter::writeFontBytes(const std::vector<uint8_t>& bytes, const io::path_t& path)
+{
+    //! QSaveFile：先写临时文件，commit 时原子替换。写失败不会留下截断的字体，
+    //! 已被本进程按路径注册/映射的旧文件也不会被原地改写。
+    QSaveFile file(path.toQString());
+    if (!file.open(QIODevice::WriteOnly)) {
         return make_ret(Ret::Code::UnknownError, std::string("cannot write font: ") + path.toStdString());
     }
 
     if (file.write(reinterpret_cast<const char*>(bytes.data()), static_cast<qint64>(bytes.size()))
         != static_cast<qint64>(bytes.size())) {
-        return make_ret(Ret::Code::UnknownError, std::string("short write exporting font"));
+        file.cancelWriting();
+        return make_ret(Ret::Code::UnknownError, std::string("short write exporting font: ") + path.toStdString());
     }
 
-    file.close();
+    if (!file.commit()) {
+        return make_ret(Ret::Code::UnknownError, std::string("cannot write font: ") + path.toStdString());
+    }
+
     LOGI() << "font exported: " << path << " (" << bytes.size() << " bytes)";
     return make_ok();
 }

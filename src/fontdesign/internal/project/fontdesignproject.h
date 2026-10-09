@@ -94,7 +94,13 @@ public:
 
     //! 新建项目在首次保存前始终视为脏（文件尚不存在于磁盘）
     bool isDirty() const { return m_neverSaved || !m_undoStack.isClean(); }
+    bool neverSaved() const { return m_neverSaved; }
     void setNeverSaved(bool neverSaved) { m_neverSaved = neverSaved; }
+
+    //! 打开的是外来字体（非本模块写出）且尚未保存过：保存是按轮廓重建整个字体，
+    //! 首次覆盖前须把原文件留作备份
+    bool backupBeforeOverwrite() const { return m_backupBeforeOverwrite; }
+    void setBackupBeforeOverwrite(bool backup) { m_backupBeforeOverwrite = backup; }
 
     //! 任意数据修改后的粗粒度通知（advance/锚点/轮廓/元数据；检查器与画布刷新用）
     muse::async::Notification& changed() { return m_changed; }
@@ -114,6 +120,7 @@ private:
 
     const SmuflDatabase* m_smuflDb = nullptr;
     bool m_neverSaved = false;
+    bool m_backupBeforeOverwrite = false;
 
     std::map<char32_t, GlyphItem> m_glyphs;
     FontMetadata m_metadata;

@@ -21,14 +21,12 @@
  */
 #include "fontdesignservice.h"
 
-#include <QDir>
 #include <QFile>
 #include <QFileInfo>
 
-#include "io/fileinfo.h"
-
 #include "io/fontexporter.h"
 #include "io/metadatawriter.h"
+#include "io/projectfiles.h"
 
 #include "log.h"
 
@@ -41,7 +39,7 @@ Ret FontDesignService::openProject(const io::path_t& fontPath)
         m_smuflDb.init();
     }
 
-    io::path_t metadataPath = findMetadataFor(fontPath);
+    io::path_t metadataPath = ProjectFiles::findMetadataFor(fontPath);
 
     FontDesignProjectPtr project = std::make_shared<FontDesignProject>();
     Ret ret = project->load(fontPath, metadataPath, m_smuflDb);
@@ -76,43 +74,66 @@ Ret FontDesignService::newProject(const NewFontParams& params)
     return make_ok();
 }
 
-Ret FontDesignService::saveProject(std::vector<std::string>& warnings)
+Ret FontDesignService::saveTargets(SaveTargets& targets) const
 {
-    warnings.clear();
+    targets = SaveTargets();
 
     if (!m_project) {
         return make_ret(Ret::Code::UnknownError, std::string("no project to save"));
     }
 
-    const io::path_t oldFontPath = m_project->fontPath();
-    if (oldFontPath.empty()) {
-        return make_ret(Ret::Code::UnknownError, std::string("no font file path associated with this project"));
+    return ProjectFiles::saveTargets(*m_project, targets);
+}
+
+Ret FontDesignService::saveProject(SaveReport& report)
+{
+    report = SaveReport();
+
+    if (!m_project) {
+        return make_ret(Ret::Code::UnknownError, std::string("no project to save"));
     }
-    const io::path_t oldMetaPath = m_project->metadataPath();
 
     //! 文件名跟随字体名：保存即写 <fontName>.otf + <fontName>.json；
     //! 名称变化等效重命名（旧文件移入废纸篓，可恢复）
-    io::FileInfo fontInfo(oldFontPath);
-    std::string fontName = m_project->metadata().fontName;
-    if (fontName.empty()) {
-        fontName = fontInfo.baseName().toStdString();
-    }
-    if (fontName.find('/') != std::string::npos || fontName.find('\\') != std::string::npos
-        || fontName.find(':') != std::string::npos) {
-        return make_ret(Ret::Code::UnknownError, std::string("font name contains invalid path characters"));
+    SaveTargets targets;
+    Ret targetsRet = ProjectFiles::saveTargets(*m_project, targets);
+    if (!targetsRet) {
+        return targetsRet;
     }
 
-    const io::path_t dir = fontInfo.dirPath();
-    const io::path_t fontPath = dir + "/" + fontName + ".otf";
-    const io::path_t metaPath = dir + "/" + fontName + ".json";
+    const io::path_t oldFontPath = m_project->fontPath();
+    const io::path_t oldMetaPath = m_project->metadataPath();
+    const bool hadFilesOnDisk = !m_project->neverSaved();
 
-    FontExporter::Report report;
-    Ret fontRet = FontExporter::exportFont(*m_project, fontPath, &report);
+    //! 先在内存里生成并校验字体：这一步失败时磁盘上什么都不动
+    FontExporter::Report exportReport;
+    std::vector<uint8_t> fontBytes;
+    Ret buildRet = FontExporter::buildFontBytes(*m_project, fontBytes, &exportReport);
+    if (!buildRet) {
+        return buildRet;
+    }
+
+    //! 外来字体：保存是按轮廓重建整个字体（布局特性、hinting、未编码字形等都不保留），
+    //! 首次覆盖前把原字体与原元数据各留一份 .bak；备份不成则不覆盖
+    if (hadFilesOnDisk && m_project->backupBeforeOverwrite()) {
+        for (const io::path_t& original : { oldFontPath, oldMetaPath }) {
+            io::path_t backupPath;
+            Ret backupRet = ProjectFiles::backupOriginal(original, backupPath);
+            if (!backupRet) {
+                return backupRet;
+            }
+            if (!backupPath.empty()) {
+                report.backups.push_back(backupPath);
+            }
+        }
+    }
+
+    Ret fontRet = FontExporter::writeFontBytes(fontBytes, targets.fontPath);
     if (!fontRet) {
         return fontRet;
     }
 
-    Ret metaRet = MetadataWriter::write(*m_project, metaPath);
+    Ret metaRet = MetadataWriter::write(*m_project, targets.metadataPath);
     if (!metaRet) {
         return metaRet;
     }
@@ -122,26 +143,25 @@ Ret FontDesignService::saveProject(std::vector<std::string>& warnings)
         if (oldPath.empty() || oldPath == newPath) {
             return;
         }
-        QFileInfo oldInfo(oldPath.toQString());
-        if (!oldInfo.exists()) {
-            return;
-        }
-        if (oldInfo.canonicalFilePath() == QFileInfo(newPath.toQString()).canonicalFilePath()) {
+        if (!QFileInfo::exists(oldPath.toQString()) || ProjectFiles::isSameFile(oldPath, newPath)) {
             return;
         }
         QFile::moveToTrash(oldPath.toQString());
     };
-    trashOldFile(oldFontPath, fontPath);
-    trashOldFile(oldMetaPath, metaPath);
+    if (hadFilesOnDisk) {
+        trashOldFile(oldFontPath, targets.fontPath);
+        trashOldFile(oldMetaPath, targets.metadataPath);
+    }
 
-    m_project->setFontPath(fontPath);
-    m_project->setMetadataPath(metaPath);
-    configuration()->setLastOpenedFontPath(fontPath);
-    configuration()->prependRecentFontPath(fontPath);
+    m_project->setFontPath(targets.fontPath);
+    m_project->setMetadataPath(targets.metadataPath);
+    configuration()->setLastOpenedFontPath(targets.fontPath);
+    configuration()->prependRecentFontPath(targets.fontPath);
 
     m_project->undoStack().markClean();
     m_project->setNeverSaved(false);
-    warnings = report.warnings;
+    m_project->setBackupBeforeOverwrite(false);    // 磁盘上现在是本模块写出的字体
+    report.warnings = exportReport.warnings;
 
     return make_ok();
 }
@@ -178,47 +198,6 @@ const SmuflDatabase& FontDesignService::smuflDatabase() const
     }
 
     return m_smuflDb;
-}
-
-io::path_t FontDesignService::findMetadataFor(const io::path_t& fontPath) const
-{
-    io::FileInfo fontInfo(fontPath);
-    QString fontBase = fontInfo.baseName().toQString().toLower();
-    QDir dir(fontInfo.dirPath().toQString());
-
-    QStringList jsonFiles = dir.entryList({ "*.json" }, QDir::Files, QDir::Name);
-    if (jsonFiles.empty()) {
-        return io::path_t();
-    }
-
-    // 优先级：<字体名>.json / <字体名>_metadata.json / metadata.json → 唯一 json → 首个
-    QString exactMatch, metadataSuffixMatch, plainMetadata;
-    for (const QString& fileName : jsonFiles) {
-        QString base = io::FileInfo(io::path_t(fileName)).baseName().toQString().toLower();
-        if (base == fontBase) {
-            exactMatch = fileName;
-        } else if (base == fontBase + "_metadata") {
-            metadataSuffixMatch = fileName;
-        } else if (base == "metadata") {
-            plainMetadata = fileName;
-        }
-    }
-
-    QString chosen;
-    if (!exactMatch.isEmpty()) {
-        chosen = exactMatch;
-    } else if (!metadataSuffixMatch.isEmpty()) {
-        chosen = metadataSuffixMatch;
-    } else if (!plainMetadata.isEmpty()) {
-        chosen = plainMetadata;
-    } else if (jsonFiles.size() == 1) {
-        chosen = jsonFiles.first();
-    } else {
-        chosen = jsonFiles.first();
-        LOGW() << "multiple metadata candidates, picked: " << chosen;
-    }
-
-    return io::path_t(dir.filePath(chosen));
 }
 
 void FontDesignService::setActiveEditSurface(IFontDesignEditSurface* surface)

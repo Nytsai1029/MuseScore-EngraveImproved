@@ -28,6 +28,7 @@
 namespace mu::fontdesign {
 class FontDesignService;
 class FontDesignConfiguration;
+class FontDesignProjectScenario;
 class FontDesignActionController;
 class FontDesignUiActions;
 class FontDesignModule : public muse::modularity::IModuleSetup
@@ -47,6 +48,7 @@ public:
 private:
     std::shared_ptr<FontDesignService> m_service;
     std::shared_ptr<FontDesignConfiguration> m_configuration;
+    std::shared_ptr<FontDesignProjectScenario> m_projectScenario;
     std::shared_ptr<FontDesignActionController> m_actionController;
     std::shared_ptr<FontDesignUiActions> m_uiActions;
 };

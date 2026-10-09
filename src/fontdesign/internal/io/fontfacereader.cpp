@@ -203,10 +203,13 @@ Ret FontFaceReader::read(const io::path_t& path, FaceData& out)
         // version 0xFFFF 表示无有效 OS/2 表
         if (os2->version != 0xFFFF) {
             out.fsType = os2->fsType;
+            out.vendorId.assign(reinterpret_cast<const char*>(os2->achVendID), 4);
         }
     }
 
     readLegalNameRecords(face, out.legalNameRecords);
+
+    const bool hasGlyphNames = FT_HAS_GLYPH_NAMES(face);
 
     FT_UInt glyphIndex = 0;
     FT_ULong charcode = FT_Get_First_Char(face, &glyphIndex);
@@ -217,6 +220,13 @@ Ret FontFaceReader::read(const io::path_t& path, FaceData& out)
             FaceGlyph glyph;
             glyph.codepoint = static_cast<char32_t>(charcode);
             glyph.advance = static_cast<double>(face->glyph->metrics.horiAdvance);
+
+            if (hasGlyphNames) {
+                char nameBuf[128] = { 0 };
+                if (FT_Get_Glyph_Name(face, glyphIndex, nameBuf, sizeof(nameBuf)) == 0) {
+                    glyph.name = nameBuf;
+                }
+            }
 
             DecomposeContext ctx;
             ctx.outline = &glyph.outline;

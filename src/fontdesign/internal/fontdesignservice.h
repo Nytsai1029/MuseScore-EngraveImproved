@@ -37,7 +37,8 @@ public:
 
     muse::Ret openProject(const muse::io::path_t& fontPath) override;
     muse::Ret newProject(const NewFontParams& params) override;
-    muse::Ret saveProject(std::vector<std::string>& warnings) override;
+    muse::Ret saveTargets(SaveTargets& targets) const override;
+    muse::Ret saveProject(SaveReport& report) override;
     void closeProject() override;
 
     FontDesignProjectPtr currentProject() const override;
@@ -50,8 +51,6 @@ public:
     IFontDesignEditSurface* activeEditSurface() const override;
 
 private:
-    muse::io::path_t findMetadataFor(const muse::io::path_t& fontPath) const;
-
     mutable SmuflDatabase m_smuflDb;
     FontDesignProjectPtr m_project;
     muse::async::Notification m_currentProjectChanged;

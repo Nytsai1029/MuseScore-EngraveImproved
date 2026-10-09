@@ -166,6 +166,8 @@ private:
 
     void attachToProject();
     void resetInteraction();
+    //! 锚点拖拽被打断（切字形等）：把拖到一半的值还原，不留下没进撤销栈的修改
+    void cancelAnchorDrag();
 
     void ensureViewInitialized();
     void zoomAround(double factor, const QPointF& viewPos);
@@ -270,6 +272,7 @@ private:
 
     std::optional<AnchorId> m_dragAnchor;
     std::optional<muse::PointF> m_dragAnchorOldValue;
+    char32_t m_dragAnchorGlyph = 0;     // 拖拽开始时所在的字形
 
     // 轮廓编辑：拖拽/绘制期间的工作副本 + 快照
     bool m_editing = false;

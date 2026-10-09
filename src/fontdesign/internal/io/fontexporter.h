@@ -21,6 +21,7 @@
  */
 #pragma once
 
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -44,7 +45,10 @@ public:
 
     static muse::Ret exportFont(const FontDesignProject& project, const muse::io::path_t& path, Report* report = nullptr);
 
-    //! 仅生成字节（便于测试）
+    //! 仅生成并校验字节（不写盘）
     static muse::Ret buildFontBytes(const FontDesignProject& project, std::vector<uint8_t>& out, Report* report = nullptr);
+
+    //! 原子写盘（临时文件 + 替换）：失败时目标文件保持原样
+    static muse::Ret writeFontBytes(const std::vector<uint8_t>& bytes, const muse::io::path_t& path);
 };
 }

@@ -21,6 +21,7 @@
  */
 #pragma once
 
+#include <cstddef>
 #include <memory>
 #include <string>
 #include <vector>
@@ -42,6 +43,9 @@ public:
 class UndoStack
 {
 public:
+    //! 最多保留的命令数；超出时丢弃最旧的
+    static constexpr size_t MAX_COMMANDS = 200;
+
     //! 立即执行（redo）并入栈；截断已撤销的分支
     void push(std::unique_ptr<UndoCommand> cmd);
 
