@@ -401,6 +401,13 @@ EditStyle::EditStyle(QWidget* parent)
         { StyleId::repeatBarlineDotSeparation, false, repeatBarlineDotSeparation, resetRepeatBarlineDotSeparation },
 
         { StyleId::barGraceDistance,        false, barGraceDistance,        resetBarGraceDistance },
+        { StyleId::graceToMainNoteDist,     false, graceToMainNoteDist,     resetGraceToMainNoteDist },
+        { StyleId::graceToGraceNoteDist,    false, graceToGraceNoteDist,    resetGraceToGraceNoteDist },
+        { StyleId::headerToLineStartDistance, false, headerToLineStartDistance, resetHeaderToLineStartDistance },
+        { StyleId::barlineToLineStartDistance, false, barlineToLineStartDistance, resetBarlineToLineStartDistance },
+        { StyleId::lineEndToBarlineDistance, false, lineEndToBarlineDistance, resetLineEndToBarlineDistance },
+        { StyleId::systemTrailerRightMargin, false, systemTrailerRightMargin, resetSystemTrailerRightMargin },
+        { StyleId::ambitusMargin,           false, ambitusMargin,           resetAmbitusMargin },
         { StyleId::concertPitch,            false, concertPitch,            0 },
         { StyleId::createMultiMeasureRests, false, multiMeasureRests,       0 },
         { StyleId::minEmptyMeasures,        false, minEmptyMeasures,        0 },
@@ -609,6 +616,8 @@ EditStyle::EditStyle(QWidget* parent)
 
         { StyleId::autoplaceVerticalAlignRange, false, autoplaceVerticalAlignRange, resetAutoplaceVerticalAlignRange },
         { StyleId::minVerticalDistance,         false, minVerticalDistance,         resetMinVerticalDistance },
+        { StyleId::skylineMinHorizontalClearance, false, skylineMinHorizontalClearance,
+          resetSkylineMinHorizontalClearance },
 
         { StyleId::textLinePlacement,           false, textLinePlacement,           resetTextLinePlacement },
         { StyleId::textLinePosAbove,            false, textLinePosAbove,            resetTextLinePosAbove },

@@ -920,6 +920,45 @@
                     </property>
                    </spacer>
                   </item>
+                  <item row="1" column="4">
+                   <widget class="QLabel" name="label_skylineMinHorizontalClearance">
+                    <property name="text">
+                     <string>Min. horizontal distance:</string>
+                    </property>
+                    <property name="buddy">
+                     <cstring>skylineMinHorizontalClearance</cstring>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="5">
+                   <widget class="QDoubleSpinBox" name="skylineMinHorizontalClearance">
+                    <property name="keyboardTracking">
+                     <bool>false</bool>
+                    </property>
+                    <property name="suffix">
+                     <string>sp</string>
+                    </property>
+                    <property name="minimum">
+                     <double>0.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.050000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="6">
+                   <widget class="QToolButton" name="resetSkylineMinHorizontalClearance">
+                    <property name="toolTip">
+                     <string>Reset to default</string>
+                    </property>
+                    <property name="accessibleName">
+                     <string>Reset 'Min. horizontal distance' value</string>
+                    </property>
+                    <property name="text">
+                     <string notr="true"/>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                 </widget>
                </item>
@@ -2660,6 +2699,279 @@
                       </property>
                       <property name="accessibleName">
                        <string>Reset 'Minimum note distance' value</string>
+                      </property>
+                      <property name="text">
+                       <string notr="true"/>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="25" column="0" colspan="4">
+                     <widget class="Line" name="line_graceSpacing">
+                      <property name="orientation">
+                       <enum>Qt::Orientation::Horizontal</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="26" column="0">
+                     <widget class="QLabel" name="label_graceToMainNoteDist">
+                      <property name="text">
+                       <string>Grace note to main note:</string>
+                      </property>
+                      <property name="buddy">
+                       <cstring>graceToMainNoteDist</cstring>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="26" column="1">
+                     <widget class="QDoubleSpinBox" name="graceToMainNoteDist">
+                      <property name="keyboardTracking">
+                       <bool>false</bool>
+                      </property>
+                      <property name="suffix">
+                       <string>sp</string>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="26" column="2">
+                     <widget class="QToolButton" name="resetGraceToMainNoteDist">
+                      <property name="toolTip">
+                       <string>Reset to default</string>
+                      </property>
+                      <property name="accessibleName">
+                       <string>Reset 'Grace note to main note' value</string>
+                      </property>
+                      <property name="text">
+                       <string notr="true"/>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="27" column="0">
+                     <widget class="QLabel" name="label_graceToGraceNoteDist">
+                      <property name="text">
+                       <string>Grace note to grace note:</string>
+                      </property>
+                      <property name="buddy">
+                       <cstring>graceToGraceNoteDist</cstring>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="27" column="1">
+                     <widget class="QDoubleSpinBox" name="graceToGraceNoteDist">
+                      <property name="keyboardTracking">
+                       <bool>false</bool>
+                      </property>
+                      <property name="suffix">
+                       <string>sp</string>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="27" column="2">
+                     <widget class="QToolButton" name="resetGraceToGraceNoteDist">
+                      <property name="toolTip">
+                       <string>Reset to default</string>
+                      </property>
+                      <property name="accessibleName">
+                       <string>Reset 'Grace note to grace note' value</string>
+                      </property>
+                      <property name="text">
+                       <string notr="true"/>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="28" column="0" colspan="4">
+                     <widget class="Line" name="line_openLineSpacing">
+                      <property name="orientation">
+                       <enum>Qt::Orientation::Horizontal</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="29" column="0">
+                     <widget class="QLabel" name="label_headerToLineStartDistance">
+                      <property name="text">
+                       <string>System header to continued tie or line:</string>
+                      </property>
+                      <property name="buddy">
+                       <cstring>headerToLineStartDistance</cstring>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="29" column="1">
+                     <widget class="QDoubleSpinBox" name="headerToLineStartDistance">
+                      <property name="keyboardTracking">
+                       <bool>false</bool>
+                      </property>
+                      <property name="suffix">
+                       <string>sp</string>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="29" column="2">
+                     <widget class="QToolButton" name="resetHeaderToLineStartDistance">
+                      <property name="toolTip">
+                       <string>Reset to default</string>
+                      </property>
+                      <property name="accessibleName">
+                       <string>Reset 'System header to continued tie or line' value</string>
+                      </property>
+                      <property name="text">
+                       <string notr="true"/>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="30" column="0">
+                     <widget class="QLabel" name="label_barlineToLineStartDistance">
+                      <property name="text">
+                       <string>Barline to continued tie or line:</string>
+                      </property>
+                      <property name="buddy">
+                       <cstring>barlineToLineStartDistance</cstring>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="30" column="1">
+                     <widget class="QDoubleSpinBox" name="barlineToLineStartDistance">
+                      <property name="keyboardTracking">
+                       <bool>false</bool>
+                      </property>
+                      <property name="suffix">
+                       <string>sp</string>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="30" column="2">
+                     <widget class="QToolButton" name="resetBarlineToLineStartDistance">
+                      <property name="toolTip">
+                       <string>Reset to default</string>
+                      </property>
+                      <property name="accessibleName">
+                       <string>Reset 'Barline to continued tie or line' value</string>
+                      </property>
+                      <property name="text">
+                       <string notr="true"/>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="31" column="0">
+                     <widget class="QLabel" name="label_lineEndToBarlineDistance">
+                      <property name="text">
+                       <string>Continued tie or line to barline:</string>
+                      </property>
+                      <property name="buddy">
+                       <cstring>lineEndToBarlineDistance</cstring>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="31" column="1">
+                     <widget class="QDoubleSpinBox" name="lineEndToBarlineDistance">
+                      <property name="keyboardTracking">
+                       <bool>false</bool>
+                      </property>
+                      <property name="suffix">
+                       <string>sp</string>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="31" column="2">
+                     <widget class="QToolButton" name="resetLineEndToBarlineDistance">
+                      <property name="toolTip">
+                       <string>Reset to default</string>
+                      </property>
+                      <property name="accessibleName">
+                       <string>Reset 'Continued tie or line to barline' value</string>
+                      </property>
+                      <property name="text">
+                       <string notr="true"/>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="32" column="0" colspan="4">
+                     <widget class="Line" name="line_trailerSpacing">
+                      <property name="orientation">
+                       <enum>Qt::Orientation::Horizontal</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="33" column="0">
+                     <widget class="QLabel" name="label_systemTrailerRightMargin">
+                      <property name="text">
+                       <string>Right margin after courtesy signatures:</string>
+                      </property>
+                      <property name="buddy">
+                       <cstring>systemTrailerRightMargin</cstring>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="33" column="1">
+                     <widget class="QDoubleSpinBox" name="systemTrailerRightMargin">
+                      <property name="keyboardTracking">
+                       <bool>false</bool>
+                      </property>
+                      <property name="suffix">
+                       <string>sp</string>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="33" column="2">
+                     <widget class="QToolButton" name="resetSystemTrailerRightMargin">
+                      <property name="toolTip">
+                       <string>Reset to default</string>
+                      </property>
+                      <property name="accessibleName">
+                       <string>Reset 'Right margin after courtesy signatures' value</string>
+                      </property>
+                      <property name="text">
+                       <string notr="true"/>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="34" column="0">
+                     <widget class="QLabel" name="label_ambitusMargin">
+                      <property name="text">
+                       <string>Ambitus padding:</string>
+                      </property>
+                      <property name="buddy">
+                       <cstring>ambitusMargin</cstring>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="34" column="1">
+                     <widget class="QDoubleSpinBox" name="ambitusMargin">
+                      <property name="keyboardTracking">
+                       <bool>false</bool>
+                      </property>
+                      <property name="suffix">
+                       <string>sp</string>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="34" column="2">
+                     <widget class="QToolButton" name="resetAmbitusMargin">
+                      <property name="toolTip">
+                       <string>Reset to default</string>
+                      </property>
+                      <property name="accessibleName">
+                       <string>Reset 'Ambitus padding' value</string>
                       </property>
                       <property name="text">
                        <string notr="true"/>
