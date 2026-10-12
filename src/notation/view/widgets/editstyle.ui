@@ -9470,6 +9470,142 @@
                 </property>
                </widget>
               </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_guitarBendHeightAboveTABStaff">
+                <property name="text">
+                 <string>Height above staff (line distances):</string>
+                </property>
+                <property name="buddy">
+                 <cstring>guitarBendHeightAboveTABStaff</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QDoubleSpinBox" name="guitarBendHeightAboveTABStaff">
+                <property name="keyboardTracking">
+                 <bool>false</bool>
+                </property>
+                <property name="minimum">
+                 <double>0.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.100000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QToolButton" name="resetGuitarBendHeightAboveTABStaff">
+                <property name="toolTip">
+                 <string>Reset to default</string>
+                </property>
+                <property name="accessibleName">
+                 <string>Reset 'Height above staff' value</string>
+                </property>
+                <property name="text">
+                 <string notr="true"/>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="3">
+               <widget class="QLabel" name="label_guitarBendPartialBendHeight">
+                <property name="text">
+                 <string>Partial bend height:</string>
+                </property>
+                <property name="buddy">
+                 <cstring>guitarBendPartialBendHeight</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="4">
+               <widget class="QDoubleSpinBox" name="guitarBendPartialBendHeight">
+                <property name="keyboardTracking">
+                 <bool>false</bool>
+                </property>
+                <property name="suffix">
+                 <string>sp</string>
+                </property>
+                <property name="minimum">
+                 <double>0.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.100000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="5">
+               <widget class="QToolButton" name="resetGuitarBendPartialBendHeight">
+                <property name="toolTip">
+                 <string>Reset to default</string>
+                </property>
+                <property name="accessibleName">
+                 <string>Reset 'Partial bend height' value</string>
+                </property>
+                <property name="text">
+                 <string notr="true"/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_bendsLegacy">
+             <property name="title">
+              <string>Legacy bends</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_bendsLegacy">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_legacyBendArrowWidth">
+                <property name="text">
+                 <string>Arrow width:</string>
+                </property>
+                <property name="buddy">
+                 <cstring>legacyBendArrowWidth</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QDoubleSpinBox" name="legacyBendArrowWidth">
+                <property name="keyboardTracking">
+                 <bool>false</bool>
+                </property>
+                <property name="suffix">
+                 <string>sp</string>
+                </property>
+                <property name="minimum">
+                 <double>0.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.100000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QToolButton" name="resetLegacyBendArrowWidth">
+                <property name="toolTip">
+                 <string>Reset to default</string>
+                </property>
+                <property name="accessibleName">
+                 <string>Reset 'Legacy bend arrow width' value</string>
+                </property>
+                <property name="text">
+                 <string notr="true"/>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <spacer name="horizontalSpacer_legacyBend">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
              </layout>
             </widget>
            </item>
@@ -10350,6 +10486,45 @@
             <widget class="QToolButton" name="resetArticMinVerticalDist">
              <property name="text">
               <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="label_chordlineThickness">
+             <property name="text">
+              <string>Fall, doit, plop and scoop line thickness:</string>
+             </property>
+             <property name="buddy">
+              <cstring>chordlineThickness</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QDoubleSpinBox" name="chordlineThickness">
+             <property name="keyboardTracking">
+              <bool>false</bool>
+             </property>
+             <property name="suffix">
+              <string>sp</string>
+             </property>
+             <property name="minimum">
+              <double>0.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.010000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2">
+            <widget class="QToolButton" name="resetChordlineThickness">
+             <property name="toolTip">
+              <string>Reset to default</string>
+             </property>
+             <property name="accessibleName">
+              <string>Reset 'Fall, doit, plop and scoop line thickness' value</string>
+             </property>
+             <property name="text">
+              <string notr="true"/>
              </property>
             </widget>
            </item>
@@ -11894,6 +12069,26 @@ followed by dashes</string>
                      </property>
                     </widget>
                    </item>
+                   <item row="5" column="0">
+                    <widget class="QCheckBox" name="lyricsDashFirstAndLastGapAreHalf">
+                     <property name="text">
+                      <string>Halve the gap before the first and after the last dash</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="1">
+                    <widget class="QToolButton" name="resetLyricsDashFirstAndLastGapAreHalf">
+                     <property name="toolTip">
+                      <string>Reset to default</string>
+                     </property>
+                     <property name="accessibleName">
+                      <string>Reset 'Halve the gap before the first and after the last dash' value</string>
+                     </property>
+                     <property name="text">
+                      <string notr="true"/>
+                     </property>
+                    </widget>
+                   </item>
                   </layout>
                  </item>
                 </layout>
@@ -12021,6 +12216,29 @@ followed by dashes</string>
                      </property>
                      <property name="accessibleName">
                       <string>Reset 'Line gap' value</string>
+                     </property>
+                     <property name="text">
+                      <string notr="true"/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0" colspan="3">
+                    <widget class="QLabel" name="label_lyricsMelismaAlign">
+                     <property name="text">
+                      <string>Alignment of syllables with an extension line:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0" colspan="2">
+                    <widget class="mu::notation::AlignSelect" name="lyricsMelismaAlign" native="true"/>
+                   </item>
+                   <item row="4" column="2">
+                    <widget class="QToolButton" name="resetLyricsMelismaAlign">
+                     <property name="toolTip">
+                      <string>Reset to default</string>
+                     </property>
+                     <property name="accessibleName">
+                      <string>Reset 'Alignment of syllables with an extension line' value</string>
                      </property>
                      <property name="text">
                       <string notr="true"/>
@@ -13193,6 +13411,113 @@ followed by dashes</string>
                    </widget>
                   </item>
                  </layout>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="hLayout_tabFretPadding">
+                 <item>
+                  <widget class="QLabel" name="label_tabFretPadding">
+                   <property name="text">
+                    <string>Padding around fret numbers:</string>
+                   </property>
+                   <property name="buddy">
+                    <cstring>tabFretPadding</cstring>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDoubleSpinBox" name="tabFretPadding">
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                   <property name="suffix">
+                    <string>sp</string>
+                   </property>
+                   <property name="minimum">
+                    <double>0.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.050000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="resetTabFretPadding">
+                   <property name="toolTip">
+                    <string>Reset to default</string>
+                   </property>
+                   <property name="accessibleName">
+                    <string>Reset 'Padding around fret numbers' value</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true"/>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_tabFretPadding">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="hLayout_palmMuteText">
+                 <item>
+                  <widget class="QLabel" name="label_palmMuteText">
+                   <property name="text">
+                    <string>Text for new palm mutes:</string>
+                   </property>
+                   <property name="buddy">
+                    <cstring>palmMuteText</cstring>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="palmMuteText">
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="resetPalmMuteText">
+                   <property name="toolTip">
+                    <string>Reset to default</string>
+                   </property>
+                   <property name="accessibleName">
+                    <string>Reset 'Text for new palm mutes' value</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true"/>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_palmMuteText">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="preferSameStringForTranspose">
+                 <property name="text">
+                  <string>Prefer the same string when transposing</string>
+                 </property>
                 </widget>
                </item>
                <item>

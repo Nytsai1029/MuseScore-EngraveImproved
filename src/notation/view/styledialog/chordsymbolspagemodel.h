@@ -38,6 +38,7 @@ class ChordSymbolsPageModel : public AbstractStyleDialogModel
     Q_PROPERTY(StyleItem * modifierMag READ modifierMag CONSTANT)
     Q_PROPERTY(StyleItem * modifierAdjust READ modifierAdjust CONSTANT)
     Q_PROPERTY(StyleItem * verticallyStackModifiers READ verticallyStackModifiers CONSTANT)
+    Q_PROPERTY(StyleItem * stackedModifierMag READ stackedModifierMag CONSTANT)
 
     Q_PROPERTY(StyleItem * chordBassNoteStagger READ chordBassNoteStagger CONSTANT)
     Q_PROPERTY(StyleItem * chordBassNoteScale READ chordBassNoteScale CONSTANT)
@@ -84,6 +85,7 @@ public:
     StyleItem* modifierMag() const;
     StyleItem* modifierAdjust() const;
     StyleItem* verticallyStackModifiers() const;
+    StyleItem* stackedModifierMag() const;
 
     StyleItem* chordBassNoteStagger() const;
     StyleItem* chordBassNoteScale() const;

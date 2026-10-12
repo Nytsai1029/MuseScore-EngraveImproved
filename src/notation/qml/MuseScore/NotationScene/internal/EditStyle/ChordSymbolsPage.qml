@@ -45,7 +45,8 @@ StyledFlickable {
     property var modifierStyles: [
         chordSymbolsModel.modifierMag,
         chordSymbolsModel.modifierAdjust,
-        chordSymbolsModel.verticallyStackModifiers
+        chordSymbolsModel.verticallyStackModifiers,
+        chordSymbolsModel.stackedModifierMag
     ];
 
     property var bassStyles: [
@@ -400,6 +401,35 @@ StyledFlickable {
                             text: qsTrc("notation/editstyle/chordsymbols", "Vertically stack modifiers")
                             checked: chordSymbolsModel.verticallyStackModifiers.value === true
                             onClicked: chordSymbolsModel.verticallyStackModifiers.value = !chordSymbolsModel.verticallyStackModifiers.value
+                        }
+
+                        RowLayout {
+                            spacing: 6
+                            Layout.fillWidth: true
+                            enabled: chordSymbolsModel.verticallyStackModifiers.value === true
+
+                            StyledTextLabel {
+                                Layout.preferredWidth: 120
+                                horizontalAlignment: Text.AlignLeft
+                                wrapMode: Text.WordWrap
+                                text: qsTrc("notation/editstyle/chordsymbols", "Stacked scale:")
+                            }
+
+                            IncrementalPropertyControl {
+                                Layout.preferredWidth: 80
+
+                                currentValue: Math.round(chordSymbolsModel.stackedModifierMag.value * 100)
+                                minValue: 10
+                                maxValue: 999
+                                step: 1
+                                decimals: 0
+
+                                measureUnitsSymbol: '%'
+
+                                onValueEdited: function(newValue) {
+                                    chordSymbolsModel.stackedModifierMag.value = newValue / 100
+                                }
+                            }
                         }
                     }
                 }

@@ -382,6 +382,9 @@ EditStyle::EditStyle(QWidget* parent)
         { StyleId::lyricsLimitDashCount, false, limitDashCount, 0 },
         { StyleId::lyricsMaxDashCount, false, lyricsMaxDashCount, resetLyricsMaxDashCount },
         { StyleId::lyricsCenterDashedSyllables, false, lyricsCenterDashedSyllables, lyricsResetCenterDashedSyllables },
+        { StyleId::lyricsDashFirstAndLastGapAreHalf, false, lyricsDashFirstAndLastGapAreHalf,
+          resetLyricsDashFirstAndLastGapAreHalf },
+        { StyleId::lyricsMelismaAlign,      false, lyricsMelismaAlign,      resetLyricsMelismaAlign },
 
         { StyleId::systemFrameDistance,     false, systemFrameDistance,     resetSystemFrameDistance },
         { StyleId::frameSystemDistance,     false, frameSystemDistance,     resetFrameSystemDistance },
@@ -500,6 +503,7 @@ EditStyle::EditStyle(QWidget* parent)
         { StyleId::dividerRightX,           false, dividerRightX,           0 },
         { StyleId::dividerRightY,           false, dividerRightY,           0 },
         { StyleId::articulationMinDistance, false, articMinVerticalDist,    resetArticMinVerticalDist },
+        { StyleId::chordlineThickness,      false, chordlineThickness,      resetChordlineThickness },
         { StyleId::propertyDistanceHead,    false, articNoteHeadDist,       resetArticNoteHeadDist },
         { StyleId::propertyDistanceStem,    false, articStemDist,           resetArticStemDist },
         { StyleId::propertyDistance,        false, articStaffDist,          resetArticStaffDist },
@@ -653,6 +657,10 @@ EditStyle::EditStyle(QWidget* parent)
         { StyleId::guitarBendLineWidthTab,  false, bendLineWidthTab,  resetBendLineWidthTab },
         { StyleId::guitarBendArrowWidth,    false, bendArrowWidth,    resetBendArrowWidth },
         { StyleId::guitarBendArrowHeight,   false, bendArrowHeight,   resetBendArrowHeight },
+        { StyleId::guitarBendHeightAboveTABStaff, false, guitarBendHeightAboveTABStaff,
+          resetGuitarBendHeightAboveTABStaff },
+        { StyleId::guitarBendPartialBendHeight, false, guitarBendPartialBendHeight, resetGuitarBendPartialBendHeight },
+        { StyleId::bendArrowWidth,          false, legacyBendArrowWidth, resetLegacyBendArrowWidth },
         { StyleId::useCueSizeFretForGraceBends, false, guitarBendCueSizedGraceFrets, 0 },
 
         /// Tablature styles
@@ -689,6 +697,9 @@ EditStyle::EditStyle(QWidget* parent)
         { StyleId::tabShowTiedFret, false, tabShowTiedFrets, 0 },
         { StyleId::tabParenthesizeTiedFret, false, tabParenthFrets, 0 },
         { StyleId::parenthesizeTiedFretIfArticulation, false, tabParenthArticulation, 0 },
+        { StyleId::tabFretPadding, false, tabFretPadding, resetTabFretPadding },
+        { StyleId::palmMuteText, false, palmMuteText, resetPalmMuteText },
+        { StyleId::preferSameStringForTranspose, false, preferSameStringForTranspose, 0 },
     };
 
     // ====================================================
@@ -1089,6 +1100,8 @@ EditStyle::EditStyle(QWidget* parent)
             connect(groupBox, &QGroupBox::toggled, setSignalMapper, mapFunction);
         } else if (auto textEdit = qobject_cast<QTextEdit*>(sw.widget)) {
             connect(textEdit, &QTextEdit::textChanged, setSignalMapper, mapFunction);
+        } else if (auto lineEdit = qobject_cast<QLineEdit*>(sw.widget)) {
+            connect(lineEdit, &QLineEdit::textEdited, setSignalMapper, mapFunction);
         } else if (auto buttonGroup = qobject_cast<QButtonGroup*>(sw.widget)) {
             connect(buttonGroup, &QButtonGroup::buttonClicked, setSignalMapper, mapFunction);
         } else if (auto alignSelect = qobject_cast<AlignSelect*>(sw.widget)) {
@@ -2221,6 +2234,10 @@ PropertyValue EditStyle::getValue(StyleId idx)
             QTextEdit* te = qobject_cast<QTextEdit*>(sw.widget);
             return te->toPlainText();
         }
+        if (qobject_cast<QLineEdit*>(sw.widget)) {
+            QLineEdit* le = qobject_cast<QLineEdit*>(sw.widget);
+            return le->text();
+        }
     } break;
     case P_TYPE::POINT: {
         if (idx == StyleId::lyricsPosAbove || idx == StyleId::lyricsPosBelow) {
@@ -2353,6 +2370,8 @@ void EditStyle::setValues()
                 }
             } else if (qobject_cast<QTextEdit*>(sw.widget)) {
                 static_cast<QTextEdit*>(sw.widget)->setPlainText(value);
+            } else if (qobject_cast<QLineEdit*>(sw.widget)) {
+                static_cast<QLineEdit*>(sw.widget)->setText(value);
             } else {
                 unhandledType(sw);
             }

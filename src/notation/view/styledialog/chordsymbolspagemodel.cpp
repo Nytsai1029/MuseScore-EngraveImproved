@@ -35,6 +35,7 @@ ChordSymbolsPageModel::ChordSymbolsPageModel(QObject* parent)
     StyleId::chordModifierMag,
     StyleId::chordModifierAdjust,
     StyleId::verticallyStackModifiers,
+    StyleId::chordStackedModifierMag,
     StyleId::chordBassNoteStagger,
     StyleId::chordBassNoteScale,
     StyleId::polychordDividerThickness,
@@ -132,6 +133,7 @@ StyleItem* ChordSymbolsPageModel::extensionAdjust() const { return styleItem(Sty
 StyleItem* ChordSymbolsPageModel::modifierMag() const { return styleItem(StyleId::chordModifierMag); }
 StyleItem* ChordSymbolsPageModel::modifierAdjust() const { return styleItem(StyleId::chordModifierAdjust); }
 StyleItem* ChordSymbolsPageModel::verticallyStackModifiers() const { return styleItem(StyleId::verticallyStackModifiers); }
+StyleItem* ChordSymbolsPageModel::stackedModifierMag() const { return styleItem(StyleId::chordStackedModifierMag); }
 
 StyleItem* ChordSymbolsPageModel::chordBassNoteStagger() const { return styleItem(StyleId::chordBassNoteStagger); }
 StyleItem* ChordSymbolsPageModel::chordBassNoteScale() const { return styleItem(StyleId::chordBassNoteScale); }
