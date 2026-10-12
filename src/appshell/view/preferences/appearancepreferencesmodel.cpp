@@ -36,6 +36,7 @@ using namespace muse::ui;
 static constexpr int INVALID_INDEX = -1;
 
 static const SkinCode DORICO_SKIN_CODE("dorico");
+static const SkinCode ATELIER_SKIN_CODE("atelier");
 
 static QString titleForSkin(const SkinCode& skinCode)
 {
@@ -45,9 +46,25 @@ static QString titleForSkin(const SkinCode& skinCode)
     } else if (skinCode == DORICO_SKIN_CODE) {
         //: The name of a look of the user interface that is arranged and colored like Dorico
         return muse::qtrc("appshell/preferences", "Dorico");
+    } else if (skinCode == ATELIER_SKIN_CODE) {
+        //: The name of a look of the user interface with separate modes for note input, engraving and preview
+        return muse::qtrc("appshell/preferences", "Atelier");
     }
 
     return QString::fromStdString(skinCode);
+}
+
+static QString descriptionForSkin(const SkinCode& skinCode)
+{
+    if (skinCode == DEFAULT_SKIN_CODE) {
+        return muse::qtrc("appshell/preferences", "Palettes and properties on the left");
+    } else if (skinCode == DORICO_SKIN_CODE) {
+        return muse::qtrc("appshell/preferences", "Tools left, properties below");
+    } else if (skinCode == ATELIER_SKIN_CODE) {
+        return muse::qtrc("appshell/preferences", "Input, Engrave and Preview modes");
+    }
+
+    return QString();
 }
 
 AppearancePreferencesModel::AppearancePreferencesModel(QObject* parent)
@@ -57,7 +74,7 @@ AppearancePreferencesModel::AppearancePreferencesModel(QObject* parent)
 
 void AppearancePreferencesModel::init()
 {
-    uiConfiguration()->currentSkinChanged().onNotify(this, [this]() {
+    uiConfiguration()->selectedSkinChanged().onNotify(this, [this]() {
         emit currentSkinCodeChanged();
     });
 
@@ -101,6 +118,7 @@ QVariantList AppearancePreferencesModel::skins() const
         QVariantMap obj;
         obj["code"] = QString::fromStdString(skinCode);
         obj["title"] = titleForSkin(skinCode);
+        obj["description"] = descriptionForSkin(skinCode);
 
         result << obj;
     }
@@ -110,7 +128,23 @@ QVariantList AppearancePreferencesModel::skins() const
 
 QString AppearancePreferencesModel::currentSkinCode() const
 {
-    return QString::fromStdString(uiConfiguration()->currentSkin());
+    return QString::fromStdString(uiConfiguration()->selectedSkin());
+}
+
+bool AppearancePreferencesModel::skinRestartRequired() const
+{
+    return uiConfiguration()->selectedSkin() != uiConfiguration()->currentSkin();
+}
+
+QString AppearancePreferencesModel::skinRestartText() const
+{
+    if (!skinRestartRequired()) {
+        return QString();
+    }
+
+    //: %1 is the name of a look of the user interface, e.g. "Atelier"
+    return muse::qtrc("appshell/preferences", "%1 is used the next time MuseScore Studio starts.")
+           .arg(titleForSkin(uiConfiguration()->selectedSkin()));
 }
 
 void AppearancePreferencesModel::setCurrentSkinCode(const QString& skinCode)

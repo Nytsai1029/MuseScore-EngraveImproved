@@ -12164,6 +12164,60 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <source>Choose default style for parts</source>
         <translation>选择分谱的默认样式</translation>
     </message>
+    <message>
+        <location filename="../../src/appshell/qml/Preferences/internal/SkinSection.qml" line="32"/>
+        <source>Interface skin</source>
+        <translation>界面风格</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="45"/>
+        <source>Default</source>
+        <extracomment>The name of the default look of the user interface</extracomment>
+        <translation>默认</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="48"/>
+        <source>Dorico</source>
+        <extracomment>The name of a look of the user interface that is arranged and colored like Dorico</extracomment>
+        <translation>Dorico</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="51"/>
+        <source>Atelier</source>
+        <extracomment>The name of a look of the user interface with separate modes for note input, engraving and preview</extracomment>
+        <translation>Atelier</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="60"/>
+        <source>Palettes and properties on the left</source>
+        <translation>符号面板与属性位于左侧</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="62"/>
+        <source>Tools left, properties below</source>
+        <translation>工具位于左侧，属性位于下方</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="64"/>
+        <source>Input, Engrave and Preview modes</source>
+        <translation>输入、排版与预览模式</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="146"/>
+        <source>%1 is used the next time MuseScore Studio starts.</source>
+        <extracomment>%1 is the name of a look of the user interface, e.g. &quot;Atelier&quot;</extracomment>
+        <translation>%1 将在下次启动 MuseScore Studio 时生效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Preferences/internal/SkinSection.qml" line="272"/>
+        <source>Restart now</source>
+        <translation>立即重启</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Preferences/internal/SkinSection.qml" line="54"/>
+        <source>How the window is arranged. Themes and accent color apply to every skin.</source>
+        <translation>窗口的布局方式。主题与强调色适用于所有界面风格。</translation>
+    </message>
 </context>
 <context>
     <name>appshell/statistics</name>

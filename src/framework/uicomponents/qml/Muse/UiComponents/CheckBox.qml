@@ -110,7 +110,7 @@ FocusScope {
                 return root.showAsSwitch ? ui.theme.backgroundSecondaryColor : ui.theme.textFieldColor
             }
 
-            radius: root.showAsSwitch ? height / 2 : 2
+            radius: root.showAsSwitch ? height / 2 : (ui.theme.controlRadius > 3 ? 4 : 2)
 
             NavigationFocusBorder { navigationCtrl: navCtrl }
 

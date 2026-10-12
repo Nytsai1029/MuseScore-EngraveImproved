@@ -22,6 +22,8 @@
 
 #pragma once
 
+#include <QHash>
+
 #include "iuiconfiguration.h"
 
 #include "iglobalconfiguration.h"
@@ -54,6 +56,8 @@ public:
     SkinCode currentSkin() const override;
     void setCurrentSkin(const SkinCode& skinCode) override;
     async::Notification currentSkinChanged() const override;
+    SkinCode selectedSkin() const override;
+    async::Notification selectedSkinChanged() const override;
 
     ThemeList themes() const override;
     QStringList possibleAccentColors() const override;
@@ -147,7 +151,11 @@ private:
     void updateCurrentTheme();
     void updateThemes();
 
+    bool skinRequiresRestart(const SkinCode& skinCode) const;
+    void onSelectedSkinChanged();
     void onCurrentSkinChanged();
+
+    QStringList accentColorsOfCurrentSkin(const ThemeCode& themeCode) const;
 
     void updateSystemThemeListeningStatus();
     void synchThemeWithSystemIfNecessary();
@@ -166,6 +174,7 @@ private:
     UiArrangement m_uiArrangement;
 
     async::Notification m_currentSkinChanged;
+    async::Notification m_selectedSkinChanged;
     async::Notification m_currentThemeChanged;
     async::Notification m_fontChanged;
     async::Notification m_musicalFontChanged;
@@ -176,6 +185,9 @@ private:
     ValNt<bool> m_isFollowSystemTheme;
 
     std::vector<SkinCode> m_skins;
+    std::vector<SkinCode> m_skinsRequiringRestart;
+    SkinCode m_currentSkin = DEFAULT_SKIN_CODE;
+    mutable QHash<QString, QStringList> m_skinAccentColors;
 
     ThemeList m_themes;
     size_t m_currentThemeIndex = 0;

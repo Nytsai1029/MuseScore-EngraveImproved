@@ -78,7 +78,7 @@ RadioDelegate {
 
         color: root.segmented ? "transparent" : ui.theme.backgroundPrimaryColor
         opacity: ui.theme.buttonOpacityNormal
-        radius: root.segmented ? 3 : 0
+        radius: root.segmented ? ui.theme.controlRadius : 0
 
         border.color: navCtrl.highlight ? ui.theme.fontPrimaryColor : ui.theme.strokeColor
         border.width: navCtrl.highlight ? ui.theme.navCtrlBorderWidth : ui.theme.borderWidth

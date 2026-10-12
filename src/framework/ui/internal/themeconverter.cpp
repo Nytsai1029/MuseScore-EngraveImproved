@@ -62,6 +62,7 @@ static const std::vector<std::pair<ThemeStyleKey, QString > > s_keys = {
     { BORDER_WIDTH, "borderWidth" },
     { NAVIGATION_CONTROL_BORDER_WIDTH, "navigationControlBorderWidth" },
     { CONTROL_HEIGHT, "controlHeight" },
+    { CONTROL_RADIUS, "controlRadius" },
 
     { ACCENT_OPACITY_NORMAL, "accentOpacityNormal" },
     { ACCENT_OPACITY_HOVER, "accentOpacityHover" },
@@ -74,6 +75,8 @@ static const std::vector<std::pair<ThemeStyleKey, QString > > s_keys = {
 
     { JOINED_BUTTON_GROUPS, "joinedButtonGroups" },
     { FILLED_CHECK_BOXES, "filledCheckBoxes" },
+    { SOLID_ACCENT_BUTTONS, "solidAccentButtons" },
+    { RAISED_CHECKED_SEGMENTS, "raisedCheckedSegments" },
 };
 
 static QString titleForTheme(const ThemeInfo& theme)

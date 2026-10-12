@@ -10909,12 +10909,12 @@ This action will not delete any of your scores.</translation>
         <translation type="unfinished">Loading score…‎</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="209"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="210"/>
         <source>Are you sure you want to reset preferences?</source>
         <translation type="unfinished">Are you sure you want to reset preferences?</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="210"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="211"/>
         <source>This action will reset all your app preferences and delete all custom shortcuts. It will not delete any of your scores.
 
 This action cannot be undone.</source>
@@ -10923,7 +10923,7 @@ This action cannot be undone.</source>
 This action cannot be undone.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="220"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="221"/>
         <source>Reset preferences</source>
         <translation type="unfinished">Reset preferences</translation>
     </message>
@@ -11346,22 +11346,22 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Value</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="166"/>
+        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="172"/>
         <source>Background</source>
         <translation type="unfinished">Background</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="167"/>
+        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="173"/>
         <source>Choose background wallpaper</source>
         <translation type="unfinished">Choose background wallpaper</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="206"/>
+        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="212"/>
         <source>Paper</source>
         <translation type="unfinished">Paper</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="207"/>
+        <location filename="../../src/appshell/qml/Preferences/AppearancePreferencesPage.qml" line="213"/>
         <source>Choose notepaper</source>
         <translation type="unfinished">Choose notepaper</translation>
     </message>
@@ -11495,7 +11495,7 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
     </message>
     <message>
         <location filename="../../src/appshell/qml/Preferences/internal/FoldersSection.qml" line="31"/>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="190"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="191"/>
         <source>Folders</source>
         <translation type="unfinished">Folders</translation>
     </message>
@@ -11536,6 +11536,7 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
     <message>
         <location filename="../../src/appshell/qml/Preferences/internal/AudioApiSection.qml" line="76"/>
         <location filename="../../src/appshell/qml/Preferences/internal/LanguagesSection.qml" line="69"/>
+        <location filename="../../src/appshell/qml/Preferences/internal/SkinSection.qml" line="258"/>
         <source>Restart required</source>
         <translation type="unfinished">Restart required</translation>
     </message>
@@ -11673,7 +11674,7 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
     </message>
     <message>
         <location filename="../../src/appshell/qml/Preferences/internal/NoteInput/NoteInputSection.qml" line="33"/>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="169"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="170"/>
         <source>Note input</source>
         <translation type="unfinished">Note input</translation>
     </message>
@@ -11929,7 +11930,7 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
     </message>
     <message>
         <location filename="../../src/appshell/qml/Preferences/internal/UiFontSection.qml" line="29"/>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="160"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="161"/>
         <source>Appearance</source>
         <translation type="unfinished">Appearance</translation>
     </message>
@@ -11979,24 +11980,51 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Preferences</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="44"/>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="45"/>
         <source>Default</source>
         <extracomment>The name of the default look of the user interface</extracomment>
         <translation type="unfinished">Default</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="47"/>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="48"/>
         <source>Dorico</source>
         <extracomment>The name of a look of the user interface that is arranged and colored like Dorico</extracomment>
         <translation type="unfinished">Dorico</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="215"/>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="51"/>
+        <source>Atelier</source>
+        <extracomment>The name of a look of the user interface with separate modes for note input, engraving and preview</extracomment>
+        <translation type="unfinished">Atelier</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="60"/>
+        <source>Palettes and properties on the left</source>
+        <translation type="unfinished">Palettes and properties on the left</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="62"/>
+        <source>Tools left, properties below</source>
+        <translation type="unfinished">Tools left, properties below</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="64"/>
+        <source>Input, Engrave and Preview modes</source>
+        <translation type="unfinished">Input, Engrave and Preview modes</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="146"/>
+        <source>%1 is used the next time MuseScore Studio starts.</source>
+        <extracomment>%1 is the name of a look of the user interface, e.g. &quot;Atelier&quot;</extracomment>
+        <translation type="unfinished">%1 is used the next time MuseScore Studio starts.</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="249"/>
         <source>Images</source>
         <translation type="unfinished">Images</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="216"/>
+        <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="250"/>
         <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="245"/>
         <source>All</source>
         <translation type="unfinished">All</translation>
@@ -12146,47 +12174,47 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Choose default style for imports</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="157"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="158"/>
         <source>General</source>
         <translation type="unfinished">General</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="163"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="164"/>
         <source>Canvas</source>
         <translation type="unfinished">Canvas</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="166"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="167"/>
         <source>Save &amp; publish</source>
         <translation type="unfinished">Save &amp; publish</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="172"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="173"/>
         <source>Score</source>
         <translation type="unfinished">Score</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="175"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="176"/>
         <source>Audio &amp; MIDI</source>
         <translation type="unfinished">Audio &amp; MIDI</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="178"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="179"/>
         <source>MIDI mappings</source>
         <translation type="unfinished">MIDI mappings</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="181"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="182"/>
         <source>Percussion</source>
         <translation type="unfinished">Percussion</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="184"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="185"/>
         <source>Import</source>
         <translation type="unfinished">Import</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="187"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="188"/>
         <source>Shortcuts</source>
         <translation type="unfinished">Shortcuts</translation>
     </message>
@@ -12195,12 +12223,12 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Update</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="193"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="194"/>
         <source>Advanced</source>
         <translation type="unfinished">Advanced</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="196"/>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="197"/>
         <source>Braille</source>
         <translation type="unfinished">Braille</translation>
     </message>
@@ -12245,9 +12273,19 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Choose default style for parts</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Preferences/internal/SkinSection.qml" line="31"/>
+        <location filename="../../src/appshell/qml/Preferences/internal/SkinSection.qml" line="32"/>
         <source>Interface skin</source>
         <translation type="unfinished">Interface skin</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Preferences/internal/SkinSection.qml" line="54"/>
+        <source>How the window is arranged. Themes and accent color apply to every skin.</source>
+        <translation type="unfinished">How the window is arranged. Themes and accent color apply to every skin.</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Preferences/internal/SkinSection.qml" line="272"/>
+        <source>Restart now</source>
+        <translation type="unfinished">Restart now</translation>
     </message>
 </context>
 <context>
@@ -38774,25 +38812,25 @@ The score will be saved as:
         <translation type="unfinished">Hidden</translation>
     </message>
     <message>
-        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="83"/>
+        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="86"/>
         <source>Light</source>
         <extracomment>The name of the light ui theme</extracomment>
         <translation type="unfinished">Light</translation>
     </message>
     <message>
-        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="86"/>
+        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="89"/>
         <source>Dark</source>
         <extracomment>The name of the dark ui theme</extracomment>
         <translation type="unfinished">Dark</translation>
     </message>
     <message>
-        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="89"/>
+        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="92"/>
         <source>White</source>
         <extracomment>The name of the high contrast light ui theme</extracomment>
         <translation type="unfinished">White</translation>
     </message>
     <message>
-        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="92"/>
+        <location filename="../../src/framework/ui/internal/themeconverter.cpp" line="95"/>
         <source>Black</source>
         <extracomment>The name of the high contrast dark ui theme</extracomment>
         <translation type="unfinished">Black</translation>

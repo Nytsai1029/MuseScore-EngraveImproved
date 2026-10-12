@@ -20,6 +20,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 #include <QApplication>
+#include <QTimer>
 
 #include "preferencesmodel.h"
 
@@ -243,6 +244,14 @@ void PreferencesModel::apply()
 void PreferencesModel::cancel()
 {
     configuration()->rollbackSettings();
+}
+
+void PreferencesModel::restartApp()
+{
+    //! NOTE The dialog is closing at this moment, so let it close first
+    QTimer::singleShot(0, qApp, [dispatcher = dispatcher()]() {
+        dispatcher->dispatch("restart");
+    });
 }
 
 void PreferencesModel::selectRow(const QModelIndex& rowIndex)

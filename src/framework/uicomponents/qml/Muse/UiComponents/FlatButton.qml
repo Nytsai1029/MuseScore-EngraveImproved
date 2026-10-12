@@ -60,7 +60,13 @@ FocusScope {
     property real margins: isNarrow ? 12 : 16
     property real minWidth: isNarrow ? 24 : 132
 
-    property real backgroundRadius: 3
+    property real backgroundRadius: ui.theme.controlRadius
+
+    //! NOTE: if the theme asks for it, an accent button is filled with the accent color itself,
+    //! and its content is white
+    readonly property bool isSolidAccent: accentButton && !transparent && ui.theme.solidAccentButtons
+    readonly property font contentTextFont: isSolidAccent && textFont == ui.theme.bodyFont ? ui.theme.bodyBoldFont
+                                                                                           : textFont
 
     property bool drawFocusBorderInsideRect: false
 
@@ -151,7 +157,7 @@ FocusScope {
             id: background
 
             color: root.normalColor
-            opacity: ui.theme.buttonOpacityNormal
+            opacity: root.isSolidAccent ? 1.0 : ui.theme.buttonOpacityNormal
 
             radius: root.backgroundRadius
             border.width: ui.theme.borderWidth
@@ -170,7 +176,7 @@ FocusScope {
                     PropertyChanges {
                         target: background
                         color: root.hoverHitColor
-                        opacity: ui.theme.buttonOpacityHit
+                        opacity: root.isSolidAccent ? 0.8 : ui.theme.buttonOpacityHit
                     }
                 },
 
@@ -181,7 +187,7 @@ FocusScope {
                     PropertyChanges {
                         target: background
                         color: root.hoverHitColor
-                        opacity: ui.theme.buttonOpacityHover
+                        opacity: root.isSolidAccent ? 0.9 : ui.theme.buttonOpacityHover
                     }
                 }
             ]
@@ -212,7 +218,7 @@ FocusScope {
                 Layout.alignment: Qt.AlignHCenter
                 iconCode: root.icon
                 font: root.iconFont
-                color: root.iconColor
+                color: root.isSolidAccent ? "#FFFFFF" : root.iconColor
                 visible: !isEmpty
             }
 
@@ -220,7 +226,8 @@ FocusScope {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
                 text: root.text
-                font: root.textFont
+                font: root.contentTextFont
+                color: root.isSolidAccent ? "#FFFFFF" : ui.theme.fontPrimaryColor
                 textFormat: root.textFormat
                 wrapMode: Text.Wrap
                 maximumLineCount: root.maximumLineCount
@@ -240,7 +247,7 @@ FocusScope {
                 Layout.alignment: Qt.AlignVCenter
                 iconCode: root.icon
                 font: root.iconFont
-                color: root.iconColor
+                color: root.isSolidAccent ? "#FFFFFF" : root.iconColor
                 visible: !isEmpty
             }
 
@@ -248,7 +255,8 @@ FocusScope {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignVCenter
                 text: root.text
-                font: root.textFont
+                font: root.contentTextFont
+                color: root.isSolidAccent ? "#FFFFFF" : ui.theme.fontPrimaryColor
                 textFormat: root.textFormat
                 wrapMode: Text.Wrap
                 maximumLineCount: root.maximumLineCount

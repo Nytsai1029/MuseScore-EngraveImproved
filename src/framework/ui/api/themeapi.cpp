@@ -45,6 +45,7 @@ static const QPen NO_BORDER(Qt::transparent, 0);
 static const QBrush NO_FILL(Qt::transparent);
 static const int DEFAULT_RADIUS = 3;
 static const qreal DEFAULT_CONTROL_HEIGHT = 30.0;
+static const qreal DEFAULT_CONTROL_RADIUS = 3.0;
 
 static const int GROUP_BOX_LABEL_SPACING = 2;
 
@@ -150,8 +151,11 @@ void ThemeApi::initThemeValues()
 
     m_controlBorderColor = themeValues[CONTROL_BORDER_COLOR].toString();
     m_controlHeight = themeValues[CONTROL_HEIGHT].toReal();
+    m_controlRadius = themeValues[CONTROL_RADIUS].toReal();
     m_joinedButtonGroups = themeValues[JOINED_BUTTON_GROUPS].toBool();
     m_filledCheckBoxes = themeValues[FILLED_CHECK_BOXES].toBool();
+    m_solidAccentButtons = themeValues[SOLID_ACCENT_BUTTONS].toBool();
+    m_raisedCheckedSegments = themeValues[RAISED_CHECKED_SEGMENTS].toBool();
 }
 
 void ThemeApi::update()
@@ -327,6 +331,11 @@ qreal ThemeApi::controlHeight() const
     return m_controlHeight > 0.0 ? m_controlHeight : DEFAULT_CONTROL_HEIGHT;
 }
 
+qreal ThemeApi::controlRadius() const
+{
+    return m_controlRadius > 0.0 ? m_controlRadius : DEFAULT_CONTROL_RADIUS;
+}
+
 bool ThemeApi::joinedButtonGroups() const
 {
     return m_joinedButtonGroups;
@@ -335,6 +344,16 @@ bool ThemeApi::joinedButtonGroups() const
 bool ThemeApi::filledCheckBoxes() const
 {
     return m_filledCheckBoxes;
+}
+
+bool ThemeApi::solidAccentButtons() const
+{
+    return m_solidAccentButtons;
+}
+
+bool ThemeApi::raisedCheckedSegments() const
+{
+    return m_raisedCheckedSegments;
 }
 
 qreal ThemeApi::borderWidth() const

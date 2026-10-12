@@ -41,7 +41,7 @@ Rectangle {
 
     opacity: enabled ? 1 : ui.theme.itemOpacityDisabled
 
-    radius: 3
+    radius: ui.theme.controlRadius
     color: "#000000"
 
     NavigationFocusBorder { navigationCtrl: navCtrl }

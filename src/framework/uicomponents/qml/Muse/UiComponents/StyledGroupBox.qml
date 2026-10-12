@@ -41,7 +41,7 @@ GroupBox {
 
         color: ui.theme.backgroundPrimaryColor
         border.color: ui.theme.strokeColor
-        radius: 3
+        radius: ui.theme.controlRadius
     }
 
     label: Loader {

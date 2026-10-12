@@ -47,12 +47,18 @@ PreferencesPage {
 
             skins: appearanceModel.skins
             currentSkinCode: appearanceModel.currentSkinCode
+            restartRequired: appearanceModel.skinRestartRequired
+            restartText: appearanceModel.skinRestartText
 
             navigation.section: root.navigationSection
             navigation.order: root.navigationOrderStart
 
             onSkinChangeRequested: function(newSkinCode) {
                 appearanceModel.currentSkinCode = newSkinCode
+            }
+
+            onRestartRequested: {
+                root.restartRequested()
             }
 
             onFocusChanged: {

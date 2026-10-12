@@ -152,7 +152,7 @@ Item {
             border.width: mainItem.isFieldStyle ? Math.max(ui.theme.borderWidth, 1) : ui.theme.borderWidth
             border.color: mainItem.isFieldStyle ? ui.theme.controlBorderColor : ui.theme.strokeColor
             color: mainItem.isFieldStyle ? ui.theme.textFieldColor : ui.theme.buttonColor
-            radius: 3
+            radius: ui.theme.controlRadius
             opacity: mainItem.isFieldStyle ? 1.0 : 0.7
 
             NavigationFocusBorder { navigationCtrl: navCtrl }

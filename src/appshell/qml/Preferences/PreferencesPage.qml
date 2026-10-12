@@ -45,6 +45,9 @@ Rectangle {
 
     signal hideRequested()
 
+    //! NOTE: asks to apply the preferences, close the dialog and restart the app
+    signal restartRequested()
+
     function apply() {
         return true
     }

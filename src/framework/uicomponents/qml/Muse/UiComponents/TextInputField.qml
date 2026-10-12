@@ -138,7 +138,7 @@ FocusScope {
         color: ui.theme.textFieldColor
         border.color: ui.theme.controlBorderColor.valid ? ui.theme.controlBorderColor : ui.theme.strokeColor
         border.width: Math.max(ui.theme.borderWidth, 1)
-        radius: 3
+        radius: ui.theme.controlRadius
     }
 
     RowLayout {

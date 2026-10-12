@@ -46,10 +46,14 @@ class IUiConfiguration : MODULE_EXPORT_INTERFACE
 public:
     virtual ~IUiConfiguration() = default;
 
+    //! NOTE `currentSkin` is the skin in effect. A skin which can only be applied at startup stays `selectedSkin`
+    //! (and the previous skin stays in effect) until the app is restarted; otherwise both are the same
     virtual std::vector<SkinCode> skins() const = 0;
     virtual SkinCode currentSkin() const = 0;
     virtual void setCurrentSkin(const SkinCode& skinCode) = 0;
     virtual async::Notification currentSkinChanged() const = 0;
+    virtual SkinCode selectedSkin() const = 0;
+    virtual async::Notification selectedSkinChanged() const = 0;
 
     virtual ThemeList themes() const = 0;
     virtual QStringList possibleAccentColors() const = 0;

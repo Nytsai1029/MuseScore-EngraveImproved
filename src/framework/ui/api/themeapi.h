@@ -92,8 +92,11 @@ class ThemeApi : public api::ApiObject, public async::Asyncable
     //! NOTE The style of the controls, which a theme can redefine
     Q_PROPERTY(QColor controlBorderColor READ controlBorderColor NOTIFY themeChanged)
     Q_PROPERTY(qreal controlHeight READ controlHeight NOTIFY themeChanged)
+    Q_PROPERTY(qreal controlRadius READ controlRadius NOTIFY themeChanged)
     Q_PROPERTY(bool joinedButtonGroups READ joinedButtonGroups NOTIFY themeChanged)
     Q_PROPERTY(bool filledCheckBoxes READ filledCheckBoxes NOTIFY themeChanged)
+    Q_PROPERTY(bool solidAccentButtons READ solidAccentButtons NOTIFY themeChanged)
+    Q_PROPERTY(bool raisedCheckedSegments READ raisedCheckedSegments NOTIFY themeChanged)
 
     Q_PROPERTY(int flickableMaxVelocity READ flickableMaxVelocity CONSTANT)
 
@@ -149,8 +152,11 @@ public:
 
     QColor controlBorderColor() const;
     qreal controlHeight() const;
+    qreal controlRadius() const;
     bool joinedButtonGroups() const;
     bool filledCheckBoxes() const;
+    bool solidAccentButtons() const;
+    bool raisedCheckedSegments() const;
     qreal borderWidth() const;
     qreal navCtrlBorderWidth() const;
     qreal accentOpacityNormal() const;
@@ -224,8 +230,11 @@ private:
 
     QColor m_controlBorderColor;
     qreal m_controlHeight = 0;
+    qreal m_controlRadius = 0;
     bool m_joinedButtonGroups = false;
     bool m_filledCheckBoxes = false;
+    bool m_solidAccentButtons = false;
+    bool m_raisedCheckedSegments = false;
     qreal m_borderWidth = 0;
     qreal m_navCtrlBorderWidth = 0;
     qreal m_accentOpacityNormal = 0;

@@ -63,6 +63,7 @@ public:
     Q_INVOKABLE void resetFactorySettings();
     Q_INVOKABLE void apply();
     Q_INVOKABLE void cancel();
+    Q_INVOKABLE void restartApp();
     Q_INVOKABLE void selectRow(const QModelIndex& rowIndex);
 
     Q_INVOKABLE QVariantList availablePages() const;

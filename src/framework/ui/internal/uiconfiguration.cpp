@@ -121,7 +121,15 @@ void UiConfiguration::init()
         m_skins.push_back(skinCode.toString());
     }
 
+    for (const Val& skinCode : m_config.value("skins_requiring_restart").toList()) {
+        m_skinsRequiringRestart.push_back(skinCode.toString());
+    }
+
     settings()->setDefaultValue(UI_CURRENT_SKIN_CODE_KEY, Val(DEFAULT_SKIN_CODE));
+
+    //! NOTE The skin in effect is the one which was selected when the app started
+    m_currentSkin = selectedSkin();
+
     settings()->setDefaultValue(UI_CURRENT_THEME_CODE_KEY, Val(LIGHT_THEME_CODE));
     settings()->setDefaultValue(UI_CUSTOM_COLORS_KEY, Val(readLegacyCustomColors()));
     settings()->setDefaultValue(UI_FOLLOW_SYSTEM_THEME_KEY, Val(false));
@@ -148,7 +156,7 @@ void UiConfiguration::init()
     }
 
     settings()->valueChanged(UI_CURRENT_SKIN_CODE_KEY).onReceive(this, [this](const Val&) {
-        onCurrentSkinChanged();
+        onSelectedSkinChanged();
     });
 
     settings()->valueChanged(UI_CURRENT_THEME_CODE_KEY).onReceive(this, [this](const Val&) {
@@ -207,12 +215,7 @@ std::vector<SkinCode> UiConfiguration::skins() const
 
 SkinCode UiConfiguration::currentSkin() const
 {
-    SkinCode skinCode = settings()->value(UI_CURRENT_SKIN_CODE_KEY).toString();
-    if (std::find(m_skins.begin(), m_skins.end(), skinCode) == m_skins.end()) {
-        return DEFAULT_SKIN_CODE;
-    }
-
-    return skinCode;
+    return m_currentSkin;
 }
 
 void UiConfiguration::setCurrentSkin(const SkinCode& skinCode)
@@ -223,6 +226,42 @@ void UiConfiguration::setCurrentSkin(const SkinCode& skinCode)
 muse::async::Notification UiConfiguration::currentSkinChanged() const
 {
     return m_currentSkinChanged;
+}
+
+SkinCode UiConfiguration::selectedSkin() const
+{
+    SkinCode skinCode = settings()->value(UI_CURRENT_SKIN_CODE_KEY).toString();
+    if (std::find(m_skins.begin(), m_skins.end(), skinCode) == m_skins.end()) {
+        return DEFAULT_SKIN_CODE;
+    }
+
+    return skinCode;
+}
+
+muse::async::Notification UiConfiguration::selectedSkinChanged() const
+{
+    return m_selectedSkinChanged;
+}
+
+bool UiConfiguration::skinRequiresRestart(const SkinCode& skinCode) const
+{
+    return std::find(m_skinsRequiringRestart.begin(), m_skinsRequiringRestart.end(), skinCode) != m_skinsRequiringRestart.end();
+}
+
+void UiConfiguration::onSelectedSkinChanged()
+{
+    const SkinCode newSkin = selectedSkin();
+
+    //! NOTE Some skins build the window from other pages and toolbars, so they can be applied (or left) only at startup.
+    //! Until then the skin in effect stays as it is
+    const bool canApplyNow = !skinRequiresRestart(newSkin) && !skinRequiresRestart(m_currentSkin);
+
+    if (newSkin != m_currentSkin && canApplyNow) {
+        m_currentSkin = newSkin;
+        onCurrentSkinChanged();
+    }
+
+    m_selectedSkinChanged.notify();
 }
 
 void UiConfiguration::onCurrentSkinChanged()
@@ -393,6 +432,7 @@ ThemeInfo UiConfiguration::makeStandardTheme(const ThemeCode& codeKey) const
         { BORDER_WIDTH, config.value("border_width").toDouble() },
         { NAVIGATION_CONTROL_BORDER_WIDTH, config.value("navigation_control_border_width").toDouble() },
         { CONTROL_HEIGHT, config.value("control_height").toDouble() },
+        { CONTROL_RADIUS, config.value("control_radius").toDouble() },
 
         { ACCENT_OPACITY_NORMAL, config.value("accent_opacity_normal").toDouble() },
         { ACCENT_OPACITY_HOVER, config.value("accent_opacity_hover").toDouble() },
@@ -405,7 +445,9 @@ ThemeInfo UiConfiguration::makeStandardTheme(const ThemeCode& codeKey) const
         { ITEM_OPACITY_DISABLED, config.value("item_opacity_disabled").toDouble() },
 
         { JOINED_BUTTON_GROUPS, config.value("joined_button_groups").toBool() },
-        { FILLED_CHECK_BOXES, config.value("filled_check_boxes").toBool() }
+        { FILLED_CHECK_BOXES, config.value("filled_check_boxes").toBool() },
+        { SOLID_ACCENT_BUTTONS, config.value("solid_accent_buttons").toBool() },
+        { RAISED_CHECKED_SEGMENTS, config.value("raised_checked_segments").toBool() }
     };
 
     return theme;
@@ -485,11 +527,42 @@ QStringList UiConfiguration::possibleAccentColors() const
         "#E454C4"
     };
 
+    //! NOTE A skin may offer its own accent colors
+    const QStringList skinAccentColors = accentColorsOfCurrentSkin(isDarkMode() ? DARK_THEME_CODE : LIGHT_THEME_CODE);
+    if (!skinAccentColors.isEmpty()) {
+        return skinAccentColors;
+    }
+
     if (isDarkMode()) {
         return darkAccentColors;
     }
 
     return lightAccentColors;
+}
+
+QStringList UiConfiguration::accentColorsOfCurrentSkin(const ThemeCode& themeCode) const
+{
+    const SkinCode skinCode = currentSkin();
+    if (skinCode == DEFAULT_SKIN_CODE) {
+        return {};
+    }
+
+    const QString cacheKey = QString::fromStdString(skinCode + "/" + themeCode);
+
+    auto it = m_skinAccentColors.constFind(cacheKey);
+    if (it != m_skinAccentColors.constEnd()) {
+        return it.value();
+    }
+
+    QStringList colors;
+    const Config config = ConfigReader::read(themeConfigPath(skinCode, themeCode));
+    for (const Val& color : config.value("accent_colors").toList()) {
+        colors << color.toQString();
+    }
+
+    m_skinAccentColors.insert(cacheKey, colors);
+
+    return colors;
 }
 
 QStringList UiConfiguration::possibleFontFamilies() const

@@ -95,8 +95,30 @@ StyledDialogView {
                 root.hide()
             })
 
+            obj.restartRequested.connect(function() {
+                if (root.applyPreferences()) {
+                    preferencesModel.restartApp()
+                    root.hide()
+                }
+            })
+
             root.prv.pagesObjects[pageInfo.id] = obj
         }
+    }
+
+    function applyPreferences() {
+        preferencesModel.apply()
+
+        var ok = true
+        var pages = preferencesModel.availablePages()
+
+        for (var i in pages) {
+            var page = pages[i]
+            var obj = root.prv.pagesObjects[page.id]
+            ok &= obj.apply()
+        }
+
+        return ok
     }
 
     PreferencesModel {
@@ -170,18 +192,7 @@ StyledDialogView {
             }
 
             onApplyRequested: {
-                preferencesModel.apply()
-
-                var ok = true
-                var pages = preferencesModel.availablePages()
-
-                for (var i in pages) {
-                    var page = pages[i]
-                    var obj = root.prv.pagesObjects[page.id]
-                    ok &= obj.apply()
-                }
-
-                if (ok) {
+                if (root.applyPreferences()) {
                     root.hide()
                 }
             }

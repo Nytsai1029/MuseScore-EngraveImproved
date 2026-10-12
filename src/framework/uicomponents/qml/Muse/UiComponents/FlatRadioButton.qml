@@ -52,6 +52,11 @@ RadioDelegate {
     //! they fill the spacing between them (except for a thin divider), and only the ends of the strip are rounded
     readonly property bool isJoined: ui.theme.joinedButtonGroups && !transparent && Boolean(ListView.view)
                                      && ListView.view.orientation === ListView.Horizontal && ListView.view.count > 1
+    //! NOTE: if the theme asks for it, the checked button of a strip is drawn as a raised key on the strip,
+    //! instead of being filled with the accent color
+    readonly property bool isRaisedChecked: isJoined && checked && ui.theme.raisedCheckedSegments
+    readonly property bool isFilledChecked: checked && !isRaisedChecked
+
     readonly property bool isFirstInStrip: !isJoined || root.x < 1
     readonly property bool isLastInStrip: !isJoined || root.x + root.width > ListView.view.contentWidth - 1
 
@@ -137,37 +142,49 @@ RadioDelegate {
                 anchors.leftMargin: root.isFirstInStrip ? 0 : -radius
                 anchors.rightMargin: root.isLastInStrip ? 0 : -radius
 
-                color: root.checked ? root.checkedColor : root.normalColor
-                opacity: root.isJoined && root.checked ? 1.0 : ui.theme.buttonOpacityNormal
+                color: root.isFilledChecked ? root.checkedColor : root.normalColor
+                opacity: root.isJoined && root.isFilledChecked ? 1.0 : ui.theme.buttonOpacityNormal
 
                 border.width: ui.theme.borderWidth
                 border.color: ui.theme.strokeColor
-                radius: root.isJoined ? 3 : 2
+                radius: root.isJoined ? ui.theme.controlRadius : 2
 
                 states: [
                     State {
                         name: "HOVERED"
-                        when: root.hovered && !root.pressed
+                        when: root.hovered && !root.pressed && !root.isRaisedChecked
 
                         PropertyChanges {
                             target: backgroundRect
-                            color: root.checked ? root.checkedColor : root.hoverHitColor
-                            opacity: root.isJoined && root.checked ? 0.9 : ui.theme.buttonOpacityHover
+                            color: root.isFilledChecked ? root.checkedColor : root.hoverHitColor
+                            opacity: root.isJoined && root.isFilledChecked ? 0.9 : ui.theme.buttonOpacityHover
                         }
                     },
 
                     State {
                         name: "PRESSED"
-                        when: root.pressed
+                        when: root.pressed && !root.isRaisedChecked
 
                         PropertyChanges {
                             target: backgroundRect
-                            color: root.checked ? root.checkedColor : root.hoverHitColor
-                            opacity: root.isJoined && root.checked ? 0.8 : ui.theme.buttonOpacityHit
+                            color: root.isFilledChecked ? root.checkedColor : root.hoverHitColor
+                            opacity: root.isJoined && root.isFilledChecked ? 0.8 : ui.theme.buttonOpacityHit
                         }
                     }
                 ]
             }
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            anchors.margins: 2
+
+            visible: root.isRaisedChecked
+
+            color: ui.theme.popupBackgroundColor
+            border.width: 1
+            border.color: ui.theme.strokeColor
+            radius: Math.max(backgroundRect.radius - 2, 0)
         }
 
         NavigationFocusBorder {
@@ -198,7 +215,7 @@ RadioDelegate {
             StyledIconLabel {
                 iconCode: root.iconCode
                 font.pixelSize: root.iconFontSize
-                color: root.isJoined && root.checked ? "#FFFFFF" : ui.theme.fontPrimaryColor
+                color: root.isJoined && root.isFilledChecked ? "#FFFFFF" : ui.theme.fontPrimaryColor
             }
         }
 
@@ -208,7 +225,7 @@ RadioDelegate {
             StyledTextLabel {
                 text: root.text
                 maximumLineCount: 1
-                color: root.isJoined && root.checked ? "#FFFFFF" : ui.theme.fontPrimaryColor
+                color: root.isJoined && root.isFilledChecked ? "#FFFFFF" : ui.theme.fontPrimaryColor
             }
         }
     }

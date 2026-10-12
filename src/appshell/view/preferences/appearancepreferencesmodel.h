@@ -36,6 +36,8 @@ class AppearancePreferencesModel : public QObject, public muse::Injectable, publ
 
     Q_PROPERTY(QVariantList skins READ skins CONSTANT)
     Q_PROPERTY(QString currentSkinCode READ currentSkinCode WRITE setCurrentSkinCode NOTIFY currentSkinCodeChanged)
+    Q_PROPERTY(bool skinRestartRequired READ skinRestartRequired NOTIFY currentSkinCodeChanged)
+    Q_PROPERTY(QString skinRestartText READ skinRestartText NOTIFY currentSkinCodeChanged)
 
     Q_PROPERTY(bool isFollowSystemThemeAvailable READ isFollowSystemThemeAvailable CONSTANT)
     Q_PROPERTY(bool isFollowSystemTheme READ isFollowSystemTheme WRITE setFollowSystemTheme NOTIFY isFollowSystemThemeChanged)
@@ -82,6 +84,8 @@ public:
 
     QVariantList skins() const;
     QString currentSkinCode() const;
+    bool skinRestartRequired() const;
+    QString skinRestartText() const;
 
     bool isFollowSystemThemeAvailable() const;
     bool isFollowSystemTheme() const;

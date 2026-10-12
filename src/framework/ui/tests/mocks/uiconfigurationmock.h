@@ -33,6 +33,8 @@ public:
     MOCK_METHOD(SkinCode, currentSkin, (), (const, override));
     MOCK_METHOD(void, setCurrentSkin, (const SkinCode&), (override));
     MOCK_METHOD(async::Notification, currentSkinChanged, (), (const, override));
+    MOCK_METHOD(SkinCode, selectedSkin, (), (const, override));
+    MOCK_METHOD(async::Notification, selectedSkinChanged, (), (const, override));
 
     MOCK_METHOD(ThemeList, themes, (), (const, override));
     MOCK_METHOD(QStringList, possibleAccentColors, (), (const, override));
