@@ -24879,6 +24879,11 @@ Fret %1 on strings %2</translation>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="191"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="139"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="159"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="346"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="355"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="364"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="373"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="382"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="538"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="574"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="687"/>
@@ -29494,104 +29499,139 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Flatten all beams</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="181"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="178"/>
+        <source>Snap manually adjusted beams to quarter spaces</source>
+        <translation type="unfinished">Snap manually adjusted beams to quarter spaces</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="190"/>
         <source>Beam style</source>
         <translation type="unfinished">Beam style</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="198"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="207"/>
         <source>Draw inner stems through beams</source>
         <translation type="unfinished">Draw inner stems through beams</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="199"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="208"/>
         <source>Draw inner stems to nearest beam (“French” style)</source>
         <translation type="unfinished">Draw inner stems to nearest beam (“French” style)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="225"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="234"/>
         <source>Apply default beam slant rules</source>
         <translation type="unfinished">Apply default beam slant rules</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="236"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="245"/>
         <source>Custom slant rules</source>
         <translation type="unfinished">Custom slant rules</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="241"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="255"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="250"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="264"/>
         <source>2nd:</source>
         <translation type="unfinished">2nd:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="242"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="256"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="251"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="265"/>
         <source>3rd:</source>
         <translation type="unfinished">3rd:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="243"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="257"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="252"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="266"/>
         <source>4th:</source>
         <translation type="unfinished">4th:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="244"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="258"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="253"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="267"/>
         <source>5th:</source>
         <translation type="unfinished">5th:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="245"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="259"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="254"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="268"/>
         <source>6th:</source>
         <translation type="unfinished">6th:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="248"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="262"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="257"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="271"/>
         <source>7th:</source>
         <translation type="unfinished">7th:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="249"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="263"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="258"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="272"/>
         <source>8th:</source>
         <translation type="unfinished">8th:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="250"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="264"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="259"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="273"/>
         <source>9th:</source>
         <translation type="unfinished">9th:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="251"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="265"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="260"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="274"/>
         <source>10th:</source>
         <translation type="unfinished">10th:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="252"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="266"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="261"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="275"/>
         <source>Greater than 10th:</source>
         <translation type="unfinished">Greater than 10th:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="278"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="285"/>
+        <source>Apply positioning rules for staff lines, ledger lines and stem length</source>
+        <translation type="unfinished">Apply positioning rules for staff lines, ledger lines and stem length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="296"/>
         <source>Slant for beams of only two notes, by interval:</source>
         <translation type="unfinished">Slant for beams of only two notes, by interval:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="293"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="311"/>
         <source>Slant for beams of more than two notes, by interval:</source>
         <translation type="unfinished">Slant for beams of more than two notes, by interval:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="309"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="327"/>
         <source>These options determine the ideal slant of the beam in terms of the vertical distance between the tips of the stems of the first and last notes within the beam, based on the interval between the first and last notes within the beam, provided the contour of the other notes within the beam is such that the beam should be slanted.</source>
         <translation type="unfinished">These options determine the ideal slant of the beam in terms of the vertical distance between the tips of the stems of the first and last notes within the beam, based on the interval between the first and last notes within the beam, provided the contour of the other notes within the beam is such that the beam should be slanted.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="345"/>
+        <source>Stroke width:</source>
+        <translation type="unfinished">Stroke width:</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="354"/>
+        <source>Stroke thickness:</source>
+        <translation type="unfinished">Stroke thickness:</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="363"/>
+        <source>Distance between strokes:</source>
+        <translation type="unfinished">Distance between strokes:</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="372"/>
+        <source>Distance from notehead:</source>
+        <translation type="unfinished">Distance from notehead:</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="381"/>
+        <source>Distance from stem end:</source>
+        <translation type="unfinished">Distance from stem end:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="160"/>
@@ -31190,6 +31230,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Breath marks</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="336"/>
         <location filename="../../src/notation/view/selectionfilter/elementsselectionfiltermodel.cpp" line="89"/>
         <source>Tremolos</source>
         <translation type="unfinished">Tremolos</translation>

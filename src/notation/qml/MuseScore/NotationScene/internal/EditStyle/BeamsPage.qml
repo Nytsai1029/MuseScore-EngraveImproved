@@ -173,6 +173,15 @@ StyleDialogPage {
         }
     }
 
+    CheckBox {
+        width: parent.width
+        text: qsTrc("notation", "Snap manually adjusted beams to quarter spaces")
+        checked: beamsPageModel.snapCustomBeamsToGrid.value
+        onClicked: {
+            beamsPageModel.snapCustomBeamsToGrid.value = !checked
+        }
+    }
+
     StyledGroupBox {
         id: beamStyleGroup
         width: parent.width
@@ -271,6 +280,15 @@ StyleDialogPage {
             width: parent.width
             spacing: 12
 
+            CheckBox {
+                Layout.fillWidth: true
+                text: qsTrc("notation", "Apply positioning rules for staff lines, ledger lines and stem length")
+                checked: beamsPageModel.beamCustomPositioningRules.value
+                onClicked: {
+                    beamsPageModel.beamCustomPositioningRules.value = !checked
+                }
+            }
+
             StyledTextLabel {
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignLeft
@@ -307,6 +325,64 @@ StyleDialogPage {
                 horizontalAlignment: Text.AlignLeft
                 font.italic: true
                 text: qsTrc("notation", "These options determine the ideal slant of the beam in terms of the vertical distance between the tips of the stems of the first and last notes within the beam, based on the interval between the first and last notes within the beam, provided the contour of the other notes within the beam is such that the beam should be slanted.")
+            }
+        }
+    }
+
+    StyledGroupBox {
+        id: tremoloGroup
+        width: parent.width
+        height: tremoloContent.implicitHeight + topPadding + bottomPadding + implicitLabelHeight + spacing
+        title: qsTrc("notation", "Tremolos")
+
+        ColumnLayout {
+            id: tremoloContent
+            width: parent.width
+            spacing: 8
+
+            StyleSpinboxWithReset {
+                styleItem: beamsPageModel.tremoloWidth
+                label: qsTrc("notation", "Stroke width:")
+                suffix: qsTrc("global", "sp")
+                step: 0.1
+                labelAreaWidth: 160
+                controlAreaWidth: 100
+            }
+
+            StyleSpinboxWithReset {
+                styleItem: beamsPageModel.tremoloLineWidth
+                label: qsTrc("notation", "Stroke thickness:")
+                suffix: qsTrc("global", "sp")
+                step: 0.05
+                labelAreaWidth: 160
+                controlAreaWidth: 100
+            }
+
+            StyleSpinboxWithReset {
+                styleItem: beamsPageModel.tremoloDistance
+                label: qsTrc("notation", "Distance between strokes:")
+                suffix: qsTrc("global", "sp")
+                step: 0.05
+                labelAreaWidth: 160
+                controlAreaWidth: 100
+            }
+
+            StyleSpinboxWithReset {
+                styleItem: beamsPageModel.tremoloNoteSidePadding
+                label: qsTrc("notation", "Distance from notehead:")
+                suffix: qsTrc("global", "sp")
+                step: 0.05
+                labelAreaWidth: 160
+                controlAreaWidth: 100
+            }
+
+            StyleSpinboxWithReset {
+                styleItem: beamsPageModel.tremoloOutSidePadding
+                label: qsTrc("notation", "Distance from stem end:")
+                suffix: qsTrc("global", "sp")
+                step: 0.05
+                labelAreaWidth: 160
+                controlAreaWidth: 100
             }
         }
     }

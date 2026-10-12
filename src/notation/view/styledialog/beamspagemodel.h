@@ -56,6 +56,13 @@ class BeamsPageModel : public AbstractStyleDialogModel
     Q_PROPERTY(StyleItem * beamCustomMaxSlantNinthInterval READ beamCustomMaxSlantNinthInterval CONSTANT)
     Q_PROPERTY(StyleItem * beamCustomMaxSlantTenthInterval READ beamCustomMaxSlantTenthInterval CONSTANT)
     Q_PROPERTY(StyleItem * beamCustomMaxSlantGreaterThanTenthInterval READ beamCustomMaxSlantGreaterThanTenthInterval CONSTANT)
+    Q_PROPERTY(StyleItem * snapCustomBeamsToGrid READ snapCustomBeamsToGrid CONSTANT)
+    Q_PROPERTY(StyleItem * beamCustomPositioningRules READ beamCustomPositioningRules CONSTANT)
+    Q_PROPERTY(StyleItem * tremoloWidth READ tremoloWidth CONSTANT)
+    Q_PROPERTY(StyleItem * tremoloLineWidth READ tremoloLineWidth CONSTANT)
+    Q_PROPERTY(StyleItem * tremoloDistance READ tremoloDistance CONSTANT)
+    Q_PROPERTY(StyleItem * tremoloNoteSidePadding READ tremoloNoteSidePadding CONSTANT)
+    Q_PROPERTY(StyleItem * tremoloOutSidePadding READ tremoloOutSidePadding CONSTANT)
 
 public:
     explicit BeamsPageModel(QObject* parent = nullptr);
@@ -87,6 +94,13 @@ public:
     StyleItem* beamCustomMaxSlantNinthInterval() const;
     StyleItem* beamCustomMaxSlantTenthInterval() const;
     StyleItem* beamCustomMaxSlantGreaterThanTenthInterval() const;
+    StyleItem* snapCustomBeamsToGrid() const;
+    StyleItem* beamCustomPositioningRules() const;
+    StyleItem* tremoloWidth() const;
+    StyleItem* tremoloLineWidth() const;
+    StyleItem* tremoloDistance() const;
+    StyleItem* tremoloNoteSidePadding() const;
+    StyleItem* tremoloOutSidePadding() const;
 };
 }
 

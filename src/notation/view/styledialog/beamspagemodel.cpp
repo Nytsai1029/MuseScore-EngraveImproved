@@ -51,7 +51,14 @@ BeamsPageModel::BeamsPageModel(QObject* parent)
     StyleId::beamCustomMaxSlantOctave,
     StyleId::beamCustomMaxSlantNinthInterval,
     StyleId::beamCustomMaxSlantTenthInterval,
-    StyleId::beamCustomMaxSlantGreaterThanTenthInterval
+    StyleId::beamCustomMaxSlantGreaterThanTenthInterval,
+    StyleId::snapCustomBeamsToGrid,
+    StyleId::beamCustomPositioningRules,
+    StyleId::tremoloWidth,
+    StyleId::tremoloLineWidth,
+    StyleId::tremoloDistance,
+    StyleId::tremoloNoteSidePadding,
+    StyleId::tremoloOutSidePadding
 })
 {
 }
@@ -189,4 +196,39 @@ StyleItem* BeamsPageModel::beamCustomMaxSlantTenthInterval() const
 StyleItem* BeamsPageModel::beamCustomMaxSlantGreaterThanTenthInterval() const
 {
     return styleItem(StyleId::beamCustomMaxSlantGreaterThanTenthInterval);
+}
+
+StyleItem* BeamsPageModel::snapCustomBeamsToGrid() const
+{
+    return styleItem(StyleId::snapCustomBeamsToGrid);
+}
+
+StyleItem* BeamsPageModel::beamCustomPositioningRules() const
+{
+    return styleItem(StyleId::beamCustomPositioningRules);
+}
+
+StyleItem* BeamsPageModel::tremoloWidth() const
+{
+    return styleItem(StyleId::tremoloWidth);
+}
+
+StyleItem* BeamsPageModel::tremoloLineWidth() const
+{
+    return styleItem(StyleId::tremoloLineWidth);
+}
+
+StyleItem* BeamsPageModel::tremoloDistance() const
+{
+    return styleItem(StyleId::tremoloDistance);
+}
+
+StyleItem* BeamsPageModel::tremoloNoteSidePadding() const
+{
+    return styleItem(StyleId::tremoloNoteSidePadding);
+}
+
+StyleItem* BeamsPageModel::tremoloOutSidePadding() const
+{
+    return styleItem(StyleId::tremoloOutSidePadding);
 }
