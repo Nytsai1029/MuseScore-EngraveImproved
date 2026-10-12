@@ -4742,6 +4742,236 @@ followed by dashes</source>
         <source>Show number ‘1’</source>
         <translation>显示数字“1”</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="573"/>
+        <source>Show square brackets when spanning a single staff</source>
+        <translation>显示延伸到单个谱表的辅助连谱号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="733"/>
+        <source>Reset &apos;Distance from staff&apos; value</source>
+        <translation>重置“到谱表的距离”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="989"/>
+        <source>Min. horizontal distance:</source>
+        <translation>最小水平距离：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="1018"/>
+        <source>Reset &apos;Min. horizontal distance&apos; value</source>
+        <translation>重置“最小水平距离”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="1246"/>
+        <source>Min. distance to header/footer:</source>
+        <translation>到页眉/页脚的最小距离：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="1275"/>
+        <source>Reset &apos;Min. distance to header/footer&apos; value</source>
+        <translation>重置“到页眉/页脚的最小距离”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="2820"/>
+        <source>Grace note to main note:</source>
+        <translation>装饰音-主音符：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="2846"/>
+        <source>Reset &apos;Grace note to main note&apos; value</source>
+        <translation>重置“装饰音-主音符”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="2856"/>
+        <source>Grace note to grace note:</source>
+        <translation>装饰音-装饰音：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="2882"/>
+        <source>Reset &apos;Grace note to grace note&apos; value</source>
+        <translation>重置“装饰音-装饰音”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="2899"/>
+        <source>System header to continued tie or line:</source>
+        <translation>谱行组头-延续的延音线或线条：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="2925"/>
+        <source>Reset &apos;System header to continued tie or line&apos; value</source>
+        <translation>重置“谱行组头-延续的延音线或线条”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="2935"/>
+        <source>Barline to continued tie or line:</source>
+        <translation>小节线-延续的延音线或线条：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="2961"/>
+        <source>Reset &apos;Barline to continued tie or line&apos; value</source>
+        <translation>重置“小节线-延续的延音线或线条”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="2971"/>
+        <source>Continued tie or line to barline:</source>
+        <translation>延续的延音线或线条-小节线：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="2997"/>
+        <source>Reset &apos;Continued tie or line to barline&apos; value</source>
+        <translation>重置“延续的延音线或线条-小节线”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="3014"/>
+        <source>Right margin after courtesy signatures:</source>
+        <translation>提示谱号、调号与拍号后的右边距：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="3040"/>
+        <source>Reset &apos;Right margin after courtesy signatures&apos; value</source>
+        <translation>重置“提示谱号、调号与拍号后的右边距”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="3050"/>
+        <source>Ambitus padding:</source>
+        <translation>音域记号内距：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="3076"/>
+        <source>Reset &apos;Ambitus padding&apos; value</source>
+        <translation>重置“音域记号内距”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="4587"/>
+        <source>Let brackets extend into the left margin when there are no instrument names</source>
+        <translation>没有乐器名称时让连谱号伸入左页边距</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="5643"/>
+        <source>Shortening starts beyond the staff by (half spaces):</source>
+        <translation>符干伸出谱表多远后开始缩短（半个谱间）：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="5679"/>
+        <source>Grace note slash distance from stem tip:</source>
+        <translation>装饰音斜线到符尖的距离：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="5705"/>
+        <source>Grace note slash angle:</source>
+        <translation>装饰音斜线角度：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="5737"/>
+        <source>Grace note slash thickness:</source>
+        <translation>装饰音斜线粗细：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="5777"/>
+        <source>Standard stem length:</source>
+        <translation>标准符干长度：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="5809"/>
+        <source>Reset &apos;Standard stem length&apos; value</source>
+        <translation>重置“标准符干长度”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="7482"/>
+        <source>Distance to accidental:</source>
+        <translation>到变音号的距离：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="7508"/>
+        <source>Min. distance to accidental:</source>
+        <translation>到变音号的最小距离：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="9476"/>
+        <source>Height above staff (line distances):</source>
+        <translation>高出谱表的高度（以线距为单位）：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="9502"/>
+        <source>Reset &apos;Height above staff&apos; value</source>
+        <translation>重置“高出谱表的高度”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="9512"/>
+        <source>Partial bend height:</source>
+        <translation>部分弯音高度：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="9541"/>
+        <source>Reset &apos;Partial bend height&apos; value</source>
+        <translation>重置“部分弯音高度”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="9554"/>
+        <source>Legacy bends</source>
+        <translation>旧式弯音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="9589"/>
+        <source>Reset &apos;Legacy bend arrow width&apos; value</source>
+        <translation>重置“旧式弯音箭头宽度”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="10495"/>
+        <source>Fall, doit, plop and scoop line thickness:</source>
+        <translation>坠音、上倚音、轻落音与舀音的线条粗细：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="10524"/>
+        <source>Reset &apos;Fall, doit, plop and scoop line thickness&apos; value</source>
+        <translation>重置“坠音、上倚音、轻落音与舀音的线条粗细”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="12075"/>
+        <source>Halve the gap before the first and after the last dash</source>
+        <translation>首个短横线之前与末个短横线之后的间隙减半</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="12085"/>
+        <source>Reset &apos;Halve the gap before the first and after the last dash&apos; value</source>
+        <translation>重置“首个短横线之前与末个短横线之后的间隙减半”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="12228"/>
+        <source>Alignment of syllables with an extension line:</source>
+        <translation>带延长线音节的对齐方式：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="12241"/>
+        <source>Reset &apos;Alignment of syllables with an extension line&apos; value</source>
+        <translation>重置“带延长线音节的对齐方式”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="13421"/>
+        <source>Padding around fret numbers:</source>
+        <translation>品格号周围的内距：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="13450"/>
+        <source>Reset &apos;Padding around fret numbers&apos; value</source>
+        <translation>重置“品格号周围的内距”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="13477"/>
+        <source>Text for new palm mutes:</source>
+        <translation>新建手掌闷音的文字：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="13494"/>
+        <source>Reset &apos;Text for new palm mutes&apos; value</source>
+        <translation>重置“新建手掌闷音的文字”值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="13519"/>
+        <source>Prefer the same string when transposing</source>
+        <translation>移调时优先保持在同一根弦上</translation>
+    </message>
 </context>
 <context>
     <name>FontStyleSelect</name>
@@ -30591,6 +30821,51 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <source>MIDI input pitch</source>
         <translation>MIDI输入音高</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="178"/>
+        <source>Snap manually adjusted beams to quarter spaces</source>
+        <translation>手动调整的符杠吸附到四分之一谱间</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="285"/>
+        <source>Apply positioning rules for staff lines, ledger lines and stem length</source>
+        <translation>应用针对谱线、加线与符干长度的定位规则</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="345"/>
+        <source>Stroke width:</source>
+        <translation>震音线宽度：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="354"/>
+        <source>Stroke thickness:</source>
+        <translation>震音线粗细：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="363"/>
+        <source>Distance between strokes:</source>
+        <translation>震音线间距：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="372"/>
+        <source>Distance from notehead:</source>
+        <translation>到符头的距离：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="381"/>
+        <source>Distance from stem end:</source>
+        <translation>到符干末端的距离：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/GlissandoSection.qml" line="67"/>
+        <source>Min. length (straight):</source>
+        <translation>最小长度（直线）：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/GlissandoSection.qml" line="74"/>
+        <source>Min. length (wavy):</source>
+        <translation>最小长度（波浪型）：</translation>
+    </message>
 </context>
 <context>
     <name>notation/add-remove-system-breaks</name>
@@ -31128,6 +31403,11 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <source>Chord/rest duration</source>
         <translation>和弦/休止符时值</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="415"/>
+        <source>Stacked scale:</source>
+        <translation>堆叠缩放比：</translation>
+    </message>
 </context>
 <context>
     <name>notation/editstyle/hammeronpulloff</name>
@@ -31425,6 +31705,16 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="157"/>
         <source>Minimum hanging tie length:</source>
         <translation>最小悬浮延音线长度：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="179"/>
+        <source>Minimum tie height:</source>
+        <translation>延音线最小高度：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="201"/>
+        <source>Maximum tie height:</source>
+        <translation>延音线最大高度：</translation>
     </message>
 </context>
 <context>
