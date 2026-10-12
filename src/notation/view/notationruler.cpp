@@ -64,12 +64,12 @@ void NotationRuler::paint(Painter* painter, const NoteInputState& state)
             continue;
         }
 
-        const int segmentTicks = segment.tick().ticks();
+        const int segmentTicks = segment.rtick().ticks(); // relative to the measure: it may start off the beat grid
         if (segmentTicks % subdivisionTicks != 0) {
             continue; // this segment does not correspond to any line
         }
 
-        const size_t line = (segmentTicks - measureTicks) / subdivisionTicks;
+        const size_t line = segmentTicks / subdivisionTicks;
         lineToSegment[line] = &segment;
     }
 
