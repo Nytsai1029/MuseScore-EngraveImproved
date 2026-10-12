@@ -484,6 +484,8 @@ EditStyle::EditStyle(QWidget* parent)
         { StyleId::arpeggioNoteDistance,    false, arpeggioNoteDistance,    0 },
         { StyleId::arpeggioLineWidth,       false, arpeggioLineWidth,       0 },
         { StyleId::arpeggioHookLen,         false, arpeggioHookLen,         0 },
+        { StyleId::arpeggioAccidentalDistance, false, arpeggioAccidentalDistance, 0 },
+        { StyleId::arpeggioAccidentalDistanceMin, false, arpeggioAccidentalDistanceMin, 0 },
         { StyleId::arpeggioHiddenInStdIfTab, false, arpeggioHiddenInStdIfTab, 0 },
 
         { StyleId::bracketWidth,            false, bracketWidth,            resetBracketThickness },
@@ -917,7 +919,7 @@ EditStyle::EditStyle(QWidget* parent)
     auto glissandoSection = createQmlWidget(
         groupBox_glissando,
         QUrl(QString::fromUtf8("qrc:/qml/MuseScore/NotationScene/internal/EditStyle/GlissandoSection.qml")));
-    glissandoSection.widget->setMinimumSize(224, 284);
+    glissandoSection.widget->setMinimumSize(224, 368);
     connect(glissandoSection.view->rootObject(), SIGNAL(goToTextStylePage(QString)), this, SLOT(goToTextStylePage(QString)));
     groupBox_glissando->layout()->addWidget(glissandoSection.widget);
 

@@ -40,6 +40,8 @@ class SlursAndTiesPageModel : public AbstractStyleDialogModel
     Q_PROPERTY(StyleItem * tieMinDistance READ tieMinDistance CONSTANT)
     Q_PROPERTY(StyleItem * minTieLength READ minTieLength CONSTANT)
     Q_PROPERTY(StyleItem * minHangingTieLength READ minHangingTieLength CONSTANT)
+    Q_PROPERTY(StyleItem * tieMinShoulderHeight READ tieMinShoulderHeight CONSTANT)
+    Q_PROPERTY(StyleItem * tieMaxShoulderHeight READ tieMaxShoulderHeight CONSTANT)
     Q_PROPERTY(StyleItem * tiePlacementSingleNote READ tiePlacementSingleNote CONSTANT)
     Q_PROPERTY(StyleItem * tiePlacementChord READ tiePlacementChord CONSTANT)
     Q_PROPERTY(StyleItem * tieDotsPlacement READ tieDotsPlacement CONSTANT)
@@ -60,6 +62,8 @@ public:
     StyleItem* tieMinDistance() const;
     StyleItem* minTieLength() const;
     StyleItem* minHangingTieLength() const;
+    StyleItem* tieMinShoulderHeight() const;
+    StyleItem* tieMaxShoulderHeight() const;
     StyleItem* tiePlacementSingleNote() const;
     StyleItem* tiePlacementChord() const;
     StyleItem* tieDotsPlacement() const;

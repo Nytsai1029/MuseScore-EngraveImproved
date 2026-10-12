@@ -174,6 +174,50 @@ StyledGroupBox {
             StyleResetButton {
                 styleItem: root.pageModel.minHangingTieLength
             }
+
+            StyledTextLabel {
+                text: qsTrc("notation/editstyle/slursandties", "Minimum tie height:")
+                horizontalAlignment: Text.AlignLeft
+            }
+
+            IncrementalPropertyControl {
+                Layout.preferredWidth: 80
+                currentValue: root.pageModel.tieMinShoulderHeight.value
+
+                minValue: 0.0
+                maxValue: 99.99
+                step: 0.05
+                decimals: 2
+                measureUnitsSymbol: qsTrc("global", "sp")
+
+                onValueEdited: newValue => root.pageModel.tieMinShoulderHeight.value = newValue
+            }
+
+            StyleResetButton {
+                styleItem: root.pageModel.tieMinShoulderHeight
+            }
+
+            StyledTextLabel {
+                text: qsTrc("notation/editstyle/slursandties", "Maximum tie height:")
+                horizontalAlignment: Text.AlignLeft
+            }
+
+            IncrementalPropertyControl {
+                Layout.preferredWidth: 80
+                currentValue: root.pageModel.tieMaxShoulderHeight.value
+
+                minValue: 0.0
+                maxValue: 99.99
+                step: 0.05
+                decimals: 2
+                measureUnitsSymbol: qsTrc("global", "sp")
+
+                onValueEdited: newValue => root.pageModel.tieMaxShoulderHeight.value = newValue
+            }
+
+            StyleResetButton {
+                styleItem: root.pageModel.tieMaxShoulderHeight
+            }
         }
 
         ColumnLayout {

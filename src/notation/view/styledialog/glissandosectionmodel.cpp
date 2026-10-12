@@ -32,7 +32,9 @@ GlissandoSectionModel::GlissandoSectionModel(QObject* parent)
     StyleId::glissandoLineWidth,
     StyleId::glissandoShowText,
     StyleId::glissandoText,
-    StyleId::glissandoType
+    StyleId::glissandoType,
+    StyleId::minStraightGlissandoLength,
+    StyleId::minWigglyGlissandoLength
 })
 {
 }
@@ -44,3 +46,12 @@ StyleItem* GlissandoSectionModel::glissandoLineWidth()  const { return styleItem
 StyleItem* GlissandoSectionModel::glissandoShowText()  const { return styleItem(StyleId::glissandoShowText); }
 StyleItem* GlissandoSectionModel::glissandoText()  const { return styleItem(StyleId::glissandoText); }
 StyleItem* GlissandoSectionModel::glissandoLineType()  const { return styleItem(StyleId::glissandoType); }
+StyleItem* GlissandoSectionModel::minStraightGlissandoLength() const
+{
+    return styleItem(StyleId::minStraightGlissandoLength);
+}
+
+StyleItem* GlissandoSectionModel::minWigglyGlissandoLength() const
+{
+    return styleItem(StyleId::minWigglyGlissandoLength);
+}

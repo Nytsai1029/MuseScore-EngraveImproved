@@ -36,6 +36,8 @@ class GlissandoSectionModel : public AbstractStyleDialogModel
     Q_PROPERTY(StyleItem * glissandoShowText READ glissandoShowText CONSTANT)
     Q_PROPERTY(StyleItem * glissandoText READ glissandoText CONSTANT)
     Q_PROPERTY(StyleItem * glissandoLineType READ glissandoLineType CONSTANT)
+    Q_PROPERTY(StyleItem * minStraightGlissandoLength READ minStraightGlissandoLength CONSTANT)
+    Q_PROPERTY(StyleItem * minWigglyGlissandoLength READ minWigglyGlissandoLength CONSTANT)
 
 public:
     explicit GlissandoSectionModel(QObject* parent = nullptr);
@@ -47,5 +49,7 @@ public:
     StyleItem* glissandoShowText() const;
     StyleItem* glissandoText() const;
     StyleItem* glissandoLineType() const;
+    StyleItem* minStraightGlissandoLength() const;
+    StyleItem* minWigglyGlissandoLength() const;
 };
 }

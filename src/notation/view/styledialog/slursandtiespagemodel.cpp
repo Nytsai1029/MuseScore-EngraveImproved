@@ -36,6 +36,8 @@ SlursAndTiesPageModel::SlursAndTiesPageModel(QObject* parent)
     StyleId::tieMinDistance,
     StyleId::minTieLength,
     StyleId::minHangingTieLength,
+    StyleId::tieMinShoulderHeight,
+    StyleId::tieMaxShoulderHeight,
     StyleId::tiePlacementSingleNote,
     StyleId::tiePlacementChord,
     StyleId::tieDotsPlacement,
@@ -98,6 +100,16 @@ StyleItem* SlursAndTiesPageModel::minTieLength() const
 StyleItem* SlursAndTiesPageModel::minHangingTieLength() const
 {
     return styleItem(StyleId::minHangingTieLength);
+}
+
+StyleItem* SlursAndTiesPageModel::tieMinShoulderHeight() const
+{
+    return styleItem(StyleId::tieMinShoulderHeight);
+}
+
+StyleItem* SlursAndTiesPageModel::tieMaxShoulderHeight() const
+{
+    return styleItem(StyleId::tieMaxShoulderHeight);
 }
 
 StyleItem* SlursAndTiesPageModel::tiePlacementSingleNote() const

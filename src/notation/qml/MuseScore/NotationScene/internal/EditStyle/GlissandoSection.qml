@@ -62,6 +62,20 @@ Rectangle {
             lineWidth: glissandoSectionModel ? glissandoSectionModel.glissandoLineWidth : null
         }
 
+        StyleSpinboxWithReset {
+            styleItem: glissandoSectionModel.minStraightGlissandoLength
+            label: qsTrc("notation", "Min. length (straight):")
+            suffix: qsTrc("global", "sp")
+            step: 0.1
+        }
+
+        StyleSpinboxWithReset {
+            styleItem: glissandoSectionModel.minWigglyGlissandoLength
+            label: qsTrc("notation", "Min. length (wavy):")
+            suffix: qsTrc("global", "sp")
+            step: 0.1
+        }
+
         TextFieldWithReset {
             id: textRow
             styleItem: glissandoSectionModel.glissandoText
