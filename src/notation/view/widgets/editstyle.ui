@@ -567,6 +567,13 @@
                     </property>
                    </widget>
                   </item>
+                  <item>
+                   <widget class="QCheckBox" name="alwaysShowSquareBrackets">
+                    <property name="text">
+                     <string>Show square brackets when spanning a single staff</string>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                 </widget>
                </item>
@@ -676,6 +683,62 @@
                     </item>
                     <item row="0" column="5">
                      <spacer name="horizontalSpacer_67">
+                      <property name="orientation">
+                       <enum>Qt::Orientation::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="hLayout_instrumentNameOffset">
+                    <item>
+                     <widget class="QLabel" name="label_instrumentNameOffset">
+                      <property name="text">
+                       <string>Distance from staff:</string>
+                      </property>
+                      <property name="buddy">
+                       <cstring>instrumentNameOffset</cstring>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QDoubleSpinBox" name="instrumentNameOffset">
+                      <property name="keyboardTracking">
+                       <bool>false</bool>
+                      </property>
+                      <property name="suffix">
+                       <string>sp</string>
+                      </property>
+                      <property name="minimum">
+                       <double>0.000000000000000</double>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QToolButton" name="resetInstrumentNameOffset">
+                      <property name="toolTip">
+                       <string>Reset to default</string>
+                      </property>
+                      <property name="accessibleName">
+                       <string>Reset 'Distance from staff' value</string>
+                      </property>
+                      <property name="text">
+                       <string notr="true"/>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_instrumentNameOffset">
                       <property name="orientation">
                        <enum>Qt::Orientation::Horizontal</enum>
                       </property>
@@ -1174,6 +1237,45 @@
                      </property>
                      <property name="buddy">
                       <cstring>staffUpperBorder</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_staffHeaderFooterPadding">
+                     <property name="text">
+                      <string>Min. distance to header/footer:</string>
+                     </property>
+                     <property name="buddy">
+                      <cstring>staffHeaderFooterPadding</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="2">
+                    <widget class="QDoubleSpinBox" name="staffHeaderFooterPadding">
+                     <property name="keyboardTracking">
+                      <bool>false</bool>
+                     </property>
+                     <property name="suffix">
+                      <string>sp</string>
+                     </property>
+                     <property name="minimum">
+                      <double>0.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.500000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="3">
+                    <widget class="QToolButton" name="resetStaffHeaderFooterPadding">
+                     <property name="toolTip">
+                      <string>Reset to default</string>
+                     </property>
+                     <property name="accessibleName">
+                      <string>Reset 'Min. distance to header/footer' value</string>
+                     </property>
+                     <property name="text">
+                      <string notr="true"/>
                      </property>
                     </widget>
                    </item>
@@ -4478,6 +4580,13 @@
               </size>
              </property>
             </spacer>
+           </item>
+           <item row="2" column="0" colspan="8">
+            <widget class="QCheckBox" name="alignSystemToMargin">
+             <property name="text">
+              <string>Let brackets extend into the left margin when there are no instrument names</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
