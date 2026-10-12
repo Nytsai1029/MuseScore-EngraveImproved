@@ -5637,6 +5637,29 @@
                     </property>
                    </widget>
                   </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_shortStemStartLocation">
+                    <property name="text">
+                     <string>Shortening starts beyond the staff by (half spaces):</string>
+                    </property>
+                    <property name="buddy">
+                     <cstring>shortStemStartLocation</cstring>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QSpinBox" name="shortStemStartLocation">
+                    <property name="keyboardTracking">
+                     <bool>false</bool>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>8</number>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                 </widget>
                </item>
@@ -5650,6 +5673,93 @@
                  </property>
                 </widget>
                </item>
+               <item row="10" column="0">
+                <widget class="QLabel" name="label_stemSlashPosition">
+                 <property name="text">
+                  <string>Grace note slash distance from stem tip:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>stemSlashPosition</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item row="10" column="1">
+                <widget class="QDoubleSpinBox" name="stemSlashPosition">
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
+                 </property>
+                 <property name="suffix">
+                  <string>sp</string>
+                 </property>
+                 <property name="minimum">
+                  <double>0.000000000000000</double>
+                 </property>
+                 <property name="singleStep">
+                  <double>0.100000000000000</double>
+                 </property>
+                </widget>
+               </item>
+               <item row="11" column="0">
+                <widget class="QLabel" name="label_stemSlashAngle">
+                 <property name="text">
+                  <string>Grace note slash angle:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>stemSlashAngle</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item row="11" column="1">
+                <widget class="QDoubleSpinBox" name="stemSlashAngle">
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
+                 </property>
+                 <property name="suffix">
+                  <string notr="true">°</string>
+                 </property>
+                 <property name="decimals">
+                  <number>1</number>
+                 </property>
+                 <property name="minimum">
+                  <double>0.000000000000000</double>
+                 </property>
+                 <property name="maximum">
+                  <double>90.000000000000000</double>
+                 </property>
+                 <property name="singleStep">
+                  <double>1.000000000000000</double>
+                 </property>
+                </widget>
+               </item>
+               <item row="12" column="0">
+                <widget class="QLabel" name="label_stemSlashThickness">
+                 <property name="text">
+                  <string>Grace note slash thickness:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>stemSlashThickness</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item row="12" column="1">
+                <widget class="QDoubleSpinBox" name="stemSlashThickness">
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
+                 </property>
+                 <property name="suffix">
+                  <string>sp</string>
+                 </property>
+                 <property name="decimals">
+                  <number>3</number>
+                 </property>
+                 <property name="minimum">
+                  <double>0.000000000000000</double>
+                 </property>
+                 <property name="singleStep">
+                  <double>0.010000000000000</double>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </widget>
             </item>
@@ -5658,7 +5768,67 @@
               <property name="title">
                <string>Stem length</string>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_stemLength"/>
+              <layout class="QVBoxLayout" name="verticalLayout_stemLength">
+               <item>
+                <layout class="QHBoxLayout" name="hLayout_stemLength">
+                 <item>
+                  <widget class="QLabel" name="label_stemLength">
+                   <property name="text">
+                    <string>Standard stem length:</string>
+                   </property>
+                   <property name="buddy">
+                    <cstring>stemLength</cstring>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDoubleSpinBox" name="stemLength">
+                   <property name="keyboardTracking">
+                    <bool>false</bool>
+                   </property>
+                   <property name="suffix">
+                    <string>sp</string>
+                   </property>
+                   <property name="minimum">
+                    <double>1.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.250000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="resetStemLength">
+                   <property name="toolTip">
+                    <string>Reset to default</string>
+                   </property>
+                   <property name="accessibleName">
+                    <string>Reset 'Standard stem length' value</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true"/>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_stemLength">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
              </widget>
             </item>
             <item>
