@@ -113,7 +113,9 @@ staged files. Both need `uncrustify` on `PATH`.
 
 ## Translations (i18n)
 
-Every user-facing string must be translatable, and `share/locale/musescore_en.ts` must stay in sync with code.
+Every user-facing string must be translatable, `share/locale/musescore_en.ts` must stay in sync with code, and
+every string the fork adds must have a Simplified Chinese translation in `share/locale/musescore_zh_CN.ts` — the
+maintainer runs the app in zh_CN, so an untranslated string shows up as English in the installed app.
 
 - **Mark strings.** QML: `qsTrc("context", "…")`. C++: `mtrc` / `qtrc` / `trc("context", "…")` or
   `TranslatableString`. Qt Designer `.ui` strings are auto-extracted. A plain literal translated only at its use
@@ -124,7 +126,14 @@ Every user-facing string must be translatable, and `share/locale/musescore_en.ts
   `bash tools/translations/run_lupdate.sh`. The postprocess step fails on straight quotes (`'` `"` → `‘’` `“”`
   or `′` `″`), `...` (→ `…`), and leading/trailing/double spaces. Fix every error; only `editstyle.ui` and
   `symnames.cpp` are exempt. Ignore lupdate's pre-existing parser warnings (`.mm`/`.js`/fluidsynth/`api/v1`).
-- Never hand-edit the `.ts`. Never touch other `*_<lang>.ts` / `instruments_*.ts` — they come from Transifex.
+- **Translate to zh_CN** every string you add or change. In `musescore_zh_CN.ts`, add the `<message>` block (copied
+  from `musescore_en.ts`) to the same `<context>` with a finished `<translation>`, or fill it in place if it is
+  already there as `type="unfinished"`. Only add or fill those messages — do not run lupdate against the zh_CN
+  file. Reuse the terms already used in that file (e.g. `谱间`, `内距`, `延音线`, `重置“…”值`).
+  `ninja -C build.debug translations` rebuilds the `.qm` (`ninja -C build.debug install` puts it in the bundle);
+  the app loads it at startup, so restart to see it.
+- Never hand-edit `musescore_en.ts`. Never touch the other `*_<lang>.ts` / `instruments_*.ts` — they come from
+  Transifex.
 
 ## Gotchas
 
@@ -141,8 +150,11 @@ Every user-facing string must be translatable, and `share/locale/musescore_en.ts
   (feature), `修正` / `修复` (fix), `文档` (docs), `构建` (build), `测试` (tests), `i18n`. Examples:
   `修正：换行后挂起装饰音不再错位`, `新增：样式中可开启提示性变音记号`.
 - One change per commit. Check `git status --short` and `git diff --stat`, then stage only related files.
+- **Commit on `main`.** Work goes directly onto `main`; do not create a branch or open a PR unless explicitly
+  asked.
 - **Before every commit, check i18n:** if any user-facing string was added, edited, or removed, run
-  `run_lupdate.sh`, fix errors, and stage `share/locale/musescore_en.ts` in the **same** commit.
+  `run_lupdate.sh`, fix errors, add the zh_CN translations, and stage `share/locale/musescore_en.ts` and
+  `share/locale/musescore_zh_CN.ts` in the **same** commit.
 - **No AI attribution.** Never add `Co-Authored-By` / `Co-authored-by` trailers for Claude, Anthropic, Cursor,
   or any other assistant; commits are attributed to the maintainer only. Strip any trailer a tool injects.
 - Push only when explicitly asked.
