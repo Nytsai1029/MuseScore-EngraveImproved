@@ -74,7 +74,6 @@ protected:
 
     QVariantMap buildSeparator() const;
 
-    QVariantMap buildExternalLinkMenuItem(const QString& menuId, const QString& title) const;
 
     void sortResourcesList(muse::audio::AudioResourceMetaList& list);
 

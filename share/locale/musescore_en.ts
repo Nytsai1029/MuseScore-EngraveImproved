@@ -6638,7 +6638,7 @@ followed by dashes</translation>
         <translation type="unfinished">&amp;Preferences</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="280"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="262"/>
         <location filename="../../src/appshell/internal/applicationuiactions.cpp" line="236"/>
         <source>Preferences…</source>
         <translation type="unfinished">Preferences…</translation>
@@ -10625,24 +10625,24 @@ followed by dashes</translation>
 <context>
     <name>appshell</name>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="46"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="44"/>
         <source>Sidebar</source>
         <translation type="unfinished">Sidebar</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="101"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="99"/>
         <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="52"/>
         <source>Home menu</source>
         <translation type="unfinished">Home menu</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="222"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="220"/>
         <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="71"/>
         <source>Scores</source>
         <translation type="unfinished">Scores</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="238"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="236"/>
         <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="72"/>
         <location filename="../../src/appshell/qml/HomePage/PluginsPage.qml" line="73"/>
         <location filename="../../src/appshell/qml/HomePage/PluginsPage.qml" line="97"/>
@@ -10650,15 +10650,11 @@ followed by dashes</translation>
         <translation type="unfinished">Plugins</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="246"/>
-        <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="73"/>
         <location filename="../../src/musesounds/qml/MuseScore/MuseSounds/MuseSoundsPage.qml" line="86"/>
         <source>MuseSounds</source>
         <translation type="unfinished">MuseSounds</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="254"/>
-        <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="74"/>
         <source>Learn</source>
         <translation type="unfinished">Learn</translation>
     </message>
@@ -10669,9 +10665,9 @@ followed by dashes</translation>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="50"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="52"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="230"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="228"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="253"/>
-        <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="75"/>
+        <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="73"/>
         <location filename="../../src/appshell/view/internal/maintoolbarmodel.cpp" line="94"/>
         <source>Font design</source>
         <translation type="unfinished">Font design</translation>
@@ -36633,33 +36629,32 @@ failed: %2</translation>
         <translation type="unfinished">Loading audio samples</translation>
     </message>
     <message>
-        <location filename="../../src/playback/view/internal/inputresourceitem.cpp" line="117"/>
         <source>Get more sounds</source>
         <translation type="unfinished">Get more sounds</translation>
     </message>
     <message>
-        <location filename="../../src/playback/view/internal/inputresourceitem.cpp" line="376"/>
+        <location filename="../../src/playback/view/internal/inputresourceitem.cpp" line="365"/>
         <source>SoundFonts</source>
         <translation type="unfinished">SoundFonts</translation>
     </message>
     <message>
-        <location filename="../../src/playback/view/internal/inputresourceitem.cpp" line="418"/>
+        <location filename="../../src/playback/view/internal/inputresourceitem.cpp" line="407"/>
         <source>Bank %1, preset %2</source>
         <translation type="unfinished">Bank %1, preset %2</translation>
     </message>
     <message>
-        <location filename="../../src/playback/view/internal/inputresourceitem.cpp" line="472"/>
-        <location filename="../../src/playback/view/internal/inputresourceitem.cpp" line="532"/>
+        <location filename="../../src/playback/view/internal/inputresourceitem.cpp" line="461"/>
+        <location filename="../../src/playback/view/internal/inputresourceitem.cpp" line="521"/>
         <source>Choose automatically</source>
         <translation type="unfinished">Choose automatically</translation>
     </message>
     <message>
-        <location filename="../../src/playback/view/internal/inputresourceitem.cpp" line="514"/>
+        <location filename="../../src/playback/view/internal/inputresourceitem.cpp" line="503"/>
         <source>Preset %1</source>
         <translation type="unfinished">Preset %1</translation>
     </message>
     <message>
-        <location filename="../../src/playback/view/internal/inputresourceitem.cpp" line="524"/>
+        <location filename="../../src/playback/view/internal/inputresourceitem.cpp" line="513"/>
         <source>Bank %1</source>
         <translation type="unfinished">Bank %1</translation>
     </message>
@@ -36689,7 +36684,6 @@ failed: %2</translation>
         <translation type="unfinished">No effect</translation>
     </message>
     <message>
-        <location filename="../../src/playback/view/internal/outputresourceitem.cpp" line="73"/>
         <source>Get more effects</source>
         <translation type="unfinished">Get more effects</translation>
     </message>

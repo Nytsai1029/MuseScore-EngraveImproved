@@ -31,9 +31,6 @@
 
 #include "modularity/ioc.h"
 
-#include "global/iglobalconfiguration.h"
-#include "iinteractive.h"
-
 #include "audio/main/iplayback.h"
 #include "audio/audiotypes.h"
 #include "midi/miditypes.h"
@@ -45,8 +42,6 @@ class InputResourceItem : public AbstractAudioResourceItem
 {
     Q_OBJECT
 
-    INJECT(muse::IGlobalConfiguration, globalConfiguration)
-    INJECT(muse::IInteractive, interactive)
     INJECT(muse::audio::IPlayback, playback)
 
 public:

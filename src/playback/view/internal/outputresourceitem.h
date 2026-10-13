@@ -29,9 +29,6 @@
 
 #include "modularity/ioc.h"
 
-#include "global/iglobalconfiguration.h"
-#include "iinteractive.h"
-
 #include "audio/main/iplayback.h"
 #include "audio/audiotypes.h"
 
@@ -50,8 +47,6 @@ class OutputResourceItem : public AbstractAudioResourceItem
     Q_PROPERTY(QString id READ id NOTIFY fxParamsChanged)
     Q_PROPERTY(bool isActive READ isActive WRITE setIsActive NOTIFY isActiveChanged)
 
-    INJECT(muse::IGlobalConfiguration, globalConfiguration)
-    INJECT(muse::IInteractive, interactive)
     INJECT(muse::audio::IPlayback, playback)
 
 public:

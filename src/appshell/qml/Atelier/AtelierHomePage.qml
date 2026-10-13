@@ -26,9 +26,7 @@ import Muse.UiComponents 1.0
 import MuseScore.AppShell 1.0
 import MuseScore.Atelier 1.0
 
-import Muse.Learn 1.0
 import MuseScore.Project 1.0
-import MuseScore.MuseSounds 1.0
 import MuseScore.FontDesign 1.0
 
 import "../HomePage"
@@ -240,22 +238,6 @@ Item {
                 navigationRow: 3
                 onClicked: root.section = name
             }
-
-            SidebarItem {
-                name: "musesounds"
-                title: qsTrc("appshell", "MuseSounds")
-                icon: IconCode.PLAY
-                navigationRow: 4
-                onClicked: root.section = name
-            }
-
-            SidebarItem {
-                name: "learn"
-                title: qsTrc("appshell", "Learn")
-                icon: IconCode.MORTAR_BOARD
-                navigationRow: 5
-                onClicked: root.section = name
-            }
         }
 
         Column {
@@ -306,8 +288,6 @@ Item {
             switch (root.section) {
             case "scores": return scoresComp
             case "extensions": return extensionsComp
-            case "musesounds": return museSoundsComp
-            case "learn": return learnComp
             case "fontdesign": return fontDesignComp
             }
 
@@ -346,20 +326,6 @@ Item {
         id: extensionsComp
 
         PluginsPage {
-            section: root.subSection
-        }
-    }
-
-    Component {
-        id: museSoundsComp
-
-        MuseSoundsPage {}
-    }
-
-    Component {
-        id: learnComp
-
-        LearnPage {
             section: root.subSection
         }
     }

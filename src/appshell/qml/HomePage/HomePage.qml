@@ -25,9 +25,7 @@ import Muse.Ui 1.0
 import Muse.UiComponents 1.0
 import Muse.Dock 1.0
 
-import Muse.Learn 1.0
 import MuseScore.Project 1.0
-import MuseScore.MuseSounds 1.0
 import MuseScore.FontDesign 1.0
 
 DockPage {
@@ -66,8 +64,6 @@ DockPage {
         case "scores": root.central = scoresComp; break
         case "plugins": root.central = extensionsComp; break // backward compatibility
         case "extensions": root.central = extensionsComp; break
-        case "musesounds": root.central = museSoundsComp; break
-        case "learn": root.central = learnComp; break
         case "fontdesign": root.central = fontDesignComp; break
         }
     }
@@ -115,20 +111,6 @@ DockPage {
         id: extensionsComp
 
         PluginsPage {
-            section: root.subSection
-        }
-    }
-
-    Component {
-        id: museSoundsComp
-
-        MuseSoundsPage {}
-    }
-
-    Component {
-        id: learnComp
-
-        LearnPage {
             section: root.subSection
         }
     }
