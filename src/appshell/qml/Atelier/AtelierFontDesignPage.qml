@@ -47,8 +47,8 @@ Item {
     readonly property bool hasFont: Boolean(root.fontModel) && root.fontModel.hasProject
 
     //! NOTE: what the toolbar of the window shows for this page
-    readonly property string toolBarTitle: root.hasFont ? root.fontModel.projectTitle + (root.fontModel.isDirty ? " •" : "")
-                                                        : qsTrc("appshell", "Font design")
+    readonly property string toolBarTitle: root.hasFont ? root.fontModel.projectTitle : qsTrc("appshell", "Font design")
+    readonly property bool toolBarModified: root.hasFont && root.fontModel.isDirty
     readonly property string toolBarSubtitle: root.hasFont ? qsTrc("appshell", "Font design") : ""
     readonly property Component toolBarCenter: root.hasFont ? toolsComp : null
     readonly property Component toolBarRight: root.hasFont ? fileActionsComp : null

@@ -40,10 +40,15 @@ Rectangle {
     required property AtelierContextModel context
 
     //! NOTE: the current page. It can give the toolbar its own title and content
-    //! (toolBarTitle, toolBarSubtitle, toolBarCenter, toolBarRight)
+    //! (toolBarTitle, toolBarModified, toolBarSubtitle, toolBarCenter, toolBarRight)
     property var pageItem: null
 
     readonly property bool hasPageTitle: Boolean(root.pageItem) && root.pageItem.toolBarTitle !== undefined
+
+    //! NOTE: what the title names (the score, or the file of the page) has changes which are not saved
+    readonly property bool isTitleModified: root.hasPageTitle
+                                            ? root.pageItem.toolBarModified === true
+                                            : root.isScorePage && root.context.hasProject && root.context.isProjectModified
     readonly property Component pageCenter: Boolean(root.pageItem) && Boolean(root.pageItem.toolBarCenter)
                                             ? root.pageItem.toolBarCenter : null
     readonly property Component pageRight: Boolean(root.pageItem) && Boolean(root.pageItem.toolBarRight)
@@ -222,33 +227,48 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             spacing: 6
 
-            StyledTextLabel {
-                id: titleLabel
-
+            Row {
                 anchors.verticalCenter: parent.verticalCenter
-                width: Math.min(implicitWidth, Math.max(60, modeSwitcher.x - leftZone.x - 220))
+                spacing: 0
 
-                horizontalAlignment: Text.AlignLeft
-                font: AtStyle.font(14, Font.DemiBold)
+                StyledTextLabel {
+                    id: titleLabel
 
-                text: {
-                    if (root.isHome) {
-                        return qsTrc("appshell", "Home")
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: Math.min(implicitWidth, Math.max(60, modeSwitcher.x - leftZone.x - 220))
+
+                    horizontalAlignment: Text.AlignLeft
+                    font: AtStyle.font(14, Font.DemiBold)
+
+                    text: {
+                        if (root.isHome) {
+                            return qsTrc("appshell", "Home")
+                        }
+
+                        if (root.hasPageTitle) {
+                            return root.pageItem.toolBarTitle
+                        }
+
+                        if (root.uri === "musescore://fontdesign") {
+                            return qsTrc("appshell", "Font design")
+                        }
+
+                        if (root.uri === "musescore://devtools") {
+                            return "DevTools"
+                        }
+
+                        return root.context.projectTitle
                     }
+                }
 
-                    if (root.hasPageTitle) {
-                        return root.pageItem.toolBarTitle
-                    }
+                //! NOTE: the sign of changes which are not saved. It is not a part of the title,
+                //! so that it stays when the title is too long to be shown in full
+                StyledTextLabel {
+                    anchors.verticalCenter: parent.verticalCenter
 
-                    if (root.uri === "musescore://fontdesign") {
-                        return qsTrc("appshell", "Font design")
-                    }
-
-                    if (root.uri === "musescore://devtools") {
-                        return "DevTools"
-                    }
-
-                    return root.context.projectTitle
+                    visible: root.isTitleModified
+                    text: "*"
+                    font: titleLabel.font
                 }
             }
 

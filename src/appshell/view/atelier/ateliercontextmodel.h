@@ -38,6 +38,9 @@ class AtelierContextModel : public QObject, public muse::Injectable, public muse
     Q_PROPERTY(bool hasProject READ hasProject NOTIFY projectChanged)
     Q_PROPERTY(QString projectTitle READ projectTitle NOTIFY projectChanged)
 
+    //! NOTE The score has changes which are not saved
+    Q_PROPERTY(bool isProjectModified READ isProjectModified NOTIFY projectModifiedChanged)
+
     //! NOTE Empty for the full score
     Q_PROPERTY(QString partName READ partName NOTIFY notationChanged)
 
@@ -53,11 +56,13 @@ public:
 
     bool hasProject() const;
     QString projectTitle() const;
+    bool isProjectModified() const;
     QString partName() const;
     bool devModeEnabled() const;
 
 signals:
     void projectChanged();
+    void projectModifiedChanged();
     void notationChanged();
 
 private:

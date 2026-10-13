@@ -35,6 +35,7 @@ void AtelierContextModel::load()
     globalContext()->currentProjectChanged().onNotify(this, [this]() {
         listenProject();
         emit projectChanged();
+        emit projectModifiedChanged();
     });
 
     globalContext()->currentNotationChanged().onNotify(this, [this]() {
@@ -54,6 +55,10 @@ void AtelierContextModel::listenProject()
     project->displayNameChanged().onNotify(this, [this]() {
         emit projectChanged();
     });
+
+    project->needSave().notification.onNotify(this, [this]() {
+        emit projectModifiedChanged();
+    });
 }
 
 bool AtelierContextModel::hasProject() const
@@ -65,6 +70,12 @@ QString AtelierContextModel::projectTitle() const
 {
     INotationProjectPtr project = globalContext()->currentProject();
     return project ? project->displayName() : QString();
+}
+
+bool AtelierContextModel::isProjectModified() const
+{
+    INotationProjectPtr project = globalContext()->currentProject();
+    return project && project->needSave().val;
 }
 
 QString AtelierContextModel::partName() const
