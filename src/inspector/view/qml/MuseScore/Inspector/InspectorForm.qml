@@ -43,6 +43,51 @@ Rectangle {
     readonly property bool isHorizontal: orientation === Qt.Horizontal
     readonly property int sectionColumnWidth: 300
 
+    //! NOTE: "input" or "engrave" (the modes of the Atelier skin), which show a part of the properties each;
+    //! otherwise all properties are shown
+    property string mode: ""
+
+    //! NOTE: in the Atelier skin, the sections have small titles and thin lines between them, they do not collapse,
+    //! and the section of what is selected comes before the General section
+    readonly property bool atelierStyle: ui.theme.skin === "atelier"
+    readonly property int atelierSidePadding: 16
+
+    function isSectionShown(sectionType) {
+        switch (root.mode) {
+        case "input":
+            return sectionType !== Inspector.SECTION_SCORE_APPEARANCE && sectionType !== Inspector.SECTION_EMPTY_STAVES
+        case "engrave":
+            return sectionType !== Inspector.SECTION_SCORE_DISPLAY
+        }
+
+        return true
+    }
+
+    //! NOTE: changes when the sections are added, removed or put in another order
+    property int listRevision: 0
+
+    Connections {
+        target: inspectorListModel
+
+        function onRowsInserted() { root.listRevision++ }
+        function onRowsRemoved() { root.listRevision++ }
+        function onDataChanged() { root.listRevision++ }
+        function onModelReset() { root.listRevision++ }
+    }
+
+    //! NOTE: `revision` makes the bindings follow the changes of the list
+    function hasShownSectionAfter(row, revision) {
+        var count = inspectorListModel.rowCount()
+
+        for (var i = row + 1; i < count; ++i) {
+            if (root.isSectionShown(inspectorListModel.sectionTypeAt(i))) {
+                return true
+            }
+        }
+
+        return false
+    }
+
     //! NOTE: in the Dorico skin, each section is a card with a title bar, on a darker background
     readonly property bool cardStyle: ui.theme.skin === "dorico"
     readonly property int cardSpacing: 3
@@ -119,10 +164,10 @@ Rectangle {
 
         orientation: root.isHorizontal ? ListView.Horizontal : ListView.Vertical
 
-        topMargin: root.isHorizontal || root.cardStyle ? 0 : 12
+        topMargin: root.isHorizontal || root.cardStyle || root.atelierStyle ? 0 : 12
         bottomMargin: root.isHorizontal || root.cardStyle ? 0 : 12
 
-        spacing: root.cardStyle ? root.cardSpacing : (root.isHorizontal ? 0 : 12)
+        spacing: root.cardStyle ? root.cardSpacing : (root.isHorizontal || root.atelierStyle ? 0 : 12)
 
         function ensureContentVisible(invisibleContentHeight) {
             if (root.isHorizontal) {
@@ -142,6 +187,8 @@ Rectangle {
 
         model: InspectorListModel {
             id: inspectorListModel
+
+            generalSectionLast: root.atelierStyle
         }
 
         onContentHeightChanged: {
@@ -159,7 +206,69 @@ Rectangle {
         }
 
         delegate: root.isHorizontal ? sectionColumnComp
-                                    : (root.cardStyle ? sectionCardRowComp : sectionRowComp)
+                                    : (root.cardStyle ? sectionCardRowComp
+                                                      : (root.atelierStyle ? sectionAtelierRowComp : sectionRowComp))
+    }
+
+    Component {
+        id: sectionAtelierRowComp
+
+        Item {
+            id: sectionRow
+
+            readonly property var sectionModel: model.inspectorSectionModel
+            readonly property bool isShown: Boolean(sectionModel) && root.isSectionShown(sectionModel.sectionType)
+
+            //! NOTE: the General section has its own groups with their titles (see GeneralModeView)
+            readonly property bool hasTitle: Boolean(sectionModel) && (sectionModel.sectionType !== Inspector.SECTION_GENERAL
+                                                                       || root.mode === "")
+
+            property var navigationPanel: _item.navigationPanel
+
+            width: ListView.view.width
+            height: isShown ? _item.y + _item.height + 10 : 0
+            visible: isShown
+
+            InspectorSectionDelegate {
+                id: _item
+
+                x: root.atelierSidePadding
+                y: 12
+                width: parent.width - 2 * x
+
+                sectionModel: sectionRow.sectionModel
+                mode: root.mode
+                anchorItem: root
+
+                flatHeader: true
+                headerVisible: sectionRow.hasTitle
+                titleFont.pixelSize: 11
+                titleFont.weight: Font.DemiBold
+                titleColor: ui.theme.skin === "atelier" && ui.theme.isDark ? "#BDBDC3" : "#55555A"
+                contentSpacing: 8
+
+                navigationPanel.section: root.navigationSection
+                navigationPanel.order: root.navigationOrderStart + model.index
+
+                onEnsureContentVisibleRequested: function(invisibleContentHeight) {
+                    sectionList.ensureContentVisible(invisibleContentHeight)
+                }
+
+                onPopupOpened: function(openedPopup, visualControl) {
+                    prv.closePreviousOpenedPopup(openedPopup, visualControl)
+                }
+            }
+
+            Rectangle {
+                anchors.bottom: parent.bottom
+                x: root.atelierSidePadding
+                width: parent.width - 2 * x
+                height: 1
+
+                color: ui.theme.strokeColor
+                visible: root.hasShownSectionAfter(model.index, root.listRevision)
+            }
+        }
     }
 
     Component {

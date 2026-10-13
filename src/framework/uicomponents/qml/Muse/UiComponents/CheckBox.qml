@@ -35,6 +35,9 @@ FocusScope {
     //! NOTE: shows a switch instead of the box
     property bool showAsSwitch: false
 
+    //! NOTE: the switch is at the right end of the control, and the text fills the space before it
+    property bool switchOnRight: false
+
     property alias text: label.text
     property alias font: label.font
     property alias backgroundColor: box.color
@@ -59,6 +62,7 @@ FocusScope {
         id: prv
 
         readonly property bool isOn: root.checked || root.isIndeterminate
+        readonly property bool isSwitchOnRight: root.showAsSwitch && root.switchOnRight
 
         //! NOTE: the switch and the filled box (if the theme asks for it) show their state by the accent color
         readonly property bool isFilled: root.showAsSwitch || ui.theme.filledCheckBoxes
@@ -86,17 +90,24 @@ FocusScope {
 
     RowLayout {
         id: contentRow
-        spacing: 6
+
+        Binding on width {
+            when: prv.isSwitchOnRight
+            value: root.width
+        }
+
+        spacing: prv.isSwitchOnRight ? 12 : 6
+        layoutDirection: prv.isSwitchOnRight ? Qt.RightToLeft : Qt.LeftToRight
 
         Rectangle {
             id: box
 
-            height: root.showAsSwitch ? 14 : (prv.isFilled ? 16 : 20)
-            width: root.showAsSwitch ? 26 : height
+            height: root.showAsSwitch ? (prv.isSwitchOnRight ? 18 : 14) : (prv.isFilled ? 16 : 20)
+            width: root.showAsSwitch ? (prv.isSwitchOnRight ? 30 : 26) : height
 
             opacity: prv.isFilled ? 1.0 : ui.theme.buttonOpacityNormal
 
-            border.width: prv.isFilled ? (prv.isOn ? 0 : 1) : ui.theme.borderWidth
+            border.width: prv.isFilled ? (prv.isOn || prv.isSwitchOnRight ? 0 : 1) : ui.theme.borderWidth
             border.color: prv.isFilled ? prv.borderColor : ui.theme.strokeColor
             color: {
                 if (!prv.isFilled) {
@@ -105,6 +116,10 @@ FocusScope {
 
                 if (prv.isOn) {
                     return ui.theme.accentColor
+                }
+
+                if (prv.isSwitchOnRight) {
+                    return prv.borderColor
                 }
 
                 return root.showAsSwitch ? ui.theme.backgroundSecondaryColor : ui.theme.textFieldColor
@@ -135,8 +150,8 @@ FocusScope {
                 height: width
                 radius: width / 2
 
-                color: prv.isOn ? "#FFFFFF" : ui.theme.fontPrimaryColor
-                opacity: prv.isOn ? 1.0 : 0.35
+                color: prv.isOn || prv.isSwitchOnRight ? "#FFFFFF" : ui.theme.fontPrimaryColor
+                opacity: prv.isOn || prv.isSwitchOnRight ? 1.0 : 0.35
                 visible: root.showAsSwitch
             }
         }
@@ -148,6 +163,7 @@ FocusScope {
             readonly property real availableWidth: root.width - contentRow.spacing - box.width
 
             Layout.preferredWidth: availableWidth > 0 ? Math.min(availableWidth, label.implicitWidth) : label.implicitWidth
+            Layout.fillWidth: prv.isSwitchOnRight
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
 
             horizontalAlignment: Text.AlignLeft

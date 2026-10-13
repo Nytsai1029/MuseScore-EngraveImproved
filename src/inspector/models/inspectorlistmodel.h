@@ -37,10 +37,19 @@ class InspectorListModel : public QAbstractListModel, public muse::async::Asynca
 {
     Q_OBJECT
 
+    //! NOTE If true, the General section comes after the sections of what is selected (and not before them)
+    Q_PROPERTY(bool generalSectionLast READ generalSectionLast WRITE setGeneralSectionLast NOTIFY generalSectionLastChanged)
+
     INJECT(context::IGlobalContext, context)
 
 public:
     explicit InspectorListModel(QObject* parent = nullptr);
+
+    bool generalSectionLast() const;
+    void setGeneralSectionLast(bool last);
+
+    //! NOTE The type of the section in the row (InspectorSectionType), or SECTION_UNDEFINED
+    Q_INVOKABLE int sectionTypeAt(int row) const;
 
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     QVariant data(const QModelIndex& index, int role) const override;
@@ -48,6 +57,9 @@ public:
     int columnCount(const QModelIndex& parent = QModelIndex()) const override;
 
     Q_INVOKABLE void setInspectorVisible(bool visible);
+
+signals:
+    void generalSectionLastChanged();
 
 private:
     enum RoleNames {
@@ -88,6 +100,7 @@ private:
     IElementRepositoryService* m_repository = nullptr;
 
     bool m_inspectorVisible = true;
+    bool m_generalSectionLast = false;
     mu::engraving::PropertyIdSet m_changedPropertyIdSet;
     mu::engraving::StyleIdSet m_changedStyleIdSet;
 };

@@ -37,6 +37,7 @@ using namespace muse::ui;
 
 static const muse::Uri HOME_PAGE_URI("musescore://home");
 static const muse::Uri NOTATION_PAGE_URI("musescore://notation");
+static const muse::Uri ENGRAVE_PAGE_URI("musescore://engrave");
 static const muse::Uri PUBLISH_PAGE_URI("musescore://publish");
 static const muse::Uri DEVTOOLS_PAGE_URI("musescore://devtools");
 static const muse::Uri FONTDESIGN_PAGE_URI("musescore://fontdesign");
@@ -114,7 +115,8 @@ UiContext UiContextResolver::currentUiContext() const
         return context::UiCtxHomeOpened;
     }
 
-    if (currentUri == NOTATION_PAGE_URI) {
+    //! NOTE The Engrave page shows the same score view as the notation page, with other tools around it
+    if (currentUri == NOTATION_PAGE_URI || currentUri == ENGRAVE_PAGE_URI) {
         auto notation = globalContext()->currentNotation();
         if (!notation) {
             //! NOTE The notation page is open, but the notation itself is not loaded - we consider that the notation is not open.

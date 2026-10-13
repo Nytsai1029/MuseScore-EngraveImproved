@@ -39,16 +39,41 @@ Item {
 
     required property AtelierShellView shell
 
-    //! NOTE: "input"
+    //! NOTE: "input" (the notes and what is added to them) or "engrave" (where everything sits).
+    //! The score stays where it is, the tools around it change
     property string mode: "input"
+    readonly property bool isEngrave: root.mode === "engrave"
 
-    readonly property string pageUri: "musescore://notation"
+    readonly property string inputUri: "musescore://notation"
+    readonly property string engraveUri: "musescore://engrave"
+    readonly property string pageUri: root.isEngrave ? root.engraveUri : root.inputUri
+
+    //! NOTE: the tools of the Engrave mode are created when the mode is opened for the first time
+    property bool engraveNeeded: false
+
+    function updateMode() {
+        if (root.shell.currentPageUri === root.engraveUri) {
+            root.engraveNeeded = true
+            root.mode = "engrave"
+        } else if (root.shell.currentPageUri === root.inputUri) {
+            root.mode = "input"
+        }
+    }
+
+    Connections {
+        target: root.shell
+
+        function onCurrentPageUriChanged() {
+            root.updateMode()
+        }
+    }
 
     //! NOTE: the paint view of the score (for the popups of the properties)
     property var notationView: null
 
+    //! NOTE: the left pane has the name of the palettes in both modes, so the same action and key toggle it
     readonly property string leftPaneName: "palettesPanel"
-    readonly property string leftPaneTitle: qsTrc("appshell", "Library")
+    readonly property string leftPaneTitle: root.isEngrave ? qsTrc("appshell", "Layout") : qsTrc("appshell", "Library")
     readonly property string rightPaneName: "inspectorPanel"
     readonly property string rightPaneTitle: qsTrc("appshell", "Properties")
 
@@ -102,24 +127,51 @@ Item {
         }
 
         for (var name in panels) {
-            root.shell.declarePanel(root.pageUri, name, panels[name])
+            root.shell.declarePanel(root.inputUri, name, panels[name])
+            root.shell.declarePanel(root.engraveUri, name, panels[name])
         }
+
+        root.updateMode()
 
         Qt.callLater(pageModel.init)
     }
 
     // ---------- the strip and the status bar take the whole width ----------
 
-    AtelierNoteInputStrip {
+    Item {
         id: strip
 
         anchors.top: parent.top
         width: parent.width
-        height: visible ? implicitHeight : 0
+        height: !visible ? 0 : (root.isEngrave ? engraveStripLoader.height : inputStrip.height)
 
+        //! NOTE: View > Toolbars > Note input shows and hides the strip of the mode
         visible: root.isOpen("noteInputBar")
 
-        navigationSection: root.noteInputKeyNavSec
+        AtelierNoteInputStrip {
+            id: inputStrip
+
+            width: parent.width
+            height: implicitHeight
+
+            visible: !root.isEngrave
+
+            navigationSection: root.noteInputKeyNavSec
+        }
+
+        Loader {
+            id: engraveStripLoader
+
+            width: parent.width
+            height: Boolean(item) ? item.implicitHeight : 0
+
+            active: root.engraveNeeded
+            visible: root.isEngrave
+
+            sourceComponent: AtelierEngraveStrip {
+                navigationSection: root.noteInputKeyNavSec
+            }
+        }
     }
 
     AtelierStatusBar {
@@ -148,8 +200,23 @@ Item {
             anchors.fill: parent
             anchors.rightMargin: 1
 
+            visible: !root.isEngrave
+
             navigationSection: root.keynavLeftPanelSec
             navigationOrderStart: 1
+        }
+
+        Loader {
+            anchors.fill: parent
+            anchors.rightMargin: 1
+
+            active: root.engraveNeeded
+            visible: root.isEngrave
+
+            sourceComponent: AtelierLayoutPane {
+                navigationSection: root.keynavLeftPanelSec
+                navigationOrderStart: 1
+            }
         }
 
         Rectangle {
@@ -215,12 +282,84 @@ Item {
 
             InspectorForm {
                 anchors.top: propertiesHeader.bottom
-                anchors.bottom: parent.bottom
+                anchors.bottom: propertiesFooter.top
                 width: parent.width
+
+                clip: true
+
+                mode: root.mode
 
                 navigationSection: root.keynavRightPanelSec
                 navigationOrderStart: 1
                 notationView: root.notationView
+            }
+
+            //! NOTE: where the other properties of the selection are
+            Item {
+                id: propertiesFooter
+
+                anchors.bottom: parent.bottom
+                width: parent.width
+                height: Math.max(otherModeButton.height, otherModeNote.implicitHeight) + 22
+
+                Rectangle {
+                    width: parent.width
+                    height: 1
+                    color: AtStyle.stroke
+                }
+
+                StyledTextLabel {
+                    id: otherModeNote
+
+                    anchors.left: parent.left
+                    anchors.leftMargin: 16
+                    anchors.right: otherModeButton.left
+                    anchors.rightMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    horizontalAlignment: Text.AlignLeft
+                    wrapMode: Text.WordWrap
+                    lineHeight: 1.15
+
+                    text: root.isEngrave ? qsTrc("appshell", "Notes, dynamics and text are entered in Input.")
+                                         : qsTrc("appshell", "Stem, beam, ledger lines and offsets are in Engrave.")
+                    font: AtStyle.font(11.5)
+                    color: AtStyle.text2
+                }
+
+                AtToolButton {
+                    id: otherModeButton
+
+                    anchors.right: parent.right
+                    anchors.rightMargin: 12
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    height: 26
+                    radius: 7
+
+                    text: root.isEngrave ? qsTrc("appshell", "Input") : qsTrc("appshell", "Engrave")
+                    textFont: AtStyle.font(12, Font.DemiBold)
+                    contentColor: AtStyle.ink
+
+                    //! NOTE: it looks like a button without being hovered
+                    checked: !mouseArea.containsMouse && !mouseArea.pressed
+                    checkedStyle: "raised"
+
+                    navigation.name: "OtherMode"
+                    navigation.panel: propertiesFooterNavPanel
+
+                    onClicked: {
+                        root.shell.openPage(root.isEngrave ? root.inputUri : root.engraveUri)
+                    }
+                }
+
+                NavigationPanel {
+                    id: propertiesFooterNavPanel
+                    name: "PropertiesFooter"
+                    section: root.keynavRightPanelSec
+                    order: 1000
+                    enabled: propertiesFooter.enabled && propertiesFooter.visible
+                }
             }
         }
     }

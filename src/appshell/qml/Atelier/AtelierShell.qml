@@ -38,6 +38,7 @@ AtelierShellView {
         switch (root.currentPageUri) {
         case "musescore://home": return "home"
         case "musescore://notation": return "score"
+        case "musescore://engrave": return "score"
         case "musescore://publish": return "preview"
         case "musescore://fontdesign": return "fontdesign"
         case "musescore://devtools": return "devtools"

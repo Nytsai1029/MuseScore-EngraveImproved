@@ -77,6 +77,8 @@
         <file>qml/Atelier/AtelierFontDesignPage.qml</file>
         <file>qml/Atelier/AtelierHomePage.qml</file>
         <file>qml/Atelier/AtelierNoteInputStrip.qml</file>
+        <file>qml/Atelier/AtelierEngraveStrip.qml</file>
+        <file>qml/Atelier/AtelierLayoutPane.qml</file>
         <file>qml/Atelier/AtelierPaneStack.qml</file>
         <file>qml/Atelier/AtelierPlaybackControls.qml</file>
         <file>qml/Atelier/AtelierPreviewPage.qml</file>

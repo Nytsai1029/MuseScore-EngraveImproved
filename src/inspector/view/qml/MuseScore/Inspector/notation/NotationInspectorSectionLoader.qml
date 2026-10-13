@@ -72,6 +72,9 @@ Loader {
     property NavigationPanel navigationPanel: null
     property int navigationRowStart: 0
 
+    //! NOTE: see InspectorSectionDelegate; it is given to the views which show a part of their properties in each mode
+    property string mode: ""
+
     property string viewObjectName: root.item ? root.item.objectName : ""
 
     function forceFocusIn() {
@@ -157,6 +160,10 @@ Loader {
 
     onLoaded: {
         root.item.model = root.model
+
+        if (root.item.mode !== undefined) {
+            root.item.mode = Qt.binding(function() { return root.mode })
+        }
         root.item.navigationPanel = root.navigationPanel
         root.item.navigationRowStart = root.navigationRowStart
     }

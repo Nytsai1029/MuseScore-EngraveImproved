@@ -36,6 +36,12 @@ Column {
     property NavigationPanel navigationPanel: null
     property int navigationRowStart: 1
 
+    //! NOTE: see InspectorSectionDelegate
+    property string mode: ""
+
+    readonly property bool isHeadShown: root.mode !== "engrave"
+    readonly property bool areStemAndBeamShown: root.mode !== "input"
+
     objectName: "NoteSettings"
 
     width: parent.width
@@ -59,23 +65,27 @@ Column {
 
     InspectorTabBar {
         id: tabBar
-        visible: !root.isLedgerLineSelection
+
+        //! NOTE: one tab needs no bar
+        visible: !root.isLedgerLineSelection && root.areStemAndBeamShown
 
         currentIndex: root.model ? indexByType(root.model.defaultSubModelType) : 0
 
         function indexByType(modelType) {
+            //! NOTE: a stem or a beam which is selected itself is shown in every mode
             switch (modelType) {
-            case Inspector.TYPE_NOTE: return 0
-            case Inspector.TYPE_NOTEHEAD: return 0
+            case Inspector.TYPE_NOTE: return root.isHeadShown ? 0 : 1
+            case Inspector.TYPE_NOTEHEAD: return root.isHeadShown ? 0 : 1
             case Inspector.TYPE_STEM: return 1
             case Inspector.TYPE_HOOK: return 1
             case Inspector.TYPE_BEAM: return 2
             }
 
-            return 0
+            return root.isHeadShown ? 0 : 1
         }
 
         InspectorTabButton {
+            visible: root.isHeadShown
             text: root.headModel?.title ?? ""
 
             navigation.name: "HeadTab"
@@ -84,7 +94,7 @@ Column {
         }
 
         InspectorTabButton {
-            visible: root.headModel ? !root.headModel.isTrillCueNote : true
+            visible: root.areStemAndBeamShown && (root.headModel ? !root.headModel.isTrillCueNote : true)
             text: root.stemModel ? root.stemModel.title : ""
 
             navigation.name: "StemTab"
@@ -93,7 +103,7 @@ Column {
         }
 
         InspectorTabButton {
-            visible: root.headModel ? !root.headModel.isTrillCueNote : true
+            visible: root.areStemAndBeamShown && (root.headModel ? !root.headModel.isTrillCueNote : true)
             text: root.beamModel ? root.beamModel.title : ""
 
             navigation.name: "BeamTab"

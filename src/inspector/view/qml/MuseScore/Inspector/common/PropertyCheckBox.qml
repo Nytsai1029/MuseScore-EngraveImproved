@@ -31,7 +31,8 @@ CheckBox {
 
     width: parent.width
 
-    showAsSwitch: ui.theme.skin === "dorico"
+    showAsSwitch: ui.theme.skin === "dorico" || ui.theme.skin === "atelier"
+    switchOnRight: ui.theme.skin === "atelier"
 
     visible: propertyItem && propertyItem.isVisible
     enabled: propertyItem && propertyItem.isEnabled

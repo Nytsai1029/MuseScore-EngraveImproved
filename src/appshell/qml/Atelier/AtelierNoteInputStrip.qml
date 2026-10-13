@@ -64,20 +64,6 @@ Rectangle {
         function isMethod(item) {
             return Boolean(item) && String(item.code).indexOf("note-input") === 0
         }
-
-        //! NOTE: e.g. "Ctrl+Alt+1" is written as on the keys
-        function keyHint(shortcuts) {
-            if (!Boolean(shortcuts)) {
-                return ""
-            }
-
-            var first = String(shortcuts).split(/[;,] ?/)[0]
-
-            return first.replace(/Ctrl\+/g, Qt.platform.os === "osx" ? "⌘" : "Ctrl+")
-                        .replace(/Meta\+/g, Qt.platform.os === "osx" ? "⌃" : "Meta+")
-                        .replace(/Alt\+/g, Qt.platform.os === "osx" ? "⌥" : "Alt+")
-                        .replace(/Shift\+/g, Qt.platform.os === "osx" ? "⇧" : "Shift+")
-        }
     }
 
     Row {
@@ -287,7 +273,7 @@ Rectangle {
                 height: 11
 
                 visible: root.keyHintsVisible
-                text: Boolean(methodButton.currentItem) ? prv.keyHint(methodButton.currentItem.shortcuts) : ""
+                text: Boolean(methodButton.currentItem) ? AtStyle.keyHint(methodButton.currentItem.shortcuts) : ""
                 font: AtStyle.font(9, Font.Medium)
                 color: AtStyle.text3
             }
@@ -338,7 +324,7 @@ Rectangle {
                     readonly property bool hasMenu: Boolean(cell.item) && cell.item.subitems.length !== 0
 
                     keyHintsVisible: root.keyHintsVisible
-                    keyHint: Boolean(cell.item) ? prv.keyHint(cell.item.shortcuts) : ""
+                    keyHint: Boolean(cell.item) ? AtStyle.keyHint(cell.item.shortcuts) : ""
 
                     icon: Boolean(cell.item) ? cell.item.icon : IconCode.NONE
                     hasMenuArrow: btn.hasMenu && Boolean(cell.item) && cell.item.code === "add"

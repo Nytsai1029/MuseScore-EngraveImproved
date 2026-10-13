@@ -141,6 +141,10 @@ public:
     virtual void movePitch(MoveDirection d, PitchMode mode) = 0;
     virtual void nudge(MoveDirection d, bool quickly) = 0;
     virtual void nudgeAnchors(MoveDirection d) = 0;
+
+    //! NOTE Moves everything that is selected by the given step (in sp), as one undoable change.
+    //! If the grips of an element are being edited, the current grip is moved instead
+    virtual void nudgeSelection(MoveDirection d, double stepSp) = 0;
     virtual void moveChordRestToStaff(MoveDirection d) = 0;
     virtual void swapChordRest(MoveDirection d) = 0;
     virtual void toggleSnapToPrevious() = 0;

@@ -97,6 +97,7 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/internal/notationselectionrange.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/notationelements.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/notationelements.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/engravemode.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/notationactioncontroller.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/notationactioncontroller.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/notationinteraction.cpp
@@ -198,6 +199,8 @@ set(MODULE_SRC
 
     ${CMAKE_CURRENT_LIST_DIR}/view/editgridsizedialogmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/editgridsizedialogmodel.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravemodemodel.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravemodemodel.h
 
     ${CMAKE_CURRENT_LIST_DIR}/view/editpercussionshortcutmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/editpercussionshortcutmodel.h

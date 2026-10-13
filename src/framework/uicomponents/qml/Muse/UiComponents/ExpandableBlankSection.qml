@@ -30,6 +30,10 @@ FocusScope {
 
     property alias title: titleLabel.text
     property alias titleFont: titleLabel.font
+    property alias titleColor: titleLabel.color
+
+    //! NOTE: a flat section is always expanded: it has no arrow, and its title is not a control
+    property bool flat: false
 
     property alias accessory: accessoryLoader.sourceComponent
 
@@ -38,7 +42,7 @@ FocusScope {
     property alias navigation: navCtrl
 
     anchors.left: parent.left
-    anchors.leftMargin: -expandButtonIcon.width / 3
+    anchors.leftMargin: root.flat ? 0 : -expandButtonIcon.width / 3
     anchors.right: parent.right
 
     implicitWidth: expandSectionRow.implicitWidth
@@ -47,7 +51,7 @@ FocusScope {
     NavigationControl {
         id: navCtrl
         name: root.title
-        enabled: root.enabled && root.visible
+        enabled: root.enabled && root.visible && !root.flat
         accessible.role: MUAccessible.ListItem
         accessible.name: root.title
 
@@ -65,7 +69,7 @@ FocusScope {
         id: mouseArea
         anchors.fill: parent
 
-        enabled: root.enabled
+        enabled: root.enabled && !root.flat
         hoverEnabled: true
 
         onClicked: {
@@ -83,6 +87,8 @@ FocusScope {
 
         Item {
             id: expandButton
+
+            visible: !root.flat
 
             Layout.preferredWidth: expandButtonIcon.font.pixelSize
             Layout.preferredHeight: expandButtonIcon.font.pixelSize
@@ -123,7 +129,7 @@ FocusScope {
     states: [
         State {
             name: "DISABLED"
-            when: !root.enabled
+            when: !root.enabled && !root.flat
 
             PropertyChanges { target: root; isExpanded: false; opacity: ui.theme.itemOpacityDisabled }
         }

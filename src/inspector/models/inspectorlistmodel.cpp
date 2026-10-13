@@ -304,13 +304,48 @@ bool InspectorListModel::isModelAllowed(const AbstractInspectorModel* model, con
     return false;
 }
 
+bool InspectorListModel::generalSectionLast() const
+{
+    return m_generalSectionLast;
+}
+
+void InspectorListModel::setGeneralSectionLast(bool last)
+{
+    if (m_generalSectionLast == last) {
+        return;
+    }
+
+    m_generalSectionLast = last;
+    emit generalSectionLastChanged();
+
+    sortModels();
+}
+
+int InspectorListModel::sectionTypeAt(int row) const
+{
+    if (row < 0 || row >= m_modelList.count()) {
+        return static_cast<int>(InspectorSectionType::SECTION_UNDEFINED);
+    }
+
+    return static_cast<int>(m_modelList.at(row)->sectionType());
+}
+
 void InspectorListModel::sortModels()
 {
     QList<AbstractInspectorModel*> sortedModelList = m_modelList;
 
-    std::sort(sortedModelList.begin(), sortedModelList.end(), [](const AbstractInspectorModel* first,
-                                                                 const AbstractInspectorModel* second) -> bool {
-        return static_cast<int>(first->sectionType()) < static_cast<int>(second->sectionType());
+    auto rank = [this](const AbstractInspectorModel* model) {
+        const int type = static_cast<int>(model->sectionType());
+        if (m_generalSectionLast && model->sectionType() == InspectorSectionType::SECTION_GENERAL) {
+            return type + 1000;
+        }
+
+        return type;
+    };
+
+    std::sort(sortedModelList.begin(), sortedModelList.end(), [&rank](const AbstractInspectorModel* first,
+                                                                      const AbstractInspectorModel* second) -> bool {
+        return rank(first) < rank(second);
     });
 
     if (sortedModelList == m_modelList) {

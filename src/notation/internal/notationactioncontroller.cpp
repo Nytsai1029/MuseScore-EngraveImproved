@@ -31,8 +31,14 @@
 #include "engraving/dom/sig.h"
 #include "view/abstractelementpopupmodel.h"
 
+#include "engravemode.h"
+
+#include "containers.h"
+#include "stringutils.h"
 #include "translation.h"
 #include "log.h"
+
+#include <unordered_set>
 
 #include <QGuiApplication>
 
@@ -202,14 +208,14 @@ void NotationActionController::init()
     registerMoveSelectionAction("next-system", MoveSelectionType::System, MoveDirection::Right);
     registerMoveSelectionAction("prev-system", MoveSelectionType::System, MoveDirection::Left);
 
-    registerAction("notation-move-right", &Controller::move, MoveDirection::Right, false, &Controller::isNotEditingOrHasPopup);
-    registerAction("notation-move-left", &Controller::move, MoveDirection::Left, false, &Controller::isNotEditingOrHasPopup);
+    registerAction("notation-move-right", &Controller::move, MoveDirection::Right, false, &Controller::isMoveAvailable);
+    registerAction("notation-move-left", &Controller::move, MoveDirection::Left, false, &Controller::isMoveAvailable);
     registerAction("notation-move-right-quickly", &Controller::move, MoveDirection::Right, true, &Controller::measureNavigationAvailable);
     registerAction("notation-move-left-quickly", &Controller::move, MoveDirection::Left, true, &Controller::measureNavigationAvailable);
-    registerAction("pitch-up", &Controller::move, MoveDirection::Up, false, &Controller::isNotEditingOrHasPopup);
-    registerAction("pitch-down", &Controller::move, MoveDirection::Down, false, &Controller::isNotEditingOrHasPopup);
-    registerAction("pitch-up-octave", &Controller::move, MoveDirection::Up, true, &Controller::isNotEditingOrHasPopup);
-    registerAction("pitch-down-octave", &Controller::move, MoveDirection::Down, true, &Controller::isNotEditingOrHasPopup);
+    registerAction("pitch-up", &Controller::move, MoveDirection::Up, false, &Controller::isMoveAvailable);
+    registerAction("pitch-down", &Controller::move, MoveDirection::Down, false, &Controller::isMoveAvailable);
+    registerAction("pitch-up-octave", &Controller::move, MoveDirection::Up, true, &Controller::isMoveAvailable);
+    registerAction("pitch-down-octave", &Controller::move, MoveDirection::Down, true, &Controller::isMoveAvailable);
     registerAction("up-chord", [this]() { moveWithinChord(MoveDirection::Up); }, &Controller::hasSelection);
     registerAction("down-chord", [this]() { moveWithinChord(MoveDirection::Down); }, &Controller::hasSelection);
 
@@ -566,6 +572,11 @@ void NotationActionController::init()
         });
     }
     dispatcher()->reg(this, "check-for-score-corruptions", [this] { checkForScoreCorruptions(); });
+
+    interactive()->currentUri().ch.onReceive(this, [this](const Uri&) {
+        updateEngraveMode();
+    });
+    updateEngraveMode();
 }
 
 bool NotationActionController::canReceiveAction(const ActionCode& code) const
@@ -589,6 +600,10 @@ bool NotationActionController::canReceiveAction(const ActionCode& code) const
     // Actions other than undo and redo can only be handled when the current
     // notation contains at least one part.
     if (!masterNotation->hasParts()) {
+        return false;
+    }
+
+    if (m_isEngraveMode && isNoteEntryAction(code)) {
         return false;
     }
 
@@ -1078,6 +1093,11 @@ void NotationActionController::move(MoveDirection direction, bool quickly)
     TRACEFUNC;
     auto interaction = currentNotationInteraction();
     if (!interaction) {
+        return;
+    }
+
+    if (isEngraveNudgeAvailable() && !interaction->selection()->isNone()) {
+        interaction->nudgeSelection(direction, quickly ? ENGRAVE_QUICK_NUDGE_STEP : configuration()->engraveNudgeStep());
         return;
     }
 
@@ -1953,7 +1973,7 @@ FilterElementsOptions NotationActionController::elementsFilterOptions(const Engr
 
 bool NotationActionController::measureNavigationAvailable() const
 {
-    return isNotEditingOrHasPopup() || textNavigationAvailable();
+    return isMoveAvailable() || textNavigationAvailable();
 }
 
 bool NotationActionController::toggleLayoutBreakAvailable() const
@@ -2354,6 +2374,79 @@ bool NotationActionController::canRedo() const
 bool NotationActionController::isNotationPage() const
 {
     return uiContextResolver()->matchWithCurrent(context::UiCtxProjectOpened);
+}
+
+bool NotationActionController::isEngraveNudgeAvailable() const
+{
+    if (!m_isEngraveMode || playbackController()->isPlaying()) {
+        return false;
+    }
+
+    auto interaction = currentNotationInteraction();
+    return interaction && !interaction->isTextEditingStarted() && !interaction->isDragStarted();
+}
+
+bool NotationActionController::isMoveAvailable() const
+{
+    //! NOTE In the Engrave mode, the arrow keys also move an element whose grips are being edited
+    return isNotEditingOrHasPopup() || isEngraveNudgeAvailable();
+}
+
+void NotationActionController::updateEngraveMode()
+{
+    const bool isEngraveMode = isEngraveModeOpened(interactive());
+    if (m_isEngraveMode == isEngraveMode) {
+        return;
+    }
+
+    m_isEngraveMode = isEngraveMode;
+
+    if (m_isEngraveMode) {
+        INotationNoteInputPtr noteInput = currentNotationNoteInput();
+        if (noteInput && noteInput->isNoteInputMode()) {
+            noteInput->endNoteInput();
+        }
+    }
+}
+
+bool NotationActionController::isNoteEntryAction(const ActionCode& code)
+{
+    static const std::unordered_set<ActionCode> EXACT_CODES {
+        "note-input", "realtime-advance", "note-action", "put-note", "remove-note",
+        "note-longa", "note-breve", "rest", "rest-TAB",
+        "duplet", "triplet", "quadruplet", "quintuplet", "sextuplet", "septuplet", "octuplet", "nonuplet",
+        "custom-tuplet", "tuplet-dialog",
+        "double-duration", "half-duration", "inc-duration-dotted", "dec-duration-dotted",
+        "pitch-up-diatonic", "pitch-down-diatonic",
+        "flat2", "flat", "nat", "sharp", "sharp2",
+        "flat2-post", "flat-post", "nat-post", "sharp-post", "sharp2-post",
+        "enh-both", "enh-current",
+        "repeat-sel"
+    };
+
+    if (muse::contains(EXACT_CODES, code)) {
+        return true;
+    }
+
+    //! NOTE "insert-a" … "insert-g" are notes ("insert-vbox", "insert-measure" and the like are not)
+    static const std::vector<std::string> NOTE_PREFIXES { "note-", "chord-", "insert-" };
+    for (const std::string& prefix : NOTE_PREFIXES) {
+        if (code.size() == prefix.size() + 1 && muse::strings::startsWith(code, prefix)) {
+            const char name = code.back();
+            if (name >= 'a' && name <= 'g') {
+                return true;
+            }
+        }
+    }
+
+    static const std::vector<std::string> PREFIXES { "note-input-", "pad-", "interval", "fret-" };
+    for (const std::string& prefix : PREFIXES) {
+        if (muse::strings::startsWith(code, prefix)) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 bool NotationActionController::isTablatureStaff() const

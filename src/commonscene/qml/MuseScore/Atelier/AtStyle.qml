@@ -61,6 +61,27 @@ QtObject {
     readonly property int railWidth: 48
     readonly property int propertiesWidth: 280
 
+    //! NOTE: the first shortcut of an action, written as on the keys (e.g. "Ctrl+Alt+1" is "⌥⌘1" on a Mac)
+    function keyHint(shortcuts) {
+        if (!Boolean(shortcuts)) {
+            return ""
+        }
+
+        var isMac = Qt.platform.os === "osx"
+        var first = String(shortcuts).split(/[;,] ?/)[0]
+
+        return first.replace(/Ctrl\+/g, isMac ? "⌘" : "Ctrl+")
+                    .replace(/Meta\+/g, isMac ? "⌃" : "Meta+")
+                    .replace(/Alt\+/g, isMac ? "⌥" : "Alt+")
+                    .replace(/Shift\+/g, isMac ? "⇧" : "Shift+")
+    }
+
+    //! NOTE: the title of an action for a button. In some languages the access key of the menu item
+    //! is written after the title, in brackets (e.g. "样式… (S)"), which a button does not need
+    function plainTitle(title) {
+        return String(title).replace(/\s*[(（][A-Za-z0-9][)）]\s*$/, "")
+    }
+
     function font(pixelSize, weight) {
         return Qt.font({
             family: ui.theme.bodyFont.family,

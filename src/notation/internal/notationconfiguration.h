@@ -226,8 +226,14 @@ public:
     bool isSnappedToGrid(muse::Orientation gridOrientation) const override;
     void setIsSnappedToGrid(muse::Orientation gridOrientation, bool isSnapped) override;
 
+    muse::async::Notification isSnappedToGridChanged() const override;
+
     int gridSizeSpatium(muse::Orientation gridOrientation) const override;
     void setGridSize(muse::Orientation gridOrientation, int sizeSpatium) override;
+
+    double engraveNudgeStep() const override;
+    void setEngraveNudgeStep(double stepSp) override;
+    muse::async::Notification engraveNudgeStepChanged() const override;
 
     bool needToShowAddTextErrorMessage() const override;
     void setNeedToShowAddTextErrorMessage(bool show) override;
@@ -327,6 +333,8 @@ private:
     muse::async::Notification m_autoClosePercussionPanelChanged;
     muse::async::Notification m_showPercussionPanelPadSwapDialogChanged;
     muse::async::Notification m_percussionPanelMoveMidiNotesAndShortcutsChanged;
+    muse::async::Notification m_isSnappedToGridChanged;
+    muse::async::Notification m_engraveNudgeStepChanged;
 
     int m_styleDialogLastPageIndex = 0;
     int m_styleDialogLastSubPageIndex = 0;

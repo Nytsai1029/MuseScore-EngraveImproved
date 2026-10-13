@@ -222,8 +222,15 @@ public:
     virtual bool isSnappedToGrid(muse::Orientation gridOrientation) const = 0;
     virtual void setIsSnappedToGrid(muse::Orientation gridOrientation, bool isSnapped) = 0;
 
+    virtual muse::async::Notification isSnappedToGridChanged() const = 0;
+
     virtual int gridSizeSpatium(muse::Orientation gridOrientation) const = 0;
     virtual void setGridSize(muse::Orientation gridOrientation, int sizeSpatium) = 0;
+
+    //! NOTE The step (in sp) by which the arrow keys move the selection in the Engrave mode
+    virtual double engraveNudgeStep() const = 0;
+    virtual void setEngraveNudgeStep(double stepSp) = 0;
+    virtual muse::async::Notification engraveNudgeStepChanged() const = 0;
 
     virtual bool needToShowAddTextErrorMessage() const = 0;
     virtual void setNeedToShowAddTextErrorMessage(bool show) = 0;

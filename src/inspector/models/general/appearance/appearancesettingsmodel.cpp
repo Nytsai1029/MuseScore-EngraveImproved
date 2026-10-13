@@ -38,6 +38,11 @@ AppearanceSettingsModel::AppearanceSettingsModel(QObject* parent, IElementReposi
     createProperties();
 
     setTitle(muse::qtrc("inspector", "Appearance"));
+
+    //! NOTE: the grid can be switched in other places too
+    notationConfiguration()->isSnappedToGridChanged().onNotify(this, [this]() {
+        emit isSnappedToGridChanged(isSnappedToGrid());
+    });
 }
 
 void AppearanceSettingsModel::createProperties()

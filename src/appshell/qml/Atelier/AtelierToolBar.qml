@@ -242,6 +242,7 @@ Rectangle {
 
         model: [
             { title: qsTrc("appshell", "Input"), value: "musescore://notation", enabled: root.context.hasProject },
+            { title: qsTrc("appshell", "Engrave"), value: "musescore://engrave", enabled: root.context.hasProject },
             { title: qsTrc("appshell", "Preview"), value: "musescore://publish", enabled: root.context.hasProject }
         ]
 

@@ -9,6 +9,12 @@
         <file>qml/MuseScore/Atelier/AtStripButton.qml</file>
         <file>qml/MuseScore/Atelier/AtStyle.qml</file>
         <file>qml/MuseScore/Atelier/AtTabs.qml</file>
+        <file>qml/MuseScore/Atelier/AtSwitch.qml</file>
+        <file>qml/MuseScore/Atelier/AtSwitchRow.qml</file>
+        <file>qml/MuseScore/Atelier/AtChip.qml</file>
+        <file>qml/MuseScore/Atelier/AtListRow.qml</file>
+        <file>qml/MuseScore/Atelier/AtSectionTitle.qml</file>
+        <file>qml/MuseScore/Atelier/AtOutlineButton.qml</file>
         <file>qml/MuseScore/Atelier/AtToolButton.qml</file>
         <file>qml/MuseScore/Atelier/qmldir</file>
     </qresource>

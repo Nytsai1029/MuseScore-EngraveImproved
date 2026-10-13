@@ -7,3 +7,9 @@ AtSegmented 1.0 AtSegmented.qml
 AtDivider 1.0 AtDivider.qml
 AtPaneHeader 1.0 AtPaneHeader.qml
 AtTabs 1.0 AtTabs.qml
+AtSwitch 1.0 AtSwitch.qml
+AtSwitchRow 1.0 AtSwitchRow.qml
+AtChip 1.0 AtChip.qml
+AtListRow 1.0 AtListRow.qml
+AtSectionTitle 1.0 AtSectionTitle.qml
+AtOutlineButton 1.0 AtOutlineButton.qml

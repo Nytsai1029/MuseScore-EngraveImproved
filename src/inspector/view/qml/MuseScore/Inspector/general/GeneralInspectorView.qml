@@ -33,14 +33,37 @@ import "appearance"
 InspectorSectionView {
     id: root
 
-    implicitHeight: contentColumn.height
+    //! NOTE: see InspectorSectionDelegate. In the modes of the Atelier skin, the section is shown by GeneralModeView
+    property string mode: ""
+    readonly property bool isModeView: root.mode === "input" || root.mode === "engrave"
+
+    implicitHeight: root.isModeView ? modeViewLoader.height : contentColumn.height
 
     enabled: model ? model.areGeneralPropertiesAvailable : true
+
+    Loader {
+        id: modeViewLoader
+
+        width: parent.width
+        height: Boolean(item) ? item.implicitHeight : 0
+
+        active: root.isModeView
+
+        sourceComponent: GeneralModeView {
+            model: root.model
+            mode: root.mode
+
+            navigationPanel: root.navigationPanel
+            navigationRowStart: root.navigationRowStart
+        }
+    }
 
     ColumnLayout {
         id: contentColumn
 
         width: parent.width
+
+        visible: !root.isModeView
 
         spacing: 12
 

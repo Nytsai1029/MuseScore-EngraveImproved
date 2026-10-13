@@ -227,6 +227,13 @@ private:
     bool isNotationPage() const;
     bool isTablatureStaff() const;
 
+    //! NOTE The Engrave mode (a page of the Atelier skin): notes are not entered or changed there,
+    //! and the arrow keys nudge what is selected
+    bool isEngraveNudgeAvailable() const;
+    bool isMoveAvailable() const;
+    void updateEngraveMode();
+    static bool isNoteEntryAction(const muse::actions::ActionCode& code);
+
     void checkForScoreCorruptions();
 
     void registerAction(const muse::actions::ActionCode&, void (NotationActionController::*)(const muse::actions::ActionData& data),
@@ -276,6 +283,8 @@ private:
 
     using IsActionEnabledFunc = std::function<bool ()>;
     std::map<muse::actions::ActionCode, IsActionEnabledFunc> m_isEnabledMap;
+
+    bool m_isEngraveMode = false;
 };
 }
 

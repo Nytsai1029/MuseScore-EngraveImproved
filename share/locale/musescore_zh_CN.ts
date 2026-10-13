@@ -10908,6 +10908,68 @@ This action cannot be undone.</source>
         <source>Preview</source>
         <translation>预览</translation>
     </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="340"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="245"/>
+        <source>Engrave</source>
+        <translation>排版</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="47"/>
+        <source>Engrave tools</source>
+        <translation>排版工具</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="148"/>
+        <source>Nudge left</source>
+        <translation>向左微移</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="166"/>
+        <source>Nudge up</source>
+        <translation>向上微移</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="184"/>
+        <source>Nudge down</source>
+        <translation>向下微移</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="202"/>
+        <source>Nudge right</source>
+        <translation>向右微移</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="254"/>
+        <source>Step %1 sp</source>
+        <extracomment>%1 is a distance in staff spaces, e.g. 0.1</extracomment>
+        <translation>步长 %1 谱间</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="424"/>
+        <source>Margins</source>
+        <translation>页边距</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="80"/>
+        <source>Breaks</source>
+        <translation>换行与分页</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="86"/>
+        <source>Spacers and frames</source>
+        <translation>空位符与框体</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="324"/>
+        <source>Notes, dynamics and text are entered in Input.</source>
+        <translation>音符、力度记号与文本在“输入”模式中录入。</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="325"/>
+        <source>Stem, beam, ledger lines and offsets are in Engrave.</source>
+        <translation>符干、符杠、加线与偏移在“排版”模式中调整。</translation>
+    </message>
 </context>
 <context>
     <name>appshell/about</name>
@@ -28329,6 +28391,13 @@ pickup measure</source>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/frames/internal/FretFrameChordsTab.qml" line="115"/>
         <source>Add chord symbols to your score and they’ll automatically appear in the legend.</source>
         <translation>向您的乐谱添加和弦符号，随后它们将自动出现在您的图例中</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="430"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/score/ScoreDisplayInspectorView.qml" line="120"/>
+        <source>Guides</source>
+        <extracomment>Alignment guides shown while dragging</extracomment>
+        <translation>参考线</translation>
     </message>
 </context>
 <context>

@@ -28,12 +28,16 @@ InspectorSectionView {
 
     implicitHeight: loader.implicitHeight
 
+    //! NOTE: see InspectorSectionDelegate
+    property string mode: ""
+
     NotationInspectorSectionLoader {
         id: loader
 
         width: parent.width
 
         model: root.model ? root.model.firstModel : null
+        mode: root.mode
 
         navigationPanel: root.navigationPanel
         navigationRowStart: root.navigationRowStart

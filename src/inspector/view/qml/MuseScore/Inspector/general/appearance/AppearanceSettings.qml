@@ -34,6 +34,9 @@ Column {
 
     property NavigationPanel navigationPanel: null
 
+    //! NOTE: how far the lines between the groups go beyond the sides of the content
+    property int separatorBleed: 12
+
     height: implicitHeight
     width: parent.width
 
@@ -52,7 +55,7 @@ Column {
         navigationRowStart: 0
     }
 
-    SeparatorLine { anchors.margins: -12 }
+    SeparatorLine { anchors.margins: -root.separatorBleed }
 
     VerticalSpacingSection {
         id: verticalSpacingSection
@@ -63,7 +66,7 @@ Column {
         navigationRowStart: horizontalSpacingSection.navigationRowEnd + 1
     }
 
-    SeparatorLine { anchors.margins: -12 }
+    SeparatorLine { anchors.margins: -root.separatorBleed }
 
     AppearanceOffsetSection {
         id: offsetSection
@@ -86,7 +89,7 @@ Column {
         }
     }
 
-    SeparatorLine { anchors.margins: -12 }
+    SeparatorLine { anchors.margins: -root.separatorBleed }
 
     ArrangeSection {
         id: arrangeSection
@@ -113,7 +116,7 @@ Column {
         }
     }
 
-    SeparatorLine { anchors.margins: -12 }
+    SeparatorLine { anchors.margins: -root.separatorBleed }
 
     ColorSection {
         propertyItem: root.model?.color ?? null

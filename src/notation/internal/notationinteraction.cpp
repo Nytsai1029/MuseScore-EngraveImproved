@@ -21,10 +21,13 @@
  */
 #include "notationinteraction.h"
 
+#include "engravemode.h"
+
 #include "log.h"
 
 #include <memory>
 #include <limits>
+#include <unordered_set>
 #include <QRectF>
 #include <QPainter>
 #include <QClipboard>
@@ -1225,6 +1228,16 @@ void NotationInteraction::drag(const PointF& fromPos, const PointF& toPos, DragM
     if (m_dragData.beginMove.isNull()) {
         m_dragData.beginMove = fromPos;
         m_dragData.ed.pos = fromPos;
+    }
+
+    //! NOTE In the Engrave mode the notes are not changed, so a note which is dragged up or down keeps its pitch
+    if (mode == DragMode::BothXY && isEngraveModeOpened(interactive())) {
+        for (const EngravingItem* element : m_dragData.elements) {
+            if (element && element->isNote()) {
+                mode = DragMode::OnlyX;
+                break;
+            }
+        }
     }
 
     PointF normalizedBegin = m_dragData.beginMove - m_dragData.elementOffset;
@@ -4303,30 +4316,113 @@ void NotationInteraction::nudge(MoveDirection d, bool quickly)
 
 void NotationInteraction::nudgeAnchors(MoveDirection d)
 {
+    doNudgeAnchors(d, std::nullopt);
+}
+
+void NotationInteraction::nudgeSelection(MoveDirection d, double stepSp)
+{
+    if (d == MoveDirection::Undefined || stepSp <= 0.0) {
+        return;
+    }
+
+    //! NOTE The grips of an element are being edited (a slur, a hairpin, a beam…): its current grip is moved
+    if (isGripEditStarted()) {
+        doNudgeAnchors(d, stepSp);
+        return;
+    }
+
+    //! NOTE The same elements as the offset in the Properties panel changes: a note moves with its chord
+    std::vector<EngravingItem*> elements;
+    std::unordered_set<EngravingItem*> seen;
+    for (EngravingItem* element : score()->selection().elements()) {
+        if (!element || !element->isMovable()) {
+            continue;
+        }
+
+        if (element->isNote() || element->isStem() || element->isHook()) {
+            element = element->parentItem();
+            if (!element || !element->isChord()) {
+                continue;
+            }
+        }
+
+        if (seen.insert(element).second) {
+            elements.push_back(element);
+        }
+    }
+
+    if (elements.empty()) {
+        return;
+    }
+
+    startEdit(TranslatableString("undoableAction", "Nudge"));
+
+    for (EngravingItem* element : elements) {
+        const double step = stepSp * element->spatium();
+
+        PointF delta;
+        switch (d) {
+        case MoveDirection::Left: delta = PointF(-step, 0.0);
+            break;
+        case MoveDirection::Right: delta = PointF(step, 0.0);
+            break;
+        case MoveDirection::Up: delta = PointF(0.0, -step);
+            break;
+        case MoveDirection::Down: delta = PointF(0.0, step);
+            break;
+        case MoveDirection::Undefined:
+            break;
+        }
+
+        element->undoChangeProperty(mu::engraving::Pid::OFFSET, element->offset() + delta, mu::engraving::PropertyFlags::UNSTYLED);
+    }
+
+    apply();
+
+    notifyAboutDragChanged();
+}
+
+void NotationInteraction::doNudgeAnchors(MoveDirection d, std::optional<double> stepSp)
+{
     IF_ASSERT_FAILED(m_editData.element) {
         return;
     }
 
     startEdit(TranslatableString("undoableAction", "Nudge"));
-    qreal vRaster = mu::engraving::MScore::vRaster();
-    qreal hRaster = mu::engraving::MScore::hRaster();
+
+    if (nudgeEditedElement(d, stepSp)) {
+        apply();
+    } else {
+        rollback();
+    }
+}
+
+//! NOTE Moves the element which is being edited (its current grip, if it has one), without making an undo step.
+//! Without a given step (in sp), the distance depends on the pressed modifiers and is not less than a cell of the grid
+bool NotationInteraction::nudgeEditedElement(MoveDirection d, std::optional<double> stepSp)
+{
+    const bool useRaster = !stepSp.has_value();
+    qreal vRaster = useRaster ? mu::engraving::MScore::vRaster() : 0.0;
+    qreal hRaster = useRaster ? mu::engraving::MScore::hRaster() : 0.0;
+
+    const qreal hDistance = useRaster ? nudgeDistance(m_editData, hRaster) : stepSp.value() * m_editData.element->spatium();
+    const qreal vDistance = useRaster ? nudgeDistance(m_editData, vRaster) : stepSp.value() * m_editData.element->spatium();
 
     switch (d) {
     case MoveDirection::Left:
-        m_editData.delta = QPointF(-nudgeDistance(m_editData, hRaster), 0);
+        m_editData.delta = QPointF(-hDistance, 0);
         break;
     case MoveDirection::Right:
-        m_editData.delta = QPointF(nudgeDistance(m_editData, hRaster), 0);
+        m_editData.delta = QPointF(hDistance, 0);
         break;
     case MoveDirection::Up:
-        m_editData.delta = QPointF(0, -nudgeDistance(m_editData, vRaster));
+        m_editData.delta = QPointF(0, -vDistance);
         break;
     case MoveDirection::Down:
-        m_editData.delta = QPointF(0, nudgeDistance(m_editData, vRaster));
+        m_editData.delta = QPointF(0, vDistance);
         break;
     default:
-        rollback();
-        return;
+        return false;
     }
 
     m_editData.evtDelta = m_editData.moveDelta = m_editData.delta;
@@ -4341,7 +4437,7 @@ void NotationInteraction::nudgeAnchors(MoveDirection d)
     m_editData.element->editDrag(m_editData);
     m_editData.element->endEditDrag(m_editData);
 
-    apply();
+    return true;
 }
 
 bool NotationInteraction::isTextSelected() const
@@ -4466,8 +4562,7 @@ bool NotationInteraction::handleKeyPress(QKeyEvent* event)
         return false;
     }
 
-    qreal vRaster = mu::engraving::MScore::vRaster();
-    qreal hRaster = mu::engraving::MScore::hRaster();
+    MoveDirection direction = MoveDirection::Undefined;
 
     switch (event->key()) {
     case Qt::Key_Tab:
@@ -4487,34 +4582,28 @@ bool NotationInteraction::handleKeyPress(QKeyEvent* event)
 
         return true;
     case Qt::Key_Left:
-        m_editData.delta = QPointF(-nudgeDistance(m_editData, hRaster), 0);
+        direction = MoveDirection::Left;
         break;
     case Qt::Key_Right:
-        m_editData.delta = QPointF(nudgeDistance(m_editData, hRaster), 0);
+        direction = MoveDirection::Right;
         break;
     case Qt::Key_Up:
-        m_editData.delta = QPointF(0, -nudgeDistance(m_editData, vRaster));
+        direction = MoveDirection::Up;
         break;
     case Qt::Key_Down:
-        m_editData.delta = QPointF(0, nudgeDistance(m_editData, vRaster));
+        direction = MoveDirection::Down;
         break;
     default:
         return false;
     }
 
-    m_editData.evtDelta = m_editData.moveDelta = m_editData.delta;
-    m_editData.hRaster = hRaster;
-    m_editData.vRaster = vRaster;
-
-    if (m_editData.curGrip != mu::engraving::Grip::NO_GRIP && int(m_editData.curGrip) < m_editData.grips) {
-        m_editData.pos = m_editData.grip[int(m_editData.curGrip)].center() + m_editData.delta;
+    //! NOTE In the Engrave mode, the arrow keys move by the step which is chosen there (see nudgeSelection)
+    std::optional<double> stepSp;
+    if (isEngraveModeOpened(interactive())) {
+        stepSp = (event->modifiers() & Qt::ControlModifier) ? ENGRAVE_QUICK_NUDGE_STEP : configuration()->engraveNudgeStep();
     }
 
-    m_editData.element->startEditDrag(m_editData);
-    m_editData.element->editDrag(m_editData);
-    m_editData.element->endEditDrag(m_editData);
-
-    return true;
+    return nudgeEditedElement(direction, stepSp);
 }
 
 void NotationInteraction::endEditText()

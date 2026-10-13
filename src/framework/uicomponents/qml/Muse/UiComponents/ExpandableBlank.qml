@@ -33,6 +33,15 @@ FocusScope {
 
     property alias title: expandableSection.title
     property alias titleFont: expandableSection.titleFont
+    property alias titleColor: expandableSection.titleColor
+
+    //! NOTE: see ExpandableBlankSection
+    property alias flatHeader: expandableSection.flat
+
+    //! NOTE: if false, the title is not shown at all (the content has its own titles)
+    property alias headerVisible: expandableSection.visible
+
+    property alias contentSpacing: contentColumn.spacing
 
     property alias isExpanded: expandableSection.isExpanded
 
@@ -44,7 +53,9 @@ FocusScope {
     implicitWidth: parent.width
 
     Keys.onSpacePressed: {
-        root.isExpanded = !root.isExpanded
+        if (!root.flatHeader) {
+            root.isExpanded = !root.isExpanded
+        }
     }
 
     Column {

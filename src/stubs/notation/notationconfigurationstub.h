@@ -202,8 +202,14 @@ public:
     bool isSnappedToGrid(muse::Orientation gridOrientation) const override;
     void setIsSnappedToGrid(muse::Orientation gridOrientation, bool isSnapped)  override;
 
+    muse::async::Notification isSnappedToGridChanged() const override;
+
     int gridSizeSpatium(muse::Orientation gridOrientation) const override;
     void setGridSize(muse::Orientation gridOrientation, int sizeSpatium)  override;
+
+    double engraveNudgeStep() const override;
+    void setEngraveNudgeStep(double stepSp) override;
+    muse::async::Notification engraveNudgeStepChanged() const override;
 
     bool needToShowAddTextErrorMessage() const override;
     void setNeedToShowAddTextErrorMessage(bool show)  override;

@@ -104,6 +104,7 @@ static const Settings::Key IS_SNAPPED_TO_VERTICAL_GRID_KEY(module_name,  "ui/app
 static const Settings::Key IS_SNAPPED_TO_HORIZONTAL_GRID_KEY(module_name,  "ui/application/raster/isSnappedToHorizontalGrid");
 static const Settings::Key HORIZONTAL_GRID_SIZE_KEY(module_name,  "ui/application/raster/horizontal");
 static const Settings::Key VERTICAL_GRID_SIZE_KEY(module_name,  "ui/application/raster/vertical");
+static const Settings::Key ENGRAVE_NUDGE_STEP_KEY(module_name,  "ui/application/engrave/nudgeStep");
 
 static const Settings::Key NEED_TO_SHOW_ADD_TEXT_ERROR_MESSAGE_KEY(module_name,  "ui/dialogs/needToShowAddTextErrorMessage");
 static const Settings::Key NEED_TO_SHOW_ADD_FIGURED_BASS_ERROR_MESSAGE_KEY(module_name,  "ui/dialogs/needToShowAddFiguredBassErrorMessage");
@@ -121,6 +122,7 @@ static const Settings::Key PERCUSSION_PANEL_MOVE_MIDI_NOTES_AND_SHORTCUTS(module
 static const Settings::Key STYLE_FILE_IMPORT_PATH_KEY(module_name, "import/style/styleFile");
 
 static constexpr int DEFAULT_GRID_SIZE_SPATIUM = 2;
+static constexpr double DEFAULT_ENGRAVE_NUDGE_STEP = 0.1;
 
 static const std::string BY_NOTE_NAME_INPUT_METHOD("BY_NOTE_NAME");
 
@@ -339,6 +341,18 @@ void NotationConfiguration::init()
 
     settings()->setDefaultValue(HORIZONTAL_GRID_SIZE_KEY, Val(DEFAULT_GRID_SIZE_SPATIUM));
     settings()->setDefaultValue(VERTICAL_GRID_SIZE_KEY, Val(DEFAULT_GRID_SIZE_SPATIUM));
+
+    settings()->valueChanged(IS_SNAPPED_TO_HORIZONTAL_GRID_KEY).onReceive(nullptr, [this](const Val&) {
+        m_isSnappedToGridChanged.notify();
+    });
+    settings()->valueChanged(IS_SNAPPED_TO_VERTICAL_GRID_KEY).onReceive(nullptr, [this](const Val&) {
+        m_isSnappedToGridChanged.notify();
+    });
+
+    settings()->setDefaultValue(ENGRAVE_NUDGE_STEP_KEY, Val(DEFAULT_ENGRAVE_NUDGE_STEP));
+    settings()->valueChanged(ENGRAVE_NUDGE_STEP_KEY).onReceive(nullptr, [this](const Val&) {
+        m_engraveNudgeStepChanged.notify();
+    });
 
     settings()->setDefaultValue(NEED_TO_SHOW_ADD_TEXT_ERROR_MESSAGE_KEY, Val(true));
     settings()->setDefaultValue(NEED_TO_SHOW_ADD_FIGURED_BASS_ERROR_MESSAGE_KEY, Val(true));
@@ -1171,6 +1185,29 @@ void NotationConfiguration::setIsSnappedToGrid(muse::Orientation gridOrientation
         settings()->setSharedValue(IS_SNAPPED_TO_VERTICAL_GRID_KEY, Val(isSnapped));
         break;
     }
+}
+
+muse::async::Notification NotationConfiguration::isSnappedToGridChanged() const
+{
+    return m_isSnappedToGridChanged;
+}
+
+double NotationConfiguration::engraveNudgeStep() const
+{
+    const double step = settings()->value(ENGRAVE_NUDGE_STEP_KEY).toDouble();
+    return step > 0.0 ? step : DEFAULT_ENGRAVE_NUDGE_STEP;
+}
+
+void NotationConfiguration::setEngraveNudgeStep(double stepSp)
+{
+    if (stepSp > 0.0) {
+        settings()->setSharedValue(ENGRAVE_NUDGE_STEP_KEY, Val(stepSp));
+    }
+}
+
+muse::async::Notification NotationConfiguration::engraveNudgeStepChanged() const
+{
+    return m_engraveNudgeStepChanged;
 }
 
 int NotationConfiguration::gridSizeSpatium(muse::Orientation gridOrientation) const

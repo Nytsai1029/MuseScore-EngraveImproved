@@ -120,9 +120,14 @@ void GeneralSettingsModel::resetProperties()
     m_isSmall->resetToDefault();
 }
 
-void GeneralSettingsModel::onNotationChanged(const PropertyIdSet& changedPropertyIdSet, const StyleIdSet&)
+void GeneralSettingsModel::onNotationChanged(const PropertyIdSet& changedPropertyIdSet, const StyleIdSet& changedStyleIdSet)
 {
     loadProperties(changedPropertyIdSet);
+
+    //! NOTE: the position of the selection can be shown beside the general properties (not only in a popup),
+    //! so it follows the changes of the score too
+    AbstractInspectorModel* appearanceModel = m_appearanceSettingsModel;
+    appearanceModel->onNotationChanged(changedPropertyIdSet, changedStyleIdSet);
 }
 
 void GeneralSettingsModel::loadProperties(const mu::engraving::PropertyIdSet& propertyIdSet)

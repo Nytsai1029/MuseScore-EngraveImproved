@@ -128,6 +128,7 @@ void AppShellModule::resolveImports()
     if (ir) {
         ir->registerUri(Uri("musescore://home"), ContainerMeta(ContainerType::PrimaryPage));
         ir->registerUri(Uri("musescore://notation"), ContainerMeta(ContainerType::PrimaryPage));
+        ir->registerUri(Uri("musescore://engrave"), ContainerMeta(ContainerType::PrimaryPage));
         ir->registerUri(Uri("musescore://sequencer"), ContainerMeta(ContainerType::PrimaryPage));
         ir->registerUri(Uri("musescore://publish"), ContainerMeta(ContainerType::PrimaryPage));
         ir->registerUri(Uri("musescore://fontdesign"), ContainerMeta(ContainerType::PrimaryPage));

@@ -602,9 +602,30 @@ void NotationConfigurationStub::setIsSnappedToGrid(muse::Orientation, bool)
 {
 }
 
+muse::async::Notification NotationConfigurationStub::isSnappedToGridChanged() const
+{
+    static muse::async::Notification n;
+    return n;
+}
+
 int NotationConfigurationStub::gridSizeSpatium(muse::Orientation) const
 {
     return 20;
+}
+
+double NotationConfigurationStub::engraveNudgeStep() const
+{
+    return 0.1;
+}
+
+void NotationConfigurationStub::setEngraveNudgeStep(double)
+{
+}
+
+muse::async::Notification NotationConfigurationStub::engraveNudgeStepChanged() const
+{
+    static muse::async::Notification n;
+    return n;
 }
 
 void NotationConfigurationStub::setGridSize(muse::Orientation, int)

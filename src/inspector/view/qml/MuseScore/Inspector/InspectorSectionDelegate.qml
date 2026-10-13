@@ -40,6 +40,10 @@ ExpandableBlank {
     property var sectionModel // Comes from inspectorListModel
     property var anchorItem: null
 
+    //! NOTE: "input" or "engrave" (the modes of the Atelier skin), which show a part of the properties each;
+    //! otherwise all properties are shown
+    property string mode: ""
+
     signal ensureContentVisibleRequested(int invisibleContentHeight)
     signal popupOpened(var openedPopup, var visualControl)
 
@@ -87,6 +91,7 @@ ExpandableBlank {
 
         GeneralInspectorView {
             model: root.sectionModel
+            mode: root.mode
             navigationPanel: root.navigationPanel
             navigationRowStart: root.navigation.row + 1
             anchorItem: root.anchorItem
@@ -182,6 +187,7 @@ ExpandableBlank {
 
         NotationSingleElementView {
             model: root.sectionModel
+            mode: root.mode
             navigationPanel: root.navigationPanel
             navigationRowStart: root.navigation.row + 1
 

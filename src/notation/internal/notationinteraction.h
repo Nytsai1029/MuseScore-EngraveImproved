@@ -22,6 +22,7 @@
 #pragma once
 
 #include <memory>
+#include <optional>
 #include <vector>
 
 #include "modularity/ioc.h"
@@ -151,6 +152,7 @@ public:
     void movePitch(MoveDirection d, PitchMode mode) override;
     void nudge(MoveDirection d, bool quickly) override;
     void nudgeAnchors(MoveDirection) override;
+    void nudgeSelection(MoveDirection d, double stepSp) override;
     void moveChordRestToStaff(MoveDirection d) override;
     void moveLyrics(MoveDirection d) override;
     void swapChordRest(MoveDirection d) override;
@@ -358,6 +360,8 @@ private:
     bool showShadowNote(mu::engraving::ShadowNote& note, ShadowNoteParams& params);
 
     bool needStartEditGrip(QKeyEvent* event) const;
+    void doNudgeAnchors(MoveDirection d, std::optional<double> stepSp);
+    bool nudgeEditedElement(MoveDirection d, std::optional<double> stepSp);
     bool handleKeyPress(QKeyEvent* event);
 
     void doEndEditElement();
