@@ -132,7 +132,9 @@ int main(int argc, char** argv)
 #ifdef MUSE_APP_UNSTABLE
     QCoreApplication::setApplicationName("MuseScore4Development");
 #else
-    QCoreApplication::setApplicationName("MuseScore4");
+    //! NOTE Not "MuseScore4": release builds of this fork must not share the settings and the user data
+    //! with the official MuseScore Studio 4 ("EI" stands for Engrave Improved)
+    QCoreApplication::setApplicationName("MuseScoreEI4");
 #endif
     QCoreApplication::setOrganizationName("MuseScore");
     QCoreApplication::setOrganizationDomain("musescore.org");

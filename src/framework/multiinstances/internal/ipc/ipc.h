@@ -37,7 +37,9 @@ namespace muse::ipc {
 #ifdef MUSE_APP_UNSTABLE
 static const QString SERVER_NAME("musescore-app-ipc-" MUSE_APP_VERSION_MAJOR "-development");
 #else
-static const QString SERVER_NAME("musescore-app-ipc-" MUSE_APP_VERSION_MAJOR);
+//! NOTE Not "musescore-app-ipc-": release builds of this fork must not join the instances
+//! of the official MuseScore Studio ("ei" stands for Engrave Improved)
+static const QString SERVER_NAME("musescore-ei-app-ipc-" MUSE_APP_VERSION_MAJOR);
 #endif
 
 using ID = QString;
