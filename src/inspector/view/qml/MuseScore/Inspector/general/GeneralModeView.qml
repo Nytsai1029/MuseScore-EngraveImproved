@@ -30,9 +30,9 @@ import "../common"
 import "playback"
 import "appearance/internal"
 
-//! NOTE: the General section in the modes of the Atelier skin. In the Input mode it has what the selection is
-//! (how it sounds, whether it is shown); in the Engrave mode, where it sits (what the Appearance popup of the other
-//! skins has, laid out in the section itself)
+//! NOTE: the General section in the modes of the Atelier skin. In the Input mode it has how the selection sounds
+//! (whether it is shown is at the top of the properties, see InspectorForm); in the Engrave mode, where it sits
+//! (what the Appearance popup of the other skins has, laid out in the section itself) and whether it is shown
 Column {
     id: root
 
@@ -93,10 +93,6 @@ Column {
                 navigationPanel: root.navigationPanel
             }
         }
-    }
-
-    GroupLine {
-        visible: root.isInput
     }
 
     // ---------- Engrave: where it sits ----------
@@ -203,63 +199,21 @@ Column {
         visible: !root.isInput
     }
 
-    // ---------- both: whether it is shown ----------
+    // ---------- Engrave: whether it is shown ----------
 
-    Column {
+    //! NOTE: in the Input mode, this group is at the top of the properties (see InspectorForm)
+    Loader {
         width: parent.width
-        spacing: 12
 
-        AtSectionTitle {
-            width: parent.width
-            text: qsTrc("inspector", "Show")
-        }
+        active: !root.isInput
+        visible: active
 
-        PropertyCheckBox {
-            navigation.name: "Visible"
-            navigation.panel: root.navigationPanel
-            navigation.row: root.navigationRow(100)
+        sourceComponent: GeneralShowGroup {
+            model: root.model
+            mode: root.mode
 
-            text: qsTrc("inspector", "Visible")
-            propertyItem: root.model ? root.model.isVisible : null
-            isIndeterminate: enabled && propertyItem && propertyItem.isUndefined
-        }
-
-        PropertyCheckBox {
-            visible: root.isInput && Boolean(propertyItem) && propertyItem.isVisible
-
-            navigation.name: "Cue size"
-            navigation.panel: root.navigationPanel
-            navigation.row: root.navigationRow(101)
-
-            text: qsTrc("inspector", "Cue size")
-            propertyItem: root.model ? root.model.isSmall : null
-            isIndeterminate: enabled && propertyItem && propertyItem.isUndefined
-        }
-
-        PropertyCheckBox {
-            visible: root.isInput && Boolean(propertyItem) && propertyItem.isVisible
-
-            navigation.name: "Auto-place"
-            navigation.panel: root.navigationPanel
-            navigation.row: root.navigationRow(102)
-
-            text: qsTrc("inspector", "Auto-place")
-            propertyItem: root.model ? root.model.isAutoPlaceAllowed : null
-            isIndeterminate: enabled && propertyItem && propertyItem.isUndefined
-        }
-
-        Loader {
-            width: parent.width
-
-            active: !root.isInput
-            visible: active
-
-            sourceComponent: ColorSection {
-                propertyItem: root.appearance ? root.appearance.color : null
-
-                navigationPanel: root.navigationPanel
-                navigationRowStart: root.navigationRow(110)
-            }
+            navigationPanel: root.navigationPanel
+            navigationRowStart: root.navigationRow(100)
         }
     }
 }

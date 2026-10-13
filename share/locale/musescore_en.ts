@@ -26100,7 +26100,7 @@ pickup measure</translation>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/common/PlacementSection.qml" line="31"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/common/VoicesAndPositionSection.qml" line="167"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralModeView.qml" line="112"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralModeView.qml" line="108"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/GradualTempoChangeSettings.qml" line="53"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/HairpinLineSettings.qml" line="53"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/parts/PartsSettings.qml" line="68"/>
@@ -26243,13 +26243,13 @@ pickup measure</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralInspectorView.qml" line="86"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralModeView.qml" line="222"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralShowGroup.qml" line="64"/>
         <source>Visible</source>
         <translation type="unfinished">Visible</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralInspectorView.qml" line="99"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralModeView.qml" line="234"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralShowGroup.qml" line="76"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/stafftype/StaffTypeSettings.qml" line="48"/>
         <source>Cue size</source>
         <translation type="unfinished">Cue size</translation>
@@ -26257,8 +26257,8 @@ pickup measure</translation>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="351"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralInspectorView.qml" line="112"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralModeView.qml" line="143"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralModeView.qml" line="246"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralModeView.qml" line="139"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralShowGroup.qml" line="88"/>
         <source>Auto-place</source>
         <translation type="unfinished">Auto-place</translation>
     </message>
@@ -26748,7 +26748,8 @@ pickup measure</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="399"/>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralModeView.qml" line="214"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/general/GeneralShowGroup.qml" line="56"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/InspectorForm.qml" line="286"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/bends/BendSettings.qml" line="74"/>
         <location filename="../../src/inspector/models/score/scoredisplaysettingsmodel.cpp" line="34"/>
         <source>Show</source>

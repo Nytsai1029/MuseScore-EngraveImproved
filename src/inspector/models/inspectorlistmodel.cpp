@@ -330,6 +330,11 @@ int InspectorListModel::sectionTypeAt(int row) const
     return static_cast<int>(m_modelList.at(row)->sectionType());
 }
 
+QObject* InspectorListModel::sectionModelByType(int sectionType) const
+{
+    return modelBySectionType(static_cast<InspectorSectionType>(sectionType));
+}
+
 void InspectorListModel::sortModels()
 {
     QList<AbstractInspectorModel*> sortedModelList = m_modelList;

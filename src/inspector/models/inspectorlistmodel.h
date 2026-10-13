@@ -51,6 +51,9 @@ public:
     //! NOTE The type of the section in the row (InspectorSectionType), or SECTION_UNDEFINED
     Q_INVOKABLE int sectionTypeAt(int row) const;
 
+    //! NOTE The model of the section of this type (InspectorSectionType), or nullptr if there is no such section
+    Q_INVOKABLE QObject* sectionModelByType(int sectionType) const;
+
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     QVariant data(const QModelIndex& index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;

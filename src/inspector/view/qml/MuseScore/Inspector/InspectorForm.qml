@@ -27,6 +27,7 @@ import Muse.UiComponents 1.0
 import MuseScore.Inspector 1.0
 
 import "."
+import "general"
 
 Rectangle {
     id: root
@@ -87,6 +88,30 @@ Rectangle {
 
         return false
     }
+
+    function firstShownSectionRow(revision) {
+        var count = inspectorListModel.rowCount()
+
+        for (var i = 0; i < count; ++i) {
+            if (root.isSectionShown(inspectorListModel.sectionTypeAt(i))) {
+                return i
+            }
+        }
+
+        return -1
+    }
+
+    function sectionModelByType(sectionType, revision) {
+        return inspectorListModel.sectionModelByType(sectionType)
+    }
+
+    //! NOTE: in the Input mode, whether the selection is shown is at the top of the properties, above the first
+    //! section; the rest of the General section stays where it is (see GeneralModeView)
+    readonly property bool showGroupFirst: root.atelierStyle && root.mode === "input" && !root.isHorizontal
+    readonly property int showGroupRow: root.showGroupFirst ? root.firstShownSectionRow(root.listRevision) : -1
+    readonly property QtObject showGroupModel: root.showGroupFirst
+                                               ? root.sectionModelByType(Inspector.SECTION_GENERAL, root.listRevision)
+                                               : null
 
     //! NOTE: in the Dorico skin, each section is a card with a title bar, on a darker background
     readonly property bool cardStyle: ui.theme.skin === "dorico"
@@ -229,11 +254,56 @@ Rectangle {
             height: isShown ? _item.y + _item.height + 10 : 0
             visible: isShown
 
+            //! NOTE: see root.showGroupFirst
+            Loader {
+                id: showGroupLoader
+
+                width: parent.width
+                height: Boolean(item) ? item.implicitHeight : 0
+
+                active: model.index === root.showGroupRow && Boolean(root.showGroupModel)
+
+                sourceComponent: Item {
+                    implicitHeight: showGroup.y + showGroup.height + 10
+
+                    GeneralShowGroup {
+                        id: showGroup
+
+                        x: root.atelierSidePadding
+                        y: 12
+                        width: parent.width - 2 * x
+
+                        model: root.showGroupModel
+                        mode: root.mode
+
+                        enabled: root.showGroupModel ? root.showGroupModel.areGeneralPropertiesAvailable : true
+
+                        navigationPanel: NavigationPanel {
+                            name: "Show"
+                            section: root.navigationSection
+                            direction: NavigationPanel.Vertical
+                            order: root.navigationOrderStart
+                            accessible.name: qsTrc("inspector", "Show")
+                            enabled: showGroup.enabled && showGroup.visible
+                        }
+                    }
+
+                    Rectangle {
+                        anchors.bottom: parent.bottom
+                        x: root.atelierSidePadding
+                        width: parent.width - 2 * x
+                        height: 1
+
+                        color: ui.theme.strokeColor
+                    }
+                }
+            }
+
             InspectorSectionDelegate {
                 id: _item
 
                 x: root.atelierSidePadding
-                y: 12
+                y: showGroupLoader.height + 12
                 width: parent.width - 2 * x
 
                 sectionModel: sectionRow.sectionModel
@@ -247,8 +317,9 @@ Rectangle {
                 titleColor: ui.theme.skin === "atelier" && ui.theme.isDark ? "#BDBDC3" : "#55555A"
                 contentSpacing: 8
 
+                //! NOTE: the Show group, when it is at the top, comes first
                 navigationPanel.section: root.navigationSection
-                navigationPanel.order: root.navigationOrderStart + model.index
+                navigationPanel.order: root.navigationOrderStart + 1 + model.index
 
                 onEnsureContentVisibleRequested: function(invisibleContentHeight) {
                     sectionList.ensureContentVisible(invisibleContentHeight)
