@@ -10600,10 +10600,12 @@ followed by dashes</source>
         <translation>学习</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="231"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="171"/>
         <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="92"/>
         <location filename="../../src/appshell/view/internal/maintoolbarmodel.cpp" line="94"/>
         <source>Font design</source>
-        <translation type="unfinished"></translation>
+        <translation>字体设计</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/HomePage/PluginsPage.qml" line="110"/>
@@ -10672,9 +10674,10 @@ followed by dashes</source>
         <translation>版面</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="41"/>
         <location filename="../../src/appshell/qml/FontDesignPage/FontDesignPage.qml" line="40"/>
         <source>Glyphs</source>
-        <translation type="unfinished"></translation>
+        <translation>字形</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/FontDesignPage/FontDesignPage.qml" line="56"/>
@@ -10864,6 +10867,46 @@ This action cannot be undone.</source>
         <location filename="../../src/appshell/qml/PublishPage/PublishPreviewWindow.qml" line="38"/>
         <source>Publish preview</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="47"/>
+        <source>Sidebar</source>
+        <translation>侧边栏</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="282"/>
+        <source>Account</source>
+        <translation>账户</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="51"/>
+        <source>Library</source>
+        <translation>符号库</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="67"/>
+        <source>Hide %1</source>
+        <translation>隐藏%1</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="67"/>
+        <source>Show %1</source>
+        <translation>显示%1</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="208"/>
+        <source>Manage parts…</source>
+        <translation>管理分谱…</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="244"/>
+        <source>Input</source>
+        <translation>输入</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="245"/>
+        <source>Preview</source>
+        <translation>预览</translation>
     </message>
 </context>
 <context>
@@ -30920,6 +30963,11 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <source>Min. length (wavy):</source>
         <translation>最小长度（波浪型）：</translation>
     </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierStatusBar.qml" line="179"/>
+        <source>Zoom</source>
+        <translation>缩放</translation>
+    </message>
 </context>
 <context>
     <name>notation/add-remove-system-breaks</name>
@@ -33922,6 +33970,26 @@ failed: %2</source>
         <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="479"/>
         <source>Unicode symbols</source>
         <translation>Unicode字符</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="51"/>
+        <source>Search results</source>
+        <translation>搜索结果</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="161"/>
+        <source>Palettes</source>
+        <translation>符号面板</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="373"/>
+        <source>Palette options</source>
+        <translation>符号面板选项</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="439"/>
+        <source>Search symbols</source>
+        <translation>搜索符号</translation>
     </message>
 </context>
 <context>

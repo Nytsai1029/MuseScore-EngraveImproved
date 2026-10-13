@@ -51,15 +51,18 @@ AppWindow {
             platformMenuBar.active = 0;
         }
 
-        window.init()
+        window.item.init()
     }
 
-    WindowContent {
+    //! NOTE: the Atelier skin builds the window from other pages and toolbars than the other skins
+    Loader {
         id: window
 
         anchors.top: appMenuBar.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
+
+        source: ui.theme.skin === "atelier" ? "../../Atelier/AtelierShell.qml" : "../../WindowContent.qml"
     }
 }

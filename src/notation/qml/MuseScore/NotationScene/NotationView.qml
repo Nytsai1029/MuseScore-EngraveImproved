@@ -44,6 +44,9 @@ FocusScope {
     property alias isBraillePanelVisible: brailleViewLoader.active
     property alias isMainView: notationView.isMainView
 
+    //! NOTE: the tabs of the open scores and parts above the view
+    property alias tabPanelAllowed: tabPanel.allowed
+
     property alias defaultNavigationControl: fakeNavCtrl
 
     readonly property alias navigationSection: navSec

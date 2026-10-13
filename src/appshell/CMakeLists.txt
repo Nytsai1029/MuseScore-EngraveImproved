@@ -104,6 +104,12 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/view/internal/iappmenumodelhook.h
     ${CMAKE_CURRENT_LIST_DIR}/view/internal/maintoolbarmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/internal/maintoolbarmodel.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/atelier/ateliershellview.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/atelier/ateliershellview.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/atelier/atelieractionsmodel.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/atelier/atelieractionsmodel.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/atelier/ateliercontextmodel.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/atelier/ateliercontextmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/internal/splashscreen/splashscreen.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/internal/splashscreen/splashscreen.h
     ${CMAKE_CURRENT_LIST_DIR}/view/internal/splashscreen/loadingscreenview.cpp

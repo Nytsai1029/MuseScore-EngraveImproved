@@ -7,6 +7,7 @@ NotationToolBar 1.0 NotationToolBar.qml
 ConcertPitchControl 1.0 ConcertPitchControl.qml
 NoteInputBar 1.0 NoteInputBar.qml
 NoteInputBarCustomizationDialog 1.0 NoteInputBarCustomizationDialog.qml
+NoteInputBarCustomisePopup 1.0 internal/NoteInputBarCustomisePopup.qml
 UndoRedoToolBar 1.0 UndoRedoToolBar.qml
 Timeline 1.0 Timeline.qml
 SelectionFilterPanel 1.0 SelectionFilterPanel.qml

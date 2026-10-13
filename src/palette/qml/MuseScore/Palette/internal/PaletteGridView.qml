@@ -35,6 +35,15 @@ StyledGridView {
 
     property size cellSize
     property bool drawGrid: false
+
+    //! NOTE: the color behind the cells
+    property color backgroundColor: ui.theme.textFieldColor
+
+    //! NOTE: if true, each cell is drawn as a rounded tile with a gap around it,
+    //! and the cells are not smaller than the given size
+    property bool tileStyle: false
+    property color tileColor: "transparent"
+    property size tileMinSize: Qt.size(56, 50)
     property bool showMoreButton: false
 
     property var paletteModel
@@ -99,10 +108,10 @@ StyledGridView {
         return contentHeight + cellHeight;
     }
 
-    readonly property int cellDefaultWidth: cellSize.width
+    readonly property int cellDefaultWidth: tileStyle ? Math.max(cellSize.width, tileMinSize.width) : cellSize.width
     property bool stretchWidth: !(oneRow && showMoreButton)
     cellWidth: stretchWidth ? Math.floor(PaletteUtils.stretched(cellDefaultWidth, width)) : cellDefaultWidth
-    cellHeight: cellSize.height
+    cellHeight: tileStyle ? Math.max(cellSize.height, tileMinSize.height) : cellSize.height
 
     readonly property int nrows: Math.max(0, Math.floor(height / cellHeight))
     readonly property int ncolumns: Math.max(0, Math.floor(width / cellWidth))
@@ -120,7 +129,7 @@ StyledGridView {
         id: background
         anchors.fill: parent
         z: -1
-        color: ui.theme.textFieldColor
+        color: paletteView.backgroundColor
     }
 
     StyledTextLabel {
@@ -530,6 +539,10 @@ StyledGridView {
 
             width: paletteView.cellWidth
             height: paletteView.cellHeight
+
+            radius: paletteView.tileStyle ? 7 : 0
+            normalColor: paletteView.tileStyle ? paletteView.tileColor : "transparent"
+            background.anchors.margins: paletteView.tileStyle ? 3 : 0
 
             navigation.panel: paletteView.navigationPanel
             navigation.name: model.accessibleText

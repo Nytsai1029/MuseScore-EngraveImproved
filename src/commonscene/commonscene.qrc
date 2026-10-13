@@ -2,5 +2,14 @@
     <qresource prefix="/">
         <file>qml/MuseScore/CommonScene/qmldir</file>
         <file>qml/MuseScore/CommonScene/TempoView.qml</file>
+        <file>qml/MuseScore/Atelier/AtDivider.qml</file>
+        <file>qml/MuseScore/Atelier/AtIcon.qml</file>
+        <file>qml/MuseScore/Atelier/AtPaneHeader.qml</file>
+        <file>qml/MuseScore/Atelier/AtSegmented.qml</file>
+        <file>qml/MuseScore/Atelier/AtStripButton.qml</file>
+        <file>qml/MuseScore/Atelier/AtStyle.qml</file>
+        <file>qml/MuseScore/Atelier/AtTabs.qml</file>
+        <file>qml/MuseScore/Atelier/AtToolButton.qml</file>
+        <file>qml/MuseScore/Atelier/qmldir</file>
     </qresource>
 </RCC>

@@ -73,6 +73,18 @@
         <file>qml/FontDesignPage/FontDesignPage.qml</file>
         <file>qml/AppWindow.qml</file>
         <file>qml/WindowContent.qml</file>
+        <file>qml/Atelier/AtelierDevToolsPage.qml</file>
+        <file>qml/Atelier/AtelierFontDesignPage.qml</file>
+        <file>qml/Atelier/AtelierHomePage.qml</file>
+        <file>qml/Atelier/AtelierNoteInputStrip.qml</file>
+        <file>qml/Atelier/AtelierPaneStack.qml</file>
+        <file>qml/Atelier/AtelierPlaybackControls.qml</file>
+        <file>qml/Atelier/AtelierPreviewPage.qml</file>
+        <file>qml/Atelier/AtelierScorePage.qml</file>
+        <file>qml/Atelier/AtelierShell.qml</file>
+        <file>qml/Atelier/AtelierStatusBar.qml</file>
+        <file>qml/Atelier/AtelierToolBar.qml</file>
+        <file>qml/Atelier/AtelierUndoRedo.qml</file>
         <file>qml/platform/linux/Main.qml</file>
         <file>qml/platform/mac/Main.qml</file>
         <file>qml/platform/win/Main.qml</file>

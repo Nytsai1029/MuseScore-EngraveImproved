@@ -46,7 +46,7 @@ AppWindow {
     }
 
     Component.onCompleted: {
-        window.init()
+        window.item.init()
     }
 
     AppTitleBar {
@@ -76,12 +76,15 @@ AppWindow {
         }
     }
 
-    WindowContent {
+    //! NOTE: the Atelier skin builds the window from other pages and toolbars than the other skins
+    Loader {
         id: window
 
         anchors.top: appTitleBar.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
+
+        source: ui.theme.skin === "atelier" ? "../../Atelier/AtelierShell.qml" : "../../WindowContent.qml"
     }
 }

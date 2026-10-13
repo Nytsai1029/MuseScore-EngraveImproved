@@ -35,12 +35,15 @@ AppWindow {
 
     Component.onCompleted: {
         menuBar.load();
-        window.init()
+        window.item.init()
     }
 
-    WindowContent {
+    //! NOTE: the Atelier skin builds the window from other pages and toolbars than the other skins
+    Loader {
         id: window
 
         anchors.fill: parent
+
+        source: ui.theme.skin === "atelier" ? "../../Atelier/AtelierShell.qml" : "../../WindowContent.qml"
     }
 }

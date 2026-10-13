@@ -39,6 +39,9 @@
 #include "view/devtools/settingslistmodel.h"
 #include "view/mainwindowtitleprovider.h"
 #include "view/notationpagemodel.h"
+#include "view/atelier/ateliershellview.h"
+#include "view/atelier/atelieractionsmodel.h"
+#include "view/atelier/ateliercontextmodel.h"
 #include "view/notationstatusbarmodel.h"
 #include "view/aboutmodel.h"
 #include "view/usagestatisticsmodel.h"
@@ -175,6 +178,9 @@ void AppShellModule::registerUiTypes()
 
     qmlRegisterType<MainWindowTitleProvider>("MuseScore.AppShell", 1, 0, "MainWindowTitleProvider");
     qmlRegisterType<NotationPageModel>("MuseScore.AppShell", 1, 0, "NotationPageModel");
+    qmlRegisterType<AtelierShellView>("MuseScore.AppShell", 1, 0, "AtelierShellView");
+    qmlRegisterType<AtelierActionsModel>("MuseScore.AppShell", 1, 0, "AtelierActionsModel");
+    qmlRegisterType<AtelierContextModel>("MuseScore.AppShell", 1, 0, "AtelierContextModel");
     qmlRegisterType<NotationStatusBarModel>("MuseScore.AppShell", 1, 0, "NotationStatusBarModel");
     qmlRegisterType<AboutModel>("MuseScore.AppShell", 1, 0, "AboutModel");
     qmlRegisterType<UsageStatisticsModel>("MuseScore.AppShell", 1, 0, "UsageStatisticsModel");

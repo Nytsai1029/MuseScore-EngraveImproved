@@ -57,6 +57,11 @@ StyledListView {
     property bool toolboxMode: false
     property int expandedPalettesCount: 0
 
+    //! NOTE: in the library mode (which is a toolbox mode), the name and the menu of the chosen palette
+    //! are shown by the owner of the tree, and the cells are drawn as tiles on the background of the panel
+    property bool libraryMode: false
+    property color libraryTileColor: "transparent"
+
     function updateExpandedPalettesCount() {
         let result = 0
 
@@ -161,6 +166,13 @@ StyledListView {
         if (paletteProvider) {
             paletteProvider.setFilter(filter)
             paletteTree.positionViewAtBeginning()   // Scroll to the top after a search
+        }
+    }
+
+    function hidePaletteAtRow(row) {
+        const item = paletteTree.itemAtIndex(row)
+        if (item) {
+            item.hidePalette()
         }
     }
 
@@ -466,6 +478,11 @@ StyledListView {
             id: control
             topPadding: 0
             bottomPadding: expanded ? 4 : 0
+
+            //! NOTE: in the library mode, the owner of the tree sets the margins around the cells
+            leftPadding: paletteTree.libraryMode ? 0 : padding
+            rightPadding: paletteTree.libraryMode ? 0 : padding
+
             property int rowIndex: index
             property int navigationRow: (index + 1) * 10000 // to make unique
             property var modelIndex: paletteTree.model.modelIndex(index)
@@ -711,6 +728,9 @@ StyledListView {
                 TreePaletteHeader {
                     id: paletteHeader
                     width: parent.width
+
+                    //! NOTE: while searching, the found cells of several palettes are shown, so their names are needed
+                    visible: !paletteTree.libraryMode || paletteTree.searchOpened
                     opacity: enabled ? 1 : ui.theme.itemOpacityDisabled
                     expanded: control.expanded
                     hovered: control.hovered
@@ -780,18 +800,23 @@ StyledListView {
                     implicitHeight: mainPalette.implicitHeight + 2 * padding
                     implicitWidth: parent.width
                     height: implicitHeight
-                    border { width: 1; color: ui.theme.strokeColor }
+                    color: paletteTree.libraryMode ? "transparent" : "#FFFFFF"
+                    border { width: paletteTree.libraryMode ? 0 : 1; color: ui.theme.strokeColor }
 
                     PaletteGridView {
                         id: mainPalette
                         anchors.fill: parent
                         anchors.margins: parent.padding
 
+                        backgroundColor: paletteTree.libraryMode ? "transparent" : ui.theme.textFieldColor
+                        tileStyle: paletteTree.libraryMode
+                        tileColor: paletteTree.libraryTileColor
+
                         navigationPanel: keynavTree
                         navigationRow: control.navigationRow + 1
 
                         cellSize: control.cellSize
-                        drawGrid: control.drawGrid
+                        drawGrid: control.drawGrid && !paletteTree.libraryMode
 
                         paletteModel: control.DelegateModel.isUnresolved ? null : paletteTree.paletteModel
                         paletteRootIndex: control.modelIndex

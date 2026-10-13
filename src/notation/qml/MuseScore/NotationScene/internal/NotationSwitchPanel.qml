@@ -30,8 +30,11 @@ import MuseScore.NotationScene 1.0
 Rectangle {
     id: root
 
+    //! NOTE: false if the owner of the view shows the open scores and parts in another way
+    property bool allowed: true
+
     height: 26
-    visible: notationsView.count > 0
+    visible: allowed && notationsView.count > 0
     color: ui.theme.backgroundSecondaryColor
 
     property NavigationPanel navigationPanel: NavigationPanel {

@@ -6638,6 +6638,7 @@ followed by dashes</translation>
         <translation type="unfinished">&amp;Preferences</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="289"/>
         <location filename="../../src/appshell/internal/applicationuiactions.cpp" line="236"/>
         <source>Preferences…</source>
         <translation type="unfinished">Preferences…</translation>
@@ -10632,16 +10633,24 @@ followed by dashes</translation>
 <context>
     <name>appshell</name>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="47"/>
+        <source>Sidebar</source>
+        <translation type="unfinished">Sidebar</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="102"/>
         <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="53"/>
         <source>Home menu</source>
         <translation type="unfinished">Home menu</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="223"/>
         <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="88"/>
         <source>Scores</source>
         <translation type="unfinished">Scores</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="239"/>
         <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="89"/>
         <location filename="../../src/appshell/qml/HomePage/PluginsPage.qml" line="73"/>
         <location filename="../../src/appshell/qml/HomePage/PluginsPage.qml" line="97"/>
@@ -10649,17 +10658,26 @@ followed by dashes</translation>
         <translation type="unfinished">Plugins</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="247"/>
         <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="90"/>
         <location filename="../../src/musesounds/qml/MuseScore/MuseSounds/MuseSoundsPage.qml" line="86"/>
         <source>MuseSounds</source>
         <translation type="unfinished">MuseSounds</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="255"/>
         <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="91"/>
         <source>Learn</source>
         <translation type="unfinished">Learn</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="282"/>
+        <source>Account</source>
+        <translation type="unfinished">Account</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="231"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="171"/>
         <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="92"/>
         <location filename="../../src/appshell/view/internal/maintoolbarmodel.cpp" line="94"/>
         <source>Font design</source>
@@ -10682,10 +10700,36 @@ followed by dashes</translation>
         <translation type="unfinished">All</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="67"/>
+        <source>Hide %1</source>
+        <translation type="unfinished">Hide %1</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="67"/>
+        <source>Show %1</source>
+        <translation type="unfinished">Show %1</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="76"/>
         <location filename="../../src/appshell/qml/MainToolBar.qml" line="92"/>
         <location filename="../../src/appshell/qml/WindowContent.qml" line="66"/>
         <source>Main toolbar</source>
         <translation type="unfinished">Main toolbar</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="208"/>
+        <source>Manage parts…</source>
+        <translation type="unfinished">Manage parts…</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="244"/>
+        <source>Input</source>
+        <translation type="unfinished">Input</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="245"/>
+        <source>Preview</source>
+        <translation type="unfinished">Preview</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/MainToolBar.qml" line="168"/>
@@ -10732,11 +10776,16 @@ followed by dashes</translation>
         <translation type="unfinished">Layout</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="41"/>
         <location filename="../../src/appshell/qml/FontDesignPage/FontDesignPage.qml" line="40"/>
         <source>Glyphs</source>
         <translation type="unfinished">Glyphs</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="43"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="53"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="191"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="211"/>
         <location filename="../../src/appshell/qml/FontDesignPage/FontDesignPage.qml" line="56"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="365"/>
         <location filename="../../src/appshell_web/qml/NotationFrame.qml" line="68"/>
@@ -10744,31 +10793,44 @@ followed by dashes</translation>
         <translation type="unfinished">Properties</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="51"/>
+        <source>Library</source>
+        <translation type="unfinished">Library</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="193"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="258"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="396"/>
         <source>Selection filter</source>
         <translation type="unfinished">Selection filter</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="376"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="324"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="457"/>
         <source>Mixer</source>
         <translation type="unfinished">Mixer</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="377"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="510"/>
         <source>Piano keyboard</source>
         <translation type="unfinished">Piano keyboard</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="378"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="544"/>
         <source>Timeline</source>
         <translation type="unfinished">Timeline</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="380"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="574"/>
         <source>Drumset tools</source>
         <translation type="unfinished">Drumset tools</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="379"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="600"/>
         <source>Percussion</source>
         <translation type="unfinished">Percussion</translation>
@@ -10864,6 +10926,8 @@ This action will not delete any of your scores.</translation>
         <translation type="unfinished">Do you want to restore the session?</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="140"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="167"/>
         <location filename="../../src/appshell/view/internal/maintoolbarmodel.cpp" line="91"/>
         <source>Home</source>
         <translation type="unfinished">Home</translation>
@@ -12645,6 +12709,7 @@ Fret %1 on strings %2</source>
 Fret %1 on strings %2</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="190"/>
         <location filename="../../src/engraving/dom/check.cpp" line="145"/>
         <source>Full score</source>
         <translation type="unfinished">Full score</translation>
@@ -24728,6 +24793,7 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Delete</translation>
     </message>
     <message>
+        <location filename="../../src/commonscene/qml/MuseScore/Atelier/AtTabs.qml" line="70"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontLintDialog.qml" line="171"/>
         <location filename="../../src/framework/uicomponents/qml/Muse/UiComponents/PopupPanel.qml" line="160"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/NotationSwitchButton.qml" line="82"/>
@@ -25122,6 +25188,7 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">This setting can be changed at any time in Preferences</translation>
     </message>
     <message>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="470"/>
         <location filename="../../src/palette/qml/MuseScore/Palette/PalettesPanel.qml" line="136"/>
         <location filename="../../src/project/qml/MuseScore/Project/internal/NewScore/TitleListView.qml" line="123"/>
         <location filename="../../src/project/qml/MuseScore/Project/internal/ScoresPage/ScoreGridItem.qml" line="293"/>
@@ -28921,6 +28988,8 @@ pickup measure</translation>
         <translation type="unfinished">Choose your instruments by adding them to this list</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="192"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="235"/>
         <location filename="../../src/instrumentsscene/qml/MuseScore/InstrumentsScene/internal/InstrumentsView.qml" line="55"/>
         <location filename="../../src/stubs/instrumentsscene/qml/MuseScore/InstrumentsScene/InstrumentsDialog.qml" line="37"/>
         <source>Instruments</source>
@@ -29478,6 +29547,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
 <context>
     <name>notation</name>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="194"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="281"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="424"/>
         <source>History</source>
         <translation type="unfinished">History</translation>
@@ -30389,21 +30460,22 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/NotationSwitchPanel.qml" line="100"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/NotationSwitchPanel.qml" line="103"/>
         <source>Not saved</source>
         <translation type="unfinished">Not saved</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/NotationSwitchPanel.qml" line="142"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/NotationSwitchPanel.qml" line="145"/>
         <source>Scroll left</source>
         <translation type="unfinished">Scroll left</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/NotationSwitchPanel.qml" line="159"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/NotationSwitchPanel.qml" line="162"/>
         <source>Scroll right</source>
         <translation type="unfinished">Scroll right</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierNoteInputStrip.qml" line="390"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/NoteInputBarCustomisePopup.qml" line="60"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/NoteInputBar.qml" line="187"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/NoteInputBar.qml" line="195"/>
@@ -30432,6 +30504,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Parts actions</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="194"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/PartsTopPanel.qml" line="55"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/PartsDialog.qml" line="34"/>
         <source>Parts</source>
@@ -30507,6 +30580,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Notation toolbar</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierNoteInputStrip.qml" line="47"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/NoteInputBar.qml" line="46"/>
         <source>Note input toolbar</source>
         <translation type="unfinished">Note input toolbar</translation>
@@ -30557,11 +30631,18 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Undo redo toolbar</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierStatusBar.qml" line="155"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/ZoomControl.qml" line="58"/>
         <source>Zoom out</source>
         <translation type="unfinished">Zoom out</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierStatusBar.qml" line="179"/>
+        <source>Zoom</source>
+        <translation type="unfinished">Zoom</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierStatusBar.qml" line="207"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/ZoomControl.qml" line="78"/>
         <source>Zoom in</source>
         <translation type="unfinished">Zoom in</translation>
@@ -33374,35 +33455,36 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Drag items to the palette or directly on your score</translation>
     </message>
     <message>
-        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteGridView.qml" line="138"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteGridView.qml" line="147"/>
         <source>Drag and drop any element here</source>
         <translation type="unfinished">Drag and drop any element here</translation>
     </message>
     <message>
-        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteGridView.qml" line="139"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteGridView.qml" line="148"/>
         <source>No elements</source>
         <translation type="unfinished">No elements</translation>
     </message>
     <message>
-        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteGridView.qml" line="194"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteGridView.qml" line="203"/>
         <source>More</source>
         <extracomment>Caption of a button to reveal more elements</extracomment>
         <translation type="unfinished">More</translation>
     </message>
     <message>
-        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteGridView.qml" line="491"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteGridView.qml" line="500"/>
         <location filename="../../src/palette/view/widgets/palettewidget.cpp" line="1121"/>
         <source>Delete</source>
         <translation type="unfinished">Delete</translation>
     </message>
     <message>
-        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteGridView.qml" line="492"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteGridView.qml" line="501"/>
         <location filename="../../src/palette/view/widgets/palettewidget.cpp" line="1122"/>
         <source>Properties…</source>
         <translation type="unfinished">Properties…</translation>
     </message>
     <message>
         <location filename="../../src/palette/qml/MuseScore/Palette/internal/PalettesPanelHeader.qml" line="125"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="263"/>
         <source>Add palettes</source>
         <translation type="unfinished">Add palettes</translation>
     </message>
@@ -33412,7 +33494,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Search palettes</translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteTree.qml" line="608"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteTree.qml" line="625"/>
         <source>%1, contains %n matching element(s)</source>
         <translation type="unfinished">
             <numerusform>%1, contains %n matching element(s)</numerusform>
@@ -33420,54 +33502,63 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         </translation>
     </message>
     <message>
-        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteTree.qml" line="609"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteTree.qml" line="626"/>
         <source>%1 expanded</source>
         <comment>tree item not collapsed</comment>
         <translation type="unfinished">%1 expanded</translation>
     </message>
     <message>
-        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteTree.qml" line="746"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PaletteTree.qml" line="766"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="412"/>
         <location filename="../../src/palette/view/palettemodel.cpp" line="877"/>
         <source>Untitled palette</source>
         <translation type="unfinished">Untitled palette</translation>
     </message>
     <message>
         <location filename="../../src/palette/qml/MuseScore/Palette/internal/TreePaletteHeader.qml" line="168"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="389"/>
         <source>Hide/Delete palette</source>
         <translation type="unfinished">Hide/Delete palette</translation>
     </message>
     <message>
         <location filename="../../src/palette/qml/MuseScore/Palette/internal/TreePaletteHeader.qml" line="168"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="389"/>
         <source>Hide palette</source>
         <translation type="unfinished">Hide palette</translation>
     </message>
     <message>
         <location filename="../../src/palette/qml/MuseScore/Palette/internal/TreePaletteHeader.qml" line="169"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="390"/>
         <source>Insert new palette</source>
         <translation type="unfinished">Insert new palette</translation>
     </message>
     <message>
         <location filename="../../src/palette/qml/MuseScore/Palette/internal/TreePaletteHeader.qml" line="171"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="392"/>
         <source>Enable editing</source>
         <translation type="unfinished">Enable editing</translation>
     </message>
     <message>
         <location filename="../../src/palette/qml/MuseScore/Palette/internal/TreePaletteHeader.qml" line="173"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="394"/>
         <source>Reset palette</source>
         <translation type="unfinished">Reset palette</translation>
     </message>
     <message>
         <location filename="../../src/palette/qml/MuseScore/Palette/internal/TreePaletteHeader.qml" line="174"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="395"/>
         <source>Save palette…</source>
         <translation type="unfinished">Save palette…</translation>
     </message>
     <message>
         <location filename="../../src/palette/qml/MuseScore/Palette/internal/TreePaletteHeader.qml" line="175"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="396"/>
         <source>Load palette…</source>
         <translation type="unfinished">Load palette…</translation>
     </message>
     <message>
         <location filename="../../src/palette/qml/MuseScore/Palette/internal/TreePaletteHeader.qml" line="177"/>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="398"/>
         <source>Palette properties…</source>
         <translation type="unfinished">Palette properties…</translation>
     </message>
@@ -34533,6 +34624,26 @@ failed: %2</translation>
         <location filename="../../src/palette/qml/MuseScore/Palette/internal/PalettesToolbox.qml" line="64"/>
         <source>Palettes toolbox</source>
         <translation type="unfinished">Palettes toolbox</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="51"/>
+        <source>Search results</source>
+        <translation type="unfinished">Search results</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="161"/>
+        <source>Palettes</source>
+        <translation type="unfinished">Palettes</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="373"/>
+        <source>Palette options</source>
+        <translation type="unfinished">Palette options</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="439"/>
+        <source>Search symbols</source>
+        <translation type="unfinished">Search symbols</translation>
     </message>
 </context>
 <context>
@@ -36673,11 +36784,13 @@ failed: %2</translation>
         <translation type="unfinished">Score manager (online)</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="284"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="354"/>
         <source>New</source>
         <translation type="unfinished">New</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="266"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="366"/>
         <source>Open other…</source>
         <translation type="unfinished">Open other…</translation>

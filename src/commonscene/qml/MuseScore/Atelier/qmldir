@@ -1,0 +1,9 @@
+module MuseScore.Atelier
+singleton AtStyle 1.0 AtStyle.qml
+AtIcon 1.0 AtIcon.qml
+AtToolButton 1.0 AtToolButton.qml
+AtStripButton 1.0 AtStripButton.qml
+AtSegmented 1.0 AtSegmented.qml
+AtDivider 1.0 AtDivider.qml
+AtPaneHeader 1.0 AtPaneHeader.qml
+AtTabs 1.0 AtTabs.qml
