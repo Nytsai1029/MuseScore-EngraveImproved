@@ -10977,8 +10977,8 @@ This action cannot be undone.</source>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="325"/>
-        <source>Stem, beam, ledger lines and offsets are in Engrave.</source>
-        <translation>符干、符杠、加线与偏移在“排版”模式中调整。</translation>
+        <source>Offsets and ledger lines are in Engrave.</source>
+        <translation>偏移与加线在“排版”模式中调整。</translation>
     </message>
     <message numerus="yes">
         <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="85"/>

@@ -322,7 +322,7 @@ Item {
                     lineHeight: 1.15
 
                     text: root.isEngrave ? qsTrc("appshell", "Notes, dynamics and text are entered in Input.")
-                                         : qsTrc("appshell", "Stem, beam, ledger lines and offsets are in Engrave.")
+                                         : qsTrc("appshell", "Offsets and ledger lines are in Engrave.")
                     font: AtStyle.font(11.5)
                     color: AtStyle.text2
                 }

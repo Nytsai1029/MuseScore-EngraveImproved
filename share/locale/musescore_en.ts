@@ -10829,6 +10829,10 @@ followed by dashes</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="325"/>
+        <source>Offsets and ledger lines are in Engrave.</source>
+        <translation type="unfinished">Offsets and ledger lines are in Engrave.</translation>
+    </message>
+    <message>
         <source>Stem, beam, ledger lines and offsets are in Engrave.</source>
         <translation type="unfinished">Stem, beam, ledger lines and offsets are in Engrave.</translation>
     </message>
@@ -27746,12 +27750,12 @@ pickup measure</translation>
         <translation type="unfinished">Notehead offset</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/NoteSettings.qml" line="162"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/NoteSettings.qml" line="161"/>
         <source>Left ledger line length</source>
         <translation type="unfinished">Left ledger line length</translation>
     </message>
     <message>
-        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/NoteSettings.qml" line="178"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/NoteSettings.qml" line="177"/>
         <source>Right ledger line length</source>
         <translation type="unfinished">Right ledger line length</translation>
     </message>

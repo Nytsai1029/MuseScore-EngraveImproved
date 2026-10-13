@@ -36,11 +36,12 @@ Column {
     property NavigationPanel navigationPanel: null
     property int navigationRowStart: 1
 
-    //! NOTE: see InspectorSectionDelegate
+    //! NOTE: see InspectorSectionDelegate. All the tabs are there in every mode;
+    //! the mode only says which of them is open first when a note is selected
     property string mode: ""
 
-    readonly property bool isHeadShown: root.mode !== "engrave"
-    readonly property bool areStemAndBeamShown: root.mode !== "input"
+    readonly property bool areStemAndBeamShown: root.headModel ? !root.headModel.isTrillCueNote : true
+    readonly property int noteTabIndex: root.mode === "engrave" && root.areStemAndBeamShown ? 1 : 0
 
     objectName: "NoteSettings"
 
@@ -66,26 +67,24 @@ Column {
     InspectorTabBar {
         id: tabBar
 
-        //! NOTE: one tab needs no bar
-        visible: !root.isLedgerLineSelection && root.areStemAndBeamShown
+        visible: !root.isLedgerLineSelection
 
         currentIndex: root.model ? indexByType(root.model.defaultSubModelType) : 0
 
         function indexByType(modelType) {
-            //! NOTE: a stem or a beam which is selected itself is shown in every mode
+            //! NOTE: a stem or a beam which is selected itself has its own tab open
             switch (modelType) {
-            case Inspector.TYPE_NOTE: return root.isHeadShown ? 0 : 1
-            case Inspector.TYPE_NOTEHEAD: return root.isHeadShown ? 0 : 1
+            case Inspector.TYPE_NOTE: return root.noteTabIndex
+            case Inspector.TYPE_NOTEHEAD: return root.noteTabIndex
             case Inspector.TYPE_STEM: return 1
             case Inspector.TYPE_HOOK: return 1
             case Inspector.TYPE_BEAM: return 2
             }
 
-            return root.isHeadShown ? 0 : 1
+            return root.noteTabIndex
         }
 
         InspectorTabButton {
-            visible: root.isHeadShown
             text: root.headModel?.title ?? ""
 
             navigation.name: "HeadTab"
@@ -94,7 +93,7 @@ Column {
         }
 
         InspectorTabButton {
-            visible: root.areStemAndBeamShown && (root.headModel ? !root.headModel.isTrillCueNote : true)
+            visible: root.areStemAndBeamShown
             text: root.stemModel ? root.stemModel.title : ""
 
             navigation.name: "StemTab"
@@ -103,7 +102,7 @@ Column {
         }
 
         InspectorTabButton {
-            visible: root.areStemAndBeamShown && (root.headModel ? !root.headModel.isTrillCueNote : true)
+            visible: root.areStemAndBeamShown
             text: root.beamModel ? root.beamModel.title : ""
 
             navigation.name: "BeamTab"
