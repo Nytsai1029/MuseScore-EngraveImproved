@@ -328,7 +328,11 @@ Item {
     Component {
         id: scoresComp
 
-        ScoresPage {}
+        AtelierScoresPage {
+            onOpenScoreInPageRequested: function(scorePath, displayName, pageUri) {
+                root.shell.openScoreInPage(scorePath, displayName, pageUri)
+            }
+        }
     }
 
     Component {

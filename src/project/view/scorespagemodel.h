@@ -25,20 +25,25 @@
 #include <QObject>
 
 #include "modularity/ioc.h"
+#include "async/asyncable.h"
 #include "iprojectconfiguration.h"
+#include "imscmetareader.h"
 #include "actions/iactionsdispatcher.h"
+#include "context/iglobalcontext.h"
 #include "iinteractive.h"
 #include "cloud/musescorecom/imusescorecomservice.h"
 
 class QString;
 
 namespace mu::project {
-class ScoresPageModel : public QObject
+class ScoresPageModel : public QObject, public muse::async::Asyncable
 {
     Q_OBJECT
 
     INJECT(IProjectConfiguration, configuration)
+    INJECT(IMscMetaReader, mscMetaReader)
     INJECT(muse::actions::IActionsDispatcher, dispatcher)
+    INJECT(context::IGlobalContext, globalContext)
     INJECT(muse::IInteractive, interactive)
     INJECT(muse::cloud::IMuseScoreComService, museScoreComService)
 
@@ -65,9 +70,23 @@ public:
     Q_INVOKABLE void openScore(const QString& scorePath, const QString& displayNameOverride);
     Q_INVOKABLE void openScoreManager();
 
+    //! NOTE Opens the score, and then the given page of the score (a mode) instead of the usual one
+    Q_INVOKABLE void openScoreInPage(const QString& scorePath, const QString& displayNameOverride, const QString& pageUri);
+
+    //! NOTE What the file tells about the score without opening it: "composer", "partsCount"
+    Q_INVOKABLE QVariantMap scoreInfo(const QString& scorePath) const;
+
 signals:
     void tabIndexChanged();
     void viewTypeChanged();
+
+private:
+    void openPendingPage();
+
+    //! NOTE The page to open when the score with this path has been opened
+    QString m_pendingPageUri;
+    QString m_pendingScorePath;
+    bool m_isListeningToPages = false;
 };
 }
 

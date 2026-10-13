@@ -48,6 +48,9 @@ QtObject {
     readonly property color pressed: Utils.colorWithAlpha(ui.theme.buttonColor, ui.theme.buttonOpacityHit)
     readonly property color cell: dark ? Qt.rgba(1, 1, 1, 0.05) : Qt.rgba(0, 0, 0, 0.035)
 
+    //! NOTE: what is behind the paper
+    readonly property color canvas: dark ? "#17181B" : "#E2E3E8"
+
     readonly property color accent: ui.theme.accentColor
     readonly property color ink: dark ? ui.theme.linkColor : ui.theme.accentColor
     readonly property color soft: Utils.colorWithAlpha(ui.theme.accentColor, ui.theme.accentOpacityNormal)

@@ -36606,6 +36606,46 @@ failed: %2</source>
         <source>Audio.com URL</source>
         <translation>Audio.com URL</translation>
     </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="335"/>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="442"/>
+        <source>Last opened</source>
+        <translation>上次打开</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="563"/>
+        <source>Opens the score straight in that mode.</source>
+        <translation>直接在所选模式中打开该乐谱。</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="582"/>
+        <source>Recent</source>
+        <translation>最近</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="582"/>
+        <source>Search results</source>
+        <translation>搜索结果</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="593"/>
+        <source>Scores which you open are listed here.</source>
+        <translation>打开过的乐谱会列在这里。</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="482"/>
+        <source>%n instrument(s)</source>
+        <extracomment>The number of instruments of a score</extracomment>
+        <translation>
+            <numerusform>%n 件乐器</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="487"/>
+        <source>Modified %1</source>
+        <extracomment>%1 is when a score was modified, e.g. &quot;yesterday&quot; or a date</extracomment>
+        <translation>修改于%1</translation>
+    </message>
 </context>
 <context>
     <name>project/cloud</name>

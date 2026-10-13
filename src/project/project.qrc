@@ -3,6 +3,7 @@
         <file>qml/MuseScore/Project/qmldir</file>
         <file>qml/MuseScore/Project/NewScoreDialog.qml</file>
         <file>qml/MuseScore/Project/ScoresPage.qml</file>
+        <file>qml/MuseScore/Project/AtelierScoresPage.qml</file>
         <file>qml/MuseScore/Project/internal/ScoresPage/ScoreGridItem.qml</file>
         <file>qml/MuseScore/Project/internal/ScoresPage/ScoreListItem.qml</file>
         <file>qml/MuseScore/Project/internal/ScoresPage/RecentScoresView.qml</file>

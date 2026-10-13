@@ -26,6 +26,7 @@ import Muse.Ui 1.0
 import Muse.UiComponents 1.0
 import MuseScore.AppShell 1.0
 import MuseScore.Atelier 1.0
+import MuseScore.Project 1.0
 
 //! NOTE: the content of the window in the Atelier skin: one toolbar, and below it the page of the current mode.
 //! See AtelierShellView about what it keeps for the rest of the app
@@ -86,6 +87,16 @@ AtelierShellView {
 
     function openPage(uri) {
         api.launcher.open(uri)
+    }
+
+    //! NOTE: opens the score in a mode (a page of the score). The request is kept here,
+    //! because the page which makes it (the home page) is gone before the score is open
+    function openScoreInPage(scorePath, displayName, pageUri) {
+        scoresOpener.openScoreInPage(scorePath, displayName, pageUri)
+    }
+
+    ScoresPageModel {
+        id: scoresOpener
     }
 
     InteractiveProvider {

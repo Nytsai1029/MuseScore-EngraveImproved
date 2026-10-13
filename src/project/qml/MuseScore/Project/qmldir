@@ -11,3 +11,4 @@ ScoresListView 1.0 ScoresListView.qml
 ScoresGridView 1.0 ScoresGridView.qml
 Message 1.0 Message.qml
 ExportPanel 1.0 ExportPanel.qml
+AtelierScoresPage 1.0 AtelierScoresPage.qml

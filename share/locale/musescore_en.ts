@@ -10677,7 +10677,7 @@ followed by dashes</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="231"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="171"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="202"/>
         <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="92"/>
         <location filename="../../src/appshell/view/internal/maintoolbarmodel.cpp" line="94"/>
         <source>Font design</source>
@@ -10700,35 +10700,37 @@ followed by dashes</translation>
         <translation type="unfinished">All</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="67"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="68"/>
         <source>Hide %1</source>
         <translation type="unfinished">Hide %1</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="67"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="68"/>
         <source>Show %1</source>
         <translation type="unfinished">Show %1</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="76"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="77"/>
         <location filename="../../src/appshell/qml/MainToolBar.qml" line="92"/>
         <location filename="../../src/appshell/qml/WindowContent.qml" line="66"/>
         <source>Main toolbar</source>
         <translation type="unfinished">Main toolbar</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="208"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="239"/>
         <source>Manage parts…</source>
         <translation type="unfinished">Manage parts…</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="340"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="244"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="275"/>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="513"/>
         <source>Input</source>
         <translation type="unfinished">Input</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="246"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="277"/>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="542"/>
         <source>Preview</source>
         <translation type="unfinished">Preview</translation>
     </message>
@@ -10830,14 +10832,15 @@ followed by dashes</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="340"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="245"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="276"/>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="528"/>
         <source>Engrave</source>
         <translation type="unfinished">Engrave</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierPreviewPage.qml" line="322"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="515"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="325"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="359"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="457"/>
         <source>Mixer</source>
         <translation type="unfinished">Mixer</translation>
@@ -10957,8 +10960,8 @@ This action will not delete any of your scores.</translation>
         <translation type="unfinished">Do you want to restore the session?</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="140"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="167"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="171"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="198"/>
         <location filename="../../src/appshell/view/internal/maintoolbarmodel.cpp" line="91"/>
         <source>Home</source>
         <translation type="unfinished">Home</translation>
@@ -12837,7 +12840,7 @@ Fret %1 on strings %2</source>
 Fret %1 on strings %2</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="190"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="221"/>
         <location filename="../../src/engraving/dom/check.cpp" line="145"/>
         <source>Full score</source>
         <translation type="unfinished">Full score</translation>
@@ -24830,6 +24833,7 @@ Fret %1 on strings %2</translation>
     </message>
     <message>
         <location filename="../../src/framework/cloud/qml/Muse/Cloud/internal/CloudScoresListView.qml" line="210"/>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="632"/>
         <location filename="../../src/project/qml/MuseScore/Project/internal/ScoresPage/RecentScoresView.qml" line="145"/>
         <source>Size</source>
         <comment>file size</comment>
@@ -25325,6 +25329,7 @@ Fret %1 on strings %2</translation>
     <message>
         <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="470"/>
         <location filename="../../src/palette/qml/MuseScore/Palette/PalettesPanel.qml" line="136"/>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="592"/>
         <location filename="../../src/project/qml/MuseScore/Project/internal/NewScore/TitleListView.qml" line="123"/>
         <location filename="../../src/project/qml/MuseScore/Project/internal/ScoresPage/ScoreGridItem.qml" line="293"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresGridView.qml" line="202"/>
@@ -30655,7 +30660,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Parts actions</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="194"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="225"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/PartsTopPanel.qml" line="55"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/PartsDialog.qml" line="34"/>
         <source>Parts</source>
@@ -36759,6 +36764,7 @@ failed: %2</translation>
     </message>
     <message>
         <location filename="../../src/framework/cloud/qml/Muse/Cloud/internal/CloudScoresListView.qml" line="171"/>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="622"/>
         <location filename="../../src/project/qml/MuseScore/Project/internal/ScoresPage/RecentScoresView.qml" line="106"/>
         <source>Modified</source>
         <extracomment>Stands for &quot;Last time that this score was modified&quot;. Used as the header of this column in the scores list.</extracomment>
@@ -36829,6 +36835,7 @@ failed: %2</translation>
         <translation type="unfinished">Recent scores grid</translation>
     </message>
     <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="345"/>
         <location filename="../../src/project/qml/MuseScore/Project/internal/ScoresPage/RecentScoresView.qml" line="90"/>
         <source>Recent scores list</source>
         <translation type="unfinished">Recent scores list</translation>
@@ -36891,35 +36898,84 @@ failed: %2</translation>
         <translation type="unfinished">Scores list</translation>
     </message>
     <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="610"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresListView.qml" line="150"/>
         <source>Name</source>
         <translation type="unfinished">Name</translation>
     </message>
     <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="138"/>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="157"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="88"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="95"/>
         <source>Scores</source>
         <translation type="unfinished">Scores</translation>
     </message>
     <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="171"/>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="179"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="108"/>
         <source>Search recent scores</source>
         <translation type="unfinished">Search recent scores</translation>
     </message>
     <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="217"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="143"/>
         <source>Scores tab bar</source>
         <translation type="unfinished">Scores tab bar</translation>
     </message>
     <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="235"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="154"/>
         <source>New &amp; recent</source>
         <translation type="unfinished">New &amp; recent</translation>
     </message>
     <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="236"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="162"/>
         <source>My online scores</source>
         <translation type="unfinished">My online scores</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="335"/>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="442"/>
+        <source>Last opened</source>
+        <translation type="unfinished">Last opened</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="482"/>
+        <source>%n instrument(s)</source>
+        <extracomment>The number of instruments of a score</extracomment>
+        <translation type="unfinished">
+            <numerusform>%n instrument(s)</numerusform>
+            <numerusform>%n instrument(s)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="487"/>
+        <source>Modified %1</source>
+        <extracomment>%1 is when a score was modified, e.g. &quot;yesterday&quot; or a date</extracomment>
+        <translation type="unfinished">Modified %1</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="563"/>
+        <source>Opens the score straight in that mode.</source>
+        <translation type="unfinished">Opens the score straight in that mode.</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="582"/>
+        <source>Search results</source>
+        <translation type="unfinished">Search results</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="582"/>
+        <source>Recent</source>
+        <translation type="unfinished">Recent</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="593"/>
+        <source>Scores which you open are listed here.</source>
+        <translation type="unfinished">Scores which you open are listed here.</translation>
     </message>
     <message>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="177"/>
@@ -36932,11 +36988,13 @@ failed: %2</translation>
         <translation type="unfinished">Refresh</translation>
     </message>
     <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="198"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="201"/>
         <source>Grid view</source>
         <translation type="unfinished">Grid view</translation>
     </message>
     <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="199"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="202"/>
         <source>List view</source>
         <translation type="unfinished">List view</translation>
@@ -36948,18 +37006,19 @@ failed: %2</translation>
         <translation type="unfinished">Scores actions</translation>
     </message>
     <message>
+        <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="306"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="335"/>
         <source>Score manager (online)</source>
         <translation type="unfinished">Score manager (online)</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="285"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="319"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="354"/>
         <source>New</source>
         <translation type="unfinished">New</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="267"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="302"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="366"/>
         <source>Open other…</source>
         <translation type="unfinished">Open other…</translation>

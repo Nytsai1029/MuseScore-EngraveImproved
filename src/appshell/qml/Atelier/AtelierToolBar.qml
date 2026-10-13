@@ -27,6 +27,7 @@ import Muse.UiComponents 1.0
 import MuseScore.AppShell 1.0
 import MuseScore.NotationScene 1.0
 import MuseScore.Playback 1.0
+import MuseScore.Project 1.0
 
 import MuseScore.Atelier 1.0
 
@@ -93,6 +94,36 @@ Rectangle {
 
         Component.onCompleted: load()
     }
+
+    //! NOTE: without an open score, the modes open the score which was opened last
+    RecentScoresModel {
+        id: recentScoresModel
+
+        Component.onCompleted: load()
+    }
+
+    Instantiator {
+        id: recentScores
+
+        model: recentScoresModel
+
+        delegate: QtObject {
+            readonly property var score: model.score
+        }
+    }
+
+    readonly property var lastScore: {
+        for (var i = 0; i < recentScores.count; ++i) {
+            var item = recentScores.objectAt(i)
+            if (Boolean(item) && Boolean(item.score) && Boolean(item.score.path)) {
+                return item.score
+            }
+        }
+
+        return null
+    }
+
+    readonly property bool canOpenModes: root.context.hasProject || Boolean(root.lastScore)
 
     Instantiator {
         id: notations
@@ -241,13 +272,17 @@ Rectangle {
         currentValue: root.uri
 
         model: [
-            { title: qsTrc("appshell", "Input"), value: "musescore://notation", enabled: root.context.hasProject },
-            { title: qsTrc("appshell", "Engrave"), value: "musescore://engrave", enabled: root.context.hasProject },
-            { title: qsTrc("appshell", "Preview"), value: "musescore://publish", enabled: root.context.hasProject }
+            { title: qsTrc("appshell", "Input"), value: "musescore://notation", enabled: root.canOpenModes },
+            { title: qsTrc("appshell", "Engrave"), value: "musescore://engrave", enabled: root.canOpenModes },
+            { title: qsTrc("appshell", "Preview"), value: "musescore://publish", enabled: root.canOpenModes }
         ]
 
         onActivated: function(value) {
-            root.pageRequested(value)
+            if (root.context.hasProject) {
+                root.pageRequested(value)
+            } else if (Boolean(root.lastScore)) {
+                root.shell.openScoreInPage(root.lastScore.path, root.lastScore.name, value)
+            }
         }
     }
 
@@ -263,10 +298,9 @@ Rectangle {
         visible: root.isHome
         spacing: 8
 
-        AtToolButton {
+        AtOutlineButton {
             text: qsTrc("project", "Open other…")
-            textFont: AtStyle.font(13, Font.Medium)
-            contentColor: AtStyle.text
+            textFont: AtStyle.font(13)
 
             navigation.name: "OpenOther"
             navigation.panel: navPanel

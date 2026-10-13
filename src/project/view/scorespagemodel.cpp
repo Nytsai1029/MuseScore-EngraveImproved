@@ -25,6 +25,7 @@
 #include <QString>
 
 #include "actions/actiontypes.h"
+#include "async/async.h"
 
 using namespace mu::project;
 using namespace muse::actions;
@@ -52,6 +53,70 @@ void ScoresPageModel::openScore(const QString& scorePath, const QString& display
 void ScoresPageModel::openScoreManager()
 {
     interactive()->openUrl(museScoreComService()->scoreManagerUrl());
+}
+
+void ScoresPageModel::openScoreInPage(const QString& scorePath, const QString& displayNameOverride, const QString& pageUri)
+{
+    static const muse::Uri NOTATION_PAGE_URI("musescore://notation");
+
+    m_pendingPageUri.clear();
+    m_pendingScorePath.clear();
+
+    //! NOTE A score is always opened on the notation page; the other page is opened after it
+    if (muse::Uri(pageUri.toStdString()) != NOTATION_PAGE_URI) {
+        m_pendingPageUri = pageUri;
+        m_pendingScorePath = scorePath;
+
+        if (!m_isListeningToPages) {
+            m_isListeningToPages = true;
+
+            interactive()->currentUri().ch.onReceive(this, [this](const muse::Uri& uri) {
+                if (uri == NOTATION_PAGE_URI && !m_pendingPageUri.isEmpty()) {
+                    openPendingPage();
+                }
+            });
+        }
+    }
+
+    openScore(scorePath, displayNameOverride);
+}
+
+void ScoresPageModel::openPendingPage()
+{
+    const QString pageUri = m_pendingPageUri;
+    const QString scorePath = m_pendingScorePath;
+
+    m_pendingPageUri.clear();
+    m_pendingScorePath.clear();
+
+    //! NOTE Another score may have been opened in the meantime (or the opening of this one was cancelled)
+    auto project = globalContext()->currentProject();
+    if (!project || project->path().toQString() != scorePath) {
+        return;
+    }
+
+    muse::async::Async::call(this, [this, pageUri]() {
+        interactive()->open(pageUri.toStdString());
+    });
+}
+
+QVariantMap ScoresPageModel::scoreInfo(const QString& scorePath) const
+{
+    QVariantMap info;
+
+    if (scorePath.isEmpty()) {
+        return info;
+    }
+
+    muse::RetVal<ProjectMeta> meta = mscMetaReader()->readMeta(scorePath);
+    if (!meta.ret) {
+        return info;
+    }
+
+    info["composer"] = meta.val.composer;
+    info["partsCount"] = static_cast<int>(meta.val.partsCount);
+
+    return info;
 }
 
 int ScoresPageModel::tabIndex() const
