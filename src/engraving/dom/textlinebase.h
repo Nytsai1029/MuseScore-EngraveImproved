@@ -124,6 +124,7 @@ class TextLineBase : public SLine
     M_PROPERTY(FontStyle,  endFontStyle,          setEndFontStyle)
     M_PROPERTY(PointF,     endTextOffset,         setEndTextOffset)
     M_PROPERTY(bool,       textSizeSpatiumDependent, setTextSizeSpatiumDependent)
+    M_PROPERTY2(bool,      maskBarlines,          setMaskBarlines,      false)
 
 public:
     TextLineBase(const ElementType& type, EngravingItem* parent, ElementFlags = ElementFlag::NOTHING);
@@ -134,7 +135,7 @@ public:
     bool setProperty(Pid propertyId, const PropertyValue&) override;
     PropertyValue propertyDefault(Pid) const override;
 
-    static const std::array<Pid, 27>& textLineBasePropertyIds();
+    static const std::array<Pid, 28>& textLineBasePropertyIds();
 
     void reset() override;
 

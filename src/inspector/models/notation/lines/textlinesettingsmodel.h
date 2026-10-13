@@ -45,6 +45,7 @@ class TextLineSettingsModel : public InspectorModelWithVoiceAndPositionOptions
     Q_PROPERTY(PropertyItem * startHookHeight READ startHookHeight CONSTANT)
     Q_PROPERTY(PropertyItem * endHookHeight READ endHookHeight CONSTANT)
     Q_PROPERTY(PropertyItem * gapBetweenTextAndLine READ gapBetweenTextAndLine CONSTANT)
+    Q_PROPERTY(PropertyItem * maskBarlines READ maskBarlines CONSTANT)
 
     Q_PROPERTY(PropertyItem * placement READ placement CONSTANT)
 
@@ -75,6 +76,7 @@ public:
     PropertyItem* startHookHeight() const;
     PropertyItem* endHookHeight() const;
     PropertyItem* gapBetweenTextAndLine() const;
+    PropertyItem* maskBarlines() const;
 
     PropertyItem* placement() const;
 
@@ -144,6 +146,7 @@ private:
     PropertyItem* m_startHookHeight = nullptr;
     PropertyItem* m_endHookHeight = nullptr;
     PropertyItem* m_gapBetweenTextAndLine = nullptr;
+    PropertyItem* m_maskBarlines = nullptr;
 
     PropertyItem* m_beginningText = nullptr;
     PointFPropertyItem* m_beginningTextOffset = nullptr;

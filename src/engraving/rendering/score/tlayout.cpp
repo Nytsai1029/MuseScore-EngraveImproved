@@ -6574,6 +6574,8 @@ void TLayout::layoutTextLineBaseSegment(TextLineBaseSegment* item, LayoutContext
     item->text()->setPlacement(PlacementV::ABOVE);
     item->text()->setTrack(item->track());
     item->text()->setColor(tl->lineColor());
+    item->text()->setMaskBarlines(tl->maskBarlines());
+    item->endText()->setMaskBarlines(tl->maskBarlines());
     layoutText(item->text(), item->text()->mutldata());
 
     if ((item->isSingleType() || item->isEndType())) {

@@ -121,7 +121,7 @@ void TextLineBaseSegment::spatiumChanged(double ov, double nv)
     m_endText->spatiumChanged(ov, nv);
 }
 
-static constexpr std::array<Pid, 27> TextLineBasePropertyId = { {
+static constexpr std::array<Pid, 28> TextLineBasePropertyId = { {
     Pid::LINE_VISIBLE,
     Pid::BEGIN_HOOK_TYPE,
     Pid::BEGIN_HOOK_HEIGHT,
@@ -149,9 +149,10 @@ static constexpr std::array<Pid, 27> TextLineBasePropertyId = { {
     Pid::END_FONT_SIZE,
     Pid::END_FONT_STYLE,
     Pid::END_TEXT_OFFSET,
+    Pid::MASK_BARLINES,
 } };
 
-const std::array<Pid, 27>& TextLineBase::textLineBasePropertyIds()
+const std::array<Pid, 28>&TextLineBase::textLineBasePropertyIds()
 {
     return TextLineBasePropertyId;
 }
@@ -274,6 +275,8 @@ PropertyValue TextLineBase::getProperty(Pid id) const
         return lineVisible();
     case Pid::TEXT_SIZE_SPATIUM_DEPENDENT:
         return textSizeSpatiumDependent();
+    case Pid::MASK_BARLINES:
+        return maskBarlines();
     default:
         return SLine::getProperty(id);
     }
@@ -373,6 +376,9 @@ bool TextLineBase::setProperty(Pid id, const PropertyValue& v)
     case Pid::TEXT_SIZE_SPATIUM_DEPENDENT:
         setTextSizeSpatiumDependent(v.toBool());
         break;
+    case Pid::MASK_BARLINES:
+        setMaskBarlines(v.toBool());
+        break;
     default:
         return SLine::setProperty(id, v);
     }
@@ -385,6 +391,8 @@ mu::engraving::PropertyValue TextLineBase::propertyDefault(Pid propertyId) const
     switch (propertyId) {
     case Pid::GAP_BETWEEN_TEXT_AND_LINE:
         return Spatium(0.5);
+    case Pid::MASK_BARLINES:
+        return false;
     default:
         return SLine::propertyDefault(propertyId);
     }

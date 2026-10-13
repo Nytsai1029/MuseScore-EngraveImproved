@@ -125,5 +125,16 @@ FocusableItem {
             navigationPanel: root.navigationPanel
             navigationRowStart: endTextOffsetSection.navigationRowEnd + 1
         }
+
+        CheckBoxPropertyView {
+            id: maskBarlinesControl
+
+            titleText: qsTrc("inspector", "Mask barlines")
+            propertyItem: root.model ? root.model.maskBarlines : null
+
+            navigationName: "Mask barlines"
+            navigationPanel: root.navigationPanel
+            navigationRowStart: gapBetweenTextAndLineControl.navigationRowEnd + 1
+        }
     }
 }

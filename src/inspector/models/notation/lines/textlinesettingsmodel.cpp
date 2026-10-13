@@ -86,6 +86,8 @@ void TextLineSettingsModel::createProperties()
 
     m_gapBetweenTextAndLine = buildPropertyItem(Pid::GAP_BETWEEN_TEXT_AND_LINE, applyPropertyValueAndUpdateAvailability);
 
+    m_maskBarlines = buildPropertyItem(Pid::MASK_BARLINES);
+
     m_thickness = buildPropertyItem(Pid::LINE_WIDTH);
     m_dashLineLength = buildPropertyItem(Pid::DASH_LINE_LEN);
     m_dashGapLength = buildPropertyItem(Pid::DASH_GAP_LEN);
@@ -118,6 +120,7 @@ void TextLineSettingsModel::loadProperties()
         Pid::END_HOOK_HEIGHT,
         Pid::BEGIN_HOOK_HEIGHT,
         Pid::GAP_BETWEEN_TEXT_AND_LINE,
+        Pid::MASK_BARLINES,
         Pid::PLACEMENT,
         Pid::BEGIN_TEXT,
         Pid::BEGIN_TEXT_OFFSET,
@@ -148,6 +151,7 @@ void TextLineSettingsModel::resetProperties()
         m_startHookHeight,
         m_endHookHeight,
         m_gapBetweenTextAndLine,
+        m_maskBarlines,
         m_placement,
         m_beginningText,
         m_beginningTextOffset,
@@ -217,6 +221,11 @@ PropertyItem* TextLineSettingsModel::endHookHeight() const
 PropertyItem* TextLineSettingsModel::gapBetweenTextAndLine() const
 {
     return m_gapBetweenTextAndLine;
+}
+
+PropertyItem* TextLineSettingsModel::maskBarlines() const
+{
+    return m_maskBarlines;
 }
 
 PropertyItem* TextLineSettingsModel::placement() const
@@ -375,6 +384,10 @@ void TextLineSettingsModel::loadProperties(const PropertyIdSet& propertyIdSet)
 
     if (muse::contains(propertyIdSet, Pid::GAP_BETWEEN_TEXT_AND_LINE)) {
         loadPropertyItem(m_gapBetweenTextAndLine);
+    }
+
+    if (muse::contains(propertyIdSet, Pid::MASK_BARLINES)) {
+        loadPropertyItem(m_maskBarlines);
     }
 
     if (muse::contains(propertyIdSet, Pid::PLACEMENT)) {

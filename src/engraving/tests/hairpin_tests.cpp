@@ -1049,3 +1049,54 @@ TEST_F(Engraving_HairpinTests, hideAnchorsInvalidatesPageBspTree)
 
     delete score;
 }
+
+TEST_F(Engraving_HairpinTests, maskBarlinesDefaultsOffAndRoundTrips)
+{
+    MasterScore* score = compat::ScoreAccess::createMasterScore(nullptr);
+    Hairpin* hp = new Hairpin(score->dummy()->segment());
+    hp->setHairpinType(HairpinType::CRESC_LINE);
+
+    EXPECT_FALSE(hp->maskBarlines());
+    EXPECT_FALSE(hp->propertyDefault(Pid::MASK_BARLINES).toBool());
+
+    hp->setProperty(Pid::MASK_BARLINES, true);
+    EXPECT_TRUE(hp->getProperty(Pid::MASK_BARLINES).toBool());
+
+    Hairpin* hp2 = static_cast<Hairpin*>(ScoreRW::writeReadElement(hp));
+    ASSERT_TRUE(hp2);
+    EXPECT_TRUE(hp2->maskBarlines());
+    delete hp2;
+
+    hp->setProperty(Pid::MASK_BARLINES, false);
+    hp2 = static_cast<Hairpin*>(ScoreRW::writeReadElement(hp));
+    ASSERT_TRUE(hp2);
+    EXPECT_FALSE(hp2->maskBarlines());
+    delete hp2;
+}
+
+TEST_F(Engraving_HairpinTests, maskBarlinesPassedToLineText)
+{
+    MasterScore* score = ScoreRW::readScore(u"test.mscx");
+    ChordRest* cr1 = score->firstSegment(SegmentType::ChordRest)->nextChordRest(0);
+    ASSERT_TRUE(cr1);
+
+    Hairpin* hp = score->addHairpin(HairpinType::CRESC_LINE, cr1);
+    ASSERT_TRUE(hp);
+    hp->setBeginText(u"cresc.");
+    score->doLayout();
+    ASSERT_FALSE(hp->segmentsEmpty());
+
+    HairpinSegment* seg = toHairpinSegment(hp->frontSegment());
+    ASSERT_TRUE(seg);
+    EXPECT_FALSE(seg->text()->maskBarlines());
+    EXPECT_FALSE(seg->endText()->maskBarlines());
+
+    // the segment forwards the property to its owning line
+    seg->setProperty(Pid::MASK_BARLINES, true);
+    EXPECT_TRUE(hp->maskBarlines());
+
+    score->doLayout();
+    seg = toHairpinSegment(hp->frontSegment());
+    EXPECT_TRUE(seg->text()->maskBarlines());
+    EXPECT_TRUE(seg->endText()->maskBarlines());
+}

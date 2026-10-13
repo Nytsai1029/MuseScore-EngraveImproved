@@ -26412,6 +26412,14 @@ pickup measure</source>
         <translation>避开小节线</translation>
     </message>
     <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="85"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/expressions/ExpressionsSettings.qml" line="80"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/internal/LineTextSettingsTab.qml" line="132"/>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="131"/>
+        <source>Mask barlines</source>
+        <translation>小节线遮罩</translation>
+    </message>
+    <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="107"/>
         <source>Alignment with notehead</source>
         <translation>与符头对齐</translation>
