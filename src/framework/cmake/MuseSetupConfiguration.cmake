@@ -36,6 +36,10 @@ if (QT_SUPPORT)
     add_compile_definitions(KORS_LOGGER_QT_SUPPORT)
 endif()
 
+if (MUSE_MODULE_GLOBAL_SOFT_ASSERTS)
+    add_compile_definitions(KORS_LOGGER_SOFT_ASSERT)
+endif()
+
 include(${CMAKE_CURRENT_LIST_DIR}/MuseFetchDependencies.cmake)
 
 configure_file(${CMAKE_CURRENT_LIST_DIR}/muse_framework_config.h.in muse_framework_config.h )

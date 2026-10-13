@@ -35,6 +35,7 @@ declare_muse_module_opt(EXTENSIONS ON)
 
 declare_muse_module_opt(GLOBAL ON)
 option(MUSE_MODULE_GLOBAL_LOGGER_DEBUGLEVEL "Enable logging debug level" ON)
+option(MUSE_MODULE_GLOBAL_SOFT_ASSERTS "Only log failed IF_ASSERT_FAILED / DO_ASSERT checks, also in debug builds" OFF)
 option(MUSE_MODULE_GLOBAL_MULTI_IOC "Enable multi ioc (multi windows)" OFF)
 
 declare_muse_module_opt(LANGUAGES ON)

@@ -138,6 +138,9 @@ maintainer runs the app in zh_CN, so an untranslated string shows up as English 
 ## Gotchas
 
 - Unity builds can hide a missing `#include`; the non-unity `compile_commands` build exposes it.
+- `ninja_build.sh` builds with soft asserts (`MUSESCORE_SOFT_ASSERTS`, default `ON`): a failed `IF_ASSERT_FAILED` /
+  `DO_ASSERT` / `UNREACHABLE` logs `ASSERT FAILED` and carries on, as in a release build, instead of aborting the
+  Debug app. Look for that line in the log; a tree configured without the option (e.g. a test build) still aborts.
 - Root-level `*.mscx` files are gitignored scratch scores and `tmp/` is untracked scratch — never stage them.
 - Do final runtime checks on the installed `build.install` bundle, not the raw `build.debug` binary.
 - Never pass `-F` / `-R` when running the app on macOS: they clear the real preferences plist

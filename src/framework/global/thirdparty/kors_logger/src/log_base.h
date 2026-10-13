@@ -54,12 +54,21 @@ SOFTWARE.
 #define LOGN if constexpr (0)LOGD_T(LOG_TAG)  // compiling, but no output
 
 //! Useful macros
+
+//! NOTE With KORS_LOGGER_SOFT_ASSERT a failed check of the macros below is only logged, also in a debug build
+//! (the program goes on, as it does in a release build)
+#ifdef KORS_LOGGER_SOFT_ASSERT
+#define KORS_LOGGER_ASSERT(cond) (void)0
+#else
+#define KORS_LOGGER_ASSERT(cond) assert(cond)
+#endif
+
 #define DO_ASSERT_X_IMPL(cond, msg, var_name) \
     { \
         const bool var_name = static_cast<bool>(cond); \
         if (!(var_name)) { \
             LOGE() << "ASSERT FAILED:    " << msg << "    " << __FILE__ << ":" << __LINE__; \
-            assert(var_name && #cond); \
+            KORS_LOGGER_ASSERT(var_name && #cond); \
         } \
     }
 #define DO_ASSERT_X(cond, msg) DO_ASSERT_X_IMPL(cond, msg, UNIQUE_VAR_NAME(__do_assert_))
@@ -75,7 +84,7 @@ SOFTWARE.
     const bool var_name = static_cast<bool>(cond); \
     if (!(var_name)) { \
         LOGE() << "ASSERT FAILED:    " << msg << "    " << __FILE__ << ":" << __LINE__; \
-        assert(var_name && #cond); \
+        KORS_LOGGER_ASSERT(var_name && #cond); \
     } \
     if (!(var_name))
 
