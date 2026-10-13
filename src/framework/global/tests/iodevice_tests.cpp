@@ -27,7 +27,14 @@
 
 #include "io/buffer.h"
 
-#ifdef NDEBUG
+//! NOTE A failed check of IF_ASSERT_FAILED aborts only in a debug build without soft asserts
+#if defined(NDEBUG) || defined(KORS_LOGGER_SOFT_ASSERT)
+#define ASSERTS_ABORT 0
+#else
+#define ASSERTS_ABORT 1
+#endif
+
+#if !ASSERTS_ABORT
 #include "log.h"
 #endif
 
@@ -55,7 +62,7 @@ TEST_F(Global_IO_IODeviceTests, Open_ReadOnly)
     //! CHECK
     EXPECT_EQ(rba, ba);
 
-#ifndef NDEBUG
+#if ASSERTS_ABORT
     //! DO Try Write data
     std::string data = " World!";
     ByteArray wrba(reinterpret_cast<const uint8_t*>(data.c_str()), data.size());
@@ -88,7 +95,7 @@ TEST_F(Global_IO_IODeviceTests, Open_WriteOnly)
     //! CHECK
     EXPECT_EQ(size, wrba.size());
 
-#ifndef NDEBUG
+#if ASSERTS_ABORT
     //! DO Try Read
     EXPECT_DEATH({
         ByteArray rba = buf.readAll();

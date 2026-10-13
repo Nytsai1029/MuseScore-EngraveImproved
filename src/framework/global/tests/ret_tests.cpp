@@ -24,6 +24,13 @@
 #include <string>
 #include "types/ret.h"
 
+//! NOTE A failed check of IF_ASSERT_FAILED aborts only in a debug build without soft asserts
+#if defined(NDEBUG) || defined(KORS_LOGGER_SOFT_ASSERT)
+#define ASSERTS_ABORT 0
+#else
+#define ASSERTS_ABORT 1
+#endif
+
 using namespace muse;
 
 class Global_RetTests : public ::testing::Test
@@ -56,7 +63,7 @@ TEST(Global_RetTests, Data_KeyExistsWithMatchingIntType_ReturnsStoredValue)
 
 TEST(Global_RetTests, Data_KeyNotFound_ReturnsDefaultInReleaseANDTriggersAssertionInDebug)
 {
-#ifdef NDEBUG
+#if !ASSERTS_ABORT
     const Ret ret;
     const auto result = ret.data<std::string>("missing", std::string("fallback"));
     EXPECT_EQ(result, "fallback");
@@ -74,7 +81,7 @@ TEST(Global_RetTests, Data_KeyExistsButTypeMismatch_ReturnsDefaultInReleaseANDTr
 {
     Ret ret;
     ret.setData("answer", 42); // int stored, but requesting as string
-#ifdef NDEBUG
+#if !ASSERTS_ABORT
     const auto result = ret.data<std::string>("answer", std::string("0"));
     EXPECT_EQ(result, std::string("0"));
 #else
@@ -94,7 +101,7 @@ TEST(Global_RetTests, Data_BadAnyCast_ReturnsDefaultInReleaseANDTriggersAssertio
     // but the method has protection against std::bad_any_cast
     ret.setData("value", std::string("text"));
 
-#ifdef NDEBUG
+#if !ASSERTS_ABORT
     const auto result = ret.data<int>("value", 999);
     EXPECT_EQ(result, 999);
 #else
@@ -117,7 +124,7 @@ TEST(Global_RetTests, Data_EnumClass_ReturnsStoredValue)
 
 TEST(Global_RetTests, Data_EnumClassKeyNotFound_ReturnsDefaultInReleaseANDTriggersAssertionInDebug)
 {
-#ifdef NDEBUG
+#if !ASSERTS_ABORT
     const Ret ret;
     const auto result = ret.data<Global_RetTests::StatusCode>("missing", Global_RetTests::StatusCode::Unknown);
     EXPECT_EQ(result, Global_RetTests::StatusCode::Unknown);
