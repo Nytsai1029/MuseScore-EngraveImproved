@@ -715,6 +715,17 @@ void AbstractNotationPaintView::onNotationSetup()
         scheduleRedraw();
     });
 
+    configuration()->isLedgerGuidesVisibleChanged().onNotify(this, [this]() {
+        scheduleRedraw();
+    });
+
+    //! NOTE The ledger guides are shown in the Engrave mode only, which is another page with this same view
+    interactive()->currentUri().ch.onReceive(this, [this](const muse::Uri&) {
+        if (configuration()->isLedgerGuidesVisible()) {
+            scheduleRedraw();
+        }
+    });
+
     uiConfiguration()->currentThemeChanged().onNotify(this, [this]() {
         scheduleRedraw();
     });

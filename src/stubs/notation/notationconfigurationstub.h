@@ -211,6 +211,10 @@ public:
     void setEngraveNudgeStep(double stepSp) override;
     muse::async::Notification engraveNudgeStepChanged() const override;
 
+    bool isLedgerGuidesVisible() const override;
+    void setIsLedgerGuidesVisible(bool visible) override;
+    muse::async::Notification isLedgerGuidesVisibleChanged() const override;
+
     bool needToShowAddTextErrorMessage() const override;
     void setNeedToShowAddTextErrorMessage(bool show)  override;
 

@@ -11083,6 +11083,16 @@ This action cannot be undone.</translation>
         <translation type="unfinished">Margins</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="438"/>
+        <source>Ledger guides</source>
+        <translation type="unfinished">Ledger guides</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="441"/>
+        <source>Show guide lines at the ledger line positions above and below each staff</source>
+        <translation type="unfinished">Show guide lines at the ledger line positions above and below each staff</translation>
+    </message>
+    <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="51"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="77"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierPreviewPage.qml" line="47"/>
@@ -31230,12 +31240,12 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">An error occurred.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationconfiguration.cpp" line="187"/>
+        <location filename="../../src/notation/internal/notationconfiguration.cpp" line="188"/>
         <source>Note input preview note color</source>
         <translation type="unfinished">Note input preview note color</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationconfiguration.cpp" line="276"/>
+        <location filename="../../src/notation/internal/notationconfiguration.cpp" line="277"/>
         <source>Smooth panning</source>
         <translation type="unfinished">Smooth panning</translation>
     </message>

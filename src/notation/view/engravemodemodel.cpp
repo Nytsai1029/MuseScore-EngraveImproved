@@ -43,6 +43,10 @@ void EngraveModeModel::load()
         emit isSnappedToGridChanged();
     });
 
+    configuration()->isLedgerGuidesVisibleChanged().onNotify(this, [this]() {
+        emit isLedgerGuidesVisibleChanged();
+    });
+
     globalContext()->currentNotationChanged().onNotify(this, [this]() {
         onCurrentNotationChanged();
     });
@@ -95,6 +99,20 @@ void EngraveModeModel::setIsSnappedToGrid(bool isSnapped)
 
     configuration()->setIsSnappedToGrid(muse::Orientation::Horizontal, isSnapped);
     configuration()->setIsSnappedToGrid(muse::Orientation::Vertical, isSnapped);
+}
+
+bool EngraveModeModel::isLedgerGuidesVisible() const
+{
+    return configuration()->isLedgerGuidesVisible();
+}
+
+void EngraveModeModel::setIsLedgerGuidesVisible(bool visible)
+{
+    if (isLedgerGuidesVisible() == visible) {
+        return;
+    }
+
+    configuration()->setIsLedgerGuidesVisible(visible);
 }
 
 bool EngraveModeModel::hasSelection() const

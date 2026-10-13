@@ -98,6 +98,8 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/internal/notationelements.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/notationelements.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/engravemode.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/ledgerguides.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/ledgerguides.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/notationactioncontroller.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/notationactioncontroller.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/notationinteraction.cpp

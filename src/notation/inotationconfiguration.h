@@ -232,6 +232,11 @@ public:
     virtual void setEngraveNudgeStep(double stepSp) = 0;
     virtual muse::async::Notification engraveNudgeStepChanged() const = 0;
 
+    //! NOTE Whether the guide lines which continue the staff above and below it are shown in the Engrave mode
+    virtual bool isLedgerGuidesVisible() const = 0;
+    virtual void setIsLedgerGuidesVisible(bool visible) = 0;
+    virtual muse::async::Notification isLedgerGuidesVisibleChanged() const = 0;
+
     virtual bool needToShowAddTextErrorMessage() const = 0;
     virtual void setNeedToShowAddTextErrorMessage(bool show) = 0;
 

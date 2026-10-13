@@ -25,6 +25,7 @@
 #include "../inotationpainting.h"
 
 #include "modularity/ioc.h"
+#include "global/iinteractive.h"
 #include "../inotationconfiguration.h"
 #include "engraving/iengravingconfiguration.h"
 #include "engraving/rendering/iscorerenderer.h"
@@ -43,6 +44,7 @@ class NotationPainting : public INotationPainting
     INJECT(engraving::IEngravingConfiguration, engravingConfiguration)
     INJECT(engraving::rendering::IScoreRenderer, scoreRenderer)
     INJECT(muse::ui::IUiConfiguration, uiConfiguration)
+    INJECT(muse::IInteractive, interactive)
 
 public:
     NotationPainting(Notation* notation);
@@ -68,6 +70,8 @@ private:
     void paintPageBorder(muse::draw::Painter* painter, const mu::engraving::Page* page) const;
     void paintPageSheet(muse::draw::Painter* painter, const engraving::Page* page, const muse::RectF& pageRect,
                         bool printPageBackground) const;
+    void paintLedgerGuides(muse::draw::Painter* painter, const engraving::Page* page,
+                           const muse::RectF& visibleRect) const;
 
     Notation* m_notation = nullptr;
 

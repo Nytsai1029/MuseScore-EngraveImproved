@@ -221,6 +221,10 @@ public:
     MOCK_METHOD(void, setEngraveNudgeStep, (double), (override));
     MOCK_METHOD(muse::async::Notification, engraveNudgeStepChanged, (), (const, override));
 
+    MOCK_METHOD(bool, isLedgerGuidesVisible, (), (const, override));
+    MOCK_METHOD(void, setIsLedgerGuidesVisible, (bool), (override));
+    MOCK_METHOD(muse::async::Notification, isLedgerGuidesVisibleChanged, (), (const, override));
+
     MOCK_METHOD(bool, needToShowAddTextErrorMessage, (), (const, override));
     MOCK_METHOD(void, setNeedToShowAddTextErrorMessage, (bool), (override));
 

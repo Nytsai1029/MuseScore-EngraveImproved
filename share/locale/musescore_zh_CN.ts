@@ -10951,6 +10951,16 @@ This action cannot be undone.</source>
         <translation>页边距</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="438"/>
+        <source>Ledger guides</source>
+        <translation>加线参考线</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="441"/>
+        <source>Show guide lines at the ledger line positions above and below each staff</source>
+        <translation>在每个谱表上下方的加线位置显示参考线</translation>
+    </message>
+    <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="80"/>
         <source>Breaks</source>
         <translation>换行与分页</translation>

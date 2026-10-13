@@ -628,6 +628,21 @@ muse::async::Notification NotationConfigurationStub::engraveNudgeStepChanged() c
     return n;
 }
 
+bool NotationConfigurationStub::isLedgerGuidesVisible() const
+{
+    return false;
+}
+
+void NotationConfigurationStub::setIsLedgerGuidesVisible(bool)
+{
+}
+
+muse::async::Notification NotationConfigurationStub::isLedgerGuidesVisibleChanged() const
+{
+    static muse::async::Notification n;
+    return n;
+}
+
 void NotationConfigurationStub::setGridSize(muse::Orientation, int)
 {
 }

@@ -105,6 +105,7 @@ static const Settings::Key IS_SNAPPED_TO_HORIZONTAL_GRID_KEY(module_name,  "ui/a
 static const Settings::Key HORIZONTAL_GRID_SIZE_KEY(module_name,  "ui/application/raster/horizontal");
 static const Settings::Key VERTICAL_GRID_SIZE_KEY(module_name,  "ui/application/raster/vertical");
 static const Settings::Key ENGRAVE_NUDGE_STEP_KEY(module_name,  "ui/application/engrave/nudgeStep");
+static const Settings::Key ENGRAVE_LEDGER_GUIDES_VISIBLE_KEY(module_name,  "ui/application/engrave/ledgerGuidesVisible");
 
 static const Settings::Key NEED_TO_SHOW_ADD_TEXT_ERROR_MESSAGE_KEY(module_name,  "ui/dialogs/needToShowAddTextErrorMessage");
 static const Settings::Key NEED_TO_SHOW_ADD_FIGURED_BASS_ERROR_MESSAGE_KEY(module_name,  "ui/dialogs/needToShowAddFiguredBassErrorMessage");
@@ -352,6 +353,11 @@ void NotationConfiguration::init()
     settings()->setDefaultValue(ENGRAVE_NUDGE_STEP_KEY, Val(DEFAULT_ENGRAVE_NUDGE_STEP));
     settings()->valueChanged(ENGRAVE_NUDGE_STEP_KEY).onReceive(nullptr, [this](const Val&) {
         m_engraveNudgeStepChanged.notify();
+    });
+
+    settings()->setDefaultValue(ENGRAVE_LEDGER_GUIDES_VISIBLE_KEY, Val(false));
+    settings()->valueChanged(ENGRAVE_LEDGER_GUIDES_VISIBLE_KEY).onReceive(nullptr, [this](const Val&) {
+        m_isLedgerGuidesVisibleChanged.notify();
     });
 
     settings()->setDefaultValue(NEED_TO_SHOW_ADD_TEXT_ERROR_MESSAGE_KEY, Val(true));
@@ -1208,6 +1214,21 @@ void NotationConfiguration::setEngraveNudgeStep(double stepSp)
 muse::async::Notification NotationConfiguration::engraveNudgeStepChanged() const
 {
     return m_engraveNudgeStepChanged;
+}
+
+bool NotationConfiguration::isLedgerGuidesVisible() const
+{
+    return settings()->value(ENGRAVE_LEDGER_GUIDES_VISIBLE_KEY).toBool();
+}
+
+void NotationConfiguration::setIsLedgerGuidesVisible(bool visible)
+{
+    settings()->setSharedValue(ENGRAVE_LEDGER_GUIDES_VISIBLE_KEY, Val(visible));
+}
+
+muse::async::Notification NotationConfiguration::isLedgerGuidesVisibleChanged() const
+{
+    return m_isLedgerGuidesVisibleChanged;
 }
 
 int NotationConfiguration::gridSizeSpatium(muse::Orientation gridOrientation) const

@@ -21,10 +21,16 @@
  */
 #include "notationpainting.h"
 
+#include <algorithm>
+#include <iterator>
+
 #include <QScreen>
 
+#include "engraving/dom/page.h"
 #include "engraving/dom/score.h"
 
+#include "engravemode.h"
+#include "ledgerguides.h"
 #include "notation.h"
 #include "notationinteraction.h"
 
@@ -34,6 +40,13 @@ using namespace mu;
 using namespace mu::notation;
 using namespace mu::engraving;
 using namespace muse::draw;
+
+//! NOTE The staves of a system take these colours in turn
+static const Color LEDGER_GUIDE_COLORS[] = { Color(240, 168, 96), Color(120, 160, 224) };
+
+//! NOTE Guides which would be closer to each other than this on the screen are not drawn (in px):
+//! first the ones in the spaces, then, at a still smaller zoom, all of them
+static constexpr double LEDGER_GUIDES_MIN_STEP = 3.0;
 
 NotationPainting::NotationPainting(Notation* notation)
     : m_notation(notation)
@@ -119,8 +132,19 @@ void NotationPainting::doPaint(Painter* painter, const Options& opt)
 
     Options myopt = opt;
     bool printPageBackground = myopt.printPageBackground;
-    myopt.onPaintPageSheet = [this, printPageBackground](Painter* painter, const Page* page, const RectF& pageRect) {
+
+    //! NOTE The ledger guides are a working aid of the Engrave mode, they are not a part of the score
+    const bool showLedgerGuides = !myopt.isPrinting && configuration()->isLedgerGuidesVisible()
+                                  && isEngraveModeOpened(interactive());
+    const RectF frame = myopt.frameRect;
+
+    myopt.onPaintPageSheet = [this, printPageBackground, showLedgerGuides, frame](Painter* painter, const Page* page,
+                                                                                 const RectF& pageRect) {
         paintPageSheet(painter, page, pageRect, printPageBackground);
+
+        if (showLedgerGuides) {
+            paintLedgerGuides(painter, page, frame.isValid() ? frame.translated(-page->pos()) : RectF());
+        }
     };
 
     scoreRenderer()->paintScore(painter, score(), myopt);
@@ -176,6 +200,52 @@ void NotationPainting::paintPageSheet(Painter* painter, const Page* page, const 
     if (!page->isOdd()) {
         painter->drawLine(pageContentRect.right(), 0.0, pageContentRect.right(), pageContentRect.bottom());
     }
+}
+
+void NotationPainting::paintLedgerGuides(Painter* painter, const Page* page, const RectF& visibleRect) const
+{
+    TRACEFUNC;
+
+    const double scaling = painter->worldTransform().m11();
+    const double spatium = score()->style().spatium() * scaling;
+    if (spatium < LEDGER_GUIDES_MIN_STEP) {
+        return;
+    }
+
+    const bool isSpacesShown = spatium * 0.5 >= LEDGER_GUIDES_MIN_STEP;
+
+    const std::vector<LedgerGuide> guides = ledgerGuides(page, visibleRect);
+    if (guides.empty()) {
+        return;
+    }
+
+    //! NOTE Not thinner than a pixel, so the guides are seen at a small zoom too
+    const double minWidth = 1.0 / scaling;
+
+    painter->save();
+    painter->setBrush(BrushStyle::NoBrush);
+
+    for (const LedgerGuide& guide : guides) {
+        if (guide.isSpace && !isSpacesShown) {
+            continue;
+        }
+
+        const double width = std::max(guide.width, minWidth);
+
+        Pen pen(LEDGER_GUIDE_COLORS[guide.colorIndex % std::size(LEDGER_GUIDE_COLORS)], width);
+        pen.setCapStyle(PenCapStyle::FlatCap);
+
+        if (guide.isSpace) {
+            //! NOTE The pattern is in the widths of the pen
+            const double dash = guide.dash / width;
+            pen.setDashPattern({ dash, dash });
+        }
+
+        painter->setPen(pen);
+        painter->drawLine(guide.line);
+    }
+
+    painter->restore();
 }
 
 void NotationPainting::paintView(Painter* painter, const RectF& frameRect, bool isPrinting)

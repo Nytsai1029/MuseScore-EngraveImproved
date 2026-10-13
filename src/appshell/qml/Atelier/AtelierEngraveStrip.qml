@@ -430,6 +430,25 @@ Rectangle {
                 text: qsTrc("inspector", "Guides")
                 navigation.order: 20
             }
+
+            //! NOTE: not an action of the score: a working aid which is shown in this mode only
+            AtChip {
+                anchors.verticalCenter: parent.verticalCenter
+
+                text: qsTrc("appshell", "Ledger guides")
+                checked: engraveModel.isLedgerGuidesVisible
+
+                toolTipTitle: qsTrc("appshell",
+                                    "Show guide lines at the ledger line positions above and below each staff")
+
+                navigation.panel: root.navigationPanel
+                navigation.name: "LedgerGuides"
+                navigation.order: 21
+
+                onClicked: {
+                    engraveModel.isLedgerGuidesVisible = !engraveModel.isLedgerGuidesVisible
+                }
+            }
         }
     }
 }

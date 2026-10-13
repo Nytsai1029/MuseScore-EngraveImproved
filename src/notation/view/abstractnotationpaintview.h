@@ -29,6 +29,7 @@
 #include "notation/inotationconfiguration.h"
 
 #include "actions/iactionsdispatcher.h"
+#include "global/iinteractive.h"
 #include "ui/iuiconfiguration.h"
 #include "actions/actionable.h"
 #include "context/iglobalcontext.h"
@@ -75,6 +76,7 @@ class AbstractNotationPaintView : public muse::uicomponents::QuickPaintedView, p
     muse::Inject<muse::ui::IUiContextResolver> uiContextResolver = { this };
     muse::Inject<muse::ui::IMainWindow> mainWindow = { this };
     muse::Inject<muse::ui::IUiActionsRegister> actionsRegister = { this };
+    muse::Inject<muse::IInteractive> interactive = { this };
 
 public:
     explicit AbstractNotationPaintView(QQuickItem* parent = nullptr);

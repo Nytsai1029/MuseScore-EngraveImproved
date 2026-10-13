@@ -39,6 +39,8 @@ class EngraveModeModel : public QObject, public muse::Injectable, public muse::a
 
     Q_PROPERTY(double nudgeStep READ nudgeStep WRITE setNudgeStep NOTIFY nudgeStepChanged)
     Q_PROPERTY(bool isSnappedToGrid READ isSnappedToGrid WRITE setIsSnappedToGrid NOTIFY isSnappedToGridChanged)
+    Q_PROPERTY(
+        bool isLedgerGuidesVisible READ isLedgerGuidesVisible WRITE setIsLedgerGuidesVisible NOTIFY isLedgerGuidesVisibleChanged)
 
     Q_PROPERTY(bool hasSelection READ hasSelection NOTIFY selectionStateChanged)
     Q_PROPERTY(bool isAutoplaceOn READ isAutoplaceOn NOTIFY selectionStateChanged)
@@ -59,6 +61,7 @@ public:
 
     double nudgeStep() const;
     bool isSnappedToGrid() const;
+    bool isLedgerGuidesVisible() const;
 
     bool hasSelection() const;
     bool isAutoplaceOn() const;
@@ -71,10 +74,12 @@ public:
 public slots:
     void setNudgeStep(double stepSp);
     void setIsSnappedToGrid(bool isSnapped);
+    void setIsLedgerGuidesVisible(bool visible);
 
 signals:
     void nudgeStepChanged();
     void isSnappedToGridChanged();
+    void isLedgerGuidesVisibleChanged();
     void selectionStateChanged();
 
 private:

@@ -235,6 +235,10 @@ public:
     void setEngraveNudgeStep(double stepSp) override;
     muse::async::Notification engraveNudgeStepChanged() const override;
 
+    bool isLedgerGuidesVisible() const override;
+    void setIsLedgerGuidesVisible(bool visible) override;
+    muse::async::Notification isLedgerGuidesVisibleChanged() const override;
+
     bool needToShowAddTextErrorMessage() const override;
     void setNeedToShowAddTextErrorMessage(bool show) override;
 
@@ -335,6 +339,7 @@ private:
     muse::async::Notification m_percussionPanelMoveMidiNotesAndShortcutsChanged;
     muse::async::Notification m_isSnappedToGridChanged;
     muse::async::Notification m_engraveNudgeStepChanged;
+    muse::async::Notification m_isLedgerGuidesVisibleChanged;
 
     int m_styleDialogLastPageIndex = 0;
     int m_styleDialogLastSubPageIndex = 0;
