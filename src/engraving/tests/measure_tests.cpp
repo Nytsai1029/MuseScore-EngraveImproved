@@ -681,3 +681,44 @@ TEST_F(Engraving_MeasureTests, MMRestContinuationCourtesies) {
 
     MScore::useRead302InTestMode = use302;
 }
+
+//---------------------------------------------------------
+//   measureNumberOutsideSystem
+///  A measure which is not in a system (here: behind a multimeasure rest)
+///  shows no number of the "at the start of each system" kind, and asking it is not an error
+//---------------------------------------------------------
+
+TEST_F(Engraving_MeasureTests, measureNumberOutsideSystem) {
+    bool use302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
+
+    MasterScore* score = ScoreRW::readScore(MEASURE_DATA_DIR + u"mmrContinuationCourtesies.mscz");
+    ASSERT_TRUE(score);
+
+    score->startCmd(TranslatableString::untranslatable("Engraving measure tests"));
+    score->undoChangeStyleVal(Sid::createMultiMeasureRests, true);
+    score->undoChangeStyleVal(Sid::showMeasureNumber, true);
+    score->undoChangeStyleVal(Sid::showMeasureNumberOne, false);
+    score->undoChangeStyleVal(Sid::measureNumberSystem, true);
+    score->endCmd();
+
+    int measuresOutsideSystem = 0;
+    for (Measure* m = score->firstMeasure(); m; m = m->nextMeasure()) {
+        if (m->system()) {
+            continue;
+        }
+
+        ++measuresOutsideSystem;
+        EXPECT_FALSE(m->showMeasureNumberOnStaff(0));
+    }
+    EXPECT_GT(measuresOutsideSystem, 0);
+
+    // All the measures are asked when the style changes
+    score->startCmd(TranslatableString::untranslatable("Engraving measure tests"));
+    score->undoChangeStyleVal(Sid::measureNumberPlacementMode, MeasureNumberPlacement::BELOW_SYSTEM);
+    score->endCmd();
+
+    delete score;
+
+    MScore::useRead302InTestMode = use302;
+}
