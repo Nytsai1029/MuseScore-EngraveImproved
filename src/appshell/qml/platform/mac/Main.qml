@@ -29,6 +29,9 @@ import "../../"
 AppWindow {
     id: root
 
+    //! NOTE: in the Atelier skin the toolbar of the window is also its title bar
+    titleBarMerged: ui.theme.skin === "atelier"
+
     PlatformMenuBar {
         id: menuBar
     }

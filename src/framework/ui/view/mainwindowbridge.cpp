@@ -108,6 +108,65 @@ void MainWindowBridge::setFileModified(bool /*modified*/)
 {
 }
 
+bool MainWindowBridge::titleBarMerged() const
+{
+    return m_isTitleBarMerged;
+}
+
+void MainWindowBridge::setTitleBarMerged(bool /*merged*/)
+{
+}
+
+void MainWindowBridge::setIsTitleBarMerged(bool merged)
+{
+    if (m_isTitleBarMerged == merged) {
+        return;
+    }
+
+    m_isTitleBarMerged = merged;
+    emit titleBarMergedChanged();
+}
+
+int MainWindowBridge::titleBarHeight() const
+{
+    return m_titleBarHeight;
+}
+
+void MainWindowBridge::setTitleBarHeight(int height)
+{
+    if (m_titleBarHeight == height) {
+        return;
+    }
+
+    m_titleBarHeight = height;
+    emit titleBarHeightChanged();
+}
+
+int MainWindowBridge::titleBarLeftInset() const
+{
+    return m_titleBarLeftInset;
+}
+
+int MainWindowBridge::titleBarRightInset() const
+{
+    return m_titleBarRightInset;
+}
+
+void MainWindowBridge::setTitleBarInsets(int leftInset, int rightInset)
+{
+    if (m_titleBarLeftInset == leftInset && m_titleBarRightInset == rightInset) {
+        return;
+    }
+
+    m_titleBarLeftInset = leftInset;
+    m_titleBarRightInset = rightInset;
+    emit titleBarInsetsChanged();
+}
+
+void MainWindowBridge::handleTitleBarPress()
+{
+}
+
 void MainWindowBridge::showOnBack()
 {
     m_window->lower();

@@ -33,6 +33,14 @@ ApplicationWindow {
 
     default property alias windowContent: windowContentItem.data
 
+    //! NOTE The title bar is drawn over the top of the content, which leaves room for the buttons of the window.
+    //! It is merged only where it can be (macOS): read the value to know whether it is.
+    //! titleBarHeight is the height of the bar of the content which takes the place of the title bar
+    property alias titleBarMerged: bridge.titleBarMerged
+    property alias titleBarHeight: bridge.titleBarHeight
+    readonly property int titleBarLeftInset: bridge.titleBarLeftInset
+    readonly property int titleBarRightInset: bridge.titleBarRightInset
+
     objectName: "ApplicationWindow"
 
     title: titleProvider.title
@@ -83,5 +91,9 @@ ApplicationWindow {
 
     function showMinimizedWithSavePreviousState() {
         bridge.showMinimizedWithSavePreviousState()
+    }
+
+    function handleTitleBarPress() {
+        bridge.handleTitleBarPress()
     }
 }

@@ -65,6 +65,10 @@ AtelierShellView {
         }
     }
 
+    //! NOTE: where the window can do it (macOS), its title bar is merged with the toolbar (see AppWindow)
+    readonly property var appWindow: root.Window.window
+    readonly property bool titleBarMerged: Boolean(root.appWindow) && root.appWindow.titleBarMerged === true
+
     readonly property var currentPageItem: {
         switch (root.pageKind) {
         case "home": return homeLoader.item
@@ -121,6 +125,13 @@ AtelierShellView {
         color: AtStyle.island
     }
 
+    Binding {
+        target: root.appWindow
+        property: "titleBarHeight"
+        value: toolBar.height
+        when: root.titleBarMerged
+    }
+
     AtelierToolBar {
         id: toolBar
 
@@ -131,6 +142,14 @@ AtelierShellView {
         context: contextModel
 
         pageItem: root.currentPageItem
+
+        titleBarMerged: root.titleBarMerged
+        leadingInset: root.titleBarMerged ? root.appWindow.titleBarLeftInset : 0
+        trailingInset: root.titleBarMerged ? root.appWindow.titleBarRightInset : 0
+
+        onTitleBarPressed: {
+            root.appWindow.handleTitleBarPress()
+        }
 
         leftPaneName: Boolean(root.currentPageItem) ? root.currentPageItem.leftPaneName : ""
         leftPaneTitle: Boolean(root.currentPageItem) ? root.currentPageItem.leftPaneTitle : ""

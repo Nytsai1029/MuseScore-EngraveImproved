@@ -37,14 +37,32 @@ class MacOSMainWindowBridge : public MainWindowBridge, public async::Asyncable
 
 public:
     explicit MacOSMainWindowBridge(QObject* parent = nullptr);
+    ~MacOSMainWindowBridge() override;
 
     bool fileModified() const override;
 
+    void handleTitleBarPress() override;
+
 public slots:
     void setFileModified(bool modified) override;
+    void setTitleBarMerged(bool merged) override;
+    void setTitleBarHeight(int height) override;
 
 private:
     void init() override;
+
+    bool canMergeTitleBar() const;
+    void updateTitleBarMerged();
+    void setTitleBarObserved(bool observed);
+    void layoutWindowButtons();
+    void updateTitleBarInsets();
+
+    struct TitleBarObserver;
+    TitleBarObserver* m_titleBarObserver = nullptr;
+
+    bool m_titleBarMergeRequested = false;
+    bool m_isLayingOutWindowButtons = false;
+    int m_alphaBufferSizeBeforeMerge = -1;
 };
 }
 

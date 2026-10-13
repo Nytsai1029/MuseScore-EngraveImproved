@@ -55,8 +55,23 @@ Rectangle {
     property string rightPaneName: ""
     property string rightPaneTitle: ""
 
-    //! NOTE: room for the buttons of the window when the title bar is merged with the toolbar
+    //! NOTE: when the title bar of the window is merged with the toolbar: the room which the buttons
+    //! of the window take at the ends, and a press on an empty place of the toolbar
+    property bool titleBarMerged: false
     property int leadingInset: 0
+    property int trailingInset: 0
+
+    signal titleBarPressed()
+
+    //! NOTE: what is in the middle of the toolbar stays there, unless the right zone needs that place
+    //! (the buttons of the window are on its right where the system is written from right to left)
+    readonly property real rightZoneLeft: Math.min(pageZone.visible ? pageZone.x : root.width,
+                                                   homeZone.visible ? homeZone.x : root.width,
+                                                   scoreZone.visible ? scoreZone.x : root.width)
+
+    function centerOffset(itemWidth) {
+        return Math.min(0, root.rightZoneLeft - 8 - (root.width + itemWidth) / 2)
+    }
 
     readonly property string uri: shell.currentPageUri
     readonly property bool isHome: uri === "musescore://home"
@@ -145,13 +160,26 @@ Rectangle {
         }
     }
 
+    //! NOTE: an empty place of the toolbar is a place of the title bar: it moves the window
+    MouseArea {
+        anchors.fill: parent
+
+        enabled: root.titleBarMerged
+        acceptedButtons: Qt.LeftButton
+
+        onPressed: function(mouse) {
+            mouse.accepted = false
+            root.titleBarPressed()
+        }
+    }
+
     // ---------- left: where you are ----------
 
     Row {
         id: leftZone
 
         anchors.left: parent.left
-        anchors.leftMargin: 20 + root.leadingInset
+        anchors.leftMargin: root.leadingInset > 0 ? root.leadingInset + 16 : 20
         anchors.verticalCenter: parent.verticalCenter
 
         spacing: 12
@@ -285,7 +313,7 @@ Rectangle {
         id: modeSwitcher
 
         anchors.centerIn: parent
-        anchors.horizontalCenterOffset: root.leadingInset / 2
+        anchors.horizontalCenterOffset: root.centerOffset(modeSwitcher.width)
 
         visible: root.uri !== "musescore://fontdesign" && root.uri !== "musescore://devtools"
 
@@ -310,8 +338,10 @@ Rectangle {
     }
 
     Loader {
+        id: pageCenterLoader
+
         anchors.centerIn: parent
-        anchors.horizontalCenterOffset: root.leadingInset / 2
+        anchors.horizontalCenterOffset: root.centerOffset(pageCenterLoader.width)
 
         active: Boolean(root.pageCenter)
         sourceComponent: root.pageCenter
@@ -321,7 +351,7 @@ Rectangle {
         id: pageZone
 
         anchors.right: parent.right
-        anchors.rightMargin: 12
+        anchors.rightMargin: root.trailingInset > 0 ? root.trailingInset + 16 : 12
         anchors.verticalCenter: parent.verticalCenter
 
         visible: Boolean(root.pageRight)
@@ -364,7 +394,7 @@ Rectangle {
         id: homeZone
 
         anchors.right: parent.right
-        anchors.rightMargin: 12
+        anchors.rightMargin: root.trailingInset > 0 ? root.trailingInset + 16 : 12
         anchors.verticalCenter: parent.verticalCenter
 
         visible: root.isHome
@@ -405,7 +435,7 @@ Rectangle {
         id: scoreZone
 
         anchors.right: parent.right
-        anchors.rightMargin: 12
+        anchors.rightMargin: root.trailingInset > 0 ? root.trailingInset + 16 : 12
         anchors.verticalCenter: parent.verticalCenter
 
         visible: root.isScorePage
