@@ -35,9 +35,6 @@
 #include "project/iprojectautosaver.h"
 #include "audioplugins/iregisteraudiopluginsscenario.h"
 
-#include "update/iupdatescenario.h"
-#include "musesounds/imusesoundscheckupdatescenario.h"
-#include "musesounds/imusesamplercheckupdatescenario.h"
 #include "fontdesign/ifontdesignservice.h"
 
 namespace mu::appshell {
@@ -51,9 +48,6 @@ class StartupScenario : public IStartupScenario, public muse::Injectable, public
     muse::Inject<project::IProjectAutoSaver> projectAutoSaver = { this };
     muse::Inject<muse::audioplugins::IRegisterAudioPluginsScenario> registerAudioPluginsScenario = { this };
 
-    muse::Inject<muse::update::IUpdateScenario> appUpdateScenario = { this };
-    muse::Inject<mu::musesounds::IMuseSoundsCheckUpdateScenario> museSoundsUpdateScenario = { this };
-    muse::Inject<musesounds::IMuseSamplerCheckUpdateScenario> museSamplerCheckForUpdateScenario = { this };
     //! 弱依赖：fontdesign 模块关闭时解析为空，退回常规启动
     muse::Inject<mu::fontdesign::IFontDesignService> fontDesignService = { this };
 
@@ -75,11 +69,8 @@ public:
     void runAfterSplashScreen() override;
     bool startupCompleted() const override;
 
-    QList<QVariantMap> welcomeDialogData() const override;
-
 private:
     void registerAudioPlugins();
-    void checkAndShowMuseSamplerUpdateIfNeed();
 
     void onStartupPageOpened(StartupModeType modeType);
 
@@ -91,16 +82,10 @@ private:
     void restoreLastSession();
     void removeProjectsUnsavedChanges(const muse::io::paths_t& projectsPaths);
 
-    void showWelcomeDialog();
-
     std::string m_startupTypeStr;
     project::ProjectFile m_startupScoreFile;
     std::optional<QString> m_startupFontDesignFile;
     bool m_startupCompleted = false;
-
-    bool m_updateChecksInProgress = false;
-    size_t m_totalChecksExpected = 0;
-    size_t m_totalChecksReceived = 0;
 };
 }
 

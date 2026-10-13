@@ -21,7 +21,6 @@
  */
 #include "firstlaunchsetupmodel.h"
 
-#include "translation.h"
 #include "global/async/async.h"
 
 using namespace muse;
@@ -32,9 +31,7 @@ FirstLaunchSetupModel::FirstLaunchSetupModel(QObject* parent)
     : QObject(parent), muse::Injectable(muse::iocCtxForQmlObject(this))
 {
     m_pages = {
-        Page { "ThemesPage.qml", "musescore://notation" },
-        Page { "PlaybackPage.qml", "musescore://notation" },
-        Page { "TutorialsPage.qml", "musescore://home?section=learn" }
+        Page { "ThemesPage.qml", "musescore://notation" }
     };
 }
 
@@ -96,55 +93,6 @@ void FirstLaunchSetupModel::setCurrentPageIndex(int index)
     async::Async::call(this, [this]() {
         interactive()->open(m_pages.at(m_currentPageIndex).backgroundUri);
     });
-}
-
-bool FirstLaunchSetupModel::askAboutClosingEarly()
-{
-    const std::string title = muse::trc("appshell/gettingstarted", "Are you sure you want to cancel?");
-    const std::string body = muse::qtrc("appshell/gettingstarted",
-                                        "If you choose to cancel, then be sure to check out our free "
-                                        "MuseSounds playback libraries on <a href=\"%1\">MuseHub.com</a>.")
-                             .arg(QString::fromStdString(configuration()->museHubFreeMuseSoundsUrl()))
-                             .toStdString();
-    const IInteractive::Text text(body, IInteractive::TextFormat::RichText);
-
-    static constexpr int visitMuseHubBtnId = int(IInteractive::Button::CustomButton) + 1;
-    const IInteractive::ButtonData visitMuseHubBtn {
-        visitMuseHubBtnId,
-        muse::trc("appshell/gettingstarted", "Visit MuseHub"),
-        false,
-        false,
-#ifdef Q_OS_WINDOWS
-        IInteractive::ApplyRole
-#else
-        IInteractive::AcceptRole
-#endif
-    };
-
-    const IInteractive::ButtonData keepGoingBtn {
-        IInteractive::Button::Continue,
-        muse::trc("appshell/gettingstarted", "Keep going"),
-        true,
-        false,
-#ifdef Q_OS_WINDOWS
-        IInteractive::AcceptRole
-#else
-        IInteractive::ContinueRole
-#endif
-    };
-
-    const IInteractive::ButtonDatas buttons {
-        interactive()->buttonData(IInteractive::Button::Cancel), visitMuseHubBtn, keepGoingBtn
-    };
-
-    IInteractive::Result result = interactive()->warningSync(title, text, buttons, int(IInteractive::Button::Cancel));
-
-    if (result.isButton(visitMuseHubBtnId)) {
-        interactive()->openUrl(configuration()->museHubFreeMuseSoundsUrl());
-        return true;
-    }
-
-    return result.standardButton() == IInteractive::Button::Cancel;
 }
 
 void FirstLaunchSetupModel::finish()

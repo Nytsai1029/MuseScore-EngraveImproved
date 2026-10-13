@@ -59,16 +59,6 @@ public:
     bool hasCompletedFirstLaunchSetup() const override;
     void setHasCompletedFirstLaunchSetup(bool has) override;
 
-    bool welcomeDialogShowOnStartup() const override;
-    void setWelcomeDialogShowOnStartup(bool show) override;
-    muse::async::Notification welcomeDialogShowOnStartupChanged() const override;
-
-    std::string welcomeDialogLastShownVersion() const override;
-    void setWelcomeDialogLastShownVersion(const std::string& version) override;
-
-    int welcomeDialogLastShownIndex() const override;
-    void setWelcomeDialogLastShownIndex(int index) override;
-
     StartupModeType startupModeType() const override;
     void setStartupModeType(StartupModeType type) override;
     muse::async::Notification startupModeTypeChanged() const override;
@@ -85,7 +75,6 @@ public:
     std::string museScoreUrl() const override;
     std::string museScoreForumUrl() const override;
     std::string museScoreContributionUrl() const override;
-    std::string museHubFreeMuseSoundsUrl() const override;
     std::string musicXMLLicenseUrl() const override;
     std::string musicXMLLicenseDeedUrl() const override;
 
@@ -127,8 +116,6 @@ private:
     muse::io::paths_t parseSessionProjectsPaths(const QByteArray& json) const;
 
     QString m_preferencesDialogCurrentPageId;
-
-    muse::async::Notification m_welcomeDialogShowOnStartupChanged;
 
     muse::async::Notification m_startupModeTypeChanged;
     muse::async::Notification m_startupScorePathChanged;

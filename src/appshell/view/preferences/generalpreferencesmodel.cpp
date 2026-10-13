@@ -21,8 +21,6 @@
  */
 #include "generalpreferencesmodel.h"
 
-#include "languages/languageserrors.h"
-
 #include "log.h"
 #include "translation.h"
 
@@ -52,29 +50,6 @@ void GeneralPreferencesModel::load()
 
     configuration()->startupScorePathChanged().onNotify(this, [this]() {
         emit startupScorePathChanged();
-    });
-
-    configuration()->welcomeDialogShowOnStartupChanged().onNotify(this, [this]() {
-        emit showWelcomeDialogChanged();
-    });
-}
-
-void GeneralPreferencesModel::checkUpdateForCurrentLanguage()
-{
-    QString languageCode = currentLanguageCode();
-
-    m_languageUpdateProgress = languagesService()->update(languageCode);
-
-    m_languageUpdateProgress.progressChanged().onReceive(this, [this](int64_t current, int64_t total, const std::string& status) {
-        emit receivingUpdateForCurrentLanguage(current, total, QString::fromStdString(status));
-    });
-
-    m_languageUpdateProgress.finished().onReceive(this, [this, languageCode](const ProgressResult& res) {
-        if (res.ret.code() == static_cast<int>(Err::AlreadyUpToDate)) {
-            QString msg = muse::qtrc("appshell/preferences", "Your version of %1 is up to date.")
-                          .arg(languagesService()->language(languageCode).name);
-            interactive()->info(msg.toStdString(), std::string());
-        }
     });
 }
 
@@ -243,18 +218,4 @@ QStringList GeneralPreferencesModel::scorePathFilter() const
 {
     return { muse::qtrc("appshell/preferences", "MuseScore file") + " (*.msdz *.mscz)",
              muse::qtrc("appshell/preferences", "All") + " (*)" };
-}
-
-bool GeneralPreferencesModel::showWelcomeDialog() const
-{
-    return configuration()->welcomeDialogShowOnStartup();
-}
-
-void GeneralPreferencesModel::setShowWelcomeDialog(bool show)
-{
-    if (configuration()->welcomeDialogShowOnStartup() == show) {
-        return;
-    }
-
-    configuration()->setWelcomeDialogShowOnStartup(show);
 }

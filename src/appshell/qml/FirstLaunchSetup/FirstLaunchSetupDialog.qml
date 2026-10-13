@@ -47,17 +47,6 @@ StyledDialogView {
     }
 
     onAboutToClose: function(closeEvent) {
-        if (model.canFinish) {
-            model.finish()
-            return
-        }
-
-        let shouldClose = model.askAboutClosingEarly()
-        if (!shouldClose) {
-            closeEvent.accepted = false
-            return
-        }
-
         model.finish()
     }
 

@@ -42,7 +42,6 @@ ColumnLayout {
     signal isApplyLelandChangeRequested(bool applyLeland)
     signal isApplyEdwinChangeRequested(bool applyEdwin)
     signal isRemapPercussionChangeRequested(bool remapPercussion)
-    signal watchVideoRequested()
 
     property NavigationPanel navigationPanel: NavigationPanel {
         name: "MigrationContentPanel"
@@ -155,18 +154,6 @@ ColumnLayout {
         StyledTextLabel {
             id: affectedLabel
             text: qsTrc("project/migration", "Please note: score layouts will be affected by improvements to MuseScore Studio")
-        }
-
-        FlatButton {
-            id: videoButton
-            text: qsTrc("project/migration", "Watch video")
-
-            navigation.panel: root.navigationPanel
-            navigation.row: 4
-
-            onClicked: {
-                root.watchVideoRequested()
-            }
         }
     }
 }

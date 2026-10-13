@@ -21,13 +21,8 @@
         <file>qml/FirstLaunchSetup/FirstLaunchSetupDialog.qml</file>
         <file>qml/FirstLaunchSetup/Page.qml</file>
         <file>qml/FirstLaunchSetup/ThemesPage.qml</file>
-        <file>qml/FirstLaunchSetup/PlaybackPage.qml</file>
-        <file>qml/FirstLaunchSetup/TutorialsPage.qml</file>
-        <file>qml/FirstLaunchSetup/resources/MuseSounds.png</file>
-        <file>qml/FirstLaunchSetup/resources/VideoTutorials.png</file>
         <file>qml/Preferences/PreferencesPage.qml</file>
         <file>qml/Preferences/GeneralPreferencesPage.qml</file>
-        <file>qml/Preferences/UpdatePreferencesPage.qml</file>
         <file>qml/Preferences/NoteInputPreferencesPage.qml</file>
         <file>qml/Preferences/AppearancePreferencesPage.qml</file>
         <file>qml/Preferences/FoldersPreferencesPage.qml</file>
@@ -59,7 +54,6 @@
         <file>qml/Preferences/internal/ComboBoxWithTitle.qml</file>
         <file>qml/Preferences/internal/IncrementalPropertyControlWithTitle.qml</file>
         <file>qml/Preferences/internal/KeyboardLayoutsSection.qml</file>
-        <file>qml/Preferences/internal/WelcomeDialogSection.qml</file>
         <file>qml/DevTools/KeyNav/KeyNavExample.qml</file>
         <file>qml/DevTools/KeyNav/KeyNavSection.qml</file>
         <file>qml/DevTools/KeyNav/KeyNavSubSection.qml</file>
@@ -111,7 +105,6 @@
         <file>qml/Preferences/internal/NoteInput/NoteColorsSection.qml</file>
         <file>qml/Preferences/internal/NoteInput/FretboardDiagramsSection.qml</file>
         <file>qml/Preferences/internal/DefaultFilesSection.qml</file>
-        <file>qml/Preferences/internal/AutomaticUpdateSection.qml</file>
         <file>qml/platform/win/AppTitleBar.qml</file>
         <file>qml/DevTools/MPE/ArticulationsProfileEditorView.qml</file>
         <file>qml/Preferences/internal/MiscellaneousSection.qml</file>
@@ -120,10 +113,6 @@
         <file>qml/platform/AppButtonBackground.qml</file>
         <file>resources/LoadingScreen.svg</file>
         <file>resources/OnlineSoundsPreview.gif</file>
-        <file>resources/welcomedialog/MuseSounds.png</file>
-        <file>resources/welcomedialog/MuseScoreCom.png</file>
-        <file>resources/welcomedialog/WhatsNew.png</file>
-        <file>resources/welcomedialog/ExploreTutorials.png</file>
         <file>qml/Preferences/BraillePreferencesPage.qml</file>
         <file>qml/Preferences/internal/BrailleSection.qml</file>
         <file>qml/Preferences/internal/BrailleAdvancedSection.qml</file>
@@ -133,6 +122,5 @@
         <file>qml/DevTools/Extensions/ExtensionsListView.qml</file>
         <file>qml/platform/PlatformMenuBar.qml</file>
         <file>qml/Preferences/PercussionPreferencesPage.qml</file>
-        <file>qml/WelcomeDialog.qml</file>
     </qresource>
 </RCC>

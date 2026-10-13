@@ -684,8 +684,7 @@ DockPage {
                         "title": qsTrc("playback", "This sound processes online"),
                         "description": qsTrc("playback", "Audio is processed in the background while you work. To trigger processing yourself, turn off automatic processing in Preferences > Audio & MIDI > Online sounds."),
                         "controlUri": "control://NotationStatusBar/NotationStatusBar/OnlineSoundsStatusView",
-                        "previewImageOrGifUrl": "qrc:/resources/OnlineSoundsPreview.gif",
-                        "videoExplanationUrl": "https://youtu.be/hQ4YqmHM3BE?utm_source=mss-app-yt-4.6-cantai&utm_medium=mss-app-yt-4.6-cantai&utm_campaign=mss-app-yt-4.6-cantai"
+                        "previewImageOrGifUrl": "qrc:/resources/OnlineSoundsPreview.gif"
                     }
                 ]
             }

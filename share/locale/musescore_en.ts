@@ -10952,12 +10952,12 @@ This action will not delete any of your scores.</translation>
         <translation type="unfinished">Restart</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="406"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="256"/>
         <source>The previous session quit unexpectedly.</source>
         <translation type="unfinished">The previous session quit unexpectedly.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="407"/>
+        <location filename="../../src/appshell/internal/startupscenario.cpp" line="257"/>
         <source>Do you want to restore the session?</source>
         <translation type="unfinished">Do you want to restore the session?</translation>
     </message>
@@ -11233,22 +11233,19 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Getting started</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/FirstLaunchSetup/FirstLaunchSetupDialog.qml" line="191"/>
+        <location filename="../../src/appshell/qml/FirstLaunchSetup/FirstLaunchSetupDialog.qml" line="180"/>
         <source>Finish</source>
         <translation type="unfinished">Finish</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/FirstLaunchSetup/PlaybackPage.qml" line="31"/>
         <source>Playback</source>
         <translation type="unfinished">Playback</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/FirstLaunchSetup/PlaybackPage.qml" line="32"/>
         <source>Discover new sound libraries in MuseHub and enjoy realistic score playback</source>
         <translation type="unfinished">Discover new sound libraries in MuseHub and enjoy realistic score playback</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/FirstLaunchSetup/PlaybackPage.qml" line="36"/>
         <source>Watch video</source>
         <translation type="unfinished">Watch video</translation>
     </message>
@@ -11278,39 +11275,32 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Enable high contrast</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/FirstLaunchSetup/TutorialsPage.qml" line="32"/>
         <source>Video tutorials</source>
         <translation type="unfinished">Video tutorials</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/FirstLaunchSetup/TutorialsPage.qml" line="33"/>
         <source>Behind this dialog is the ‘Learn’ section, where you’ll find tutorials to get you started
 (Video tutorials require an internet connection)</source>
         <translation type="unfinished">Behind this dialog is the ‘Learn’ section, where you’ll find tutorials to get you started
 (Video tutorials require an internet connection)</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/FirstLaunchSetup/TutorialsPage.qml" line="76"/>
         <source>In order to protect your privacy, MuseScore Studio does not collect any personal information. See our &lt;a href=&quot;%1&quot;&gt;Privacy Policy&lt;/a&gt; for more info.</source>
         <translation type="unfinished">In order to protect your privacy, MuseScore Studio does not collect any personal information. See our &lt;a href=&quot;%1&quot;&gt;Privacy Policy&lt;/a&gt; for more info.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/firstlaunchsetup/firstlaunchsetupmodel.cpp" line="103"/>
         <source>Are you sure you want to cancel?</source>
         <translation type="unfinished">Are you sure you want to cancel?</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/firstlaunchsetup/firstlaunchsetupmodel.cpp" line="104"/>
         <source>If you choose to cancel, then be sure to check out our free MuseSounds playback libraries on &lt;a href=&quot;%1&quot;&gt;MuseHub.com&lt;/a&gt;.</source>
         <translation type="unfinished">If you choose to cancel, then be sure to check out our free MuseSounds playback libraries on &lt;a href=&quot;%1&quot;&gt;MuseHub.com&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/firstlaunchsetup/firstlaunchsetupmodel.cpp" line="114"/>
         <source>Visit MuseHub</source>
         <translation type="unfinished">Visit MuseHub</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/firstlaunchsetup/firstlaunchsetupmodel.cpp" line="126"/>
         <source>Keep going</source>
         <translation type="unfinished">Keep going</translation>
     </message>
@@ -11382,47 +11372,47 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
 <context>
     <name>appshell/menu/diagnostics</name>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="484"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="479"/>
         <source>&amp;System</source>
         <translation type="unfinished">&amp;System</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="496"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="491"/>
         <source>&amp;MuseSampler</source>
         <translation type="unfinished">&amp;MuseSampler</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="542"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="537"/>
         <source>A&amp;ctions</source>
         <translation type="unfinished">A&amp;ctions</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="543"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="538"/>
         <source>&amp;Accessibility</source>
         <translation type="unfinished">&amp;Accessibility</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="544"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="539"/>
         <source>&amp;Engraving</source>
         <translation type="unfinished">&amp;Engraving</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="545"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="540"/>
         <source>E&amp;xtensions</source>
         <translation type="unfinished">E&amp;xtensions</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="546"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="541"/>
         <source>Auto&amp;bot</source>
         <translation type="unfinished">Auto&amp;bot</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="547"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="542"/>
         <source>&amp;VST</source>
         <translation type="unfinished">&amp;VST</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="551"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="546"/>
         <location filename="../../src/appshell_web/view/appmenumodel.cpp" line="291"/>
         <source>&amp;Diagnostics</source>
         <translation type="unfinished">&amp;Diagnostics</translation>
@@ -11478,7 +11468,7 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
 <context>
     <name>appshell/menu/help</name>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="470"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="465"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Help</translation>
     </message>
@@ -11610,17 +11600,14 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Restart audio and MIDI devices</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Preferences/internal/AutomaticUpdateSection.qml" line="30"/>
         <source>Automatic update check</source>
         <translation type="unfinished">Automatic update check</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Preferences/internal/AutomaticUpdateSection.qml" line="42"/>
         <source>Check to see if a new version of MuseScore Studio is available</source>
         <translation type="unfinished">Check to see if a new version of MuseScore Studio is available</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Preferences/internal/AutomaticUpdateSection.qml" line="58"/>
         <source>Update checking requires network access. In order to protect your privacy, MuseScore Studio does not store any personal information. See our &lt;a href=&quot;%1&quot;&gt;privacy policy&lt;/a&gt; for more info.</source>
         <translation type="unfinished">Update checking requires network access. In order to protect your privacy, MuseScore Studio does not store any personal information. See our &lt;a href=&quot;%1&quot;&gt;privacy policy&lt;/a&gt; for more info.</translation>
     </message>
@@ -12147,12 +12134,10 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Body text size:</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Preferences/internal/WelcomeDialogSection.qml" line="32"/>
         <source>Welcome screen</source>
         <translation type="unfinished">Welcome screen</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Preferences/internal/WelcomeDialogSection.qml" line="43"/>
         <source>Show welcome screen when MuseScore Studio launches</source>
         <translation type="unfinished">Show welcome screen when MuseScore Studio launches</translation>
     </message>
@@ -12227,7 +12212,7 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
     </message>
     <message>
         <location filename="../../src/appshell/view/preferences/appearancepreferencesmodel.cpp" line="250"/>
-        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="245"/>
+        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="220"/>
         <source>All</source>
         <translation type="unfinished">All</translation>
     </message>
@@ -12285,37 +12270,36 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">VST3</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="74"/>
         <source>Your version of %1 is up to date.</source>
         <translation type="unfinished">Your version of %1 is up to date.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="107"/>
+        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="82"/>
         <source>System default</source>
         <translation type="unfinished">System default</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="188"/>
+        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="163"/>
         <source>Start empty</source>
         <translation type="unfinished">Start empty</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="192"/>
+        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="167"/>
         <source>Continue last session</source>
         <translation type="unfinished">Continue last session</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="196"/>
+        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="171"/>
         <source>Start with new score</source>
         <translation type="unfinished">Start with new score</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="200"/>
+        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="175"/>
         <source>Start with score:</source>
         <translation type="unfinished">Start with score:</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="244"/>
+        <location filename="../../src/appshell/view/preferences/generalpreferencesmodel.cpp" line="219"/>
         <source>MuseScore file</source>
         <translation type="unfinished">MuseScore file</translation>
     </message>
@@ -12525,82 +12509,66 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
 <context>
     <name>appshell/welcome</name>
     <message>
-        <location filename="../../src/appshell/qml/WelcomeDialog.qml" line="34"/>
         <source>Welcome</source>
         <translation type="unfinished">Welcome</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/WelcomeDialog.qml" line="122"/>
         <source>Previous item</source>
         <translation type="unfinished">Previous item</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/WelcomeDialog.qml" line="172"/>
         <source>Next item</source>
         <translation type="unfinished">Next item</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/WelcomeDialog.qml" line="263"/>
         <source>Don’t show welcome dialog on startup</source>
         <translation type="unfinished">Don’t show welcome dialog on startup</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="267"/>
         <source>Enjoy free cloud storage</source>
         <translation type="unfinished">Enjoy free cloud storage</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="269"/>
         <source>Save your scores privately on MuseScore.com to revisit past versions and invite others to view and comment – and when you’re ready, share your music with the world.</source>
         <translation type="unfinished">Save your scores privately on MuseScore.com to revisit past versions and invite others to view and comment – and when you’re ready, share your music with the world.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="271"/>
         <source>View my scores online</source>
         <translation type="unfinished">View my scores online</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="276"/>
         <source>What’s new in MuseScore Studio</source>
         <translation type="unfinished">What’s new in MuseScore Studio</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="278"/>
         <source>Includes a new system for hiding empty staves, a new text editing widget, guitar notation improvements, engraving improvements and more.</source>
         <translation type="unfinished">Includes a new system for hiding empty staves, a new text editing widget, guitar notation improvements, engraving improvements and more.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="280"/>
         <source>Watch video</source>
         <translation type="unfinished">Watch video</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="285"/>
         <source>Install our free MuseSounds libraries</source>
         <translation type="unfinished">Install our free MuseSounds libraries</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="287"/>
         <source>Explore our collection of realistic sample libraries, including solo instruments, marching percussion, and full orchestra - available for free on MuseHub.</source>
         <translation type="unfinished">Explore our collection of realistic sample libraries, including solo instruments, marching percussion, and full orchestra - available for free on MuseHub.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="289"/>
         <source>Get it on MuseHub</source>
         <translation type="unfinished">Get it on MuseHub</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="294"/>
         <source>Explore our tutorials</source>
         <translation type="unfinished">Explore our tutorials</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="296"/>
         <source>We’ve put together a playlist of tutorials to help both beginners and experienced users get the most out of MuseScore Studio.</source>
         <translation type="unfinished">We’ve put together a playlist of tutorials to help both beginners and experienced users get the most out of MuseScore Studio.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/internal/startupscenario.cpp" line="298"/>
         <source>View tutorials</source>
         <translation type="unfinished">View tutorials</translation>
     </message>
@@ -24823,7 +24791,6 @@ Fret %1 on strings %2</translation>
     <name>global</name>
     <message>
         <location filename="../../src/appshell/qml/AboutDialog.qml" line="157"/>
-        <location filename="../../src/appshell/qml/WelcomeDialog.qml" line="286"/>
         <location filename="../../src/instrumentsscene/qml/MuseScore/InstrumentsScene/InstrumentsDialog.qml" line="112"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/SelectMeasuresCountDialog.qml" line="107"/>
         <location filename="../../src/playback/qml/MuseScore/Playback/SoundProfilesDialog.qml" line="255"/>
@@ -24832,13 +24799,13 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">OK</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/FirstLaunchSetup/FirstLaunchSetupDialog.qml" line="136"/>
+        <location filename="../../src/appshell/qml/FirstLaunchSetup/FirstLaunchSetupDialog.qml" line="125"/>
         <location filename="../../src/project/qml/MuseScore/Project/NewScoreDialog.qml" line="156"/>
         <source>Back</source>
         <translation type="unfinished">Back</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/FirstLaunchSetup/FirstLaunchSetupDialog.qml" line="192"/>
+        <location filename="../../src/appshell/qml/FirstLaunchSetup/FirstLaunchSetupDialog.qml" line="181"/>
         <location filename="../../src/project/qml/MuseScore/Project/NewScoreDialog.qml" line="167"/>
         <source>Next</source>
         <translation type="unfinished">Next</translation>
@@ -25411,7 +25378,7 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">dpi</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/MigrationDialog.qml" line="126"/>
+        <location filename="../../src/project/qml/MuseScore/Project/MigrationDialog.qml" line="122"/>
         <source>Don’t ask again</source>
         <translation type="unfinished">Don’t ask again</translation>
     </message>
@@ -30852,31 +30819,31 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Zoom menu</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="666"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="661"/>
         <location filename="../../src/appshell_web/view/appmenumodel.cpp" line="367"/>
         <source>Insert &amp;after selection…</source>
         <translation type="unfinished">Insert &amp;after selection…</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="667"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="662"/>
         <location filename="../../src/appshell_web/view/appmenumodel.cpp" line="368"/>
         <source>Insert &amp;before selection…</source>
         <translation type="unfinished">Insert &amp;before selection…</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="669"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="664"/>
         <location filename="../../src/appshell_web/view/appmenumodel.cpp" line="370"/>
         <source>Insert at &amp;start of score…</source>
         <translation type="unfinished">Insert at &amp;start of score…</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="670"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="665"/>
         <location filename="../../src/appshell_web/view/appmenumodel.cpp" line="371"/>
         <source>Insert at &amp;end of score…</source>
         <translation type="unfinished">Insert at &amp;end of score…</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/view/appmenumodel.cpp" line="684"/>
+        <location filename="../../src/appshell/view/appmenumodel.cpp" line="679"/>
         <location filename="../../src/notation/view/noteinputbarmodel.cpp" line="652"/>
         <source>Insert at end of score</source>
         <translation type="unfinished">Insert at end of score</translation>
@@ -36396,14 +36363,14 @@ failed: %2</translation>
         <translation type="unfinished">Audio is processed in the background while you work. To trigger processing yourself, turn off automatic processing in Preferences &gt; Audio &amp; MIDI &gt; Online sounds.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="699"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="698"/>
         <location filename="../../src/playback/qml/MuseScore/Playback/OnlineSoundsStatusView.qml" line="116"/>
         <location filename="../../src/playback/qml/MuseScore/Playback/OnlineSoundsStatusView.qml" line="126"/>
         <source>Online sounds</source>
         <translation type="unfinished">Online sounds</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="700"/>
+        <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="699"/>
         <source>Click to manually process online sounds.</source>
         <translation type="unfinished">Click to manually process online sounds.</translation>
     </message>
@@ -37816,53 +37783,51 @@ failed: %2</translation>
 <context>
     <name>project/migration</name>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentFor362.qml" line="69"/>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentForPre362.qml" line="78"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentFor362.qml" line="68"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentForPre362.qml" line="77"/>
         <source>This file was last saved in MuseScore %1</source>
         <translation type="unfinished">This file was last saved in MuseScore %1</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentFor362.qml" line="75"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentFor362.qml" line="74"/>
         <source>Please note that the appearance of your score will change due to improvements we have made to default settings for beaming, ties, slurs, system objects and horizontal spacing.</source>
         <translation type="unfinished">Please note that the appearance of your score will change due to improvements we have made to default settings for beaming, ties, slurs, system objects and horizontal spacing.</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentFor362.qml" line="85"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentFor362.qml" line="84"/>
         <source>Use our new notation and sound mapping for &lt;a href=&quot;%1&quot;&gt;MDL percussion&lt;/a&gt;</source>
         <translation type="unfinished">Use our new notation and sound mapping for &lt;a href=&quot;%1&quot;&gt;MDL percussion&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentFor362.qml" line="100"/>
         <source>Watch video about changes</source>
         <translation type="unfinished">Watch video about changes</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentForPre362.qml" line="83"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentForPre362.qml" line="82"/>
         <source>Select the engraving improvements you would like to apply to your score</source>
         <translation type="unfinished">Select the engraving improvements you would like to apply to your score</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentForPre362.qml" line="112"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentForPre362.qml" line="111"/>
         <source>Our new notation font, Leland</source>
         <translation type="unfinished">Our new notation font, Leland</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentForPre362.qml" line="125"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentForPre362.qml" line="124"/>
         <source>Our new text font, Edwin</source>
         <translation type="unfinished">Our new text font, Edwin</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentForPre362.qml" line="138"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentForPre362.qml" line="137"/>
         <source>Our new notation and sound mapping for &lt;a href=&quot;%1&quot;&gt;MDL percussion&lt;/a&gt;</source>
         <translation type="unfinished">Our new notation and sound mapping for &lt;a href=&quot;%1&quot;&gt;MDL percussion&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentForPre362.qml" line="157"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentForPre362.qml" line="156"/>
         <source>Please note: score layouts will be affected by improvements to MuseScore Studio</source>
         <translation type="unfinished">Please note: score layouts will be affected by improvements to MuseScore Studio</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Migration/MigrationContentForPre362.qml" line="162"/>
         <source>Watch video</source>
         <translation type="unfinished">Watch video</translation>
     </message>
@@ -38916,17 +38881,16 @@ The score will be saved as:
 <context>
     <name>tours</name>
     <message>
-        <location filename="../../src/framework/tours/qml/Muse/Tours/internal/TourStepPopup.qml" line="142"/>
         <source>Watch video</source>
         <translation type="unfinished">Watch video</translation>
     </message>
     <message>
-        <location filename="../../src/framework/tours/qml/Muse/Tours/internal/TourStepPopup.qml" line="162"/>
+        <location filename="../../src/framework/tours/qml/Muse/Tours/internal/TourStepPopup.qml" line="142"/>
         <source>Got it</source>
         <translation type="unfinished">Got it</translation>
     </message>
     <message>
-        <location filename="../../src/framework/tours/qml/Muse/Tours/internal/TourStepPopup.qml" line="162"/>
+        <location filename="../../src/framework/tours/qml/Muse/Tours/internal/TourStepPopup.qml" line="142"/>
         <source>Next</source>
         <translation type="unfinished">Next</translation>
     </message>

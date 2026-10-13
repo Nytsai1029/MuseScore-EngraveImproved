@@ -45,13 +45,10 @@
 #include "view/notationstatusbarmodel.h"
 #include "view/aboutmodel.h"
 #include "view/usagestatisticsmodel.h"
-#include "view/welcomedialogmodel.h"
 #include "view/firstlaunchsetup/firstlaunchsetupmodel.h"
 #include "view/firstlaunchsetup/themespagemodel.h"
-#include "view/firstlaunchsetup/tutorialspagemodel.h"
 #include "view/preferences/preferencesmodel.h"
 #include "view/preferences/generalpreferencesmodel.h"
-#include "view/preferences/updatepreferencesmodel.h"
 #include "view/preferences/appearancepreferencesmodel.h"
 #include "view/preferences/folderspreferencesmodel.h"
 #include "view/preferences/noteinputpreferencesmodel.h"
@@ -137,7 +134,6 @@ void AppShellModule::resolveImports()
         ir->registerUri(Uri("musescore://about/musicxml"), ContainerMeta(ContainerType::QmlDialog, "AboutMusicXMLDialog.qml"));
         ir->registerUri(Uri("musescore://usage-statistics"),
                         ContainerMeta(ContainerType::QmlDialog, "UsageStatisticsDialog.qml"));
-        ir->registerUri(Uri("musescore://welcomedialog"), ContainerMeta(ContainerType::QmlDialog, "WelcomeDialog.qml"));
         ir->registerUri(Uri("musescore://firstLaunchSetup"),
                         ContainerMeta(ContainerType::QmlDialog, "FirstLaunchSetup/FirstLaunchSetupDialog.qml"));
         ir->registerUri(Uri("muse://preferences"), ContainerMeta(ContainerType::QmlDialog, "Preferences/PreferencesDialog.qml"));
@@ -154,7 +150,6 @@ void AppShellModule::registerUiTypes()
     qmlRegisterType<SettingListModel>("MuseScore.Preferences", 1, 0, "SettingListModel");
     qmlRegisterType<PreferencesModel>("MuseScore.Preferences", 1, 0, "PreferencesModel");
     qmlRegisterType<GeneralPreferencesModel>("MuseScore.Preferences", 1, 0, "GeneralPreferencesModel");
-    qmlRegisterType<UpdatePreferencesModel>("MuseScore.Preferences", 1, 0, "UpdatePreferencesModel");
     qmlRegisterType<AppearancePreferencesModel>("MuseScore.Preferences", 1, 0, "AppearancePreferencesModel");
     qmlRegisterType<FoldersPreferencesModel>("MuseScore.Preferences", 1, 0, "FoldersPreferencesModel");
     qmlRegisterType<NoteInputPreferencesModel>("MuseScore.Preferences", 1, 0, "NoteInputPreferencesModel");
@@ -185,10 +180,8 @@ void AppShellModule::registerUiTypes()
     qmlRegisterType<NotationStatusBarModel>("MuseScore.AppShell", 1, 0, "NotationStatusBarModel");
     qmlRegisterType<AboutModel>("MuseScore.AppShell", 1, 0, "AboutModel");
     qmlRegisterType<UsageStatisticsModel>("MuseScore.AppShell", 1, 0, "UsageStatisticsModel");
-    qmlRegisterType<WelcomeDialogModel>("MuseScore.AppShell", 1, 0, "WelcomeDialogModel");
     qmlRegisterType<FirstLaunchSetupModel>("MuseScore.AppShell", 1, 0, "FirstLaunchSetupModel");
     qmlRegisterType<ThemesPageModel>("MuseScore.AppShell", 1, 0, "ThemesPageModel");
-    qmlRegisterType<TutorialsPageModel>("MuseScore.AppShell", 1, 0, "TutorialsPageModel");
     qmlRegisterType<PublishToolBarModel>("MuseScore.AppShell", 1, 0, "PublishToolBarModel");
     qmlRegisterType<MainToolBarModel>("MuseScore.AppShell", 1, 0, "MainToolBarModel");
 }

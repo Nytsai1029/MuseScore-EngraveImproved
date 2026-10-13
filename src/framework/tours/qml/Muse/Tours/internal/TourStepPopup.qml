@@ -32,7 +32,6 @@ StyledPopupView {
     property alias title: titleLabel.text
     property alias description: descriptionLabel.text
     property string previewImageOrGifUrl: ""
-    property string videoExplanationUrl: ""
 
     property int index: 0
     property int total: 0
@@ -135,26 +134,7 @@ StyledPopupView {
             spacing: 4
 
             FlatButton {
-                id: watchVideoBtn
-
-                Layout.preferredWidth: (content.width - box.spacing) / 2
-
-                text: qsTrc("tours", "Watch video")
-                icon: IconCode.OPEN_LINK
-                orientation: Qt.Horizontal
-
-                buttonRole: ButtonBoxModel.CustomRole
-                buttonId: ButtonBoxModel.CustomButton + 1
-
-                visible: root.videoExplanationUrl !== ""
-
-                onClicked: {
-                    api.launcher.openUrl(root.videoExplanationUrl)
-                }
-            }
-
-            FlatButton {
-                Layout.preferredWidth: watchVideoBtn.visible ? (content.width - box.spacing) / 2 : content.width
+                Layout.preferredWidth: content.width
                 Layout.alignment: Qt.AlignRight
 
                 property bool isLastStep: root.index == root.total
@@ -164,7 +144,7 @@ StyledPopupView {
                 buttonRole: isLastStep ? ButtonBoxModel.Apply : ButtonBoxModel.Next
                 buttonId:  isLastStep ? ButtonBoxModel.ApplyRole : ButtonBoxModel.ContinueRole
                 accentButton: true
-                isNarrow: !watchVideoBtn.visible
+                isNarrow: true
 
                 onClicked: {
                     if (isLastStep) {

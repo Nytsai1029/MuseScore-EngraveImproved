@@ -38,7 +38,6 @@
 #include "ui/inavigationcontroller.h"
 #include "ui/iuiactionsregister.h"
 #include "ui/iuiconfiguration.h"
-#include "update/iupdateconfiguration.h"
 #include "workspace/iworkspacemanager.h"
 
 #include "iappshellconfiguration.h"
@@ -63,7 +62,6 @@ public:
     muse::Inject<muse::ui::INavigationController> navigationController = { this };
     muse::Inject<muse::ui::IUiActionsRegister> uiActionsRegister = { this };
     muse::Inject<muse::ui::IUiConfiguration> uiConfiguration = { this };
-    muse::Inject<muse::update::IUpdateConfiguration> updateConfiguration = { this };
     muse::Inject<muse::workspace::IWorkspaceManager> workspacesManager = { this };
     muse::Inject<project::IRecentFilesController> recentFilesController = { this };
 

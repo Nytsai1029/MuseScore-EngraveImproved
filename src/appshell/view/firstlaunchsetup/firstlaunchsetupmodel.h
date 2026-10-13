@@ -59,8 +59,6 @@ public:
     bool canGoForward() const;
     bool canFinish() const;
 
-    Q_INVOKABLE bool askAboutClosingEarly();
-
     Q_INVOKABLE void finish();
 
 public slots:

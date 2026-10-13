@@ -23,13 +23,10 @@
 
 #include <QObject>
 
-#include "progress.h"
-
 #include "modularity/ioc.h"
 #include "iappshellconfiguration.h"
 #include "async/asyncable.h"
 
-#include "global/iinteractive.h"
 #include "languages/ilanguagesconfiguration.h"
 #include "languages/ilanguagesservice.h"
 #include "shortcuts/ishortcutsconfiguration.h"
@@ -55,10 +52,7 @@ class GeneralPreferencesModel : public QObject, public muse::Injectable, public 
     Q_PROPERTY(QString startupScorePath READ startupScorePath WRITE setStartupScorePath NOTIFY startupScorePathChanged)
     Q_PROPERTY(QStringList scorePathFilter READ scorePathFilter CONSTANT)
 
-    Q_PROPERTY(bool showWelcomeDialog READ showWelcomeDialog WRITE setShowWelcomeDialog NOTIFY showWelcomeDialogChanged)
-
     muse::Inject<IAppShellConfiguration> configuration = { this };
-    muse::Inject<muse::IInteractive> interactive = { this };
     muse::Inject<muse::languages::ILanguagesConfiguration> languagesConfiguration = { this };
     muse::Inject<muse::languages::ILanguagesService> languagesService = { this };
     muse::Inject<muse::shortcuts::IShortcutsConfiguration> shortcutsConfiguration = { this };
@@ -67,7 +61,6 @@ public:
     explicit GeneralPreferencesModel(QObject* parent = nullptr);
 
     Q_INVOKABLE void load();
-    Q_INVOKABLE void checkUpdateForCurrentLanguage();
 
     QVariantList languages() const;
     QString currentLanguageCode() const;
@@ -83,9 +76,6 @@ public:
     int currentStartupMode() const;
     QString startupScorePath() const;
     QStringList scorePathFilter() const;
-
-    bool showWelcomeDialog() const;
-    void setShowWelcomeDialog(bool show);
 
 public slots:
     void setCurrentLanguageCode(const QString& currentLanguageCode);
@@ -103,17 +93,12 @@ signals:
     void isOSCRemoteControlChanged(bool isOSCRemoteControl);
     void oscPortChanged(int oscPort);
 
-    void receivingUpdateForCurrentLanguage(int current, int total, QString status);
     void restartRequiredChanged();
 
     void currentStartupModeChanged();
     void startupScorePathChanged();
 
-    void showWelcomeDialogChanged();
-
 private:
-    muse::Progress m_languageUpdateProgress;
-
     bool m_restartRequired = false;
 };
 }

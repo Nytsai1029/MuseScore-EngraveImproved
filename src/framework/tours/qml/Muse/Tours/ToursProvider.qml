@@ -72,10 +72,10 @@ Item {
             tourStepLoader.active = false
         }
 
-        function open(parent, title, description, previewImageOrGifUrl, videoExplanationUrl, index, total) {
+        function open(parent, title, description, previewImageOrGifUrl, index, total) {
             loadTourStepPopup()
 
-            update(parent, title, description, previewImageOrGifUrl, videoExplanationUrl, index, total)
+            update(parent, title, description, previewImageOrGifUrl, index, total)
 
             var tourStepPopup = tourStepLoader.item
             tourStepPopup.open()
@@ -90,7 +90,7 @@ Item {
             tourStepPopup.close()
         }
 
-        function update(parent, title, description, previewImageOrGifUrl, videoExplanationUrl, index, total) {
+        function update(parent, title, description, previewImageOrGifUrl, index, total) {
             var tourStepPopup = tourStepLoader.item
             if (!Boolean(tourStepPopup)) {
                 return
@@ -100,7 +100,6 @@ Item {
             tourStepPopup.title = title
             tourStepPopup.description = description
             tourStepPopup.previewImageOrGifUrl = previewImageOrGifUrl
-            tourStepPopup.videoExplanationUrl = videoExplanationUrl
             tourStepPopup.index = index
             tourStepPopup.total = total
         }
@@ -109,8 +108,8 @@ Item {
     Connections {
         target: root.provider
 
-        function onOpenTourStep(parent, title, description, previewImageOrGifUrl, videoExplanationUrl, index, total) {
-            tourStepLoader.open(parent, title, description, previewImageOrGifUrl, videoExplanationUrl, index, total)
+        function onOpenTourStep(parent, title, description, previewImageOrGifUrl, index, total) {
+            tourStepLoader.open(parent, title, description, previewImageOrGifUrl, index, total)
         }
 
         function onCloseCurrentTourStep() {

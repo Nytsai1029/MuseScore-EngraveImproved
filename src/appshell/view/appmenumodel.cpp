@@ -435,11 +435,6 @@ MenuItem* AppMenuModel::makeHelpMenu(bool addDiagnosticsSubMenu)
 {
     MenuItemList helpItems;
 
-    if (updateConfiguration()->isAppUpdatable()) {
-        helpItems << makeMenuItem("check-update");
-        helpItems << makeSeparator();
-    }
-
     helpItems << makeMenuItem("online-handbook");
     helpItems << makeMenuItem("ask-help");
     helpItems << makeSeparator();

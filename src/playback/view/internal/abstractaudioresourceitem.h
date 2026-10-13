@@ -74,7 +74,6 @@ protected:
 
     QVariantMap buildSeparator() const;
 
-
     void sortResourcesList(muse::audio::AudioResourceMetaList& list);
 
 private:

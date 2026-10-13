@@ -38,7 +38,6 @@ ColumnLayout {
     }
 
     signal isRemapPercussionChangeRequested(bool remapPercussion)
-    signal watchVideoRequested()
 
     property NavigationPanel navigationPanel: NavigationPanel {
         name: "MigrationPanel"
@@ -91,19 +90,6 @@ ColumnLayout {
 
         onClicked: {
             root.isRemapPercussionChangeRequested(!checked)
-        }
-    }
-
-    FlatButton {
-        id: watchVideo
-
-        text: qsTrc("project/migration", "Watch video about changes")
-
-        navigation.panel: root.navigationPanel
-        navigation.row: 2
-
-        onClicked: {
-            root.watchVideoRequested()
         }
     }
 }

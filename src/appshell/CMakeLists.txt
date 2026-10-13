@@ -59,14 +59,10 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/view/aboutmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/usagestatisticsmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/usagestatisticsmodel.h
-    ${CMAKE_CURRENT_LIST_DIR}/view/welcomedialogmodel.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/view/welcomedialogmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/firstlaunchsetup/firstlaunchsetupmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/firstlaunchsetup/firstlaunchsetupmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/firstlaunchsetup/themespagemodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/firstlaunchsetup/themespagemodel.h
-    ${CMAKE_CURRENT_LIST_DIR}/view/firstlaunchsetup/tutorialspagemodel.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/view/firstlaunchsetup/tutorialspagemodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/preferences/preferencesmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/preferences/preferencesmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/preferences/preferencepageitem.cpp
@@ -79,8 +75,6 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/view/preferences/saveandpublishpreferencesmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/preferences/generalpreferencesmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/preferences/generalpreferencesmodel.h
-    ${CMAKE_CURRENT_LIST_DIR}/view/preferences/updatepreferencesmodel.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/view/preferences/updatepreferencesmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/preferences/appearancepreferencesmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/preferences/appearancepreferencesmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/preferences/noteinputpreferencesmodel.cpp

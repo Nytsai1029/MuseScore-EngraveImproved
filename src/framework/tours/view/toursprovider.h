@@ -58,7 +58,7 @@ private slots:
 
 signals:
     void openTourStep(const QQuickItem* parentItem, const QString& title, const QString& description, const QString& previewImageOrGifUrl,
-                      const QString& videoExplanationUrl, size_t index, size_t total);
+                      size_t index, size_t total);
     void closeCurrentTourStep();
 
 private:
