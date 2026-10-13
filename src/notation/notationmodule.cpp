@@ -57,6 +57,8 @@
 
 #include "view/editgridsizedialogmodel.h"
 #include "view/engravemodemodel.h"
+#include "view/pagethumbnailview.h"
+#include "view/previewpagesmodel.h"
 #include "view/editpercussionshortcutmodel.h"
 #include "view/paintedengravingitem.h"
 
@@ -218,6 +220,8 @@ void NotationModule::registerUiTypes()
     qmlRegisterType<NotesInChordSelectionFilterModel>("MuseScore.NotationScene", 1, 0, "NotesInChordSelectionFilterModel");
     qmlRegisterType<EditGridSizeDialogModel>("MuseScore.NotationScene", 1, 0, "EditGridSizeDialogModel");
     qmlRegisterType<EngraveModeModel>("MuseScore.NotationScene", 1, 0, "EngraveModeModel");
+    qmlRegisterType<PageThumbnailView>("MuseScore.NotationScene", 1, 0, "PageThumbnailView");
+    qmlRegisterType<PreviewPagesModel>("MuseScore.NotationScene", 1, 0, "PreviewPagesModel");
     qmlRegisterType<EditPercussionShortcutModel>("MuseScore.NotationScene", 1, 0, "EditPercussionShortcutModel");
     qmlRegisterType<PianoKeyboardView>("MuseScore.NotationScene", 1, 0, "PianoKeyboardView");
     qmlRegisterType<PianoKeyboardPanelContextMenuModel>("MuseScore.NotationScene", 1, 0, "PianoKeyboardPanelContextMenuModel");

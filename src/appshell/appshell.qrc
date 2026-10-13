@@ -82,6 +82,9 @@
         <file>qml/Atelier/AtelierPaneStack.qml</file>
         <file>qml/Atelier/AtelierPlaybackControls.qml</file>
         <file>qml/Atelier/AtelierPreviewPage.qml</file>
+        <file>qml/Atelier/AtelierPreviewStrip.qml</file>
+        <file>qml/Atelier/AtelierPagesPane.qml</file>
+        <file>qml/Atelier/AtelierPreviewStatusBar.qml</file>
         <file>qml/Atelier/AtelierScorePage.qml</file>
         <file>qml/Atelier/AtelierShell.qml</file>
         <file>qml/Atelier/AtelierStatusBar.qml</file>

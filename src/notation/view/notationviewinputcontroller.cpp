@@ -207,13 +207,13 @@ void NotationViewInputController::onNotationChanged()
     });
 }
 
-void NotationViewInputController::initZoom()
+void NotationViewInputController::initZoom(std::optional<ZoomType> zoomType)
 {
     IF_ASSERT_FAILED(currentNotation()) {
         return;
     }
 
-    ZoomType defaultZoomType = configuration()->defaultZoomType();
+    ZoomType defaultZoomType = zoomType.value_or(configuration()->defaultZoomType());
 
     m_view->setZoomType(defaultZoomType);
 

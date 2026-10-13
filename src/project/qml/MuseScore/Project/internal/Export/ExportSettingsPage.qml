@@ -32,4 +32,7 @@ Column {
 
     property NavigationPanel navigationPanel: null
     property int navigationOrder: 3
+
+    //! NOTE: in the Atelier skin, the options of the pages are switches at the right side
+    readonly property bool switchStyle: ui.theme.skin === "atelier"
 }

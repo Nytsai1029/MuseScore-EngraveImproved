@@ -10835,6 +10835,7 @@ followed by dashes</translation>
         <translation type="unfinished">Engrave</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewPage.qml" line="322"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="515"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="325"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="457"/>
@@ -11062,6 +11063,67 @@ This action cannot be undone.</translation>
         <location filename="../../src/appshell/qml/Atelier/AtelierEngraveStrip.qml" line="424"/>
         <source>Margins</source>
         <translation type="unfinished">Margins</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="51"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="77"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewPage.qml" line="47"/>
+        <source>Pages</source>
+        <translation type="unfinished">Pages</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="85"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewPage.qml" line="235"/>
+        <source>%n page(s)</source>
+        <extracomment>The number of pages of the score
+----------
+The name of the score and the number of its pages, e.g. &quot;Träumerei · 2 pages&quot;</extracomment>
+        <translation type="unfinished">
+            <numerusform>%n page(s)</numerusform>
+            <numerusform>%n page(s)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="138"/>
+        <source>Page %1</source>
+        <extracomment>The number of a page of the score</extracomment>
+        <translation type="unfinished">Page %1</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="202"/>
+        <source>Page</source>
+        <translation type="unfinished">Page</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="212"/>
+        <source>Paper</source>
+        <translation type="unfinished">Paper</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="213"/>
+        <source>Printable width</source>
+        <translation type="unfinished">Printable width</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="214"/>
+        <source>Staff space</source>
+        <translation type="unfinished">Staff space</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStatusBar.qml" line="94"/>
+        <source>Page %1 of %2</source>
+        <extracomment>The page which is shown, and the number of pages; e.g. &quot;Page 2 of 5&quot;</extracomment>
+        <translation type="unfinished">Page %1 of %2</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStrip.qml" line="164"/>
+        <source>Separate window</source>
+        <translation type="unfinished">Separate window</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStrip.qml" line="168"/>
+        <source>Show the preview as a separate window</source>
+        <translation type="unfinished">Show the preview as a separate window</translation>
     </message>
 </context>
 <context>
@@ -30720,17 +30782,20 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Undo redo toolbar</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStatusBar.qml" line="165"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierStatusBar.qml" line="155"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/ZoomControl.qml" line="58"/>
         <source>Zoom out</source>
         <translation type="unfinished">Zoom out</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStatusBar.qml" line="63"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierStatusBar.qml" line="179"/>
         <source>Zoom</source>
         <translation type="unfinished">Zoom</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStatusBar.qml" line="193"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierStatusBar.qml" line="207"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/ZoomControl.qml" line="78"/>
         <source>Zoom in</source>
@@ -31192,16 +31257,19 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Percentage</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStatusBar.qml" line="52"/>
         <location filename="../../src/notation/notationtypes.h" line="275"/>
         <source>Page width</source>
         <translation type="unfinished">Page width</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStatusBar.qml" line="51"/>
         <location filename="../../src/notation/notationtypes.h" line="276"/>
         <source>Whole page</source>
         <translation type="unfinished">Whole page</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStatusBar.qml" line="53"/>
         <location filename="../../src/notation/notationtypes.h" line="277"/>
         <source>Two pages</source>
         <translation type="unfinished">Two pages</translation>
@@ -31632,6 +31700,18 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/playback/view/playbacktoolbarmodel.cpp" line="149"/>
         <source>MIDI input pitch</source>
         <translation type="unfinished">MIDI input pitch</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/previewpagesmodel.cpp" line="38"/>
+        <source>%1 mm</source>
+        <extracomment>A length in millimeters; %1 is the number</extracomment>
+        <translation type="unfinished">%1 mm</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/previewpagesmodel.cpp" line="51"/>
+        <source>%1 × %2 mm</source>
+        <extracomment>The size of a page, width × height; %1 and %2 are numbers</extracomment>
+        <translation type="unfinished">%1 × %2 mm</translation>
     </message>
 </context>
 <context>
@@ -36890,23 +36970,23 @@ failed: %2</translation>
         <translation type="unfinished">Saving online…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2507"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2502"/>
         <source>File “%1” seems not corrupted</source>
         <translation type="unfinished">File “%1” seems not corrupted</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2508"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2503"/>
         <source>This file does not seem to contain errors.</source>
         <translation type="unfinished">This file does not seem to contain errors.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2511"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2506"/>
         <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1854"/>
         <source>File “%1” is corrupted</source>
         <translation type="unfinished">File “%1” is corrupted</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2513"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2508"/>
         <source>This file contains errors that could cause MuseScore Studio to malfunction. Please fix those at the earliest, to prevent crashes and further corruptions.</source>
         <translation type="unfinished">This file contains errors that could cause MuseScore Studio to malfunction. Please fix those at the earliest, to prevent crashes and further corruptions.</translation>
     </message>
@@ -37309,33 +37389,41 @@ failed: %2</translation>
 <context>
     <name>project/export</name>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewPage.qml" line="49"/>
         <location filename="../../src/project/qml/MuseScore/Project/ExportDialog.qml" line="35"/>
+        <location filename="../../src/project/qml/MuseScore/Project/ExportPanel.qml" line="98"/>
         <location filename="../../src/project/internal/exportprojectscenario.cpp" line="92"/>
         <source>Export</source>
         <translation type="unfinished">Export</translation>
     </message>
     <message>
         <location filename="../../src/project/qml/MuseScore/Project/ExportDialog.qml" line="67"/>
+        <location filename="../../src/project/qml/MuseScore/Project/ExportPanel.qml" line="81"/>
+        <location filename="../../src/project/qml/MuseScore/Project/ExportPanel.qml" line="171"/>
         <source>Select parts to export</source>
         <translation type="unfinished">Select parts to export</translation>
     </message>
     <message>
         <location filename="../../src/project/qml/MuseScore/Project/ExportDialog.qml" line="95"/>
+        <location filename="../../src/project/qml/MuseScore/Project/ExportPanel.qml" line="189"/>
         <source>Select all</source>
         <translation type="unfinished">Select all</translation>
     </message>
     <message>
         <location filename="../../src/project/qml/MuseScore/Project/ExportDialog.qml" line="109"/>
+        <location filename="../../src/project/qml/MuseScore/Project/ExportPanel.qml" line="189"/>
         <source>Clear selection</source>
         <translation type="unfinished">Clear selection</translation>
     </message>
     <message>
         <location filename="../../src/project/qml/MuseScore/Project/ExportDialog.qml" line="128"/>
+        <location filename="../../src/project/qml/MuseScore/Project/ExportPanel.qml" line="248"/>
         <source>Export settings</source>
         <translation type="unfinished">Export settings</translation>
     </message>
     <message>
         <location filename="../../src/project/qml/MuseScore/Project/ExportDialog.qml" line="154"/>
+        <location filename="../../src/project/qml/MuseScore/Project/ExportPanel.qml" line="305"/>
         <source>Export…</source>
         <translation type="unfinished">Export…</translation>
     </message>
@@ -37365,47 +37453,54 @@ failed: %2</translation>
         <translation type="unfinished">Each selected part will be exported as a separate audio file.</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/ExportOptionsView.qml" line="52"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/ExportOptionsView.qml" line="60"/>
         <source>Format:</source>
         <translation type="unfinished">Format:</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/ExportOptionsView.qml" line="95"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/ExportOptionsView.qml" line="103"/>
         <source>File type:</source>
         <translation type="unfinished">File type:</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/ExportOptionsView.qml" line="186"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/ExportOptionsView.qml" line="201"/>
         <source>Open destination folder on export</source>
         <translation type="unfinished">Open destination folder on export</translation>
     </message>
     <message>
+        <location filename="../../src/project/qml/MuseScore/Project/ExportPanel.qml" line="211"/>
         <location filename="../../src/project/qml/MuseScore/Project/internal/Export/ExportScoresListView.qml" line="72"/>
         <source>Main score</source>
         <translation type="unfinished">Main score</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/MeiSettingsPage.qml" line="31"/>
+        <location filename="../../src/project/qml/MuseScore/Project/ExportPanel.qml" line="289"/>
+        <source>Print…</source>
+        <extracomment>The dialog of the printer</extracomment>
+        <translation type="unfinished">Print…</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/MeiSettingsPage.qml" line="35"/>
         <source>Include page and system breaks</source>
         <translation type="unfinished">Include page and system breaks</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/MeiSettingsPage.qml" line="45"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/MeiSettingsPage.qml" line="53"/>
         <source>Use MuseScore element IDs</source>
         <translation type="unfinished">Use MuseScore element IDs</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/MidiSettingsPage.qml" line="31"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/MidiSettingsPage.qml" line="35"/>
         <source>Expand repeats</source>
         <translation type="unfinished">Expand repeats</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/MidiSettingsPage.qml" line="45"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/MidiSettingsPage.qml" line="53"/>
         <source>Export RPNs</source>
         <translation type="unfinished">Export RPNs</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/MidiSettingsPage.qml" line="59"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/MidiSettingsPage.qml" line="67"/>
         <source>Each selected part will be exported as a separate MIDI file.</source>
         <translation type="unfinished">Each selected part will be exported as a separate MIDI file.</translation>
     </message>
@@ -37416,32 +37511,32 @@ failed: %2</translation>
         <translation type="unfinished">Resolution:</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/PdfSettingsPage.qml" line="61"/>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/PngSettingsPage.qml" line="60"/>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/SvgSettingsPage.qml" line="31"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/PdfSettingsPage.qml" line="65"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/PngSettingsPage.qml" line="64"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/SvgSettingsPage.qml" line="35"/>
         <source>Transparent background</source>
         <translation type="unfinished">Transparent background</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/PdfSettingsPage.qml" line="77"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/PdfSettingsPage.qml" line="85"/>
         <source>Vectorize text</source>
         <extracomment>Convert text and music symbols to vector paths instead of embedding font subsets in the PDF.</extracomment>
         <translation type="unfinished">Vectorize text</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/PdfSettingsPage.qml" line="93"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/PdfSettingsPage.qml" line="101"/>
         <source>PDF creator:</source>
         <extracomment>Program name written into the PDF metadata as the document&apos;s creator.</extracomment>
         <translation type="unfinished">PDF creator:</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/PngSettingsPage.qml" line="74"/>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/SvgSettingsPage.qml" line="59"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/PngSettingsPage.qml" line="78"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/SvgSettingsPage.qml" line="67"/>
         <source>Each page of the selected parts will be exported as a separate %1 file.</source>
         <translation type="unfinished">Each page of the selected parts will be exported as a separate %1 file.</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/SvgSettingsPage.qml" line="45"/>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/SvgSettingsPage.qml" line="53"/>
         <source>Masking compatibility (Adobe Illustrator only)</source>
         <translation type="unfinished">Masking compatibility (Adobe Illustrator only)</translation>
     </message>
@@ -37632,40 +37727,40 @@ failed: %2</translation>
         <translation type="unfinished">MEI files</translation>
     </message>
     <message>
-        <location filename="../../src/project/view/exportdialogmodel.cpp" line="308"/>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="311"/>
         <source>Each page to a separate file</source>
         <translation type="unfinished">Each page to a separate file</translation>
     </message>
     <message>
-        <location filename="../../src/project/view/exportdialogmodel.cpp" line="309"/>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="312"/>
         <source>Each part to a separate file</source>
         <translation type="unfinished">Each part to a separate file</translation>
     </message>
     <message>
-        <location filename="../../src/project/view/exportdialogmodel.cpp" line="310"/>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="313"/>
         <source>All parts combined in one file</source>
         <translation type="unfinished">All parts combined in one file</translation>
     </message>
     <message>
-        <location filename="../../src/project/view/exportdialogmodel.cpp" line="625"/>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="628"/>
         <source>All layout</source>
         <extracomment>Specifies to which extent layout customizations should be exported to MusicXML.</extracomment>
         <translation type="unfinished">All layout</translation>
     </message>
     <message>
-        <location filename="../../src/project/view/exportdialogmodel.cpp" line="627"/>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="630"/>
         <source>System and page breaks</source>
         <extracomment>Specifies to which extent layout customizations should be exported to MusicXML.</extracomment>
         <translation type="unfinished">System and page breaks</translation>
     </message>
     <message>
-        <location filename="../../src/project/view/exportdialogmodel.cpp" line="629"/>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="632"/>
         <source>Manually added system and page breaks only</source>
         <extracomment>Specifies to which extent layout customizations should be exported to MusicXML.</extracomment>
         <translation type="unfinished">Manually added system and page breaks only</translation>
     </message>
     <message>
-        <location filename="../../src/project/view/exportdialogmodel.cpp" line="631"/>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="634"/>
         <source>No system or page breaks</source>
         <extracomment>Specifies to which extent layout customizations should be exported to MusicXML.</extracomment>
         <translation type="unfinished">No system or page breaks</translation>
@@ -38536,11 +38631,13 @@ The score will be saved as:
         <translation type="unfinished">Save this score to your MuseScore.com account</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStrip.qml" line="135"/>
         <location filename="../../src/appshell/view/publish/publishtoolbarmodel.cpp" line="48"/>
         <source>Share this score and its audio on MuseScore.com</source>
         <translation type="unfinished">Share this score and its audio on MuseScore.com</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStrip.qml" line="148"/>
         <location filename="../../src/appshell/view/publish/publishtoolbarmodel.cpp" line="49"/>
         <source>Share the audio from this score on Audio.com</source>
         <translation type="unfinished">Share the audio from this score on Audio.com</translation>
@@ -38584,6 +38681,7 @@ The score will be saved as:
 <context>
     <name>publish</name>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStrip.qml" line="50"/>
         <location filename="../../src/appshell/qml/PublishPage/PublishToolBar.qml" line="31"/>
         <source>Publish toolbar</source>
         <translation type="unfinished">Publish toolbar</translation>

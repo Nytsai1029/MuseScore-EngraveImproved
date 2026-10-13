@@ -79,7 +79,7 @@ QtObject {
     //! NOTE: the title of an action for a button. In some languages the access key of the menu item
     //! is written after the title, in brackets (e.g. "样式… (S)"), which a button does not need
     function plainTitle(title) {
-        return String(title).replace(/\s*[(（][A-Za-z0-9][)）]\s*$/, "")
+        return String(title).replace(/\s*[(（][A-Za-z0-9][)）]\s*(…|\.\.\.)?\s*$/, "$1")
     }
 
     function font(pixelSize, weight) {

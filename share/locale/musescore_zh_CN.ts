@@ -10970,6 +10970,66 @@ This action cannot be undone.</source>
         <source>Stem, beam, ledger lines and offsets are in Engrave.</source>
         <translation>符干、符杠、加线与偏移在“排版”模式中调整。</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="85"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewPage.qml" line="235"/>
+        <source>%n page(s)</source>
+        <extracomment>The number of pages of the score
+----------
+The name of the score and the number of its pages, e.g. &quot;Träumerei · 2 pages&quot;</extracomment>
+        <translation>
+            <numerusform>%n 页</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="202"/>
+        <source>Page</source>
+        <translation>页面规格</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="138"/>
+        <source>Page %1</source>
+        <extracomment>The number of a page of the score</extracomment>
+        <translation>第 %1 页</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStatusBar.qml" line="94"/>
+        <source>Page %1 of %2</source>
+        <extracomment>The page which is shown, and the number of pages; e.g. &quot;Page 2 of 5&quot;</extracomment>
+        <translation>第 %1 页，共 %2 页</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="51"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="77"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewPage.qml" line="47"/>
+        <source>Pages</source>
+        <translation>页面</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="212"/>
+        <source>Paper</source>
+        <translation>纸张</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="213"/>
+        <source>Printable width</source>
+        <translation>可打印宽度</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStrip.qml" line="164"/>
+        <source>Separate window</source>
+        <translation>单独窗口</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStrip.qml" line="168"/>
+        <source>Show the preview as a separate window</source>
+        <translation>将预览显示为单独窗口</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="214"/>
+        <source>Staff space</source>
+        <translation>谱间</translation>
+    </message>
 </context>
 <context>
     <name>appshell/about</name>
@@ -31037,6 +31097,18 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <source>Zoom</source>
         <translation>缩放</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/view/previewpagesmodel.cpp" line="38"/>
+        <source>%1 mm</source>
+        <extracomment>A length in millimeters; %1 is the number</extracomment>
+        <translation>%1 毫米</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/previewpagesmodel.cpp" line="51"/>
+        <source>%1 × %2 mm</source>
+        <extracomment>The size of a page, width × height; %1 and %2 are numbers</extracomment>
+        <translation>%1 × %2 毫米</translation>
+    </message>
 </context>
 <context>
     <name>notation/add-remove-system-breaks</name>
@@ -36987,6 +37059,18 @@ failed: %2</source>
         <source>No system or page breaks</source>
         <extracomment>Specifies to which extent layout customizations should be exported to MusicXML.</extracomment>
         <translation>无换行符或分页符</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/ExportPanel.qml" line="289"/>
+        <source>Print…</source>
+        <extracomment>The dialog of the printer</extracomment>
+        <translation>打印…</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/PdfSettingsPage.qml" line="101"/>
+        <source>PDF creator:</source>
+        <extracomment>Program name written into the PDF metadata as the document&apos;s creator.</extracomment>
+        <translation>PDF 创建者：</translation>
     </message>
 </context>
 <context>

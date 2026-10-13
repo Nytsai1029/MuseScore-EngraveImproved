@@ -22,19 +22,29 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 
+import Muse.Ui 1.0
 import Muse.UiComponents 1.0
 
-ColumnLayout {
+GridLayout {
     id: root
 
-    property alias text: label.text
+    property string text: ""
 
-    width: Math.min(implicitWidth, parent.width)
-    spacing: 8
+    //! NOTE: in the Atelier skin, the name of the option is before its control in one line (and not above it)
+    readonly property bool rowStyle: ui.theme.skin === "atelier"
+
+    width: rowStyle ? parent.width : Math.min(implicitWidth, parent.width)
+
+    columns: rowStyle ? 2 : 1
+    rowSpacing: 8
+    columnSpacing: 12
 
     StyledTextLabel {
         id: label
         Layout.fillWidth: true
         horizontalAlignment: Text.AlignLeft
+
+        //! NOTE: a name in a line does not end with a colon
+        text: root.rowStyle ? root.text.replace(/\s*[:：]\s*$/, "") : root.text
     }
 }

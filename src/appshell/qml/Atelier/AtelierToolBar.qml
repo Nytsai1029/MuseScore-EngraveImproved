@@ -329,17 +329,24 @@ Rectangle {
             navigation.panel: navPanel
             navigation.order: 50
 
+            //! NOTE: the action of the mixer is for the pages where the score is edited; the drawer is on each page
             onClicked: {
-                paneActions.trigger("toggle-mixer")
+                root.shell.togglePanel(root.uri, "mixerPanel")
             }
         }
 
+        //! NOTE: nothing is edited in the Preview mode
         AtDivider {
             anchors.verticalCenter: parent.verticalCenter
+            visible: undoRedo.visible
         }
 
         AtelierUndoRedo {
+            id: undoRedo
+
             anchors.verticalCenter: parent.verticalCenter
+
+            visible: root.uri !== "musescore://publish"
 
             navigationPanel: navPanel
             navigationOrderStart: 60

@@ -21,6 +21,8 @@
  */
 #pragma once
 
+#include <optional>
+
 #include <QtEvents>
 
 #include "modularity/ioc.h"
@@ -108,11 +110,16 @@ public:
 
     void init();
 
-    void initZoom();
+    //! NOTE Without a given type, the view starts with the zoom from the preferences
+    void initZoom(std::optional<ZoomType> zoomType = std::nullopt);
     void initCanvasPos();
     void updateZoomAfterSizeChange();
     void zoomIn();
     void zoomOut();
+    void zoomToPageWidth();
+    void zoomToWholePage();
+    void zoomToTwoPages();
+    int currentZoomPercentage() const;
     void nextScreen();
     void previousScreen();
     void nextPage();
@@ -156,17 +163,13 @@ private:
 
     void onNotationChanged();
 
-    void zoomToPageWidth();
     void doZoomToPageWidth();
-    void zoomToWholePage();
     void doZoomToWholePage();
-    void zoomToTwoPages();
     void doZoomToTwoPages();
     void moveScreen(int direction);
     void movePage(int direction);
 
     int currentZoomIndex() const;
-    int currentZoomPercentage() const;
     muse::PointF findZoomFocusPoint() const;
     void setScaling(qreal scaling, const muse::PointF& pos = muse::PointF(), bool overrideZoomType = true);
     void setZoom(int zoomPercentage, const muse::PointF& pos = muse::PointF());

@@ -11,6 +11,7 @@
         <file>qml/MuseScore/Project/AskSaveLocationTypeDialog.qml</file>
         <file>qml/MuseScore/Project/SaveToCloudDialog.qml</file>
         <file>qml/MuseScore/Project/ExportDialog.qml</file>
+        <file>qml/MuseScore/Project/ExportPanel.qml</file>
         <file>qml/MuseScore/Project/internal/Export/ExportScoresListView.qml</file>
         <file>qml/MuseScore/Project/internal/Export/ExportOptionsView.qml</file>
         <file>qml/MuseScore/Project/internal/Export/ExportOptionItem.qml</file>

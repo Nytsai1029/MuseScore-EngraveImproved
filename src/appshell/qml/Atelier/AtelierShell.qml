@@ -174,6 +174,7 @@ AtelierShellView {
 
             sourceComponent: AtelierPreviewPage {
                 shell: root
+                context: contextModel
             }
         }
 

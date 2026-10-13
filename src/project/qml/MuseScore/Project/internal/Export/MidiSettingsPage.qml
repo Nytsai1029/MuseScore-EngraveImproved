@@ -28,6 +28,10 @@ ExportSettingsPage {
 
     CheckBox {
         width: parent.width
+
+        showAsSwitch: root.switchStyle
+        switchOnRight: root.switchStyle
+
         text: qsTrc("project/export", "Expand repeats")
 
         navigation.name: "ExpandRepeatsCheckbox"
@@ -42,6 +46,10 @@ ExportSettingsPage {
 
     CheckBox {
         width: parent.width
+
+        showAsSwitch: root.switchStyle
+        switchOnRight: root.switchStyle
+
         text: qsTrc("project/export", "Export RPNs")
 
         navigation.name: "ExportRpnsCheckbox"

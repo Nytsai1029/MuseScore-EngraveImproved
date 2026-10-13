@@ -33,6 +33,13 @@ Column {
     required property ExportDialogModel exportModel
     property alias navigation: navPanel
 
+    //! NOTE: the view can be shown in two parts (the format in one place, its settings in another)
+    property bool showFormat: true
+    property bool showSettings: true
+
+    //! NOTE: in the Atelier skin, the options are switches at the right side
+    readonly property bool switchStyle: ui.theme.skin === "atelier"
+
     spacing: 12
 
     Component.onCompleted: {
@@ -49,6 +56,7 @@ Column {
     ExportOptionItem {
         id: typeLabel
         width: parent.width
+        visible: root.showFormat
         text: qsTrc("project/export", "Format:")
 
         StyledDropdown {
@@ -91,7 +99,7 @@ Column {
     ExportOptionItem {
         id: subtypeLabel
         width: parent.width
-        visible: subtypeComboBox.count > 0
+        visible: root.showFormat && subtypeComboBox.count > 0
         text: qsTrc("project/export", "File type:")
 
         StyledDropdown {
@@ -125,7 +133,7 @@ Column {
     Loader {
         id: pageLoader
         width: parent.width
-        visible: status === Loader.Ready
+        visible: root.showSettings && status === Loader.Ready
 
         function refresh() {
             if (!root.exportModel.selectedExportType.settingsPagePath) {
@@ -154,7 +162,7 @@ Column {
         id: exportType
 
         width: parent.width
-        visible: count > 1
+        visible: root.showSettings && count > 1
         spacing: 12
         orientation: Qt.Vertical
 
@@ -179,10 +187,17 @@ Column {
     SeparatorLine {
         anchors.topMargin: 24
         anchors.bottomMargin: 24
+
+        visible: root.showSettings
     }
 
     CheckBox {
         width: parent.width
+        visible: root.showSettings
+
+        showAsSwitch: root.switchStyle
+        switchOnRight: root.switchStyle
+
         text: qsTrc("project/export", "Open destination folder on export")
 
         navigation.name: "OpenDestinationFolderOnExportCheckbox"

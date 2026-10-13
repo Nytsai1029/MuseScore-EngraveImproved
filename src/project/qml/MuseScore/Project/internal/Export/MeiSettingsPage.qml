@@ -28,6 +28,10 @@ ExportSettingsPage {
 
     CheckBox {
         width: parent.width
+
+        showAsSwitch: root.switchStyle
+        switchOnRight: root.switchStyle
+
         text: qsTrc("project/export", "Include page and system breaks")
 
         navigation.name: "MeiExportLayout"
@@ -42,6 +46,10 @@ ExportSettingsPage {
 
     CheckBox {
         width: parent.width
+
+        showAsSwitch: root.switchStyle
+        switchOnRight: root.switchStyle
+
         text: qsTrc("project/export", "Use MuseScore element IDs")
 
         navigation.name: "MeiUseMuseScoreIds"

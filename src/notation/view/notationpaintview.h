@@ -31,14 +31,42 @@ class NotationPaintView : public AbstractNotationPaintView
 
     Q_PROPERTY(bool syncViewState READ syncViewState WRITE setSyncViewState NOTIFY syncViewStateChanged)
 
+    //! NOTE A view with its own zoom (see syncViewState) can start with the whole page fitted in,
+    //! whatever zoom the score is edited with
+    Q_PROPERTY(bool startWithWholePage READ startWithWholePage WRITE setStartWithWholePage NOTIFY startWithWholePageChanged)
+
+    //! NOTE The zoom of this view (which is not the zoom of the other views, if syncViewState is false)
+    Q_PROPERTY(int zoomPercentage READ zoomPercentage NOTIFY matrixChanged)
+    Q_PROPERTY(ZoomKind zoomKind READ zoomKind NOTIFY zoomKindChanged)
+
 public:
     explicit NotationPaintView(QQuickItem* parent = nullptr);
+
+    enum ZoomKind {
+        ZoomByPercentage,
+        ZoomToPageWidth,
+        ZoomToWholePage,
+        ZoomToTwoPages
+    };
+    Q_ENUM(ZoomKind)
 
     bool syncViewState() const;
     void setSyncViewState(bool sync);
 
+    bool startWithWholePage() const;
+    void setStartWithWholePage(bool wholePage);
+
+    int zoomPercentage() const;
+    ZoomKind zoomKind() const;
+
+    Q_INVOKABLE void zoomToPageWidth();
+    Q_INVOKABLE void zoomToWholePage();
+    Q_INVOKABLE void zoomToTwoPages();
+
 signals:
     void syncViewStateChanged();
+    void startWithWholePageChanged();
+    void zoomKindChanged();
 
 private:
     void onLoadNotation(INotationPtr notation) override;
@@ -57,6 +85,7 @@ private:
     bool m_isLocalMatrixUpdate = false;
     bool m_viewStateMatrixConnectionActive = false;
     bool m_syncViewState = true;
+    bool m_startWithWholePage = false;
     bool m_isLocalMatrixInited = false;
     ZoomType m_localZoomType = ZoomType::Percentage;
 };

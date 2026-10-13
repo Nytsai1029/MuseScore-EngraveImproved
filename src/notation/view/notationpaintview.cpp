@@ -50,6 +50,59 @@ void NotationPaintView::setSyncViewState(bool sync)
     emit syncViewStateChanged();
 }
 
+bool NotationPaintView::startWithWholePage() const
+{
+    return m_startWithWholePage;
+}
+
+void NotationPaintView::setStartWithWholePage(bool wholePage)
+{
+    if (m_startWithWholePage == wholePage) {
+        return;
+    }
+
+    m_startWithWholePage = wholePage;
+    emit startWithWholePageChanged();
+}
+
+int NotationPaintView::zoomPercentage() const
+{
+    return notation() ? inputController()->currentZoomPercentage() : 100;
+}
+
+NotationPaintView::ZoomKind NotationPaintView::zoomKind() const
+{
+    switch (zoomType()) {
+    case ZoomType::Percentage: return ZoomByPercentage;
+    case ZoomType::PageWidth: return ZoomToPageWidth;
+    case ZoomType::WholePage: return ZoomToWholePage;
+    case ZoomType::TwoPages: return ZoomToTwoPages;
+    }
+
+    return ZoomByPercentage;
+}
+
+void NotationPaintView::zoomToPageWidth()
+{
+    if (notation()) {
+        inputController()->zoomToPageWidth();
+    }
+}
+
+void NotationPaintView::zoomToWholePage()
+{
+    if (notation()) {
+        inputController()->zoomToWholePage();
+    }
+}
+
+void NotationPaintView::zoomToTwoPages()
+{
+    if (notation()) {
+        inputController()->zoomToTwoPages();
+    }
+}
+
 void NotationPaintView::onLoadNotation(INotationPtr notation)
 {
     m_isLocalMatrixInited = false;
@@ -96,7 +149,8 @@ void NotationPaintView::initZoomAndPosition()
         return;
     }
 
-    inputController()->initZoom();
+    const bool wholePage = !m_syncViewState && m_startWithWholePage;
+    inputController()->initZoom(wholePage ? std::optional<ZoomType>(ZoomType::WholePage) : std::nullopt);
     inputController()->initCanvasPos();
 }
 
@@ -105,8 +159,9 @@ void NotationPaintView::onMatrixChanged(const Transform& oldMatrix, const Transf
     AbstractNotationPaintView::onMatrixChanged(oldMatrix, newMatrix, overrideZoomType);
 
     if (!m_syncViewState) {
-        if (overrideZoomType) {
+        if (overrideZoomType && m_localZoomType != ZoomType::Percentage) {
             m_localZoomType = ZoomType::Percentage;
+            emit zoomKindChanged();
         }
         return;
     }
@@ -116,6 +171,7 @@ void NotationPaintView::onMatrixChanged(const Transform& oldMatrix, const Transf
 
         if (overrideZoomType) {
             notation()->viewState()->setZoomType(ZoomType::Percentage);
+            emit zoomKindChanged();
         }
     }
 }
@@ -152,8 +208,12 @@ void NotationPaintView::setZoomType(ZoomType type)
 {
     if (m_syncViewState) {
         AbstractNotationPaintView::setZoomType(type);
+        emit zoomKindChanged();
         return;
     }
 
-    m_localZoomType = type;
+    if (m_localZoomType != type) {
+        m_localZoomType = type;
+        emit zoomKindChanged();
+    }
 }

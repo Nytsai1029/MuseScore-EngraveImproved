@@ -126,6 +126,9 @@ void ExportDialogModel::load()
 
     beginResetModel();
 
+    //! NOTE The model can be loaded again (a panel which stays open while the score and its parts change)
+    m_notations.clear();
+
     IMasterNotationPtr masterNotation = this->masterNotation();
     if (!masterNotation) {
         endResetModel();

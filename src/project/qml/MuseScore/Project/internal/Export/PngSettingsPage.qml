@@ -57,6 +57,10 @@ ExportSettingsPage {
 
     CheckBox {
         width: parent.width
+
+        showAsSwitch: root.switchStyle
+        switchOnRight: root.switchStyle
+
         text: qsTrc("project/export", "Transparent background")
 
         navigation.name: "TransparentBackgroundCheckbox"
