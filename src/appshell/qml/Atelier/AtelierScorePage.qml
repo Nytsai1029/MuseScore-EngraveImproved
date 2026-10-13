@@ -193,7 +193,7 @@ Item {
         anchors.top: strip.bottom
         anchors.bottom: statusBar.top
 
-        width: visible ? AtStyle.libraryWidth : 0
+        width: visible ? leftResizer.paneWidth : 0
         visible: root.isOpen("palettesPanel")
 
         PaletteLibrary {
@@ -236,7 +236,7 @@ Item {
         anchors.top: strip.bottom
         anchors.bottom: statusBar.top
 
-        width: visible ? AtStyle.propertiesWidth : 0
+        width: visible ? rightResizer.paneWidth : 0
         visible: rightStack.hasOpenPanels
 
         Rectangle {
@@ -520,6 +520,39 @@ Item {
                 ]
             }
         }
+    }
+
+    // ---------- the edges of the panes: dragged, they change the widths of the panes ----------
+
+    AtelierPaneResizer {
+        id: leftResizer
+
+        shell: root.shell
+        pane: leftPane
+        edge: Qt.RightEdge
+
+        //! NOTE: the panes keep their widths from one mode to the other
+        pageUri: root.inputUri
+        name: "leftPane"
+
+        defaultWidth: AtStyle.libraryWidth
+        minimumWidth: 240
+        maximumWidth: Math.max(minimumWidth, Math.min(520, (root.width - 320) / 2))
+    }
+
+    AtelierPaneResizer {
+        id: rightResizer
+
+        shell: root.shell
+        pane: rightPane
+        edge: Qt.LeftEdge
+
+        pageUri: root.inputUri
+        name: "rightPane"
+
+        defaultWidth: AtStyle.propertiesWidth
+        minimumWidth: 260
+        maximumWidth: Math.max(minimumWidth, Math.min(520, (root.width - 320) / 2))
     }
 
     Component {

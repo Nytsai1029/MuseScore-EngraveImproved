@@ -36,6 +36,7 @@ using namespace muse;
 using namespace muse::dock;
 
 static const QString PANELS_STATE_KEY("atelier/panels");
+static const QString PANE_WIDTHS_KEY("atelier/paneWidths");
 static const QString WINDOW_GEOMETRY_KEY("atelier/window");
 
 static const QString MAXIMIZED_STATE("maximized");
@@ -69,9 +70,15 @@ int AtelierShellView::panelsRevision() const
     return m_panelsRevision;
 }
 
+int AtelierShellView::paneWidthsRevision() const
+{
+    return m_paneWidthsRevision;
+}
+
 void AtelierShellView::init()
 {
     readPanelStates();
+    readPaneWidths();
     restoreWindowGeometry();
 
     dockWindowProvider()->init(this);
@@ -173,6 +180,30 @@ void AtelierShellView::togglePanel(const QString& pageUri, const QString& name)
     setPanelOpen(pageUri, name, !isPanelOpen(pageUri, name));
 }
 
+int AtelierShellView::paneWidth(const QString& pageUri, const QString& name, int) const
+{
+    return m_paneWidths.value(panelKey(pageUri, name)).toInt();
+}
+
+void AtelierShellView::setPaneWidth(const QString& pageUri, const QString& name, int width)
+{
+    if (paneWidth(pageUri, name) == width) {
+        return;
+    }
+
+    const QString key = panelKey(pageUri, name);
+    if (width > 0) {
+        m_paneWidths[key] = width;
+    } else {
+        m_paneWidths.remove(key);
+    }
+
+    writePaneWidths();
+
+    ++m_paneWidthsRevision;
+    emit paneWidthsChanged();
+}
+
 void AtelierShellView::setDefaultNavigationControl(muse::ui::NavigationControl* control)
 {
     navigationController()->setDefaultNavigationControl(dynamic_cast<muse::ui::INavigationControl*>(control));
@@ -240,6 +271,12 @@ void AtelierShellView::restoreDefaultLayout()
 
     names.removeDuplicates();
     notifyAboutPanelsChanged(names);
+
+    m_paneWidths = QJsonObject();
+    uiConfiguration()->setUiItemState(PANE_WIDTHS_KEY, QString());
+
+    ++m_paneWidthsRevision;
+    emit paneWidthsChanged();
 }
 
 void AtelierShellView::readPanelStates()
@@ -256,6 +293,18 @@ void AtelierShellView::writePanelStates()
 
     const QByteArray json = QJsonDocument(m_savedPanelStates).toJson(QJsonDocument::Compact);
     uiConfiguration()->setUiItemState(PANELS_STATE_KEY, QString::fromUtf8(json));
+}
+
+void AtelierShellView::readPaneWidths()
+{
+    const QByteArray json = uiConfiguration()->uiItemState(PANE_WIDTHS_KEY).toUtf8();
+    m_paneWidths = QJsonDocument::fromJson(json).object();
+}
+
+void AtelierShellView::writePaneWidths()
+{
+    const QByteArray json = QJsonDocument(m_paneWidths).toJson(QJsonDocument::Compact);
+    uiConfiguration()->setUiItemState(PANE_WIDTHS_KEY, QString::fromUtf8(json));
 }
 
 void AtelierShellView::restoreWindowGeometry()

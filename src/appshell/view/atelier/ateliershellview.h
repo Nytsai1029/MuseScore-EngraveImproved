@@ -53,6 +53,9 @@ class AtelierShellView : public QQuickItem, public muse::dock::IDockWindow, publ
     //! NOTE Changes whenever a panel is opened or closed; pass it to isPanelOpen() to make a binding follow the state
     Q_PROPERTY(int panelsRevision READ panelsRevision NOTIFY panelsChanged)
 
+    //! NOTE The same for the widths of the side panes and paneWidth()
+    Q_PROPERTY(int paneWidthsRevision READ paneWidthsRevision NOTIFY paneWidthsChanged)
+
     muse::Inject<muse::ui::IUiConfiguration> uiConfiguration = { this };
     muse::Inject<muse::dock::IDockWindowProvider> dockWindowProvider = { this };
     muse::Inject<muse::ui::INavigationController> navigationController = { this };
@@ -64,6 +67,7 @@ public:
     QString currentPageUri() const;
     QVariantMap currentPageParams() const;
     int panelsRevision() const;
+    int paneWidthsRevision() const;
 
     Q_INVOKABLE void init();
     Q_INVOKABLE void loadPage(const QString& uri, const QVariantMap& params);
@@ -72,6 +76,11 @@ public:
     Q_INVOKABLE bool isPanelOpen(const QString& pageUri, const QString& name, int revision = 0) const;
     Q_INVOKABLE void setPanelOpen(const QString& pageUri, const QString& name, bool open);
     Q_INVOKABLE void togglePanel(const QString& pageUri, const QString& name);
+
+    //! NOTE The width which was given to a side pane of a page by dragging its edge
+    //! (0: none was given, or the pane has got its own width back)
+    Q_INVOKABLE int paneWidth(const QString& pageUri, const QString& name, int revision = 0) const;
+    Q_INVOKABLE void setPaneWidth(const QString& pageUri, const QString& name, int width);
 
     //! NOTE The control which gets the keyboard navigation when no other one has it (the score)
     Q_INVOKABLE void setDefaultNavigationControl(muse::ui::NavigationControl* control);
@@ -96,6 +105,7 @@ signals:
     void currentPageUriChanged();
     void currentPageParamsChanged();
     void panelsChanged();
+    void paneWidthsChanged();
 
 private:
     struct Panel {
@@ -107,6 +117,9 @@ private:
 
     void readPanelStates();
     void writePanelStates();
+
+    void readPaneWidths();
+    void writePaneWidths();
 
     void restoreWindowGeometry();
     void saveWindowGeometry();
@@ -120,6 +133,9 @@ private:
     QMap<QString, Panel> m_panels;
     QJsonObject m_savedPanelStates;
     int m_panelsRevision = 0;
+
+    QJsonObject m_paneWidths;
+    int m_paneWidthsRevision = 0;
 
     muse::async::Channel<QStringList> m_docksOpenStatusChanged;
 

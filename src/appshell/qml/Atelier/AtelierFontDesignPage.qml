@@ -535,7 +535,7 @@ Item {
         anchors.top: strip.bottom
         anchors.bottom: footer.top
 
-        width: visible ? AtStyle.libraryWidth : 0
+        width: visible ? leftResizer.paneWidth : 0
         visible: root.hasFont && root.isOpen(root.leftPaneName)
 
         AtPaneHeader {
@@ -572,7 +572,7 @@ Item {
         anchors.top: strip.bottom
         anchors.bottom: footer.top
 
-        width: visible ? 320 : 0
+        width: visible ? rightResizer.paneWidth : 0
         visible: root.hasFont && root.isOpen(root.rightPaneName)
 
         Rectangle {
@@ -610,5 +610,37 @@ Item {
         anchors.bottom: footer.top
 
         chromeVisible: false
+    }
+
+    // ---------- the edges of the panes: dragged, they change the widths of the panes ----------
+
+    AtelierPaneResizer {
+        id: leftResizer
+
+        shell: root.shell
+        pane: leftPane
+        edge: Qt.RightEdge
+
+        pageUri: root.pageUri
+        name: "leftPane"
+
+        defaultWidth: AtStyle.libraryWidth
+        minimumWidth: 220
+        maximumWidth: Math.max(minimumWidth, Math.min(520, (root.width - 320) / 2))
+    }
+
+    AtelierPaneResizer {
+        id: rightResizer
+
+        shell: root.shell
+        pane: rightPane
+        edge: Qt.LeftEdge
+
+        pageUri: root.pageUri
+        name: "rightPane"
+
+        defaultWidth: 320
+        minimumWidth: 280
+        maximumWidth: Math.max(minimumWidth, Math.min(520, (root.width - 320) / 2))
     }
 }

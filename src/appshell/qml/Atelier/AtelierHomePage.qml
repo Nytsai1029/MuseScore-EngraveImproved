@@ -111,7 +111,7 @@ Item {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
 
-        width: visible ? 232 : 0
+        width: visible ? sidebarResizer.paneWidth : 0
         visible: root.shell.isPanelOpen(root.pageUri, "homeMenu", root.shell.panelsRevision)
 
         color: AtStyle.island2
@@ -323,6 +323,23 @@ Item {
 
             return scoresComp
         }
+    }
+
+    // ---------- the edge of the sidebar: dragged, it changes the width of the sidebar ----------
+
+    AtelierPaneResizer {
+        id: sidebarResizer
+
+        shell: root.shell
+        pane: sidebar
+        edge: Qt.RightEdge
+
+        pageUri: root.pageUri
+        name: "leftPane"
+
+        defaultWidth: 232
+        minimumWidth: 180
+        maximumWidth: Math.max(minimumWidth, Math.min(360, (root.width - 320) / 2))
     }
 
     Component {
