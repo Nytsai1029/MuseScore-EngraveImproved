@@ -147,6 +147,9 @@ void PreferencesModel::load(const QString& currentPageId)
         const QString& lastOpenedPageId = configuration()->preferencesDialogLastOpenedPageId();
         if (lastOpenedPageId.isEmpty() || lastOpenedPageId == "update") {
             setCurrentPageId("general");
+        } else if (lastOpenedPageId == "cloud") {
+            //! NOTE The former id of the "Save" page
+            setCurrentPageId("save");
         } else {
             setCurrentPageId(lastOpenedPageId);
         }
@@ -164,7 +167,7 @@ void PreferencesModel::load(const QString& currentPageId)
         makeItem("canvas", QT_TRANSLATE_NOOP("appshell/preferences", "Canvas"), IconCode::Code::NEW_FILE,
                  "Preferences/CanvasPreferencesPage.qml"),
 
-        makeItem("cloud", QT_TRANSLATE_NOOP("appshell/preferences", "Save & publish"), IconCode::Code::CLOUD_FILE,
+        makeItem("save", QT_TRANSLATE_NOOP("appshell/preferences", "Save"), IconCode::Code::SAVE,
                  "Preferences/SaveAndPublishPreferencesPage.qml"),
 
         makeItem("note-input", QT_TRANSLATE_NOOP("appshell/preferences", "Note input"), IconCode::Code::EDIT,

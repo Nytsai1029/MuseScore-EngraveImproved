@@ -37,10 +37,6 @@ void SaveAndPublishPreferencesModel::load()
     projectConfiguration()->autoSaveIntervalChanged().onReceive(this, [this](int minutes) {
         emit autoSaveIntervalChanged(minutes);
     });
-
-    projectConfiguration()->alsoShareAudioComChanged().onReceive(this, [this](bool share) {
-        emit alsoShareAudioComChanged(share);
-    });
 }
 
 bool SaveAndPublishPreferencesModel::isAutoSaveEnabled() const
@@ -51,11 +47,6 @@ bool SaveAndPublishPreferencesModel::isAutoSaveEnabled() const
 int SaveAndPublishPreferencesModel::autoSaveInterval() const
 {
     return projectConfiguration()->autoSaveIntervalMinutes();
-}
-
-bool SaveAndPublishPreferencesModel::alsoShareAudioCom() const
-{
-    return projectConfiguration()->alsoShareAudioCom();
 }
 
 void SaveAndPublishPreferencesModel::setAutoSaveEnabled(bool enabled)
@@ -74,13 +65,4 @@ void SaveAndPublishPreferencesModel::setAutoSaveInterval(int minutes)
     }
 
     projectConfiguration()->setAutoSaveInterval(minutes);
-}
-
-void SaveAndPublishPreferencesModel::setAlsoShareAudioCom(bool share)
-{
-    if (share == alsoShareAudioCom()) {
-        return;
-    }
-
-    projectConfiguration()->setAlsoShareAudioCom(share);
 }

@@ -104,7 +104,6 @@ Rectangle {
 
                 text: model.title
                 needSave: model.needSave
-                isCloud: model.isCloud
 
                 ButtonGroup.group: notationsView.radioButtonGroup
                 checked: index === notationsView.currentIndex

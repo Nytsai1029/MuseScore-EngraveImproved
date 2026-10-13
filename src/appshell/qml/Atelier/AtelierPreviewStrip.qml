@@ -27,7 +27,7 @@ import MuseScore.AppShell 1.0
 import MuseScore.Atelier 1.0
 
 //! NOTE: the tool strip of the Preview mode: where the score goes from here
-//! (the printer, a file, MuseScore.com, Audio.com), and the preview as a window of its own
+//! (the printer, a file), and the preview as a window of its own
 Rectangle {
     id: root
 
@@ -53,7 +53,7 @@ Rectangle {
     AtelierActionsModel {
         id: actions
 
-        actionCodes: ["print", "file-export", "file-publish", "file-share-audio"]
+        actionCodes: ["print", "file-export"]
 
         Component.onCompleted: {
             load()
@@ -76,14 +76,11 @@ Rectangle {
         property string code: ""
         readonly property var item: root.items[code]
 
-        //! NOTE: the actions which leave the computer are quieter
-        property bool quiet: false
-
         enabled: Boolean(item) && item.enabled
 
         text: Boolean(item) ? AtStyle.plainTitle(item.title) : ""
         textFont: AtStyle.font(12.5, Font.Medium)
-        contentColor: quiet ? AtStyle.text2 : AtStyle.text
+        contentColor: AtStyle.text
 
         keyHint: Boolean(item) ? AtStyle.keyHint(item.shortcuts) : ""
         keyHintsVisible: root.keyHintsVisible
@@ -126,38 +123,6 @@ Rectangle {
             sideMargin: 8
         }
 
-        ActionButton {
-            code: "file-publish"
-            shape: "cloud-up"
-            quiet: true
-            navigation.order: 3
-
-            toolTipTitle: qsTrc("project/save", "Share this score and its audio on MuseScore.com")
-
-            onClicked: {
-                actions.trigger(code)
-            }
-        }
-
-        ActionButton {
-            code: "file-share-audio"
-            shape: "audio"
-            quiet: true
-            navigation.order: 4
-
-            toolTipTitle: qsTrc("project/save", "Share the audio from this score on Audio.com")
-
-            onClicked: {
-                actions.trigger(code)
-            }
-        }
-
-        AtDivider {
-            y: 5
-            lineHeight: 22
-            sideMargin: 8
-        }
-
         AtStripButton {
             shape: "window"
 
@@ -171,7 +136,7 @@ Rectangle {
 
             navigation.panel: root.navigationPanel
             navigation.name: "SeparateWindow"
-            navigation.order: 5
+            navigation.order: 3
 
             onClicked: {
                 root.separateWindowRequested()

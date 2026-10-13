@@ -34,24 +34,9 @@ class IOpenSaveProjectScenario : MODULE_EXPORT_INTERFACE
     INTERFACE_ID(IOpenSaveProjectScenario)
 
 public:
-    virtual muse::RetVal<SaveLocation> askSaveLocation(INotationProjectPtr project, SaveMode mode,
-                                                       SaveLocationType preselectedType = SaveLocationType::Undefined) const = 0;
+    virtual muse::RetVal<SaveLocation> askSaveLocation(INotationProjectPtr project, SaveMode mode) const = 0;
 
     virtual muse::RetVal<muse::io::path_t> askLocalPath(INotationProjectPtr project, SaveMode mode) const = 0;
-    virtual muse::RetVal<CloudProjectInfo> askCloudLocation(INotationProjectPtr project, SaveMode mode) const = 0;
-    virtual muse::RetVal<CloudProjectInfo> askPublishLocation(INotationProjectPtr project) const = 0;
-    virtual muse::RetVal<CloudAudioInfo> askShareAudioLocation(INotationProjectPtr project) const = 0;
-
-    virtual bool warnBeforeSavingToExistingPubliclyVisibleCloudProject() const = 0;
-
-    static constexpr int RET_CODE_CONFLICT_RESPONSE_SAVE_AS = 1235;
-    static constexpr int RET_CODE_CONFLICT_RESPONSE_PUBLISH_AS_NEW_SCORE = 1236;
-    static constexpr int RET_CODE_CONFLICT_RESPONSE_REPLACE = 1237;
-
-    virtual void showCloudOpenError(const muse::Ret& ret) const = 0;
-    virtual muse::Ret showCloudSaveError(const muse::Ret& ret, const CloudProjectInfo& info, bool publishMode,
-                                         bool alreadyAttempted) const = 0;
-    virtual muse::Ret showAudioCloudShareError(const muse::Ret& ret) const = 0;
 };
 }
 

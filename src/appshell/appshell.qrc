@@ -59,7 +59,6 @@
         <file>qml/Preferences/internal/ComboBoxWithTitle.qml</file>
         <file>qml/Preferences/internal/IncrementalPropertyControlWithTitle.qml</file>
         <file>qml/Preferences/internal/KeyboardLayoutsSection.qml</file>
-        <file>qml/Preferences/internal/SaveToCloudSection.qml</file>
         <file>qml/Preferences/internal/WelcomeDialogSection.qml</file>
         <file>qml/DevTools/KeyNav/KeyNavExample.qml</file>
         <file>qml/DevTools/KeyNav/KeyNavSection.qml</file>
@@ -129,7 +128,6 @@
         <file>qml/Preferences/internal/BrailleSection.qml</file>
         <file>qml/Preferences/internal/BrailleAdvancedSection.qml</file>
         <file>qml/Preferences/internal/MeiSection.qml</file>
-        <file>qml/Preferences/internal/PublishMuseScoreComSection.qml</file>
         <file>qml/Preferences/internal/MixerSection.qml</file>
         <file>qml/Preferences/internal/OnlineSoundsSection.qml</file>
         <file>qml/DevTools/Extensions/ExtensionsListView.qml</file>

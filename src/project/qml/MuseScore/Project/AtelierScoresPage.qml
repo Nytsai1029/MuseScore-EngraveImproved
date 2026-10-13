@@ -24,7 +24,6 @@ import QtQuick 2.15
 import Muse.Ui 1.0
 import Muse.UiComponents 1.0
 import Muse.GraphicalEffects 1.0
-import Muse.Cloud 1.0
 import MuseScore.Project 1.0
 import MuseScore.Atelier 1.0
 
@@ -46,7 +45,6 @@ FocusScope {
     readonly property string searchText: searchField.searchText.trim().toLowerCase()
     readonly property bool isSearching: Boolean(root.searchText)
 
-    readonly property bool isRecentTab: scoresPageModel.tabIndex === 0
     readonly property bool isListView: scoresPageModel.viewType === ScoresPageModel.List
 
     //! NOTE: the recent scores, without the items which the other views of the model need (new score, no results)
@@ -205,20 +203,10 @@ FocusScope {
         }
     }
 
-    // ---------- the tabs ----------
-
-    NavigationPanel {
-        id: tabsNavPanel
-        name: "HomeScoresTabs"
-        section: navSec
-        order: 2
-        direction: NavigationPanel.Horizontal
-        enabled: root.enabled && root.visible
-        accessible.name: qsTrc("project", "Scores tab bar")
-    }
+    // ---------- the heading of the list ----------
 
     Item {
-        id: tabsRow
+        id: listHeading
 
         x: root.contentX
         anchors.top: titleRow.bottom
@@ -226,93 +214,12 @@ FocusScope {
         width: root.contentWidth
         height: 36
 
-        Row {
-            height: parent.height
-            spacing: 22
-
-            Repeater {
-                model: [
-                    { title: qsTrc("project", "New & recent"), name: "NewAndRecent" },
-                    { title: qsTrc("project", "My online scores"), name: "MyOnlineScores" }
-                ]
-
-                delegate: Item {
-                    id: tab
-
-                    readonly property bool isCurrent: index === scoresPageModel.tabIndex
-
-                    width: tabLabel.implicitWidth
-                    height: parent.height
-
-                    NavigationControl {
-                        id: tabNav
-
-                        name: modelData.name
-                        panel: tabsNavPanel
-                        column: index + 1
-
-                        accessible.role: MUAccessible.RadioButton
-                        accessible.name: modelData.title
-                        accessible.checked: tab.isCurrent
-
-                        onTriggered: {
-                            scoresPageModel.tabIndex = index
-                        }
-                    }
-
-                    StyledTextLabel {
-                        id: tabLabel
-
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        text: modelData.title
-                        font: AtStyle.font(13, tab.isCurrent ? Font.DemiBold : Font.Normal)
-                        color: tab.isCurrent ? AtStyle.text : AtStyle.text2
-                    }
-
-                    Rectangle {
-                        anchors.bottom: parent.bottom
-                        width: parent.width
-                        height: 2
-
-                        visible: tab.isCurrent
-                        color: AtStyle.ink
-                    }
-
-                    NavigationFocusBorder {
-                        navigationCtrl: tabNav
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-
-                        onClicked: {
-                            tabNav.requestActiveByInteraction()
-                            scoresPageModel.tabIndex = index
-                        }
-                    }
-                }
-            }
-        }
-
-        AtToolButton {
-            anchors.right: parent.right
-            anchors.rightMargin: -8
+        StyledTextLabel {
             anchors.verticalCenter: parent.verticalCenter
 
-            height: 24
-            radius: 6
-
-            text: qsTrc("project", "Score manager (online)")
-            textFont: AtStyle.font(12)
-
-            navigation.name: "ScoreManager"
-            navigation.panel: tabsNavPanel
-            navigation.column: 10
-
-            onClicked: {
-                scoresPageModel.openScoreManager()
-            }
+            text: qsTrc("project", "New & recent")
+            font: AtStyle.font(13, Font.DemiBold)
+            color: AtStyle.text
         }
 
         Rectangle {
@@ -329,7 +236,7 @@ FocusScope {
         id: heroNavPanel
         name: "LastOpenedScore"
         section: navSec
-        order: 3
+        order: 2
         direction: NavigationPanel.Horizontal
         enabled: root.enabled && root.visible && hero.visible
         accessible.name: qsTrc("project", "Last opened")
@@ -339,20 +246,19 @@ FocusScope {
         id: scoresNavPanel
         name: "RecentScoresList"
         section: navSec
-        order: 4
+        order: 3
         direction: NavigationPanel.Vertical
-        enabled: root.enabled && root.visible && root.isRecentTab
+        enabled: root.enabled && root.visible
         accessible.name: qsTrc("project", "Recent scores list")
     }
 
     StyledFlickable {
         id: recentFlickable
 
-        anchors.top: tabsRow.bottom
+        anchors.top: listHeading.bottom
         anchors.bottom: parent.bottom
         width: parent.width
 
-        visible: root.isRecentTab
         clip: true
 
         contentHeight: recentColumn.y + recentColumn.height + 40
@@ -778,8 +684,6 @@ FocusScope {
                         suffix: score.suffix ?? ""
                         thumbnailUrl: score.thumbnailUrl ?? ""
                         timeSinceModified: score.timeSinceModified ?? ""
-                        isCloud: score.isCloud ?? false
-                        cloudScoreId: score.scoreId ?? 0
 
                         navigation.panel: scoresNavPanel
                         navigation.row: index
@@ -789,36 +693,6 @@ FocusScope {
                         }
                     }
                 }
-            }
-        }
-    }
-
-    // ---------- the scores of the account ----------
-
-    Loader {
-        anchors.top: tabsRow.bottom
-        anchors.topMargin: 20
-        anchors.bottom: parent.bottom
-        width: parent.width
-
-        active: !root.isRecentTab
-
-        sourceComponent: CloudScoresView {
-            viewType: scoresPageModel.viewType
-            searchText: searchField.searchText
-
-            backgroundColor: AtStyle.island
-            sideMargin: root.contentX
-
-            navigationSection: navSec
-            navigationOrder: 4
-
-            onCreateNewScoreRequested: {
-                scoresPageModel.createNewScore()
-            }
-
-            onOpenScoreRequested: function(scorePath, displayName) {
-                Qt.callLater(scoresPageModel.openScore, scorePath, displayName)
             }
         }
     }

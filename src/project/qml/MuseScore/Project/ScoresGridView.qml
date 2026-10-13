@@ -160,8 +160,6 @@ Item {
                 thumbnailUrl: score.thumbnailUrl ?? ""
                 isCreateNew: score.isCreateNew
                 isNoResultsFound: score.isNoResultsFound
-                isCloud: score.isCloud
-                cloudScoreId: score.scoreId ?? 0
                 timeSinceModified: score.timeSinceModified ?? ""
 
                 onClicked: {

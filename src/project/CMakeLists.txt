@@ -121,10 +121,6 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/view/abstractscoresmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/recentscoresmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/recentscoresmodel.h
-    ${CMAKE_CURRENT_LIST_DIR}/view/cloudscoresmodel.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/view/cloudscoresmodel.h
-    ${CMAKE_CURRENT_LIST_DIR}/view/cloudscorestatuswatcher.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/view/cloudscorestatuswatcher.h
     ${CMAKE_CURRENT_LIST_DIR}/view/scorethumbnailloader.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/scorethumbnailloader.h
     ${CMAKE_CURRENT_LIST_DIR}/view/pixmapscorethumbnailview.cpp
@@ -139,8 +135,6 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/view/templatepaintview.h
     ${CMAKE_CURRENT_LIST_DIR}/view/projectpropertiesmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/projectpropertiesmodel.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/view/audiogenerationsettingsmodel.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/view/audiogenerationsettingsmodel.h
     )
 
 set(MODULE_LINK

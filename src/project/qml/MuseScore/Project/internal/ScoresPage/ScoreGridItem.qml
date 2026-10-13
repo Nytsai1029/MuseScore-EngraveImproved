@@ -20,7 +20,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import QtQuick 2.15
-import QtQuick.Layouts 1.15
 
 import Muse.Ui 1.0
 import Muse.UiComponents 1.0
@@ -37,8 +36,6 @@ FocusScope {
     property string thumbnailUrl: ""
     property bool isCreateNew: false
     property bool isNoResultsFound: false
-    property bool isCloud: false
-    property int cloudScoreId: 0
 
     property alias navigation: navCtrl
 
@@ -170,65 +167,6 @@ FocusScope {
                     glowRadius: 20
                     color: "#08000000"
                     cornerRadius: thumbnail.radius + glowRadius
-                }
-            }
-
-            Loader {
-                active: root.isCloud
-
-                anchors.left: parent.left
-                anchors.leftMargin: 8
-                anchors.right: parent.right
-                anchors.rightMargin: 8
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 8
-
-                sourceComponent: RowLayout {
-                    visible: root.isCloud
-
-                    spacing: 8
-
-                    CloudScoreStatusWatcher {
-                        id: cloudScoreStatusWatcher
-                    }
-
-                    Component.onCompleted: {
-                        cloudScoreStatusWatcher.load(root.cloudScoreId)
-                    }
-
-                    ProgressBar {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 16
-
-                        visible: cloudScoreStatusWatcher.isProgress
-
-                        from: 0
-                        to: cloudScoreStatusWatcher.progressTotal
-                        value: cloudScoreStatusWatcher.progressCurrent
-
-                        navigation.panel: root.navigation.panel
-                        navigation.row: root.navigation.row
-                        navigation.column: root.navigation.column + 1
-                    }
-
-                    CloudScoreIndicatorButton {
-                        Layout.alignment: Qt.AlignTrailing | Qt.AlignVCenter
-
-                        isProgress: cloudScoreStatusWatcher.isProgress
-                        isDownloadedAndUpToDate: cloudScoreStatusWatcher.isDownloadedAndUpToDate
-
-                        navigation.panel: root.navigation.panel
-                        navigation.row: root.navigation.row
-                        navigation.column: root.navigation.column + 2
-
-                        onClicked: {
-                            if (isProgress) {
-                                cloudScoreStatusWatcher.cancel()
-                            } else {
-                                root.clicked()
-                            }
-                        }
-                    }
                 }
             }
         }

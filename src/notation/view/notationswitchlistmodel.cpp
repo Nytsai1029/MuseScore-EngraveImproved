@@ -168,7 +168,7 @@ void NotationSwitchListModel::listenProjectSavingStatusChanged()
 
         int index = m_notations.indexOf(project->masterNotation()->notation());
         QModelIndex modelIndex = this->index(index);
-        emit dataChanged(modelIndex, modelIndex, { RoleNeedSave, RoleIsCloud });
+        emit dataChanged(modelIndex, modelIndex, { RoleNeedSave });
     });
 
     currentProject->displayNameChanged().onNotify(this, [this]() {
@@ -179,7 +179,7 @@ void NotationSwitchListModel::listenProjectSavingStatusChanged()
 
         int index = m_notations.indexOf(project->masterNotation()->notation());
         QModelIndex modelIndex = this->index(index);
-        emit dataChanged(modelIndex, modelIndex, { RoleTitle, RoleIsCloud });
+        emit dataChanged(modelIndex, modelIndex, { RoleTitle });
     });
 }
 
@@ -207,10 +207,6 @@ QVariant NotationSwitchListModel::data(const QModelIndex& index, int role) const
         bool needSave = context()->currentProject()->needSave().val && isMasterNotation(notation);
         return QVariant::fromValue(needSave);
     }
-    case RoleIsCloud: {
-        bool isCloud = context()->currentProject()->isCloudProject() && isMasterNotation(notation);
-        return QVariant::fromValue(isCloud);
-    }
     }
 
     return QVariant();
@@ -225,8 +221,7 @@ QHash<int, QByteArray> NotationSwitchListModel::roleNames() const
 {
     static const QHash<int, QByteArray> roles {
         { RoleTitle, "title" },
-        { RoleNeedSave, "needSave" },
-        { RoleIsCloud, "isCloud" }
+        { RoleNeedSave, "needSave" }
     };
 
     return roles;

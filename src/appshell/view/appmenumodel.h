@@ -33,7 +33,6 @@
 #ifdef MUSE_MODULE_MUSESAMPLER
 #include "musesampler/imusesamplerinfo.h"
 #endif
-#include "project/iprojectconfiguration.h"
 #include "project/irecentfilescontroller.h"
 #include "ui/imainwindow.h"
 #include "ui/inavigationcontroller.h"
@@ -66,7 +65,6 @@ public:
     muse::Inject<muse::ui::IUiConfiguration> uiConfiguration = { this };
     muse::Inject<muse::update::IUpdateConfiguration> updateConfiguration = { this };
     muse::Inject<muse::workspace::IWorkspaceManager> workspacesManager = { this };
-    muse::Inject<project::IProjectConfiguration> projectConfiguration = { this };
     muse::Inject<project::IRecentFilesController> recentFilesController = { this };
 
 public:
@@ -87,7 +85,6 @@ private:
 
     muse::uicomponents::MenuItem* makeFileMenu();
     muse::uicomponents::MenuItemList makeSaveOtherSubItems();
-    muse::uicomponents::MenuItemList makePublishOnlineSubItems();
 
     muse::uicomponents::MenuItem* makeEditMenu();
     muse::uicomponents::MenuItem* makeViewMenu();

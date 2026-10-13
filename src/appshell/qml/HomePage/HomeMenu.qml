@@ -25,7 +25,6 @@ import QtQuick.Layouts 1.3
 
 import Muse.Ui 1.0
 import Muse.UiComponents 1.0
-import Muse.Cloud 1.0
 
 Item {
     id: root
@@ -58,28 +57,12 @@ Item {
 
         spacing: 0
 
-        AccountInfoButton {
-            Layout.fillWidth: true
-            Layout.preferredHeight: 60
-            Layout.topMargin: 20
-
-            navigation.name: "AccountInfo"
-            navigation.panel: navPanel
-            navigation.row: 1
-
-            checked: root.currentPageName === "account"
-            iconOnly: root.iconsOnly
-
-            onToggled: {
-                root.selected("account")
-            }
-        }
-
         RadioButtonGroup {
             id: radioButtonList
 
             Layout.fillHeight: true
             Layout.fillWidth: true
+            Layout.topMargin: 20
 
             orientation: ListView.Vertical
             spacing: 0

@@ -50,11 +50,6 @@ void ScoresPageModel::openScore(const QString& scorePath, const QString& display
     dispatcher()->dispatch("file-open", ActionData::make_arg2<QUrl, QString>(QUrl::fromLocalFile(scorePath), displayNameOverride));
 }
 
-void ScoresPageModel::openScoreManager()
-{
-    interactive()->openUrl(museScoreComService()->scoreManagerUrl());
-}
-
 void ScoresPageModel::openScoreInPage(const QString& scorePath, const QString& displayNameOverride, const QString& pageUri)
 {
     static const muse::Uri NOTATION_PAGE_URI("musescore://notation");
@@ -117,21 +112,6 @@ QVariantMap ScoresPageModel::scoreInfo(const QString& scorePath) const
     info["partsCount"] = static_cast<int>(meta.val.partsCount);
 
     return info;
-}
-
-int ScoresPageModel::tabIndex() const
-{
-    return configuration()->homeScoresPageTabIndex();
-}
-
-void ScoresPageModel::setTabIndex(int index)
-{
-    if (index == tabIndex()) {
-        return;
-    }
-
-    configuration()->setHomeScoresPageTabIndex(index);
-    emit tabIndexChanged();
 }
 
 ScoresPageModel::ViewType ScoresPageModel::viewType() const

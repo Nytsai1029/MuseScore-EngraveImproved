@@ -287,11 +287,6 @@ struct Template
 
 using Templates = QList<Template>;
 
-struct ProjectBeingDownloaded {
-    int scoreId = 0;
-    muse::ProgressPtr progress;
-};
-
 class GenerateAudioTimePeriod
 {
     Q_GADGET

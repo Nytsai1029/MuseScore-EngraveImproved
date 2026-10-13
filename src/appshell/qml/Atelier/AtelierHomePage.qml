@@ -26,7 +26,6 @@ import Muse.UiComponents 1.0
 import MuseScore.AppShell 1.0
 import MuseScore.Atelier 1.0
 
-import Muse.Cloud 1.0
 import Muse.Learn 1.0
 import MuseScore.Project 1.0
 import MuseScore.MuseSounds 1.0
@@ -278,14 +277,6 @@ Item {
             }
 
             SidebarItem {
-                name: "account"
-                title: qsTrc("appshell", "Account")
-                icon: IconCode.ACCOUNT
-                navigationRow: 11
-                onClicked: root.section = name
-            }
-
-            SidebarItem {
                 title: qsTrc("action", "Preferences…")
                 icon: IconCode.SETTINGS_COG
                 navigationRow: 12
@@ -318,7 +309,6 @@ Item {
             case "musesounds": return museSoundsComp
             case "learn": return learnComp
             case "fontdesign": return fontDesignComp
-            case "account": return accountComp
             }
 
             return scoresComp
@@ -378,11 +368,5 @@ Item {
         id: fontDesignComp
 
         FontDesignHomeSection {}
-    }
-
-    Component {
-        id: accountComp
-
-        AccountPage {}
     }
 }

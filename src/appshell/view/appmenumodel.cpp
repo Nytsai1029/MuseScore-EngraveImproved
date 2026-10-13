@@ -204,11 +204,8 @@ MenuItem* AppMenuModel::makeFileMenu()
         makeSeparator(),
         makeMenuItem("file-save"),
         makeMenuItem("file-save-as"),
-        makeMenuItem("file-save-to-cloud"),
         makeMenu(TranslatableString("appshell/menu/file", "Save o&ther"), makeSaveOtherSubItems()),
-        makeMenu(TranslatableString("appshell/menu/file", "Pu&blish online"), makePublishOnlineSubItems()),
         makeSeparator(),
-        makeMenuItem("file-import-pdf"),
         makeMenuItem("file-export"),
         makeSeparator(),
         makeMenuItem("project-properties"),
@@ -227,15 +224,6 @@ MenuItemList AppMenuModel::makeSaveOtherSubItems()
     MenuItemList subItems {
         makeMenuItem("file-save-a-copy"),
         makeMenuItem("file-save-selection"),
-    };
-    return subItems;
-}
-
-MenuItemList AppMenuModel::makePublishOnlineSubItems()
-{
-    MenuItemList subItems {
-        makeMenuItem("file-publish"),
-        makeMenuItem("file-share-audio"),
     };
     return subItems;
 }
@@ -575,11 +563,6 @@ MenuItemList AppMenuModel::makeRecentScoresItems()
         UiAction action;
         action.code = "file-open";
         action.title = TranslatableString::untranslatable(file.displayName(/*includingExtension*/ true));
-        bool isCloud = projectConfiguration()->isCloudProject(file.path);
-
-        if (isCloud) {
-            action.iconCode = IconCode::Code::CLOUD;
-        }
 
         item->setAction(action);
 

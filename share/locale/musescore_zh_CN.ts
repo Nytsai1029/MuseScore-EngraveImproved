@@ -12267,6 +12267,11 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation>保存与发布</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="170"/>
+        <source>Save</source>
+        <translation>保存</translation>
+    </message>
+    <message>
         <location filename="../../src/appshell/view/preferences/preferencesmodel.cpp" line="172"/>
         <source>Score</source>
         <translation>乐谱</translation>

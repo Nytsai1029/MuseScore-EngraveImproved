@@ -85,68 +85,6 @@ ListItemBlank {
                 font: ui.theme.largeBodyFont
                 horizontalAlignment: Text.AlignLeft
             }
-
-            Loader {
-                active: root.score.isCloud ?? false
-
-                sourceComponent: RowLayout {
-                    visible: root.score.isCloud
-
-                    spacing: 24
-
-                    CloudScoreStatusWatcher {
-                        id: cloudScoreStatusWatcher
-                    }
-
-                    Component.onCompleted: {
-                        cloudScoreStatusWatcher.load(root.score.scoreId)
-                    }
-
-                    ProgressBar {
-                        Layout.preferredWidth: 118
-                        Layout.preferredHeight: 16
-
-                        visible: cloudScoreStatusWatcher.isProgress
-
-                        from: 0
-                        to: cloudScoreStatusWatcher.progressTotal
-                        value: cloudScoreStatusWatcher.progressCurrent
-
-                        navigation.panel: root.navigation.panel
-                        navigation.row: root.navigation.row
-                        navigation.column: 2
-                        navigation.onActiveChanged: {
-                            if (navigation.active) {
-                                root.scrollIntoView()
-                            }
-                        }
-                    }
-
-                    CloudScoreIndicatorButton {
-                        Layout.alignment: Qt.AlignTrailing | Qt.AlignVCenter
-
-                        isProgress: cloudScoreStatusWatcher.isProgress
-                        isDownloadedAndUpToDate: cloudScoreStatusWatcher.isDownloadedAndUpToDate
-
-                        navigation.panel: root.navigation.panel
-                        navigation.row: root.navigation.row
-                        navigation.column: 3
-                        navigation.onActiveChanged: {
-                            if (navigation.active) {
-                                root.scrollIntoView()
-                            }
-                        }
-
-                        onClicked: {
-                            if (isProgress) {
-                                cloudScoreStatusWatcher.cancel()
-                            } else {
-                                root.clicked(null)
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         Repeater {
