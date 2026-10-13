@@ -130,6 +130,8 @@ AtelierShellView {
         shell: root
         context: contextModel
 
+        pageItem: root.currentPageItem
+
         leftPaneName: Boolean(root.currentPageItem) ? root.currentPageItem.leftPaneName : ""
         leftPaneTitle: Boolean(root.currentPageItem) ? root.currentPageItem.leftPaneTitle : ""
         rightPaneName: Boolean(root.currentPageItem) ? root.currentPageItem.rightPaneName : ""

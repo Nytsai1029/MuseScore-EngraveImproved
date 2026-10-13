@@ -60,8 +60,22 @@ void ProjectsPageModel::openFontFile(const QString& path)
     }
 }
 
+bool ProjectsPageModel::opensFontsInOwnWindow() const
+{
+    static const muse::ui::SkinCode ATELIER_SKIN("atelier");
+
+    //! NOTE A window which has a font already is a font design window itself
+    return uiConfiguration() && uiConfiguration()->currentSkin() == ATELIER_SKIN
+           && !fontDesignService()->hasCurrentProject();
+}
+
 void ProjectsPageModel::openFontPath(const io::path_t& path)
 {
+    if (opensFontsInOwnWindow()) {
+        multiInstancesProvider()->openNewAppInstance({ "--fontdesign", path.toQString() });
+        return;
+    }
+
     if (fontDesignService()->hasCurrentProject()) {
         constexpr int replaceBtn = static_cast<int>(IInteractive::Button::CustomButton) + 1;
         constexpr int newWindowBtn = static_cast<int>(IInteractive::Button::CustomButton) + 2;

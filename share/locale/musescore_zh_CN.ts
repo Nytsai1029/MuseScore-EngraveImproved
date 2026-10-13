@@ -11030,6 +11030,17 @@ The name of the score and the number of its pages, e.g. &quot;Träumerei · 2 pa
         <source>Staff space</source>
         <translation>谱间</translation>
     </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="253"/>
+        <source>Font design tools</source>
+        <translation>字体设计工具</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="503"/>
+        <source>Fit</source>
+        <extracomment>A button which fits the glyph to the view</extracomment>
+        <translation>适应</translation>
+    </message>
 </context>
 <context>
     <name>appshell/about</name>
@@ -23175,49 +23186,59 @@ Fret %1 on strings %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="209"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="190"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="76"/>
         <source>Save font</source>
-        <translation type="unfinished"></translation>
+        <translation>保存字体</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="221"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="204"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="88"/>
         <source>Export font as…</source>
-        <translation type="unfinished"></translation>
+        <translation>将字体导出为…</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="232"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="226"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="99"/>
         <source>Install to MuseScore music fonts folder</source>
-        <translation type="unfinished"></translation>
+        <translation>安装到 MuseScore 音乐字体文件夹</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="248"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="145"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="115"/>
         <source>Undo</source>
-        <translation type="unfinished">撤销</translation>
+        <translation>撤销</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="260"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="159"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="127"/>
         <source>Redo</source>
-        <translation type="unfinished">恢复</translation>
+        <translation>重做</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="277"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="420"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="506"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="144"/>
         <source>Fit glyph to view</source>
-        <translation type="unfinished"></translation>
+        <translation>使字形适应视图</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="289"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="401"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="156"/>
         <source>Import reference image (Alt+drag to move, Alt+wheel to scale)</source>
-        <translation type="unfinished"></translation>
+        <translation>导入参考图（Alt+拖动可移动，Alt+滚轮可缩放）</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="300"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="438"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="167"/>
         <source>Add glyph from another font…</source>
-        <translation type="unfinished"></translation>
+        <translation>从其他字体添加字形…</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="311"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="177"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="178"/>
         <source>Check font (SMuFL validation)</source>
-        <translation type="unfinished"></translation>
+        <translation>检查字体（SMuFL 校验）</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="335"/>
@@ -23230,69 +23251,82 @@ Fret %1 on strings %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="386"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="93"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="255"/>
         <source>Select / move (V)</source>
-        <translation type="unfinished"></translation>
+        <translation>选择 / 移动 (V)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="387"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="94"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="256"/>
         <source>Edit nodes (A)</source>
-        <translation type="unfinished"></translation>
+        <translation>编辑节点 (A)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="388"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="95"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="257"/>
         <source>Pen — straight (P)</source>
-        <translation type="unfinished"></translation>
+        <translation>钢笔 — 直线 (P)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="389"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="96"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="258"/>
         <source>Pen — curve (C)</source>
-        <translation type="unfinished"></translation>
+        <translation>钢笔 — 曲线 (C)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="390"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="97"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="259"/>
         <source>Rectangle (R)</source>
-        <translation type="unfinished"></translation>
+        <translation>矩形 (R)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="391"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="98"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="260"/>
         <source>Ellipse (E)</source>
-        <translation type="unfinished"></translation>
+        <translation>椭圆 (E)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="521"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="293"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="294"/>
         <source>Snap to units, staff lines and advance</source>
-        <translation type="unfinished"></translation>
+        <translation>吸附到字体单位、谱线与步进宽度</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="544"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="314"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="317"/>
         <source>Union — merge selected contours, or all when nothing is selected</source>
-        <translation type="unfinished"></translation>
+        <translation>并集 — 合并选中的轮廓；未选择时合并全部</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="562"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="325"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="335"/>
         <source>Subtract — cut the selected contours out of the rest</source>
-        <translation type="unfinished"></translation>
+        <translation>差集 — 从其余轮廓中减去选中的轮廓</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="580"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="336"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="353"/>
         <source>Intersect — keep the overlap of the selected contours and the rest</source>
-        <translation type="unfinished"></translation>
+        <translation>交集 — 保留选中轮廓与其余轮廓的重叠部分</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="603"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="353"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="376"/>
         <source>Flip horizontally</source>
-        <translation type="unfinished">水平翻转</translation>
+        <translation>水平翻转</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="621"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="364"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="394"/>
         <source>Flip vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>垂直翻转</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="639"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="375"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="412"/>
         <source>Correct path directions — make nested contours punch holes</source>
-        <translation type="unfinished"></translation>
+        <translation>修正路径方向 — 使嵌套的轮廓镂空</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="676"/>
@@ -24232,6 +24266,31 @@ Fret %1 on strings %2</source>
         <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="72"/>
         <source>Unable to save metadata</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="174"/>
+        <source>Check font</source>
+        <translation>检查字体</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="187"/>
+        <source>Save</source>
+        <translation>保存</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="201"/>
+        <source>Export…</source>
+        <translation>导出…</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="223"/>
+        <source>Install</source>
+        <translation>安装</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="290"/>
+        <source>Snap</source>
+        <translation>吸附</translation>
     </message>
 </context>
 <context>

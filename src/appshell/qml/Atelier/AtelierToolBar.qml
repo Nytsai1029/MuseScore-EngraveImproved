@@ -39,6 +39,16 @@ Rectangle {
     required property AtelierShellView shell
     required property AtelierContextModel context
 
+    //! NOTE: the current page. It can give the toolbar its own title and content
+    //! (toolBarTitle, toolBarSubtitle, toolBarCenter, toolBarRight)
+    property var pageItem: null
+
+    readonly property bool hasPageTitle: Boolean(root.pageItem) && root.pageItem.toolBarTitle !== undefined
+    readonly property Component pageCenter: Boolean(root.pageItem) && Boolean(root.pageItem.toolBarCenter)
+                                            ? root.pageItem.toolBarCenter : null
+    readonly property Component pageRight: Boolean(root.pageItem) && Boolean(root.pageItem.toolBarRight)
+                                           ? root.pageItem.toolBarRight : null
+
     //! NOTE: the names of the panes of the current page, which the buttons at the ends of the toolbar toggle
     property string leftPaneName: ""
     property string leftPaneTitle: ""
@@ -198,6 +208,10 @@ Rectangle {
                         return qsTrc("appshell", "Home")
                     }
 
+                    if (root.hasPageTitle) {
+                        return root.pageItem.toolBarTitle
+                    }
+
                     if (root.uri === "musescore://fontdesign") {
                         return qsTrc("appshell", "Font design")
                     }
@@ -208,6 +222,15 @@ Rectangle {
 
                     return root.context.projectTitle
                 }
+            }
+
+            StyledTextLabel {
+                anchors.verticalCenter: parent.verticalCenter
+
+                visible: !isEmpty
+                text: root.hasPageTitle && Boolean(root.pageItem.toolBarSubtitle) ? root.pageItem.toolBarSubtitle : ""
+                font: AtStyle.font(12)
+                color: AtStyle.text2
             }
 
             AtToolButton {
@@ -282,6 +305,55 @@ Rectangle {
                 root.pageRequested(value)
             } else if (Boolean(root.lastScore)) {
                 root.shell.openScoreInPage(root.lastScore.path, root.lastScore.name, value)
+            }
+        }
+    }
+
+    Loader {
+        anchors.centerIn: parent
+        anchors.horizontalCenterOffset: root.leadingInset / 2
+
+        active: Boolean(root.pageCenter)
+        sourceComponent: root.pageCenter
+    }
+
+    Row {
+        id: pageZone
+
+        anchors.right: parent.right
+        anchors.rightMargin: 12
+        anchors.verticalCenter: parent.verticalCenter
+
+        visible: Boolean(root.pageRight)
+        spacing: 0
+
+        Loader {
+            anchors.verticalCenter: parent.verticalCenter
+
+            active: Boolean(root.pageRight)
+            sourceComponent: root.pageRight
+        }
+
+        AtDivider {
+            anchors.verticalCenter: parent.verticalCenter
+            visible: pageRightPaneButton.visible
+        }
+
+        AtToolButton {
+            id: pageRightPaneButton
+
+            anchors.verticalCenter: parent.verticalCenter
+
+            shape: "sidebar-right"
+            visible: Boolean(root.rightPaneName)
+            toolTipTitle: root.paneToggleTitle(root.rightPaneName, root.rightPaneTitle)
+
+            navigation.name: "ToggleRightPane"
+            navigation.panel: navPanel
+            navigation.order: 70
+
+            onClicked: {
+                root.shell.togglePanel(root.uri, root.rightPaneName)
             }
         }
     }

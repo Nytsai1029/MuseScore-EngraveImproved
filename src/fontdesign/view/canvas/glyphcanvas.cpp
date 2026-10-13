@@ -228,6 +228,18 @@ void GlyphCanvas::resetView()
     update();
 }
 
+void GlyphCanvas::zoomIn()
+{
+    static constexpr double ZOOM_STEP = 1.25;
+    zoomAround(ZOOM_STEP, QPointF(width() / 2.0, height() / 2.0));
+}
+
+void GlyphCanvas::zoomOut()
+{
+    static constexpr double ZOOM_STEP = 1.25;
+    zoomAround(1.0 / ZOOM_STEP, QPointF(width() / 2.0, height() / 2.0));
+}
+
 void GlyphCanvas::setTool(int tool)
 {
     if (static_cast<int>(m_tool) == tool) {

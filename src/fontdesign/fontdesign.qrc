@@ -6,6 +6,8 @@
         <file>qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml</file>
         <file>qml/MuseScore/FontDesign/FontLintDialog.qml</file>
         <file>qml/MuseScore/FontDesign/FontDesignCentral.qml</file>
+        <file>qml/MuseScore/FontDesign/FontPaletteIcon.qml</file>
+        <file>qml/MuseScore/FontDesign/FontToolIcon.qml</file>
         <file>qml/MuseScore/FontDesign/GlyphBrowserPanel.qml</file>
         <file>qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml</file>
     </qresource>

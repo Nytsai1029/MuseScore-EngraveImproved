@@ -3,3 +3,5 @@ FontDesignHomeSection 1.0 FontDesignHomeSection.qml
 FontDesignCentral 1.0 FontDesignCentral.qml
 GlyphBrowserPanel 1.0 GlyphBrowserPanel.qml
 FontDesignInspectorPanel 1.0 FontDesignInspectorPanel.qml
+FontPaletteIcon 1.0 FontPaletteIcon.qml
+FontToolIcon 1.0 FontToolIcon.qml

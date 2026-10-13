@@ -10676,8 +10676,10 @@ followed by dashes</translation>
         <translation type="unfinished">Account</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="51"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="52"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="231"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="202"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="216"/>
         <location filename="../../src/appshell/qml/HomePage/HomeMenu.qml" line="92"/>
         <location filename="../../src/appshell/view/internal/maintoolbarmodel.cpp" line="94"/>
         <source>Font design</source>
@@ -10700,36 +10702,36 @@ followed by dashes</translation>
         <translation type="unfinished">All</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="68"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="78"/>
         <source>Hide %1</source>
         <translation type="unfinished">Hide %1</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="68"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="78"/>
         <source>Show %1</source>
         <translation type="unfinished">Show %1</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="77"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="87"/>
         <location filename="../../src/appshell/qml/MainToolBar.qml" line="92"/>
         <location filename="../../src/appshell/qml/WindowContent.qml" line="66"/>
         <source>Main toolbar</source>
         <translation type="unfinished">Main toolbar</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="239"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="262"/>
         <source>Manage parts…</source>
         <translation type="unfinished">Manage parts…</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="340"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="275"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="298"/>
         <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="513"/>
         <source>Input</source>
         <translation type="unfinished">Input</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="277"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="300"/>
         <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="542"/>
         <source>Preview</source>
         <translation type="unfinished">Preview</translation>
@@ -10793,12 +10795,14 @@ followed by dashes</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="41"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="546"/>
         <location filename="../../src/appshell/qml/FontDesignPage/FontDesignPage.qml" line="40"/>
         <source>Glyphs</source>
         <translation type="unfinished">Glyphs</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="43"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="590"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="78"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="258"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="278"/>
@@ -10807,6 +10811,17 @@ followed by dashes</translation>
         <location filename="../../src/appshell_web/qml/NotationFrame.qml" line="68"/>
         <source>Properties</source>
         <translation type="unfinished">Properties</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="253"/>
+        <source>Font design tools</source>
+        <translation type="unfinished">Font design tools</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="503"/>
+        <source>Fit</source>
+        <extracomment>A button which fits the glyph to the view</extracomment>
+        <translation type="unfinished">Fit</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="76"/>
@@ -10832,7 +10847,7 @@ followed by dashes</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="340"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="276"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="299"/>
         <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="528"/>
         <source>Engrave</source>
         <translation type="unfinished">Engrave</translation>
@@ -10840,7 +10855,7 @@ followed by dashes</translation>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierPreviewPage.qml" line="322"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="515"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="359"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="431"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="457"/>
         <source>Mixer</source>
         <translation type="unfinished">Mixer</translation>
@@ -10960,8 +10975,8 @@ This action will not delete any of your scores.</translation>
         <translation type="unfinished">Do you want to restore the session?</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="171"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="198"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="181"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="208"/>
         <location filename="../../src/appshell/view/internal/maintoolbarmodel.cpp" line="91"/>
         <source>Home</source>
         <translation type="unfinished">Home</translation>
@@ -12840,7 +12855,7 @@ Fret %1 on strings %2</source>
 Fret %1 on strings %2</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="221"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="244"/>
         <location filename="../../src/engraving/dom/check.cpp" line="145"/>
         <source>Full score</source>
         <translation type="unfinished">Full score</translation>
@@ -23530,183 +23545,219 @@ Fret %1 on strings %2</translation>
 <context>
     <name>fontdesign</name>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="187"/>
         <source>Save</source>
         <translation type="unfinished">Save</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="201"/>
         <source>Export…</source>
         <translation type="unfinished">Export…</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="223"/>
         <source>Install</source>
         <translation type="unfinished">Install</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="209"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="190"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="76"/>
         <source>Save font</source>
         <translation type="unfinished">Save font</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="221"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="204"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="88"/>
         <source>Export font as…</source>
         <translation type="unfinished">Export font as…</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="232"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="226"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="99"/>
         <source>Install to MuseScore music fonts folder</source>
         <translation type="unfinished">Install to MuseScore music fonts folder</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="248"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="145"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="115"/>
         <source>Undo</source>
         <translation type="unfinished">Undo</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="260"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="159"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="127"/>
         <source>Redo</source>
         <translation type="unfinished">Redo</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="277"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="420"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="506"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="144"/>
         <source>Fit glyph to view</source>
         <translation type="unfinished">Fit glyph to view</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="289"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="401"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="156"/>
         <source>Import reference image (Alt+drag to move, Alt+wheel to scale)</source>
         <translation type="unfinished">Import reference image (Alt+drag to move, Alt+wheel to scale)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="300"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="438"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="167"/>
         <source>Add glyph from another font…</source>
         <translation type="unfinished">Add glyph from another font…</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="311"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="177"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="178"/>
         <source>Check font (SMuFL validation)</source>
         <translation type="unfinished">Check font (SMuFL validation)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="335"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="202"/>
         <source>Show/hide the glyph browser panel</source>
         <translation type="unfinished">Show/hide the glyph browser panel</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="346"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="213"/>
         <source>Show/hide the properties panel</source>
         <translation type="unfinished">Show/hide the properties panel</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="386"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="93"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="255"/>
         <source>Select / move (V)</source>
         <translation type="unfinished">Select / move (V)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="387"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="94"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="256"/>
         <source>Edit nodes (A)</source>
         <translation type="unfinished">Edit nodes (A)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="388"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="95"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="257"/>
         <source>Pen — straight (P)</source>
         <translation type="unfinished">Pen — straight (P)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="389"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="96"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="258"/>
         <source>Pen — curve (C)</source>
         <translation type="unfinished">Pen — curve (C)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="390"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="97"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="259"/>
         <source>Rectangle (R)</source>
         <translation type="unfinished">Rectangle (R)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="391"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="98"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="260"/>
         <source>Ellipse (E)</source>
         <translation type="unfinished">Ellipse (E)</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="521"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="174"/>
+        <source>Check font</source>
+        <translation type="unfinished">Check font</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="290"/>
+        <source>Snap</source>
+        <translation type="unfinished">Snap</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="293"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="294"/>
         <source>Snap to units, staff lines and advance</source>
         <translation type="unfinished">Snap to units, staff lines and advance</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="544"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="314"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="317"/>
         <source>Union — merge selected contours, or all when nothing is selected</source>
         <translation type="unfinished">Union — merge selected contours, or all when nothing is selected</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="562"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="325"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="335"/>
         <source>Subtract — cut the selected contours out of the rest</source>
         <translation type="unfinished">Subtract — cut the selected contours out of the rest</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="580"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="336"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="353"/>
         <source>Intersect — keep the overlap of the selected contours and the rest</source>
         <translation type="unfinished">Intersect — keep the overlap of the selected contours and the rest</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="603"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="353"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="376"/>
         <source>Flip horizontally</source>
         <translation type="unfinished">Flip horizontally</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="621"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="364"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="394"/>
         <source>Flip vertically</source>
         <translation type="unfinished">Flip vertically</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="639"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="375"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="412"/>
         <source>Correct path directions — make nested contours punch holes</source>
         <translation type="unfinished">Correct path directions — make nested contours punch holes</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="676"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="449"/>
         <source>Reference</source>
         <translation type="unfinished">Reference</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="695"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="468"/>
         <source>Reset image to staff height</source>
         <translation type="unfinished">Reset image to staff height</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="705"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="478"/>
         <source>Remove reference image</source>
         <translation type="unfinished">Remove reference image</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="734"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="507"/>
         <source>Open path — click the start point or press Enter to close · Esc discards · Backspace removes the last point</source>
         <translation type="unfinished">Open path — click the start point or press Enter to close · Esc discards · Backspace removes the last point</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="759"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="532"/>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="218"/>
         <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="101"/>
         <source>No font project is open</source>
         <translation type="unfinished">No font project is open</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="768"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="541"/>
         <source>Open a SMuFL font (OTF/TTF) to browse and edit its glyphs and metadata.</source>
         <translation type="unfinished">Open a SMuFL font (OTF/TTF) to browse and edit its glyphs and metadata.</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="779"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="552"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="102"/>
         <source>New font…</source>
         <translation type="unfinished">New font…</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="788"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="561"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="111"/>
         <source>Open font…</source>
         <translation type="unfinished">Open font…</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="796"/>
+        <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="569"/>
         <source>Go to font design home</source>
         <translation type="unfinished">Go to font design home</translation>
     </message>
@@ -23763,7 +23814,7 @@ Fret %1 on strings %2</translation>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="251"/>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="344"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="73"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="87"/>
         <source>New window</source>
         <translation type="unfinished">New window</translation>
     </message>
@@ -24287,25 +24338,25 @@ Fret %1 on strings %2</translation>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="331"/>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="341"/>
         <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="48"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="70"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="84"/>
         <source>Open font</source>
         <translation type="unfinished">Open font</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="342"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="71"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="85"/>
         <source>A font is already open. Where do you want to open the new one?</source>
         <translation type="unfinished">A font is already open. Where do you want to open the new one?</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="343"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="72"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="86"/>
         <source>This window</source>
         <translation type="unfinished">This window</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="361"/>
-        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="90"/>
+        <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="104"/>
         <source>Unable to open font</source>
         <translation type="unfinished">Unable to open font</translation>
     </message>
@@ -24586,22 +24637,22 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Select a target codepoint in the glyph browser first</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1021"/>
+        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1033"/>
         <source>Images</source>
         <translation type="unfinished">Images</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1024"/>
+        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1036"/>
         <source>Import reference image</source>
         <translation type="unfinished">Import reference image</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1031"/>
+        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1043"/>
         <source>Unable to import image</source>
         <translation type="unfinished">Unable to import image</translation>
     </message>
     <message>
-        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1032"/>
+        <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1044"/>
         <source>The file could not be read as an image.</source>
         <translation type="unfinished">The file could not be read as an image.</translation>
     </message>
@@ -30660,7 +30711,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Parts actions</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="225"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="248"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/PartsTopPanel.qml" line="55"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/PartsDialog.qml" line="34"/>
         <source>Parts</source>
@@ -30787,6 +30838,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Undo redo toolbar</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="490"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStatusBar.qml" line="165"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierStatusBar.qml" line="155"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/ZoomControl.qml" line="58"/>
@@ -30800,6 +30852,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Zoom</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="520"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStatusBar.qml" line="193"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierStatusBar.qml" line="207"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/ZoomControl.qml" line="78"/>
@@ -37012,13 +37065,13 @@ failed: %2</translation>
         <translation type="unfinished">Score manager (online)</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="319"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="391"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="354"/>
         <source>New</source>
         <translation type="unfinished">New</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="302"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="374"/>
         <location filename="../../src/project/qml/MuseScore/Project/ScoresPage.qml" line="366"/>
         <source>Open other…</source>
         <translation type="unfinished">Open other…</translation>

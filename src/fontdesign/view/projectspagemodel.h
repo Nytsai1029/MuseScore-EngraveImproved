@@ -28,6 +28,7 @@
 
 #include "../ifontdesignconfiguration.h"
 #include "multiinstances/imultiinstancesprovider.h"
+#include "ui/iuiconfiguration.h"
 
 #include "../ifontdesignprojectscenario.h"
 #include "../ifontdesignservice.h"
@@ -42,6 +43,7 @@ class ProjectsPageModel : public QObject, public muse::Injectable
     muse::Inject<IFontDesignConfiguration> configuration = { this };
     muse::Inject<muse::IInteractive> interactive = { this };
     muse::Inject<muse::mi::IMultiInstancesProvider> multiInstancesProvider = { this };
+    muse::Inject<muse::ui::IUiConfiguration> uiConfiguration = { this };
 
 public:
     explicit ProjectsPageModel(QObject* parent = nullptr);
@@ -57,5 +59,9 @@ public:
 private:
     //! 已有项目时询问 替换/新窗口/取消；新窗口 = 带 --fontdesign 参数的新应用实例
     void openFontPath(const muse::io::path_t& path);
+
+    //! NOTE In the Atelier skin a font is edited in a window of its own:
+    //! a font which is opened from the window of the scores starts that window
+    bool opensFontsInOwnWindow() const;
 };
 }

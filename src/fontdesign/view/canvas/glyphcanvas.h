@@ -80,6 +80,10 @@ public:
 
     Q_INVOKABLE void init();
     Q_INVOKABLE void resetView();
+
+    //! NOTE Zoom by a step around the middle of the view (the wheel zooms around the pointer)
+    Q_INVOKABLE void zoomIn();
+    Q_INVOKABLE void zoomOut();
     Q_INVOKABLE void deleteSelection();
     Q_INVOKABLE void toggleSmoothSelection();
 
