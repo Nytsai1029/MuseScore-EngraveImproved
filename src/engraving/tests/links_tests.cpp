@@ -28,11 +28,16 @@
 #include "dom/masterscore.h"
 #include "dom/mcursor.h"
 #include "dom/measure.h"
+#include "dom/mscore.h"
+#include "dom/note.h"
+#include "dom/parenthesis.h"
 #include "dom/part.h"
 #include "dom/segment.h"
 #include "dom/tempotext.h"
 #include "dom/text.h"
 #include "dom/undo.h"
+#include "infrastructure/mscwriter.h"
+#include "rw/mscsaver.h"
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
 
@@ -544,4 +549,163 @@ TEST_F(Engraving_LinksTests, testPickupLinkedStaff) {
     EXPECT_TRUE(saveAndCompare);
 
     delete score;
+}
+
+//---------------------------------------------------------
+//   linkedParenthesesReadWrite
+///  A note with parentheses in a score with a part.
+///  After writing and reading (twice), the note of the score and the note of the part
+///  each have their pair of parentheses, linked to one another
+//---------------------------------------------------------
+
+static bool writeMscz(MasterScore* score, const String& path)
+{
+    MscWriter::Params params;
+    params.filePath = path;
+    params.mode = MscIoMode::Zip;
+
+    MscWriter writer(params);
+    if (!writer.open()) {
+        return false;
+    }
+
+    MscSaver saver(score->iocContext());
+    bool ok = saver.writeMscz(score, writer, /*createThumbnail*/ false);
+    writer.close();
+
+    return ok && !writer.hasError();
+}
+
+static Note* firstNote(Score* score)
+{
+    for (Segment* s = score->firstSegment(SegmentType::ChordRest); s; s = s->next1(SegmentType::ChordRest)) {
+        EngravingItem* e = s->element(0);
+        if (e && e->isChord()) {
+            return toChord(e)->upNote();
+        }
+    }
+
+    return nullptr;
+}
+
+static void checkLinkedParentheses(MasterScore* score)
+{
+    ASSERT_EQ(score->excerpts().size(), 1);
+
+    Note* note = firstNote(score);
+    Note* partNote = firstNote(score->excerpts().front()->excerptScore());
+    ASSERT_TRUE(note);
+    ASSERT_TRUE(partNote);
+    EXPECT_TRUE(partNote->isLinked(note));
+
+    const std::vector<std::pair<Parenthesis*, Parenthesis*> > parentheses {
+        { note->leftParen(), partNote->leftParen() },
+        { note->rightParen(), partNote->rightParen() }
+    };
+
+    for (const auto& [paren, partParen] : parentheses) {
+        ASSERT_TRUE(paren);
+        ASSERT_TRUE(partParen);
+        EXPECT_FALSE(paren->generated());
+        EXPECT_FALSE(partParen->generated());
+        EXPECT_EQ(paren->explicitParent(), note);
+        EXPECT_EQ(partParen->explicitParent(), partNote);
+
+        EXPECT_TRUE(partParen->isLinked(paren));
+        ASSERT_TRUE(paren->links());
+        EXPECT_EQ(paren->links()->size(), 2);
+        EXPECT_EQ(paren->links()->mainElement(), paren);
+    }
+}
+
+TEST_F(Engraving_LinksTests, linkedParenthesesReadWrite)
+{
+    bool useRead302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
+
+    MCursor c;
+    c.setTimeSig(Fraction(4, 4));
+    c.createScore(nullptr, u"test");
+    c.addPart(u"voice");
+    c.move(0, Fraction(0, 1));
+
+    c.addKeySig(Key(1));
+    c.addTimeSig(Fraction(4, 4));
+    c.addChord(60, TDuration(DurationType::V_WHOLE));
+
+    MasterScore* score = c.score();
+    score->doLayout();
+
+    // create the part
+    Score* partScore = score->createScore();
+    Excerpt* ex = new Excerpt(score);
+    ex->setExcerptScore(partScore);
+    partScore->setExcerpt(ex);
+    score->excerpts().push_back(ex);
+    ex->setName(u"voice");
+    ex->setParts({ score->parts().at(0) });
+    Excerpt::createExcerpt(ex);
+    score->setExcerptsChanged(true);
+
+    // put the note in parentheses
+    Note* note = firstNote(score);
+    ASSERT_TRUE(note);
+
+    score->startCmd(TranslatableString::untranslatable("Engraving links tests"));
+    note->undoChangeProperty(Pid::HAS_PARENTHESES, ParenthesesMode::BOTH);
+    score->endCmd();
+
+    checkLinkedParentheses(score);
+
+    // write and read: the links are still there, and they are still there after the next round
+    const String firstPath = u"linkedParentheses_1.mscz";
+    const String secondPath = u"linkedParentheses_2.mscz";
+
+    ASSERT_TRUE(writeMscz(score, firstPath));
+    delete score;
+
+    score = ScoreRW::readScore(firstPath, true);
+    ASSERT_TRUE(score);
+    checkLinkedParentheses(score);
+
+    ASSERT_TRUE(writeMscz(score, secondPath));
+    delete score;
+
+    score = ScoreRW::readScore(secondPath, true);
+    ASSERT_TRUE(score);
+    checkLinkedParentheses(score);
+
+    delete score;
+
+    MScore::useRead302InTestMode = useRead302;
+}
+
+//---------------------------------------------------------
+//   linkedParenthesesDanglingLinks
+///  A file in which the parentheses of the note in the part refer to parentheses which are not in the file
+///  (as written when reading still mixed up the parentheses of linked notes).
+///  They get linked to the parentheses of the note in the score, and the next file is written without such links
+//---------------------------------------------------------
+
+TEST_F(Engraving_LinksTests, linkedParenthesesDanglingLinks)
+{
+    bool useRead302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
+
+    MasterScore* score = ScoreRW::readScore(LINKS_DATA_DIR + u"linkedParenthesesDangling.mscz");
+    ASSERT_TRUE(score);
+    checkLinkedParentheses(score);
+
+    const String path = u"linkedParenthesesDangling_resaved.mscz";
+
+    ASSERT_TRUE(writeMscz(score, path));
+    delete score;
+
+    score = ScoreRW::readScore(path, true);
+    ASSERT_TRUE(score);
+    checkLinkedParentheses(score);
+
+    delete score;
+
+    MScore::useRead302InTestMode = useRead302;
 }

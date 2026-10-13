@@ -65,6 +65,12 @@ EngravingObject* EIDRegister::itemFromEID(const EID& eid) const
     return iter->second;
 }
 
+EngravingObject* EIDRegister::findItem(const EID& eid) const
+{
+    auto iter = m_eidToItem.find(eid);
+    return iter != m_eidToItem.end() ? iter->second : nullptr;
+}
+
 EID EIDRegister::EIDFromItem(const EngravingObject* item) const
 {
     auto iter = m_itemToEid.find(const_cast<EngravingObject*>(item));

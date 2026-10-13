@@ -39,6 +39,7 @@ public:
     void registerItemEID(const EID& eid, const EngravingObject* item);
 
     EngravingObject* itemFromEID(const EID& eid) const;
+    EngravingObject* findItem(const EID& eid) const; // nullptr if there is no item with this EID
     EID EIDFromItem(const EngravingObject* item) const;
 
 private:

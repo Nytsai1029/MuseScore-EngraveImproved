@@ -76,6 +76,7 @@
 #include "../../dom/ledgerline.h"
 #include "../../dom/letring.h"
 #include "../../dom/line.h"
+#include "../../dom/linkedobjects.h"
 #include "../../dom/lyrics.h"
 #include "../../dom/marker.h"
 #include "../../dom/masterscore.h"
@@ -523,6 +524,15 @@ bool TRead::readStyledProperty(EngravingItem* item, const AsciiStringView& tag, 
     return false;
 }
 
+static void addParenthesis(EngravingItem* item, DirectionH direction)
+{
+    Parenthesis* paren = Factory::createParenthesis(item);
+    paren->setParent(item);
+    paren->setTrack(item->track());
+    paren->setDirection(direction);
+    item->add(paren);
+}
+
 bool TRead::readItemProperties(EngravingItem* item, XmlReader& e, ReadContext& ctx)
 {
     const AsciiStringView tag(e.name());
@@ -551,12 +561,29 @@ bool TRead::readItemProperties(EngravingItem* item, XmlReader& e, ReadContext& c
     } else if (TRead::readProperty(item, tag, e, ctx, Pid::PLACEMENT)) {
     } else if (tag == "z") {
         item->setZ(e.readInt());
-    } else if (TRead::readProperty(item, tag, e, ctx, Pid::HAS_PARENTHESES)) {
+    } else if (tag == propertyName(Pid::HAS_PARENTHESES)) {
+        //! NOTE Not through setProperty: that adds the parentheses with the undo stack, and to the linked items
+        //! as well, while every linked item is read with its own ones
+        const ParenthesesMode mode = readPropertyValue(Pid::HAS_PARENTHESES, e, ctx).value<ParenthesesMode>();
+        if ((mode & ParenthesesMode::LEFT) && !item->leftParen()) {
+            addParenthesis(item, DirectionH::LEFT);
+        }
+        if ((mode & ParenthesesMode::RIGHT) && !item->rightParen()) {
+            addParenthesis(item, DirectionH::RIGHT);
+        }
     } else if (tag == "Parenthesis") {
         Parenthesis* p = Factory::createParenthesis(item);
         TRead::read(p, e, ctx);
         p->setParent(item);
         p->setTrack(ctx.track());
+
+        //! NOTE It takes the place of the one made when the "parentheses" property was read
+        Parenthesis* placeholder = p->direction() == DirectionH::RIGHT ? item->rightParen() : item->leftParen();
+        if (placeholder) {
+            item->remove(placeholder);
+            delete placeholder;
+        }
+
         item->add(p);
     } else {
         return false;
@@ -575,14 +602,58 @@ void TRead::readItemEID(EngravingObject* item, XmlReader& xml)
     item->setEID(eid);
 }
 
+//! NOTE The parenthesis on the same side of an item which is linked to the parent of this parenthesis
+static Parenthesis* parenthesisOfLinkedParent(const EngravingItem* item)
+{
+    if (!item->isParenthesis()) {
+        return nullptr;
+    }
+
+    //! NOTE While it is being read, its parent is the one it was created with (see readItemProperties)
+    const EngravingItem* parent = item->parentItem(/*explicitParent*/ false);
+    if (!parent || !parent->links()) {
+        return nullptr;
+    }
+
+    const bool isRight = toParenthesis(item)->direction() == DirectionH::RIGHT;
+    Parenthesis* result = nullptr;
+
+    for (EngravingObject* linked : *parent->links()) {
+        if (linked == parent || !linked->isEngravingItem()) {
+            continue;
+        }
+
+        const EngravingItem* linkedParent = toEngravingItem(linked);
+        Parenthesis* paren = isRight ? linkedParent->rightParen() : linkedParent->leftParen();
+        if (!paren || paren == item) {
+            continue;
+        }
+
+        if (linkedParent->score()->isMaster()) {
+            return paren;
+        }
+
+        if (!result) {
+            result = paren;
+        }
+    }
+
+    return result;
+}
+
 void TRead::readItemLink(EngravingItem* item, XmlReader& xml, ReadContext& ctx)
 {
     AsciiStringView s = xml.readAsciiText();
     EID eid = EID::fromStdString(s);
     DO_ASSERT(eid.isValid());
     EIDRegister* eidRegister = ctx.score()->masterScore()->eidRegister();
-    EngravingObject* mainElement = eidRegister->itemFromEID(eid);
-    IF_ASSERT_FAILED(mainElement) {
+    EngravingObject* mainElement = eidRegister->findItem(eid);
+    if (!mainElement) {
+        //! NOTE Files written when reading still mixed up the parentheses of linked items (see readItemProperties)
+        //! refer to a parenthesis which is not in the file. The one of the linked parent is meant
+        mainElement = parenthesisOfLinkedParent(item);
+    }
+    if (!mainElement) {
         LOGE() << "Link failed: Main linked element not found for " << item->typeName() << " at " << ctx.tick().toString();
         return;
     }
