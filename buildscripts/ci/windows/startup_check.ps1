@@ -111,7 +111,8 @@ Get-ChildItem -Path $appLogsDir -Filter "*.log" -ErrorAction SilentlyContinue | 
     }
 }
 
-$crashed = ($output -match "===== ACCESS VIOLATION =====") -or $appLogCrashed
+# Only the marker printed at the start of a line counts: the debugger also echoes the "sxe" command that contains it
+$crashed = ($output -match "(?m)^===== ACCESS VIOLATION =====") -or $appLogCrashed
 
 if ($crashed) {
     $result = "CRASHED during startup"
