@@ -20,8 +20,8 @@ on:
         description: 'Upload symbols and dumps to Sentry (choose a project): mu4(default for stable build), mu4-sandbox'
         default: ''
         required: false
-      use_qt69:
-        description: 'Use Qt 6.9'
+      use_qt610:
+        description: 'Use Qt 6.10'
         default: 'on'
         required: false  
   workflow_call:
@@ -46,8 +46,8 @@ on:
         default: ''
         type: string
         required: false
-      use_qt69:
-        description: 'Use Qt 6.9'
+      use_qt610:
+        description: 'Use Qt 6.10'
         default: 'on'
         type: string
         required: false
@@ -58,17 +58,17 @@ on:
         required: false
  
 env:
-  USE_QT69: ${{ inputs.use_qt69 != '' && inputs.use_qt69 || 'on' }}        
+  USE_QT610: ${{ inputs.use_qt610 != '' && inputs.use_qt610 || 'on' }}
 
 jobs:
   setup:
     runs-on: ubuntu-22.04
     outputs:
-      use_qt69: ${{ steps.set_use_qt69.outputs.use_qt69 }}
+      use_qt610: ${{ steps.set_use_qt610.outputs.use_qt610 }}
     steps:
-      - id: set_use_qt69
+      - id: set_use_qt610
         run: |
-          echo "use_qt69=${{ env.USE_QT69 }}" >> $GITHUB_OUTPUT
+          echo "use_qt610=${{ env.USE_QT610 }}" >> $GITHUB_OUTPUT
 
   build:
     needs: setup
@@ -82,8 +82,8 @@ jobs:
             arch: x86_64
             runs-on: ubuntu-22.04
             qt-host: linux
-            qt-version: ${{ needs.setup.outputs.use_qt69 == 'on' && '6.9.2' || '6.2.4' }}
-            qt-arch: ${{ needs.setup.outputs.use_qt69 == 'on' && 'linux_gcc_64' || 'gcc_64' }} 
+            qt-version: ${{ needs.setup.outputs.use_qt610 == 'on' && '6.10.2' || '6.2.4' }}
+            qt-arch: ${{ needs.setup.outputs.use_qt610 == 'on' && 'linux_gcc_64' || 'gcc_64' }}
             dump-symbols-arch: x86-64
     steps:
     - name: Cancel Previous Runs
@@ -192,7 +192,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v4 
       with:
-        version: ${{ env.USE_QT69 == 'on' && '6.9.2' || '6.2.4' }}
+        version: ${{ matrix.qt-version }}
         host: ${{ matrix.qt-host }}
         target: 'desktop'
         arch: ${{ matrix.qt-arch }}
