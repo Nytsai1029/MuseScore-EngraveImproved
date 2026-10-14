@@ -208,6 +208,20 @@ jobs:
         bash ./buildscripts/ci/macos/build.sh -n ${{ env.BUILD_NUMBER }} --crash_log_url $C_URL
         echo "============== ccache ==============="
         ccache -sv
+    # Runs the built app under a debugger: a crash during startup is reported with its call stack.
+    # It does not block packaging, so that the build is still available for investigation.
+    - name: Startup check
+      continue-on-error: true
+      timeout-minutes: 10
+      run: |
+        bash ./buildscripts/ci/macos/startup_check.sh
+    - name: Upload startup check results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.UPLOAD_ARTIFACT_NAME }}_startup_check
+        path: ./build.startup_check/
+        if-no-files-found: ignore
     - name: Package
       run: |
         S_S="${{ secrets.MAC_SIGN_CERTIFICATE_ENCRYPT_SECRET }}"; if [ -z "$S_S" ]; then S_S="''"; fi

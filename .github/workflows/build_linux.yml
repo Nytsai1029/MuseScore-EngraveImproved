@@ -222,6 +222,21 @@ jobs:
     - name: Package
       run: |
         bash ./buildscripts/ci/linux/package.sh --arch ${{ matrix.arch }}
+    # Runs the packaged app (the AppDir that the AppImage is made of) under a debugger: a crash during
+    # startup is reported with its call stack. It does not block the upload, so that the build is still
+    # available for investigation.
+    - name: Startup check
+      continue-on-error: true
+      timeout-minutes: 10
+      run: |
+        bash ./buildscripts/ci/linux/startup_check.sh
+    - name: Upload startup check results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.UPLOAD_ARTIFACT_NAME }}_startup_check
+        path: ./build.startup_check/
+        if-no-files-found: ignore
     - name: Checksum
       run: |
         bash ./buildscripts/ci/tools/checksum.sh
