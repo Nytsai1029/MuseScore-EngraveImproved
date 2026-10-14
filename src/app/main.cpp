@@ -100,6 +100,15 @@ int main(int argc, char** argv)
         qputenv("QV4_GC_TIMELIMIT", "0");
     }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 10, 0)
+    //! NOTE Before Qt 6.10, creating a QML document first reserves a JS stack slot for every object it may create,
+    //! counting the objects of all the documents nested in it, without checking the stack size
+    //! (QQmlObjectCreator::create). The main window needs more than the default 4 MB, which crashes the app at startup
+    if (!qEnvironmentVariableIsSet("QV4_JS_MAX_STACK_SIZE")) {
+        qputenv("QV4_JS_MAX_STACK_SIZE", QByteArray::number(64 * 1024 * 1024));
+    }
+#endif
+
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
     if (!qEnvironmentVariableIsSet("QT_QUICK_FLICKABLE_WHEEL_DECELERATION")) {
         qputenv("QT_QUICK_FLICKABLE_WHEEL_DECELERATION", "5000");
