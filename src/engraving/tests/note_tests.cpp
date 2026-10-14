@@ -43,6 +43,7 @@
 #include "dom/parenthesis.h"
 #include "dom/pitchspelling.h"
 #include "dom/property.h"
+#include "dom/rest.h"
 #include "dom/segment.h"
 #include "dom/staff.h"
 #include "dom/system.h"
@@ -1048,4 +1049,40 @@ TEST_F(Engraving_NoteTests, accidentalStateOutOfRangeLine)
 
     // The neighbouring valid line is untouched
     EXPECT_EQ(state.accidentalVal(MAX_ACC_STATE - 1), AccidentalVal::NATURAL);
+}
+
+//---------------------------------------------------------
+///   dotAutoplaceRoundTrip
+///   An augmentation dot with autoplace turned off keeps that setting after write/read
+//---------------------------------------------------------
+
+TEST_F(Engraving_NoteTests, dotAutoplaceRoundTrip)
+{
+    MasterScore* score = compat::ScoreAccess::createMasterScore(nullptr);
+
+    Chord* chord = Factory::createChord(score->dummy()->segment());
+    Note* note = Factory::createNote(chord);
+    chord->add(note);
+    NoteDot* noteDot = Factory::createNoteDot(note);
+    noteDot->setAutoplace(false);
+    note->add(noteDot);
+
+    Note* n = toNote(ScoreRW::writeReadElement(note));
+    ASSERT_EQ(n->dots().size(), 1);
+    EXPECT_TRUE(n->dots().front()->flag(ElementFlag::NO_AUTOPLACE));
+    delete n;
+
+    Rest* rest = Factory::createRest(score->dummy()->segment());
+    NoteDot* restDot = Factory::createNoteDot(rest);
+    restDot->setAutoplace(false);
+    rest->add(restDot);
+
+    Rest* r = toRest(ScoreRW::writeReadElement(rest));
+    ASSERT_EQ(r->dotList().size(), 1);
+    EXPECT_TRUE(r->dotList().front()->flag(ElementFlag::NO_AUTOPLACE));
+    delete r;
+
+    delete rest;
+    delete chord;
+    delete score;
 }

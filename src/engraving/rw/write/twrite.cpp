@@ -2353,7 +2353,7 @@ void TWrite::write(const Note* item, XmlWriter& xml, WriteContext& ctx)
     bool write_dots = false;
     for (NoteDot* dot : item->dots()) {
         if (!dot->offset().isNull() || !dot->visible() || dot->color() != ctx.configuration()->defaultColor()
-            || dot->visible() != item->visible()) {
+            || dot->visible() != item->visible() || dot->flag(ElementFlag::NO_AUTOPLACE)) {
             write_dots = true;
             break;
         }
@@ -2655,7 +2655,7 @@ void TWrite::write(const Rest* item, XmlWriter& xml, WriteContext& ctx)
     bool write_dots = false;
     for (NoteDot* dot : item->dotList()) {
         if (!dot->offset().isNull() || !dot->visible() || dot->color() != ctx.configuration()->defaultColor()
-            || dot->visible() != item->visible()) {
+            || dot->visible() != item->visible() || dot->flag(ElementFlag::NO_AUTOPLACE)) {
             write_dots = true;
             break;
         }
