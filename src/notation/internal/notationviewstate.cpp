@@ -170,6 +170,17 @@ void NotationViewState::setViewMode(const ViewMode& mode)
     m_stateChanged.notify();
 }
 
+int NotationViewState::centerTick() const
+{
+    return m_centerTick;
+}
+
+void NotationViewState::setCenterTick(int tick)
+{
+    //! NOTE Only a place to start at: nothing to save, so the state is not changed
+    m_centerTick = tick;
+}
+
 void NotationViewState::makeDefault()
 {
     m_viewMode = ViewMode::PAGE;

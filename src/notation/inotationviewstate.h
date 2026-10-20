@@ -59,6 +59,11 @@ public:
     virtual ViewMode viewMode() const = 0;
     virtual void setViewMode(const ViewMode& mode) = 0;
 
+    //! NOTE The musical position (in ticks) in the middle of the view which edits the score (-1: not known),
+    //! so that a view with its own place (the preview) can start there. It is not saved
+    virtual int centerTick() const = 0;
+    virtual void setCenterTick(int tick) = 0;
+
     virtual muse::async::Notification stateChanged() const = 0;
 
     virtual void makeDefault() = 0;

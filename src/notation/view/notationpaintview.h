@@ -32,7 +32,7 @@ class NotationPaintView : public AbstractNotationPaintView
     Q_PROPERTY(bool syncViewState READ syncViewState WRITE setSyncViewState NOTIFY syncViewStateChanged)
 
     //! NOTE A view with its own zoom (see syncViewState) can start with the whole page fitted in,
-    //! whatever zoom the score is edited with
+    //! whatever zoom the score is edited with: the page where the score is edited (see INotationViewState::centerTick)
     Q_PROPERTY(bool startWithWholePage READ startWithWholePage WRITE setStartWithWholePage NOTIFY startWithWholePageChanged)
 
     //! NOTE The zoom of this view (which is not the zoom of the other views, if syncViewState is false)
@@ -74,6 +74,11 @@ private:
 
     void initZoomAndPosition() override;
 
+    void updateCenterTick();
+    int findCenterTick() const;
+    void showPageAt(int tick);
+
+    void onViewSizeChanged() override;
     void onMatrixChanged(const muse::draw::Transform& oldMatrix, const muse::draw::Transform& newMatrix,
                          bool overrideZoomType = true) override;
 

@@ -55,6 +55,9 @@ public:
     ViewMode viewMode() const override;
     void setViewMode(const ViewMode& mode) override;
 
+    int centerTick() const override;
+    void setCenterTick(int tick) override;
+
     muse::async::Notification stateChanged() const override;
 
     void makeDefault() override;
@@ -67,6 +70,7 @@ private:
     muse::ValCh<ZoomType> m_zoomType;
 
     notation::ViewMode m_viewMode = notation::ViewMode::PAGE;
+    int m_centerTick = -1;
 
     muse::async::Notification m_stateChanged;
 };

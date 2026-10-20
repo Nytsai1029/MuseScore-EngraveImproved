@@ -128,11 +128,13 @@ bool PreviewPagesModel::isWholePageShown() const
 
 void PreviewPagesModel::onViewSizeChanged()
 {
+    //! NOTE A view which gets its first size has just found its zoom and place (it may start at any page)
+    const bool hadSize = !m_lastViewSize.isEmpty();
     m_lastViewSize = viewSize();
 
     //! NOTE The view keeps its top left corner when its size changes;
     //! a page which is shown whole stays in the middle of the view
-    if (isWholePageShown()) {
+    if (hadSize && isWholePageShown()) {
         showPage(m_currentPageIndex);
     } else {
         updateCurrentPageIndex();

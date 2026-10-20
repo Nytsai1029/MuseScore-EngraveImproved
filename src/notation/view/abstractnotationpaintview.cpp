@@ -232,14 +232,15 @@ void AbstractNotationPaintView::onCurrentNotationChanged()
 
 void AbstractNotationPaintView::onLoadNotation(INotationPtr)
 {
-    if (viewport().isValid() && !isMatrixInited()) {
-        initZoomAndPosition();
-    }
-
+    //! NOTE The layout of the view first: the zoom and the place are found on it
     if (publishMode()) {
         m_notation->painting()->setViewMode(ViewMode::PAGE);
     } else {
         m_notation->painting()->setViewMode(m_notation->viewState()->viewMode());
+    }
+
+    if (viewport().isValid() && !isMatrixInited()) {
+        initZoomAndPosition();
     }
 
     m_notation->notationChanged().onNotify(this, [this]() {

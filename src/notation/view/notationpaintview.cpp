@@ -21,9 +21,41 @@
  */
 #include "notationpaintview.h"
 
+#include <algorithm>
+
+#include "engraving/dom/measure.h"
+#include "engraving/dom/page.h"
+#include "engraving/dom/score.h"
+#include "engraving/dom/system.h"
+
 using namespace mu;
 using namespace muse::draw;
 using namespace mu::notation;
+
+//! NOTE The distance from the point to the rectangle (0 if the rectangle has the point), squared
+static double distanceSquared(const muse::RectF& rect, const muse::PointF& point)
+{
+    const double dx = std::max({ rect.left() - point.x(), 0.0, point.x() - rect.right() });
+    const double dy = std::max({ rect.top() - point.y(), 0.0, point.y() - rect.bottom() });
+    return dx * dx + dy * dy;
+}
+
+template<typename Item>
+static const Item* nearestItem(const std::vector<Item*>& items, const muse::PointF& point)
+{
+    const Item* nearest = nullptr;
+    double minDistance = 0.0;
+
+    for (const Item* item : items) {
+        const double distance = distanceSquared(item->canvasBoundingRect(), point);
+        if (!nearest || distance < minDistance) {
+            nearest = item;
+            minDistance = distance;
+        }
+    }
+
+    return nearest;
+}
 
 NotationPaintView::NotationPaintView(QQuickItem* parent)
     : AbstractNotationPaintView(parent)
@@ -152,11 +184,85 @@ void NotationPaintView::initZoomAndPosition()
     const bool wholePage = !m_syncViewState && m_startWithWholePage;
     inputController()->initZoom(wholePage ? std::optional<ZoomType>(ZoomType::WholePage) : std::nullopt);
     inputController()->initCanvasPos();
+
+    if (wholePage) {
+        showPageAt(notation()->viewState()->centerTick());
+    }
+}
+
+void NotationPaintView::updateCenterTick()
+{
+    //! NOTE Only the view which edits the score, while the score is laid out for it
+    //! (the preview lays the score out in pages)
+    if (!m_syncViewState || publishMode() || !isVisible() || !notation()) {
+        return;
+    }
+
+    if (notation()->painting()->viewMode() != notation()->viewState()->viewMode()) {
+        return;
+    }
+
+    const int tick = findCenterTick();
+    if (tick >= 0) {
+        notation()->viewState()->setCenterTick(tick);
+    }
+}
+
+int NotationPaintView::findCenterTick() const
+{
+    const muse::RectF viewport = this->viewport();
+    if (!viewport.isValid()) {
+        return -1;
+    }
+
+    const muse::PointF center = viewport.center();
+
+    //! NOTE The page nearest to the middle of the view, its line nearest to the middle, and the measure of that line
+    const engraving::Page* page = nearestItem(notation()->elements()->pages(), center);
+    const engraving::System* system = page ? nearestItem(page->systems(), center) : nullptr;
+    const engraving::MeasureBase* measure = system ? nearestItem(system->measures(), center) : nullptr;
+
+    return measure ? measure->tick().ticks() : -1;
+}
+
+void NotationPaintView::showPageAt(int tick)
+{
+    if (tick < 0) {
+        return;
+    }
+
+    const engraving::Score* score = notation()->elements()->msScore();
+    const engraving::Measure* measure = score ? score->tick2measureMM(engraving::Fraction::fromTicks(tick)) : nullptr;
+    const engraving::System* system = measure ? measure->system() : nullptr;
+    const engraving::Page* page = system ? system->page() : nullptr;
+
+    const muse::RectF viewport = this->viewport();
+    if (!page || !viewport.isValid()) {
+        return;
+    }
+
+    //! NOTE As the pages of the preview show a page (see PreviewPagesModel::showPage)
+    const muse::RectF pageRect = page->canvasBoundingRect();
+    const double dx = viewport.center().x() - pageRect.center().x();
+    const double dy = pageRect.height() <= viewport.height() ? viewport.center().y() - pageRect.center().y()
+                      : viewport.top() - pageRect.top();
+
+    moveCanvas(dx, dy);
+}
+
+void NotationPaintView::onViewSizeChanged()
+{
+    AbstractNotationPaintView::onViewSizeChanged();
+
+    updateCenterTick();
 }
 
 void NotationPaintView::onMatrixChanged(const Transform& oldMatrix, const Transform& newMatrix, bool overrideZoomType)
 {
     AbstractNotationPaintView::onMatrixChanged(oldMatrix, newMatrix, overrideZoomType);
+
+    //! NOTE The place where the score is edited, for the views which start there
+    updateCenterTick();
 
     if (!m_syncViewState) {
         if (overrideZoomType && m_localZoomType != ZoomType::Percentage) {
