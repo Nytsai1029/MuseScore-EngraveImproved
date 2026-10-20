@@ -173,6 +173,12 @@ public:
     void setLedgerLineOffsets(int line, const LedgerLineOffsets& offsets);
     void undoChangeLedgerLineOffsets(int line, const LedgerLineOffsets& offsets);
 
+    // The ledger lines the user made invisible, kept here for the same reason, by staff line
+    const std::set<int>& hiddenLedgerLines() const { return m_hiddenLedgerLines; }
+    bool isLedgerLineHidden(int line) const { return m_hiddenLedgerLines.find(line) != m_hiddenLedgerLines.end(); }
+    void setLedgerLineHidden(int line, bool hidden);
+    void undoChangeLedgerLineHidden(int line, bool hidden);
+
     double defaultStemLength() const { return m_defaultStemLength; }
     void setDefaultStemLength(double l) { m_defaultStemLength = l; }
     void setBeamExtension(double extension);
@@ -401,6 +407,7 @@ private:
     std::vector<Note*> m_notes;           // sorted to decreasing line step
     std::vector<LedgerLine*> m_ledgerLines;
     std::map<int, LedgerLineOffsets> m_ledgerLineOffsets;
+    std::set<int> m_hiddenLedgerLines;
 
     Stem* m_stem = nullptr;
     Hook* m_hook = nullptr;

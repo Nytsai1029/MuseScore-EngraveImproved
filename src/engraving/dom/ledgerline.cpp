@@ -192,16 +192,22 @@ PropertyValue LedgerLine::propertyDefault(Pid propertyId) const
 //---------------------------------------------------------
 //   undoChangeProperty
 //    Layout creates and deletes ledger lines freely, so nothing on the undo stack may point at one.
-//    The length offsets go through a command on the chord; layout sets everything else about a
-//    ledger line anew each time, so other property changes are not recorded.
+//    The length offsets and visibility go through commands on the chord; layout sets everything
+//    else about a ledger line anew each time, so other property changes are not recorded.
 //---------------------------------------------------------
 
 void LedgerLine::undoChangeProperty(Pid id, const PropertyValue& v, PropertyFlags)
 {
-    if (id != Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT && id != Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT) {
+    if (id != Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT && id != Pid::LEDGER_LINE_LENGTH_OFFSET_RIGHT
+        && id != Pid::VISIBLE) {
         return;
     }
     if (!storesOffsetsOnChord()) {
+        return;
+    }
+
+    if (id == Pid::VISIBLE) {
+        chord()->undoChangeLedgerLineHidden(m_line, !v.toBool());
         return;
     }
 

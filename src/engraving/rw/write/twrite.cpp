@@ -988,6 +988,9 @@ void TWrite::write(const Chord* item, XmlWriter& xml, WriteContext& ctx)
         xml.tag("right", offsets.right.val(), 0.0);
         xml.endElement();
     }
+    for (int line : item->hiddenLedgerLines()) {
+        xml.tag("LedgerLineHidden", { { "line", line } });
+    }
 
     if (item->arpeggio()) {
         write(item->arpeggio(), xml, ctx);

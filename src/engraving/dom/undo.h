@@ -148,6 +148,7 @@ enum class CommandType : signed char {
     // ChordRest
     ChangeChordStaffMove,
     ChangeLedgerLineOffsets,
+    ChangeLedgerLineHidden,
     SwapCR,
 
     // Brackets
@@ -1085,6 +1086,25 @@ public:
 
     UNDO_TYPE(CommandType::ChangeLedgerLineOffsets)
     UNDO_NAME("ChangeLedgerLineOffsets")
+    UNDO_CHANGED_OBJECTS({ chord })
+};
+
+// Holds the chord and not the ledger line, as ChangeLedgerLineOffsets does
+class ChangeLedgerLineHidden : public UndoCommand
+{
+    OBJECT_ALLOCATOR(engraving, ChangeLedgerLineHidden)
+
+    Chord* chord = nullptr;
+    int line = 0;
+    bool hidden = false;
+
+    void flip(EditData*) override;
+
+public:
+    ChangeLedgerLineHidden(Chord* c, int line, bool hidden);
+
+    UNDO_TYPE(CommandType::ChangeLedgerLineHidden)
+    UNDO_NAME("ChangeLedgerLineHidden")
     UNDO_CHANGED_OBJECTS({ chord })
 };
 

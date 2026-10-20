@@ -25,6 +25,7 @@
 #include <algorithm>
 #include <filesystem>
 #include <map>
+#include <set>
 #include <tuple>
 #include <vector>
 
@@ -89,6 +90,14 @@ static void setOffsetLeft(MasterScore* score, LedgerLine* ledgerLine, double sp)
 {
     score->startCmd(TranslatableString::untranslatable("Engraving ledger line tests"));
     ledgerLine->undoChangeProperty(Pid::LEDGER_LINE_LENGTH_OFFSET_LEFT, Spatium(sp));
+    score->endCmd();
+}
+
+static void toggleVisible(MasterScore* score, LedgerLine* ledgerLine)
+{
+    score->startCmd(TranslatableString::untranslatable("Engraving ledger line tests"));
+    score->select(ledgerLine, SelectType::SINGLE, 0);
+    score->cmdToggleVisible();
     score->endCmd();
 }
 
@@ -264,7 +273,7 @@ TEST_F(Engraving_LedgerLineTests, undoAfterLedgerLineWasRemoved)
     delete score;
 }
 
-// Only the length offsets of a ledger line are recorded for undo, and on the chord:
+// Only the length offsets and the visibility of a ledger line are recorded for undo, and on the chord:
 // nothing on the undo stack may point at an object that layout deletes
 TEST_F(Engraving_LedgerLineTests, otherPropertiesAreNotRecorded)
 {
@@ -278,7 +287,6 @@ TEST_F(Engraving_LedgerLineTests, otherPropertiesAreNotRecorded)
     ASSERT_TRUE(ledgerLine);
 
     score->startCmd(TranslatableString::untranslatable("Engraving ledger line tests"));
-    ledgerLine->undoChangeProperty(Pid::VISIBLE, false);
     ledgerLine->undoChangeProperty(Pid::Z, 1);
     score->endCmd();
 
@@ -340,12 +348,117 @@ TEST_F(Engraving_LedgerLineTests, clonedChordKeepsOffsets)
     ASSERT_TRUE(ledgerLineAt(chord, -4));
     setOffsetLeft(score, ledgerLineAt(chord, -4), 1.5);
 
+    toggleVisible(score, ledgerLineAt(chord, 12));
+
     Chord* copy = toChord(chord->clone());
     EXPECT_EQ(copy->ledgerLineOffsets(-4).left, Spatium(1.5));
     EXPECT_EQ(copy->ledgerLineOffsets().size(), 1u);
+    EXPECT_EQ(copy->hiddenLedgerLines(), std::set<int> { 12 });
     delete copy;
 
     delete score;
+}
+
+// One ledger line can be made invisible on its own (V, or Visible in the inspector); the setting is kept on the chord
+TEST_F(Engraving_LedgerLineTests, hiddenLineIsInvisibleAndUndoable)
+{
+    MasterScore* score = ScoreRW::readScore(LEDGERLINE_DATA_DIR + u"chordBothSides.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    Chord* chord = firstChord(score);
+    ASSERT_TRUE(chord);
+    ASSERT_TRUE(ledgerLineAt(chord, -4));
+    const size_t lineCount = chord->ledgerLines().size();
+
+    toggleVisible(score, ledgerLineAt(chord, -4));
+
+    EXPECT_EQ(chord->hiddenLedgerLines(), std::set<int> { -4 });
+    EXPECT_EQ(chord->ledgerLines().size(), lineCount);
+    ASSERT_TRUE(ledgerLineAt(chord, -4));
+    EXPECT_FALSE(ledgerLineAt(chord, -4)->visible());
+    EXPECT_TRUE(ledgerLineAt(chord, -4)->generated());
+    for (int line : { -2, 10, 12 }) {
+        ASSERT_TRUE(ledgerLineAt(chord, line));
+        EXPECT_TRUE(ledgerLineAt(chord, line)->visible());
+    }
+
+    score->undoRedo(true, nullptr);
+    EXPECT_TRUE(chord->hiddenLedgerLines().empty());
+    EXPECT_TRUE(ledgerLineAt(chord, -4)->visible());
+    EXPECT_FALSE(score->undoStack()->canUndo());
+
+    score->undoRedo(false, nullptr);
+    EXPECT_FALSE(ledgerLineAt(chord, -4)->visible());
+
+    // toggling the hidden line shows it again
+    toggleVisible(score, ledgerLineAt(chord, -4));
+    EXPECT_TRUE(chord->hiddenLedgerLines().empty());
+    EXPECT_TRUE(ledgerLineAt(chord, -4)->visible());
+
+    delete score;
+}
+
+// Like the offsets, the setting stays with its staff line while the line comes and goes with the notes
+TEST_F(Engraving_LedgerLineTests, hiddenLineStaysOnItsStaffLine)
+{
+    MasterScore* score = ScoreRW::readScore(LEDGERLINE_DATA_DIR + u"chordBothSides.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    Chord* chord = firstChord(score);
+    ASSERT_TRUE(chord);
+    ASSERT_TRUE(ledgerLineAt(chord, -4));
+
+    toggleVisible(score, ledgerLineAt(chord, -4));
+
+    // C6 -> B5: the upper ledger line is not needed any more, the one under it stays visible
+    moveNote(score, chord->upNote(), false);
+    ASSERT_FALSE(ledgerLineAt(chord, -4));
+    ASSERT_TRUE(ledgerLineAt(chord, -2));
+    EXPECT_TRUE(ledgerLineAt(chord, -2)->visible());
+
+    // undo the pitch change: the line is back, still hidden
+    score->undoRedo(true, nullptr);
+    ASSERT_TRUE(ledgerLineAt(chord, -4));
+    EXPECT_FALSE(ledgerLineAt(chord, -4)->visible());
+    EXPECT_TRUE(ledgerLineAt(chord, -2)->visible());
+
+    delete score;
+}
+
+TEST_F(Engraving_LedgerLineTests, hiddenLinesSurviveSaveAndReload)
+{
+    MasterScore* score = ScoreRW::readScore(LEDGERLINE_DATA_DIR + u"chordBothSides.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    Chord* chord = firstChord(score);
+    ASSERT_TRUE(chord);
+    ASSERT_TRUE(ledgerLineAt(chord, -4));
+    ASSERT_TRUE(ledgerLineAt(chord, 12));
+
+    toggleVisible(score, ledgerLineAt(chord, -4));
+    toggleVisible(score, ledgerLineAt(chord, 12));
+
+    const std::filesystem::path saveDir = std::filesystem::temp_directory_path();
+    const String saveName = String::fromStdString((saveDir / "musescore-hiddenLedgerLines-test.mscx").string());
+    ASSERT_TRUE(ScoreRW::saveScore(score, saveName));
+    delete score;
+
+    MasterScore* restored = ScoreRW::readScore(saveName, true);
+    ASSERT_TRUE(restored);
+    restored->doLayout();
+
+    Chord* restoredChord = firstChord(restored);
+    ASSERT_TRUE(restoredChord);
+    EXPECT_EQ(restoredChord->hiddenLedgerLines(), (std::set<int> { -4, 12 }));
+    for (int line : { -4, -2, 10, 12 }) {
+        ASSERT_TRUE(ledgerLineAt(restoredChord, line));
+        EXPECT_EQ(ledgerLineAt(restoredChord, line)->visible(), line != -4 && line != 12);
+    }
+
+    delete restored;
 }
 
 TEST_F(Engraving_LedgerLineTests, offsetsSurviveSaveAndReload)

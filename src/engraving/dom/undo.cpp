@@ -2244,6 +2244,25 @@ void ChangeLedgerLineOffsets::flip(EditData*)
 }
 
 //---------------------------------------------------------
+//   ChangeLedgerLineHidden
+//---------------------------------------------------------
+
+ChangeLedgerLineHidden::ChangeLedgerLineHidden(Chord* c, int l, bool h)
+    : chord(c), line(l), hidden(h)
+{
+}
+
+void ChangeLedgerLineHidden::flip(EditData*)
+{
+    const bool current = chord->isLedgerLineHidden(line);
+
+    chord->setLedgerLineHidden(line, hidden);
+    chord->triggerLayout();
+
+    hidden = current;
+}
+
+//---------------------------------------------------------
 //   ChangeChordStaffMove
 //---------------------------------------------------------
 

@@ -319,6 +319,7 @@ Chord::Chord(const Chord& c, bool link)
     m_crossMeasure   = CrossMeasure::UNKNOWN;
     m_combineVoice     = c.m_combineVoice;
     m_ledgerLineOffsets = c.m_ledgerLineOffsets;
+    m_hiddenLedgerLines = c.m_hiddenLedgerLines;
 
     if (c.m_stem) {
         add(Factory::copyStem(*(c.m_stem)));
@@ -1016,6 +1017,23 @@ void Chord::undoChangeLedgerLineOffsets(int line, const LedgerLineOffsets& offse
         return;
     }
     score()->undo(new ChangeLedgerLineOffsets(this, line, offsets));
+}
+
+void Chord::setLedgerLineHidden(int line, bool hidden)
+{
+    if (hidden) {
+        m_hiddenLedgerLines.insert(line);
+    } else {
+        m_hiddenLedgerLines.erase(line);
+    }
+}
+
+void Chord::undoChangeLedgerLineHidden(int line, bool hidden)
+{
+    if (isLedgerLineHidden(line) == hidden) {
+        return;
+    }
+    score()->undo(new ChangeLedgerLineHidden(this, line, hidden));
 }
 
 void Chord::setBeamExtension(double extension)

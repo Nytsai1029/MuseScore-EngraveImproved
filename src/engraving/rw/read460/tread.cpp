@@ -2609,6 +2609,9 @@ bool TRead::readProperties(Chord* ch, XmlReader& e, ReadContext& ctx)
             }
         }
         ch->setLedgerLineOffsets(line, offsets);
+    } else if (tag == "LedgerLineHidden") {
+        ch->setLedgerLineHidden(e.intAttribute("line"), true);
+        e.skipCurrentElement();
     } else if (tag == "LedgerLine") {
         // Written by earlier builds of this fork, which kept the length offsets on the n-th ledger line.
         // Layout moves them to the chord once it knows the staff line (LedgerLine::moveLegacyOffsetsToChord).

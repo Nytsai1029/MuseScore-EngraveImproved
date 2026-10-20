@@ -1440,7 +1440,7 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
         h->setSelectable(true);
         h->setLine(lld.line);
         h->moveLegacyOffsetsToChord();
-        h->setVisible(lld.visible && staffVisible);
+        h->setVisible(lld.visible && staffVisible && !item->isLedgerLineHidden(lld.line));
         const double userLeftExtra = h->ledgerLineLengthOffsetLeft().val() * _spatium * item->mag();
         const double userRightExtra = h->ledgerLineLengthOffsetRight().val() * _spatium * item->mag();
         h->setLen((lld.maxX - lld.minX) + userLeftExtra + userRightExtra);
