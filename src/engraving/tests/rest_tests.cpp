@@ -22,11 +22,13 @@
 
 #include <gtest/gtest.h>
 
+#include "dom/beam.h"
 #include "dom/chord.h"
 #include "dom/editdata.h"
 #include "dom/engravingitem.h"
 #include "dom/masterscore.h"
 #include "dom/measure.h"
+#include "dom/mscore.h"
 #include "dom/rest.h"
 #include "dom/segment.h"
 
@@ -149,4 +151,47 @@ TEST_F(Engraving_RestTests, offsetSurvivesSaveAndReload)
 
     delete reloaded;
     delete score;
+}
+
+TEST_F(Engraving_RestTests, restBesideUserModifiedBeamKeepsHeightAfterRelayout)
+{
+    bool useRead302 = MScore::useRead302InTestMode;
+    MScore::useRead302InTestMode = false;
+
+    MasterScore* score = ScoreRW::readScore(REST_DATA_DIR + u"restBesideUserBeam.mscx");
+    ASSERT_TRUE(score);
+
+    // The voice 1 rest shares its segment with the first chord of a user-modified voice 2 beam
+    Rest* rest = restAt(score, 6, 0);
+    ASSERT_TRUE(rest);
+    EngravingItem* other = rest->segment()->element(1);
+    ASSERT_TRUE(other && other->isChord());
+    Chord* chord = toChord(other);
+    ASSERT_TRUE(chord->beam() && chord->beam()->userModified());
+
+    // Fresh layout: the rest clears the voice 2 notes below it
+    const double restBottom = rest->shape().translate(rest->pos()).bottom();
+    const double chordTop = chord->shape().translate(chord->pos()).top();
+    EXPECT_LT(restBottom, chordTop);
+
+    const double spatium = score->style().spatium();
+    const double y0 = rest->pos().y();
+
+    // A range layout after a nudge keeps the same automatic height under the offset
+    score->startCmd(TranslatableString::untranslatable("test"));
+    score->cmdMoveRest(rest, DirectionV::UP);
+    score->endCmd();
+    EXPECT_NEAR(rest->pos().y(), y0 - spatium, 0.01);
+
+    score->startCmd(TranslatableString::untranslatable("test"));
+    score->cmdMoveRest(rest, DirectionV::DOWN);
+    score->endCmd();
+    EXPECT_NEAR(rest->pos().y(), y0, 0.01);
+
+    score->setLayoutAll();
+    score->doLayout();
+    EXPECT_NEAR(rest->pos().y(), y0, 0.01);
+
+    delete score;
+    MScore::useRead302InTestMode = useRead302;
 }

@@ -2060,6 +2060,8 @@ void SystemLayout::updateCrossBeams(System* system, LayoutContext& ctx)
                     if (chord->up() != prevUp || (stem && stem->length() != prevStemLength)) {
                         // If the chord has changed direction needs to be re-laid out
                         ChordLayout::layoutChords1(ctx, &seg, chord->vStaffIdx());
+                        // That lays out the segment's rests again too, dropping their collision moves
+                        RestLayout::resolveVerticalRestConflicts(ctx, &seg, chord->vStaffIdx());
                         somethingChanged = true;
                     }
                 } else if (chord->tremoloTwoChord()) {
@@ -2071,6 +2073,7 @@ void SystemLayout::updateCrossBeams(System* system, LayoutContext& ctx)
                         ChordLayout::computeUp(chord, ctx);
                         if (chord->up() != prevUp) {
                             ChordLayout::layoutChords1(ctx, &seg, chord->vStaffIdx());
+                            RestLayout::resolveVerticalRestConflicts(ctx, &seg, chord->vStaffIdx());
                             somethingChanged = true;
                         }
                     }

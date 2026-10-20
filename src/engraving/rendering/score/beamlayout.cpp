@@ -316,6 +316,8 @@ void BeamLayout::layout1(Beam* item, LayoutContext& ctx)
         ChordLayout::computeUp(cr, ctx);
         if (cr->isChord() && cr->up() != prevUp) {
             ChordLayout::layoutChords1(ctx, cr->segment(), cr->staffIdx());
+            // That lays out the segment's rests again too, dropping their collision moves
+            RestLayout::resolveVerticalRestConflicts(ctx, cr->segment(), cr->staffIdx());
             cr->segment()->createShape(cr->staffIdx());
             if (toChord(cr)->isGrace()) {
                 ChordLayout::layoutStem(toChord(cr), ctx);
@@ -980,6 +982,7 @@ void BeamLayout::checkCrossPosAndStemConsistency(Beam* beam, LayoutContext& ctx)
             inconsistencyFound = true;
             chord->setUp(actualUp);
             ChordLayout::layoutChords1(ctx, chord->segment(), chord->staffIdx());
+            RestLayout::resolveVerticalRestConflicts(ctx, chord->segment(), chord->staffIdx());
             chord->segment()->createShape(chord->staffIdx());
         }
         if (actualUp) {
