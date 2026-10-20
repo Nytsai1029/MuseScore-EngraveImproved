@@ -45,6 +45,9 @@ class EngraveModeModel : public QObject, public muse::Injectable, public muse::a
     Q_PROPERTY(bool hasSelection READ hasSelection NOTIFY selectionStateChanged)
     Q_PROPERTY(bool isAutoplaceOn READ isAutoplaceOn NOTIFY selectionStateChanged)
 
+    //! NOTE One or more lines (systems) are selected whole, so they can be shown as they will be printed
+    Q_PROPERTY(bool isWholeLineSelected READ isWholeLineSelected NOTIFY selectionStateChanged)
+
     muse::Inject<context::IGlobalContext> globalContext = { this };
     muse::Inject<INotationConfiguration> configuration = { this };
     muse::Inject<muse::actions::IActionsDispatcher> dispatcher = { this };
@@ -65,6 +68,7 @@ public:
 
     bool hasSelection() const;
     bool isAutoplaceOn() const;
+    bool isWholeLineSelected() const;
 
     Q_INVOKABLE void load();
 

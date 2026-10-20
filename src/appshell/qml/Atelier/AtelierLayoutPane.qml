@@ -35,6 +35,9 @@ Item {
     property NavigationSection navigationSection: null
     property int navigationOrderStart: 1
 
+    //! NOTE: the paint view of the score, which shows the selected systems as they will be printed
+    property var notationView: null
+
     EngraveModeModel {
         id: engraveModel
 
@@ -124,6 +127,31 @@ Item {
 
         title: qsTrc("appshell", "Layout")
         leftPadding: 14
+
+        AtToolButton {
+            id: linePreviewButton
+
+            height: 26
+
+            shape: "eye"
+            text: qsTrc("appshell", "Preview system")
+            textFont: AtStyle.font(12, Font.Medium)
+
+            //! NOTE: the systems are selected whole: from the first measure of a system to the last measure
+            //! of the same system or of a later one
+            checked: Boolean(root.notationView) && root.notationView.isLinePreviewShown
+            enabled: checked || (Boolean(root.notationView) && engraveModel.isWholeLineSelected)
+
+            toolTipTitle: qsTrc("appshell", "Shows the systems which are selected whole as they will be printed")
+
+            navigation.panel: navPanel
+            navigation.name: "PreviewSystem"
+            navigation.row: 0
+
+            onClicked: {
+                root.notationView.toggleLinePreview()
+            }
+        }
     }
 
     StyledFlickable {

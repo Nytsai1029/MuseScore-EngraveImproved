@@ -10711,7 +10711,7 @@ followed by dashes</translation>
         <translation type="unfinished">Manage parts…</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="340"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="349"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="346"/>
         <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="419"/>
         <source>Input</source>
@@ -10762,23 +10762,33 @@ followed by dashes</translation>
         <translation type="unfinished">Palettes</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="80"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="83"/>
         <source>Breaks</source>
         <translation type="unfinished">Breaks</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="86"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="89"/>
         <source>Spacers and frames</source>
         <translation type="unfinished">Spacers and frames</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="108"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="125"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="76"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="111"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="128"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="83"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="330"/>
         <location filename="../../src/appshell_web/qml/NotationFrame.qml" line="65"/>
         <source>Layout</source>
         <translation type="unfinished">Layout</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="137"/>
+        <source>Preview system</source>
+        <translation type="unfinished">Preview system</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="145"/>
+        <source>Shows the systems which are selected whole as they will be printed</source>
+        <translation type="unfinished">Shows the systems which are selected whole as they will be printed</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="41"/>
@@ -10790,9 +10800,9 @@ followed by dashes</translation>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="43"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="590"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="78"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="258"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="278"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="85"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="267"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="287"/>
         <location filename="../../src/appshell/qml/FontDesignPage/FontDesignPage.qml" line="56"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="365"/>
         <location filename="../../src/appshell_web/qml/NotationFrame.qml" line="68"/>
@@ -10811,24 +10821,24 @@ followed by dashes</translation>
         <translation type="unfinished">Fit</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="76"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="83"/>
         <source>Library</source>
         <translation type="unfinished">Library</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="260"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="397"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="269"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="406"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="396"/>
         <source>Selection filter</source>
         <translation type="unfinished">Selection filter</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="324"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="333"/>
         <source>Notes, dynamics and text are entered in Input.</source>
         <translation type="unfinished">Notes, dynamics and text are entered in Input.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="325"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="334"/>
         <source>Offsets and ledger lines are in Engrave.</source>
         <translation type="unfinished">Offsets and ledger lines are in Engrave.</translation>
     </message>
@@ -10837,7 +10847,7 @@ followed by dashes</translation>
         <translation type="unfinished">Stem, beam, ledger lines and offsets are in Engrave.</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="340"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="349"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="347"/>
         <location filename="../../src/project/qml/MuseScore/Project/AtelierScoresPage.qml" line="434"/>
         <source>Engrave</source>
@@ -10845,32 +10855,32 @@ followed by dashes</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierPreviewPage.qml" line="322"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="515"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="524"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierToolBar.qml" line="481"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="457"/>
         <source>Mixer</source>
         <translation type="unfinished">Mixer</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="516"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="525"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="510"/>
         <source>Piano keyboard</source>
         <translation type="unfinished">Piano keyboard</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="517"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="526"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="544"/>
         <source>Timeline</source>
         <translation type="unfinished">Timeline</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="519"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="528"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="574"/>
         <source>Drumset tools</source>
         <translation type="unfinished">Drumset tools</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="518"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="527"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="600"/>
         <source>Percussion</source>
         <translation type="unfinished">Percussion</translation>
@@ -18446,19 +18456,19 @@ Fret %1 on strings %2</translation>
 <context>
     <name>engraving/layoutbreaktype</name>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="81"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="84"/>
         <location filename="../../src/engraving/types/typesconv.cpp" line="2304"/>
         <source>System break</source>
         <translation type="unfinished">System break</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="82"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="85"/>
         <location filename="../../src/engraving/types/typesconv.cpp" line="2305"/>
         <source>Page break</source>
         <translation type="unfinished">Page break</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="83"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="86"/>
         <location filename="../../src/engraving/types/typesconv.cpp" line="2306"/>
         <source>Section break</source>
         <translation type="unfinished">Section break</translation>
@@ -20993,19 +21003,19 @@ Fret %1 on strings %2</translation>
 <context>
     <name>engraving/spacertype</name>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="88"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="91"/>
         <location filename="../../src/engraving/dom/spacer.cpp" line="176"/>
         <source>Staff spacer up</source>
         <translation type="unfinished">Staff spacer up</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="87"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="90"/>
         <location filename="../../src/engraving/dom/spacer.cpp" line="178"/>
         <source>Staff spacer down</source>
         <translation type="unfinished">Staff spacer down</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="89"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="92"/>
         <location filename="../../src/engraving/dom/spacer.cpp" line="180"/>
         <source>Staff spacer fixed down</source>
         <translation type="unfinished">Staff spacer fixed down</translation>
@@ -25548,7 +25558,7 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Apply</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="94"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="97"/>
         <location filename="../../src/framework/global/internal/interactive.cpp" line="73"/>
         <source>Reset</source>
         <translation type="unfinished">Reset</translation>
@@ -29154,8 +29164,8 @@ pickup measure</translation>
         <translation type="unfinished">Choose your instruments by adding them to this list</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="259"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="374"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="268"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="383"/>
         <location filename="../../src/instrumentsscene/qml/MuseScore/InstrumentsScene/internal/InstrumentsView.qml" line="55"/>
         <location filename="../../src/stubs/instrumentsscene/qml/MuseScore/InstrumentsScene/InstrumentsDialog.qml" line="37"/>
         <source>Instruments</source>
@@ -29713,8 +29723,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
 <context>
     <name>notation</name>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="261"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="420"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="270"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="429"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="424"/>
         <source>History</source>
         <translation type="unfinished">History</translation>

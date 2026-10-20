@@ -203,6 +203,8 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/view/editgridsizedialogmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/engravemodemodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/engravemodemodel.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/linepreview.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/linepreview.h
     ${CMAKE_CURRENT_LIST_DIR}/view/pagethumbnailview.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/pagethumbnailview.h
     ${CMAKE_CURRENT_LIST_DIR}/view/previewpagesmodel.cpp

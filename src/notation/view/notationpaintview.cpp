@@ -28,6 +28,8 @@
 #include "engraving/dom/score.h"
 #include "engraving/dom/system.h"
 
+#include "linepreview.h"
+
 using namespace mu;
 using namespace muse::draw;
 using namespace mu::notation;
@@ -60,6 +62,13 @@ static const Item* nearestItem(const std::vector<Item*>& items, const muse::Poin
 NotationPaintView::NotationPaintView(QQuickItem* parent)
     : AbstractNotationPaintView(parent)
 {
+}
+
+NotationPaintView::~NotationPaintView()
+{
+    if (m_linePreviewWindow) {
+        m_linePreviewWindow->removeEventFilter(this);
+    }
 }
 
 bool NotationPaintView::syncViewState() const
@@ -158,6 +167,14 @@ void NotationPaintView::onLoadNotation(INotationPtr notation)
         m_isLocalMatrixUpdate = false;
     }
 
+    notation->interaction()->selectionChanged().onNotify(&m_linePreviewReceiver, [this]() {
+        hideLinePreview();
+    });
+
+    notation->notationChanged().onNotify(&m_linePreviewReceiver, [this]() {
+        hideLinePreviewIfNoWholeLine();
+    });
+
     AbstractNotationPaintView::onLoadNotation(notation);
 }
 
@@ -169,6 +186,11 @@ void NotationPaintView::onUnloadNotation(INotationPtr notation)
         notation->viewState()->matrixChanged().resetOnReceive(this);
         m_viewStateMatrixConnectionActive = false;
     }
+
+    notation->interaction()->selectionChanged().resetOnNotify(&m_linePreviewReceiver);
+    notation->notationChanged().resetOnNotify(&m_linePreviewReceiver);
+
+    hideLinePreview();
 }
 
 void NotationPaintView::initZoomAndPosition()
@@ -188,6 +210,15 @@ void NotationPaintView::initZoomAndPosition()
     if (wholePage) {
         showPageAt(notation()->viewState()->centerTick());
     }
+}
+
+void NotationPaintView::paintOverScore(Painter* painter)
+{
+    if (!m_isLinePreviewShown || publishMode() || !notation()) {
+        return;
+    }
+
+    paintLinePreview(painter, notation(), wholeSelectedLines(notation()->elements()->msScore()));
 }
 
 void NotationPaintView::updateCenterTick()
@@ -248,6 +279,76 @@ void NotationPaintView::showPageAt(int tick)
                       : viewport.top() - pageRect.top();
 
     moveCanvas(dx, dy);
+}
+
+bool NotationPaintView::isLinePreviewShown() const
+{
+    return m_isLinePreviewShown;
+}
+
+void NotationPaintView::toggleLinePreview()
+{
+    if (m_isLinePreviewTakenAwayByPress) {
+        m_isLinePreviewTakenAwayByPress = false;
+        return;
+    }
+
+    setLinePreviewShown(!m_isLinePreviewShown);
+}
+
+void NotationPaintView::hideLinePreview()
+{
+    setLinePreviewShown(false);
+}
+
+void NotationPaintView::hideLinePreviewIfNoWholeLine()
+{
+    if (m_isLinePreviewShown && wholeSelectedLines(notation()->elements()->msScore()).empty()) {
+        setLinePreviewShown(false);
+    }
+}
+
+void NotationPaintView::setLinePreviewShown(bool shown)
+{
+    if (shown && (!notation() || wholeSelectedLines(notation()->elements()->msScore()).empty())) {
+        shown = false;
+    }
+
+    if (m_isLinePreviewShown == shown) {
+        return;
+    }
+
+    m_isLinePreviewShown = shown;
+
+    //! NOTE A press anywhere in the window takes the cards away
+    if (shown && window() && window() != m_linePreviewWindow) {
+        if (m_linePreviewWindow) {
+            m_linePreviewWindow->removeEventFilter(this);
+        }
+
+        m_linePreviewWindow = window();
+        m_linePreviewWindow->installEventFilter(this);
+    }
+
+    update();
+
+    emit isLinePreviewShownChanged();
+}
+
+bool NotationPaintView::eventFilter(QObject* watched, QEvent* event)
+{
+    //! NOTE The click of a button comes some time after its press (see toggleLinePreview),
+    //! and a button can also be pressed with a key
+    if (watched == m_linePreviewWindow) {
+        if (event->type() == QEvent::MouseButtonPress) {
+            m_isLinePreviewTakenAwayByPress = m_isLinePreviewShown;
+            hideLinePreview();
+        } else if (event->type() == QEvent::KeyPress) {
+            m_isLinePreviewTakenAwayByPress = false;
+        }
+    }
+
+    return AbstractNotationPaintView::eventFilter(watched, event);
 }
 
 void NotationPaintView::onViewSizeChanged()

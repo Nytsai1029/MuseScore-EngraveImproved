@@ -10674,6 +10674,16 @@ followed by dashes</source>
         <translation>版面</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="137"/>
+        <source>Preview system</source>
+        <translation>预览谱行</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="145"/>
+        <source>Shows the systems which are selected whole as they will be printed</source>
+        <translation>按打印效果显示整行选中的谱行</translation>
+    </message>
+    <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="41"/>
         <location filename="../../src/appshell/qml/FontDesignPage/FontDesignPage.qml" line="40"/>
         <source>Glyphs</source>

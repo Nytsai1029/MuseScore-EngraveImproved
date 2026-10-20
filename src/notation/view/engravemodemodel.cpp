@@ -25,6 +25,8 @@
 #include "engraving/dom/masterscore.h"
 #include "engraving/dom/spacer.h"
 
+#include "linepreview.h"
+
 using namespace mu::notation;
 using namespace mu::engraving;
 
@@ -140,6 +142,12 @@ bool EngraveModeModel::isAutoplaceOn() const
     }
 
     return true;
+}
+
+bool EngraveModeModel::isWholeLineSelected() const
+{
+    INotationPtr notation = globalContext()->currentNotation();
+    return notation && !wholeSelectedLines(notation->elements()->msScore()).empty();
 }
 
 void EngraveModeModel::toggleAutoplace()

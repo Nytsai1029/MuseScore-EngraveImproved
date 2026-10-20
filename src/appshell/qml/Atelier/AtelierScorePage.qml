@@ -44,6 +44,13 @@ Item {
     property string mode: "input"
     readonly property bool isEngrave: root.mode === "engrave"
 
+    onIsEngraveChanged: {
+        //! NOTE: the preview of the selected systems is a tool of the Engrave mode
+        if (!root.isEngrave && Boolean(root.notationView)) {
+            root.notationView.hideLinePreview()
+        }
+    }
+
     readonly property string inputUri: "musescore://notation"
     readonly property string engraveUri: "musescore://engrave"
     readonly property string pageUri: root.isEngrave ? root.engraveUri : root.inputUri
@@ -214,6 +221,8 @@ Item {
             visible: root.isEngrave
 
             sourceComponent: AtelierLayoutPane {
+                notationView: root.notationView
+
                 navigationSection: root.keynavLeftPanelSec
                 navigationOrderStart: 1
             }

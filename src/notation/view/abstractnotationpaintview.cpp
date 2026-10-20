@@ -349,6 +349,10 @@ void AbstractNotationPaintView::initZoomAndPosition()
 {
 }
 
+void AbstractNotationPaintView::paintOverScore(muse::draw::Painter*)
+{
+}
+
 void AbstractNotationPaintView::setMatrix(const Transform& matrix)
 {
     if (m_matrix == matrix) {
@@ -667,6 +671,8 @@ void AbstractNotationPaintView::paint(QPainter* qp)
 
     bool isPrinting = publishMode() || m_inputController->readonly();
     notation()->painting()->paintView(painter, toLogical(rect), isPrinting);
+
+    paintOverScore(painter);
 
     const ui::UiContext uiCtx = uiContextResolver()->currentUiContext();
     const bool isOnNotationPage = uiCtx == ui::UiCtxProjectOpened || uiCtx == ui::UiCtxProjectFocused;

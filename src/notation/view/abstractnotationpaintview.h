@@ -195,6 +195,9 @@ protected:
     // Draw
     void paint(QPainter* painter) override;
 
+    //! NOTE Drawn over the score, under the cursors and the markers (in the units of the score)
+    virtual void paintOverScore(muse::draw::Painter* painter);
+
     virtual void onNotationSetup();
 
     virtual void onLoadNotation(INotationPtr notation);
