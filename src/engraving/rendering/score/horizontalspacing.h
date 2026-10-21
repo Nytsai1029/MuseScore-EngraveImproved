@@ -21,6 +21,8 @@
  */
 #pragma once
 
+#include <unordered_map>
+
 #include "types/types.h"
 
 namespace mu::engraving {
@@ -75,6 +77,8 @@ private:
         double spacingDensity = 1.0;
         double spacingRatio = 0.0; // 日式间距: effective spacing ratio R for this system; 0 = use Sid::measureSpacing
         bool overrideMinMeasureWidth = false;
+        // 日式间距: duration stretches of the segments that lie in a cross-rhythm, worked out once per measure
+        std::unordered_map<const Measure*, std::unordered_map<const Segment*, double> > crossRhythmStretches;
     };
 
     struct SegmentPosition {
@@ -122,6 +126,9 @@ private:
                                                    double& curMinDist);
 
     static double chordRestSegmentNaturalWidth(Segment* segment, HorizontalSpacingContext& ctx);
+    static bool crossRhythmDurationStretch(const Segment* segment, HorizontalSpacingContext& ctx,
+                                           double& durationStretch);
+    static std::unordered_map<const Segment*, double> computeCrossRhythmStretches(const Measure* measure, double slope);
     static double computeSegmentDurationStretch(const Segment* curSeg, const Segment* prevSeg, double spacingRatio = 0.0);
     static double durationStretchForMMRests(const Segment* segment);
     static double durationStretchForTicks(double slope, const Fraction& ticks);

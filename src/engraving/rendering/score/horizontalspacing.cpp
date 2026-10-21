@@ -40,6 +40,7 @@
 #include "dom/system.h"
 #include "dom/tie.h"
 #include "dom/timesig.h"
+#include "dom/tuplet.h"
 
 using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
@@ -886,7 +887,11 @@ void HorizontalSpacing::checkCollisionsWithCrossStaffStems(const Segment* thisSe
 
 double HorizontalSpacing::chordRestSegmentNaturalWidth(Segment* segment, HorizontalSpacingContext& ctx)
 {
-    double durationStretch = computeSegmentDurationStretch(segment, segment->prev(SegmentType::ChordRest), ctx.spacingRatio);
+    double durationStretch = 0.0;
+    if (!crossRhythmDurationStretch(segment, ctx, durationStretch)) {
+        durationStretch = computeSegmentDurationStretch(segment, segment->prev(SegmentType::ChordRest),
+                                                        ctx.spacingRatio);
+    }
 
     Measure* measure = segment->measure();
     double userStretch = std::clamp(measure->userStretch(), 0.1, 10.0); // TODO: enforce via UI, not here
@@ -900,6 +905,194 @@ double HorizontalSpacing::chordRestSegmentNaturalWidth(Segment* segment, Horizon
     double naturalWidth = defaultQuarterNoteSpace * segTotalStretch * ctx.stretchReduction / ctx.spacingDensity;
 
     return naturalWidth;
+}
+
+bool HorizontalSpacing::crossRhythmDurationStretch(const Segment* segment, HorizontalSpacingContext& ctx,
+                                                   double& durationStretch)
+{
+    const Measure* measure = segment->measure();
+    const MStyle& style = segment->style();
+    if (!style.styleB(Sid::keepEqualDurationSpacing) || measure->isMMRest()) {
+        return false;
+    }
+
+    auto measureStretches = ctx.crossRhythmStretches.find(measure);
+    if (measureStretches == ctx.crossRhythmStretches.end()) {
+        double slope = ctx.spacingRatio > 0.0 ? ctx.spacingRatio : style.styleD(Sid::measureSpacing);
+        measureStretches = ctx.crossRhythmStretches.emplace(measure, computeCrossRhythmStretches(measure, slope)).first;
+    }
+
+    auto stretch = measureStretches->second.find(segment);
+    if (stretch == measureStretches->second.end()) {
+        return false;
+    }
+
+    durationStretch = stretch->second;
+    return true;
+}
+
+// 日式间距: equal-duration spacing gives every segment the width of its own duration. Where voices cross (a note of one
+// voice starts inside a note of another voice and ends after it), segments cut notes into pieces that add up to more
+// than the note gets whole, so equal notes came out uneven: a tuplet against plain notes, even notes against dotted
+// ones. In such a cross-rhythm, the voice that fills it with notes of one length (the shortest such voice) rules: each
+// of its notes gets the width it has on its own, and the segments inside a note share that width in the proportions
+// of the other voices. If the other voices need more room, the whole cross-rhythm widens evenly. A cross-rhythm grows
+// over every tuplet it touches, so that a tuplet is spaced in one piece. Nested rhythms (shorter notes inside a longer
+// one) and cross-rhythms without such a voice keep the plain equal-duration spacing.
+std::unordered_map<const Segment*, double> HorizontalSpacing::computeCrossRhythmStretches(const Measure* measure,
+                                                                                          double slope)
+{
+    struct Span {
+        const ChordRest* chordRest = nullptr;
+        Fraction start;
+        Fraction end;
+    };
+    using Interval = std::pair<Fraction, Fraction>;
+
+    std::vector<Span> spans; // in time order
+    for (const Segment* segment = measure->first(SegmentType::ChordRest); segment;
+         segment = segment->next(SegmentType::ChordRest)) {
+        for (const EngravingItem* item : segment->elist()) {
+            if (!item || !item->isChordRest() || !item->visible() || !item->staff()->show()
+                || (item->isRest() && toRest(item)->isGap())) {
+                continue;
+            }
+            const ChordRest* chordRest = toChordRest(item);
+            spans.push_back({ chordRest, chordRest->tick(), chordRest->tick() + chordRest->actualTicks() });
+        }
+    }
+
+    std::vector<Interval> crossRhythms;
+    for (size_t i = 0; i < spans.size(); ++i) {
+        for (size_t j = i + 1; j < spans.size() && spans[j].start < spans[i].end; ++j) {
+            if (spans[j].chordRest->track() != spans[i].chordRest->track() && spans[i].start < spans[j].start
+                && spans[i].end < spans[j].end) {
+                crossRhythms.emplace_back(spans[i].start, spans[j].end);
+            }
+        }
+    }
+    if (crossRhythms.empty()) {
+        return {};
+    }
+
+    std::vector<Interval> tuplets;
+    for (const Span& span : spans) {
+        if (const Tuplet* tuplet = span.chordRest->topTuplet()) {
+            tuplets.emplace_back(tuplet->tick(), tuplet->tick() + tuplet->actualTicks());
+        }
+    }
+    std::sort(tuplets.begin(), tuplets.end());
+    tuplets.erase(std::unique(tuplets.begin(), tuplets.end()), tuplets.end());
+
+    bool grown = true;
+    while (grown) {
+        grown = false;
+        for (Interval& crossRhythm : crossRhythms) {
+            for (const Interval& tuplet : tuplets) {
+                bool touches = tuplet.first < crossRhythm.second && crossRhythm.first < tuplet.second;
+                if (touches && (tuplet.first < crossRhythm.first || crossRhythm.second < tuplet.second)) {
+                    crossRhythm.first = std::min(crossRhythm.first, tuplet.first);
+                    crossRhythm.second = std::max(crossRhythm.second, tuplet.second);
+                    grown = true;
+                }
+            }
+        }
+
+        std::sort(crossRhythms.begin(), crossRhythms.end());
+        std::vector<Interval> merged;
+        for (const Interval& crossRhythm : crossRhythms) {
+            if (!merged.empty() && crossRhythm.first < merged.back().second) {
+                merged.back().second = std::max(merged.back().second, crossRhythm.second);
+            } else {
+                merged.push_back(crossRhythm);
+            }
+        }
+        crossRhythms = std::move(merged);
+    }
+
+    const MStyle& style = measure->style();
+    const bool scaleSmallNotes = style.styleB(Sid::scaleRythmicSpacingForSmallNotes);
+    const double smallNoteMag = style.styleD(Sid::smallNoteMag);
+    const size_t trackCount = measure->score()->ntracks();
+
+    std::unordered_map<const Segment*, double> stretches;
+    for (const Interval& crossRhythm : crossRhythms) {
+        std::vector<std::vector<const Span*> > voices(trackCount);
+        for (const Span& span : spans) {
+            track_idx_t track = span.chordRest->track();
+            if (track < trackCount && span.start >= crossRhythm.first && span.end <= crossRhythm.second) {
+                voices[track].push_back(&span);
+            }
+        }
+
+        const std::vector<const Span*>* ruler = nullptr;
+        Fraction rulerLength;
+        for (const std::vector<const Span*>& notes : voices) {
+            if (notes.size() < 2 || notes.front()->start != crossRhythm.first
+                || notes.back()->end != crossRhythm.second) {
+                continue;
+            }
+            const Fraction length = notes.front()->end - notes.front()->start;
+            bool fills = true;
+            for (size_t i = 1; i < notes.size() && fills; ++i) {
+                fills = notes[i]->start == notes[i - 1]->end && notes[i]->end - notes[i]->start == length;
+            }
+            if (fills && (!ruler || length < rulerLength)) {
+                ruler = &notes;
+                rulerLength = length;
+            }
+        }
+        if (!ruler) {
+            continue;
+        }
+
+        // The share of a segment: its time share of the shortest note of another voice that sounds through it
+        const double rulerNoteWidth = durationStretchForTicks(slope, rulerLength);
+        std::vector<std::vector<std::pair<const Segment*, double> > > shares(ruler->size());
+        std::vector<double> shareTotals(ruler->size(), 0.0);
+        double widening = 1.0;
+        for (size_t n = 0; n < ruler->size(); ++n) {
+            const Span* note = (*ruler)[n];
+            for (const Segment* segment = note->chordRest->segment(); segment && segment->tick() < note->end;
+                 segment = segment->next(SegmentType::ChordRest)) {
+                if (ignoreSegmentForSpacing(segment)) {
+                    continue;
+                }
+                const Fraction start = segment->tick();
+                const Fraction end = start + segment->ticks();
+                const Span* shortest = nullptr;
+                for (const Span& other : spans) {
+                    if (other.start > start) {
+                        break;
+                    }
+                    if (other.chordRest->track() != note->chordRest->track() && other.end >= end
+                        && (!shortest || other.end - other.start < shortest->end - shortest->start)) {
+                        shortest = &other;
+                    }
+                }
+                const Fraction length = shortest ? shortest->end - shortest->start : rulerLength;
+                const double share = durationStretchForTicks(slope, length) * (segment->ticks() / length).toDouble();
+                shares[n].emplace_back(segment, share);
+                shareTotals[n] += share;
+            }
+            widening = std::max(widening, shareTotals[n] / rulerNoteWidth);
+        }
+
+        for (size_t n = 0; n < ruler->size(); ++n) {
+            if (shareTotals[n] <= 0.0) {
+                continue;
+            }
+            double noteWidth = widening * rulerNoteWidth;
+            if (scaleSmallNotes && (*ruler)[n]->chordRest->isSmall()) {
+                noteWidth *= smallNoteMag;
+            }
+            for (const auto& [segment, share] : shares[n]) {
+                stretches[segment] = noteWidth * share / shareTotals[n];
+            }
+        }
+    }
+
+    return stretches;
 }
 
 double HorizontalSpacing::computeSegmentDurationStretch(const Segment* curSeg, const Segment* prevSeg, double spacingRatio)
