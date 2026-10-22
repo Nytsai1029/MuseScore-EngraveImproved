@@ -578,6 +578,9 @@ static constexpr int MAX_NOTES_INTERVAL = 10;
 
 static constexpr int MAX_FRET = 14;
 
+//! NOTE The step of the vertical nudge with Shift+Up/Down, in sp
+static constexpr double SHIFT_NUDGE_STEP = 0.25;
+
 constexpr bool isNotesIntervalValid(int interval)
 {
     return interval >= MIN_NOTES_INTERVAL && interval <= MAX_NOTES_INTERVAL

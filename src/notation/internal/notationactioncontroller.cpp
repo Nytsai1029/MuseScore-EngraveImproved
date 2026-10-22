@@ -450,10 +450,8 @@ void NotationActionController::init()
                    &Controller::isNotNoteInputMode);
     registerAction("select-end-score", &Interaction::expandSelection, ExpandSelectionMode::EndScore, PlayMode::NoPlay,
                    &Controller::isNotNoteInputMode);
-    registerAction("select-staff-above", &Interaction::addToSelection, MoveDirection::Up, MoveSelectionType::Track, PlayMode::NoPlay,
-                   &Controller::isNotNoteInputMode);
-    registerAction("select-staff-below", &Interaction::addToSelection, MoveDirection::Down, MoveSelectionType::Track, PlayMode::NoPlay,
-                   &Controller::isNotNoteInputMode);
+    registerAction("select-staff-above", [this]() { selectStaff(MoveDirection::Up); }, &Controller::isNotNoteInputMode);
+    registerAction("select-staff-below", [this]() { selectStaff(MoveDirection::Down); }, &Controller::isNotNoteInputMode);
     registerAction("top-staff", &Interaction::selectTopStaff, PlayMode::PlayChord);
     registerAction("empty-trailing-measure", &Interaction::selectEmptyTrailingMeasure);
     registerAction("pitch-up-diatonic", &Controller::movePitchDiatonic, MoveDirection::Up, false);
@@ -1242,6 +1240,29 @@ void NotationActionController::moveWithinChord(MoveDirection direction)
 
     interaction->moveChordNoteSelection(direction);
     seekAndPlaySelectedElement(DONT_PLAY_CHORD);
+}
+
+void NotationActionController::selectStaff(MoveDirection direction)
+{
+    TRACEFUNC;
+    auto interaction = currentNotationInteraction();
+    if (!interaction) {
+        return;
+    }
+
+    //! NOTE Shift+Up/Down nudge by a fixed step what the Up/Down keys nudge (see move):
+    //! in the Engrave mode anything selected, otherwise a text or an articulation
+    const EngravingItem* selectedElement = interaction->selection()->element();
+    const bool isNudged = isEngraveNudgeAvailable()
+                          ? !interaction->selection()->isNone()
+                          : selectedElement && (selectedElement->isTextBase() || selectedElement->isArticulationFamily());
+    if (isNudged) {
+        interaction->nudgeSelection(direction, SHIFT_NUDGE_STEP);
+        return;
+    }
+
+    interaction->addToSelection(direction, MoveSelectionType::Track);
+    seekSelectedElement();
 }
 
 void NotationActionController::selectTopOrBottomOfChord(MoveDirection direction)

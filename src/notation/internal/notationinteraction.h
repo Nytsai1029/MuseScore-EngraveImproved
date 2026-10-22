@@ -360,6 +360,7 @@ private:
     bool showShadowNote(mu::engraving::ShadowNote& note, ShadowNoteParams& params);
 
     bool needStartEditGrip(QKeyEvent* event) const;
+    bool isShiftNudge(const QKeyEvent* event) const;
     void doNudgeAnchors(MoveDirection d, std::optional<double> stepSp);
     bool nudgeEditedElement(MoveDirection d, std::optional<double> stepSp);
     bool handleKeyPress(QKeyEvent* event);

@@ -105,6 +105,7 @@ private:
     void moveInputNotes(bool up, PitchMode mode);
     void movePitchDiatonic(MoveDirection direction, bool);
     void moveWithinChord(MoveDirection direction);
+    void selectStaff(MoveDirection direction);
     void selectTopOrBottomOfChord(MoveDirection direction);
 
     void changeVoice(voice_idx_t voiceIndex);

@@ -4552,6 +4552,21 @@ bool NotationInteraction::needStartEditGrip(QKeyEvent* event) const
     return muse::contains(arrows, static_cast<Qt::Key>(event->key()));
 }
 
+//! NOTE Shift+Up/Down nudge the edited element by a fixed step, like the selection
+//! (see NotationActionController::selectStaff), instead of moving the anchors of a line or a slur to other notes
+bool NotationInteraction::isShiftNudge(const QKeyEvent* event) const
+{
+    if (!m_editData.element || m_editData.element->isTextBase()) {
+        return false;
+    }
+
+    Qt::KeyboardModifiers modifiers = event->modifiers();
+    modifiers &= ~Qt::KeypadModifier;
+
+    const bool isVertical = event->key() == Qt::Key_Up || event->key() == Qt::Key_Down;
+    return isVertical && modifiers == Qt::ShiftModifier;
+}
+
 bool NotationInteraction::handleKeyPress(QKeyEvent* event)
 {
     if (event->modifiers() & Qt::KeyboardModifier::AltModifier) {
@@ -4599,7 +4614,11 @@ bool NotationInteraction::handleKeyPress(QKeyEvent* event)
 
     //! NOTE In the Engrave mode, the arrow keys move by the step which is chosen there (see nudgeSelection)
     std::optional<double> stepSp;
-    if (isEngraveModeOpened(interactive())) {
+    if (isShiftNudge(event)) {
+        //! NOTE The drag must not take the Shift key as its own modifier (a note changes its leading space with it)
+        m_editData.modifiers.setFlag(mu::engraving::ShiftModifier, false);
+        stepSp = SHIFT_NUDGE_STEP;
+    } else if (isEngraveModeOpened(interactive())) {
         stepSp = (event->modifiers() & Qt::ControlModifier) ? ENGRAVE_QUICK_NUDGE_STEP : configuration()->engraveNudgeStep();
     }
 
@@ -4927,7 +4946,7 @@ void NotationInteraction::editElement(QKeyEvent* event)
         m_editData.curGrip = m_editData.element->defaultGrip();
     }
 
-    bool handled = m_editData.element->edit(m_editData);
+    bool handled = !isShiftNudge(event) && m_editData.element->edit(m_editData);
     if (!handled) {
         handled = handleKeyPress(event);
     }
