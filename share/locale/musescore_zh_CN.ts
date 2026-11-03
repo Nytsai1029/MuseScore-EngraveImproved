@@ -2790,32 +2790,32 @@ space unit</extracomment>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2972"/>
         <source>Japanese-style spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>日式间距</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2978"/>
         <source>Vary spacing ratio by note density of each system</source>
-        <translation type="unfinished"></translation>
+        <translation>按各谱行的音符密度调整间距比</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2985"/>
         <source>Dense-line spacing ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation>密集谱行间距比：</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3014"/>
         <source>Sparse-line spacing ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation>稀疏谱行间距比：</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3043"/>
         <source>Keep equal spacing for equal note values (per system)</source>
-        <translation type="unfinished"></translation>
+        <translation>相同音价保持等距（按谱行）</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3050"/>
         <source>Offset spacing of cross-staff beamed notes</source>
-        <translation type="unfinished"></translation>
+        <translation>跨谱表符杠音符的间距偏移</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3073"/>
@@ -3191,6 +3191,11 @@ space unit</extracomment>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4997"/>
         <source>Ledger line length:</source>
         <translation>加线长度：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="5504"/>
+        <source>Shorten ledger lines that would touch their neighbours</source>
+        <translation>缩短会与相邻加线相碰的加线</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5121"/>
@@ -3582,7 +3587,7 @@ space unit</extracomment>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6520"/>
         <source>Fixed slant (follow beam/stems)</source>
-        <translation type="unfinished"></translation>
+        <translation>固定斜率（跟随符杠/符干）</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6530"/>
@@ -3660,12 +3665,12 @@ space unit</extracomment>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11483"/>
         <source>Place expression before dynamic</source>
-        <translation type="unfinished"></translation>
+        <translation>表情记号置于力度记号之前</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11493"/>
         <source>Reset &apos;Place expression before dynamic&apos; value</source>
-        <translation type="unfinished"></translation>
+        <translation>重置“表情记号置于力度记号之前”值</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12174"/>
@@ -4700,17 +4705,17 @@ followed by dashes</source>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="13046"/>
         <source>Reset &apos;Line spacing&apos; value</source>
-        <translation type="unfinished"></translation>
+        <translation>重置“行距”值</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="13056"/>
         <source>Letter spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>字间距：</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="13088"/>
         <source>Reset &apos;Letter spacing&apos; value</source>
-        <translation type="unfinished"></translation>
+        <translation>重置“字间距”值</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="13098"/>
@@ -4886,6 +4891,11 @@ followed by dashes</source>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7508"/>
         <source>Min. distance to accidental:</source>
         <translation>到变音号的最小距离：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/editstyle.ui" line="8127"/>
+        <source>Vertical ends on diagonal hairpins</source>
+        <translation>斜向楔形力度记号末端保持竖直</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9476"/>
@@ -7620,12 +7630,12 @@ followed by dashes</source>
     <message>
         <location filename="../../src/notation/internal/notationuiactions.cpp" line="588"/>
         <source>Apply &amp;Japanese spacing…</source>
-        <translation type="unfinished"></translation>
+        <translation>应用日式间距… (&amp;J)</translation>
     </message>
     <message>
         <location filename="../../src/notation/internal/notationuiactions.cpp" line="589"/>
         <source>Apply Japanese engraving spacing preset…</source>
-        <translation type="unfinished"></translation>
+        <translation>应用日式净书间距预设…</translation>
     </message>
     <message>
         <location filename="../../src/notation/internal/notationuiactions.cpp" line="608"/>
@@ -10067,6 +10077,16 @@ followed by dashes</source>
         <translation>显示/隐藏音色标志</translation>
     </message>
     <message>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2628"/>
+        <source>Show alignment &amp;guides</source>
+        <translation>显示对齐参考线 (&amp;G)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2629"/>
+        <source>Show/hide alignment guides</source>
+        <translation>显示/隐藏对齐参考线</translation>
+    </message>
+    <message>
         <location filename="../../src/notation/internal/notationuiactions.cpp" line="2627"/>
         <source>Mark i&amp;rregular measures</source>
         <translation>标记不规则小节 (&amp;I)</translation>
@@ -10511,62 +10531,62 @@ followed by dashes</source>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="40"/>
         <source>Undo last font-design edit</source>
-        <translation type="unfinished"></translation>
+        <translation>撤销上一次字体设计编辑</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="46"/>
         <source>Redo last font-design edit</source>
-        <translation type="unfinished"></translation>
+        <translation>重做上一次字体设计编辑</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="51"/>
         <source>Save font</source>
-        <translation type="unfinished"></translation>
+        <translation>保存字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="52"/>
         <source>Save font and metadata</source>
-        <translation type="unfinished"></translation>
+        <translation>保存字体与元数据</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="57"/>
         <source>Close font</source>
-        <translation type="unfinished"></translation>
+        <translation>关闭字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="58"/>
         <source>Close the current font project</source>
-        <translation type="unfinished"></translation>
+        <translation>关闭当前字体项目</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="63"/>
         <source>Copy glyph outline</source>
-        <translation type="unfinished"></translation>
+        <translation>拷贝字形轮廓</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="64"/>
         <source>Copy the current glyph outline</source>
-        <translation type="unfinished"></translation>
+        <translation>拷贝当前字形轮廓</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="69"/>
         <source>Paste glyph outline</source>
-        <translation type="unfinished"></translation>
+        <translation>粘贴字形轮廓</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="70"/>
         <source>Paste the copied outline into the current glyph</source>
-        <translation type="unfinished"></translation>
+        <translation>将拷贝的轮廓粘贴到当前字形</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="75"/>
         <source>Select all points</source>
-        <translation type="unfinished"></translation>
+        <translation>选择全部节点</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="76"/>
         <source>Select all points of the current glyph outline</source>
-        <translation type="unfinished"></translation>
+        <translation>选择当前字形轮廓的全部节点</translation>
     </message>
 </context>
 <context>
@@ -10632,7 +10652,7 @@ followed by dashes</source>
     <message>
         <location filename="../../src/appshell/qml/MainToolBar.qml" line="145"/>
         <source>显示为单独窗口</source>
-        <translation type="unfinished"></translation>
+        <translation>显示为单独窗口</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="119"/>
@@ -10876,7 +10896,7 @@ This action cannot be undone.</source>
         <location filename="../../src/appshell/qml/PublishPage/PublishPreviewWindow.qml" line="37"/>
         <location filename="../../src/appshell/qml/PublishPage/PublishPreviewWindow.qml" line="38"/>
         <source>Publish preview</source>
-        <translation type="unfinished"></translation>
+        <translation>发布预览</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierHomePage.qml" line="47"/>
@@ -18969,12 +18989,12 @@ Fret %1 on strings %2</source>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="111"/>
         <source>ledger line length offset left</source>
-        <translation type="unfinished"></translation>
+        <translation>加线左侧长度偏移</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="112"/>
         <source>ledger line length offset right</source>
-        <translation type="unfinished"></translation>
+        <translation>加线右侧长度偏移</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="113"/>
@@ -19276,32 +19296,32 @@ Fret %1 on strings %2</source>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="188"/>
         <source>allow broken line</source>
-        <translation type="unfinished"></translation>
+        <translation>允许折线</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="189"/>
         <source>ottava turning points count</source>
-        <translation type="unfinished"></translation>
+        <translation>八度线转折点数</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="190"/>
         <source>ottava turning point 1 offset</source>
-        <translation type="unfinished"></translation>
+        <translation>八度线转折点 1 偏移</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="191"/>
         <source>ottava turning point 2 offset</source>
-        <translation type="unfinished"></translation>
+        <translation>八度线转折点 2 偏移</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="192"/>
         <source>ottava turning point 3 offset</source>
-        <translation type="unfinished"></translation>
+        <translation>八度线转折点 3 偏移</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="193"/>
         <source>ottava turning point 4 offset</source>
-        <translation type="unfinished"></translation>
+        <translation>八度线转折点 4 偏移</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="194"/>
@@ -19919,7 +19939,7 @@ Fret %1 on strings %2</source>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="338"/>
         <source>letter spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>字间距</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="340"/>
@@ -20144,7 +20164,7 @@ Fret %1 on strings %2</source>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="390"/>
         <source>place before dynamic</source>
-        <translation type="unfinished"></translation>
+        <translation>置于力度记号之前</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="391"/>
@@ -20409,22 +20429,22 @@ Fret %1 on strings %2</source>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="462"/>
         <source>multi-bezier enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>启用多段贝塞尔曲线</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="463"/>
         <source>multi-bezier knot count</source>
-        <translation type="unfinished"></translation>
+        <translation>多段贝塞尔曲线节点数</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="464"/>
         <source>slur curve mode</source>
-        <translation type="unfinished"></translation>
+        <translation>圆滑线曲线模式</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="465"/>
         <source>multi-bezier data</source>
-        <translation type="unfinished"></translation>
+        <translation>多段贝塞尔曲线数据</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="466"/>
@@ -20484,22 +20504,22 @@ Fret %1 on strings %2</source>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="480"/>
         <source>symbol short side length</source>
-        <translation type="unfinished"></translation>
+        <translation>符号短边长度</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="481"/>
         <source>symbol long side length</source>
-        <translation type="unfinished"></translation>
+        <translation>符号长边长度</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="482"/>
         <source>symbol top hook length</source>
-        <translation type="unfinished"></translation>
+        <translation>符号上折钩长度</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="483"/>
         <source>symbol bottom hook length</source>
-        <translation type="unfinished"></translation>
+        <translation>符号下折钩长度</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="485"/>
@@ -20539,52 +20559,72 @@ Fret %1 on strings %2</source>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="495"/>
         <source>distance to previous note</source>
-        <translation type="unfinished"></translation>
+        <translation>到前一音符的距离</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="497"/>
         <source>bracket fixed slant</source>
-        <translation type="unfinished"></translation>
+        <translation>括号固定斜率</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="498"/>
         <source>bracket gradient</source>
-        <translation type="unfinished"></translation>
+        <translation>括号斜率</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="500"/>
         <source>tremolo stroke start X offset</source>
-        <translation type="unfinished"></translation>
+        <translation>震音线起点 X 偏移</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="501"/>
         <source>tremolo stroke start Y offset</source>
-        <translation type="unfinished"></translation>
+        <translation>震音线起点 Y 偏移</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="502"/>
         <source>tremolo stroke end X offset</source>
-        <translation type="unfinished"></translation>
+        <translation>震音线终点 X 偏移</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="503"/>
         <source>tremolo stroke end Y offset</source>
-        <translation type="unfinished"></translation>
+        <translation>震音线终点 Y 偏移</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="505"/>
         <source>parenthesis top offset</source>
-        <translation type="unfinished"></translation>
+        <translation>圆括号顶端偏移</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="506"/>
         <source>parenthesis bottom offset</source>
-        <translation type="unfinished"></translation>
+        <translation>圆括号底端偏移</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="508"/>
         <source>stem length</source>
         <translation>符干长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/dom/property.cpp" line="510"/>
+        <source>mask barlines</source>
+        <translation>小节线遮罩</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/dom/property.cpp" line="512"/>
+        <source>show at end of previous measure</source>
+        <translation>显示在上一小节末尾</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/dom/property.cpp" line="514"/>
+        <source>hairpin vertical ends</source>
+        <translation>楔形力度记号末端竖直</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/dom/property.cpp" line="516"/>
+        <source>slant angle</source>
+        <translation>倾斜角度</translation>
     </message>
 </context>
 <context>
@@ -23151,64 +23191,64 @@ Fret %1 on strings %2</source>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="32"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="63"/>
         <source>Add glyph from font</source>
-        <translation type="unfinished"></translation>
+        <translation>从字体添加字形</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="70"/>
         <source>The loaded outline is appended to the current glyph, scaled to this font’s units per em.</source>
-        <translation type="unfinished"></translation>
+        <translation>载入的轮廓会按此字体的每 em 单位数缩放，并追加到当前字形。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="83"/>
         <source>Source codepoint (hex):</source>
-        <translation type="unfinished"></translation>
+        <translation>源码位（十六进制）：</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="110"/>
         <source>Music font:</source>
-        <translation type="unfinished"></translation>
+        <translation>音乐字体：</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="125"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="159"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="202"/>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation>载入</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="142"/>
         <source>Font file:</source>
-        <translation type="unfinished"></translation>
+        <translation>字体文件：</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="150"/>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="151"/>
         <source>Choose font file</source>
-        <translation type="unfinished"></translation>
+        <translation>选择字体文件</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="175"/>
         <source>Text font:</source>
-        <translation type="unfinished"></translation>
+        <translation>文本字体：</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="192"/>
         <source>Char</source>
-        <translation type="unfinished"></translation>
+        <translation>字符</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="241"/>
         <source>No glyph loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>未载入字形</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/AddGlyphFromFontDialog.qml" line="290"/>
         <source>Add to current glyph</source>
-        <translation type="unfinished"></translation>
+        <translation>添加到当前字形</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="190"/>
@@ -23268,12 +23308,12 @@ Fret %1 on strings %2</source>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="335"/>
         <source>Show/hide the glyph browser panel</source>
-        <translation type="unfinished"></translation>
+        <translation>显示/隐藏字形浏览面板</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="346"/>
         <source>Show/hide the properties panel</source>
-        <translation type="unfinished"></translation>
+        <translation>显示/隐藏属性面板</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="93"/>
@@ -23356,237 +23396,237 @@ Fret %1 on strings %2</source>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="676"/>
         <source>Reference</source>
-        <translation type="unfinished"></translation>
+        <translation>参考图</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="695"/>
         <source>Reset image to staff height</source>
-        <translation type="unfinished"></translation>
+        <translation>将参考图重置为谱表高度</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="705"/>
         <source>Remove reference image</source>
-        <translation type="unfinished"></translation>
+        <translation>移除参考图</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="734"/>
         <source>Open path — click the start point or press Enter to close · Esc discards · Backspace removes the last point</source>
-        <translation type="unfinished"></translation>
+        <translation>开放路径 — 点击起点或按 Enter 闭合 · Esc 放弃 · Backspace 删除最后一个节点</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="759"/>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="218"/>
         <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="101"/>
         <source>No font project is open</source>
-        <translation type="unfinished"></translation>
+        <translation>未打开字体项目</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="768"/>
         <source>Open a SMuFL font (OTF/TTF) to browse and edit its glyphs and metadata.</source>
-        <translation type="unfinished"></translation>
+        <translation>打开 SMuFL 字体（OTF/TTF）以浏览和编辑其字形与元数据。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="779"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="102"/>
         <source>New font…</source>
-        <translation type="unfinished"></translation>
+        <translation>新建字体…</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="788"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="111"/>
         <source>Open font…</source>
-        <translation type="unfinished"></translation>
+        <translation>打开字体…</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignCentral.qml" line="796"/>
         <source>Go to font design home</source>
-        <translation type="unfinished"></translation>
+        <translation>前往字体设计主页</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="82"/>
         <source>Font design</source>
-        <translation type="unfinished"></translation>
+        <translation>字体设计</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="91"/>
         <source>Design SMuFL music fonts: open an existing font, edit glyphs and metadata, and try the result directly in your scores.</source>
-        <translation type="unfinished"></translation>
+        <translation>设计 SMuFL 音乐字体：打开现有字体，编辑字形与元数据，并直接在乐谱中试用效果。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="119"/>
         <source>Open font design workspace</source>
-        <translation type="unfinished"></translation>
+        <translation>打开字体设计工作区</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="132"/>
         <source>Recent fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>最近使用的字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="168"/>
         <source>Installed music fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>已安装的音乐字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="182"/>
         <source>Refresh</source>
-        <translation type="unfinished">刷新</translation>
+        <translation>刷新</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="196"/>
         <source>No fonts installed yet. Use “Install” in the font design editor to make a font available to MuseScore.</source>
-        <translation type="unfinished"></translation>
+        <translation>尚未安装字体。在字体设计编辑器中使用“安装”即可让 MuseScore 使用该字体。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="231"/>
         <source>No metadata</source>
-        <translation type="unfinished"></translation>
+        <translation>无元数据</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="241"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>打开</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="243"/>
         <source>Open in the font design editor</source>
-        <translation type="unfinished"></translation>
+        <translation>在字体设计编辑器中打开</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="251"/>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="357"/>
         <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="112"/>
         <source>New window</source>
-        <translation type="unfinished"></translation>
+        <translation>新窗口</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="253"/>
         <source>Open in a new window</source>
-        <translation type="unfinished"></translation>
+        <translation>在新窗口中打开</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="261"/>
         <source>Reveal</source>
-        <translation type="unfinished"></translation>
+        <translation>显示所在位置</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="263"/>
         <source>Show the font file in the file manager</source>
-        <translation type="unfinished"></translation>
+        <translation>在文件管理器中显示字体文件</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="271"/>
         <source>Uninstall</source>
-        <translation type="unfinished"></translation>
+        <translation>卸载</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignHomeSection.qml" line="273"/>
         <source>Move the installed font folder to the trash</source>
-        <translation type="unfinished"></translation>
+        <translation>将已安装的字体文件夹移到废纸篓</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="46"/>
         <source>sp</source>
-        <translation type="unfinished">谱间</translation>
+        <translation>谱间</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="109"/>
         <source>Font</source>
-        <translation type="unfinished">字体</translation>
+        <translation>字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="119"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="247"/>
         <source>Name</source>
-        <translation type="unfinished">名称</translation>
+        <translation>名称</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="135"/>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>版本</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="155"/>
         <source>Text font family</source>
-        <translation type="unfinished"></translation>
+        <translation>文本字体族</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="171"/>
         <source>Design size (dpt)</source>
-        <translation type="unfinished"></translation>
+        <translation>设计尺寸（dpt）</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="191"/>
         <source>Size range (dpt)</source>
-        <translation type="unfinished"></translation>
+        <translation>尺寸范围（dpt）</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="224"/>
         <source>Units per em</source>
-        <translation type="unfinished"></translation>
+        <translation>每 em 单位数</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="237"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="770"/>
         <source>Glyph</source>
-        <translation type="unfinished"></translation>
+        <translation>字形</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="261"/>
         <source>Advance</source>
-        <translation type="unfinished"></translation>
+        <translation>步进宽度</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="276"/>
         <source>Bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>边界框</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="291"/>
         <source>Classes</source>
-        <translation type="unfinished">课程</translation>
+        <translation>类别</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="307"/>
         <source>Anchors</source>
-        <translation type="unfinished"></translation>
+        <translation>锚点</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="369"/>
         <source>No anchors</source>
-        <translation type="unfinished"></translation>
+        <translation>无锚点</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="388"/>
         <source>Add anchor…</source>
-        <translation type="unfinished"></translation>
+        <translation>添加锚点…</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="402"/>
         <source>Engraving defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>排版默认值</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="443"/>
         <source>Alternates</source>
-        <translation type="unfinished"></translation>
+        <translation>替代字形</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="465"/>
         <source>Base glyph</source>
-        <translation type="unfinished"></translation>
+        <translation>基础字形</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="470"/>
         <source>Alternate name</source>
-        <translation type="unfinished"></translation>
+        <translation>替代字形名称</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="473"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="554"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="638"/>
         <source>Add</source>
-        <translation type="unfinished">添加</translation>
+        <translation>添加</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="518"/>
@@ -23594,183 +23634,208 @@ Fret %1 on strings %2</source>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="669"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="779"/>
         <source>PUA</source>
-        <translation type="unfinished"></translation>
+        <translation>PUA</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="529"/>
         <source>Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>连字</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="551"/>
         <source>Ligature name</source>
-        <translation type="unfinished"></translation>
+        <translation>连字名称</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="597"/>
         <source>Components (comma-separated)</source>
-        <translation type="unfinished"></translation>
+        <translation>组成字形（以逗号分隔）</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="603"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="687"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>描述</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="613"/>
         <source>Optional glyphs</source>
-        <translation type="unfinished"></translation>
+        <translation>可选字形</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="635"/>
         <source>Optional glyph name</source>
-        <translation type="unfinished"></translation>
+        <translation>可选字形名称</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="681"/>
         <source>Classes (comma-separated)</source>
-        <translation type="unfinished"></translation>
+        <translation>类别（以逗号分隔）</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="697"/>
         <source>Sets</source>
-        <translation type="unfinished"></translation>
+        <translation>样式集</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="719"/>
         <source>Set id (e.g. ss01)</source>
-        <translation type="unfinished"></translation>
+        <translation>样式集 ID（例如 ss01）</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="722"/>
         <source>Add set</source>
-        <translation type="unfinished"></translation>
+        <translation>添加样式集</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="734"/>
         <source>Set id</source>
-        <translation type="unfinished"></translation>
+        <translation>样式集 ID</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="739"/>
         <source>Glyph name</source>
-        <translation type="unfinished"></translation>
+        <translation>字形名称</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="742"/>
         <source>Add glyph</source>
-        <translation type="unfinished"></translation>
+        <translation>添加字形</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="794"/>
         <source>alternateFor</source>
-        <translation type="unfinished"></translation>
+        <translation>alternateFor</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="800"/>
         <source>Set type</source>
-        <translation type="unfinished"></translation>
+        <translation>样式集类型</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontDesignInspectorPanel.qml" line="807"/>
         <source>Set description</source>
-        <translation type="unfinished"></translation>
+        <translation>样式集描述</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontLintDialog.qml" line="32"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontLintDialog.qml" line="57"/>
         <source>Check font (SMuFL)</source>
-        <translation type="unfinished"></translation>
+        <translation>检查字体（SMuFL）</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontLintDialog.qml" line="76"/>
         <source>Click an issue to jump to the glyph.</source>
-        <translation type="unfinished"></translation>
+        <translation>点击问题可跳转到对应字形。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontLintDialog.qml" line="95"/>
         <source>No issues found</source>
-        <translation type="unfinished"></translation>
+        <translation>未发现问题</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/FontLintDialog.qml" line="163"/>
         <source>Re-run checks</source>
-        <translation type="unfinished"></translation>
+        <translation>重新检查</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/GlyphBrowserPanel.qml" line="62"/>
         <source>Name or U+XXXX</source>
-        <translation type="unfinished"></translation>
+        <translation>名称或 U+XXXX</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="32"/>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="60"/>
         <source>New font</source>
-        <translation type="unfinished"></translation>
+        <translation>新建字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="67"/>
         <source>The font and its SMuFL metadata will be written to the chosen folder on first save.</source>
-        <translation type="unfinished"></translation>
+        <translation>首次保存时，字体及其 SMuFL 元数据将写入所选文件夹。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="80"/>
         <source>Name:</source>
-        <translation type="unfinished">名称：</translation>
+        <translation>名称：</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="88"/>
         <source>e.g. MyMusicFont</source>
-        <translation type="unfinished"></translation>
+        <translation>例如 MyMusicFont</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="96"/>
         <source>Version:</source>
-        <translation type="unfinished">版本：</translation>
+        <translation>版本：</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="111"/>
         <source>Units per em:</source>
-        <translation type="unfinished"></translation>
+        <translation>每 em 单位数：</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="130"/>
         <source>Copyright:</source>
-        <translation type="unfinished"></translation>
+        <translation>版权：</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="138"/>
         <source>Optional</source>
-        <translation type="unfinished"></translation>
+        <translation>可选</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="148"/>
         <source>Save in:</source>
-        <translation type="unfinished"></translation>
+        <translation>保存位置：</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="158"/>
         <source>Choose folder</source>
-        <translation type="unfinished"></translation>
+        <translation>选择文件夹</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="196"/>
         <source>Create</source>
-        <translation type="unfinished">创建</translation>
+        <translation>创建</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignactioncontroller.cpp" line="166"/>
         <location filename="../../src/fontdesign/internal/fontdesignactioncontroller.cpp" line="206"/>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="148"/>
         <source>Unable to save font</source>
-        <translation type="unfinished"></translation>
+        <translation>无法保存字体</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignprojectscenario.cpp" line="56"/>
+        <source>Replace existing files?</source>
+        <translation>替换现有文件？</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignprojectscenario.cpp" line="57"/>
+        <source>Saving this font will replace files that do not belong to it:</source>
+        <translation>保存此字体将替换不属于它的文件：</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignprojectscenario.cpp" line="74"/>
+        <source>Original font kept</source>
+        <translation>已保留原字体</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignprojectscenario.cpp" line="75"/>
+        <source>This font was not created in Font design. Saving rebuilds it from its outlines, advance widths and metadata only, so the original files were kept as:</source>
+        <translation>此字体并非在字体设计中创建。保存时仅根据其轮廓、步进宽度和元数据重新生成，因此原文件已另存为：</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/fontdesignprojectscenario.cpp" line="105"/>
+        <source>The font “%1” has unsaved changes.</source>
+        <translation>字体“%1”有未保存的更改。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignactioncontroller.cpp" line="179"/>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="161"/>
         <source>Font saved with warnings</source>
-        <translation type="unfinished"></translation>
+        <translation>字体已保存，但有警告</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesignactioncontroller.cpp" line="192"/>
@@ -23785,208 +23850,208 @@ Fret %1 on strings %2</source>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="75"/>
         <source>Attachment point for an upward stem on the south-east of the glyph (typical notehead right side).</source>
-        <translation type="unfinished"></translation>
+        <translation>上行符干在字形东南角的连接点（通常为符头右侧）。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="77"/>
         <source>Attachment point for an upward stem on the north-west of the glyph.</source>
-        <translation type="unfinished"></translation>
+        <translation>上行符干在字形西北角的连接点。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="79"/>
         <source>Attachment point for a downward stem on the north-west of the glyph (typical notehead left side).</source>
-        <translation type="unfinished"></translation>
+        <translation>下行符干在字形西北角的连接点（通常为符头左侧）。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="81"/>
         <source>Attachment point for a downward stem on the south-west of the glyph.</source>
-        <translation type="unfinished"></translation>
+        <translation>下行符干在字形西南角的连接点。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="83"/>
         <source>Outer (south-east) point when a stem splits upward around the glyph.</source>
-        <translation type="unfinished"></translation>
+        <translation>符干在字形处向上分叉时的外侧（东南）点。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="85"/>
         <source>Inner (south-west) point when a stem splits upward around the glyph.</source>
-        <translation type="unfinished"></translation>
+        <translation>符干在字形处向上分叉时的内侧（西南）点。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="87"/>
         <source>Outer (north-east) point when a stem splits downward around the glyph.</source>
-        <translation type="unfinished"></translation>
+        <translation>符干在字形处向下分叉时的外侧（东北）点。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="89"/>
         <source>Inner (north-west) point when a stem splits downward around the glyph.</source>
-        <translation type="unfinished"></translation>
+        <translation>符干在字形处向下分叉时的内侧（西北）点。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="91"/>
         <source>North-east cut-out corner of the glyph bounding box for collision avoidance.</source>
-        <translation type="unfinished"></translation>
+        <translation>字形边界框的东北切角，用于避免碰撞。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="93"/>
         <source>North-west cut-out corner of the glyph bounding box for collision avoidance.</source>
-        <translation type="unfinished"></translation>
+        <translation>字形边界框的西北切角，用于避免碰撞。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="95"/>
         <source>South-east cut-out corner of the glyph bounding box for collision avoidance.</source>
-        <translation type="unfinished"></translation>
+        <translation>字形边界框的东南切角，用于避免碰撞。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="97"/>
         <source>South-west cut-out corner of the glyph bounding box for collision avoidance.</source>
-        <translation type="unfinished"></translation>
+        <translation>字形边界框的西南切角，用于避免碰撞。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="99"/>
         <source>Optical (visual) center used for alignment of dynamics, ornaments, and similar marks.</source>
-        <translation type="unfinished"></translation>
+        <translation>视觉中心，用于对齐力度记号、装饰音记号等类似记号。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="101"/>
         <source>Horizontal origin of the notehead for positioning relative to the stem or rhythmic slot.</source>
-        <translation type="unfinished"></translation>
+        <translation>符头的水平原点，用于相对符干或节奏位置定位。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="103"/>
         <source>Nominal advance width marker (x = width in staff spaces); used when width differs from the outline.</source>
-        <translation type="unfinished"></translation>
+        <translation>名义步进宽度标记（x = 以谱间计的宽度）；在宽度与轮廓不一致时使用。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="105"/>
         <source>Top attachment for multi-digit time-signature or similar stacked numerals.</source>
-        <translation type="unfinished"></translation>
+        <translation>多位数拍号或类似堆叠数字的顶部连接点。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="107"/>
         <source>Bottom attachment for multi-digit time-signature or similar stacked numerals.</source>
-        <translation type="unfinished"></translation>
+        <translation>多位数拍号或类似堆叠数字的底部连接点。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="109"/>
         <source>South-west end of a grace-note slash through the stem or flag.</source>
-        <translation type="unfinished"></translation>
+        <translation>穿过符干或符尾的装饰音斜线的西南端。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="111"/>
         <source>North-east end of a grace-note slash through the stem or flag.</source>
-        <translation type="unfinished"></translation>
+        <translation>穿过符干或符尾的装饰音斜线的东北端。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="113"/>
         <source>South-east end of a grace-note slash through the stem or flag.</source>
-        <translation type="unfinished"></translation>
+        <translation>穿过符干或符尾的装饰音斜线的东南端。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="115"/>
         <source>North-west end of a grace-note slash through the stem or flag.</source>
-        <translation type="unfinished"></translation>
+        <translation>穿过符干或符尾的装饰音斜线的西北端。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/internal/fontdesigntypes.cpp" line="117"/>
         <source>Horizontal offset for aligning repeat-dot pairs or similar repeated marks.</source>
-        <translation type="unfinished"></translation>
+        <translation>用于对齐成对反复点或类似重复记号的水平偏移。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="108"/>
         <source>Enter a valid codepoint (e.g. E050)</source>
-        <translation type="unfinished"></translation>
+        <translation>请输入有效的码位（例如 E050）</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="117"/>
         <source>Unable to read the font resource</source>
-        <translation type="unfinished"></translation>
+        <translation>无法读取字体资源</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="120"/>
         <source>Unable to create a temporary file</source>
-        <translation type="unfinished"></translation>
+        <translation>无法创建临时文件</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="136"/>
         <source>The glyph exists but has an empty outline</source>
-        <translation type="unfinished"></translation>
+        <translation>该字形存在，但轮廓为空</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="138"/>
         <source>%1 · U+%2 · %3 contours</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · U+%2 · %3 个轮廓</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="147"/>
         <source>U+%1 is not present in this font</source>
-        <translation type="unfinished"></translation>
+        <translation>此字体中没有 U+%1</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="158"/>
         <source>Unknown engraving font</source>
-        <translation type="unfinished"></translation>
+        <translation>未知的记谱字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="164"/>
         <source>Choose a font file first</source>
-        <translation type="unfinished"></translation>
+        <translation>请先选择字体文件</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="173"/>
         <source>Choose a font family and enter a character</source>
-        <translation type="unfinished"></translation>
+        <translation>请选择字体族并输入一个字符</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="183"/>
         <source>Unable to load the text font</source>
-        <translation type="unfinished"></translation>
+        <translation>无法载入文本字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="188"/>
         <source>The character is not present in this font</source>
-        <translation type="unfinished"></translation>
+        <translation>此字体中没有该字符</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="193"/>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="201"/>
         <source>The character has an empty outline</source>
-        <translation type="unfinished"></translation>
+        <translation>该字符的轮廓为空</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="204"/>
         <source>%1 · “%2” · %3 contours</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · “%2” · %3 个轮廓</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="213"/>
         <source>Load a glyph first</source>
-        <translation type="unfinished"></translation>
+        <translation>请先载入字形</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/addglyphsourcemodel.cpp" line="221"/>
         <source>Select a target codepoint in the glyph browser first</source>
-        <translation type="unfinished"></translation>
+        <translation>请先在字形浏览器中选择目标码位</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="999"/>
         <source>Images</source>
-        <translation type="unfinished">图像</translation>
+        <translation>图像</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1002"/>
         <source>Import reference image</source>
-        <translation type="unfinished"></translation>
+        <translation>导入参考图</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1009"/>
         <source>Unable to import image</source>
-        <translation type="unfinished"></translation>
+        <translation>无法导入图像</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/canvas/glyphcanvas.cpp" line="1010"/>
         <source>The file could not be read as an image.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法将该文件读取为图像。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="179"/>
@@ -23995,104 +24060,119 @@ Fret %1 on strings %2</source>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="200"/>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="208"/>
         <source>Cannot install font</source>
-        <translation type="unfinished"></translation>
+        <translation>无法安装字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="180"/>
         <source>Font name must not contain “Text” (reserved for text companion fonts).</source>
-        <translation type="unfinished"></translation>
+        <translation>字体名称不能包含“Text”（保留给配套文本字体）。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="187"/>
         <source>Font name contains invalid path characters.</source>
-        <translation type="unfinished"></translation>
+        <translation>字体名称包含无效的路径字符。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="194"/>
         <source>Notation configuration is unavailable.</source>
-        <translation type="unfinished"></translation>
+        <translation>记谱配置不可用。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="201"/>
         <source>User music fonts path is not configured.</source>
-        <translation type="unfinished"></translation>
+        <translation>未配置用户音乐字体路径。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="209"/>
         <source>Failed to create font directory.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法创建字体目录。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="218"/>
         <source>Overwrite installed font?</source>
-        <translation type="unfinished"></translation>
+        <translation>覆盖已安装的字体？</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="219"/>
         <source>A font with this name is already installed. Replace it?</source>
-        <translation type="unfinished"></translation>
+        <translation>已安装同名字体。要替换吗？</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="230"/>
         <source>Unable to install font</source>
-        <translation type="unfinished"></translation>
+        <translation>无法安装字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="236"/>
         <source>Font written but metadata failed</source>
-        <translation type="unfinished"></translation>
+        <translation>字体已写入，但元数据写入失败</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="243"/>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="247"/>
         <source>Font installed</source>
-        <translation type="unfinished"></translation>
+        <translation>字体已安装</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="237"/>
+        <source>A font with this name was already loaded. Restart MuseScore to see the updated glyphs.</source>
+        <translation>同名字体已加载。重启 MuseScore 后才能看到更新后的字形。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="244"/>
         <source>The font is available under Format → Style → Score → Musical symbol font.</source>
-        <translation type="unfinished"></translation>
+        <translation>可在“格式 → 样式 → 乐谱 → 音乐记号字体”中选用该字体。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="248"/>
         <source>Files were written, but the font scanner is unavailable. Restart MuseScore to use the font.</source>
-        <translation type="unfinished"></translation>
+        <translation>文件已写入，但字体扫描器不可用。请重启 MuseScore 后使用该字体。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="258"/>
         <source>Installed with validation warnings</source>
-        <translation type="unfinished"></translation>
+        <translation>已安装，但有校验警告</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="269"/>
         <source>OpenType font</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenType 字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="276"/>
         <source>Export font</source>
-        <translation type="unfinished"></translation>
+        <translation>导出字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="286"/>
         <source>Unable to export font</source>
-        <translation type="unfinished"></translation>
+        <translation>无法导出字体</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="295"/>
+        <source>Replace existing metadata?</source>
+        <translation>替换现有元数据？</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="296"/>
+        <source>The font was exported. A metadata file with the same name already exists. Replace it?</source>
+        <translation>字体已导出。已存在同名的元数据文件，要替换吗？</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="295"/>
         <source>Font exported but metadata failed</source>
-        <translation type="unfinished"></translation>
+        <translation>字体已导出，但元数据写入失败</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="305"/>
         <source>Font exported with warnings</source>
-        <translation type="unfinished"></translation>
+        <translation>字体已导出，但有警告</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="322"/>
         <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="53"/>
         <source>Save changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>保存更改？</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="323"/>
@@ -24104,7 +24184,7 @@ Fret %1 on strings %2</source>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="341"/>
         <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="84"/>
         <source>SMuFL fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>SMuFL 字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="344"/>
@@ -24112,90 +24192,130 @@ Fret %1 on strings %2</source>
         <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="87"/>
         <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="109"/>
         <source>Open font</source>
-        <translation type="unfinished"></translation>
+        <translation>打开字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="355"/>
         <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="110"/>
         <source>A font is already open. Where do you want to open the new one?</source>
-        <translation type="unfinished"></translation>
+        <translation>已打开一个字体。要在哪里打开新字体？</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="356"/>
         <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="111"/>
         <source>This window</source>
-        <translation type="unfinished"></translation>
+        <translation>当前窗口</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontdesignpagemodel.cpp" line="374"/>
         <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="129"/>
         <source>Unable to open font</source>
-        <translation type="unfinished"></translation>
+        <translation>无法打开字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="119"/>
         <source>Font name is empty</source>
-        <translation type="unfinished"></translation>
+        <translation>字体名称为空</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="122"/>
         <source>Font name contains “Text” — the installer skips such folders (reserved for text companion fonts)</source>
-        <translation type="unfinished"></translation>
+        <translation>字体名称包含“Text” — 安装程序会跳过此类文件夹（保留给配套文本字体）</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="126"/>
         <source>Font name contains invalid path characters</source>
-        <translation type="unfinished"></translation>
+        <translation>字体名称包含无效的路径字符</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="134"/>
         <source>Missing core glyph %1</source>
-        <translation type="unfinished"></translation>
+        <translation>缺少核心字形 %1</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="144"/>
         <source>%1 has no outline</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 没有轮廓</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="149"/>
         <source>%1 has no advance width</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 没有步进宽度</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="163"/>
         <source>%1 has %2 contour(s) with wrong winding direction — holes may render filled (use “Correct path directions”)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 有 %2 个轮廓的绕向错误 — 镂空处可能被填充（请使用“修正路径方向”）</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="183"/>
         <source>Optional glyphs share codepoint %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>可选字形共用码位 %1：%2</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="187"/>
         <source>Optional glyph %1 lies in the recommended range (optional glyphs start at U+F400)</source>
-        <translation type="unfinished"></translation>
+        <translation>可选字形 %1 位于推荐字形区段内（可选字形从 U+F400 开始）</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="196"/>
+        <source>%1 “%2” has no valid codepoint</source>
+        <translation>%1“%2”没有有效的码位</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="199"/>
+        <source>%1 “%2” is declared at %3, but the font has no glyph there</source>
+        <translation>%1“%2”声明于 %3，但字体在该位置没有字形</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="205"/>
+        <source>Optional glyph</source>
+        <translation>可选字形</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="208"/>
+        <source>Ligature</source>
+        <translation>连字</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="212"/>
+        <source>Alternate</source>
+        <translation>替代字形</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="217"/>
+        <source>Stylistic set glyph</source>
+        <translation>样式集字形</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="232"/>
+        <source>Ligature “%1” refers to an unknown component glyph “%2”</source>
+        <translation>连字“%1”引用了未知的组成字形“%2”</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="250"/>
+        <source>Metadata entries kept unchanged because no glyph in the font matches their name: %1</source>
+        <translation>以下元数据条目在字体中找不到同名字形，已保持不变：%1</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="203"/>
         <source>All checks passed — %1 glyphs</source>
-        <translation type="unfinished"></translation>
+        <translation>全部检查通过 — 共 %1 个字形</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/fontlintmodel.cpp" line="206"/>
         <source>%1 errors · %2 warnings · %3 notes</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 个错误 · %2 个警告 · %3 条提示</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/glyphbrowsermodel.cpp" line="80"/>
         <source>All symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>全部符号</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/glyphbrowsermodel.cpp" line="84"/>
         <source>Optional glyphs (U+F400+)</source>
-        <translation type="unfinished"></translation>
+        <translation>可选字形（U+F400+）</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/inspectors/alternatesmodel.cpp" line="88"/>
@@ -24207,7 +24327,7 @@ Fret %1 on strings %2</source>
         <location filename="../../src/fontdesign/view/inspectors/setsmodel.cpp" line="111"/>
         <location filename="../../src/fontdesign/view/inspectors/setsmodel.cpp" line="296"/>
         <source>No free PUA codepoint available</source>
-        <translation type="unfinished"></translation>
+        <translation>没有可用的空闲 PUA 码位</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/inspectors/alternatesmodel.cpp" line="197"/>
@@ -24215,7 +24335,7 @@ Fret %1 on strings %2</source>
         <location filename="../../src/fontdesign/view/inspectors/optionalglyphsmodel.cpp" line="155"/>
         <location filename="../../src/fontdesign/view/inspectors/setsmodel.cpp" line="248"/>
         <source>Invalid codepoint</source>
-        <translation type="unfinished"></translation>
+        <translation>无效的码位</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/inspectors/alternatesmodel.cpp" line="207"/>
@@ -24223,69 +24343,99 @@ Fret %1 on strings %2</source>
         <location filename="../../src/fontdesign/view/inspectors/optionalglyphsmodel.cpp" line="165"/>
         <location filename="../../src/fontdesign/view/inspectors/setsmodel.cpp" line="257"/>
         <source>Codepoint already in use</source>
-        <translation type="unfinished"></translation>
+        <translation>码位已被占用</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/inspectors/ligaturesmodel.cpp" line="87"/>
         <location filename="../../src/fontdesign/view/inspectors/ligaturesmodel.cpp" line="136"/>
         <source>Ligature already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>连字已存在</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/inspectors/optionalglyphsmodel.cpp" line="87"/>
         <location filename="../../src/fontdesign/view/inspectors/optionalglyphsmodel.cpp" line="136"/>
         <source>Optional glyph already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>可选字形已存在</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/inspectors/setsmodel.cpp" line="93"/>
         <source>Set already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>样式集已存在</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/inspectors/setsmodel.cpp" line="118"/>
         <source>Set not found</source>
-        <translation type="unfinished"></translation>
+        <translation>未找到样式集</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="149"/>
         <source>Uninstall font</source>
-        <translation type="unfinished"></translation>
+        <translation>卸载字体</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="150"/>
         <source>Remove “%1” from the MuseScore music fonts folder? The folder will be moved to the trash.</source>
-        <translation type="unfinished"></translation>
+        <translation>要从 MuseScore 音乐字体文件夹中移除“%1”吗？该文件夹将被移到废纸篓。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="161"/>
         <source>Unable to uninstall font</source>
-        <translation type="unfinished"></translation>
+        <translation>无法卸载字体</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="166"/>
+        <source>The font folder is not inside the MuseScore music fonts folder.</source>
+        <translation>该字体文件夹不在 MuseScore 音乐字体文件夹中。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/installedfontsmodel.cpp" line="162"/>
         <source>The font folder could not be moved to the trash.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法将字体文件夹移到废纸篓。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/newfontmodel.cpp" line="53"/>
         <source>Font name is required</source>
-        <translation type="unfinished"></translation>
+        <translation>必须填写字体名称</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/newfontmodel.cpp" line="58"/>
         <source>Font name contains invalid characters</source>
-        <translation type="unfinished"></translation>
+        <translation>字体名称包含无效字符</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/newfontmodel.cpp" line="63"/>
         <source>Choose a folder to save the font in</source>
-        <translation type="unfinished"></translation>
+        <translation>请选择保存字体的文件夹</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/newfontmodel.cpp" line="66"/>
         <source>The chosen folder does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation>所选文件夹不存在</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/io/fontexporter.cpp" line="91"/>
+        <source>Units per em must be between %1 and %2.</source>
+        <translation>每 em 单位数必须介于 %1 与 %2 之间。</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/io/fontexporter.cpp" line="97"/>
+        <source>The font has too many glyphs to export (%1; the limit is %2).</source>
+        <translation>字体的字形过多，无法导出（%1 个；上限为 %2 个）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/io/fontexporter.cpp" line="104"/>
+        <source>Glyph %1 has an advance width outside the supported range (0 to %2 font units).</source>
+        <translation>字形 %1 的步进宽度超出支持范围（0 至 %2 字体单位）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/io/fontexporter.cpp" line="109"/>
+        <source>Glyph %1 has outline coordinates outside the supported range (±%2 font units).</source>
+        <translation>字形 %1 的轮廓坐标超出支持范围（±%2 字体单位）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/fontdesign/internal/io/fontexporter.cpp" line="230"/>
+        <source>The exported font failed validation (glyph count mismatch).</source>
+        <translation>导出的字体未通过校验（字形数量不一致）。</translation>
     </message>
     <message>
         <location filename="../../src/fontdesign/view/projectspagemodel.cpp" line="72"/>
@@ -26014,12 +26164,12 @@ pickup measure</source>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/measures/MeasuresInspectorView.qml" line="226"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/measures/MeasuresInspectorView.qml" line="228"/>
         <source>Reset layout stretch</source>
-        <translation type="unfinished">重置小节拉伸</translation>
+        <translation>重置小节拉伸</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/measures/MeasuresInspectorView.qml" line="229"/>
         <source>Reset the horizontal stretch of the selected measure(s) to its default width</source>
-        <translation type="unfinished"></translation>
+        <translation>将所选小节的水平拉伸重置为默认宽度</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/accidentals/AccidentalSettings.qml" line="49"/>
@@ -26467,17 +26617,17 @@ pickup measure</source>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/expressions/ExpressionsSettings.qml" line="60"/>
         <source>Position relative to dynamic</source>
-        <translation type="unfinished"></translation>
+        <translation>相对力度记号的位置</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/expressions/ExpressionsSettings.qml" line="68"/>
         <source>After dynamic</source>
-        <translation type="unfinished"></translation>
+        <translation>在力度记号之后</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/expressions/ExpressionsSettings.qml" line="69"/>
         <source>Before dynamic</source>
-        <translation type="unfinished"></translation>
+        <translation>在力度记号之前</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/frames/FretFrameSettings.qml" line="58"/>
@@ -26937,6 +27087,11 @@ pickup measure</source>
         <translation>无响度圈记号</translation>
     </message>
     <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/internal/HairpinStyleSettings.qml" line="91"/>
+        <source>Vertical ends</source>
+        <translation>末端竖直</translation>
+    </message>
+    <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/internal/HairpinStyleSettings.qml" line="142"/>
         <source>Height (new system)</source>
         <translation>高度（新谱行组）</translation>
@@ -27016,13 +27171,13 @@ pickup measure</source>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/internal/OttavaStyleSettings.qml" line="71"/>
         <source>Allow broken line</source>
-        <translation type="unfinished"></translation>
+        <translation>允许折线</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/internal/OttavaStyleSettings.qml" line="82"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/SlurAndTieSettings.qml" line="131"/>
         <source>Turning points</source>
-        <translation type="unfinished"></translation>
+        <translation>转折点</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/internal/PedalStyleSettings.qml" line="69"/>
@@ -27077,7 +27232,7 @@ pickup measure</source>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/SlurAndTieSettings.qml" line="122"/>
         <source>Apply multi-segment Bezier curves</source>
-        <translation type="unfinished"></translation>
+        <translation>应用多段贝塞尔曲线</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/SlurAndTieSettings.qml" line="169"/>
@@ -27213,12 +27368,12 @@ pickup measure</source>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="124"/>
         <source>Distance to previous note</source>
-        <translation type="unfinished"></translation>
+        <translation>到前一音符的距离</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="143"/>
         <source>Minimum: %1 sp</source>
-        <translation type="unfinished"></translation>
+        <translation>最小值：%1 谱间</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/HeadSettings.qml" line="169"/>
@@ -27298,6 +27453,11 @@ pickup measure</source>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/StemSettings.qml" line="62"/>
         <source>Show stem slash</source>
         <translation>显示符干斜线</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/StemSettings.qml" line="73"/>
+        <source>Show at end of previous measure</source>
+        <translation>显示在上一小节末尾</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/notes/StemSettings.qml" line="75"/>
@@ -27630,22 +27790,22 @@ pickup measure</source>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/symbols/SymbolSettings.qml" line="114"/>
         <source>Short side</source>
-        <translation type="unfinished"></translation>
+        <translation>短边</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/symbols/SymbolSettings.qml" line="134"/>
         <source>Long side</source>
-        <translation type="unfinished"></translation>
+        <translation>长边</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/symbols/SymbolSettings.qml" line="215"/>
         <source>Top hook</source>
-        <translation type="unfinished"></translation>
+        <translation>上折钩</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/symbols/SymbolSettings.qml" line="246"/>
         <source>Bottom hook</source>
-        <translation type="unfinished"></translation>
+        <translation>下折钩</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/symbols/SymbolSettings.qml" line="279"/>
@@ -27754,22 +27914,22 @@ pickup measure</source>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="86"/>
         <source>Start offset X</source>
-        <translation type="unfinished"></translation>
+        <translation>起点偏移 X</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="103"/>
         <source>Start offset Y</source>
-        <translation type="unfinished"></translation>
+        <translation>起点偏移 Y</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="125"/>
         <source>End offset X</source>
-        <translation type="unfinished"></translation>
+        <translation>终点偏移 X</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tremolos/TremoloSettings.qml" line="142"/>
         <source>End offset Y</source>
-        <translation type="unfinished"></translation>
+        <translation>终点偏移 Y</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tuplets/TupletSettings.qml" line="58"/>
@@ -27779,12 +27939,12 @@ pickup measure</source>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tuplets/TupletSettings.qml" line="95"/>
         <source>Fixed slant (follow beam/stems)</source>
-        <translation type="unfinished"></translation>
+        <translation>固定斜率（跟随符杠/符干）</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/tuplets/TupletSettings.qml" line="105"/>
         <source>Bracket gradient</source>
-        <translation type="unfinished"></translation>
+        <translation>括号斜率</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/parts/PartsSettings.qml" line="56"/>
@@ -27989,7 +28149,12 @@ pickup measure</source>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="180"/>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/textstylepopup/TextStylePopup.qml" line="418"/>
         <source>Letter spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>字间距</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="230"/>
+        <source>Slant angle</source>
+        <translation>倾斜角度</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/TextSettings.qml" line="197"/>
@@ -28046,7 +28211,7 @@ pickup measure</source>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/textstylepopup/TextStylePopup.qml" line="409"/>
         <source>Letter spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>字间距：</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/text/textstylepopup/TextStylePopup.qml" line="453"/>
@@ -28442,7 +28607,7 @@ pickup measure</source>
     <message>
         <location filename="../../src/inspector/models/notation/notes/notesettingsproxymodel.cpp" line="78"/>
         <source>Ledger lines</source>
-        <translation type="unfinished"></translation>
+        <translation>加线</translation>
     </message>
     <message>
         <location filename="../../src/inspector/models/notation/notes/stems/stemsettingsmodel.cpp" line="41"/>
@@ -28550,6 +28715,11 @@ pickup measure</source>
         <source>Guides</source>
         <extracomment>Alignment guides shown while dragging</extracomment>
         <translation>参考线</translation>
+    </message>
+    <message>
+        <location filename="../../src/inspector/view/qml/MuseScore/Inspector/score/ScoreDisplayInspectorView.qml" line="121"/>
+        <source>Alignment guides</source>
+        <translation>对齐参考线</translation>
     </message>
 </context>
 <context>
@@ -29385,13 +29555,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="249"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="263"/>
         <source>8th:</source>
-        <translation type="unfinished"></translation>
+        <translation>8度：</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="250"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="264"/>
         <source>9th:</source>
-        <translation type="unfinished"></translation>
+        <translation>9度：</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/BeamsPage.qml" line="278"/>
@@ -31482,13 +31652,48 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <name>notation/editstyle/accidentals</name>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="46"/>
+        <source>Accidental spacing</source>
+        <translation>变音号间距</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="54"/>
+        <source>Accidental to note distance:</source>
+        <translation>变音号到音符距离：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="68"/>
+        <source>Accidental to accidental distance:</source>
+        <translation>变音号到变音号距离：</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="82"/>
+        <source>Keep rightmost accidental flush with ledger lines</source>
+        <translation>最右侧变音号贴齐加线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="46"/>
         <source>Accidentals</source>
         <translation>变音号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="97"/>
+        <source>Show cautionary accidentals</source>
+        <translation>显示提示性变音号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="103"/>
+        <source>Put cautionary accidentals in parentheses</source>
+        <translation>为提示性变音号加括号</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="50"/>
         <source>Padding inside parentheses:</source>
         <translation>括号内间距</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="122"/>
+        <source>Use SMuFL symbols with built-in parentheses</source>
+        <translation>使用自带括号的 SMuFL 符号</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="65"/>
@@ -31513,22 +31718,22 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="89"/>
         <source>Accidentals in key signatures</source>
-        <translation type="unfinished"></translation>
+        <translation>调号中的变音号</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="97"/>
         <source>Distance between sharps:</source>
-        <translation type="unfinished"></translation>
+        <translation>升号间距：</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="111"/>
         <source>Distance between flats:</source>
-        <translation type="unfinished"></translation>
+        <translation>降号间距：</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="125"/>
         <source>Distance between naturals:</source>
-        <translation type="unfinished"></translation>
+        <translation>还原号间距：</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="141"/>
@@ -31925,6 +32130,11 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/StemLengthSection.qml" line="78"/>
         <source>Custom stem length by notehead position</source>
         <translation>按符头位置自定义符干长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/StemLengthSection.qml" line="156"/>
+        <source>Positions are shown for stems pointing up on a five-line staff; stems pointing down mirror them. On other staves they are counted from the staff line nearest the stem tip. Noteheads beyond the opposite staff line keep the default rules. Flagged notes always use the standard stem length. Stems still lengthen for beams and flags that would otherwise collide.</source>
+        <translation>这些位置按五线谱上行符干示意，下行与之镜像。其它谱表从靠近符尖的谱线起算。越过对侧谱线的符头仍使用默认规则。带符尾的音符始终使用标准符干长度。为避免与符杠或符尾碰撞，符干仍会加长。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/StemLengthSection.qml" line="156"/>
@@ -32554,32 +32764,32 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/view/widgets/japanesespacingdialog.cpp" line="44"/>
         <source>Apply Japanese engraving spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>应用日式净书间距</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/japanesespacingdialog.cpp" line="48"/>
         <source>Choose which groups of settings to apply. The values are a starting point and can be fine-tuned afterwards in Format › Style › Bars.</source>
-        <translation type="unfinished"></translation>
+        <translation>选择要应用的设置组。这些数值只是起点，之后可在“格式 › 样式 › 间距”中微调。</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/japanesespacingdialog.cpp" line="54"/>
         <source>Flatter spacing ratio (1.4)</source>
-        <translation type="unfinished"></translation>
+        <translation>更平缓的间距比（1.4）</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/japanesespacingdialog.cpp" line="58"/>
         <source>Tighter overall density</source>
-        <translation type="unfinished"></translation>
+        <translation>更紧凑的整体密度</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/japanesespacingdialog.cpp" line="62"/>
         <source>Compact note and barline distances</source>
-        <translation type="unfinished"></translation>
+        <translation>紧凑的音符与小节线距离</translation>
     </message>
     <message>
         <location filename="../../src/notation/view/widgets/japanesespacingdialog.cpp" line="66"/>
         <source>Enable density-adaptive spacing ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>启用密度自适应间距比</translation>
     </message>
 </context>
 <context>
@@ -34200,9 +34410,29 @@ failed: %2</source>
         <translation>音乐符号</translation>
     </message>
     <message>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="539"/>
+        <source>Music text</source>
+        <translation>音乐文本</translation>
+    </message>
+    <message>
         <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="479"/>
         <source>Unicode symbols</source>
         <translation>Unicode字符</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="897"/>
+        <source>All glyphs</source>
+        <translation>全部字形</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/view/widgets/specialcharactersdialog.cpp" line="908"/>
+        <source>Other</source>
+        <translation>其它</translation>
+    </message>
+    <message>
+        <location filename="../../src/palette/qml/MuseScore/Palette/internal/PalettesToolbox.qml" line="64"/>
+        <source>Palettes toolbox</source>
+        <translation>符号面板工具箱</translation>
     </message>
     <message>
         <location filename="../../src/palette/qml/MuseScore/Palette/PaletteLibrary.qml" line="51"/>
@@ -37851,7 +38081,7 @@ failed: %2</source>
     <message>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="136"/>
         <source>A file with this name already exists. Do you want to replace it?</source>
-        <translation type="unfinished"></translation>
+        <translation>已存在同名文件。您想替换它吗？</translation>
     </message>
     <message>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="137"/>
@@ -37859,7 +38089,10 @@ failed: %2</source>
 
 The score will be saved as:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>MuseScore 文件以 .msdz 扩展名保存。替换将覆盖该文件的当前内容。
+
+乐谱将保存为：
+%1</translation>
     </message>
     <message>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="215"/>
@@ -37993,12 +38226,12 @@ The score will be saved as:
     <message>
         <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1048"/>
         <source>Save as .msdz</source>
-        <translation type="unfinished"></translation>
+        <translation>保存为 .msdz</translation>
     </message>
     <message>
         <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1052"/>
         <source>Save this score as an MSDZ file?</source>
-        <translation type="unfinished"></translation>
+        <translation>将此乐谱保存为 MSDZ 文件？</translation>
     </message>
     <message>
         <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1053"/>
@@ -38009,7 +38242,13 @@ Current file:
 
 The score will be saved as:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>此版本以 .msdz 扩展名保存 MuseScore 文件，已打开的 .mscz 文件不会被覆盖。
+
+当前文件：
+%1
+
+乐谱将保存为：
+%2</translation>
     </message>
     <message>
         <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1460"/>
@@ -39834,7 +40073,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/view/widgets/japanesespacingdialog.cpp" line="103"/>
         <source>Apply Japanese spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>应用日式间距</translation>
     </message>
 </context>
 <context>
