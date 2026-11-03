@@ -94,6 +94,32 @@ void TremoloSettingsModel::loadProperties(const PropertyIdSet& propertyIdSet)
     if (muse::contains(propertyIdSet, Pid::TREMOLO_END_Y_OFFSET)) {
         loadPropertyItem(m_strokeEndOffsetY);
     }
+
+    if (muse::contains(propertyIdSet, Pid::TREMOLO_STYLE)
+        || muse::contains(propertyIdSet, Pid::TREMOLO_START_X_OFFSET)
+        || muse::contains(propertyIdSet, Pid::TREMOLO_START_Y_OFFSET)
+        || muse::contains(propertyIdSet, Pid::TREMOLO_END_X_OFFSET)
+        || muse::contains(propertyIdSet, Pid::TREMOLO_END_Y_OFFSET)) {
+        updateStrokeOffsetsAvailability();
+    }
+}
+
+void TremoloSettingsModel::updateStrokeOffsetsAvailability()
+{
+    // strokes that join both stems stay attached to them, like a beam,
+    // so their start/end points can't be moved
+    bool hasFreeStrokes = false;
+    for (EngravingItem* it : m_elementList) {
+        if (!item_cast<TremoloTwoChord*>(it)->strokesJoinStems()) {
+            hasFreeStrokes = true;
+            break;
+        }
+    }
+
+    m_strokeStartOffsetX->setIsEnabled(hasFreeStrokes);
+    m_strokeStartOffsetY->setIsEnabled(hasFreeStrokes);
+    m_strokeEndOffsetX->setIsEnabled(hasFreeStrokes);
+    m_strokeEndOffsetY->setIsEnabled(hasFreeStrokes);
 }
 
 void TremoloSettingsModel::loadProperties()
@@ -113,9 +139,14 @@ void TremoloSettingsModel::resetProperties()
     m_strokeEndOffsetY->resetToDefault();
 }
 
-void TremoloSettingsModel::onNotationChanged(const PropertyIdSet& changedPropertyIdSet, const StyleIdSet&)
+void TremoloSettingsModel::onNotationChanged(const PropertyIdSet& changedPropertyIdSet, const StyleIdSet& changedStyleIdSet)
 {
     loadProperties(changedPropertyIdSet);
+
+    // the style default can switch a tremolo between free and stem-joined strokes
+    if (muse::contains(changedStyleIdSet, Sid::tremoloStyle)) {
+        updateStrokeOffsetsAvailability();
+    }
 }
 
 PropertyItem* TremoloSettingsModel::style() const

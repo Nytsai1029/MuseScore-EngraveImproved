@@ -61,6 +61,7 @@ signals:
 private:
     void loadProperties(const mu::engraving::PropertyIdSet& allowedPropertyIdSet);
     void updateIsStyleAvailable();
+    void updateStrokeOffsetsAvailability();
 
     PropertyItem* m_style = nullptr;
     PropertyItem* m_direction = nullptr;

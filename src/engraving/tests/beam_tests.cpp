@@ -29,6 +29,7 @@
 #include "dom/beam.h"
 #include "dom/chord.h"
 #include "dom/chordrest.h"
+#include "dom/editdata.h"
 #include "dom/masterscore.h"
 #include "dom/measure.h"
 #include "dom/note.h"
@@ -853,6 +854,113 @@ TEST_F(Engraving_BeamTests, flipTremoloStemDir)
     score->update();
     score->doLayout();
     EXPECT_FALSE(t->up() || c1->up() || c2->up());
+
+    delete score;
+}
+
+static TremoloTwoChord* firstTremoloTwoChord(MasterScore* score)
+{
+    Measure* m1 = score->firstMeasure();
+    ChordRest* cr = toChordRest(m1->findSegment(SegmentType::ChordRest, m1->tick())->element(0));
+    return toChord(cr)->tremoloTwoChord();
+}
+
+static void dragTremoloGrip(MasterScore* score, TremoloTwoChord* t, Grip grip, const PointF& deltaSp)
+{
+    EditData ed;
+    ed.curGrip = grip;
+    ed.delta = deltaSp * t->spatium();
+
+    score->startCmd(TranslatableString::untranslatable("Engraving beam tests"));
+    t->editDrag(ed);
+    score->endCmd();
+}
+
+//---------------------------------------------------------
+//   tremoloGripDragUndo
+//    undoing a drag of an already adjusted two-note tremolo
+//    puts its strokes back where they were
+//---------------------------------------------------------
+
+TEST_F(Engraving_BeamTests, tremoloGripDragUndo)
+{
+    MasterScore* score = ScoreRW::readScore(BEAM_DATA_DIR + "flipTremoloStemDir.mscx");
+    ASSERT_TRUE(score);
+
+    TremoloTwoChord* t = firstTremoloTwoChord(score);
+    ASSERT_TRUE(t);
+
+    dragTremoloGrip(score, t, Grip::MIDDLE, PointF(0.0, -1.0));
+    ASSERT_TRUE(t->userModified());
+    const auto afterFirstDrag = t->beamPos();
+
+    dragTremoloGrip(score, t, Grip::MIDDLE, PointF(0.0, -1.0));
+    EXPECT_NEAR(t->beamPos().first, afterFirstDrag.first - 1.0, 1e-6);
+    EXPECT_NEAR(t->beamPos().second, afterFirstDrag.second - 1.0, 1e-6);
+
+    score->undoRedo(true, nullptr);
+    EXPECT_TRUE(t->userModified());
+    EXPECT_NEAR(t->beamPos().first, afterFirstDrag.first, 1e-6);
+    EXPECT_NEAR(t->beamPos().second, afterFirstDrag.second, 1e-6);
+
+    score->undoRedo(false, nullptr);
+    EXPECT_NEAR(t->beamPos().first, afterFirstDrag.first - 1.0, 1e-6);
+    EXPECT_NEAR(t->beamPos().second, afterFirstDrag.second - 1.0, 1e-6);
+
+    delete score;
+}
+
+//---------------------------------------------------------
+//   tremoloStrokeGripsFollowStyle
+//    the end grips of free-standing strokes move only the strokes;
+//    strokes that join both stems are edited like a beam
+//---------------------------------------------------------
+
+TEST_F(Engraving_BeamTests, tremoloStrokeGripsFollowStyle)
+{
+    MasterScore* score = ScoreRW::readScore(BEAM_DATA_DIR + "flipTremoloStemDir.mscx");
+    ASSERT_TRUE(score);
+
+    TremoloTwoChord* t = firstTremoloTwoChord(score);
+    ASSERT_TRUE(t);
+    ASSERT_TRUE(t->customStyleApplicable());
+    ASSERT_FALSE(t->strokesJoinStems());
+
+    // default style: the start grip moves the start of the strokes, the stems are left alone
+    const auto defaultBeamPos = t->beamPos();
+    dragTremoloGrip(score, t, Grip::START, PointF(0.5, -1.0));
+    EXPECT_NEAR(t->userStartOffset().x(), 0.5, 1e-6);
+    EXPECT_NEAR(t->userStartOffset().y(), -1.0, 1e-6);
+    EXPECT_FALSE(t->userModified());
+    EXPECT_NEAR(t->beamPos().first, defaultBeamPos.first, 1e-6);
+    EXPECT_NEAR(t->beamPos().second, defaultBeamPos.second, 1e-6);
+
+    score->undoRedo(true, nullptr);
+    EXPECT_NEAR(t->userStartOffset().x(), 0.0, 1e-6);
+    EXPECT_NEAR(t->userStartOffset().y(), 0.0, 1e-6);
+    score->undoRedo(false, nullptr);
+
+    // traditional style: the start grip only tilts the strokes, like a beam
+    score->startCmd(TranslatableString::untranslatable("Engraving beam tests"));
+    t->undoChangeProperty(Pid::TREMOLO_STYLE, int(TremoloStyle::TRADITIONAL));
+    score->endCmd();
+    ASSERT_TRUE(t->strokesJoinStems());
+
+    const auto traditionalBeamPos = t->beamPos();
+    dragTremoloGrip(score, t, Grip::START, PointF(0.5, -1.0));
+    EXPECT_NEAR(t->userStartOffset().x(), 0.5, 1e-6);
+    EXPECT_NEAR(t->userStartOffset().y(), -1.0, 1e-6);
+    EXPECT_TRUE(t->userModified());
+    EXPECT_NEAR(t->beamPos().first, traditionalBeamPos.first - 1.0, 1e-6);
+    EXPECT_NEAR(t->beamPos().second, traditionalBeamPos.second, 1e-6);
+
+    // the stored offset is not applied: the first stroke starts at the stem, at the
+    // dragged beam position (up to the quarter-space snap of manually adjusted beams)
+    ASSERT_FALSE(t->beamSegments().empty());
+    const LineF& stroke = t->beamSegments().front()->line;
+    const double sp = t->spatium();
+    EXPECT_NEAR(stroke.x1(), t->startAnchor().x(), 1e-6);
+    EXPECT_NEAR(stroke.y1(), t->beamPos().first * sp, 0.125 * sp + 1e-6);
 
     delete score;
 }

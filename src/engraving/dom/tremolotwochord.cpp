@@ -349,10 +349,12 @@ std::vector<PointF> TremoloTwoChord::gripsPositions(const EditData&) const
 
     int y = pagePos().y();
     const double _spatium = spatium();
-    double beamStartX = m_startAnchor.x() + m_chord1->pageX() + m_userStartOffset.x() * _spatium;
-    double beamEndX = m_endAnchor.x() + m_chord1->pageX() + m_userEndOffset.x() * _spatium; // intentional--chord1 is start x
-    double beamStartY = m_beamFragment.py1[idx] + y + m_userStartOffset.y() * _spatium;
-    double beamEndY = m_beamFragment.py2[idx] + y + m_userEndOffset.y() * _spatium;
+    const PointF startOffset = strokesJoinStems() ? PointF() : m_userStartOffset * _spatium;
+    const PointF endOffset = strokesJoinStems() ? PointF() : m_userEndOffset * _spatium;
+    double beamStartX = m_startAnchor.x() + m_chord1->pageX() + startOffset.x();
+    double beamEndX = m_endAnchor.x() + m_chord1->pageX() + endOffset.x(); // intentional--chord1 is start x
+    double beamStartY = m_beamFragment.py1[idx] + y + startOffset.y();
+    double beamEndY = m_beamFragment.py2[idx] + y + endOffset.y();
     double middleX = (beamStartX + beamEndX) / 2;
     double middleY = (beamStartY + beamEndY) / 2;
 
@@ -373,6 +375,28 @@ void TremoloTwoChord::editDrag(EditData& ed)
     double dy = ed.delta.y();
     double y1 = m_beamFragment.py1[idx];
     double y2 = m_beamFragment.py2[idx];
+    double _spatium = spatium();
+
+    // free-standing strokes: an end grip moves only that end of the stroke group,
+    // the stems keep their length
+    const bool isEndGrip = ed.curGrip == Grip::START || ed.curGrip == Grip::END;
+    if (isEndGrip && !strokesJoinStems()) {
+        const bool isStart = ed.curGrip == Grip::START;
+        const PointF offset = isStart ? m_userStartOffset : m_userEndOffset;
+        const Pid xPid = isStart ? Pid::TREMOLO_START_X_OFFSET : Pid::TREMOLO_END_X_OFFSET;
+        const Pid yPid = isStart ? Pid::TREMOLO_START_Y_OFFSET : Pid::TREMOLO_END_Y_OFFSET;
+        const PointF d = ed.delta / _spatium;
+        if (!muse::RealIsNull(d.x())) {
+            undoChangeProperty(xPid, Spatium(offset.x() + d.x()));
+        }
+        if (!muse::RealIsNull(d.y())) {
+            undoChangeProperty(yPid, Spatium(offset.y() + d.y()));
+        }
+        undoChangeProperty(Pid::GENERATED, false);
+
+        triggerLayout();
+        return;
+    }
 
     if (ed.curGrip == Grip::MIDDLE) {
         y1 += dy;
@@ -381,19 +405,6 @@ void TremoloTwoChord::editDrag(EditData& ed)
         y1 += dy;
     } else if (ed.curGrip == Grip::END) {
         y2 += dy;
-    }
-
-    double _spatium = spatium();
-
-    // horizontal drag of an end grip moves that end of the stroke group,
-    // which is free-standing when the strokes do not touch the stems
-    double dx = ed.delta.x();
-    if (!muse::RealIsNull(dx)) {
-        if (ed.curGrip == Grip::START) {
-            undoChangeProperty(Pid::TREMOLO_START_X_OFFSET, Spatium(m_userStartOffset.x() + dx / _spatium));
-        } else if (ed.curGrip == Grip::END) {
-            undoChangeProperty(Pid::TREMOLO_END_X_OFFSET, Spatium(m_userEndOffset.x() + dx / _spatium));
-        }
     }
 
     // Because of the logic in Beam::setProperty(),
@@ -434,6 +445,15 @@ bool TremoloTwoChord::customStyleApplicable() const
 }
 
 //---------------------------------------------------------
+//   strokesJoinStems
+//---------------------------------------------------------
+
+bool TremoloTwoChord::strokesJoinStems() const
+{
+    return customStyleApplicable() && m_style != TremoloStyle::DEFAULT;
+}
+
+//---------------------------------------------------------
 //   getProperty
 //---------------------------------------------------------
 
@@ -446,6 +466,8 @@ PropertyValue TremoloTwoChord::getProperty(Pid propertyId) const
         return int(m_style);
     case Pid::PLAY:
         return m_playTremolo;
+    case Pid::BEAM_POS:
+        return PropertyValue::fromValue(beamPos());
     case Pid::TREMOLO_START_X_OFFSET:
         return Spatium(m_userStartOffset.x());
     case Pid::TREMOLO_START_Y_OFFSET:
@@ -513,6 +535,8 @@ PropertyValue TremoloTwoChord::propertyDefault(Pid propertyId) const
         return style().styleI(Sid::tremoloStyle);
     case Pid::PLAY:
         return true;
+    case Pid::BEAM_POS:
+        return PropertyValue::fromValue(beamPos());
     case Pid::TREMOLO_START_X_OFFSET:
     case Pid::TREMOLO_START_Y_OFFSET:
     case Pid::TREMOLO_END_X_OFFSET:

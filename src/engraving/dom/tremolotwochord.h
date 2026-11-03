@@ -92,7 +92,8 @@ public:
     void setTremoloStyle(TremoloStyle v) { m_style = v; }
 
     // user offsets (in spatium units) applied to the start/end of the stroke group,
-    // so strokes that are not attached to the stems can be repositioned freely
+    // so strokes that are not attached to the stems can be repositioned freely;
+    // ignored while the strokes join both stems (see strokesJoinStems())
     const PointF& userStartOffset() const { return m_userStartOffset; }
     void setUserStartOffset(const PointF& p) { m_userStartOffset = p; }
     const PointF& userEndOffset() const { return m_userEndOffset; }
@@ -107,6 +108,8 @@ public:
     void setPlayTremolo(bool v) { m_playTremolo = v; }
 
     bool customStyleApplicable() const;
+    // the traditional styles draw a stroke from stem to stem, like a beam
+    bool strokesJoinStems() const;
 
     PropertyValue getProperty(Pid propertyId) const override;
     bool setProperty(Pid propertyId, const PropertyValue&) override;
