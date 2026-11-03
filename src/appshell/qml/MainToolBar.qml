@@ -165,7 +165,7 @@ Item {
                     id: publishPreviewMenuLoader
 
                     items: [
-                        { id: "show-as-window", title: qsTrc("appshell", "显示为单独窗口") }
+                        { id: "show-as-window", title: qsTrc("appshell", "Show as separate window") }
                     ]
 
                     onHandleMenuItem: function(itemId) {

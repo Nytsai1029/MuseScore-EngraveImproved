@@ -11066,6 +11066,11 @@ The name of the score and the number of its pages, e.g. &quot;Träumerei · 2 pa
         <translation>将预览显示为单独窗口</translation>
     </message>
     <message>
+        <location filename="../../src/appshell/qml/MainToolBar.qml" line="168"/>
+        <source>Show as separate window</source>
+        <translation>显示为单独窗口</translation>
+    </message>
+    <message>
         <location filename="../../src/appshell/qml/Atelier/AtelierPagesPane.qml" line="214"/>
         <source>Staff space</source>
         <translation>谱间</translation>
@@ -32769,6 +32774,11 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/view/widgets/japanesespacingdialog.cpp" line="48"/>
         <source>Choose which groups of settings to apply. The values are a starting point and can be fine-tuned afterwards in Format › Style › Bars.</source>
+        <translation>选择要应用的设置组。这些数值只是起点，之后可在“格式 › 样式 › 间距”中微调。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/view/widgets/japanesespacingdialog.cpp" line="48"/>
+        <source>Choose which groups of settings to apply. The values are a starting point and can be fine-tuned afterwards in Format › Style › Spacing.</source>
         <translation>选择要应用的设置组。这些数值只是起点，之后可在“格式 › 样式 › 间距”中微调。</translation>
     </message>
     <message>

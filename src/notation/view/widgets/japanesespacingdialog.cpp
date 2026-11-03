@@ -47,7 +47,7 @@ JapaneseSpacingDialog::JapaneseSpacingDialog(QWidget* parent)
 
     QLabel* intro = new QLabel(muse::qtrc("notation/japanesespacing",
                                           "Choose which groups of settings to apply. The values are a starting point "
-                                          "and can be fine-tuned afterwards in Format › Style › Bars."), this);
+                                          "and can be fine-tuned afterwards in Format › Style › Spacing."), this);
     intro->setWordWrap(true);
     mainLayout->addWidget(intro);
 
