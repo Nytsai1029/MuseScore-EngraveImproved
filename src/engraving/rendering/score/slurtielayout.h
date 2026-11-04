@@ -79,6 +79,13 @@ private:
     static void adjustSlurFloatingEndPointAngles(SlurSegment* slurSeg, PointF& p1, PointF& p2, bool incomingPartial, bool outgoingPartial);
 
     static void layoutSegment(SlurSegment* item, const PointF& p1, const PointF& p2);
+    static void recordAutoShape(SlurSegment* slurSeg, const PointF& pp1, const PointF& pp2, const PointF& p2, const PointF& p3,
+                                const PointF& p4, const muse::draw::Transform& rotate, double slurAngle);
+    static void computeFrozenBezier(SlurSegment* slurSeg, PointF shoulderOffset);
+    static void finishBezier(SlurSegment* slurSeg, const PointF& p2, const PointF& p3, const PointF& p4,
+                             const muse::draw::Transform& rotate, const muse::draw::Transform& toSystemCoordinates);
+    static void enforceSlurShapeRules(bool up, const PointF& pp1, const PointF& p2, PointF& p3, PointF& p4,
+                                      const muse::draw::Transform& toSystemCoordinates);
     static void avoidCollisions(SlurSegment* slurSeg, PointF& pp1, PointF& p2, PointF& p3, PointF& p4,
                                 muse::draw::Transform& toSystemCoordinates, double& slurAngle);
     static Shape getSegmentShapes(SlurSegment* slurSeg, ChordRest* startCR, ChordRest* endCR);

@@ -463,6 +463,7 @@ static constexpr PropertyMetaData propertyList[] = {
     { Pid::SLUR_MULTI_BEZIER_KNOT_COUNT, true,  "multiBezierKnotCount", P_TYPE::INT,             PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "multi-bezier knot count") },
     { Pid::SLUR_CURVE_MODE,         true,  "slurCurveMode",         P_TYPE::INT,                PropertyGroup::APPEARANCE,      QT_TRANSLATE_NOOP("engraving/propertyName", "slur curve mode") },
     { Pid::SLUR_MULTI_BEZIER_DATA,  false, "multiBezierData",       P_TYPE::STRING,             PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "multi-bezier data") },
+    { Pid::SLUR_FROZEN_SHAPE,       false, "frozenShape",           P_TYPE::STRING,             PropertyGroup::POSITION,        QT_TRANSLATE_NOOP("engraving/propertyName", "frozen slur shape") },
     { Pid::PARTIAL_SPANNER_DIRECTION,   true,  "partialSpannerDirection",   P_TYPE::PARTIAL_SPANNER_DIRECTION,  PropertyGroup::NONE,  QT_TRANSLATE_NOOP("engraving/propertyName", "partial spanner direction") },
 
     { Pid::POSITION_LINKED_TO_MASTER,   false, "positionLinkedToMaster",   P_TYPE::BOOL,        PropertyGroup::NONE,            QT_TRANSLATE_NOOP("engraving/propertyName", "position linked to main score") },

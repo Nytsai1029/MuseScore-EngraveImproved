@@ -2739,6 +2739,7 @@ void TWrite::writeSlur(const SlurTieSegment* seg, XmlWriter& xml, WriteContext& 
         xml.tagPoint("o4", seg->ups(Grip::END).off / _spatium);
     }
     writeProperty(seg, xml, Pid::SLUR_MULTI_BEZIER_DATA);
+    writeProperty(seg, xml, Pid::SLUR_FROZEN_SHAPE);
 
     if (seg->isHammerOnPullOffSegment()) {
         writeProperties(toHammerOnPullOffSegment(seg), xml, ctx);

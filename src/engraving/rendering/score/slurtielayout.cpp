@@ -1633,24 +1633,30 @@ void SlurTieLayout::avoidCollisions(SlurSegment* slurSeg, PointF& pp1, PointF& p
                 p4 += p2delta * p4.x() / p2.x();
             }
         }
-        // Enforce non-ugliness rules
-        // 1) Slur cannot be taller than it is wide
-        const double maxRelativeHeight = std::abs(p2.x());
-        p3 = slur->up() ? PointF(p3.x(), std::max(p3.y(), -maxRelativeHeight)) : PointF(p3.x(), std::min(p3.y(), maxRelativeHeight));
-        p4 = slur->up() ? PointF(p4.x(), std::max(p4.y(), -maxRelativeHeight)) : PointF(p4.x(), std::min(p4.y(), maxRelativeHeight));
-        // 2) Tangent rule: p3 and p4 cannot be further left than p1 nor further right than p2
-        PointF p3SysCoord = toSystemCoordinates.map(p3);
-        PointF p4SysCoord = toSystemCoordinates.map(p4);
-        PointF p2SysCoord = toSystemCoordinates.map(p2);
-        p3SysCoord = PointF(std::max(pp1.x(), p3SysCoord.x()), p3SysCoord.y());
-        p3SysCoord = PointF(std::min(p2SysCoord.x(), p3SysCoord.x()), p3SysCoord.y());
-        p4SysCoord = PointF(std::max(pp1.x(), p4SysCoord.x()), p4SysCoord.y());
-        p4SysCoord = PointF(std::min(p2SysCoord.x(), p4SysCoord.x()), p4SysCoord.y());
-        p3 = toSystemCoordinates.inverted().map(p3SysCoord);
-        p4 = toSystemCoordinates.inverted().map(p4SysCoord);
+        enforceSlurShapeRules(slur->up(), pp1, p2, p3, p4, toSystemCoordinates);
 
         ++iter;
     } while ((collision.left || collision.mid || collision.right) && iter < maxIter);
+}
+
+void SlurTieLayout::enforceSlurShapeRules(bool up, const PointF& pp1, const PointF& p2, PointF& p3, PointF& p4,
+                                          const Transform& toSystemCoordinates)
+{
+    // Enforce non-ugliness rules
+    // 1) Slur cannot be taller than it is wide
+    const double maxRelativeHeight = std::abs(p2.x());
+    p3 = up ? PointF(p3.x(), std::max(p3.y(), -maxRelativeHeight)) : PointF(p3.x(), std::min(p3.y(), maxRelativeHeight));
+    p4 = up ? PointF(p4.x(), std::max(p4.y(), -maxRelativeHeight)) : PointF(p4.x(), std::min(p4.y(), maxRelativeHeight));
+    // 2) Tangent rule: p3 and p4 cannot be further left than p1 nor further right than p2
+    PointF p3SysCoord = toSystemCoordinates.map(p3);
+    PointF p4SysCoord = toSystemCoordinates.map(p4);
+    PointF p2SysCoord = toSystemCoordinates.map(p2);
+    p3SysCoord = PointF(std::max(pp1.x(), p3SysCoord.x()), p3SysCoord.y());
+    p3SysCoord = PointF(std::min(p2SysCoord.x(), p3SysCoord.x()), p3SysCoord.y());
+    p4SysCoord = PointF(std::max(pp1.x(), p4SysCoord.x()), p4SysCoord.y());
+    p4SysCoord = PointF(std::min(p2SysCoord.x(), p4SysCoord.x()), p4SysCoord.y());
+    p3 = toSystemCoordinates.inverted().map(p3SysCoord);
+    p4 = toSystemCoordinates.inverted().map(p4SysCoord);
 }
 
 Shape SlurTieLayout::getSegmentShapes(SlurSegment* slurSeg, ChordRest* startCR, ChordRest* endCR)
@@ -2356,10 +2362,15 @@ void SlurTieLayout::adjustOverlappingSlurs(const std::list<SpannerSegment*>& spa
             }
             if (slur1->slur()->endChord() == slur2->slur()->startChord()
                 && compare(slur1->ups(Grip::END).p.y(), slur2->ups(Grip::START).p.y())) {
-                slur1->ups(Grip::END).p.rx() -= slurCollisionHorizOffset;
-                slur2->ups(Grip::START).p.rx() += slurCollisionHorizOffset;
-                SlurTieLayout::computeBezier(slur1);
-                SlurTieLayout::computeBezier(slur2);
+                // A frozen (edited) slur keeps its shape; only the other one moves
+                if (!slur1->isShapeFrozen()) {
+                    slur1->ups(Grip::END).p.rx() -= slurCollisionHorizOffset;
+                    SlurTieLayout::computeBezier(slur1);
+                }
+                if (!slur2->isShapeFrozen()) {
+                    slur2->ups(Grip::START).p.rx() += slurCollisionHorizOffset;
+                    SlurTieLayout::computeBezier(slur2);
+                }
                 continue;
             }
 
@@ -2373,6 +2384,9 @@ void SlurTieLayout::adjustOverlappingSlurs(const std::list<SpannerSegment*>& spa
             if (slur1->ups(Grip::END).p.x() < slurTie2->ups(Grip::START).p.x()
                 || slurTie2->ups(Grip::END).p.x() < slur1->ups(Grip::START).p.x()
                 || slur1->slur()->up() != slurTie2->slurTie()->up()) {
+                continue;
+            }
+            if (slur1->isShapeFrozen()) {
                 continue;
             }
             // START POINT
@@ -3262,6 +3276,11 @@ void SlurTieLayout::computeBezier(SlurSegment* slurSeg, PointF shoulderOffset)
      *         p6 = shoulder drag point (in slur coord.)
      * REMEMBER! ups().pos() = ups().p + ups().off
      * ***********************************************/
+    if (slurSeg->isShapeFrozen()) {
+        computeFrozenBezier(slurSeg, shoulderOffset);
+        return;
+    }
+
     // Avoid bad staff line intersections
     if (slurSeg->autoplace()) {
         adjustEndPoints(slurSeg);
@@ -3303,6 +3322,11 @@ void SlurTieLayout::computeBezier(SlurSegment* slurSeg, PointF shoulderOffset)
         //! NOTE A negative d means that end point is before the start point.
         //! This only exists as a temporary state when horizontal spacing hasn't yet been computed,
         //! and it makes no sense for any of the following calculations
+        if (slurSeg->isEndPointsEdited()) {
+            // The adjustment was folded into the offsets above; do not fold it in again next time
+            slurSeg->setEndPointOff1(PointF());
+            slurSeg->setEndPointOff2(PointF());
+        }
         return;
     }
 
@@ -3369,11 +3393,104 @@ void SlurTieLayout::computeBezier(SlurSegment* slurSeg, PointF shoulderOffset)
     toSystemCoordinates = toSlurCoordinates.inverted();
     p2 = toSlurCoordinates.map(pp2);
 
+    if (shoulderOffset.isNull()) {
+        recordAutoShape(slurSeg, pp1, pp2, p2, p3, p4, rotate, slurAngle);
+    }
+
+    finishBezier(slurSeg, p2, p3, p4, rotate, toSystemCoordinates);
+}
+
+//---------------------------------------------------------
+//   recordAutoShape
+//    Keep what layout added to the default shape, so the next edit can freeze it.
+//    p2, p3 and p4 are in the final slur frame (origin pp1, angle slurAngle).
+//---------------------------------------------------------
+
+void SlurTieLayout::recordAutoShape(SlurSegment* slurSeg, const PointF& pp1, const PointF& pp2, const PointF& p2, const PointF& p3,
+                                    const PointF& p4, const Transform& rotate, double slurAngle)
+{
+    if (!slurSeg->autoplace() || slurSeg->isTappingHalfSlurSegment() || p2.x() <= 0.0) {
+        slurSeg->setLastAutoShape(std::nullopt);
+        return;
+    }
+
+    const double sp = slurSeg->style().spatium();
+    PointF bezier1 = p3;
+    PointF bezier2 = p4;
+    if (!slurSeg->useBezierKnotControls()) {
+        bezier1 -= rotate.map(slurSeg->ups(Grip::BEZIER1).off);
+        bezier2 -= rotate.map(slurSeg->ups(Grip::BEZIER2).off);
+    }
+
+    SlurSegment::FrozenShape shape;
+    shape.startShift = (pp1 - slurSeg->autoStartPoint() - slurSeg->ups(Grip::START).off) / sp;
+    shape.endShift = (pp2 - slurSeg->autoEndPoint() - slurSeg->ups(Grip::END).off) / sp;
+    shape.bezier1 = PointF(bezier1.x() / p2.x(), bezier1.y() / sp);
+    shape.bezier2 = PointF(bezier2.x() / p2.x(), bezier2.y() / sp);
+    shape.angleDelta = slurAngle - slurAngleFromEndpoints(pp1, pp2);
+    slurSeg->setLastAutoShape(shape);
+}
+
+//---------------------------------------------------------
+//   computeFrozenBezier
+//    An edited slur replays the automatic shape frozen at its first edit instead of running
+//    collision avoidance again, so changes under it no longer reshape it. Its end points still
+//    follow the notes, and the shape stretches with the slur's length.
+//---------------------------------------------------------
+
+void SlurTieLayout::computeFrozenBezier(SlurSegment* slurSeg, PointF shoulderOffset)
+{
+    const SlurSegment::FrozenShape& frozen = *slurSeg->frozenShape();
+    const double sp = slurSeg->style().spatium();
+
+    const PointF pp1 = slurSeg->autoStartPoint() + slurSeg->ups(Grip::START).off + frozen.startShift * sp;
+    const PointF pp2 = slurSeg->autoEndPoint() + slurSeg->ups(Grip::END).off + frozen.endShift * sp;
+    slurSeg->setEndPointOff1(PointF());
+    slurSeg->setEndPointOff2(PointF());
+
+    const double slurAngle = slurAngleFromEndpoints(pp1, pp2) + frozen.angleDelta;
+    Transform rotate;
+    rotate.rotateRadians(-slurAngle);
+    Transform toSlurCoordinates;
+    toSlurCoordinates.rotateRadians(-slurAngle);
+    toSlurCoordinates.translate(-pp1.x(), -pp1.y());
+    const Transform toSystemCoordinates = toSlurCoordinates.inverted();
+    const PointF p2 = toSlurCoordinates.map(pp2);
+    if (p2.x() <= 0.0) {
+        //! NOTE Temporary state before horizontal spacing is computed, see computeBezier
+        return;
+    }
+
+    shoulderOffset = rotate.map(shoulderOffset);
+    PointF p3 = PointF(frozen.bezier1.x() * p2.x(), frozen.bezier1.y() * sp) + shoulderOffset;
+    PointF p4 = PointF(frozen.bezier2.x() * p2.x(), frozen.bezier2.y() * sp) + shoulderOffset;
+    if (!slurSeg->useBezierKnotControls()) {
+        p3 += rotate.map(slurSeg->ups(Grip::BEZIER1).off);
+        p4 += rotate.map(slurSeg->ups(Grip::BEZIER2).off);
+    }
+    slurSeg->ups(Grip::BEZIER1).off += rotate.inverted().map(shoulderOffset);
+    slurSeg->ups(Grip::BEZIER2).off += rotate.inverted().map(shoulderOffset);
+    enforceSlurShapeRules(slurSeg->slur()->up(), pp1, p2, p3, p4, toSystemCoordinates);
+
+    slurSeg->ups(Grip::START).p = pp1 - slurSeg->ups(Grip::START).off;
+    slurSeg->ups(Grip::END).p = pp2 - slurSeg->ups(Grip::END).off;
+
+    finishBezier(slurSeg, p2, p3, p4, rotate, toSystemCoordinates);
+}
+
+//---------------------------------------------------------
+//   finishBezier
+//    Thickness, grips, path and shape from the final points in the slur frame.
+//---------------------------------------------------------
+
+void SlurTieLayout::finishBezier(SlurSegment* slurSeg, const PointF& p2, const PointF& p3, const PointF& p4, const Transform& rotate,
+                                 const Transform& toSystemCoordinates)
+{
     // Set slur thickness
     computeMidThickness(slurSeg, p2.x() / slurSeg->spatium());
     PointF thick(0.0, slurSeg->ldata()->midThickness());
 
-    if (useBezierKnotControls && computeMultiBezierPath(slurSeg, p2, p3, p4, rotate, toSystemCoordinates)) {
+    if (slurSeg->useBezierKnotControls() && computeMultiBezierPath(slurSeg, p2, p3, p4, rotate, toSystemCoordinates)) {
         return;
     }
 
@@ -3703,6 +3820,7 @@ void SlurTieLayout::layoutSegment(SlurSegment* item, const PointF& p1, const Poi
     ldata->setPos(PointF());
     item->ups(Grip::START).p = p1;
     item->ups(Grip::END).p   = p2;
+    item->setAutoEndPoints(p1, p2);
     item->setExtraHeight(0.0);
 
     //Adjust Y pos to staff type yOffset before other calculations

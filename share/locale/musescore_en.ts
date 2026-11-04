@@ -12799,7 +12799,7 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Articulation</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/barline.cpp" line="1162"/>
+        <location filename="../../src/engraving/dom/barline.cpp" line="1185"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1092"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1103"/>
         <location filename="../../src/engraving/dom/note.cpp" line="3645"/>
@@ -12809,7 +12809,7 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Start of %1</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/barline.cpp" line="1165"/>
+        <location filename="../../src/engraving/dom/barline.cpp" line="1188"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1095"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1105"/>
         <location filename="../../src/engraving/dom/note.cpp" line="3649"/>
@@ -20784,181 +20784,186 @@ Fret %1 on strings %2</translation>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="466"/>
+        <source>frozen slur shape</source>
+        <translation type="unfinished">frozen slur shape</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/dom/property.cpp" line="467"/>
         <source>partial spanner direction</source>
         <translation type="unfinished">partial spanner direction</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="468"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="469"/>
         <source>position linked to main score</source>
         <translation type="unfinished">position linked to main score</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="469"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="470"/>
         <source>appearance linked to main score</source>
         <translation type="unfinished">appearance linked to main score</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="470"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="471"/>
         <source>text linked to main score</source>
         <translation type="unfinished">text linked to main score</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="471"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="472"/>
         <source>exclude from parts</source>
         <translation type="unfinished">exclude from parts</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="473"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="474"/>
         <source>strings count</source>
         <translation type="unfinished">strings count</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="474"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="475"/>
         <source>strings preset</source>
         <translation type="unfinished">strings preset</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="475"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="476"/>
         <source>visible strings</source>
         <translation type="unfinished">visible strings</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="477"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="478"/>
         <source>score font</source>
         <translation type="unfinished">score font</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="478"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="479"/>
         <source>symbols size</source>
         <translation type="unfinished">symbols size</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="479"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="480"/>
         <source>symbol angle</source>
         <translation type="unfinished">symbol angle</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="480"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="481"/>
         <source>symbol short side length</source>
         <translation type="unfinished">symbol short side length</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="481"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="482"/>
         <source>symbol long side length</source>
         <translation type="unfinished">symbol long side length</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="482"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="483"/>
         <source>symbol top hook length</source>
         <translation type="unfinished">symbol top hook length</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="483"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="484"/>
         <source>symbol bottom hook length</source>
         <translation type="unfinished">symbol bottom hook length</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="485"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="486"/>
         <source>apply to all staves</source>
         <translation type="unfinished">apply to all staves</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="486"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="487"/>
         <source>is courtesy</source>
         <translation type="unfinished">is courtesy</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="487"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="488"/>
         <source>exclude vertical align</source>
         <translation type="unfinished">exclude vertical align</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="489"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="490"/>
         <source>show bar numbers</source>
         <translation type="unfinished">show bar numbers</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="490"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="491"/>
         <source>play count text setting</source>
         <translation type="unfinished">play count text setting</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="491"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="492"/>
         <source>play count text</source>
         <translation type="unfinished">play count text</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="493"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="494"/>
         <source>align with other rests in the same voice</source>
         <translation type="unfinished">align with other rests in the same voice</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="495"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="496"/>
         <source>distance to previous note</source>
         <translation type="unfinished">distance to previous note</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="497"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="498"/>
         <source>bracket fixed slant</source>
         <translation type="unfinished">bracket fixed slant</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="498"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="499"/>
         <source>bracket gradient</source>
         <translation type="unfinished">bracket gradient</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="500"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="501"/>
         <source>tremolo stroke start X offset</source>
         <translation type="unfinished">tremolo stroke start X offset</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="501"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="502"/>
         <source>tremolo stroke start Y offset</source>
         <translation type="unfinished">tremolo stroke start Y offset</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="502"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="503"/>
         <source>tremolo stroke end X offset</source>
         <translation type="unfinished">tremolo stroke end X offset</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="503"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="504"/>
         <source>tremolo stroke end Y offset</source>
         <translation type="unfinished">tremolo stroke end Y offset</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="505"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="506"/>
         <source>parenthesis top offset</source>
         <translation type="unfinished">parenthesis top offset</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="506"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="507"/>
         <source>parenthesis bottom offset</source>
         <translation type="unfinished">parenthesis bottom offset</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="508"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="509"/>
         <source>stem length</source>
         <translation type="unfinished">stem length</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="510"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="511"/>
         <source>mask barlines</source>
         <translation type="unfinished">mask barlines</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="512"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="513"/>
         <source>show at end of previous measure</source>
         <translation type="unfinished">show at end of previous measure</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="514"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="515"/>
         <source>hairpin vertical ends</source>
         <translation type="unfinished">hairpin vertical ends</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/property.cpp" line="516"/>
+        <location filename="../../src/engraving/dom/property.cpp" line="517"/>
         <source>slant angle</source>
         <translation type="unfinished">slant angle</translation>
     </message>

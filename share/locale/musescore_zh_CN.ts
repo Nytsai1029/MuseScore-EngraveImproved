@@ -20453,6 +20453,11 @@ Fret %1 on strings %2</source>
     </message>
     <message>
         <location filename="../../src/engraving/dom/property.cpp" line="466"/>
+        <source>frozen slur shape</source>
+        <translation>已固定的圆滑线形状</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/dom/property.cpp" line="466"/>
         <source>partial spanner direction</source>
         <translation type="unfinished"></translation>
     </message>

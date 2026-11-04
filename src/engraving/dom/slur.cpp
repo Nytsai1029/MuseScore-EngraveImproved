@@ -58,6 +58,7 @@ SlurSegment::SlurSegment(const SlurSegment& ss)
 {
     m_multiBezierData = ss.m_multiBezierData;
     m_multiBezierKnotData = ss.m_multiBezierKnotData;
+    m_frozenShape = ss.m_frozenShape;
 }
 
 bool SlurSegment::useMultiBezier() const
@@ -210,6 +211,54 @@ std::string SlurSegment::serializeMultiBezierData() const
     }
 
     return stream.str();
+}
+
+String SlurSegment::frozenShapeToString(const std::optional<FrozenShape>& shape)
+{
+    if (!shape) {
+        return String();
+    }
+
+    std::ostringstream stream;
+    stream.imbue(std::locale::classic());
+    stream << std::setprecision(12)
+           << shape->startShift.x() << ',' << shape->startShift.y() << ';'
+           << shape->bezier1.x() << ',' << shape->bezier1.y() << ';'
+           << shape->bezier2.x() << ',' << shape->bezier2.y() << ';'
+           << shape->endShift.x() << ',' << shape->endShift.y() << ';'
+           << shape->angleDelta;
+    return String::fromStdString(stream.str());
+}
+
+std::optional<SlurSegment::FrozenShape> SlurSegment::frozenShapeFromString(const String& str)
+{
+    if (str.empty()) {
+        return std::nullopt;
+    }
+
+    std::vector<double> values;
+    for (const String& part : str.split(u';')) {
+        for (const String& token : part.split(u',')) {
+            bool ok = false;
+            const double value = token.toDouble(&ok);
+            if (!ok) {
+                return std::nullopt;
+            }
+            values.push_back(value);
+        }
+    }
+
+    if (values.size() != 9) {
+        return std::nullopt;
+    }
+
+    FrozenShape shape;
+    shape.startShift = PointF(values[0], values[1]);
+    shape.bezier1 = PointF(values[2], values[3]);
+    shape.bezier2 = PointF(values[4], values[5]);
+    shape.endShift = PointF(values[6], values[7]);
+    shape.angleDelta = values[8];
+    return shape;
 }
 
 bool SlurSegment::resetMultiBezierGrip(Grip grip)
@@ -653,6 +702,8 @@ PropertyValue SlurSegment::getProperty(Pid propertyId) const
             return muse::String::fromStdString(serializeMultiBezierData());
         }
         return muse::String::fromStdString(m_multiBezierData);
+    case Pid::SLUR_FROZEN_SHAPE:
+        return frozenShapeToString(m_frozenShape);
     default:
         return SlurTieSegment::getProperty(propertyId);
     }
@@ -665,6 +716,9 @@ bool SlurSegment::setProperty(Pid propertyId, const PropertyValue& v)
         m_multiBezierData = v.value<muse::String>().toStdString();
         parseMultiBezierData();
         break;
+    case Pid::SLUR_FROZEN_SHAPE:
+        m_frozenShape = frozenShapeFromString(v.value<muse::String>());
+        break;
     default:
         return SlurTieSegment::setProperty(propertyId, v);
     }
@@ -676,6 +730,7 @@ PropertyValue SlurSegment::propertyDefault(Pid id) const
 {
     switch (id) {
     case Pid::SLUR_MULTI_BEZIER_DATA:
+    case Pid::SLUR_FROZEN_SHAPE:
         return muse::String();
     default:
         return SlurTieSegment::propertyDefault(id);
@@ -686,6 +741,63 @@ void SlurSegment::reset()
 {
     SlurTieSegment::reset();
     undoResetProperty(Pid::SLUR_MULTI_BEZIER_DATA);
+    undoResetProperty(Pid::SLUR_FROZEN_SHAPE);
+}
+
+//---------------------------------------------------------
+//   startEditDrag
+//    The first edit freezes the automatic part of the shape, recorded in the same undo step as the
+//    edit itself, so the shape stops following collision avoidance from then on.
+//---------------------------------------------------------
+
+void SlurSegment::startEditDrag(EditData& ed)
+{
+    SlurTieSegment::startEditDrag(ed);
+
+    ElementEditDataPtr eed = ed.getData(this);
+    if (!eed) {
+        return;
+    }
+    eed->pushProperty(Pid::SLUR_FROZEN_SHAPE);
+
+    if (!m_frozenShape && m_lastAutoShape && autoplace() && !isTappingHalfSlurSegment()) {
+        m_frozenShape = m_lastAutoShape;
+    }
+}
+
+//---------------------------------------------------------
+//   endEditDrag
+//    Selecting a grip without changing anything must not freeze the shape.
+//---------------------------------------------------------
+
+void SlurSegment::endEditDrag(EditData& ed)
+{
+    if (ElementEditDataPtr eed = ed.getData(this)) {
+        const PropertyData* frozenData = nullptr;
+        bool shapeChanged = false;
+        for (const PropertyData& pd : eed->propertyData) {
+            if (pd.id == Pid::SLUR_FROZEN_SHAPE) {
+                frozenData = &pd;
+            } else if (getProperty(pd.id) != pd.data) {
+                shapeChanged = true;
+            }
+        }
+        if (frozenData && !shapeChanged) {
+            setProperty(Pid::SLUR_FROZEN_SHAPE, frozenData->data);
+        }
+    }
+
+    SlurTieSegment::endEditDrag(ed);
+}
+
+//---------------------------------------------------------
+//   isShapeFrozen
+//    Only an autoplaced slur has an automatic part to freeze.
+//---------------------------------------------------------
+
+bool SlurSegment::isShapeFrozen() const
+{
+    return m_frozenShape.has_value() && autoplace() && !isTappingHalfSlurSegment();
 }
 
 void SlurSegment::spatiumChanged(double oldValue, double newValue)
@@ -785,7 +897,7 @@ bool SlurSegment::isUserModified() const
         return true;
     }
 
-    return !m_multiBezierData.empty();
+    return !m_multiBezierData.empty() || m_frozenShape.has_value();
 }
 
 bool SlurSegment::isEndPointsEdited() const

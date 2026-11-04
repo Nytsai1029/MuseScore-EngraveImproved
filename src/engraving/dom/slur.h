@@ -22,6 +22,7 @@
 
 #pragma once
 
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -52,6 +53,17 @@ public:
         UP outHandle;
     };
 
+    // The automatic part of an edited slur's shape, frozen when the user first edits it so that later
+    // changes under the slur (notes, articulations, other slurs) no longer reshape it.
+    struct FrozenShape
+    {
+        PointF startShift;       // what layout moved the start point by after slurPos, in spatium
+        PointF endShift;         // the same for the end point
+        PointF bezier1;          // in the slur frame: x as a fraction of the slur length, y in spatium
+        PointF bezier2;
+        double angleDelta = 0.0; // slur frame angle minus the angle of the line through the end points
+    };
+
     SlurSegment(System* parent, ElementType type = ElementType::SLUR_SEGMENT);
     SlurSegment(const SlurSegment& ss);
 
@@ -69,7 +81,9 @@ public:
     void reset() override;
     void spatiumChanged(double oldValue, double newValue) override;
 
+    void startEditDrag(EditData& ed) override;
     void editDrag(EditData& ed) override;
+    void endEditDrag(EditData& ed) override;
     int gripsCount() const override;
     Grip defaultGrip() const override;
     std::vector<PointF> gripsPositions(const EditData& ed = EditData()) const override;
@@ -85,6 +99,14 @@ public:
     const std::vector<MultiBezierKnot>& multiBezierKnotData() const { return m_multiBezierKnotData; }
     void ensureMultiBezierKnotData();
     void syncMultiBezierDataProperty();
+
+    const std::optional<FrozenShape>& frozenShape() const { return m_frozenShape; }
+    bool hasFrozenShape() const { return m_frozenShape.has_value(); }
+    bool isShapeFrozen() const;
+    void setLastAutoShape(const std::optional<FrozenShape>& shape) { m_lastAutoShape = shape; }
+    const PointF& autoStartPoint() const { return m_autoStartPoint; }
+    const PointF& autoEndPoint() const { return m_autoEndPoint; }
+    void setAutoEndPoints(const PointF& start, const PointF& end) { m_autoStartPoint = start; m_autoEndPoint = end; }
 
     double endWidth() const override;
     double midWidth() const override;
@@ -111,9 +133,16 @@ private:
     bool resetMultiBezierGrip(Grip grip);
     void parseMultiBezierData();
     std::string serializeMultiBezierData() const;
+    static String frozenShapeToString(const std::optional<FrozenShape>& shape);
+    static std::optional<FrozenShape> frozenShapeFromString(const String& str);
 
     std::vector<MultiBezierKnot> m_multiBezierKnotData;
     std::string m_multiBezierData;
+
+    std::optional<FrozenShape> m_frozenShape;
+    std::optional<FrozenShape> m_lastAutoShape; // layout's latest automatic shape, frozen on the next edit
+    PointF m_autoStartPoint;                    // end points as slurPos computed them, before any adjustment
+    PointF m_autoEndPoint;
 };
 
 //---------------------------------------------------------
