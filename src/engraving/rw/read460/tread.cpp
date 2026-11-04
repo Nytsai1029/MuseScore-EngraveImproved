@@ -2800,7 +2800,10 @@ void TRead::read(ChordLine* l, XmlReader& e, ReadContext& ctx)
                     int type = e.intAttribute("type");
                     double x  = e.doubleAttribute("x");
                     double y  = e.doubleAttribute("y");
-                    double spatium = ctx.spatium();
+                    // The writer divides by the staff spatium; the chord line has no parent or track yet,
+                    // so take the staff from the read position
+                    const Staff* staff = ctx.score() ? ctx.score()->staff(track2staff(ctx.track())) : nullptr;
+                    double spatium = staff ? staff->spatium(ctx.tick()) : ctx.spatium();
                     x *= spatium;
                     y *= spatium;
                     switch (PainterPath::ElementType(type)) {
