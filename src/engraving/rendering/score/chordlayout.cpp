@@ -1169,7 +1169,12 @@ void ChordLayout::layoutArticulations2(Chord* item, LayoutContext& ctx, bool lay
             // Close-to-note marks are already in staffShape via Segment::createShapes.
             // Adding them again here stacks a second copy and can shove autoplaced marks.
             if (a->addToSkyline() && !a->layoutCloseToNote()) {
-                a->segment()->staffShape(a->vStaffIdx()).add(a->shape().translated(a->pos() + item->pos() + item->staffOffset()));
+                // Replace the copy an earlier pass left there: before horizontal spacing (and on a freshly opened
+                // score every measure is still at x = 0) autoplace stacks these marks, and fermatas and slurs
+                // would keep avoiding that stale copy
+                Shape& staffShape = a->segment()->staffShape(a->vStaffIdx());
+                staffShape.remove_if([a](const ShapeElement& element) { return element.item() == a; });
+                staffShape.add(a->shape().translated(a->pos() + item->pos() + item->staffOffset()));
             }
         }
     }
