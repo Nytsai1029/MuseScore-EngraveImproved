@@ -962,9 +962,8 @@ void TWrite::write(const Chord* item, XmlWriter& xml, WriteContext& ctx)
     if (item->hook() && item->hook()->isUserModified()) {
         write(item->hook(), xml, ctx);
     }
-    if (item->showStemSlash() && item->isUserModified()) {
-        xml.tag("showStemSlash", item->showStemSlash());
-    }
+    // The reader resets the slash to the note type's default, so write any value that differs from it
+    writeProperty(item, xml, Pid::SHOW_STEM_SLASH);
     writeProperty(item, xml, Pid::GRACE_BEFORE_BARLINE);
     if (item->isGrace()) {
         writeProperty(item, xml, Pid::LEADING_SPACE);
