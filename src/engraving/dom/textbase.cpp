@@ -1793,6 +1793,7 @@ TextBase::TextBase(const TextBase& st)
 
     m_textStyleType               = st.m_textStyleType;
     m_textLineSpacing             = st.m_textLineSpacing;
+    m_textLetterSpacing           = st.m_textLetterSpacing;
     m_bgColor                     = st.m_bgColor;
     m_frameColor                  = st.m_frameColor;
     m_align                       = st.m_align;

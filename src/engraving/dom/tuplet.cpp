@@ -87,6 +87,7 @@ Tuplet::Tuplet(const Tuplet& t)
     m_numberType   = t.m_numberType;
     m_bracketType  = t.m_bracketType;
     m_bracketWidth = t.m_bracketWidth;
+    m_bracketFixedSlant = t.m_bracketFixedSlant;
 
     m_isUp          = t.m_isUp;
 
