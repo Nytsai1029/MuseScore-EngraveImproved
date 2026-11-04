@@ -1286,6 +1286,7 @@ void TLayout::layoutBarLine2(BarLine* item, LayoutContext& ctx)
     }
     if (connector->generated()) {
         connector->setVisible(item->visible());
+        connector->setColor(item->color());
     }
 
     layoutBarLine(connector, connector->mutldata(), ctx);

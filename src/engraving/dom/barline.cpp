@@ -959,11 +959,34 @@ bool BarLine::setProperty(Pid id, const PropertyValue& v)
         setShowTips(v.toBool());
         break;
     default:
-        return EngravingItem::setProperty(id, v);
+        if (!EngravingItem::setProperty(id, v)) {
+            return false;
+        }
+        if (isSpanConnector() && (id == Pid::COLOR || id == Pid::VISIBLE)) {
+            setUserModifiedSpanConnector();
+        }
+        return true;
     }
     setGenerated(false);
+    if (isSpanConnector()) {
+        setUserModifiedSpanConnector();
+    }
     triggerLayout();
     return true;
+}
+
+//---------------------------------------------------------
+//   setUserModifiedSpanConnector
+//    A connector is written inside its parent bar line, so a user edit
+//    must keep the parent from being skipped as generated on save.
+//---------------------------------------------------------
+
+void BarLine::setUserModifiedSpanConnector()
+{
+    setGenerated(false);
+    if (BarLine* parent = spanParent()) {
+        parent->setGenerated(false);
+    }
 }
 
 //---------------------------------------------------------
