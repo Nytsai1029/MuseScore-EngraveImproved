@@ -336,6 +336,7 @@ private:
 
     static void write(const StaffTextBase* item, XmlWriter& xml, WriteContext& ctx);
     static void writeProperties(const StaffTextBase* item, XmlWriter& xml, WriteContext& ctx);
+    static void writeProperties(const Slur* item, XmlWriter& xml, WriteContext& ctx);
     static void writeProperties(const SlurTie* item, XmlWriter& xml, WriteContext& ctx);
     static void writeSlur(const SlurTieSegment* seg, XmlWriter& xml, WriteContext& ctx, int no);
 

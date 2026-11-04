@@ -1744,8 +1744,6 @@ void TWrite::write(const HammerOnPullOff* item, XmlWriter& xml, WriteContext& ct
 
     xml.startElement(item);
 
-    writeProperty(item, xml, Pid::PARTIAL_SPANNER_DIRECTION);
-
     writeProperties(static_cast<const Slur*>(item), xml, ctx);
 
     xml.endElement();
@@ -2695,14 +2693,18 @@ void TWrite::write(const Slur* item, XmlWriter& xml, WriteContext& ctx)
         return;
     }
     xml.startElement(item);
+    writeProperties(item, xml, ctx);
+    xml.endElement();
+}
 
+void TWrite::writeProperties(const Slur* item, XmlWriter& xml, WriteContext& ctx)
+{
     writeProperty(item, xml, Pid::SLUR_MULTI_BEZIER_ENABLED);
     writeProperty(item, xml, Pid::SLUR_MULTI_BEZIER_KNOT_COUNT);
     writeProperty(item, xml, Pid::SLUR_CURVE_MODE);
     writeProperty(item, xml, Pid::PARTIAL_SPANNER_DIRECTION);
 
     writeProperties(static_cast<const SlurTie*>(item), xml, ctx);
-    xml.endElement();
 }
 
 void TWrite::writeProperties(const SlurTie* item, XmlWriter& xml, WriteContext& ctx)
@@ -3166,7 +3168,7 @@ void TWrite::write(const TappingHalfSlur* item, XmlWriter& xml, WriteContext& ct
     xml.startElement(item);
 
     xml.tag("isHalfSlurAbove", item->isHalfSlurAbove());
-    writeProperties(static_cast<const SlurTie*>(item), xml, ctx);
+    writeProperties(static_cast<const Slur*>(item), xml, ctx);
 
     xml.endElement();
 }
