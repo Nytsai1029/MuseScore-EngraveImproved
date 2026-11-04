@@ -62,6 +62,7 @@ set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/join_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/keysig_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/laissezvib_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/layoutconsistency_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/layoutelements_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ledgerline_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/links_tests.cpp
