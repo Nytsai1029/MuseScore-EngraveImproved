@@ -60,6 +60,10 @@ static const ElementStyle symbolStyle {
     { Sid::keyboardHandBracketLineWidth, Pid::LINE_WIDTH },
 };
 
+// Only keyboard hand brackets follow the keyboard bracket style values. Time signature brackets keep
+// their own values in the same Pids, so they must not be styled or they are never written.
+static const ElementStyle plainSymbolStyle {};
+
 static PointF rotateKeyboardHandBracketPoint(const PointF& point, double angle)
 {
     if (angle == 0.0) {
@@ -92,7 +96,7 @@ Symbol::Symbol(const ElementType& type, EngravingItem* parent, ElementFlags f)
     m_timeSigBracketTopHook = Spatium(TIME_SIG_BRACKET_DEFAULT_HOOK);
     m_timeSigBracketBottomHook = Spatium(TIME_SIG_BRACKET_DEFAULT_HOOK);
     m_timeSigBracketLineWidth = Spatium(TIME_SIG_BRACKET_DEFAULT_LINE_WIDTH);
-    initElementStyle(&symbolStyle);
+    initElementStyle(&plainSymbolStyle);
 }
 
 Symbol::Symbol(EngravingItem* parent, ElementFlags f)
@@ -114,6 +118,34 @@ Symbol::Symbol(const Symbol& s)
     m_timeSigBracketTopHook = s.m_timeSigBracketTopHook;
     m_timeSigBracketBottomHook = s.m_timeSigBracketBottomHook;
     m_timeSigBracketLineWidth = s.m_timeSigBracketLineWidth;
+}
+
+//---------------------------------------------------------
+//   setSym
+//---------------------------------------------------------
+
+void Symbol::setSym(SymId s, const std::shared_ptr<IEngravingFont>& sf)
+{
+    m_sym = s;
+    m_scoreFont = sf;
+    updateElementStyle();
+}
+
+//---------------------------------------------------------
+//   updateElementStyle
+//---------------------------------------------------------
+
+void Symbol::updateElementStyle()
+{
+    const ElementStyle* current = styledProperties();
+    if (current != &symbolStyle && current != &plainSymbolStyle) {
+        return;
+    }
+
+    const ElementStyle* style = isKeyboardHandBracketSymbol() ? &symbolStyle : &plainSymbolStyle;
+    if (current != style) {
+        initElementStyle(style);
+    }
 }
 
 //---------------------------------------------------------
@@ -532,6 +564,7 @@ bool Symbol::setProperty(Pid propertyId, const PropertyValue& v)
     switch (propertyId) {
     case Pid::SYMBOL:
         m_sym = v.value<SymId>();
+        updateElementStyle();
         break;
     case Pid::SCORE_FONT:
         m_scoreFont = score()->engravingFonts()->fontByName(v.value<String>().toStdString());
