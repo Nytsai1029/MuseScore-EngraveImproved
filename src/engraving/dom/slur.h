@@ -110,6 +110,7 @@ private:
     MultiBezierGripType multiBezierGripTypeForGrip(int gripIndex) const;
     bool resetMultiBezierGrip(Grip grip);
     void parseMultiBezierData();
+    std::string serializeMultiBezierData() const;
 
     std::vector<MultiBezierKnot> m_multiBezierKnotData;
     std::string m_multiBezierData;

@@ -25,6 +25,7 @@
 #include <array>
 #include <cmath>
 #include <iomanip>
+#include <locale>
 #include <sstream>
 
 #include "arpeggio.h"
@@ -143,11 +144,10 @@ void SlurSegment::parseMultiBezierData()
         int valueIdx = 0;
 
         while (std::getline(valueStream, valueToken, ',') && valueIdx < static_cast<int>(values.size())) {
-            try {
-                values[valueIdx] = std::stod(valueToken);
-            } catch (...) {
-                values[valueIdx] = 0.0;
-            }
+            // String::toDouble parses in the C locale, matching the classic-locale writer
+            bool ok = false;
+            const double value = muse::String::fromStdString(valueToken).toDouble(&ok);
+            values[valueIdx] = ok ? value : 0.0;
             ++valueIdx;
         }
 
@@ -174,11 +174,11 @@ void SlurSegment::ensureMultiBezierKnotData()
 
 void SlurSegment::syncMultiBezierDataProperty()
 {
-    if (m_multiBezierKnotData.empty()) {
-        m_multiBezierData.clear();
-        return;
-    }
+    m_multiBezierData = serializeMultiBezierData();
+}
 
+std::string SlurSegment::serializeMultiBezierData() const
+{
     bool hasOffsets = false;
     for (const MultiBezierKnot& knot : m_multiBezierKnotData) {
         if (!knot.inHandle.off.isNull() || !knot.knot.off.isNull() || !knot.outHandle.off.isNull()) {
@@ -188,11 +188,11 @@ void SlurSegment::syncMultiBezierDataProperty()
     }
 
     if (!hasOffsets) {
-        m_multiBezierData.clear();
-        return;
+        return std::string();
     }
 
     std::ostringstream stream;
+    stream.imbue(std::locale::classic());
     stream << std::setprecision(12);
     const double sp = muse::RealIsNull(spatium()) ? 1.0 : spatium();
     for (size_t i = 0; i < m_multiBezierKnotData.size(); ++i) {
@@ -209,7 +209,7 @@ void SlurSegment::syncMultiBezierDataProperty()
                << outHandleOffset.x() << ',' << outHandleOffset.y();
     }
 
-    m_multiBezierData = stream.str();
+    return stream.str();
 }
 
 bool SlurSegment::resetMultiBezierGrip(Grip grip)
@@ -647,6 +647,11 @@ PropertyValue SlurSegment::getProperty(Pid propertyId) const
 {
     switch (propertyId) {
     case Pid::SLUR_MULTI_BEZIER_DATA:
+        // The string is in staff spatium units; once parsed, rebuild it so a staff size change since the
+        // last edit cannot leave stale units behind
+        if (!m_multiBezierKnotData.empty()) {
+            return muse::String::fromStdString(serializeMultiBezierData());
+        }
         return muse::String::fromStdString(m_multiBezierData);
     default:
         return SlurTieSegment::getProperty(propertyId);
