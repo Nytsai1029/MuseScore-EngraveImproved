@@ -27,6 +27,7 @@
 
 #include "style/defaultstyle.h"
 
+#include "dom/articulation.h"
 #include "dom/barline.h"
 #include "dom/beam.h"
 #include "dom/box.h"
@@ -273,8 +274,15 @@ System* SystemLayout::collectSystem(LayoutContext& ctx)
                 for (Segment& seg : toMeasure(nmb)->segments()) {
                     prevMeasureState.elementPositions.emplace(&seg, seg.ldata()->pos());
                     for (EngravingItem* item : seg.annotations()) {
-                        if (item->isHarmony() || item->isFretDiagram()) {
+                        if (item->isHarmony() || item->isFretDiagram() || item->isFermata()) {
                             prevMeasureState.elementPositions.emplace(item, item->ldata()->pos());
+                        }
+                    }
+                    // Testing the width lays out articulations again against this system, but if the measure
+                    // goes back to a reused next system they must stay where that system's layout put them
+                    for (EngravingItem* item : seg.elist()) {
+                        if (item && item->isChord()) {
+                            saveArticulationPositions(toChord(item), prevMeasureState);
                         }
                     }
                 }
@@ -2095,7 +2103,21 @@ void SystemLayout::restoreOldSystemLayout(System* system, LayoutContext& ctx)
         }
     }
 
+    // Testing the width of the first measure rebuilt its ledger lines uncut; cut them again as
+    // layoutSystemElements does, before the ties that steer clear of them
+    ChordLayout::cutTouchingLedgerLines(elements.chords, ctx);
+
     layoutTiesAndBends(elements, ctx);
+}
+
+void SystemLayout::saveArticulationPositions(const Chord* chord, MeasureState& state)
+{
+    for (const Chord* grace : chord->graceNotes()) {
+        saveArticulationPositions(grace, state);
+    }
+    for (Articulation* articulation : chord->articulations()) {
+        state.elementPositions.emplace(articulation, articulation->ldata()->pos());
+    }
 }
 
 void SystemLayout::layoutSystem(System* system, LayoutContext& ctx, double xo1, const bool isFirstSystem, bool firstSystemIndent)

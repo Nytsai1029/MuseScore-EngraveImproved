@@ -118,6 +118,8 @@ private:
         }
     };
 
+    static void saveArticulationPositions(const Chord* chord, MeasureState& state);
+
     struct ElementsToLayout
     {
         System* system;
