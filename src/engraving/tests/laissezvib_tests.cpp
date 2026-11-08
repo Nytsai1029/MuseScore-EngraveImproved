@@ -22,11 +22,18 @@
 
 #include <gtest/gtest.h>
 
+#include "dom/chord.h"
 #include "dom/editdata.h"
+#include "dom/factory.h"
 #include "dom/laissezvib.h"
+#include "dom/layoutbreak.h"
 #include "dom/masterscore.h"
+#include "dom/measure.h"
 #include "dom/mscore.h"
 #include "dom/note.h"
+#include "dom/segment.h"
+#include "dom/staff.h"
+#include "dom/tie.h"
 
 #include "utils/scorerw.h"
 
@@ -46,6 +53,68 @@ void findLaissezVibNote(void* data, EngravingItem* item)
     if (candidate->laissezVib()) {
         *note = candidate;
     }
+}
+
+void findRegularTieNote(void* data, EngravingItem* item)
+{
+    Note** note = static_cast<Note**>(data);
+    if (*note || !item->isNote()) {
+        return;
+    }
+
+    Note* candidate = toNote(item);
+    if (candidate->tieFor() && candidate->tieFor()->type() == ElementType::TIE) {
+        *note = candidate;
+    }
+}
+
+void expectNear(const PointF& actual, const PointF& expected)
+{
+    EXPECT_NEAR(actual.x(), expected.x(), 1e-9);
+    EXPECT_NEAR(actual.y(), expected.y(), 1e-9);
+}
+
+// With autoplace off, each shoulder handle moves on its own and the middle handle moves both by the full drag
+void expectShoulderHandlesMoveFreely(TieSegment* segment)
+{
+    segment->setAutoplace(false);
+    segment->consolidateAdjustmentOffsetIntoUserOffset();
+
+    EditData editData;
+
+    editData.curGrip = Grip::BEZIER1;
+    editData.delta = PointF(2.0, -1.0);
+    PointF bezier1Before = segment->ups(Grip::BEZIER1).off;
+    PointF bezier2Before = segment->ups(Grip::BEZIER2).off;
+    segment->editDrag(editData);
+    expectNear(segment->ups(Grip::BEZIER1).off, bezier1Before + PointF(2.0, -1.0));
+    expectNear(segment->ups(Grip::BEZIER2).off, bezier2Before);
+
+    editData.curGrip = Grip::BEZIER2;
+    editData.delta = PointF(-1.5, 2.5);
+    bezier1Before = segment->ups(Grip::BEZIER1).off;
+    bezier2Before = segment->ups(Grip::BEZIER2).off;
+    segment->editDrag(editData);
+    expectNear(segment->ups(Grip::BEZIER1).off, bezier1Before);
+    expectNear(segment->ups(Grip::BEZIER2).off, bezier2Before + PointF(-1.5, 2.5));
+
+    editData.curGrip = Grip::SHOULDER;
+    editData.delta = PointF(3.0, -4.0);
+    bezier1Before = segment->ups(Grip::BEZIER1).off;
+    bezier2Before = segment->ups(Grip::BEZIER2).off;
+    segment->editDrag(editData);
+    expectNear(segment->ups(Grip::BEZIER1).off, bezier1Before + PointF(3.0, -4.0));
+    expectNear(segment->ups(Grip::BEZIER2).off, bezier2Before + PointF(3.0, -4.0));
+    EXPECT_TRUE(segment->ups(Grip::SHOULDER).off.isNull());
+}
+
+void addLineBreak(Score* score, Measure* measure)
+{
+    LayoutBreak* lb = Factory::createLayoutBreak(measure);
+    lb->setLayoutBreakType(LayoutBreakType::LINE);
+    lb->setTrack(0);
+    lb->setParent(measure);
+    score->undoAddElement(lb);
 }
 }
 
@@ -134,6 +203,109 @@ TEST_F(Engraving_LaissezVibTests, gripsEditLikeTies)
     segment->editDrag(editData);
     EXPECT_DOUBLE_EQ(segment->ups(Grip::END).off.x(), endOffsetBefore.x() + 2.5);
     EXPECT_DOUBLE_EQ(segment->ups(Grip::END).off.y(), endOffsetBefore.y() - 5.0);
+
+    delete score;
+}
+
+TEST_F(Engraving_LaissezVibTests, tieShoulderHandlesMoveFreelyWithoutAutoplace)
+{
+    MasterScore* score = ScoreRW::readScore(LAISSEZVIB_DATA_DIR + u"exchangevoices-range.mscx");
+    ASSERT_TRUE(score);
+
+    Note* note = nullptr;
+    score->scanElements(&note, findRegularTieNote, true);
+    ASSERT_TRUE(note);
+
+    TieSegment* segment = note->tieFor()->frontSegment();
+    ASSERT_TRUE(segment);
+    segment->consolidateAdjustmentOffsetIntoUserOffset();
+
+    // With autoplace on, a shoulder handle is still mirrored onto the other one
+    ASSERT_TRUE(segment->autoplace());
+    EditData editData;
+    editData.curGrip = Grip::BEZIER1;
+    editData.delta = PointF(0.0, -2.0);
+    const PointF bezier2Before = segment->ups(Grip::BEZIER2).off;
+    segment->editDrag(editData);
+    EXPECT_FALSE(segment->ups(Grip::BEZIER2).off == bezier2Before);
+
+    expectShoulderHandlesMoveFreely(segment);
+
+    delete score;
+}
+
+TEST_F(Engraving_LaissezVibTests, shoulderHandlesMoveFreelyWithoutAutoplace)
+{
+    MasterScore* score = ScoreRW::readScore(LAISSEZVIB_DATA_DIR + u"exchangevoices-range.mscx");
+    ASSERT_TRUE(score);
+
+    Note* note = nullptr;
+    score->scanElements(&note, findLaissezVibNote, true);
+    ASSERT_TRUE(note);
+
+    LaissezVibSegment* segment = note->laissezVib()->frontSegment();
+    ASSERT_TRUE(segment);
+    expectShoulderHandlesMoveFreely(segment);
+
+    delete score;
+}
+
+TEST_F(Engraving_LaissezVibTests, crossSystemTieEndKeepsUserOffsetsWithoutAutoplace)
+{
+    MasterScore* score = ScoreRW::readScore(u"join_data/join04.mscx");
+    ASSERT_TRUE(score);
+
+    Measure* m1 = score->firstMeasure();
+    ASSERT_TRUE(m1);
+    Measure* m2 = m1->nextMeasure();
+    ASSERT_TRUE(m2);
+    addLineBreak(score, m1);
+    score->doLayout();
+    ASSERT_NE(m1->system(), m2->system());
+
+    Segment* firstSeg = m2->first(SegmentType::ChordRest);
+    ASSERT_TRUE(firstSeg);
+    EngravingItem* firstItem = firstSeg->element(0);
+    ASSERT_TRUE(firstItem && firstItem->isChord());
+    Tie* tie = toChord(firstItem)->upNote()->tieBack();
+    ASSERT_TRUE(tie);
+    ASSERT_EQ(tie->spannerSegments().size(), 2u);
+
+    TieSegment* endSegment = tie->backSegment();
+    endSegment->setAutoplace(false);
+    score->doLayout();
+
+    // Move the whole arc so that its middle sits on the middle staff line, where the automatic arc
+    // correction would kick in. The shoulder handles follow the end points, so only those are moved.
+    const double spatium = endSegment->spatium();
+    const double lineDist = score->staff(endSegment->vStaffIdx())->lineDistance(endSegment->tick()) * spatium;
+    const RectF bbox = endSegment->ldata()->bbox();
+    const int upSign = tie->up() ? -1 : 1;
+    const double yOuter = tie->up() ? bbox.top() : bbox.bottom();
+    const double yMid = yOuter - upSign * endSegment->ldata()->midThickness();
+    const PointF shift(0.0, 2.0 * lineDist - yMid);
+    for (Grip grip : { Grip::START, Grip::END }) {
+        endSegment->ups(grip).off += shift;
+    }
+    score->doLayout();
+
+    // No automatic adjustment is left behind for the next drag to turn into user offsets
+    for (int i = 0; i < int(Grip::GRIPS); ++i) {
+        EXPECT_TRUE(endSegment->adjustmentOffset(static_cast<Grip>(i)).isNull()) << "grip " << i;
+    }
+
+    // Drags add up across layouts, and the other shoulder handle stays put
+    const PointF bezier1Before = endSegment->ups(Grip::BEZIER1).off;
+    const PointF bezier2Before = endSegment->ups(Grip::BEZIER2).off;
+    EditData editData;
+    editData.curGrip = Grip::BEZIER1;
+    editData.delta = PointF(0.0, -1.0);
+    endSegment->editDrag(editData);
+    score->doLayout();
+    endSegment->editDrag(editData);
+    score->doLayout();
+    expectNear(endSegment->ups(Grip::BEZIER1).off, bezier1Before + PointF(0.0, -2.0));
+    expectNear(endSegment->ups(Grip::BEZIER2).off, bezier2Before);
 
     delete score;
 }

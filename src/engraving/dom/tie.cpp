@@ -118,6 +118,11 @@ void TieSegment::editDrag(EditData& ed)
     consolidateAdjustmentOffsetIntoUserOffset();
     Grip g = ed.curGrip;
 
+    // With autoplace on, the shoulder handles are edited symmetrically so both
+    // endpoints keep the same slope. With autoplace off, every handle goes
+    // exactly where it is dragged.
+    const bool keepSymmetric = autoplace();
+
     // Express a system-space drag delta in the tie's local frame, where x runs
     // along the tie axis (start -> end) and y is perpendicular to it. This lets
     // us keep the tie symmetric while editing so both endpoints keep the same
@@ -168,28 +173,33 @@ void TieSegment::editDrag(EditData& ed)
         break;
     case Grip::BEZIER1:
     case Grip::BEZIER2: {
-        // Mirror the shoulder edit onto the opposite handle about the tie's
-        // perpendicular bisector, so both endpoints keep the same slope.
-        const Transform toTie = toTieFrame();
-        const Transform fromTie = toTie.inverted();
-        const PointF deltaTie = toTie.map(ed.delta);
-        const PointF mirroredDelta = fromTie.map(PointF(-deltaTie.x(), deltaTie.y()));
-        const Grip otherGrip = (g == Grip::BEZIER1) ? Grip::BEZIER2 : Grip::BEZIER1;
         ups(g).off += ed.delta;
-        ups(otherGrip).off += mirroredDelta;
+        if (keepSymmetric) {
+            // Mirror the shoulder edit onto the opposite handle about the tie's
+            // perpendicular bisector, so both endpoints keep the same slope.
+            const Transform toTie = toTieFrame();
+            const Transform fromTie = toTie.inverted();
+            const PointF deltaTie = toTie.map(ed.delta);
+            const PointF mirroredDelta = fromTie.map(PointF(-deltaTie.x(), deltaTie.y()));
+            const Grip otherGrip = (g == Grip::BEZIER1) ? Grip::BEZIER2 : Grip::BEZIER1;
+            ups(otherGrip).off += mirroredDelta;
+        }
         renderer()->computeBezier(this);
         break;
     }
     case Grip::SHOULDER: {
-        // Raise/lower both shoulders by the same perpendicular amount, dropping
-        // any motion along the tie axis, so the apex stays centered (symmetric).
         ups(g).off = PointF();
-        const Transform toTie = toTieFrame();
-        const Transform fromTie = toTie.inverted();
-        const PointF deltaTie = toTie.map(ed.delta);
-        const PointF verticalDelta = fromTie.map(PointF(0.0, deltaTie.y()));
-        ups(Grip::BEZIER1).off += verticalDelta;
-        ups(Grip::BEZIER2).off += verticalDelta;
+        PointF shoulderDelta = ed.delta;
+        if (keepSymmetric) {
+            // Raise/lower both shoulders by the same perpendicular amount, dropping
+            // any motion along the tie axis, so the apex stays centered (symmetric).
+            const Transform toTie = toTieFrame();
+            const Transform fromTie = toTie.inverted();
+            const PointF deltaTie = toTie.map(ed.delta);
+            shoulderDelta = fromTie.map(PointF(0.0, deltaTie.y()));
+        }
+        ups(Grip::BEZIER1).off += shoulderDelta;
+        ups(Grip::BEZIER2).off += shoulderDelta;
         renderer()->computeBezier(this);
         break;
     }

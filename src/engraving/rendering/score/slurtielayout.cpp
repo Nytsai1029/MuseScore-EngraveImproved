@@ -2177,7 +2177,16 @@ TieSegment* SlurTieLayout::layoutTieBack(Tie* item, System* system, LayoutContex
         segment->setStaffMove(static_cast<int>(chord->vStaffIdx() - segment->staffIdx()));
     }
 
-    adjustY(segment);
+    if (segment->autoplace()) {
+        adjustY(segment);
+    } else {
+        // adjustY() would run on the previous layout's end points and leave adjustment
+        // offsets behind, which the next drag turns into user offsets, so the handles
+        // of a tie without autoplace could not be moved freely. Only reset the position.
+        TieSegment::LayoutData* ldata = segment->mutldata();
+        ldata->setPos(PointF());
+        ldata->moveY(segment->staffOffsetY());
+    }
     segment->setSpannerSegmentType(SpannerSegmentType::END);
 
     if (segment->autoplace() && !segment->isEdited()) {
