@@ -152,6 +152,11 @@ public:
     double leftMargin() const { return m_leftMargin; }
     void setLeftMargin(double val) { m_leftMargin = val; }
 
+    //! How much wider than the system the spacing of its measures came out, before it was squeezed or
+    //! stretched to the system's width (negative: narrower). Set by layout.
+    double spacingExcess() const { return m_spacingExcess; }
+    void setSpacingExcess(double v) { m_spacingExcess = v; }
+
     double systemHeight() const { return m_systemHeight; }
     void setSystemHeight(double h) { m_systemHeight = h; }
 
@@ -239,6 +244,7 @@ private:
     StaffVisibilityIndicator* m_staffVisibilityIndicator = nullptr;
 
     double m_leftMargin = 0.0;      // left margin for instrument name, brackets etc.
+    double m_spacingExcess = 0.0;
     mutable bool m_fixedDownDistance = false;
     double m_distance = 0.0;        // temp. variable used during layout
     double m_systemHeight = 0.0;

@@ -32,6 +32,7 @@
 
 #include "dom/mscore.h"
 #include "dom/pedal.h"
+#include "officialexport/upstreamformat.h"
 
 #include "defaultstyle.h"
 
@@ -698,17 +699,17 @@ void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook)
     }
 }
 
-bool MStyle::write(IODevice* device)
+bool MStyle::write(IODevice* device, bool officialFormat)
 {
     XmlWriter xml(device);
     xml.startDocument();
     xml.startElement("museScore", { { "version", Constants::MSC_VERSION_STR } });
-    save(xml, false);
+    save(xml, false, officialFormat);
     xml.endElement();
     return true;
 }
 
-void MStyle::save(XmlWriter& xml, bool optimize)
+void MStyle::save(XmlWriter& xml, bool optimize, bool officialFormat)
 {
     xml.startElement("Style");
 
@@ -717,7 +718,11 @@ void MStyle::save(XmlWriter& xml, bool optimize)
         if (idx == Sid::spatium) {         // special handling for spatium
             continue;
         }
-        if (optimize && isDefault(idx)) {
+        if (officialFormat && !UpstreamFormat::hasStyle(idx)) {
+            continue;
+        }
+        const bool sameDefaultUpstream = !(officialFormat && UpstreamFormat::defaultDiffers(idx));
+        if (optimize && isDefault(idx) && sameDefaultUpstream) {
             continue;
         }
         P_TYPE type = st.valueType();

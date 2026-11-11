@@ -166,7 +166,7 @@ void Writer::write(Score* score, XmlWriter& xml, WriteContext& ctx, compat::Writ
         xml.tag("showSoundFlags", score->m_showSoundFlags);
     }
 
-    if (!score->m_showAlignmentGuides) { // true by default
+    if (!score->m_showAlignmentGuides && !score->officialCompat()) { // true by default
         xml.tag("showAlignmentGuides", score->m_showAlignmentGuides);
     }
 

@@ -47,7 +47,7 @@ void WriteScoreHook::onWriteStyle302(Score* score, XmlWriter& xml)
     }
 
     if (isWriteStyle) {
-        score->style().save(xml, true);     // save only differences to builtin style (logic from 3.)
+        score->style().save(xml, true, score->officialCompat()); // save only differences to builtin style (logic from 3.)
     }
 }
 

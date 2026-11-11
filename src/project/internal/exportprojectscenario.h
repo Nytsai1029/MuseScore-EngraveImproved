@@ -83,6 +83,7 @@ private:
     muse::Ret doExportLoop(const muse::io::path_t& path, std::function<muse::Ret(muse::io::IODevice&)> exportFunction) const;
 
     void showExportProgress(bool isAudioExport) const;
+    void showOfficialExportReport(const muse::Ret& written) const;
 
     void openFolder(const muse::io::path_t& path) const;
 

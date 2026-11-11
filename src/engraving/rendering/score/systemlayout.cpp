@@ -416,6 +416,13 @@ System* SystemLayout::collectSystem(LayoutContext& ctx)
         curSysWidth = HorizontalSpacing::computeSpacingForFullSystem(system, 1.0, 1.0, false, adaptiveRatio);
     }
 
+    // Official export: the pins of the segments count on justification to stretch the system
+    if (system->score()->segmentPins() && !shouldBeJustified(system, curSysWidth, targetSystemWidth, ctx)) {
+        curSysWidth = HorizontalSpacing::computeSpacingForFullSystem(system, 1.0, 1.0, false, 0.0, false);
+    }
+
+    system->setSpacingExcess(curSysWidth - targetSystemWidth);
+
     if (curSysWidth > targetSystemWidth) {
         HorizontalSpacing::squeezeSystemToFit(system, curSysWidth, targetSystemWidth);
     }

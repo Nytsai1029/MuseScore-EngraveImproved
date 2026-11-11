@@ -55,7 +55,7 @@ bool MscSaver::writeMscz(MasterScore* score, MscWriter& mscWriter, bool createTh
         ByteArray styleData;
         Buffer styleBuf(&styleData);
         styleBuf.open(IODevice::WriteOnly);
-        score->style().write(&styleBuf);
+        score->style().write(&styleBuf, score->officialCompat());
         mscWriter.writeStyleFile(styleData);
     }
 
@@ -96,7 +96,7 @@ bool MscSaver::writeMscz(MasterScore* score, MscWriter& mscWriter, bool createTh
                     ByteArray excerptStyleData;
                     Buffer styleStyleBuf(&excerptStyleData);
                     styleStyleBuf.open(IODevice::WriteOnly);
-                    partScore->style().write(&styleStyleBuf);
+                    partScore->style().write(&styleStyleBuf, partScore->officialCompat());
 
                     mscWriter.addExcerptStyleFile(excerpt->fileName(), excerptStyleData);
                 }

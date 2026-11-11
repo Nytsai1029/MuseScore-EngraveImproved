@@ -34,6 +34,7 @@
 #include "internal/notationuiactions.h"
 #include "internal/positionswriter.h"
 #include "internal/mscnotationwriter.h"
+#include "internal/officialmscznotationwriter.h"
 #include "internal/instrumentsrepository.h"
 #include "internal/notationcreator.h"
 #include "internal/engravingfontscontroller.h"
@@ -164,7 +165,8 @@ void NotationModule::resolveImports()
         writers->reg({ "spos" }, std::make_shared<PositionsWriter>(PositionsWriter::ElementType::SEGMENT));
         writers->reg({ "mpos" }, std::make_shared<PositionsWriter>(PositionsWriter::ElementType::MEASURE));
         writers->reg({ "msdz" }, std::make_shared<MscNotationWriter>(engraving::MscIoMode::Zip));
-        writers->reg({ "mscz" }, std::make_shared<MscNotationWriter>(engraving::MscIoMode::Zip));
+        // .mscz is the format of official MuseScore Studio: the fork's own layout gets written into it
+        writers->reg({ "mscz" }, std::make_shared<OfficialMsczNotationWriter>());
         writers->reg({ "mscx" }, std::make_shared<MscNotationWriter>(engraving::MscIoMode::Dir));
     }
 

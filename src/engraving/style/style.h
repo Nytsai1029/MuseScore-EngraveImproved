@@ -75,8 +75,9 @@ public:
     int defaultStyleVersion() const;
 
     bool read(muse::io::IODevice* device, bool ign = false);
-    bool write(muse::io::IODevice* device);
-    void save(XmlWriter& xml, bool optimize);
+    //! officialFormat: write what official MuseScore Studio reads (see UpstreamFormat)
+    bool write(muse::io::IODevice* device, bool officialFormat = false);
+    void save(XmlWriter& xml, bool optimize, bool officialFormat = false);
     static bool isValid(muse::io::IODevice* device);
 
     void precomputeValues();

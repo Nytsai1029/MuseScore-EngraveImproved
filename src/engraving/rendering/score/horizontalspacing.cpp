@@ -30,6 +30,7 @@
 #include "dom/engravingitem.h"
 #include "dom/glissando.h"
 #include "dom/lyrics.h"
+#include "dom/masterscore.h"
 #include "dom/measure.h"
 #include "dom/note.h"
 #include "dom/rest.h"
@@ -85,6 +86,11 @@ static bool shouldIgnoreCollisionBoxes(const Segment* first, const Segment* seco
         return false;
     }
 
+    // Not upstream's behaviour: see MasterScore::officialCompat
+    if (first->score()->officialCompat()) {
+        return false;
+    }
+
     if (!first->style().styleB(Sid::autoplaceEnabled)) {
         return true;
     }
@@ -97,11 +103,12 @@ static bool shouldIgnoreHorizontalSpacingItem(const EngravingItem* item)
     if (!item) {
         return false;
     }
+    // Upstream counts ledger lines and everything below in: see MasterScore::officialCompat
     if (item->isLedgerLine()) {
-        return true;
+        return !item->score()->officialCompat();
     }
     // With autoplace off, displaced grace noteheads (seconds) must not inflate packing.
-    if (item->autoplace()) {
+    if (item->autoplace() || item->score()->officialCompat()) {
         return false;
     }
     if (item->isNote()) {
@@ -145,8 +152,26 @@ static double hungGraceLeftmostExtraMM(const Segment* seg)
     return extraMM;
 }
 
+//! The segments justifySystem() stretches
+static bool isStretchedByJustification(const Segment* segment)
+{
+    return segment->isChordRestType() && segment->ticks() > Fraction(0, 1) && segment->visible() && segment->enabled()
+           && !segment->allElementsInvisible() && segment->stretch() > 0.0;
+}
+
+//! What spaceSegments() puts into the width offset of a chord-rest segment for the leading space of the
+//! segment after it
+static double leadingSpacePart(const Segment* nextSeg, double leadingSpace, double naturalWidth)
+{
+    leadingSpace += hungGraceLeftmostExtraMM(nextSeg);
+    return muse::RealIsNull(leadingSpace) ? 0.0 : std::max(leadingSpace, -naturalWidth);
+}
+
+// Official export: how much of the natural width of a note the leading space after it may take back
+static constexpr double PIN_ROOM = 0.5;
+
 double HorizontalSpacing::computeSpacingForFullSystem(System* system, double stretchReduction, double squeezeFactor,
-                                                      bool overrideMinMeasureWidth, double spacingRatio)
+                                                      bool overrideMinMeasureWidth, double spacingRatio, bool willBeJustified)
 {
     TRACEFUNC;
 
@@ -160,29 +185,206 @@ double HorizontalSpacing::computeSpacingForFullSystem(System* system, double str
     ctx.spacingRatio = spacingRatio;
     ctx.overrideMinMeasureWidth = overrideMinMeasureWidth;
 
-    ctx.xCur = system->leftMargin();
     ctx.xLeftBarrier = system->leftMargin();
     ctx.systemIsFull = true;
 
-    std::vector<Measure*> measureGroup;
-    measureGroup.reserve(system->measures().size());
+    // Official export: see pinSegment(). A system is squeezed with the leading space it has, as it will
+    // be where the leading space comes from the file.
+    const bool squeezing = stretchReduction != 1.0 || squeezeFactor != 1.0 || overrideMinMeasureWidth;
+    ctx.pins = squeezing ? nullptr : system->score()->segmentPins();
+    if (ctx.pins) {
+        ctx.pinTension = willBeJustified ? pinTensionFor(system, ctx) : 0.0;
+    }
 
+    static constexpr int MAX_PIN_ATTEMPTS = 4;
+    for (int attempt = 1;; ++attempt) {
+        ctx.xCur = system->leftMargin();
+        ctx.pinStretch = 0.0;
+        ctx.pinTensionLimit = DBL_MAX;
+
+        std::vector<Measure*> measureGroup;
+        measureGroup.reserve(system->measures().size());
+
+        for (MeasureBase* mb : system->measures()) {
+            if (mb->isHBox()) {
+                spaceMeasureGroup(measureGroup, ctx);
+                measureGroup.clear();
+
+                mb->mutldata()->setPosX(ctx.xCur);
+                mb->computeMinWidth();
+                ctx.xCur += mb->width();
+            } else {
+                measureGroup.push_back(toMeasure(mb));
+            }
+        }
+
+        spaceMeasureGroup(measureGroup, ctx);
+
+        // A pin was out of reach: once more, with the tension that reaches it
+        if (!ctx.pins || ctx.pinTensionLimit >= ctx.pinTension || attempt == MAX_PIN_ATTEMPTS) {
+            break;
+        }
+        ctx.pinTension = std::max(ctx.pinTensionLimit, 0.0);
+    }
+
+    return ctx.xCur;
+}
+
+//! Official export, see pinSegment(): the tension to pin the segments of a system for
+double HorizontalSpacing::pinTensionFor(System* system, HorizontalSpacingContext& ctx)
+{
+    double tension = DBL_MAX;
+    auto wanted = ctx.pins->tension.find(system->first());
+    if (wanted != ctx.pins->tension.end()) {
+        tension = wanted->second;
+    }
+
+    // No higher than the distance between two pins allows the notes between them
+    bool hasFrom = false;
+    double from = 0.0;
+    double stretch = 0.0; // of the notes since the last pin
+    double room = 0.0;    // what the leading space of the next segment may take back
     for (MeasureBase* mb : system->measures()) {
-        if (mb->isHBox()) {
-            spaceMeasureGroup(measureGroup, ctx);
-            measureGroup.clear();
-
-            mb->mutldata()->setPosX(ctx.xCur);
-            mb->computeMinWidth();
-            ctx.xCur += mb->width();
-        } else {
-            measureGroup.push_back(toMeasure(mb));
+        if (!mb->isMeasure()) {
+            hasFrom = false;
+            stretch = 0.0;
+            room = 0.0;
+            continue;
+        }
+        for (Segment& segment : toMeasure(mb)->segments()) {
+            if (ignoreSegmentForSpacing(&segment) || segment.isRightAligned()) {
+                room = 0.0; // only the leading space of the very next segment is kept out of the stretching
+                continue;
+            }
+            auto pin = ctx.pins->x.find(&segment);
+            if (pin != ctx.pins->x.end()) {
+                if (hasFrom && stretch > 0.0) {
+                    tension = std::min(tension, (pin->second - from + room) / stretch);
+                }
+                hasFrom = true;
+                from = pin->second;
+                stretch = 0.0;
+            }
+            room = 0.0;
+            if (segment.isChordRestType()) {
+                const double naturalWidth = chordRestSegmentNaturalWidth(&segment, ctx); // sets the stretch
+                if (isStretchedByJustification(&segment)) {
+                    stretch += segment.stretch();
+                    room = PIN_ROOM * naturalWidth;
+                }
+            }
         }
     }
 
-    spaceMeasureGroup(measureGroup, ctx);
+    return tension == DBL_MAX ? 0.0 : std::max(tension, 0.0);
+}
 
-    return ctx.xCur;
+//! Official export (see OfficialLayoutBaker): gives the segment that has just been placed, and has not
+//! got its leading space added yet, the leading space that brings it to its pin.
+//!
+//! A pin says where the segment is to stand in the end, when justification has stretched the system.
+//! Justification stretches the distance from a chord-rest segment to the next segment to the stretch of
+//! the segment times a tension that is the same all over the system, unless the distance is larger
+//! than that already. The leading space of the next segment is kept out of this and added afterwards, up to
+//! the natural width of the note, and only if that segment follows directly. So the leading space
+//! asked for is the distance to the pin less what the note before is going to be stretched to. This
+//! holds for any tension, which shifts width between stretching and leading space, as long as the tension
+//! leaves the leading space room to make up the difference; where it does not, ctx.pinTensionLimit says
+//! which tension would.
+void HorizontalSpacing::pinSegment(size_t index, std::vector<SegmentPosition>& placedSegments, PinState& state,
+                                   HorizontalSpacingContext& ctx)
+{
+    static constexpr double GRID = 1e-4; // in spatiums: the leading space is rounded, for the file
+
+    auto setLead = [&](size_t idx, double lead) {
+        Segment* seg = placedSegments[idx].segment;
+        PinRecord& rec = state.records[idx];
+        seg->setExtraLeadingSpace(Spatium(std::round(lead / ctx.spatium / GRID) * GRID));
+        rec.lead = seg->extraLeadingSpace().toMM(ctx.spatium);
+        if (rec.leadOwner >= 0) {
+            PinRecord& owner = state.records[rec.leadOwner];
+            const double part = leadingSpacePart(seg, rec.lead, owner.naturalWidth);
+            placedSegments[rec.leadOwner].segment->addWidthOffset(part - owner.leadPart);
+            owner.leadPart = part;
+        }
+    };
+
+    // Making room for this segment may have pushed the ones before it along, off their pins
+    for (size_t i = index; i > 0; --i) {
+        SegmentPosition& position = placedSegments[i - 1];
+        if (position.ignoreForSpacing) {
+            continue;
+        }
+        PinRecord& rec = state.records[i - 1];
+        const double movement = position.xPosInSystemCoords - rec.x;
+        if (muse::RealIsNull(movement)) {
+            break;
+        }
+        rec.base += movement;
+        if (rec.pinned) {
+            setLead(i - 1, rec.lead - movement);
+            position.xPosInSystemCoords = rec.base + rec.lead;
+        }
+        rec.x = position.xPosInSystemCoords;
+    }
+
+    Segment* segment = placedSegments[index].segment;
+    PinRecord& record = state.records[index];
+    record.base = placedSegments[index].xPosInSystemCoords;
+    record.lead = segment->extraLeadingSpace().toMM(ctx.spatium);
+
+    if (segment->isRightAligned()) {
+        return; // is moved up against the segment after it later on, and the distance is counted to that one
+    }
+
+    // The distance to this segment from the one before, as justification will see it
+    bool stretches = false;
+    bool leadKeptOut = false;
+    double width = 0.0;        // without the leading space of this segment
+    double stretched = 0.0;    // what justification stretches it to if it is less
+    double stretch = 0.0;
+    double naturalWidth = 0.0;
+    if (state.last >= 0) {
+        const Segment* previous = placedSegments[state.last].segment;
+        const PinRecord& previousRecord = state.records[state.last];
+        stretches = isStretchedByJustification(previous);
+        leadKeptOut = record.leadOwner == state.last;
+        width = record.base - placedSegments[state.last].xPosInSystemCoords - previous->widthOffset()
+                + (leadKeptOut ? previousRecord.leadPart : 0.0);
+        stretch = previous->stretch();
+        stretched = ctx.pinTension * stretch;
+        naturalWidth = previousRecord.naturalWidth;
+    }
+
+    auto pin = ctx.pins->x.find(segment);
+    if (pin != ctx.pins->x.end()) {
+        // The leading space that does it if justification leaves the distance alone
+        const double unstretched = pin->second - record.base - ctx.pinStretch;
+        double lead = unstretched;
+        if (stretches && leadKeptOut) {
+            lead = unstretched - std::max(0.0, stretched - width);
+            if (lead < -naturalWidth) {
+                // Beyond what is kept out, leading space shortens the distance that is stretched
+                lead = unstretched;
+                if (stretched > width + unstretched + naturalWidth) {
+                    ctx.pinTensionLimit = std::min(ctx.pinTensionLimit, (width + unstretched + PIN_ROOM * naturalWidth) / stretch);
+                    lead = -naturalWidth;
+                }
+            }
+        } else if (stretches && stretched > width + unstretched) {
+            // The leading space is part of the distance that is stretched: it cannot make it any shorter
+            ctx.pinTensionLimit = std::min(ctx.pinTensionLimit, (width + unstretched) / stretch);
+            lead = stretched - width;
+        }
+        setLead(index, lead);
+        record.pinned = true;
+    }
+
+    if (stretches) {
+        const double kept = leadKeptOut ? leadingSpacePart(segment, record.lead, naturalWidth) : 0.0;
+        ctx.pinStretch += std::max(0.0, stretched - (width + record.lead - kept));
+    }
+    state.last = int(index);
 }
 
 double HorizontalSpacing::computeAdaptiveSpacingRatio(System* system, double targetSystemWidth)
@@ -402,6 +604,11 @@ std::vector<HorizontalSpacing::SegmentPosition> HorizontalSpacing::spaceSegments
     std::vector<SegmentPosition> placedSegments;
     placedSegments.reserve(segList.size());
 
+    PinState pinState; // official export: see pinSegment()
+    if (ctx.pins) {
+        pinState.records.resize(segList.size());
+    }
+
     for (size_t i = 0; i < segList.size(); ++i) {
         Segment* curSeg = segList[i];
         if (ignoreSegmentForSpacing(curSeg)) {
@@ -425,6 +632,10 @@ std::vector<HorizontalSpacing::SegmentPosition> HorizontalSpacing::spaceSegments
             spaceAgainstPreviousSegments(curSeg, placedSegments, ctx);
         }
 
+        if (ctx.pins) {
+            pinSegment(i, placedSegments, pinState, ctx);
+        }
+
         // Hung leftmost extra widens the previous CR (nextSegLeadingSpace steal) and must
         // not also shift the EndBarLine itself — at system end that pushes the barline
         // past the right margin and the extra is lost.
@@ -434,7 +645,11 @@ std::vector<HorizontalSpacing::SegmentPosition> HorizontalSpacing::spaceSegments
         // following segment moves with it. Without this, a negative leading space (a note
         // dragged left with auto-place off) moves only its own segment while the next note
         // stays put, so the removed space leaks into the gap after it.
-        ctx.xCur += leadingSpace;
+        // Upstream does neither this nor the look past TimeTick segments below.
+        const bool upstreamRules = curSeg->score()->officialCompat();
+        if (!upstreamRules) {
+            ctx.xCur += leadingSpace;
+        }
 
         if (curSeg->isChordRestType()) {
             bool isFirstCROfSystem = curSeg->rtick().isZero() && curSeg->measure()->isFirstInSystem();
@@ -451,7 +666,7 @@ std::vector<HorizontalSpacing::SegmentPosition> HorizontalSpacing::spaceSegments
             // steal extraLeadingSpace or suppress applyCrossBeamSpacingCorrection.
             Segment* nextSeg = nullptr;
             for (size_t j = i + 1; j < segList.size(); ++j) {
-                if (!ignoreSegmentForSpacing(segList[j])) {
+                if (upstreamRules || !ignoreSegmentForSpacing(segList[j])) {
                     nextSeg = segList[j];
                     break;
                 }
@@ -463,12 +678,23 @@ std::vector<HorizontalSpacing::SegmentPosition> HorizontalSpacing::spaceSegments
                     nextSegLeadingSpace = std::max(nextSegLeadingSpace, -chordRestSegWidth);
                     curSeg->addWidthOffset(nextSegLeadingSpace);
                 }
+                if (ctx.pins && nextSeg == segList[i + 1]) {
+                    // pinSegment() is going to change that leading space
+                    PinRecord& record = pinState.records[i];
+                    record.naturalWidth = chordRestSegWidth;
+                    record.leadPart = leadingSpacePart(nextSeg, nextSeg->extraLeadingSpace().toMM(ctx.spatium), chordRestSegWidth);
+                    pinState.records[i + 1].leadOwner = int(i);
+                }
                 if (nextSeg->isChordRestType() && !shouldIgnoreCollisionBoxes(curSeg, nextSeg)) {
                     applyCrossBeamSpacingCorrection(curSeg, nextSeg, chordRestSegWidth);
                 }
             }
 
             ctx.xCur += chordRestSegWidth;
+        }
+
+        if (ctx.pins) {
+            pinState.records[i].x = placedSegments.back().xPosInSystemCoords;
         }
     }
 

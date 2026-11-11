@@ -18928,6 +18928,89 @@ Fret %1 on strings %2</translation>
     </message>
 </context>
 <context>
+    <name>engraving/officialexport</name>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="60"/>
+        <source>Letter spacing of text</source>
+        <translation type="unfinished">Letter spacing of text</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="62"/>
+        <source>Adjusted and automatically shortened ledger lines</source>
+        <translation type="unfinished">Adjusted and automatically shortened ledger lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="64"/>
+        <source>Hidden ledger lines</source>
+        <translation type="unfinished">Hidden ledger lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="66"/>
+        <source>Broken ottava lines</source>
+        <translation type="unfinished">Broken ottava lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="68"/>
+        <source>Slanted text</source>
+        <translation type="unfinished">Slanted text</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="70"/>
+        <source>Vertical ends of diagonal hairpins</source>
+        <translation type="unfinished">Vertical ends of diagonal hairpins</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="72"/>
+        <source>Sizes of hand and time signature brackets</source>
+        <translation type="unfinished">Sizes of hand and time signature brackets</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="74"/>
+        <source>Barlines masked behind single text items</source>
+        <translation type="unfinished">Barlines masked behind single text items</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="76"/>
+        <source>Separate spacing of sharps and flats in key signatures</source>
+        <translation type="unfinished">Separate spacing of sharps and flats in key signatures</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="79"/>
+        <source>Offsets of two-note tremolo strokes</source>
+        <translation type="unfinished">Offsets of two-note tremolo strokes</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="81"/>
+        <source>Adjusted ends of parentheses</source>
+        <translation type="unfinished">Adjusted ends of parentheses</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="83"/>
+        <source>Parentheses drawn apart from their accidentals</source>
+        <translation type="unfinished">Parentheses drawn apart from their accidentals</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="85"/>
+        <source>Edited barline segments between staves</source>
+        <translation type="unfinished">Edited barline segments between staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="87"/>
+        <source>Characters from the musical text font</source>
+        <translation type="unfinished">Characters from the musical text font</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="89"/>
+        <source>Grace notes shown at the end of the previous system</source>
+        <translation type="unfinished">Grace notes shown at the end of the previous system</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="92"/>
+        <source>Multi-curve slurs that could not be split into plain slurs</source>
+        <translation type="unfinished">Multi-curve slurs that could not be split into plain slurs</translation>
+    </message>
+</context>
+<context>
     <name>engraving/ottavatype</name>
     <message>
         <location filename="../../src/engraving/dom/ottava.h" line="70"/>
@@ -37434,7 +37517,7 @@ failed: %2</translation>
         <location filename="../../src/appshell/qml/Atelier/AtelierPreviewPage.qml" line="49"/>
         <location filename="../../src/project/qml/MuseScore/Project/ExportDialog.qml" line="35"/>
         <location filename="../../src/project/qml/MuseScore/Project/ExportPanel.qml" line="98"/>
-        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="92"/>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="94"/>
         <source>Export</source>
         <translation type="unfinished">Export</translation>
     </message>
@@ -37583,64 +37666,82 @@ failed: %2</translation>
         <translation type="unfinished">Masking compatibility (Adobe Illustrator only)</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="71"/>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="73"/>
         <source>Score_and_Parts</source>
         <extracomment>Used in export filename suggestion. Please use only characters that are valid for filenames.</extracomment>
         <translation type="unfinished">Score_and_Parts</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="74"/>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="76"/>
         <source>Parts</source>
         <extracomment>Used in export filename suggestion. Please use only characters that are valid for filenames.</extracomment>
         <translation type="unfinished">Parts</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="267"/>
+        <source>%n item(s) that could not be put exactly where they are here</source>
+        <translation type="unfinished">
+            <numerusform>%n item(s) that could not be put exactly where they are here</numerusform>
+            <numerusform>%n item(s) that could not be put exactly where they are here</numerusform>
+        </translation>
+    </message>
     <message>
-        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="359"/>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="274"/>
+        <source>The official MuseScore Studio has no equivalent for the following, so the exported file does without it:</source>
+        <translation type="unfinished">The official MuseScore Studio has no equivalent for the following, so the exported file does without it:</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="277"/>
+        <source>Not everything could be exported</source>
+        <translation type="unfinished">Not everything could be exported</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="392"/>
         <source>File already exists</source>
         <translation type="unfinished">File already exists</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="360"/>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="393"/>
         <source>A file already exists with the filename %1. Do you want to replace it?</source>
         <translation type="unfinished">A file already exists with the filename %1. Do you want to replace it?</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="362"/>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="395"/>
         <source>Replace</source>
         <translation type="unfinished">Replace</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="363"/>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="396"/>
         <source>Replace all</source>
         <translation type="unfinished">Replace all</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="364"/>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="397"/>
         <source>Skip</source>
         <translation type="unfinished">Skip</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="365"/>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="398"/>
         <source>Skip all</source>
         <translation type="unfinished">Skip all</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="388"/>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="421"/>
         <source>Error</source>
         <translation type="unfinished">Error</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="389"/>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="422"/>
         <source>An error occurred while writing the file %1. Do you want to retry?</source>
         <translation type="unfinished">An error occurred while writing the file %1. Do you want to retry?</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="441"/>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="474"/>
         <source>Exporting audio…</source>
         <translation type="unfinished">Exporting audio…</translation>
     </message>
     <message>
-        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="441"/>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="474"/>
         <source>Exporting…</source>
         <translation type="unfinished">Exporting…</translation>
     </message>
@@ -37769,43 +37870,64 @@ failed: %2</translation>
         <translation type="unfinished">MEI files</translation>
     </message>
     <message>
-        <location filename="../../src/project/view/exportdialogmodel.cpp" line="311"/>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="107"/>
+        <source>MuseScore Studio file</source>
+        <translation type="unfinished">MuseScore Studio file</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="108"/>
+        <source>MuseScore Studio files</source>
+        <translation type="unfinished">MuseScore Studio files</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="315"/>
         <source>Each page to a separate file</source>
         <translation type="unfinished">Each page to a separate file</translation>
     </message>
     <message>
-        <location filename="../../src/project/view/exportdialogmodel.cpp" line="312"/>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="316"/>
         <source>Each part to a separate file</source>
         <translation type="unfinished">Each part to a separate file</translation>
     </message>
     <message>
-        <location filename="../../src/project/view/exportdialogmodel.cpp" line="313"/>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="317"/>
         <source>All parts combined in one file</source>
         <translation type="unfinished">All parts combined in one file</translation>
     </message>
     <message>
-        <location filename="../../src/project/view/exportdialogmodel.cpp" line="628"/>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="632"/>
         <source>All layout</source>
         <extracomment>Specifies to which extent layout customizations should be exported to MusicXML.</extracomment>
         <translation type="unfinished">All layout</translation>
     </message>
     <message>
-        <location filename="../../src/project/view/exportdialogmodel.cpp" line="630"/>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="634"/>
         <source>System and page breaks</source>
         <extracomment>Specifies to which extent layout customizations should be exported to MusicXML.</extracomment>
         <translation type="unfinished">System and page breaks</translation>
     </message>
     <message>
-        <location filename="../../src/project/view/exportdialogmodel.cpp" line="632"/>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="636"/>
         <source>Manually added system and page breaks only</source>
         <extracomment>Specifies to which extent layout customizations should be exported to MusicXML.</extracomment>
         <translation type="unfinished">Manually added system and page breaks only</translation>
     </message>
     <message>
-        <location filename="../../src/project/view/exportdialogmodel.cpp" line="634"/>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="638"/>
         <source>No system or page breaks</source>
         <extracomment>Specifies to which extent layout customizations should be exported to MusicXML.</extracomment>
         <translation type="unfinished">No system or page breaks</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/MsczSettingsPage.qml" line="37"/>
+        <source>Saves the whole score, parts included, as a file for the official MuseScore Studio. The layout shown here is written into the file as manual adjustments, so that it looks the same there.</source>
+        <extracomment>Explains the export of a score to a file for the official MuseScore Studio application</extracomment>
+        <translation type="unfinished">Saves the whole score, parts included, as a file for the official MuseScore Studio. The layout shown here is written into the file as manual adjustments, so that it looks the same there.</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/MsczSettingsPage.qml" line="47"/>
+        <source>Such a file no longer spaces itself when it is edited: keep working in the score you have open.</source>
+        <translation type="unfinished">Such a file no longer spaces itself when it is edited: keep working in the score you have open.</translation>
     </message>
 </context>
 <context>

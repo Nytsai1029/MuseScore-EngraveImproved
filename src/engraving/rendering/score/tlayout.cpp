@@ -527,7 +527,8 @@ void TLayout::layoutAccidental(const Accidental* item, Accidental::LayoutData* l
         // and it has either no bracket or parentheses, then we have glyphs straight from smufl.
         // They are opt-in: by default the parentheses are separate glyphs, as for every other accidental.
 
-        if (!conf.styleB(Sid::bracketedAccidentalUseSmuflSym)) {
+        // Upstream always uses them: see MasterScore::officialCompat
+        if (!conf.styleB(Sid::bracketedAccidentalUseSmuflSym) && !item->score()->officialCompat()) {
             return SymId::noSym;
         }
 

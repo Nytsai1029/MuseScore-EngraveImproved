@@ -24,6 +24,8 @@
 #include "global/io/file.h"
 #include "global/io/fileinfo.h"
 
+#include "engraving/officialexport/officialexportreport.h"
+
 #include "translation.h"
 #include "defer.h"
 #include "log.h"
@@ -227,14 +229,18 @@ bool ExportProjectScenario::exportScores(const notation::INotationPtrList& notat
         }
     } break;
     case INotationWriter::UnitType::MULTI_PART: {
-        auto exportFunction = [writer, notations, options](IODevice& destinationDevice) {
-                return writer->writeList(notations, destinationDevice, options);
+        // What the writer has to say besides whether it succeeded
+        auto written = std::make_shared<Ret>();
+        auto exportFunction = [writer, notations, options, written](IODevice& destinationDevice) {
+                *written = writer->writeList(notations, destinationDevice, options);
+                return *written;
             };
 
         Ret ret = doExportLoop(destinationPath, exportFunction);
         if (ret.code() == static_cast<int>(Ret::Code::Cancel)) {
             return false;
         }
+        showOfficialExportReport(*written);
     } break;
     }
 
@@ -243,6 +249,33 @@ bool ExportProjectScenario::exportScores(const notation::INotationPtrList& notat
     }
 
     return true;
+}
+
+//! After an export for official MuseScore Studio: what could not be taken along
+void ExportProjectScenario::showOfficialExportReport(const Ret& written) const
+{
+    using mu::engraving::OfficialExportReport;
+
+    static const char* const REPORT_KEY = "officialExportReport"; // see notation::OfficialMsczNotationWriter
+    const OfficialExportReport report = written.data<OfficialExportReport>(REPORT_KEY, OfficialExportReport());
+
+    QStringList lines;
+    for (const auto& [feature, count] : report.dropped) {
+        lines << QString(u8"\u2022 %1 (%2)").arg(mu::engraving::droppedFeatureTitle(feature).qTranslated()).arg(count);
+    }
+    if (report.unpinnedItems > 0) {
+        lines << QString(u8"\u2022 ") + muse::qtrc("project/export", "%n item(s) that could not be put exactly where they are here",
+                                                   nullptr, report.unpinnedItems);
+    }
+    if (lines.isEmpty()) {
+        return;
+    }
+
+    const QString text = muse::qtrc("project/export", "The official MuseScore Studio has no equivalent for the following, "
+                                                      "so the exported file does without it:")
+                         + "\n\n" + lines.join("\n");
+    interactive()->infoSync(muse::trc("project/export", "Not everything could be exported"),
+                            IInteractive::Text(text.toStdString()));
 }
 
 const ExportInfo& ExportProjectScenario::exportInfo() const

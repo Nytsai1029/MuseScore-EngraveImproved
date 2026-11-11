@@ -109,6 +109,16 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/rw/mscsaver.cpp
     ${CMAKE_CURRENT_LIST_DIR}/rw/mscsaver.h
 
+    ${CMAKE_CURRENT_LIST_DIR}/officialexport/officialexportreport.h
+    ${CMAKE_CURRENT_LIST_DIR}/officialexport/upstreamformat.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/officialexport/upstreamformat.h
+    ${CMAKE_CURRENT_LIST_DIR}/officialexport/layoutsnapshot.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/officialexport/layoutsnapshot.h
+    ${CMAKE_CURRENT_LIST_DIR}/officialexport/forkfeatureconverter.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/officialexport/forkfeatureconverter.h
+    ${CMAKE_CURRENT_LIST_DIR}/officialexport/officiallayoutbaker.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/officialexport/officiallayoutbaker.h
+
     ${CMAKE_CURRENT_LIST_DIR}/rw/harmonytodiagramreader.cpp
     ${CMAKE_CURRENT_LIST_DIR}/rw/harmonytodiagramreader.h
 

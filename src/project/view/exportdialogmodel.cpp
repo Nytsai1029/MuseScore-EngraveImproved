@@ -102,7 +102,11 @@ ExportDialogModel::ExportDialogModel(QObject* parent)
         ExportType::makeWithSuffixes({ "mei" },
                                      muse::qtrc("project/export", "MEI"),
                                      muse::qtrc("project/export", "MEI files"),
-                                     "MeiSettingsPage.qml")
+                                     "MeiSettingsPage.qml"),
+        ExportType::makeWithSuffixes({ "mscz" },
+                                     muse::qtrc("project/export", "MuseScore Studio file"),
+                                     muse::qtrc("project/export", "MuseScore Studio files"),
+                                     "MsczSettingsPage.qml")
     };
 
     const ExportInfo& info = exportProjectScenario()->exportInfo();

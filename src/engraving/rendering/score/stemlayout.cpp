@@ -28,6 +28,7 @@
 #include "dom/hook.h"
 #include "dom/note.h"
 #include "dom/rest.h"
+#include "dom/score.h"
 #include "dom/staff.h"
 #include "dom/tremolosinglechord.h"
 #include "dom/tremolotwochord.h"
@@ -90,7 +91,8 @@ double StemLayout::calcDefaultStemLength(Chord* item, const LayoutContext& ctx)
     // Flagged notes are excluded: they always keep the unshortened default stem length.
     int customStemLength = calcCustomStemLength(item, ctx, staffLineCount, tab != nullptr);
 
-    if (item->shouldHaveHook()) {
+    // Upstream shortens the stems of flagged notes like any other: see MasterScore::officialCompat
+    if (item->shouldHaveHook() && !item->score()->officialCompat()) {
         stemLength = std::max({ idealStemLength, minStemLengthQuarterSpaces, hookStemLengthAddition(item, ctx) });
     } else if (customStemLength > 0) {
         idealStemLength = customStemLength + stemLengthBeamAddition(item, ctx);

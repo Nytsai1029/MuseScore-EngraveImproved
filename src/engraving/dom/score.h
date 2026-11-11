@@ -149,6 +149,7 @@ class ShadowNote;
 
 struct Interval;
 struct NoteVal;
+struct SegmentPins;
 struct ShowAnchors;
 struct FitMusicOptions;
 
@@ -344,6 +345,8 @@ public:
 
     virtual bool isMaster() const { return false; }
     virtual bool readOnly() const;
+    bool officialCompat() const; // see MasterScore::officialCompat
+    const SegmentPins* segmentPins() const; // see MasterScore::segmentPins
 
     static void onElementDestruction(EngravingItem* se);
 

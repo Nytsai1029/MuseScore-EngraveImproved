@@ -576,6 +576,11 @@ bool computeMultiBezierPath(SlurSegment* slurSeg, const PointF& p2, const PointF
 
 static double systemEndBarlineX(const System* system)
 {
+    // Not upstream's rule: see MasterScore::officialCompat
+    if (system->score()->officialCompat()) {
+        return system->endingXForOpenEndedLines();
+    }
+
     // a slur/tie continuing on the next system ends flush with the last barline
     // of this system, not lineEndToBarlineDistance before it
     const Measure* lastMeas = system->lastMeasure();
@@ -1494,13 +1499,16 @@ void SlurTieLayout::avoidCollisions(SlurSegment* slurSeg, PointF& pp1, PointF& p
 
     // Keep collision pass responsive during frequent relayout (dragging/note entry),
     // while still allowing enough iterations for long slurs.
-    const unsigned maxIter = slurLength > 12.0 ? 18u : 12u;
+    // Upstream's numbers here, in the sampling below and in fillShape: see MasterScore::officialCompat
+    const bool upstreamRules = slurSeg->score()->officialCompat();
+    const unsigned maxIter = upstreamRules ? 30u : slurLength > 12.0 ? 18u : 12u;
 
     double step = computeAdjustmentStep(upSign, spatium, slurLength);
 
     // Divide slur in several rectangles to localize collisions
     // Adaptive sampling: long slurs get more samples, short slurs fewer.
-    const unsigned npoints = std::clamp<unsigned>(unsigned(std::round(8.0 + slurLength * 0.8)), 10u, 18u);
+    const unsigned npoints = upstreamRules
+                             ? 20u : std::clamp<unsigned>(unsigned(std::round(8.0 + slurLength * 0.8)), 10u, 18u);
     std::vector<RectF> slurRects;
     slurRects.reserve(npoints);
 
@@ -1811,7 +1819,7 @@ Shape SlurTieLayout::getSegmentShape(SlurSegment* slurSeg, Segment* seg, ChordRe
         }
         // Hairpins and other staff lines are laid out after slurs; they must not feed back
         // into slur collision avoidance if they ever appear in staffShape.
-        if (item->isTextLineBaseSegment()) {
+        if (item->isTextLineBaseSegment() && !item->score()->officialCompat()) {
             return true;
         }
         // Ignore fret diagrams
@@ -2177,7 +2185,7 @@ TieSegment* SlurTieLayout::layoutTieBack(Tie* item, System* system, LayoutContex
         segment->setStaffMove(static_cast<int>(chord->vStaffIdx() - segment->staffIdx()));
     }
 
-    if (segment->autoplace()) {
+    if (segment->autoplace() || segment->score()->officialCompat()) {
         adjustY(segment);
     } else {
         // adjustY() would run on the previous layout's end points and leave adjustment
@@ -2440,7 +2448,7 @@ LaissezVibSegment* SlurTieLayout::createLaissezVibSegment(LaissezVib* item)
 void SlurTieLayout::calculateLaissezVibX(LaissezVibSegment* segment, SlurTiePos& sPos, bool smufl)
 {
     LaissezVib* lv = segment->laissezVib();
-    const bool useSmuflSymbol = smufl && !segment->isEdited();
+    const bool useSmuflSymbol = smufl && (!segment->isEdited() || segment->score()->officialCompat());
 
     computeStartAndEndSystem(lv, sPos);
     sPos.p1 = computeDefaultStartOrEndPoint(lv, Grip::START);
@@ -2626,7 +2634,7 @@ void SlurTieLayout::layoutLaissezVibChord(Chord* chord, LayoutContext& ctx)
         LaissezVibSegment* lvSeg = segWithPos.first;
         const Note* note = lvSeg->laissezVib()->startNote();
         SlurTiePos sPos = segWithPos.second;
-        const bool useSmuflSymbol = smuflLayout && !lvSeg->isEdited();
+        const bool useSmuflSymbol = smuflLayout && (!lvSeg->isEdited() || lvSeg->score()->officialCompat());
         const double xDiff = chordLvEndPoint - sPos.p2.x();
         sPos.p2.setX(chordLvEndPoint);
         if (useSmuflSymbol) {
@@ -3876,9 +3884,10 @@ void SlurTieLayout::fillShape(SlurTieSegment* slurTieSeg, double slurTieLengthIn
     double midThickness = 2 * slurTieSeg->ldata()->midThickness();
     // Lower sampling density to reduce layout cost; still dense enough for
     // collision and hit-testing accuracy.
-    int nbShapes = int(std::round(3.0 * slurTieLengthInSp));
-    nbShapes = std::max(nbShapes, 12);
-    nbShapes = std::min(nbShapes, 30);
+    const bool upstreamRules = slurTieSeg->score()->officialCompat();
+    int nbShapes = int(std::round((upstreamRules ? 5.0 : 3.0) * slurTieLengthInSp));
+    nbShapes = std::max(nbShapes, upstreamRules ? 20 : 12);
+    nbShapes = std::min(nbShapes, upstreamRules ? 50 : 30);
     const CubicBezier b(startPoint, slurTieSeg->ups(Grip::BEZIER1).pos(), slurTieSeg->ups(Grip::BEZIER2).pos(),
                         slurTieSeg->ups(Grip::END).pos());
     for (int i = 1; i <= nbShapes; i++) {

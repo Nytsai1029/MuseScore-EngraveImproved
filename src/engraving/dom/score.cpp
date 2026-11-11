@@ -819,6 +819,16 @@ bool Score::readOnly() const
     return m_masterScore->readOnly();
 }
 
+bool Score::officialCompat() const
+{
+    return m_masterScore && m_masterScore->officialCompat();
+}
+
+const SegmentPins* Score::segmentPins() const
+{
+    return m_masterScore ? m_masterScore->segmentPins() : nullptr;
+}
+
 //---------------------------------------------------------
 //   dirty
 //---------------------------------------------------------

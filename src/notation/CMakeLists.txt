@@ -111,6 +111,8 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/internal/positionswriter.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/mscnotationwriter.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/mscnotationwriter.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/officialmscznotationwriter.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/officialmscznotationwriter.h
     ${NOTATION_PLAYBACK_SRC_FILES}
     ${CMAKE_CURRENT_LIST_DIR}/internal/midiinputoutputcontroller.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/midiinputoutputcontroller.h

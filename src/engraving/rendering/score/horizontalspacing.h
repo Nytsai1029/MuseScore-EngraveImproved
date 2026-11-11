@@ -22,6 +22,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <vector>
 
 #include "types/types.h"
 
@@ -37,6 +38,7 @@ class StemSlash;
 class Segment;
 class Measure;
 class System;
+struct SegmentPins;
 enum class ElementType : unsigned char;
 enum class KerningType : unsigned char;
 }
@@ -47,7 +49,8 @@ class HorizontalSpacing
 public:
 
     static double computeSpacingForFullSystem(System* system, double stretchReduction = 1.0, double squeezeFactor = 1.0,
-                                              bool overrideMinMeasureWidth = false, double spacingRatio = 0.0);
+                                              bool overrideMinMeasureWidth = false, double spacingRatio = 0.0,
+                                              bool willBeJustified = true);
     static double updateSpacingForLastAddedMeasure(System* system, bool startOfContinuousLayoutRegion = false);
     static void squeezeSystemToFit(System* system, double& curSysWidth, double targetSysWidth);
     static void justifySystem(System* system, double curSysWidth, double targetSystemWidth);
@@ -79,6 +82,12 @@ private:
         bool overrideMinMeasureWidth = false;
         // 日式间距: duration stretches of the segments that lie in a cross-rhythm, worked out once per measure
         std::unordered_map<const Measure*, std::unordered_map<const Segment*, double> > crossRhythmStretches;
+
+        // Official export: see pinSegment()
+        const SegmentPins* pins = nullptr;
+        double pinTension = 0.0;      // the width per unit of stretch justification is expected to end at
+        double pinTensionLimit = 0.0; // the highest that leaves no pin of the system out of reach
+        double pinStretch = 0.0;      // by how much justification will move the segment that is placed next
     };
 
     struct SegmentPosition {
@@ -99,6 +108,22 @@ private:
             : springConst(sc), width(w), preTension(pt),  segment(s) {}
     };
 
+    //! Official export: what pinSegment() keeps of a segment that has been placed
+    struct PinRecord {
+        double base = 0.0;         // where it was placed, before its leading space
+        double lead = 0.0;         // its leading space
+        double x = 0.0;            // where it stands
+        bool pinned = false;
+        int leadOwner = -1;        // the chord-rest segment that holds that leading space in its width offset
+        double naturalWidth = 0.0; // of a chord-rest segment
+        double leadPart = 0.0;     // what its width offset holds of the leading space of the segment after it
+    };
+
+    struct PinState {
+        std::vector<PinRecord> records; // one for each segment of the list being spaced
+        int last = -1;                  // the last one the next is at a distance from
+    };
+
     struct CrossBeamSpacing
     {
         bool upDown = false;
@@ -113,6 +138,9 @@ private:
     static double getFirstSegmentXPos(Segment* segment, HorizontalSpacingContext& ctx);
     static std::vector<SegmentPosition> spaceSegments(const std::vector<Segment*>& segList, int startSegIdx, HorizontalSpacingContext& ctx);
     static bool ignoreSegmentForSpacing(const Segment* segment);
+    static double pinTensionFor(System* system, HorizontalSpacingContext& ctx);
+    static void pinSegment(size_t index, std::vector<SegmentPosition>& placedSegments, PinState& state,
+                           HorizontalSpacingContext& ctx);
     static bool ignoreAllSegmentsForSpacing(const std::vector<SegmentPosition>& segmentPositions);
     static void spaceAgainstPreviousSegments(Segment* segment, std::vector<SegmentPosition>& prevSegPositions,
                                              HorizontalSpacingContext& ctx);

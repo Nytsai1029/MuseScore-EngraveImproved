@@ -703,10 +703,13 @@ void TWrite::write(const BarLine* item, XmlWriter& xml, WriteContext& ctx)
         xml.tag("spanConnector", true);
     }
 
+    // Official MuseScore Studio draws a barline across staves in one piece and has no connector item
+    const bool writeConnectors = !item->score()->officialCompat();
+
     for (const EngravingItem* e : *item->el()) {
         if (e->isBarLine()) {
             const BarLine* connector = toBarLine(e);
-            if (connector->generated() && connector->barLineType() == item->barLineType()) {
+            if (!writeConnectors || (connector->generated() && connector->barLineType() == item->barLineType())) {
                 continue;
             }
         }
@@ -3067,16 +3070,18 @@ void TWrite::write(const Symbol* item, XmlWriter& xml, WriteContext& ctx)
     if (item->scoreFont()) {
         xml.tag("font", item->scoreFont()->name());
     }
-    if (item->scoreFont() || item->isKeyboardHandBracketSymbol() || item->isTimeSigBracketSymbol()) {
+    // Official MuseScore Studio has neither the editable brackets nor a size for symbols of the score's own font
+    const bool editableBrackets = !item->score()->officialCompat();
+    if (item->scoreFont() || (editableBrackets && item->isEditableBracketSymbol())) {
         writeProperty(item, xml, Pid::SYMBOLS_SIZE);
         writeProperty(item, xml, Pid::SYMBOL_ANGLE);
     }
-    if (item->isKeyboardHandBracketSymbol()) {
+    if (editableBrackets && item->isKeyboardHandBracketSymbol()) {
         writeProperty(item, xml, Pid::SYMBOL_SHORT_SIDE_LENGTH);
         writeProperty(item, xml, Pid::SYMBOL_LONG_SIDE_LENGTH);
         writeProperty(item, xml, Pid::LINE_WIDTH);
     }
-    if (item->isTimeSigBracketSymbol()) {
+    if (editableBrackets && item->isTimeSigBracketSymbol()) {
         writeProperty(item, xml, Pid::SYMBOL_LONG_SIDE_LENGTH);
         writeProperty(item, xml, Pid::SYMBOL_TOP_HOOK_LENGTH);
         writeProperty(item, xml, Pid::SYMBOL_BOTTOM_HOOK_LENGTH);
@@ -3092,7 +3097,7 @@ void TWrite::write(const FSymbol* item, XmlWriter& xml, WriteContext& ctx)
     xml.tag("font",     item->font().family().id());
     xml.tag("fontsize", item->font().pointSizeF());
     xml.tag("code",     item->code());
-    if (item->font().type() == muse::draw::Font::Type::MusicSymbolText) {
+    if (item->font().type() == muse::draw::Font::Type::MusicSymbolText && !item->score()->officialCompat()) {
         xml.tag("fonttype", String(u"MusicSymbolText"));
     }
     writeProperties(static_cast<const BSymbol*>(item), xml, ctx);

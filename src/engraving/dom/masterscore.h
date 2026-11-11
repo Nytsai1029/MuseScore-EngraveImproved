@@ -23,6 +23,7 @@
 #define MU_ENGRAVING_MASTERSCORE_H
 
 #include <array>
+#include <unordered_map>
 
 #include "../infrastructure/ifileinfoprovider.h"
 #include "../infrastructure/eidregister.h"
@@ -51,6 +52,17 @@ class Revisions;
 class TempoMap;
 class TimeSigMap;
 class UndoStack;
+
+//! Where an export for official MuseScore Studio wants the segments of a score to stand. While a score
+//! has these, spacing gives each of the segments the leading space that takes it there.
+//! See HorizontalSpacing::pinSegment and OfficialLayoutBaker.
+struct SegmentPins {
+    //! In the coordinates of the segment's system
+    std::unordered_map<const Segment*, double> x;
+    //! By the first measure of a system: the width per unit of stretch that justification is to give its
+    //! notes, if the pins can all be reached with it. Without one, the widest they can be reached with.
+    std::unordered_map<const MeasureBase*, double> tension;
+};
 
 class MidiMapping
 {
@@ -96,6 +108,15 @@ public:
 
     bool readOnly() const override { return m_readOnly; }
     void setReadOnly(bool ro) { m_readOnly = ro; }
+
+    //! Set on the working copy of a score while it is exported for official MuseScore Studio: layout then
+    //! leaves out the fork's rules that are not behind a style switch, and the writer leaves out what the
+    //! official file format does not have. Never saved. See OfficialLayoutBaker.
+    bool officialCompat() const { return m_officialCompat; }
+    void setOfficialCompat(bool v) { m_officialCompat = v; }
+    //! Of the score being laid out, master or part. Not owned.
+    const SegmentPins* segmentPins() const { return m_segmentPins; }
+    void setSegmentPins(const SegmentPins* pins) { m_segmentPins = pins; }
     UndoStack* undoStack() const override { return m_undoStack; }
     TimeSigMap* sigmap() const override { return m_sigmap; }
     TempoMap* tempomap() const override { return m_tempomap; }
@@ -229,6 +250,8 @@ private:
     muse::async::Channel<ScoreChanges> m_changesChannel;
 
     bool m_readOnly = false;
+    bool m_officialCompat = false;
+    const SegmentPins* m_segmentPins = nullptr;
 
     CmdState m_cmdState;       // modified during cmd processing
 

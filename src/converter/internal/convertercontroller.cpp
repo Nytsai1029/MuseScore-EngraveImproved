@@ -190,7 +190,11 @@ Ret ConverterController::convertFile(const muse::io::path_t& in, const muse::io:
     }
     // standart convert
     else {
-        if (suffix == engraving::MSCZ || suffix == engraving::MSCX || suffix == engraving::MSCS) {
+        // A whole score as .mscz is an export for official MuseScore Studio and goes through its writer,
+        // which writes the layout into the file. The fork's own format (.msdz) is written the same way.
+        const bool officialExport = suffix == engraving::MSCZ && !pageNum.has_value();
+        if (!officialExport
+            && (suffix == engraving::MSCZ || suffix == engraving::MSCX || suffix == engraving::MSCS)) {
             if (pageNum.has_value()) {
                 return notationProject->savePage(out, pageNum.value());
             }

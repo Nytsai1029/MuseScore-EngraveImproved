@@ -18597,6 +18597,89 @@ Fret %1 on strings %2</source>
     </message>
 </context>
 <context>
+    <name>engraving/officialexport</name>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="60"/>
+        <source>Letter spacing of text</source>
+        <translation>文本的字间距</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="62"/>
+        <source>Adjusted and automatically shortened ledger lines</source>
+        <translation>调整过长度及自动缩短的加线</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="64"/>
+        <source>Hidden ledger lines</source>
+        <translation>隐藏的加线</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="66"/>
+        <source>Broken ottava lines</source>
+        <translation>折线八度号</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="68"/>
+        <source>Slanted text</source>
+        <translation>倾斜的文本</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="70"/>
+        <source>Vertical ends of diagonal hairpins</source>
+        <translation>倾斜楔形力度符号的竖直端口</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="72"/>
+        <source>Sizes of hand and time signature brackets</source>
+        <translation>手位括号与拍号括号的尺寸</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="74"/>
+        <source>Barlines masked behind single text items</source>
+        <translation>单个文本后方遮住的小节线</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="76"/>
+        <source>Separate spacing of sharps and flats in key signatures</source>
+        <translation>调号中升号与降号各自的间距</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="79"/>
+        <source>Offsets of two-note tremolo strokes</source>
+        <translation>双音震音斜线的偏移</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="81"/>
+        <source>Adjusted ends of parentheses</source>
+        <translation>调整过的圆括号端点</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="83"/>
+        <source>Parentheses drawn apart from their accidentals</source>
+        <translation>与变音号分开绘制的圆括号</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="85"/>
+        <source>Edited barline segments between staves</source>
+        <translation>编辑过的谱表间小节线段</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="87"/>
+        <source>Characters from the musical text font</source>
+        <translation>音乐文本字体中的字符</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="89"/>
+        <source>Grace notes shown at the end of the previous system</source>
+        <translation>显示在上一谱行组末尾的倚音</translation>
+    </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="92"/>
+        <source>Multi-curve slurs that could not be split into plain slurs</source>
+        <translation>无法拆分为普通圆滑线的多段曲线圆滑线</translation>
+    </message>
+</context>
+<context>
     <name>engraving/ottavatype</name>
     <message>
         <location filename="../../src/engraving/dom/ottava.h" line="70"/>
@@ -37448,6 +37531,44 @@ failed: %2</source>
         <source>PDF creator:</source>
         <extracomment>Program name written into the PDF metadata as the document&apos;s creator.</extracomment>
         <translation>PDF 创建者：</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="267"/>
+        <source>%n item(s) that could not be put exactly where they are here</source>
+        <translation>
+            <numerusform>%n 个未能精确放到此处位置的对象</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="274"/>
+        <source>The official MuseScore Studio has no equivalent for the following, so the exported file does without it:</source>
+        <translation>官方版 MuseScore Studio 没有与下列内容对应的功能，导出的文件中不包含这些内容：</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/internal/exportprojectscenario.cpp" line="277"/>
+        <source>Not everything could be exported</source>
+        <translation>部分内容未能导出</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="107"/>
+        <source>MuseScore Studio file</source>
+        <translation>MuseScore Studio 文件</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/view/exportdialogmodel.cpp" line="108"/>
+        <source>MuseScore Studio files</source>
+        <translation>MuseScore Studio 文件</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/MsczSettingsPage.qml" line="37"/>
+        <source>Saves the whole score, parts included, as a file for the official MuseScore Studio. The layout shown here is written into the file as manual adjustments, so that it looks the same there.</source>
+        <extracomment>Explains the export of a score to a file for the official MuseScore Studio application</extracomment>
+        <translation>将整份乐谱（含分谱）保存为官方版 MuseScore Studio 可打开的文件。此处显示的排版会以手动调整值的形式写入文件，使其在官方版中呈现相同的版面。</translation>
+    </message>
+    <message>
+        <location filename="../../src/project/qml/MuseScore/Project/internal/Export/MsczSettingsPage.qml" line="47"/>
+        <source>Such a file no longer spaces itself when it is edited: keep working in the score you have open.</source>
+        <translation>这样的文件在编辑时不会再自动调整间距：请继续在当前打开的乐谱中工作。</translation>
     </message>
 </context>
 <context>
