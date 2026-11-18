@@ -23,6 +23,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <set>
 
 #include "dom/chordrest.h"
 #include "dom/tuplet.h"
@@ -32,6 +33,8 @@
 #include "dom/beam.h"
 #include "dom/chord.h"
 #include "dom/note.h"
+#include "dom/segment.h"
+#include "dom/staff.h"
 #include "dom/stem.h"
 #include "dom/system.h"
 #include "dom/measure.h"
@@ -42,7 +45,7 @@
 using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
 
-void TupletLayout::layout(Tuplet* item, LayoutContext& ctx)
+void TupletLayout::layout(Tuplet* item, LayoutContext& ctx, bool autoplace)
 {
     Tuplet::LayoutData* ldata = item->mutldata();
     if (item->elements().empty()) {
@@ -90,12 +93,41 @@ void TupletLayout::layout(Tuplet* item, LayoutContext& ctx)
     }
     item->setbbox(r);
 
-    if (!item->cross()) {
-        Autoplace::autoplaceMeasureElement(item, item->mutldata(), item->isUp(), /* add to skyline */ true);
+    if (!autoplace || item->cross()) {
+        return;
     }
+    if (isOnCrossStaffBeam(item)) {
+        // Placed again from the final beam by layoutTupletsOnCrossStaffBeams, so it is not moved against the
+        // earlier stems here; that would also turn a drag into an offset meant for those stems
+        addToSkyline(item);
+        return;
+    }
+    Autoplace::autoplaceMeasureElement(item, item->mutldata(), item->isUp(), /* add to skyline */ true);
 }
 
-void TupletLayout::layoutTupletAndNestedTuplets(Tuplet* t, LayoutContext& ctx)
+//---------------------------------------------------------
+//   addToSkyline
+//    Keeps room for a tuplet in its staff's skyline without moving it, as autoplace would add it
+//---------------------------------------------------------
+
+void TupletLayout::addToSkyline(Tuplet* item)
+{
+    Tuplet::LayoutData* ldata = item->mutldata();
+    if (item->autoplace() && item->explicitParent()) {
+        const staff_idx_t si = item->effectiveStaffIdx();
+        ldata->setIsSkipDraw(si == muse::nidx);
+        item->setSelectable(!ldata->isSkipDraw());
+        if (!ldata->isSkipDraw() && item->addToSkyline()) {
+            const Measure* m = toMeasure(item->explicitParent());
+            Skyline& skyline = m->system()->staff(si)->skyline();
+            SkylineLine& line = item->isUp() ? skyline.north() : skyline.south();
+            line.add(item->shape().translated(m->pos() + item->pos() + item->staffOffset()));
+        }
+    }
+    Autoplace::setOffsetChanged(item, ldata, false);
+}
+
+void TupletLayout::layoutTupletAndNestedTuplets(Tuplet* t, LayoutContext& ctx, bool autoplace)
 {
     const std::vector<DurationElement*> elements = t->elements();
     for (auto revIter = elements.rbegin(); revIter != elements.rend(); ++revIter) {
@@ -105,11 +137,60 @@ void TupletLayout::layoutTupletAndNestedTuplets(Tuplet* t, LayoutContext& ctx)
         }
         // if element is tuplet, layoutTuplet(that tuplet)
         if (d->isTuplet()) {
-            layoutTupletAndNestedTuplets(toTuplet(d), ctx);
+            layoutTupletAndNestedTuplets(toTuplet(d), ctx, autoplace);
         }
     }
     // layout t
-    layout(t, ctx);
+    layout(t, ctx, autoplace);
+}
+
+bool TupletLayout::isOnCrossStaffBeam(const Tuplet* t)
+{
+    for (const DurationElement* d : t->elements()) {
+        if (d->isTuplet()) {
+            if (isOnCrossStaffBeam(toTuplet(d))) {
+                return true;
+            }
+        } else if (d->isChordRest()) {
+            const Beam* beam = toChordRest(d)->beam();
+            if (beam && beam->cross()) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+//---------------------------------------------------------
+//   layoutTupletsOnCrossStaffBeams
+//    A cross-staff beam is laid out at its final place only once the page has set the staff distances,
+//    while the system layout has already placed the tuplets against the stems as they were before. Those
+//    earlier stems depend on what the previous layout left behind (none of it exists on a freshly opened
+//    score), so lay out again, from the final stems, the tuplets of this measure that are beamed across
+//    staves while their notes stay on their staff (cross-staff tuplets are laid out again by the caller).
+//    None of them is autoplaced (see layout()).
+//---------------------------------------------------------
+
+void TupletLayout::layoutTupletsOnCrossStaffBeams(const Measure* measure, LayoutContext& ctx)
+{
+    std::set<Tuplet*> done;
+    for (const Segment* s = measure->first(SegmentType::ChordRest); s; s = s->next(SegmentType::ChordRest)) {
+        for (EngravingItem* e : s->elist()) {
+            if (!e || !e->isChordRest()) {
+                continue;
+            }
+            const ChordRest* cr = toChordRest(e);
+            const Tuplet* top = cr->topTuplet();
+            if (!top || top->cross() || !ctx.dom().staff(top->staffIdx())->show()) {
+                continue;
+            }
+            for (Tuplet* t = cr->tuplet(); t && done.insert(t).second; t = t->tuplet()) {
+                if (isOnCrossStaffBeam(t)) {
+                    layout(t, ctx, /* autoplace */ false);
+                }
+            }
+        }
+    }
 }
 
 bool TupletLayout::isTopTuplet(ChordRest* cr)

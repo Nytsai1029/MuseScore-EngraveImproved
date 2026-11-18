@@ -46,6 +46,7 @@
 #include "dom/staff.h"
 #include "dom/stafftext.h"
 #include "dom/stafftype.h"
+#include "dom/stem.h"
 #include "dom/symbol.h"
 #include "dom/system.h"
 #include "dom/tuplet.h"
@@ -679,6 +680,95 @@ TEST_F(Engraving_LayoutConsistencyTests, openedLayoutMatchesRelayout)
     ASSERT_EQ(opened.size(), relaid.size());
     for (size_t i = 0; i < opened.size(); ++i) {
         EXPECT_NEAR(opened[i].y(), relaid[i].y(), 1e-3) << "mark " << i;
+    }
+
+    delete score;
+}
+
+//---------------------------------------------------------
+//   openedLayoutMatchesRelayoutForTupletsOnCrossStaffBeams
+//   A tuplet whose notes stay on their staff while its beam reaches the other staff took its number
+//   position from the stems as they were before the page set the staff distances. On a freshly opened
+//   score those stems are not the ones a later layout starts from, so the number moved at the first edit
+//   and came back after save and reopen. The second tuplet starts with a rest, before its beam does.
+//   Here the beam alone sets the distance between the staves, and that distance is not the same on a
+//   freshly opened score either, so each number is measured from its beam.
+//---------------------------------------------------------
+
+namespace {
+// The top left corner of each tuplet number, relative to the tip of the first stem under the tuplet
+std::vector<PointF> tupletNumbersFromStems(Score* score)
+{
+    std::vector<const Tuplet*> tuplets;
+    for (Segment* s = score->firstMeasure()->first(SegmentType::ChordRest); s; s = s->next1(SegmentType::ChordRest)) {
+        for (const EngravingItem* item : s->elist()) {
+            if (!item || !item->isChordRest()) {
+                continue;
+            }
+            for (const Tuplet* t = toChordRest(item)->tuplet(); t; t = t->tuplet()) {
+                if (std::find(tuplets.begin(), tuplets.end(), t) == tuplets.end()) {
+                    tuplets.push_back(t);
+                }
+            }
+        }
+    }
+    std::vector<PointF> offsets;
+    for (const Tuplet* t : tuplets) {
+        auto firstChord = std::find_if(t->elements().begin(), t->elements().end(),
+                                       [](const DurationElement* d) { return d->isChord(); });
+        if (!t->number() || firstChord == t->elements().end() || !toChord(*firstChord)->stem()) {
+            continue;
+        }
+        const Chord* chord = toChord(*firstChord);
+        const RectF stem = chord->stem()->pageBoundingRect();
+        const PointF tip(stem.left(), chord->up() ? stem.top() : stem.bottom());
+        offsets.push_back(t->number()->pageBoundingRect().topLeft() - tip);
+    }
+    return offsets;
+}
+}
+
+TEST_F(Engraving_LayoutConsistencyTests, openedLayoutMatchesRelayoutForTupletsOnCrossStaffBeams)
+{
+    MasterScore* score = ScoreRW::readScore(LAYOUTCONSISTENCY_DATA_DIR + u"crossStaffBeamTuplet.mscx");
+    ASSERT_TRUE(score);
+
+    const std::vector<PointF> opened = tupletNumbersFromStems(score);
+    ASSERT_EQ(opened.size(), 2u);
+
+    score->doLayout();
+    const std::vector<PointF> relaid = tupletNumbersFromStems(score);
+    ASSERT_EQ(relaid.size(), opened.size());
+    for (size_t i = 0; i < opened.size(); ++i) {
+        EXPECT_NEAR(opened[i].x(), relaid[i].x(), 1e-3) << "tuplet " << i;
+        EXPECT_NEAR(opened[i].y(), relaid[i].y(), 1e-3) << "tuplet " << i;
+    }
+
+    // Moving the tuplet towards the staff moves its number by just as much, with no correction worked out
+    // against the earlier stems
+    Segment* tupletStart = score->tick2segment(Fraction(1, 8), true, SegmentType::ChordRest);
+    ASSERT_TRUE(tupletStart && tupletStart->element(4) && tupletStart->element(4)->isChordRest());
+    Tuplet* tuplet = toChordRest(tupletStart->element(4))->tuplet();
+    ASSERT_TRUE(tuplet);
+    const double delta = 0.5 * tuplet->spatium();
+    score->startCmd(TranslatableString::untranslatable("Move tuplet test"));
+    tuplet->undoChangeProperty(Pid::OFFSET, tuplet->offset() + PointF(0.0, delta));
+    tuplet->triggerLayout();
+    score->endCmd();
+    const std::vector<PointF> moved = tupletNumbersFromStems(score);
+    ASSERT_EQ(moved.size(), relaid.size());
+    EXPECT_NEAR(moved[0].x(), relaid[0].x(), 1e-3);
+    EXPECT_NEAR(moved[0].y() - relaid[0].y(), delta, 1e-3);
+
+    // An edit elsewhere in the system lays its range out again
+    changePitch(score, noteAt(score, Fraction(1, 1)), 74, 16);
+    const std::vector<PointF> edited = tupletNumbersFromStems(score);
+    score->doLayout();
+    const std::vector<PointF> full = tupletNumbersFromStems(score);
+    ASSERT_EQ(edited.size(), full.size());
+    for (size_t i = 0; i < edited.size(); ++i) {
+        EXPECT_NEAR(edited[i].x(), full[i].x(), 1e-3) << "tuplet " << i << " after edit";
+        EXPECT_NEAR(edited[i].y(), full[i].y(), 1e-3) << "tuplet " << i << " after edit";
     }
 
     delete score;

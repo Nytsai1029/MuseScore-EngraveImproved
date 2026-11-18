@@ -353,6 +353,8 @@ void PageLayout::collectPage(LayoutContext& ctx)
                     }
                 }
             }
+            // After the loop: a cross-staff beam may start after the first note of a tuplet beamed by it
+            TupletLayout::layoutTupletsOnCrossStaffBeams(m, ctx);
             MeasureLayout::layout2(m, ctx);
         }
         SystemLayout::layoutSystemLockIndicators(s, ctx);

@@ -227,6 +227,9 @@ void ScoreHorizontalViewLayout::layoutLinear(LayoutContext& ctx)
                 }
             }
         }
+        if (m->tick() >= ctx.state().startTick() && m->tick() <= ctx.state().endTick()) {
+            TupletLayout::layoutTupletsOnCrossStaffBeams(m, ctx);
+        }
         MeasureLayout::layout2(m, ctx);
     }
 
