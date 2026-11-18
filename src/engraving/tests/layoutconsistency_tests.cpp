@@ -773,3 +773,41 @@ TEST_F(Engraving_LayoutConsistencyTests, openedLayoutMatchesRelayoutForTupletsOn
 
     delete score;
 }
+
+//---------------------------------------------------------
+//   openedLayoutMatchesRelayoutForStaffDistanceSetByCrossStaffBeam
+//   A beam between the staves can need more room than the skylines leave. When it alone sets the distance
+//   between the staves, the system took it from the beam as laid out before the system had its final spacing,
+//   which on a freshly opened score was still without room for the beam and at no horizontal positions, so the
+//   lower staff sat 0.9 sp higher than after any later layout. With beams across the staves in two bars of the
+//   system, even a later layout depended on positions left by the one before it.
+//---------------------------------------------------------
+
+TEST_F(Engraving_LayoutConsistencyTests, openedLayoutMatchesRelayoutForStaffDistanceSetByCrossStaffBeam)
+{
+    for (const char16_t* file : { u"crossStaffBeamTuplet.mscx", u"crossStaffBeamsInTwoMeasures.mscx" }) {
+        SCOPED_TRACE(String(file).toStdString());
+        MasterScore* score = ScoreRW::readScore(LAYOUTCONSISTENCY_DATA_DIR + file);
+        ASSERT_TRUE(score);
+        ASSERT_EQ(score->systems().size(), 1u);
+        const double sp = score->style().spatium();
+        auto lowerStaffY = [score, sp]() { return score->systems().front()->staff(1)->y() / sp; };
+
+        const double opened = lowerStaffY();
+
+        score->doLayout();
+        const double relaid = lowerStaffY();
+        EXPECT_NEAR(opened, relaid, 1e-3);
+
+        score->doLayout();
+        EXPECT_NEAR(lowerStaffY(), relaid, 1e-3);
+
+        // An edit elsewhere in the system lays its range out again
+        changePitch(score, noteAt(score, Fraction(1, 1)), 74, 16);
+        const double edited = lowerStaffY();
+        score->doLayout();
+        EXPECT_NEAR(edited, lowerStaffY(), 1e-3);
+
+        delete score;
+    }
+}

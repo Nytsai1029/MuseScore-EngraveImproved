@@ -431,6 +431,17 @@ System* SystemLayout::collectSystem(LayoutContext& ctx)
         HorizontalSpacing::justifySystem(system, curSysWidth, targetSystemWidth);
     }
 
+    // The cross-staff beams were laid out before the system had its final spacing, from positions and beam
+    // segments left by the previous layout (none on a freshly opened score). Lay them out again at the final
+    // positions, twice: a beam between the staves centres itself from its last beam segments.
+    for (const MeasureBase* mb : system->measures()) {
+        if (mb->isMeasure() && measureHasCrossStuffOrModifiedBeams(toMeasure(mb))) {
+            updateCrossBeams(system, ctx);
+            updateCrossBeams(system, ctx);
+            break;
+        }
+    }
+
     // LAYOUT MEASURES
     bool createBrackets = false;
     for (MeasureBase* mb : system->measures()) {
