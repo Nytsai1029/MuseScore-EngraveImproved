@@ -1535,7 +1535,8 @@ void ChordLayout::cutTouchingLedgerLines(const std::vector<Chord*>& chords, cons
 
     // Shortened lines may come closer than spacing would leave them: half of that padding
     const PaddingTable& paddingTable = chords.front()->score()->paddingTable();
-    const double shortenedLinesGap = 0.5 * paddingTable.at(ElementType::LEDGER_LINE).at(ElementType::LEDGER_LINE);
+    const double shortenedLinesGap = ctx.conf().styleD(Sid::ledgerLineAutoCutGapRatio)
+                                     * paddingTable.at(ElementType::LEDGER_LINE).at(ElementType::LEDGER_LINE);
 
     for (auto& row : rows) {
         std::vector<Candidate>& candidates = row.second;
@@ -2032,6 +2033,13 @@ void ChordLayout::calculateChordOffsets(Segment* segment, staff_idx_t staffIdx, 
     double sp = staff->spatium(tick);
     const bool isTab = staff->isTabStaff(segment->tick());
 
+    const double noteheadGap = ctx.conf().styleS(Sid::voiceOffsetNoteheadGap).val();
+    const double reducedNoteheadGap = ctx.conf().styleS(Sid::voiceOffsetReducedNoteheadGap).val();
+    const double crossedSecondOverlap = ctx.conf().styleS(Sid::voiceOffsetCrossedSecondOverlap).val();
+    const double crossedSecondDottedGap = ctx.conf().styleS(Sid::voiceOffsetCrossedSecondDottedGap).val();
+    const double flagClearance = ctx.conf().styleS(Sid::voiceOffsetFlagClearance).val();
+    const double stemNoteheadPadding = ctx.conf().styleS(Sid::voiceOffsetStemNoteheadPadding).val();
+
     Note* bottomUpNote = posInfo.upStemNotes.front();
     Note* topDownNote  = posInfo.downStemNotes.back();
     int separation = topDownNote->stringOrLine() - bottomUpNote->stringOrLine();
@@ -2042,7 +2050,7 @@ void ChordLayout::calculateChordOffsets(Segment* segment, staff_idx_t staffIdx, 
     if (separation == 1) {
         // second
         if (posInfo.upDots && !posInfo.downDots) {
-            offsetInfo.upOffset = posInfo.maxDownWidth + 0.1 * sp;
+            offsetInfo.upOffset = posInfo.maxDownWidth + reducedNoteheadGap * sp;
             offsetInfo.tracksToAdjust.insert(bottomUpNote->track());
         } else {
             offsetInfo.downOffset = posInfo.maxUpWidth;
@@ -2175,7 +2183,7 @@ void ChordLayout::calculateChordOffsets(Segment* segment, staff_idx_t staffIdx, 
         bool ledgerOverlapAbove = false;
         bool ledgerOverlapBelow = false;
 
-        double ledgerGap = 0.15 * sp;
+        double ledgerGap = ctx.conf().styleS(Sid::voiceOffsetLedgerLineGap).val() * sp;
         double ledgerLen = ctx.conf().styleS(Sid::ledgerLineLength).val() * sp;
         int firstLedgerBelow = staff->lines(bottomUpNote->tick()) * 2;
         int topDownStemLen = 0;
@@ -2247,32 +2255,35 @@ void ChordLayout::calculateChordOffsets(Segment* segment, staff_idx_t staffIdx, 
                 // so better to solve the problem elsewhere
             }
         } else if (conflict && (posInfo.upDots && !posInfo.downDots)) {
-            offsetInfo.upOffset = posInfo.maxDownWidth + 0.1 * sp;
+            offsetInfo.upOffset = posInfo.maxDownWidth + reducedNoteheadGap * sp;
         } else if (conflictUnison && separation == 0 && (!posInfo.downGrace || posInfo.upGrace)) {
-            offsetInfo.downOffset = posInfo.maxUpWidth + 0.15 * sp;
+            offsetInfo.downOffset = posInfo.maxUpWidth + noteheadGap * sp;
         } else if (conflictUnison) {
-            offsetInfo.upOffset = posInfo.maxDownWidth + 0.15 * sp;
+            offsetInfo.upOffset = posInfo.maxDownWidth + noteheadGap * sp;
         } else if (conflictSecondUpHigher) {
-            offsetInfo.upOffset = posInfo.maxDownWidth + 0.15 * sp;
+            offsetInfo.upOffset = posInfo.maxDownWidth + noteheadGap * sp;
         } else if ((posInfo.downHooks && !posInfo.upHooks) && !(posInfo.upDots && !posInfo.downDots)) {
             // Shift by ledger line length if ledger line conflict or just 0.3sp if no ledger lines
-            double adjSpace = (ledgerOverlapAbove || ledgerOverlapBelow) ? ledgerGap + ledgerLen : 0.3 * sp;
+            double adjSpace = (ledgerOverlapAbove || ledgerOverlapBelow) ? ledgerGap + ledgerLen : flagClearance * sp;
             offsetInfo.downOffset = posInfo.maxUpWidth + adjSpace;
         } else if (conflictSecondDownHigher) {
             if (posInfo.downDots && !posInfo.upDots) {
-                double adjSpace = (ledgerOverlapAbove || ledgerOverlapBelow) ? ledgerGap + ledgerLen : 0.2 * sp;
+                double adjSpace = (ledgerOverlapAbove || ledgerOverlapBelow) ? ledgerGap + ledgerLen
+                                  : crossedSecondDottedGap * sp;
                 offsetInfo.downOffset = posInfo.maxUpWidth + adjSpace;
             } else {
                 // Prevent ledger line & notehead collision
                 double adjSpace
                     = (topDownNote->stringOrLine() <= firstLedgerAbove
-                       || bottomUpNote->stringOrLine() >= firstLedgerBelow) ? ledgerLen - ledgerGap - 0.2 * sp : -0.2 * sp;
+                       || bottomUpNote->stringOrLine() >= firstLedgerBelow)
+                      ? ledgerLen - ledgerGap - crossedSecondOverlap * sp : -crossedSecondOverlap * sp;
                 offsetInfo.upOffset = posInfo.maxDownWidth + adjSpace;
                 if (posInfo.downHooks) {
                     bool needsHookSpace = (ledgerOverlapBelow || ledgerOverlapAbove);
                     Hook* hook = topDownNote->chord()->hook();
                     double hookSpace = hook ? hook->width() : 0.0;
-                    offsetInfo.upOffset = needsHookSpace ? hookSpace + ledgerLen + ledgerGap : offsetInfo.upOffset + 0.3 * sp;
+                    offsetInfo.upOffset = needsHookSpace ? hookSpace + ledgerLen + ledgerGap
+                                          : offsetInfo.upOffset + flagClearance * sp;
                 }
             }
         } else {
@@ -2281,7 +2292,7 @@ void ChordLayout::calculateChordOffsets(Segment* segment, staff_idx_t staffIdx, 
             // Stems are in the middle of fret marks on TAB staves
             double clearLeft = isTab ? StemLayout::stemPosX(bottomUpNote->chord()) : 0.0;
             double clearRight = isTab ? StemLayout::stemPosX(bottomUpNote->chord()) : 0.0;
-            double overlapPadding = (isTab ? 0 : 0.3) * sp;
+            double overlapPadding = (isTab ? 0 : stemNoteheadPadding) * sp;
             if (const Stem* topDownStem = topDownNote->chord()->stem()) {
                 if (ledgerOverlapBelow) {
                     // Create space between stem and ledger line below staff
@@ -2319,7 +2330,7 @@ void ChordLayout::calculateChordOffsets(Segment* segment, staff_idx_t staffIdx, 
                 if (isTab) {
                     offsetInfo.upOffset = hookWidth + posInfo.maxDownWidth;
                 }
-                offsetInfo.upOffset = std::max(offsetInfo.upOffset, posInfo.maxDownWidth + 0.1 * sp);
+                offsetInfo.upOffset = std::max(offsetInfo.upOffset, posInfo.maxDownWidth + reducedNoteheadGap * sp);
                 offsetInfo.dotAdjustThreshold = posInfo.maxUpWidth - 0.3 * sp;
             }
             // if downstem chord is small, don't center
@@ -2783,6 +2794,7 @@ void ChordLayout::layoutChords3(const std::vector<Chord*>& chords,
     std::array<double, 3 * VOICES> dotPos{};
 
     int nNotes = int(notes.size());
+    const bool dotBelowLineForLowerVoices = style.styleB(Sid::dotBelowLineForLowerVoices);
 
     for (int i = nNotes - 1; i >= 0; --i) {
         Note* note     = notes[i];
@@ -2834,7 +2846,7 @@ void ChordLayout::layoutChords3(const std::vector<Chord*>& chords,
             }
         }
         if (dotPosition == DirectionV::AUTO) {
-            dotPosition = note->voice() & 1 ? DirectionV::DOWN : DirectionV::UP;
+            dotPosition = dotBelowLineForLowerVoices && (note->voice() & 1) ? DirectionV::DOWN : DirectionV::UP;
         }
         note->setDotPosition(dotPosition);
     }
@@ -3408,7 +3420,7 @@ void ChordLayout::layoutNote2(Note* item, LayoutContext& ctx)
         if (chord->up() && hook && hook->visible()) {
             double hookRight = hook->width() + hook->x() + chord->pos().x();
             double hookBottom = hook->height() + hook->y() + chord->pos().y()
-                                + (0.25 * item->spatium());
+                                + (ctx.conf().styleS(Sid::dotFlagVerticalClearance).val() * item->spatium());
             // the top dot in the chord, not the dot for this particular note:
             double dotY = chord->notes().back()->y() + chord->notes().back()->dots().front()->pos().y();
             if (chord->dotPosX() < hookRight && dotY < hookBottom) {

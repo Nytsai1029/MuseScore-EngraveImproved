@@ -68,14 +68,18 @@ private:
         double reducedFlatToNotePadding() const { return m_reducedFlatToNotePadding; }
         double flatKerningOfFourth() const { return m_flatKerningOfFourth; }
         double naturalKerningOfFourth() const { return m_naturalKerningOfFourth; }
+        double offsetOctaveAlignMaxDistance() const { return m_offsetOctaveAlignMaxDistance; }
 
         bool orderFollowNoteDisplacement() const { return m_orderFollowNoteDisplacement; }
         bool alignOctavesAcrossSubChords() const { return m_alignOctavesAcrossSubChords; }
         bool keepSecondsTogether() const { return m_keepSecondsTogether; }
         bool alignOffsetOctaves() const { return m_alignOffsetOctaves; }
         bool flushToLedgerLine() const { return m_flushToLedgerLine; }
+        bool kernFourths() const { return m_kernFourths; }
+        bool naturalSixthsShareColumn() const { return m_naturalSixthsShareColumn; }
         size_t largeGroupLimit() const { return m_largeGroupLimit; }
         size_t smallGroupLimit() const { return m_smallGroupLimit; }
+        int stackSplitInterval() const { return m_stackSplitInterval; }
 
     private:
         void initConstants();
@@ -93,14 +97,18 @@ private:
         double m_reducedFlatToNotePadding = 0.0;
         double m_flatKerningOfFourth = 0.0;
         double m_naturalKerningOfFourth = 0.0;
+        double m_offsetOctaveAlignMaxDistance = 0.0;
         bool m_orderFollowNoteDisplacement = false;
         bool m_alignOctavesAcrossSubChords = false;
         bool m_keepSecondsTogether = false;
         bool m_alignOffsetOctaves = false;
         bool m_flushToLedgerLine = false;
+        bool m_kernFourths = true;
+        bool m_naturalSixthsShareColumn = true;
 
-        static constexpr size_t m_smallGroupLimit = 3;
-        static constexpr size_t m_largeGroupLimit = 6;
+        size_t m_smallGroupLimit = 3;
+        size_t m_largeGroupLimit = 6;
+        int m_stackSplitInterval = 6;
     };
 
     static void collectAccidentals(const std::vector<Chord*> chords, std::vector<Accidental*>& allAccidentals,
@@ -168,8 +176,10 @@ private:
 
     static double horizontalPadding(const Accidental* acc1, const Accidental* acc2, const AccidentalsLayoutContext& ctx);
 
-    static bool isExceptionOfFourth(const Accidental* acc1, const Accidental* acc2);
-    static bool isExceptionOfNaturalsSixth(const Accidental* acc1, const Accidental* acc2);
+    static bool isExceptionOfFourth(const Accidental* acc1, const Accidental* acc2,
+                                    const AccidentalsLayoutContext& ctx);
+    static bool isExceptionOfNaturalsSixth(const Accidental* acc1, const Accidental* acc2,
+                                           const AccidentalsLayoutContext& ctx);
     static bool isOctave(const Accidental* acc1, const Accidental* acc2);
 
     static void setXposRelativeToSegment(Accidental* accidental, double x);

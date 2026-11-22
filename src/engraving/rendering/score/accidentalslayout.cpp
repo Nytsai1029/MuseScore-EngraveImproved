@@ -53,27 +53,33 @@ AccidentalsLayout::AccidentalsLayoutContext::AccidentalsLayoutContext(std::vecto
 void AccidentalsLayout::AccidentalsLayoutContext::initConstants()
 {
     m_spatium = allAccidentals.front()->spatium();
+    const MStyle& style = allAccidentals.front()->style();
 
     // Hardcoded engraving parameters that don't have a style (some of these may get a style in future)
-    m_verticalAccidentalToAccidentalClearance = 0.15 * m_spatium;
-    m_verticalSharpToSharpClearance = 0.05 * m_spatium;
-    m_verticalAccidentalToChordClearance = 0.10 * m_spatium;
-    m_additionalPaddingForVerticals = 0.1 * m_spatium;
-    m_xPosSplitThreshold = 0.5 * m_spatium;
-    m_xVerticalAlignmentThreshold = 0.75 * m_spatium;
-    m_sharpAndNaturalLedgerLinePadding = 0.1 * m_spatium;
-    m_flushToLedgerLineInset = 0.05 * m_spatium;
-    m_reducedFlatToNotePadding = 0.15 * m_spatium;
-    m_flatKerningOfFourth = -0.15 * m_spatium;
-    m_naturalKerningOfFourth = -0.05 * m_spatium;
+    m_verticalAccidentalToAccidentalClearance = style.styleS(Sid::accidentalVerticalClearance).val() * m_spatium;
+    m_verticalSharpToSharpClearance = style.styleS(Sid::accidentalSharpVerticalClearance).val() * m_spatium;
+    m_verticalAccidentalToChordClearance = style.styleS(Sid::accidentalChordVerticalClearance).val() * m_spatium;
+    m_additionalPaddingForVerticals = style.styleS(Sid::accidentalNaturalExtraPadding).val() * m_spatium;
+    m_xPosSplitThreshold = style.styleS(Sid::accidentalDisplacementSplitThreshold).val() * m_spatium;
+    m_xVerticalAlignmentThreshold = style.styleS(Sid::accidentalColumnAlignThreshold).val() * m_spatium;
+    m_sharpAndNaturalLedgerLinePadding = style.styleS(Sid::accidentalLedgerLinePadding).val() * m_spatium;
+    m_flushToLedgerLineInset = style.styleS(Sid::accidentalFlushToLedgerLineInset).val() * m_spatium;
+    m_reducedFlatToNotePadding = style.styleS(Sid::accidentalFlatLowerNotePadding).val() * m_spatium;
+    m_flatKerningOfFourth = style.styleS(Sid::accidentalFlatKerningOfFourth).val() * m_spatium;
+    m_naturalKerningOfFourth = style.styleS(Sid::accidentalNaturalKerningOfFourth).val() * m_spatium;
+    m_offsetOctaveAlignMaxDistance = style.styleS(Sid::accidentalOffsetOctaveAlignMaxDistance).val() * m_spatium;
 
-    const MStyle& style = allAccidentals.front()->style();
     m_accidentalAccidentalDistance = style.styleMM(Sid::accidentalDistance);
     m_orderFollowNoteDisplacement = style.styleB(Sid::accidentalOrderFollowsNoteDisplacement);
     m_alignOctavesAcrossSubChords = style.styleB(Sid::alignAccidentalOctavesAcrossSubChords);
     m_keepSecondsTogether = style.styleB(Sid::keepAccidentalSecondsTogether);
     m_alignOffsetOctaves = style.styleB(Sid::alignOffsetOctaveAccidentals);
     m_flushToLedgerLine = style.styleB(Sid::accidentalFlushToLedgerLine);
+    m_kernFourths = style.styleB(Sid::accidentalKernFourths);
+    m_naturalSixthsShareColumn = style.styleB(Sid::accidentalNaturalSixthsShareColumn);
+    m_smallGroupLimit = static_cast<size_t>(std::max(style.styleI(Sid::accidentalSmallGroupLimit), 0));
+    m_largeGroupLimit = static_cast<size_t>(std::max(style.styleI(Sid::accidentalLargeGroupLimit), 0));
+    m_stackSplitInterval = style.styleI(Sid::accidentalStackSplitInterval);
 }
 
 void AccidentalsLayout::layoutAccidentals(const std::vector<Chord*>& chords, LayoutContext& ctx)
@@ -185,12 +191,12 @@ void AccidentalsLayout::splitIntoSubChords(AccidentalsLayoutContext& ctx)
     firstGroup.push_back(ctx.allAccidentals.front());
     ctx.accidentalSubChords.push_back(firstGroup);
 
-    static constexpr int LINE_DIFF_OF_SEVENTH = 6;
+    const int stackSplitInterval = ctx.stackSplitInterval();
 
     for (size_t i = 1; i < ctx.allAccidentals.size(); ++i) {
         Accidental* prevAcc = ctx.allAccidentals[i - 1];
         Accidental* curAcc = ctx.allAccidentals[i];
-        bool startNewGroup = curAcc->line() - prevAcc->line() >= LINE_DIFF_OF_SEVENTH;
+        bool startNewGroup = curAcc->line() - prevAcc->line() >= stackSplitInterval;
         if (startNewGroup) {
             ctx.accidentalSubChords.push_back(std::vector<Accidental*> { curAcc });
         } else {
@@ -863,7 +869,7 @@ double AccidentalsLayout::minAccidentalToAccidentalGroupDistance(Accidental* acc
         for (const ShapeElement& groupElement : accidentalsShape.elements()) {
             const Accidental* acc2 = toAccidental(groupElement.item());
 
-            if (isExceptionOfFourth(acc, acc2)) {
+            if (isExceptionOfFourth(acc, acc2, ctx)) {
                 double distFourth = kerningOfFourth(accShape, groupElement, ctx);
                 if (!muse::RealIsNull(distFourth) && distFourth > curDist) {
                     collisionFound = true;
@@ -881,7 +887,7 @@ double AccidentalsLayout::minAccidentalToAccidentalGroupDistance(Accidental* acc
                 continue;
             }
 
-            if (!isExceptionOfNaturalsSixth(acc, acc2)) {
+            if (!isExceptionOfNaturalsSixth(acc, acc2, ctx)) {
                 column = std::max(column, acc2->ldata()->column + 1);
             }
 
@@ -914,9 +920,14 @@ double AccidentalsLayout::minAccidentalToAccidentalGroupDistance(Accidental* acc
     return dist;
 }
 
-bool AccidentalsLayout::isExceptionOfFourth(const Accidental* acc1, const Accidental* acc2)
+bool AccidentalsLayout::isExceptionOfFourth(const Accidental* acc1, const Accidental* acc2,
+                                            const AccidentalsLayoutContext& ctx)
 {
     if (!acc1 || !acc2) {
+        return false;
+    }
+
+    if (!ctx.kernFourths()) {
         return false;
     }
 
@@ -933,16 +944,18 @@ bool AccidentalsLayout::isExceptionOfFourth(const Accidental* acc1, const Accide
            && acc1->line() - acc2->line() == 3;
 }
 
-bool AccidentalsLayout::isExceptionOfNaturalsSixth(const Accidental* acc1, const Accidental* acc2)
+bool AccidentalsLayout::isExceptionOfNaturalsSixth(const Accidental* acc1, const Accidental* acc2,
+                                                   const AccidentalsLayoutContext& ctx)
 {
-    return acc1->accidentalType() == AccidentalType::NATURAL
+    return ctx.naturalSixthsShareColumn()
+           && acc1->accidentalType() == AccidentalType::NATURAL
            && acc2->accidentalType() == AccidentalType::NATURAL
            && abs(acc2->line() - acc1->line()) == 5;
 }
 
 bool AccidentalsLayout::canFitInSameColumn(const Accidental* acc1, const Accidental* acc2, AccidentalsLayoutContext& ctx)
 {
-    if (isExceptionOfNaturalsSixth(acc1, acc2)) {
+    if (isExceptionOfNaturalsSixth(acc1, acc2, ctx)) {
         return true;
     }
 
@@ -1038,7 +1051,7 @@ void AccidentalsLayout::collectVerticalSetsOfOffsetOctaves
                     continue;
                 }
                 double x2 = xPosRelativeToSegment(acc2);
-                bool alignOctave = abs(x1 - x2) < 2.0 * ctx.spatium();
+                bool alignOctave = abs(x1 - x2) < ctx.offsetOctaveAlignMaxDistance();
                 acc2->ldata()->column.value();
                 if (alignOctave) {
                     std::vector<Accidental*>& verticalSet = verticalSets[acc1];

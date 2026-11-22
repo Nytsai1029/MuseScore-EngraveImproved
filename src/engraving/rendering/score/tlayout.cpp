@@ -570,6 +570,7 @@ void TLayout::layoutAccidental(const Accidental* item, Accidental::LayoutData* l
     // Multi
     else {
         double margin = conf.styleMM(Sid::bracketedAccidentalPadding);
+        const double braceYOffset = conf.styleS(Sid::bracketedAccidentalBraceYOffset).val();
         double x = 0.0;
 
         std::pair<SymId, SymId> bracketSyms;
@@ -581,7 +582,8 @@ void TLayout::layoutAccidental(const Accidental* item, Accidental::LayoutData* l
         // Left
         if (bracketSyms.first != SymId::noSym) {
             Accidental::LayoutData::Sym ls(bracketSyms.first, 0.0,
-                                           item->bracket() == AccidentalBracket::BRACE ? item->spatium() * 0.4 : 0.0);
+                                           item->bracket() == AccidentalBracket::BRACE
+                                           ? item->spatium() * braceYOffset : 0.0);
             ldata->syms.push_back(ls);
             shape.add(item->symBbox(bracketSyms.first), item);
 
@@ -599,7 +601,8 @@ void TLayout::layoutAccidental(const Accidental* item, Accidental::LayoutData* l
             x += item->symAdvance(mainSym) + margin;
 
             Accidental::LayoutData::Sym rs(bracketSyms.second, x,
-                                           item->bracket() == AccidentalBracket::BRACE ? item->spatium() * 0.4 : 0.0);
+                                           item->bracket() == AccidentalBracket::BRACE
+                                           ? item->spatium() * braceYOffset : 0.0);
             ldata->syms.push_back(rs);
             shape.add(item->symBbox(bracketSyms.second).translated(x, 0.0), item);
         }
@@ -698,7 +701,9 @@ void TLayout::layoutAmbitus(const Ambitus* item, Ambitus::LayoutData* ldata, con
             xAccidOffBottom = xAccidOffTop + ((bottomAccType == AccidentalType::FLAT
                                                || bottomAccType == AccidentalType::FLAT2
                                                || bottomAccType == AccidentalType::NATURAL)
-                                              ? bottomAccData->bbox().width() * 0.5 : bottomAccData->bbox().width());
+                                              ? bottomAccData->bbox().width()
+                                              * ctx.conf().styleD(Sid::ambitusAccidentalUndercutRatio)
+                                              : bottomAccData->bbox().width());
         }
 
         switch (item->direction()) {
@@ -738,7 +743,7 @@ void TLayout::layoutAmbitus(const Ambitus* item, Ambitus::LayoutData* ldata, con
         // shorten line on each side by offsets
         double yDelta = ldata->bottomPos.y() - ldata->topPos.y();
         if (!muse::RealIsNull(yDelta)) {
-            double off = spatium * Ambitus::LINEOFFSET_DEFAULT;
+            double off = spatium * ctx.conf().styleS(Sid::ambitusLineOffset).val();
             PointF p1 = fullLine.pointAt(off / yDelta);
             PointF p2 = fullLine.pointAt(1 - (off / yDelta));
             ldata->line = LineF(p1, p2);
@@ -3879,7 +3884,7 @@ static double keySigAccidentalDistance(const LayoutConfiguration& conf, SymId pr
 
     double accidentalGap = keySigAccidentalDistance(conf, sym);
     if (previousSym != sym) {
-        accidentalGap *= 2;
+        accidentalGap *= conf.styleD(Sid::keysigMixedAccidentalDistanceScale);
     }
     return accidentalGap;
 }
