@@ -2585,7 +2585,8 @@ void TWrite::write(const Pedal* item, XmlWriter& xml, WriteContext& ctx)
         Pid::BEGIN_HOOK_TYPE,
         Pid::BEGIN_TEXT_OFFSET,
         Pid::CONTINUE_TEXT_OFFSET,
-        Pid::END_TEXT_OFFSET
+        Pid::END_TEXT_OFFSET,
+        Pid::MASK_BARLINES
     }) {
         writeProperty(item, xml, i);
     }
