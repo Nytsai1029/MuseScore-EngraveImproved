@@ -42,6 +42,9 @@ void DispatcherApi::dispatch(const QString& action, const QVariantList& args)
         case QMetaType::Int:
             data.setArg<int>(index, arg.value<int>());
             break;
+        case QMetaType::QString:
+            data.setArg<QString>(index, arg.toString());
+            break;
         default: {
             LOGE() << "unknown type: " << arg.typeName();
             continue;
