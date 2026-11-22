@@ -1073,7 +1073,9 @@ void TDraw::draw(const Bracket* item, Painter* painter)
         double h = ldata->bracketHeight;
         double spatium = item->spatium();
         double w = item->style().styleMM(Sid::bracketWidth);
-        double bd = (item->style().styleSt(Sid::musicalSymbolFont) == "Leland") ? spatium * .5 : spatium * .25;
+        double bd = (item->style().styleSt(Sid::musicalSymbolFont) == "Leland")
+                    ? spatium * item->style().styleS(Sid::bracketOvershootLeland).val()
+                    : spatium * item->style().styleS(Sid::bracketOvershoot).val();
         Pen pen(item->curColor(), w, PenStyle::SolidLine, PenCapStyle::FlatCap);
         painter->setPen(pen);
         painter->drawLine(LineF(0.0, -bd - w * .5, 0.0, h + bd + w * .5));
@@ -1097,7 +1099,7 @@ void TDraw::draw(const Bracket* item, Painter* painter)
     break;
     case BracketType::LINE: {
         double h = ldata->bracketHeight;
-        double w = 0.67 * item->style().styleMM(Sid::bracketWidth);
+        double w = item->style().styleD(Sid::bracketLineWidthRatio) * item->style().styleMM(Sid::bracketWidth);
         Pen pen(item->curColor(), w, PenStyle::SolidLine, PenCapStyle::FlatCap);
         painter->setPen(pen);
         double bd = item->style().styleMM(Sid::staffLineWidth) * 0.5;

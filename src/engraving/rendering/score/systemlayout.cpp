@@ -2556,6 +2556,8 @@ void SystemLayout::layout2(System* system, LayoutContext& ctx)
         staffDistance       = ctx.conf().styleMM(Sid::minStaffSpread);
         akkoladeDistance    = ctx.conf().styleMM(Sid::minStaffSpread);
     }
+    const int oneLineSpanFrom = ctx.conf().styleI(Sid::barlineOneLineStaffSpanFrom);
+    const int oneLineSpanTo = ctx.conf().styleI(Sid::barlineOneLineStaffSpanTo);
 
     if (visibleStaves.empty()) {
         return;
@@ -2571,8 +2573,8 @@ void SystemLayout::layout2(System* system, LayoutContext& ctx)
         double yOffset;
         double h;
         if (staff->lines(Fraction(0, 1)) == 1) {
-            yOffset = _spatium * BARLINE_SPAN_1LINESTAFF_TO * 0.5;
-            h = _spatium * (BARLINE_SPAN_1LINESTAFF_TO - BARLINE_SPAN_1LINESTAFF_FROM) * 0.5;
+            yOffset = _spatium * oneLineSpanTo * 0.5;
+            h = _spatium * (oneLineSpanTo - oneLineSpanFrom) * 0.5;
         } else {
             yOffset = 0.0;
             h = staff->staffHeight();

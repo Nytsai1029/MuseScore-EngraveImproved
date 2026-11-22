@@ -99,7 +99,7 @@ void Bracket::setStaffSpan(size_t a, size_t b)
         }
 
         // 1.625 is a "magic" number based on akkoladeDistance/4.0 (default value 6.5).
-        m_magx = v + ((v - 1) * 1.625);
+        m_magx = v + ((v - 1) * style().styleD(Sid::braceWidthGapFactor));
 
         if (v == 1) {
             m_braceSymbol = SymId::braceSmall;

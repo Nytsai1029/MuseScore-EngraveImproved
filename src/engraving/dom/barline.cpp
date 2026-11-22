@@ -348,23 +348,25 @@ void BarLine::calcY()
     const StaffType* staffType1 = staff1->staffType(tick);
 
     bool oneLine = staffType1->lines() <= 1;
+    const int oneLineSpanFrom = style().styleI(Sid::barlineOneLineStaffSpanFrom);
+    const int oneLineSpanTo = style().styleI(Sid::barlineOneLineStaffSpanTo);
 
     int from = spanSource->spanFrom();
     int to = spanSource->spanTo();
     int toThisStaff = to;
 
     if (oneLine && spanSource->spanFrom() == 0 && spanSource->spanTo() == 0) {
-        from = BARLINE_SPAN_1LINESTAFF_FROM;
-        toThisStaff = BARLINE_SPAN_1LINESTAFF_TO;
+        from = oneLineSpanFrom;
+        toThisStaff = oneLineSpanTo;
         if (!spanStaff) {
-            to = BARLINE_SPAN_1LINESTAFF_TO;
+            to = oneLineSpanTo;
         }
     }
 
     if (spanStaff) {
         // spanTo belongs to the connector end on the next staff; this staff always ends at its bottom
         toThisStaff = (oneLine && spanSource->spanFrom() == 0 && spanSource->spanTo() == 0)
-                      ? BARLINE_SPAN_1LINESTAFF_TO : 0;
+                      ? oneLineSpanTo : 0;
     }
 
     double spatium1 = staffType1->spatium();
@@ -385,7 +387,7 @@ void BarLine::calcY()
 
         double y2Span = measure->staffLines(staffIdx2)->y1() - startStaffY - to * lineDistance2 * 0.5;
         if (staffType2->lines() <= 1) {
-            y2Span += BARLINE_SPAN_1LINESTAFF_FROM * lineDistance2 * 0.5;
+            y2Span += oneLineSpanFrom * lineDistance2 * 0.5;
         }
 
         if (isSpanConnector()) {
@@ -409,9 +411,9 @@ void BarLine::calcY()
                 to = spanSource->spanTo();
             }
             if (oneLineNext && spanSource->spanFrom() == 0 && spanSource->spanTo() == 0) {
-                from = BARLINE_SPAN_1LINESTAFF_FROM;
+                from = oneLineSpanFrom;
                 if (!spanStaff) {
-                    to = BARLINE_SPAN_1LINESTAFF_TO;
+                    to = oneLineSpanTo;
                 }
             }
             double spatium1Next = staffType1Next->spatium();

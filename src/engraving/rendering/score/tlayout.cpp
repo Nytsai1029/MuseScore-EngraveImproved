@@ -1179,8 +1179,8 @@ void TLayout::updateBarlineShape(const BarLine* item, BarLine::LayoutData* ldata
         int sFrom;
         int sTo;
         if (span == 0 && item->spanTo() == 0) {
-            sFrom = BARLINE_SPAN_1LINESTAFF_FROM;
-            sTo = item->spanStaff() ? 0 : BARLINE_SPAN_1LINESTAFF_TO;
+            sFrom = ctx.conf().styleI(Sid::barlineOneLineStaffSpanFrom);
+            sTo = item->spanStaff() ? 0 : ctx.conf().styleI(Sid::barlineOneLineStaffSpanTo);
         } else {
             sFrom = item->spanFrom();
             sTo = item->spanStaff() ? 0 : item->spanTo();
@@ -1778,7 +1778,9 @@ void TLayout::layoutBracket(const Bracket* item, Bracket::LayoutData* ldata, con
     break;
     case BracketType::NORMAL: {
         double w = conf.styleMM(Sid::bracketWidth) * .5;
-        double bd = item->spatium() * (conf.styleSt(Sid::musicalSymbolFont) == "Leland" ? .5 : .25);
+        double bd = item->spatium() * (conf.styleSt(Sid::musicalSymbolFont) == "Leland"
+                                       ? conf.styleS(Sid::bracketOvershootLeland).val()
+                                       : conf.styleS(Sid::bracketOvershoot).val());
 
         Shape shape = RectF(-w, -bd, w * 2, 2 * (ldata->bracketHeight * 0.5 + bd));
         shape.add(item->symBbox(SymId::bracketTop).translated(PointF(-w, -bd)));
@@ -1789,20 +1791,22 @@ void TLayout::layoutBracket(const Bracket* item, Bracket::LayoutData* ldata, con
     }
     break;
     case BracketType::SQUARE: {
+        const double hookLength = conf.styleS(Sid::bracketSquareHookLength).val();
         double w = conf.styleMM(Sid::staffLineWidth) * .5;
         double x = -w;
         double y = -w;
         double h = (ldata->bracketHeight * 0.5 + w) * 2;
-        w += (.5 * item->spatium() + 3 * w);
+        w += (hookLength * item->spatium() + 3 * w);
         ldata->setBbox(RectF(x, y, w, h));
         ldata->shape.add(ldata->bbox());
 
-        ldata->bracketWidth = conf.styleMM(Sid::staffLineWidth) / 2 + 0.5 * item->spatium();
+        ldata->bracketWidth = conf.styleMM(Sid::staffLineWidth) / 2 + hookLength * item->spatium();
     }
     break;
     case BracketType::LINE: {
+        const double widthRatio = conf.styleD(Sid::bracketLineWidthRatio);
         double _spatium = item->spatium();
-        double w = 0.67 * conf.styleMM(Sid::bracketWidth) * .5;
+        double w = widthRatio * conf.styleMM(Sid::bracketWidth) * .5;
         double x = -w;
         double bd = _spatium * .25;
         double y = -bd;
@@ -1810,7 +1814,7 @@ void TLayout::layoutBracket(const Bracket* item, Bracket::LayoutData* ldata, con
         ldata->setBbox(RectF(x, y, w, h));
         ldata->shape.add(ldata->bbox());
 
-        ldata->bracketWidth = 0.67 * conf.styleMM(Sid::bracketWidth) + conf.styleMM(Sid::bracketDistance);
+        ldata->bracketWidth = widthRatio * conf.styleMM(Sid::bracketWidth) + conf.styleMM(Sid::bracketDistance);
     }
     break;
     case BracketType::NO_BRACKET:

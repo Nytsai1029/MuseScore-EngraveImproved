@@ -38,6 +38,7 @@ class StemSlash;
 class Segment;
 class Measure;
 class System;
+struct KerningClearance;
 struct SegmentPins;
 enum class ElementType : unsigned char;
 enum class KerningType : unsigned char;
@@ -65,7 +66,8 @@ public:
 
     static double computePadding(const EngravingItem* item1, const EngravingItem* item2);
     static KerningType computeKerning(const EngravingItem* item1, const EngravingItem* item2);
-    static double computeVerticalClearance(const EngravingItem* item1, const EngravingItem* item2, double spatium);
+    static double computeVerticalClearance(const EngravingItem* item1, const EngravingItem* item2, double spatium,
+                                           const KerningClearance& clearance);
 
 private:
     struct HorizontalSpacingContext {

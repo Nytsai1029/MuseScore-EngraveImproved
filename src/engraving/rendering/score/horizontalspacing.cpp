@@ -422,9 +422,9 @@ double HorizontalSpacing::computeAdaptiveSpacingRatio(System* system, double tar
 
     // Empirical thresholds (notes per spatium); may need tuning on reference scores
     // (a line of whole notes is ~0.08, a line of sixteenths ~0.5).
-    static constexpr double DENSITY_SPARSE = 0.10;
-    static constexpr double DENSITY_DENSE = 0.40;
-    double t = (density - DENSITY_SPARSE) / (DENSITY_DENSE - DENSITY_SPARSE);
+    const double densitySparse = style.styleD(Sid::spacingRatioSparseThreshold);
+    const double densityDense = style.styleD(Sid::spacingRatioDenseThreshold);
+    double t = (density - densitySparse) / (densityDense - densitySparse);
     t = std::clamp(t, 0.0, 1.0);
 
     return rSparse + t * (rDense - rSparse);
@@ -937,6 +937,7 @@ double HorizontalSpacing::spaceLyricsAgainstBarlines(Segment* firstSeg, Segment*
     Segment* barlineSegment = crSegIsBefore ? secondSeg : firstSeg;
 
     staff_idx_t nstaves = crSegment->score()->nstaves();
+    const double paddingXHeightRatio = crSegment->style().styleD(Sid::lyricsAvoidBarlinesPadding);
 
     for (staff_idx_t staffIdx = 0; staffIdx < nstaves; ++staffIdx) {
         if (!ctx.system->staff(staffIdx)->show()) {
@@ -971,7 +972,7 @@ double HorizontalSpacing::spaceLyricsAgainstBarlines(Segment* firstSeg, Segment*
                 if ((lyricsStaffIdx == staffIdx && lyrics->placeBelow()) || (lyricsStaffIdx == nextStaff && lyrics->placeAbove())) {
                     Shape lyricsShape = lyrics->shape().translate(lyrics->pos());
                     double minDist = crSegIsBefore ? lyricsShape.right() + barlineShape.left() : lyricsShape.left() + barlineShape.right();
-                    const double padding = 0.3 * lyrics->fontMetrics().xHeight();
+                    const double padding = paddingXHeightRatio * lyrics->fontMetrics().xHeight();
                     minDist += padding;
                     w = std::max(w, minDist);
                 }
@@ -1125,8 +1126,8 @@ double HorizontalSpacing::chordRestSegmentNaturalWidth(Segment* segment, Horizon
     double segTotalStretch = durationStretch * userStretch;
     segment->setStretch(segTotalStretch);
 
-    static constexpr double DEFAULT_QUARTER_NOTE_SPACE = 3.5; // In units of spatium
-    double defaultQuarterNoteSpace = measure->spatium() * DEFAULT_QUARTER_NOTE_SPACE;
+    const double quarterNoteSpace = measure->style().styleS(Sid::spacingQuarterNoteSpace).val();
+    double defaultQuarterNoteSpace = measure->spatium() * quarterNoteSpace;
 
     double naturalWidth = defaultQuarterNoteSpace * segTotalStretch * ctx.stretchReduction / ctx.spacingDensity;
 
@@ -1364,7 +1365,6 @@ double HorizontalSpacing::computeSegmentDurationStretch(const Segment* curSeg, c
 double HorizontalSpacing::durationStretchForMMRests(const Segment* segment)
 {
     static constexpr Fraction QUARTER = Fraction(1, 4);
-    static constexpr int MIN_MMREST_COUNT  = 2;
 
     const MStyle& style = segment->style();
     const Measure* measure = segment->measure();
@@ -1375,7 +1375,7 @@ double HorizontalSpacing::durationStretchForMMRests(const Segment* segment)
 
     Fraction baseDuration = constantWidth ? style.styleI(Sid::mmRestReferenceWidth) * QUARTER : timeSig;
     Fraction durationIncrement = constantWidth ? QUARTER : Fraction(1, timeSig.denominator());
-    int incrementCount = std::max(measure->mmRestCount() - MIN_MMREST_COUNT, 0);
+    int incrementCount = std::max(measure->mmRestCount() - style.styleI(Sid::mmRestBaseWidthMeasures), 0);
     incrementCount = std::min(incrementCount, mmRestWidthIncrementCap);
 
     Fraction resultDuration = baseDuration + incrementCount * durationIncrement;
@@ -1798,10 +1798,25 @@ double HorizontalSpacing::getFirstSegmentXPos(Segment* segment, HorizontalSpacin
     return x * ctx.squeezeFactor;
 }
 
+//! The padding table of the score that the items of a shape belong to
+static const PaddingTable* paddingTableOfShape(const Shape& shape)
+{
+    for (const ShapeElement& element : shape.elements()) {
+        if (const EngravingItem* item = element.item()) {
+            return &item->score()->paddingTable();
+        }
+    }
+    return nullptr;
+}
+
 double HorizontalSpacing::minHorizontalDistance(const Shape& f, const Shape& s, double spatium, double squeezeFactor)
 {
     double dist = -DBL_MAX;        // min real
-    double absoluteMinPadding = 0.1 * spatium * squeezeFactor;
+    // The least padding and the kerning clearances only count between two items, one of each shape
+    const PaddingTable* paddingTable = paddingTableOfShape(f);
+    const double absoluteMinPaddingSp = paddingTable ? paddingTable->absoluteMinPadding() : 0.0;
+    const KerningClearance clearance = paddingTable ? paddingTable->kerningClearance() : KerningClearance();
+    double absoluteMinPadding = absoluteMinPaddingSp * spatium * squeezeFactor;
     for (const ShapeElement& r2 : s.elements()) {
         if (r2.isNull()) {
             continue;
@@ -1826,7 +1841,7 @@ double HorizontalSpacing::minHorizontalDistance(const Shape& f, const Shape& s, 
 
             double ay1 = r1.top();
             double ay2 = r1.bottom();
-            double verticalClearance = computeVerticalClearance(item1, item2, spatium) * squeezeFactor;
+            double verticalClearance = computeVerticalClearance(item1, item2, spatium, clearance) * squeezeFactor;
             bool intersection = mu::engraving::intersects(ay1, ay2, by1, by2, verticalClearance);
             double padding = 0;
             KerningType kerningType = KerningType::NON_KERNING;
@@ -1939,7 +1954,8 @@ double HorizontalSpacing::minHorizontalDistance(const Segment* f, const Segment*
     double w = std::max(ww, 0.0);        // non-negative
 
     // Header exceptions that need additional space (more than the padding)
-    double absoluteMinHeaderDist = 1.5 * f->spatium() * squeezeFactor;
+    const double minClearDistance = f->style().styleS(Sid::systemHeaderMinClearDistance).val();
+    double absoluteMinHeaderDist = minClearDistance * f->spatium() * squeezeFactor;
     if (systemHeaderGap) {
         if (f->isTimeSigType()) {
             double timeSigHeaderDist = squeezeFactor * f->style().styleMM(Sid::systemHeaderTimeSigDistance);
@@ -2101,8 +2117,7 @@ void HorizontalSpacing::computeNotePadding(const Note* note, const EngravingItem
     }
 
     if (!note->fretString().empty() && item2->isNote()) { // This is a TAB fret mark
-        static constexpr double tabFretPaddingIncrease = 1.5; // TODO: style?
-        padding *= tabFretPaddingIncrease;
+        padding *= style.styleD(Sid::tabFretPaddingScale);
     }
 
     if (!item2->isNote()) {
@@ -2115,6 +2130,7 @@ void HorizontalSpacing::computeNotePadding(const Note* note, const EngravingItem
     }
 
     // Allocate space for minTieLength, minGlissandoLength & minBendLength
+    const double minGuitarBendLength = style.styleS(Sid::minGuitarBendLength).val();
     for (LineAttachPoint laPoint1 : note->lineAttachPoints()) {
         if (!laPoint1.line()->addToSkyline()) {
             continue;
@@ -2134,7 +2150,7 @@ void HorizontalSpacing::computeNotePadding(const Note* note, const EngravingItem
                                             : style.styleMM(Sid::minWigglyGlissandoLength);
                 minEndPointsDistance = minGlissandoLength;
             } else if (laPoint1.line()->isGuitarBend()) {
-                double minBendLength = 2 * note->spatium(); // TODO: style
+                double minBendLength = minGuitarBendLength * note->spatium();
                 minEndPointsDistance = minBendLength;
             } else if (laPoint1.line()->isNoteLine()) {
                 minEndPointsDistance = style.styleMM(Sid::minStraightGlissandoLength);
@@ -2218,16 +2234,17 @@ KerningType HorizontalSpacing::computeKerning(const EngravingItem* item1, const 
     return doComputeKerningType(item1, item2);
 }
 
-double HorizontalSpacing::computeVerticalClearance(const EngravingItem* item1, const EngravingItem* item2, double spatium)
+double HorizontalSpacing::computeVerticalClearance(const EngravingItem* item1, const EngravingItem* item2,
+                                                   double spatium, const KerningClearance& clearance)
 {
     // To be possibly expanded to more cases
     if (item2 && item2->isAccidental()) {
-        return 0.1 * spatium;
+        return clearance.accidental * spatium;
     } else if ((item1 && item1->isParenthesis()) || (item2 && item2->isParenthesis())) {
-        return 0.1 * spatium;
+        return clearance.parenthesis * spatium;
     }
 
-    return 0.2 * spatium;
+    return clearance.standard * spatium;
 }
 
 bool HorizontalSpacing::isSameVoiceKerningLimited(const EngravingItem* item)

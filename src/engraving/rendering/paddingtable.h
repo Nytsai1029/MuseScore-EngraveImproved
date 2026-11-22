@@ -40,13 +40,28 @@ struct PaddingVector : std::array<T, TOT_ELEMENT_TYPES>
     const T& at(ElementType et) const { return std::array<T, TOT_ELEMENT_TYPES>::at(static_cast<size_t>(et)); }
 };
 
+//! How far apart two items have to be vertically for one to be kerned over or under the other, in staff spaces
+struct KerningClearance
+{
+    double standard = 0.0;
+    double accidental = 0.0;
+    double parenthesis = 0.0;
+};
+
 struct PaddingTable : public PaddingVector<PaddingVector<double> >
 {
 public:
     void createTable(const MStyle& style);
 
+    //! The least padding between two items, whatever the padding of the pair is, in staff spaces
+    double absoluteMinPadding() const { return m_absoluteMinPadding; }
+    const KerningClearance& kerningClearance() const { return m_kerningClearance; }
+
 private:
     void initPaddingTable(double minPadUnit);
+
+    double m_absoluteMinPadding = 0.0;
+    KerningClearance m_kerningClearance;
 };
 
 struct ParenPaddingTable
