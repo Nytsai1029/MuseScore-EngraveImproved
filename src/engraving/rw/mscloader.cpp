@@ -21,6 +21,7 @@
  */
 #include "mscloader.h"
 
+#include <algorithm>
 #include <memory>
 
 #include "global/io/buffer.h"
@@ -50,10 +51,12 @@ using namespace muse::io;
 using namespace mu::engraving;
 using namespace mu::engraving::rw;
 
-static RetVal<IReaderPtr> makeReader(int version, bool ignoreVersionError)
+//! forkFormatVersion: see Constants::FORK_FORMAT_VERSION. A file of a later format of the fork is too new
+//! like a file of a later MuseScore Studio is.
+static RetVal<IReaderPtr> makeReader(int version, int forkFormatVersion, bool ignoreVersionError)
 {
     if (!ignoreVersionError) {
-        if (version > Constants::MSC_VERSION) {
+        if (version > Constants::MSC_VERSION || forkFormatVersion > Constants::FORK_FORMAT_VERSION) {
             return RetVal<IReaderPtr>(make_ret(Err::FileTooNew));
         }
 
@@ -180,7 +183,8 @@ Ret MscLoader::loadMscz(MasterScore* masterScore, const MscReader& mscReader, Se
             ReadInOutData partReadInData;
             partReadInData.links = inOut->links;
 
-            RetVal<IReaderPtr> reader = makeReader(masterScore->mscVersion(), ignoreVersionError);
+            RetVal<IReaderPtr> reader = makeReader(masterScore->mscVersion(), masterScore->forkFormatVersion(),
+                                                   ignoreVersionError);
             if (!reader.ret) {
                 ret = reader.ret;
                 break;
@@ -234,8 +238,9 @@ Ret MscLoader::readMasterScore(MasterScore* score, XmlReader& e, bool ignoreVers
             const String version = e.attribute("version");
             const StringList sl = version.split(u'.');
             score->setMscVersion(sl[0].toInt() * 100 + sl[1].toInt());
+            score->setForkFormatVersion(std::max(0, e.intAttribute(Constants::FORK_FORMAT_VERSION_ATTRIBUTE, 0)));
 
-            RetVal<IReaderPtr> reader = makeReader(score->mscVersion(), ignoreVersionError);
+            RetVal<IReaderPtr> reader = makeReader(score->mscVersion(), score->forkFormatVersion(), ignoreVersionError);
             if (!reader.ret) {
                 return reader.ret;
             }

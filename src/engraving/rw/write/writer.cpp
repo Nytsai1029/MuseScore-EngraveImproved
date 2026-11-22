@@ -56,7 +56,15 @@ bool Writer::writeScore(Score* score, io::IODevice* device, rw::WriteInOutData* 
 
     xml.startDocument();
 
-    xml.startElement("museScore", { { "version", Constants::MSC_VERSION_STR } });
+    // The fork's own version stays out of what official MuseScore Studio gets, and out of test mode,
+    // where reference files are compared byte for byte
+    const bool writeForkFormatVersion = !MScore::testMode && !score->officialCompat();
+
+    XmlWriter::Attributes rootAttributes = { { "version", Constants::MSC_VERSION_STR } };
+    if (writeForkFormatVersion) {
+        rootAttributes.push_back({ Constants::FORK_FORMAT_VERSION_ATTRIBUTE, Constants::FORK_FORMAT_VERSION });
+    }
+    xml.startElement("museScore", rootAttributes);
 
     if (!MScore::testMode) {
         xml.tag("programVersion", application()->version().toString());
@@ -73,6 +81,9 @@ bool Writer::writeScore(Score* score, io::IODevice* device, rw::WriteInOutData* 
         score->m_mscoreVersion = application()->version().toString();
         score->m_mscoreRevision = application()->revision().toInt(nullptr, 16);
         score->m_mscVersion = Constants::MSC_VERSION;
+        if (writeForkFormatVersion && score->isMaster()) {
+            score->masterScore()->setForkFormatVersion(Constants::FORK_FORMAT_VERSION);
+        }
     }
 
     if (inout) {

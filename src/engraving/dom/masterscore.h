@@ -114,6 +114,11 @@ public:
     //! official file format does not have. Never saved. See OfficialLayoutBaker.
     bool officialCompat() const { return m_officialCompat; }
     void setOfficialCompat(bool v) { m_officialCompat = v; }
+    //! The format version of the fork that wrote the file this score was read from, see
+    //! Constants::FORK_FORMAT_VERSION. 0: the file has no marker (an official file, a file of the fork
+    //! older than the marker), or the score did not come from a file.
+    int forkFormatVersion() const { return m_forkFormatVersion; }
+    void setForkFormatVersion(int v) { m_forkFormatVersion = v; }
     //! Of the score being laid out, master or part. Not owned.
     const SegmentPins* segmentPins() const { return m_segmentPins; }
     void setSegmentPins(const SegmentPins* pins) { m_segmentPins = pins; }
@@ -251,6 +256,7 @@ private:
 
     bool m_readOnly = false;
     bool m_officialCompat = false;
+    int m_forkFormatVersion = 0;
     const SegmentPins* m_segmentPins = nullptr;
 
     CmdState m_cmdState;       // modified during cmd processing

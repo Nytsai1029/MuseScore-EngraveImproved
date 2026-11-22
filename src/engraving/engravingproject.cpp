@@ -97,6 +97,11 @@ int EngravingProject::mscVersion() const
     return m_masterScore->mscVersion();
 }
 
+int EngravingProject::forkFormatVersion() const
+{
+    return m_masterScore->forkFormatVersion();
+}
+
 bool EngravingProject::readOnly() const
 {
     return m_masterScore->readOnly();

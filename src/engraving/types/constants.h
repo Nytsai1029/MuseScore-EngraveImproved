@@ -102,6 +102,17 @@ struct Constants
 //    4.60 (Version 4.6)
 //       - New link system which uses EIDs
 
+    //! The format version of this fork (MuseScore Engrave Improved). It is written as the attribute
+    //! `engraveImprovedVersion` of the root element, next to `version`, which stays upstream's: official
+    //! MuseScore Studio and builds of the fork older than the marker ignore the attribute.
+    //! In a file that was read, 0 stands for no marker: an official file, or one of the fork older than it.
+    //! Raise it whenever an earlier build of the fork would no longer read correctly what this one writes.
+    static constexpr int FORK_FORMAT_VERSION = 1;
+    static constexpr const char* FORK_FORMAT_VERSION_ATTRIBUTE = "engraveImprovedVersion";
+
+// History of the fork's format:
+//    1  - The marker itself. Everything the fork added to the file before it has no version.
+
     constexpr static int DIVISION = 480;
     constexpr static BeatsPerSecond DEFAULT_TEMPO = 2.0; //default tempo is equal 120 bpm
 };

@@ -67,6 +67,8 @@ public:
 
     String appVersion() const;
     int mscVersion() const;
+    //! See MasterScore::forkFormatVersion
+    int forkFormatVersion() const;
 
     bool readOnly() const;
 

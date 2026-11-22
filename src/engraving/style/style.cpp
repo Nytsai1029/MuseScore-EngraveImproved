@@ -703,7 +703,12 @@ bool MStyle::write(IODevice* device, bool officialFormat)
 {
     XmlWriter xml(device);
     xml.startDocument();
-    xml.startElement("museScore", { { "version", Constants::MSC_VERSION_STR } });
+    // As in Writer::writeScore
+    XmlWriter::Attributes rootAttributes = { { "version", Constants::MSC_VERSION_STR } };
+    if (!officialFormat && !MScore::testMode) {
+        rootAttributes.push_back({ Constants::FORK_FORMAT_VERSION_ATTRIBUTE, Constants::FORK_FORMAT_VERSION });
+    }
+    xml.startElement("museScore", rootAttributes);
     save(xml, false, officialFormat);
     xml.endElement();
     return true;

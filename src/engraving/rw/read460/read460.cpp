@@ -21,6 +21,8 @@
  */
 #include "read460.h"
 
+#include <algorithm>
+
 #include "../types/types.h"
 
 #include "dom/anchors.h"
@@ -95,7 +97,11 @@ muse::Ret Read460::readScore(Score* score, XmlReader& e, rw::ReadInOutData* data
                 return make_ret(Err::FileBadFormat, e.errorString());
             }
         } else if (tag == "museScore") {
-            // pass
+            // The root element, when the caller did not read it (MscLoader::readMasterScore does for a master)
+            if (score->isMaster()) {
+                const int forkFormatVersion = e.intAttribute(Constants::FORK_FORMAT_VERSION_ATTRIBUTE, 0);
+                score->masterScore()->setForkFormatVersion(std::max(0, forkFormatVersion));
+            }
         } else {
             e.skipCurrentElement();
         }
