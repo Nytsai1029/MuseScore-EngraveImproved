@@ -946,7 +946,8 @@ PointF SLine::linePos(Grip grip, System** system) const
             }
         }
         *system = segment->measure()->system();
-        double x = segment->x() + segment->measure()->x() - (start ? 0.0 : spatium());
+        double x = segment->x() + segment->measure()->x()
+                   - (start ? 0.0 : style().styleS(Sid::lineEndInset).val() * spatium());
         return PointF(x, 0.0);
     }
     case Spanner::Anchor::MEASURE:

@@ -81,7 +81,9 @@ double Expression::computeDynamicExpressionDistance(const Dynamic* snappedDyn) c
     // There's no other way to do this because the dynamic is a different font.
     String dynamicTextString = snappedDyn->xmlText();
     String f = String::fromStdString("<sym>dynamicForte</sym>");
-    double distance = (dynamicTextString.endsWith(f) ? 0.2 : 0.5) * spatium();
+    double distance = (dynamicTextString.endsWith(f)
+                       ? style().styleS(Sid::expressionDynamicForteDistance).val()
+                       : style().styleS(Sid::expressionDynamicDistance).val()) * spatium();
     distance *= 0.5 * (snappedDyn->dynamicsSize() + (size() / 10));
     return distance;
 }

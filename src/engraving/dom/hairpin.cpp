@@ -841,7 +841,7 @@ PointF Hairpin::linePos(Grip grip, System** system) const
     *system = segment->measure()->system();
     double x = segment->x() + segment->measure()->x();
     if (!start) {
-        x -= spatium();
+        x -= style().styleS(Sid::hairpinEndInset).val() * spatium();
     }
 
     return PointF(x, 0.0);

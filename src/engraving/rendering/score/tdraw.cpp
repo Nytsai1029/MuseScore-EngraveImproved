@@ -1484,7 +1484,6 @@ void TDraw::draw(const FretDiagram* item, Painter* painter)
 static void setDashAndGapLen(const SLine* line, double& dash, double& gap, Pen& pen)
 {
     static constexpr double DOTTED_DASH_LEN = 0.01;
-    static constexpr double DOTTED_GAP_LEN = 1.99;
     switch (line->lineStyle()) {
     case LineType::SOLID:
         break;
@@ -1492,7 +1491,7 @@ static void setDashAndGapLen(const SLine* line, double& dash, double& gap, Pen& 
         dash = line->dashLineLen(), gap = line->dashGapLen();
         break;
     case LineType::DOTTED:
-        dash = DOTTED_DASH_LEN, gap = DOTTED_GAP_LEN;
+        dash = DOTTED_DASH_LEN, gap = line->style().styleD(Sid::lineDottedGapLen);
         pen.setCapStyle(PenCapStyle::RoundCap); // round dots
         break;
     }
@@ -1569,7 +1568,9 @@ void TDraw::draw(const GlissandoSegment* item, Painter* painter)
         if (r.width() < l) {
             double yOffset = r.height() + r.y();             // find text descender height
             // raise text slightly above line and slightly more with WAVY than with STRAIGHT
-            yOffset += _spatium * (glissando->glissandoType() == GlissandoType::WAVY ? 0.4 : 0.1);
+            yOffset += _spatium * (glissando->glissandoType() == GlissandoType::WAVY
+                                   ? item->style().styleS(Sid::glissandoTextDistanceWavy).val()
+                                   : item->style().styleS(Sid::glissandoTextDistance).val());
 
             Font scaledFont(f);
             scaledFont.setPointSizeF(f.pointSizeF() * MScore::pixelRatio);

@@ -3350,10 +3350,11 @@ void TLayout::layoutHairpinSegment(HairpinSegment* item, LayoutContext& ctx)
         item->hairpin()->setBeginTextAlign({ AlignH::LEFT, AlignV::VCENTER });
         item->hairpin()->setEndTextAlign({ AlignH::RIGHT, AlignV::VCENTER });
 
+        const double textDistance = ctx.conf().styleS(Sid::hairpinTextDistance).val();
         double x1 = 0.0;
         layoutTextLineBaseSegment(item, ctx);
         if (!item->text()->empty()) {
-            x1 = item->text()->width() + _spatium * .5;
+            x1 = item->text()->width() + _spatium * textDistance;
         }
 
         Transform t;
@@ -3362,10 +3363,11 @@ void TLayout::layoutHairpinSegment(HairpinSegment* item, LayoutContext& ctx)
 
         double x = item->pos2().x();
         if (!item->endText()->empty()) {
-            x -= (item->endText()->width() + _spatium * .5);             // 0.5 spatium distance
+            x -= (item->endText()->width() + _spatium * textDistance);
         }
-        if (x < _spatium) {               // minimum size of hairpin
-            x = _spatium;
+        const double minLength = ctx.conf().styleS(Sid::hairpinMinLength).val() * _spatium;
+        if (x < minLength) {               // minimum size of hairpin
+            x = minLength;
         }
         double y = item->pos2().y();
         double len = sqrt(x * x + y * y);
@@ -3383,7 +3385,8 @@ void TLayout::layoutHairpinSegment(HairpinSegment* item, LayoutContext& ctx)
         }
 
         item->setDrawCircledTip(item->hairpin()->hairpinCircledTip());
-        item->setCircledTipRadius(item->drawCircledTip() ? 0.6 * _spatium * .5 : 0.0);
+        const double circledTipDiameter = ctx.conf().styleS(Sid::hairpinCircledTipDiameter).val();
+        item->setCircledTipRadius(item->drawCircledTip() ? circledTipDiameter * _spatium * .5 : 0.0);
         const double tipRadius = item->circledTipRadius() * tipScale;
 
         LineF l1, l2;
@@ -3565,7 +3568,8 @@ void TLayout::manageHairpinSnapping(HairpinSegment* item, LayoutContext& ctx)
         double itemLeftEdge = xItemPos + possibleSnapAfterElement->ldata()->bbox().left();
         double xMaxHairpinEnd = itemLeftEdge - hairpinDistToDynOrExpr;
         double xEndDiff = xMaxHairpinEnd - (item->pos().x() + item->pos2().x());
-        const double EXTEND_THRESHOLD = 3.0 * item->spatium();
+        const double EXTEND_THRESHOLD = ctx.conf().style().styleS(Sid::hairpinSnapExtendThreshold).val()
+                                        * item->spatium();
         if (xEndDiff < 0) {
             item->rxpos2() += xEndDiff;
         } else if (item->hairpin()->snapToItemAfter() && xEndDiff > EXTEND_THRESHOLD) {
@@ -5403,15 +5407,17 @@ void TLayout::layoutNoteAnchoredLine(SLine* item, EngravingItem::LayoutData* lda
     // on TAB's, glissando are by necessity on the same string, this gives an horizontal glissando line;
     // make bottom end point lower and top ending point higher
     if (startChord->staff()->isTabStaff(startChord->tick())) {
-        double yOff = startChord->staff()->lineDistance(startChord->tick()) * 0.4 * _spatium;
+        double yOff = startChord->staff()->lineDistance(startChord->tick())
+                      * ctx.conf().styleD(Sid::noteAnchoredLineTabSlant) * _spatium;
         startOffset.ry() += yOff * upDown;
         endOffset.ry() -= yOff * upDown;
     }
     // if not TAB, angle glissando between notes on the same line
     else {
         if (startAnchor->line() == endAnchor->line()) {
-            startOffset.ry() += _spatium * 0.25 * upDown;
-            endOffset.ry() -= _spatium * 0.25 * upDown;
+            const double sameLineSlant = ctx.conf().styleS(Sid::noteAnchoredLineSameLineSlant).val();
+            startOffset.ry() += _spatium * sameLineSlant * upDown;
+            endOffset.ry() -= _spatium * sameLineSlant * upDown;
         }
     }
 
@@ -5480,7 +5486,8 @@ void TLayout::layoutNoteAnchoredLine(SLine* item, EngravingItem::LayoutData* lda
         endOffset.rx() -= endAnchor->pos().x() - endChord->shape().leftMostEdgeAtHeight(endYAbove, endYBelow);
     }
     // Add note distance
-    const double lineNoteDist = 0.25 * item->spatium(); // TODO: style
+    const double lineNoteDist = ctx.conf().styleS(Sid::noteAnchoredLineNoteDistance).val()
+                                * item->spatium(); // TODO: style
     startOffset.rx() += lineNoteDist;
     endOffset.rx() -= lineNoteDist;
 
@@ -6727,14 +6734,15 @@ void TLayout::layoutTextLineBaseSegment(TextLineBaseSegment* item, LayoutContext
 
         double beginHookWidth = 0.0;
         double endHookWidth = 0.0;
+        const double angledHookWidthRatio = ctx.conf().styleD(Sid::lineAngledHookWidthRatio);
 
         if (tl->beginHookType() == HookType::HOOK_45) {
-            beginHookWidth = std::fabs(beginHookHeight * .4);
+            beginHookWidth = std::fabs(beginHookHeight * angledHookWidthRatio);
             pp1.rx() += beginHookWidth;
         }
 
         if (tl->endHookType() == HookType::HOOK_45) {
-            endHookWidth = std::fabs(endHookHeight * .4);
+            endHookWidth = std::fabs(endHookHeight * angledHookWidthRatio);
             pp2.rx() -= endHookWidth;
         }
 
@@ -7092,7 +7100,7 @@ void TLayout::layoutTrillSegment(TrillSegment* item, LayoutContext& ctx)
         }
         Accidental* a = trill->accidental();
         if (a) {
-            double vertMargin = 0.35 * item->spatium();
+            double vertMargin = ctx.conf().styleS(Sid::trillAccidentalMargin).val() * item->spatium();
             RectF box = item->symBbox(item->symbols().front());
             double x = 0;
             double y = 0;

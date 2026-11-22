@@ -318,7 +318,8 @@ PointF Trill::trillLinePos(const SLine* line, Grip grip, System** system)
     double offset = std::max(graceOffset, clefOffset);
 
     *system = segment->measure()->system();
-    double x = segment->x() + segment->measure()->x() - line->spatium() - offset;
+    double x = segment->x() + segment->measure()->x()
+               - line->style().styleS(Sid::trillLineEndInset).val() * line->spatium() - offset;
     return PointF(x, 0.0);
 }
 

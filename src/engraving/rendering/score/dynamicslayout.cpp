@@ -147,7 +147,8 @@ void DynamicsLayout::layoutDynamicToEndOfPrevious(const Dynamic* item, TextBase:
     }
 
     double xDiff = curSegment->x() + curSegment->measure()->x() - (leftMostSegment->x() + leftMostSegment->measure()->x());
-    ldata->setPosX(-xDiff - ldata->bbox().right() - 0.50 * item->spatium());
+    ldata->setPosX(-xDiff - ldata->bbox().right()
+                   - item->style().styleS(Sid::dynamicsEndOfPreviousDistance).val() * item->spatium());
 }
 
 void DynamicsLayout::manageBarlineCollisions(const Dynamic* item, TextBase::LayoutData* ldata)
@@ -192,7 +193,7 @@ void DynamicsLayout::manageBarlineCollisions(const Dynamic* item, TextBase::Layo
         return; // Barline doesn't extend through staves
     }
 
-    const double minBarLineDistance = 0.25 * item->spatium();
+    const double minBarLineDistance = item->style().styleS(Sid::dynamicsMinBarlineDistance).val() * item->spatium();
 
     RectF referenceBBox = ldata->bbox();
 

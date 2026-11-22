@@ -223,7 +223,7 @@ PointF Pedal::linePos(Grip grip, System** sys) const
         *sys = startSeg->measure()->system();
         double x = startSeg->x() + startSeg->measure()->x();
         if (beginText() == "<sym>keyboardPedalPed</sym>") {
-            x -= 0.5 * spatium();
+            x -= style().styleS(Sid::pedalSymbolLeftShift).val() * spatium();
         } else if (beginHookType() == HookType::HOOK_90 || beginHookType() == HookType::HOOK_90T) {
             x += 0.5 * absoluteFromSpatium(lineWidth());
         } else if (beginHookType() == HookType::HOOK_45) {
@@ -268,7 +268,9 @@ PointF Pedal::linePos(Grip grip, System** sys) const
     *sys = endSeg->measure()->system();
     double x = endSeg->x() + endSeg->measure()->x();
 
-    x -= (endSeg->isChordRestType() && nextPedal ? 1.25 : 0.75) * spatium();
+    x -= (endSeg->isChordRestType() && nextPedal
+          ? style().styleS(Sid::pedalEndInsetBeforeNextPedal).val()
+          : style().styleS(Sid::pedalEndInset).val()) * spatium();
 
     return PointF(x, 0.0);
 }

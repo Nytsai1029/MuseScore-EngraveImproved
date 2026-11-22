@@ -713,13 +713,14 @@ void TupletLayout::layoutBracket(Tuplet* item, const ChordRest* cr1, const Chord
     if (item->hasBracket()) {
         double slope = (item->p2().y() - item->p1().y()) / (item->p2().x() - item->p1().x());
         item->setBracketSlope(slope);    // capture the drawn slope for the gradient readout
-        const double numberGap = 0.35 * spatium;
+        const double numberGap = style.styleS(Sid::tupletBracketNumberGap).val() * spatium;
+        const double minArmRatio = style.styleD(Sid::tupletBracketMinArmLengthRatio);
 
         if (item->isUp()) {
             if (item->number()) {
                 //set width of bracket hole
                 double x     = xNumber - numberWidth * .5 - numberGap;
-                item->p1().rx() = std::min(item->p1().x(), x - 0.5 * l1); // ensure enough space for the number
+                item->p1().rx() = std::min(item->p1().x(), x - minArmRatio * l1); // ensure enough space for the number
                 double y     = item->p1().y() + (x - item->p1().x()) * slope;
                 item->bracketL[0] = PointF(item->p1().x(), item->p1().y());
                 item->bracketL[1] = PointF(item->p1().x(), item->p1().y() - l1);
@@ -727,7 +728,7 @@ void TupletLayout::layoutBracket(Tuplet* item, const ChordRest* cr1, const Chord
 
                 //set width of bracket hole
                 x           = xNumber + numberWidth * .5 + numberGap;
-                item->p2().rx() = std::max(item->p2().x(), x + 0.5 * l1); // ensure enough space for the number
+                item->p2().rx() = std::max(item->p2().x(), x + minArmRatio * l1); // ensure enough space for the number
                 y           = item->p1().y() + (x - item->p1().x()) * slope;
                 item->bracketR[0] = PointF(x,   y - l1);
                 item->bracketR[1] = PointF(item->p2().x(), item->p2().y() - l1);
@@ -742,7 +743,7 @@ void TupletLayout::layoutBracket(Tuplet* item, const ChordRest* cr1, const Chord
             if (item->number()) {
                 //set width of bracket hole
                 double x     = xNumber - numberWidth * .5 - numberGap;
-                item->p1().rx() = std::min(item->p1().x(), x - 0.5 * l1); // ensure enough space for the number
+                item->p1().rx() = std::min(item->p1().x(), x - minArmRatio * l1); // ensure enough space for the number
                 double y     = item->p1().y() + (x - item->p1().x()) * slope;
                 item->bracketL[0] = PointF(item->p1().x(), item->p1().y());
                 item->bracketL[1] = PointF(item->p1().x(), item->p1().y() + l1);
@@ -750,7 +751,7 @@ void TupletLayout::layoutBracket(Tuplet* item, const ChordRest* cr1, const Chord
 
                 //set width of bracket hole
                 x           = xNumber + numberWidth * .5 + numberGap;
-                item->p2().rx() = std::max(item->p2().x(), x + 0.5 * l1);
+                item->p2().rx() = std::max(item->p2().x(), x + minArmRatio * l1);
                 y           = item->p1().y() + (x - item->p1().x()) * slope;
                 item->bracketR[0] = PointF(x,   y + l1);
                 item->bracketR[1] = PointF(item->p2().x(), item->p2().y() + l1);
@@ -837,7 +838,8 @@ double TupletLayout::computeRhythmicCenter(Tuplet* item, const ChordRest* endCho
             xRef = 0.5 * chord->upNote()->headWidth();
             if (chordUp == tupletPlaceAbove) {
                 // Stem-side correction
-                xRef += (chordUp ? 0.25 : -0.25) * chord->upNote()->headWidth();
+                const double stemShift = item->style().styleD(Sid::tupletNumberRhythmicCenterStemShift);
+                xRef += (chordUp ? stemShift : -stemShift) * chord->upNote()->headWidth();
             }
         } else {
             xRef = 0.5 * refCR->width();
@@ -892,7 +894,7 @@ void TupletLayout::extendToEndOfDuration(Tuplet* item, const ChordRest* endCR)
 
     double xResult = refSegment->pagePos().x() + refSegment->width() * tickRatio.toDouble() + item->score()->noteHeadWidth();
 
-    const double padding = 0.6 * item->spatium();
+    const double padding = item->style().styleS(Sid::tupletExtendToEndOfDurationPadding).val() * item->spatium();
 
     Segment* nextSeg = refSegment->next1WithElemsOnStaff(endCR->vStaffIdx(), ~SegmentType::TimeTick);
     xResult = std::min(xResult, nextSeg->pagePos().x() - padding);

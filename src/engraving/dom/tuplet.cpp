@@ -209,7 +209,7 @@ bool Tuplet::calcHasBracket(const DurationElement* cr1, const DurationElement* c
     }
     bool tupletStartsBeam = beamStart->elements().front() == c1;
     bool tupletEndsBeam = beamEnd->elements().back() == c2;
-    bool headSide = isUp() != (c1->up() || c2->up());
+    bool headSide = style().styleB(Sid::tupletBracketOnNoteheadSide) && isUp() != (c1->up() || c2->up());
     bool isCross = c1->vStaffIdx() != c2->vStaffIdx();
     if (tupletStartsBeam && tupletEndsBeam && (!headSide || isCross)) {
         return false;
@@ -232,6 +232,10 @@ bool Tuplet::calcHasBracket(const DurationElement* cr1, const DurationElement* c
         }
     }
     if (beamCount < 1) {
+        return true;
+    }
+
+    if (!style().styleB(Sid::tupletBracketOmitOnBeamSubgroup)) {
         return true;
     }
 
