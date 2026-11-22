@@ -30,6 +30,7 @@
 
 #include "appfactory.h"
 #include "internal/commandlineparser.h"
+#include "global/appprofile.h"
 #include "global/iapplication.h"
 
 #include "muse_framework_config.h"
@@ -145,6 +146,8 @@ int main(int argc, char** argv)
     //! with the official MuseScore Studio 4 ("EI" stands for Engrave Improved)
     QCoreApplication::setApplicationName("MuseScoreEI4");
 #endif
+    //! NOTE The settings and the user data are found by the application name, so a profile has its own
+    QCoreApplication::setApplicationName(QCoreApplication::applicationName() + muse::appProfileSuffix());
     QCoreApplication::setOrganizationName("MuseScore");
     QCoreApplication::setOrganizationDomain("musescore.org");
     QCoreApplication::setApplicationVersion(MUSE_APP_VERSION);

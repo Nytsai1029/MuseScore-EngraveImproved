@@ -29,6 +29,8 @@
 
 #include "modularity/ioc.h"
 
+#include "testcaselauncher.h"
+
 #include "muse_framework_config.h"
 #include "app_config.h"
 
@@ -426,30 +428,5 @@ int ConsoleApp::processAudioPluginRegistration(const CmdOptions::AudioPluginRegi
 
 void ConsoleApp::processAutobot(const CmdOptions::Autobot& task)
 {
-    using namespace muse::autobot;
-    muse::async::Channel<StepInfo, Ret> stepCh = autobot()->stepStatusChanged();
-    stepCh.onReceive(nullptr, [](const StepInfo& step, const Ret& ret){
-        if (!ret) {
-            LOGE() << "failed step: " << step.name << ", ret: " << ret.toString();
-            qApp->exit(ret.code());
-        } else {
-            LOGI() << "success step: " << step.name << ", ret: " << ret.toString();
-        }
-    });
-
-    muse::async::Channel<muse::io::path_t, IAutobot::Status> statusCh = autobot()->statusChanged();
-    statusCh.onReceive(nullptr, [](const muse::io::path_t& path, IAutobot::Status st){
-        if (st == IAutobot::Status::Finished) {
-            LOGI() << "success finished, path: " << path;
-            qApp->exit(0);
-        }
-    });
-
-    IAutobot::Options opt;
-    opt.context = task.testCaseContextNameOrFile;
-    opt.contextVal = task.testCaseContextValue.toStdString();
-    opt.func = task.testCaseFunc.toStdString();
-    opt.funcArgs = task.testCaseFuncArgs.toStdString();
-
-    autobot()->execScript(task.testCaseNameOrFile, opt);
+    launchTestCase(autobot(), task);
 }

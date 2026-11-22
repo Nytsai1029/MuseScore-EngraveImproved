@@ -123,6 +123,10 @@ struct CmdOptions {
         QString testCaseContextValue;
         QString testCaseFunc;
         QString testCaseFuncArgs;
+
+        //! NOTE The test case is run in the graphical interface, after the app has started,
+        //! instead of in the console app
+        bool isInGui = false;
     } autobot;
 
     struct AudioPluginRegistration {

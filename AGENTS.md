@@ -41,6 +41,16 @@ env HOME=/private/tmp/musescore-home QT_QPA_PLATFORM=offscreen \
   build.install/mscore.app/Contents/MacOS/mscore -f -o /tmp/out.pdf input.msdz
 ```
 
+Interface check (QML, dialogs, panels): operate the installed app without a screen and look at the result.
+`tools/uitest/run.sh <script.js> [score]` runs an autobot script in the GUI (`--test-case … --test-case-gui`) in
+the `uitest` profile — `MUSE_APP_PROFILE` gives the app its own settings, user data and instance group, so nothing
+of the real user is touched (Atelier skin, zh_CN, dark by default; `UITEST_SKIN` / `UITEST_THEME` /
+`UITEST_LANGUAGE` change that). A script dispatches actions (`api.dispatcher.dispatch`), moves with
+`api.navigation` / `api.keyboard`, and saves a PNG of every open window with
+`api.autobot.saveScreenshots(dir)`; start from `tools/uitest/examples/screenshots.js`. Results are in
+`tmp/uitest/<script>/` (`app.log` has the QML errors). Give it a score in the current format: an older file stops
+at the migration dialog. Shadows and other shader effects are not drawn (software renderer).
+
 Unit tests (GoogleTest) are off in `ninja_build.sh` by default. The script's env var
 `MUSESCORE_BUILD_UNIT_TESTS` maps to the CMake option `MUSE_ENABLE_UNIT_TESTS`:
 
@@ -64,6 +74,7 @@ Run the narrowest step that proves the change, then climb as far as the change w
 2. The relevant `<module>_tests` target, if tests are built.
 3. `ninja -C build.debug mscore`, then `ninja -C build.debug install`.
 4. Installed-app check or the headless smoke test above.
+5. For interface changes, the interface check above: read the screenshots, and check `app.log` for QML errors.
 
 Report environmental warnings as environmental, not as failures. If a test target can't be built or run, say
 so explicitly.

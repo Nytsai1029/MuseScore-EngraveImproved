@@ -3,10 +3,13 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
+#include <QTimer>
 
 #include "appshell/view/internal/splashscreen/splashscreen.h"
 #include "ui/iuiengine.h"
 #include "ui/graphicsapiprovider.h"
+
+#include "testcaselauncher.h"
 
 #include "muse_framework_config.h"
 #include "app_config.h"
@@ -256,6 +259,10 @@ void GuiApp::perform()
 
             startupScenario()->runAfterSplashScreen();
             haveFinalized = true;
+
+            if (m_options.autobot.isInGui) {
+                launchTestCaseAfterStartup();
+            }
         };
 
         muse::async::Promise<Ret> promise = startupScenario()->runOnSplashScreen();
@@ -277,6 +284,27 @@ void GuiApp::perform()
     engine->load(url);
 
 #endif // MUE_BUILD_APPSHELL_MODULE
+}
+
+void GuiApp::launchTestCaseAfterStartup()
+{
+    //! NOTE The startup is completed some time after the startup page is opened.
+    //! The startup scenario has no signal for that, so it is polled
+    QTimer* timer = new QTimer(qApp);
+    timer->setInterval(100);
+
+    QObject::connect(timer, &QTimer::timeout, qApp, [this, timer]() {
+        if (!startupScenario()->startupCompleted()) {
+            return;
+        }
+
+        timer->stop();
+        timer->deleteLater();
+
+        launchTestCase(autobot(), m_options.autobot);
+    });
+
+    timer->start();
 }
 
 void GuiApp::finish()

@@ -29,17 +29,19 @@
 
 #include <functional>
 
+#include "global/appprofile.h"
 #include "muse_framework_config.h"
 
 class QLocalSocket;
 
 namespace muse::ipc {
+//! NOTE The instances of a profile are a group of their own (see appprofile.h)
 #ifdef MUSE_APP_UNSTABLE
-static const QString SERVER_NAME("musescore-app-ipc-" MUSE_APP_VERSION_MAJOR "-development");
+static const QString SERVER_NAME("musescore-app-ipc-" MUSE_APP_VERSION_MAJOR "-development" + appProfileSuffix());
 #else
 //! NOTE Not "musescore-app-ipc-": release builds of this fork must not join the instances
 //! of the official MuseScore Studio ("ei" stands for Engrave Improved)
-static const QString SERVER_NAME("musescore-ei-app-ipc-" MUSE_APP_VERSION_MAJOR);
+static const QString SERVER_NAME("musescore-ei-app-ipc-" MUSE_APP_VERSION_MAJOR + appProfileSuffix());
 #endif
 
 using ID = QString;

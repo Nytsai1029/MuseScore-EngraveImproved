@@ -26,6 +26,10 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QDateTime>
+#include <QGuiApplication>
+#include <QImage>
+#include <QQuickWindow>
+#include <QWidget>
 
 #include "async/async.h"
 #include "io/fileinfo.h"
@@ -201,4 +205,60 @@ QString AutobotApi::selectedFilePath() const
 void AutobotApi::showMainWindowOnFront()
 {
     mainWindow()->requestShowOnFront();
+}
+
+//! NOTE The name of the picture of a window: the place of the window in the list of the windows,
+//! then its title (or the name of its object) without the characters which a file name can not have
+static QString screenshotFileName(const QWindow* window, int index)
+{
+    QString name = window->title().isEmpty() ? window->objectName() : window->title();
+
+    for (QChar& c : name) {
+        if (!c.isLetterOrNumber() && c != u'-' && c != u'_') {
+            c = u'_';
+        }
+    }
+
+    return QString("%1_%2.png").arg(index, 2, 10, QChar(u'0')).arg(name.isEmpty() ? QString("window") : name);
+}
+
+QStringList AutobotApi::saveScreenshots(const QString& dirPath) const
+{
+    const QDir dir(dirPath);
+    if (!dir.mkpath(".")) {
+        LOGE() << "failed to make the folder: " << dirPath;
+        return {};
+    }
+
+    QStringList paths;
+    int index = 0;
+
+    for (QWindow* window : QGuiApplication::topLevelWindows()) {
+        if (!window->isVisible()) {
+            continue;
+        }
+
+        QImage image;
+        if (QQuickWindow* quickWindow = qobject_cast<QQuickWindow*>(window)) {
+            image = quickWindow->grabWindow();
+        } else if (QWidget* widget = QWidget::find(window->winId())) {
+            image = widget->grab().toImage();
+        }
+
+        if (image.isNull()) {
+            LOGW() << "no picture of the window: " << window->title();
+            continue;
+        }
+
+        const QString path = dir.absoluteFilePath(screenshotFileName(window, index));
+        if (!image.save(path)) {
+            LOGE() << "failed to save the picture: " << path;
+            continue;
+        }
+
+        paths << path;
+        ++index;
+    }
+
+    return paths;
 }

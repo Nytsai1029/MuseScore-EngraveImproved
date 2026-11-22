@@ -26,6 +26,7 @@
 #include <QDir>
 #include <QCoreApplication>
 
+#include "appprofile.h"
 #include "settings.h"
 
 #include "muse_framework_config.h"
@@ -118,7 +119,11 @@ io::path_t GlobalConfiguration::userBackupPath() const
 
 io::path_t GlobalConfiguration::userDataPath() const
 {
-    static io::path_t p = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/" + QCoreApplication::applicationName();
+    //! NOTE A profile keeps all it writes in its app data folder: it leaves nothing in the documents of the user
+    static io::path_t p = appProfile().isEmpty()
+                          ? QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/"
+                          + QCoreApplication::applicationName()
+                          : userAppDataPath().toQString() + "/Documents";
     return p;
 }
 

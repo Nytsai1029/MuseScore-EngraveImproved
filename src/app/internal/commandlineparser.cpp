@@ -172,6 +172,9 @@ void CommandLineParser::init()
     m_parser.addOption(QCommandLineOption("test-case-context-value", "Set test case context value", "value"));
     m_parser.addOption(QCommandLineOption("test-case-func", "Call test case function", "name"));
     m_parser.addOption(QCommandLineOption("test-case-func-args", "Call test case function args", "args"));
+    m_parser.addOption(QCommandLineOption("test-case-gui",
+                                          "Use with '--test-case', runs the test case in the graphical interface "
+                                          "after startup; a score file given as an argument is opened first"));
 
     // Audio plugins
     m_parser.addOption(QCommandLineOption("register-audio-plugin",
@@ -514,7 +517,10 @@ void CommandLineParser::parse(int argc, char** argv)
 
     // Autobot
     if (m_parser.isSet("test-case")) {
-        m_options.runMode = IApplication::RunMode::ConsoleApp;
+        m_options.autobot.isInGui = m_parser.isSet("test-case-gui");
+        if (!m_options.autobot.isInGui) {
+            m_options.runMode = IApplication::RunMode::ConsoleApp;
+        }
         m_options.autobot.testCaseNameOrFile = fromUserInputPath(m_parser.value("test-case"));
     }
 

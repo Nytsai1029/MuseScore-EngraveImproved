@@ -222,6 +222,8 @@ set(APP_SRC
 
     internal/guiapp.cpp
     internal/guiapp.h
+    internal/testcaselauncher.cpp
+    internal/testcaselauncher.h
 )
 
 if (MUE_ENABLE_CONSOLEAPP)

@@ -74,6 +74,11 @@ public:
 
     // Window
     Q_INVOKABLE void showMainWindowOnFront();
+
+    //! NOTE Saves a picture of each window which is shown (the main window, the dialogs, the popups)
+    //! to the folder and returns the paths of the pictures. The windows draw the pictures themselves,
+    //! so this also works when the app runs without a screen (QT_QPA_PLATFORM=offscreen)
+    Q_INVOKABLE QStringList saveScreenshots(const QString& dirPath) const;
 };
 }
 

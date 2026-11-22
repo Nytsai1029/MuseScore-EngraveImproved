@@ -34,6 +34,7 @@ set(MODULE_SRC
     ${KORS_LOGGER_SRC}
     ${KORS_PROFILER_SRC}
     ${UTFCPP_SRC}
+    ${CMAKE_CURRENT_LIST_DIR}/appprofile.h
     ${CMAKE_CURRENT_LIST_DIR}/globaltypes.h
     ${CMAKE_CURRENT_LIST_DIR}/iapplication.h
     ${CMAKE_CURRENT_LIST_DIR}/iinteractive.h
