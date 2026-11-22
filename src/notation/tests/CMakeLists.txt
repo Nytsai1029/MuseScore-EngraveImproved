@@ -24,14 +24,21 @@ set(MODULE_TEST_SRC
     ${PROJECT_SOURCE_DIR}/src/engraving/tests/utils/scorerw.cpp
     ${PROJECT_SOURCE_DIR}/src/engraving/tests/utils/scorerw.h
 
+    ${CMAKE_CURRENT_LIST_DIR}/mocks/globalcontextmock.h
     ${CMAKE_CURRENT_LIST_DIR}/mocks/msczreadermock.h
+    ${CMAKE_CURRENT_LIST_DIR}/mocks/notationmock.h
     ${CMAKE_CURRENT_LIST_DIR}/mocks/notationconfigurationmock.h
     ${CMAKE_CURRENT_LIST_DIR}/mocks/notationinteractionmock.h
     ${CMAKE_CURRENT_LIST_DIR}/mocks/notationselectionmock.h
     ${CMAKE_CURRENT_LIST_DIR}/mocks/notationselectionrangemock.h
+    ${CMAKE_CURRENT_LIST_DIR}/mocks/notationstylemock.h
+    ${CMAKE_CURRENT_LIST_DIR}/mocks/notationundostackmock.h
     ${CMAKE_CURRENT_LIST_DIR}/mocks/controlledviewmock.h
 
     ${CMAKE_CURRENT_LIST_DIR}/environment.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/engravingoptionsmodel_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/engravingoptionspages_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/engravingpreview_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ledgerguides_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/linepreview_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/notationruler_tests.cpp
@@ -44,5 +51,16 @@ set(MODULE_TEST_LINK
 )
 
 set(MODULE_TEST_DATA_ROOT ${CMAKE_CURRENT_LIST_DIR})
+
+#! NOTE The headers of the views include their neighbours of the module by their short names
+set(MODULE_TEST_INCLUDE ${PROJECT_SOURCE_DIR}/src/notation)
+
+set(ENGRAVING_OPTIONS_QML_DIR ${PROJECT_SOURCE_DIR}/src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions)
+set(MODULE_TEST_DEF
+    ENGRAVING_OPTIONS_QML_DIR="${ENGRAVING_OPTIONS_QML_DIR}"
+    ENGRAVING_OPTIONS_SNIPPETS_DIR="${ENGRAVING_OPTIONS_QML_DIR}/snippets"
+    ENGRAVING_OPTIONS_DIALOG_FILE="${PROJECT_SOURCE_DIR}/src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml"
+    ENGRAVING_OPTIONS_QRC_FILE="${PROJECT_SOURCE_DIR}/src/notation/notationscene.qrc"
+    )
 
 include(SetupGTest)

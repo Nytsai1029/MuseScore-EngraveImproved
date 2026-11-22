@@ -52,9 +52,6 @@ protected:
     virtual StyleItem* buildStyleItem(StyleId id) const;
 
 private:
-    QVariant toUiValue(StyleId id, const PropertyValue& logicalValue) const;
-    PropertyValue fromUiValue(StyleId id, const QVariant& uiValue) const;
-
     mutable bool m_inited = false;
     std::set<StyleId> m_ids;
     mutable std::unordered_map<StyleId, StyleItem*> m_items;

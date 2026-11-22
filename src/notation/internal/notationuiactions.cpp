@@ -402,6 +402,12 @@ const UiActionList NotationUiActions::m_actions = {
              TranslatableString("action", "&Style…"),
              TranslatableString("action", "Format style…")
              ),
+    UiAction("edit-style-classic",
+             mu::context::UiCtxProjectOpened,
+             mu::context::CTX_NOTATION_OPENED,
+             TranslatableString("action", "Classic style dialog…"),
+             TranslatableString("action", "Open the classic style dialog")
+             ),
     UiAction("page-settings",
              mu::context::UiCtxProjectOpened,
              mu::context::CTX_NOTATION_OPENED,

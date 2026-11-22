@@ -23,6 +23,8 @@
 
 #include "engraving/style/style.h"
 
+#include "styleuivalue.h"
+
 using namespace mu::notation;
 using namespace mu::engraving;
 
@@ -40,7 +42,7 @@ StyleItem* AbstractStyleDialogModel::styleItem(StyleId id) const
 
         currentNotationStyle()->styleChanged().onNotify(this, [this]() {
             for (auto [id, item] : m_items) {
-                item->setValue(toUiValue(id, currentNotationStyle()->styleValue(id)));
+                item->setValue(styleValueToUi(id, currentNotationStyle()->styleValue(id)));
             }
         });
 
@@ -57,32 +59,14 @@ INotationStylePtr AbstractStyleDialogModel::currentNotationStyle() const
 
 StyleItem* AbstractStyleDialogModel::buildStyleItem(StyleId id) const
 {
-    QVariant value = toUiValue(id, currentNotationStyle()->styleValue(id));
-    QVariant defaultValue = toUiValue(id, currentNotationStyle()->defaultStyleValue(id));
+    QVariant value = styleValueToUi(id, currentNotationStyle()->styleValue(id));
+    QVariant defaultValue = styleValueToUi(id, currentNotationStyle()->defaultStyleValue(id));
 
     StyleItem* item = new StyleItem(const_cast<AbstractStyleDialogModel*>(this), value, defaultValue);
 
     connect(item, &StyleItem::valueModified, this, [this, id](const QVariant& newValue) {
-        currentNotationStyle()->setStyleValue(id, fromUiValue(id, newValue));
+        currentNotationStyle()->setStyleValue(id, styleValueFromUi(id, newValue));
     });
 
     return item;
-}
-
-QVariant AbstractStyleDialogModel::toUiValue(StyleId id, const PropertyValue& logicalValue) const
-{
-    if (mu::engraving::MStyle::valueType(id) == P_TYPE::SPATIUM) {
-        return logicalValue.value<mu::engraving::Spatium>().val();
-    }
-
-    return logicalValue.toQVariant();
-}
-
-PropertyValue AbstractStyleDialogModel::fromUiValue(StyleId id, const QVariant& uiValue) const
-{
-    if (mu::engraving::MStyle::valueType(id) == P_TYPE::SPATIUM) {
-        return mu::engraving::Spatium(uiValue.toDouble());
-    }
-
-    return PropertyValue::fromQVariant(uiValue, mu::engraving::MStyle::valueType(id));
 }

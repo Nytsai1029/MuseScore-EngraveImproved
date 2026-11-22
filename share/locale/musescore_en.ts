@@ -1694,6 +1694,7 @@
         <translation type="unfinished">Style</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="34"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="46"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="255"/>
         <source>Score</source>
@@ -1705,49 +1706,62 @@
         <translation type="unfinished">Spacing</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="56"/>
         <source>Sizes</source>
         <translation type="unfinished">Sizes</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="61"/>
         <source>Header &amp; footer</source>
         <translation type="unfinished">Header &amp; footer</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="66"/>
         <source>Measure numbers</source>
         <translation type="unfinished">Measure numbers</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="71"/>
         <source>System</source>
         <extracomment>a music system, a line of music</extracomment>
         <translation type="unfinished">System</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="76"/>
         <source>Clefs, key &amp; time signatures</source>
         <translation type="unfinished">Clefs, key &amp; time signatures</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="81"/>
         <source>Accidentals</source>
         <translation type="unfinished">Accidentals</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="86"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4892"/>
         <source>Barlines</source>
         <translation type="unfinished">Barlines</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="91"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5357"/>
         <source>Notes</source>
         <translation type="unfinished">Notes</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="96"/>
         <source>Rests</source>
         <translation type="unfinished">Rests</translation>
@@ -1758,18 +1772,22 @@
         <translation type="unfinished">Repeats</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="106"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6547"/>
         <source>Beams</source>
         <translation type="unfinished">Beams</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="111"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6589"/>
         <source>Tuplets</source>
         <translation type="unfinished">Tuplets</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="116"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7372"/>
         <source>Arpeggios</source>
@@ -1781,6 +1799,7 @@
         <translation type="unfinished">Slurs &amp; ties</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="126"/>
         <source>Dynamics &amp; hairpins</source>
         <translation type="unfinished">Dynamics &amp; hairpins</translation>
@@ -1791,63 +1810,79 @@
         <translation type="unfinished">Voltas</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="136"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8189"/>
         <source>Ottavas</source>
         <translation type="unfinished">Ottavas</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="141"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8627"/>
         <source>Pedal lines</source>
         <translation type="unfinished">Pedal lines</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="146"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8948"/>
         <source>Trill lines</source>
         <translation type="unfinished">Trill lines</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="60"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="151"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9084"/>
         <source>Vibrato lines</source>
         <translation type="unfinished">Vibrato lines</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="156"/>
         <source>Glissandos &amp; note-anchored lines</source>
         <translation type="unfinished">Glissandos &amp; note-anchored lines</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="161"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9267"/>
         <source>Bends</source>
         <translation type="unfinished">Bends</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="166"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9651"/>
         <source>Text lines</source>
         <translation type="unfinished">Text lines</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="94"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="171"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9987"/>
         <source>System text lines</source>
         <translation type="unfinished">System text lines</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="176"/>
         <source>Articulations &amp; ornaments</source>
         <translation type="unfinished">Articulations &amp; ornaments</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="181"/>
         <source>Hammer-ons, pull-offs &amp; tapping</source>
         <translation type="unfinished">Hammer-ons, pull-offs &amp; tapping</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="186"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10687"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="13118"/>
@@ -1855,51 +1890,64 @@
         <translation type="unfinished">Fermatas</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="191"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10831"/>
         <source>Staff text</source>
         <translation type="unfinished">Staff text</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="196"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11027"/>
         <source>Tempo text</source>
         <translation type="unfinished">Tempo text</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="201"/>
         <source>Lyrics</source>
         <translation type="unfinished">Lyrics</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="68"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="206"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12319"/>
         <source>Expression text</source>
         <translation type="unfinished">Expression text</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="211"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12398"/>
         <source>Rehearsal marks</source>
         <translation type="unfinished">Rehearsal marks</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="216"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12582"/>
         <source>Figured bass</source>
         <translation type="unfinished">Figured bass</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="221"/>
         <source>Chord symbols</source>
         <translation type="unfinished">Chord symbols</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="226"/>
         <source>Fretboard diagrams</source>
         <translation type="unfinished">Fretboard diagrams</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="47"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="231"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9331"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9334"/>
@@ -1913,26 +1961,31 @@
         <translation type="unfinished">Text styles</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="42"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="293"/>
         <source>Musical symbols font:</source>
         <translation type="unfinished">Musical symbols font:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="49"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="353"/>
         <source>MuseScore Studio will change the style to suit the font better</source>
         <translation type="unfinished">MuseScore Studio will change the style to suit the font better</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="48"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="356"/>
         <source>Automatically load style settings based on font</source>
         <translation type="unfinished">Automatically load style settings based on font</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="65"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="379"/>
         <source>Musical text font:</source>
         <translation type="unfinished">Musical text font:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="72"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="423"/>
         <source>Staff line thickness:</source>
         <translation type="unfinished">Staff line thickness:</translation>
@@ -2289,16 +2342,19 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Staff line thickness&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="78"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="464"/>
         <source>Display in concert pitch</source>
         <translation type="unfinished">Display in concert pitch</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="83"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="471"/>
         <source>Enable indentation on first system</source>
         <translation type="unfinished">Enable indentation on first system</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="88"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="489"/>
         <source>First system indentation:</source>
         <translation type="unfinished">First system indentation:</translation>
@@ -2309,36 +2365,43 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;First system indentation&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="96"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="547"/>
         <source>Automatically hide all empty staves</source>
         <translation type="unfinished">Automatically hide all empty staves</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="101"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="559"/>
         <source>Don’t hide empty staves in first system</source>
         <translation type="unfinished">Don’t hide empty staves in first system</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="107"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="566"/>
         <source>Show brackets when spanning a single staff</source>
         <translation type="unfinished">Show brackets when spanning a single staff</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="113"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="573"/>
         <source>Show square brackets when spanning a single staff</source>
         <translation type="unfinished">Show square brackets when spanning a single staff</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="119"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="583"/>
         <source>Display note values across measure boundaries (EXPERIMENTAL, early music only!)</source>
         <translation type="unfinished">Display note values across measure boundaries (EXPERIMENTAL, early music only!)</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="125"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="590"/>
         <source>Instrument names</source>
         <translation type="unfinished">Instrument names</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="129"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="596"/>
         <source>Hide if there is only 1 instrument</source>
         <translation type="unfinished">Hide if there is only 1 instrument</translation>
@@ -2387,6 +2450,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Distance from staff&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="140"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="777"/>
         <source>Swing settings</source>
         <translation type="unfinished">Swing settings</translation>
@@ -2412,16 +2476,19 @@ space unit</extracomment>
         <translation type="unfinished">Sixteenth note</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="144"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="833"/>
         <source>Select swing ratio:</source>
         <translation type="unfinished">Select swing ratio:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="153"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="883"/>
         <source>Autoplace</source>
         <translation type="unfinished">Autoplace</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="167"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="889"/>
         <source>Min. vertical distance:</source>
         <translation type="unfinished">Min. vertical distance:</translation>
@@ -2432,6 +2499,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Min. vertical distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="157"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="953"/>
         <source>Vertical align range:</source>
         <translation type="unfinished">Vertical align range:</translation>
@@ -2442,6 +2510,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Vertical align range&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="174"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="989"/>
         <source>Min. horizontal distance:</source>
         <translation type="unfinished">Min. horizontal distance:</translation>
@@ -2452,6 +2521,8 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Min. horizontal distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="32"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="36"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1099"/>
         <source>Vertical spacing</source>
         <translation type="unfinished">Vertical spacing</translation>
@@ -2462,6 +2533,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Music bottom margin&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="49"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1166"/>
         <source>Music bottom margin:</source>
         <translation type="unfinished">Music bottom margin:</translation>
@@ -2472,11 +2544,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Music top margin&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="40"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1236"/>
         <source>Music top margin:</source>
         <translation type="unfinished">Music top margin:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="58"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1246"/>
         <source>Min. distance to header/footer:</source>
         <translation type="unfinished">Min. distance to header/footer:</translation>
@@ -2507,21 +2581,25 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Factor for distance above/below brace&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="70"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1455"/>
         <source>Factor for distance between systems:</source>
         <translation type="unfinished">Factor for distance between systems:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="79"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1468"/>
         <source>Factor for distance above/below bracket:</source>
         <translation type="unfinished">Factor for distance above/below bracket:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="88"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1481"/>
         <source>Factor for distance above/below brace:</source>
         <translation type="unfinished">Factor for distance above/below brace:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="121"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1527"/>
         <source>Max. staff distance:</source>
         <translation type="unfinished">Max. staff distance:</translation>
@@ -2538,11 +2616,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Min. staff distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="129"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1579"/>
         <source>Max. grand staff distance:</source>
         <translation type="unfinished">Max. grand staff distance:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="113"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1608"/>
         <source>Min. staff distance:</source>
         <translation type="unfinished">Min. staff distance:</translation>
@@ -2564,6 +2644,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Max. staff distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="137"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1698"/>
         <source>Max. page fill distance:</source>
         <translation type="unfinished">Max. page fill distance:</translation>
@@ -2574,12 +2655,16 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Max. grand staff distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="105"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="170"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1734"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1991"/>
         <source>Max. system distance:</source>
         <translation type="unfinished">Max. system distance:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="97"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="153"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1744"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1794"/>
         <source>Min. system distance:</source>
@@ -2596,11 +2681,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Staff distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="144"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1959"/>
         <source>Staff distance:</source>
         <translation type="unfinished">Staff distance:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="162"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1975"/>
         <source>Grand staff distance:</source>
         <translation type="unfinished">Grand staff distance:</translation>
@@ -2611,6 +2698,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Grand staff distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="178"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2078"/>
         <source>Vertical frame top margin:</source>
         <translation type="unfinished">Vertical frame top margin:</translation>
@@ -2626,31 +2714,38 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Vertical frame bottom margin&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="186"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2177"/>
         <source>Vertical frame bottom margin:</source>
         <translation type="unfinished">Vertical frame bottom margin:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2192"/>
         <source>Horizontal spacing</source>
         <translation type="unfinished">Horizontal spacing</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="76"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2210"/>
         <source>Padding</source>
         <translation type="unfinished">Padding</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="127"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2223"/>
         <source>Barline to grace note:</source>
         <translation type="unfinished">Barline to grace note:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="109"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2233"/>
         <source>Note to barline:</source>
         <translation type="unfinished">Note to barline:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="92"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2243"/>
         <source>Key signature to time signature:</source>
         <translation type="unfinished">Key signature to time signature:</translation>
@@ -2666,6 +2761,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Key to time signature distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="157"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2305"/>
         <source>Barline to time signature:</source>
         <translation type="unfinished">Barline to time signature:</translation>
@@ -2676,6 +2772,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Time signature to barline distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="139"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2341"/>
         <source>Clef to barline:</source>
         <translation type="unfinished">Clef to barline:</translation>
@@ -2686,6 +2783,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Clef to barline distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="145"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2423"/>
         <source>Barline to key signature:</source>
         <translation type="unfinished">Barline to key signature:</translation>
@@ -2716,26 +2814,31 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Note to barline distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="151"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2511"/>
         <source>Key signature to barline:</source>
         <translation type="unfinished">Key signature to barline:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="115"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2521"/>
         <source>Barline to note:</source>
         <translation type="unfinished">Barline to note:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="98"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2538"/>
         <source>Clef to note:</source>
         <translation type="unfinished">Clef to note:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="133"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2551"/>
         <source>Barline to clef:</source>
         <translation type="unfinished">Barline to clef:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="163"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2561"/>
         <source>Time signature to barline:</source>
         <translation type="unfinished">Time signature to barline:</translation>
@@ -2751,6 +2854,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Barline to grace note distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="121"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2675"/>
         <source>Barline to accidental:</source>
         <translation type="unfinished">Barline to accidental:</translation>
@@ -2761,11 +2865,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Clef to time signature distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="80"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2711"/>
         <source>Clef to key signature:</source>
         <translation type="unfinished">Clef to key signature:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="86"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2734"/>
         <source>Clef to time signature:</source>
         <translation type="unfinished">Clef to time signature:</translation>
@@ -2781,6 +2887,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Clef to key distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="103"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2777"/>
         <source>Note to note:</source>
         <translation type="unfinished">Note to note:</translation>
@@ -2791,6 +2898,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Minimum note distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="169"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2820"/>
         <source>Grace note to main note:</source>
         <translation type="unfinished">Grace note to main note:</translation>
@@ -2801,6 +2909,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Grace note to main note&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="175"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2856"/>
         <source>Grace note to grace note:</source>
         <translation type="unfinished">Grace note to grace note:</translation>
@@ -2811,6 +2920,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Grace note to grace note&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="181"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2899"/>
         <source>System header to continued tie or line:</source>
         <translation type="unfinished">System header to continued tie or line:</translation>
@@ -2821,6 +2931,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;System header to continued tie or line&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="187"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2935"/>
         <source>Barline to continued tie or line:</source>
         <translation type="unfinished">Barline to continued tie or line:</translation>
@@ -2831,6 +2942,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Barline to continued tie or line&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="193"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2971"/>
         <source>Continued tie or line to barline:</source>
         <translation type="unfinished">Continued tie or line to barline:</translation>
@@ -2841,6 +2953,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Continued tie or line to barline&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="199"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3014"/>
         <source>Right margin after courtesy signatures:</source>
         <translation type="unfinished">Right margin after courtesy signatures:</translation>
@@ -2851,6 +2964,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Right margin after courtesy signatures&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="205"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3050"/>
         <source>Ambitus padding:</source>
         <translation type="unfinished">Ambitus padding:</translation>
@@ -2866,11 +2980,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Minimum measure width&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="41"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3144"/>
         <source>System density:</source>
         <translation type="unfinished">System density:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="60"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3151"/>
         <source>Minimum measure width:</source>
         <translation type="unfinished">Minimum measure width:</translation>
@@ -2881,6 +2997,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Spacing&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="211"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3174"/>
         <source>System header</source>
         <translation type="unfinished">System header</translation>
@@ -2891,6 +3008,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;System header distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="221"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3193"/>
         <source>Time signature to first note:</source>
         <translation type="unfinished">Time signature to first note:</translation>
@@ -2901,21 +3019,25 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;System header with time signature distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="215"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3242"/>
         <source>Clef/key signature to first note:</source>
         <translation type="unfinished">Clef/key signature to first note:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="227"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3278"/>
         <source>Start of the system to first note:</source>
         <translation type="unfinished">Start of the system to first note:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="51"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3331"/>
         <source>Spacing ratio:</source>
         <translation type="unfinished">Spacing ratio:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="67"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3341"/>
         <source>Last system fill threshold:</source>
         <translation type="unfinished">Last system fill threshold:</translation>
@@ -2926,41 +3048,49 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Last system fill threshold&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="233"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3386"/>
         <source>Japanese-style spacing</source>
         <translation type="unfinished">Japanese-style spacing</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="237"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3392"/>
         <source>Vary spacing ratio by note density of each system</source>
         <translation type="unfinished">Vary spacing ratio by note density of each system</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="242"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3399"/>
         <source>Dense-line spacing ratio:</source>
         <translation type="unfinished">Dense-line spacing ratio:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="251"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3428"/>
         <source>Sparse-line spacing ratio:</source>
         <translation type="unfinished">Sparse-line spacing ratio:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="260"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3457"/>
         <source>Keep equal spacing for equal note values (per system)</source>
         <translation type="unfinished">Keep equal spacing for equal note values (per system)</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="265"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3464"/>
         <source>Offset spacing of cross-staff beamed notes</source>
         <translation type="unfinished">Offset spacing of cross-staff beamed notes</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3487"/>
         <source>Cue sizes</source>
         <translation type="unfinished">Cue sizes</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="81"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3493"/>
         <source>Reduce rhythmic spacing for small notes</source>
         <translation type="unfinished">Reduce rhythmic spacing for small notes</translation>
@@ -2976,11 +3106,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Small note size&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="41"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3557"/>
         <source>Small staff size:</source>
         <translation type="unfinished">Small staff size:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="71"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3573"/>
         <source>Small note size:</source>
         <translation type="unfinished">Small note size:</translation>
@@ -2991,11 +3123,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Small clef size&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="51"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3665"/>
         <source>Small clef size:</source>
         <translation type="unfinished">Small clef size:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="61"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3681"/>
         <source>Grace note size:</source>
         <translation type="unfinished">Grace note size:</translation>
@@ -3016,6 +3150,8 @@ space unit</extracomment>
         <translation type="unfinished">Show header also on first page</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="46"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="105"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3793"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4060"/>
         <source>Show on first page</source>
@@ -3027,6 +3163,8 @@ space unit</extracomment>
         <translation type="unfinished">Use odd/even page header</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="52"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="111"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3816"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4083"/>
         <source>Different odd/even pages</source>
@@ -3093,6 +3231,7 @@ space unit</extracomment>
         <translation type="unfinished">Using variables in the header/footer</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4369"/>
         <source>System brackets</source>
         <translation type="unfinished">System brackets</translation>
@@ -3109,6 +3248,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Bracket distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="49"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4470"/>
         <source>Brace thickness:</source>
         <translation type="unfinished">Brace thickness:</translation>
@@ -3119,6 +3259,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Brace thickness&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="63"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4515"/>
         <source>Brace distance:</source>
         <translation type="unfinished">Brace distance:</translation>
@@ -3141,34 +3282,54 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Bracket thickness&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="69"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4587"/>
         <source>Let brackets extend into the left margin when there are no instrument names</source>
         <translation type="unfinished">Let brackets extend into the left margin when there are no instrument names</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="75"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4597"/>
         <source>System dividers</source>
         <translation type="unfinished">System dividers</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="101"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="132"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4659"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4733"/>
         <source>Vertical offset:</source>
         <translation type="unfinished">Vertical offset:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="92"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="123"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4669"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4775"/>
         <source>Horizontal offset:</source>
         <translation type="unfinished">Horizontal offset:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="75"/>
+        <source>Bracket thickness:</source>
+        <translation type="unfinished">Bracket thickness:</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="55"/>
+        <source>Bracket distance:</source>
+        <translation type="unfinished">Bracket distance:</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="84"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="115"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4679"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4765"/>
         <source>Symbol:</source>
         <translation type="unfinished">Symbol:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="90"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4898"/>
         <source>Double barline distance:</source>
         <translation type="unfinished">Double barline distance:</translation>
@@ -3184,6 +3345,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Thin barline thickness&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="46"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4973"/>
         <source>Barline at start of single staff</source>
         <translation type="unfinished">Barline at start of single staff</translation>
@@ -3204,11 +3366,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Thick barline thickness&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="51"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5019"/>
         <source>Barline at start of multiple staves</source>
         <translation type="unfinished">Barline at start of multiple staves</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="72"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5042"/>
         <source>Thick barline thickness:</source>
         <translation type="unfinished">Thick barline thickness:</translation>
@@ -3224,21 +3388,25 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Scale barlines to staff size&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="78"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5091"/>
         <source>Thick barline distance:</source>
         <translation type="unfinished">Thick barline distance:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="96"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5101"/>
         <source>Repeat barline to dots distance:</source>
         <translation type="unfinished">Repeat barline to dots distance:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="66"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5111"/>
         <source>Thin barline thickness:</source>
         <translation type="unfinished">Thin barline thickness:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="56"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5121"/>
         <source>Scale barlines to staff size</source>
         <translation type="unfinished">Scale barlines to staff size</translation>
@@ -3254,11 +3422,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Repeat barline to dots distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="41"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5167"/>
         <source>Show repeat barline tips (“winged” repeats)</source>
         <translation type="unfinished">Show repeat barline tips (“winged” repeats)</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="84"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5187"/>
         <source>Double barline thickness:</source>
         <translation type="unfinished">Double barline thickness:</translation>
@@ -3274,6 +3444,7 @@ space unit</extracomment>
         <translation type="unfinished">Mask barlines</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="61"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5213"/>
         <source>Mask barlines when intersecting text</source>
         <translation type="unfinished">Mask barlines when intersecting text</translation>
@@ -3321,86 +3492,103 @@ space unit</extracomment>
         <translation type="unfinished">Flag style</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="76"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5379"/>
         <source>Dot size:</source>
         <translation type="unfinished">Dot size:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="104"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5389"/>
         <source>Ledger line thickness:</source>
         <translation type="unfinished">Ledger line thickness:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="110"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5418"/>
         <source>Ledger line length:</source>
         <translation type="unfinished">Ledger line length:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="116"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5504"/>
         <source>Shorten ledger lines that would touch their neighbours</source>
         <translation type="unfinished">Shorten ledger lines that would touch their neighbours</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="86"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5549"/>
         <source>Note to dot distance:</source>
         <translation type="unfinished">Note to dot distance:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="98"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5559"/>
         <source>Stem thickness:</source>
         <translation type="unfinished">Stem thickness:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="92"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5569"/>
         <source>Dot to dot distance:</source>
         <translation type="unfinished">Dot to dot distance:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="70"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5579"/>
         <source>Accidental to accidental distance:</source>
         <translation type="unfinished">Accidental to accidental distance:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="41"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5611"/>
         <source>Shorten stems</source>
         <translation type="unfinished">Shorten stems</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="46"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5620"/>
         <source>Shortest stem:</source>
         <translation type="unfinished">Shortest stem:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="55"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5643"/>
         <source>Shortening starts beyond the staff by (half spaces):</source>
         <translation type="unfinished">Shortening starts beyond the staff by (half spaces):</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="64"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5669"/>
         <source>Accidental to note distance:</source>
         <translation type="unfinished">Accidental to note distance:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="121"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5679"/>
         <source>Grace note slash distance from stem tip:</source>
         <translation type="unfinished">Grace note slash distance from stem tip:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="127"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5705"/>
         <source>Grace note slash angle:</source>
         <translation type="unfinished">Grace note slash angle:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="136"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5737"/>
         <source>Grace note slash thickness:</source>
         <translation type="unfinished">Grace note slash thickness:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="143"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5769"/>
         <source>Stem length</source>
         <translation type="unfinished">Stem length</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="147"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5777"/>
         <source>Standard stem length:</source>
         <translation type="unfinished">Standard stem length:</translation>
@@ -3411,11 +3599,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Standard stem length&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="156"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5837"/>
         <source>Alignment in chords</source>
         <translation type="unfinished">Alignment in chords</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="160"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5843"/>
         <source>Combine voices that share the same stem direction</source>
         <translation type="unfinished">Combine voices that share the same stem direction</translation>
@@ -3454,11 +3644,13 @@ space unit</extracomment>
         <translation type="unfinished">Multimeasure rests</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="46"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5961"/>
         <source>Minimum number of empty measures:</source>
         <translation type="unfinished">Minimum number of empty measures:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="89"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5971"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5974"/>
         <source>Width</source>
@@ -3470,6 +3662,7 @@ space unit</extracomment>
         <translation type="unfinished">Proportional to time signature</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="104"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6019"/>
         <source>Minimum width:</source>
         <translation type="unfinished">Minimum width:</translation>
@@ -3480,6 +3673,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Minimum width of measure&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="112"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6071"/>
         <source>Cap width after:</source>
         <translation type="unfinished">Cap width after:</translation>
@@ -3495,6 +3689,7 @@ space unit</extracomment>
         <translation type="unfinished">measure(s)</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="79"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6102"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6105"/>
         <source>On single empty measure</source>
@@ -3511,6 +3706,7 @@ space unit</extracomment>
         <translation type="unfinished">Use H-bar</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="121"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6148"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6151"/>
         <source>Number layout</source>
@@ -3522,17 +3718,21 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Vertical position of number&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="139"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6180"/>
         <source>Center between staves on multi-staff instruments</source>
         <translation type="unfinished">Center between staves on multi-staff instruments</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="50"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="125"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6193"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12726"/>
         <source>Vertical position:</source>
         <translation type="unfinished">Vertical position:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="133"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6219"/>
         <source>Break H-bar if number overlaps</source>
         <translation type="unfinished">Break H-bar if number overlaps</translation>
@@ -3549,22 +3749,26 @@ space unit</extracomment>
         <translation type="unfinished">Old-style multimeasure rests</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="62"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6283"/>
         <source>Maximum number of measures:</source>
         <translation type="unfinished">Maximum number of measures:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="71"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6326"/>
         <source>Spacing of symbols:</source>
         <translation type="unfinished">Spacing of symbols:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="145"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6349"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6352"/>
         <source>H-bar</source>
         <translation type="unfinished">H-bar</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="149"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6358"/>
         <source>Horizontal stroke thickness:</source>
         <translation type="unfinished">Horizontal stroke thickness:</translation>
@@ -3580,11 +3784,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Margin within barlines&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="157"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6429"/>
         <source>Margin within barlines:</source>
         <translation type="unfinished">Margin within barlines:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="164"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6439"/>
         <source>Vertical stroke thickness:</source>
         <translation type="unfinished">Vertical stroke thickness:</translation>
@@ -3595,6 +3801,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Vertical stroke thickness&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="171"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6478"/>
         <source>Vertical stroke height:</source>
         <translation type="unfinished">Vertical stroke height:</translation>
@@ -3605,6 +3812,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Vertical stroke height&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="99"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6625"/>
         <source>Vertical distance from notes</source>
         <translation type="unfinished">Vertical distance from notes</translation>
@@ -3615,11 +3823,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Maximum slope&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="103"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6650"/>
         <source>Maximum slope:</source>
         <translation type="unfinished">Maximum slope:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="110"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6679"/>
         <source>Vertical distance from stem:</source>
         <translation type="unfinished">Vertical distance from stem:</translation>
@@ -3635,16 +3845,19 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Vertical distance from notehead&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="117"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6749"/>
         <source>Vertical distance from notehead:</source>
         <translation type="unfinished">Vertical distance from notehead:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="124"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6794"/>
         <source>Avoid staves</source>
         <translation type="unfinished">Avoid staves</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6804"/>
         <source>Properties</source>
         <translation type="unfinished">Properties</translation>
@@ -3666,6 +3879,7 @@ space unit</extracomment>
         <translation type="unfinished">Down</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="41"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6834"/>
         <source>Direction:</source>
         <translation type="unfinished">Direction:</translation>
@@ -3676,6 +3890,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Direction&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="51"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6863"/>
         <source>Number type:</source>
         <translation type="unfinished">Number type:</translation>
@@ -3702,6 +3917,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Number type&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="61"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6929"/>
         <source>Brackets</source>
         <translation type="unfinished">Brackets</translation>
@@ -3753,26 +3969,41 @@ space unit</extracomment>
         <translation type="unfinished">None</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="65"/>
+        <source>Bracket type:</source>
+        <translation type="unfinished">Bracket type:</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="82"/>
+        <source>Bracket hook height:</source>
+        <translation type="unfinished">Bracket hook height:</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="89"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7111"/>
         <source>Extend bracket to end of duration</source>
         <translation type="unfinished">Extend bracket to end of duration</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="94"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7118"/>
         <source>Fixed slant (follow beam/stems)</source>
         <translation type="unfinished">Fixed slant (follow beam/stems)</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="129"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7128"/>
         <source>Horizontal distance from notes</source>
         <translation type="unfinished">Horizontal distance from notes</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="147"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7153"/>
         <source>Distance after stem of last note:</source>
         <translation type="unfinished">Distance after stem of last note:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="154"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7207"/>
         <source>Distance after head of last note:</source>
         <translation type="unfinished">Distance after head of last note:</translation>
@@ -3793,11 +4024,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Distance before stem of first note&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="133"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7274"/>
         <source>Distance before stem of first note:</source>
         <translation type="unfinished">Distance before stem of first note:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="140"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7303"/>
         <source>Distance before head of first note:</source>
         <translation type="unfinished">Distance before head of first note:</translation>
@@ -3808,11 +4041,21 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Distance after stem of last note&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="55"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7381"/>
         <source>Hook length:</source>
         <translation type="unfinished">Hook length:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="48"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="51"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="174"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="211"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="70"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="60"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="60"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="117"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7442"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7981"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8264"/>
@@ -3826,31 +4069,37 @@ space unit</extracomment>
         <translation type="unfinished">Line thickness:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="41"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7452"/>
         <source>Distance to note:</source>
         <translation type="unfinished">Distance to note:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="74"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7462"/>
         <source>Do not show arpeggios in standard notation when displayed in tablature</source>
         <translation type="unfinished">Do not show arpeggios in standard notation when displayed in tablature</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="62"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7482"/>
         <source>Distance to accidental:</source>
         <translation type="unfinished">Distance to accidental:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="68"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7508"/>
         <source>Min. distance to accidental:</source>
         <translation type="unfinished">Min. distance to accidental:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="180"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8127"/>
         <source>Vertical ends on diagonal hairpins</source>
         <translation type="unfinished">Vertical ends on diagonal hairpins</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="71"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9476"/>
         <source>Height above staff (line distances):</source>
         <translation type="unfinished">Height above staff (line distances):</translation>
@@ -3861,6 +4110,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Height above staff&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="77"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9512"/>
         <source>Partial bend height:</source>
         <translation type="unfinished">Partial bend height:</translation>
@@ -3871,6 +4121,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Partial bend height&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="83"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9554"/>
         <source>Legacy bends</source>
         <translation type="unfinished">Legacy bends</translation>
@@ -3881,6 +4132,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Legacy bend arrow width&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="74"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10495"/>
         <source>Fall, doit, plop and scoop line thickness:</source>
         <translation type="unfinished">Fall, doit, plop and scoop line thickness:</translation>
@@ -3891,6 +4143,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Fall, doit, plop and scoop line thickness&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="196"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12075"/>
         <source>Halve the gap before the first and after the last dash</source>
         <translation type="unfinished">Halve the gap before the first and after the last dash</translation>
@@ -3911,6 +4164,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Alignment of syllables with an extension line&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="77"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12358"/>
         <source>Place expression before dynamic</source>
         <translation type="unfinished">Place expression before dynamic</translation>
@@ -3934,6 +4188,11 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Autoplace min. distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="102"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="51"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="60"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="60"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="60"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7670"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10693"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10873"/>
@@ -3943,11 +4202,22 @@ space unit</extracomment>
         <translation type="unfinished">Autoplace min. distance:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7584"/>
         <source>Default positions of dynamics and hairpins</source>
         <translation type="unfinished">Default positions of dynamics and hairpins</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="98"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="64"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7595"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8775"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9004"/>
@@ -3981,22 +4251,38 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Position&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="51"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7647"/>
         <source>Place above the staff on vocal instruments</source>
         <translation type="unfinished">Place above the staff on vocal instruments</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="56"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7654"/>
         <source>Center on grand staff instruments automatically</source>
         <translation type="unfinished">Center on grand staff instruments automatically</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="61"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7664"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="13266"/>
         <source>Dynamics</source>
         <translation type="unfinished">Dynamics</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="97"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="151"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="46"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="75"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="58"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="55"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="55"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="55"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="55"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="55"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="112"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="55"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="78"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7680"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8043"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8274"/>
@@ -4042,6 +4328,19 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Avoid barlines&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="92"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="146"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="58"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="46"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="50"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="50"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="50"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="50"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="50"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="107"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="50"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="73"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7739"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7893"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8212"/>
@@ -4059,6 +4358,8 @@ space unit</extracomment>
         <translation type="unfinished">Offset above:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="78"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="104"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7787"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11680"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11683"/>
@@ -4066,17 +4367,20 @@ space unit</extracomment>
         <translation type="unfinished">Avoid barlines</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="83"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7810"/>
         <source>Scale:</source>
         <translation type="unfinished">Scale:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="65"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7820"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7823"/>
         <source>Override score font</source>
         <translation type="unfinished">Override score font</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="70"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7832"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12706"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="13812"/>
@@ -4084,6 +4388,7 @@ space unit</extracomment>
         <translation type="unfinished">Font:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="142"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7868"/>
         <source>Hairpins</source>
         <translation type="unfinished">Hairpins</translation>
@@ -4094,6 +4399,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Autoplace, distance to dynamics&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="168"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7923"/>
         <source>Autoplace, distance to dynamics:</source>
         <translation type="unfinished">Autoplace, distance to dynamics:</translation>
@@ -4104,6 +4410,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Continue height&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="156"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7971"/>
         <source>Height:</source>
         <translation type="unfinished">Height:</translation>
@@ -4119,6 +4426,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Line thickness&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="162"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8085"/>
         <source>Continue height:</source>
         <translation type="unfinished">Continue height:</translation>
@@ -4129,6 +4437,10 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Height&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="86"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="76"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="76"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="133"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8195"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8834"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9877"/>
@@ -4137,6 +4449,10 @@ space unit</extracomment>
         <translation type="unfinished">Dash size:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="76"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="66"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="66"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="123"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8254"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8686"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9805"/>
@@ -4191,16 +4507,19 @@ space unit</extracomment>
         <translation type="unfinished">Dash-dot-dotted</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="51"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8332"/>
         <source>Hook height above:</source>
         <translation type="unfinished">Hook height above:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="41"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8342"/>
         <source>Numbers only</source>
         <translation type="unfinished">Numbers only</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="63"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8381"/>
         <source>Hook height below:</source>
         <translation type="unfinished">Hook height below:</translation>
@@ -4227,6 +4546,10 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Numbers only&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="95"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="85"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="85"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="142"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8469"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8848"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9887"/>
@@ -4252,6 +4575,7 @@ space unit</extracomment>
         <translation type="unfinished">Label for full bends</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9273"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9276"/>
         <source>Standard staff</source>
@@ -4268,6 +4592,8 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Line thickness on standard staves&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="58"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="87"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9340"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9560"/>
         <source>Arrow width:</source>
@@ -4279,6 +4605,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Arrow width&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="65"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9370"/>
         <source>Arrow height:</source>
         <translation type="unfinished">Arrow height:</translation>
@@ -4299,11 +4626,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Line thickness on tablature staves&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="93"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9631"/>
         <source>Tablature fret numbers</source>
         <translation type="unfinished">Tablature fret numbers</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="97"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9637"/>
         <source>Use cue sized numbers for grace note bends</source>
         <translation type="unfinished">Use cue sized numbers for grace note bends</translation>
@@ -4327,11 +4656,13 @@ space unit</extracomment>
         <translation type="unfinished">sp</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="53"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10349"/>
         <source>Distance from stem:</source>
         <translation type="unfinished">Distance from stem:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="65"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10359"/>
         <source>Articulation size:</source>
         <translation type="unfinished">Articulation size:</translation>
@@ -4347,12 +4678,15 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Notehead distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="59"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="134"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="704"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10428"/>
         <source>Distance from staff:</source>
         <translation type="unfinished">Distance from staff:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="47"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10451"/>
         <source>Distance from notehead:</source>
         <translation type="unfinished">Distance from notehead:</translation>
@@ -4363,6 +4697,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Articulation size&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="41"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10468"/>
         <source>Minimum vertical distance:</source>
         <translation type="unfinished">Minimum vertical distance:</translation>
@@ -4418,6 +4753,7 @@ space unit</extracomment>
         <translation type="unfinished">Show for all intervals</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11259"/>
         <source>Lyrics text</source>
         <translation type="unfinished">Lyrics text</translation>
@@ -4438,6 +4774,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Min. distance&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="84"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11375"/>
         <source>Min. space between lyrics:</source>
         <translation type="unfinished">Min. space between lyrics:</translation>
@@ -4448,6 +4785,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Min. top margin&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="67"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11424"/>
         <source>Min. margin to other staves:</source>
         <translation type="unfinished">Min. margin to other staves:</translation>
@@ -4458,16 +4796,19 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Line height&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="50"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11472"/>
         <source>Min. margin to current staff:</source>
         <translation type="unfinished">Min. margin to current staff:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="99"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11510"/>
         <source>Align verse numbers</source>
         <translation type="unfinished">Align verse numbers</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="90"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11583"/>
         <source>Line height (% of text size):</source>
         <translation type="unfinished">Line height (% of text size):</translation>
@@ -4483,16 +4824,19 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Avoid barlines&apos;</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="109"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11713"/>
         <source>Dashes</source>
         <translation type="unfinished">Dashes</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="139"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11721"/>
         <source>Min. space between dash and text:</source>
         <translation type="unfinished">Min. space between dash and text:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="154"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11731"/>
         <source>Limit number of dashes to:</source>
         <translation type="unfinished">Limit number of dashes to:</translation>
@@ -4515,6 +4859,7 @@ text x-height):</translation>
         <translation type="unfinished">Reset &apos;Vertical position (% of text x-height)&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="126"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11852"/>
         <source>Dash thickness:</source>
         <translation type="unfinished">Dash thickness:</translation>
@@ -4530,11 +4875,13 @@ text x-height):</translation>
         <translation type="unfinished">Reset &apos;Max. dash length&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="113"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11936"/>
         <source>Min. dash length:</source>
         <translation type="unfinished">Min. dash length:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="119"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11946"/>
         <source>Max. dash length:</source>
         <translation type="unfinished">Max. dash length:</translation>
@@ -4550,6 +4897,7 @@ text x-height):</translation>
         <translation type="unfinished">Reset &apos;Dash thickness&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="146"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11982"/>
         <source>Max. space between dashes:</source>
         <translation type="unfinished">Max. space between dashes:</translation>
@@ -4570,6 +4918,7 @@ text x-height):</translation>
         <translation type="unfinished">Reset &apos;Omit dash when space is limited&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="169"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12038"/>
         <source>Omit dash when space is limited</source>
         <translation type="unfinished">Omit dash when space is limited</translation>
@@ -4594,6 +4943,7 @@ followed by dashes</source>
 followed by dashes</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="201"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12100"/>
         <source>Extension lines</source>
         <translation type="unfinished">Extension lines</translation>
@@ -4604,11 +4954,13 @@ followed by dashes</translation>
         <translation type="unfinished">Reset &apos;Min. line length&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="205"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12169"/>
         <source>Min. line length:</source>
         <translation type="unfinished">Min. line length:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="218"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12186"/>
         <source>Line gap:</source>
         <translation type="unfinished">Line gap:</translation>
@@ -4619,6 +4971,7 @@ followed by dashes</translation>
         <translation type="unfinished">Reset &apos;Line gap&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="225"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12258"/>
         <source>Omit extension line when space is limited</source>
         <translation type="unfinished">Omit extension line when space is limited</translation>
@@ -4629,6 +4982,7 @@ followed by dashes</translation>
         <translation type="unfinished">Reset &apos;Omit extension line when space is limited&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="72"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12325"/>
         <source>Snap to dynamics</source>
         <translation type="unfinished">Snap to dynamics</translation>
@@ -4639,6 +4993,7 @@ followed by dashes</translation>
         <translation type="unfinished">Reset &apos;Snap to dynamics&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="41"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12590"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="13989"/>
         <source>Size:</source>
@@ -4661,6 +5016,7 @@ followed by dashes</translation>
         <translation type="unfinished">of font height</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="59"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12671"/>
         <source>Line height:</source>
         <translation type="unfinished">Line height:</translation>
@@ -6652,8 +7008,8 @@ followed by dashes</translation>
         <location filename="../../src/appshell/view/appmenumodel.cpp" line="269"/>
         <location filename="../../src/appshell_web/view/appmenumodel.cpp" line="159"/>
         <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="39"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="595"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="596"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="601"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="602"/>
         <location filename="../../src/notation/view/internal/undoredotoolbarmodel.cpp" line="76"/>
         <source>Undo</source>
         <translation type="unfinished">Undo</translation>
@@ -6669,8 +7025,8 @@ followed by dashes</translation>
         <location filename="../../src/appshell/view/appmenumodel.cpp" line="275"/>
         <location filename="../../src/appshell_web/view/appmenumodel.cpp" line="165"/>
         <location filename="../../src/fontdesign/internal/fontdesignuiactions.cpp" line="45"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="602"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="603"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="608"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="609"/>
         <location filename="../../src/notation/view/internal/undoredotoolbarmodel.cpp" line="84"/>
         <source>Redo</source>
         <translation type="unfinished">Redo</translation>
@@ -7408,2819 +7764,2829 @@ followed by dashes</translation>
     </message>
     <message>
         <location filename="../../src/notation/internal/notationuiactions.cpp" line="408"/>
+        <source>Classic style dialog…</source>
+        <translation type="unfinished">Classic style dialog…</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="409"/>
+        <source>Open the classic style dialog</source>
+        <translation type="unfinished">Open the classic style dialog</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="414"/>
         <source>&amp;Page settings…</source>
         <translation type="unfinished">&amp;Page settings…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="409"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="415"/>
         <source>Page settings…</source>
         <translation type="unfinished">Page settings…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="414"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="420"/>
         <source>&amp;Load style…</source>
         <translation type="unfinished">&amp;Load style…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="415"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="421"/>
         <source>Load style…</source>
         <translation type="unfinished">Load style…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="420"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="426"/>
         <source>S&amp;ave style…</source>
         <translation type="unfinished">S&amp;ave style…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="421"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="427"/>
         <source>Save style…</source>
         <translation type="unfinished">Save style…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="426"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="432"/>
         <source>&amp;Transpose…</source>
         <translation type="unfinished">&amp;Transpose…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="427"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="433"/>
         <source>Transpose…</source>
         <translation type="unfinished">Transpose…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="432"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="438"/>
         <source>&amp;Explode</source>
         <translation type="unfinished">&amp;Explode</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="433"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="439"/>
         <source>Explode</source>
         <translation type="unfinished">Explode</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="438"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="444"/>
         <source>&amp;Implode</source>
         <translation type="unfinished">&amp;Implode</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="439"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="445"/>
         <source>Implode</source>
         <translation type="unfinished">Implode</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="444"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="450"/>
         <source>Add &amp;fretboard diagram</source>
         <translation type="unfinished">Add &amp;fretboard diagram</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="445"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="451"/>
         <source>Add fretboard diagram</source>
         <translation type="unfinished">Add fretboard diagram</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="451"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="457"/>
         <source>Realize &amp;chord symbols</source>
         <translation type="unfinished">Realize &amp;chord symbols</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="452"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="458"/>
         <source>Realize chord symbols</source>
         <translation type="unfinished">Realize chord symbols</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="457"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="463"/>
         <source>Remove selected ran&amp;ge</source>
         <translation type="unfinished">Remove selected ran&amp;ge</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="458"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="464"/>
         <source>Delete selected measures</source>
         <translation type="unfinished">Delete selected measures</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="464"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="465"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="470"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="471"/>
         <source>Fill with slashes</source>
         <translation type="unfinished">Fill with slashes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="470"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="476"/>
         <source>Toggle rhythmic sl&amp;ash notation</source>
         <translation type="unfinished">Toggle rhythmic sl&amp;ash notation</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="471"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="477"/>
         <source>Toggle rhythmic slash notation</source>
         <translation type="unfinished">Toggle rhythmic slash notation</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="476"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="482"/>
         <source>&amp;Optimize enharmonic spelling</source>
         <translation type="unfinished">&amp;Optimize enharmonic spelling</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="477"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="483"/>
         <source>Optimize enharmonic spelling</source>
         <translation type="unfinished">Optimize enharmonic spelling</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="482"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="488"/>
         <source>Regroup &amp;rhythms</source>
         <translation type="unfinished">Regroup &amp;rhythms</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="483"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="489"/>
         <source>Regroup rhythms</source>
         <translation type="unfinished">Regroup rhythms</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="488"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="494"/>
         <source>Resequence re&amp;hearsal marks</source>
         <translation type="unfinished">Resequence re&amp;hearsal marks</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="489"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="495"/>
         <source>Resequence rehearsal marks</source>
         <translation type="unfinished">Resequence rehearsal marks</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="494"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="495"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="500"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="501"/>
         <source>Unroll repeats</source>
         <translation type="unfinished">Unroll repeats</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="500"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="506"/>
         <source>Copy &amp;lyrics to clipboard</source>
         <translation type="unfinished">Copy &amp;lyrics to clipboard</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="501"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="507"/>
         <source>Copy lyrics</source>
         <translation type="unfinished">Copy lyrics</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="506"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="512"/>
         <source>Remove empty trailing meas&amp;ures</source>
         <translation type="unfinished">Remove empty trailing meas&amp;ures</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="507"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="513"/>
         <source>Remove empty trailing measures</source>
         <translation type="unfinished">Remove empty trailing measures</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="512"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="518"/>
         <source>Parts</source>
         <translation type="unfinished">Parts</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="513"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="519"/>
         <source>Manage parts</source>
         <translation type="unfinished">Manage parts</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="519"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="525"/>
         <source>Page view</source>
         <translation type="unfinished">Page view</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="520"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="526"/>
         <source>Display page view</source>
         <translation type="unfinished">Display page view</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="526"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="527"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="532"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="533"/>
         <source>Floating</source>
         <translation type="unfinished">Floating</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="533"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="539"/>
         <source>Continuous view (horizontal)</source>
         <translation type="unfinished">Continuous view (horizontal)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="534"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="540"/>
         <source>Display continuous view (horizontal)</source>
         <translation type="unfinished">Display continuous view (horizontal)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="540"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="546"/>
         <source>Continuous view (vertical)</source>
         <translation type="unfinished">Continuous view (vertical)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="541"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="547"/>
         <source>Display continuous view (vertical)</source>
         <translation type="unfinished">Display continuous view (vertical)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="547"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="553"/>
         <source>&amp;Find / Go to</source>
         <translation type="unfinished">&amp;Find / Go to</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="548"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="554"/>
         <source>Find / Go to</source>
         <translation type="unfinished">Find / Go to</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="553"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="554"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="559"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="560"/>
         <source>Staff/Part properties…</source>
         <translation type="unfinished">Staff/Part properties…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="559"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="560"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="565"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="566"/>
         <source>Staff text properties…</source>
         <translation type="unfinished">Staff text properties…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="565"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="566"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="571"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="572"/>
         <source>System text properties…</source>
         <translation type="unfinished">System text properties…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="571"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="572"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="577"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="578"/>
         <source>Measure properties…</source>
         <translation type="unfinished">Measure properties…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="577"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="583"/>
         <source>Measures per s&amp;ystem…</source>
         <translation type="unfinished">Measures per s&amp;ystem…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="578"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="584"/>
         <source>Measures per system…</source>
         <translation type="unfinished">Measures per system…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="583"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="589"/>
         <source>&amp;Fit music…</source>
         <translation type="unfinished">&amp;Fit music…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="584"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="590"/>
         <source>Fit music (distribute measures evenly across systems)…</source>
         <translation type="unfinished">Fit music (distribute measures evenly across systems)…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="589"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="595"/>
         <source>Apply &amp;Japanese spacing…</source>
         <translation type="unfinished">Apply &amp;Japanese spacing…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="590"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="596"/>
         <source>Apply Japanese engraving spacing preset…</source>
         <translation type="unfinished">Apply Japanese engraving spacing preset…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="609"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="615"/>
         <source>Exchange voice &amp;1-2</source>
         <translation type="unfinished">Exchange voice &amp;1-2</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="610"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="616"/>
         <source>Exchange voice 1-2</source>
         <translation type="unfinished">Exchange voice 1-2</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="615"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="616"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="621"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="622"/>
         <source>Exchange voice 1-3</source>
         <translation type="unfinished">Exchange voice 1-3</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="621"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="627"/>
         <source>Exchange voice 1-&amp;4</source>
         <translation type="unfinished">Exchange voice 1-&amp;4</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="622"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="628"/>
         <source>Exchange voice 1-4</source>
         <translation type="unfinished">Exchange voice 1-4</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="627"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="633"/>
         <source>Exchange voice &amp;2-3</source>
         <translation type="unfinished">Exchange voice &amp;2-3</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="628"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="634"/>
         <source>Exchange voice 2-3</source>
         <translation type="unfinished">Exchange voice 2-3</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="633"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="634"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="639"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="640"/>
         <source>Exchange voice 2-4</source>
         <translation type="unfinished">Exchange voice 2-4</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="639"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="645"/>
         <source>Exchange voice &amp;3-4</source>
         <translation type="unfinished">Exchange voice &amp;3-4</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="640"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="646"/>
         <source>Exchange voice 3-4</source>
         <translation type="unfinished">Exchange voice 3-4</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="645"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="646"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="651"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="652"/>
         <source>Add/remove system break</source>
         <translation type="unfinished">Add/remove system break</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="651"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="652"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="657"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="658"/>
         <source>Add/remove page break</source>
         <translation type="unfinished">Add/remove page break</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="657"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="658"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="663"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="664"/>
         <source>Add/remove system lock</source>
         <translation type="unfinished">Add/remove system lock</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="663"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="664"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="669"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="670"/>
         <source>Move measure to previous system</source>
         <translation type="unfinished">Move measure to previous system</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="670"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="671"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="676"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="677"/>
         <source>Move measure to next system</source>
         <translation type="unfinished">Move measure to next system</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="677"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="678"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="683"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="684"/>
         <source>Create system from selection</source>
         <translation type="unfinished">Create system from selection</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="683"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="684"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="689"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="690"/>
         <source>Add/remove section break</source>
         <translation type="unfinished">Add/remove section break</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="689"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="695"/>
         <source>&amp;Split measure before selected note/rest</source>
         <translation type="unfinished">&amp;Split measure before selected note/rest</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="690"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="696"/>
         <source>Split measure before selected note/rest</source>
         <translation type="unfinished">Split measure before selected note/rest</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="695"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="701"/>
         <source>&amp;Join selected measures</source>
         <translation type="unfinished">&amp;Join selected measures</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="696"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="702"/>
         <source>Join selected measures</source>
         <translation type="unfinished">Join selected measures</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="701"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="702"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="707"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="708"/>
         <source>Insert one measure before selection</source>
         <translation type="unfinished">Insert one measure before selection</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="708"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="709"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="714"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="715"/>
         <source>Insert measures before selection…</source>
         <translation type="unfinished">Insert measures before selection…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="714"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="715"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="720"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="721"/>
         <source>Insert measures after selection…</source>
         <translation type="unfinished">Insert measures after selection…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="720"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="721"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="726"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="727"/>
         <source>Insert measures at start of score…</source>
         <translation type="unfinished">Insert measures at start of score…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="726"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="727"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="732"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="733"/>
         <source>Insert one measure at end of score</source>
         <translation type="unfinished">Insert one measure at end of score</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="732"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="733"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="738"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="739"/>
         <source>Insert measures at end of score…</source>
         <translation type="unfinished">Insert measures at end of score…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="738"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="744"/>
         <source>Insert &amp;horizontal frame</source>
         <translation type="unfinished">Insert &amp;horizontal frame</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="739"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="745"/>
         <source>Insert horizontal frame</source>
         <translation type="unfinished">Insert horizontal frame</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="745"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="751"/>
         <source>Insert &amp;vertical frame</source>
         <translation type="unfinished">Insert &amp;vertical frame</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="746"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="752"/>
         <source>Insert vertical frame</source>
         <translation type="unfinished">Insert vertical frame</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="752"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="758"/>
         <source>Insert &amp;text frame</source>
         <translation type="unfinished">Insert &amp;text frame</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="753"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="759"/>
         <source>Insert text frame</source>
         <translation type="unfinished">Insert text frame</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="759"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="765"/>
         <source>Insert &amp;fretboard diagram legend</source>
         <translation type="unfinished">Insert &amp;fretboard diagram legend</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="760"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="766"/>
         <source>Insert fretboard diagram legend</source>
         <translation type="unfinished">Insert fretboard diagram legend</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="766"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="772"/>
         <source>&amp;Horizontal frame</source>
         <translation type="unfinished">&amp;Horizontal frame</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="767"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="773"/>
         <source>Insert horizontal frame at end of score</source>
         <translation type="unfinished">Insert horizontal frame at end of score</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="773"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="779"/>
         <source>&amp;Vertical frame</source>
         <translation type="unfinished">&amp;Vertical frame</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="774"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="780"/>
         <source>Insert vertical frame at end of score</source>
         <translation type="unfinished">Insert vertical frame at end of score</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="780"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="786"/>
         <source>&amp;Text frame</source>
         <translation type="unfinished">&amp;Text frame</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="781"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="787"/>
         <source>Insert text frame at end of score</source>
         <translation type="unfinished">Insert text frame at end of score</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="787"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="793"/>
         <source>&amp;Fretboard diagram legend</source>
         <translation type="unfinished">&amp;Fretboard diagram legend</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="788"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="794"/>
         <source>Insert fretboard diagram legend at end of score</source>
         <translation type="unfinished">Insert fretboard diagram legend at end of score</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="794"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="800"/>
         <source>Acciaccatura</source>
         <translation type="unfinished">Acciaccatura</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="795"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="801"/>
         <source>Add grace note: acciaccatura</source>
         <translation type="unfinished">Add grace note: acciaccatura</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="801"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="807"/>
         <source>Appoggiatura</source>
         <translation type="unfinished">Appoggiatura</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="802"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="808"/>
         <source>Add grace note: appoggiatura</source>
         <translation type="unfinished">Add grace note: appoggiatura</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="808"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="814"/>
         <source>Grace: quarter</source>
         <translation type="unfinished">Grace: quarter</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="809"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="815"/>
         <source>Add grace note: quarter</source>
         <translation type="unfinished">Add grace note: quarter</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="815"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="821"/>
         <source>Grace: 16th</source>
         <translation type="unfinished">Grace: 16th</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="816"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="822"/>
         <source>Add grace note: 16th</source>
         <translation type="unfinished">Add grace note: 16th</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="822"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="828"/>
         <source>Grace: 32nd</source>
         <translation type="unfinished">Grace: 32nd</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="823"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="829"/>
         <source>Add grace note: 32nd</source>
         <translation type="unfinished">Add grace note: 32nd</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="829"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="835"/>
         <source>Grace: 8th after</source>
         <translation type="unfinished">Grace: 8th after</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="830"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="836"/>
         <source>Add grace note: eighth after</source>
         <translation type="unfinished">Add grace note: eighth after</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="836"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="842"/>
         <source>Grace: 16th after</source>
         <translation type="unfinished">Grace: 16th after</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="837"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="843"/>
         <source>Add grace note: 16th after</source>
         <translation type="unfinished">Add grace note: 16th after</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="843"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="849"/>
         <source>Grace: 32nd after</source>
         <translation type="unfinished">Grace: 32nd after</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="844"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="850"/>
         <source>Add grace note: 32nd after</source>
         <translation type="unfinished">Add grace note: 32nd after</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="850"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="851"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="856"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="857"/>
         <source>Auto beam</source>
         <translation type="unfinished">Auto beam</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="857"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="858"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="863"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="864"/>
         <source>No beam</source>
         <translation type="unfinished">No beam</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="864"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="865"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="870"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="871"/>
         <source>Break beam left</source>
         <translation type="unfinished">Break beam left</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="871"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="877"/>
         <source>Break inner beams (8th)</source>
         <translation type="unfinished">Break inner beams (8th)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="872"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="878"/>
         <source>Break inner beams (eighth)</source>
         <translation type="unfinished">Break inner beams (eighth)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="878"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="879"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="884"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="885"/>
         <source>Break inner beams (16th)</source>
         <translation type="unfinished">Break inner beams (16th)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="885"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="886"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="891"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="892"/>
         <source>Join beams</source>
         <translation type="unfinished">Join beams</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="892"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="898"/>
         <source>Feathered beam, decelerate</source>
         <translation type="unfinished">Feathered beam, decelerate</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="893"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="899"/>
         <source>Add feathered beam: decelerate</source>
         <translation type="unfinished">Add feathered beam: decelerate</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="899"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="905"/>
         <source>Feathered beam, accelerate</source>
         <translation type="unfinished">Feathered beam, accelerate</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="900"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="906"/>
         <source>Add feathered beam: accelerate</source>
         <translation type="unfinished">Add feathered beam: accelerate</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="906"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="907"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="912"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="913"/>
         <source>Add brackets to accidental</source>
         <translation type="unfinished">Add brackets to accidental</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="913"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="914"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="919"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="920"/>
         <source>Add braces to element</source>
         <translation type="unfinished">Add braces to element</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="920"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="921"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="926"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="927"/>
         <source>Add parentheses to element</source>
         <translation type="unfinished">Add parentheses to element</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="927"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="933"/>
         <source>&amp;Unison</source>
         <translation type="unfinished">&amp;Unison</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="928"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="934"/>
         <source>Enter interval: unison</source>
         <translation type="unfinished">Enter interval: unison</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="933"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="939"/>
         <source>Se&amp;cond above</source>
         <translation type="unfinished">Se&amp;cond above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="934"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="940"/>
         <source>Enter interval: second above</source>
         <translation type="unfinished">Enter interval: second above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="939"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="945"/>
         <source>Thir&amp;d above</source>
         <translation type="unfinished">Thir&amp;d above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="940"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="946"/>
         <source>Enter interval: third above</source>
         <translation type="unfinished">Enter interval: third above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="945"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="951"/>
         <source>Fou&amp;rth above</source>
         <translation type="unfinished">Fou&amp;rth above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="946"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="952"/>
         <source>Enter interval: fourth above</source>
         <translation type="unfinished">Enter interval: fourth above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="951"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="957"/>
         <source>Fift&amp;h above</source>
         <translation type="unfinished">Fift&amp;h above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="952"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="958"/>
         <source>Enter interval: fifth above</source>
         <translation type="unfinished">Enter interval: fifth above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="957"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="963"/>
         <source>Si&amp;xth above</source>
         <translation type="unfinished">Si&amp;xth above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="958"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="964"/>
         <source>Enter interval: sixth above</source>
         <translation type="unfinished">Enter interval: sixth above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="963"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="969"/>
         <source>Seve&amp;nth above</source>
         <translation type="unfinished">Seve&amp;nth above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="964"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="970"/>
         <source>Enter interval: seventh above</source>
         <translation type="unfinished">Enter interval: seventh above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="969"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="975"/>
         <source>Octave &amp;above</source>
         <translation type="unfinished">Octave &amp;above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="970"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="976"/>
         <source>Enter interval: octave above</source>
         <translation type="unfinished">Enter interval: octave above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="975"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="981"/>
         <source>Ninth abov&amp;e</source>
         <translation type="unfinished">Ninth abov&amp;e</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="976"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="982"/>
         <source>Enter interval: ninth above</source>
         <translation type="unfinished">Enter interval: ninth above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="981"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="987"/>
         <source>Tenth above</source>
         <translation type="unfinished">Tenth above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="982"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="988"/>
         <source>Enter interval: tenth above</source>
         <translation type="unfinished">Enter interval: tenth above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="987"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="993"/>
         <source>&amp;Second below</source>
         <translation type="unfinished">&amp;Second below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="988"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="994"/>
         <source>Enter interval: second below</source>
         <translation type="unfinished">Enter interval: second below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="993"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="999"/>
         <source>&amp;Third below</source>
         <translation type="unfinished">&amp;Third below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="994"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1000"/>
         <source>Enter interval: third below</source>
         <translation type="unfinished">Enter interval: third below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="999"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1005"/>
         <source>F&amp;ourth below</source>
         <translation type="unfinished">F&amp;ourth below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1000"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1006"/>
         <source>Enter interval: fourth below</source>
         <translation type="unfinished">Enter interval: fourth below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1005"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1011"/>
         <source>&amp;Fifth below</source>
         <translation type="unfinished">&amp;Fifth below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1006"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1012"/>
         <source>Enter interval: fifth below</source>
         <translation type="unfinished">Enter interval: fifth below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1011"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1017"/>
         <source>S&amp;ixth below</source>
         <translation type="unfinished">S&amp;ixth below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1012"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1018"/>
         <source>Enter interval: sixth below</source>
         <translation type="unfinished">Enter interval: sixth below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1017"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1023"/>
         <source>Se&amp;venth below</source>
         <translation type="unfinished">Se&amp;venth below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1018"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1024"/>
         <source>Enter interval: seventh below</source>
         <translation type="unfinished">Enter interval: seventh below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1023"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1029"/>
         <source>Octave &amp;below</source>
         <translation type="unfinished">Octave &amp;below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1024"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1030"/>
         <source>Enter interval: octave below</source>
         <translation type="unfinished">Enter interval: octave below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1029"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1035"/>
         <source>Ninth belo&amp;w</source>
         <translation type="unfinished">Ninth belo&amp;w</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1030"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1036"/>
         <source>Enter interval: ninth below</source>
         <translation type="unfinished">Enter interval: ninth below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1035"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1041"/>
         <source>Tenth below</source>
         <translation type="unfinished">Tenth below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1036"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1042"/>
         <source>Enter interval: tenth below</source>
         <translation type="unfinished">Enter interval: tenth below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1160"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1167"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2386"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1166"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1173"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2392"/>
         <source>Rest</source>
         <translation type="unfinished">Rest</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1161"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1168"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1167"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1174"/>
         <source>Enter rest</source>
         <translation type="unfinished">Enter rest</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1263"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1269"/>
         <source>Ottava 8va &amp;alta</source>
         <translation type="unfinished">Ottava 8va &amp;alta</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1264"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1270"/>
         <source>Add ottava 8va alta</source>
         <translation type="unfinished">Add ottava 8va alta</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1269"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1275"/>
         <source>Ottava 8va &amp;bassa</source>
         <translation type="unfinished">Ottava 8va &amp;bassa</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1270"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1276"/>
         <source>Add ottava 8va bassa</source>
         <translation type="unfinished">Add ottava 8va bassa</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1275"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1281"/>
         <source>&amp;Dynamic</source>
         <translation type="unfinished">&amp;Dynamic</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1276"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1282"/>
         <source>Add dynamic</source>
         <translation type="unfinished">Add dynamic</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1281"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1287"/>
         <source>&amp;Crescendo</source>
         <translation type="unfinished">&amp;Crescendo</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1282"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1288"/>
         <source>Add hairpin: crescendo</source>
         <translation type="unfinished">Add hairpin: crescendo</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1287"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1293"/>
         <source>&amp;Diminuendo</source>
         <translation type="unfinished">&amp;Diminuendo</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1288"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1294"/>
         <source>Add hairpin: diminuendo</source>
         <translation type="unfinished">Add hairpin: diminuendo</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1293"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1299"/>
         <source>&amp;Note-anchored line</source>
         <translation type="unfinished">&amp;Note-anchored line</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1294"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1300"/>
         <source>Add note-anchored line</source>
         <translation type="unfinished">Add note-anchored line</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1300"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1306"/>
         <source>Add tied note to chord</source>
         <translation type="unfinished">Add tied note to chord</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1305"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1311"/>
         <source>Image</source>
         <translation type="unfinished">Image</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1310"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1316"/>
         <source>&amp;Title</source>
         <translation type="unfinished">&amp;Title</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1311"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1317"/>
         <source>Add text: title</source>
         <translation type="unfinished">Add text: title</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1316"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1322"/>
         <source>&amp;Subtitle</source>
         <translation type="unfinished">&amp;Subtitle</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1317"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1323"/>
         <source>Add text: subtitle</source>
         <translation type="unfinished">Add text: subtitle</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1322"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1328"/>
         <source>&amp;Composer</source>
         <translation type="unfinished">&amp;Composer</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1323"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1329"/>
         <source>Add text: composer</source>
         <translation type="unfinished">Add text: composer</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1328"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1334"/>
         <source>&amp;Lyricist</source>
         <translation type="unfinished">&amp;Lyricist</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1329"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1335"/>
         <source>Add text: lyricist</source>
         <translation type="unfinished">Add text: lyricist</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1334"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1340"/>
         <source>&amp;Part name</source>
         <translation type="unfinished">&amp;Part name</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1335"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1341"/>
         <source>Add text: part name</source>
         <translation type="unfinished">Add text: part name</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1340"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1346"/>
         <source>Text</source>
         <translation type="unfinished">Text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1341"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1347"/>
         <source>Add frame text</source>
         <translation type="unfinished">Add frame text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1346"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1352"/>
         <source>Syst&amp;em text</source>
         <translation type="unfinished">Syst&amp;em text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1347"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1353"/>
         <source>Add text: system text</source>
         <translation type="unfinished">Add text: system text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1352"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1358"/>
         <source>St&amp;aff text</source>
         <translation type="unfinished">St&amp;aff text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1353"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1359"/>
         <source>Add text: staff text</source>
         <translation type="unfinished">Add text: staff text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1358"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1364"/>
         <source>E&amp;xpression text</source>
         <translation type="unfinished">E&amp;xpression text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1359"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1365"/>
         <source>Add text: expression text</source>
         <translation type="unfinished">Add text: expression text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1364"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1370"/>
         <source>&amp;Rehearsal mark</source>
         <translation type="unfinished">&amp;Rehearsal mark</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1365"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1371"/>
         <source>Add text: rehearsal mark</source>
         <translation type="unfinished">Add text: rehearsal mark</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1370"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1376"/>
         <source>&amp;Instrument change</source>
         <translation type="unfinished">&amp;Instrument change</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1371"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1377"/>
         <source>Add text: instrument change</source>
         <translation type="unfinished">Add text: instrument change</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1376"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1382"/>
         <source>&amp;Fingering</source>
         <translation type="unfinished">&amp;Fingering</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1377"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1383"/>
         <source>Add text: fingering</source>
         <translation type="unfinished">Add text: fingering</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1382"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1388"/>
         <source>Stic&amp;king</source>
         <translation type="unfinished">Stic&amp;king</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1383"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1389"/>
         <source>Add text: sticking</source>
         <translation type="unfinished">Add text: sticking</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1388"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1394"/>
         <source>C&amp;hord symbol</source>
         <translation type="unfinished">C&amp;hord symbol</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1389"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1395"/>
         <source>Add text: chord symbol</source>
         <translation type="unfinished">Add text: chord symbol</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1394"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1400"/>
         <source>R&amp;oman numeral analysis</source>
         <translation type="unfinished">R&amp;oman numeral analysis</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1395"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1401"/>
         <source>Add text: Roman numeral analysis</source>
         <translation type="unfinished">Add text: Roman numeral analysis</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1400"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1406"/>
         <source>&amp;Nashville number</source>
         <translation type="unfinished">&amp;Nashville number</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1401"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1407"/>
         <source>Add text: Nashville number</source>
         <translation type="unfinished">Add text: Nashville number</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1406"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1412"/>
         <source>L&amp;yrics</source>
         <translation type="unfinished">L&amp;yrics</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1407"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1413"/>
         <source>Add text: lyrics</source>
         <translation type="unfinished">Add text: lyrics</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1412"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1418"/>
         <source>Figured &amp;bass</source>
         <translation type="unfinished">Figured &amp;bass</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1413"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1419"/>
         <source>Add text: figured bass</source>
         <translation type="unfinished">Add text: figured bass</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1418"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1424"/>
         <source>Tempo &amp;marking</source>
         <translation type="unfinished">Tempo &amp;marking</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1419"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1425"/>
         <source>Add text: tempo marking</source>
         <translation type="unfinished">Add text: tempo marking</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1424"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1430"/>
         <source>&amp;Duplet</source>
         <translation type="unfinished">&amp;Duplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1425"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1431"/>
         <source>Enter tuplet: duplet</source>
         <translation type="unfinished">Enter tuplet: duplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1430"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1436"/>
         <source>&amp;Triplet</source>
         <translation type="unfinished">&amp;Triplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1431"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1437"/>
         <source>Enter tuplet: triplet</source>
         <translation type="unfinished">Enter tuplet: triplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1436"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1442"/>
         <source>&amp;Quadruplet</source>
         <translation type="unfinished">&amp;Quadruplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1437"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1443"/>
         <source>Enter tuplet: quadruplet</source>
         <translation type="unfinished">Enter tuplet: quadruplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1442"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1448"/>
         <source>Q&amp;uintuplet</source>
         <translation type="unfinished">Q&amp;uintuplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1443"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1449"/>
         <source>Enter tuplet: quintuplet</source>
         <translation type="unfinished">Enter tuplet: quintuplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1448"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1454"/>
         <source>Se&amp;xtuplet</source>
         <translation type="unfinished">Se&amp;xtuplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1449"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1455"/>
         <source>Enter tuplet: sextuplet</source>
         <translation type="unfinished">Enter tuplet: sextuplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1454"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1460"/>
         <source>Se&amp;ptuplet</source>
         <translation type="unfinished">Se&amp;ptuplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1455"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1461"/>
         <source>Enter tuplet: septuplet</source>
         <translation type="unfinished">Enter tuplet: septuplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1460"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1466"/>
         <source>&amp;Octuplet</source>
         <translation type="unfinished">&amp;Octuplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1461"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1467"/>
         <source>Enter tuplet: octuplet</source>
         <translation type="unfinished">Enter tuplet: octuplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1466"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1472"/>
         <source>&amp;Nonuplet</source>
         <translation type="unfinished">&amp;Nonuplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1467"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1473"/>
         <source>Enter tuplet: nonuplet</source>
         <translation type="unfinished">Enter tuplet: nonuplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1472"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1478"/>
         <source>Othe&amp;r…</source>
         <translation type="unfinished">Othe&amp;r…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1473"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1479"/>
         <source>Enter tuplet: other…</source>
         <translation type="unfinished">Enter tuplet: other…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1478"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1484"/>
         <source>&amp;Decrease layout stretch</source>
         <translation type="unfinished">&amp;Decrease layout stretch</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1479"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1485"/>
         <source>Decrease layout stretch</source>
         <translation type="unfinished">Decrease layout stretch</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1484"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1490"/>
         <source>&amp;Increase layout stretch</source>
         <translation type="unfinished">&amp;Increase layout stretch</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1485"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1491"/>
         <source>Increase layout stretch</source>
         <translation type="unfinished">Increase layout stretch</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1490"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1496"/>
         <source>&amp;Reset layout stretch</source>
         <translation type="unfinished">&amp;Reset layout stretch</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1491"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1497"/>
         <source>Reset layout stretch</source>
         <translation type="unfinished">Reset layout stretch</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1496"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1502"/>
         <source>Reset &amp;text style overrides</source>
         <translation type="unfinished">Reset &amp;text style overrides</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1497"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1503"/>
         <source>Reset all text style overrides to default</source>
         <translation type="unfinished">Reset all text style overrides to default</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1502"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1508"/>
         <source>Reset &amp;beams</source>
         <translation type="unfinished">Reset &amp;beams</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1503"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1509"/>
         <source>Reset beams to default grouping</source>
         <translation type="unfinished">Reset beams to default grouping</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1508"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1514"/>
         <source>Reset s&amp;hapes and positions</source>
         <translation type="unfinished">Reset s&amp;hapes and positions</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1509"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1515"/>
         <source>Reset shapes and positions</source>
         <translation type="unfinished">Reset shapes and positions</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1514"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1520"/>
         <source>Reset entire score to &amp;default layout</source>
         <translation type="unfinished">Reset entire score to &amp;default layout</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1515"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1521"/>
         <source>Reset entire score to default layout</source>
         <translation type="unfinished">Reset entire score to default layout</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1520"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1521"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1526"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1527"/>
         <source>Zoom in</source>
         <translation type="unfinished">Zoom in</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1527"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1528"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1533"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1534"/>
         <source>Zoom out</source>
         <translation type="unfinished">Zoom out</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1534"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1535"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1540"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1541"/>
         <source>Zoom to 100%</source>
         <translation type="unfinished">Zoom to 100%</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1540"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1541"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1546"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1547"/>
         <source>Zoom to page width</source>
         <translation type="unfinished">Zoom to page width</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1546"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1547"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1552"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1553"/>
         <source>Zoom to whole page</source>
         <translation type="unfinished">Zoom to whole page</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1552"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1553"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1558"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1559"/>
         <source>Zoom to two pages</source>
         <translation type="unfinished">Zoom to two pages</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1558"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1564"/>
         <source>Accessibility: Get location</source>
         <translation type="unfinished">Accessibility: Get location</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1559"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1565"/>
         <source>Accessibility: get location</source>
         <translation type="unfinished">Accessibility: get location</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1564"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1565"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1570"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1571"/>
         <source>Edit element</source>
         <translation type="unfinished">Edit element</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1570"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1571"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1576"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1577"/>
         <source>Select to beginning of measure</source>
         <translation type="unfinished">Select to beginning of measure</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1576"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1577"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1582"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1583"/>
         <source>Select to end of measure</source>
         <translation type="unfinished">Select to end of measure</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1582"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1583"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1588"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1589"/>
         <source>Select to beginning of line</source>
         <translation type="unfinished">Select to beginning of line</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1588"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1589"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1594"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1595"/>
         <source>Select to end of line</source>
         <translation type="unfinished">Select to end of line</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1594"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1595"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1600"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1601"/>
         <source>Select to beginning of score</source>
         <translation type="unfinished">Select to beginning of score</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1600"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1601"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1606"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1607"/>
         <source>Select to end of score</source>
         <translation type="unfinished">Select to end of score</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1606"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1612"/>
         <source>Add staff above to selection</source>
         <translation type="unfinished">Add staff above to selection</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1607"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1613"/>
         <source>Add to selection: staff above</source>
         <translation type="unfinished">Add to selection: staff above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1612"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1618"/>
         <source>Add staff below to selection</source>
         <translation type="unfinished">Add staff below to selection</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1613"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1619"/>
         <source>Add to selection: staff below</source>
         <translation type="unfinished">Add to selection: staff below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1618"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1624"/>
         <source>Screen: Previous</source>
         <translation type="unfinished">Screen: Previous</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1619"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1625"/>
         <source>Jump to previous screen</source>
         <translation type="unfinished">Jump to previous screen</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1624"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1630"/>
         <source>Screen: Next</source>
         <translation type="unfinished">Screen: Next</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1625"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1631"/>
         <source>Jump to next screen</source>
         <translation type="unfinished">Jump to next screen</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1630"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1636"/>
         <source>Page: Previous</source>
         <translation type="unfinished">Page: Previous</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1631"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1637"/>
         <source>Jump to previous page</source>
         <translation type="unfinished">Jump to previous page</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1636"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1642"/>
         <source>Page: Next</source>
         <translation type="unfinished">Page: Next</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1637"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1643"/>
         <source>Jump to next page</source>
         <translation type="unfinished">Jump to next page</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1642"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1648"/>
         <source>Page: Top of first</source>
         <translation type="unfinished">Page: Top of first</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1643"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1649"/>
         <source>Jump to top of first page</source>
         <translation type="unfinished">Jump to top of first page</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1648"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1654"/>
         <source>Page: Bottom of last</source>
         <translation type="unfinished">Page: Bottom of last</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1649"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1655"/>
         <source>Jump to bottom of last page</source>
         <translation type="unfinished">Jump to bottom of last page</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1654"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1660"/>
         <source>Context sensitive help</source>
         <translation type="unfinished">Context sensitive help</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1659"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1660"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1665"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1666"/>
         <source>Repeat selection</source>
         <translation type="unfinished">Repeat selection</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1665"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1666"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1671"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1672"/>
         <source>Lock/unlock all systems</source>
         <translation type="unfinished">Lock/unlock all systems</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1671"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1672"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1677"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1678"/>
         <source>Lock/unlock selected system(s)</source>
         <translation type="unfinished">Lock/unlock selected system(s)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1678"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1684"/>
         <source>Change enharmonic spelling (concert and transposed &amp;pitch)</source>
         <translation type="unfinished">Change enharmonic spelling (concert and transposed &amp;pitch)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1679"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1685"/>
         <source>Change enharmonic spelling (concert and transposed pitch)</source>
         <translation type="unfinished">Change enharmonic spelling (concert and transposed pitch)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1685"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1691"/>
         <source>Change enharmonic spelling (&amp;current pitch mode only)</source>
         <translation type="unfinished">Change enharmonic spelling (&amp;current pitch mode only)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1686"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1692"/>
         <source>Change enharmonic spelling (current pitch mode only)</source>
         <translation type="unfinished">Change enharmonic spelling (current pitch mode only)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1692"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1693"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1698"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1699"/>
         <source>Flip direction</source>
         <translation type="unfinished">Flip direction</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1699"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1700"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1705"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1706"/>
         <source>Flip horizontally</source>
         <translation type="unfinished">Flip horizontally</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1704"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1710"/>
         <source>Concert pitch</source>
         <translation type="unfinished">Concert pitch</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1705"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1711"/>
         <source>Toggle concert pitch</source>
         <translation type="unfinished">Toggle concert pitch</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1712"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1718"/>
         <source>Next word</source>
         <translation type="unfinished">Next word</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1713"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1719"/>
         <source>Go to next word</source>
         <translation type="unfinished">Go to next word</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1718"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1724"/>
         <source>Next text element</source>
         <translation type="unfinished">Next text element</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1719"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1725"/>
         <source>Go to next text element</source>
         <translation type="unfinished">Go to next text element</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1724"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1730"/>
         <source>Previous text element</source>
         <translation type="unfinished">Previous text element</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1725"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1731"/>
         <source>Go to previous text element</source>
         <translation type="unfinished">Go to previous text element</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1730"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1731"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1736"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1737"/>
         <source>Advance cursor: next beat (chord symbols)</source>
         <translation type="unfinished">Advance cursor: next beat (chord symbols)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1736"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1737"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1742"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1743"/>
         <source>Advance cursor: previous beat (chord symbols)</source>
         <translation type="unfinished">Advance cursor: previous beat (chord symbols)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1742"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1743"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1748"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1749"/>
         <source>Advance cursor: longa (chord symbols/figured bass)</source>
         <translation type="unfinished">Advance cursor: longa (chord symbols/figured bass)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1748"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1749"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1754"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1755"/>
         <source>Advance cursor: breve (chord symbols/figured bass)</source>
         <translation type="unfinished">Advance cursor: breve (chord symbols/figured bass)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1754"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1755"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1760"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1761"/>
         <source>Advance cursor: whole note (chord symbols/figured bass)</source>
         <translation type="unfinished">Advance cursor: whole note (chord symbols/figured bass)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1760"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1761"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1766"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1767"/>
         <source>Advance cursor: half note (chord symbols/figured bass)</source>
         <translation type="unfinished">Advance cursor: half note (chord symbols/figured bass)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1766"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1767"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1772"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1773"/>
         <source>Advance cursor: quarter note (chord symbols/figured bass)</source>
         <translation type="unfinished">Advance cursor: quarter note (chord symbols/figured bass)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1772"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1773"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1778"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1779"/>
         <source>Advance cursor: eighth note (chord symbols/figured bass)</source>
         <translation type="unfinished">Advance cursor: eighth note (chord symbols/figured bass)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1778"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1779"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1784"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1785"/>
         <source>Advance cursor: 16th note (chord symbols/figured bass)</source>
         <translation type="unfinished">Advance cursor: 16th note (chord symbols/figured bass)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1784"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1785"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1790"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1791"/>
         <source>Advance cursor: 32nd note (chord symbols/figured bass)</source>
         <translation type="unfinished">Advance cursor: 32nd note (chord symbols/figured bass)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1790"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1791"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1796"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1797"/>
         <source>Advance cursor: 64th note (chord symbols/figured bass)</source>
         <translation type="unfinished">Advance cursor: 64th note (chord symbols/figured bass)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1796"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1802"/>
         <source>Next lyric verse</source>
         <translation type="unfinished">Next lyric verse</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1797"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1803"/>
         <source>Move text/go to next lyric verse</source>
         <translation type="unfinished">Move text/go to next lyric verse</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1802"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1808"/>
         <source>Previous lyric verse</source>
         <translation type="unfinished">Previous lyric verse</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1803"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1809"/>
         <source>Move text/go to previous lyric verse</source>
         <translation type="unfinished">Move text/go to previous lyric verse</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1808"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1814"/>
         <source>Next syllable</source>
         <translation type="unfinished">Next syllable</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1809"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1815"/>
         <source>Lyrics: enter hyphen</source>
         <translation type="unfinished">Lyrics: enter hyphen</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1814"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1820"/>
         <source>Add extension line</source>
         <translation type="unfinished">Add extension line</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1815"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1821"/>
         <source>Lyrics: enter extension line</source>
         <translation type="unfinished">Lyrics: enter extension line</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1820"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1821"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1826"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1827"/>
         <source>Add lyrics verse</source>
         <translation type="unfinished">Add lyrics verse</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1826"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1832"/>
         <source>Bold face</source>
         <translation type="unfinished">Bold face</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1827"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1833"/>
         <source>Format text: bold</source>
         <translation type="unfinished">Format text: bold</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1833"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1839"/>
         <source>Italic</source>
         <translation type="unfinished">Italic</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1834"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1840"/>
         <source>Format text: italic</source>
         <translation type="unfinished">Format text: italic</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1840"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1846"/>
         <source>Underline</source>
         <translation type="unfinished">Underline</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1841"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1847"/>
         <source>Format text: underline</source>
         <translation type="unfinished">Format text: underline</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1847"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1853"/>
         <source>Strikethrough</source>
         <translation type="unfinished">Strikethrough</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1848"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1854"/>
         <source>Format text: strikethrough</source>
         <translation type="unfinished">Format text: strikethrough</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1854"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1860"/>
         <source>Subscript</source>
         <translation type="unfinished">Subscript</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1855"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1861"/>
         <source>Format text: subscript</source>
         <translation type="unfinished">Format text: subscript</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1861"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1867"/>
         <source>Superscript</source>
         <translation type="unfinished">Superscript</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1862"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1868"/>
         <source>Format text: superscript</source>
         <translation type="unfinished">Format text: superscript</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1868"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1874"/>
         <source>Diatonic pitch up</source>
         <translation type="unfinished">Diatonic pitch up</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1869"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1875"/>
         <source>Move pitch up diatonically</source>
         <translation type="unfinished">Move pitch up diatonically</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1874"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1880"/>
         <source>Diatonic pitch down</source>
         <translation type="unfinished">Diatonic pitch down</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1875"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1881"/>
         <source>Move pitch down diatonically</source>
         <translation type="unfinished">Move pitch down diatonically</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1880"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1881"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1886"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1887"/>
         <source>Go to top staff</source>
         <translation type="unfinished">Go to top staff</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1886"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1887"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1892"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1893"/>
         <source>Go to first empty trailing measure</source>
         <translation type="unfinished">Go to first empty trailing measure</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1892"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1893"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1898"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1899"/>
         <source>Mirror notehead</source>
         <translation type="unfinished">Mirror notehead</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1898"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1904"/>
         <source>Toggle turn</source>
         <translation type="unfinished">Toggle turn</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1899"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1905"/>
         <source>Add ornament: turn</source>
         <translation type="unfinished">Add ornament: turn</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1904"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1910"/>
         <source>Toggle inverted turn</source>
         <translation type="unfinished">Toggle inverted turn</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1905"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1911"/>
         <source>Add ornament: inverted turn</source>
         <translation type="unfinished">Add ornament: inverted turn</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1910"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1916"/>
         <source>Toggle turn with slash</source>
         <translation type="unfinished">Toggle turn with slash</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1911"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1917"/>
         <source>Add ornament: turn with slash</source>
         <translation type="unfinished">Add ornament: turn with slash</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1916"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1922"/>
         <source>Toggle vertical turn</source>
         <translation type="unfinished">Toggle vertical turn</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1917"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1923"/>
         <source>Add ornament: vertical turn</source>
         <translation type="unfinished">Add ornament: vertical turn</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1922"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1928"/>
         <source>Toggle vertical inverted turn</source>
         <translation type="unfinished">Toggle vertical inverted turn</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1923"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1929"/>
         <source>Add ornament: vertical inverted turn</source>
         <translation type="unfinished">Add ornament: vertical inverted turn</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1928"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1934"/>
         <source>Toggle trill</source>
         <translation type="unfinished">Toggle trill</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1929"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1935"/>
         <source>Add ornament: trill</source>
         <translation type="unfinished">Add ornament: trill</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1934"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1940"/>
         <source>Toggle short trill</source>
         <translation type="unfinished">Toggle short trill</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1935"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1941"/>
         <source>Add ornament: short trill</source>
         <translation type="unfinished">Add ornament: short trill</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1940"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1946"/>
         <source>Toggle mordent</source>
         <translation type="unfinished">Toggle mordent</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1941"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1947"/>
         <source>Add ornament: mordent</source>
         <translation type="unfinished">Add ornament: mordent</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1946"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1952"/>
         <source>Toggle Haydn ornament</source>
         <translation type="unfinished">Toggle Haydn ornament</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1947"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1953"/>
         <source>Add ornament: Haydn ornament</source>
         <translation type="unfinished">Add ornament: Haydn ornament</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1952"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1958"/>
         <source>Toggle tremblement</source>
         <translation type="unfinished">Toggle tremblement</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1953"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1959"/>
         <source>Add ornament: tremblement</source>
         <translation type="unfinished">Add ornament: tremblement</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1958"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1964"/>
         <source>Toggle prall mordent</source>
         <translation type="unfinished">Toggle prall mordent</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1959"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1965"/>
         <source>Add ornament: prall mordent</source>
         <translation type="unfinished">Add ornament: prall mordent</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1964"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1970"/>
         <source>Toggle shake</source>
         <translation type="unfinished">Toggle shake</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1965"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1971"/>
         <source>Add ornament: shake</source>
         <translation type="unfinished">Add ornament: shake</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1970"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1976"/>
         <source>Toggle shake (Muffat)</source>
         <translation type="unfinished">Toggle shake (Muffat)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1971"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1977"/>
         <source>Add ornament: shake (Muffat)</source>
         <translation type="unfinished">Add ornament: shake (Muffat)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1976"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1982"/>
         <source>Toggle tremblement appuyé (Couperin)</source>
         <translation type="unfinished">Toggle tremblement appuyé (Couperin)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1977"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1983"/>
         <source>Add ornament: tremblement appuyé (Couperin)</source>
         <translation type="unfinished">Add ornament: tremblement appuyé (Couperin)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1982"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1988"/>
         <source>Toggle up bow</source>
         <translation type="unfinished">Toggle up bow</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1983"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1989"/>
         <source>Add bowing: up bow</source>
         <translation type="unfinished">Add bowing: up bow</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1988"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1994"/>
         <source>Toggle down bow</source>
         <translation type="unfinished">Toggle down bow</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1989"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1995"/>
         <source>Add bowing: down bow</source>
         <translation type="unfinished">Add bowing: down bow</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1994"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2000"/>
         <source>Reset style</source>
         <translation type="unfinished">Reset style</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="1995"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2001"/>
         <source>Reset all style values to default</source>
         <translation type="unfinished">Reset all style values to default</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2000"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2006"/>
         <source>Add treble clef</source>
         <translation type="unfinished">Add treble clef</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2001"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2007"/>
         <source>Add clef: treble</source>
         <translation type="unfinished">Add clef: treble</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2006"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2012"/>
         <source>Add bass clef</source>
         <translation type="unfinished">Add bass clef</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2007"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2013"/>
         <source>Add clef: bass</source>
         <translation type="unfinished">Add clef: bass</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2012"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2018"/>
         <source>Add double-sharp</source>
         <translation type="unfinished">Add double-sharp</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2013"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2019"/>
         <source>Add accidental: double-sharp</source>
         <translation type="unfinished">Add accidental: double-sharp</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2018"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2024"/>
         <source>Add sharp</source>
         <translation type="unfinished">Add sharp</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2019"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2025"/>
         <source>Add accidental: sharp</source>
         <translation type="unfinished">Add accidental: sharp</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2024"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2030"/>
         <source>Add natural</source>
         <translation type="unfinished">Add natural</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2025"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2031"/>
         <source>Add accidental: natural</source>
         <translation type="unfinished">Add accidental: natural</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2030"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2036"/>
         <source>Add flat</source>
         <translation type="unfinished">Add flat</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2031"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2037"/>
         <source>Add accidental: flat</source>
         <translation type="unfinished">Add accidental: flat</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2036"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2042"/>
         <source>Add double-flat</source>
         <translation type="unfinished">Add double-flat</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2037"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2043"/>
         <source>Add accidental: double-flat</source>
         <translation type="unfinished">Add accidental: double-flat</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2042"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2048"/>
         <source>Transpose up</source>
         <translation type="unfinished">Transpose up</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2043"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2049"/>
         <source>Transpose up a semitone</source>
         <translation type="unfinished">Transpose up a semitone</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2048"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2054"/>
         <source>Transpose down</source>
         <translation type="unfinished">Transpose down</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2049"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2055"/>
         <source>Transpose down a semitone</source>
         <translation type="unfinished">Transpose down a semitone</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2054"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2060"/>
         <source>Diatonic pitch up (keep degree alterations)</source>
         <translation type="unfinished">Diatonic pitch up (keep degree alterations)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2055"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2061"/>
         <source>Move pitch up diatonically (keep degree alterations)</source>
         <translation type="unfinished">Move pitch up diatonically (keep degree alterations)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2060"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2066"/>
         <source>Diatonic pitch down (keep degree alterations)</source>
         <translation type="unfinished">Diatonic pitch down (keep degree alterations)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2061"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2067"/>
         <source>Move pitch down diatonically (keep degree alterations)</source>
         <translation type="unfinished">Move pitch down diatonically (keep degree alterations)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2066"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2072"/>
         <source>Full measure rest</source>
         <translation type="unfinished">Full measure rest</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2067"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2073"/>
         <source>Insert full measure rest</source>
         <translation type="unfinished">Insert full measure rest</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2072"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2073"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2078"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2079"/>
         <source>Toggle multimeasure rests</source>
         <translation type="unfinished">Toggle multimeasure rests</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2078"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2084"/>
         <source>Toggle empty staves</source>
         <translation type="unfinished">Toggle empty staves</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2079"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2085"/>
         <source>Show/hide empty staves</source>
         <translation type="unfinished">Show/hide empty staves</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2084"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2090"/>
         <source>Set visible</source>
         <translation type="unfinished">Set visible</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2085"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2091"/>
         <source>Make selected element(s) visible</source>
         <translation type="unfinished">Make selected element(s) visible</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2090"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2096"/>
         <source>Set invisible</source>
         <translation type="unfinished">Set invisible</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2091"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2097"/>
         <source>Make selected element(s) invisible</source>
         <translation type="unfinished">Make selected element(s) invisible</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2096"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2097"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2102"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2103"/>
         <source>Toggle automatic placement for selected elements</source>
         <translation type="unfinished">Toggle automatic placement for selected elements</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2102"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2103"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2108"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2109"/>
         <source>Toggle automatic placement for entire score</source>
         <translation type="unfinished">Toggle automatic placement for entire score</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2108"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2114"/>
         <source>String above (TAB)</source>
         <translation type="unfinished">String above (TAB)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2109"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2115"/>
         <source>Go to string above (TAB)</source>
         <translation type="unfinished">Go to string above (TAB)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2114"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2120"/>
         <source>String below (TAB)</source>
         <translation type="unfinished">String below (TAB)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2115"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2121"/>
         <source>Go to string below (TAB)</source>
         <translation type="unfinished">Go to string below (TAB)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2120"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2126"/>
         <source>Note input</source>
         <translation type="unfinished">Note input</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2121"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2127"/>
         <source>Toggle note input mode</source>
         <translation type="unfinished">Toggle note input mode</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2128"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2134"/>
         <source>Insert/overwrite</source>
         <translation type="unfinished">Insert/overwrite</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2129"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2135"/>
         <source>Toggle note input mode: insert/overwrite</source>
         <translation type="unfinished">Toggle note input mode: insert/overwrite</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2134"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2140"/>
         <source>Input by note name</source>
         <translation type="unfinished">Input by note name</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2135"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2141"/>
         <source>Toggle note input mode: input by note name</source>
         <translation type="unfinished">Toggle note input mode: input by note name</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2141"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2147"/>
         <source>Input by duration</source>
         <translation type="unfinished">Input by duration</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2142"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2148"/>
         <source>Toggle note input mode: input by duration</source>
         <translation type="unfinished">Toggle note input mode: input by duration</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2148"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2154"/>
         <source>Rhythm only (not pitch)</source>
         <translation type="unfinished">Rhythm only (not pitch)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2149"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2155"/>
         <source>Toggle note input mode: rhythm only (not pitch)</source>
         <translation type="unfinished">Toggle note input mode: rhythm only (not pitch)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2155"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2161"/>
         <source>Re-pitch existing notes</source>
         <translation type="unfinished">Re-pitch existing notes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2156"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2162"/>
         <source>Toggle note input mode: re-pitch existing notes</source>
         <translation type="unfinished">Toggle note input mode: re-pitch existing notes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2162"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2168"/>
         <source>Real-time (metronome)</source>
         <translation type="unfinished">Real-time (metronome)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2163"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2169"/>
         <source>Toggle note input mode: real-time (metronome)</source>
         <translation type="unfinished">Toggle note input mode: real-time (metronome)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2169"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2175"/>
         <source>Real-time (foot pedal)</source>
         <translation type="unfinished">Real-time (foot pedal)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2170"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2176"/>
         <source>Toggle note input mode: real-time (foot pedal)</source>
         <translation type="unfinished">Toggle note input mode: real-time (foot pedal)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2176"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2182"/>
         <source>Insert</source>
         <translation type="unfinished">Insert</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2177"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2183"/>
         <source>Toggle note input mode: insert (increases measure duration)</source>
         <translation type="unfinished">Toggle note input mode: insert (increases measure duration)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2183"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2184"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2189"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2190"/>
         <source>Real-time advance</source>
         <translation type="unfinished">Real-time advance</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2190"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2196"/>
         <source>Longa</source>
         <translation type="unfinished">Longa</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2191"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2197"/>
         <source>Set duration: longa</source>
         <translation type="unfinished">Set duration: longa</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2197"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2203"/>
         <source>Double whole note</source>
         <translation type="unfinished">Double whole note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2198"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2204"/>
         <source>Set duration: double whole note</source>
         <translation type="unfinished">Set duration: double whole note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2204"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2281"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2210"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2287"/>
         <source>Whole note</source>
         <translation type="unfinished">Whole note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2205"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2282"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2211"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2288"/>
         <source>Set duration: whole note</source>
         <translation type="unfinished">Set duration: whole note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2211"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2288"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2217"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2294"/>
         <source>Half note</source>
         <translation type="unfinished">Half note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2212"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2289"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2218"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2295"/>
         <source>Set duration: half note</source>
         <translation type="unfinished">Set duration: half note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2218"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2295"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2224"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2301"/>
         <source>Quarter note</source>
         <translation type="unfinished">Quarter note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2219"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2296"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2225"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2302"/>
         <source>Set duration: quarter note</source>
         <translation type="unfinished">Set duration: quarter note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2225"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2302"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2231"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2308"/>
         <source>Eighth note</source>
         <translation type="unfinished">Eighth note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2226"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2303"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2232"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2309"/>
         <source>Set duration: eighth note</source>
         <translation type="unfinished">Set duration: eighth note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2232"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2309"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2238"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2315"/>
         <source>16th note</source>
         <translation type="unfinished">16th note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2233"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2310"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2239"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2316"/>
         <source>Set duration: 16th note</source>
         <translation type="unfinished">Set duration: 16th note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2239"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2316"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2245"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2322"/>
         <source>32nd note</source>
         <translation type="unfinished">32nd note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2240"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2317"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2246"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2323"/>
         <source>Set duration: 32nd note</source>
         <translation type="unfinished">Set duration: 32nd note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2246"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2323"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2252"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2329"/>
         <source>64th note</source>
         <translation type="unfinished">64th note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2247"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2324"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2253"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2330"/>
         <source>Set duration: 64th note</source>
         <translation type="unfinished">Set duration: 64th note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2253"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2330"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2259"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2336"/>
         <source>128th note</source>
         <translation type="unfinished">128th note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2254"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2331"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2260"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2337"/>
         <source>Set duration: 128th note</source>
         <translation type="unfinished">Set duration: 128th note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2260"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2337"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2266"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2343"/>
         <source>256th note</source>
         <translation type="unfinished">256th note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2261"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2338"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2267"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2344"/>
         <source>Set duration: 256th note</source>
         <translation type="unfinished">Set duration: 256th note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2267"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2344"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2273"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2350"/>
         <source>512th note</source>
         <translation type="unfinished">512th note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2268"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2345"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2274"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2351"/>
         <source>Set duration: 512th note</source>
         <translation type="unfinished">Set duration: 512th note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2274"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2351"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2280"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2357"/>
         <source>1024th note</source>
         <translation type="unfinished">1024th note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2275"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2352"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2281"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2358"/>
         <source>Set duration: 1024th note</source>
         <translation type="unfinished">Set duration: 1024th note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2358"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2364"/>
         <source>Augmentation dot</source>
         <translation type="unfinished">Augmentation dot</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2359"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2365"/>
         <source>Toggle duration dot</source>
         <translation type="unfinished">Toggle duration dot</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2365"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2371"/>
         <source>Double augmentation dot</source>
         <translation type="unfinished">Double augmentation dot</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2366"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2372"/>
         <source>Toggle duration dot: double</source>
         <translation type="unfinished">Toggle duration dot: double</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2372"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2378"/>
         <source>Triple augmentation dot</source>
         <translation type="unfinished">Triple augmentation dot</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2373"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2379"/>
         <source>Toggle duration dot: triple</source>
         <translation type="unfinished">Toggle duration dot: triple</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2379"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2385"/>
         <source>Quadruple augmentation dot</source>
         <translation type="unfinished">Quadruple augmentation dot</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2380"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2386"/>
         <source>Toggle duration dot: quadruple</source>
         <translation type="unfinished">Toggle duration dot: quadruple</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2387"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2393"/>
         <source>Toggle rest</source>
         <translation type="unfinished">Toggle rest</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2393"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2399"/>
         <source>Accessibility: Next segment element</source>
         <translation type="unfinished">Accessibility: Next segment element</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2394"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2400"/>
         <source>Select next in-staff element</source>
         <translation type="unfinished">Select next in-staff element</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2399"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2405"/>
         <source>Accessibility: Previous segment element</source>
         <translation type="unfinished">Accessibility: Previous segment element</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2400"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2406"/>
         <source>Select previous in-staff element</source>
         <translation type="unfinished">Select previous in-staff element</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2405"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2411"/>
         <source>Toggle flat</source>
         <translation type="unfinished">Toggle flat</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2406"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2412"/>
         <source>Toggle accidental: flat</source>
         <translation type="unfinished">Toggle accidental: flat</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2412"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2418"/>
         <source>Toggle double-flat</source>
         <translation type="unfinished">Toggle double-flat</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2413"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2419"/>
         <source>Toggle accidental: double-flat</source>
         <translation type="unfinished">Toggle accidental: double-flat</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2419"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2425"/>
         <source>Toggle natural</source>
         <translation type="unfinished">Toggle natural</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2420"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2426"/>
         <source>Toggle accidental: natural</source>
         <translation type="unfinished">Toggle accidental: natural</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2426"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2432"/>
         <source>Toggle sharp</source>
         <translation type="unfinished">Toggle sharp</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2427"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2433"/>
         <source>Toggle accidental: sharp</source>
         <translation type="unfinished">Toggle accidental: sharp</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2433"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2439"/>
         <source>Toggle double-sharp</source>
         <translation type="unfinished">Toggle double-sharp</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2434"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2440"/>
         <source>Toggle accidental: double-sharp</source>
         <translation type="unfinished">Toggle accidental: double-sharp</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2440"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2446"/>
         <source>Tie</source>
         <translation type="unfinished">Tie</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2441"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2447"/>
         <source>Add tied note</source>
         <translation type="unfinished">Add tied note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2447"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2453"/>
         <source>Laissez vibrer</source>
         <translation type="unfinished">Laissez vibrer</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2448"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2454"/>
         <source>Add laissez vibrer</source>
         <translation type="unfinished">Add laissez vibrer</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2454"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2460"/>
         <source>Slur</source>
         <translation type="unfinished">Slur</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2455"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2461"/>
         <source>Add slur</source>
         <translation type="unfinished">Add slur</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2461"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2467"/>
         <source>Marcato</source>
         <translation type="unfinished">Marcato</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2462"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2468"/>
         <source>Add articulation: marcato</source>
         <translation type="unfinished">Add articulation: marcato</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2468"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2474"/>
         <source>Accent</source>
         <translation type="unfinished">Accent</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2469"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2475"/>
         <source>Add articulation: accent</source>
         <translation type="unfinished">Add articulation: accent</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2475"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2481"/>
         <source>Tenuto</source>
         <translation type="unfinished">Tenuto</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2476"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2482"/>
         <source>Add articulation: tenuto</source>
         <translation type="unfinished">Add articulation: tenuto</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2482"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2488"/>
         <source>Staccato</source>
         <translation type="unfinished">Staccato</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2483"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2489"/>
         <source>Add articulation: staccato</source>
         <translation type="unfinished">Add articulation: staccato</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2489"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2495"/>
         <source>Cross-staff beaming</source>
         <translation type="unfinished">Cross-staff beaming</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2495"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2501"/>
         <source>Tuplet</source>
         <translation type="unfinished">Tuplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2501"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2507"/>
         <source>Voice 1</source>
         <translation type="unfinished">Voice 1</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2502"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2508"/>
         <source>Use voice 1</source>
         <translation type="unfinished">Use voice 1</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2508"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2514"/>
         <source>Voice 2</source>
         <translation type="unfinished">Voice 2</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2509"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2515"/>
         <source>Use voice 2</source>
         <translation type="unfinished">Use voice 2</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2515"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2521"/>
         <source>Voice 3</source>
         <translation type="unfinished">Voice 3</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2516"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2522"/>
         <source>Use voice 3</source>
         <translation type="unfinished">Use voice 3</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2522"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2528"/>
         <source>Voice 4</source>
         <translation type="unfinished">Voice 4</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2523"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2529"/>
         <source>Use voice 4</source>
         <translation type="unfinished">Use voice 4</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2529"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2535"/>
         <source>All voices on instrument</source>
         <translation type="unfinished">All voices on instrument</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2530"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2536"/>
         <source>Use all voices on instrument</source>
         <translation type="unfinished">Use all voices on instrument</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2535"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2541"/>
         <source>All voices on staff</source>
         <translation type="unfinished">All voices on staff</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2536"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2542"/>
         <source>Use all voices on staff</source>
         <translation type="unfinished">Use all voices on staff</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2545"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2551"/>
         <source>Staff type change</source>
         <translation type="unfinished">Staff type change</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2546"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2552"/>
         <source>Insert staff type change</source>
         <translation type="unfinished">Insert staff type change</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2556"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2557"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2562"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2563"/>
         <source>Standard bend</source>
         <translation type="unfinished">Standard bend</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2563"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2564"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2569"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2570"/>
         <source>Pre-bend</source>
         <translation type="unfinished">Pre-bend</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2570"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2571"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2576"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2577"/>
         <source>Grace note bend</source>
         <translation type="unfinished">Grace note bend</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2577"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2578"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2583"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2584"/>
         <source>Slight bend</source>
         <translation type="unfinished">Slight bend</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2584"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2590"/>
         <source>Hammer-on/pull-off</source>
         <translation type="unfinished">Hammer-on/pull-off</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2585"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2591"/>
         <source>Add hammer-on/pull-off</source>
         <translation type="unfinished">Add hammer-on/pull-off</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2593"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2599"/>
         <source>Show &amp;invisible</source>
         <translation type="unfinished">Show &amp;invisible</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2594"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2600"/>
         <source>Show/hide invisible elements</source>
         <translation type="unfinished">Show/hide invisible elements</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2600"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2606"/>
         <source>Show f&amp;ormatting</source>
         <translation type="unfinished">Show f&amp;ormatting</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2601"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2607"/>
         <source>Show/hide formatting</source>
         <translation type="unfinished">Show/hide formatting</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2607"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2613"/>
         <source>Show &amp;frames</source>
         <translation type="unfinished">Show &amp;frames</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2608"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2614"/>
         <source>Show/hide frames</source>
         <translation type="unfinished">Show/hide frames</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2614"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2620"/>
         <source>Show page &amp;margins</source>
         <translation type="unfinished">Show page &amp;margins</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2615"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2621"/>
         <source>Show/hide page margins</source>
         <translation type="unfinished">Show/hide page margins</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2621"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2627"/>
         <source>Show sound flags</source>
         <translation type="unfinished">Show sound flags</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2622"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2628"/>
         <source>Show/hide sound flags</source>
         <translation type="unfinished">Show/hide sound flags</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2628"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2634"/>
         <source>Show alignment &amp;guides</source>
         <translation type="unfinished">Show alignment &amp;guides</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2629"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2635"/>
         <source>Show/hide alignment guides</source>
         <translation type="unfinished">Show/hide alignment guides</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2635"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2641"/>
         <source>Mark i&amp;rregular measures</source>
         <translation type="unfinished">Mark i&amp;rregular measures</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2636"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2642"/>
         <source>Mark irregular measures</source>
         <translation type="unfinished">Mark irregular measures</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2645"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2651"/>
         <source>Show element bounding rectangles</source>
         <translation type="unfinished">Show element bounding rectangles</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2646"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2652"/>
         <source>Show/hide element bounding rectangles</source>
         <translation type="unfinished">Show/hide element bounding rectangles</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2652"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2658"/>
         <source>Color element shapes</source>
         <translation type="unfinished">Color element shapes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2658"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2664"/>
         <source>Show segment shapes</source>
         <translation type="unfinished">Show segment shapes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2659"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2665"/>
         <source>Show/hide segment shapes</source>
         <translation type="unfinished">Show/hide segment shapes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2665"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2671"/>
         <source>Color segment shapes</source>
         <translation type="unfinished">Color segment shapes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2671"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2677"/>
         <source>Show skylines</source>
         <translation type="unfinished">Show skylines</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2672"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2678"/>
         <source>Show/hide skylines</source>
         <translation type="unfinished">Show/hide skylines</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2678"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2684"/>
         <source>Show system bounding rectangles</source>
         <translation type="unfinished">Show system bounding rectangles</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2679"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2685"/>
         <source>Show/hide system bounding rectangles</source>
         <translation type="unfinished">Show/hide system bounding rectangles</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2685"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2691"/>
         <source>Show element masks</source>
         <translation type="unfinished">Show element masks</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2686"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2692"/>
         <source>Show/hide element masks</source>
         <translation type="unfinished">Show/hide element masks</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2692"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2698"/>
         <source>Show line-attach points</source>
         <translation type="unfinished">Show line-attach points</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2693"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2699"/>
         <source>Show/hide line-attach points</source>
         <translation type="unfinished">Show/hide line-attach points</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2699"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2700"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2705"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2706"/>
         <source>Mark empty staff visibility overrides</source>
         <translation type="unfinished">Mark empty staff visibility overrides</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2706"/>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2707"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2712"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2713"/>
         <source>Mark corrupted measures</source>
         <translation type="unfinished">Mark corrupted measures</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2713"/>
+        <location filename="../../src/notation/internal/notationuiactions.cpp" line="2719"/>
         <source>Check for score corruptions</source>
         <translation type="unfinished">Check for score corruptions</translation>
     </message>
@@ -10771,8 +11137,13 @@ followed by dashes</translation>
         <translation type="unfinished">Spacers and frames</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="111"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="128"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="103"/>
+        <source>Style</source>
+        <translation type="unfinished">Style</translation>
+    </message>
+    <message>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="114"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="131"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="83"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="330"/>
         <location filename="../../src/appshell_web/qml/NotationFrame.qml" line="65"/>
@@ -10780,12 +11151,12 @@ followed by dashes</translation>
         <translation type="unfinished">Layout</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="137"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="140"/>
         <source>Preview system</source>
         <translation type="unfinished">Preview system</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="145"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="148"/>
         <source>Shows the systems which are selected whole as they will be printed</source>
         <translation type="unfinished">Shows the systems which are selected whole as they will be printed</translation>
     </message>
@@ -12799,7 +13170,7 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Articulation</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/barline.cpp" line="1185"/>
+        <location filename="../../src/engraving/dom/barline.cpp" line="1187"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1092"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1103"/>
         <location filename="../../src/engraving/dom/note.cpp" line="3645"/>
@@ -12809,7 +13180,7 @@ Published under the &lt;a href=&quot;%1&quot;&gt;GNU General Public License vers
         <translation type="unfinished">Start of %1</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/barline.cpp" line="1188"/>
+        <location filename="../../src/engraving/dom/barline.cpp" line="1190"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1095"/>
         <location filename="../../src/engraving/dom/chordrest.cpp" line="1105"/>
         <location filename="../../src/engraving/dom/note.cpp" line="3649"/>
@@ -12941,12 +13312,12 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Start and end of %1</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/cmd.cpp" line="3650"/>
+        <location filename="../../src/engraving/dom/cmd.cpp" line="3651"/>
         <source>Current contents of measures will be replaced</source>
         <translation type="unfinished">Current contents of measures will be replaced</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/cmd.cpp" line="3651"/>
+        <location filename="../../src/engraving/dom/cmd.cpp" line="3652"/>
         <source>Continue with inserting measure repeat?</source>
         <translation type="unfinished">Continue with inserting measure repeat?</translation>
     </message>
@@ -15957,6 +16328,7 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Horizontal</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="43"/>
         <location filename="../../src/engraving/types/typesconv.cpp" line="1073"/>
         <location filename="../../src/engraving/types/typesconv.cpp" line="1097"/>
         <location filename="../../src/engraving/types/typesconv.cpp" line="2232"/>
@@ -16462,11 +16834,13 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Zero</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="44"/>
         <location filename="../../src/engraving/types/typesconv.cpp" line="2233"/>
         <source>Up</source>
         <translation type="unfinished">Up</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="45"/>
         <location filename="../../src/engraving/types/typesconv.cpp" line="2234"/>
         <source>Down</source>
         <translation type="unfinished">Down</translation>
@@ -24898,6 +25272,7 @@ Fret %1 on strings %2</translation>
     <message>
         <location filename="../../src/appshell/qml/AboutDialog.qml" line="157"/>
         <location filename="../../src/instrumentsscene/qml/MuseScore/InstrumentsScene/InstrumentsDialog.qml" line="112"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="810"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/SelectMeasuresCountDialog.qml" line="107"/>
         <location filename="../../src/playback/qml/MuseScore/Playback/SoundProfilesDialog.qml" line="255"/>
         <location filename="../../src/framework/global/internal/interactive.cpp" line="56"/>
@@ -24969,6 +25344,7 @@ Fret %1 on strings %2</translation>
         <location filename="../../src/fontdesign/qml/MuseScore/FontDesign/NewFontDialog.qml" line="188"/>
         <location filename="../../src/framework/cloud/qml/Muse/Cloud/RequireAuthorizationDialog.qml" line="71"/>
         <location filename="../../src/framework/ui/qml/Muse/Ui/internal/ProgressDialog.qml" line="98"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="794"/>
         <location filename="../../src/palette/qml/MuseScore/Palette/internal/CreateCustomPalettePopup.qml" line="86"/>
         <location filename="../../src/project/qml/MuseScore/Project/NewScoreDialog.qml" line="146"/>
         <location filename="../../src/framework/global/internal/interactive.cpp" line="69"/>
@@ -25385,6 +25761,19 @@ Fret %1 on strings %2</translation>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="65"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="86"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="95"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="275"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoOptionView.qml" line="255"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoOptionView.qml" line="310"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="54"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="61"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="78"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="49"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="151"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="95"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="104"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="126"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="135"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="105"/>
         <location filename="../../src/palette/qml/MuseScore/Palette/PaletteCellPropertiesDialog.qml" line="105"/>
         <location filename="../../src/palette/qml/MuseScore/Palette/PaletteCellPropertiesDialog.qml" line="121"/>
         <location filename="../../src/palette/qml/MuseScore/Palette/PalettePropertiesDialog.qml" line="131"/>
@@ -27675,6 +28064,8 @@ pickup measure</translation>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/SlurAndTieSettings.qml" line="161"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="235"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="264"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="45"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="59"/>
         <source>Inside</source>
         <translation type="unfinished">Inside</translation>
     </message>
@@ -27682,6 +28073,8 @@ pickup measure</translation>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/lines/SlurAndTieSettings.qml" line="162"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="236"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="265"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="46"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="60"/>
         <source>Outside</source>
         <translation type="unfinished">Outside</translation>
     </message>
@@ -30536,31 +30929,37 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="228"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="41"/>
         <source>Placement on single notes:</source>
         <translation type="unfinished">Placement on single notes:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="257"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="55"/>
         <source>Placement on chords:</source>
         <translation type="unfinished">Placement on chords:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="286"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="69"/>
         <source>Placement of inner ties with respect to augmentation dots:</source>
         <translation type="unfinished">Placement of inner ties with respect to augmentation dots:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="294"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="73"/>
         <source>Auto</source>
         <translation type="unfinished">Auto</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="301"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="74"/>
         <source>Always before dots</source>
         <translation type="unfinished">Always before dots</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="308"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="75"/>
         <source>Always after dots</source>
         <translation type="unfinished">Always after dots</translation>
     </message>
@@ -30902,6 +31301,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="490"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStatusBar.qml" line="165"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierStatusBar.qml" line="155"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoOptionView.qml" line="683"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/ZoomControl.qml" line="58"/>
         <source>Zoom out</source>
         <translation type="unfinished">Zoom out</translation>
@@ -30916,6 +31316,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="520"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStatusBar.qml" line="193"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierStatusBar.qml" line="207"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoOptionView.qml" line="711"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/ZoomControl.qml" line="78"/>
         <source>Zoom in</source>
         <translation type="unfinished">Zoom in</translation>
@@ -31191,47 +31592,47 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Staff %1</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="994"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1000"/>
         <source>Cannot create tuplet</source>
         <translation type="unfinished">Cannot create tuplet</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="994"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1000"/>
         <source>Note value is too short</source>
         <translation type="unfinished">Note value is too short</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1548"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1554"/>
         <source>All Supported Files</source>
         <translation type="unfinished">All Supported Files</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1549"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1555"/>
         <source>Scalable Vector Graphics</source>
         <translation type="unfinished">Scalable Vector Graphics</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1550"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1556"/>
         <source>JPEG</source>
         <translation type="unfinished">JPEG</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1551"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1557"/>
         <source>PNG Bitmap Graphic</source>
         <translation type="unfinished">PNG Bitmap Graphic</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1552"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1558"/>
         <source>Bitmap</source>
         <translation type="unfinished">Bitmap</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1553"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1559"/>
         <source>TIFF</source>
         <translation type="unfinished">TIFF</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1554"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1560"/>
         <location filename="../../src/notation/view/selectionfilter/elementsselectionfiltermodel.cpp" line="51"/>
         <location filename="../../src/notation/view/selectionfilter/notesinchordselectionfiltermodel.cpp" line="147"/>
         <location filename="../../src/notation/view/selectionfilter/voicesselectionfiltermodel.cpp" line="49"/>
@@ -31239,53 +31640,53 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">All</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1556"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1562"/>
         <source>Insert Image</source>
         <translation type="unfinished">Insert Image</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1927"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1946"/>
         <source>MuseScore style files</source>
         <translation type="unfinished">MuseScore style files</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1928"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1947"/>
         <source>MuseScore style file</source>
         <translation type="unfinished">MuseScore style file</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1931"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1950"/>
         <location filename="../../src/notation/view/styledialog/chordsymbolspagemodel.cpp" line="122"/>
         <source>Load style</source>
         <translation type="unfinished">Load style</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1932"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1951"/>
         <source>Save style</source>
         <translation type="unfinished">Save style</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1942"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1961"/>
         <source>The style file could not be loaded.</source>
         <translation type="unfinished">The style file could not be loaded.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1948"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1967"/>
         <source>Since this style file is from a different version of MuseScore Studio, your score is not guaranteed to display correctly.</source>
         <translation type="unfinished">Since this style file is from a different version of MuseScore Studio, your score is not guaranteed to display correctly.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1950"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1969"/>
         <source>Click OK to load anyway.</source>
         <translation type="unfinished">Click OK to load anyway.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1968"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1987"/>
         <source>The style file could not be saved.</source>
         <translation type="unfinished">The style file could not be saved.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1969"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1988"/>
         <source>An error occurred.</source>
         <translation type="unfinished">An error occurred.</translation>
     </message>
@@ -31832,6 +32233,11 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <extracomment>The size of a page, width × height; %1 and %2 are numbers</extracomment>
         <translation type="unfinished">%1 × %2 mm</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="772"/>
+        <source>Apply to all parts</source>
+        <translation type="unfinished">Apply to all parts</translation>
+    </message>
 </context>
 <context>
     <name>notation/add-remove-system-breaks</name>
@@ -31871,29 +32277,52 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
 <context>
     <name>notation/editstyle</name>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="78"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="68"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="68"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="125"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="201"/>
         <source>Continuous</source>
         <extracomment>line style</extracomment>
         <translation type="unfinished">Continuous</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="79"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="69"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="69"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="126"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="203"/>
         <source>Dashed</source>
         <extracomment>line style</extracomment>
         <translation type="unfinished">Dashed</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="80"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="70"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="70"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="127"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="205"/>
         <source>Dotted</source>
         <extracomment>line style</extracomment>
         <translation type="unfinished">Dotted</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="43"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="219"/>
         <source>Based on voice</source>
         <translation type="unfinished">Based on voice</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="44"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="43"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="43"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="43"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="43"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="43"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="43"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="100"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="43"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="66"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="220"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="771"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1365"/>
@@ -31901,6 +32330,16 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Above</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="45"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="44"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="44"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="44"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="44"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="44"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="44"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="101"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="44"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="67"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="221"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="772"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1366"/>
@@ -31914,36 +32353,42 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Apply to all parts</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="159"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="776"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1369"/>
         <source>Segment</source>
         <translation type="unfinished">Segment</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="160"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="777"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1370"/>
         <source>Measure</source>
         <translation type="unfinished">Measure</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="161"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="778"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1371"/>
         <source>System</source>
         <translation type="unfinished">System</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="53"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="781"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1373"/>
         <source>Number</source>
         <translation type="unfinished">Number</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="54"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="782"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1374"/>
         <source>Ratio</source>
         <translation type="unfinished">Ratio</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="55"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="783"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1375"/>
         <source>None</source>
@@ -31951,18 +32396,21 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">None</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="67"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="786"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1377"/>
         <source>Automatic</source>
         <translation type="unfinished">Automatic</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="68"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="787"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1378"/>
         <source>Bracket</source>
         <translation type="unfinished">Bracket</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="69"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="788"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1379"/>
         <source>None</source>
@@ -31970,16 +32418,19 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">None</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="188"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="791"/>
         <source>Standard</source>
         <translation type="unfinished">Standard</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="189"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="792"/>
         <source>Inside the header</source>
         <translation type="unfinished">Inside the header</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="190"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="794"/>
         <source>Under the first note</source>
         <translation type="unfinished">Under the first note</translation>
@@ -32652,11 +33103,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/LaissezVibrSection.qml" line="47"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="274"/>
         <source>Minimum laissez vibrer length:</source>
         <translation type="unfinished">Minimum laissez vibrer length:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/LaissezVibrSection.qml" line="71"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="280"/>
         <source>Use SMuFL symbols</source>
         <translation type="unfinished">Use SMuFL symbols</translation>
     </message>
@@ -32668,24 +33121,32 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/SlursSection.qml" line="47"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="47"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="45"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="93"/>
         <source>Line thickness at end:</source>
         <translation type="unfinished">Line thickness at end:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/SlursSection.qml" line="69"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="69"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="51"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="99"/>
         <source>Line thickness middle:</source>
         <translation type="unfinished">Line thickness middle:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/SlursSection.qml" line="91"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="91"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="57"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="105"/>
         <source>Dotted line thickness:</source>
         <translation type="unfinished">Dotted line thickness:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/SlursSection.qml" line="113"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="113"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="137"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="137"/>
         <source>Autoplace min. distance:</source>
         <translation type="unfinished">Autoplace min. distance:</translation>
     </message>
@@ -32701,6 +33162,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/SlursSection.qml" line="151"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="143"/>
         <source>Angle away from staff</source>
         <translation type="unfinished">Angle away from staff</translation>
     </message>
@@ -32711,21 +33173,25 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="135"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="115"/>
         <source>Minimum tie length:</source>
         <translation type="unfinished">Minimum tie length:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="157"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="121"/>
         <source>Minimum hanging tie length:</source>
         <translation type="unfinished">Minimum hanging tie length:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="179"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="127"/>
         <source>Minimum tie height:</source>
         <translation type="unfinished">Minimum tie height:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/TiesSection.qml" line="201"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="132"/>
         <source>Maximum tie height:</source>
         <translation type="unfinished">Maximum tie height:</translation>
     </message>
@@ -33190,6 +33656,4263 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="203"/>
         <source>To left side of barlines</source>
         <translation type="unfinished">To left side of barlines</translation>
+    </message>
+</context>
+<context>
+    <name>notation/engravingoptions</name>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="47"/>
+        <source>Engraving options</source>
+        <translation type="unfinished">Engraving options</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="189"/>
+        <source>Pages</source>
+        <translation type="unfinished">Pages</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="207"/>
+        <source>Dialog buttons</source>
+        <translation type="unfinished">Dialog buttons</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="333"/>
+        <source>Search options</source>
+        <translation type="unfinished">Search options</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="352"/>
+        <source>Changed only (%1)</source>
+        <extracomment>%1 is the number of options which differ from their defaults</extracomment>
+        <translation type="unfinished">Changed only (%1)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="353"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="101"/>
+        <source>Changed only</source>
+        <translation type="unfinished">Changed only</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="546"/>
+        <source>%n option(s)</source>
+        <extracomment>%n is the number of options which a search has found</extracomment>
+        <translation type="unfinished">
+            <numerusform>%n option(s)</numerusform>
+            <numerusform>%n option(s)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="563"/>
+        <source>Search results</source>
+        <translation type="unfinished">Search results</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="564"/>
+        <source>Changed options</source>
+        <translation type="unfinished">Changed options</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="581"/>
+        <source>Reset page</source>
+        <translation type="unfinished">Reset page</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="654"/>
+        <source>No option matches the search</source>
+        <translation type="unfinished">No option matches the search</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="655"/>
+        <source>No option is changed</source>
+        <translation type="unfinished">No option is changed</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="738"/>
+        <source>Click again to reset all options</source>
+        <translation type="unfinished">Click again to reset all options</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="739"/>
+        <source>Reset all to defaults</source>
+        <translation type="unfinished">Reset all to defaults</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/EngravingOptionsDialog.qml" line="740"/>
+        <source>Sets all the options to their defaults, except the page size and margins and the staff size</source>
+        <translation type="unfinished">Sets all the options to their defaults, except the page size and margins and the staff size</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="88"/>
+        <source>Filter by name</source>
+        <translation type="unfinished">Filter by name</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="119"/>
+        <source>%1 of %2</source>
+        <extracomment>%1 is the number of style values which are listed, %2 the number of all of them</extracomment>
+        <translation type="unfinished">%1 of %2</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="136"/>
+        <source>Every value of the style, by the name it has in a style file. Distances are in staff spaces unless the name says otherwise.</source>
+        <translation type="unfinished">Every value of the style, by the name it has in a style file. Distances are in staff spaces unless the name says otherwise.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="247"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoOptionView.qml" line="183"/>
+        <source>Reset to default</source>
+        <translation type="unfinished">Reset to default</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="390"/>
+        <source>Edited on its page</source>
+        <translation type="unfinished">Edited on its page</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="405"/>
+        <source>No style value matches</source>
+        <translation type="unfinished">No style value matches</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPageContent.qml" line="161"/>
+        <source>Reset section</source>
+        <translation type="unfinished">Reset section</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPageContent.qml" line="165"/>
+        <source>%n changed option(s)</source>
+        <extracomment>%n is the number of options which differ from their defaults</extracomment>
+        <translation type="unfinished">
+            <numerusform>%n changed option(s)</numerusform>
+            <numerusform>%n changed option(s)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="34"/>
+        <source>Notes and rests</source>
+        <translation type="unfinished">Notes and rests</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="37"/>
+        <source>Accidentals: clearances and padding</source>
+        <translation type="unfinished">Accidentals: clearances and padding</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="41"/>
+        <source>Vertical clearance between accidentals</source>
+        <translation type="unfinished">Vertical clearance between accidentals</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="42"/>
+        <source>Minimum vertical gap between two accidentals for them to share a column; with less room one of them moves to the next column.</source>
+        <translation type="unfinished">Minimum vertical gap between two accidentals for them to share a column; with less room one of them moves to the next column.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="50"/>
+        <source>Vertical clearance between sharps</source>
+        <translation type="unfinished">Vertical clearance between sharps</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="51"/>
+        <source>Minimum vertical gap between two sharps for them to share a column; sharps may sit closer together than other accidentals.</source>
+        <translation type="unfinished">Minimum vertical gap between two sharps for them to share a column; sharps may sit closer together than other accidentals.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="59"/>
+        <source>Vertical clearance from noteheads and stems</source>
+        <translation type="unfinished">Vertical clearance from noteheads and stems</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="60"/>
+        <source>Vertical gap an accidental must keep from a notehead, stem or ledger line before it may slide past it instead of stopping beside it.</source>
+        <translation type="unfinished">Vertical gap an accidental must keep from a notehead, stem or ledger line before it may slide past it instead of stopping beside it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="68"/>
+        <source>Extra padding for naturals</source>
+        <translation type="unfinished">Extra padding for naturals</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="69"/>
+        <source>Extra horizontal space between a natural and a neighbouring stem, natural or flat, so that their vertical strokes do not seem to merge.</source>
+        <translation type="unfinished">Extra horizontal space between a natural and a neighbouring stem, natural or flat, so that their vertical strokes do not seem to merge.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="77"/>
+        <source>Sharp and natural to ledger line</source>
+        <translation type="unfinished">Sharp and natural to ledger line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="78"/>
+        <source>Gap between a sharp or natural and the end of a ledger line at its own height; flats may reach over ledger lines and are not affected.</source>
+        <translation type="unfinished">Gap between a sharp or natural and the end of a ledger line at its own height; flats may reach over ledger lines and are not affected.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="87"/>
+        <source>Flush accidental overlap into ledger line</source>
+        <translation type="unfinished">Flush accidental overlap into ledger line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="88"/>
+        <source>With ‘flush to ledger line’ enabled, how far the accidental reaches into the end of the ledger line so that the two join without a visible gap.</source>
+        <translation type="unfinished">With ‘flush to ledger line’ enabled, how far the accidental reaches into the end of the ledger line so that the two join without a visible gap.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="97"/>
+        <source>Flat to lower notehead</source>
+        <translation type="unfinished">Flat to lower notehead</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="98"/>
+        <source>Distance between a flat and a notehead that lies lower than the flat’s own note, which the flat may approach more closely than the normal accidental distance.</source>
+        <translation type="unfinished">Distance between a flat and a notehead that lies lower than the flat’s own note, which the flat may approach more closely than the normal accidental distance.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="106"/>
+        <source>Vertical offset of braces</source>
+        <translation type="unfinished">Vertical offset of braces</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="107"/>
+        <source>Moves the braces that enclose an accidental down by this amount relative to the accidental.</source>
+        <translation type="unfinished">Moves the braces that enclose an accidental down by this amount relative to the accidental.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="115"/>
+        <source>Accidentals: kerning</source>
+        <translation type="unfinished">Accidentals: kerning</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="119"/>
+        <source>Tuck flats a fourth apart</source>
+        <translation type="unfinished">Tuck flats a fourth apart</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="120"/>
+        <source>Tucks a flat beneath the flat or natural a fourth above it instead of giving it a column of its own.</source>
+        <translation type="unfinished">Tucks a flat beneath the flat or natural a fourth above it instead of giving it a column of its own.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="126"/>
+        <source>Kerning of flats a fourth apart</source>
+        <translation type="unfinished">Kerning of flats a fourth apart</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="127"/>
+        <source>Horizontal gap between a flat and the flat a fourth above it when the lower one is tucked beneath; a negative value makes them overlap.</source>
+        <translation type="unfinished">Horizontal gap between a flat and the flat a fourth above it when the lower one is tucked beneath; a negative value makes them overlap.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="136"/>
+        <source>Kerning of a flat below a natural</source>
+        <translation type="unfinished">Kerning of a flat below a natural</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="137"/>
+        <source>Horizontal gap between a flat and the natural a fourth above it when the flat is tucked beneath; a negative value makes them overlap.</source>
+        <translation type="unfinished">Horizontal gap between a flat and the natural a fourth above it when the flat is tucked beneath; a negative value makes them overlap.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="146"/>
+        <source>Naturals a sixth apart share a column</source>
+        <translation type="unfinished">Naturals a sixth apart share a column</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="147"/>
+        <source>Lets two naturals a sixth apart stand in the same column although their outlines interlock.</source>
+        <translation type="unfinished">Lets two naturals a sixth apart stand in the same column although their outlines interlock.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="153"/>
+        <source>Accidentals: stacking order and alignment</source>
+        <translation type="unfinished">Accidentals: stacking order and alignment</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="157"/>
+        <source>Interval that starts a new stack</source>
+        <translation type="unfinished">Interval that starts a new stack</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="158"/>
+        <source>Number of staff positions between vertically adjacent accidentals from which the lower one starts a new stack close to the notes (6 = a seventh).</source>
+        <translation type="unfinished">Number of staff positions between vertically adjacent accidentals from which the lower one starts a new stack close to the notes (6 = a seventh).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="168"/>
+        <source>Largest group in zigzag order</source>
+        <translation type="unfinished">Largest group in zigzag order</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="169"/>
+        <source>Groups of up to this many accidentals are stacked in the standard order: top, bottom, second from top and so on. Neighbouring stacks no larger than this in total are also merged.</source>
+        <translation type="unfinished">Groups of up to this many accidentals are stacked in the standard order: top, bottom, second from top and so on. Neighbouring stacks no larger than this in total are also merged.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="178"/>
+        <source>Largest group before compact order</source>
+        <translation type="unfinished">Largest group before compact order</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="179"/>
+        <source>Groups of more accidentals than this are stacked compactly, filling each column with as many as fit. Groups between the two limits use whichever order needs fewer columns.</source>
+        <translation type="unfinished">Groups of more accidentals than this are stacked compactly, filling each column with as many as fit. Groups between the two limits use whichever order needs fewer columns.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="188"/>
+        <source>Split threshold for displaced accidentals</source>
+        <translation type="unfinished">Split threshold for displaced accidentals</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="189"/>
+        <source>When the closest positions that the accidentals of a chord can reach differ by more than this, those that can sit further right are stacked first as a separate group.</source>
+        <translation type="unfinished">When the closest positions that the accidentals of a chord can reach differ by more than this, those that can sit further right are stacked first as a separate group.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="196"/>
+        <source>Column alignment threshold</source>
+        <translation type="unfinished">Column alignment threshold</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="197"/>
+        <source>Accidentals of the same kind in the same column are aligned vertically when their horizontal positions differ by less than this.</source>
+        <translation type="unfinished">Accidentals of the same kind in the same column are aligned vertically when their horizontal positions differ by less than this.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="204"/>
+        <source>Maximum distance for aligning offset octaves</source>
+        <translation type="unfinished">Maximum distance for aligning offset octaves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="205"/>
+        <source>With ‘align offset octave accidentals’ enabled, accidentals an octave apart are aligned only when their horizontal positions differ by less than this.</source>
+        <translation type="unfinished">With ‘align offset octave accidentals’ enabled, accidentals an octave apart are aligned only when their horizontal positions differ by less than this.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AllValuesPage.qml" line="32"/>
+        <source>All style values</source>
+        <translation type="unfinished">All style values</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AllValuesPage.qml" line="33"/>
+        <source>Advanced</source>
+        <translation type="unfinished">Advanced</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="79"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="37"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="69"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="37"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="83"/>
+        <source>Details</source>
+        <translation type="unfinished">Details</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="83"/>
+        <source>Arpeggio: extension above a top note in a space</source>
+        <translation type="unfinished">Arpeggio: extension above a top note in a space</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="84"/>
+        <source>How far a wavy arpeggio extends above the top notehead when that note sits in a staff space and the bottom note sits on a line.</source>
+        <translation type="unfinished">How far a wavy arpeggio extends above the top notehead when that note sits in a staff space and the bottom note sits on a line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="91"/>
+        <source>Arpeggio: extension above when both outer notes are in spaces</source>
+        <translation type="unfinished">Arpeggio: extension above when both outer notes are in spaces</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="92"/>
+        <source>How far a wavy arpeggio extends above the top notehead when both the top and the bottom note sit in staff spaces.</source>
+        <translation type="unfinished">How far a wavy arpeggio extends above the top notehead when both the top and the bottom note sit in staff spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="99"/>
+        <source>Straight arpeggio: extension beyond the outer notes</source>
+        <translation type="unfinished">Straight arpeggio: extension beyond the outer notes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="100"/>
+        <source>How far straight arpeggio lines with an arrow extend beyond the top and the bottom notehead.</source>
+        <translation type="unfinished">How far straight arpeggio lines with an arrow extend beyond the top and the bottom notehead.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="33"/>
+        <source>Notations</source>
+        <translation type="unfinished">Notations</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="80"/>
+        <source>Articulation details</source>
+        <translation type="unfinished">Articulation details</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="84"/>
+        <source>Tenuto: extra distance from notehead next to a tie</source>
+        <translation type="unfinished">Tenuto: extra distance from notehead next to a tie</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="85"/>
+        <source>Extra distance between a tenuto mark and the notehead when the mark sits outside the staff and an outer tie starts or ends on the same side of the note.</source>
+        <translation type="unfinished">Extra distance between a tenuto mark and the notehead when the mark sits outside the staff and an outer tie starts or ends on the same side of the note.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="92"/>
+        <source>Staccato: extra distance from notehead next to a tie</source>
+        <translation type="unfinished">Staccato: extra distance from notehead next to a tie</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="93"/>
+        <source>Extra distance between a staccato dot and the notehead when the dot sits outside the staff and an outer tie starts or ends on the same side of the note.</source>
+        <translation type="unfinished">Extra distance between a staccato dot and the notehead when the dot sits outside the staff and an outer tie starts or ends on the same side of the note.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="100"/>
+        <source>Staccato–accent kerning</source>
+        <translation type="unfinished">Staccato–accent kerning</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="101"/>
+        <source>How far an accent is pulled towards a staccato dot stacked on the same side outside the staff.</source>
+        <translation type="unfinished">How far an accent is pulled towards a staccato dot stacked on the same side outside the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="108"/>
+        <source>Marcato always above the staff</source>
+        <translation type="unfinished">Marcato always above the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="109"/>
+        <source>With automatic placement, marcato marks go above the staff whatever the stem direction; when off they are placed on the notehead side like other articulations.</source>
+        <translation type="unfinished">With automatic placement, marcato marks go above the staff whatever the stem direction; when off they are placed on the notehead side like other articulations.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="115"/>
+        <source>Staccato next to the notehead (inside staff and slurs)</source>
+        <translation type="unfinished">Staccato next to the notehead (inside staff and slurs)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="116"/>
+        <source>Staccato dots are placed right next to the note, in a staff space and inside slurs; when off they are stacked outside the staff with the other articulations.</source>
+        <translation type="unfinished">Staccato dots are placed right next to the note, in a staff space and inside slurs; when off they are stacked outside the staff with the other articulations.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="122"/>
+        <source>Tenuto next to the notehead (inside staff and slurs)</source>
+        <translation type="unfinished">Tenuto next to the notehead (inside staff and slurs)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="123"/>
+        <source>Tenuto marks are placed right next to the note, in a staff space and inside slurs; when off they are stacked outside the staff with the other articulations.</source>
+        <translation type="unfinished">Tenuto marks are placed right next to the note, in a staff space and inside slurs; when off they are stacked outside the staff with the other articulations.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="129"/>
+        <source>Articulations, ornaments and fermatas: horizontal clearance</source>
+        <translation type="unfinished">Articulations, ornaments and fermatas: horizontal clearance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="130"/>
+        <source>Horizontal margin within which neighbouring objects count as colliding when articulations, ornaments and fermatas are moved away from the staff automatically.</source>
+        <translation type="unfinished">Horizontal margin within which neighbouring objects count as colliding when articulations, ornaments and fermatas are moved away from the staff automatically.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="137"/>
+        <source>Ornaments</source>
+        <translation type="unfinished">Ornaments</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="141"/>
+        <source>Ornament to accidental distance</source>
+        <translation type="unfinished">Ornament to accidental distance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="142"/>
+        <source>Vertical gap between an ornament and the accidental shown above or below it.</source>
+        <translation type="unfinished">Vertical gap between an ornament and the accidental shown above or below it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="149"/>
+        <source>Ornament accidental scale</source>
+        <translation type="unfinished">Ornament accidental scale</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="150"/>
+        <source>Size of the accidentals above and below ornaments relative to normal accidentals.</source>
+        <translation type="unfinished">Size of the accidentals above and below ornaments relative to normal accidentals.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="158"/>
+        <source>Breath marks and caesuras</source>
+        <translation type="unfinished">Breath marks and caesuras</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="162"/>
+        <source>Breath mark vertical position</source>
+        <translation type="unfinished">Breath mark vertical position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="163"/>
+        <source>Vertical position of breath marks relative to the top staff line (the bottom line when placed below); negative values are above that line.</source>
+        <translation type="unfinished">Vertical position of breath marks relative to the top staff line (the bottom line when placed below); negative values are above that line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="172"/>
+        <source>Caesura vertical position</source>
+        <translation type="unfinished">Caesura vertical position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="173"/>
+        <source>Vertical position of caesuras relative to the top staff line (the bottom line when placed below); positive values are below that line.</source>
+        <translation type="unfinished">Vertical position of caesuras relative to the top staff line (the bottom line when placed below); positive values are below that line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="102"/>
+        <source>Barline details</source>
+        <translation type="unfinished">Barline details</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="106"/>
+        <source>One-line staff: barline top (half spaces)</source>
+        <translation type="unfinished">One-line staff: barline top (half spaces)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="107"/>
+        <source>Where barlines start on a one-line staff, in half staff spaces from the staff line (negative is above); the staff is treated as this tall for brackets and staff spacing.</source>
+        <translation type="unfinished">Where barlines start on a one-line staff, in half staff spaces from the staff line (negative is above); the staff is treated as this tall for brackets and staff spacing.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="117"/>
+        <source>One-line staff: barline bottom (half spaces)</source>
+        <translation type="unfinished">One-line staff: barline bottom (half spaces)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="118"/>
+        <source>Where barlines end on a one-line staff, in half staff spaces below the staff line; the staff is treated as this tall for brackets and staff spacing.</source>
+        <translation type="unfinished">Where barlines end on a one-line staff, in half staff spaces below the staff line; the staff is treated as this tall for brackets and staff spacing.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="127"/>
+        <source>Bracket overshoot beyond the staff</source>
+        <translation type="unfinished">Bracket overshoot beyond the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="128"/>
+        <source>How far the thick line of a bracket extends above the top staff and below the bottom staff before its tips, with music fonts other than Leland.</source>
+        <translation type="unfinished">How far the thick line of a bracket extends above the top staff and below the bottom staff before its tips, with music fonts other than Leland.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="135"/>
+        <source>Bracket overshoot beyond the staff (Leland)</source>
+        <translation type="unfinished">Bracket overshoot beyond the staff (Leland)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="136"/>
+        <source>How far the thick line of a bracket extends above the top staff and below the bottom staff before its tips, with the music font Leland.</source>
+        <translation type="unfinished">How far the thick line of a bracket extends above the top staff and below the bottom staff before its tips, with the music font Leland.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="143"/>
+        <source>Square bracket hook length</source>
+        <translation type="unfinished">Square bracket hook length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="144"/>
+        <source>Length of the horizontal hooks of a square (sub-)bracket, which is also the room the bracket takes up left of the staves.</source>
+        <translation type="unfinished">Length of the horizontal hooks of a square (sub-)bracket, which is also the room the bracket takes up left of the staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="151"/>
+        <source>Line bracket thickness (× bracket thickness)</source>
+        <translation type="unfinished">Line bracket thickness (× bracket thickness)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="152"/>
+        <source>Thickness of a line bracket as a multiple of the thickness of a regular bracket.</source>
+        <translation type="unfinished">Thickness of a line bracket as a multiple of the thickness of a regular bracket.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="161"/>
+        <source>Brace width growth per staff gap</source>
+        <translation type="unfinished">Brace width growth per staff gap</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="162"/>
+        <source>Horizontal stretch of a brace is one glyph width per staff it spans plus this much per gap between those staves; lower values give a slimmer brace.</source>
+        <translation type="unfinished">Horizontal stretch of a brace is one glyph width per staff it spans plus this much per gap between those staves; lower values give a slimmer brace.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="171"/>
+        <source>Barline masks</source>
+        <translation type="unfinished">Barline masks</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="175"/>
+        <source>Barline masks: detection margin around text</source>
+        <translation type="unfinished">Barline masks: detection margin around text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="176"/>
+        <source>A barline is interrupted when it comes closer than this to a text; scales with the font size.</source>
+        <translation type="unfinished">A barline is interrupted when it comes closer than this to a text; scales with the font size.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="183"/>
+        <source>Barline masks: gap around text</source>
+        <translation type="unfinished">Barline masks: gap around text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="184"/>
+        <source>White space left between an unframed text and the ends of the interrupted barline; scales with the font size.</source>
+        <translation type="unfinished">White space left between an unframed text and the ends of the interrupted barline; scales with the font size.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="191"/>
+        <source>Barline masks: minimum gap around text</source>
+        <translation type="unfinished">Barline masks: minimum gap around text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="192"/>
+        <source>Lower limit of the gap around text, which matters for small font sizes.</source>
+        <translation type="unfinished">Lower limit of the gap around text, which matters for small font sizes.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="199"/>
+        <source>Barline masks: maximum gap around text</source>
+        <translation type="unfinished">Barline masks: maximum gap around text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="200"/>
+        <source>Upper limit of the gap around text, which matters for large font sizes.</source>
+        <translation type="unfinished">Upper limit of the gap around text, which matters for large font sizes.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="207"/>
+        <source>Barline masks: shortest barline fragment</source>
+        <translation type="unfinished">Barline masks: shortest barline fragment</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="208"/>
+        <source>Barline pieces shorter than this, left between two masks or at an end of the barline, are removed.</source>
+        <translation type="unfinished">Barline pieces shorter than this, left between two masks or at an end of the barline, are removed.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="37"/>
+        <source>Beam slant: default rules</source>
+        <translation type="unfinished">Beam slant: default rules</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="41"/>
+        <source>Maximum slant, 2nd</source>
+        <translation type="unfinished">Maximum slant, 2nd</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="42"/>
+        <source>Default slant rules: the largest slant of a beam whose first and last notes are a second apart. Value in quarter spaces (1 = ¼ sp).</source>
+        <translation type="unfinished">Default slant rules: the largest slant of a beam whose first and last notes are a second apart. Value in quarter spaces (1 = ¼ sp).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="51"/>
+        <source>Maximum slant, 3rd</source>
+        <translation type="unfinished">Maximum slant, 3rd</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="52"/>
+        <source>Default slant rules: the largest slant of a beam whose first and last notes are a third apart. Value in quarter spaces (1 = ¼ sp).</source>
+        <translation type="unfinished">Default slant rules: the largest slant of a beam whose first and last notes are a third apart. Value in quarter spaces (1 = ¼ sp).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="61"/>
+        <source>Maximum slant, 4th</source>
+        <translation type="unfinished">Maximum slant, 4th</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="62"/>
+        <source>Default slant rules: the largest slant of a beam whose first and last notes are a fourth apart. Value in quarter spaces (1 = ¼ sp).</source>
+        <translation type="unfinished">Default slant rules: the largest slant of a beam whose first and last notes are a fourth apart. Value in quarter spaces (1 = ¼ sp).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="71"/>
+        <source>Maximum slant, 5th</source>
+        <translation type="unfinished">Maximum slant, 5th</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="72"/>
+        <source>Default slant rules: the largest slant of a beam whose first and last notes are a fifth apart. Value in quarter spaces (1 = ¼ sp).</source>
+        <translation type="unfinished">Default slant rules: the largest slant of a beam whose first and last notes are a fifth apart. Value in quarter spaces (1 = ¼ sp).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="81"/>
+        <source>Maximum slant, 6th</source>
+        <translation type="unfinished">Maximum slant, 6th</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="82"/>
+        <source>Default slant rules: the largest slant of a beam whose first and last notes are a sixth apart. Value in quarter spaces (1 = ¼ sp).</source>
+        <translation type="unfinished">Default slant rules: the largest slant of a beam whose first and last notes are a sixth apart. Value in quarter spaces (1 = ¼ sp).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="91"/>
+        <source>Maximum slant, 7th</source>
+        <translation type="unfinished">Maximum slant, 7th</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="92"/>
+        <source>Default slant rules: the largest slant of a beam whose first and last notes are a seventh apart. Value in quarter spaces (1 = ¼ sp).</source>
+        <translation type="unfinished">Default slant rules: the largest slant of a beam whose first and last notes are a seventh apart. Value in quarter spaces (1 = ¼ sp).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="101"/>
+        <source>Maximum slant, octave or more</source>
+        <translation type="unfinished">Maximum slant, octave or more</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="102"/>
+        <source>Default slant rules: the largest slant of a beam whose first and last notes are an octave or more apart. Value in quarter spaces (1 = ¼ sp).</source>
+        <translation type="unfinished">Default slant rules: the largest slant of a beam whose first and last notes are an octave or more apart. Value in quarter spaces (1 = ¼ sp).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="111"/>
+        <source>Beam width limit for the slant of a 2nd</source>
+        <translation type="unfinished">Beam width limit for the slant of a 2nd</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="112"/>
+        <source>Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a second, whatever its interval.</source>
+        <translation type="unfinished">Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a second, whatever its interval.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="120"/>
+        <source>Beam width limit for the slant of a 3rd</source>
+        <translation type="unfinished">Beam width limit for the slant of a 3rd</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="121"/>
+        <source>Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a third, whatever its interval.</source>
+        <translation type="unfinished">Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a third, whatever its interval.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="129"/>
+        <source>Beam width limit for the slant of a 4th</source>
+        <translation type="unfinished">Beam width limit for the slant of a 4th</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="130"/>
+        <source>Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a fourth, whatever its interval.</source>
+        <translation type="unfinished">Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a fourth, whatever its interval.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="138"/>
+        <source>Beam width limit for the slant of a 5th</source>
+        <translation type="unfinished">Beam width limit for the slant of a 5th</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="139"/>
+        <source>Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a fifth, whatever its interval.</source>
+        <translation type="unfinished">Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a fifth, whatever its interval.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="147"/>
+        <source>Beam width limit for the slant of a 6th</source>
+        <translation type="unfinished">Beam width limit for the slant of a 6th</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="148"/>
+        <source>Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a sixth, whatever its interval.</source>
+        <translation type="unfinished">Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a sixth, whatever its interval.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="156"/>
+        <source>Beam width limit for the slant of a 7th</source>
+        <translation type="unfinished">Beam width limit for the slant of a 7th</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="157"/>
+        <source>Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a seventh, whatever its interval.</source>
+        <translation type="unfinished">Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a seventh, whatever its interval.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="165"/>
+        <source>Slant when the end note is repeated</source>
+        <translation type="unfinished">Slant when the end note is repeated</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="166"/>
+        <source>Default slant rules: slant of a beam whose end note nearest the beam is repeated by the note next to it (the beam would otherwise be flat). Value in quarter spaces (1 = ¼ sp).</source>
+        <translation type="unfinished">Default slant rules: slant of a beam whose end note nearest the beam is repeated by the note next to it (the beam would otherwise be flat). Value in quarter spaces (1 = ¼ sp).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="175"/>
+        <source>Slant of beams extended to the middle of the staff</source>
+        <translation type="unfinished">Slant of beams extended to the middle of the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="176"/>
+        <source>Default slant rules: when the stems of notes far outside the staff are lengthened to the middle of the staff the beam would lie flat on one line; it is given this slant instead if the end notes differ. Value in quarter spaces (1 = ¼ sp).</source>
+        <translation type="unfinished">Default slant rules: when the stems of notes far outside the staff are lengthened to the middle of the staff the beam would lie flat on one line; it is given this slant instead if the end notes differ. Value in quarter spaces (1 = ¼ sp).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="185"/>
+        <source>Small slant of beams extended to the middle of the staff</source>
+        <translation type="unfinished">Small slant of beams extended to the middle of the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="186"/>
+        <source>Default slant rules: the same, used when the end notes are a second apart, when the contour only allows a small slant, or when the group has two beams. Value in quarter spaces (1 = ¼ sp).</source>
+        <translation type="unfinished">Default slant rules: the same, used when the end notes are a second apart, when the contour only allows a small slant, or when the group has two beams. Value in quarter spaces (1 = ¼ sp).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="195"/>
+        <source>Eighth-space slant of three-beam groups</source>
+        <translation type="unfinished">Eighth-space slant of three-beam groups</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="196"/>
+        <source>Default slant rules: a group with three beams that the staff-line rules keep level although its end notes differ is tilted by this amount at one end (0 = keep it level).</source>
+        <translation type="unfinished">Default slant rules: a group with three beams that the staff-line rules keep level although its end notes differ is tilted by this amount at one end (0 = keep it level).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="205"/>
+        <source>Extra beam distance with the eighth-space slant</source>
+        <translation type="unfinished">Extra beam distance with the eighth-space slant</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="206"/>
+        <source>Default slant rules: amount added to the distance between the beams of a three-beam group that receives the eighth-space slant.</source>
+        <translation type="unfinished">Default slant rules: amount added to the distance between the beams of a three-beam group that receives the eighth-space slant.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="215"/>
+        <source>Beam slant: contour rules</source>
+        <translation type="unfinished">Beam slant: contour rules</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="219"/>
+        <source>Flatten concave beam groups</source>
+        <translation type="unfinished">Flatten concave beam groups</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="220"/>
+        <source>Keeps the beam horizontal when a note inside the group lies beyond both end notes on the beam side; when off, such a beam slants according to its end notes.</source>
+        <translation type="unfinished">Keeps the beam horizontal when a note inside the group lies beyond both end notes on the beam side; when off, such a beam slants according to its end notes.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="226"/>
+        <source>Fixed slants for two-pitch groups</source>
+        <translation type="unfinished">Fixed slants for two-pitch groups</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="227"/>
+        <source>Groups of three or more notes on only two pitches: a single different note at one end slants the beam if it is the note nearer the beam and leaves it flat otherwise; evenly alternating pitches slant the beam. When off, the general contour rules apply.</source>
+        <translation type="unfinished">Groups of three or more notes on only two pitches: a single different note at one end slants the beam if it is the note nearer the beam and leaves it flat otherwise; evenly alternating pitches slant the beam. When off, the general contour rules apply.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="233"/>
+        <source>Cross-staff beam slant over level notes</source>
+        <translation type="unfinished">Cross-staff beam slant over level notes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="234"/>
+        <source>Cross-staff beam lying above or below both staves: when the notes on the staff nearest the beam are level, the beam slants this much towards the notes of the other staff. Value in quarter spaces (1 = ¼ sp).</source>
+        <translation type="unfinished">Cross-staff beam lying above or below both staves: when the notes on the staff nearest the beam are level, the beam slants this much towards the notes of the other staff. Value in quarter spaces (1 = ¼ sp).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="243"/>
+        <source>Beam positioning: custom rules</source>
+        <translation type="unfinished">Beam positioning: custom rules</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="247"/>
+        <source>Slant when the end note is repeated (custom rules)</source>
+        <translation type="unfinished">Slant when the end note is repeated (custom rules)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="248"/>
+        <source>Custom slant rules: slant of a beam whose end note nearest the beam is repeated by the note next to it. Value in quarter spaces (1 = ¼ sp).</source>
+        <translation type="unfinished">Custom slant rules: slant of a beam whose end note nearest the beam is repeated by the note next to it. Value in quarter spaces (1 = ¼ sp).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="257"/>
+        <source>Largest stem shortening at beam ends</source>
+        <translation type="unfinished">Largest stem shortening at beam ends</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="258"/>
+        <source>Custom positioning rules: how far the stems at the two ends of a beam (and of inner chords level with the end note nearest the beam) may fall short of their default length before the slant is reduced or the beam is moved away from the notes.</source>
+        <translation type="unfinished">Custom positioning rules: how far the stems at the two ends of a beam (and of inner chords level with the end note nearest the beam) may fall short of their default length before the slant is reduced or the beam is moved away from the notes.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="267"/>
+        <source>Largest stem shortening in ledger-line groups</source>
+        <translation type="unfinished">Largest stem shortening in ledger-line groups</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="268"/>
+        <source>Custom positioning rules, groups whose notes are all on ledger lines: how far a stem may fall short of its default length before the whole beam is moved towards the staff, a full space at a time.</source>
+        <translation type="unfinished">Custom positioning rules, groups whose notes are all on ledger lines: how far a stem may fall short of its default length before the whole beam is moved towards the staff, a full space at a time.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="276"/>
+        <source>Slant of ledger-line groups</source>
+        <translation type="unfinished">Slant of ledger-line groups</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="277"/>
+        <source>Custom positioning rules: slant of every beam whose notes are all on ledger lines and not level (0 = always flat). Value in quarter spaces (1 = ¼ sp).</source>
+        <translation type="unfinished">Custom positioning rules: slant of every beam whose notes are all on ledger lines and not level (0 = always flat). Value in quarter spaces (1 = ¼ sp).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="286"/>
+        <source>Stem shortening allowed when snapping ledger-line groups</source>
+        <translation type="unfinished">Stem shortening allowed when snapping ledger-line groups</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="287"/>
+        <source>Custom positioning rules, ledger-line groups: the most a stem may be shortened to rest the beam on the staff-line grid; if more would be needed the stem is lengthened to the next line instead. Value in quarter spaces (1 = ¼ sp).</source>
+        <translation type="unfinished">Custom positioning rules, ledger-line groups: the most a stem may be shortened to rest the beam on the staff-line grid; if more would be needed the stem is lengthened to the next line instead. Value in quarter spaces (1 = ¼ sp).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="296"/>
+        <source>Beams: minimum stem length</source>
+        <translation type="unfinished">Beams: minimum stem length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="300"/>
+        <source>Minimum stem length under a beam, one beam</source>
+        <translation type="unfinished">Minimum stem length under a beam, one beam</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="301"/>
+        <source>Shortest stem a beam may leave to a chord with one beam: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Shortest stem a beam may leave to a chord with one beam: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="310"/>
+        <source>Minimum stem length under a beam, two beams</source>
+        <translation type="unfinished">Minimum stem length under a beam, two beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="311"/>
+        <source>Shortest stem a beam may leave to a chord with two beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Shortest stem a beam may leave to a chord with two beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="320"/>
+        <source>Minimum stem length under a beam, three beams</source>
+        <translation type="unfinished">Minimum stem length under a beam, three beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="321"/>
+        <source>Shortest stem a beam may leave to a chord with three beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Shortest stem a beam may leave to a chord with three beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="330"/>
+        <source>Minimum stem length under a beam, four beams</source>
+        <translation type="unfinished">Minimum stem length under a beam, four beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="331"/>
+        <source>Shortest stem a beam may leave to a chord with four beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Shortest stem a beam may leave to a chord with four beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="340"/>
+        <source>Minimum stem length under a beam, five beams</source>
+        <translation type="unfinished">Minimum stem length under a beam, five beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="341"/>
+        <source>Shortest stem a beam may leave to a chord with five beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Shortest stem a beam may leave to a chord with five beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="350"/>
+        <source>Minimum stem length under a beam, six beams</source>
+        <translation type="unfinished">Minimum stem length under a beam, six beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="351"/>
+        <source>Shortest stem a beam may leave to a chord with six beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Shortest stem a beam may leave to a chord with six beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="360"/>
+        <source>Minimum stem length under a beam, seven beams</source>
+        <translation type="unfinished">Minimum stem length under a beam, seven beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="361"/>
+        <source>Shortest stem a beam may leave to a chord with seven beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Shortest stem a beam may leave to a chord with seven beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="370"/>
+        <source>Minimum stem length under a beam, eight beams</source>
+        <translation type="unfinished">Minimum stem length under a beam, eight beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="371"/>
+        <source>Shortest stem a beam may leave to a chord with eight beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Shortest stem a beam may leave to a chord with eight beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="380"/>
+        <source>Inner stem shortening, beam slant up to ¾ sp</source>
+        <translation type="unfinished">Inner stem shortening, beam slant up to ¾ sp</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="381"/>
+        <source>How far a slanted beam (slant up to ¾ sp) may cut into the default stem length of the chords between its ends before it is moved away from the notes.</source>
+        <translation type="unfinished">How far a slanted beam (slant up to ¾ sp) may cut into the default stem length of the chords between its ends before it is moved away from the notes.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="388"/>
+        <source>Inner stem shortening, beam slant from 1 to 1½ sp</source>
+        <translation type="unfinished">Inner stem shortening, beam slant from 1 to 1½ sp</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="389"/>
+        <source>How far a slanted beam (slant from 1 to 1½ sp) may cut into the default stem length of the chords between its ends before it is moved away from the notes.</source>
+        <translation type="unfinished">How far a slanted beam (slant from 1 to 1½ sp) may cut into the default stem length of the chords between its ends before it is moved away from the notes.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="396"/>
+        <source>Inner stem shortening, beam slant more than 1½ sp</source>
+        <translation type="unfinished">Inner stem shortening, beam slant more than 1½ sp</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="397"/>
+        <source>How far a slanted beam (slant more than 1½ sp) may cut into the default stem length of the chords between its ends before it is moved away from the notes.</source>
+        <translation type="unfinished">How far a slanted beam (slant more than 1½ sp) may cut into the default stem length of the chords between its ends before it is moved away from the notes.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="404"/>
+        <source>Rests under beams</source>
+        <translation type="unfinished">Rests under beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="408"/>
+        <source>Rest to beam clearance</source>
+        <translation type="unfinished">Rest to beam clearance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="409"/>
+        <source>Smallest vertical gap between a beam and a rest inside the beamed group; a rest that comes closer is moved away from the beam by whole staff spaces.</source>
+        <translation type="unfinished">Smallest vertical gap between a beam and a rest inside the beamed group; a rest that comes closer is moved away from the beam by whole staff spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="416"/>
+        <source>Rest to beam clearance, 32nd rests and shorter</source>
+        <translation type="unfinished">Rest to beam clearance, 32nd rests and shorter</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="417"/>
+        <source>The same clearance for 32nd rests and shorter ones.</source>
+        <translation type="unfinished">The same clearance for 32nd rests and shorter ones.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="34"/>
+        <source>Lines</source>
+        <translation type="unfinished">Lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="102"/>
+        <source>Guitar bends (standard staff)</source>
+        <translation type="unfinished">Guitar bends (standard staff)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="106"/>
+        <source>Vertical distance from noteheads</source>
+        <translation type="unfinished">Vertical distance from noteheads</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="107"/>
+        <source>On a standard staff, vertical gap between the ends of a bend line and the noteheads.</source>
+        <translation type="unfinished">On a standard staff, vertical gap between the ends of a bend line and the noteheads.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="114"/>
+        <source>Horizontal indent from noteheads</source>
+        <translation type="unfinished">Horizontal indent from noteheads</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="115"/>
+        <source>On a standard staff, how far the ends of a bend line are moved inwards from the notehead centre (from the notehead edge inside chords).</source>
+        <translation type="unfinished">On a standard staff, how far the ends of a bend line are moved inwards from the notehead centre (from the notehead edge inside chords).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="122"/>
+        <source>Minimum peak height</source>
+        <translation type="unfinished">Minimum peak height</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="123"/>
+        <source>Height of the peak of an angled bend line above the straight line between its ends, for the shortest bends.</source>
+        <translation type="unfinished">Height of the peak of an angled bend line above the straight line between its ends, for the shortest bends.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="130"/>
+        <source>Maximum peak height</source>
+        <translation type="unfinished">Maximum peak height</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="131"/>
+        <source>Upper limit of the peak height of long angled bend lines.</source>
+        <translation type="unfinished">Upper limit of the peak height of long angled bend lines.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="137"/>
+        <source>Peak height growth with length</source>
+        <translation type="unfinished">Peak height growth with length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="138"/>
+        <source>How much the peak rises for every staff space of bend length beyond one staff space.</source>
+        <translation type="unfinished">How much the peak rises for every staff space of bend length beyond one staff space.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="146"/>
+        <source>Clearance from staff lines</source>
+        <translation type="unfinished">Clearance from staff lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="147"/>
+        <source>Ends and peak of a bend line inside the staff are moved so that they stay at least this far (plus half the staff line thickness) from the nearest staff line.</source>
+        <translation type="unfinished">Ends and peak of a bend line inside the staff are moved so that they stay at least this far (plus half the staff line thickness) from the nearest staff line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="155"/>
+        <source>Padding from stems and other notes</source>
+        <translation type="unfinished">Padding from stems and other notes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="156"/>
+        <source>Horizontal clearance kept between the ends of a bend line and the stems, dots or other notes of the chord at that height.</source>
+        <translation type="unfinished">Horizontal clearance kept between the ends of a bend line and the stems, dots or other notes of the chord at that height.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="163"/>
+        <source>Slight bend: gap after notehead</source>
+        <translation type="unfinished">Slight bend: gap after notehead</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="164"/>
+        <source>On a standard staff, horizontal gap between the notehead and the start of a slight-bend curve.</source>
+        <translation type="unfinished">On a standard staff, horizontal gap between the notehead and the start of a slight-bend curve.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="171"/>
+        <source>Slight bend: start height above note</source>
+        <translation type="unfinished">Slight bend: start height above note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="172"/>
+        <source>On a standard staff, how far above the vertical position of the note a slight-bend curve starts.</source>
+        <translation type="unfinished">On a standard staff, how far above the vertical position of the note a slight-bend curve starts.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="180"/>
+        <source>Slight bend: width</source>
+        <translation type="unfinished">Slight bend: width</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="181"/>
+        <source>Horizontal length of a slight-bend curve, on standard and tablature staves.</source>
+        <translation type="unfinished">Horizontal length of a slight-bend curve, on standard and tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="189"/>
+        <source>Slight bend: height</source>
+        <translation type="unfinished">Slight bend: height</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="190"/>
+        <source>On a standard staff, vertical rise of a slight-bend curve.</source>
+        <translation type="unfinished">On a standard staff, vertical rise of a slight-bend curve.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="197"/>
+        <source>Guitar bends (tablature)</source>
+        <translation type="unfinished">Guitar bends (tablature)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="201"/>
+        <source>Vertical distance from fret numbers</source>
+        <translation type="unfinished">Vertical distance from fret numbers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="202"/>
+        <source>On tablature, vertical gap between a fret number and the start of a pre-bend, or the arrow of a full release.</source>
+        <translation type="unfinished">On tablature, vertical gap between a fret number and the start of a pre-bend, or the arrow of a full release.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="209"/>
+        <source>Horizontal distance from fret numbers</source>
+        <translation type="unfinished">Horizontal distance from fret numbers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="210"/>
+        <source>On tablature, gap between the right edge of the fret number and the start of the bend curve.</source>
+        <translation type="unfinished">On tablature, gap between the right edge of the fret number and the start of the bend curve.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="217"/>
+        <source>Distance between arrow and bend amount</source>
+        <translation type="unfinished">Distance between arrow and bend amount</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="218"/>
+        <source>On tablature, vertical gap between the arrowhead and the bend amount text (‘full’, ‘½’…).</source>
+        <translation type="unfinished">On tablature, vertical gap between the arrowhead and the bend amount text (‘full’, ‘½’…).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="225"/>
+        <source>Minimum bend width</source>
+        <translation type="unfinished">Minimum bend width</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="226"/>
+        <source>On tablature, a bend curve is never narrower than this.</source>
+        <translation type="unfinished">On tablature, a bend curve is never narrower than this.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="232"/>
+        <source>Hold line: distance before end of last note</source>
+        <translation type="unfinished">Hold line: distance before end of last note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="233"/>
+        <source>On tablature, the dashed hold line stops this far before the end of the space taken by its last note, unless another bend continues from that note.</source>
+        <translation type="unfinished">On tablature, the dashed hold line stops this far before the end of the space taken by its last note, unless another bend continues from that note.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="34"/>
+        <source>Text</source>
+        <translation type="unfinished">Text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="41"/>
+        <source>Bass note: extra offset after stacked modifiers</source>
+        <translation type="unfinished">Bass note: extra offset after stacked modifiers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="42"/>
+        <source>Extra horizontal shift of the slash and bass note, in capital heights, when the chord symbol has vertically stacked modifiers or a 6/9.</source>
+        <translation type="unfinished">Extra horizontal shift of the slash and bass note, in capital heights, when the chord symbol has vertically stacked modifiers or a 6/9.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="37"/>
+        <source>Key signatures</source>
+        <translation type="unfinished">Key signatures</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="41"/>
+        <source>Distance scale between different accidentals</source>
+        <translation type="unfinished">Distance scale between different accidentals</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="42"/>
+        <source>Multiplies the accidental distance where two different accidentals meet in a key signature, for example between the cancelling naturals and the new sharps or flats.</source>
+        <translation type="unfinished">Multiplies the accidental distance where two different accidentals meet in a key signature, for example between the cancelling naturals and the new sharps or flats.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="110"/>
+        <source>Dynamic anchored to end of previous note: gap</source>
+        <translation type="unfinished">Dynamic anchored to end of previous note: gap</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="111"/>
+        <source>For a dynamic set to anchor to the end of the previous note, the gap between its right edge and the start of its beat (the barline, clef or note found there).</source>
+        <translation type="unfinished">For a dynamic set to anchor to the end of the previous note, the gap between its right edge and the start of its beat (the barline, clef or note found there).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="118"/>
+        <source>Minimum distance from barlines</source>
+        <translation type="unfinished">Minimum distance from barlines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="119"/>
+        <source>With ‘avoid barlines’ on, a dynamic between staves joined by barlines is moved sideways until it is this far from the barline.</source>
+        <translation type="unfinished">With ‘avoid barlines’ on, a dynamic between staves joined by barlines is moved sideways until it is this far from the barline.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="126"/>
+        <source>Gap between dynamic and expression text</source>
+        <translation type="unfinished">Gap between dynamic and expression text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="127"/>
+        <source>Horizontal gap between a dynamic and expression text on the same beat (scaled by the size of both).</source>
+        <translation type="unfinished">Horizontal gap between a dynamic and expression text on the same beat (scaled by the size of both).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="134"/>
+        <source>Gap after a dynamic ending in f</source>
+        <translation type="unfinished">Gap after a dynamic ending in f</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="135"/>
+        <source>The same gap when the dynamic ends with the letter f, whose overhanging top needs less room.</source>
+        <translation type="unfinished">The same gap when the dynamic ends with the letter f, whose overhanging top needs less room.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="185"/>
+        <source>Gap between hairpin and its text</source>
+        <translation type="unfinished">Gap between hairpin and its text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="186"/>
+        <source>Space between the lines of a hairpin and text attached to its start or end.</source>
+        <translation type="unfinished">Space between the lines of a hairpin and text attached to its start or end.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="193"/>
+        <source>Minimum hairpin length</source>
+        <translation type="unfinished">Minimum hairpin length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="194"/>
+        <source>A hairpin segment is never drawn shorter than this.</source>
+        <translation type="unfinished">A hairpin segment is never drawn shorter than this.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="201"/>
+        <source>Niente circle diameter</source>
+        <translation type="unfinished">Niente circle diameter</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="202"/>
+        <source>Diameter of the circle at the tip of a ‘niente’ hairpin.</source>
+        <translation type="unfinished">Diameter of the circle at the tip of a ‘niente’ hairpin.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="209"/>
+        <source>Extend to following dynamic when gap exceeds</source>
+        <translation type="unfinished">Extend to following dynamic when gap exceeds</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="210"/>
+        <source>A hairpin that snaps to the dynamic or expression text after it is lengthened to reach it only when the remaining gap is larger than this; smaller gaps are left as they are.</source>
+        <translation type="unfinished">A hairpin that snaps to the dynamic or expression text after it is lengthened to reach it only when the remaining gap is larger than this; smaller gaps are left as they are.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="218"/>
+        <source>Hairpin end: distance before end position</source>
+        <translation type="unfinished">Hairpin end: distance before end position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="219"/>
+        <source>How far before the note, rest or barline at its end position a hairpin stops when no dynamic determines its end.</source>
+        <translation type="unfinished">How far before the note, rest or barline at its end position a hairpin stops when no dynamic determines its end.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="73"/>
+        <source>Figured bass: continuation line thickness</source>
+        <translation type="unfinished">Figured bass: continuation line thickness</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="74"/>
+        <source>Thickness of figured bass continuation lines.</source>
+        <translation type="unfinished">Thickness of figured bass continuation lines.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="83"/>
+        <source>Figured bass: gap between figure and continuation line</source>
+        <translation type="unfinished">Figured bass: gap between figure and continuation line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="84"/>
+        <source>Blank space between a figure and the continuation line that follows it.</source>
+        <translation type="unfinished">Blank space between a figure and the continuation line that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="93"/>
+        <source>Figured bass: overlap of joined continuation lines</source>
+        <translation type="unfinished">Figured bass: overlap of joined continuation lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="94"/>
+        <source>How far an extended continuation line runs into the continuation line of the next figure so that the two join without a gap.</source>
+        <translation type="unfinished">How far an extended continuation line runs into the continuation line of the next figure so that the two join without a gap.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="103"/>
+        <source>Figured bass: continuation line height</source>
+        <translation type="unfinished">Figured bass: continuation line height</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="104"/>
+        <source>Vertical position of a continuation line within its row of figures, as a fraction of the row height measured from the top.</source>
+        <translation type="unfinished">Vertical position of a continuation line within its row of figures, as a fraction of the row height measured from the top.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="113"/>
+        <source>Figured bass: continuation line reach into the last note</source>
+        <translation type="unfinished">Figured bass: continuation line reach into the last note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="114"/>
+        <source>How far a continuation line runs past the left edge of the last note it covers.</source>
+        <translation type="unfinished">How far a continuation line runs past the left edge of the last note it covers.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="32"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="36"/>
+        <source>Fingering</source>
+        <translation type="unfinished">Fingering</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="40"/>
+        <source>Fingering in voices: horizontal shift away from the stem</source>
+        <translation type="unfinished">Fingering in voices: horizontal shift away from the stem</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="41"/>
+        <source>In multi-voice passages, a fingering on a single unbeamed note is shifted sideways by this amount so that it clears the stem.</source>
+        <translation type="unfinished">In multi-voice passages, a fingering on a single unbeamed note is shifted sideways by this amount so that it clears the stem.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="48"/>
+        <source>Fingering in voices: vertical distance from the note</source>
+        <translation type="unfinished">Fingering in voices: vertical distance from the note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="49"/>
+        <source>In multi-voice passages, a fingering on a single unbeamed note is placed this far above or below the note instead of beyond the stem.</source>
+        <translation type="unfinished">In multi-voice passages, a fingering on a single unbeamed note is placed this far above or below the note instead of beyond the stem.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="57"/>
+        <source>Fingering: extra clearance when avoiding collisions</source>
+        <translation type="unfinished">Fingering: extra clearance when avoiding collisions</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="58"/>
+        <source>Extra distance, as a fraction of the fingering’s own height, added when a fingering has to move away from other objects above or below the chord.</source>
+        <translation type="unfinished">Extra distance, as a fraction of the fingering’s own height, added when a fingering has to move away from other objects above or below the chord.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="34"/>
+        <source>Fretted instruments</source>
+        <translation type="unfinished">Fretted instruments</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="41"/>
+        <source>Fretboard diagrams: string and fret line thickness</source>
+        <translation type="unfinished">Fretboard diagrams: string and fret line thickness</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="42"/>
+        <source>Thickness of the string and fret lines of fretboard diagrams.</source>
+        <translation type="unfinished">Thickness of the string and fret lines of fretboard diagrams.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="50"/>
+        <source>Fretboard diagrams: open and mute marker size</source>
+        <translation type="unfinished">Fretboard diagrams: open and mute marker size</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="51"/>
+        <source>Size of the ○ and × markers above the nut as a fraction of the string spacing.</source>
+        <translation type="unfinished">Size of the ○ and × markers above the nut as a fraction of the string spacing.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="59"/>
+        <source>Fretboard diagrams: marker distance from the nut</source>
+        <translation type="unfinished">Fretboard diagrams: marker distance from the nut</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="60"/>
+        <source>Gap between the ○ and × markers and the nut of a fretboard diagram.</source>
+        <translation type="unfinished">Gap between the ○ and × markers and the nut of a fretboard diagram.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="67"/>
+        <source>Fretboard diagrams: fret number distance</source>
+        <translation type="unfinished">Fretboard diagrams: fret number distance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="68"/>
+        <source>Gap between the fret number and the diagram, as a fraction of the string spacing.</source>
+        <translation type="unfinished">Gap between the fret number and the diagram, as a fraction of the string spacing.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="75"/>
+        <source>Fretboard diagrams: fingering distance</source>
+        <translation type="unfinished">Fretboard diagrams: fingering distance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="76"/>
+        <source>Gap between a fretboard diagram and its fingering numbers.</source>
+        <translation type="unfinished">Gap between a fretboard diagram and its fingering numbers.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="37"/>
+        <source>Glissandos and note-anchored lines</source>
+        <translation type="unfinished">Glissandos and note-anchored lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="41"/>
+        <source>Distance from notes</source>
+        <translation type="unfinished">Distance from notes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="42"/>
+        <source>Gap between each end of a glissando or note-anchored line and the notehead, dots or accidental next to it.</source>
+        <translation type="unfinished">Gap between each end of a glissando or note-anchored line and the notehead, dots or accidental next to it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="49"/>
+        <source>Slant between notes at the same staff position</source>
+        <translation type="unfinished">Slant between notes at the same staff position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="50"/>
+        <source>When both notes sit on the same line or space, each end of the line is moved vertically by this amount so that the line is not horizontal.</source>
+        <translation type="unfinished">When both notes sit on the same line or space, each end of the line is moved vertically by this amount so that the line is not horizontal.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="57"/>
+        <source>Tablature: slant (× string distance)</source>
+        <translation type="unfinished">Tablature: slant (× string distance)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="58"/>
+        <source>On tablature, each end of a glissando is moved vertically by this fraction of the distance between string lines, so that slides along one string are slanted.</source>
+        <translation type="unfinished">On tablature, each end of a glissando is moved vertically by this fraction of the distance between string lines, so that slides along one string are slanted.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="65"/>
+        <source>Text distance above straight glissando</source>
+        <translation type="unfinished">Text distance above straight glissando</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="66"/>
+        <source>How far the ‘gliss.’ text is raised above a straight glissando line.</source>
+        <translation type="unfinished">How far the ‘gliss.’ text is raised above a straight glissando line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="73"/>
+        <source>Text distance above wavy glissando</source>
+        <translation type="unfinished">Text distance above wavy glissando</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="74"/>
+        <source>How far the ‘gliss.’ text is raised above the centre of a wavy glissando line.</source>
+        <translation type="unfinished">How far the ‘gliss.’ text is raised above the centre of a wavy glissando line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="37"/>
+        <source>Tapping</source>
+        <translation type="unfinished">Tapping</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="41"/>
+        <source>Left-hand tapping dot scale</source>
+        <translation type="unfinished">Left-hand tapping dot scale</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="42"/>
+        <source>Size of the dot used as the left-hand tapping symbol relative to the glyph’s normal size.</source>
+        <translation type="unfinished">Size of the dot used as the left-hand tapping symbol relative to the glyph’s normal size.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="35"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="33"/>
+        <source>Layout</source>
+        <translation type="unfinished">Layout</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="41"/>
+        <source>Show header</source>
+        <translation type="unfinished">Show header</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="58"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="117"/>
+        <source>Odd pages, left</source>
+        <translation type="unfinished">Odd pages, left</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="65"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="124"/>
+        <source>Odd pages, middle</source>
+        <translation type="unfinished">Odd pages, middle</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="72"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="131"/>
+        <source>Odd pages, right</source>
+        <translation type="unfinished">Odd pages, right</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="79"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="138"/>
+        <source>Even pages, left</source>
+        <translation type="unfinished">Even pages, left</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="86"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="145"/>
+        <source>Even pages, middle</source>
+        <translation type="unfinished">Even pages, middle</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="93"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="152"/>
+        <source>Even pages, right</source>
+        <translation type="unfinished">Even pages, right</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="100"/>
+        <source>Show footer</source>
+        <translation type="unfinished">Show footer</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="32"/>
+        <source>Lines in general</source>
+        <translation type="unfinished">Lines in general</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="36"/>
+        <source>Lines (general)</source>
+        <translation type="unfinished">Lines (general)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="40"/>
+        <source>Line end: distance before end position</source>
+        <translation type="unfinished">Line end: distance before end position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="41"/>
+        <source>How far before the note, rest or barline at their end position text lines, let-ring and palm-mute lines, gradual tempo changes and similar lines stop.</source>
+        <translation type="unfinished">How far before the note, rest or barline at their end position text lines, let-ring and palm-mute lines, gradual tempo changes and similar lines stop.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="48"/>
+        <source>Angled hook: width (× hook height)</source>
+        <translation type="unfinished">Angled hook: width (× hook height)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="49"/>
+        <source>Horizontal run of an angled (‘45°’) line hook as a multiple of its height; 1 gives a true 45° hook.</source>
+        <translation type="unfinished">Horizontal run of an angled (‘45°’) line hook as a multiple of its height; 1 gives a true 45° hook.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="56"/>
+        <source>Dotted lines: gap between dots (line widths)</source>
+        <translation type="unfinished">Dotted lines: gap between dots (line widths)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="57"/>
+        <source>Gap between the dots of dotted lines (text lines, glissandos, hairpins…), in line widths; the distance from dot to dot is this value plus 0.01.</source>
+        <translation type="unfinished">Gap between the dots of dotted lines (text lines, glissandos, hairpins…), in line widths; the distance from dot to dot is this value plus 0.01.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="133"/>
+        <source>Vertical position (% of text x-height)</source>
+        <translation type="unfinished">Vertical position (% of text x-height)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="159"/>
+        <source>Maximum number of dashes</source>
+        <translation type="unfinished">Maximum number of dashes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="175"/>
+        <source>Never left-align syllables followed by dashes</source>
+        <translation type="unfinished">Never left-align syllables followed by dashes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="180"/>
+        <source>Restate dash before syllable on first note of the system</source>
+        <translation type="unfinished">Restate dash before syllable on first note of the system</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="185"/>
+        <source>Dash at the start of a system</source>
+        <translation type="unfinished">Dash at the start of a system</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="37"/>
+        <source>Position</source>
+        <translation type="unfinished">Position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="41"/>
+        <source>Measure numbers on one-line staves: extra distance</source>
+        <translation type="unfinished">Measure numbers on one-line staves: extra distance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="42"/>
+        <source>Extra vertical distance of measure numbers and multimeasure-rest ranges from a one-line staff, where the barline extends beyond the staff line.</source>
+        <translation type="unfinished">Extra vertical distance of measure numbers and multimeasure-rest ranges from a one-line staff, where the barline extends beyond the staff line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="50"/>
+        <source>Measure number to barline clearance</source>
+        <translation type="unfinished">Measure number to barline clearance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="51"/>
+        <source>Minimum horizontal gap between a left- or right-aligned measure number and a barline that runs through its position.</source>
+        <translation type="unfinished">Minimum horizontal gap between a left- or right-aligned measure number and a barline that runs through its position.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="165"/>
+        <source>Augmentation dots</source>
+        <translation type="unfinished">Augmentation dots</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="169"/>
+        <source>Dots of voices 2 and 4 below the line</source>
+        <translation type="unfinished">Dots of voices 2 and 4 below the line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="170"/>
+        <source>For notes on a staff line, puts the augmentation dots of voices 2 and 4 in the space below the line; when off, the dots of all voices go in the space above.</source>
+        <translation type="unfinished">For notes on a staff line, puts the augmentation dots of voices 2 and 4 in the space below the line; when off, the dots of all voices go in the space above.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="176"/>
+        <source>Dot clearance below a flag</source>
+        <translation type="unfinished">Dot clearance below a flag</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="177"/>
+        <source>On stem-up flagged notes, the dots move to the right of the flag when the top dot is higher than the lower end of the flag plus this margin.</source>
+        <translation type="unfinished">On stem-up flagged notes, the dots move to the right of the flag when the top dot is higher than the lower end of the flag plus this margin.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="185"/>
+        <source>Ledger lines</source>
+        <translation type="unfinished">Ledger lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="189"/>
+        <source>Gap between shortened ledger lines</source>
+        <translation type="unfinished">Gap between shortened ledger lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="190"/>
+        <source>Gap left between the ledger lines of neighbouring notes after automatic shortening, as a fraction of the padding that note spacing keeps between ledger lines.</source>
+        <translation type="unfinished">Gap left between the ledger lines of neighbouring notes after automatic shortening, as a fraction of the padding that note spacing keeps between ledger lines.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="197"/>
+        <source>Voices: notehead offsets</source>
+        <translation type="unfinished">Voices: notehead offsets</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="201"/>
+        <source>Gap between offset voices</source>
+        <translation type="unfinished">Gap between offset voices</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="202"/>
+        <source>Gap between the two columns of noteheads when voices are set side by side because of a unison that cannot share a notehead or a second between crossed voices.</source>
+        <translation type="unfinished">Gap between the two columns of noteheads when voices are set side by side because of a unison that cannot share a notehead or a second between crossed voices.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="211"/>
+        <source>Gap when the up-stem voice moves right</source>
+        <translation type="unfinished">Gap when the up-stem voice moves right</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="212"/>
+        <source>Gap between the two columns of noteheads when the up-stem voice is moved to the right of the down-stem voice, either because only it has augmentation dots or to clear a flag.</source>
+        <translation type="unfinished">Gap between the two columns of noteheads when the up-stem voice is moved to the right of the down-stem voice, either because only it has augmentation dots or to clear a flag.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="221"/>
+        <source>Overlap of crossed seconds</source>
+        <translation type="unfinished">Overlap of crossed seconds</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="222"/>
+        <source>When crossed voices form a second, how far the up-stem notehead on the right tucks in towards the down-stem notehead on the left.</source>
+        <translation type="unfinished">When crossed voices form a second, how far the up-stem notehead on the right tucks in towards the down-stem notehead on the left.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="231"/>
+        <source>Gap of crossed seconds with dots</source>
+        <translation type="unfinished">Gap of crossed seconds with dots</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="232"/>
+        <source>When crossed voices form a second and only the down-stem voice has augmentation dots, the gap by which the down-stem voice is set to the right of the up-stem voice.</source>
+        <translation type="unfinished">When crossed voices form a second and only the down-stem voice has augmentation dots, the gap by which the down-stem voice is set to the right of the up-stem voice.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="241"/>
+        <source>Extra offset to clear a flag</source>
+        <translation type="unfinished">Extra offset to clear a flag</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="242"/>
+        <source>Extra horizontal space added between overlapping voices when the down-stem voice carries a flag that the other voice would otherwise collide with.</source>
+        <translation type="unfinished">Extra horizontal space added between overlapping voices when the down-stem voice carries a flag that the other voice would otherwise collide with.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="250"/>
+        <source>Stem to notehead of the other voice</source>
+        <translation type="unfinished">Stem to notehead of the other voice</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="251"/>
+        <source>Space between a stem and the noteheads of the other voice when the voices interlock without forming a unison or a second.</source>
+        <translation type="unfinished">Space between a stem and the noteheads of the other voice when the voices interlock without forming a unison or a second.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="259"/>
+        <source>Gap to ledger lines of the other voice</source>
+        <translation type="unfinished">Gap to ledger lines of the other voice</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="260"/>
+        <source>Gap between the stem or flag of one voice and the ledger lines of the other voice when offset voices lie outside the staff.</source>
+        <translation type="unfinished">Gap between the stem or flag of one voice and the ledger lines of the other voice when offset voices lie outside the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="268"/>
+        <source>Ambitus</source>
+        <translation type="unfinished">Ambitus</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="272"/>
+        <source>Line to notehead distance</source>
+        <translation type="unfinished">Line to notehead distance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="273"/>
+        <source>Distance between the centre of each ambitus notehead and the nearest end of the line that joins them.</source>
+        <translation type="unfinished">Distance between the centre of each ambitus notehead and the nearest end of the line that joins them.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="280"/>
+        <source>Undercut of the lower accidental</source>
+        <translation type="unfinished">Undercut of the lower accidental</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="281"/>
+        <source>When the two accidentals of an ambitus collide, a lower flat or natural is moved left by this fraction of its width and tucks under the upper accidental; 1 places it fully to the left.</source>
+        <translation type="unfinished">When the two accidentals of an ambitus collide, a lower flat or natural is moved left by this fraction of its width and tucks under the upper accidental; 1 places it fully to the left.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="104"/>
+        <source>Extend line to end of last note’s duration</source>
+        <translation type="unfinished">Extend line to end of last note’s duration</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="105"/>
+        <source>Off: the ottava line ends just past the last note it covers. On: it continues to just before the next note or barline.</source>
+        <translation type="unfinished">Off: the ottava line ends just past the last note it covers. On: it continues to just before the next note or barline.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="111"/>
+        <source>Line extension past last note</source>
+        <translation type="unfinished">Line extension past last note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="112"/>
+        <source>How far the ottava line continues past the right edge of the last note it covers (never beyond the next note).</source>
+        <translation type="unfinished">How far the ottava line continues past the right edge of the last note it covers (never beyond the next note).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="32"/>
+        <source>Parentheses</source>
+        <translation type="unfinished">Parentheses</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="36"/>
+        <source>Parentheses: shape</source>
+        <translation type="unfinished">Parentheses: shape</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="40"/>
+        <source>Parenthesis: maximum thickness in the middle</source>
+        <translation type="unfinished">Parenthesis: maximum thickness in the middle</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="41"/>
+        <source>Limits how thick a drawn parenthesis can become in the middle, however tall it is.</source>
+        <translation type="unfinished">Limits how thick a drawn parenthesis can become in the middle, however tall it is.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="50"/>
+        <source>Parenthesis: shoulder position</source>
+        <translation type="unfinished">Parenthesis: shoulder position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="51"/>
+        <source>Where the curve of a drawn parenthesis turns, as a fraction of its height from each end; smaller values give rounder ends and a flatter middle, larger values a more pointed curve.</source>
+        <translation type="unfinished">Where the curve of a drawn parenthesis turns, as a fraction of its height from each end; smaller values give rounder ends and a flatter middle, larger values a more pointed curve.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="59"/>
+        <source>Parenthesis: curvature</source>
+        <translation type="unfinished">Parenthesis: curvature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="60"/>
+        <source>How far a drawn parenthesis bulges sideways in proportion to its height; larger values give a more curved parenthesis.</source>
+        <translation type="unfinished">How far a drawn parenthesis bulges sideways in proportion to its height; larger values give a more curved parenthesis.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="69"/>
+        <source>Parenthesis: minimum bulge</source>
+        <translation type="unfinished">Parenthesis: minimum bulge</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="70"/>
+        <source>Smallest sideways bulge of a drawn parenthesis, so that short parentheses keep a visible curve.</source>
+        <translation type="unfinished">Smallest sideways bulge of a drawn parenthesis, so that short parentheses keep a visible curve.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="77"/>
+        <source>Parentheses around notes and chords</source>
+        <translation type="unfinished">Parentheses around notes and chords</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="81"/>
+        <source>Note parentheses: extension above and below the notehead</source>
+        <translation type="unfinished">Note parentheses: extension above and below the notehead</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="82"/>
+        <source>How far the parentheses around a single note extend beyond the top and the bottom of the notehead.</source>
+        <translation type="unfinished">How far the parentheses around a single note extend beyond the top and the bottom of the notehead.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="89"/>
+        <source>Note parentheses: height-to-thickness ratio</source>
+        <translation type="unfinished">Note parentheses: height-to-thickness ratio</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="90"/>
+        <source>The thickness of note parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.</source>
+        <translation type="unfinished">The thickness of note parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="99"/>
+        <source>Note and chord parentheses: tip thickness</source>
+        <translation type="unfinished">Note and chord parentheses: tip thickness</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="100"/>
+        <source>Thickness of the two tips of the parentheses around notes and chords.</source>
+        <translation type="unfinished">Thickness of the two tips of the parentheses around notes and chords.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="108"/>
+        <source>Chord parentheses: extension above and below the chord</source>
+        <translation type="unfinished">Chord parentheses: extension above and below the chord</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="109"/>
+        <source>How far the parentheses around a whole chord extend beyond its top and bottom noteheads.</source>
+        <translation type="unfinished">How far the parentheses around a whole chord extend beyond its top and bottom noteheads.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="116"/>
+        <source>Chord parentheses: height-to-thickness ratio</source>
+        <translation type="unfinished">Chord parentheses: height-to-thickness ratio</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="117"/>
+        <source>The thickness of chord parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.</source>
+        <translation type="unfinished">The thickness of chord parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="126"/>
+        <source>Chord parentheses: distance from noteheads and accidentals</source>
+        <translation type="unfinished">Chord parentheses: distance from noteheads and accidentals</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="127"/>
+        <source>Horizontal gap between the parentheses around a whole chord and its outermost noteheads or accidentals.</source>
+        <translation type="unfinished">Horizontal gap between the parentheses around a whole chord and its outermost noteheads or accidentals.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="134"/>
+        <source>Parentheses: padding</source>
+        <translation type="unfinished">Parentheses: padding</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="138"/>
+        <source>Parenthesis to notehead</source>
+        <translation type="unfinished">Parenthesis to notehead</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="139"/>
+        <source>Horizontal gap between a parenthesis and the notehead it encloses on standard staves.</source>
+        <translation type="unfinished">Horizontal gap between a parenthesis and the notehead it encloses on standard staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="146"/>
+        <source>Parenthesis to articulation</source>
+        <translation type="unfinished">Parenthesis to articulation</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="147"/>
+        <source>Horizontal gap between a note’s parenthesis and an articulation of the same chord.</source>
+        <translation type="unfinished">Horizontal gap between a note’s parenthesis and an articulation of the same chord.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="154"/>
+        <source>Parenthesis to accidental</source>
+        <translation type="unfinished">Parenthesis to accidental</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="155"/>
+        <source>Horizontal gap between a note’s parenthesis and an accidental of the same chord.</source>
+        <translation type="unfinished">Horizontal gap between a note’s parenthesis and an accidental of the same chord.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="162"/>
+        <source>Parenthesis to stem or flag</source>
+        <translation type="unfinished">Parenthesis to stem or flag</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="163"/>
+        <source>Horizontal gap between a note’s parenthesis and the stem or flag of the same chord.</source>
+        <translation type="unfinished">Horizontal gap between a note’s parenthesis and the stem or flag of the same chord.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="170"/>
+        <source>Parenthesis to augmentation dot</source>
+        <translation type="unfinished">Parenthesis to augmentation dot</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="171"/>
+        <source>Horizontal gap between a note’s parenthesis and its augmentation dot.</source>
+        <translation type="unfinished">Horizontal gap between a note’s parenthesis and its augmentation dot.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="178"/>
+        <source>Parenthesis to ledger line</source>
+        <translation type="unfinished">Parenthesis to ledger line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="179"/>
+        <source>Horizontal gap between a note’s parenthesis and the ledger lines of the same chord.</source>
+        <translation type="unfinished">Horizontal gap between a note’s parenthesis and the ledger lines of the same chord.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="186"/>
+        <source>Opening parenthesis to key signature</source>
+        <translation type="unfinished">Opening parenthesis to key signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="187"/>
+        <source>Gap between the opening parenthesis and a key signature shown in parentheses.</source>
+        <translation type="unfinished">Gap between the opening parenthesis and a key signature shown in parentheses.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="194"/>
+        <source>Key signature to closing parenthesis</source>
+        <translation type="unfinished">Key signature to closing parenthesis</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="195"/>
+        <source>Gap between a key signature shown in parentheses and the closing parenthesis.</source>
+        <translation type="unfinished">Gap between a key signature shown in parentheses and the closing parenthesis.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="202"/>
+        <source>Opening parenthesis to time signature</source>
+        <translation type="unfinished">Opening parenthesis to time signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="203"/>
+        <source>Gap between the opening parenthesis and a time signature shown in parentheses.</source>
+        <translation type="unfinished">Gap between the opening parenthesis and a time signature shown in parentheses.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="210"/>
+        <source>Time signature to closing parenthesis</source>
+        <translation type="unfinished">Time signature to closing parenthesis</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="211"/>
+        <source>Gap between a time signature shown in parentheses and the closing parenthesis.</source>
+        <translation type="unfinished">Gap between a time signature shown in parentheses and the closing parenthesis.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="218"/>
+        <source>Opening parenthesis to clef</source>
+        <translation type="unfinished">Opening parenthesis to clef</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="219"/>
+        <source>Gap between the opening parenthesis and a clef shown in parentheses.</source>
+        <translation type="unfinished">Gap between the opening parenthesis and a clef shown in parentheses.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="226"/>
+        <source>Clef to closing parenthesis</source>
+        <translation type="unfinished">Clef to closing parenthesis</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="227"/>
+        <source>Gap between a clef shown in parentheses and the closing parenthesis.</source>
+        <translation type="unfinished">Gap between a clef shown in parentheses and the closing parenthesis.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="234"/>
+        <source>Parenthesis to chord symbol</source>
+        <translation type="unfinished">Parenthesis to chord symbol</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="235"/>
+        <source>Gap between a chord symbol and the parentheses that enclose the whole symbol.</source>
+        <translation type="unfinished">Gap between a chord symbol and the parentheses that enclose the whole symbol.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="242"/>
+        <source>Parenthesis to other objects</source>
+        <translation type="unfinished">Parenthesis to other objects</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="243"/>
+        <source>Gap between a parenthesis and any other object of the same chord that has no setting of its own.</source>
+        <translation type="unfinished">Gap between a parenthesis and any other object of the same chord that has no setting of its own.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="250"/>
+        <source>Parentheses in chord symbols</source>
+        <translation type="unfinished">Parentheses in chord symbols</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="254"/>
+        <source>Chord-symbol parentheses: extension above and below the text</source>
+        <translation type="unfinished">Chord-symbol parentheses: extension above and below the text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="255"/>
+        <source>How far parentheses in chord symbols extend above the capital height and below the baseline; scales with the font size.</source>
+        <translation type="unfinished">How far parentheses in chord symbols extend above the capital height and below the baseline; scales with the font size.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="263"/>
+        <source>Chord-symbol parentheses: height-to-thickness ratio</source>
+        <translation type="unfinished">Chord-symbol parentheses: height-to-thickness ratio</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="264"/>
+        <source>The thickness of chord-symbol parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.</source>
+        <translation type="unfinished">The thickness of chord-symbol parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="273"/>
+        <source>Chord-symbol parentheses: tip thickness</source>
+        <translation type="unfinished">Chord-symbol parentheses: tip thickness</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="274"/>
+        <source>Thickness of the two tips of the parentheses in chord symbols.</source>
+        <translation type="unfinished">Thickness of the two tips of the parentheses in chord symbols.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="281"/>
+        <source>Chord-symbol parentheses: curvature</source>
+        <translation type="unfinished">Chord-symbol parentheses: curvature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="282"/>
+        <source>How far the parentheses in chord symbols bulge sideways in proportion to their height.</source>
+        <translation type="unfinished">How far the parentheses in chord symbols bulge sideways in proportion to their height.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="94"/>
+        <source>Ped. symbol: shift to the left</source>
+        <translation type="unfinished">Ped. symbol: shift to the left</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="95"/>
+        <source>How far to the left of its note a pedal line that begins with the Ped. symbol starts.</source>
+        <translation type="unfinished">How far to the left of its note a pedal line that begins with the Ped. symbol starts.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="103"/>
+        <source>Pedal line end: distance before end position</source>
+        <translation type="unfinished">Pedal line end: distance before end position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="104"/>
+        <source>How far before the note or barline at its end position a pedal line (or its release sign) stops.</source>
+        <translation type="unfinished">How far before the note or barline at its end position a pedal line (or its release sign) stops.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="111"/>
+        <source>Pedal line end: distance before a following pedal</source>
+        <translation type="unfinished">Pedal line end: distance before a following pedal</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="112"/>
+        <source>The same distance when the line ends at a note and another pedal line follows on the staff, leaving room for the start of the next one.</source>
+        <translation type="unfinished">The same distance when the line ends at a note and another pedal line follows on the staff, leaving room for the start of the next one.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="68"/>
+        <source>Jumps, markers, tempo and rehearsal marks</source>
+        <translation type="unfinished">Jumps, markers, tempo and rehearsal marks</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="72"/>
+        <source>Jumps and markers: distance from barline on lower staves</source>
+        <translation type="unfinished">Jumps and markers: distance from barline on lower staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="73"/>
+        <source>Gap between a jump or marker shown on a staff other than the top one and the barline coming down from the staff above; scales with the font size.</source>
+        <translation type="unfinished">Gap between a jump or marker shown on a staff other than the top one and the barline coming down from the staff above; scales with the font size.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="80"/>
+        <source>Tempo text to rehearsal mark</source>
+        <translation type="unfinished">Tempo text to rehearsal mark</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="81"/>
+        <source>Gap between a rehearsal mark and a tempo marking moved to its right to avoid it; scales with the font size.</source>
+        <translation type="unfinished">Gap between a rehearsal mark and a tempo marking moved to its right to avoid it; scales with the font size.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="88"/>
+        <source>Tempo text to time signature above the staves</source>
+        <translation type="unfinished">Tempo text to time signature above the staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="89"/>
+        <source>Gap between a time signature placed above the staves and a tempo marking at the start of the measure, which begins to its right.</source>
+        <translation type="unfinished">Gap between a time signature placed above the staves and a tempo marking at the start of the measure, which begins to its right.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="97"/>
+        <source>Rehearsal mark to time signature above the staves</source>
+        <translation type="unfinished">Rehearsal mark to time signature above the staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="98"/>
+        <source>Minimum gap between a time signature placed above the staves and a rehearsal mark, in x-heights of the rehearsal mark font.</source>
+        <translation type="unfinished">Minimum gap between a time signature placed above the staves and a rehearsal mark, in x-heights of the rehearsal mark font.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="41"/>
+        <source>Create multimeasure rests</source>
+        <translation type="unfinished">Create multimeasure rests</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="56"/>
+        <source>Use old-style multimeasure rests</source>
+        <translation type="unfinished">Use old-style multimeasure rests</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="83"/>
+        <source>Show number ‘1’</source>
+        <translation type="unfinished">Show number ‘1’</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="93"/>
+        <source>Reference width (in quarter notes)</source>
+        <translation type="unfinished">Reference width (in quarter notes)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="179"/>
+        <source>Rests in multi-voice contexts</source>
+        <translation type="unfinished">Rests in multi-voice contexts</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="183"/>
+        <source>Rest to notes of another voice</source>
+        <translation type="unfinished">Rest to notes of another voice</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="184"/>
+        <source>Minimum vertical gap between a rest and the notes of another voice at the same position; applies to all rests except whole and half rests.</source>
+        <translation type="unfinished">Minimum vertical gap between a rest and the notes of another voice at the same position; applies to all rests except whole and half rests.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="191"/>
+        <source>Whole and half rests to notes of another voice</source>
+        <translation type="unfinished">Whole and half rests to notes of another voice</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="192"/>
+        <source>Minimum vertical gap between a whole or half rest and the notes of another voice at the same position.</source>
+        <translation type="unfinished">Minimum vertical gap between a whole or half rest and the notes of another voice at the same position.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="199"/>
+        <source>Rest to rest of another voice</source>
+        <translation type="unfinished">Rest to rest of another voice</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="200"/>
+        <source>Minimum vertical gap between the rests of two voices at the same position.</source>
+        <translation type="unfinished">Minimum vertical gap between the rests of two voices at the same position.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="207"/>
+        <source>Full-measure rest: horizontal range checked for collisions</source>
+        <translation type="unfinished">Full-measure rest: horizontal range checked for collisions</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="208"/>
+        <source>In multi-voice measures, notes of other voices closer than this horizontally to a full-measure rest can push the rest up or down.</source>
+        <translation type="unfinished">In multi-voice measures, notes of other voices closer than this horizontally to a full-measure rest can push the rest up or down.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="216"/>
+        <source>Full-measure rest: vertical clearance from other voices</source>
+        <translation type="unfinished">Full-measure rest: vertical clearance from other voices</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="217"/>
+        <source>Minimum vertical gap between a full-measure rest and nearby notes of other voices in the same measure.</source>
+        <translation type="unfinished">Minimum vertical gap between a full-measure rest and nearby notes of other voices in the same measure.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="38"/>
+        <source>General</source>
+        <translation type="unfinished">General</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="32"/>
+        <source>Slurs</source>
+        <translation type="unfinished">Slurs</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="36"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="84"/>
+        <source>Thickness</source>
+        <translation type="unfinished">Thickness</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="63"/>
+        <source>Thinning starts below length</source>
+        <translation type="unfinished">Thinning starts below length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="64"/>
+        <source>Slurs and ties shorter than this are drawn progressively thinner, down to the thickness for the shortest curves at the minimum tie length.</source>
+        <translation type="unfinished">Slurs and ties shorter than this are drawn progressively thinner, down to the thickness for the shortest curves at the minimum tie length.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="73"/>
+        <source>Middle thickness of the shortest curves</source>
+        <translation type="unfinished">Middle thickness of the shortest curves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="74"/>
+        <source>Middle thickness of a slur or tie whose length equals the minimum tie length.</source>
+        <translation type="unfinished">Middle thickness of a slur or tie whose length equals the minimum tie length.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="83"/>
+        <source>Dotted: gap</source>
+        <translation type="unfinished">Dotted: gap</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="84"/>
+        <source>Gap between the dots of dotted slurs and ties, in multiples of the dotted line thickness.</source>
+        <translation type="unfinished">Gap between the dots of dotted slurs and ties, in multiples of the dotted line thickness.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="93"/>
+        <source>Dashed: dash length</source>
+        <translation type="unfinished">Dashed: dash length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="94"/>
+        <source>Length of the dashes of dashed slurs and ties, in multiples of the dotted line thickness.</source>
+        <translation type="unfinished">Length of the dashes of dashed slurs and ties, in multiples of the dotted line thickness.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="103"/>
+        <source>Dashed: gap</source>
+        <translation type="unfinished">Dashed: gap</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="104"/>
+        <source>Gap between the dashes of dashed slurs and ties, in multiples of the dotted line thickness.</source>
+        <translation type="unfinished">Gap between the dashes of dashed slurs and ties, in multiples of the dotted line thickness.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="113"/>
+        <source>Wide dashed: dash length</source>
+        <translation type="unfinished">Wide dashed: dash length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="114"/>
+        <source>Length of the dashes of wide-dashed slurs and ties, in multiples of the dotted line thickness.</source>
+        <translation type="unfinished">Length of the dashes of wide-dashed slurs and ties, in multiples of the dotted line thickness.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="123"/>
+        <source>Wide dashed: gap</source>
+        <translation type="unfinished">Wide dashed: gap</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="124"/>
+        <source>Gap between the dashes of wide-dashed slurs and ties, in multiples of the dotted line thickness.</source>
+        <translation type="unfinished">Gap between the dashes of wide-dashed slurs and ties, in multiples of the dotted line thickness.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="133"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="37"/>
+        <source>Placement</source>
+        <translation type="unfinished">Placement</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="144"/>
+        <source>For slurs which hang over the end of a system.</source>
+        <translation type="unfinished">For slurs which hang over the end of a system.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="149"/>
+        <source>Slur end points</source>
+        <translation type="unfinished">Slur end points</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="153"/>
+        <source>Distance from notehead centre</source>
+        <translation type="unfinished">Distance from notehead centre</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="154"/>
+        <source>Vertical distance from the centre of the notehead to a slur end that attaches on the notehead side.</source>
+        <translation type="unfinished">Vertical distance from the centre of the notehead to a slur end that attaches on the notehead side.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="161"/>
+        <source>Distance from fret mark centre (tablature)</source>
+        <translation type="unfinished">Distance from fret mark centre (tablature)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="162"/>
+        <source>The same distance on tablature staves, measured from the centre of the fret mark.</source>
+        <translation type="unfinished">The same distance on tablature staves, measured from the centre of the fret mark.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="169"/>
+        <source>Inset from stem tip</source>
+        <translation type="unfinished">Inset from stem tip</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="170"/>
+        <source>How far a slur end that attaches to a stem sits back from the stem tip towards the notehead.</source>
+        <translation type="unfinished">How far a slur end that attaches to a stem sits back from the stem tip towards the notehead.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="177"/>
+        <source>Horizontal gap to stem</source>
+        <translation type="unfinished">Horizontal gap to stem</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="178"/>
+        <source>Horizontal distance between a stem and a slur end that starts or ends beside it.</source>
+        <translation type="unfinished">Horizontal distance between a stem and a slur end that starts or ends beside it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="185"/>
+        <source>Gap to beam</source>
+        <translation type="unfinished">Gap to beam</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="186"/>
+        <source>Vertical distance between the outer edge of a beam and a slur end placed over it.</source>
+        <translation type="unfinished">Vertical distance between the outer edge of a beam and a slur end placed over it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="193"/>
+        <source>Inset from stem over beams</source>
+        <translation type="unfinished">Inset from stem over beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="194"/>
+        <source>Horizontal distance by which a slur end placed over a beam moves inwards from the stem.</source>
+        <translation type="unfinished">Horizontal distance by which a slur end placed over a beam moves inwards from the stem.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="201"/>
+        <source>Minimum gap to stems and beams (small notes)</source>
+        <translation type="unfinished">Minimum gap to stems and beams (small notes)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="202"/>
+        <source>Lower limit of the stem and beam gaps after they are scaled down for grace notes and cue-size chords.</source>
+        <translation type="unfinished">Lower limit of the stem and beam gaps after they are scaled down for grace notes and cue-size chords.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="209"/>
+        <source>End point float along stem</source>
+        <translation type="unfinished">End point float along stem</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="210"/>
+        <source>When the first and last chord have opposite stem directions, the stem-side slur end moves along the stem by this share of the pitch difference.</source>
+        <translation type="unfinished">When the first and last chord have opposite stem directions, the stem-side slur end moves along the stem by this share of the pitch difference.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="217"/>
+        <source>Distance beyond articulation</source>
+        <translation type="unfinished">Distance beyond articulation</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="218"/>
+        <source>Vertical distance between an articulation next to the notehead (staccato, tenuto) and the slur end placed outside it.</source>
+        <translation type="unfinished">Vertical distance between an articulation next to the notehead (staccato, tenuto) and the slur end placed outside it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="225"/>
+        <source>Inward shift at articulation</source>
+        <translation type="unfinished">Inward shift at articulation</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="226"/>
+        <source>Horizontal shift towards the inside of the slur of an end point centred on such an articulation.</source>
+        <translation type="unfinished">Horizontal shift towards the inside of the slur of an end point centred on such an articulation.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="233"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="223"/>
+        <source>End point distance from staff lines</source>
+        <translation type="unfinished">End point distance from staff lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="234"/>
+        <source>Slur ends inside the staff keep at least this distance (plus half the staff line thickness) from a staff line.</source>
+        <translation type="unfinished">Slur ends inside the staff keep at least this distance (plus half the staff line thickness) from a staff line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="243"/>
+        <source>Vertical gap to tie on same note</source>
+        <translation type="unfinished">Vertical gap to tie on same note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="244"/>
+        <source>Minimum vertical distance between a slur end and the end of a tie that curves the same way on the same note.</source>
+        <translation type="unfinished">Minimum vertical distance between a slur end and the end of a tie that curves the same way on the same note.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="251"/>
+        <source>Horizontal shift next to tie end</source>
+        <translation type="unfinished">Horizontal shift next to tie end</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="252"/>
+        <source>Horizontal shift of a slur end when a tie arriving at (or leaving from) the same note ends at about the same height.</source>
+        <translation type="unfinished">Horizontal shift of a slur end when a tie arriving at (or leaving from) the same note ends at about the same height.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="259"/>
+        <source>Nested slur end offset</source>
+        <translation type="unfinished">Nested slur end offset</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="260"/>
+        <source>When two slurs on the same side share a start or end position, the end of the outer slur moves away vertically by this amount.</source>
+        <translation type="unfinished">When two slurs on the same side share a start or end position, the end of the outer slur moves away vertically by this amount.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="267"/>
+        <source>Pull-back between consecutive slurs</source>
+        <translation type="unfinished">Pull-back between consecutive slurs</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="268"/>
+        <source>When one slur ends on the chord where the next begins, each end point is pulled back horizontally by this amount.</source>
+        <translation type="unfinished">When one slur ends on the chord where the next begins, each end point is pulled back horizontally by this amount.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="275"/>
+        <source>Slur shape</source>
+        <translation type="unfinished">Slur shape</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="279"/>
+        <source>Short slur limit</source>
+        <translation type="unfinished">Short slur limit</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="280"/>
+        <source>Slurs shorter than this use the shoulder width for short slurs.</source>
+        <translation type="unfinished">Slurs shorter than this use the shoulder width for short slurs.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="288"/>
+        <source>Medium slur limit</source>
+        <translation type="unfinished">Medium slur limit</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="289"/>
+        <source>Slurs shorter than this (but not short) use the shoulder width for medium slurs.</source>
+        <translation type="unfinished">Slurs shorter than this (but not short) use the shoulder width for medium slurs.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="297"/>
+        <source>Long slur limit</source>
+        <translation type="unfinished">Long slur limit</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="298"/>
+        <source>Slurs shorter than this use the shoulder width for long slurs; longer ones use the width for very long slurs.</source>
+        <translation type="unfinished">Slurs shorter than this use the shoulder width for long slurs; longer ones use the width for very long slurs.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="306"/>
+        <source>Shoulder width, short slurs</source>
+        <translation type="unfinished">Shoulder width, short slurs</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="307"/>
+        <source>Distance between the two curve control points as a fraction of the slur length; larger values give a flatter middle and steeper ends.</source>
+        <translation type="unfinished">Distance between the two curve control points as a fraction of the slur length; larger values give a flatter middle and steeper ends.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="314"/>
+        <source>Shoulder width, medium slurs</source>
+        <translation type="unfinished">Shoulder width, medium slurs</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="315"/>
+        <source>The same fraction for medium slurs.</source>
+        <translation type="unfinished">The same fraction for medium slurs.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="321"/>
+        <source>Shoulder width, long slurs</source>
+        <translation type="unfinished">Shoulder width, long slurs</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="322"/>
+        <source>The same fraction for long slurs.</source>
+        <translation type="unfinished">The same fraction for long slurs.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="328"/>
+        <source>Shoulder width, very long slurs</source>
+        <translation type="unfinished">Shoulder width, very long slurs</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="329"/>
+        <source>The same fraction for very long slurs.</source>
+        <translation type="unfinished">The same fraction for very long slurs.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="335"/>
+        <source>Height factor</source>
+        <translation type="unfinished">Height factor</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="336"/>
+        <source>Default slur height in sp = factor × √(length in sp); larger values give more arched slurs.</source>
+        <translation type="unfinished">Default slur height in sp = factor × √(length in sp); larger values give more arched slurs.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="344"/>
+        <source>Height factor over beams</source>
+        <translation type="unfinished">Height factor over beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="345"/>
+        <source>Slurs whose notes are all beamed on the slur side have their height multiplied by this factor.</source>
+        <translation type="unfinished">Slurs whose notes are all beamed on the slur side have their height multiplied by this factor.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="353"/>
+        <source>Flat-middle slur handle length</source>
+        <translation type="unfinished">Flat-middle slur handle length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="354"/>
+        <source>Length of the curve handles of a flat-middle slur as a fraction of one third of its length; larger values give rounder, more gradual corners.</source>
+        <translation type="unfinished">Length of the curve handles of a flat-middle slur as a fraction of one third of its length; larger values give rounder, more gradual corners.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="362"/>
+        <source>Slur collision avoidance</source>
+        <translation type="unfinished">Slur collision avoidance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="366"/>
+        <source>Clearance from noteheads</source>
+        <translation type="unfinished">Clearance from noteheads</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="367"/>
+        <source>Minimum vertical distance between a slur and the noteheads it passes over (other than those of its first and last chord).</source>
+        <translation type="unfinished">Minimum vertical distance between a slur and the noteheads it passes over (other than those of its first and last chord).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="374"/>
+        <source>Clearance from articulations</source>
+        <translation type="unfinished">Clearance from articulations</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="375"/>
+        <source>Minimum vertical distance between a slur and the articulations, ornaments and tapping marks it passes over.</source>
+        <translation type="unfinished">Minimum vertical distance between a slur and the articulations, ornaments and tapping marks it passes over.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="382"/>
+        <source>Clearance from other items</source>
+        <translation type="unfinished">Clearance from other items</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="383"/>
+        <source>Minimum vertical distance between a slur and anything else it passes over (stems, beams, accidentals, rests…).</source>
+        <translation type="unfinished">Minimum vertical distance between a slur and anything else it passes over (stems, beams, accidentals, rests…).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="390"/>
+        <source>Mid-arc clearance per sp of length</source>
+        <translation type="unfinished">Mid-arc clearance per sp of length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="391"/>
+        <source>Extra clearance under the middle of the slur, in sp per sp of slur length (reduced for slanted slurs).</source>
+        <translation type="unfinished">Extra clearance under the middle of the slur, in sp per sp of slur length (reduced for slanted slurs).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="400"/>
+        <source>Minimum mid-arc clearance</source>
+        <translation type="unfinished">Minimum mid-arc clearance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="401"/>
+        <source>Lower limit of the extra clearance under the middle of the slur.</source>
+        <translation type="unfinished">Lower limit of the extra clearance under the middle of the slur.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="408"/>
+        <source>Maximum mid-arc clearance</source>
+        <translation type="unfinished">Maximum mid-arc clearance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="409"/>
+        <source>Upper limit of the extra clearance under the middle of the slur.</source>
+        <translation type="unfinished">Upper limit of the extra clearance under the middle of the slur.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="416"/>
+        <source>End point share: constrained end</source>
+        <translation type="unfinished">End point share: constrained end</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="417"/>
+        <source>Share of a collision correction made by moving the end point instead of reshaping the curve (0 = curve only, 1 = end point only), for ends with an articulation or ornament above, cross-staff slurs and the attached end of a slur broken across systems.</source>
+        <translation type="unfinished">Share of a collision correction made by moving the end point instead of reshaping the curve (0 = curve only, 1 = end point only), for ends with an articulation or ornament above, cross-staff slurs and the attached end of a slur broken across systems.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="424"/>
+        <source>End point share: ordinary end</source>
+        <translation type="unfinished">End point share: ordinary end</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="425"/>
+        <source>The same share for an ordinary slur end attached to a note.</source>
+        <translation type="unfinished">The same share for an ordinary slur end attached to a note.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="431"/>
+        <source>End point share: free end</source>
+        <translation type="unfinished">End point share: free end</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="432"/>
+        <source>The same share for open ends at a system break and for ends floated along a stem.</source>
+        <translation type="unfinished">The same share for open ends at a system break and for ends floated along a stem.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="439"/>
+        <source>Adjustment step</source>
+        <translation type="unfinished">Adjustment step</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="440"/>
+        <source>Distance the curve or an end point moves in each collision-avoidance pass; smaller values fit the music more tightly but may leave collisions in crowded passages.</source>
+        <translation type="unfinished">Distance the curve or an end point moves in each collision-avoidance pass; smaller values fit the music more tightly but may leave collisions in crowded passages.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="448"/>
+        <source>Long slur length for larger steps</source>
+        <translation type="unfinished">Long slur length for larger steps</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="449"/>
+        <source>Slurs longer than this use a proportionally larger adjustment step.</source>
+        <translation type="unfinished">Slurs longer than this use a proportionally larger adjustment step.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="458"/>
+        <source>Maximum adjustment step</source>
+        <translation type="unfinished">Maximum adjustment step</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="459"/>
+        <source>Upper limit of the enlarged adjustment step of long slurs.</source>
+        <translation type="unfinished">Upper limit of the enlarged adjustment step of long slurs.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="467"/>
+        <source>Slurs and ties across systems</source>
+        <translation type="unfinished">Slurs and ties across systems</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="471"/>
+        <source>Open end distance from chord</source>
+        <translation type="unfinished">Open end distance from chord</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="472"/>
+        <source>Vertical distance between the open end of a slur broken across systems and the first or last chord of that system.</source>
+        <translation type="unfinished">Vertical distance between the open end of a slur broken across systems and the first or last chord of that system.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="479"/>
+        <source>Maximum drop of the open end at system end</source>
+        <translation type="unfinished">Maximum drop of the open end at system end</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="480"/>
+        <source>Limits how far the open end at the end of a system may move towards the staff relative to the slur’s start.</source>
+        <translation type="unfinished">Limits how far the open end at the end of a system may move towards the staff relative to the slur’s start.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="488"/>
+        <source>Open end rise over a single chord</source>
+        <translation type="unfinished">Open end rise over a single chord</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="489"/>
+        <source>When a slur covers only one chord before or after a system break, its open end is placed this much further out than the attached end.</source>
+        <translation type="unfinished">When a slur covers only one chord before or after a system break, its open end is placed this much further out than the attached end.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="496"/>
+        <source>Open end rise when angled away from staff</source>
+        <translation type="unfinished">Open end rise when angled away from staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="497"/>
+        <source>With ‘Angle away from staff’ chosen for partial slurs across repeats and breaks, the open end lies at least this much further from the staff than the attached end.</source>
+        <translation type="unfinished">With ‘Angle away from staff’ chosen for partial slurs across repeats and breaks, the open end lies at least this much further from the staff than the attached end.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="505"/>
+        <source>Extend to the last barline before a system break</source>
+        <translation type="unfinished">Extend to the last barline before a system break</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="506"/>
+        <source>Slurs and ties that continue on the next system end flush with the last barline of the system instead of stopping short of it.</source>
+        <translation type="unfinished">Slurs and ties that continue on the next system end flush with the last barline of the system instead of stopping short of it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="512"/>
+        <source>Tapping half slurs</source>
+        <translation type="unfinished">Tapping half slurs</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="516"/>
+        <source>Length</source>
+        <translation type="unfinished">Length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="517"/>
+        <source>Horizontal length of the half slur drawn before a tapped note.</source>
+        <translation type="unfinished">Horizontal length of the half slur drawn before a tapped note.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="525"/>
+        <source>Height</source>
+        <translation type="unfinished">Height</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="526"/>
+        <source>Shoulder height of the tapping half slur on standard staves.</source>
+        <translation type="unfinished">Shoulder height of the tapping half slur on standard staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="533"/>
+        <source>Height (tablature)</source>
+        <translation type="unfinished">Height (tablature)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="534"/>
+        <source>Shoulder height of the tapping half slur on tablature staves.</source>
+        <translation type="unfinished">Shoulder height of the tapping half slur on tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="270"/>
+        <source>Rhythmic spacing</source>
+        <translation type="unfinished">Rhythmic spacing</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="274"/>
+        <source>Space for a quarter note</source>
+        <translation type="unfinished">Space for a quarter note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="275"/>
+        <source>Width given to a quarter note before the spacing density and justification are applied; other note values follow from it through the spacing ratio.</source>
+        <translation type="unfinished">Width given to a quarter note before the spacing density and justification are applied; other note values follow from it through the spacing ratio.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="284"/>
+        <source>Sparse-line density threshold</source>
+        <translation type="unfinished">Sparse-line density threshold</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="285"/>
+        <source>Note density (notes per staff space of system width) at or below which a system gets the sparse-line spacing ratio; between the two thresholds the ratio is interpolated.</source>
+        <translation type="unfinished">Note density (notes per staff space of system width) at or below which a system gets the sparse-line spacing ratio; between the two thresholds the ratio is interpolated.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="294"/>
+        <source>Dense-line density threshold</source>
+        <translation type="unfinished">Dense-line density threshold</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="295"/>
+        <source>Note density (notes per staff space of system width) at or above which a system gets the dense-line spacing ratio; keep it above the sparse-line threshold.</source>
+        <translation type="unfinished">Note density (notes per staff space of system width) at or above which a system gets the dense-line spacing ratio; keep it above the sparse-line threshold.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="304"/>
+        <source>Multimeasure rest: measures at base width</source>
+        <translation type="unfinished">Multimeasure rest: measures at base width</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="305"/>
+        <source>A multimeasure rest of up to this many measures keeps the base width; each further measure widens it by one step, up to the maximum width increase.</source>
+        <translation type="unfinished">A multimeasure rest of up to this many measures keeps the base width; each further measure widens it by one step, up to the maximum width increase.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="315"/>
+        <source>Padding limits and kerning</source>
+        <translation type="unfinished">Padding limits and kerning</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="319"/>
+        <source>Default padding between items</source>
+        <translation type="unfinished">Default padding between items</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="320"/>
+        <source>Minimum horizontal gap between two items of kinds that have no setting of their own, and between two noteheads that may come closer than the minimum note distance.</source>
+        <translation type="unfinished">Minimum horizontal gap between two items of kinds that have no setting of their own, and between two noteheads that may come closer than the minimum note distance.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="327"/>
+        <source>Least padding between items</source>
+        <translation type="unfinished">Least padding between items</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="328"/>
+        <source>No pair of items gets less padding than this, whatever its own setting is; like every padding it shrinks when an overfull system is squeezed.</source>
+        <translation type="unfinished">No pair of items gets less padding than this, whatever its own setting is; like every padding it shrinks when an overfull system is squeezed.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="335"/>
+        <source>Vertical clearance for kerning</source>
+        <translation type="unfinished">Vertical clearance for kerning</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="336"/>
+        <source>Two items may overlap horizontally (one tucked above or below the other) only if this much vertical space stays between them.</source>
+        <translation type="unfinished">Two items may overlap horizontally (one tucked above or below the other) only if this much vertical space stays between them.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="343"/>
+        <source>Vertical clearance for kerning accidentals</source>
+        <translation type="unfinished">Vertical clearance for kerning accidentals</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="344"/>
+        <source>Vertical space that must stay between an accidental and the item before it for the accidental to tuck above or below that item.</source>
+        <translation type="unfinished">Vertical space that must stay between an accidental and the item before it for the accidental to tuck above or below that item.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="351"/>
+        <source>Vertical clearance for kerning parentheses</source>
+        <translation type="unfinished">Vertical clearance for kerning parentheses</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="352"/>
+        <source>Vertical space that must stay between a parenthesis and a neighbouring item for one to tuck above or below the other.</source>
+        <translation type="unfinished">Vertical space that must stay between a parenthesis and a neighbouring item for one to tuck above or below the other.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="359"/>
+        <source>Gaps after notes and rests</source>
+        <translation type="unfinished">Gaps after notes and rests</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="363"/>
+        <source>Note to rest</source>
+        <translation type="unfinished">Note to rest</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="364"/>
+        <source>Minimum horizontal gap between a notehead and a rest that follows it. Also used from a rest to a note and between two rests.</source>
+        <translation type="unfinished">Minimum horizontal gap between a notehead and a rest that follows it. Also used from a rest to a note and between two rests.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="371"/>
+        <source>Note to clef</source>
+        <translation type="unfinished">Note to clef</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="372"/>
+        <source>Minimum horizontal gap between a notehead and a clef that follows it. Also used from a rest to a clef.</source>
+        <translation type="unfinished">Minimum horizontal gap between a notehead and a clef that follows it. Also used from a rest to a clef.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="379"/>
+        <source>Note to arpeggio</source>
+        <translation type="unfinished">Note to arpeggio</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="380"/>
+        <source>Minimum horizontal gap between a notehead and an arpeggio that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a notehead and an arpeggio that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="387"/>
+        <source>Note to key signature</source>
+        <translation type="unfinished">Note to key signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="388"/>
+        <source>Minimum horizontal gap between a notehead and a key signature that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a notehead and a key signature that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="395"/>
+        <source>Note to time signature</source>
+        <translation type="unfinished">Note to time signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="396"/>
+        <source>Minimum horizontal gap between a notehead and a time signature that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a notehead and a time signature that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="403"/>
+        <source>Note to accidental</source>
+        <translation type="unfinished">Note to accidental</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="404"/>
+        <source>Minimum horizontal gap between a notehead and an accidental that follows it. The accidental to note distance is used instead if it is larger.</source>
+        <translation type="unfinished">Minimum horizontal gap between a notehead and an accidental that follows it. The accidental to note distance is used instead if it is larger.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="411"/>
+        <source>Flag to note</source>
+        <translation type="unfinished">Flag to note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="412"/>
+        <source>Minimum horizontal gap between a flag and a notehead that follows it. Also used from a flag to a rest.</source>
+        <translation type="unfinished">Minimum horizontal gap between a flag and a notehead that follows it. Also used from a flag to a rest.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="419"/>
+        <source>Flag to accidental</source>
+        <translation type="unfinished">Flag to accidental</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="420"/>
+        <source>Minimum horizontal gap between a flag and an accidental that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a flag and an accidental that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="427"/>
+        <source>Flag to clef</source>
+        <translation type="unfinished">Flag to clef</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="428"/>
+        <source>Minimum horizontal gap between a flag and a clef that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a flag and a clef that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="435"/>
+        <source>Flag to arpeggio</source>
+        <translation type="unfinished">Flag to arpeggio</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="436"/>
+        <source>Minimum horizontal gap between a flag and an arpeggio that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a flag and an arpeggio that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="443"/>
+        <source>Flag to barline</source>
+        <translation type="unfinished">Flag to barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="444"/>
+        <source>Minimum horizontal gap between a flag and a barline that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a flag and a barline that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="451"/>
+        <source>Flag to key signature</source>
+        <translation type="unfinished">Flag to key signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="452"/>
+        <source>Minimum horizontal gap between a flag and a key signature that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a flag and a key signature that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="459"/>
+        <source>Flag to time signature</source>
+        <translation type="unfinished">Flag to time signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="460"/>
+        <source>Minimum horizontal gap between a flag and a time signature that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a flag and a time signature that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="467"/>
+        <source>Augmentation dot to accidental</source>
+        <translation type="unfinished">Augmentation dot to accidental</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="468"/>
+        <source>Minimum horizontal gap between an augmentation dot and an accidental that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between an augmentation dot and an accidental that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="475"/>
+        <source>Augmentation dot to clef</source>
+        <translation type="unfinished">Augmentation dot to clef</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="476"/>
+        <source>Minimum horizontal gap between an augmentation dot and a clef that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between an augmentation dot and a clef that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="483"/>
+        <source>Augmentation dot to arpeggio</source>
+        <translation type="unfinished">Augmentation dot to arpeggio</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="484"/>
+        <source>Minimum horizontal gap between an augmentation dot and an arpeggio that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between an augmentation dot and an arpeggio that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="491"/>
+        <source>Augmentation dot to barline</source>
+        <translation type="unfinished">Augmentation dot to barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="492"/>
+        <source>Minimum horizontal gap between an augmentation dot and a barline that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between an augmentation dot and a barline that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="499"/>
+        <source>Augmentation dot to key signature</source>
+        <translation type="unfinished">Augmentation dot to key signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="500"/>
+        <source>Minimum horizontal gap between an augmentation dot and a key signature that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between an augmentation dot and a key signature that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="507"/>
+        <source>Augmentation dot to time signature</source>
+        <translation type="unfinished">Augmentation dot to time signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="508"/>
+        <source>Minimum horizontal gap between an augmentation dot and a time signature that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between an augmentation dot and a time signature that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="515"/>
+        <source>Rest to accidental</source>
+        <translation type="unfinished">Rest to accidental</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="516"/>
+        <source>Minimum horizontal gap between a rest and an accidental that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a rest and an accidental that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="523"/>
+        <source>Rest to barline</source>
+        <translation type="unfinished">Rest to barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="524"/>
+        <source>Minimum horizontal gap between a rest and a barline that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a rest and a barline that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="531"/>
+        <source>Rest to key signature</source>
+        <translation type="unfinished">Rest to key signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="532"/>
+        <source>Minimum horizontal gap between a rest and a key signature that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a rest and a key signature that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="539"/>
+        <source>Rest to time signature</source>
+        <translation type="unfinished">Rest to time signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="540"/>
+        <source>Minimum horizontal gap between a rest and a time signature that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a rest and a time signature that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="547"/>
+        <source>Stem to stem</source>
+        <translation type="unfinished">Stem to stem</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="548"/>
+        <source>Minimum horizontal gap between a stem and a stem that follows it. Applies between the stems of adjacent chords, above all under cross-staff beams.</source>
+        <translation type="unfinished">Minimum horizontal gap between a stem and a stem that follows it. Applies between the stems of adjacent chords, above all under cross-staff beams.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="555"/>
+        <source>Stem to accidental</source>
+        <translation type="unfinished">Stem to accidental</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="556"/>
+        <source>Minimum horizontal gap between a stem and an accidental that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a stem and an accidental that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="563"/>
+        <source>Gaps after clefs, signatures and barlines</source>
+        <translation type="unfinished">Gaps after clefs, signatures and barlines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="567"/>
+        <source>System header: least clear gap</source>
+        <translation type="unfinished">System header: least clear gap</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="568"/>
+        <source>Least clear space between the right edge of the clef, key or time signature that ends the system header and the leftmost point of what follows: the first note or rest with its accidentals, or a start repeat barline.</source>
+        <translation type="unfinished">Least clear space between the right edge of the clef, key or time signature that ends the system header and the leftmost point of what follows: the first note or rest with its accidentals, or a start repeat barline.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="575"/>
+        <source>Clef to accidental</source>
+        <translation type="unfinished">Clef to accidental</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="576"/>
+        <source>Minimum horizontal gap between a clef and an accidental that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a clef and an accidental that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="583"/>
+        <source>Clef to clef</source>
+        <translation type="unfinished">Clef to clef</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="584"/>
+        <source>Minimum horizontal gap between a clef and a clef that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a clef and a clef that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="591"/>
+        <source>Clef to arpeggio</source>
+        <translation type="unfinished">Clef to arpeggio</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="592"/>
+        <source>Minimum horizontal gap between a clef and an arpeggio that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a clef and an arpeggio that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="599"/>
+        <source>Clef to stem</source>
+        <translation type="unfinished">Clef to stem</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="600"/>
+        <source>Minimum horizontal gap between a clef and a stem that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a clef and a stem that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="607"/>
+        <source>Barline to arpeggio</source>
+        <translation type="unfinished">Barline to arpeggio</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="608"/>
+        <source>Minimum horizontal gap between a barline and an arpeggio that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a barline and an arpeggio that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="615"/>
+        <source>Barline to barline</source>
+        <translation type="unfinished">Barline to barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="616"/>
+        <source>Minimum horizontal gap between a barline and a barline that follows it. This is the least inner width of a bar whose content takes up no room.</source>
+        <translation type="unfinished">Minimum horizontal gap between a barline and a barline that follows it. This is the least inner width of a bar whose content takes up no room.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="623"/>
+        <source>Key signature to note</source>
+        <translation type="unfinished">Key signature to note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="624"/>
+        <source>Minimum horizontal gap between a key signature and a notehead that follows it. In a system header the system header distance applies instead if it is larger; also used from a key signature to a rest.</source>
+        <translation type="unfinished">Minimum horizontal gap between a key signature and a notehead that follows it. In a system header the system header distance applies instead if it is larger; also used from a key signature to a rest.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="631"/>
+        <source>Key signature to accidental</source>
+        <translation type="unfinished">Key signature to accidental</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="632"/>
+        <source>Minimum horizontal gap between a key signature and an accidental that follows it. The accidental is that of the first note after the key signature.</source>
+        <translation type="unfinished">Minimum horizontal gap between a key signature and an accidental that follows it. The accidental is that of the first note after the key signature.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="639"/>
+        <source>Key signature to clef</source>
+        <translation type="unfinished">Key signature to clef</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="640"/>
+        <source>Minimum horizontal gap between a key signature and a clef that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a key signature and a clef that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="647"/>
+        <source>Key signature to arpeggio</source>
+        <translation type="unfinished">Key signature to arpeggio</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="648"/>
+        <source>Minimum horizontal gap between a key signature and an arpeggio that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a key signature and an arpeggio that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="655"/>
+        <source>Key signature to key signature</source>
+        <translation type="unfinished">Key signature to key signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="656"/>
+        <source>Minimum horizontal gap between a key signature and a key signature that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a key signature and a key signature that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="663"/>
+        <source>Time signature to note</source>
+        <translation type="unfinished">Time signature to note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="664"/>
+        <source>Minimum horizontal gap between a time signature and a notehead that follows it. In a system header the system header distance for time signatures applies instead if it is larger; also used from a time signature to a rest.</source>
+        <translation type="unfinished">Minimum horizontal gap between a time signature and a notehead that follows it. In a system header the system header distance for time signatures applies instead if it is larger; also used from a time signature to a rest.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="671"/>
+        <source>Time signature to accidental</source>
+        <translation type="unfinished">Time signature to accidental</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="672"/>
+        <source>Minimum horizontal gap between a time signature and an accidental that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a time signature and an accidental that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="679"/>
+        <source>Time signature to clef</source>
+        <translation type="unfinished">Time signature to clef</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="680"/>
+        <source>Minimum horizontal gap between a time signature and a clef that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a time signature and a clef that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="687"/>
+        <source>Time signature to arpeggio</source>
+        <translation type="unfinished">Time signature to arpeggio</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="688"/>
+        <source>Minimum horizontal gap between a time signature and an arpeggio that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a time signature and an arpeggio that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="695"/>
+        <source>Time signature to time signature</source>
+        <translation type="unfinished">Time signature to time signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="696"/>
+        <source>Minimum horizontal gap between a time signature and a time signature that follows it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a time signature and a time signature that follows it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="703"/>
+        <source>Gaps around other items</source>
+        <translation type="unfinished">Gaps around other items</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="707"/>
+        <source>Lyrics to barline padding (× x-height)</source>
+        <translation type="unfinished">Lyrics to barline padding (× x-height)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="708"/>
+        <source>Gap kept between a lyric syllable and a barline it must avoid, as a multiple of the x-height of the lyrics font.</source>
+        <translation type="unfinished">Gap kept between a lyric syllable and a barline it must avoid, as a multiple of the x-height of the lyrics font.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="715"/>
+        <source>Ledger line to ledger line</source>
+        <translation type="unfinished">Ledger line to ledger line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="716"/>
+        <source>Minimum gap between the ledger lines of neighbouring chords; automatically shortened ledger lines keep a fraction of it.</source>
+        <translation type="unfinished">Minimum gap between the ledger lines of neighbouring chords; automatically shortened ledger lines keep a fraction of it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="723"/>
+        <source>Arpeggio to ledger line</source>
+        <translation type="unfinished">Arpeggio to ledger line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="724"/>
+        <source>Gap between an arpeggio and the ledger lines of the chord it belongs to.</source>
+        <translation type="unfinished">Gap between an arpeggio and the ledger lines of the chord it belongs to.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="731"/>
+        <source>Accidental to ledger line</source>
+        <translation type="unfinished">Accidental to ledger line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="732"/>
+        <source>Gap between an accidental and the ledger lines of the chord it belongs to.</source>
+        <translation type="unfinished">Gap between an accidental and the ledger lines of the chord it belongs to.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="740"/>
+        <source>Padding around breath marks</source>
+        <translation type="unfinished">Padding around breath marks</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="741"/>
+        <source>Minimum horizontal gap between a breath mark or caesura and the items before and after it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a breath mark or caesura and the items before and after it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="748"/>
+        <source>Chord symbol to fretboard diagram</source>
+        <translation type="unfinished">Chord symbol to fretboard diagram</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="749"/>
+        <source>Minimum horizontal gap between a chord symbol and a neighbouring fretboard diagram, in either order.</source>
+        <translation type="unfinished">Minimum horizontal gap between a chord symbol and a neighbouring fretboard diagram, in either order.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="756"/>
+        <source>Fretboard diagram to fretboard diagram</source>
+        <translation type="unfinished">Fretboard diagram to fretboard diagram</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="757"/>
+        <source>Minimum horizontal gap between two neighbouring fretboard diagrams.</source>
+        <translation type="unfinished">Minimum horizontal gap between two neighbouring fretboard diagrams.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="764"/>
+        <source>Padding around falls, doits and scoops</source>
+        <translation type="unfinished">Padding around falls, doits and scoops</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="765"/>
+        <source>Minimum horizontal gap between a fall, doit, plop or scoop and the items before and after it.</source>
+        <translation type="unfinished">Minimum horizontal gap between a fall, doit, plop or scoop and the items before and after it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="772"/>
+        <source>Fall, doit or scoop to barline</source>
+        <translation type="unfinished">Fall, doit or scoop to barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="773"/>
+        <source>Minimum horizontal gap between a fall, doit, plop or scoop and a barline, in either order.</source>
+        <translation type="unfinished">Minimum horizontal gap between a fall, doit, plop or scoop and a barline, in either order.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="780"/>
+        <source>Padding after beamlets</source>
+        <translation type="unfinished">Padding after beamlets</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="781"/>
+        <source>Minimum horizontal gap between a beamlet (the stub of a beam) or a single-note tremolo and the item that follows; also the gap between two beamlets that face each other in a cross-staff beam.</source>
+        <translation type="unfinished">Minimum horizontal gap between a beamlet (the stub of a beam) or a single-note tremolo and the item that follows; also the gap between two beamlets that face each other in a cross-staff beam.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="788"/>
+        <source>Padding around articulations and fermatas</source>
+        <translation type="unfinished">Padding around articulations and fermatas</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="789"/>
+        <source>Minimum horizontal gap between an articulation, fermata or tapping sign and neighbouring items it cannot overlap.</source>
+        <translation type="unfinished">Minimum horizontal gap between an articulation, fermata or tapping sign and neighbouring items it cannot overlap.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="796"/>
+        <source>Laissez vibrer tie to note</source>
+        <translation type="unfinished">Laissez vibrer tie to note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="797"/>
+        <source>Minimum horizontal gap between the end of a laissez vibrer tie and the next note or rest.</source>
+        <translation type="unfinished">Minimum horizontal gap between the end of a laissez vibrer tie and the next note or rest.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="804"/>
+        <source>Laissez vibrer tie to accidental</source>
+        <translation type="unfinished">Laissez vibrer tie to accidental</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="805"/>
+        <source>Minimum horizontal gap between the end of a laissez vibrer tie and an accidental of the next note.</source>
+        <translation type="unfinished">Minimum horizontal gap between the end of a laissez vibrer tie and an accidental of the next note.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="812"/>
+        <source>Laissez vibrer tie to barline</source>
+        <translation type="unfinished">Laissez vibrer tie to barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="813"/>
+        <source>Minimum horizontal gap between the end of a laissez vibrer tie and the barline after it.</source>
+        <translation type="unfinished">Minimum horizontal gap between the end of a laissez vibrer tie and the barline after it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="820"/>
+        <source>Laissez vibrer tie to stem</source>
+        <translation type="unfinished">Laissez vibrer tie to stem</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="821"/>
+        <source>Minimum horizontal gap between the end of a laissez vibrer tie and the stem of the next note.</source>
+        <translation type="unfinished">Minimum horizontal gap between the end of a laissez vibrer tie and the stem of the next note.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="828"/>
+        <source>Parentheses: minimum inner width</source>
+        <translation type="unfinished">Parentheses: minimum inner width</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="829"/>
+        <source>Minimum distance between a left and a right parenthesis; an item narrower than this is centred between them.</source>
+        <translation type="unfinished">Minimum distance between a left and a right parenthesis; an item narrower than this is centred between them.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="836"/>
+        <source>Tablature and guitar bends</source>
+        <translation type="unfinished">Tablature and guitar bends</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="840"/>
+        <source>Fret mark padding scale</source>
+        <translation type="unfinished">Fret mark padding scale</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="841"/>
+        <source>Factor applied to the padding between adjacent fret marks on a tablature staff.</source>
+        <translation type="unfinished">Factor applied to the padding between adjacent fret marks on a tablature staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="850"/>
+        <source>Minimum guitar bend length</source>
+        <translation type="unfinished">Minimum guitar bend length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="851"/>
+        <source>Horizontal space reserved between two notes that are joined by a guitar bend.</source>
+        <translation type="unfinished">Horizontal space reserved between two notes that are joined by a guitar bend.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="32"/>
+        <source>Stems and flags</source>
+        <translation type="unfinished">Stems and flags</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="36"/>
+        <source>Stem length</source>
+        <translation type="unfinished">Stem length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="40"/>
+        <source>Shortest stem with wide beam distance</source>
+        <translation type="unfinished">Shortest stem with wide beam distance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="41"/>
+        <source>Lower limit for stems shortened outside the staff when the wide beam distance is on (replaces ‘Shortest stem’ in that case).</source>
+        <translation type="unfinished">Lower limit for stems shortened outside the staff when the wide beam distance is on (replaces ‘Shortest stem’ in that case).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="50"/>
+        <source>Extra stem length for three beams</source>
+        <translation type="unfinished">Extra stem length for three beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="51"/>
+        <source>Length added to the standard stem length of beamed notes with three beams (each further beam adds one beam distance). Rounded to quarter spaces.</source>
+        <translation type="unfinished">Length added to the standard stem length of beamed notes with three beams (each further beam adds one beam distance). Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="59"/>
+        <source>Stem shortening to seat the beam on a staff line</source>
+        <translation type="unfinished">Stem shortening to seat the beam on a staff line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="60"/>
+        <source>Stems of notes with one or two beams that would end in the middle of a staff space are shortened by this amount, so that the beam touches a staff line (0 = off). Rounded to quarter spaces.</source>
+        <translation type="unfinished">Stems of notes with one or two beams that would end in the middle of a staff space are shortened by this amount, so that the beam touches a staff line (0 = off). Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="68"/>
+        <source>Minimum stem between notehead and beams, no beam</source>
+        <translation type="unfinished">Minimum stem between notehead and beams, no beam</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="69"/>
+        <source>Shortest free stem between the notehead and the innermost beam for a note in a beamed group or two-note tremolo with no beam of its own; the height of the beams is added to it. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Shortest free stem between the notehead and the innermost beam for a note in a beamed group or two-note tremolo with no beam of its own; the height of the beams is added to it. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="78"/>
+        <source>Minimum stem between notehead and beams, one beam</source>
+        <translation type="unfinished">Minimum stem between notehead and beams, one beam</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="79"/>
+        <source>Shortest free stem between the notehead and the innermost beam for a note in a beamed group or two-note tremolo with one beam; the height of the beams is added to it. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Shortest free stem between the notehead and the innermost beam for a note in a beamed group or two-note tremolo with one beam; the height of the beams is added to it. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="88"/>
+        <source>Minimum stem between notehead and beams, two beams</source>
+        <translation type="unfinished">Minimum stem between notehead and beams, two beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="89"/>
+        <source>Shortest free stem between the notehead and the innermost beam for a note in a beamed group or two-note tremolo with two beams; the height of the beams is added to it. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Shortest free stem between the notehead and the innermost beam for a note in a beamed group or two-note tremolo with two beams; the height of the beams is added to it. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="98"/>
+        <source>Minimum stem between notehead and beams, three or more beams</source>
+        <translation type="unfinished">Minimum stem between notehead and beams, three or more beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="99"/>
+        <source>Shortest free stem between the notehead and the innermost beam for a note in a beamed group or two-note tremolo with three or more beams; the height of the beams is added to it. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Shortest free stem between the notehead and the innermost beam for a note in a beamed group or two-note tremolo with three or more beams; the height of the beams is added to it. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="108"/>
+        <source>Stem reach into the staff</source>
+        <translation type="unfinished">Stem reach into the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="109"/>
+        <source>Stems of notes far outside the staff are lengthened so that their tip reaches at least this far into the staff, measured from the staff line nearest the notehead (2 sp = the middle line of a five-line staff). Applies to unbeamed and flagged notes and to notes with up to two beams. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Stems of notes far outside the staff are lengthened so that their tip reaches at least this far into the staff, measured from the staff line nearest the notehead (2 sp = the middle line of a five-line staff). Applies to unbeamed and flagged notes and to notes with up to two beams. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="117"/>
+        <source>Stem reach into the staff, three beams</source>
+        <translation type="unfinished">Stem reach into the staff, three beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="118"/>
+        <source>The same for normal-size notes with three beams. Rounded to quarter spaces.</source>
+        <translation type="unfinished">The same for normal-size notes with three beams. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="126"/>
+        <source>Stem reach into the staff, four beams</source>
+        <translation type="unfinished">Stem reach into the staff, four beams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="127"/>
+        <source>The same for normal-size notes with four beams and the regular beam distance; each further beam adds one beam distance. Rounded to quarter spaces.</source>
+        <translation type="unfinished">The same for normal-size notes with four beams and the regular beam distance; each further beam adds one beam distance. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="135"/>
+        <source>Stem reach into the staff, four beams, wide distance</source>
+        <translation type="unfinished">Stem reach into the staff, four beams, wide distance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="136"/>
+        <source>The same for normal-size notes with four beams when the wide beam distance is on. Rounded to quarter spaces.</source>
+        <translation type="unfinished">The same for normal-size notes with four beams when the wide beam distance is on. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="144"/>
+        <source>Stem direction</source>
+        <translation type="unfinished">Stem direction</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="148"/>
+        <source>Stems up on the middle line</source>
+        <translation type="unfinished">Stems up on the middle line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="149"/>
+        <source>Stem direction of a note on the middle staff line, and of chords and beamed groups whose notes balance around it: down when off, up when on.</source>
+        <translation type="unfinished">Stem direction of a note on the middle staff line, and of chords and beamed groups whose notes balance around it: down when off, up when on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="155"/>
+        <source>Flags</source>
+        <translation type="unfinished">Flags</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="159"/>
+        <source>Flag height not counted for the stem length, stem up</source>
+        <translation type="unfinished">Flag height not counted for the stem length, stem up</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="160"/>
+        <source>Stems of flagged notes are lengthened until the flags clear the notehead; this much of the flag height of an up-stem note with curved flags is ignored, so a larger value gives shorter stems on notes with many flags. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Stems of flagged notes are lengthened until the flags clear the notehead; this much of the flag height of an up-stem note with curved flags is ignored, so a larger value gives shorter stems on notes with many flags. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="168"/>
+        <source>Flag height not counted for the stem length, stem down</source>
+        <translation type="unfinished">Flag height not counted for the stem length, stem down</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="169"/>
+        <source>The same for down-stem notes with curved flags. Rounded to quarter spaces.</source>
+        <translation type="unfinished">The same for down-stem notes with curved flags. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="177"/>
+        <source>Largest flag height counted for the stem length</source>
+        <translation type="unfinished">Largest flag height counted for the stem length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="178"/>
+        <source>Upper limit of the flag height taken into account when lengthening the stem of a flagged note; keeps fonts with very long flags from producing overlong stems. Rounded to quarter spaces.</source>
+        <translation type="unfinished">Upper limit of the flag height taken into account when lengthening the stem of a flagged note; keeps fonts with very long flags from producing overlong stems. Rounded to quarter spaces.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="187"/>
+        <source>Grace-note stem slashes</source>
+        <translation type="unfinished">Grace-note stem slashes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="191"/>
+        <source>Slash position factor without a curved flag</source>
+        <translation type="unfinished">Slash position factor without a curved flag</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="192"/>
+        <source>Factor applied to the stem slash position (its distance from the stem end) on beamed grace notes, on stems without a flag and with straight flags.</source>
+        <translation type="unfinished">Factor applied to the stem slash position (its distance from the stem end) on beamed grace notes, on stems without a flag and with straight flags.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="200"/>
+        <source>Slash angle factor for two or more curved flags</source>
+        <translation type="unfinished">Slash angle factor for two or more curved flags</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="201"/>
+        <source>Factor applied to the stem slash angle on grace notes with two or more curved flags, to follow their heavier flags (Bravura, Finale Maestro and Gonville only).</source>
+        <translation type="unfinished">Factor applied to the stem slash angle on grace notes with two or more curved flags, to follow their heavier flags (Bravura, Finale Maestro and Gonville only).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="210"/>
+        <source>Slash length on beamed grace notes</source>
+        <translation type="unfinished">Slash length on beamed grace notes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="211"/>
+        <source>Length of the slash drawn through the first stem and the beam of a beamed group of grace notes.</source>
+        <translation type="unfinished">Length of the slash drawn through the first stem and the beam of a beamed group of grace notes.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="219"/>
+        <source>Slash length factor when the beam slants away</source>
+        <translation type="unfinished">Slash length factor when the beam slants away</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="220"/>
+        <source>Factor lengthening that slash when the beam slants away from it: a rising beam on up-stem grace notes or a falling beam on down-stem grace notes.</source>
+        <translation type="unfinished">Factor lengthening that slash when the beam slants away from it: a rising beam on up-stem grace notes or a falling beam on down-stem grace notes.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="79"/>
+        <source>Divider on the left</source>
+        <translation type="unfinished">Divider on the left</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="110"/>
+        <source>Divider on the right</source>
+        <translation type="unfinished">Divider on the right</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="141"/>
+        <source>Bracket and brace shape</source>
+        <translation type="unfinished">Bracket and brace shape</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="33"/>
+        <source>Ties</source>
+        <translation type="unfinished">Ties</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="111"/>
+        <source>Length and height</source>
+        <translation type="unfinished">Length and height</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="143"/>
+        <source>Tie end points</source>
+        <translation type="unfinished">Tie end points</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="147"/>
+        <source>Vertical offset from notehead</source>
+        <translation type="unfinished">Vertical offset from notehead</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="148"/>
+        <source>Vertical distance of tie ends from the top or bottom of the notehead (outside ties) or from its centre (inside ties).</source>
+        <translation type="unfinished">Vertical distance of tie ends from the top or bottom of the notehead (outside ties) or from its centre (inside ties).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="155"/>
+        <source>Outside tie: inward shift from notehead centre</source>
+        <translation type="unfinished">Outside tie: inward shift from notehead centre</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="156"/>
+        <source>Horizontal shift of the end of an outside tie from the optical centre of the notehead towards the other note.</source>
+        <translation type="unfinished">Horizontal shift of the end of an outside tie from the optical centre of the notehead towards the other note.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="163"/>
+        <source>Outside tie: inward shift past another chord note</source>
+        <translation type="unfinished">Outside tie: inward shift past another chord note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="164"/>
+        <source>The same shift when another note of the chord lies directly above or below on the side the tie curves towards.</source>
+        <translation type="unfinished">The same shift when another note of the chord lies directly above or below on the side the tie curves towards.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="171"/>
+        <source>Inside tie: gap to notehead</source>
+        <translation type="unfinished">Inside tie: gap to notehead</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="172"/>
+        <source>Horizontal gap between the notehead and the end of an inside tie (also used for slash noteheads and hidden fret marks).</source>
+        <translation type="unfinished">Horizontal gap between the notehead and the end of an inside tie (also used for slash noteheads and hidden fret marks).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="179"/>
+        <source>Gap to dots, accidentals and other items</source>
+        <translation type="unfinished">Gap to dots, accidentals and other items</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="180"/>
+        <source>Horizontal gap kept between a tie end and the augmentation dots, accidentals, stems or noteheads it has to clear.</source>
+        <translation type="unfinished">Horizontal gap kept between a tie end and the augmentation dots, accidentals, stems or noteheads it has to clear.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="187"/>
+        <source>Shift between consecutive ties</source>
+        <translation type="unfinished">Shift between consecutive ties</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="188"/>
+        <source>Horizontal shift of a tie end when the same note also carries a tie on its other side curving the same way, so that the two do not touch.</source>
+        <translation type="unfinished">Horizontal shift of a tie end when the same note also carries a tie on its other side curving the same way, so that the two do not touch.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="195"/>
+        <source>End point distance from ledger lines</source>
+        <translation type="unfinished">End point distance from ledger lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="196"/>
+        <source>Tie ends closer than this to a ledger line on the side they curve towards are moved away from it.</source>
+        <translation type="unfinished">Tie ends closer than this to a ledger line on the side they curve towards are moved away from it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="203"/>
+        <source>Tie shape and staff lines</source>
+        <translation type="unfinished">Tie shape and staff lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="207"/>
+        <source>Height growth with length</source>
+        <translation type="unfinished">Height growth with length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="208"/>
+        <source>Tie height in sp = minimum height + factor × √|length − 1| (length in sp), limited by the maximum tie height.</source>
+        <translation type="unfinished">Tie height in sp = minimum height + factor × √|length − 1| (length in sp), limited by the maximum tie height.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="215"/>
+        <source>Shoulder width</source>
+        <translation type="unfinished">Shoulder width</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="216"/>
+        <source>Distance between the two curve control points as a fraction of the tie length; larger values give a flatter middle and steeper ends.</source>
+        <translation type="unfinished">Distance between the two curve control points as a fraction of the tie length; larger values give a flatter middle and steeper ends.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="224"/>
+        <source>Tie ends that would lie closer than this to a staff line are moved away from it.</source>
+        <translation type="unfinished">Tie ends that would lie closer than this to a staff line are moved away from it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="233"/>
+        <source>Arc distance from staff lines</source>
+        <translation type="unfinished">Arc distance from staff lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="234"/>
+        <source>The apex of a tie inside the staff keeps at least this distance from a staff line.</source>
+        <translation type="unfinished">The apex of a tie inside the staff keeps at least this distance from a staff line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="243"/>
+        <source>Arc distance from staff lines (short ties)</source>
+        <translation type="unfinished">Arc distance from staff lines (short ties)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="244"/>
+        <source>The same distance for ties shorter than the short-tie length.</source>
+        <translation type="unfinished">The same distance for ties shorter than the short-tie length.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="252"/>
+        <source>Short-tie length for staff line distance</source>
+        <translation type="unfinished">Short-tie length for staff line distance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="253"/>
+        <source>Ties shorter than this use the arc distance for short ties.</source>
+        <translation type="unfinished">Ties shorter than this use the arc distance for short ties.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="260"/>
+        <source>Gap between stacked ties</source>
+        <translation type="unfinished">Gap between stacked ties</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="261"/>
+        <source>Minimum vertical distance between neighbouring ties of a chord that curve the same way.</source>
+        <translation type="unfinished">Minimum vertical distance between neighbouring ties of a chord that curve the same way.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="270"/>
+        <source>Laissez vibrer</source>
+        <translation type="unfinished">Laissez vibrer</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="285"/>
+        <source>Gap to parenthesis</source>
+        <translation type="unfinished">Gap to parenthesis</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="286"/>
+        <source>Vertical gap between a laissez vibrer tie and the parenthesis of the notehead that it has to avoid.</source>
+        <translation type="unfinished">Vertical gap between a laissez vibrer tie and the parenthesis of the notehead that it has to avoid.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="32"/>
+        <source>Tremolos</source>
+        <translation type="unfinished">Tremolos</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="36"/>
+        <source>Single-note tremolos</source>
+        <translation type="unfinished">Single-note tremolos</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="40"/>
+        <source>Extra distance from stem end, straight flag</source>
+        <translation type="unfinished">Extra distance from stem end, straight flag</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="41"/>
+        <source>Single-note tremolo on a note with straight flags: distance added between the stem end and the tremolo to leave room for the flag.</source>
+        <translation type="unfinished">Single-note tremolo on a note with straight flags: distance added between the stem end and the tremolo to leave room for the flag.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="48"/>
+        <source>Extra distance from stem end, curved flag, stem up</source>
+        <translation type="unfinished">Extra distance from stem end, curved flag, stem up</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="49"/>
+        <source>Single-note tremolo on an up-stem note with a curved flag: distance added between the stem end and the tremolo to leave room for the flag.</source>
+        <translation type="unfinished">Single-note tremolo on an up-stem note with a curved flag: distance added between the stem end and the tremolo to leave room for the flag.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="56"/>
+        <source>Extra distance from stem end, curved flag, stem down</source>
+        <translation type="unfinished">Extra distance from stem end, curved flag, stem down</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="57"/>
+        <source>The same for a down-stem note with a curved flag.</source>
+        <translation type="unfinished">The same for a down-stem note with a curved flag.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="63"/>
+        <source>Further distance for two or more straight flags</source>
+        <translation type="unfinished">Further distance for two or more straight flags</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="64"/>
+        <source>Single-note tremolo on a note with two or more straight flags: distance added on top of the straight-flag distance.</source>
+        <translation type="unfinished">Single-note tremolo on a note with two or more straight flags: distance added on top of the straight-flag distance.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="71"/>
+        <source>Further distance for two or more curved flags</source>
+        <translation type="unfinished">Further distance for two or more curved flags</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="72"/>
+        <source>Single-note tremolo on a note with two or more curved flags: distance added on top of the curved-flag distance.</source>
+        <translation type="unfinished">Single-note tremolo on a note with two or more curved flags: distance added on top of the curved-flag distance.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="79"/>
+        <source>Buzz roll extra distance from stem end, stem up</source>
+        <translation type="unfinished">Buzz roll extra distance from stem end, stem up</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="80"/>
+        <source>Distance added between the stem end and a buzz roll on an up-stem note.</source>
+        <translation type="unfinished">Distance added between the stem end and a buzz roll on an up-stem note.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="87"/>
+        <source>Slant of single-note tremolo strokes</source>
+        <translation type="unfinished">Slant of single-note tremolo strokes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="88"/>
+        <source>How much each stroke of a single-note tremolo rises from its left to its right end, as a multiple of the stroke thickness (0 = level strokes).</source>
+        <translation type="unfinished">How much each stroke of a single-note tremolo rises from its left to its right end, as a multiple of the stroke thickness (0 = level strokes).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="95"/>
+        <source>Two-note tremolos</source>
+        <translation type="unfinished">Two-note tremolos</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="99"/>
+        <source>Gap between strokes and stems</source>
+        <translation type="unfinished">Gap between strokes and stems</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="100"/>
+        <source>Two-note tremolo in the default style (and the inner strokes of the traditional alternate style): horizontal gap between each stem and the ends of the strokes.</source>
+        <translation type="unfinished">Two-note tremolo in the default style (and the inner strokes of the traditional alternate style): horizontal gap between each stem and the ends of the strokes.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="107"/>
+        <source>Shortest stroke before the gap is reduced</source>
+        <translation type="unfinished">Shortest stroke before the gap is reduced</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="108"/>
+        <source>Two-note tremolo between closely spaced notes: if the strokes would become shorter than this, the gap to the stems is reduced to lengthen them.</source>
+        <translation type="unfinished">Two-note tremolo between closely spaced notes: if the strokes would become shorter than this, the gap to the stems is reduced to lengthen them.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="115"/>
+        <source>Smallest gap between strokes and stems</source>
+        <translation type="unfinished">Smallest gap between strokes and stems</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="116"/>
+        <source>Two-note tremolo between closely spaced notes: the gap to the stems is never reduced below this value.</source>
+        <translation type="unfinished">Two-note tremolo between closely spaced notes: the gap to the stems is never reduced below this value.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="33"/>
+        <source>Trill and vibrato lines</source>
+        <translation type="unfinished">Trill and vibrato lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="87"/>
+        <source>Trill / vibrato line end: distance before end position</source>
+        <translation type="unfinished">Trill / vibrato line end: distance before end position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="88"/>
+        <source>How far before the next note, grace notes, clef or barline the wavy line of a trill or vibrato stops.</source>
+        <translation type="unfinished">How far before the next note, grace notes, clef or barline the wavy line of a trill or vibrato stops.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="95"/>
+        <source>Trill line accidental: vertical gap</source>
+        <translation type="unfinished">Trill line accidental: vertical gap</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="96"/>
+        <source>Vertical gap between the first symbol of a trill line and the accidental placed above (or below) it.</source>
+        <translation type="unfinished">Vertical gap between the first symbol of a trill line and the accidental placed above (or below) it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="161"/>
+        <source>Number and bracket details</source>
+        <translation type="unfinished">Number and bracket details</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="165"/>
+        <source>Gap between bracket and number</source>
+        <translation type="unfinished">Gap between bracket and number</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="166"/>
+        <source>Clear space left on each side of the tuplet number where the bracket is interrupted.</source>
+        <translation type="unfinished">Clear space left on each side of the tuplet number where the bracket is interrupted.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="173"/>
+        <source>Minimum bracket arm length (× hook height)</source>
+        <translation type="unfinished">Minimum bracket arm length (× hook height)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="174"/>
+        <source>Shortest horizontal bracket stroke kept on each side of the number, as a multiple of the hook height; a bracket that is too narrow is widened.</source>
+        <translation type="unfinished">Shortest horizontal bracket stroke kept on each side of the number, as a multiple of the hook height; a bracket that is too narrow is widened.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="181"/>
+        <source>Bracket beamed tuplets on the notehead side</source>
+        <translation type="unfinished">Bracket beamed tuplets on the notehead side</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="182"/>
+        <source>A beamed tuplet whose number sits on the notehead side gets a bracket; turn off to show the number alone, as on the beam side.</source>
+        <translation type="unfinished">A beamed tuplet whose number sits on the notehead side gets a bracket; turn off to show the number alone, as on the beam side.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="188"/>
+        <source>Omit bracket when beam subdivisions outline the tuplet</source>
+        <translation type="unfinished">Omit bracket when beam subdivisions outline the tuplet</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="189"/>
+        <source>A tuplet inside a longer beam gets no bracket when secondary-beam breaks (or neighbours with fewer beams) already delimit it; turn off to bracket every tuplet that does not fill the whole beam.</source>
+        <translation type="unfinished">A tuplet inside a longer beam gets no bracket when secondary-beam breaks (or neighbours with fewer beams) already delimit it; turn off to bracket every tuplet that does not fill the whole beam.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="195"/>
+        <source>Rhythmic-centre number: shift towards stem (× notehead width)</source>
+        <translation type="unfinished">Rhythmic-centre number: shift towards stem (× notehead width)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="196"/>
+        <source>With ‘number at rhythmic centre’ on and the number on the stem side, how far it moves from the centre of the middle notehead towards the stem.</source>
+        <translation type="unfinished">With ‘number at rhythmic centre’ on and the number on the stem side, how far it moves from the centre of the middle notehead towards the stem.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="204"/>
+        <source>Extended bracket: gap before next element</source>
+        <translation type="unfinished">Extended bracket: gap before next element</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="205"/>
+        <source>With ‘extend bracket to end of duration’ on, the minimum gap between the right end of the bracket and the following note, clef, barline or next tuplet bracket.</source>
+        <translation type="unfinished">With ‘extend bracket to end of duration’ on, the minimum gap between the right end of the bracket and the following note, clef, barline or next tuplet bracket.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="64"/>
+        <source>Justify staves vertically</source>
+        <translation type="unfinished">Justify staves vertically</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="65"/>
+        <source>Spreads the staves and systems over the height of the page.</source>
+        <translation type="unfinished">Spreads the staves and systems over the height of the page.</translation>
     </message>
 </context>
 <context>
@@ -37128,23 +41851,23 @@ failed: %2</translation>
         <translation type="unfinished">Saving online…</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2523"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2542"/>
         <source>File “%1” seems not corrupted</source>
         <translation type="unfinished">File “%1” seems not corrupted</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2524"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2543"/>
         <source>This file does not seem to contain errors.</source>
         <translation type="unfinished">This file does not seem to contain errors.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2527"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2546"/>
         <location filename="../../src/project/internal/projectactionscontroller.cpp" line="847"/>
         <source>File “%1” is corrupted</source>
         <translation type="unfinished">File “%1” is corrupted</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2529"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2548"/>
         <source>This file contains errors that could cause MuseScore Studio to malfunction. Please fix those at the earliest, to prevent crashes and further corruptions.</source>
         <translation type="unfinished">This file contains errors that could cause MuseScore Studio to malfunction. Please fix those at the earliest, to prevent crashes and further corruptions.</translation>
     </message>
@@ -39404,7 +44127,7 @@ The score will be saved as:
         <translation type="unfinished">Corrupt score</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/cmd.cpp" line="2876"/>
+        <location filename="../../src/engraving/dom/cmd.cpp" line="2877"/>
         <source>Reset all positions</source>
         <translation type="unfinished">Reset all positions</translation>
     </message>
@@ -39469,6 +44192,7 @@ The score will be saved as:
     </message>
     <message>
         <location filename="../../src/inspector/models/abstractinspectormodel.cpp" line="529"/>
+        <location filename="../../src/notation/view/engravingoptions/engravingoptionsmodel.cpp" line="147"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1316"/>
         <source>Edit style</source>
         <translation type="unfinished">Edit style</translation>
@@ -39490,13 +44214,13 @@ The score will be saved as:
     </message>
     <message>
         <location filename="../../src/inspector/models/general/generalsettingsmodel.cpp" line="166"/>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="507"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="513"/>
         <source>Make element(s) visible</source>
         <translation type="unfinished">Make element(s) visible</translation>
     </message>
     <message>
         <location filename="../../src/inspector/models/general/generalsettingsmodel.cpp" line="167"/>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="509"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="515"/>
         <source>Make element(s) invisible</source>
         <translation type="unfinished">Make element(s) invisible</translation>
     </message>
@@ -39674,32 +44398,32 @@ The score will be saved as:
         <translation type="unfinished">Remove system object layer below the bottom staff</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="485"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="491"/>
         <source>Toggle multimeasure rests</source>
         <translation type="unfinished">Toggle multimeasure rests</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="487"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="493"/>
         <source>Toggle empty staves</source>
         <translation type="unfinished">Toggle empty staves</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="490"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="496"/>
         <source>Mirror notehead</source>
         <translation type="unfinished">Mirror notehead</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="505"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="511"/>
         <source>Enter full-measure rest</source>
         <translation type="unfinished">Enter full-measure rest</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2274"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2293"/>
         <source>Display concert pitch</source>
         <translation type="unfinished">Display concert pitch</translation>
     </message>
     <message>
-        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2275"/>
+        <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="2294"/>
         <source>Display transposed</source>
         <translation type="unfinished">Display transposed</translation>
     </message>

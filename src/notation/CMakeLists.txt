@@ -203,6 +203,12 @@ set(MODULE_SRC
 
     ${CMAKE_CURRENT_LIST_DIR}/view/editgridsizedialogmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/editgridsizedialogmodel.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/engravingoptionsmodel.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/engravingoptionsmodel.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/engravingpreview.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/engravingpreview.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/engravingpreviewrenderer.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/engravingpreviewrenderer.h
     ${CMAKE_CURRENT_LIST_DIR}/view/engravemodemodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/engravemodemodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/linepreview.cpp

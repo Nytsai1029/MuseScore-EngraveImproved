@@ -31,6 +31,7 @@
 #include "actions/iactionsdispatcher.h"
 #include "ui/inavigationcontroller.h"
 #include "ui/iuiactionsregister.h"
+#include "ui/iuiconfiguration.h"
 #include "context/iglobalcontext.h"
 #include "context/iuicontextresolver.h"
 #include "playback/iplaybackcontroller.h"
@@ -45,6 +46,7 @@ class NotationActionController : public muse::actions::Actionable, public muse::
     INJECT(muse::actions::IActionsDispatcher, dispatcher)
     INJECT(muse::ui::INavigationController, navigationController)
     INJECT(muse::ui::IUiActionsRegister, actionRegister)
+    INJECT(muse::ui::IUiConfiguration, uiConfiguration)
     INJECT(context::IGlobalContext, globalContext)
     INJECT(context::IUiContextResolver, uiContextResolver)
     INJECT(muse::IInteractive, interactive)
@@ -149,6 +151,8 @@ private:
     void resetBeamMode();
 
     void openEditStyleDialog(const muse::actions::ActionData& args);
+    void openClassicStyleDialog(const muse::actions::ActionData& args);
+    void openStyleDialog(const std::string& uri, const muse::actions::ActionData& args);
     void openPageSettingsDialog();
     void openStaffProperties();
     void openEditStringsDialog();

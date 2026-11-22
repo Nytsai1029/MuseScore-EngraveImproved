@@ -58,6 +58,11 @@ static constexpr bool DONT_PLAY_CHORD = false;
 static const ActionCode UNDO_ACTION_CODE = "undo";
 static const ActionCode REDO_ACTION_CODE = "redo";
 
+static const SkinCode ATELIER_SKIN = "atelier";
+
+static const std::string STYLE_DIALOG_URI = "musescore://notation/style";
+static const std::string ENGRAVING_OPTIONS_DIALOG_URI = "musescore://notation/engravingoptions";
+
 static const QMap<ActionCode, Fraction> DURATIONS_FOR_TEXT_NAVIGATION {
     { "advance-longa", Fraction(4, 1) },
     { "advance-breve", Fraction(2, 1) },
@@ -316,6 +321,7 @@ void NotationActionController::init()
     registerAction("append-fretframe", [this]() { addBoxes(BoxType::Fret, 1, AddBoxesTarget::AtEndOfScore); });
 
     registerAction("edit-style", &Controller::openEditStyleDialog);
+    registerAction("edit-style-classic", &Controller::openClassicStyleDialog);
     registerAction("page-settings", &Controller::openPageSettingsDialog);
     registerAction("staff-properties", &Controller::openStaffProperties);
     registerAction("edit-strings", &Controller::openEditStringsDialog);
@@ -1865,9 +1871,22 @@ void NotationActionController::resetBeamMode()
     }
 }
 
+//! NOTE The style is edited in the Engraving Options dialog in the Atelier skin, and in the style dialog elsewhere.
+//! Both take the page to open (and the part of the page) by the codes of the pages of the style dialog
 void NotationActionController::openEditStyleDialog(const ActionData& args)
 {
-    UriQuery uri("musescore://notation/style");
+    const bool isAtelier = uiConfiguration()->currentSkin() == ATELIER_SKIN;
+    openStyleDialog(isAtelier ? ENGRAVING_OPTIONS_DIALOG_URI : STYLE_DIALOG_URI, args);
+}
+
+void NotationActionController::openClassicStyleDialog(const ActionData& args)
+{
+    openStyleDialog(STYLE_DIALOG_URI, args);
+}
+
+void NotationActionController::openStyleDialog(const std::string& dialogUri, const ActionData& args)
+{
+    UriQuery uri(dialogUri);
 
     if (args.count() > 0) {
         uri.addParam("currentPageCode", Val(args.arg<QString>(0)));

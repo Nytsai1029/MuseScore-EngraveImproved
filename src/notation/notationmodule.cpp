@@ -58,6 +58,8 @@
 
 #include "view/editgridsizedialogmodel.h"
 #include "view/engravemodemodel.h"
+#include "view/engravingoptions/engravingoptionsmodel.h"
+#include "view/engravingoptions/engravingpreview.h"
 #include "view/pagethumbnailview.h"
 #include "view/previewpagesmodel.h"
 #include "view/editpercussionshortcutmodel.h"
@@ -190,6 +192,7 @@ void NotationModule::resolveImports()
         ir->registerQmlUri(Uri("musescore://notation/parts"), "MuseScore/NotationScene/PartsDialog.qml");
         ir->registerQmlUri(Uri("musescore://notation/selectmeasurescount"), "MuseScore/NotationScene/SelectMeasuresCountDialog.qml");
         ir->registerQmlUri(Uri("musescore://notation/editgridsize"), "MuseScore/NotationScene/EditGridSizeDialog.qml");
+        ir->registerQmlUri(Uri("musescore://notation/engravingoptions"), "MuseScore/NotationScene/EngravingOptionsDialog.qml");
         ir->registerQmlUri(Uri("musescore://notation/percussionpanelpadswap"), "MuseScore/NotationScene/PercussionPanelPadSwapDialog.qml");
 
         ir->registerQmlUri(Uri("musescore://notation/editpercussionshortcut"), "MuseScore/NotationScene/EditPercussionShortcutDialog.qml");
@@ -222,6 +225,8 @@ void NotationModule::registerUiTypes()
     qmlRegisterType<NotesInChordSelectionFilterModel>("MuseScore.NotationScene", 1, 0, "NotesInChordSelectionFilterModel");
     qmlRegisterType<EditGridSizeDialogModel>("MuseScore.NotationScene", 1, 0, "EditGridSizeDialogModel");
     qmlRegisterType<EngraveModeModel>("MuseScore.NotationScene", 1, 0, "EngraveModeModel");
+    qmlRegisterType<EngravingOptionsModel>("MuseScore.NotationScene", 1, 0, "EngravingOptionsModel");
+    qmlRegisterType<EngravingPreview>("MuseScore.NotationScene", 1, 0, "EngravingPreview");
     qmlRegisterType<PageThumbnailView>("MuseScore.NotationScene", 1, 0, "PageThumbnailView");
     qmlRegisterType<PreviewPagesModel>("MuseScore.NotationScene", 1, 0, "PreviewPagesModel");
     qmlRegisterType<EditPercussionShortcutModel>("MuseScore.NotationScene", 1, 0, "EditPercussionShortcutModel");
