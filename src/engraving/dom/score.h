@@ -116,6 +116,7 @@ class InstrumentTemplate;
 class InputState;
 class KeyList;
 class KeySigEvent;
+class LayoutFingerprintCheck;
 class LinkedObjects;
 class Lyrics;
 class MasterScore;
@@ -906,6 +907,9 @@ public:
 
     void doLayout();
     void doLayoutRange(const Fraction& st, const Fraction& et);
+    //! Whether the layout is of the score as it is: the score has had a complete layout, and no update
+    //! of the layout has left it out since (a part that is not open is not laid out with the others)
+    bool isLayoutUpToDate() const { return m_layoutUpToDate; }
 
     SynthesizerState& synthesizerState() { return m_synthesizerState; }
     void setSynthesizerState(const SynthesizerState& s);
@@ -1111,6 +1115,7 @@ public:
 protected:
 
     friend class MasterScore;
+    friend class LayoutFingerprintCheck;
     Score(const muse::modularity::ContextPtr& iocCtx);
     Score(MasterScore*, bool forcePartStyle = true);
     Score(MasterScore*, const MStyle&);
@@ -1255,6 +1260,8 @@ private:
     int m_mscVersion = Constants::MSC_VERSION;     // version of current loading *.msc file
 
     bool m_isOpen = false;
+    bool m_layoutUpToDate = false;
+    bool m_layoutFingerprintCheckPending = false;   // see LayoutFingerprintCheck
     bool m_needSetUpTempoMap = true;
 
     std::map<String, String> m_metaTags;

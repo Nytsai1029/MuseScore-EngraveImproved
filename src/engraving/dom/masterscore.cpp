@@ -25,6 +25,8 @@
 
 #include "compat/writescorehook.h"
 
+#include "infrastructure/layoutfingerprint.h"
+
 #include "rw/mscloader.h"
 #include "rw/xmlreader.h"
 #include "rw/rwregister.h"
@@ -64,6 +66,7 @@ MasterScore::MasterScore(const muse::modularity::ContextPtr& iocCtx, std::weak_p
     m_sigmap      = new TimeSigMap();
     m_expandedRepeatList  = new RepeatList(this);
     m_nonExpandedRepeatList = new RepeatList(this);
+    m_layoutFingerprintCheck = std::make_unique<LayoutFingerprintCheck>(iocCtx);
     setMasterScore(this);
 
 #if defined(Q_OS_WIN)
@@ -106,6 +109,16 @@ MasterScore::~MasterScore()
     delete m_tempomap;
     delete m_undoStack;
     muse::DeleteAll(m_excerpts);
+}
+
+const LayoutFingerprintReport& MasterScore::layoutFingerprintReport() const
+{
+    return m_layoutFingerprintCheck->report();
+}
+
+muse::async::Notification MasterScore::layoutFingerprintReportChanged() const
+{
+    return m_layoutFingerprintCheck->reportChanged();
 }
 
 //---------------------------------------------------------

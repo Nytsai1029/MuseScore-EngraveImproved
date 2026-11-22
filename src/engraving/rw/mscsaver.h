@@ -23,6 +23,7 @@
 #pragma once
 
 #include "global/modularity/ioc.h"
+#include "global/iapplication.h"
 #include "draw/iimageprovider.h"
 
 #include "../infrastructure/mscwriter.h"
@@ -37,6 +38,7 @@ class Score;
 class MscSaver : public muse::Injectable
 {
     muse::Inject<muse::draw::IImageProvider> imageProvider = { this };
+    muse::Inject<muse::IApplication> application = { this };
 public:
     MscSaver(const muse::modularity::ContextPtr& iocCtx)
         : muse::Injectable(iocCtx) {}

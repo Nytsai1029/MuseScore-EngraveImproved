@@ -35,6 +35,7 @@
 #include "style/style.h"
 #include "style/defaultstyle.h"
 #include "compat/dummyelement.h"
+#include "infrastructure/layoutfingerprint.h"
 
 #include "iengravingfont.h"
 #include "types/translatablestring.h"
@@ -6097,6 +6098,15 @@ void Score::doLayoutRange(const Fraction& st, const Fraction& et)
     if (m_resetCrossBeams) {
         m_resetCrossBeams = false;
         resetCrossBeams();
+    }
+
+    // What ScoreLayout::layoutRange takes for a layout of everything
+    const MeasureBase* lastMeasure = masterScore()->last();
+    if (start <= Fraction(0, 1) && (end < Fraction(0, 1) || !lastMeasure || end >= lastMeasure->endTick())) {
+        m_layoutUpToDate = true;
+        if (m_layoutFingerprintCheckPending) {
+            masterScore()->layoutFingerprintCheck()->scoreLaidOut(this);
+        }
     }
 }
 

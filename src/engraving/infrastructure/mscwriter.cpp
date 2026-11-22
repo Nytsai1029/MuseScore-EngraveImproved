@@ -203,6 +203,11 @@ void MscWriter::writeViewSettingsJsonFile(const ByteArray& data, const muse::io:
     addFileData(pathPrefix.toString() + u"viewsettings.json", data);
 }
 
+void MscWriter::writeLayoutFingerprintFile(const ByteArray& data)
+{
+    addFileData(u"layoutfingerprint.json", data);
+}
+
 void MscWriter::writeMeta()
 {
     if (m_meta.isWritten) {

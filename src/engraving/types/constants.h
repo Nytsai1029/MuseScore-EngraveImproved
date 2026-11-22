@@ -112,6 +112,8 @@ struct Constants
 
 // History of the fork's format:
 //    1  - The marker itself. Everything the fork added to the file before it has no version.
+//       - The layout fingerprint (layoutfingerprint.json inside msdz) came with it, but is a file of its own
+//         with a format number of its own: see LayoutFingerprintFile
 
     constexpr static int DIVISION = 480;
     constexpr static BeatsPerSecond DEFAULT_TEMPO = 2.0; //default tempo is equal 120 bpm

@@ -243,6 +243,15 @@ ByteArray MscReader::readViewSettingsJsonFile(const muse::io::path_t& pathPrefix
     return fileData(pathPrefix.toString() + u"viewsettings.json");
 }
 
+ByteArray MscReader::readLayoutFingerprintFile() const
+{
+    // Not next to a score file that stands alone in its directory: that is not its fingerprint
+    if (!reader()->isContainer() || !fileExists(u"layoutfingerprint.json")) {
+        return ByteArray();
+    }
+    return fileData(u"layoutfingerprint.json");
+}
+
 // =======================================================================
 // Readers
 // =======================================================================

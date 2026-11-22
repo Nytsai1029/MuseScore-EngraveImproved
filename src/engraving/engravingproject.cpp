@@ -23,6 +23,7 @@
 
 #include "global/allocator.h"
 
+#include "infrastructure/layoutfingerprint.h"
 #include "style/defaultstyle.h"
 #include "rw/mscloader.h"
 #include "rw/mscsaver.h"
@@ -134,6 +135,10 @@ Ret EngravingProject::doSetupMasterScore(bool forceMode)
 
     m_masterScore->updateChannel();
     m_masterScore->update();
+
+    // The scores now have the layout of what was loaded, or get it with the first update that is not locked
+    // out: compare it with the layout the file was saved with
+    m_masterScore->layoutFingerprintCheck()->start(m_masterScore);
 
     Ret ret = checkCorrupted();
     m_isCorruptedUponLoading = !ret;

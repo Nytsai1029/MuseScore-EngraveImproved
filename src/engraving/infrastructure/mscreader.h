@@ -71,6 +71,8 @@ public:
     muse::ByteArray readAudioFile() const;
     muse::ByteArray readAudioSettingsJsonFile(const muse::io::path_t& pathPrefix = "") const;
     muse::ByteArray readViewSettingsJsonFile(const muse::io::path_t& pathPrefix = "") const;
+    //! Empty when the file has none: an official file, an older one, one saved in another view than page view
+    muse::ByteArray readLayoutFingerprintFile() const;
 
 private:
 

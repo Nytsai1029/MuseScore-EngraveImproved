@@ -21,12 +21,17 @@
  */
 #include "mscsaver.h"
 
+#include <utility>
+#include <vector>
+
 #include "global/io/buffer.h"
 
 #include "dom/masterscore.h"
 #include "dom/excerpt.h"
 #include "dom/imageStore.h"
 #include "dom/audio.h"
+
+#include "infrastructure/layoutfingerprint.h"
 
 #include "rwregister.h"
 #include "inoutdata.h"
@@ -46,6 +51,22 @@ bool MscSaver::writeMscz(MasterScore* score, MscWriter& mscWriter, bool createTh
 
     IF_ASSERT_FAILED(mscWriter.isOpened()) {
         return false;
+    }
+
+    // The layout as it stands, of the scores that have one to speak of (page view, laid out as they are
+    // now). Taken before anything is written: writing a score can lay it out anew, with hidden instruments
+    // shown (Writer::write). Not for official MuseScore Studio, nor for a part of the score.
+    std::vector<std::pair<Score*, LayoutFingerprint> > layoutFingerprints;
+    if (!range && !score->officialCompat()) {
+        if (LayoutFingerprint::isAvailableFor(score)) {
+            layoutFingerprints.emplace_back(score, LayoutFingerprint::of(score));
+        }
+        for (const Excerpt* excerpt : score->excerpts()) {
+            Score* partScore = excerpt->excerptScore();
+            if (partScore && partScore != score && LayoutFingerprint::isAvailableFor(partScore)) {
+                layoutFingerprints.emplace_back(partScore, LayoutFingerprint::of(partScore));
+            }
+        }
     }
 
     // Write style of MasterScore
@@ -113,6 +134,23 @@ bool MscSaver::writeMscz(MasterScore* score, MscWriter& mscWriter, bool createTh
                     mscWriter.addExcerptFile(excerpt->fileName(), excerptData);
                 }
             }
+        }
+    }
+
+    // Write layout fingerprint
+    {
+        LayoutFingerprintFile file;
+        for (auto& fingerprint : layoutFingerprints) {
+            // Under the name the part was just written with
+            Excerpt* excerpt = fingerprint.first->isMaster() ? nullptr : fingerprint.first->excerpt();
+            if (fingerprint.first->isMaster() || (excerpt && !excerpt->fileName().empty())) {
+                file.scores.push_back({ excerpt ? excerpt->fileName() : String(), std::move(fingerprint.second) });
+            }
+        }
+        if (!file.scores.empty()) {
+            file.programVersion = application()->version().toString();
+            file.programRevision = application()->revision();
+            mscWriter.writeLayoutFingerprintFile(file.toJson());
         }
     }
 

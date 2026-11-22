@@ -36,6 +36,8 @@
 #include "../dom/excerpt.h"
 #include "../dom/imageStore.h"
 
+#include "../infrastructure/layoutfingerprint.h"
+
 #include "compat/compatutils.h"
 #include "compat/readstyle.h"
 
@@ -216,6 +218,11 @@ Ret MscLoader::loadMscz(MasterScore* masterScore, const MscReader& mscReader, Se
     // Compatibility conversions
     // NOTE: must be done after all score and parts have been read
     compat::CompatUtils::doCompatibilityConversions(masterScore);
+
+    // Read layout fingerprint: what the layout after loading is compared with, see EngravingProject::setupMasterScore
+    {
+        masterScore->layoutFingerprintCheck()->setSaved(ret ? mscReader.readLayoutFingerprintFile() : ByteArray());
+    }
 
     //  Read audio
     {

@@ -67,6 +67,8 @@ public:
     void writeAudioFile(const muse::ByteArray& data);
     void writeAudioSettingsJsonFile(const muse::ByteArray& data, const muse::io::path_t& pathPrefix = "");
     void writeViewSettingsJsonFile(const muse::ByteArray& data, const muse::io::path_t& pathPrefix = "");
+    //! See LayoutFingerprintFile. One for the master score and the parts.
+    void writeLayoutFingerprintFile(const muse::ByteArray& data);
 
 private:
 

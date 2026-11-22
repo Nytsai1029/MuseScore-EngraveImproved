@@ -23,7 +23,10 @@
 #define MU_ENGRAVING_MASTERSCORE_H
 
 #include <array>
+#include <memory>
 #include <unordered_map>
+
+#include "global/async/notification.h"
 
 #include "../infrastructure/ifileinfoprovider.h"
 #include "../infrastructure/eidregister.h"
@@ -33,6 +36,8 @@
 
 namespace mu::engraving {
 class EngravingProject;
+class LayoutFingerprintCheck;
+struct LayoutFingerprintReport;
 class MscReader;
 class MscWriter;
 class MscLoader;
@@ -119,6 +124,13 @@ public:
     //! older than the marker), or the score did not come from a file.
     int forkFormatVersion() const { return m_forkFormatVersion; }
     void setForkFormatVersion(int v) { m_forkFormatVersion = v; }
+    //! How the layout the scores got after loading compares with the layout the file was saved with: see
+    //! LayoutFingerprintCheck in infrastructure/layoutfingerprint.h. The report of a score is there once
+    //! the score has had its first complete layout, a part that is not open once it is opened;
+    //! layoutFingerprintReportChanged tells each time. Nothing is compared for a score that was not loaded.
+    const LayoutFingerprintReport& layoutFingerprintReport() const;
+    muse::async::Notification layoutFingerprintReportChanged() const;
+    LayoutFingerprintCheck* layoutFingerprintCheck() const { return m_layoutFingerprintCheck.get(); }
     //! Of the score being laid out, master or part. Not owned.
     const SegmentPins* segmentPins() const { return m_segmentPins; }
     void setSegmentPins(const SegmentPins* pins) { m_segmentPins = pins; }
@@ -257,6 +269,7 @@ private:
     bool m_readOnly = false;
     bool m_officialCompat = false;
     int m_forkFormatVersion = 0;
+    std::unique_ptr<LayoutFingerprintCheck> m_layoutFingerprintCheck;
     const SegmentPins* m_segmentPins = nullptr;
 
     CmdState m_cmdState;       // modified during cmd processing

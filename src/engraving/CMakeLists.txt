@@ -73,6 +73,8 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/infrastructure/mscreader.h
     ${CMAKE_CURRENT_LIST_DIR}/infrastructure/mscwriter.cpp
     ${CMAKE_CURRENT_LIST_DIR}/infrastructure/mscwriter.h
+    ${CMAKE_CURRENT_LIST_DIR}/infrastructure/layoutfingerprint.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/infrastructure/layoutfingerprint.h
     ${CMAKE_CURRENT_LIST_DIR}/infrastructure/htmlparser.cpp
     ${CMAKE_CURRENT_LIST_DIR}/infrastructure/htmlparser.h
     ${CMAKE_CURRENT_LIST_DIR}/infrastructure/ifileinfoprovider.h
