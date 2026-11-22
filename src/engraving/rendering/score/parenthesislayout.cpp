@@ -201,6 +201,7 @@ double ParenthesisLayout::computeInternalParenthesisPadding(const EngravingItem*
     bool parenFirst = item1->isParenthesis();
     const EngravingItem* other = item1->isParenthesis() ? item2 : item1;
     const double spatium = item1->spatium();
+    const MStyle& style = item1->style();
     double padding = 0.0;
 
     switch (other->type()) {
@@ -208,37 +209,44 @@ double ParenthesisLayout::computeInternalParenthesisPadding(const EngravingItem*
         if (item1->staffType() && item1->staffType()->isTabStaff()) {
             padding = item1->style().styleS(Sid::tabFretPadding).val() * spatium;
         } else {
-            padding = 0.3 * spatium;
+            padding = style.styleS(Sid::parenthesisNotePadding).val() * spatium;
         }
         break;
     case ElementType::ARTICULATION:
+        padding = style.styleS(Sid::parenthesisArticulationPadding).val() * spatium;
+        break;
     case ElementType::ACCIDENTAL:
+        padding = style.styleS(Sid::parenthesisAccidentalPadding).val() * spatium;
+        break;
     case ElementType::STEM:
-        padding = 0.3 * spatium;
+        padding = style.styleS(Sid::parenthesisStemPadding).val() * spatium;
         break;
     case ElementType::NOTEDOT:
-        padding = 0.15 * spatium;
+        padding = style.styleS(Sid::parenthesisDotPadding).val() * spatium;
         break;
     case ElementType::LEDGER_LINE:
-        padding = 0.3 * spatium;
+        padding = style.styleS(Sid::parenthesisLedgerLinePadding).val() * spatium;
         break;
     case ElementType::HOOK:
-        padding = 0.3 * spatium;
+        padding = style.styleS(Sid::parenthesisStemPadding).val() * spatium;
         break;
     case ElementType::KEYSIG:
-        padding = (parenFirst ? 0.35 : 0.25) * spatium;
+        padding = (parenFirst ? style.styleS(Sid::parenthesisKeySigPaddingLeft).val()
+                   : style.styleS(Sid::parenthesisKeySigPaddingRight).val()) * spatium;
         break;
     case ElementType::TIMESIG:
-        padding = (parenFirst ? 0.2 : 0.25) * spatium;
+        padding = (parenFirst ? style.styleS(Sid::parenthesisTimeSigPaddingLeft).val()
+                   : style.styleS(Sid::parenthesisTimeSigPaddingRight).val()) * spatium;
         break;
     case ElementType::CLEF:
-        padding = (parenFirst ? 0.2 : 0.25) * spatium;
+        padding = (parenFirst ? style.styleS(Sid::parenthesisClefPaddingLeft).val()
+                   : style.styleS(Sid::parenthesisClefPaddingRight).val()) * spatium;
         break;
     case ElementType::HARMONY:
-        padding = 0.2 * spatium;
+        padding = style.styleS(Sid::parenthesisChordSymbolPadding).val() * spatium;
         break;
     default:
-        padding = 0.1 * spatium;
+        padding = style.styleS(Sid::parenthesisDefaultPadding).val() * spatium;
         break;
     }
 
@@ -250,6 +258,7 @@ double ParenthesisLayout::computeInternalParenthesisPadding(const EngravingItem*
 void ParenthesisLayout::createPathAndShape(Parenthesis* item, Parenthesis::LayoutData* ldata)
 {
     const double spatium = item->spatium();
+    const MStyle& style = item->style();
     const bool leftBracket = item->direction() == DirectionH::LEFT;
 
     // user adjustments to the two ends of the parenthesis
@@ -258,11 +267,11 @@ void ParenthesisLayout::createPathAndShape(Parenthesis* item, Parenthesis::Layou
     const double height = std::max(ldata->height + (item->userEndYOffset() - item->userStartYOffset()) * spatium, minHeight);
     const double xPos = ldata->pos().x();
     const double mag = ldata->mag();
-    const double maxMidPointThickness = 0.2 * spatium;
+    const double maxMidPointThickness = style.styleS(Sid::parenthesisMaxMidThickness).val() * spatium;
     const double midPointThickness = std::min(ldata->midPointThickness.value(), maxMidPointThickness);
 
     const double heightInSpatium = height / spatium;
-    const double shoulderYOffset = 0.2 * height;
+    const double shoulderYOffset = style.styleD(Sid::parenthesisShoulderHeightRatio) * height;
 
     if (std::isinf(height)) {
         LOGE() << "Error: parenthesis height is infinite";
@@ -270,10 +279,11 @@ void ParenthesisLayout::createPathAndShape(Parenthesis* item, Parenthesis::Layou
     }
 
     // Control width of parentheses. We don't want tall parens to be too wide, nor do we want parens at a small scale to lose their curve too much
-    double shoulderX = !muse::RealIsNull(ldata->shoulderWidth()) ? ldata->shoulderWidth() : 0.2
+    double shoulderX = !muse::RealIsNull(ldata->shoulderWidth()) ? ldata->shoulderWidth()
+                       : style.styleD(Sid::parenthesisShoulderWidthFactor)
                        * std::pow(height, 0.95) * std::pow(mag, 0.1);
 
-    const double minShoulderX = 0.25 * spatium;
+    const double minShoulderX = style.styleS(Sid::parenthesisMinShoulderWidth).val() * spatium;
     shoulderX = std::max(shoulderX, minShoulderX);
 
     PointF start = PointF(xPos, startY);
@@ -413,6 +423,7 @@ void ParenthesisLayout::setNoteValues(Parenthesis* item, Parenthesis::LayoutData
     Note* note = toNote(item->parentItem());
 
     const StaffType* st = note->staffType();
+    const MStyle& style = item->style();
 
     ldata->setMag(note->mag());
     Shape noteShape = note->shape();
@@ -424,12 +435,14 @@ void ParenthesisLayout::setNoteValues(Parenthesis* item, Parenthesis::LayoutData
         ldata->startY = noteShape.top();
         ldata->height = noteShape.bbox().height();
         ldata->midPointThickness.set_value(ldata->height / 20 * ldata->mag());
-        ldata->endPointThickness.set_value(0.05);
+        ldata->endPointThickness.set_value(style.styleS(Sid::parenthesisNoteEndThickness).val());
     } else {
-        ldata->startY = noteShape.top() - 0.25 * item->spatium();
-        ldata->height = noteShape.bbox().height() + 0.5 * item->spatium();
-        ldata->midPointThickness.set_value(ldata->height / 30 * ldata->mag());
-        ldata->endPointThickness.set_value(0.05);
+        const double extension = style.styleS(Sid::parenthesisNoteExtension).val();
+        ldata->startY = noteShape.top() - extension * item->spatium();
+        ldata->height = noteShape.bbox().height() + 2 * extension * item->spatium();
+        ldata->midPointThickness.set_value(ldata->height / style.styleD(Sid::parenthesisNoteHeightToThicknessRatio)
+                                           * ldata->mag());
+        ldata->endPointThickness.set_value(style.styleS(Sid::parenthesisNoteEndThickness).val());
     }
 }
 
@@ -438,6 +451,7 @@ void ParenthesisLayout::setChordValues(Parenthesis* item, Parenthesis::LayoutDat
     // Parentheses around a whole chord span from the top to the bottom notehead
     // and sit outside the noteheads (and their accidentals) on either side
     const double spatium = item->spatium();
+    const MStyle& style = item->style();
     Chord* chord = toChord(item->parentItem());
 
     RectF box;
@@ -458,13 +472,15 @@ void ParenthesisLayout::setChordValues(Parenthesis* item, Parenthesis::LayoutDat
         return;
     }
 
+    const double extension = style.styleS(Sid::parenthesisChordExtension).val();
     ldata->setMag(chord->mag());
-    ldata->startY = box.top() - 0.25 * spatium;
-    ldata->height = box.height() + 0.5 * spatium;
-    ldata->midPointThickness.set_value(ldata->height / 60 * ldata->mag());
-    ldata->endPointThickness.set_value(0.05);
+    ldata->startY = box.top() - extension * spatium;
+    ldata->height = box.height() + 2 * extension * spatium;
+    ldata->midPointThickness.set_value(ldata->height / style.styleD(Sid::parenthesisChordHeightToThicknessRatio)
+                                       * ldata->mag());
+    ldata->endPointThickness.set_value(style.styleS(Sid::parenthesisNoteEndThickness).val());
 
-    const double padding = 0.2 * spatium;
+    const double padding = style.styleS(Sid::parenthesisChordPadding).val() * spatium;
     const bool leftBracket = item->direction() == DirectionH::LEFT;
     double x = leftBracket ? box.left() - padding : box.right() + padding;
 
@@ -480,11 +496,12 @@ void ParenthesisLayout::setChordValues(Parenthesis* item, Parenthesis::LayoutDat
 void ParenthesisLayout::setHarmonyValues(Parenthesis* item, Parenthesis::LayoutData* ldata)
 {
     const double spatium = item->spatium();
+    const MStyle& style = item->style();
     Harmony* parent = toHarmony(item->parentItem());
     RectF bbox = parent->ldata()->bbox();
 
-    double endPointThickness = 0.03;
-    double extension = 0.1 * spatium * (parent->size() / 10.0);
+    double endPointThickness = style.styleS(Sid::parenthesisChordSymbolEndThickness).val();
+    double extension = style.styleS(Sid::parenthesisChordSymbolExtension).val() * spatium * (parent->size() / 10.0);
     double bottom = parent->baseLine() + extension;
 
     double defaultCapHeight = muse::draw::FontMetrics::capHeight(parent->font());
@@ -512,14 +529,15 @@ void ParenthesisLayout::setHarmonyValues(Parenthesis* item, Parenthesis::LayoutD
     ldata->setMag(parent->mag());
     ldata->startY = top;
     ldata->height = height;
-    static constexpr double HEIGHT_TO_WIDTH_RATIO = 20;
+    const double HEIGHT_TO_WIDTH_RATIO = style.styleD(Sid::parenthesisChordSymbolHeightToThicknessRatio);
     ldata->midPointThickness.set_value(ldata->height / HEIGHT_TO_WIDTH_RATIO * ldata->mag() * 1 / std::sqrt(scale));
     ldata->endPointThickness.set_value(endPointThickness);
 
-    double shoulder = 0.2 * ldata->height * std::pow(ldata->mag(), 0.1) * 1 / std::sqrt(scale);
+    double shoulder = style.styleD(Sid::parenthesisChordSymbolShoulderWidthFactor) * ldata->height
+                      * std::pow(ldata->mag(), 0.1) * 1 / std::sqrt(scale);
     ldata->shoulderWidth = shoulder;
 
-    const double PADDING = spatium * 0.2;
+    const double PADDING = spatium * style.styleS(Sid::parenthesisChordSymbolPadding).val();
     ldata->setPosX(item->direction() == DirectionH::RIGHT ? bbox.right() + PADDING : bbox.left() - PADDING);
 }
 

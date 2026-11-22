@@ -832,12 +832,12 @@ void TLayout::layoutArpeggio(const Arpeggio* item, Arpeggio::LayoutData* ldata, 
             }
             int downNoteLine = item->chord()->downNote()->line();
             if (downNoteLine % 2 == 1 && downNoteLine < bottomLine) {
-                return top - 0.4 * item->spatium();
+                return top - conf.styleS(Sid::arpeggioTopExtensionBothInSpaces).val() * item->spatium();
             }
-            return top - 0.25 * item->spatium();
+            return top - conf.styleS(Sid::arpeggioTopExtensionInSpace).val() * item->spatium();
         }
         default: {
-            return top - item->spatium() / 4;
+            return top - conf.styleS(Sid::arpeggioStraightExtension).val() * item->spatium();
         }
         }
     };
@@ -858,7 +858,7 @@ void TLayout::layoutArpeggio(const Arpeggio* item, Arpeggio::LayoutData* ldata, 
             return bottom;
         }
         default: {
-            return bottom - top + item->spatium() / 2;
+            return bottom - top + 2 * conf.styleS(Sid::arpeggioStraightExtension).val() * item->spatium();
         }
         }
     };
@@ -1838,11 +1838,11 @@ void TLayout::layoutBreath(const Breath* item, Breath::LayoutData* ldata, const 
 
     int voiceOffset = item->placeBelow() * (item->staff()->lines(item->tick()) - 1) * item->spatium();
     if (item->isCaesura()) {
-        ldata->setPosY(item->spatium() + voiceOffset);
+        ldata->setPosY(conf.styleS(Sid::caesuraYOffset).val() * item->spatium() + voiceOffset);
     } else if ((conf.styleSt(Sid::musicalSymbolFont) == "Emmentaler") && (item->symId() == SymId::breathMarkComma)) {
         ldata->setPosY(0.5 * item->spatium() + voiceOffset);
     } else {
-        ldata->setPosY(-0.5 * item->spatium() + voiceOffset);
+        ldata->setPosY(conf.styleS(Sid::breathMarkYOffset).val() * item->spatium() + voiceOffset);
     }
 
     ldata->setBbox(item->symBbox(item->symId()));
@@ -2505,7 +2505,10 @@ static void layoutLines(const FiguredBass* item, FiguredBass::LayoutData* ldata,
 
     // get length of printed lines from horiz. page position of lastCR
     // (enter a bit 'into' the ChordRest for clarity)
-    double printedLineLength = lastCR ? lastCR->pageX() - item->pageX() + 1.5 * item->spatium() : 3 * item->spatium();
+    double printedLineLength = lastCR
+                               ? lastCR->pageX() - item->pageX()
+                               + ctx.conf().styleS(Sid::figuredBassContLineExtension).val() * item->spatium()
+                               : 3 * item->spatium();
     ldata->printedLineLength = printedLineLength;
 
     // get duration indicator line(s) from page position of nextSegm
@@ -2629,6 +2632,9 @@ void TLayout::layoutFingering(const Fingering* item, Fingering::LayoutData* ldat
             const Measure* measure = segment->measure();
             double sp = item->spatium();
             double md = item->minDistance().val() * sp;
+            const double voicesXOffset = item->style().styleS(Sid::fingeringVoicesXOffset).val();
+            const double voicesYOffset = item->style().styleS(Sid::fingeringVoicesYOffset).val();
+            const double skylineExtraHeightRatio = item->style().styleD(Sid::fingeringSkylineExtraHeightRatio);
             const SysStaff* ss = measure->system()->staff(chord->vStaffIdx());
             const Staff* vStaff = chord->staff();           // TODO: use current height at tick
 
@@ -2655,9 +2661,9 @@ void TLayout::layoutFingering(const Fingering* item, Fingering::LayoutData* ldat
             if (above) {
                 if (tight) {
                     if (chord->stem()) {
-                        ldata->moveX(-0.8 * sp);
+                        ldata->moveX(-voicesXOffset * sp);
                     }
-                    ldata->moveY(-1.5 * sp);
+                    ldata->moveY(-voicesYOffset * sp);
                 } else {
                     RectF r = ldata->bbox().translated(measure->pos() + segment->pos() + chord->pos() + note->pos() + item->pos());
                     SkylineLine sk(false);
@@ -2665,7 +2671,7 @@ void TLayout::layoutFingering(const Fingering* item, Fingering::LayoutData* ldat
                     double d = sk.minDistance(ss->skyline().north());
                     double yd = 0.0;
                     if (d > 0.0 && item->isStyled(Pid::MIN_DISTANCE)) {
-                        yd -= d + item->ldata()->bbox().height() * .25;
+                        yd -= d + item->ldata()->bbox().height() * skylineExtraHeightRatio;
                     }
                     // force extra space above staff & chord (but not other fingerings)
                     double top = 0.0;
@@ -2691,9 +2697,9 @@ void TLayout::layoutFingering(const Fingering* item, Fingering::LayoutData* ldat
             } else {
                 if (tight) {
                     if (chord->stem()) {
-                        ldata->moveX(0.8 * sp);
+                        ldata->moveX(voicesXOffset * sp);
                     }
-                    ldata->moveY(1.5 * sp);
+                    ldata->moveY(voicesYOffset * sp);
                 } else {
                     RectF r = ldata->bbox().translated(measure->pos() + segment->pos() + chord->pos() + note->pos() + item->pos());
                     SkylineLine sk(true);
@@ -2701,7 +2707,7 @@ void TLayout::layoutFingering(const Fingering* item, Fingering::LayoutData* ldat
                     double d = ss->skyline().south().minDistance(sk);
                     double yd = 0.0;
                     if (d > 0.0 && item->isStyled(Pid::MIN_DISTANCE)) {
-                        yd += d + item->ldata()->bbox().height() * .25;
+                        yd += d + item->ldata()->bbox().height() * skylineExtraHeightRatio;
                     }
                     // force extra space below staff & chord (but not other fingerings)
                     double bottom;
@@ -2749,14 +2755,15 @@ void TLayout::layoutFretDiagram(const FretDiagram* item, FretDiagram::LayoutData
 {
     LAYOUT_CALL_ITEM(item);
     double spatium  = item->spatium() * item->userMag();
-    ldata->stringLineWidth = spatium * 0.08;
+    ldata->stringLineWidth = spatium * ctx.conf().styleS(Sid::fretLineThickness).val();
     ldata->nutLineWidth = ((item->fretOffset() || !item->showNut()) ? ldata->stringLineWidth
                            : ctx.conf().styleMM(Sid::fretNutThickness) * item->userMag());
     ldata->nutY = -0.5 * (ldata->nutLineWidth - ldata->stringLineWidth);
     ldata->stringDist = ctx.conf().styleMM(Sid::fretStringSpacing) * item->userMag();
     ldata->fretDist = ctx.conf().styleMM(Sid::fretFretSpacing) * item->userMag();
-    ldata->markerSize = ldata->stringDist * .8;
-    ldata->markerY = ldata->nutY - 0.5 * ldata->nutLineWidth - ldata->markerSize - 0.20 * spatium;
+    ldata->markerSize = ldata->stringDist * ctx.conf().styleD(Sid::fretMarkerSizeRatio);
+    ldata->markerY = ldata->nutY - 0.5 * ldata->nutLineWidth - ldata->markerSize
+                     - ctx.conf().styleS(Sid::fretMarkerNutDistance).val() * spatium;
     bool extendedStyle = item->style().styleB(Sid::fretStyleExtended);
     ldata->stringExtendTop = item->fretOffset() && extendedStyle ? -spatium * .2 : 0.0;
     ldata->stringExtendBottom = extendedStyle ? 0.5 * ldata->fretDist : 0.0;
@@ -2773,7 +2780,7 @@ void TLayout::layoutFretDiagram(const FretDiagram* item, FretDiagram::LayoutData
 
     // Allocate space for fret offset number
     if (item->fretOffset() > 0) {
-        double padding = 0.4 * ldata->stringDist;
+        double padding = ctx.conf().styleD(Sid::fretNumPadding) * ldata->stringDist;
         for (auto i : item->barres()) {
             FretItem::Barre barre = i.second;
             if (!barre.exists()) {
@@ -2816,7 +2823,7 @@ void TLayout::layoutFretDiagram(const FretDiagram* item, FretDiagram::LayoutData
 
     ldata->fingeringItems.clear();
     if (item->showFingering()) {
-        const double padding = 0.2 * spatium;
+        const double padding = ctx.conf().styleS(Sid::fretDiagramFingeringDistance).val() * spatium;
         Font fingeringFont = item->fingeringFont();
         FontMetrics fontMetrics(fingeringFont);
         double fontHeight = fontMetrics.capHeight();
@@ -3829,7 +3836,8 @@ void TLayout::layoutJump(const Jump* item, Jump::LayoutData* ldata)
         staff_idx_t blIdx = item->staffIdx() - 1;
 
         const double fontSizeScaleFactor = item->size() / 10.0;
-        double padding = (startRepeat || endRepeat) ? 0.0 : 0.5 * item->spatium() * fontSizeScaleFactor;
+        const double barlinePadding = item->style().styleS(Sid::repeatTextBarlinePadding).val();
+        double padding = (startRepeat || endRepeat) ? 0.0 : barlinePadding * item->spatium() * fontSizeScaleFactor;
         double xAdj = 0.0;
 
         if (align == AlignH::LEFT) {
@@ -4787,8 +4795,8 @@ void TLayout::layoutOrnament(const Ornament* item, Ornament::LayoutData* ldata, 
     layoutArticulation(const_cast<Ornament*>(item), ldata);
 
     double _spatium = item->spatium();
-    double vertMargin = 0.35 * _spatium;
-    static constexpr double ornamentAccidentalMag = 0.6; // TODO: style?
+    double vertMargin = conf.styleS(Sid::ornamentAccidentalDistance).val() * _spatium;
+    const double ornamentAccidentalMag = conf.styleD(Sid::ornamentAccidentalMag);
 
     for (size_t i = 0; i < item->accidentalsAboveAndBelow().size(); ++i) {
         bool above = (i == 0);
@@ -5126,7 +5134,7 @@ void TLayout::checkRehearsalMarkVSBigTimeSig(const RehearsalMark* item, TextBase
                               + bigTimeSig->segment()->x() - s->x();
     double rehMarkLeftEdge = ldata->bbox().translated(item->ldata()->pos()).left();
     double distance = rehMarkLeftEdge - timeSigRightEdge;
-    const double margin = 0.5 * item->fontMetrics().xHeight();
+    const double margin = item->style().styleD(Sid::rehearsalMarkTimeSigMargin) * item->fontMetrics().xHeight();
     if (distance < margin) {
         ldata->moveX(margin - distance);
     }
@@ -6218,7 +6226,10 @@ void TLayout::layoutTempoText(const TempoText* item, TempoText::LayoutData* ldat
             ldata->moveX(-(s->x() - p->x()));
             EngravingItem* e = p->element(item->staffIdx() * VOICES);
             if (e) {
-                ldata->moveX(p->hasTimeSigAboveStaves() ? e->x() + e->width() + e->spatium() : e->x());
+                ldata->moveX(p->hasTimeSigAboveStaves()
+                             ? e->x() + e->width()
+                             + item->style().styleS(Sid::tempoTimeSigAboveStavesDistance).val() * e->spatium()
+                             : e->x());
             }
         }
     }
@@ -6232,7 +6243,8 @@ void TLayout::layoutTempoText(const TempoText* item, TempoText::LayoutData* ldat
         if (sameSide && collision && item->getProperty(Pid::TEMPO_ALIGN_RIGHT_OF_REHEARSAL_MARK).toBool()) {
             double rightEdge = rehearsalMarkBbox.right();
             const double fontSizeScaleFactor = item->size() / 10.0;
-            const double padding = 0.5 * item->spatium() * fontSizeScaleFactor;
+            const double padding = item->style().styleS(Sid::tempoRehearsalMarkPadding).val() * item->spatium()
+                                   * fontSizeScaleFactor;
             double curX = ldata->pos().x();
             ldata->setPosX(std::max(curX, rightEdge + padding));
         }

@@ -1231,16 +1231,18 @@ void TDraw::draw(const FiguredBassItem* item, Painter* painter)
 
     painter->setFont(f);
     painter->setBrush(BrushStyle::NoBrush);
-    Pen pen(item->figuredBass()->curColor(), FiguredBass::FB_CONTLINE_THICKNESS * _spatium, PenStyle::SolidLine, PenCapStyle::RoundCap);
+    Pen pen(item->figuredBass()->curColor(), item->style().styleS(Sid::figuredBassContLineThickness).val() * _spatium,
+            PenStyle::SolidLine, PenCapStyle::RoundCap);
     painter->setPen(pen);
     painter->drawText(ldata->bbox(), muse::draw::TextDontClip | muse::draw::AlignLeft | muse::draw::AlignTop, ldata->displayText);
 
     // continuation line
     double lineEndX = 0.0;
     if (item->contLine() != FiguredBassItem::ContLine::NONE) {
+        const double contLineLeftPadding = item->style().styleS(Sid::figuredBassContLineLeftPadding).val();
         double lineStartX  = ldata->textWidth;                           // by default, line starts right after text
         if (lineStartX > 0.0) {
-            lineStartX += _spatium * FiguredBass::FB_CONTLINE_LEFT_PADDING;          // if some text, give some room after it
+            lineStartX += _spatium * contLineLeftPadding;          // if some text, give some room after it
         }
         lineEndX = item->figuredBass()->ldata()->printedLineLength;            // by default, line ends with item duration
         if (lineEndX - lineStartX < 1.0) {                         // if line length < 1 sp, ignore it
@@ -1258,7 +1260,8 @@ void TDraw::draw(const FiguredBassItem* item, Painter* painter)
                 double nextContPageX = nextFB->additionalContLineX(pgPos.y());
                 // if an additional cont. line has been found, extend up to its initial X coord
                 if (nextContPageX > 0) {
-                    lineEndX = nextContPageX - pgPos.x() + _spatium * FiguredBass::FB_CONTLINE_OVERLAP;
+                    lineEndX = nextContPageX - pgPos.x()
+                               + _spatium * item->style().styleS(Sid::figuredBassContLineOverlap).val();
                 }
                 // with a little bit of overlap
                 else {
@@ -1268,7 +1271,7 @@ void TDraw::draw(const FiguredBassItem* item, Painter* painter)
         }
         // if some line, draw it
         if (lineEndX > 0.0) {
-            double h = ldata->bbox().height() * FiguredBass::FB_CONTLINE_HEIGHT;
+            double h = ldata->bbox().height() * item->style().styleD(Sid::figuredBassContLineHeight);
             painter->drawLine(lineStartX, h, lineEndX - ldata->pos().x(), h);
         }
     }

@@ -268,7 +268,8 @@ bool Articulation::layoutCloseToNote() const
         return false;
     }
 
-    return (isStaccato() || isTenuto()) && !isDouble();
+    return ((isStaccato() && style().styleB(Sid::articulationStaccatoCloseToNote))
+            || (isTenuto() && style().styleB(Sid::articulationTenutoCloseToNote))) && !isDouble();
 }
 
 //---------------------------------------------------------

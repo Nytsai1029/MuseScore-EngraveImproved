@@ -84,7 +84,7 @@ void TappingLayout::layoutLeftHandTapping(Tapping* item, Tapping::LayoutData* ld
 
     if (lhSym == LHTappingSymbol::DOT) {
         ldata->symId = SymId::windClosedHole;
-        ldata->setMag(0.5);
+        ldata->setMag(style.styleD(Sid::lhTappingDotMag));
     } else if (lhSym == LHTappingSymbol::CIRCLED_T) {
         ldata->setMag(1.0);
         TappingText* text = item->text();

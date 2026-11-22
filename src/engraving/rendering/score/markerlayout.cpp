@@ -112,7 +112,7 @@ void MarkerLayout::doLayoutMarker(const Marker* item, TextBase::LayoutData* ldat
         double blPadding = 0.0;
         if (avoidBarline && bl) {
             const double fontSizeScaleFactor = item->size() / 10.0;
-            blPadding = 0.5 * item->spatium() * fontSizeScaleFactor;
+            blPadding = ctx.conf().styleS(Sid::repeatTextBarlinePadding).val() * item->spatium() * fontSizeScaleFactor;
         }
 
         if (hPos == AlignH::LEFT) {

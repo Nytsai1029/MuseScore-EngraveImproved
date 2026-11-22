@@ -795,8 +795,10 @@ void ChordLayout::layoutArticulations(Chord* item, LayoutContext& ctx)
     const bool keepArticsTogether = ctx.conf().styleB(Sid::articulationKeepTogether);
     const double stemSideDistance = ctx.conf().styleMM(Sid::propertyDistanceStem) * mag;
     const double headSideDistance = ctx.conf().styleMM(Sid::propertyDistanceHead) * mag;
-    const double tenutoAdditionalTieDistance = 0.6 * _spatium;
-    const double staccatoAdditionalTieDistance = 0.4 * _spatium;
+    const double tenutoAdditionalTieDistance = ctx.conf().styleS(Sid::articulationTenutoTieClearance).val() * _spatium;
+    const double staccatoAdditionalTieDistance = ctx.conf().styleS(Sid::articulationStaccatoTieClearance).val()
+                                                 * _spatium;
+    const bool marcatoAbove = ctx.conf().styleB(Sid::articulationMarcatoAbove);
 
     int numCloseArtics = 0;
     bool hasStaffArticsUp = false;
@@ -835,7 +837,8 @@ void ChordLayout::layoutArticulations(Chord* item, LayoutContext& ctx)
             if (a->isOrnament()) {
                 bool oddVoice = item->track() % 2;
                 a->setUp(!oddVoice);
-            } else if (a->symId() >= SymId::articMarcatoAbove && a->symId() <= SymId::articMarcatoTenutoBelow) {
+            } else if (marcatoAbove && a->symId() >= SymId::articMarcatoAbove
+                       && a->symId() <= SymId::articMarcatoTenutoBelow) {
                 a->setUp(true);         // Gould, p. 117: strong accents above staff
             } else {
                 a->setUp(!item->up());         // place articulation at note head
@@ -1045,7 +1048,7 @@ void ChordLayout::layoutArticulations2(Chord* item, LayoutContext& ctx, bool lay
         }
     }
 
-    double stacAccentKern = 0.2 * item->spatium();
+    double stacAccentKern = ctx.conf().styleS(Sid::articulationStaccatoAccentKern).val() * item->spatium();
     double mag = item->mag();
     double minDist = ctx.conf().styleMM(Sid::articulationMinDistance) * mag;
     double staffDist = ctx.conf().styleMM(Sid::propertyDistance) * mag;

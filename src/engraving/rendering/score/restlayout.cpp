@@ -197,13 +197,16 @@ void RestLayout::resolveRestVSChord(std::vector<Rest*>& rests, std::vector<Chord
     int lines = staff->lines(tick);
     double spatium = staff->spatium(tick);
     double lineDistance = staff->lineDistance(tick) * spatium;
+    const double restChordClearance = staff->style().styleS(Sid::restChordMinClearance).val();
+    const double restChordClearanceWholeHalf = staff->style().styleS(Sid::restChordMinClearanceWholeHalf).val();
 
     for (Rest* rest : rests) {
         if (!rest->visible() || !rest->autoplace()) {
             continue;
         }
         bool isWholeOrHalf = rest->isWholeRest() || rest->durationType() == DurationType::V_HALF;
-        double minRestToChordClearance = isWholeOrHalf ? 0.55 * spatium : 0.35 * spatium;
+        double minRestToChordClearance = isWholeOrHalf ? restChordClearanceWholeHalf * spatium
+                                         : restChordClearance * spatium;
         RestVerticalClearance& restVerticalClearance = rest->verticalClearance();
         for (Chord* chord : chords) {
             if (!chord->visible() || !chord->autoplace()) {
@@ -280,7 +283,7 @@ void RestLayout::resolveRestVSRest(std::vector<Rest*>& rests, const Staff* staff
     double spatium = staff->spatium(tick);
     double lineDistance = staff->lineDistance(tick) * spatium;
     int lines = staff->lines(tick);
-    const double minRestToRestClearance = 0.55 * spatium;
+    const double minRestToRestClearance = ctx.conf().styleS(Sid::restRestMinClearance).val() * spatium;
 
     for (size_t i = 0; i < rests.size() - 1; ++i) {
         Rest* rest1 = rests[i];
@@ -571,6 +574,9 @@ InterruptionPoints RestLayout::computeInterruptionPoints(const Measure* measure,
 
 void RestLayout::checkFullMeasureRestCollisions(const System* system, LayoutContext& ctx)
 {
+    const double minHorizontalClearance = ctx.conf().styleS(Sid::fullMeasureRestMinHorizontalClearance).val();
+    const double minVerticalClearance = ctx.conf().styleS(Sid::fullMeasureRestMinVerticalClearance).val();
+
     for (staff_idx_t staffIdx = 0; staffIdx < ctx.dom().nstaves(); ++staffIdx) {
         for (MeasureBase* mb : system->measures()) {
             if (!(mb->isMeasure() && toMeasure(mb)->hasVoices(staffIdx))) {
@@ -616,8 +622,8 @@ void RestLayout::checkFullMeasureRestCollisions(const System* system, LayoutCont
 
             const double spatium = fullMeasureRest->spatium();
             const double lineDist = fullMeasureRest->staff()->lineDistance(fullMeasureRest->tick()) * spatium;
-            const double minHorizontalDistance = 4 * spatium;
-            const double minVertClearance = 0.75 * spatium;
+            const double minHorizontalDistance = minHorizontalClearance * spatium;
+            const double minVertClearance = minVerticalClearance * spatium;
 
             bool alignAbove = fullMeasureRest->voice() == 0;
             double verticalClearance = alignAbove ? restShape.verticalClearance(measureShape, minHorizontalDistance)

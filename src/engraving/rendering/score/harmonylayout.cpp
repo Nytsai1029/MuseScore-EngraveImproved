@@ -204,7 +204,11 @@ void HarmonyLayout::layoutModifierParentheses(const Harmony* item)
     double lastTextSegTop = 0.0;
     double rootRefHeight = 0.0;
     double rootCapHeight = 0.0;
-    double parenExtension = 0.1 * spatium * (item->size() / 10.0);
+    const MStyle& style = item->style();
+    double parenExtension = style.styleS(Sid::parenthesisChordSymbolExtension).val() * spatium * (item->size() / 10.0);
+    const double parenHeightToWidthRatio = style.styleD(Sid::parenthesisChordSymbolHeightToThicknessRatio);
+    const double parenEndPointThickness = style.styleS(Sid::parenthesisChordSymbolEndThickness).val();
+    const double parenShoulderWidthFactor = style.styleD(Sid::parenthesisChordSymbolShoulderWidthFactor);
     for (HarmonyRenderItem* renderItem : itemList) {
         if (ChordSymbolParen* curParen = dynamic_cast<ChordSymbolParen*>(renderItem)) {
             if (curParen->parenItem->direction() == DirectionH::LEFT) {
@@ -232,10 +236,9 @@ void HarmonyLayout::layoutModifierParentheses(const Harmony* item)
 
                 const double mag = openingParen->parenItem->ldata()->mag();
                 const double scale = (height - 2 * parenExtension) / rootCapHeight;
-                static constexpr double HEIGHT_TO_WIDTH_RATIO = 20;
-                const double midPointThickness = height / HEIGHT_TO_WIDTH_RATIO * mag * 1 / std::sqrt(scale);
-                const double endPointThickness = 0.03;
-                const double shoulder = 0.2 * height * std::pow(mag, 0.1) * 1 / std::sqrt(scale);
+                const double midPointThickness = height / parenHeightToWidthRatio * mag * 1 / std::sqrt(scale);
+                const double endPointThickness = parenEndPointThickness;
+                const double shoulder = parenShoulderWidthFactor * height * std::pow(mag, 0.1) * 1 / std::sqrt(scale);
 
                 openingParen->parenItem->mutldata()->startY = startY;
                 openingParen->sety(startY);
@@ -544,7 +547,7 @@ void HarmonyLayout::renderSingleHarmony(Harmony* item, Harmony::LayoutData* ldat
         const bool hasModifierStack = stackModifiers && (info->parsedChord() ? info->parsedChord()->modifierList().size() > 1 : false);
 
         if (hasModifierStack || is69) {
-            bassNoteChordList.emplace_front(new RenderActionMove(0.05, 0.0));
+            bassNoteChordList.emplace_front(new RenderActionMove(style.styleD(Sid::chordBassNoteStackedOffset), 0.0));
         }
         render(item, ldata, bassNoteChordList, harmonyCtx, ctx, info->bassTpc(), spelling, bassCase, item->bassScale());
     }

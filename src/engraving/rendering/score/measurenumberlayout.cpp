@@ -129,7 +129,7 @@ void MeasureNumberLayout::layoutMeasureNumberBase(MeasureNumberBase* item, Measu
 
         // If there is only one line, the barline spans outside the staff lines, so the default position is not correct.
         if (staff && staff->lines(item->tick()) == 1) {
-            yoff += 2.0 * item->spatium();
+            yoff += item->style().styleS(Sid::measureNumberOneLineStaffOffset).val() * item->spatium();
         } else {
             yoff += item->staff()->staffHeight();
         }
@@ -140,7 +140,7 @@ void MeasureNumberLayout::layoutMeasureNumberBase(MeasureNumberBase* item, Measu
 
         // If there is only one line, the barline spans outside the staff lines, so the default position is not correct.
         if (staff && staff->lines(item->tick()) == 1) {
-            yoff -= 2.0 * item->spatium();
+            yoff -= item->style().styleS(Sid::measureNumberOneLineStaffOffset).val() * item->spatium();
         }
 
         ldata->setPosY(yoff);
@@ -197,7 +197,8 @@ void MeasureNumberLayout::checkBarlineCollisions(const MeasureNumber* item, cons
         return;
     }
 
-    const double minBarLineDistance = 0.25 * item->spatium();
+    const double minBarLineDistance = item->style().styleS(Sid::measureNumberMinBarlineDistance).val()
+                                      * item->spatium();
     if (!barlineSeg || (barlineSeg->segmentType() != SegmentType::BeginBarLine && item->score()->staff(barlineStaff)->barLineSpan() < 1)) {
         return;
     }

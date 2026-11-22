@@ -113,13 +113,19 @@ void MaskLayout::maskBarlineForText(BarLine* barline, const std::vector<TextBase
 
     Shape mask;
     const double spatium = barline->spatium();
+    const MStyle& style = barline->style();
+    const double collisionPaddingSp = style.styleS(Sid::maskBarlinesCollisionPadding).val();
+    const double maskPaddingSp = style.styleS(Sid::maskBarlinesPadding).val();
+    const double minPadding = style.styleS(Sid::maskBarlinesPaddingMin).val() * spatium;
+    const double maxPadding = std::max(minPadding, style.styleS(Sid::maskBarlinesPaddingMax).val() * spatium);
 
     for (TextBase* text : allSystemText) {
         const double fontSizeScaleFactor = text->size() / 10.0;
-        const double collisionPadding = 0.2 * spatium * fontSizeScaleFactor;
+        const double collisionPadding = collisionPaddingSp * spatium * fontSizeScaleFactor;
         const bool hasFrame = text->frameType() != FrameType::NO_FRAME;
         const bool useHighResShape = !text->isDynamic() && !text->hasFrame();
-        const double maskPadding = hasFrame ? 0.0 : std::clamp(0.5 * spatium * fontSizeScaleFactor, 0.1 * spatium, spatium);
+        const double maskPadding = hasFrame ? 0.0
+                                   : std::clamp(maskPaddingSp * spatium * fontSizeScaleFactor, minPadding, maxPadding);
 
         PointF textPos = text->pagePos();
         if (!barlineShape.intersects(text->ldata()->bbox().translated(textPos).padded(collisionPadding))) {
@@ -153,7 +159,7 @@ void MaskLayout::maskBarlineForText(BarLine* barline, const std::vector<TextBase
     // Ensure that we don't leave tiny barline fragments. If two masking
     // elements are too close to each other we extend them to join.
     barlineShape.translate(-barlinePos);
-    const double minFragmentLengh = 0.5 * spatium;
+    const double minFragmentLengh = style.styleS(Sid::maskBarlinesMinFragmentLength).val() * spatium;
     cleanupMask(barlineShape, mask, minFragmentLengh);
 
     barline->mutldata()->setMask(mask);
