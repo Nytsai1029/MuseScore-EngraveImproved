@@ -130,18 +130,20 @@ void TremoloLayout::layoutOneNoteTremolo(TremoloSingleChord* item, const LayoutC
         // so we can place the trem higher in that case
         bool straightFlags = ctx.conf().styleB(Sid::useStraightNoteFlags);
         if (straightFlags) {
-            yOffset -= 0.75 * spatium;
+            yOffset -= ctx.conf().styleS(Sid::tremoloFlagOffsetStraight).val() * spatium;
         } else {
             // up-hooks and down-hooks are shaped differently
-            yOffset -= up ? 1.5 * spatium : 1.0 * spatium;
+            yOffset -= up ? ctx.conf().styleS(Sid::tremoloFlagOffsetUp).val() * spatium
+                       : ctx.conf().styleS(Sid::tremoloFlagOffsetDown).val() * spatium;
         }
         // we need an additional offset for beams > 2 since those beams extend outwards and we don't want to adjust for that
-        double beamOffset = straightFlags ? 0.75 : 0.5;
+        double beamOffset = straightFlags ? ctx.conf().styleS(Sid::tremoloMultiFlagOffsetStraight).val()
+                            : ctx.conf().styleS(Sid::tremoloMultiFlagOffset).val();
         yOffset -= beams >= 2 ? beamOffset * spatium : 0.0;
     } else if (beams && staffType && !staffType->isSimpleTabStaff()) {
         yOffset -= (beams * (ctx.conf().styleB(Sid::useWideBeams) ? 1.0 : 0.75) - 0.25) * spatium;
     }
-    yOffset -= item->isBuzzRoll() && up ? 0.5 * spatium : 0.0;
+    yOffset -= item->isBuzzRoll() && up ? ctx.conf().styleS(Sid::tremoloBuzzRollOffsetUp).val() * spatium : 0.0;
     yOffset -= up ? 0.0 : item->minHeight() * spatium / mag;
     yOffset *= upValue;
     yOffset += staveOffset;
@@ -187,7 +189,7 @@ void TremoloLayout::calcIsUp(TremoloTwoChord* item)
         std::sort(noteDistances.begin(), noteDistances.end());
         up = ChordLayout::computeAutoStemDirection(noteDistances);
 
-        isUp = up > 0;
+        isUp = up > 0 || (up == 0 && item->style().styleB(Sid::stemUpOnMiddleLine));
     } else if (item->chord1()->stemDirection() != DirectionV::AUTO) {
         isUp = item->chord1()->stemDirection() == DirectionV::UP;
     } else if (item->chord2()->stemDirection() != DirectionV::AUTO) {
@@ -330,7 +332,9 @@ std::pair<double, double> TremoloLayout::extendedStemLenWithTwoNoteTremolo(Tremo
 void TremoloLayout::createBeamSegments(TremoloTwoChord* item, const LayoutContext& ctx)
 {
     // TODO: This should be a style setting, to replace tremoloStrokeLengthMultiplier
-    static constexpr double stemGapSp = 1.0;
+    const double stemGapSp = ctx.conf().styleS(Sid::tremoloTwoNoteStemGap).val();
+    const double minStrokeLengthSp = ctx.conf().styleS(Sid::tremoloTwoNoteMinStrokeLength).val();
+    const double minStemGapSp = ctx.conf().styleS(Sid::tremoloTwoNoteMinStemGap).val();
     const bool defaultStyle = (!item->customStyleApplicable()) || (item->tremoloStyle() == TremoloStyle::DEFAULT);
 
     item->clearBeamSegments();
@@ -355,9 +359,9 @@ void TremoloLayout::createBeamSegments(TremoloTwoChord* item, const LayoutContex
     if (defaultStyle || item->tremoloStyle() == TremoloStyle::TRADITIONAL_ALTERNATE) {
         // we can eat into the stemGapSp margin if the anchorpoints are sufficiently close together
         double widthSp = (endAnchor.x() - startAnchor.x()) / item->spatium() - (stemGapSp * 2);
-        if (!muse::RealIsEqualOrMore(widthSp, 0.6)) {
+        if (!muse::RealIsEqualOrMore(widthSp, minStrokeLengthSp)) {
             // tremolo beam is too short; we can eat into the gap spacing a little
-            gapSp = std::max(stemGapSp - ((0.6 - widthSp) * 0.5), 0.4);
+            gapSp = std::max(stemGapSp - ((minStrokeLengthSp - widthSp) * 0.5), minStemGapSp);
         }
     } else {
         gapSp = 0.0;

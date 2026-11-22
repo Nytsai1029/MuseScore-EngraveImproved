@@ -63,8 +63,8 @@ public:
     static constexpr double STAFFTYPE_TAB_SLASH_2STARTY_DN = ((STAFFTYPE_TAB_DEFAULTSTEMLEN_UP + STAFFTYPE_TAB_SLASH_2TOTHEIGHT) * 0.5);
 
     static double calcDefaultStemLength(Chord* item, const LayoutContext& ctx);
-    static int minStaffOverlap(bool up, int staffLines, int beamCount, bool hasHook, double beamSpacing, bool useWideBeams,
-                               bool isFullSize);
+    static int minStaffOverlap(const MStyle& style, bool up, int staffLines, int beamCount, bool hasHook,
+                               double beamSpacing, bool useWideBeams, bool isFullSize);
 
     static double stemPosX(const ChordRest* item);
     static double stemPosX(const Chord* item);

@@ -180,7 +180,7 @@ PainterPath TremoloSingleChord::basePath(double /*stretch*/) const
     }
 
     Transform shearTransform;
-    shearTransform.shear(0.0, -(lw / 2.0) / w2);
+    shearTransform.shear(0.0, -(lw * style().styleD(Sid::tremoloSingleNoteSlant) / 2.0) / w2);
     ppath = shearTransform.map(ppath);
 
     return ppath;

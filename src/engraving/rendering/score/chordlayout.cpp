@@ -1740,7 +1740,7 @@ void ChordLayout::computeUp(const Chord* item, Chord::LayoutData* ldata, const L
 
     std::vector<int> distances = item->noteDistances();
     int direction = ChordLayout::computeAutoStemDirection(distances);
-    ldata->up = direction > 0;
+    ldata->up = direction > 0 || (direction == 0 && ctx.conf().styleB(Sid::stemUpOnMiddleLine));
 }
 
 void ChordLayout::computeUp(ChordRest* item, const LayoutContext& ctx)

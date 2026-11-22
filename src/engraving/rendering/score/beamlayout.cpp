@@ -285,7 +285,8 @@ void BeamLayout::layout1(Beam* item, LayoutContext& ctx)
                 for (BeamBase::NotePosition pos : notePosSet) {
                     noteLines.push_back(pos.line);
                 }
-                item->setUp(ChordLayout::computeAutoStemDirection(noteLines) > 0);
+                const int direction = ChordLayout::computeAutoStemDirection(noteLines);
+                item->setUp(direction > 0 || (direction == 0 && ctx.conf().styleB(Sid::stemUpOnMiddleLine)));
             }
         }
     } else {
@@ -917,9 +918,9 @@ void BeamLayout::verticalAdjustBeamedRests(Rest* rest, Beam* beam, LayoutContext
 
     double restToBeamPadding;
     if (rest->ticks() <= rest32nd) {
-        restToBeamPadding = 0.2 * spatium;
+        restToBeamPadding = ctx.conf().styleS(Sid::beamRestPaddingShortRests).val() * spatium;
     } else {
-        restToBeamPadding = 0.35 * spatium;
+        restToBeamPadding = ctx.conf().styleS(Sid::beamRestPadding).val() * spatium;
     }
 
     const Shape beamShape = beam->shape().translate(beam->pagePos());

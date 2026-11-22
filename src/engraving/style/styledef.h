@@ -435,6 +435,105 @@ enum class Sid {
     beamCustomMaxSlantGreaterThanTenthInterval,
     beamCustomPositioningRules,
 
+    // Default beam slant rules: largest slant (quarter spaces) by interval between the first and last note
+    beamDefaultMaxSlantSecondInterval,
+    beamDefaultMaxSlantThirdInterval,
+    beamDefaultMaxSlantFourthInterval,
+    beamDefaultMaxSlantFifthInterval,
+    beamDefaultMaxSlantSixthInterval,
+    beamDefaultMaxSlantSeventhInterval,
+    beamDefaultMaxSlantOctave,
+
+    // Default beam slant rules: a beam narrower than this gets at most the slant of the named interval
+    beamDefaultSlantSecondMaxWidth,
+    beamDefaultSlantThirdMaxWidth,
+    beamDefaultSlantFourthMaxWidth,
+    beamDefaultSlantFifthMaxWidth,
+    beamDefaultSlantSixthMaxWidth,
+    beamDefaultSlantSeventhMaxWidth,
+
+    // Slant (quarter spaces) when the note next to the end note nearest the beam repeats it
+    beamDefaultRepeatedEndNoteSlant,
+    beamCustomRepeatedEndNoteSlant,
+
+    // Contour rules: flat beam over a concave group, fixed slants of two-pitch groups,
+    // slant of a cross-staff beam whose notes on the staff nearest the beam are level
+    beamFlattenConcave,
+    beamTwoPitchSlantRule,
+    beamCrossStaffLevelNotesSlant,
+
+    // Slant (quarter spaces) given back to a beam whose stems were extended to the middle of the staff
+    beamMiddleLineSlant,
+    beamMiddleLineSlantSmall,
+
+    // Eighth-space slant of otherwise flat three-beam groups, and the beam distance added with it
+    beamEighthSpaceSlant,
+    beamEighthSpaceSlantExtraDistance,
+
+    // Shortest stem a beam may leave to a chord, by number of beams
+    beamMinStemLengthOneBeam,
+    beamMinStemLengthTwoBeams,
+    beamMinStemLengthThreeBeams,
+    beamMinStemLengthFourBeams,
+    beamMinStemLengthFiveBeams,
+    beamMinStemLengthSixBeams,
+    beamMinStemLengthSevenBeams,
+    beamMinStemLengthEightBeams,
+
+    // How far a slanted beam may cut into the default stem length of the chords between its ends
+    beamInnerStemShorteningSmallSlant,
+    beamInnerStemShorteningMediumSlant,
+    beamInnerStemShorteningLargeSlant,
+
+    // Custom beam positioning rules
+    beamCustomEndStemMaxShortening,
+    beamCustomLedgerGroupMaxShortening,
+    beamCustomLedgerGroupSlant,
+    beamCustomLedgerGroupSnapShortening,
+
+    // Clearance between a beam and the rests under it
+    beamRestPadding,
+    beamRestPaddingShortRests,
+
+    // Stem lengths
+    shortestStemWideBeams,
+    stemLengthThreeBeamsAddition,
+    stemOpticalAdjustment,
+    stemMinInnerLengthNoBeam,
+    stemMinInnerLengthOneBeam,
+    stemMinInnerLengthTwoBeams,
+    stemMinInnerLengthThreeBeams,
+    stemMinStaffOverlap,
+    stemMinStaffOverlapThreeBeams,
+    stemMinStaffOverlapFourBeams,
+    stemMinStaffOverlapFourBeamsWide,
+    stemUpOnMiddleLine,
+
+    // Stem length a flag needs so that it clears the notehead
+    flagStemCutoutUp,
+    flagStemCutoutDown,
+    flagStemMaxHeight,
+
+    // Single-note tremolo: distance from the stem tip on flagged notes, slant of the strokes
+    tremoloFlagOffsetStraight,
+    tremoloFlagOffsetUp,
+    tremoloFlagOffsetDown,
+    tremoloMultiFlagOffsetStraight,
+    tremoloMultiFlagOffset,
+    tremoloBuzzRollOffsetUp,
+    tremoloSingleNoteSlant,
+
+    // Two-note tremolo: gap between the strokes and the stems
+    tremoloTwoNoteStemGap,
+    tremoloTwoNoteMinStrokeLength,
+    tremoloTwoNoteMinStemGap,
+
+    // Stem slash of grace notes
+    stemSlashPositionReduction,
+    stemSlashMultiFlagAngleFactor,
+    stemSlashBeamedLength,
+    stemSlashBeamedObtuseLengthFactor,
+
     dotMag,
     dotNoteDistance,
     dotRestDistance,

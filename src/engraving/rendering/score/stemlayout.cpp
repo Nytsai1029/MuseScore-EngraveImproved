@@ -37,6 +37,15 @@ using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
 
 //-----------------------------------------------------------------------------
+//   stemStyleQuarterSpaces
+///   A spatium style value in quarter spaces, the unit of the stem length calculations
+//-----------------------------------------------------------------------------
+static int stemStyleQuarterSpaces(const MStyle& style, Sid sid)
+{
+    return static_cast<int>(std::lround(style.styleS(sid).val() * 4));
+}
+
+//-----------------------------------------------------------------------------
 //   defaultStemLength
 ///   Get the default stem length for this chord
 ///   all internal calculation is done in quarter spaces
@@ -69,7 +78,9 @@ double StemLayout::calcDefaultStemLength(Chord* item, const LayoutContext& ctx)
     // eg. slashed noteheads etc
     double extraHeight = (ldata->up ? item->upNote()->stemUpSE().y() : item->downNote()->stemDownNW().y()) / item->intrinsicMag()
                          / spatium;
-    int shortestStem = style.styleB(Sid::useWideBeams) ? 12 : (style.styleD(Sid::shortestStem) + std::abs(extraHeight)) * 4;
+    int shortestStem = style.styleB(Sid::useWideBeams)
+                       ? style.styleS(Sid::shortestStemWideBeams).val() * 4
+                       : (style.styleD(Sid::shortestStem) + std::abs(extraHeight)) * 4;
     int quarterSpacesPerLine = std::floor(lineDistance * 2);
     int chordHeight = (item->downLine() - item->upLine()) * quarterSpacesPerLine; // convert to quarter spaces
     int stemLength = defaultStemLength;
@@ -80,7 +91,7 @@ double StemLayout::calcDefaultStemLength(Chord* item, const LayoutContext& ctx)
     int shortStemStart = style.styleI(Sid::shortStemStartLocation) * quarterSpacesPerLine + 1;
     bool useWideBeams = style.styleB(Sid::useWideBeams);
     int beamCount = calcBeamCount(item);
-    int middleLine = minStaffOverlap(ldata->up, staffLineCount,
+    int middleLine = minStaffOverlap(style, ldata->up, staffLineCount,
                                      beamCount, !!item->hook(), useWideBeams ? 4 : 3,
                                      useWideBeams, !(item->isGrace() || item->isSmall()));
     int idealStemLength = defaultStemLength;
@@ -186,15 +197,18 @@ double StemLayout::calcDefaultStemLength(Chord* item, const LayoutContext& ctx)
     return finalStemLength + extraLength;
 }
 
-int StemLayout::minStaffOverlap(bool up, int staffLines, int beamCount, bool hasHook, double beamSpacing, bool useWideBeams,
-                                bool isFullSize)
+int StemLayout::minStaffOverlap(const MStyle& style, bool up, int staffLines, int beamCount, bool hasHook,
+                                double beamSpacing, bool useWideBeams, bool isFullSize)
 {
-    int beamOverlap = 8;
+    int beamOverlap = stemStyleQuarterSpaces(style, Sid::stemMinStaffOverlap);
     if (isFullSize) {
         if (beamCount == 3 && !hasHook) {
-            beamOverlap = 12;
+            beamOverlap = stemStyleQuarterSpaces(style, Sid::stemMinStaffOverlapThreeBeams);
         } else if (beamCount >= 4 && !hasHook) {
-            beamOverlap = (beamCount - 4) * beamSpacing + (useWideBeams ? 16 : 14);
+            beamOverlap = (beamCount - 4) * beamSpacing
+                          + (useWideBeams
+                             ? stemStyleQuarterSpaces(style, Sid::stemMinStaffOverlapFourBeamsWide)
+                             : stemStyleQuarterSpaces(style, Sid::stemMinStaffOverlapFourBeams));
         }
     }
 
@@ -362,7 +376,7 @@ int StemLayout::stemLengthBeamAddition(const Chord* item, const LayoutContext& c
     case 2:
         return 0;
     case 3:
-        return 2;
+        return stemStyleQuarterSpaces(style, Sid::stemLengthThreeBeamsAddition);
     default:
         return (beamCount - 3) * (style.styleB(Sid::useWideBeams) ? 4 : 3);
     }
@@ -419,16 +433,19 @@ int StemLayout::hookStemLengthAddition(const Chord* item, const LayoutContext& c
         return 0;
     }
 
-    bool straightFlags = ctx.conf().style().styleB(Sid::useStraightNoteFlags);
+    const MStyle& style = ctx.conf().style();
+    bool straightFlags = style.styleB(Sid::useStraightNoteFlags);
     double smuflAnchor = hook->smuflAnchor().y() * (item->ldata()->up ? 1 : -1);
     int hookOffset = floor((hook->height() / item->intrinsicMag() + smuflAnchor) / item->spatium() * 4)
                      - (straightFlags ? 0 : 2);
     // some fonts have hooks that extend very far down (making the height of the hook very large)
     // so we constrain to a reasonable maximum for hook length
-    hookOffset = std::min(hookOffset, 11);
+    hookOffset = std::min(hookOffset, stemStyleQuarterSpaces(style, Sid::flagStemMaxHeight));
     // TODO: when the SMuFL metadata includes a cutout for flags, replace this with that metadata
     // https://github.com/w3c/smufl/issues/203
-    int cutout = item->ldata()->up ? 5 : 7;
+    int cutout = item->ldata()->up
+                 ? stemStyleQuarterSpaces(style, Sid::flagStemCutoutUp)
+                 : stemStyleQuarterSpaces(style, Sid::flagStemCutoutDown);
     if (straightFlags) {
         // don't need cutout for straight flags (they are similar to beams)
         cutout = 0;
@@ -505,7 +522,7 @@ int StemLayout::stemOpticalAdjustment(const Chord* item, int stemEndPosition)
     }
     bool isOnEvenLine = fmod(stemEndPosition + 4, 4) == 2;
     if (isOnEvenLine) {
-        return 1;
+        return stemStyleQuarterSpaces(item->style(), Sid::stemOpticalAdjustment);
     }
     return 0;
 }
@@ -552,8 +569,13 @@ int StemLayout::calcMinStemLength(Chord* item, const LayoutContext& ctx)
     }
     if (item->beam() || item->tremoloTwoChord()) {
         int beamCount = calcBeamCount(item);
-        static const int minInnerStemLengths[4] = { 10, 9, 8, 7 };
-        int innerStemLength = minInnerStemLengths[std::min(beamCount, 3)];
+        static const std::array<Sid, 4> minInnerStemLengths { {
+            Sid::stemMinInnerLengthNoBeam,
+            Sid::stemMinInnerLengthOneBeam,
+            Sid::stemMinInnerLengthTwoBeams,
+            Sid::stemMinInnerLengthThreeBeams
+        } };
+        int innerStemLength = stemStyleQuarterSpaces(style, minInnerStemLengths[std::min(beamCount, 3)]);
         int beamsHeight = beamCount * (style.styleB(Sid::useWideBeams) ? 4 : 3) - 1;
         int newMinStemLength = std::max(minStemLength, innerStemLength);
         newMinStemLength += beamsHeight;

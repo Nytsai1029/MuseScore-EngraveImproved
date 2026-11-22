@@ -47,7 +47,58 @@ using namespace mu;
 using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
 
-constexpr std::array _maxSlopes = { 0, 1, 2, 3, 4, 5, 6, 7 };
+static const MStyle& beamRulesStyle(const BeamBase::LayoutData* ldata)
+{
+    if (ldata->beam) {
+        return ldata->beam->style();
+    }
+    if (ldata->trem) {
+        return ldata->trem->style();
+    }
+    return ldata->elements.front()->style();
+}
+
+static constexpr int DEFAULT_MAX_SLOPE_INTERVAL = 7;
+
+// Max slope of a beam under the default rules, for notes with the given interval:
+// 0 is a unison, 1 a second ... 7 an octave or more
+static int defaultMaxSlopeByInterval(const MStyle& style, int interval)
+{
+    static const std::array<Sid, DEFAULT_MAX_SLOPE_INTERVAL> slopeSids { {
+        Sid::beamDefaultMaxSlantSecondInterval,
+        Sid::beamDefaultMaxSlantThirdInterval,
+        Sid::beamDefaultMaxSlantFourthInterval,
+        Sid::beamDefaultMaxSlantFifthInterval,
+        Sid::beamDefaultMaxSlantSixthInterval,
+        Sid::beamDefaultMaxSlantSeventhInterval,
+        Sid::beamDefaultMaxSlantOctave
+    } };
+
+    if (interval <= 0) {
+        return 0;
+    }
+    return style.styleI(slopeSids[std::min(interval, DEFAULT_MAX_SLOPE_INTERVAL) - 1]);
+}
+
+static constexpr int MIN_STEM_LENGTH_BEAMS_COUNT = 8;
+
+// Min stem length in quarter spaces for a chord with the given number of beams (starting with 1)
+static int minStemLengthForBeamCount(const MStyle& style, int beams)
+{
+    static const std::array<Sid, MIN_STEM_LENGTH_BEAMS_COUNT> lengthSids { {
+        Sid::beamMinStemLengthOneBeam,
+        Sid::beamMinStemLengthTwoBeams,
+        Sid::beamMinStemLengthThreeBeams,
+        Sid::beamMinStemLengthFourBeams,
+        Sid::beamMinStemLengthFiveBeams,
+        Sid::beamMinStemLengthSixBeams,
+        Sid::beamMinStemLengthSevenBeams,
+        Sid::beamMinStemLengthEightBeams
+    } };
+
+    const int index = std::clamp(beams - 1, 0, MIN_STEM_LENGTH_BEAMS_COUNT - 1);
+    return static_cast<int>(std::lround(style.styleS(lengthSids[index]).val() * 4));
+}
 
 static bool useDefaultBeamSlantRules(const BeamBase::LayoutData* ldata)
 {
@@ -175,6 +226,9 @@ static TwoPitchBeamSlant twoPitchBeamSlantRule(const BeamBase::LayoutData* ldata
     if (!ldata || ldata->beamType != BeamType::BEAM || !ldata->beam || ldata->beam->userModified()
         || ldata->beam->noSlope() || ldata->isGrace || ldata->tab
         || ldata->crossStaffBeamPos != BeamBase::CrossStaffBeamPosition::INVALID || ldata->elements.size() < 3) {
+        return TwoPitchBeamSlant::None;
+    }
+    if (!ldata->beam->style().styleB(Sid::beamTwoPitchSlantRule)) {
         return TwoPitchBeamSlant::None;
     }
 
@@ -326,18 +380,22 @@ static void applyCustomLedgerGroupPosition(const BeamBase::LayoutData* ldata, in
     const int baseDefault = dictatorIsBase ? defaultDictator : defaultPointer;
     const int targetResidual = ldata->up ? 1 : 3;
     const int residual = ((base - targetResidual) % 4 + 4) % 4;
+    const MStyle& style = beamRulesStyle(ldata);
     if (residual != 0) {
         const int towardNotes = ldata->up ? 4 - residual : -residual;
         const int awayFromNotes = ldata->up ? -residual : 4 - residual;
         int delta = std::abs(towardNotes) < std::abs(awayFromNotes) ? towardNotes : awayFromNotes;
-        const bool shortensBase = ldata->up ? base + delta > baseDefault + 1 : base + delta < baseDefault - 1;
+        const int maxSnapShortening = style.styleI(Sid::beamCustomLedgerGroupSnapShortening);
+        const bool shortensBase = ldata->up ? base + delta > baseDefault + maxSnapShortening
+                                  : base + delta < baseDefault - maxSnapShortening;
         if (delta == towardNotes && shortensBase) {
             delta = awayFromNotes;
         }
         base += delta;
     }
 
-    const int other = slantSign == 0 ? base : base + (ldata->up ? -1 : 1);
+    const int ledgerGroupSlant = style.styleI(Sid::beamCustomLedgerGroupSlant);
+    const int other = slantSign == 0 ? base : base + (ldata->up ? -ledgerGroupSlant : ledgerGroupSlant);
     dictator = dictatorIsBase ? base : other;
     pointer = dictatorIsBase ? other : base;
 }
@@ -383,15 +441,15 @@ void BeamTremoloLayout::setupLData(const BeamBase* item, BeamBase::LayoutData* l
 int BeamTremoloLayout::minStemLength(const ChordRest* cr, const BeamBase::LayoutData* ldata)
 {
     // min stem lengths in quarter spaces according to how many beams there are (starting with 1)
-    static constexpr int BEAMS_COUNT = 8;
-    static constexpr int minStemLengths[BEAMS_COUNT] = { 11, 13, 15, 18, 21, 24, 27, 30 };
+    static constexpr int BEAMS_COUNT = MIN_STEM_LENGTH_BEAMS_COUNT;
+    const MStyle& style = cr->style();
     int beams = strokeCount(ldata, cr);
     if (beams > BEAMS_COUNT) {
         LOGE() << "Beam count " << beams << " out of range (" << BEAMS_COUNT - 1 << ")";
-        return minStemLengths[BEAMS_COUNT - 1];
+        return minStemLengthForBeamCount(style, BEAMS_COUNT);
     }
 
-    return minStemLengths[std::max(beams - 1, 0)];
+    return minStemLengthForBeamCount(style, beams);
 }
 
 void BeamTremoloLayout::offsetBeamToRemoveCollisions(const BeamBase* item, const BeamBase::LayoutData* ldata,
@@ -421,6 +479,11 @@ void BeamTremoloLayout::offsetBeamToRemoveCollisions(const BeamBase* item, const
 
     const ChordRest* firstChordRest = chordRests.front();
     const ChordRest* lastChordRest = chordRests.back();
+
+    const MStyle& style = item->style();
+    const double smallSlantReduction = style.styleS(Sid::beamInnerStemShorteningSmallSlant).val();
+    const double mediumSlantReduction = style.styleS(Sid::beamInnerStemShorteningMediumSlant).val();
+    const double largeSlantReduction = style.styleS(Sid::beamInnerStemShorteningLargeSlant).val();
 
     size_t curChordRest = 0;
     for (ChordRest* chordRest : chordRests) {
@@ -472,11 +535,11 @@ void BeamTremoloLayout::offsetBeamToRemoveCollisions(const BeamBase* item, const
                 double reduction = 0.0;
                 if (!isFlat) {
                     if (slope <= 3) {
-                        reduction = 0.25 * ldata->spatium;
+                        reduction = smallSlantReduction * ldata->spatium;
                     } else if (slope <= 6) {
-                        reduction = 0.5 * ldata->spatium;
+                        reduction = mediumSlantReduction * ldata->spatium;
                     } else { // slope > 6
-                        reduction = 0.75 * ldata->spatium;
+                        reduction = largeSlantReduction * ldata->spatium;
                     }
                 }
                 // Ensure the beam clears the anchor's height and inner note's stem minimum stem length is enforced
@@ -538,10 +601,9 @@ void BeamTremoloLayout::offsetBeamWithAnchorShortening(const BeamBase::LayoutDat
         return;
     }
     // min stem lengths according to how many beams there are (starting with 1)
-    static const int minStemLengths[] = { 11, 13, 15, 18, 21, 24, 27, 30 };
     int dictatorBeams = strokeCount(ldata, isStartDictator ? startChord : endChord);
     int pointerBeams = strokeCount(ldata, isStartDictator ? endChord : startChord);
-    int maxDictatorReduce = stemLengthDictator - minStemLengths[std::max(dictatorBeams - 1, 0)];
+    int maxDictatorReduce = stemLengthDictator - minStemLengthForBeamCount(startChord->style(), dictatorBeams);
     maxDictatorReduce = std::min(std::abs(dictator - targetLine), maxDictatorReduce);
 
     bool isFlat = dictator == pointer;
@@ -843,10 +905,13 @@ void BeamTremoloLayout::addMiddleLineSlant(const BeamBase::LayoutData* ldata, in
     }
     bool isOnTargetLine = pointer == targetLine && (std::abs(pointer - dictator) < 2);
     if (isOnTargetLine) {
+        const MStyle& style = beamRulesStyle(ldata);
         if (std::abs(desiredSlant) == 1 || interval == 1 || (beamCount == 2 && ldata->beamSpacing != 4 && !isSmall)) {
-            dictator = targetLine + (ldata->up ? -1 : 1);
+            const int smallSlant = style.styleI(Sid::beamMiddleLineSlantSmall);
+            dictator = targetLine + (ldata->up ? -smallSlant : smallSlant);
         } else {
-            dictator = targetLine + (ldata->up ? -2 : 2);
+            const int normalSlant = style.styleI(Sid::beamMiddleLineSlant);
+            dictator = targetLine + (ldata->up ? -normalSlant : normalSlant);
         }
     }
 }
@@ -863,8 +928,11 @@ void BeamTremoloLayout::add8thSpaceSlant(BeamBase::LayoutData* ldata, PointF& di
     if ((ldata->up && (dictator + 4) % 4 == 3) || (!ldata->up && (dictator + 4) % 4 == 1)) {
         return;
     }
-    dictatorAnchor.setY(dictatorAnchor.y() + (ldata->up ? -0.125 * ldata->spatium : 0.125 * ldata->spatium));
-    ldata->beamDist += 0.0625 * ldata->spatium;
+    const MStyle& style = beamRulesStyle(ldata);
+    const double eighthSlant = style.styleS(Sid::beamEighthSpaceSlant).val();
+    dictatorAnchor.setY(dictatorAnchor.y()
+                        + (ldata->up ? -eighthSlant * ldata->spatium : eighthSlant * ldata->spatium));
+    ldata->beamDist += style.styleS(Sid::beamEighthSpaceSlantExtraDistance).val() * ldata->spatium;
 }
 
 void BeamTremoloLayout::snapCustomBeamToStaffLine(const BeamBase::LayoutData* ldata, int& dictator, int& pointer, int refOffset,
@@ -956,6 +1024,9 @@ void BeamTremoloLayout::enforceCustomDefaultStemLengths(const BeamBase* item, co
     anchors.front().relaxed = true;
     anchors.back().relaxed = true;
 
+    const MStyle& style = item->style();
+    const double relaxedAllowance = style.styleS(Sid::beamCustomEndStemMaxShortening).val() * 4;
+
     // Relaxed chords (the beam ends and dictator-height neighbours) may run short of their
     // computed stem length by up to the quarter space the half-space-slant crossing rule is
     // allowed to take, plus half a quarter of grid rounding. All other inner chords must reach
@@ -966,7 +1037,7 @@ void BeamTremoloLayout::enforceCustomDefaultStemLengths(const BeamBase* item, co
         double worst = 0.0;
         for (const StemAnchor& anchor : anchors) {
             const double beamY = startY + anchor.t * (endY - startY);
-            const double allowance = anchor.relaxed ? 1.5 : 0.05;
+            const double allowance = anchor.relaxed ? relaxedAllowance : 0.05;
             const double deficit = (ldata->up ? beamY - anchor.defaultPos : anchor.defaultPos - beamY) - allowance;
             worst = std::max(worst, deficit);
         }
@@ -983,7 +1054,7 @@ void BeamTremoloLayout::enforceCustomDefaultStemLengths(const BeamBase* item, co
         // deep end may run up to a full space short of its natural stem length (the shallow end
         // is already guarded by the snapping step). Beyond that the whole group moves towards
         // the staff by whole spaces, so the grid seat is preserved.
-        const double ledgerTolerance = 4.0;
+        const double ledgerTolerance = style.styleS(Sid::beamCustomLedgerGroupMaxShortening).val() * 4;
         const double deficit = maxDeficit(dictator, pointer);
         if (deficit > ledgerTolerance + epsilon) {
             const int spaces = static_cast<int>(std::ceil((deficit - ledgerTolerance - epsilon) / 4.0));
@@ -1615,9 +1686,9 @@ int BeamTremoloLayout::getTargetStaffLine(const BeamBase::LayoutData* ldata, con
     bool useWideBeams = ctx.conf().styleB(Sid::useWideBeams);
     int startBeams = strokeCount(ldata, startChord);
     int endBeams = strokeCount(ldata, endChord);
-    int startTargetLine = StemLayout::minStaffOverlap(ldata->up, staffLines, startBeams, false,
+    int startTargetLine = StemLayout::minStaffOverlap(ctx.conf().style(), ldata->up, staffLines, startBeams, false,
                                                       ldata->beamSpacing / 4.0, useWideBeams, isFullSize);
-    int endTargetLine = StemLayout::minStaffOverlap(ldata->up, staffLines, endBeams, false,
+    int endTargetLine = StemLayout::minStaffOverlap(ctx.conf().style(), ldata->up, staffLines, endBeams, false,
                                                     ldata->beamSpacing / 4.0, useWideBeams, !ldata->isGrace);
 
     int diff = 0;
@@ -1677,7 +1748,10 @@ int BeamTremoloLayout::computeDesiredSlant(const BeamBase* item, const BeamBase:
             return 0;
         } else if (slopeConstrained == SlopeConstraint::SMALL_SLOPE) {
             // In custom mode, keep the legacy contour constraint but use a 1sp slant instead of 0.25sp.
-            const int constrainedSlope = applyDefaultSlantRules ? 1 : 4;
+            const MStyle& style = item->style();
+            const int constrainedSlope = applyDefaultSlantRules
+                                         ? style.styleI(Sid::beamDefaultRepeatedEndNoteSlant)
+                                         : style.styleI(Sid::beamCustomRepeatedEndNoteSlant);
             return dictator > pointer ? -constrainedSlope : constrainedSlope;
         }
     }
@@ -1708,7 +1782,8 @@ int BeamTremoloLayout::computeDesiredSlant(const BeamBase* item, const BeamBase:
         // When the notes on the stave closest to the beam have a neutral direction, set a slant of 1/-1 in the direction of the staff change between first and last chords
         if (staveClosestToBeamDir == 0 && beamDir != 0) {
             if (startPos.staff != endPos.staff) {
-                int desiredSlant = std::abs(beamDir) * (ldata->up ? 1 : -1);
+                const int levelNotesSlant = item->style().styleI(Sid::beamCrossStaffLevelNotesSlant);
+                int desiredSlant = std::abs(beamDir) * (ldata->up ? levelNotesSlant : -levelNotesSlant);
                 return clampCrossStaffSlantToCustomRules(ldata, desiredSlant, std::abs(endPos.line - startPos.line));
             }
         }
@@ -1720,8 +1795,8 @@ int BeamTremoloLayout::computeDesiredSlant(const BeamBase* item, const BeamBase:
         const int customMaxSlope = customMaxSlopeByInterval(ldata, rawInterval);
         return customMaxSlope * (ldata->up ? 1 : -1);
     }
-    int interval = std::min(rawInterval, (int)_maxSlopes.size() - 1);
-    return std::min(maxSlope, _maxSlopes[interval]) * (ldata->up ? 1 : -1);
+    int interval = std::min(rawInterval, DEFAULT_MAX_SLOPE_INTERVAL);
+    return std::min(maxSlope, defaultMaxSlopeByInterval(item->style(), interval)) * (ldata->up ? 1 : -1);
 }
 
 SlopeConstraint BeamTremoloLayout::getSlopeConstraint(const BeamBase::LayoutData* ldata, const BeamBase::NotePosition& startPos,
@@ -1751,9 +1826,10 @@ SlopeConstraint BeamTremoloLayout::getSlopeConstraint(const BeamBase::LayoutData
     const std::vector<BeamBase::NotePosition>& notePositions = closestNotePositions;
 
     if (elements.size() > 2) {
+        const bool flattenConcave = beamRulesStyle(ldata).styleB(Sid::beamFlattenConcave);
         if (ldata->up) {
             BeamBase::NotePosition higherEnd = std::min(startPos, endPos);
-            if (higherEnd > notePositions[0]) {
+            if (flattenConcave && higherEnd > notePositions[0]) {
                 return SlopeConstraint::FLAT; // a note is higher in the staff than the highest end
             }
             if (higherEnd == notePositions[0] && higherEnd >= notePositions[1]) {
@@ -1787,7 +1863,7 @@ SlopeConstraint BeamTremoloLayout::getSlopeConstraint(const BeamBase::LayoutData
             }
         } else {
             BeamBase::NotePosition lowerEnd = std::max(startPos, endPos);
-            if (lowerEnd < notePositions[notePositions.size() - 1]) {
+            if (flattenConcave && lowerEnd < notePositions[notePositions.size() - 1]) {
                 return SlopeConstraint::FLAT;
             }
             if (lowerEnd == notePositions[notePositions.size() - 1]
@@ -1835,21 +1911,22 @@ int BeamTremoloLayout::getMaxSlope(const BeamBase::LayoutData* ldata)
     double startX = chordBeamAnchorX(ldata, ldata->elements[0], ChordBeamAnchorType::End);
     double beamWidth = endX - startX;
     beamWidth /= ldata->spatium;
-    int maxSlope = _maxSlopes.back();
-    if (beamWidth < 3.0) {
-        maxSlope = _maxSlopes[1];
-    } else if (beamWidth < 5.0) {
-        maxSlope = _maxSlopes[2];
-    } else if (beamWidth < 7.5) {
-        maxSlope = _maxSlopes[3];
-    } else if (beamWidth < 10.0) {
-        maxSlope = _maxSlopes[4];
-    } else if (beamWidth < 15.0) {
-        maxSlope = _maxSlopes[5];
-    } else if (beamWidth < 20.0) {
-        maxSlope = _maxSlopes[6];
+    const MStyle& style = beamRulesStyle(ldata);
+    int maxSlope = defaultMaxSlopeByInterval(style, DEFAULT_MAX_SLOPE_INTERVAL);
+    if (beamWidth < style.styleS(Sid::beamDefaultSlantSecondMaxWidth).val()) {
+        maxSlope = defaultMaxSlopeByInterval(style, 1);
+    } else if (beamWidth < style.styleS(Sid::beamDefaultSlantThirdMaxWidth).val()) {
+        maxSlope = defaultMaxSlopeByInterval(style, 2);
+    } else if (beamWidth < style.styleS(Sid::beamDefaultSlantFourthMaxWidth).val()) {
+        maxSlope = defaultMaxSlopeByInterval(style, 3);
+    } else if (beamWidth < style.styleS(Sid::beamDefaultSlantFifthMaxWidth).val()) {
+        maxSlope = defaultMaxSlopeByInterval(style, 4);
+    } else if (beamWidth < style.styleS(Sid::beamDefaultSlantSixthMaxWidth).val()) {
+        maxSlope = defaultMaxSlopeByInterval(style, 5);
+    } else if (beamWidth < style.styleS(Sid::beamDefaultSlantSeventhMaxWidth).val()) {
+        maxSlope = defaultMaxSlopeByInterval(style, 6);
     } else {
-        maxSlope = _maxSlopes[7];
+        maxSlope = defaultMaxSlopeByInterval(style, 7);
     }
 
     return maxSlope;

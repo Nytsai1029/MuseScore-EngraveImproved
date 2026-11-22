@@ -5835,9 +5835,9 @@ void TLayout::layoutStemSlash(const StemSlash* item, StemSlash::LayoutData* ldat
     LD_CONDITION(stem->ldata()->isSetBbox());
     //  Notes without a stem (including whole notes) don't draw a slash.
 
-    static constexpr double heightReduction = 0.66;
-    static constexpr double angleIncrease = 1.2;
-    static constexpr double lengthIncrease = 1.1;
+    const double heightReduction = conf.styleD(Sid::stemSlashPositionReduction);
+    const double angleIncrease = conf.styleD(Sid::stemSlashMultiFlagAngleFactor);
+    const double lengthIncrease = conf.styleD(Sid::stemSlashBeamedObtuseLengthFactor);
     const double mag = c->mag();
 
     double up = c->up() ? -1 : 1;
@@ -5870,7 +5870,7 @@ void TLayout::layoutStemSlash(const StemSlash* item, StemSlash::LayoutData* ldat
         PointF p2 = beam->endAnchor();
         double beamAngle = p2.x() > p1.x() ? atan((p2.y() - p1.y()) / (p2.x() - p1.x())) : 0;
         angle += up * beamAngle / 2;
-        double length = 2 * item->spatium();
+        double length = conf.styleS(Sid::stemSlashBeamedLength).val() * item->spatium();
         bool obtuseAngle = (c->up() && beamAngle < 0) || (!c->up() && beamAngle > 0);
         if (obtuseAngle) {
             length *= lengthIncrease; // needs to be slightly longer
