@@ -2589,10 +2589,8 @@ void TDraw::draw(const SlurSegment* item, Painter* painter)
     double mag = item->staff() ? item->staff()->staffMag(item->slur()->tick()) : 1.0;
 
     // Replace generic Qt dash patterns with improved equivalents to show true dots
-    // (keep in sync with tie.cpp). Keep static to avoid per-frame allocations.
-    static const std::vector<double> dotted { 0.01, 1.99 };   // tighter than Qt DotLine ({ 0.01, 2.99 })
-    static const std::vector<double> dashed { 3.00, 3.00 };   // compensates for caps; Qt DashLine is { 4.0, 2.0 }
-    static const std::vector<double> wideDashed { 5.00, 6.00 };
+    // (keep in sync with tie.cpp).
+    const MStyle& style = item->style();
 
     switch (item->slurTie()->styleType()) {
     case SlurStyleType::Solid:
@@ -2603,17 +2601,17 @@ void TDraw::draw(const SlurSegment* item, Painter* painter)
     case SlurStyleType::Dotted:
         painter->setBrush(BrushStyle::NoBrush);
         pen.setCapStyle(PenCapStyle::RoundCap);           // round dots
-        pen.setDashPattern(dotted);
+        pen.setDashPattern({ 0.01, style.styleD(Sid::slurTieDottedGap) });
         pen.setWidthF(item->dottedWidth() * mag);
         break;
     case SlurStyleType::Dashed:
         painter->setBrush(BrushStyle::NoBrush);
-        pen.setDashPattern(dashed);
+        pen.setDashPattern({ style.styleD(Sid::slurTieDashLength), style.styleD(Sid::slurTieDashGap) });
         pen.setWidthF(item->dottedWidth() * mag);
         break;
     case SlurStyleType::WideDashed:
         painter->setBrush(BrushStyle::NoBrush);
-        pen.setDashPattern(wideDashed);
+        pen.setDashPattern({ style.styleD(Sid::slurTieWideDashLength), style.styleD(Sid::slurTieWideDashGap) });
         pen.setWidthF(item->dottedWidth() * mag);
         break;
     case SlurStyleType::Undefined:
@@ -3067,10 +3065,8 @@ void TDraw::draw(const TieSegment* item, Painter* painter)
     Pen pen(penColor);
     double mag = item->staff() ? item->staff()->staffMag(item->tie()->tick()) : 1.0;
     // Replace generic Qt dash patterns with improved equivalents to show true dots
-    // (keep in sync with slur.cpp). Keep static to avoid per-frame allocations.
-    static const std::vector<double> dotted { 0.01, 1.99 };   // tighter than Qt DotLine ({ 0.01, 2.99 })
-    static const std::vector<double> dashed { 3.00, 3.00 };   // compensates for caps; Qt DashLine is { 4.0, 2.0 }
-    static const std::vector<double> wideDashed { 5.00, 6.00 };
+    // (keep in sync with slur.cpp).
+    const MStyle& style = item->style();
 
     switch (item->slurTie()->styleType()) {
     case SlurStyleType::Solid:
@@ -3081,17 +3077,17 @@ void TDraw::draw(const TieSegment* item, Painter* painter)
     case SlurStyleType::Dotted:
         painter->setBrush(BrushStyle::NoBrush);
         pen.setCapStyle(PenCapStyle::RoundCap);           // True dots
-        pen.setDashPattern(dotted);
+        pen.setDashPattern({ 0.01, style.styleD(Sid::slurTieDottedGap) });
         pen.setWidthF(item->dottedWidth() * mag);
         break;
     case SlurStyleType::Dashed:
         painter->setBrush(BrushStyle::NoBrush);
-        pen.setDashPattern(dashed);
+        pen.setDashPattern({ style.styleD(Sid::slurTieDashLength), style.styleD(Sid::slurTieDashGap) });
         pen.setWidthF(item->dottedWidth() * mag);
         break;
     case SlurStyleType::WideDashed:
         painter->setBrush(BrushStyle::NoBrush);
-        pen.setDashPattern(wideDashed);
+        pen.setDashPattern({ style.styleD(Sid::slurTieWideDashLength), style.styleD(Sid::slurTieWideDashGap) });
         pen.setWidthF(item->dottedWidth() * mag);
         break;
     case SlurStyleType::Undefined:

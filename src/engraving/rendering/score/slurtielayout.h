@@ -91,11 +91,11 @@ private:
     static Shape getSegmentShapes(SlurSegment* slurSeg, ChordRest* startCR, ChordRest* endCR);
     static Shape getSegmentShape(SlurSegment* slurSeg, Segment* seg, ChordRest* startCR, ChordRest* endCR);
     static void addMinClearanceToShapes(Shape& segShapes, double spatium, bool slurUp, const ChordRest* startCR, const ChordRest* endCR);
-    static double computeArcClearance(double spatium, double slurLength, double slurAngle);
+    static double computeArcClearance(const SlurSegment* slurSeg, double slurLength, double slurAngle);
     static void computeAdjustmentBalance(SlurSegment* slurSeg, const ChordRest* startCR, const ChordRest* endCR, double& leftBalance,
                                          double& rightBalance);
     static bool hasArticulationAbove(SlurSegment* slurSeg, const ChordRest* chordRest);
-    static double computeAdjustmentStep(int upSign, double spatium, double slurLength);
+    static double computeAdjustmentStep(const MStyle& style, int upSign, double spatium, double slurLength);
     static bool stemSideForBeam(Slur* slur, bool start);
     static bool stemSideStartForBeam(Slur* slur) { return stemSideForBeam(slur, true); }
     static bool stemSideEndForBeam(Slur* slur) { return stemSideForBeam(slur, false); }

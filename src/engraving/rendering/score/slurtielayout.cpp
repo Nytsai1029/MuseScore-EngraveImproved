@@ -420,7 +420,7 @@ bool computeMultiBezierPath(SlurSegment* slurSeg, const PointF& p2, const PointF
 
     const double c = p2.x();
     const double arcY = 0.5 * (baseBezier1.y() + baseBezier2.y());
-    const double tangentLen = c / double(knotCount + 1) * 0.35;
+    const double tangentLen = c / double(knotCount + 1) * slurSeg->style().styleD(Sid::slurFlatCurveHandleRatio);
 
     std::vector<PointF> knotPoints(knotCount);
     std::vector<PointF> inHandlePoints(knotCount);
@@ -577,7 +577,7 @@ bool computeMultiBezierPath(SlurSegment* slurSeg, const PointF& p2, const PointF
 static double systemEndBarlineX(const System* system)
 {
     // Not upstream's rule: see MasterScore::officialCompat
-    if (system->score()->officialCompat()) {
+    if (system->score()->officialCompat() || !system->score()->style().styleB(Sid::slurTieExtendToSystemEndBarline)) {
         return system->endingXForOpenEndedLines();
     }
 
@@ -597,10 +597,11 @@ static double systemEndBarlineX(const System* system)
 
 SpannerSegment* SlurTieLayout::layoutSystem(Slur* item, System* system, LayoutContext& ctx)
 {
-    const double horizontalTieClearance = 0.35 * item->spatium();
-    const double tieClearance = 0.65 * item->spatium();
-    const double continuedSlurOffsetY = item->spatium() * .4;
-    const double continuedSlurMaxDiff = 2.5 * item->spatium();
+    const double horizontalTieClearance = ctx.conf().styleS(Sid::slurEndpointTieShiftX).val() * item->spatium();
+    const double tieClearance = ctx.conf().styleS(Sid::slurEndpointTieClearance).val() * item->spatium();
+    const double continuedSlurOffsetY = item->spatium() * ctx.conf().styleS(Sid::slurContinuedEndOffset).val();
+    const double continuedSlurMaxDiff = ctx.conf().styleS(Sid::slurContinuedMaxHeightDiff).val() * item->spatium();
+    const double singleChordRise = ctx.conf().styleS(Sid::slurContinuedSingleChordRise).val();
     Fraction stick = system->firstMeasure()->tick();
     Fraction etick = system->lastMeasure()->endTick();
 
@@ -786,7 +787,7 @@ SpannerSegment* SlurTieLayout::layoutSystem(Slur* item, System* system, LayoutCo
         double y = p1.y();
         const bool sameStaff = lastCr && lastCr->vStaffIdx() == slurSegment->vStaffIdx();
         if (lastCr && lastCr == item->startCR()) {
-            y += 0.25 * item->spatium() * (item->up() ? -1 : 1);
+            y += singleChordRise * item->spatium() * (item->up() ? -1 : 1);
         } else if (lastCr && lastCr->isChord() && sameStaff) {
             Chord* chord = toChord(lastCr);
             Shape chordShape = chord->shape();
@@ -847,11 +848,11 @@ SpannerSegment* SlurTieLayout::layoutSystem(Slur* item, System* system, LayoutCo
         }
     }
     if (constrainLeftAnchor) {
-        p1.ry() = p2.y() + (0.25 * item->spatium() * (item->up() ? -1 : 1));
+        p1.ry() = p2.y() + (singleChordRise * item->spatium() * (item->up() ? -1 : 1));
     }
 
     if (item->isTappingHalfSlur()) {
-        p1 = p2 - PointF(2.5 * item->spatium(), 0.0);
+        p1 = p2 - PointF(ctx.conf().styleS(Sid::tappingHalfSlurLength).val() * item->spatium(), 0.0);
     }
 
     bool isHangingSlur = sst == SpannerSegmentType::BEGIN || sst == SpannerSegmentType::END || incomingPartialSlur
@@ -876,7 +877,7 @@ void SlurTieLayout::adjustSlurFloatingEndPointAngles(SlurSegment* slurSeg, Point
     }
 
     bool up = slurSeg->slur()->up();
-    const double heightDiff = 1.0 * slurSeg->spatium();
+    const double heightDiff = slurSeg->style().styleS(Sid::slurHangingEndHeight).val() * slurSeg->spatium();
 
     if (startIsHanging) {
         double yCur = p1.y();
@@ -897,12 +898,15 @@ void SlurTieLayout::slurPos(Slur* item, SlurTiePos* sp, LayoutContext& ctx)
 {
     item->stemFloated().reset();
     double _spatium = (item->staffType() ? item->staffType()->lineDistance().val() : 1.0) * item->spatium();
-    const double stemSideInset = 0.5;
-    const double stemOffsetX = 0.35;
-    const double beamClearance = 0.35;
-    const double beamAnchorInset = 0.15;
+    const double stemSideInset = ctx.conf().styleS(Sid::slurStemSideInset).val();
+    const double stemOffsetX = ctx.conf().styleS(Sid::slurStemOffsetX).val();
+    const double beamClearance = ctx.conf().styleS(Sid::slurBeamClearance).val();
+    const double beamAnchorInset = ctx.conf().styleS(Sid::slurBeamAnchorInset).val();
     const double straightStemXOffset = 0.5; // how far down a straight stem a slur attaches (percent)
-    const double minOffset = 0.2;
+    const double minOffset = ctx.conf().styleS(Sid::slurMinStemBeamOffset).val();
+    const double noteDistance = ctx.conf().styleS(Sid::slurEndpointNoteDistance).val();
+    const double noteDistanceTab = ctx.conf().styleS(Sid::slurEndpointNoteDistanceTab).val();
+    const double stemFloatRatio = ctx.conf().styleD(Sid::slurStemFloatRatio);
     // hack alert!! -- fakeCutout
     // The fakeCutout const describes the slope of a line from the top of the stem to the full width of the hook.
     // this is necessary because hooks don't have SMuFL cutouts
@@ -1107,7 +1111,7 @@ void SlurTieLayout::slurPos(Slur* item, SlurTiePos* sp, LayoutContext& ctx)
         } else {
             po.ry() = scr->ldata()->bbox().top() + scr->height();
         }
-        double offset = useTablature ? 0.75 : 0.9;
+        double offset = useTablature ? noteDistanceTab : noteDistance;
         po.ry() += scr->intrinsicMag() * _spatium * offset * __up;
 
         // adjustments for stem and/or beam
@@ -1199,7 +1203,7 @@ void SlurTieLayout::slurPos(Slur* item, SlurTiePos* sp, LayoutContext& ctx)
 
                     // differential in note positions
                     double yd  = (n2 ? n2->pos().y() : ecr->pos().y()) - n1->pos().y();
-                    yd *= .5;
+                    yd *= stemFloatRatio;
 
                     // float along stem according to differential
                     double sh = stem1 ? stem1->height() : 0.0;
@@ -1243,7 +1247,7 @@ void SlurTieLayout::slurPos(Slur* item, SlurTiePos* sp, LayoutContext& ctx)
             } else {
                 po.ry() = item->endCR()->ldata()->bbox().top() + item->endCR()->height();
             }
-            double offset2 = useTablature ? 0.75 : 0.9;
+            double offset2 = useTablature ? noteDistanceTab : noteDistance;
             po.ry() += ecr->intrinsicMag() * _spatium * offset2 * __up;
 
             // adjustments for stem and/or beam
@@ -1335,7 +1339,7 @@ void SlurTieLayout::slurPos(Slur* item, SlurTiePos* sp, LayoutContext& ctx)
                         Note* n2 = ec->up() ? ec->upNote() : ec->downNote();
 
                         double yd = n2->pos().y() - (n1 ? n1->pos().y() : item->startCR()->pos().y());
-                        yd *= .5;
+                        yd *= stemFloatRatio;
 
                         double mh = stem2 ? stem2->height() : 0.0;
                         if (item->up() && yd > 0.0) {
@@ -1390,8 +1394,8 @@ void SlurTieLayout::fixArticulations(Slur* item, PointF& pt, Chord* c, double up
     // yo = current offset of slur from chord position
     // return unchanged position, or position of outmost "close" articulation
     //
-    double slurTipToArticVertDist = c->spatium() * 0.5 * up;
-    double slurTipInwardAdjust = 0.1 * item->spatium();
+    double slurTipToArticVertDist = c->spatium() * item->style().styleS(Sid::slurArticulationDistance).val() * up;
+    double slurTipInwardAdjust = item->style().styleS(Sid::slurArticulationInset).val() * item->spatium();
     bool start = item->startCR() && item->startCR() == c;
     bool end = item->endCR() && item->endCR() == c;
     for (Articulation* a : c->articulations()) {
@@ -1423,7 +1427,8 @@ void SlurTieLayout::adjustEndPoints(SlurSegment* slurSeg)
 {
     double spatium = slurSeg->spatium();
     double lw = (slurSeg->staffType() ? slurSeg->staffType()->lineDistance().val() : 1.0) * spatium;
-    const double staffLineMargin = 0.175 + (0.5 * slurSeg->style().styleS(Sid::staffLineWidth).val() * (spatium / lw));
+    const double staffLineMargin = slurSeg->style().styleS(Sid::slurEndpointStaffLineMargin).val()
+                                   + (0.5 * slurSeg->style().styleS(Sid::staffLineWidth).val() * (spatium / lw));
     PointF p1 = slurSeg->ups(Grip::START).p;
     PointF p2 = slurSeg->ups(Grip::END).p;
 
@@ -1488,7 +1493,7 @@ void SlurTieLayout::avoidCollisions(SlurSegment* slurSeg, PointF& pp1, PointF& p
         return;
     }
 
-    const double arcClearance = -upSign* computeArcClearance(spatium, slurLength, slurAngle);  // Collision clearance at the center of the slur
+    const double arcClearance = -upSign* computeArcClearance(slurSeg, slurLength, slurAngle);  // Collision clearance at the center of the slur
 
     // balance: determines how much endpoint adjustment VS shape adjustment we will do.
     // 0 = end point is fixed, only the shape can be adjusted,
@@ -1503,7 +1508,7 @@ void SlurTieLayout::avoidCollisions(SlurSegment* slurSeg, PointF& pp1, PointF& p
     const bool upstreamRules = slurSeg->score()->officialCompat();
     const unsigned maxIter = upstreamRules ? 30u : slurLength > 12.0 ? 18u : 12u;
 
-    double step = computeAdjustmentStep(upSign, spatium, slurLength);
+    double step = computeAdjustmentStep(slurSeg->style(), upSign, spatium, slurLength);
 
     // Divide slur in several rectangles to localize collisions
     // Adaptive sampling: long slurs get more samples, short slurs fewer.
@@ -1839,9 +1844,10 @@ Shape SlurTieLayout::getSegmentShape(SlurSegment* slurSeg, Segment* seg, ChordRe
 
 void SlurTieLayout::addMinClearanceToShapes(Shape& segShapes, double spatium, bool slurUp, const ChordRest* startCR, const ChordRest* endCR)
 {
-    const double noteClearance = 0.4 * spatium;
-    const double articulationClearance = 0.20 * spatium;
-    const double itemClearance = 0.1 * spatium;
+    const MStyle& style = startCR->style();
+    const double noteClearance = style.styleS(Sid::slurNoteClearance).val() * spatium;
+    const double articulationClearance = style.styleS(Sid::slurArticulationClearance).val() * spatium;
+    const double itemClearance = style.styleS(Sid::slurItemClearance).val() * spatium;
 
     for (ShapeElement& shapeEl : segShapes.elements()) {
         const EngravingItem* item = shapeEl.item();
@@ -1868,40 +1874,44 @@ void SlurTieLayout::addMinClearanceToShapes(Shape& segShapes, double spatium, bo
     }
 }
 
-double SlurTieLayout::computeArcClearance(double spatium, double slurLength, double slurAngle)
+double SlurTieLayout::computeArcClearance(const SlurSegment* slurSeg, double slurLength, double slurAngle)
 {
-    static constexpr double CLEARANCE_TO_LENGTH_RATIO = 0.04;
-    static constexpr double MAX_CLEARANCE = 0.5;
-    static constexpr double MIN_CLEARANCE = 0.1;
+    const MStyle& style = slurSeg->style();
+    const double clearanceToLengthRatio = style.styleD(Sid::slurArcClearanceLengthRatio);
+    const double minClearance = style.styleS(Sid::slurArcClearanceMin).val();
+    const double maxClearance = std::max(style.styleS(Sid::slurArcClearanceMax).val(), minClearance);
 
-    double clearance = CLEARANCE_TO_LENGTH_RATIO * slurLength * std::pow(cos(slurAngle), 2);
-    clearance = std::clamp(clearance, MIN_CLEARANCE, MAX_CLEARANCE);
+    double clearance = clearanceToLengthRatio * slurLength * std::pow(cos(slurAngle), 2);
+    clearance = std::clamp(clearance, minClearance, maxClearance);
 
-    return clearance * spatium;
+    return clearance * slurSeg->spatium();
 }
 
 void SlurTieLayout::computeAdjustmentBalance(SlurSegment* slurSeg, const ChordRest* startCR, const ChordRest* endCR,  double& leftBalance,
                                              double& rightBalance)
 {
     Slur* slur = slurSeg->slur();
+    const double constrainedBalance = slurSeg->style().styleD(Sid::slurCollisionBalanceConstrained);
+    const double normalBalance = slurSeg->style().styleD(Sid::slurCollisionBalanceNormal);
+    const double freeBalance = slurSeg->style().styleD(Sid::slurCollisionBalanceFree);
     if (slurSeg->isSingleBeginType() && !slur->stemFloated().left) {
         if (slurSeg->isBeginType() || hasArticulationAbove(slurSeg, startCR) || slur->isCrossStaff()) {
-            leftBalance = 0.1;
+            leftBalance = constrainedBalance;
         } else {
-            leftBalance = 0.4;
+            leftBalance = normalBalance;
         }
     } else {
-        leftBalance = 0.9;
+        leftBalance = freeBalance;
     }
 
     if (slurSeg->isSingleEndType() && !slur->stemFloated().right) {
         if (slurSeg->isEndType() || hasArticulationAbove(slurSeg, endCR) || slur->isCrossStaff()) {
-            rightBalance = 0.1;
+            rightBalance = constrainedBalance;
         } else {
-            rightBalance = 0.4;
+            rightBalance = normalBalance;
         }
     } else {
-        rightBalance = 0.9;
+        rightBalance = freeBalance;
     }
 }
 
@@ -1933,14 +1943,14 @@ bool SlurTieLayout::hasArticulationAbove(SlurSegment* slurSeg, const ChordRest* 
     return false;
 }
 
-double SlurTieLayout::computeAdjustmentStep(int upSign, double spatium, double slurLength)
+double SlurTieLayout::computeAdjustmentStep(const MStyle& style, int upSign, double spatium, double slurLength)
 {
-    double step = upSign * 0.30 * spatium;
+    double step = upSign * style.styleS(Sid::slurCollisionStep).val() * spatium;
 
-    static constexpr double LONG_SLUR_LIMIT = 16.0; // in spaces
-    if (slurLength > LONG_SLUR_LIMIT) {
-        step *= slurLength / LONG_SLUR_LIMIT;
-        step = std::min(step, 1.5 * spatium);
+    const double longSlurLimit = style.styleS(Sid::slurCollisionLongSlurLength).val(); // in spaces
+    if (slurLength > longSlurLimit) {
+        step *= slurLength / longSlurLimit;
+        step = std::min(step, style.styleS(Sid::slurCollisionMaxStep).val() * spatium);
     }
 
     return step;
@@ -2271,15 +2281,15 @@ PointF SlurTieLayout::computeDefaultStartOrEndPoint(const Tie* tie, Grip startOr
 
     double visualInsetSp = 0.0;
     if (inside || note->headGroup() == NoteHeadGroup::HEAD_SLASH || noteIsHiddenFret) {
-        visualInsetSp = 0.2;
+        visualInsetSp = tie->style().styleS(Sid::tieInsideInset).val();
     } else if (note->hasAnotherStraightAboveOrBelow(up)) {
-        visualInsetSp = 0.45;
+        visualInsetSp = tie->style().styleS(Sid::tieOutsideInsetChord).val();
     } else {
-        visualInsetSp = 0.1;
+        visualInsetSp = tie->style().styleS(Sid::tieOutsideInset).val();
     }
 
     double visualInset = visualInsetSp * spatium * leftRightSign;
-    const double yOffset = 0.20 * spatium * upSign; // TODO: style
+    const double yOffset = tie->style().styleS(Sid::tieEndpointYOffset).val() * spatium * upSign; // TODO: style
 
     result += PointF(visualInset, yOffset);
 
@@ -2368,8 +2378,8 @@ void SlurTieLayout::adjustOverlappingSlurs(const std::list<SpannerSegment*>& spa
 
     //how far vertically an endpoint should adjust to avoid other slur endpoints:
     const double spatium = segments.front()->spatium();
-    const double slurCollisionVertOffset = 0.65 * spatium;
-    const double slurCollisionHorizOffset = 0.2 * spatium;
+    const double slurCollisionVertOffset = segments.front()->style().styleS(Sid::slurOverlapOffsetY).val() * spatium;
+    const double slurCollisionHorizOffset = segments.front()->style().styleS(Sid::slurOverlapOffsetX).val() * spatium;
     const double fuzzyHorizCompare = 0.25 * spatium;
     auto compare = [fuzzyHorizCompare](double x1, double x2) { return std::abs(x1 - x2) < fuzzyHorizCompare; };
     for (SlurSegment* slur1 : segments) {
@@ -2484,7 +2494,8 @@ void SlurTieLayout::calculateLaissezVibY(LaissezVibSegment* segment, SlurTiePos&
     if (paren && (!lv->isOuterTieOfChord(Grip::START) || avoidStem)) {
         RectF parenBbox = paren->ldata()->bbox().translated(paren->systemPos());
         double adj = sPos.p1.y() - (lv->up() ? parenBbox.top() : parenBbox.bottom());
-        const double PAREN_LV_PADDING = 0.1 * segment->spatium();
+        const double PAREN_LV_PADDING = segment->style().styleS(Sid::laissezVibParenthesisPadding).val()
+                                        * segment->spatium();
         adj += PAREN_LV_PADDING * (lv->up() ? 1.0 : -1.0);
         sPos.p1.ry() -= adj;
         sPos.p2.ry() -= adj;
@@ -2737,7 +2748,7 @@ void SlurTieLayout::adjustX(TieSegment* tieSegment, SlurTiePos& sPos, Grip start
     const Chord* otherChord = otherNote ? otherNote->chord() : nullptr;
     const Segment* chordSeg = chord->segment();
     const double spatium = tieSegment->spatium();
-    const double padding = 0.20 * spatium * (start ? 1 : -1); // TODO: style
+    const double padding = tie->style().styleS(Sid::tieItemPadding).val() * spatium * (start ? 1 : -1); // TODO: style
     const bool isGrace = (chord && chord->isGrace())
                          || ((otherChord && otherChord->isGrace()) && chord->segment() == otherChord->segment());
 
@@ -2771,7 +2782,7 @@ void SlurTieLayout::adjustX(TieSegment* tieSegment, SlurTiePos& sPos, Grip start
         Tie* otherTie = start ? note->tieBack() : note->tieFor();
         bool avoidOtherTie = otherTie && otherTie->up() == tie->up() && !otherTie->isInside();
         if (avoidOtherTie) {
-            resultingX += 0.1 * spatium * (start ? 1 : -1);
+            resultingX += tie->style().styleS(Sid::tieAdjacentTieInset).val() * spatium * (start ? 1 : -1);
         }
     }
 
@@ -2889,7 +2900,7 @@ void SlurTieLayout::adjustYforLedgerLines(TieSegment* tieSegment, SlurTiePos& sP
     PointF& tiePoint = tieSegment->isSingleBeginType() ? sPos.p1 : sPos.p2;
     double spatium = tie->spatium();
     int upSign = tie->up() ? -1 : 1;
-    double margin = 0.4 * spatium;
+    double margin = tie->style().styleS(Sid::tieLedgerLineMargin).val() * spatium;
 
     for (LedgerLine* ledger : chord->ledgerLines()) {
         PointF ledgerPos = ledger->pos() + chordSystemPos;
@@ -2936,7 +2947,8 @@ void SlurTieLayout::adjustY(TieSegment* tieSegment)
 
     const double halfLineThicknessCorrection = 0.5 * staffLineThickness * upSign;
     const double protrusion = std::abs(endPointY - (closestLineToEndpoints * spatium - halfLineThicknessCorrection));
-    const double badIntersectionLimit = 0.15 * spatium; // TODO: style
+    const double badIntersectionLimit = tieSegment->style().styleS(Sid::tieEndpointStaffLineMargin).val()
+                                        * spatium; // TODO: style
 
     bool badIntersection = protrusion < badIntersectionLimit && (isEndInsideStaff || isEndInsideLedgerLines);
     if (badIntersection) {
@@ -2966,7 +2978,11 @@ void SlurTieLayout::adjustY(TieSegment* tieSegment)
 
     double outwardMargin = -upSign * (yOuterApogee - (closestLineToArc * staffLineDist - halfLineThicknessCorrection));
     double inwardMargin = upSign * (yInnerApogee - (closestLineToArc * staffLineDist + halfLineThicknessCorrection));
-    const double badArcIntersectionLimit = tieLength < 3 * spatium ? 0.1 * spatium : 0.15 * spatium;
+    const double shortArcLimit = tieSegment->style().styleS(Sid::tieArcStaffLineShortLength).val();
+    const double shortArcMargin = tieSegment->style().styleS(Sid::tieArcStaffLineMarginShort).val();
+    const double arcMargin = tieSegment->style().styleS(Sid::tieArcStaffLineMargin).val();
+    const double badArcIntersectionLimit = tieLength < shortArcLimit * spatium
+                                           ? shortArcMargin * spatium : arcMargin * spatium;
 
     bool increaseArc = outwardMargin - 0.5 * badArcIntersectionLimit < inwardMargin;
     bool correctOutwards = inwardMargin < badArcIntersectionLimit && increaseArc;
@@ -3062,7 +3078,7 @@ void SlurTieLayout::resolveVerticalTieCollisions(const std::vector<TieSegment*>&
         double thisTieOuterY = up ? thisTie->ldata()->bbox().top() : thisTie->ldata()->bbox().bottom();
         double nextTieInnerY = (up ? nextTie->ldata()->bbox().top() : nextTie->ldata()->bbox().bottom())
                                - upSign * 2 * nextTie->ldata()->midThickness();
-        double clearanceMargin = 0.15 * spatium;
+        double clearanceMargin = thisTie->style().styleS(Sid::tieStackedClearance).val() * spatium;
         bool collision = upSign * (nextTieInnerY - thisTieOuterY) < clearanceMargin;
         if (!collision) {
             return;
@@ -3210,7 +3226,8 @@ void SlurTieLayout::computeBezier(TieSegment* tieSeg, PointF shoulderOffset)
 
     const double minShoulderHeight = tieSeg->minShoulderHeight();
     const double maxShoulderHeight = tieSeg->maxShoulderHeight();
-    double shoulderH = minShoulderHeight + _spatium * 0.3 * sqrt(std::abs(tieLengthInSp - 1));
+    const double shoulderHeightFactor = tieSeg->style().styleD(Sid::tieShoulderHeightFactor);
+    double shoulderH = minShoulderHeight + _spatium * shoulderHeightFactor * sqrt(std::abs(tieLengthInSp - 1));
     shoulderH = std::clamp(shoulderH, minShoulderHeight, maxShoulderHeight);
 
     shoulderH -= shoulderOffset.y();
@@ -3223,7 +3240,7 @@ void SlurTieLayout::computeBezier(TieSegment* tieSeg, PointF shoulderOffset)
         shoulderH = -shoulderH;
     }
 
-    double shoulderW = 0.6; // TODO: style
+    double shoulderW = tieSeg->style().styleD(Sid::tieShoulderWidth); // TODO: style
 
     const double tieWidth = tieEndNormalized.x();
     // Keep the two shoulder points equidistant from the tie's mid-point so the
@@ -3347,14 +3364,15 @@ void SlurTieLayout::computeBezier(SlurSegment* slurSeg, PointF shoulderOffset)
         return;
     }
 
-    if (d < 2) {
-        shoulderW = 0.60;
-    } else if (d < 10) {
-        shoulderW = 0.5;
-    } else if (d < 18) {
-        shoulderW = 0.6;
+    const MStyle& style = slurSeg->style();
+    if (d < style.styleS(Sid::slurShoulderLengthShort).val()) {
+        shoulderW = style.styleD(Sid::slurShoulderWidthShort);
+    } else if (d < style.styleS(Sid::slurShoulderLengthMedium).val()) {
+        shoulderW = style.styleD(Sid::slurShoulderWidthMedium);
+    } else if (d < style.styleS(Sid::slurShoulderLengthLong).val()) {
+        shoulderW = style.styleD(Sid::slurShoulderWidthLong);
     } else {
-        shoulderW = 0.7;
+        shoulderW = style.styleD(Sid::slurShoulderWidthVeryLong);
     }
 
     double shoulderH = computeShoulderHeight(slurSeg, d, shoulderOffset);
@@ -3540,15 +3558,18 @@ void SlurTieLayout::finishBezier(SlurSegment* slurSeg, const PointF& p2, const P
 double SlurTieLayout::computeShoulderHeight(SlurSegment* slurSeg, double slurLengthInSp, PointF shoulderOffset)
 {
     double spatium = slurSeg->spatium();
+    const MStyle& style = slurSeg->style();
 
     if (slurSeg->isTappingHalfSlurSegment()) {
-        double shoulderH = (slurSeg->staffType()->isTabStaff() ? 1.0 : 0.6) * spatium;
+        const bool isTab = slurSeg->staffType()->isTabStaff();
+        const Sid heightSid = isTab ? Sid::tappingHalfSlurHeightTab : Sid::tappingHalfSlurHeight;
+        double shoulderH = style.styleS(heightSid).val() * spatium;
         return slurSeg->slur()->up() ? shoulderH : -shoulderH;
     }
 
-    double shoulderH = sqrt(slurLengthInSp / 4) * spatium;
+    double shoulderH = style.styleD(Sid::slurShoulderHeightFactor) * sqrt(slurLengthInSp) * spatium;
 
-    static constexpr double shoulderReduction = 0.75;
+    const double shoulderReduction = style.styleD(Sid::slurOverBeamsHeightFactor);
     if (isOverBeams(slurSeg->slur())) {
         shoulderH *= shoulderReduction;
     }
@@ -3853,8 +3874,9 @@ void SlurTieLayout::computeMidThickness(SlurTieSegment* slurTieSeg, double slurT
     Staff* staff = slurTieSeg->score() ? slurTieSeg->score()->staff(slurTieSeg->vStaffIdx()) : nullptr;
     const double mag = staff ? staff->staffMag(slurTieSeg->slurTie()->tick()) : 1.0;
     const double minTieLength = mag * slurTieSeg->style().styleS(Sid::minTieLength).val();
-    const double shortTieLimit = mag * 4.0;
-    const double minTieThickness = mag * (0.15 * slurTieSeg->spatium() - endWidth);
+    const double shortTieLimit = mag * slurTieSeg->style().styleS(Sid::slurTieShortLengthLimit).val();
+    const double shortMidWidth = slurTieSeg->style().styleS(Sid::slurTieShortMidWidth).val();
+    const double minTieThickness = mag * (shortMidWidth * slurTieSeg->spatium() - endWidth);
     const double normalThickness = mag * (midWidth - endWidth);
 
     bool invalid = muse::RealIsEqualOrMore(minTieLength, shortTieLimit);
