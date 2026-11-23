@@ -66,6 +66,7 @@ set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/layoutconsistency_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/layoutelements_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/layoutfingerprint_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/reopendiagnostics_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ledgerline_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/links_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/measure_tests.cpp
