@@ -26,6 +26,7 @@
 #include "engraving/dom/accidental.h"
 #include "engraving/dom/ambitus.h"
 #include "engraving/dom/arpeggio.h"
+#include "engraving/dom/barline.h"
 #include "engraving/dom/articulation.h"
 #include "engraving/dom/beam.h"
 #include "engraving/dom/box.h"
@@ -738,6 +739,46 @@ TEST_F(Notation_PreviewMusicTests, pageBreaks)
     EXPECT_FALSE(measures[0]->lineBreak());
 
     EXPECT_FALSE(errorOf("\\pageBreak c''1").empty());
+}
+
+/**
+ * @TEST_CASE barlinesAndRepeats
+ * @details `\bar` gives the barline where it stands — ending the measure, or after a `|` the measure before —
+ *          with LilyPond's types; the repeats are the measures' repeat flags, `\playCount` how often a repeat is
+ *          played
+ */
+TEST_F(Notation_PreviewMusicTests, barlinesAndRepeats)
+{
+    ASSERT_TRUE(load("\\bar \".|:\" c''1 \\bar \":|.\" \\playCount 3 c''1 | \\bar \"||\" c''1 \\bar \":|.|:\" c''1 "
+                     "\\bar \"!\" | c''1 \\bar \"|.\""));
+
+    std::vector<const Measure*> measures;
+    for (const Measure* measure = score()->firstMeasure(); measure; measure = measure->nextMeasure()) {
+        measures.push_back(measure);
+    }
+    ASSERT_EQ(measures.size(), 5u);
+
+    EXPECT_TRUE(measures[0]->repeatStart());
+    EXPECT_TRUE(measures[0]->repeatEnd());
+    EXPECT_EQ(measures[0]->repeatCount(), 3);
+    EXPECT_FALSE(measures[1]->repeatStart());
+    EXPECT_FALSE(measures[1]->repeatEnd());
+    EXPECT_TRUE(measures[2]->repeatEnd());
+    EXPECT_EQ(measures[2]->repeatCount(), 2);
+    EXPECT_TRUE(measures[3]->repeatStart());
+
+    const auto endBarline = [](const Measure* measure) {
+        const Segment* segment = measure->findSegment(SegmentType::EndBarLine, measure->endTick());
+        return segment && segment->element(0) ? toBarLine(segment->element(0))->barLineType() : BarLineType::NORMAL;
+    };
+    EXPECT_EQ(endBarline(measures[1]), BarLineType::DOUBLE);
+    EXPECT_EQ(endBarline(measures[3]), BarLineType::BROKEN);
+    EXPECT_EQ(endBarline(measures[4]), BarLineType::END);
+
+    EXPECT_FALSE(errorOf("\\bar \"||\" c''1").empty());
+    EXPECT_FALSE(errorOf("c''1 \\bar \"x\"").empty());
+    EXPECT_FALSE(errorOf("c''1 \\playCount 3").empty());
+    EXPECT_FALSE(errorOf("c''1 \\bar \":|.\" \\playCount 1").empty());
 }
 
 /**

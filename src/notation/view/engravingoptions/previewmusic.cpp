@@ -266,6 +266,10 @@ struct Measure {
     std::vector<Voice> voices = std::vector<Voice>(1);
     bool lineBreak = false;     // the system ends after the measure
     bool pageBreak = false;     // the page ends after the measure
+    bool startRepeat = false;   // a repeat begins with the measure
+    int endRepeat = 0;          // a repeat ends with the measure, played this many times; 0: none
+    QString barline;            // the type of its barline (as BarLineType is written), if `\\bar` gives one
+    bool barlineSaid = false;   // `\\bar` stands at its end, so a `|` after it adds nothing
 
     static Fraction lengthOf(const Voice& voice)
     {
@@ -477,7 +481,7 @@ private:
         if (measure().isEmpty()) {
             //! NOTE `\break` ends its measure too: a bar line after it is said already (`c'4 \break |`)
             const Measure* before = m_music.size() >= 2 ? &m_music[m_music.size() - 2] : nullptr;
-            if (before && (before->lineBreak || before->pageBreak)) {
+            if (before && (before->lineBreak || before->pageBreak || before->barlineSaid)) {
                 return;
             }
             fail("this measure is empty", token.position);
@@ -651,6 +655,10 @@ private:
                 (page ? measure().pageBreak : measure().lineBreak) = true;
                 endMeasure(token);
             }
+        } else if (text == "\\bar") {
+            readBar(token);
+        } else if (text == "\\playCount") {
+            readPlayCount(token);
         } else if (text == "\\tuplet") {
             readTuplet(token);
         } else if (text == "\\clef") {
@@ -775,6 +783,68 @@ private:
         if (m_music.size() > 1 || !measure().isEmpty()) {
             fail("\\staves is written at the beginning", command.position);
         }
+    }
+
+    //! `\\bar "type"`: the barline where it stands — at the end of the measure being written, which it ends as a `|`
+    //! does, or after a `|` at the end of the measure before. The types are LilyPond's: `||` `|.` `.|` `!` (dashed)
+    //! `;` (dotted) `.` (heavy) `..` (double heavy), and the repeats `.|:` `:|.` `:|.|:`
+    void readBar(const Token& command)
+    {
+        const Token type = takeToken("a barline type in quotes", command);
+        const QString text = quoted(type);
+        static const std::map<QString, QString> SUBTYPES {
+            { "||", "double" }, { "|.", "end" }, { ".|", "reverse-end" }, { "!", "dashed" }, { ";", "dotted" },
+            { ".", "heavy" }, { "..", "double-heavy" },
+        };
+        const bool startsRepeat = text == ".|:" || text == ":|.|:";
+        const bool endsRepeat = text == ":|." || text == ":|.|:";
+        if (!startsRepeat && !endsRepeat && !SUBTYPES.count(text)) {
+            fail("a barline type: || |. .| ! ; . .. .|: :|. :|.|:", type.position);
+        }
+
+        const bool endsThisMeasure = !measure().isEmpty();
+        if (!endsThisMeasure && m_music.size() < 2 && !(startsRepeat && !endsRepeat)) {
+            fail("there is no measure before this barline", command.position);
+        }
+
+        //! NOTE The measure which ends at the barline, if there is one before it
+        m_lastEndRepeat.reset();
+        if (endsThisMeasure || m_music.size() >= 2) {
+            const size_t index = m_music.size() - (endsThisMeasure ? 1 : 2);
+            Measure& before = m_music[index];
+            before.barlineSaid = true;
+            if (endsRepeat) {
+                before.endRepeat = 2;
+                m_lastEndRepeat = index;
+            }
+            if (SUBTYPES.count(text)) {
+                before.barline = SUBTYPES.at(text);
+            }
+        }
+
+        if (endsThisMeasure) {
+            endMeasure(command);
+        }
+        if (startsRepeat) {
+            measure().startRepeat = true;
+        }
+    }
+
+    //! `\\playCount N`: the repeat which ends at the `\\bar` before it is played N times
+    void readPlayCount(const Token& command)
+    {
+        const Token number = takeToken("how many times the repeat is played", command);
+        if (!m_lastEndRepeat) {
+            fail("\\playCount follows the \\bar which ends a repeat", command.position);
+        }
+
+        const int count = readNumber(number.text, number.position);
+        if (count < 2 || count > 99) {
+            fail("2 to 99 times", number.position);
+        }
+
+        m_music[*m_lastEndRepeat].endRepeat = count;
+        m_lastEndRepeat.reset();
     }
 
     //! `\\instruments 2`: two instruments of one staff each, where `\\staves 2` is one instrument on two staves
@@ -1305,6 +1375,7 @@ private:
     int m_staves = 1;
     bool m_instruments = false;
     std::optional<int> m_bracket;   // as given by `\\group`
+    std::optional<size_t> m_lastEndRepeat;  // the measure whose repeat the last `\\bar` ended, for `\\playCount`
     int m_staff = 0;
     int m_crossStaff = 0;
     int m_slurStyle = 0;
@@ -1662,17 +1733,28 @@ private:
         const Fraction length = writtenLength(measure);
         m_xml.writeAttribute("len", QString("%1/%2").arg(length.numerator()).arg(length.denominator()));
 
+        //! NOTE What belongs to the whole system is written with the first staff (as MeasureWrite does)
+        if (staff == 0) {
+            if (measure.startRepeat) {
+                m_xml.writeEmptyElement("startRepeat");
+            }
+            if (measure.endRepeat > 0) {
+                number("endRepeat", measure.endRepeat);
+            }
+        }
+
         if ((measure.lineBreak || measure.pageBreak) && staff == 0) {
             m_xml.writeStartElement("LayoutBreak");
             text("subtype", measure.pageBreak ? "page" : "line");
             m_xml.writeEndElement();
         }
 
-        //! NOTE The voices which have events on the staff are its voices, one after the other
+        //! NOTE The voices which have events on the staff are its voices, one after the other; the barline ends the
+        //! first of them
         bool hasVoice = false;
         for (size_t v = 0; v < measure.voices.size(); ++v) {
             if (isOnStaff(measure.voices[v], staff)) {
-                writeVoice(measure, v, staff);
+                writeVoice(measure, v, staff, !hasVoice);
                 hasVoice = true;
             }
         }
@@ -1680,6 +1762,7 @@ private:
         if (!hasVoice) {
             m_xml.writeStartElement("voice");
             writeMeasureRest(writtenLength(measure));
+            writeBarline(measure);
             m_xml.writeEndElement();
         }
 
@@ -1707,7 +1790,7 @@ private:
     }
 
     //! The voice of a measure on a staff: its events written there, with rests where the voice is on the other staff
-    void writeVoice(const Measure& measure, size_t voiceIndex, int staff)
+    void writeVoice(const Measure& measure, size_t voiceIndex, int staff, bool withBarline)
     {
         std::vector<const Event*> events;
         for (const Event& event : measure.voices[voiceIndex]) {
@@ -1727,7 +1810,23 @@ private:
         }
 
         writeGapRests(writtenLength(measure) - cursor);
+        if (withBarline) {
+            writeBarline(measure);
+        }
 
+        m_xml.writeEndElement();
+    }
+
+    //! The barline at the end of the measure, if `\\bar` gives one other than a repeat (which the measure's repeats
+    //! make)
+    void writeBarline(const Measure& measure)
+    {
+        if (measure.barline.isEmpty()) {
+            return;
+        }
+
+        m_xml.writeStartElement("BarLine");
+        text("subtype", measure.barline);
         m_xml.writeEndElement();
     }
 

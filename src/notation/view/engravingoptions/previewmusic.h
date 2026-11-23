@@ -62,6 +62,9 @@ namespace mu::notation {
 //!   `\tuplet 3/2 { ... }`, `\clef treble|bass|alto|tenor`, `\key N` (N sharps, negative: flats), `\time 3/4`,
 //!   `\break` (the system ends after this measure, as if a `|` had come before it), `\pageBreak` (the page ends
 //!   after it).
+//! - `\bar "type"` where a barline stands (it ends the measure as `|` does, or, after a `|`, gives the barline of the
+//!   measure before): `||` `|.` `.|` `!` (dashed) `;` (dotted) `.` (heavy) `..`, and the repeats `.|:` `:|.` `:|.|:`;
+//!   `\playCount N` after a `\bar` which ends a repeat: it is played N times.
 //! - Two voices of a whole measure, of the same length: `<< { ... } \\ { ... } >>`.
 //! - Two staves (a grand staff) with `\staves 2` at the beginning. `\staff 1|2` says on which staff the notes which
 //!   follow are written (at the start of each voice it is staff 1 again), and `\crossStaff down|up|off` shows the
