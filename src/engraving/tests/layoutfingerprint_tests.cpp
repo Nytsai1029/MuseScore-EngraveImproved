@@ -32,6 +32,7 @@
 
 #include "global/io/buffer.h"
 
+#include "compat/engravingcompat.h"
 #include "compat/mscxcompat.h"
 #include "dom/chord.h"
 #include "dom/excerpt.h"
@@ -95,8 +96,9 @@ struct Project
     const LayoutFingerprintReport& report() const { return project->masterScore()->layoutFingerprintReport(); }
 };
 
-//! lockedUpdates: as when the application loads a project, which holds the layout back until all is set up
-Project open(const String& path, bool lockedUpdates = false)
+//! Locked updates as the application holds the layout back until all is set up, and the compat steps of
+//! NotationProject::doLoad before and after the first layout (its style migration dialog aside)
+Project open(const String& path)
 {
     Project result;
     result.project = EngravingProject::create(nullptr);
@@ -107,13 +109,19 @@ Project open(const String& path, bool lockedUpdates = false)
     }
 
     MasterScore* score = result.project->masterScore();
-    score->lockUpdates(lockedUpdates);
-    result.project->setupMasterScore(true);
-    if (lockedUpdates) {
+    score->lockUpdates(true);
+    result.ret = result.project->setupMasterScore(true);
+    if (!result.ret) {
+        result.project = nullptr;
         score->lockUpdates(false);
-        score->setLayoutAll();
-        score->update();
+        return result;
     }
+
+    compat::EngravingCompat::doPreLayoutCompatIfNeeded(score);
+    score->lockUpdates(false);
+    score->setLayoutAll();
+    score->update();
+    compat::EngravingCompat::doPostLayoutCompatIfNeeded(score);
     return result;
 }
 
@@ -421,6 +429,23 @@ TEST_F(Engraving_LayoutFingerprintTests, reopenedFileHasTheSavedLayout)
     }
 }
 
+//! A file of an older format is laid out to its fixed point when it is opened: the layout the user first
+//! sees is the one the file shows after a save and a reopen (EngravingCompat::doPostLayoutCompatIfNeeded)
+TEST_F(Engraving_LayoutFingerprintTests, migratedFileIsLaidOutToItsFixedPoint)
+{
+    // A 4.2 file with user-modified cross-staff beams, which the compat step lays out once more
+    Project original = open(dataPath(VTEST_DIR + u"cross-9.mscz"));
+    ASSERT_TRUE(original.score());
+    ASSERT_LT(original.score()->mscVersion(), 460);
+    const LayoutFingerprint before = LayoutFingerprint::of(original.score());
+    ASSERT_GT(before.systems.size(), 0u);
+
+    ASSERT_TRUE(save(original.score(), u"layoutFingerprint-cross-9.msdz"));
+    Project reopened = open(outputPath(u"layoutFingerprint-cross-9.msdz"));
+    ASSERT_TRUE(reopened.score());
+    expectSameFingerprint(before, LayoutFingerprint::of(reopened.score()));
+}
+
 //---------------------------------------------------------
 //   The file
 //---------------------------------------------------------
@@ -678,7 +703,7 @@ TEST_F(Engraving_LayoutFingerprintTests, lockedUpdatesAreComparedAtTheFirstLayou
 {
     const String saved = saveFixture(SYSTEMS_SCORE, u"layoutFingerprint-locked.msdz");
 
-    Project reopened = open(saved, /*lockedUpdates*/ true);
+    Project reopened = open(saved);
     ASSERT_TRUE(reopened.ret);
     ASSERT_TRUE(reopened.score());
     EXPECT_TRUE(reopened.report().comparable) << describe(reopened.report());
@@ -719,7 +744,7 @@ TEST_F(Engraving_LayoutFingerprintTests, partIsComparedWhenItIsLaidOut)
             EXPECT_TRUE(file.find(excerpt->fileName())) << excerpt->name().toStdString();
         }
 
-        Project reopened = open(outputPath(u"layoutFingerprint-parts.msdz"), /*lockedUpdates*/ true);
+        Project reopened = open(outputPath(u"layoutFingerprint-parts.msdz"));
         ASSERT_TRUE(reopened.score());
         const LayoutFingerprintReport& report = reopened.report();
         EXPECT_TRUE(report.comparable) << describe(report);
@@ -795,7 +820,7 @@ TEST_F(Engraving_LayoutFingerprintTests, partIsComparedWhenItIsLaidOut)
         EXPECT_TRUE(file.find(String()));
         EXPECT_TRUE(file.find(laidOut->fileName()));
 
-        Project reopened = open(outputPath(u"layoutFingerprint-parts-edited.msdz"), /*lockedUpdates*/ true);
+        Project reopened = open(outputPath(u"layoutFingerprint-parts-edited.msdz"));
         ASSERT_TRUE(reopened.score());
         const LayoutFingerprintReport& report = reopened.report();
         EXPECT_TRUE(report.comparable) << describe(report);

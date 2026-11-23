@@ -37,6 +37,7 @@
 #include <utility>
 #include <vector>
 
+#include "compat/engravingcompat.h"
 #include "compat/mscxcompat.h"
 #include "dom/engravingitem.h"
 #include "dom/masterscore.h"
@@ -153,8 +154,24 @@ Project open(const String& path)
         return result;
     }
 
-    result.project->masterScore()->lockUpdates(false);
-    result.project->setupMasterScore(true);
+    //! As NotationProject::doLoad opens a score (its style migration dialog aside): setup with updates
+    //! locked, the compat steps before and after the first layout
+    MasterScore* masterScore = result.project->masterScore();
+    masterScore->lockUpdates(true);
+    result.ret = result.project->setupMasterScore(true);
+    if (!result.ret) {
+        result.project = nullptr;
+        masterScore->lockUpdates(false);
+        return result;
+    }
+
+    compat::EngravingCompat::doPreLayoutCompatIfNeeded(masterScore);
+
+    masterScore->lockUpdates(false);
+    masterScore->setLayoutAll();
+    masterScore->update();
+
+    compat::EngravingCompat::doPostLayoutCompatIfNeeded(masterScore);
     return result;
 }
 
