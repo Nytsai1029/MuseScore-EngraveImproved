@@ -163,7 +163,8 @@ EoPage {
             title: qsTrc("notation/engravingoptions", "Show number ‘1’")
             hint: qsTrc("notation/engravingoptions",
                         "Prints a 1 above the whole rest of a single empty measure. An H-bar always has its number.")
-            enabled: Boolean(page.value("createMultiMeasureRests")) && Boolean(page.value("singleMeasureMMRestUseNormalRest"))
+            enabled: Boolean(page.value("createMultiMeasureRests"))
+                     && Boolean(page.value("singleMeasureMMRestUseNormalRest"))
         }
     }
 

@@ -439,7 +439,12 @@ EoPage {
         EoNumber {
             sid: "slurMaxHeightToLengthRatio"
             music: "g'16( g''' g') r16"
-            musicStyle: ({ slurCollisionBalanceFree: 0.0, slurCollisionBalanceConstrained: 0.0, slurCollisionStep: 1.0, measureSpacing: 1.2 })
+            musicStyle: ({
+                slurCollisionBalanceFree: 0.0,
+                slurCollisionBalanceConstrained: 0.0,
+                slurCollisionStep: 1.0,
+                measureSpacing: 1.2
+            })
             title: qsTrc("notation/engravingoptions", "Greatest height in relation to length")
             hint: qsTrc("notation/engravingoptions",
                         "However much a slur is raised to clear the notes under it, its height stays under this " +
