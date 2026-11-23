@@ -302,6 +302,7 @@ struct Piece {
     std::map<int, int> staffLines;  // the number of lines of a staff which has not five, by its 0-based index
     std::set<int> smallStaves;      // 0-based indices of the small staves
     bool spanBarlines = false;      // the barlines of the first staff go down through the second
+    bool hideStavesIndividually = false;    // an empty staff is hidden although the other staff has notes
     QString longName;               // of the instrument, on the first system
     QString shortName;              // on the other systems
 };
@@ -425,7 +426,7 @@ public:
         }
 
         return { std::move(m_music), m_staves, m_bracket, std::move(m_tabStaves), std::move(m_staffLines),
-                 std::move(m_smallStaves), m_spanBarlines, m_longName, m_shortName };
+                 std::move(m_smallStaves), m_spanBarlines, m_hideStavesIndividually, m_longName, m_shortName };
     }
 
 private:
@@ -611,6 +612,11 @@ private:
             m_slashHeads = true;
         } else if (text == "\\small") {
             m_small = true;
+        } else if (text == "\\hideStavesIndividually") {
+            if (m_music.size() > 1 || !measure().isEmpty()) {
+                fail("\\hideStavesIndividually is written at the beginning", token.position);
+            }
+            m_hideStavesIndividually = true;
         } else if (text == "\\spanBarlines") {
             if (m_music.size() > 1 || !measure().isEmpty()) {
                 fail("\\spanBarlines is written at the beginning", token.position);
@@ -1273,6 +1279,7 @@ private:
     bool m_small = false;
     std::set<int> m_smallStaves;
     bool m_spanBarlines = false;
+    bool m_hideStavesIndividually = false;
     std::optional<int> m_beamBegin;         // the place of the `[` of the beam which is open
     bool m_beamHasBegun = false;            // the `[` is on the chord which is being read
     bool m_beamEnds = false;
@@ -1539,6 +1546,9 @@ private:
         }
 
         text("trackName", "Piano");
+        if (m_piece.hideStavesIndividually) {
+            number("hideStavesWhenIndividuallyEmpty", 1);
+        }
         m_xml.writeStartElement("Instrument");
         m_xml.writeAttribute("id", "piano");
         if (!m_piece.longName.isEmpty()) {

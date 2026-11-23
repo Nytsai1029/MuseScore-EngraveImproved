@@ -691,6 +691,22 @@ TEST_F(Notation_PreviewMusicTests, barlinesSpanTwoStaves)
 }
 
 /**
+ * @TEST_CASE stavesHiddenIndividually
+ * @details `\hideStavesIndividually` sets the part's ‘hide staves when individually empty’, without it the part
+ *          hides its staves only together
+ */
+TEST_F(Notation_PreviewMusicTests, stavesHiddenIndividually)
+{
+    ASSERT_TRUE(load("\\staves 2 \\hideStavesIndividually c''1"));
+    EXPECT_TRUE(score()->parts().front()->hideStavesWhenIndividuallyEmpty());
+
+    ASSERT_TRUE(load("\\staves 2 c''1"));
+    EXPECT_FALSE(score()->parts().front()->hideStavesWhenIndividuallyEmpty());
+
+    EXPECT_FALSE(errorOf("c''1 | \\hideStavesIndividually c''1").empty());
+}
+
+/**
  * @TEST_CASE staffWithOneLine
  * @details `\lines 1` gives the staff one line instead of five; written later, or with a count which is not
  *          1 to 5, it is an error

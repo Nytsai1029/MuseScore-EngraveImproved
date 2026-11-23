@@ -67,8 +67,9 @@ namespace mu::notation {
 //!   chords which follow on the neighbouring staff. A slur, a tie and a hairpin stay on one staff.
 //!   `\tab` at the beginning makes the current staff a six-string tablature, `\lines N` gives it N lines
 //!   (1 to 5) instead of five. `\name "long" "short"` at the beginning names the instrument,
-//!   `\smallStaff` makes the current staff a small staff, `\spanBarlines` joins the barlines of two staves. `\group` with
-//!   `bracket`, `square`, `line`, `brace` or `none` chooses the bracket over the two staves
+//!   `\smallStaff` makes the current staff a small staff, `\spanBarlines` joins the barlines of two staves,
+//!   `\hideStavesIndividually` lets the style hide an empty staff of the two although the other has notes.
+//!   `\group` with `bracket`, `square`, `line`, `brace` or `none` chooses the bracket over the two staves
 //!   (a grand staff has a brace, `none` none at all).
 //! - Before the first chord of a beam group: `\beamAt y1 y2` writes the y its ends have, in staff
 //!   spaces — which the file carries as a beam the user moved, so it is laid out like one —
