@@ -155,6 +155,7 @@
             <actualNotes>3</actualNotes>
             <baseNote>eighth</baseNote>
             <Number>
+              <style>tuplet</style>
               <text>3</text>
               </Number>
             </Tuplet>

@@ -1546,7 +1546,7 @@ static void readTuplet206(Tuplet* tuplet, XmlReader& e, ReadContext& ctx)
     while (e.readNextStartElement()) {
         const AsciiStringView tag(e.name());
         if (tag == "Number") {
-            Text* _number = Factory::createText(tuplet);
+            Text* _number = Factory::createText(tuplet, TextStyleType::TUPLET);
             _number->setParent(tuplet);
             _number->setComposition(true);
             tuplet->setNumber(_number);
@@ -1653,12 +1653,10 @@ bool Read206::readTupletProperties206(XmlReader& e, ReadContext& ctx, Tuplet* de
     } else if (tag == "baseNote") {
         de->setBaseLen(TDuration(TConv::fromXml(e.readAsciiText(), DurationType::V_INVALID)));
     } else if (tag == "Number") {
-        Text* _number = Factory::createText(de);
+        Text* _number = Factory::createText(de, TextStyleType::TUPLET);
         de->setNumber(_number);
         _number->setComposition(true);
         _number->setParent(de);
-//            _number->setSubStyleId(SubStyleId::TUPLET);
-//            initSubStyle(SubStyleId::TUPLET);   // hack: initialize number
         for (auto p : { Pid::FONT_FACE, Pid::FONT_SIZE, Pid::FONT_STYLE, Pid::ALIGN }) {
             _number->resetProperty(p);
         }

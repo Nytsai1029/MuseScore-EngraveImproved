@@ -98,6 +98,7 @@
             <actualNotes>6</actualNotes>
             <baseNote>16th</baseNote>
             <Number>
+              <style>tuplet</style>
               <text>6:4</text>
               </Number>
             <numberType>1</numberType>
@@ -181,6 +182,7 @@
             <actualNotes>10</actualNotes>
             <baseNote>eighth</baseNote>
             <Number>
+              <style>tuplet</style>
               <text>10:8</text>
               </Number>
             <numberType>1</numberType>
@@ -288,6 +290,7 @@
             <actualNotes>3</actualNotes>
             <baseNote>eighth</baseNote>
             <Number>
+              <style>tuplet</style>
               <text>3</text>
               </Number>
             </Tuplet>
@@ -339,6 +342,7 @@
             <actualNotes>3</actualNotes>
             <baseNote>16th</baseNote>
             <Number>
+              <style>tuplet</style>
               <text>3</text>
               </Number>
             </Tuplet>
@@ -389,6 +393,7 @@
             <actualNotes>9</actualNotes>
             <baseNote>16th</baseNote>
             <Number>
+              <style>tuplet</style>
               <text>9</text>
               </Number>
             <direction>up</direction>
@@ -431,6 +436,7 @@
             <actualNotes>6</actualNotes>
             <baseNote>64th</baseNote>
             <Number>
+              <style>tuplet</style>
               <text>6</text>
               </Number>
             </Tuplet>
@@ -550,6 +556,7 @@
             <actualNotes>11</actualNotes>
             <baseNote>eighth</baseNote>
             <Number>
+              <style>tuplet</style>
               <text>11</text>
               </Number>
             <direction>up</direction>
@@ -574,6 +581,7 @@
             <actualNotes>2</actualNotes>
             <baseNote>16th</baseNote>
             <Number>
+              <style>tuplet</style>
               <text>2</text>
               </Number>
             <direction>up</direction>
@@ -593,6 +601,7 @@
             <actualNotes>3</actualNotes>
             <baseNote>32nd</baseNote>
             <Number>
+              <style>tuplet</style>
               <text>3</text>
               </Number>
             </Tuplet>
@@ -665,6 +674,7 @@
             <actualNotes>5</actualNotes>
             <baseNote>32nd</baseNote>
             <Number>
+              <style>tuplet</style>
               <text>5</text>
               </Number>
             </Tuplet>

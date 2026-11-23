@@ -446,6 +446,25 @@ TEST_F(Engraving_LayoutFingerprintTests, migratedFileIsLaidOutToItsFixedPoint)
     expectSameFingerprint(before, LayoutFingerprint::of(reopened.score()));
 }
 
+//! A tuplet number which a 2.x file carries gets the tuplet text style, as one created by the layout has
+TEST_F(Engraving_LayoutFingerprintTests, oldTupletNumberHasTheTupletTextStyle)
+{
+    const String fixture = dataPath(VTEST_DIR + u"tuplets-2.mscx");
+    Project original = open(fixture);
+    ASSERT_TRUE(original.score());
+
+    Tuplet* tuplet = nullptr;
+    original.score()->scanElements(&tuplet, [](void* d, EngravingItem* e) {
+        if (!*static_cast<Tuplet**>(d) && e->isTuplet() && toTuplet(e)->number()) {
+            *static_cast<Tuplet**>(d) = toTuplet(e);
+        }
+    });
+    ASSERT_TRUE(tuplet);
+    EXPECT_EQ(tuplet->number()->textStyleType(), TextStyleType::TUPLET);
+
+    expectSameLayoutAfterReopening(fixture, u"layoutFingerprint-tuplets-2.msdz");
+}
+
 //! An empty guitar-bend text is drawn nowhere, but its box must be the same box in every layout — the
 //! fingerprint of a saved file must match the reopened layout
 TEST_F(Engraving_LayoutFingerprintTests, emptyBendTextSurvivesSaveReload)
