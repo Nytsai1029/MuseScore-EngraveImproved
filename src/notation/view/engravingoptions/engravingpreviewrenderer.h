@@ -47,7 +47,9 @@ namespace mu::notation {
 //! NOTE Music laid out by the engraving engine with a given style, for the previews of the Engraving Options
 //! dialog: what the user sees there is what the options do to a score, not a drawing of it.
 //! The music is written as text (see PreviewMusic). It is laid out as a line of its natural width (or of a given
-//! width, when it shows what happens at the end of a system), with nothing of a page around it
+//! width, when it shows what happens at the end of a system), with nothing of a page around it — or, for the
+//! options of the page itself (margins, vertical spacing, header and footer), on the first page of the score as
+//! the style has it (see setShowsPage)
 class EngravingPreviewRenderer : public muse::Injectable
 {
     muse::Inject<engraving::rendering::IScoreRenderer> scoreRenderer = { this };
@@ -88,17 +90,26 @@ public:
     QString error() const;
     bool isLoaded() const;
 
+    //! NOTE Whether the music is laid out on pages as the style has them (their size and margins, the header and
+    //! the footer, the vertical spacing), and the picture is every page of it, whole, side by side as the layout puts
+    //! them; else the music alone, on the first page
+    void setShowsPage(bool showsPage);
+    bool showsPage() const;
+
     //! NOTE Lays the music out with the style: the given one without what belongs to a page
-    //! (see makePreviewStyle), then the overrides. The width of the systems is given
-    //! in staff spaces; not positive: each system is as wide as its music needs
+    //! (see makePreviewStyle) unless the picture shows the page, then the overrides. The width of the systems is
+    //! given in staff spaces; not positive: each system is as wide as its music needs (a page has its own width)
     void layout(const engraving::MStyle& style, const std::vector<Override>& overrides, double systemWidthSp = 0.0);
 
-    //! NOTE The size of the laid out music, which is the first page cut down to what is printed on it.
-    //! In staff spaces, so it does not depend on the staff size of the style
+    //! NOTE The size of the laid out music, which is the first page cut down to what is printed on it (the whole
+    //! pages if it shows the pages). In staff spaces, so it does not depend on the staff size of the style
     muse::SizeF sizeInStaffSpaces() const;
 
-    //! NOTE The items of the first page, in a stable order (type, track, tick, position), so that two layouts of
-    //! the same music can be compared item by item
+    //! NOTE Where the pages are in the picture, in staff spaces, if it shows the pages; else nothing
+    std::vector<muse::RectF> pagesInStaffSpaces() const;
+
+    //! NOTE The items of the first page (of every page if it shows the pages), in a stable order (type, track,
+    //! tick, position), so that two layouts of the same music can be compared item by item
     std::vector<Item> items() const;
 
     //! NOTE What it does when the value `id` is `probe` (the style and the overrides have the other values).
@@ -152,6 +163,7 @@ private:
     muse::RectF pictureRect() const { return m_pictureRect; }
 
     std::unique_ptr<engraving::MasterScore> m_score;
+    bool m_showsPage = false;
     muse::RectF m_pictureRect;
     int m_pictureMargin = 0;    // of m_pictureRect around the printed music, in page units
     QString m_error;

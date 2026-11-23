@@ -22,6 +22,7 @@
 
 #include <gtest/gtest.h>
 
+#include <algorithm>
 #include <cmath>
 #include <map>
 #include <string>
@@ -98,11 +99,11 @@ protected:
         MScore::useRead302InTestMode = m_useRead302;
     }
 
-    //! A renderer which has the music, and has laid it out
+    //! A renderer which has the music, and has laid it out (on a whole page if `showsPage`)
     static std::unique_ptr<EngravingPreviewRenderer> laidOut(const QString& music, const MStyle& style,
                                                              const std::vector<EngravingPreviewRenderer::Override>&
                                                              overrides = {},
-                                                             double systemWidthSp = 0.0)
+                                                             double systemWidthSp = 0.0, bool showsPage = false)
     {
         auto renderer = std::make_unique<EngravingPreviewRenderer>(nullptr);
         const muse::Ret ret = renderer->setMusic(music);
@@ -111,6 +112,7 @@ protected:
             return nullptr;
         }
 
+        renderer->setShowsPage(showsPage);
         renderer->layout(style, overrides, systemWidthSp);
         return renderer;
     }
@@ -138,6 +140,52 @@ TEST_F(Notation_EngravingPreviewTests, musicIsLaidOut)
     EXPECT_FALSE(broken.setMusic("c'4 x"));
     EXPECT_FALSE(broken.isLoaded());
     EXPECT_FALSE(broken.error().isEmpty());
+}
+
+/**
+ * @TEST_CASE aPageIsShownWhole
+ * @details With showsPage the music is laid out on the page as the style has it, and the picture is the whole
+ *          page: the size of the paper, with the music below the top margin, and the margins of the music on the
+ *          page change it. Music of several pages shows them all, side by side, with the items of each
+ */
+TEST_F(Notation_EngravingPreviewTests, aPageIsShownWhole)
+{
+    const MStyle style = baseStyle();
+    auto renderer = laidOut(TWO_MEASURES, style, {}, 0.0, true);
+    ASSERT_TRUE(renderer);
+    EXPECT_TRUE(renderer->showsPage());
+
+    const double spatium = style.spatium();
+    const muse::SizeF size = renderer->sizeInStaffSpaces();
+    EXPECT_NEAR(size.width(), style.styleD(Sid::pageWidth) * DPI / spatium, 0.01);
+    EXPECT_NEAR(size.height(), style.styleD(Sid::pageHeight) * DPI / spatium, 0.01);
+
+    const std::vector<EngravingPreviewRenderer::Item> items = renderer->items();
+    const auto staffLines = std::find_if(items.begin(), items.end(), [](const EngravingPreviewRenderer::Item& item) {
+        return item.type == ElementType::STAFF_LINES;
+    });
+    ASSERT_NE(staffLines, items.end());
+    EXPECT_GT(staffLines->box.top(), style.styleD(Sid::pageOddTopMargin) * DPI / spatium);
+    EXPECT_GT(staffLines->box.left(), style.styleD(Sid::pageOddLeftMargin) * DPI / spatium - 0.01);
+
+    EXPECT_FALSE(renderer->effectOf(style, {}, Sid::staffUpperBorder, PropertyValue(Spatium(10.0))).isEmpty());
+
+    const std::vector<muse::RectF> pages = renderer->pagesInStaffSpaces();
+    ASSERT_EQ(pages.size(), 1u);
+    EXPECT_NEAR(pages.front().width(), size.width(), 0.01);
+
+    auto alone = laidOut(TWO_MEASURES, style);
+    ASSERT_TRUE(alone);
+    EXPECT_LT(alone->sizeInStaffSpaces().height(), size.height() / 4.0);
+    EXPECT_TRUE(alone->pagesInStaffSpaces().empty());
+
+    auto twoPages = laidOut("c''1 \\pageBreak e''1", style, {}, 0.0, true);
+    ASSERT_TRUE(twoPages);
+    const std::vector<muse::RectF> both = twoPages->pagesInStaffSpaces();
+    ASSERT_EQ(both.size(), 2u);
+    EXPECT_GT(both[1].left(), both[0].right() - 0.01);
+    EXPECT_NEAR(twoPages->sizeInStaffSpaces().width(), both[1].right() - both[0].left(), 0.01);
+    EXPECT_EQ(count(twoPages->items(), ElementType::NOTE), 2);
 }
 
 /**
@@ -794,6 +842,15 @@ std::optional<PropertyValue> choiceProbeOf(const SourceBlock& option, const MSty
                            : text.contains('.') ? QVariant(text.toDouble()) : QVariant(text.toInt());
     return styleValueFromUi(id, plain);
 }
+
+//! The value a text option is shown with: its text with a sample added, as EoMusic.probeValueOf has it
+PropertyValue textProbeOf(const MStyle& style, const std::vector<EngravingPreviewRenderer::Override>& overrides,
+                          StyleId id)
+{
+    static const QString TEXT_PROBE_SAMPLE = "Text";
+    const QVariant current = styleValueToUi(id, EngravingPreviewRenderer::valueOf(style, overrides, id));
+    return styleValueFromUi(id, current.toString() + TEXT_PROBE_SAMPLE);
+}
 }
 
 /**
@@ -819,7 +876,7 @@ TEST_F(Notation_EngravingPreviewTests, previewShowsWhatTheOptionDoes)
                 const SourceBlock& option = *entry.first;
                 const SourceBlock* grid = entry.second;
                 const QString sid = option.sid();
-                const auto [music, systemWidth] = musicInfoOf(option, grid, section, page);
+                const auto [music, systemWidth, showsPage] = musicInfoOf(option, grid, section, page);
                 if (sid.isEmpty() || music.isEmpty() || (!only.isEmpty() && sid != only)) {
                     continue;
                 }
@@ -827,15 +884,15 @@ TEST_F(Notation_EngravingPreviewTests, previewShowsWhatTheOptionDoes)
                 const StyleId id = MStyle::styleIdx(muse::String::fromQString(sid));
                 const std::vector<EngravingPreviewRenderer::Override> overrides
                     = musicStyleOf(option, grid, section, page);
-                const std::optional<PropertyValue> probe = option.type == "EoChoice"
-                                                           ? choiceProbeOf(option, style, overrides, id)
-                                                           : EngravingPreviewRenderer::probeOf(style, overrides, id,
-                                                                                             dragMaximumOf(option));
+                const std::optional<PropertyValue> probe
+                    = option.type == "EoChoice" ? choiceProbeOf(option, style, overrides, id)
+                      : option.type == "EoText" ? std::optional<PropertyValue>(textProbeOf(style, overrides, id))
+                      : EngravingPreviewRenderer::probeOf(style, overrides, id, dragMaximumOf(option));
                 if (!probe) {
                     continue;
                 }
 
-                auto renderer = laidOut(music, style, overrides);
+                auto renderer = laidOut(music, style, overrides, systemWidth, showsPage);
                 if (!renderer) {
                     ADD_FAILURE() << name << ": the music of " << sid.toStdString() << " is not valid: "
                                   << music.toStdString();
@@ -882,8 +939,9 @@ TEST_F(Notation_EngravingPreviewTests, theMusicOfEveryOptionFitsThePane)
                 const SourceBlock& option = *entry.first;
                 const SourceBlock* grid = entry.second;
                 const QString sid = option.sid();
-                const auto [music, systemWidth] = musicInfoOf(option, grid, section, page);
-                if (sid.isEmpty() || music.isEmpty()) {
+                const auto [music, systemWidth, showsPage] = musicInfoOf(option, grid, section, page);
+                //! NOTE A whole page is fitted to the pane, whatever its size
+                if (sid.isEmpty() || music.isEmpty() || showsPage) {
                     continue;
                 }
                 if (optionsWhichMusicCannotFitThePane().count(sid)) {
@@ -994,7 +1052,7 @@ TEST_F(Notation_EngravingPreviewTests, aNumberAboveTheStaffMarksOnlyItself)
 /**
  * @TEST_CASE aMusicWithABreakHasASystemWidth
  * @details A music which ends a system is laid out with a width in staff spaces, or the break makes the
- *          system as wide as the page can be
+ *          system as wide as the page can be — unless it is shown on a whole page, whose systems are as wide as it
  */
 TEST_F(Notation_EngravingPreviewTests, aMusicWithABreakHasASystemWidth)
 {
@@ -1006,8 +1064,9 @@ TEST_F(Notation_EngravingPreviewTests, aMusicWithABreakHasASystemWidth)
         for (const SourceBlock& section : page.children) {
             for (const auto& entry : optionsOf(section)) {
                 const SourceBlock& option = *entry.first;
-                const auto [music, systemWidth] = musicInfoOf(option, entry.second, section, page);
-                if (music.contains("\\break")) {
+                const auto [music, systemWidth, showsPage] = musicInfoOf(option, entry.second, section, page);
+                //! NOTE The systems of a page are as wide as the page
+                if (music.contains("\\break") && !showsPage) {
                     EXPECT_GT(systemWidth, 0.0) << name << ": " << option.sid().toStdString()
                                                 << " has a \\break but no systemWidth";
                 }

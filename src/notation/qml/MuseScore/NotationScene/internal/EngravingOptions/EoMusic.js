@@ -23,17 +23,23 @@
 
 //! NOTE: Which music an option shows, and which option a page begins with
 
-//! NOTE: the music of an option and the width its systems are laid out with: both of the object which
-//! gives the music — the option itself, else its section, else its page
+//! NOTE: the music of an option and the width its systems are laid out with, both of the object which gives the
+//! music — the option itself, else its grid, its section, its page —, and whether it is shown on pages: as the
+//! nearest of them which has a `previewScope` says
 function musicInfoOf(option, section, page) {
     const grid = Boolean(option) ? option.grid : null
-    for (const object of [option, grid, section, page]) {
+    const objects = [option, grid, section, page]
+
+    const scopeOwner = objects.find(function(object) { return Boolean(object) && Boolean(object.previewScope) })
+    const showsPage = Boolean(scopeOwner) && scopeOwner.previewScope === "page"
+
+    for (const object of objects) {
         if (Boolean(object) && Boolean(object.music)) {
-            return { music: object.music, systemWidth: object.systemWidth || 0 }
+            return { music: object.music, systemWidth: object.systemWidth || 0, showsPage: showsPage }
         }
     }
 
-    return { music: "", systemWidth: 0 }
+    return { music: "", systemWidth: 0, showsPage: false }
 }
 
 
@@ -86,9 +92,18 @@ function segmentWidthFor(choices) {
     return Math.max(64, Math.min(168, 26 + longest * 11))
 }
 
-//! NOTE: the value an option of kind "choice" is shown with: the choice after the current one, wrapping
-//! around; none when there is only one choice
+//! NOTE: what is added to the text of an option of kind "text" to see where it stands (the change marks it, also
+//! when the text is empty); it is never shown itself. The tests add the same (engravingpreview_tests.cpp)
+var TEXT_PROBE_SAMPLE = "Text"
+
+//! NOTE: the value an option is shown with, when it is not a number (which takes an automatic step): of a
+//! "choice", the choice after the current one, wrapping around (none when there is only one); of a "text", the
+//! text with a sample added
 function probeValueOf(option, styleItem) {
+    if (Boolean(option) && option.kind === "text") {
+        return (Boolean(styleItem) && styleItem.value !== undefined ? String(styleItem.value) : "") + TEXT_PROBE_SAMPLE
+    }
+
     if (!Boolean(option) || option.kind !== "choice" || !Boolean(option.choices) || option.choices.length < 2) {
         return undefined
     }

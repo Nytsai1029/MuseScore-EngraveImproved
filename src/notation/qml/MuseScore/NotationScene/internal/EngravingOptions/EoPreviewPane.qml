@@ -60,13 +60,17 @@ Item {
     readonly property bool isShownByEffect: ["spatium", "real", "int", "bool"].indexOf(valueKind) >= 0
 
     //! NOTE: the zoom of the picture is the scale of the user times the fit of the picture to the paper
-    //! (so that 100 % always fills the room inside it)
+    //! (so that 100 % always fills the room inside it). Music is not made smaller than readable nor larger than
+    //! sensible; of pages, one fits the width of the paper whatever its size (the others are scrolled to)
     property real userScale: 1.0
     readonly property real fit: {
         const innerWidth = card.width - 2 * card.padding
-        const naturalWidth = card.naturalSize.width
+        const naturalWidth = musicInfo.showsPage ? card.naturalPageSize.width : card.naturalSize.width
         if (innerWidth <= 0.0 || naturalWidth <= 0.0) {
             return 1.0
+        }
+        if (musicInfo.showsPage) {
+            return innerWidth / naturalWidth
         }
         return Math.max(0.8, Math.min(2.6, innerWidth / naturalWidth))
     }
@@ -129,6 +133,7 @@ Item {
 
                 music: root.music
                 systemWidth: root.musicInfo.systemWidth
+                showsPage: root.musicInfo.showsPage
                 overrides: root.musicStyle
                 zoom: root.zoom
 

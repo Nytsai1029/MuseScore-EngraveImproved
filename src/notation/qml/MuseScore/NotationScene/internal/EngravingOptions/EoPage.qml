@@ -47,6 +47,12 @@ QtObject {
     //! music needs). It belongs to the music: it counts on the object which gives it
     property real systemWidth: 0
 
+    //! NOTE: "page": the music is laid out on pages as the style has them (their size and margins, the header
+    //! and the footer, the vertical spacing), and the picture is the pages, whole — for the options of the page
+    //! itself; "music": the music alone. The nearest object which says it counts (the option, its section, its
+    //! page); no one: the music alone
+    property string previewScope: ""
+
     //! NOTE: the title of the group of pages in the list which the page belongs to
     property string group: ""
 

@@ -59,6 +59,9 @@ class EngravingPreview : public QQuickPaintedItem, public muse::Injectable, publ
     //! NOTE The width of the systems in staff spaces, for music which shows the end of a system.
     //! Not positive: each system is as wide as its music needs
     Q_PROPERTY(double systemWidth READ systemWidth WRITE setSystemWidth NOTIFY systemWidthChanged)
+    //! NOTE Whether the picture is the pages of the music, whole and side by side, laid out as the style has the
+    //! pages (size, margins, header and footer, vertical spacing): for the options of the page itself
+    Q_PROPERTY(bool showsPage READ showsPage WRITE setShowsPage NOTIFY showsPageChanged)
 
     //! NOTE 1.0 is the staff space of BASE_STAFF_SPACE pixels
     Q_PROPERTY(double zoom READ zoom WRITE setZoom NOTIFY zoomChanged)
@@ -66,6 +69,9 @@ class EngravingPreview : public QQuickPaintedItem, public muse::Injectable, publ
     //! NOTE The size of the picture at the zoom 1: staff spaces × BASE_STAFF_SPACE. Independent of the
     //! zoom, so that a fit can be computed before the picture is made
     Q_PROPERTY(QSizeF naturalSize READ naturalSize NOTIFY naturalSizeChanged)
+    //! NOTE The size of the first page at the zoom 1, if the picture shows the pages (a pane fits one page);
+    //! else empty
+    Q_PROPERTY(QSizeF naturalPageSize READ naturalPageSize NOTIFY naturalSizeChanged)
 
     //! NOTE The size of the picture at this zoom. The picture is always made at the size it is shown
     Q_PROPERTY(QSizeF contentSize READ contentSize NOTIFY contentSizeChanged)
@@ -122,10 +128,14 @@ public:
     double systemWidth() const;
     void setSystemWidth(double widthSp);
 
+    bool showsPage() const;
+    void setShowsPage(bool showsPage);
+
     double zoom() const;
     void setZoom(double zoom);
 
     QSizeF naturalSize() const;
+    QSizeF naturalPageSize() const;
     QSizeF contentSize() const;
     bool isValid() const;
     QString error() const;
@@ -168,6 +178,7 @@ signals:
     void musicChanged();
     void overridesChanged();
     void systemWidthChanged();
+    void showsPageChanged();
     void zoomChanged();
     void naturalSizeChanged();
     void contentSizeChanged();
@@ -233,6 +244,7 @@ private:
     QString m_music;
     QVariantMap m_overrides;
     double m_systemWidth = 0.0;
+    bool m_showsPage = false;
     double m_zoom = 1.0;
 
     QString m_activeSid;
@@ -265,6 +277,8 @@ private:
 
     QImage m_image;
     QSizeF m_naturalSize;
+    QSizeF m_naturalPageSize;
+    std::vector<muse::RectF> m_pages;   // where the pages are in the picture, in staff spaces, if it shows them
     QSizeF m_contentSize;
     bool m_needsLayout = true;
     bool m_needsPaint = true;

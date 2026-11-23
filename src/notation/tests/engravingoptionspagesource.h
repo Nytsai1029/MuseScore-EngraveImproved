@@ -39,8 +39,8 @@ struct SourceBlock {
     QStringList ownLines;
     std::vector<SourceBlock> children;
 
-    //! What follows `name:` in a line of the block itself. A `[ … ]` array or `({ … })` object may span
-    //! several lines; they are joined into the one expression
+    //! What follows `name:` in a line of the block itself. A `[ … ]` array, a `({ … })` object or texts joined
+    //! with `+` may span several lines; they are joined into the one expression
     std::optional<QString> property(const QString& name) const
     {
         const QRegularExpression line("^\\s*" + name + ":\\s*(.+?)\\s*$");
@@ -51,8 +51,12 @@ struct SourceBlock {
             }
 
             QString expression = match.captured(1);
-            for (int j = i + 1; j < ownLines.size() && !balanced(expression); ++j) {
-                expression += ' ' + ownLines.at(j).trimmed();
+            for (int j = i + 1; j < ownLines.size(); ++j) {
+                const QString next = ownLines.at(j).trimmed();
+                if (balanced(expression) && !expression.endsWith('+') && !next.startsWith('+')) {
+                    break;
+                }
+                expression += ' ' + next;
             }
 
             return expression;
@@ -123,12 +127,23 @@ struct SourceBlock {
         return bare.count('[') == bare.count(']') && bare.count('(') == bare.count(')');
     }
 
-    //! The text of an expression which is nothing but a string literal
+    //! The text of an expression which is nothing but string literals, joined with `+` if there are several
     static QString unquoted(const QString& expression)
     {
-        static const QRegularExpression LITERAL("^\"((?:[^\"\\\\]|\\\\.)*)\"$");
-        const QRegularExpressionMatch match = LITERAL.match(expression);
-        return match.hasMatch() ? unescaped(match.captured(1)) : QString();
+        static const QRegularExpression LITERALS(
+            "^\"(?:[^\"\\\\]|\\\\.)*\"(?:\\s*\\+\\s*\"(?:[^\"\\\\]|\\\\.)*\")*$");
+        static const QRegularExpression LITERAL("\"((?:[^\"\\\\]|\\\\.)*)\"");
+        if (!LITERALS.match(expression).hasMatch()) {
+            return QString();
+        }
+
+        QString result;
+        QRegularExpressionMatchIterator it = LITERAL.globalMatch(expression);
+        while (it.hasNext()) {
+            result += unescaped(it.next().captured(1));
+        }
+
+        return result;
     }
 
     static QString unescaped(const QString& text)
@@ -244,11 +259,19 @@ inline QString musicResolved(const QString& expression, const QMap<QString, QStr
                                  : match.captured(4));
 }
 
-//! The music of an option and the width its systems are laid out with: both of the block which gives the
-//! music (its own, else its grid's, else its section's, else its page's), resolved with the first value of
-//! the contexts which the expression can name — the same resolution as `EoMusic.musicInfoOf` on the QML side
-inline std::pair<QString, double> musicInfoOf(const SourceBlock& option, const SourceBlock* grid,
-                                              const SourceBlock& section, const SourceBlock& page)
+//! The music of an option, as the preview lays it out
+struct MusicInfo {
+    QString music;
+    double systemWidth = 0.0;   // in staff spaces; 0: each system as wide as its music needs
+    bool showsPage = false;     // `previewScope: "page"`: on the whole first page, as the style has the page
+};
+
+//! The music of an option and the width its systems are laid out with, both of the block which gives the music
+//! (its own, else its grid's, its section's, its page's), resolved with the first value of the contexts which the
+//! expression can name; and whether it is shown on pages, as the nearest of the blocks with a `previewScope` says —
+//! the same resolution as `EoMusic.musicInfoOf` on the QML side
+inline MusicInfo musicInfoOf(const SourceBlock& option, const SourceBlock* grid, const SourceBlock& section,
+                             const SourceBlock& page)
 {
     const QMap<QString, QString> contexts = [&section, &page] {
         QMap<QString, QString> merged = contextsOf(page);
@@ -256,7 +279,19 @@ inline std::pair<QString, double> musicInfoOf(const SourceBlock& option, const S
         return merged;
     }();
 
-    for (const SourceBlock* block : { &option, grid, &section, &page }) {
+    const std::initializer_list<const SourceBlock*> blocks { &option, grid, &section, &page };
+
+    bool showsPage = false;
+    for (const SourceBlock* block : blocks) {
+        const QString scope = block ? SourceBlock::unquoted(block->property("previewScope").value_or(QString()))
+                                    : QString();
+        if (!scope.isEmpty()) {
+            showsPage = scope == "page";
+            break;
+        }
+    }
+
+    for (const SourceBlock* block : blocks) {
         if (!block) {
             continue;
         }
@@ -265,12 +300,12 @@ inline std::pair<QString, double> musicInfoOf(const SourceBlock& option, const S
             const QString music = musicResolved(*expression, contexts);
             if (!music.isEmpty()) {
                 const double systemWidth = block->property("systemWidth").value_or(QStringLiteral("0")).toDouble();
-                return { music, systemWidth };
+                return { music, systemWidth, showsPage };
             }
         }
     }
 
-    return { QString(), 0.0 };
+    return {};
 }
 
 //! The options of a section as the dialog lists them: the cells of a grid in the place of the grid —

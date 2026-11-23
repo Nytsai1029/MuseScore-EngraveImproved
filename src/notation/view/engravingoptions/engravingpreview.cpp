@@ -52,6 +52,9 @@ using namespace mu::engraving;
 //! NOTE The staff space of a picture at the zoom 1.0, in pixels: a staff is as tall as two lines of text
 static constexpr double BASE_STAFF_SPACE = 7.0;
 
+//! NOTE The hairline around each page of a picture of the pages
+static const QColor PAGE_EDGE_COLOR(0, 0, 0, 56);
+
 //! NOTE How far the washes reach beyond the boxes of the items they are behind, in staff spaces
 static constexpr double WASH_GROWTH = 0.15;
 
@@ -168,6 +171,23 @@ void EngravingPreview::setSystemWidth(double widthSp)
     invalidateLayout();
 }
 
+bool EngravingPreview::showsPage() const
+{
+    return m_showsPage;
+}
+
+void EngravingPreview::setShowsPage(bool showsPage)
+{
+    if (m_showsPage == showsPage) {
+        return;
+    }
+
+    m_showsPage = showsPage;
+    emit showsPageChanged();
+
+    invalidateLayout();
+}
+
 double EngravingPreview::zoom() const
 {
     return m_zoom;
@@ -188,6 +208,11 @@ void EngravingPreview::setZoom(double zoom)
 QSizeF EngravingPreview::naturalSize() const
 {
     return m_naturalSize;
+}
+
+QSizeF EngravingPreview::naturalPageSize() const
+{
+    return m_naturalPageSize;
 }
 
 QSizeF EngravingPreview::contentSize() const
@@ -536,6 +561,7 @@ void EngravingPreview::render()
     const bool hadHandle = hasHandle();
     const QSizeF oldContentSize = m_contentSize;
     const QSizeF oldNaturalSize = m_naturalSize;
+    const QSizeF oldNaturalPageSize = m_naturalPageSize;
     const QString oldError = m_error;
 
     if (m_needsLayout) {
@@ -544,6 +570,8 @@ void EngravingPreview::render()
         m_image = QImage();
         m_contentSize = QSizeF();
         m_naturalSize = QSizeF();
+        m_naturalPageSize = QSizeF();
+        m_pages.clear();
         //! NOTE A drag goes on with the effect found when the handle was pressed (see updateEffect)
         if (!isDragging()) {
             m_effect = {};
@@ -565,6 +593,7 @@ void EngravingPreview::render()
             if (!m_isMusicLoaded) {
                 m_error = m_renderer->error();
             } else {
+                m_renderer->setShowsPage(m_showsPage);
                 const MStyle& style = notation->elements()->msScore()->style();
                 if (m_activeSid.isEmpty()) {
                     layoutMusic(style);
@@ -574,6 +603,12 @@ void EngravingPreview::render()
 
                 const muse::SizeF natural = m_renderer->sizeInStaffSpaces();
                 m_naturalSize = QSizeF(natural.width() * BASE_STAFF_SPACE, natural.height() * BASE_STAFF_SPACE);
+
+                m_pages = m_renderer->pagesInStaffSpaces();
+                if (!m_pages.empty()) {
+                    m_naturalPageSize = QSizeF(m_pages.front().width() * BASE_STAFF_SPACE,
+                                               m_pages.front().height() * BASE_STAFF_SPACE);
+                }
             }
         }
     }
@@ -589,7 +624,7 @@ void EngravingPreview::render()
         emit contentSizeChanged();
     }
 
-    if (m_naturalSize != oldNaturalSize) {
+    if (m_naturalSize != oldNaturalSize || m_naturalPageSize != oldNaturalPageSize) {
         emit naturalSizeChanged();
     }
 
@@ -717,6 +752,18 @@ void EngravingPreview::paint(QPainter* painter)
     marks.paintBelow(painter);
     painter->drawImage(pictureRect(), m_image);
     marks.paintAbove(painter);
+
+    //! NOTE The edges of the pages, which are as white as the paper around them
+    if (!m_pages.empty()) {
+        painter->save();
+        painter->setPen(QPen(PAGE_EDGE_COLOR, 1.0));
+        painter->setBrush(Qt::NoBrush);
+        for (const muse::RectF& page : m_pages) {
+            const QRectF rect(toItem(page.topLeft()), QSizeF(page.width(), page.height()) * pixelsPerStaffSpace());
+            painter->drawRect(rect.adjusted(-0.5, -0.5, 0.5, 0.5));
+        }
+        painter->restore();
+    }
 }
 
 //---------------------------------------------------------

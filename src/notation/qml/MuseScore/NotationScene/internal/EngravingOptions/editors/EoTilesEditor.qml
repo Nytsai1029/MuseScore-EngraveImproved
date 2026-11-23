@@ -107,6 +107,7 @@ Flow {
                 music: Boolean(root.musicInfo) ? root.musicInfo.music : ""
                 overrides: tile.tileOverrides
                 systemWidth: Boolean(root.musicInfo) ? root.musicInfo.systemWidth : 0
+                showsPage: Boolean(root.musicInfo) && root.musicInfo.showsPage
 
                 //! NOTE: the tile fits its picture to the room inside the paper
                 zoom: {

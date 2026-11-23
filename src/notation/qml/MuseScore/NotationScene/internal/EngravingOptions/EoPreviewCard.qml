@@ -36,6 +36,7 @@ Rectangle {
     property alias music: preview.music
     property alias overrides: preview.overrides
     property alias systemWidth: preview.systemWidth
+    property alias showsPage: preview.showsPage
     property alias zoom: preview.zoom
 
     property alias activeSid: preview.activeSid
@@ -48,6 +49,7 @@ Rectangle {
     property alias dragStep: preview.dragStep
 
     readonly property alias naturalSize: preview.naturalSize
+    readonly property alias naturalPageSize: preview.naturalPageSize
     readonly property alias hasEffect: preview.hasEffect
     readonly property alias hasHandle: preview.hasHandle
     readonly property alias isDragging: preview.isDragging
@@ -83,16 +85,25 @@ Rectangle {
         contentWidth: preview.width + 2 * root.padding
         contentHeight: preview.height + 2 * root.padding
 
-        //! NOTE: where the change is is what is shown when the picture does not fit
+        //! NOTE: where the change is is what is shown when the picture does not fit: in the middle, or from where
+        //! it begins if it is larger than the room (a change over several pages begins on the first of them)
         function scrollToChange() {
             const box = preview.changeBox
-            const room = contentWidth - width
-            if (box.width <= 0 || room <= 0) {
+            if (box.width <= 0 && box.height <= 0) {
                 return
             }
 
-            const centre = root.padding + box.x + box.width / 2
-            contentX = Math.max(0, Math.min(room, centre - width / 2))
+            contentX = scrollTo(box.x, box.width, contentWidth - width, width)
+            contentY = scrollTo(box.y, box.height, contentHeight - height, height)
+        }
+
+        function scrollTo(start, length, room, view) {
+            if (room <= 0) {
+                return 0
+            }
+
+            const target = length > view - 2 * root.padding ? start : start + root.padding + length / 2 - view / 2
+            return Math.max(0, Math.min(room, target))
         }
 
         EngravingPreview {

@@ -127,6 +127,16 @@ bool EngravingPreviewRenderer::isLoaded() const
     return m_score != nullptr;
 }
 
+void EngravingPreviewRenderer::setShowsPage(bool showsPage)
+{
+    m_showsPage = showsPage;
+}
+
+bool EngravingPreviewRenderer::showsPage() const
+{
+    return m_showsPage;
+}
+
 const MasterScore* EngravingPreviewRenderer::score() const
 {
     return m_score.get();
@@ -166,7 +176,9 @@ void EngravingPreviewRenderer::layout(const MStyle& style, const std::vector<Ove
     }
 
     MStyle previewStyle = style;
-    makePreviewStyle(previewStyle, systemWidthSp);
+    if (!m_showsPage) {
+        makePreviewStyle(previewStyle, systemWidthSp);
+    }
 
     for (const Override& override : overrides) {
         previewStyle.set(override.id, override.value);
@@ -195,13 +207,19 @@ void EngravingPreviewRenderer::layout(const MStyle& style, const std::vector<Ove
     m_score->setLayoutAll();
     m_score->doLayout();
 
-    if (!m_score->pages().empty()) {
+    if (m_score->pages().empty()) {
+        m_pictureMargin = 0;
+        m_pictureRect = muse::RectF();
+    } else if (m_showsPage) {
+        m_pictureMargin = 0;
+        m_pictureRect = muse::RectF();
+        for (const Page* page : m_score->pages()) {
+            m_pictureRect.unite(page->ldata()->bbox().translated(page->pos()));
+        }
+    } else {
         m_pictureMargin = static_cast<int>(std::lrint(PICTURE_MARGIN * previewStyle.spatium()));
         m_pictureRect = m_score->pages().front()->tbbox().adjusted(-m_pictureMargin, -m_pictureMargin,
                                                                  m_pictureMargin, m_pictureMargin);
-    } else {
-        m_pictureMargin = 0;
-        m_pictureRect = muse::RectF();
     }
 }
 
@@ -212,6 +230,22 @@ muse::SizeF EngravingPreviewRenderer::sizeInStaffSpaces() const
     }
 
     return pictureRect().size() / m_score->style().spatium();
+}
+
+std::vector<muse::RectF> EngravingPreviewRenderer::pagesInStaffSpaces() const
+{
+    std::vector<muse::RectF> result;
+    if (!isLoaded() || !m_showsPage) {
+        return result;
+    }
+
+    const double spatium = m_score->style().spatium();
+    for (const Page* page : m_score->pages()) {
+        const muse::RectF rect = page->ldata()->bbox().translated(page->pos() - pictureRect().topLeft());
+        result.emplace_back(rect.x() / spatium, rect.y() / spatium, rect.width() / spatium, rect.height() / spatium);
+    }
+
+    return result;
 }
 
 void EngravingPreviewRenderer::paint(muse::draw::Painter& painter, double pixelsPerStaffSpace,
@@ -226,13 +260,22 @@ void EngravingPreviewRenderer::paint(muse::draw::Painter& painter, double pixels
     options.isPrinting = true;
     options.printPageBackground = false;
     options.fromPage = 0;
-    options.toPage = 0;
-    options.trimMarginPixelSize = m_pictureMargin;
     options.deviceDpi = deviceLogicalDpi;
+    if (m_showsPage) {
+        //! NOTE Every page, whole, where the layout put it (beside the one before)
+        options.toPage = -1;
+        options.isMultiPage = true;
+    } else {
+        options.toPage = 0;
+        options.trimMarginPixelSize = m_pictureMargin;
+    }
 
     const double pixelsPerSpatium = pixelsPerStaffSpace / m_score->style().spatium();
     painter.save();
     painter.scale(pixelsPerSpatium, pixelsPerSpatium);
+    if (m_showsPage) {
+        painter.translate(-pictureRect().topLeft());
+    }
     scoreRenderer()->paintScore(&painter, m_score.get(), options);
     painter.restore();
 }
@@ -326,8 +369,9 @@ std::vector<muse::PointF> curveOf(const EngravingItem* item, const muse::PointF&
 
 void collectItem(void* data, EngravingItem* item)
 {
-    //! NOTE The page is not music, and an item without a box (an empty key signature) has nothing to compare
-    if (item->isPage() || item->ldata()->bbox().isEmpty()) {
+    //! NOTE The page is not music, an item without a box (an empty key signature) has nothing to compare, and a
+    //! mark which is not printed (a layout break, a spacer) is not in the picture
+    if (item->isPage() || item->ldata()->bbox().isEmpty() || item->isLayoutBreak() || item->isSpacer()) {
         return;
     }
 
@@ -466,8 +510,14 @@ std::vector<EngravingPreviewRenderer::Item> EngravingPreviewRenderer::items() co
         return result;
     }
 
-    ItemCollector collector { pictureRect().topLeft(), &result };
-    m_score->pages().front()->scanElements(&collector, collectItem, false);
+    //! NOTE The items of every page shown, from the top left corner of the picture
+    for (Page* page : m_score->pages()) {
+        ItemCollector collector { pictureRect().topLeft() - page->pos(), &result };
+        page->scanElements(&collector, collectItem, false);
+        if (!m_showsPage) {
+            break;
+        }
+    }
 
     std::stable_sort(result.begin(), result.end(), comesBefore);
     return result;

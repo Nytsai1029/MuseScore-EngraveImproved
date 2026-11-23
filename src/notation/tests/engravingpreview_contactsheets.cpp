@@ -56,6 +56,8 @@ using namespace mu::notation::tests;
 namespace {
 //! NOTE The size of the pictures on a sheet, and the room they are given
 constexpr double PIXELS_PER_STAFF_SPACE = 14.0;
+//! a whole page is smaller, as the pane fits it to its width
+constexpr double PIXELS_PER_STAFF_SPACE_OF_A_PAGE = 4.0;
 constexpr int CELL_PADDING = 10;
 constexpr int CAPTION_HEIGHT = 18;
 constexpr int CAPTION_GAP = 4;
@@ -141,6 +143,12 @@ std::optional<PropertyValue> probeOf(const SourceBlock& option, const MStyle& st
         return styleValueFromUi(id, values.at((index + 1) % values.size()));
     }
 
+    if (option.type == "EoText") {
+        //! NOTE As EoMusic.probeValueOf: the text with a sample added
+        const QVariant current = styleValueToUi(id, EngravingPreviewRenderer::valueOf(style, overrides, id));
+        return styleValueFromUi(id, current.toString() + "Text");
+    }
+
     return EngravingPreviewRenderer::probeOf(style, overrides, id, dragMaximumOf(option));
 }
 
@@ -152,27 +160,29 @@ struct Cell {
     bool hasEffect = true;
 };
 
-Cell cellOf(const QString& sid, const QString& music, const MStyle& style,
+Cell cellOf(const QString& sid, const MusicInfo& music, const MStyle& style,
             const std::vector<EngravingPreviewRenderer::Override>& overrides,
-            const std::optional<PropertyValue>& probe, double systemWidth)
+            const std::optional<PropertyValue>& probe)
 {
     Cell cell;
     cell.sid = sid;
 
     EngravingPreviewRenderer renderer(nullptr);
-    if (!renderer.setMusic(music)) {
+    if (!renderer.setMusic(music.music)) {
         return cell;
     }
+    renderer.setShowsPage(music.showsPage);
 
     const StyleId id = MStyle::styleIdx(muse::String::fromQString(sid));
     EngravingPreviewRenderer::Effect effect;
     if (probe) {
-        effect = renderer.effectOf(style, overrides, id, *probe, systemWidth);
+        effect = renderer.effectOf(style, overrides, id, *probe, music.systemWidth);
     } else {
-        renderer.layout(style, overrides, systemWidth);
+        renderer.layout(style, overrides, music.systemWidth);
     }
 
-    const QImage picture = renderer.picture(PIXELS_PER_STAFF_SPACE);
+    const double pixels = music.showsPage ? PIXELS_PER_STAFF_SPACE_OF_A_PAGE : PIXELS_PER_STAFF_SPACE;
+    const QImage picture = renderer.picture(pixels);
     cell.probed = probe.has_value();
     cell.hasEffect = !effect.isEmpty();
 
@@ -184,16 +194,15 @@ Cell cellOf(const QString& sid, const QString& music, const MStyle& style,
     PreviewOverlay overlay;
     overlay.accent = QColor(0x4A, 0x7D, 0xD9);
     const QPointF offset(CELL_PADDING, CELL_PADDING);
-    const double growth = 0.15 * PIXELS_PER_STAFF_SPACE;
+    const double growth = 0.15 * pixels;
     for (const muse::RectF& box : effect.changed) {
-        const QRectF rect(box.left() * PIXELS_PER_STAFF_SPACE + offset.x(),
-                          box.top() * PIXELS_PER_STAFF_SPACE + offset.y(),
-                          box.width() * PIXELS_PER_STAFF_SPACE, box.height() * PIXELS_PER_STAFF_SPACE);
+        const QRectF rect(box.left() * pixels + offset.x(), box.top() * pixels + offset.y(),
+                          box.width() * pixels, box.height() * pixels);
         overlay.washes.push_back(rect.adjusted(-growth, -growth, growth, growth));
     }
     if (effect.hasHandle) {
         overlay.handle = PreviewOverlay::Handle {
-            offset + QPointF(effect.anchor.x(), effect.anchor.y()) * PIXELS_PER_STAFF_SPACE,
+            offset + QPointF(effect.anchor.x(), effect.anchor.y()) * pixels,
             QPointF(effect.direction.x(), effect.direction.y())
         };
     }
@@ -202,6 +211,10 @@ Cell cellOf(const QString& sid, const QString& music, const MStyle& style,
     overlay.paintBelow(&painter);
     painter.drawImage(offset, picture);
     overlay.paintAbove(&painter);
+    if (music.showsPage) {
+        painter.setPen(QColor(0, 0, 0, 56));
+        painter.drawRect(QRectF(offset, picture.size()).adjusted(-0.5, -0.5, 0.5, 0.5));
+    }
 
     return cell;
 }
@@ -302,8 +315,8 @@ TEST(Notation_EngravingPreviewContactSheets, DISABLED_ContactSheets)
                 const SourceBlock& option = *entry.first;
                 const SourceBlock* grid = entry.second;
                 const QString sid = option.sid();
-                const auto [music, systemWidth] = musicInfoOf(option, grid, section, page);
-                if (sid.isEmpty() || music.isEmpty()) {
+                const MusicInfo music = musicInfoOf(option, grid, section, page);
+                if (sid.isEmpty() || music.music.isEmpty()) {
                     continue;
                 }
 
@@ -314,8 +327,7 @@ TEST(Notation_EngravingPreviewContactSheets, DISABLED_ContactSheets)
 
                 const std::vector<EngravingPreviewRenderer::Override> overrides
                     = musicStyleOf(option, grid, section, page);
-                cells.push_back(cellOf(sid, music, style, overrides, probeOf(option, style, overrides, id),
-                                     systemWidth));
+                cells.push_back(cellOf(sid, music, style, overrides, probeOf(option, style, overrides, id)));
             }
         }
 
