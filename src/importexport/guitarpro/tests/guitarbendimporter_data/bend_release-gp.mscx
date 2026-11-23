@@ -139,8 +139,8 @@
               <Spanner type="GuitarBend">
                 <GuitarBend>
                   <guitarBendType>0</guitarBendType>
-                  <bendStartTimeFactor>0.285714</bendStartTimeFactor>
-                  <bendEndTimeFactor>0.535714</bendEndTimeFactor>
+                  <bendStartTimeFactor>0.2857142984867096</bendStartTimeFactor>
+                  <bendEndTimeFactor>0.5357142686843872</bendEndTimeFactor>
                   <eid>P_P</eid>
                   <anchor>3</anchor>
                   </GuitarBend>
@@ -230,7 +230,7 @@
                 <GuitarBend>
                   <guitarBendType>0</guitarBendType>
                   <bendStartTimeFactor>0</bendStartTimeFactor>
-                  <bendEndTimeFactor>0.416667</bendEndTimeFactor>
+                  <bendEndTimeFactor>0.4166666567325592</bendEndTimeFactor>
                   <eid>Z_Z</eid>
                   <anchor>3</anchor>
                   </GuitarBend>
@@ -318,7 +318,7 @@
               <Spanner type="GuitarBend">
                 <GuitarBend>
                   <guitarBendType>0</guitarBendType>
-                  <bendStartTimeFactor>0.285714</bendStartTimeFactor>
+                  <bendStartTimeFactor>0.2857142984867096</bendStartTimeFactor>
                   <bendEndTimeFactor>1</bendEndTimeFactor>
                   <eid>j_j</eid>
                   <anchor>3</anchor>

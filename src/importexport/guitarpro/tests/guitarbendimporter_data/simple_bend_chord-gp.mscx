@@ -142,8 +142,8 @@
               <Spanner type="GuitarBend">
                 <GuitarBend>
                   <guitarBendType>0</guitarBendType>
-                  <bendStartTimeFactor>0.233333</bendStartTimeFactor>
-                  <bendEndTimeFactor>0.466667</bendEndTimeFactor>
+                  <bendStartTimeFactor>0.23333333432674408</bendStartTimeFactor>
+                  <bendEndTimeFactor>0.46666666865348816</bendEndTimeFactor>
                   <eid>Q_Q</eid>
                   <anchor>3</anchor>
                   </GuitarBend>
@@ -185,7 +185,7 @@
               <Spanner type="GuitarBend">
                 <GuitarBend>
                   <guitarBendType>0</guitarBendType>
-                  <bendStartTimeFactor>0.766667</bendStartTimeFactor>
+                  <bendStartTimeFactor>0.7666666507720947</bendStartTimeFactor>
                   <bendEndTimeFactor>1</bendEndTimeFactor>
                   <eid>U_U</eid>
                   <anchor>3</anchor>

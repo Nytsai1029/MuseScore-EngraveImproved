@@ -4,15 +4,15 @@
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <pageWidth>8.26998</pageWidth>
-      <pageHeight>11.69</pageHeight>
-      <pagePrintableWidth>7.08888</pagePrintableWidth>
-      <pageEvenLeftMargin>0.590551</pageEvenLeftMargin>
-      <pageOddLeftMargin>0.590551</pageOddLeftMargin>
-      <pageEvenTopMargin>0.590551</pageEvenTopMargin>
-      <pageEvenBottomMargin>0.590551</pageEvenBottomMargin>
-      <pageOddTopMargin>0.590551</pageOddTopMargin>
-      <pageOddBottomMargin>0.590551</pageOddBottomMargin>
+      <pageWidth>8.269983836220472</pageWidth>
+      <pageHeight>11.689977068503937</pageHeight>
+      <pagePrintableWidth>7.088882336220472</pagePrintableWidth>
+      <pageEvenLeftMargin>0.5905507499999999</pageEvenLeftMargin>
+      <pageOddLeftMargin>0.5905507499999999</pageOddLeftMargin>
+      <pageEvenTopMargin>0.5905507499999999</pageEvenTopMargin>
+      <pageEvenBottomMargin>0.5905507499999999</pageEvenBottomMargin>
+      <pageOddTopMargin>0.5905507499999999</pageOddTopMargin>
+      <pageOddBottomMargin>0.5905507499999999</pageOddBottomMargin>
       <romanNumeralFontFace>Edwin</romanNumeralFontFace>
       <nashvilleNumberFontSize>10</nashvilleNumberFontSize>
       <tupletFontSize>10</tupletFontSize>

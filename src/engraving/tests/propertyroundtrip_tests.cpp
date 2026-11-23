@@ -28,6 +28,7 @@
 #include <filesystem>
 #include <functional>
 #include <map>
+#include <memory>
 #include <set>
 #include <sstream>
 #include <string>
@@ -810,6 +811,38 @@ TEST_F(Engraving_PropertyRoundTripTests, styleValuesSurviveSaveAndReopen)
     expectStyleValues(reloaded->excerpts().front()->excerptScore()->style(), changedInPart);
 
     delete reloaded;
+    delete score;
+}
+
+//---------------------------------------------------------
+//   doublesSurviveSaveAndReopenExactly
+//   A number that needs more than 6 significant digits comes back as it was: a style value, stored as it is,
+//   identically; an offset, stored in staff spaces, up to the rounding of the division by the staff space and
+//   the multiplication by it (6 digits would differ in the 7th).
+//---------------------------------------------------------
+
+TEST_F(Engraving_PropertyRoundTripTests, doublesSurviveSaveAndReopenExactly)
+{
+    MasterScore* score = ScoreRW::readScore(u"layoutconsistency_data/twoStaves.mscx");
+    ASSERT_TRUE(score);
+
+    const double pageWidth = 210.0 / 25.4; // A4 in inches, as a conversion from millimetres gives it
+    const double staffUpperBorder = 7.123456789012345;
+    const PointF noteOffset(0.1234567890123456, -0.9876543210987654);
+    score->style().set(Sid::pageWidth, pageWidth);
+    score->style().set(Sid::staffUpperBorder, Spatium(staffUpperBorder));
+    Note* note = score->firstMeasure()->findChord(Fraction(0, 1), 0)->upNote();
+    note->setOffset(noteOffset * note->spatium());
+
+    std::unique_ptr<MasterScore> reopened(saveAndReopen(score, u"propertyRoundTrip-exactDoubles.mscz"));
+    ASSERT_TRUE(reopened);
+    EXPECT_EQ(reopened->style().styleD(Sid::pageWidth), pageWidth);
+    EXPECT_EQ(reopened->style().styleS(Sid::staffUpperBorder).val(), staffUpperBorder);
+    const Note* reopenedNote = reopened->firstMeasure()->findChord(Fraction(0, 1), 0)->upNote();
+    const PointF reopenedOffset = reopenedNote->offset() / reopenedNote->spatium();
+    EXPECT_DOUBLE_EQ(reopenedOffset.x(), noteOffset.x());
+    EXPECT_DOUBLE_EQ(reopenedOffset.y(), noteOffset.y());
+
     delete score;
 }
 

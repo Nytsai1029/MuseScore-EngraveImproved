@@ -49,6 +49,8 @@ bool Writer::writeScore(Score* score, io::IODevice* device, rw::WriteInOutData* 
     TRACEFUNC;
 
     XmlWriter xml(device);
+    // What is saved is what is opened: a double comes back as the value it was
+    xml.setExactDoubles(true);
     WriteContext ctx(score);
     if (inout) {
         ctx = inout->ctx;

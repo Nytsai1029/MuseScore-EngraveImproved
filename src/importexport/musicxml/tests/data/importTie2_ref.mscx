@@ -4,26 +4,26 @@
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <pageWidth>8.49891</pageWidth>
-      <pageHeight>10.9973</pageHeight>
-      <pagePrintableWidth>7.00412</pagePrintableWidth>
-      <pageEvenLeftMargin>0.996522</pageEvenLeftMargin>
-      <pageOddLeftMargin>0.996522</pageOddLeftMargin>
-      <pageEvenTopMargin>0.498261</pageEvenTopMargin>
-      <pageEvenBottomMargin>0.498261</pageEvenBottomMargin>
-      <pageOddTopMargin>0.498261</pageOddTopMargin>
-      <pageOddBottomMargin>0.498261</pageOddBottomMargin>
+      <pageWidth>8.498906102362206</pageWidth>
+      <pageHeight>10.997328248031497</pageHeight>
+      <pagePrintableWidth>7.004123622047245</pagePrintableWidth>
+      <pageEvenLeftMargin>0.9965216535433072</pageEvenLeftMargin>
+      <pageOddLeftMargin>0.9965216535433072</pageOddLeftMargin>
+      <pageEvenTopMargin>0.4982608267716536</pageEvenTopMargin>
+      <pageEvenBottomMargin>0.4982608267716536</pageEvenBottomMargin>
+      <pageOddTopMargin>0.4982608267716536</pageOddTopMargin>
+      <pageOddBottomMargin>0.4982608267716536</pageOddBottomMargin>
       <pageTwosided>0</pageTwosided>
       <staffDistance>8</staffDistance>
       <minSystemDistance>12.1</minSystemDistance>
       <lyricsOddFontFace>Times New Roman</lyricsOddFontFace>
       <lyricsEvenFontFace>Times New Roman</lyricsEvenFontFace>
-      <barWidth>0.10026</barWidth>
+      <barWidth>0.10025999999999999</barWidth>
       <endBarWidth>0.5</endBarWidth>
       <stemWidth>0.09115</stemWidth>
       <staffLineWidth>0.09115</staffLineWidth>
       <ledgerLineWidth>0.11003</ledgerLineWidth>
-      <hairpinLineWidth>0.10026</hairpinLineWidth>
+      <hairpinLineWidth>0.10025999999999999</hairpinLineWidth>
       <chordSymbolAFontFace>Times New Roman</chordSymbolAFontFace>
       <chordSymbolAFontSize>10.25</chordSymbolAFontSize>
       <chordSymbolBFontFace>Times New Roman</chordSymbolBFontFace>
@@ -34,7 +34,7 @@
       <smallNoteMag>0.6</smallNoteMag>
       <graceNoteMag>0.6</graceNoteMag>
       <voltaLineWidth>0.13021</voltaLineWidth>
-      <tupletBracketWidth>0.10026</tupletBracketWidth>
+      <tupletBracketWidth>0.10025999999999999</tupletBracketWidth>
       <tupletFontFace>Times New Roman</tupletFontFace>
       <tupletFontSize>10.25</tupletFontSize>
       <titleFontFace>Times New Roman</titleFontFace>
@@ -134,7 +134,7 @@
       <user11FontSize>10.25</user11FontSize>
       <user12FontFace>Times New Roman</user12FontFace>
       <user12FontSize>10.25</user12FontSize>
-      <spatium>1.80798</spatium>
+      <spatium>1.807975</spatium>
       </Style>
     <showInvisible>1</showInvisible>
     <showUnprintable>1</showUnprintable>

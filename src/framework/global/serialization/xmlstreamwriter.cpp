@@ -21,7 +21,11 @@
  */
 #include "xmlstreamwriter.h"
 
+#include <cmath>
+#include <limits>
 #include <list>
+#include <locale>
+#include <sstream>
 
 #include <global/thirdparty/utfcpp/utf8.h>
 
@@ -36,6 +40,7 @@ using namespace muse;
 struct XmlStreamWriter::Impl {
     std::list<std::string> stack;
     TextStream stream;
+    bool exactDoubles = false;
 
     void putLevel()
     {
@@ -115,6 +120,45 @@ std::string XmlStreamWriter::escapeString(const std::string_view str)
     return escaped;
 }
 
+void XmlStreamWriter::setExactDoubles(bool exact)
+{
+    m_impl->exactDoubles = exact;
+}
+
+namespace {
+//! A double as TextStream writes one (printf's %g), with \p digits significant digits, in the C locale
+std::string doubleText(double value, int digits)
+{
+    std::ostringstream text;
+    text.imbue(std::locale::classic());
+    text.precision(digits);
+    text << value;
+    return text.str();
+}
+
+//! The double which a reader gets from \p text (strtod in the C locale), without setting the locale of the process
+double doubleFromText(const std::string& text)
+{
+    std::istringstream stream(text);
+    stream.imbue(std::locale::classic());
+    double value = 0.0;
+    stream >> value;
+    return value;
+}
+}
+
+std::string XmlStreamWriter::exactDoubleText(double value)
+{
+    // 17 significant digits always give a double back; NaN and infinities have no text which does
+    constexpr int DEFAULT_DIGITS = 6;
+    for (int digits = DEFAULT_DIGITS;; ++digits) {
+        std::string text = doubleText(value, digits);
+        if (digits >= std::numeric_limits<double>::max_digits10 || !std::isfinite(value) || doubleFromText(text) == value) {
+            return text;
+        }
+    }
+}
+
 void XmlStreamWriter::writeValue(const Value& v)
 {
     // std::monostate, int, unsigned int, signed long int, unsigned long int, signed long long, unsigned long long,
@@ -134,7 +178,12 @@ void XmlStreamWriter::writeValue(const Value& v)
         break;
     case 6: m_impl->stream << uint64_t{ std::get<unsigned long long>(v) };
         break;
-    case 7: m_impl->stream << std::get<double>(v);
+    case 7:
+        if (m_impl->exactDoubles) {
+            m_impl->stream << exactDoubleText(std::get<double>(v));
+        } else {
+            m_impl->stream << std::get<double>(v);
+        }
         break;
     case 8: m_impl->stream << escapeString(AsciiStringView(std::get<const char*>(v)));
         break;

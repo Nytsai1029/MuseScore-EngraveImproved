@@ -48,6 +48,13 @@ public:
     void setDevice(io::IODevice* dev);
     void flush();
 
+    //! A double is written with 6 significant digits. Exact: with as many more (up to 17) as it takes for the text
+    //! to be read back as the same double, so that a file is opened with the values it was saved with.
+    void setExactDoubles(bool exact);
+    //! What an exact double is written as: the shortest text from 6 significant digits on which is read back as
+    //! \p value (so a value which 6 digits already give is written as it is without the option)
+    static std::string exactDoubleText(double value);
+
     void startDocument();
     void writeDoctype(const String& type);
 

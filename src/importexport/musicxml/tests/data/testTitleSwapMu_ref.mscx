@@ -4,23 +4,23 @@
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <pageWidth>8.26771</pageWidth>
-      <pageHeight>11.6917</pageHeight>
-      <pagePrintableWidth>7.27559</pagePrintableWidth>
-      <pageEvenLeftMargin>0.496061</pageEvenLeftMargin>
-      <pageOddLeftMargin>0.496061</pageOddLeftMargin>
-      <pageEvenTopMargin>0.417323</pageEvenTopMargin>
-      <pageEvenBottomMargin>0.417323</pageEvenBottomMargin>
-      <pageOddTopMargin>0.417323</pageOddTopMargin>
-      <pageOddBottomMargin>0.417323</pageOddBottomMargin>
+      <pageWidth>8.267712000000001</pageWidth>
+      <pageHeight>11.691696</pageHeight>
+      <pagePrintableWidth>7.2755904000000005</pagePrintableWidth>
+      <pageEvenLeftMargin>0.4960608000000001</pageEvenLeftMargin>
+      <pageOddLeftMargin>0.4960608000000001</pageOddLeftMargin>
+      <pageEvenTopMargin>0.41732304000000003</pageEvenTopMargin>
+      <pageEvenBottomMargin>0.41732304000000003</pageEvenBottomMargin>
+      <pageOddTopMargin>0.41732304000000003</pageOddTopMargin>
+      <pageOddBottomMargin>0.41732304000000003</pageOddBottomMargin>
       <pageTwosided>0</pageTwosided>
       <lyricsDashLineThickness>0.15</lyricsDashLineThickness>
       <lyricsOddFontFace>MS Shell Dlg 2</lyricsOddFontFace>
       <lyricsOddFontSize>14.47</lyricsOddFontSize>
       <lyricsEvenFontFace>MS Shell Dlg 2</lyricsEvenFontFace>
       <lyricsEvenFontSize>14.47</lyricsEvenFontSize>
-      <bracketWidth>0.44</bracketWidth>
-      <stemWidth>0.11</stemWidth>
+      <bracketWidth>0.44000000000000006</bracketWidth>
+      <stemWidth>0.11000000000000001</stemWidth>
       <chordSymbolAFontFace>Plantin MT Std</chordSymbolAFontFace>
       <chordSymbolAFontSize>11.9365</chordSymbolAFontSize>
       <chordSymbolBFontFace>Plantin MT Std</chordSymbolBFontFace>
@@ -28,8 +28,8 @@
       <romanNumeralFontFace>Plantin MT Std</romanNumeralFontFace>
       <nashvilleNumberFontFace>Plantin MT Std</nashvilleNumberFontFace>
       <nashvilleNumberFontSize>11.9365</nashvilleNumberFontSize>
-      <slurEndWidth>0.07</slurEndWidth>
-      <tieEndWidth>0.07</tieEndWidth>
+      <slurEndWidth>0.06999999999999999</slurEndWidth>
+      <tieEndWidth>0.06999999999999999</tieEndWidth>
       <tupletFontFace>Plantin MT Std</tupletFontFace>
       <tupletFontSize>11.9365</tupletFontSize>
       <titleFontFace>Plantin MT Std</titleFontFace>

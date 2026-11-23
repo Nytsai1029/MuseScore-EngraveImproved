@@ -99,7 +99,7 @@
             <Arpeggio>
               <eid>M_M</eid>
               <subtype>4</subtype>
-              <timeStretch>0.991667</timeStretch>
+              <timeStretch>0.9916666666666667</timeStretch>
               </Arpeggio>
             </Chord>
           <BarLine>
@@ -137,7 +137,7 @@
             <Arpeggio>
               <eid>T_T</eid>
               <subtype>5</subtype>
-              <timeStretch>0.985417</timeStretch>
+              <timeStretch>0.9854166666666667</timeStretch>
               </Arpeggio>
             </Chord>
           </voice>

@@ -4,26 +4,26 @@
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <pageWidth>8.49996</pageWidth>
-      <pageHeight>11.5266</pageHeight>
-      <pagePrintableWidth>7.99996</pagePrintableWidth>
+      <pageWidth>8.499958169291338</pageWidth>
+      <pageHeight>11.526609940944882</pageHeight>
+      <pagePrintableWidth>7.999960629921259</pagePrintableWidth>
       <pageEvenLeftMargin>0</pageEvenLeftMargin>
       <pageOddLeftMargin>0</pageOddLeftMargin>
       <pageEvenTopMargin>0</pageEvenTopMargin>
-      <pageEvenBottomMargin>0.253332</pageEvenBottomMargin>
+      <pageEvenBottomMargin>0.2533320866141732</pageEvenBottomMargin>
       <pageOddTopMargin>0</pageOddTopMargin>
-      <pageOddBottomMargin>0.253332</pageOddBottomMargin>
+      <pageOddBottomMargin>0.2533320866141732</pageOddBottomMargin>
       <pageTwosided>0</pageTwosided>
       <staffDistance>8.8</staffDistance>
       <minSystemDistance>12.3</minSystemDistance>
       <lyricsOddFontFace>Times</lyricsOddFontFace>
       <lyricsEvenFontFace>Times</lyricsEvenFontFace>
       <barWidth>0.10807</barWidth>
-      <endBarWidth>0.50391</endBarWidth>
+      <endBarWidth>0.5039100000000001</endBarWidth>
       <stemWidth>0.10807</stemWidth>
       <staffLineWidth>0.10807</staffLineWidth>
       <ledgerLineWidth>0.10807</ledgerLineWidth>
-      <beamWidth>0.50391</beamWidth>
+      <beamWidth>0.5039100000000001</beamWidth>
       <hairpinLineWidth>0.07227</hairpinLineWidth>
       <chordSymbolAFontFace>Times</chordSymbolAFontFace>
       <chordSymbolAFontSize>8.8</chordSymbolAFontSize>
@@ -135,7 +135,7 @@
       <user11FontSize>8.8</user11FontSize>
       <user12FontFace>Times</user12FontFace>
       <user12FontSize>8.8</user12FontSize>
-      <spatium>1.69333</spatium>
+      <spatium>1.6933250000000002</spatium>
       </Style>
     <showInvisible>1</showInvisible>
     <showUnprintable>1</showUnprintable>

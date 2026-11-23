@@ -4,26 +4,26 @@
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <pageWidth>9.00028</pageWidth>
-      <pageHeight>12.0021</pageHeight>
-      <pagePrintableWidth>7.99795</pagePrintableWidth>
-      <pageEvenLeftMargin>0.501163</pageEvenLeftMargin>
-      <pageOddLeftMargin>0.501163</pageOddLeftMargin>
-      <pageEvenTopMargin>0.501163</pageEvenTopMargin>
-      <pageEvenBottomMargin>0.501163</pageEvenBottomMargin>
-      <pageOddTopMargin>0.501163</pageOddTopMargin>
-      <pageOddBottomMargin>0.501163</pageOddBottomMargin>
+      <pageWidth>9.000276181102363</pageWidth>
+      <pageHeight>12.002090452755906</pageHeight>
+      <pagePrintableWidth>7.997949212598426</pagePrintableWidth>
+      <pageEvenLeftMargin>0.5011634842519685</pageEvenLeftMargin>
+      <pageOddLeftMargin>0.5011634842519685</pageOddLeftMargin>
+      <pageEvenTopMargin>0.5011634842519685</pageEvenTopMargin>
+      <pageEvenBottomMargin>0.5011634842519685</pageEvenBottomMargin>
+      <pageOddTopMargin>0.5011634842519685</pageOddTopMargin>
+      <pageOddBottomMargin>0.5011634842519685</pageOddBottomMargin>
       <pageTwosided>0</pageTwosided>
       <staffDistance>6</staffDistance>
       <minSystemDistance>11</minSystemDistance>
       <lyricsOddFontFace>Times</lyricsOddFontFace>
       <lyricsEvenFontFace>Times</lyricsEvenFontFace>
       <barWidth>0.0957</barWidth>
-      <endBarWidth>0.50391</endBarWidth>
+      <endBarWidth>0.5039100000000001</endBarWidth>
       <stemWidth>0.0957</stemWidth>
       <staffLineWidth>0.0957</staffLineWidth>
       <ledgerLineWidth>0.0957</ledgerLineWidth>
-      <beamWidth>0.50391</beamWidth>
+      <beamWidth>0.5039100000000001</beamWidth>
       <hairpinLineWidth>0.07487</hairpinLineWidth>
       <chordSymbolAFontFace>Times</chordSymbolAFontFace>
       <chordSymbolAFontSize>7.4</chordSymbolAFontSize>
@@ -135,7 +135,7 @@
       <user11FontSize>7.4</user11FontSize>
       <user12FontFace>Times</user12FontFace>
       <user12FontSize>7.4</user12FontSize>
-      <spatium>1.31233</spatium>
+      <spatium>1.3123250000000002</spatium>
       </Style>
     <showInvisible>1</showInvisible>
     <showUnprintable>1</showUnprintable>

@@ -4,15 +4,15 @@
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <pageWidth>8.26772</pageWidth>
-      <pageHeight>11.6929</pageHeight>
-      <pagePrintableWidth>7.48032</pagePrintableWidth>
-      <pageEvenLeftMargin>0.393701</pageEvenLeftMargin>
-      <pageOddLeftMargin>0.393701</pageOddLeftMargin>
-      <pageEvenTopMargin>0.393701</pageEvenTopMargin>
-      <pageEvenBottomMargin>0.787403</pageEvenBottomMargin>
-      <pageOddTopMargin>0.393701</pageOddTopMargin>
-      <pageOddBottomMargin>0.787403</pageOddBottomMargin>
+      <pageWidth>8.267716535433072</pageWidth>
+      <pageHeight>11.692913385826772</pageHeight>
+      <pagePrintableWidth>7.480315146544184</pagePrintableWidth>
+      <pageEvenLeftMargin>0.39370069444444444</pageEvenLeftMargin>
+      <pageOddLeftMargin>0.39370069444444444</pageOddLeftMargin>
+      <pageEvenTopMargin>0.39370069444444444</pageEvenTopMargin>
+      <pageEvenBottomMargin>0.7874027777777778</pageEvenBottomMargin>
+      <pageOddTopMargin>0.39370069444444444</pageOddTopMargin>
+      <pageOddBottomMargin>0.7874027777777778</pageOddBottomMargin>
       <frameSystemDistance>7</frameSystemDistance>
       <voltaPosAbove x="0" y="-2"/>
       <defaultsVersion>114</defaultsVersion>

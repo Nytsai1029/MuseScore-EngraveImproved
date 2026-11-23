@@ -702,6 +702,8 @@ void MStyle::read(XmlReader& e, compat::ReadChordListHook* readChordListHook)
 bool MStyle::write(IODevice* device, bool officialFormat)
 {
     XmlWriter xml(device);
+    // As in Writer::writeScore: a double comes back as the value it was
+    xml.setExactDoubles(true);
     xml.startDocument();
     // As in Writer::writeScore
     XmlWriter::Attributes rootAttributes = { { "version", Constants::MSC_VERSION_STR } };

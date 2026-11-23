@@ -4,15 +4,15 @@
     <eid>B_B</eid>
     <Division>480</Division>
     <Style>
-      <pageWidth>8.26997</pageWidth>
-      <pageHeight>11.69</pageHeight>
-      <pagePrintableWidth>7.08887</pagePrintableWidth>
-      <pageEvenLeftMargin>0.590551</pageEvenLeftMargin>
-      <pageOddLeftMargin>0.590551</pageOddLeftMargin>
-      <pageEvenTopMargin>0.590551</pageEvenTopMargin>
-      <pageEvenBottomMargin>0.590551</pageEvenBottomMargin>
-      <pageOddTopMargin>0.590551</pageOddTopMargin>
-      <pageOddBottomMargin>0.590551</pageOddBottomMargin>
+      <pageWidth>8.26997202047244</pageWidth>
+      <pageHeight>11.690029255314961</pageHeight>
+      <pagePrintableWidth>7.088869452417322</pagePrintableWidth>
+      <pageEvenLeftMargin>0.5905512840275591</pageEvenLeftMargin>
+      <pageOddLeftMargin>0.5905512840275591</pageOddLeftMargin>
+      <pageEvenTopMargin>0.5905512840275591</pageEvenTopMargin>
+      <pageEvenBottomMargin>0.5905512840275591</pageEvenBottomMargin>
+      <pageOddTopMargin>0.5905512840275591</pageOddTopMargin>
+      <pageOddBottomMargin>0.5905512840275591</pageOddBottomMargin>
       <romanNumeralFontFace>Edwin</romanNumeralFontFace>
       <nashvilleNumberFontSize>10</nashvilleNumberFontSize>
       <tupletFontSize>10</tupletFontSize>
@@ -35,7 +35,7 @@
       <footerFontSize>10</footerFontSize>
       <copyrightFontSize>10</copyrightFontSize>
       <pageNumberFontSize>10</pageNumberFontSize>
-      <spatium>1.74978</spatium>
+      <spatium>1.7497775</spatium>
       </Style>
     <showInvisible>1</showInvisible>
     <showUnprintable>1</showUnprintable>

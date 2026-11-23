@@ -7,7 +7,7 @@
       <minSystemDistance>8</minSystemDistance>
       <maxSystemDistance>12</maxSystemDistance>
       <measureSpacing>1</measureSpacing>
-      <smallStaffMag>0.681818</smallStaffMag>
+      <smallStaffMag>0.6818181818181818</smallStaffMag>
       <spatium>1.76</spatium>
       </Style>
     <showInvisible>1</showInvisible>

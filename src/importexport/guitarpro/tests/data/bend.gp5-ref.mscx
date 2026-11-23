@@ -450,8 +450,8 @@
               <Spanner type="GuitarBend">
                 <GuitarBend>
                   <guitarBendType>0</guitarBendType>
-                  <bendStartTimeFactor>0.333333</bendStartTimeFactor>
-                  <bendEndTimeFactor>0.666667</bendEndTimeFactor>
+                  <bendStartTimeFactor>0.3333333432674408</bendStartTimeFactor>
+                  <bendEndTimeFactor>0.6666666865348816</bendEndTimeFactor>
                   <eid>1_1</eid>
                   <anchor>3</anchor>
                   </GuitarBend>
