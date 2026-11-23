@@ -128,7 +128,9 @@ bool ShadowNote::computeUp() const
     if (score()->tick2measure(m_tick)->hasVoices(staffIdx()) || voice() != 0) {
         return !(voice() & 1);
     } else {
-        return m_lineIndex > (staffType ? staffType->middleLine() : 4);
+        // as ChordLayout::computeUp: the style decides for a note on the middle line
+        const int middleLine = staffType ? staffType->middleLine() : 4;
+        return m_lineIndex > middleLine || (m_lineIndex == middleLine && style().styleB(Sid::stemUpOnMiddleLine));
     }
 }
 
