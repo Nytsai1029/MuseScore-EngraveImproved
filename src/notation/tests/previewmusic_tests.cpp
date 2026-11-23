@@ -21,6 +21,7 @@
  */
 #include <gtest/gtest.h>
 
+#include <algorithm>
 #include <vector>
 
 #include "engraving/dom/accidental.h"
@@ -57,6 +58,7 @@
 #include "engraving/dom/tremolotwochord.h"
 #include "engraving/dom/laissezvib.h"
 #include "engraving/dom/tuplet.h"
+#include "engraving/dom/volta.h"
 
 #include "notation/view/engravingoptions/engravingpreviewrenderer.h"
 #include "notation/view/engravingoptions/previewmusic.h"
@@ -779,6 +781,37 @@ TEST_F(Notation_PreviewMusicTests, barlinesAndRepeats)
     EXPECT_FALSE(errorOf("c''1 \\bar \"x\"").empty());
     EXPECT_FALSE(errorOf("c''1 \\playCount 3").empty());
     EXPECT_FALSE(errorOf("c''1 \\bar \":|.\" \\playCount 1").empty());
+}
+
+/**
+ * @TEST_CASE voltas
+ * @details `\volta "text" N` puts a volta with the text over the N measures which begin where it stands, also over
+ *          the last measures of the music; it begins with a measure and fits in the music
+ */
+TEST_F(Notation_PreviewMusicTests, voltas)
+{
+    ASSERT_TRUE(load("c''1 | \\volta \"1.\" 2 c''1 | c''1 \\bar \":|.\" \\volta \"2.\" 1 c''1"));
+
+    std::vector<const Volta*> voltas;
+    for (const auto& [tick, spanner] : score()->spannerMap().map()) {
+        if (spanner->isVolta()) {
+            voltas.push_back(toVolta(spanner));
+        }
+    }
+    ASSERT_EQ(voltas.size(), 2u);
+    std::sort(voltas.begin(), voltas.end(), [](const Volta* a, const Volta* b) { return a->tick() < b->tick(); });
+
+    EXPECT_EQ(voltas[0]->tick(), Fraction(1, 1));
+    EXPECT_EQ(voltas[0]->tick2(), Fraction(3, 1));
+    EXPECT_EQ(voltas[0]->beginText(), u"1.");
+    EXPECT_EQ(voltas[0]->endings(), std::vector<int> { 1 });
+    EXPECT_EQ(voltas[1]->tick(), Fraction(3, 1));
+    EXPECT_EQ(voltas[1]->tick2(), Fraction(4, 1));
+    EXPECT_EQ(voltas[1]->endings(), std::vector<int> { 2 });
+
+    EXPECT_FALSE(errorOf("c''4 \\volta \"1.\" 1 c''4").empty());
+    EXPECT_FALSE(errorOf("\\volta \"1.\" 3 c''1 | c''1").empty());
+    EXPECT_FALSE(errorOf("\\volta 1. 1 c''1").empty());
 }
 
 /**

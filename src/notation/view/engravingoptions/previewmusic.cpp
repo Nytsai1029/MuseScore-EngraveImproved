@@ -270,6 +270,9 @@ struct Measure {
     int endRepeat = 0;          // a repeat ends with the measure, played this many times; 0: none
     QString barline;            // the type of its barline (as BarLineType is written), if `\\bar` gives one
     bool barlineSaid = false;   // `\\bar` stands at its end, so a `|` after it adds nothing
+    QString voltaText;          // a volta begins with the measure, with this text,
+    int voltaMeasures = 0;      // and spans this many measures; 0: no volta begins here
+    int voltaPosition = 0;      // where `\\volta` stands in the text
 
     static Fraction lengthOf(const Voice& voice)
     {
@@ -430,6 +433,12 @@ public:
 
         if (m_music.empty()) {
             fail("there is no music", 0);
+        }
+
+        for (size_t i = 0; i < m_music.size(); ++i) {
+            if (i + m_music[i].voltaMeasures > m_music.size()) {
+                fail("the volta is longer than the music after it", m_music[i].voltaPosition);
+            }
         }
 
         return { std::move(m_music), m_staves, m_bracket.value_or(m_instruments ? -1 : 1), std::move(m_tabStaves),
@@ -659,6 +668,8 @@ private:
             readBar(token);
         } else if (text == "\\playCount") {
             readPlayCount(token);
+        } else if (text == "\\volta") {
+            readVolta(token);
         } else if (text == "\\tuplet") {
             readTuplet(token);
         } else if (text == "\\clef") {
@@ -828,6 +839,26 @@ private:
         if (startsRepeat) {
             measure().startRepeat = true;
         }
+    }
+
+    //! `\\volta "text" N`: a volta with the text over the N measures which begin where it stands (at the beginning
+    //! of a measure)
+    void readVolta(const Token& command)
+    {
+        const QString text = quoted(takeToken("the text of the volta in quotes", command));
+        const Token number = takeToken("how many measures the volta spans", command);
+        const int measures = readNumber(number.text, number.position);
+        if (measures < 1 || measures > 16) {
+            fail("1 to 16 measures", number.position);
+        }
+
+        if (!measure().isEmpty()) {
+            fail("a volta begins with a measure: \\volta is written after a `|`", command.position);
+        }
+
+        measure().voltaText = text;
+        measure().voltaMeasures = measures;
+        measure().voltaPosition = command.position;
     }
 
     //! `\\playCount N`: the repeat which ends at the `\\bar` before it is played N times
@@ -1720,15 +1751,16 @@ private:
             m_xml.writeEndElement();
         }
 
-        for (const Measure& measure : m_piece.measures) {
-            writeMeasure(measure, staff);
+        for (size_t i = 0; i < m_piece.measures.size(); ++i) {
+            writeMeasure(i, staff);
         }
 
         m_xml.writeEndElement();
     }
 
-    void writeMeasure(const Measure& measure, int staff)
+    void writeMeasure(size_t index, int staff)
     {
+        const Measure& measure = m_piece.measures[index];
         m_xml.writeStartElement("Measure");
         const Fraction length = writtenLength(measure);
         m_xml.writeAttribute("len", QString("%1/%2").arg(length.numerator()).arg(length.denominator()));
@@ -1754,14 +1786,16 @@ private:
         bool hasVoice = false;
         for (size_t v = 0; v < measure.voices.size(); ++v) {
             if (isOnStaff(measure.voices[v], staff)) {
-                writeVoice(measure, v, staff, !hasVoice);
+                writeVoice(index, v, staff, !hasVoice);
                 hasVoice = true;
             }
         }
 
         if (!hasVoice) {
             m_xml.writeStartElement("voice");
+            writeVoltas(index, staff, true);
             writeMeasureRest(writtenLength(measure));
+            writeVoltas(index, staff, false);
             writeBarline(measure);
             m_xml.writeEndElement();
         }
@@ -1790,8 +1824,60 @@ private:
     }
 
     //! The voice of a measure on a staff: its events written there, with rests where the voice is on the other staff
-    void writeVoice(const Measure& measure, size_t voiceIndex, int staff, bool withBarline)
+    //! The voltas of the system which begin or end at the beginning of the measure (`atStart`), or end at its end
+    //! when it is the last one; written in its first voice on the first staff, as TWrite writes spanners
+    void writeVoltas(size_t index, int staff, bool atStart)
     {
+        if (staff != 0 || (!atStart && index + 1 != m_piece.measures.size())) {
+            return;
+        }
+
+        const size_t end = atStart ? index : index + 1;
+        for (size_t start = 0; start < end; ++start) {
+            const int measures = m_piece.measures[start].voltaMeasures;
+            if (measures > 0 && start + measures == end) {
+                m_xml.writeStartElement("Spanner");
+                m_xml.writeAttribute("type", "Volta");
+                m_xml.writeStartElement("prev");
+                m_xml.writeStartElement("location");
+                number("measures", -measures);
+                m_xml.writeEndElement();
+                m_xml.writeEndElement();
+                m_xml.writeEndElement();
+            }
+        }
+
+        const Measure& measure = m_piece.measures[index];
+        if (!atStart || measure.voltaMeasures == 0) {
+            return;
+        }
+
+        //! NOTE The endings it is played on are the numbers in its text ("1." or "1, 2.")
+        QStringList endings;
+        static const QRegularExpression NUMBER("\\d+");
+        QRegularExpressionMatchIterator it = NUMBER.globalMatch(measure.voltaText);
+        while (it.hasNext()) {
+            endings << it.next().captured(0);
+        }
+
+        m_xml.writeStartElement("Spanner");
+        m_xml.writeAttribute("type", "Volta");
+        m_xml.writeStartElement("Volta");
+        number("endHookType", 1);
+        text("beginText", measure.voltaText);
+        text("endings", endings.isEmpty() ? QString("1") : endings.join(", "));
+        m_xml.writeEndElement();
+        m_xml.writeStartElement("next");
+        m_xml.writeStartElement("location");
+        number("measures", measure.voltaMeasures);
+        m_xml.writeEndElement();
+        m_xml.writeEndElement();
+        m_xml.writeEndElement();
+    }
+
+    void writeVoice(size_t index, size_t voiceIndex, int staff, bool withBarline)
+    {
+        const Measure& measure = m_piece.measures[index];
         std::vector<const Event*> events;
         for (const Event& event : measure.voices[voiceIndex]) {
             if (event.staff == staff) {
@@ -1800,6 +1886,9 @@ private:
         }
 
         m_xml.writeStartElement("voice");
+        if (withBarline) {
+            writeVoltas(index, staff, true);
+        }
 
         Fraction cursor;
         for (size_t i = 0; i < events.size(); ++i) {
@@ -1811,6 +1900,7 @@ private:
 
         writeGapRests(writtenLength(measure) - cursor);
         if (withBarline) {
+            writeVoltas(index, staff, false);
             writeBarline(measure);
         }
 
