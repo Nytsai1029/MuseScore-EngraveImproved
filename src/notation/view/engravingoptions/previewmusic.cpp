@@ -158,6 +158,8 @@ struct Pitch {
     int tpc = 14;
     int alteration = 0;     // in semitones
     Accidental accidental = Accidental::Auto;
+    //! `<c'~ e'>`: this note of the chord is tied to the same note of the next chord, the others are not
+    bool tie = false;
 };
 
 //! A spanner which begins or ends at an event, in the terms of the file: how far the other end is
@@ -198,6 +200,7 @@ struct Event {
 
     bool tie = false;
     int tieStyle = 0;               // SlurStyleType: solid, dotted, dashed, wide dashed
+    bool slashHeads = false;        // `\\slash`: the noteheads are slashes (rhythm slash notation)
     int slurStyle = 0;
     int slurDirection = 0;          // DirectionV: 0 auto, 1 up, 2 down
     bool slurFlat = false;          // CurveMode::FlatMiddle
@@ -290,6 +293,7 @@ struct Piece {
     //! the bracket over the staves, as the BracketType enum: brace by default, -1 for none
     int bracket = 1;
     std::set<int> tabStaves;        // 0-based indices of the staves which are tablature
+    std::map<int, int> staffLines;  // the number of lines of a staff which has not five, by its 0-based index
 };
 
 //---------------------------------------------------------
@@ -410,7 +414,7 @@ public:
             fail("there is no music", 0);
         }
 
-        return { std::move(m_music), m_staves, m_bracket, std::move(m_tabStaves) };
+        return { std::move(m_music), m_staves, m_bracket, std::move(m_tabStaves), std::move(m_staffLines) };
     }
 
 private:
@@ -565,6 +569,8 @@ private:
                 fail("\\tab is written at the beginning", token.position);
             }
             m_tabStaves.insert(m_staff);
+        } else if (text == "\\lines") {
+            readLines(token);
         } else if (text == "\\tieSolid" || text == "\\tieDotted" || text == "\\tieDashed"
                    || text == "\\tieWideDashed") {
             m_tieStyle = lineStyleOf(text.mid(4));
@@ -588,6 +594,8 @@ private:
             readBeamMove(token);
         } else if (text == "\\noBeam") {
             m_noBeam = true;
+        } else if (text == "\\slash") {
+            m_slashHeads = true;
         } else if (text == "\\break") {
             //! NOTE A break ends the measure it stands in, like a bar line, and the measure ends the system.
             //! After `|` it takes back the bar line instead: `e''4 \break f''4` and `e''4 | \break f''4` are the same
@@ -720,6 +728,22 @@ private:
         if (m_music.size() > 1 || !measure().isEmpty()) {
             fail("\\staves is written at the beginning", command.position);
         }
+    }
+
+    //! `\\lines N`: the current staff has N lines instead of five (written at the beginning, like `\\tab`)
+    void readLines(const Token& command)
+    {
+        const Token number = takeToken("a number of staff lines (1 to 5)", command);
+        const int lines = readNumber(number.text, number.position);
+        if (lines < 1 || lines > 5) {
+            fail("1 to 5 staff lines", number.position);
+        }
+
+        if (m_music.size() > 1 || !measure().isEmpty()) {
+            fail("\\lines is written at the beginning", command.position);
+        }
+
+        m_staffLines[m_staff] = lines;
     }
 
     //! `\\group bracket|square|line|brace|none`: the kind of the bracket which the two staves
@@ -906,14 +930,17 @@ private:
             }
 
             int offset = 1;
-            for (const QString& pitch : pitches) {
-                offset = word.indexOf(pitch, offset);
+            for (const QString& written : pitches) {
+                offset = word.indexOf(written, offset);
+                const bool tied = written.endsWith('~');
+                const QString pitch = tied ? written.chopped(1) : written;
                 PitchReader reader(word, offset, token.position);
                 event.pitches.push_back(reader.read());
+                event.pitches.back().tie = tied;
                 if (reader.index() != offset + pitch.size()) {
                     fail(QString("%1 is not a pitch").arg(pitch), token.position + offset);
                 }
-                offset += pitch.size();
+                offset += written.size();
             }
 
             return close + 1;
@@ -1071,6 +1098,7 @@ private:
         }
 
         takePending(event);
+        event.slashHeads = std::exchange(m_slashHeads, false);
         takeBeam(event);
         takeTuplet(event);
 
@@ -1153,6 +1181,7 @@ private:
     bool m_slurFlat = false;
     int m_tieStyle = 0;
     std::set<int> m_tabStaves;
+    std::map<int, int> m_staffLines;
     bool m_ambitus = false;
     bool m_inGraceGroup = false;
     bool m_graceGroupFirst = false;
@@ -1161,6 +1190,7 @@ private:
     Event::Stem m_stem = Event::Stem::Auto;
     Event::Grace m_grace = Event::Grace::None;
     bool m_noBeam = false;
+    bool m_slashHeads = false;
     std::optional<int> m_beamBegin;         // the place of the `[` of the beam which is open
     bool m_beamHasBegun = false;            // the `[` is on the chord which is being read
     bool m_beamEnds = false;
@@ -1270,7 +1300,10 @@ private:
     {
         for (size_t i = 0; i < events.size(); ++i) {
             Event& from = *events[i];
-            if (!from.tie) {
+            const bool someNoteTied = std::any_of(from.pitches.begin(), from.pitches.end(), [](const Pitch& pitch) {
+                return pitch.tie;
+            });
+            if (!from.tie && !someNoteTied) {
                 continue;
             }
 
@@ -1280,6 +1313,10 @@ private:
             }
 
             for (const Pitch& pitch : from.pitches) {
+                if (!from.tie && !pitch.tie) {
+                    continue;
+                }
+
                 const bool isThere = std::any_of(to->pitches.begin(), to->pitches.end(), [&pitch](const Pitch& other) {
                     return other.midi == pitch.midi;
                 });
@@ -1394,6 +1431,9 @@ private:
             } else {
                 m_xml.writeAttribute("group", "pitched");
                 text("name", "stdNormal");
+            }
+            if (m_piece.staffLines.count(staff)) {
+                number("lines", m_piece.staffLines.at(staff));
             }
             m_xml.writeEndElement();
             if (staff == 1 && !m_piece.tabStaves.count(staff)) {
@@ -1782,6 +1822,10 @@ private:
         }
 
         writeLinks(event, Link::Kind::Tie, pitch.midi);
+
+        if (event.slashHeads) {
+            text("head", "slash");
+        }
 
         if (event.laissezVibrer) {
             m_xml.writeEmptyElement("LaissezVib");

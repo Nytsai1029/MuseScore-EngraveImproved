@@ -570,6 +570,59 @@ TEST_F(Notation_PreviewMusicTests, slurCommandsGiveDirectionAndFlatness)
 }
 
 /**
+ * @TEST_CASE tieOfOneNoteOfAChord
+ * @details `~` after a note inside a chord ties only that note; the next chord need not have the others
+ */
+TEST_F(Notation_PreviewMusicTests, tieOfOneNoteOfAChord)
+{
+    ASSERT_TRUE(load("<e' g'~ b'>2 <e' g' bes'>2"));
+
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 2u);
+
+    std::vector<int> tied;
+    for (const Note* note : found.front()->notes()) {
+        if (note->tieFor()) {
+            tied.push_back(note->pitch());
+        }
+    }
+    EXPECT_EQ(tied, std::vector<int> { 67 });
+
+    EXPECT_FALSE(errorOf("<e' g'~>2 <e' a'>2").empty());
+}
+
+/**
+ * @TEST_CASE slashNoteheads
+ * @details `\slash` gives the next chord slash noteheads, and only that one
+ */
+TEST_F(Notation_PreviewMusicTests, slashNoteheads)
+{
+    ASSERT_TRUE(load("\\slash b'4 b'4"));
+
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 2u);
+    EXPECT_EQ(found[0]->notes().front()->headGroup(), NoteHeadGroup::HEAD_SLASH);
+    EXPECT_EQ(found[1]->notes().front()->headGroup(), NoteHeadGroup::HEAD_NORMAL);
+}
+
+/**
+ * @TEST_CASE staffWithOneLine
+ * @details `\lines 1` gives the staff one line instead of five; written later, or with a count which is not
+ *          1 to 5, it is an error
+ */
+TEST_F(Notation_PreviewMusicTests, staffWithOneLine)
+{
+    ASSERT_TRUE(load("\\lines 1 R1 | c'1"));
+    EXPECT_EQ(score()->staff(0)->lines(Fraction(0, 1)), 1);
+
+    ASSERT_TRUE(load("c'1"));
+    EXPECT_EQ(score()->staff(0)->lines(Fraction(0, 1)), 5);
+
+    EXPECT_FALSE(errorOf("c'4 \\lines 1 c'4").empty());
+    EXPECT_FALSE(errorOf("\\lines 6 c'1").empty());
+}
+
+/**
  * @TEST_CASE tabStaffAndTapping
  * @details `\tab` makes the staff a tablature; `\tapping` and `\tapping left` mark the note before them
  */
