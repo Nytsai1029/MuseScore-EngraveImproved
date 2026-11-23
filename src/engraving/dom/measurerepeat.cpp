@@ -108,7 +108,7 @@ PointF MeasureRepeat::numberPosition(const RectF& numberBbox) const
     double staffTop = -pos().y();
     // Single line staff barlines extend above top of staff
     if (staffType() && staffType()->lines() == 1) {
-        staffTop -= 2.0 * spatium();
+        staffTop -= style().styleS(Sid::measureRepeatNumberOneLineStaffOffset).val() * spatium();
     }
     double y = std::min(staffTop, -symBbox(ldata()->symId).height() / 2) + m_numberPos * spatium() - 0.5 * numberBbox.height();
 

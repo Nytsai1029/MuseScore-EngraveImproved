@@ -2180,9 +2180,10 @@ static void calcParenTopBottom(Parenthesis* item, double& top, double& bottom, L
     }
 
     RectF bbox = parent->ldata()->bbox();
+    const double inset = ctx.conf().styleS(Sid::parenthesisCourtesySmallInset).val();
 
-    top = std::min(top, bbox.top() + parent->pos().y() + spatium / 4);
-    bottom = std::max(bottom, bbox.bottom() + parent->pos().y() - spatium / 4);
+    top = std::min(top, bbox.top() + parent->pos().y() + spatium * inset);
+    bottom = std::max(bottom, bbox.bottom() + parent->pos().y() - spatium * inset);
 }
 
 void MeasureLayout::addRepeatCourtesyParentheses(Measure* m, const bool continuation, LayoutContext& ctx)
@@ -2227,6 +2228,11 @@ void MeasureLayout::addRepeatCourtesyParentheses(Measure* m, const bool continua
         return ctx.conf().styleV(Sid::timeSigPlacement).value<TimeSigPlacement>() != TimeSigPlacement::NORMAL;
     };
 
+    const double parenOvershoot = ctx.conf().styleS(Sid::parenthesisCourtesyOvershoot).val();
+    const double parenBigTimeSigExtension = ctx.conf().styleS(Sid::parenthesisCourtesyBigTimeSigExtension).val();
+    const double parenHeightToThickness = ctx.conf().styleD(Sid::parenthesisCourtesyHeightToThicknessRatio);
+    const double parenEndThickness = ctx.conf().styleS(Sid::parenthesisCourtesyEndThickness).val();
+
     auto createParenthesesForSegments = [&](Segment* leftSeg, Segment* rightSeg, track_idx_t track) -> void {
         double top = DBL_MAX;
         double bottom = -DBL_MAX;
@@ -2253,16 +2259,20 @@ void MeasureLayout::addRepeatCourtesyParentheses(Measure* m, const bool continua
             double height = bottom - top;
 
             if (!ctx.conf().styleB(Sid::smallParens)) {
-                top -= 1.25 * spatium;
-                height += 2.5 * spatium;
+                top -= parenBigTimeSigExtension * spatium;
+                height += 2 * parenBigTimeSigExtension * spatium;
             }
 
             rightParen->mutldata()->startY.set_value(top);
             rightParen->mutldata()->height.set_value(height);
-            rightParen->mutldata()->midPointThickness.set_value(height / 60 * rightParen->ldata()->mag());  // 0.1sp for a height of 6sp
+            rightParen->mutldata()->midPointThickness.set_value(height / parenHeightToThickness
+                                                                * rightParen->ldata()->mag());
+            rightParen->mutldata()->endPointThickness.set_value(parenEndThickness);
             leftParen->mutldata()->startY.set_value(top);
             leftParen->mutldata()->height.set_value(height);
-            leftParen->mutldata()->midPointThickness.set_value(height / 60 * leftParen->ldata()->mag());  // 0.1sp for a height of 6sp
+            leftParen->mutldata()->midPointThickness.set_value(height / parenHeightToThickness
+                                                               * leftParen->ldata()->mag());
+            leftParen->mutldata()->endPointThickness.set_value(parenEndThickness);
 
             double mag = std::max(leftParen->ldata()->mag(), rightParen->ldata()->mag());
             leftParen->mutldata()->setMag(mag);
@@ -2272,14 +2282,22 @@ void MeasureLayout::addRepeatCourtesyParentheses(Measure* m, const bool continua
             const double spatium = leftParen ? leftParen->spatium() : rightParen->spatium();
             const Fraction tick = leftParen ? leftParen->tick() : rightParen->tick();
             if (leftParen) {
-                leftParen->mutldata()->startY.set_value(-spatium);
-                leftParen->mutldata()->height.set_value(staff->staffHeight(tick) + 2 * spatium * leftParen->mag());
-                leftParen->mutldata()->midPointThickness.set_value(leftParen->ldata()->height / 60 * leftParen->ldata()->mag());  // 0.1sp for a height of 6sp
+                leftParen->mutldata()->startY.set_value(-parenOvershoot * spatium);
+                leftParen->mutldata()->height.set_value(staff->staffHeight(tick)
+                                                        + 2 * parenOvershoot * spatium * leftParen->mag());
+                leftParen->mutldata()->midPointThickness.set_value(leftParen->ldata()->height
+                                                                   / parenHeightToThickness
+                                                                   * leftParen->ldata()->mag());
+                leftParen->mutldata()->endPointThickness.set_value(parenEndThickness);
             }
             if (rightParen) {
-                rightParen->mutldata()->startY.set_value(-spatium);
-                rightParen->mutldata()->height.set_value(staff->staffHeight(tick) + 2 * spatium * rightParen->mag());
-                rightParen->mutldata()->midPointThickness.set_value(rightParen->ldata()->height / 60 * rightParen->ldata()->mag());  // 0.1sp for a height of 6sp
+                rightParen->mutldata()->startY.set_value(-parenOvershoot * spatium);
+                rightParen->mutldata()->height.set_value(staff->staffHeight(tick)
+                                                         + 2 * parenOvershoot * spatium * rightParen->mag());
+                rightParen->mutldata()->midPointThickness.set_value(rightParen->ldata()->height
+                                                                    / parenHeightToThickness
+                                                                    * rightParen->ldata()->mag());
+                rightParen->mutldata()->endPointThickness.set_value(parenEndThickness);
             }
         }
 

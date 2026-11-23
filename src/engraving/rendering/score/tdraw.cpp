@@ -1088,7 +1088,8 @@ void TDraw::draw(const Bracket* item, Painter* painter)
     break;
     case BracketType::SQUARE: {
         double h = ldata->bracketHeight;
-        double lineW = item->style().styleMM(Sid::staffLineWidth);
+        double lineW = item->style().styleMM(Sid::staffLineWidth)
+                       * item->style().styleD(Sid::bracketSquareLineWidthRatio);
         double bracketWidth = ldata->bracketWidth - lineW / 2;
         Pen pen(item->curColor(), lineW, PenStyle::SolidLine, PenCapStyle::FlatCap);
         painter->setPen(pen);

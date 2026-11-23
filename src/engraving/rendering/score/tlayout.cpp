@@ -1808,7 +1808,8 @@ void TLayout::layoutBracket(const Bracket* item, Bracket::LayoutData* ldata, con
     break;
     case BracketType::SQUARE: {
         const double hookLength = conf.styleS(Sid::bracketSquareHookLength).val();
-        double w = conf.styleMM(Sid::staffLineWidth) * .5;
+        const double lineWidthRatio = conf.styleD(Sid::bracketSquareLineWidthRatio);
+        double w = conf.styleMM(Sid::staffLineWidth) * lineWidthRatio * .5;
         double x = -w;
         double y = -w;
         double h = (ldata->bracketHeight * 0.5 + w) * 2;
@@ -1816,7 +1817,7 @@ void TLayout::layoutBracket(const Bracket* item, Bracket::LayoutData* ldata, con
         ldata->setBbox(RectF(x, y, w, h));
         ldata->shape.add(ldata->bbox());
 
-        ldata->bracketWidth = conf.styleMM(Sid::staffLineWidth) / 2 + hookLength * item->spatium();
+        ldata->bracketWidth = conf.styleMM(Sid::staffLineWidth) * lineWidthRatio / 2 + hookLength * item->spatium();
     }
     break;
     case BracketType::LINE: {
@@ -3930,7 +3931,9 @@ static void keySigAddLayout(const KeySig* item, const LayoutConfiguration& conf,
         PointF cutout = item->symSmuflAnchor(sym, currentCutout);
         double currentCutoutY = line * step + cutout.y();
         double previousCutoutY = previous.line * step + item->symSmuflAnchor(previous.sym, previousCutout).y();
-        if ((isAscending && currentCutoutY < previousCutoutY) || (!isAscending && currentCutoutY > previousCutoutY)) {
+        if (conf.styleB(Sid::keysigAccidentalsUseCutouts)
+            && ((isAscending && currentCutoutY < previousCutoutY)
+                || (!isAscending && currentCutoutY > previousCutoutY))) {
             x -= cutout.x() / _spatium;
         }
     }
@@ -4446,7 +4449,8 @@ void TLayout::layoutMeasureRepeat(const MeasureRepeat* item, MeasureRepeat::Layo
     {
         ldata->setSymId(SymId::repeat1Bar);
         if (ctx.conf().styleB(Sid::mrNumberSeries) && item->track() != muse::nidx) {
-            int placeInSeries = 2; // "1" would be the measure actually being repeated
+            // "1" would be the measure actually being repeated
+            int placeInSeries = ctx.conf().styleI(Sid::mrNumberSeriesFirstNumber);
             staff_idx_t staffIdx = item->staffIdx();
             const Measure* m = item->measure();
             while (m && m->isOneMeasureRepeat(staffIdx) && m->prevIsOneMeasureRepeat(staffIdx)) {
@@ -4471,11 +4475,19 @@ void TLayout::layoutMeasureRepeat(const MeasureRepeat* item, MeasureRepeat::Layo
     }
     case 2:
         ldata->setSymId(SymId::repeat2Bars);
-        ldata->setNumberSym(item->numMeasures());
+        if (ctx.conf().styleB(Sid::twoMeasureRepeatShowNumber)) {
+            ldata->setNumberSym(item->numMeasures());
+        } else {
+            ldata->clearNumberSym();
+        }
         break;
     case 4:
         ldata->setSymId(SymId::repeat4Bars);
-        ldata->setNumberSym(item->numMeasures());
+        if (ctx.conf().styleB(Sid::fourMeasureRepeatShowNumber)) {
+            ldata->setNumberSym(item->numMeasures());
+        } else {
+            ldata->clearNumberSym();
+        }
         break;
     default:
         ldata->setSymId(SymId::noSym); // should never happen
@@ -4537,10 +4549,11 @@ void TLayout::layoutMeasureRepeatExtender(const MeasureRepeat* item, MeasureRepe
     double xItemInSysCoords = item->x() + item->segment()->x() + parentMeasure->x();
 
     PointF startPoint(xStart + startMeasure->x() - xItemInSysCoords, 0.0);
-    PointF midPointL(-0.5 * item->spatium(), 0.0);
+    const double extenderGap = ctx.conf().styleS(Sid::measureRepeatExtenderGap).val();
+    PointF midPointL(-extenderGap * item->spatium(), 0.0);
     ldata->extenderLineLeft = LineF(startPoint, midPointL);
 
-    PointF midPointR(item->symWidth(ldata->symId) + 0.5 * item->spatium(), 0.0);
+    PointF midPointR(item->symWidth(ldata->symId) + extenderGap * item->spatium(), 0.0);
     PointF endPoint(xEnd + endMeasure->x() - xItemInSysCoords, 0.0);
     ldata->extenderLineRight = LineF(midPointR, endPoint);
 }

@@ -627,7 +627,7 @@ VBox::VBox(System* parent)
 
 double VBox::minHeight() const
 {
-    return absoluteFromSpatium(Spatium(10));
+    return absoluteFromSpatium(style().styleS(Sid::verticalFrameAutoSizeMinHeight));
 }
 
 double VBox::maxHeight() const

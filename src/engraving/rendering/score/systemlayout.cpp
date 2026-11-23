@@ -2165,7 +2165,9 @@ void SystemLayout::layoutSystem(System* system, LayoutContext& ctx, double xo1, 
         textSizeScaling *= DefaultStyle::defaultStyle().value(Sid::spatium).toDouble() / ctx.conf().styleD(Sid::spatium);
     }
     textSizeScaling = std::max(textSizeScaling, 1.0);
-    instrumentNameOffset *= textSizeScaling;
+    if (ctx.conf().styleB(Sid::instrumentNameOffsetScaleWithFontSize)) {
+        instrumentNameOffset *= textSizeScaling;
+    }
 
     size_t nstaves = system->staves().size();
 
