@@ -53,6 +53,7 @@
 #include "dom/stem.h"
 #include "dom/symbol.h"
 #include "dom/system.h"
+#include "dom/trill.h"
 #include "dom/tuplet.h"
 #include "dom/undo.h"
 
@@ -1034,6 +1035,38 @@ TEST_F(Engraving_LayoutConsistencyTests, framesOfAnOldFileKeepTheirDistances)
     MasterScore* reloaded = saveAndReload(score, u"oldFrames.mscx");
     ASSERT_TRUE(reloaded);
     EXPECT_EQ(distances(reloaded), opened);
+}
+
+//! A segment's end offset — what a drag of the end grip changes, leaving the segment's position styled — is
+//! written also when nothing else about its line is user-modified (the writer used to leave the whole Segment
+//! block out then, so the drag was lost on save)
+TEST_F(Engraving_LayoutConsistencyTests, spannerSegmentEndOffsetSurvivesSaveReload)
+{
+    MasterScore* score = ScoreRW::readScore(LAYOUTCONSISTENCY_DATA_DIR + u"twoStaves.mscx");
+    ASSERT_TRUE(score);
+
+    Trill* trill = Factory::createTrill(score->dummy());
+    trill->setTrillType(TrillType::TRILL_LINE);
+    trill->setTrack(0);
+    trill->setTrack2(0);
+    trill->setTick(Fraction(0, 1));
+    trill->setTick2(Fraction(1, 1));
+    score->addSpanner(trill);
+    score->setLayoutAll();
+    score->update();
+
+    ASSERT_FALSE(trill->isUserModified());
+    ASSERT_FALSE(trill->segmentsEmpty());
+    const PointF off2(2.5 * trill->spatium(), 0.0);
+    trill->frontSegment()->setUserOff2(off2);
+
+    MasterScore* reloaded = saveAndReload(score, u"trillOff2.mscx");
+    ASSERT_TRUE(reloaded);
+
+    Spanner* reloadedTrill = spannerAt(reloaded, ElementType::TRILL, Fraction(0, 1));
+    ASSERT_TRUE(reloadedTrill);
+    ASSERT_FALSE(reloadedTrill->segmentsEmpty());
+    EXPECT_EQ(toLineSegment(reloadedTrill->frontSegment())->userOff2(), off2);
 }
 
 //! What an item owns stands on its track: the parentheses of a note (here those of a trill's cue note, which

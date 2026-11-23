@@ -414,7 +414,10 @@ bool SpannerSegment::isUserModified() const
     bool modified = !autoplace() || !visible()
                     || (propertyFlags(Pid::MIN_DISTANCE) == PropertyFlags::UNSTYLED
                         || getProperty(Pid::MIN_DISTANCE) != propertyDefault(Pid::MIN_DISTANCE))
-                    || (!isStyled(Pid::OFFSET) && (!offset().isNull() || !userOff2().isNull()));
+                    || (!isStyled(Pid::OFFSET) && !offset().isNull())
+                    // The end offset is only ever set by the user (or read from a file): keep it also
+                    // when the segment's position follows the style, as a drag of the end grip leaves it
+                    || !userOff2().isNull();
 
     return modified;
 }
