@@ -674,6 +674,23 @@ TEST_F(Notation_PreviewMusicTests, smallChordsAndStaves)
 }
 
 /**
+ * @TEST_CASE barlinesSpanTwoStaves
+ * @details `\spanBarlines` makes the barlines of the first staff go down through the second, as in a grand staff of
+ *          a keyboard part; without it each staff has its own
+ */
+TEST_F(Notation_PreviewMusicTests, barlinesSpanTwoStaves)
+{
+    ASSERT_TRUE(load("\\staves 2 \\spanBarlines c''1"));
+    EXPECT_EQ(score()->staff(0)->barLineSpan(), 1);
+    EXPECT_EQ(score()->staff(1)->barLineSpan(), 0);
+
+    ASSERT_TRUE(load("\\staves 2 c''1"));
+    EXPECT_EQ(score()->staff(0)->barLineSpan(), 0);
+
+    EXPECT_FALSE(errorOf("\\staves 2 c''1 | \\spanBarlines c''1").empty());
+}
+
+/**
  * @TEST_CASE staffWithOneLine
  * @details `\lines 1` gives the staff one line instead of five; written later, or with a count which is not
  *          1 to 5, it is an error
