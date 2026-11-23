@@ -85,7 +85,7 @@ private:
     static void finishBezier(SlurSegment* slurSeg, const PointF& p2, const PointF& p3, const PointF& p4,
                              const muse::draw::Transform& rotate, const muse::draw::Transform& toSystemCoordinates);
     static void enforceSlurShapeRules(bool up, const PointF& pp1, const PointF& p2, PointF& p3, PointF& p4,
-                                      const muse::draw::Transform& toSystemCoordinates);
+                                      const muse::draw::Transform& toSystemCoordinates, double maxHeightToLengthRatio);
     static void avoidCollisions(SlurSegment* slurSeg, PointF& pp1, PointF& p2, PointF& p3, PointF& p4,
                                 muse::draw::Transform& toSystemCoordinates, double& slurAngle);
     static Shape getSegmentShapes(SlurSegment* slurSeg, ChordRest* startCR, ChordRest* endCR);

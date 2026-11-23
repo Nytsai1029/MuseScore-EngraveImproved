@@ -1730,7 +1730,7 @@ void ChordLayout::computeUp(const Chord* item, Chord::LayoutData* ldata, const L
     }
 
     bool isGraceNote = item->noteType() != NoteType::NORMAL;
-    if (isGraceNote) {
+    if (isGraceNote && ctx.conf().styleB(Sid::graceNoteStemAlwaysUp)) {
         ldata->up = true;
         return;
     }
@@ -2099,6 +2099,7 @@ void ChordLayout::calculateChordOffsets(Segment* segment, staff_idx_t staffIdx, 
         int lastLine = 1000;
         track_idx_t lastTrack = muse::nidx;
         Note* p = overlapNotes[0];
+        const bool shareHeadsDifferentDots = ctx.conf().styleB(Sid::voiceUnisonShareHeadsDifferentDots);
         for (size_t i = 0, count = overlapNotes.size(); i < count; ++i) {
             Note* n = overlapNotes[i];
             NoteHeadType nHeadType;
@@ -2142,7 +2143,8 @@ void ChordLayout::calculateChordOffsets(Segment* segment, staff_idx_t staffIdx, 
                     // thus user can force notes to be shared despite differing number of dots or either being stemless
                     // by setting one of the notehead types to match the other or by making one notehead invisible
                     // TODO: consider adding a style option, staff properties, or note property to control sharing
-                    if ((nchord->dots() != pchord->dots() || !nchord->stem() || !pchord->stem() || nHeadType != pHeadType
+                    if (((nchord->dots() != pchord->dots() && !shareHeadsDifferentDots)
+                         || !nchord->stem() || !pchord->stem() || nHeadType != pHeadType
                          || n->isSmall() || p->isSmall())
                         && ((n->headType() == NoteHeadType::HEAD_AUTO && p->headType() == NoteHeadType::HEAD_AUTO)
                             || nHeadType != pHeadType)

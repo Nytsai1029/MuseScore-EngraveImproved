@@ -266,7 +266,7 @@ void BeamLayout::layout1(Beam* item, LayoutContext& ctx)
         item->setUp(false);
     } else if (item->minCRMove() < 0) {
         item->setUp(true);
-    } else if (item->isGrace()) {
+    } else if (item->isGrace() && (hasMultipleVoices || ctx.conf().styleB(Sid::graceNoteStemAlwaysUp))) {
         if (hasMultipleVoices) {
             item->setUp(firstNote->track() % 2 == 0);
         } else {

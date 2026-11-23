@@ -601,12 +601,13 @@ int StemLayout::calc4BeamsException(const Chord* item, int stemLength)
     } else if (!ldata->up && item->downNote()->line() < 0) {
         difference = std::abs(item->downNote()->line());
     }
+    const MStyle& style = item->style();
     switch (difference) {
     case 2:
-        return std::max(stemLength, 21);
+        return std::max(stemLength, stemStyleQuarterSpaces(style, Sid::stemFourBeamsMinLengthFirstLedger));
     case 3:
     case 4:
-        return std::max(stemLength, 23);
+        return std::max(stemLength, stemStyleQuarterSpaces(style, Sid::stemFourBeamsMinLengthSecondLedger));
     default:
         return stemLength;
     }

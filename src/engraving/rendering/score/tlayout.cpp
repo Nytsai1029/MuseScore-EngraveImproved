@@ -1897,8 +1897,9 @@ void TLayout::layoutChordLine(const ChordLine* item, ChordLine::LayoutData* ldat
     if (!item->modified()) {
         double x2 = 0;
         double y2 = 0;
-        double baseLength = spatium * item->chord()->intrinsicMag();
-        double horBaseLength = 1.2 * baseLength;     // let the symbols extend a bit more horizontally
+        double baseLength = conf.styleS(Sid::chordlineHeight).val() * spatium * item->chord()->intrinsicMag();
+        // let the symbols extend a bit more horizontally
+        double horBaseLength = conf.styleD(Sid::chordlineWidthRatio) * baseLength;
         x2 += item->isToTheLeft() ? -horBaseLength : horBaseLength;
         y2 += item->isBelow() ? baseLength : -baseLength;
         if (item->chordLineType() != ChordLineType::NOTYPE && !item->isWavy()) {
@@ -1922,8 +1923,8 @@ void TLayout::layoutChordLine(const ChordLine* item, ChordLine::LayoutData* ldat
 
     double x = 0.0;
     double y = noteLD->pos().y();
-    double horOffset = 0.33 * spatium;         // one third of a space away from the note
-    double vertOffset = 0.25 * spatium;         // one quarter of a space from the center line
+    double horOffset = conf.styleS(Sid::chordlineNoteDistance).val() * spatium;
+    double vertOffset = conf.styleS(Sid::chordlineVerticalOffset).val() * spatium;
     // Get chord shape
     Shape chordShape = item->chord()->shape();
     // ...but remove from the shape items that the chordline shouldn't try to avoid
@@ -1974,9 +1975,9 @@ void TLayout::layoutChordLine(const ChordLine* item, ChordLine::LayoutData* ldat
     } else {
         // Align an eighth space above/below the centre of the note
         if (item->isBelow()) {
-            ldata->moveY(r.height() - spatium * 0.125);
+            ldata->moveY(r.height() - spatium * conf.styleS(Sid::chordlineWavyOffsetBelow).val());
         } else {
-            ldata->moveY(spatium * 0.075);
+            ldata->moveY(spatium * conf.styleS(Sid::chordlineWavyOffsetAbove).val());
         }
 
         if (item->isToTheLeft()) {
@@ -3168,15 +3169,16 @@ void TLayout::doLayoutGradualTempoChangeSegment(GradualTempoChangeSegment* item,
         double xItemPos = itemAfter->pageX() - item->system()->pageX();
         double itemLeftEdge = xItemPos + itemAfter->ldata()->bbox().left();
 
-        double padding = item->spatium();
+        const double snapDistance = item->style().styleS(Sid::tempoChangeLineSnapDistance).val() * item->spatium();
+        double padding = snapDistance;
         if (itemAfter->isTempoText()) {
             const double fontSizeScaleFactor = toTempoText(itemAfter)->size() / 10.0;
-            padding = item->spatium() * fontSizeScaleFactor;
+            padding = snapDistance * fontSizeScaleFactor;
         } else if (itemAfter->isGradualTempoChangeSegment()) {
             Text* startText = toGradualTempoChangeSegment(itemAfter)->text();
             if (startText) {
                 const double fontSizeScaleFactor = startText->size() / 10.0;
-                padding = item->spatium() * fontSizeScaleFactor;
+                padding = snapDistance * fontSizeScaleFactor;
             }
         }
 
@@ -3626,6 +3628,7 @@ void TLayout::layoutHammerOnPullOffSegment(HammerOnPullOffSegment* item, LayoutC
     System* system = item->system();
     Fraction systemEndTick = system->endTick();
     Skyline& sk = system->staff(item->staffIdx())->skyline();
+    const double vertPadding = ctx.conf().styleS(Sid::hopoTextVerticalPadding).val() * item->spatium();
 
     for (HammerOnPullOffText* hopoText : item->hopoText()) {
         bool above = hopoText->placeAbove();
@@ -3653,7 +3656,6 @@ void TLayout::layoutHammerOnPullOffSegment(HammerOnPullOffSegment* item, LayoutC
         }
         double centerX = 0.5 * (startX + endX);
 
-        double vertPadding = 0.5 * item->spatium();
         Shape hopoTextShape = hopoText->ldata()->shape().translated(PointF(centerX, 0.0));
         SkylineLine& skl = above ? sk.north() : sk.south();
         SkylineLine skyline = skl.getFilteredCopy([](const ShapeElement& el) {
@@ -4604,7 +4606,8 @@ void TLayout::layoutMMRest(const MMRest* item, MMRest::LayoutData* ldata, const 
 
     const Staff* staff = item->staff();
     if (staff->lines(item->tick()) == 1) {
-        ldata->yNumberPos = std::min(ldata->yNumberPos, -item->spatium());
+        ldata->yNumberPos = std::min(ldata->yNumberPos,
+                                     ctx.conf().styleS(Sid::mmRestNumberPosOneLineStaff).val() * item->spatium());
     }
 
     if (item->isOldStyle()) {
@@ -4798,7 +4801,9 @@ void TLayout::fillNoteShape(const Note* item, Note::LayoutData* ldata)
             // Semi-hack: the relative position of note and bend
             // isn't fully known yet, so we use an approximation
             double sp = item->spatium();
-            PointF approxRelPos(noteBBox.width() + 0.25 * sp, -0.25 * sp);
+            const MStyle& style = item->style();
+            PointF approxRelPos(noteBBox.width() + style.styleS(Sid::guitarBendSlightBendNoteGap).val() * sp,
+                                -style.styleS(Sid::guitarBendSlightBendRaise).val() * sp);
             shape.add(bendSeg->shape().translate(approxRelPos));
         }
     }
@@ -7065,7 +7070,7 @@ void TLayout::layoutTremoloBar(const TremoloBar* item, TremoloBar::LayoutData* l
 
     double spatium = item->spatium();
 
-    ldata->setPos(0.0, -spatium * 3.0);
+    ldata->setPos(0.0, -spatium * item->style().styleS(Sid::tremoloBarYOffset).val());
 
     /* we place the tremolo bars starting slightly before the
      *  notehead, and end it slightly after, drawing above the
@@ -7076,7 +7081,7 @@ void TLayout::layoutTremoloBar(const TremoloBar* item, TremoloBar::LayoutData* l
      *  Musescore scale. */
 
     double timeFactor  = item->userMag() / 1.0;
-    double pitchFactor = -spatium * .02;
+    double pitchFactor = -spatium * item->style().styleD(Sid::tremoloBarHeightScale);
 
     PolygonF polygon;
     for (const PitchValue& v : item->points()) {

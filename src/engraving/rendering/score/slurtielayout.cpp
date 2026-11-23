@@ -907,6 +907,7 @@ void SlurTieLayout::slurPos(Slur* item, SlurTiePos* sp, LayoutContext& ctx)
     const double noteDistance = ctx.conf().styleS(Sid::slurEndpointNoteDistance).val();
     const double noteDistanceTab = ctx.conf().styleS(Sid::slurEndpointNoteDistanceTab).val();
     const double stemFloatRatio = ctx.conf().styleD(Sid::slurStemFloatRatio);
+    const double stemFloatLimit = ctx.conf().styleS(Sid::slurStemFloatMaxOvershoot).val() * _spatium;
     // hack alert!! -- fakeCutout
     // The fakeCutout const describes the slope of a line from the top of the stem to the full width of the hook.
     // this is necessary because hooks don't have SMuFL cutouts
@@ -1208,9 +1209,9 @@ void SlurTieLayout::slurPos(Slur* item, SlurTiePos* sp, LayoutContext& ctx)
                     // float along stem according to differential
                     double sh = stem1 ? stem1->height() : 0.0;
                     if (item->up() && yd < 0.0) {
-                        po.ry() = std::max(po.y() + yd, sc->downNote()->pos().y() - sh - _spatium);
+                        po.ry() = std::max(po.y() + yd, sc->downNote()->pos().y() - sh - stemFloatLimit);
                     } else if (!item->up() && yd > 0.0) {
-                        po.ry() = std::min(po.y() + yd, sc->upNote()->pos().y() + sh + _spatium);
+                        po.ry() = std::min(po.y() + yd, sc->upNote()->pos().y() + sh + stemFloatLimit);
                     }
 
                     // account for articulations
@@ -1343,9 +1344,9 @@ void SlurTieLayout::slurPos(Slur* item, SlurTiePos* sp, LayoutContext& ctx)
 
                         double mh = stem2 ? stem2->height() : 0.0;
                         if (item->up() && yd > 0.0) {
-                            po.ry() = std::max(po.y() - yd, ec->downNote()->pos().y() - mh - _spatium);
+                            po.ry() = std::max(po.y() - yd, ec->downNote()->pos().y() - mh - stemFloatLimit);
                         } else if (!item->up() && yd < 0.0) {
-                            po.ry() = std::min(po.y() - yd, ec->upNote()->pos().y() + mh + _spatium);
+                            po.ry() = std::min(po.y() - yd, ec->upNote()->pos().y() + mh + stemFloatLimit);
                         }
 
                         // account for articulations
@@ -1533,6 +1534,14 @@ void SlurTieLayout::avoidCollisions(SlurSegment* slurSeg, PointF& pp1, PointF& p
     };
     SlurCollision collision;
 
+    const MStyle& style = slurSeg->style();
+    // Slurs steeper than this are gently compensated
+    const double steepLimit = style.styleD(Sid::slurSteepAngleLimit) * M_PI / 180;
+    // If the collision is in mid region, move more the endpoint which reduces the slur slant
+    const double slantReductionAngle = style.styleD(Sid::slurSlantReductionAngle) * M_PI / 180;
+    const double slantReductionLength = style.styleS(Sid::slurSlantReductionMinLength).val();
+    const double maxHeightToLengthRatio = style.styleD(Sid::slurMaxHeightToLengthRatio);
+
     // CHECK FOR COLLISIONS
     unsigned iter = 0;
     do {
@@ -1601,18 +1610,13 @@ void SlurTieLayout::avoidCollisions(SlurSegment* slurSeg, PointF& pp1, PointF& p
             }
         } else if (!slurSeg->isEndPointsEdited()) {
             // In the odd iterations, adjust the end points
-            // Slurs steeper than 45° are gently compensated
-            static constexpr double STEEP_LIMIT = M_PI / 4;
-            // If the collision is in mid region, move more the endpoint which reduces the slur slant
-            static constexpr double SLANT_REDUCTION_ANGLE = 5 * M_PI / 180;
-            static constexpr double SLANT_REDUCTION_LENGTH = 8;
             PointF p2SysCoords = toSystemCoordinates.map(p2);
             double curSlant = (p2SysCoords.y() - pp1.y()) / (p2SysCoords.x() - pp1.x());
-            if (collision.left || collision.mid || slurAngle < -STEEP_LIMIT) {
+            if (collision.left || collision.mid || slurAngle < -steepLimit) {
                 double endPointLeftStep = leftBalance * step;
-                if (!collision.left && collision.mid && std::abs(curSlant) > SLANT_REDUCTION_ANGLE
-                    && slurLength > SLANT_REDUCTION_LENGTH) {
-                    double slantReductionRatio = std::abs(curSlant) / SLANT_REDUCTION_ANGLE;
+                if (!collision.left && collision.mid && std::abs(curSlant) > slantReductionAngle
+                    && slurLength > slantReductionLength) {
+                    double slantReductionRatio = std::abs(curSlant) / slantReductionAngle;
                     bool leftIsOuter = (slurUp && curSlant > 0) || (!slurUp && curSlant < 0);
                     endPointLeftStep *= leftIsOuter ? (1 / slantReductionRatio) : slantReductionRatio;
                 }
@@ -1629,11 +1633,11 @@ void SlurTieLayout::avoidCollisions(SlurSegment* slurSeg, PointF& pp1, PointF& p
                 p3 -= pp1delta;
                 p4 -= pp1delta;
             }
-            if (collision.right || collision.mid || slurAngle > STEEP_LIMIT) {
+            if (collision.right || collision.mid || slurAngle > steepLimit) {
                 double endPointRightStep = rightBalance * step;
-                if (!collision.right && collision.mid && std::abs(curSlant) > SLANT_REDUCTION_ANGLE
-                    && slurLength > SLANT_REDUCTION_LENGTH) {
-                    double slantReductionRatio = std::abs(curSlant) / SLANT_REDUCTION_ANGLE;
+                if (!collision.right && collision.mid && std::abs(curSlant) > slantReductionAngle
+                    && slurLength > slantReductionLength) {
+                    double slantReductionRatio = std::abs(curSlant) / slantReductionAngle;
                     bool rightIsOuter = (slurUp && curSlant < 0) || (!slurUp && curSlant > 0);
                     endPointRightStep *= rightIsOuter ? (1 / slantReductionRatio) : slantReductionRatio;
                 }
@@ -1646,18 +1650,18 @@ void SlurTieLayout::avoidCollisions(SlurSegment* slurSeg, PointF& pp1, PointF& p
                 p4 += p2delta * p4.x() / p2.x();
             }
         }
-        enforceSlurShapeRules(slur->up(), pp1, p2, p3, p4, toSystemCoordinates);
+        enforceSlurShapeRules(slur->up(), pp1, p2, p3, p4, toSystemCoordinates, maxHeightToLengthRatio);
 
         ++iter;
     } while ((collision.left || collision.mid || collision.right) && iter < maxIter);
 }
 
 void SlurTieLayout::enforceSlurShapeRules(bool up, const PointF& pp1, const PointF& p2, PointF& p3, PointF& p4,
-                                          const Transform& toSystemCoordinates)
+                                          const Transform& toSystemCoordinates, double maxHeightToLengthRatio)
 {
     // Enforce non-ugliness rules
     // 1) Slur cannot be taller than it is wide
-    const double maxRelativeHeight = std::abs(p2.x());
+    const double maxRelativeHeight = std::abs(p2.x()) * maxHeightToLengthRatio;
     p3 = up ? PointF(p3.x(), std::max(p3.y(), -maxRelativeHeight)) : PointF(p3.x(), std::min(p3.y(), maxRelativeHeight));
     p4 = up ? PointF(p4.x(), std::max(p4.y(), -maxRelativeHeight)) : PointF(p4.x(), std::min(p4.y(), maxRelativeHeight));
     // 2) Tangent rule: p3 and p4 cannot be further left than p1 nor further right than p2
@@ -2301,7 +2305,8 @@ double SlurTieLayout::noteOpticalCenterForTie(const Note* note, bool up)
     if (note->headGroup() == NoteHeadGroup::HEAD_SLASH) {
         double singleSlashWidth = note->symBbox(SymId::noteheadSlashHorizontalEnds).width();
         double noteWidth = note->headWidth();
-        double center = 0.20 * note->spatium() + 0.5 * (noteWidth - singleSlashWidth);
+        double center = note->style().styleS(Sid::tieSlashNoteheadCenterOffset).val() * note->spatium()
+                        + 0.5 * (noteWidth - singleSlashWidth);
         return up ? note->ldata()->bbox().right() - center : note->ldata()->bbox().left() + center;
     }
     SymId symId = note->ldata()->cachedNoteheadSym.value();
@@ -2823,8 +2828,8 @@ void SlurTieLayout::adjustX(TieSegment* tieSegment, SlurTiePos& sPos, Grip start
         return remove;
     });
 
-    const double arcSideMargin = 0.3 * spatium;
-    const double pointsSideMargin = 0.15 * spatium;
+    const double arcSideMargin = tie->style().styleS(Sid::tieItemDetectionMarginArcSide).val() * spatium;
+    const double pointsSideMargin = tie->style().styleS(Sid::tieItemDetectionMarginOppositeSide).val() * spatium;
     const double yBelow = tiePoint.y() - (tie->up() ? arcSideMargin : pointsSideMargin);
     const double yAbove = tiePoint.y() + (tie->up() ? pointsSideMargin : arcSideMargin);
     double pointToClear = start ? shape.rightMostEdgeAtHeight(yBelow, yAbove)
@@ -2992,7 +2997,8 @@ void SlurTieLayout::adjustY(TieSegment* tieSegment)
         return;
     }
 
-    bool isSmallTie = tieLength < 2.0 * spatium && tieHeight < 0.7 * spatium;
+    bool isSmallTie = tieLength < tieSegment->style().styleS(Sid::tieSmallMaxLength).val() * spatium
+                      && tieHeight < tieSegment->style().styleS(Sid::tieSmallMaxHeight).val() * spatium;
     // For ties this small, try to fit them within a staff space before changing their arc
     if (isSmallTie) {
         Tie* tie2 = tieSegment->tie();
@@ -3014,7 +3020,7 @@ void SlurTieLayout::adjustY(TieSegment* tieSegment)
     }
 
     double arcCorrection = correctOutwards ? (badArcIntersectionLimit - inwardMargin) : (badArcIntersectionLimit - outwardMargin);
-    double maxArcCorrection = 0.75 * tieHeight;
+    double maxArcCorrection = tieSegment->style().styleD(Sid::tieMaxArcCorrectionRatio) * tieHeight;
     double rest = arcCorrection > maxArcCorrection ? arcCorrection - maxArcCorrection : 0.0;
     arcCorrection = std::min(arcCorrection, maxArcCorrection);
     if (correctOutwards) {
@@ -3227,7 +3233,9 @@ void SlurTieLayout::computeBezier(TieSegment* tieSeg, PointF shoulderOffset)
     const double minShoulderHeight = tieSeg->minShoulderHeight();
     const double maxShoulderHeight = tieSeg->maxShoulderHeight();
     const double shoulderHeightFactor = tieSeg->style().styleD(Sid::tieShoulderHeightFactor);
-    double shoulderH = minShoulderHeight + _spatium * shoulderHeightFactor * sqrt(std::abs(tieLengthInSp - 1));
+    const double shoulderHeightRefLength = tieSeg->style().styleS(Sid::tieShoulderHeightReferenceLength).val();
+    double shoulderH = minShoulderHeight
+                       + _spatium * shoulderHeightFactor * sqrt(std::abs(tieLengthInSp - shoulderHeightRefLength));
     shoulderH = std::clamp(shoulderH, minShoulderHeight, maxShoulderHeight);
 
     shoulderH -= shoulderOffset.y();
@@ -3505,7 +3513,8 @@ void SlurTieLayout::computeFrozenBezier(SlurSegment* slurSeg, PointF shoulderOff
     }
     slurSeg->ups(Grip::BEZIER1).off += rotate.inverted().map(shoulderOffset);
     slurSeg->ups(Grip::BEZIER2).off += rotate.inverted().map(shoulderOffset);
-    enforceSlurShapeRules(slurSeg->slur()->up(), pp1, p2, p3, p4, toSystemCoordinates);
+    enforceSlurShapeRules(slurSeg->slur()->up(), pp1, p2, p3, p4, toSystemCoordinates,
+                          slurSeg->style().styleD(Sid::slurMaxHeightToLengthRatio));
 
     slurSeg->ups(Grip::START).p = pp1 - slurSeg->ups(Grip::START).off;
     slurSeg->ups(Grip::END).p = pp2 - slurSeg->ups(Grip::END).off;

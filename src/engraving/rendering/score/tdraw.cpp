@@ -2190,7 +2190,8 @@ void TDraw::draw(const MMRest* item, Painter* painter)
                 && item->style().styleB(Sid::mmRestNumberMaskHBar)
                 && numberBox.bottom() >= -halfHBarThickness
                 && numberBox.top() <= halfHBarThickness) {
-                double gapDistance = (numberBox.width() + _spatium) * .5;
+                double gapDistance = (numberBox.width()
+                                      + item->style().styleS(Sid::mmRestNumberMaskHBarPadding).val() * _spatium) * .5;
                 double midpoint = ldata->restWidth * .5;
                 painter->drawLine(LineF(0.0, 0.0, midpoint - gapDistance, 0.0));
                 painter->drawLine(LineF(midpoint + gapDistance, 0.0, ldata->restWidth, 0.0));
