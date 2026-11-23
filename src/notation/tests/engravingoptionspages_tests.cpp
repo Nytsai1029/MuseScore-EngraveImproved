@@ -359,7 +359,9 @@ TEST_F(Notation_EngravingOptionsPagesTests, everyGridIsARectangle)
     //! NOTE: the entries of a `titles: [ … ]` list: each a `qsTrc(…)` call or a plain string
     const auto titleCount = [](const SourceBlock& block, const QString& name) {
         QString list = block.property(name).value_or(QString());
-        static const QRegularExpression TRANSLATED("qsTrc?\\s*\\([^)]*\\)");
+        //! NOTE a title may have parentheses of its own: the call ends after its last string
+        static const QRegularExpression TRANSLATED(
+            "qsTrc?\\s*\\(\\s*\"(?:[^\"\\\\]|\\\\.)*\"(?:\\s*,\\s*\"(?:[^\"\\\\]|\\\\.)*\")*\\s*\\)");
         const int translated = list.count(TRANSLATED);
         list.remove(TRANSLATED);
         static const QRegularExpression PLAIN("\"(?:[^\"\\\\]|\\\\.)*\"");

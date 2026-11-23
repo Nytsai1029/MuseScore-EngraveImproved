@@ -752,6 +752,9 @@ TEST_F(Notation_EngravingPreviewTests, previewShowsWhatTheOptionDoes)
     const MStyle style = baseStyle();
     const QString pagesDir = QString::fromUtf8(ENGRAVING_OPTIONS_QML_DIR) + "/pages/";
 
+    //! NOTE EO_EFFECT_ONLY=<sid> checks that option only: a quick loop while its music is being written
+    const QString only = qEnvironmentVariable("EO_EFFECT_ONLY");
+
     size_t checked = 0;
     for (const char* name : EFFECT_TEST_PAGES) {
         const SourceBlock page = readPageSource(pagesDir + name + ".qml");
@@ -763,7 +766,7 @@ TEST_F(Notation_EngravingPreviewTests, previewShowsWhatTheOptionDoes)
                 const SourceBlock* grid = entry.second;
                 const QString sid = option.sid();
                 const auto [music, systemWidth] = musicInfoOf(option, grid, section, page);
-                if (sid.isEmpty() || music.isEmpty()) {
+                if (sid.isEmpty() || music.isEmpty() || (!only.isEmpty() && sid != only)) {
                     continue;
                 }
 
