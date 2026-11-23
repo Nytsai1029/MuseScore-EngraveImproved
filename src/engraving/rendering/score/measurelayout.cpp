@@ -1374,8 +1374,10 @@ void MeasureLayout::layoutMMRestRange(Measure* m, LayoutContext& ctx)
 
     String s;
     if (m->mmRestCount() > 1) {
-        // middle char is an en dash (not em)
-        s = String(u"%1–%2").arg(m->no() + 1).arg(m->no() + m->mmRestCount());
+        // the separator is an en dash (not em) by default
+        s = String(u"%1%2%3").arg(String::number(m->no() + 1),
+                                  ctx.conf().styleSt(Sid::mmRestRangeSeparator),
+                                  String::number(m->no() + m->mmRestCount()));
     } else {
         // If the minimum range to create a mmrest is set to 1,
         // then simply show the measure number as there is no range

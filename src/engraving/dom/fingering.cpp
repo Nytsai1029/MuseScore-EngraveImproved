@@ -24,6 +24,8 @@
 
 #include "translation.h"
 
+#include "style/style.h"
+
 #include "beam.h"
 #include "chord.h"
 #include "measure.h"
@@ -94,7 +96,8 @@ PlacementV Fingering::calculatePlacement() const
     Part* part   = staff->part();
     size_t nstaves  = part->nstaves();
     bool voices  = chord->measure()->hasVoices(staff->idx(), chord->tick(), chord->actualTicks());
-    bool below   = voices ? !chord->up() : (nstaves > 1) && (staff->rstaff() == nstaves - 1);
+    bool bottomStaff = (nstaves > 1) && (staff->rstaff() == nstaves - 1);
+    bool below   = voices ? !chord->up() : bottomStaff && style().styleB(Sid::fingeringBelowOnBottomStaff);
     return below ? PlacementV::BELOW : PlacementV::ABOVE;
 }
 

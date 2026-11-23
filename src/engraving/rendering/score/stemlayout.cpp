@@ -584,7 +584,7 @@ int StemLayout::calcMinStemLength(Chord* item, const LayoutContext& ctx)
         int staffLines = staff->lines(item->tick());
         bool noteInStaff = (ldata->up && noteLine > 0) || (!ldata->up && noteLine < (staffLines - 1) * 2);
         if (beamCount >= 4 && noteInStaff) {
-            newMinStemLength++;
+            newMinStemLength += style.styleI(Sid::stemFourBeamsMinLengthInStaffAddition);
         }
         minStemLength = std::max(minStemLength, newMinStemLength);
     }

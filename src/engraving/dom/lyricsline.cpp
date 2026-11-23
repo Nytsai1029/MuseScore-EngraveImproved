@@ -161,7 +161,8 @@ LyricsLineSegment::LyricsLineSegment(const ElementType& type, LyricsLine* sp, Sy
 double LyricsLineSegment::baseLineShift() const
 {
     if (lyricsLine()->isEndMelisma()) {
-        return -0.5 * absoluteFromSpatium(lineWidth());
+        return -0.5 * absoluteFromSpatium(lineWidth())
+               + absoluteFromSpatium(style().styleS(Sid::lyricsMelismaYOffset));
     }
 
     Lyrics* segLyrics = lyrics();
@@ -276,7 +277,8 @@ double PartialLyricsLineSegment::lineSpacing() const
 double PartialLyricsLineSegment::baseLineShift() const
 {
     if (lyricsLine()->isEndMelisma()) {
-        return -0.5 * absoluteFromSpatium(lineWidth());
+        return -0.5 * absoluteFromSpatium(lineWidth())
+               + absoluteFromSpatium(style().styleS(Sid::lyricsMelismaYOffset));
     }
 
     const Lyrics* lyrics = lyricsLine()->findAdjacentLyricsOrDefault();

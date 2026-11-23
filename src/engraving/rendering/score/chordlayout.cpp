@@ -1473,6 +1473,16 @@ void ChordLayout::updateLedgerLines(Chord* item, LayoutContext& ctx)
 //    lines of neighbouring notes run into each other. Here, once the notes have their final positions,
 //    such neighbours are shortened on their facing sides until they are a minimum gap apart.
 //    Only the part reaching past the noteheads is cut, and the user's length offsets stay on top.
+//
+//    Three style values set how far the cut goes:
+//    - Sid::ledgerLineAutoCutGapRatio: the gap, as a fraction of the padding that spacing keeps between
+//      two ledger lines;
+//    - Sid::ledgerLineAutoCutMinGap: a lower limit of the gap, as a distance. The gap is the larger of
+//      the two, times the mean size (mag) of the two chords. 0: the ratio alone decides;
+//    - Sid::ledgerLineAutoCutMinExtension: what a shortened line keeps past its noteheads on a cut side
+//      at least, times the size of its chord - or its whole extension, if that is less. It comes before
+//      the gap: where the noteheads are too close for both, the lines end up closer than the gap.
+//      0: a line may be cut down to the width of its noteheads.
 //---------------------------------------------------------
 
 static void setLedgerLineCut(LedgerLine* line, double cutLeft, double cutRight)
@@ -1536,10 +1546,23 @@ void ChordLayout::cutTouchingLedgerLines(const std::vector<Chord*>& chords, cons
         }
     }
 
-    // Shortened lines may come closer than spacing would leave them: half of that padding
+    // Shortened lines may come closer than spacing would leave them: half of that padding,
+    // but not closer than the minimum gap
     const PaddingTable& paddingTable = chords.front()->score()->paddingTable();
-    const double shortenedLinesGap = ctx.conf().styleD(Sid::ledgerLineAutoCutGapRatio)
-                                     * paddingTable.at(ElementType::LEDGER_LINE).at(ElementType::LEDGER_LINE);
+    const double paddingGap = ctx.conf().styleD(Sid::ledgerLineAutoCutGapRatio)
+                              * paddingTable.at(ElementType::LEDGER_LINE).at(ElementType::LEDGER_LINE);
+    const double minGapSetting = ctx.conf().styleMM(Sid::ledgerLineAutoCutMinGap);
+    const double shortenedLinesGap = std::max(paddingGap, minGapSetting);
+    // What a shortened line keeps of its extension at least, for a chord of normal size
+    const double minExtension = ctx.conf().styleMM(Sid::ledgerLineAutoCutMinExtension);
+
+    // The share of its extension that a line keeps: what the gap leaves, or the minimum extension if that is more
+    auto keptShare = [minExtension](const Candidate& candidate, double sharedKept) {
+        if (!(candidate.extension > 0.0)) {
+            return sharedKept;
+        }
+        return std::max(sharedKept, std::min(minExtension * candidate.mag / candidate.extension, 1.0));
+    };
 
     for (auto& row : rows) {
         std::vector<Candidate>& candidates = row.second;
@@ -1569,8 +1592,8 @@ void ChordLayout::cutTouchingLedgerLines(const std::vector<Chord*>& chords, cons
                     const double extensions = a.extension + b.extension;
                     const double room = std::max(bHeadsLeft - aHeadsRight - minGap, 0.0);
                     const double kept = extensions > 0.0 ? std::min(room / extensions, 1.0) : 1.0;
-                    cutRight[i] = std::max(cutRight[i], a.extension * (1.0 - kept));
-                    cutLeft[j] = std::max(cutLeft[j], b.extension * (1.0 - kept));
+                    cutRight[i] = std::max(cutRight[i], a.extension * (1.0 - keptShare(a, kept)));
+                    cutLeft[j] = std::max(cutLeft[j], b.extension * (1.0 - keptShare(b, kept)));
                 }
                 break;
             }

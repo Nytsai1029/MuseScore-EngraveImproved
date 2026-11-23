@@ -2904,6 +2904,7 @@ void TLayout::layoutFretDiagram(const FretDiagram* item, FretDiagram::LayoutData
     const double barreSlurHeight = ctx.conf().styleD(Sid::barreSlurHeight);
     const double barreSlurThicknessTwoStrings = ctx.conf().styleS(Sid::barreSlurThicknessTwoStrings).val();
     const double barreSlurThickness = ctx.conf().styleS(Sid::barreSlurThickness).val();
+    const double barreSlurShoulderOffsetRatio = ctx.conf().styleD(Sid::barreSlurShoulderOffsetRatio);
     for (auto i : item->barres()) {
         FretItem::Barre barre = i.second;
         if (!barre.exists()) {
@@ -2925,7 +2926,7 @@ void TLayout::layoutFretDiagram(const FretDiagram* item, FretDiagram::LayoutData
         double insetY = fret == 1 ? ldata->nutLineWidth + ldata->stringLineWidth : length < 2 ? 2 * ldata->stringLineWidth : insetX;
         double startX = startString * ldata->stringDist + insetX;
         double endX = (endString) * ldata->stringDist - insetX;
-        double shoulderXoffset = 0.2 * (endX - startX);
+        double shoulderXoffset = barreSlurShoulderOffsetRatio * (endX - startX);
         double startEndY = (fret - 1) * ldata->fretDist - insetY;
         const double slurHeight = length < 2 ? barreSlurHeightTwoStrings
                                   : length < 3 ? barreSlurHeightThreeStrings : barreSlurHeight;
@@ -3629,6 +3630,7 @@ void TLayout::layoutHammerOnPullOffSegment(HammerOnPullOffSegment* item, LayoutC
     Fraction systemEndTick = system->endTick();
     Skyline& sk = system->staff(item->staffIdx())->skyline();
     const double vertPadding = ctx.conf().styleS(Sid::hopoTextVerticalPadding).val() * item->spatium();
+    const double noteDistanceRatio = ctx.conf().styleD(Sid::hopoTextNoteDistanceRatio);
 
     for (HammerOnPullOffText* hopoText : item->hopoText()) {
         bool above = hopoText->placeAbove();
@@ -3668,8 +3670,8 @@ void TLayout::layoutHammerOnPullOffSegment(HammerOnPullOffSegment* item, LayoutC
 
         Note* startNote = above ? startChord->upNote() : startChord->downNote();
         Note* endNote = above ? endChord->upNote() : endChord->downNote();
-        double yNoteLimit = above ? std::min(startNote->y(), endNote->y()) - 2 * vertPadding
-                            : std::max(startNote->y(), endNote->y()) + 2 * vertPadding;
+        double yNoteLimit = above ? std::min(startNote->y(), endNote->y()) - noteDistanceRatio * vertPadding
+                            : std::max(startNote->y(), endNote->y()) + noteDistanceRatio * vertPadding;
         y = above ? std::min(y, yNoteLimit) : std::max(y, yNoteLimit);
 
         hopoText->mutldata()->setPos(centerX, y);
@@ -5891,13 +5893,14 @@ void TLayout::layoutStemSlash(const StemSlash* item, StemSlash::LayoutData* ldat
     const double heightReduction = conf.styleD(Sid::stemSlashPositionReduction);
     const double angleIncrease = conf.styleD(Sid::stemSlashMultiFlagAngleFactor);
     const double lengthIncrease = conf.styleD(Sid::stemSlashBeamedObtuseLengthFactor);
+    const double overhangRatio = conf.styleD(Sid::stemSlashOverhangRatio);
     const double mag = c->mag();
 
     double up = c->up() ? -1 : 1;
     double stemTipY = c->up()
                       ? stem->ldata()->bbox().translated(stem->pos()).top()
                       : stem->ldata()->bbox().translated(stem->pos()).bottom();
-    double leftHang = conf.noteHeadWidth() * mag / 2;
+    double leftHang = conf.noteHeadWidth() * mag * overhangRatio;
     double angle = conf.styleD(Sid::stemSlashAngle) * M_PI / 180; // converting to radians
     bool straight = conf.styleB(Sid::useStraightNoteFlags);
     double graceNoteMag = mag;
@@ -5931,7 +5934,7 @@ void TLayout::layoutStemSlash(const StemSlash* item, StemSlash::LayoutData* ldat
         endX = startX + length * cos(angle);
         endY = startY + up * length * sin(angle);
     } else {
-        double rightHang = (conf.noteHeadWidth() * mag / 2) - stem->width(); //  subtract the stem width so the slash is optically centered on the stem
+        double rightHang = (conf.noteHeadWidth() * mag * overhangRatio) - stem->width(); //  subtract the stem width so the slash is optically centered on the stem
         endX = stem->ldata()->bbox().translated(stem->pos()).right() + rightHang;
         endY = startY + up * (endX - startX) * tan(angle);
     }
