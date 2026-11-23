@@ -61,8 +61,10 @@ Item {
 
         anchors.fill: parent
 
+        //! NOTE: for the highlight under the pointer only: the width follows the pointer while it is pressed
         hoverEnabled: true
         cursorShape: Qt.SplitHCursor
+        preventStealing: true
 
         //! NOTE: where the pointer took the handle, so that the width follows the pointer's position
         //! in the parent and does not drift
@@ -77,11 +79,20 @@ Item {
         }
 
         onPositionChanged: function(mouse) {
+            if (!pressed) {
+                return
+            }
+
             var width = widthAt(mapToItem(root.parent, mouse.x, 0)) - grabOffset
             root.moved(Math.max(root.minimum, Math.min(root.maximum, width)))
         }
 
         onReleased: {
+            root.dropped()
+        }
+
+        //! NOTE: the pointer was taken away mid-drag: the width it gave is the one shown, so it is kept
+        onCanceled: {
             root.dropped()
         }
 
