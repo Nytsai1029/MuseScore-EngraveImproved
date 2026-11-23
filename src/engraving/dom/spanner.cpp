@@ -249,6 +249,8 @@ void SpannerSegment::resetProperty(Pid pid)
 
 void SpannerSegment::styleChanged()
 {
+    //! NOTE A segment has styled values of its own (as its minimum distance), besides those of its spanner
+    EngravingItem::styleChanged();
     spanner()->styleChanged();
 }
 

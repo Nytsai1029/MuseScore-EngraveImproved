@@ -34,6 +34,7 @@
 #include "dom/staff.h"
 #include "dom/system.h"
 #include "dom/undo.h"
+#include "dom/volta.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
@@ -591,5 +592,35 @@ TEST_F(Engraving_SpannersTests, spanners16)
     EXPECT_TRUE(score);
 
     EXPECT_TRUE(ScoreComp::saveCompareScore(score, u"smallstaff01.mscx", SPANNERS_DATA_DIR + u"smallstaff01-ref.mscx"));
+    delete score;
+}
+
+/**
+ * @TEST_CASE segmentFollowsTheStyle
+ * @details A change of the style reaches the styled values of a spanner's segments (the minimum distance of a
+ *          volta segment), not only those of the spanner: the laid out score shows the new value without being
+ *          read again
+ */
+TEST_F(Engraving_SpannersTests, segmentFollowsTheStyle)
+{
+    MasterScore* score = ScoreRW::readScore(SPANNERS_DATA_DIR + "volta-style.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    Volta* volta = nullptr;
+    for (const auto& [tick, spanner] : score->spannerMap().map()) {
+        if (spanner->isVolta()) {
+            volta = toVolta(spanner);
+        }
+    }
+    ASSERT_TRUE(volta);
+    ASSERT_FALSE(volta->spannerSegments().empty());
+    const SpannerSegment* segment = volta->frontSegment();
+    EXPECT_EQ(segment->minDistance(), score->style().styleS(Sid::voltaMinDistance));
+
+    score->style().set(Sid::voltaMinDistance, Spatium(3.0));
+    score->styleChanged();
+    EXPECT_EQ(segment->minDistance(), Spatium(3.0));
+
     delete score;
 }
