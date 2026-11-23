@@ -761,6 +761,24 @@ void TLayout::layoutAmbitus(const Ambitus* item, Ambitus::LayoutData* ldata, con
     }
 }
 
+//! NOTE The arpeggio is hidden on a pitched staff when a linked tablature staff of the same score shows
+//! it: not drawn, no room taken, not selectable
+static bool isHiddenBecauseOfTablature(const Arpeggio* item, const LayoutConfiguration& conf)
+{
+    if (!conf.styleB(Sid::arpeggioHiddenInStdIfTab)) {
+        return false;
+    }
+    if (!item->staff() || !item->staff()->isPitchedStaff(item->tick())) {
+        return false;
+    }
+    for (Staff* s : item->staff()->staffList()) {
+        if (s->onSameScore(item) && s->isTabStaff(item->tick()) && s->visible()) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void TLayout::layoutArpeggio(const Arpeggio* item, Arpeggio::LayoutData* ldata, const LayoutConfiguration& conf,
                              bool includeCrossStaffHeight)
 {
@@ -773,16 +791,9 @@ void TLayout::layoutArpeggio(const Arpeggio* item, Arpeggio::LayoutData* ldata, 
 //        return;
 //    }
 
-    if (conf.styleB(Sid::arpeggioHiddenInStdIfTab)) {
-        if (item->staff() && item->staff()->isPitchedStaff(item->tick())) {
-            for (Staff* s : item->staff()->staffList()) {
-                if (s->onSameScore(item) && s->isTabStaff(item->tick()) && s->visible()) {
-                    ldata->setIsSkipDraw(true);
-                }
-            }
-        }
-    }
-    ldata->setIsSkipDraw(false);
+    const bool hidden = isHiddenBecauseOfTablature(item, conf);
+    ldata->setIsSkipDraw(hidden);
+    const_cast<Arpeggio*>(item)->setSelectable(!hidden);
     if (!ldata->isSetPos()) {
         ldata->setPos(PointF());
     }

@@ -25,6 +25,7 @@
 #include <filesystem>
 #include <vector>
 
+#include "dom/arpeggio.h"
 #include "dom/articulation.h"
 #include "dom/barline.h"
 #include "dom/chord.h"
@@ -859,6 +860,71 @@ TEST_F(Engraving_LayoutConsistencyTests, spannerToTheEndOfTheScoreSurvivesUnderA
     ASSERT_TRUE(controlReloaded);
     EXPECT_TRUE(voltaRunsToTheEnd(controlReloaded));
     delete controlReloaded;
+
+    delete score;
+}
+
+//---------------------------------------------------------
+//   arpeggioIsHiddenOnTheStandardStaffWhenTheTablatureShowsIt
+//   Sid::arpeggioHiddenInStdIfTab: layoutArpeggio set isSkipDraw(true) and then unconditionally
+//   back to false, so the option never did anything. A hidden arpeggio is not drawn, takes no
+//   room in the chord shape and must not be selectable.
+//---------------------------------------------------------
+
+TEST_F(Engraving_LayoutConsistencyTests, arpeggioIsHiddenOnTheStandardStaffWhenTheTablatureShowsIt)
+{
+    MasterScore* score = ScoreRW::readScore(LAYOUTCONSISTENCY_DATA_DIR + u"arpeggioWithLinkedTab.mscx");
+    ASSERT_TRUE(score);
+    ASSERT_EQ(score->staves().size(), 2u);
+    ASSERT_TRUE(score->staff(0)->isPitchedStaff(Fraction(0, 1)));
+    ASSERT_TRUE(score->staff(1)->isTabStaff(Fraction(0, 1)));
+
+    Measure* m = score->firstMeasure();
+    ASSERT_TRUE(m);
+    Segment* firstChordRest = m->first(SegmentType::ChordRest);
+    ASSERT_TRUE(firstChordRest);
+    Segment* secondChordRest = firstChordRest->next(SegmentType::ChordRest);
+    ASSERT_TRUE(secondChordRest);
+
+    Chord* stdChordWithArp = toChord(firstChordRest->element(0));
+    Chord* stdChordWithout = toChord(secondChordRest->element(0));
+    Chord* tabChordWithArp = toChord(firstChordRest->element(4));
+    ASSERT_TRUE(stdChordWithArp && stdChordWithout && tabChordWithArp);
+    Arpeggio* stdArp = stdChordWithArp->arpeggio();
+    Arpeggio* tabArp = tabChordWithArp->arpeggio();
+    ASSERT_TRUE(stdArp && tabArp);
+    ASSERT_FALSE(stdChordWithout->arpeggio());
+
+    // Option off: both arpeggios are drawn
+    EXPECT_FALSE(stdArp->ldata()->isSkipDraw());
+    EXPECT_FALSE(tabArp->ldata()->isSkipDraw());
+    //! NOTE Shape::left() is the distance the shape protrudes left of the chord's origin,
+    //! so it is bigger when the arpeggio takes room there
+    const double leftWithArpeggio = stdChordWithArp->shape().left();
+    EXPECT_GT(leftWithArpeggio, stdChordWithout->shape().left());
+
+    // Option on: the standard-staff arpeggio is skipped, the tablature's is not
+    score->style().set(Sid::arpeggioHiddenInStdIfTab, true);
+    score->doLayout();
+
+    EXPECT_TRUE(stdArp->ldata()->isSkipDraw());
+    EXPECT_FALSE(stdArp->selectable());
+    EXPECT_FALSE(tabArp->ldata()->isSkipDraw());
+    EXPECT_TRUE(tabArp->selectable());
+
+    // No room: the chord's shape is the same shape the spacing uses (chordlayout.cpp adds the
+    // arpeggio's shape to it when it addToSkyline()), so it protrudes left no more than the
+    // shape of a chord without an arpeggio now
+    EXPECT_LT(stdChordWithArp->shape().left(), leftWithArpeggio);
+    EXPECT_NEAR(stdChordWithArp->shape().left(), stdChordWithout->shape().left(), 1e-5);
+
+    // Tablature staff hidden: the arpeggio comes back on the standard staff
+    score->staff(1)->setVisible(false);
+    score->doLayout();
+
+    EXPECT_FALSE(stdArp->ldata()->isSkipDraw());
+    EXPECT_TRUE(stdArp->selectable());
+    EXPECT_NEAR(stdChordWithArp->shape().left(), leftWithArpeggio, 1e-5);
 
     delete score;
 }

@@ -556,9 +556,6 @@ const std::map<QString, const char*>& optionsWhichAreDead()
           "only written when a pre-4.3 file is read (style.cpp:473); no layout code reads it" },
         { "tieMinDistance",
           "only written when a pre-4.3 file is read (style.cpp:472); no layout code reads it" },
-        { "arpeggioHiddenInStdIfTab",
-          "layoutArpeggio sets isSkipDraw(true) for it and unconditionally back to false right after "
-          "(tlayout.cpp:776-785)" },
     };
 
     return OPTIONS;
@@ -580,6 +577,7 @@ const std::set<QString>& optionsWhoseMusicCannotShowItYet()
         "accidentalSharpVerticalClearance",
         "accidentalSmallGroupLimit",
         "arpeggioAccidentalDistanceMin",
+        "arpeggioHiddenInStdIfTab",     // needs a standard staff linked to a tablature staff
         "arpeggioLineWidth",
         "beamCrossStaffLevelNotesSlant",
         "beamCustomEndStemMaxShortening",
