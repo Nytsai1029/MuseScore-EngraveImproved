@@ -27,9 +27,12 @@
 #include "dom/masterscore.h"
 #include "dom/measure.h"
 #include "dom/measurenumber.h"
+#include "dom/measurerepeat.h"
 #include "dom/rest.h"
 #include "dom/segment.h"
 #include "dom/undo.h"
+
+#include "style/styledef.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
@@ -721,4 +724,43 @@ TEST_F(Engraving_MeasureTests, measureNumberOutsideSystem) {
     delete score;
 
     MScore::useRead302InTestMode = use302;
+}
+
+//---------------------------------------------------------
+///   mrNumberEveryXMeasuresZero
+///    "Every X measures" may be 0 (the style dialog's spin box allows it): it must not crash the
+///    measure-repeat layout, and numbers every repeat of a series, as 1 does
+//---------------------------------------------------------
+
+TEST_F(Engraving_MeasureTests, mrNumberEveryXMeasuresZero)
+{
+    MasterScore* score = ScoreRW::readScore(MEASURE_DATA_DIR + u"mrSeries.mscx");
+    ASSERT_TRUE(score);
+
+    score->startCmd(TranslatableString::untranslatable("Engraving measure tests"));
+    Measure* m = score->firstMeasure()->nextMeasure();
+    ASSERT_TRUE(m);
+    for (int i = 0; i < 4; ++i) {
+        ASSERT_TRUE(m);
+        score->cmdAddMeasureRepeat(m, 1, 0);
+        m = m->nextMeasure();
+    }
+    score->undoChangeStyleVal(Sid::mrNumberSeries, true);
+    score->undoChangeStyleVal(Sid::mrNumberEveryXMeasures, 0);
+    score->endCmd();
+
+    int numberedRepeats = 0;
+    for (Segment* segment = score->firstSegment(SegmentType::ChordRest); segment;
+         segment = segment->next1(SegmentType::ChordRest)) {
+        EngravingItem* item = segment->element(0);
+        if (!item || !item->isMeasureRepeat()) {
+            continue;
+        }
+        ++numberedRepeats;
+        EXPECT_FALSE(toMeasureRepeat(item)->ldata()->numberSym.empty())
+            << "the measure repeat in " << segment->measure()->no() + 1 << " shows no number";
+    }
+    EXPECT_EQ(numberedRepeats, 4);
+
+    delete score;
 }

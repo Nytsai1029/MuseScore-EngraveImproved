@@ -4470,7 +4470,8 @@ void TLayout::layoutMeasureRepeat(const MeasureRepeat* item, MeasureRepeat::Layo
                 placeInSeries++;
                 m = m->prevMeasure();
             }
-            if (placeInSeries % ctx.conf().styleI(Sid::mrNumberEveryXMeasures) == 0) {
+            const int everyXMeasures = std::max(1, ctx.conf().styleI(Sid::mrNumberEveryXMeasures));
+            if (placeInSeries % everyXMeasures == 0) {
                 if (ctx.conf().styleB(Sid::mrNumberSeriesWithParentheses)) {
                     ldata->setNumberSym(String(u"(%1)").arg(placeInSeries));
                 } else {
