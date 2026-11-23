@@ -397,6 +397,8 @@ PropertyValue TRead::readPropertyValue(Pid id, XmlReader& e, ReadContext& ctx)
         return PropertyValue(TConv::fromXml(e.readAsciiText(), DirectionH::AUTO));
     case P_TYPE::ORIENTATION:
         return PropertyValue(TConv::fromXml(e.readAsciiText(), Orientation::VERTICAL));
+    case P_TYPE::NOTELINE_PLACEMENT_TYPE:
+        return PropertyValue::fromValue(NoteLineEndPlacement(e.readInt()));
 
     case P_TYPE::LAYOUTBREAK_TYPE:
         return PropertyValue(TConv::fromXml(e.readAsciiText(), LayoutBreakType::NOBREAK));
@@ -3591,7 +3593,15 @@ void TRead::read(NoteHead* h, XmlReader& xml, ReadContext& ctx)
 
 void TRead::read(NoteLine* nl, XmlReader& xml, ReadContext& ctx)
 {
-    TRead::read(static_cast<TextLineBase*>(nl), xml, ctx);
+    nl->eraseSpannerSegments();
+
+    while (xml.readNextStartElement()) {
+        const AsciiStringView tag(xml.name());
+        if (TRead::readProperty(nl, tag, xml, ctx, Pid::NOTELINE_PLACEMENT)) {
+        } else if (!readProperties(static_cast<TextLineBase*>(nl), xml, ctx)) {
+            xml.unknown();
+        }
+    }
 }
 
 void TRead::read(Ottava* o, XmlReader& e, ReadContext& ctx)

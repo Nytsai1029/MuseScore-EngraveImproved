@@ -43,6 +43,7 @@
 #include "dom/mscore.h"
 #include "dom/mscoreview.h"
 #include "dom/note.h"
+#include "dom/noteline.h"
 #include "dom/page.h"
 #include "dom/score.h"
 #include "dom/segment.h"
@@ -1067,6 +1068,43 @@ TEST_F(Engraving_LayoutConsistencyTests, spannerSegmentEndOffsetSurvivesSaveRelo
     ASSERT_TRUE(reloadedTrill);
     ASSERT_FALSE(reloadedTrill->segmentsEmpty());
     EXPECT_EQ(toLineSegment(reloadedTrill->frontSegment())->userOff2(), off2);
+}
+
+//! A note line keeps where it ends. The note-anchored text lines of an older file become note lines which end at the
+//! note's left edge, as they were laid out; the writer never wrote that, so after a save they ended at the offset end
+//! (the default). The conversion did not give them the track they end on either.
+TEST_F(Engraving_LayoutConsistencyTests, noteLineKeepsWhereItEnds)
+{
+    auto noteLines = [](Score* s) {
+        std::vector<std::tuple<Fraction, NoteLineEndPlacement, track_idx_t> > result;
+        s->scanElements(&result, [](void* d, EngravingItem* e) {
+            if (!e->isNote()) {
+                return;
+            }
+            for (Spanner* spanner : toNote(e)->spannerFor()) {
+                if (spanner->isNoteLine()) {
+                    static_cast<std::vector<std::tuple<Fraction, NoteLineEndPlacement, track_idx_t> >*>(d)->emplace_back(
+                        spanner->tick(), toNoteLine(spanner)->lineEndPlacement(), spanner->track2());
+                }
+            }
+        });
+        return result;
+    };
+
+    MasterScore* score = openLikeTheApp(LAYOUTCONSISTENCY_DATA_DIR + u"note-line.mscz");
+    ASSERT_TRUE(score);
+    const auto opened = noteLines(score);
+    ASSERT_FALSE(opened.empty());
+    bool anyAtTheLeftEdge = false;
+    for (const auto& [tick, placement, track2] : opened) {
+        anyAtTheLeftEdge |= placement == NoteLineEndPlacement::LEFT_EDGE;
+        EXPECT_NE(track2, muse::nidx) << tick.toString().toStdString();
+    }
+    EXPECT_TRUE(anyAtTheLeftEdge);
+
+    MasterScore* reloaded = saveAndReload(score, u"noteLines.mscx");
+    ASSERT_TRUE(reloaded);
+    EXPECT_EQ(noteLines(reloaded), opened);
 }
 
 //! What an item owns stands on its track: the parentheses of a note (here those of a trill's cue note, which

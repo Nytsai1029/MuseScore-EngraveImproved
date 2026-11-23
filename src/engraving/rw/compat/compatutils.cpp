@@ -820,6 +820,7 @@ NoteLine* CompatUtils::createNoteLineFromTextLine(TextLine* textLine)
     noteLine->setTrack(textLine->track());
     noteLine->setTick(textLine->tick());
     noteLine->setEndElement(endNote);
+    noteLine->setTrack2(textLine->track2());
     noteLine->setTick2(textLine->tick2());
     noteLine->setVisible(textLine->visible());
 

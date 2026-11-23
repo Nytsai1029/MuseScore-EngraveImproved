@@ -2446,6 +2446,10 @@ void TWrite::write(const NoteLine* item, XmlWriter& xml, WriteContext& ctx)
         return;
     }
     xml.startElement(item);
+    // Not for official MuseScore Studio, which neither writes nor reads it
+    if (!item->score()->officialCompat()) {
+        writeProperty(item, xml, Pid::NOTELINE_PLACEMENT);
+    }
     writeProperties(static_cast<const TextLineBase*>(item), xml, ctx);
     xml.endElement();
 }

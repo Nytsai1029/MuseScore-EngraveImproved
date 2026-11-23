@@ -48,6 +48,7 @@ using namespace mu::engraving;
 //! Many notes on ledger lines, which the fork leaves out of note spacing and upstream does not
 static const String NOTES_SCORE(u"layoutconsistency_data/ledgerLines.mscx");
 static const String SLUR_SCORE(u"join_data/join02.mscx");
+static const String NOTE_LINE_SCORE(u"layoutconsistency_data/note-line.mscz");
 
 class Engraving_OfficialExportTests : public ::testing::Test
 {
@@ -200,6 +201,36 @@ TEST_F(Engraving_OfficialExportTests, savedFileHasNoForkSettings)
     // What stands in their place
     EXPECT_NE(text.find("<leadingSpace>"), std::string::npos);
     EXPECT_NE(text.find("<systemLock>"), std::string::npos);
+}
+
+//! Where a note line ends is written for the fork only: official MuseScore Studio neither writes nor reads it
+TEST_F(Engraving_OfficialExportTests, savedFileHasNoNoteLinePlacement)
+{
+    // A 4.4 file: read by its own reader, not by the 3.02 one which the tests use otherwise
+    struct Read302Off {
+        const bool was = MScore::useRead302InTestMode;
+        Read302Off() { MScore::useRead302InTestMode = false; }
+        ~Read302Off() { MScore::useRead302InTestMode = was; }
+    } read302Off;
+
+    std::unique_ptr<MasterScore> score(ScoreRW::readScore(NOTE_LINE_SCORE));
+    ASSERT_TRUE(score);
+    OfficialLayoutBaker::bake(score.get());
+
+    muse::ByteArray xml;
+    std::unique_ptr<MasterScore> reopened(saveAndReopen(score.get(), u"officialExport-noteLines.mscz", &xml));
+    ASSERT_TRUE(reopened);
+
+    // Inside the note lines (the style has a value of the same name: whether a note line stands above or below)
+    const std::string text(xml.constChar(), xml.size());
+    size_t noteLines = 0;
+    for (size_t start = text.find("<NoteLine>"); start != std::string::npos; start = text.find("<NoteLine>", start + 1)) {
+        const size_t end = text.find("</NoteLine>", start);
+        ASSERT_NE(end, std::string::npos);
+        EXPECT_EQ(text.substr(start, end - start).find("noteLinePlacement"), std::string::npos);
+        ++noteLines;
+    }
+    EXPECT_GT(noteLines, 0u);
 }
 
 //---------------------------------------------------------

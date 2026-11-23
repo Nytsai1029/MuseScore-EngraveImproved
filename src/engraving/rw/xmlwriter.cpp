@@ -239,6 +239,10 @@ void XmlWriter::tagProperty(const AsciiStringView& name, P_TYPE type, const Prop
         element(name, TConv::toXml(data.value<Orientation>()));
     }
     break;
+    case P_TYPE::NOTELINE_PLACEMENT_TYPE: {
+        element(name, int(data.value<NoteLineEndPlacement>()));
+    }
+    break;
     // time
     case P_TYPE::FRACTION: {
         tagFraction(name, data.value<Fraction>());
