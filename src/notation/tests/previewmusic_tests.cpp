@@ -718,6 +718,29 @@ TEST_F(Notation_PreviewMusicTests, twoInstruments)
 }
 
 /**
+ * @TEST_CASE pageBreaks
+ * @details `\pageBreak` ends the page after its measure, as `\break` ends the system, also after a `|`
+ */
+TEST_F(Notation_PreviewMusicTests, pageBreaks)
+{
+    ASSERT_TRUE(load("c''1 \\pageBreak c''1 | \\pageBreak c''1 | c''1 \\break c''1"));
+
+    std::vector<const Measure*> measures;
+    for (const Measure* measure = score()->firstMeasure(); measure; measure = measure->nextMeasure()) {
+        measures.push_back(measure);
+    }
+    ASSERT_EQ(measures.size(), 5u);
+    EXPECT_TRUE(measures[0]->pageBreak());
+    EXPECT_TRUE(measures[1]->pageBreak());
+    EXPECT_FALSE(measures[2]->pageBreak());
+    EXPECT_FALSE(measures[3]->pageBreak());
+    EXPECT_TRUE(measures[3]->lineBreak());
+    EXPECT_FALSE(measures[0]->lineBreak());
+
+    EXPECT_FALSE(errorOf("\\pageBreak c''1").empty());
+}
+
+/**
  * @TEST_CASE titleFrame
  * @details `\title "text"` puts a frame with the title text before the first measure, of the size of its text, and
  *          makes it the work title of the score

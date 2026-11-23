@@ -264,7 +264,8 @@ using Voice = std::deque<Event>;
 
 struct Measure {
     std::vector<Voice> voices = std::vector<Voice>(1);
-    bool lineBreak = false;
+    bool lineBreak = false;     // the system ends after the measure
+    bool pageBreak = false;     // the page ends after the measure
 
     static Fraction lengthOf(const Voice& voice)
     {
@@ -475,7 +476,8 @@ private:
 
         if (measure().isEmpty()) {
             //! NOTE `\break` ends its measure too: a bar line after it is said already (`c'4 \break |`)
-            if (m_music.size() >= 2 && m_music[m_music.size() - 2].lineBreak) {
+            const Measure* before = m_music.size() >= 2 ? &m_music[m_music.size() - 2] : nullptr;
+            if (before && (before->lineBreak || before->pageBreak)) {
                 return;
             }
             fail("this measure is empty", token.position);
@@ -634,16 +636,19 @@ private:
                 fail("\\smallStaff is written at the beginning", token.position);
             }
             m_smallStaves.insert(m_staff);
-        } else if (text == "\\break") {
-            //! NOTE A break ends the measure it stands in, like a bar line, and the measure ends the system.
-            //! After `|` it takes back the bar line instead: `e''4 \break f''4` and `e''4 | \break f''4` are the same
+        } else if (text == "\\break" || text == "\\pageBreak") {
+            //! NOTE A break ends the measure it stands in, like a bar line, and the measure ends the system (the
+            //! page). After `|` it takes back the bar line instead: `e''4 \break f''4` and `e''4 | \break f''4` are
+            //! the same
+            const bool page = text == "\\pageBreak";
             if (measure().isEmpty()) {
                 if (m_music.size() < 2) {
                     fail("there is no measure before this break", token.position);
                 }
-                m_music[m_music.size() - 2].lineBreak = true;
+                Measure& before = m_music[m_music.size() - 2];
+                (page ? before.pageBreak : before.lineBreak) = true;
             } else {
-                measure().lineBreak = true;
+                (page ? measure().pageBreak : measure().lineBreak) = true;
                 endMeasure(token);
             }
         } else if (text == "\\tuplet") {
@@ -1657,9 +1662,9 @@ private:
         const Fraction length = writtenLength(measure);
         m_xml.writeAttribute("len", QString("%1/%2").arg(length.numerator()).arg(length.denominator()));
 
-        if (measure.lineBreak && staff == 0) {
+        if ((measure.lineBreak || measure.pageBreak) && staff == 0) {
             m_xml.writeStartElement("LayoutBreak");
-            text("subtype", "line");
+            text("subtype", measure.pageBreak ? "page" : "line");
             m_xml.writeEndElement();
         }
 
