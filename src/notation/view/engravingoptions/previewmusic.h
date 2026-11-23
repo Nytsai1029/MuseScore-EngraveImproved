@@ -47,7 +47,8 @@ namespace mu::notation {
 //! - After the duration, in any order: `~` (tie to the next chord), `(` and `)` (slur), `[` and `]` (beam from
 //!   this chord to that one), `-.` staccato, `->` accent, `--` tenuto, `-^` marcato, `-!` staccatissimo,
 //!   `-1` to `-5` fingering, `:8` `:16` `:32` tremolo (`:z` a buzz roll), `_"text"` a lyric syllable (a `-` at
-//!   the end of the text joins it to the next syllable).
+//!   the end of the text joins it to the next syllable), `^"text"` a staff text above the chord (`<sup>…</sup>`,
+//!   `<sub>`, `<b>`, `<i>` format the letters between them, as in the text of a score).
 //! - After a note, as words: `\fermata`, `\arpeggio` (also `\arpeggioUp|Down|Bracket|UpStraight|DownStraight`),
 //!   `\laissezVibrer`, a dynamic (`\ppp \pp \p \mp \mf \f \ff \fff \sf \sfz \fp`),
 //!   `\<` and `\>` (a hairpin begins) and `\!` (it ends).
@@ -65,7 +66,7 @@ namespace mu::notation {
 //!   follow are written (at the start of each voice it is staff 1 again), and `\crossStaff down|up|off` shows the
 //!   chords which follow on the neighbouring staff. A slur, a tie and a hairpin stay on one staff.
 //!   `\tab` at the beginning makes the current staff a six-string tablature, `\lines N` gives it N lines
-//!   (1 to 5) instead of five. `\group` with
+//!   (1 to 5) instead of five. `\name "long" "short"` at the beginning names the instrument. `\group` with
 //!   `bracket`, `square`, `line`, `brace` or `none` chooses the bracket over the two staves
 //!   (a grand staff has a brace, `none` none at all).
 //! - Before the first chord of a beam group: `\beamAt y1 y2` writes the y its ends have, in staff

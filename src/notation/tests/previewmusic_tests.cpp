@@ -40,11 +40,13 @@
 #include "engraving/dom/mscore.h"
 #include "engraving/dom/measure.h"
 #include "engraving/dom/note.h"
+#include "engraving/dom/part.h"
 #include "engraving/dom/rest.h"
 #include "engraving/dom/segment.h"
 #include "engraving/dom/slur.h"
 #include "engraving/dom/spanner.h"
 #include "engraving/dom/staff.h"
+#include "engraving/dom/stafftext.h"
 #include "engraving/dom/stafftype.h"
 #include "engraving/dom/tapping.h"
 #include "engraving/dom/tie.h"
@@ -603,6 +605,51 @@ TEST_F(Notation_PreviewMusicTests, slashNoteheads)
     ASSERT_EQ(found.size(), 2u);
     EXPECT_EQ(found[0]->notes().front()->headGroup(), NoteHeadGroup::HEAD_SLASH);
     EXPECT_EQ(found[1]->notes().front()->headGroup(), NoteHeadGroup::HEAD_NORMAL);
+}
+
+/**
+ * @TEST_CASE staffTextWithFormats
+ * @details `^"text"` writes a staff text at the chord; its format tags are the rich text of the score, others are an
+ *          error
+ */
+TEST_F(Notation_PreviewMusicTests, staffTextWithFormats)
+{
+    ASSERT_TRUE(load("a'4^\"1<sup>st</sup> H<sub>2</sub>O\" b'4"));
+
+    std::vector<const StaffText*> texts;
+    for (const Segment* segment = score()->firstSegment(SegmentType::ChordRest); segment;
+         segment = segment->next1(SegmentType::ChordRest)) {
+        for (const EngravingItem* annotation : segment->annotations()) {
+            if (annotation->isStaffText()) {
+                texts.push_back(toStaffText(annotation));
+            }
+        }
+    }
+
+    ASSERT_EQ(texts.size(), 1u);
+    EXPECT_EQ(texts.front()->xmlText(), String(u"1<sup>st</sup> H<sub>2</sub>O"));
+    EXPECT_EQ(texts.front()->tick(), Fraction(0, 1));
+
+    EXPECT_FALSE(errorOf("a'4^\"x<u>y</u>\"").empty());
+    EXPECT_FALSE(errorOf("a'4^text").empty());
+}
+
+/**
+ * @TEST_CASE namedInstrument
+ * @details `\name "long" "short"` gives the instrument its names; without it the instrument has none
+ */
+TEST_F(Notation_PreviewMusicTests, namedInstrument)
+{
+    ASSERT_TRUE(load("\\name \"Violin I\" \"Vln. I\" c''1"));
+    const Part* part = score()->parts().front();
+    EXPECT_EQ(part->longName(), String(u"Violin I"));
+    EXPECT_EQ(part->shortName(), String(u"Vln. I"));
+
+    ASSERT_TRUE(load("c''1"));
+    EXPECT_TRUE(score()->parts().front()->longName().isEmpty());
+
+    EXPECT_FALSE(errorOf("c''1 \\name \"A\" \"B\"").empty());
+    EXPECT_FALSE(errorOf("\\name Violin \"B\" c''1").empty());
 }
 
 /**

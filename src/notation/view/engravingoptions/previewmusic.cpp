@@ -29,6 +29,8 @@
 #include <utility>
 #include <vector>
 
+#include <QRegularExpression>
+#include <QStringList>
 #include <QXmlStreamWriter>
 
 #include "engraving/types/fraction.h"
@@ -219,6 +221,8 @@ struct Event {
     int staffMove = 0;              // -1 and 1: shown on the staff above and below
     QString lyric;
     bool lyricContinues = false;
+    //! `^"text"`: a staff text above the chord; `<sup>` `<sub>` `<b>` `<i>` in it format the letters between them
+    QString staffText;
     bool fermata = false;
     int arpeggio = -1;              // ArpeggioType, or -1
     int tapping = 0;                // 0 none, 1 left hand, 2 right hand
@@ -294,6 +298,8 @@ struct Piece {
     int bracket = 1;
     std::set<int> tabStaves;        // 0-based indices of the staves which are tablature
     std::map<int, int> staffLines;  // the number of lines of a staff which has not five, by its 0-based index
+    QString longName;               // of the instrument, on the first system
+    QString shortName;              // on the other systems
 };
 
 //---------------------------------------------------------
@@ -414,7 +420,8 @@ public:
             fail("there is no music", 0);
         }
 
-        return { std::move(m_music), m_staves, m_bracket, std::move(m_tabStaves), std::move(m_staffLines) };
+        return { std::move(m_music), m_staves, m_bracket, std::move(m_tabStaves), std::move(m_staffLines), m_longName,
+                 m_shortName };
     }
 
 private:
@@ -571,6 +578,8 @@ private:
             m_tabStaves.insert(m_staff);
         } else if (text == "\\lines") {
             readLines(token);
+        } else if (text == "\\name") {
+            readName(token);
         } else if (text == "\\tieSolid" || text == "\\tieDotted" || text == "\\tieDashed"
                    || text == "\\tieWideDashed") {
             m_tieStyle = lineStyleOf(text.mid(4));
@@ -744,6 +753,28 @@ private:
         }
 
         m_staffLines[m_staff] = lines;
+    }
+
+    //! `\\name "long" "short"`: the names of the instrument, on the first system and on the others (written at the
+    //! beginning)
+    void readName(const Token& command)
+    {
+        if (m_music.size() > 1 || !measure().isEmpty()) {
+            fail("\\name is written at the beginning", command.position);
+        }
+
+        m_longName = quoted(takeToken("the long name in quotes", command));
+        m_shortName = quoted(takeToken("the short name in quotes", command));
+    }
+
+    static QString quoted(const Token& token)
+    {
+        const QString& word = token.text;
+        if (word.size() < 2 || !word.startsWith('"') || !word.endsWith('"')) {
+            fail("a name is written in quotes", token.position);
+        }
+
+        return word.mid(1, word.size() - 2);
     }
 
     //! `\\group bracket|square|line|brace|none`: the kind of the bracket which the two staves
@@ -1026,6 +1057,9 @@ private:
             } else if (c == '_') {
                 index = readLyric(token, index, event);
                 continue;
+            } else if (c == '^') {
+                index = readStaffText(token, index, event);
+                continue;
             } else {
                 fail(QString("'%1' is not known after a duration").arg(c), here);
             }
@@ -1071,6 +1105,32 @@ private:
         }
 
         event.lyric = syllable;
+        return close + 1;
+    }
+
+    int readStaffText(const Token& token, int index, Event& event)
+    {
+        const QString& word = token.text;
+        if (word.mid(index + 1, 1) != "\"") {
+            fail("a staff text is ^\"text\"", token.position + index);
+        }
+
+        const int close = word.indexOf('"', index + 2);
+        event.staffText = word.mid(index + 2, close - index - 2);
+        if (event.staffText.isEmpty()) {
+            fail("this staff text is empty", token.position + index);
+        }
+
+        static const QRegularExpression TAG("<(/?)([a-z]+)>");
+        QRegularExpressionMatchIterator tags = TAG.globalMatch(event.staffText);
+        while (tags.hasNext()) {
+            const QRegularExpressionMatch tag = tags.next();
+            if (!QStringList { "sup", "sub", "b", "i" }.contains(tag.captured(2))) {
+                fail(QString("<%1> is not a format of a staff text (sup, sub, b, i)").arg(tag.captured(2)),
+                     token.position + index + 2 + tag.capturedStart());
+            }
+        }
+
         return close + 1;
     }
 
@@ -1182,6 +1242,8 @@ private:
     int m_tieStyle = 0;
     std::set<int> m_tabStaves;
     std::map<int, int> m_staffLines;
+    QString m_longName;
+    QString m_shortName;
     bool m_ambitus = false;
     bool m_inGraceGroup = false;
     bool m_graceGroupFirst = false;
@@ -1453,6 +1515,10 @@ private:
         text("trackName", "Piano");
         m_xml.writeStartElement("Instrument");
         m_xml.writeAttribute("id", "piano");
+        if (!m_piece.longName.isEmpty()) {
+            text("longName", m_piece.longName);
+            text("shortName", m_piece.shortName);
+        }
         text("trackName", "Piano");
         m_xml.writeStartElement("Channel");
         m_xml.writeEmptyElement("program");
@@ -1585,6 +1651,10 @@ private:
 
         writeLinks(event, Link::Kind::Hairpin);
 
+        if (!event.staffText.isEmpty()) {
+            writeStaffText(event.staffText);
+        }
+
         if (event.fermata) {
             m_xml.writeStartElement("Fermata");
             text("subtype", "fermataAbove");
@@ -1604,6 +1674,31 @@ private:
         if (event.tupletEnd) {
             m_xml.writeEmptyElement("endTuplet");
         }
+    }
+
+    //! The format tags of the text are written as elements in the text, as rich text is in a score file
+    void writeStaffText(const QString& staffText)
+    {
+        m_xml.writeStartElement("StaffText");
+        m_xml.writeStartElement("text");
+
+        static const QRegularExpression TAG("<(/?)([a-z]+)>");
+        int at = 0;
+        QRegularExpressionMatchIterator tags = TAG.globalMatch(staffText);
+        while (tags.hasNext()) {
+            const QRegularExpressionMatch tag = tags.next();
+            m_xml.writeCharacters(staffText.mid(at, tag.capturedStart() - at));
+            if (tag.captured(1).isEmpty()) {
+                m_xml.writeStartElement(tag.captured(2));
+            } else {
+                m_xml.writeEndElement();
+            }
+            at = tag.capturedEnd();
+        }
+        m_xml.writeCharacters(staffText.mid(at));
+
+        m_xml.writeEndElement();
+        m_xml.writeEndElement();
     }
 
     void writePrefix(const Event& event)
