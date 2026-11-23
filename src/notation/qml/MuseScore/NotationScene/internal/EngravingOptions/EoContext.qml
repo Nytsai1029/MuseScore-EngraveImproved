@@ -21,18 +21,15 @@
  */
 import QtQuick 2.15
 
-//! NOTE: a picture of a snippet of music with the options as they are (see EngravingPreview).
-//! The title is written under the picture
+//! NOTE: the situation which a preview shows (a single note or a chord, stems up or down, …), chosen beside the
+//! picture of the option. It is not an option: it has no style value, and the page binds the music of its
+//! section to the `value`
 EoOption {
-    kind: "preview"
+    kind: "context"
 
-    property string snippet: ""
+    //! NOTE: a list of { value, title }
+    property var choices: []
 
-    //! NOTE: style values which the picture sets whatever the options are
-    property var overrides: ({})
-
-    property real zoom: 1.0
-
-    //! NOTE: the width of the systems of the snippet in staff spaces (0: as wide as the music)
-    property real systemWidth: 0
+    //! NOTE: the choice which is made; the page says which one is first
+    property var value: null
 }

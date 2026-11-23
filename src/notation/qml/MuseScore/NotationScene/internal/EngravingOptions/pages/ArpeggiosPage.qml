@@ -33,11 +33,13 @@ EoPage {
     title: qsTrc("EditStyleBase", "Arpeggios")
     group: qsTrc("notation/engravingoptions", "Notes and rests")
 
+
     EoSection {
         title: qsTrc("EditStyleBase", "Arpeggios")
 
         EoNumber {
             sid: "arpeggioNoteDistance"
+            music: "c''4 <f' a' c''>4 \\arpeggio"
             title: qsTrc("EditStyleBase", "Distance to note:")
             max: 99999
             step: 0.2
@@ -45,6 +47,7 @@ EoPage {
 
         EoNumber {
             sid: "arpeggioLineWidth"
+            music: "c''4 <f' a' c''>4 \\arpeggio"
             title: qsTrc("EditStyleBase", "Line thickness:")
             max: 99999
             step: 0.01
@@ -52,6 +55,7 @@ EoPage {
 
         EoNumber {
             sid: "arpeggioHookLen"
+            music: "c''4 <f' a' c''>4 \\arpeggioBracket"
             title: qsTrc("EditStyleBase", "Hook length:")
             max: 99999
             step: 0.1
@@ -59,18 +63,21 @@ EoPage {
 
         EoNumber {
             sid: "arpeggioAccidentalDistance"
+            music: "<c' e' gis'>4 \\arpeggio r2."
             title: qsTrc("EditStyleBase", "Distance to accidental:")
             step: 0.1
         }
 
         EoNumber {
             sid: "arpeggioAccidentalDistanceMin"
+            music: "<cis' eis' gis'>2 \\arpeggio"
             title: qsTrc("EditStyleBase", "Min. distance to accidental:")
             step: 0.1
         }
 
         EoToggle {
             sid: "arpeggioHiddenInStdIfTab"
+            music: "\\tab <c' e' g'>4 \\arpeggio r2."
             title: qsTrc("EditStyleBase", "Do not show arpeggios in standard notation when displayed in tablature")
         }
     }
@@ -80,6 +87,7 @@ EoPage {
 
         EoNumber {
             sid: "arpeggioTopExtensionInSpace"
+            music: "<b' e''>2 \\arpeggioUp"
             title: qsTrc("notation/engravingoptions", "Arpeggio: extension above a top note in a space")
             hint: qsTrc("notation/engravingoptions",
                          "How far a wavy arpeggio extends above the top notehead when that note sits in a staff space and the bottom note sits on a line.")
@@ -88,6 +96,7 @@ EoPage {
 
         EoNumber {
             sid: "arpeggioTopExtensionBothInSpaces"
+            music: "<f' a' c''>2 \\arpeggio"
             title: qsTrc("notation/engravingoptions", "Arpeggio: extension above when both outer notes are in spaces")
             hint: qsTrc("notation/engravingoptions",
                          "How far a wavy arpeggio extends above the top notehead when both the top and the bottom note sit in staff spaces.")
@@ -96,6 +105,7 @@ EoPage {
 
         EoNumber {
             sid: "arpeggioStraightExtension"
+            music: "<f' a' c''>2 \\arpeggioUpStraight"
             title: qsTrc("notation/engravingoptions", "Straight arpeggio: extension beyond the outer notes")
             hint: qsTrc("notation/engravingoptions",
                          "How far straight arpeggio lines with an arrow extend beyond the top and the bottom notehead.")

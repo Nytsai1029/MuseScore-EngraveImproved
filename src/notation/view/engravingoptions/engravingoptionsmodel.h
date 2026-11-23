@@ -57,6 +57,10 @@ class EngravingOptionsModel : public QObject, public muse::Injectable, public mu
     //! Kept as long as the application runs
     Q_PROPERTY(QString lastPageCode READ lastPageCode WRITE setLastPageCode NOTIFY lastPageCodeChanged)
 
+    //! NOTE Whether the previews draw the handles with which a value is dragged. Kept as long as the
+    //! application runs
+    Q_PROPERTY(bool showsHandles READ showsHandles WRITE setShowsHandles NOTIFY showsHandlesChanged)
+
     //! NOTE Whether a change of the font of the musical symbols also sets the values which suit the font
     //! (the thicknesses of its lines and the like, which the font recommends)
     Q_PROPERTY(bool loadsFontDefaults READ loadsFontDefaults WRITE setLoadsFontDefaults NOTIFY loadsFontDefaultsChanged)
@@ -74,6 +78,9 @@ public:
 
     QString lastPageCode() const;
     void setLastPageCode(const QString& code);
+
+    bool showsHandles() const;
+    void setShowsHandles(bool shows);
 
     bool loadsFontDefaults() const;
     void setLoadsFontDefaults(bool loads);
@@ -121,6 +128,7 @@ signals:
     void isLoadedChanged();
     void revisionChanged();
     void lastPageCodeChanged();
+    void showsHandlesChanged();
     void loadsFontDefaultsChanged();
 
 private:

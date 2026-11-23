@@ -40,6 +40,9 @@ Column {
     //! NOTE: the EngravingOptionsModel
     required property var optionsModel
 
+    //! NOTE: the EoSession, which takes the option under the pointer or with the focus
+    property var session: null
+
     property var searchWords: []
     property bool modifiedOnly: false
 
@@ -204,7 +207,8 @@ Column {
                     readonly property int optionIndex: index
 
                     readonly property bool isShown: {
-                        if (!option.visible) {
+                        //! NOTE: a context is chosen beside the preview, it is not shown among the options
+                        if (!option.visible || option.kind === "context") {
                             return false
                         }
 
@@ -224,6 +228,9 @@ Column {
 
                     sourceComponent: EoOptionView {
                         option: optionLoader.option
+                        section: sectionItem.section
+                        page: root.page
+                        session: root.session
                         optionsModel: root.optionsModel
 
                         navigationPanel: root.navigationPanel

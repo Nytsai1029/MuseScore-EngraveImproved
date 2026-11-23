@@ -27,14 +27,32 @@ import Muse.UiComponents 1.0
 import MuseScore.NotationScene 1.0
 import MuseScore.Atelier 1.0
 
+import "EoMusic.js" as EoMusic
+
 //! NOTE: an option of a page as the dialog shows it: the title on the left, the control which the kind
 //! of the option asks for on the right (or under the title, if it needs the width), and a button
 //! which sets the option back to its default while it differs from it
-Item {
+FocusScope {
     id: root
 
-    //! NOTE: an EoOption
+    //! NOTE: an EoOption, the EoSection and the EoPage it is in
     required property var option
+    property var section: null
+    property var page: null
+
+    //! NOTE: the EoSession: the option under the pointer or with the focus is the one which the preview pane shows
+    property var session: null
+
+    readonly property bool isActive: Boolean(session) && session.activeOption === option
+
+    //! NOTE: while the handle of the preview is dragged, the field shows the value under the pointer
+    readonly property bool isDragged: Boolean(session) && Boolean(option.sid) && session.dragSid === option.sid
+                                      && session.dragValue !== null
+
+    readonly property var musicInfo: EoMusic.musicInfoOf(option, section, page)
+    readonly property string music: musicInfo.music
+    readonly property real musicSystemWidth: musicInfo.systemWidth
+    readonly property var musicStyle: EoMusic.musicStyleOf(option, section, page)
 
     //! NOTE: the EngravingOptionsModel
     required property var optionsModel
@@ -58,7 +76,6 @@ Item {
     //! NOTE: the kinds of which the control takes the width of the page, under the title
     readonly property bool isWide: {
         switch (option.kind) {
-        case "preview":
         case "note":
             return true
         case "choice":
@@ -71,7 +88,7 @@ Item {
         return false
     }
 
-    readonly property bool hasTitleRow: option.kind !== "preview" && option.kind !== "note"
+    readonly property bool hasTitleRow: option.kind !== "note"
                                         && (Boolean(option.title) || Boolean(option.hint) || !isWide)
 
     //! NOTE: a title which is taken from a form ends with a colon, which a line of this list does not need
@@ -85,6 +102,39 @@ Item {
 
     function resetToDefault() {
         optionsModel.resetValues(sids)
+    }
+
+    function activate() {
+        if (Boolean(session)) {
+            session.activate(option, section, page)
+        }
+    }
+
+    onActiveFocusChanged: {
+        if (activeFocus) {
+            activate()
+        }
+    }
+
+    HoverHandler {
+        onHoveredChanged: {
+            if (hovered) {
+                root.activate()
+            }
+        }
+    }
+
+    //! NOTE: the option which the preview pane shows is marked quietly
+    Rectangle {
+        anchors.fill: parent
+        anchors.leftMargin: -8
+        anchors.rightMargin: -8
+        anchors.topMargin: -2
+        anchors.bottomMargin: -2
+
+        radius: 7
+        color: AtStyle.cell
+        visible: root.isActive
     }
 
     Column {
@@ -208,7 +258,6 @@ Item {
 
             sourceComponent: {
                 switch (root.option.kind) {
-                case "preview": return previewComp
                 case "note": return noteComp
                 case "text": return textAreaComp
                 case "custom": return customComp
@@ -238,7 +287,9 @@ Item {
                 return value
             }
 
-            currentValue: root.option.percent ? Number((plainValue * 100).toFixed(6)) : plainValue
+            readonly property var shownValue: root.isDragged ? root.session.dragValue : plainValue
+
+            currentValue: root.option.percent ? Number((shownValue * 100).toFixed(6)) : shownValue
 
             minValue: root.option.min
             maxValue: root.option.max
@@ -317,7 +368,8 @@ Item {
 
                         onValueEdited: function(newValue) {
                             var value = root.styleItem.value
-                            root.styleItem.value = axis === "x" ? Qt.point(newValue, value.y) : Qt.point(value.x, newValue)
+                            root.styleItem.value = axis === "x" ? Qt.point(newValue, value.y)
+                                                   : Qt.point(value.x, newValue)
                         }
                     }
                 }
@@ -408,14 +460,7 @@ Item {
             model: root.option.choices
             currentValue: root.styleItem.value
 
-            segmentWidth: {
-                var longest = 0
-                for (var i = 0; i < root.option.choices.length; ++i) {
-                    longest = Math.max(longest, String(root.option.choices[i].title).length)
-                }
-                //! NOTE: about the width of the longest title, between the widths of a short word and of a phrase
-                return Math.max(64, Math.min(168, 26 + longest * 11))
-            }
+            segmentWidth: EoMusic.segmentWidthFor(root.option.choices)
 
             navigationPanel: root.navigationPanel
             navigationOrderStart: root.navigationRow * 100
@@ -495,6 +540,10 @@ Item {
                     //! NOTE: the picture shows the snippet with this choice made, whatever the option is now
                     readonly property var tileOverrides: {
                         var result = {}
+                        for (var styleKey in root.musicStyle) {
+                            result[styleKey] = root.musicStyle[styleKey]
+                        }
+
                         var more = modelData.overrides
 
                         for (var key in more) {
@@ -534,10 +583,19 @@ Item {
 
                         padding: 8
 
-                        snippet: root.option.snippet
+                        music: root.music
                         overrides: tile.tileOverrides
-                        systemWidth: root.option.systemWidth
-                        zoom: root.option.tileZoom
+                        systemWidth: root.musicSystemWidth
+
+                        //! NOTE: the tile fits its picture to the room inside the paper
+                        zoom: {
+                            const size = paper.naturalSize
+                            if (size.width <= 0.0 || size.height <= 0.0) {
+                                return 1.0
+                            }
+                            return Math.min((paper.width - 2 * paper.padding) / size.width,
+                                            (paper.height - 2 * paper.padding) / size.height)
+                        }
 
                         border.width: tile.isCurrent ? 2 : 1
                         border.color: tile.isCurrent ? AtStyle.accent
@@ -617,109 +675,6 @@ Item {
 
             onTextEditingFinished: function(newTextValue) {
                 root.styleItem.value = newTextValue
-            }
-        }
-    }
-
-    Component {
-        id: previewComp
-
-        Item {
-            id: previewItem
-
-            property real zoom: root.option.zoom
-
-            //! NOTE: the paper is as wide as the picture, but never wider than the page of the dialog
-            implicitHeight: previewPaper.height + (previewFooter.visible ? previewFooter.height + 6 : 0)
-
-            EoPreviewCard {
-                id: previewPaper
-
-                width: Math.min(parent.width, implicitWidth)
-                height: implicitHeight
-
-                snippet: root.option.snippet
-                overrides: root.option.overrides
-                systemWidth: root.option.systemWidth
-                zoom: previewItem.zoom
-            }
-
-            Item {
-                id: previewFooter
-
-                anchors.top: previewPaper.bottom
-                anchors.topMargin: 6
-                width: parent.width
-                height: 24
-
-                StyledTextLabel {
-                    anchors.left: parent.left
-                    anchors.right: zoomRow.left
-                    anchors.rightMargin: 12
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    horizontalAlignment: Text.AlignLeft
-
-                    text: root.option.title
-                    font: AtStyle.font(11.5)
-                    color: AtStyle.text3
-                }
-
-                Row {
-                    id: zoomRow
-
-                    anchors.right: parent.right
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    spacing: 2
-
-                    AtToolButton {
-                        width: 24
-                        height: 24
-
-                        shape: "minus"
-                        enabled: previewItem.zoom > 0.5
-
-                        toolTipTitle: qsTrc("notation", "Zoom out")
-
-                        navigation.panel: root.navigationPanel
-                        navigation.row: root.navigationRow
-                        navigation.column: 1
-                        navigation.name: "ZoomOut_" + root.option.snippet
-
-                        onClicked: {
-                            previewItem.zoom = Math.max(0.5, previewItem.zoom - 0.25)
-                        }
-                    }
-
-                    StyledTextLabel {
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: 44
-
-                        text: Math.round(previewItem.zoom * 100) + " %"
-                        font: AtStyle.font(11.5)
-                        color: AtStyle.text2
-                    }
-
-                    AtToolButton {
-                        width: 24
-                        height: 24
-
-                        shape: "plus"
-                        enabled: previewItem.zoom < 3.0
-
-                        toolTipTitle: qsTrc("notation", "Zoom in")
-
-                        navigation.panel: root.navigationPanel
-                        navigation.row: root.navigationRow
-                        navigation.column: 2
-                        navigation.name: "ZoomIn_" + root.option.snippet
-
-                        onClicked: {
-                            previewItem.zoom = Math.min(3.0, previewItem.zoom + 0.25)
-                        }
-                    }
-                }
             }
         }
     }

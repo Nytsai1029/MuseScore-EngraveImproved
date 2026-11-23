@@ -33,19 +33,20 @@ EoPage {
     title: qsTrc("notation/engravingoptions", "Ties")
     group: qsTrc("notation/engravingoptions", "Notes and rests")
 
+
     EoSection {
         title: qsTrc("notation/engravingoptions", "Placement")
+        music: "c''2~ c''2 | <c'' e''>2~ <c'' e''>2 | c''4.~ c''8 r4"
 
         EoChoice {
             sid: "tiePlacementSingleNote"
             title: qsTrc("notation", "Placement on single notes:")
             presentation: "tiles"
-            snippet: "tie-single"
+            music: "a'2~ a'2 | e''2~ e''2"
             choices: [
                 { value: 1, title: qsTrc("inspector", "Inside") },
                 { value: 2, title: qsTrc("inspector", "Outside") }
             ]
-            tileZoom: 1.4
             tileWidth: 200
             tileHeight: 96
         }
@@ -54,12 +55,11 @@ EoPage {
             sid: "tiePlacementChord"
             title: qsTrc("notation", "Placement on chords:")
             presentation: "tiles"
-            snippet: "tie-chord"
+            music: "<c'' e'' g''>2~ <c'' e'' g''>2"
             choices: [
                 { value: 1, title: qsTrc("inspector", "Inside") },
                 { value: 2, title: qsTrc("inspector", "Outside") }
             ]
-            tileZoom: 1.4
             tileWidth: 200
             tileHeight: 120
         }
@@ -68,13 +68,12 @@ EoPage {
             sid: "tieDotsPlacement"
             title: qsTrc("notation", "Placement of inner ties with respect to augmentation dots:")
             presentation: "tiles"
-            snippet: "tie-dots"
+            music: "<b' c''>4.~ <b' c''>4."
             choices: [
                 { value: 0, title: qsTrc("notation", "Auto") },
                 { value: 1, title: qsTrc("notation", "Always before dots") },
                 { value: 2, title: qsTrc("notation", "Always after dots") }
             ]
-            tileZoom: 1.4
             tileWidth: 200
             tileHeight: 96
         }
@@ -82,11 +81,7 @@ EoPage {
 
     EoSection {
         title: qsTrc("notation/engravingoptions", "Thickness")
-
-        EoPreview {
-            snippet: "ties"
-            zoom: 1.75
-        }
+        music: "c''2~ c''2"
 
         EoNumber {
             sid: "tieEndWidth"
@@ -102,6 +97,7 @@ EoPage {
 
         EoNumber {
             sid: "tieDottedWidth"
+            music: "\\tieDotted c''2~ c''2"
             title: qsTrc("notation/editstyle/slursandties", "Dotted line thickness:")
             step: 0.01
         }
@@ -109,9 +105,11 @@ EoPage {
 
     EoSection {
         title: qsTrc("notation/engravingoptions", "Length and height")
+        music: "c''2~ c''2 | c'4 \\laissezVibrer"
 
         EoNumber {
             sid: "minTieLength"
+            music: "g'16~ g'16 g'16~ g'16 g'16~ g'16 g'16~ g'16"
             title: qsTrc("notation/editstyle/slursandties", "Minimum tie length:")
             step: 0.1
         }
@@ -142,6 +140,19 @@ EoPage {
     EoSection {
         title: qsTrc("notation/engravingoptions", "Tie end points")
 
+        music: situation.value === "chord" ? "<c'' e'' g''>2~ <c'' e'' g''>2" : "a'2~ a'2 | e''2~ e''2"
+
+        EoContext {
+            id: situation
+
+            title: qsTrc("notation/engravingoptions", "Show the option on")
+            value: "single"
+            choices: [
+                { value: "single", title: qsTrc("notation/engravingoptions", "Single notes") },
+                { value: "chord", title: qsTrc("notation/engravingoptions", "Chords") }
+            ]
+        }
+
         EoNumber {
             sid: "tieEndpointYOffset"
             title: qsTrc("notation/engravingoptions", "Vertical offset from notehead")
@@ -160,6 +171,8 @@ EoPage {
 
         EoNumber {
             sid: "tieOutsideInsetChord"
+            music: "<c'' e'' g''>2~ <c'' e'' g''>2"
+            musicStyle: ({ tiePlacementChord: 2 })
             title: qsTrc("notation/engravingoptions", "Outside tie: inward shift past another chord note")
             hint: qsTrc("notation/engravingoptions",
                          "The same shift when another note of the chord lies directly above or below on the side the tie curves towards.")
@@ -168,6 +181,8 @@ EoPage {
 
         EoNumber {
             sid: "tieInsideInset"
+            music: "c''2~ c''2"
+            musicStyle: ({ tiePlacementSingleNote: 1 })
             title: qsTrc("notation/engravingoptions", "Inside tie: gap to notehead")
             hint: qsTrc("notation/engravingoptions",
                          "Horizontal gap between the notehead and the end of an inside tie (also used for slash noteheads and hidden fret marks).")
@@ -176,6 +191,7 @@ EoPage {
 
         EoNumber {
             sid: "tieItemPadding"
+            music: "<c' e'>4~ <c' e'>4"
             title: qsTrc("notation/engravingoptions", "Gap to dots, accidentals and other items")
             hint: qsTrc("notation/engravingoptions",
                          "Horizontal gap kept between a tie end and the augmentation dots, accidentals, stems or noteheads it has to clear.")
@@ -192,6 +208,7 @@ EoPage {
 
         EoNumber {
             sid: "tieLedgerLineMargin"
+            music: "<a, b, c'>2~ <a, b, c'>2"
             title: qsTrc("notation/engravingoptions", "End point distance from ledger lines")
             hint: qsTrc("notation/engravingoptions",
                          "Tie ends closer than this to a ledger line on the side they curve towards are moved away from it.")
@@ -201,6 +218,7 @@ EoPage {
 
     EoSection {
         title: qsTrc("notation/engravingoptions", "Tie shape and staff lines")
+        music: "c''2~ c''2"
 
         EoNumber {
             sid: "tieShoulderHeightFactor"
@@ -220,6 +238,7 @@ EoPage {
 
         EoNumber {
             sid: "tieEndpointStaffLineMargin"
+            music: "d''2~ d''2"
             title: qsTrc("notation/engravingoptions", "End point distance from staff lines")
             hint: qsTrc("notation/engravingoptions",
                          "Tie ends that would lie closer than this to a staff line are moved away from it.")
@@ -240,6 +259,7 @@ EoPage {
 
         EoNumber {
             sid: "tieArcStaffLineMarginShort"
+            music: "a'8~ a'8 c''8~ c''8"
             title: qsTrc("notation/engravingoptions", "Arc distance from staff lines (short ties)")
             hint: qsTrc("notation/engravingoptions", "The same distance for ties shorter than the short-tie length.")
             max: 0.45
@@ -249,6 +269,7 @@ EoPage {
 
         EoNumber {
             sid: "tieArcStaffLineShortLength"
+            music: "a'8~ a'8 c''8~ c''8"
             title: qsTrc("notation/engravingoptions", "Short-tie length for staff line distance")
             hint: qsTrc("notation/engravingoptions", "Ties shorter than this use the arc distance for short ties.")
             max: 20
@@ -257,6 +278,7 @@ EoPage {
 
         EoNumber {
             sid: "tieStackedClearance"
+            music: "<c'' d'' e'' f''>2~ <c'' d'' e'' f''>2"
             title: qsTrc("notation/engravingoptions", "Gap between stacked ties")
             hint: qsTrc("notation/engravingoptions",
                          "Minimum vertical distance between neighbouring ties of a chord that curve the same way.")
@@ -268,20 +290,24 @@ EoPage {
 
     EoSection {
         title: qsTrc("notation/engravingoptions", "Laissez vibrer")
+        music: "c'4 \\laissezVibrer e'4 r2"
 
         EoNumber {
             sid: "minLaissezVibLength"
+            music: "c''2 \\laissezVibrer"
             title: qsTrc("notation/editstyle/slursandties", "Minimum laissez vibrer length:")
             step: 0.1
         }
 
         EoToggle {
             sid: "laissezVibUseSmuflSym"
+            music: "c''2 \\laissezVibrer"
             title: qsTrc("notation/editstyle/slursandties", "Use SMuFL symbols")
         }
 
         EoNumber {
             sid: "laissezVibParenthesisPadding"
+            music: "<c'' e''?>2 \\laissezVibrer"
             title: qsTrc("notation/engravingoptions", "Gap to parenthesis")
             hint: qsTrc("notation/engravingoptions",
                          "Vertical gap between a laissez vibrer tie and the parenthesis of the notehead that it has to avoid.")

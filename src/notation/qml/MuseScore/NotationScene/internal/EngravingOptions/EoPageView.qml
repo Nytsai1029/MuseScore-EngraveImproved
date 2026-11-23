@@ -36,6 +36,8 @@ StyledFlickable {
     //! NOTE: the EngravingOptionsModel
     required property var optionsModel
 
+    property var session: null
+
     property NavigationPanel navigationPanel: null
 
     //! NOTE: the section at the top of what is seen
@@ -70,6 +72,7 @@ StyledFlickable {
 
         page: root.page
         optionsModel: root.optionsModel
+        session: root.session
 
         navigationPanel: root.navigationPanel
     }

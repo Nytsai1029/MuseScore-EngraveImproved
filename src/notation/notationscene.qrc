@@ -127,9 +127,11 @@
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoChoice.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoColor.qml</file>
+        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoContext.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoCustom.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoFilter.js</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoFont.qml</file>
+        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoMusic.js</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoNote.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoNumber.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoOffset.qml</file>
@@ -139,10 +141,11 @@
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoPageContent.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoPageView.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoPages.qml</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreview.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewCard.qml</file>
+        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewPane.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoResultsView.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoSection.qml</file>
+        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoSession.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoText.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoToggle.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml</file>
@@ -185,28 +188,5 @@
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/accidentals.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/arpeggios.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/articulations.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/beam-intervals.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/beams.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/dots.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/dynamics.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/fingering.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/flags.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/key-signature.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/ledger-lines.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/lyrics.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/rests.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/slur-short.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/slurs.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/spacing.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/stems.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/tie-chord.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/tie-dots.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/tie-single.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/ties.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/tremolos.mscx</file>
-        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/snippets/tuplets.mscx</file>
     </qresource>
 </RCC>

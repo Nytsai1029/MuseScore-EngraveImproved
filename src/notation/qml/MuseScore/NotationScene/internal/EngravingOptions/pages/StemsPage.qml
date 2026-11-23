@@ -32,11 +32,15 @@ EoPage {
     title: qsTrc("notation/engravingoptions", "Stems and flags")
     group: qsTrc("notation/engravingoptions", "Notes and rests")
 
+
     EoSection {
         title: qsTrc("notation/engravingoptions", "Stem length")
+        music: "c'8[ e'' c'] c'16[ e'' e'' c'] c'32[ e'' e'' e'' c']"
 
         EoNumber {
             sid: "shortestStemWideBeams"
+            music: "\\stemUp a''4 r4 r2"
+            musicStyle: ({ useWideBeams: true })
             title: qsTrc("notation/engravingoptions", "Shortest stem with wide beam distance")
             hint: qsTrc("notation/engravingoptions",
                          "Lower limit for stems shortened outside the staff when the wide beam distance is on (replaces ‘Shortest stem’ in that case).")
@@ -56,6 +60,7 @@ EoPage {
 
         EoNumber {
             sid: "stemOpticalAdjustment"
+            music: "g'8[ g'8] b'8[ b'8] a'8[ a'8] c''8[ c''8]"
             title: qsTrc("notation/engravingoptions", "Stem shortening to seat the beam on a staff line")
             hint: qsTrc("notation/engravingoptions",
                          "Stems of notes with one or two beams that would end in the middle of a staff space are shortened by this amount, so that the beam touches a staff line (0 = off). Rounded to quarter spaces.")
@@ -65,6 +70,7 @@ EoPage {
 
         EoNumber {
             sid: "stemMinInnerLengthNoBeam"
+            music: "\\stemUp \\tremolo 16 { c'''2 d'''2 }"
             title: qsTrc("notation/engravingoptions", "Minimum stem between notehead and beams, no beam")
             hint: qsTrc("notation/engravingoptions",
                          "Shortest free stem between the notehead and the innermost beam for a note in a beamed group or two-note tremolo with no beam of its own; the height of the beams is added to it. Rounded to quarter spaces.")
@@ -105,6 +111,7 @@ EoPage {
 
         EoNumber {
             sid: "stemMinStaffOverlap"
+            music: "\\stemDown c''''4 r4 r2"
             title: qsTrc("notation/engravingoptions", "Stem reach into the staff")
             hint: qsTrc("notation/engravingoptions",
                          "Stems of notes far outside the staff are lengthened so that their tip reaches at least this far into the staff, measured from the staff line nearest the notehead (2 sp = the middle line of a five-line staff). Applies to unbeamed and flagged notes and to notes with up to two beams. Rounded to quarter spaces.")
@@ -114,6 +121,7 @@ EoPage {
 
         EoNumber {
             sid: "stemMinStaffOverlapThreeBeams"
+            music: "\\stemUp c'32[ c']"
             title: qsTrc("notation/engravingoptions", "Stem reach into the staff, three beams")
             hint: qsTrc("notation/engravingoptions",
                          "The same for normal-size notes with three beams. Rounded to quarter spaces.")
@@ -123,6 +131,7 @@ EoPage {
 
         EoNumber {
             sid: "stemMinStaffOverlapFourBeams"
+            music: "\\stemDown c'''64[ e''' c''' e''']"
             title: qsTrc("notation/engravingoptions", "Stem reach into the staff, four beams")
             hint: qsTrc("notation/engravingoptions",
                          "The same for normal-size notes with four beams and the regular beam distance; each further beam adds one beam distance. Rounded to quarter spaces.")
@@ -132,6 +141,8 @@ EoPage {
 
         EoNumber {
             sid: "stemMinStaffOverlapFourBeamsWide"
+            music: "\\stemDown c''''64[ d'''' c'''' d'''']"
+            musicStyle: ({ useWideBeams: true })
             title: qsTrc("notation/engravingoptions", "Stem reach into the staff, four beams, wide distance")
             hint: qsTrc("notation/engravingoptions",
                          "The same for normal-size notes with four beams when the wide beam distance is on. Rounded to quarter spaces.")
@@ -145,6 +156,7 @@ EoPage {
 
         EoToggle {
             sid: "stemUpOnMiddleLine"
+            music: "b'4 r4 r2"
             title: qsTrc("notation/engravingoptions", "Stems up on the middle line")
             hint: qsTrc("notation/engravingoptions",
                          "Stem direction of a note on the middle staff line, and of chords and beamed groups whose notes balance around it: down when off, up when on.")
@@ -156,6 +168,7 @@ EoPage {
 
         EoNumber {
             sid: "flagStemCutoutUp"
+            music: "\\stemUp c''64 r r r"
             title: qsTrc("notation/engravingoptions", "Flag height not counted for the stem length, stem up")
             hint: qsTrc("notation/engravingoptions",
                          "Stems of flagged notes are lengthened until the flags clear the notehead; this much of the flag height of an up-stem note with curved flags is ignored, so a larger value gives shorter stems on notes with many flags. Rounded to quarter spaces.")
@@ -165,6 +178,7 @@ EoPage {
 
         EoNumber {
             sid: "flagStemCutoutDown"
+            music: "\\stemDown c''64 r r r"
             title: qsTrc("notation/engravingoptions", "Flag height not counted for the stem length, stem down")
             hint: qsTrc("notation/engravingoptions",
                          "The same for down-stem notes with curved flags. Rounded to quarter spaces.")
@@ -174,6 +188,7 @@ EoPage {
 
         EoNumber {
             sid: "flagStemMaxHeight"
+            music: "\\stemUp c''32 r r r"
             title: qsTrc("notation/engravingoptions", "Largest flag height counted for the stem length")
             hint: qsTrc("notation/engravingoptions",
                          "Upper limit of the flag height taken into account when lengthening the stem of a flagged note; keeps fonts with very long flags from producing overlong stems. Rounded to quarter spaces.")
@@ -188,6 +203,7 @@ EoPage {
 
         EoNumber {
             sid: "stemSlashPositionReduction"
+            music: "\\acciaccatura { c''8 d''8 } e''4"
             title: qsTrc("notation/engravingoptions", "Slash position factor without a curved flag")
             hint: qsTrc("notation/engravingoptions",
                          "Factor applied to the stem slash position (its distance from the stem end) on beamed grace notes, on stems without a flag and with straight flags.")
@@ -197,6 +213,7 @@ EoPage {
 
         EoNumber {
             sid: "stemSlashMultiFlagAngleFactor"
+            music: "\\acciaccatura c''16 e''4"
             title: qsTrc("notation/engravingoptions", "Slash angle factor for two or more curved flags")
             hint: qsTrc("notation/engravingoptions",
                          "Factor applied to the stem slash angle on grace notes with two or more curved flags, to follow their heavier flags (Bravura, Finale Maestro and Gonville only).")
@@ -207,6 +224,7 @@ EoPage {
 
         EoNumber {
             sid: "stemSlashBeamedLength"
+            music: "\\acciaccatura { c''8 d''8 } e''4"
             title: qsTrc("notation/engravingoptions", "Slash length on beamed grace notes")
             hint: qsTrc("notation/engravingoptions",
                          "Length of the slash drawn through the first stem and the beam of a beamed group of grace notes.")
@@ -216,6 +234,7 @@ EoPage {
 
         EoNumber {
             sid: "stemSlashBeamedObtuseLengthFactor"
+            music: "\\stemUp \\acciaccatura { c''8 g''8 } e''4"
             title: qsTrc("notation/engravingoptions", "Slash length factor when the beam slants away")
             hint: qsTrc("notation/engravingoptions",
                          "Factor lengthening that slash when the beam slants away from it: a rising beam on up-stem grace notes or a falling beam on down-stem grace notes.")

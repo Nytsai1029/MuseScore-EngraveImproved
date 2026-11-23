@@ -33,16 +33,19 @@ EoPage {
     title: qsTrc("EditStyleBase", "Notes")
     group: qsTrc("notation/engravingoptions", "Notes and rests")
 
+
     EoSection {
         title: qsTrc("EditStyleBase", "Notes")
 
         EoToggle {
             sid: "shortenStem"
+            music: "\\stemDown c,4"
             title: qsTrc("EditStyleBase", "Shorten stems")
         }
 
         EoNumber {
             sid: "shortestStem"
+            music: "\\stemDown c,4"
             title: qsTrc("EditStyleBase", "Shortest stem:")
             min: 1
             step: 0.25
@@ -52,6 +55,7 @@ EoPage {
 
         EoNumber {
             sid: "shortStemStartLocation"
+            music: "\\stemUp a'4"
             title: qsTrc("EditStyleBase", "Shortening starts beyond the staff by (half spaces):")
             max: 8
             step: 1
@@ -61,18 +65,21 @@ EoPage {
 
         EoNumber {
             sid: "accidentalNoteDistance"
+            music: "fis'4"
             title: qsTrc("EditStyleBase", "Accidental to note distance:")
             step: 0.01
         }
 
         EoNumber {
             sid: "accidentalDistance"
+            music: "<cis' d'>4 <ees' f'>4 cis''4 <gis' a'>4"
             title: qsTrc("EditStyleBase", "Accidental to accidental distance:")
             step: 0.01
         }
 
         EoNumber {
             sid: "dotMag"
+            music: "c'4."
             title: qsTrc("EditStyleBase", "Dot size:")
             min: 50
             max: 200
@@ -83,47 +90,55 @@ EoPage {
 
         EoNumber {
             sid: "dotNoteDistance"
+            music: "c'4."
             title: qsTrc("EditStyleBase", "Note to dot distance:")
             step: 0.1
         }
 
         EoNumber {
             sid: "dotDotDistance"
+            music: "c'4.."
             title: qsTrc("EditStyleBase", "Dot to dot distance:")
             step: 0.1
         }
 
         EoNumber {
             sid: "stemWidth"
+            music: "c'4"
             title: qsTrc("EditStyleBase", "Stem thickness:")
             step: 0.1
         }
 
         EoNumber {
             sid: "ledgerLineWidth"
+            music: "c'''4"
             title: qsTrc("EditStyleBase", "Ledger line thickness:")
             step: 0.01
         }
 
         EoNumber {
             sid: "ledgerLineLength"
+            music: "c'''4"
             title: qsTrc("EditStyleBase", "Ledger line length:")
             step: 0.1
         }
 
         EoToggle {
             sid: "ledgerLineAutoCut"
+            music: "a''16 b'' c''' d''' e''' f''' g''' a'''"
             title: qsTrc("EditStyleBase", "Shorten ledger lines that would touch their neighbours")
         }
 
         EoNumber {
             sid: "stemSlashPosition"
+            music: "\\acciaccatura c''8 e''4"
             title: qsTrc("EditStyleBase", "Grace note slash distance from stem tip:")
             step: 0.1
         }
 
         EoNumber {
             sid: "stemSlashAngle"
+            music: "\\acciaccatura c''8 e''4"
             title: qsTrc("EditStyleBase", "Grace note slash angle:")
             max: 90
             step: 1
@@ -133,6 +148,7 @@ EoPage {
 
         EoNumber {
             sid: "stemSlashThickness"
+            music: "\\acciaccatura c''8 e''4"
             title: qsTrc("EditStyleBase", "Grace note slash thickness:")
             step: 0.01
             decimals: 3
@@ -144,6 +160,7 @@ EoPage {
 
         EoNumber {
             sid: "stemLength"
+            music: "g''4"
             title: qsTrc("EditStyleBase", "Standard stem length:")
             min: 1
             max: 10
@@ -157,6 +174,7 @@ EoPage {
 
         EoToggle {
             sid: "combineVoice"
+            music: "<< { c''2 d''2 } \\\\ { c''2 d''2 } >>"
             title: qsTrc("EditStyleBase", "Combine voices that share the same stem direction")
         }
     }
@@ -166,6 +184,7 @@ EoPage {
 
         EoToggle {
             sid: "dotBelowLineForLowerVoices"
+            music: "<< { b'4. r8 r2 } \\\\ { g'4. r8 r2 } >>"
             title: qsTrc("notation/engravingoptions", "Dots of voices 2 and 4 below the line")
             hint: qsTrc("notation/engravingoptions",
                          "For notes on a staff line, puts the augmentation dots of voices 2 and 4 in the space below the line; when off, the dots of all voices go in the space above.")
@@ -173,6 +192,7 @@ EoPage {
 
         EoNumber {
             sid: "dotFlagVerticalClearance"
+            music: "\\stemUp g'8. r16 r4 r2"
             title: qsTrc("notation/engravingoptions", "Dot clearance below a flag")
             hint: qsTrc("notation/engravingoptions",
                          "On stem-up flagged notes, the dots move to the right of the flag when the top dot is higher than the lower end of the flag plus this margin.")
@@ -186,6 +206,8 @@ EoPage {
 
         EoNumber {
             sid: "ledgerLineAutoCutGapRatio"
+            music: "a''16 b'' c''' d''' e''' f''' g''' a'''"
+            musicStyle: ({ ledgerLineAutoCut: true })
             title: qsTrc("notation/engravingoptions", "Gap between shortened ledger lines")
             hint: qsTrc("notation/engravingoptions",
                          "Gap left between the ledger lines of neighbouring notes after automatic shortening, as a fraction of the padding that note spacing keeps between ledger lines.")
@@ -198,6 +220,7 @@ EoPage {
 
         EoNumber {
             sid: "voiceOffsetNoteheadGap"
+            music: "<< { c''2 r2 } \\\\ { c''4 r4 r2 } >>"
             title: qsTrc("notation/engravingoptions", "Gap between offset voices")
             hint: qsTrc("notation/engravingoptions",
                          "Gap between the two columns of noteheads when voices are set side by side because of a unison that cannot share a notehead or a second between crossed voices.")
@@ -208,6 +231,7 @@ EoPage {
 
         EoNumber {
             sid: "voiceOffsetReducedNoteheadGap"
+            music: "<< { d''4. r8 r2 } \\\\ { c''4 r4 r2 } >>"
             title: qsTrc("notation/engravingoptions", "Gap when the up-stem voice moves right")
             hint: qsTrc("notation/engravingoptions",
                          "Gap between the two columns of noteheads when the up-stem voice is moved to the right of the down-stem voice, either because only it has augmentation dots or to clear a flag.")
@@ -218,6 +242,7 @@ EoPage {
 
         EoNumber {
             sid: "voiceOffsetCrossedSecondOverlap"
+            music: "<< { c''4 r4 r2 } \\\\ { d''4 r4 r2 } >>"
             title: qsTrc("notation/engravingoptions", "Overlap of crossed seconds")
             hint: qsTrc("notation/engravingoptions",
                          "When crossed voices form a second, how far the up-stem notehead on the right tucks in towards the down-stem notehead on the left.")
@@ -228,6 +253,7 @@ EoPage {
 
         EoNumber {
             sid: "voiceOffsetCrossedSecondDottedGap"
+            music: "<< { c''4 r4 r2 } \\\\ { d''4. r8 r2 } >>"
             title: qsTrc("notation/engravingoptions", "Gap of crossed seconds with dots")
             hint: qsTrc("notation/engravingoptions",
                          "When crossed voices form a second and only the down-stem voice has augmentation dots, the gap by which the down-stem voice is set to the right of the up-stem voice.")
@@ -238,6 +264,7 @@ EoPage {
 
         EoNumber {
             sid: "voiceOffsetFlagClearance"
+            music: "<< { c''4 r4 r2 } \\\\ { e''8 r8 r4 r2 } >>"
             title: qsTrc("notation/engravingoptions", "Extra offset to clear a flag")
             hint: qsTrc("notation/engravingoptions",
                          "Extra horizontal space added between overlapping voices when the down-stem voice carries a flag that the other voice would otherwise collide with.")
@@ -247,6 +274,7 @@ EoPage {
 
         EoNumber {
             sid: "voiceOffsetStemNoteheadPadding"
+            music: "<< { c''4 r4 r2 } \\\\ { e''4 r4 r2 } >>"
             title: qsTrc("notation/engravingoptions", "Stem to notehead of the other voice")
             hint: qsTrc("notation/engravingoptions",
                          "Space between a stem and the noteheads of the other voice when the voices interlock without forming a unison or a second.")
@@ -256,6 +284,7 @@ EoPage {
 
         EoNumber {
             sid: "voiceOffsetLedgerLineGap"
+            music: "<< { a4 r4 r2 } \\\\ { c'4 r4 r2 } >>"
             title: qsTrc("notation/engravingoptions", "Gap to ledger lines of the other voice")
             hint: qsTrc("notation/engravingoptions",
                          "Gap between the stem or flag of one voice and the ledger lines of the other voice when offset voices lie outside the staff.")
@@ -269,6 +298,7 @@ EoPage {
 
         EoNumber {
             sid: "ambitusLineOffset"
+            music: "\\ambitus c'4 e''4"
             title: qsTrc("notation/engravingoptions", "Line to notehead distance")
             hint: qsTrc("notation/engravingoptions",
                          "Distance between the centre of each ambitus notehead and the nearest end of the line that joins them.")
@@ -277,6 +307,7 @@ EoPage {
 
         EoNumber {
             sid: "ambitusAccidentalUndercutRatio"
+            music: "\\ambitus bes'2 des''2"
             title: qsTrc("notation/engravingoptions", "Undercut of the lower accidental")
             hint: qsTrc("notation/engravingoptions",
                          "When the two accidentals of an ambitus collide, a lower flat or natural is moved left by this fraction of its width and tucks under the upper accidental; 1 places it fully to the left.")

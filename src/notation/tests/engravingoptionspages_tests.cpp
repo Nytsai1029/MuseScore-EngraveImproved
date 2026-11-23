@@ -22,6 +22,7 @@
 
 #include <gtest/gtest.h>
 
+#include <functional>
 #include <map>
 #include <set>
 
@@ -35,7 +36,13 @@
 
 #include "engraving/style/style.h"
 
+#include "notation/view/engravingoptions/previewmusic.h"
+
+#include "engravingoptionspagesource.h"
+
 using namespace mu::engraving;
+using namespace mu::notation;
+using namespace mu::notation::tests;
 
 //! NOTE The pages of the Engraving Options dialog are QML descriptions; these tests read their sources as text
 //! (the directories come from the CMakeLists of the tests)
@@ -185,26 +192,6 @@ TEST_F(Notation_EngravingOptionsPagesTests, noStyleValueIsOnTwoPages)
 }
 
 /**
- * @TEST_CASE everySnippetExists
- * @details Every `snippet: "x"` of a page is a file of the snippets
- */
-TEST_F(Notation_EngravingOptionsPagesTests, everySnippetExists)
-{
-    static const QRegularExpression SNIPPET(R"re(\bsnippet:\s*"([^"]+)")re");
-
-    size_t snippets = 0;
-    for (const QString& file : pageFiles()) {
-        for (const QString& snippet : allMatches(readText(OPTIONS_DIR + "/pages/" + file), SNIPPET)) {
-            ++snippets;
-            EXPECT_TRUE(QFileInfo::exists(OPTIONS_DIR + "/snippets/" + snippet + ".mscx"))
-                << file.toStdString() << ": no snippet " << snippet.toStdString();
-        }
-    }
-
-    EXPECT_GT(snippets, 0u);
-}
-
-/**
  * @TEST_CASE everyFileIsPackaged
  * @details What the dialog is made of is in the qrc and what the qrc has of it is there, and every page is in
  *          the list of the pages
@@ -277,4 +264,83 @@ TEST_F(Notation_EngravingOptionsPagesTests, pageCodesAreUnique)
                                            << " and the code of " << found->second.toStdString();
         }
     }
+}
+
+namespace {
+//! Every block of a page: the page, its sections and their options
+void forEachBlock(const SourceBlock& block, const std::function<void(const SourceBlock&)>& visit)
+{
+    visit(block);
+    for (const SourceBlock& child : block.children) {
+        forEachBlock(child, visit);
+    }
+}
+
+QStringList musicLiteralsOf(const SourceBlock& block)
+{
+    const std::optional<QString> expression = block.property("music");
+    return expression ? SourceBlock::literalsOf(*expression) : QStringList();
+}
+}
+
+/**
+ * @TEST_CASE everyMusicIsValid
+ * @details Every text which can be the music of a page, a section or an option (also each branch of a
+ *          conditional) is music which PreviewMusic takes
+ */
+TEST_F(Notation_EngravingOptionsPagesTests, everyMusicIsValid)
+{
+    size_t texts = 0;
+
+    for (const QString& file : pageFiles()) {
+        const SourceBlock page = readPageSource(OPTIONS_DIR + "/pages/" + file);
+        ASSERT_EQ(page.type, QString("EoPage")) << file.toStdString();
+
+        forEachBlock(page, [&](const SourceBlock& block) {
+            for (const QString& music : musicLiteralsOf(block)) {
+                ++texts;
+                const muse::RetVal<muse::ByteArray> mscx = PreviewMusic::toMscx(music);
+                EXPECT_TRUE(mscx.ret) << file.toStdString() << ": " << music.toStdString() << ": " << mscx.ret.text();
+            }
+        });
+    }
+
+    EXPECT_GT(texts, 0u);
+}
+
+/**
+ * @TEST_CASE optionsOfPagesWithMusicHaveMusic
+ * @details On a page which has any music, every option which is a style value has music: its own, its
+ *          section's or its page's
+ */
+TEST_F(Notation_EngravingOptionsPagesTests, optionsOfPagesWithMusicHaveMusic)
+{
+    size_t checked = 0;
+
+    for (const QString& file : pageFiles()) {
+        const SourceBlock page = readPageSource(OPTIONS_DIR + "/pages/" + file);
+
+        bool hasMusic = false;
+        forEachBlock(page, [&hasMusic](const SourceBlock& block) {
+            hasMusic |= block.property("music").has_value();
+        });
+
+        if (!hasMusic) {
+            continue;
+        }
+
+        for (const SourceBlock& section : page.children) {
+            for (const SourceBlock& option : section.children) {
+                if (option.sid().isEmpty()) {
+                    continue;
+                }
+
+                ++checked;
+                const bool hasOwn = option.property("music") || section.property("music") || page.property("music");
+                EXPECT_TRUE(hasOwn) << file.toStdString() << ": " << option.sid().toStdString() << " has no music";
+            }
+        }
+    }
+
+    EXPECT_GT(checked, 0u);
 }

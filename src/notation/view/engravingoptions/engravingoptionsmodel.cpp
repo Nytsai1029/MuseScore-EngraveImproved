@@ -75,6 +75,7 @@ static std::vector<StyleId> styleIdsByNames(const QStringList& names)
 }
 
 static QString s_lastPageCode;
+static bool s_showsHandles = true;
 
 EngravingOptionsModel::EngravingOptionsModel(QObject* parent)
     : QObject(parent), muse::Injectable(muse::iocCtxForQmlObject(this))
@@ -116,6 +117,21 @@ void EngravingOptionsModel::setLastPageCode(const QString& code)
 
     s_lastPageCode = code;
     emit lastPageCodeChanged();
+}
+
+bool EngravingOptionsModel::showsHandles() const
+{
+    return s_showsHandles;
+}
+
+void EngravingOptionsModel::setShowsHandles(bool shows)
+{
+    if (s_showsHandles == shows) {
+        return;
+    }
+
+    s_showsHandles = shows;
+    emit showsHandlesChanged();
 }
 
 bool EngravingOptionsModel::loadsFontDefaults() const

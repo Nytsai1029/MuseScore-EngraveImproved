@@ -33,14 +33,11 @@ EoOption {
     //! "segmented": side by side on a track (two to four short titles),
     //! "dropdown": in a drop-down list,
     //! "list": one under the other with radio buttons (long titles),
-    //! "tiles": as pictures of what each choice does to `snippet`
+    //! "tiles": as pictures of what each choice does to the music of the option
     property string presentation: "segmented"
 
-    //! NOTE: for "tiles": the snippet of music (see EngravingPreview), the zoom of the pictures,
-    //! the size of a tile, and the width of the systems of the snippet in staff spaces (0: as wide as the music)
-    property string snippet: ""
-    property real tileZoom: 1.0
+    //! NOTE: for "tiles": the size of a tile. The picture is fitted to the tile; the width of the systems
+    //! of the music is `systemWidth` of the object which gives the music
     property int tileWidth: 148
     property int tileHeight: 92
-    property real systemWidth: 0
 }

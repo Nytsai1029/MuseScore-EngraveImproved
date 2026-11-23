@@ -46,7 +46,7 @@ StyledDialogView {
 
     title: qsTrc("notation/engravingoptions", "Engraving options")
 
-    contentWidth: 1160
+    contentWidth: 1320
     contentHeight: 760
     resizable: true
     modal: true
@@ -54,6 +54,11 @@ StyledDialogView {
     readonly property var pages: pagesList.pages
     property int currentPageIndex: 0
     readonly property var currentPage: pages[currentPageIndex]
+
+    //! NOTE: each page begins with its first option in the preview pane
+    onCurrentPageChanged: {
+        eoSession.begin(currentPage)
+    }
 
     readonly property var searchWords: EoFilter.words(searchField.searchText)
     property bool modifiedOnly: false
@@ -170,6 +175,10 @@ StyledDialogView {
 
     EngravingOptionsModel {
         id: eoModel
+    }
+
+    EoSession {
+        id: eoSession
     }
 
     EoPages {
@@ -614,10 +623,30 @@ StyledDialogView {
 
         clip: true
 
+        EoPreviewPane {
+            id: previewPane
+
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+
+            width: 380
+
+            visible: eoModel.isLoaded && (root.isFiltered || !Boolean(root.currentPage.view))
+
+            session: eoSession
+            optionsModel: eoModel
+
+            navigationPanel: pageNavPanel
+        }
+
         Loader {
             id: pageLoader
 
-            anchors.fill: parent
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.right: previewPane.visible ? previewPane.left : parent.right
 
             active: eoModel.isLoaded && !root.isFiltered
             visible: active
@@ -628,7 +657,10 @@ StyledDialogView {
         Loader {
             id: resultsLoader
 
-            anchors.fill: parent
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.right: previewPane.visible ? previewPane.left : parent.right
 
             active: eoModel.isLoaded && root.isFiltered
             visible: active
@@ -637,6 +669,7 @@ StyledDialogView {
                 pages: root.pages
                 shownCounts: root.pageShownCounts
                 optionsModel: eoModel
+                session: eoSession
 
                 searchWords: root.searchWords
                 modifiedOnly: root.modifiedOnly
@@ -664,6 +697,7 @@ StyledDialogView {
         EoPageView {
             page: root.currentPage
             optionsModel: eoModel
+            session: eoSession
 
             navigationPanel: pageNavPanel
         }

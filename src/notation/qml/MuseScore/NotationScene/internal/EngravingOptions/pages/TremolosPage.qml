@@ -32,11 +32,15 @@ EoPage {
     title: qsTrc("notation/engravingoptions", "Tremolos")
     group: qsTrc("notation/engravingoptions", "Notes and rests")
 
+
     EoSection {
         title: qsTrc("notation/engravingoptions", "Single-note tremolos")
+        music: "\\stemUp c''8:16 \\noBeam d''8:32 \\noBeam \\stemDown e'8:16 \\noBeam"
 
         EoNumber {
             sid: "tremoloFlagOffsetStraight"
+            music: "\\stemUp c'8:16"
+            musicStyle: ({ useStraightNoteFlags: true })
             title: qsTrc("notation/engravingoptions", "Extra distance from stem end, straight flag")
             hint: qsTrc("notation/engravingoptions",
                          "Single-note tremolo on a note with straight flags: distance added between the stem end and the tremolo to leave room for the flag.")
@@ -60,6 +64,8 @@ EoPage {
 
         EoNumber {
             sid: "tremoloMultiFlagOffsetStraight"
+            music: "\\stemUp c'16:8"
+            musicStyle: ({ useStraightNoteFlags: true })
             title: qsTrc("notation/engravingoptions", "Further distance for two or more straight flags")
             hint: qsTrc("notation/engravingoptions",
                          "Single-note tremolo on a note with two or more straight flags: distance added on top of the straight-flag distance.")
@@ -68,6 +74,7 @@ EoPage {
 
         EoNumber {
             sid: "tremoloMultiFlagOffset"
+            music: "\\stemUp c'16:8"
             title: qsTrc("notation/engravingoptions", "Further distance for two or more curved flags")
             hint: qsTrc("notation/engravingoptions",
                          "Single-note tremolo on a note with two or more curved flags: distance added on top of the curved-flag distance.")
@@ -76,6 +83,7 @@ EoPage {
 
         EoNumber {
             sid: "tremoloBuzzRollOffsetUp"
+            music: "\\stemUp c'4:z"
             title: qsTrc("notation/engravingoptions", "Buzz roll extra distance from stem end, stem up")
             hint: qsTrc("notation/engravingoptions",
                          "Distance added between the stem end and a buzz roll on an up-stem note.")
@@ -93,9 +101,11 @@ EoPage {
 
     EoSection {
         title: qsTrc("notation/engravingoptions", "Two-note tremolos")
+        music: "\\tremolo 16 { c'2 g'2 }"
 
         EoNumber {
             sid: "tremoloTwoNoteStemGap"
+            music: "\\tremolo 32 { c''2 e''2 }"
             title: qsTrc("notation/engravingoptions", "Gap between strokes and stems")
             hint: qsTrc("notation/engravingoptions",
                          "Two-note tremolo in the default style (and the inner strokes of the traditional alternate style): horizontal gap between each stem and the ends of the strokes.")
@@ -104,6 +114,7 @@ EoPage {
 
         EoNumber {
             sid: "tremoloTwoNoteMinStrokeLength"
+            music: "\\tremolo 16 { c''8 d''8 }"
             title: qsTrc("notation/engravingoptions", "Shortest stroke before the gap is reduced")
             hint: qsTrc("notation/engravingoptions",
                          "Two-note tremolo between closely spaced notes: if the strokes would become shorter than this, the gap to the stems is reduced to lengthen them.")
@@ -112,6 +123,7 @@ EoPage {
 
         EoNumber {
             sid: "tremoloTwoNoteMinStemGap"
+            music: "\\tremolo 16 { c''8 d''8 }"
             title: qsTrc("notation/engravingoptions", "Smallest gap between strokes and stems")
             hint: qsTrc("notation/engravingoptions",
                          "Two-note tremolo between closely spaced notes: the gap to the stems is never reduced below this value.")

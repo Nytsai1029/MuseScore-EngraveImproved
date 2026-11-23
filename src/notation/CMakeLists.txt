@@ -209,6 +209,12 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/engravingpreview.h
     ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/engravingpreviewrenderer.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/engravingpreviewrenderer.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/previewhandle.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/previewhandle.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/previewmusic.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/previewmusic.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/previewoverlay.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/previewoverlay.h
     ${CMAKE_CURRENT_LIST_DIR}/view/engravemodemodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/engravemodemodel.h
     ${CMAKE_CURRENT_LIST_DIR}/view/linepreview.cpp

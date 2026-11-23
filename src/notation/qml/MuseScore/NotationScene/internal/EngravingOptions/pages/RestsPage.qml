@@ -33,8 +33,10 @@ EoPage {
     title: qsTrc("EditStyleBase", "Rests")
     group: qsTrc("notation/engravingoptions", "Notes and rests")
 
+
     EoSection {
         title: qsTrc("EditStyleBase", "Rests")
+        music: "R1 | R1 | R1 | R1"
 
         EoToggle {
             sid: "createMultiMeasureRests"
@@ -43,6 +45,8 @@ EoPage {
 
         EoNumber {
             sid: "minEmptyMeasures"
+            music: "R1"
+            musicStyle: ({ createMultiMeasureRests: true })
             title: qsTrc("EditStyleBase", "Minimum number of empty measures:")
             min: 1
             max: 99
@@ -53,12 +57,16 @@ EoPage {
 
         EoToggle {
             sid: "oldStyleMultiMeasureRests"
+            music: "R1 | R1 | R1 | R1 | c''1"
+            musicStyle: ({ createMultiMeasureRests: true })
             title: qsTrc("notation/engravingoptions", "Use old-style multimeasure rests")
             enabled: Boolean(page.value("createMultiMeasureRests"))
         }
 
         EoNumber {
             sid: "mmRestOldStyleMaxMeasures"
+            music: "R1 | R1 | R1 | R1 | R1 | R1 | R1 | R1 | R1 | R1"
+            musicStyle: ({ createMultiMeasureRests: true, oldStyleMultiMeasureRests: true })
             title: qsTrc("EditStyleBase", "Maximum number of measures:")
             max: 99
             step: 1
@@ -68,6 +76,8 @@ EoPage {
 
         EoNumber {
             sid: "mmRestOldStyleSpacing"
+            music: "R1 | R1 | R1 | R1 | R1 | R1 | R1 | R1"
+            musicStyle: ({ createMultiMeasureRests: true, oldStyleMultiMeasureRests: true })
             title: qsTrc("EditStyleBase", "Spacing of symbols:")
             max: 4
             step: 0.01
@@ -80,6 +90,8 @@ EoPage {
 
         EoToggle {
             sid: "singleMeasureMMRestShowNumber"
+            music: "R1 | c''1"
+            musicStyle: ({ createMultiMeasureRests: true, minEmptyMeasures: 1 })
             title: qsTrc("notation/engravingoptions", "Show number ‘1’")
             enabled: Boolean(page.value("createMultiMeasureRests"))
         }
@@ -90,6 +102,8 @@ EoPage {
 
         EoNumber {
             sid: "mmRestReferenceWidth"
+            music: "R1 | R1 | R1 | R1 | c''1"
+            musicStyle: ({ createMultiMeasureRests: true })
             title: qsTrc("notation/engravingoptions", "Reference width (in quarter notes)")
             min: 2
             max: 8
@@ -101,6 +115,8 @@ EoPage {
 
         EoNumber {
             sid: "minMMRestWidth"
+            music: "R1 | R1 | R1 | R1 | c''1"
+            musicStyle: ({ createMultiMeasureRests: true })
             title: qsTrc("EditStyleBase", "Minimum width:")
             min: 2
             step: 1.0
@@ -109,6 +125,8 @@ EoPage {
 
         EoNumber {
             sid: "mmRestMaxWidthIncrease"
+            music: "R1 | R1 | R1 | R1 | R1 | R1 | R1 | R1 | R1 | R1 | R1 | R1"
+            musicStyle: ({ createMultiMeasureRests: true })
             title: qsTrc("EditStyleBase", "Cap width after:")
             max: 99
             step: 1
@@ -122,6 +140,8 @@ EoPage {
 
         EoNumber {
             sid: "mmRestNumberPos"
+            music: "R1 | R1 | R1 | R1 | c''1"
+            musicStyle: ({ createMultiMeasureRests: true })
             title: qsTrc("EditStyleBase", "Vertical position:")
             min: -99.99
             step: 0.5
@@ -130,12 +150,16 @@ EoPage {
 
         EoToggle {
             sid: "mmRestNumberMaskHBar"
+            music: "R1 | R1 | R1 | R1 | c''1"
+            musicStyle: ({ createMultiMeasureRests: true })
             title: qsTrc("EditStyleBase", "Break H-bar if number overlaps")
             enabled: Boolean(page.value("createMultiMeasureRests"))
         }
 
         EoToggle {
             sid: "mmRestBetweenStaves"
+            music: "\\staves 2 R1 | R1 | R1 | c''1"
+            musicStyle: ({ createMultiMeasureRests: true })
             title: qsTrc("EditStyleBase", "Center between staves on multi-staff instruments")
             enabled: Boolean(page.value("createMultiMeasureRests"))
         }
@@ -146,6 +170,8 @@ EoPage {
 
         EoNumber {
             sid: "mmRestHBarThickness"
+            music: "R1 | R1 | R1 | R1 | c''1"
+            musicStyle: ({ createMultiMeasureRests: true })
             title: qsTrc("EditStyleBase", "Horizontal stroke thickness:")
             max: 4
             step: 0.1
@@ -154,6 +180,8 @@ EoPage {
 
         EoNumber {
             sid: "multiMeasureRestMargin"
+            music: "R1 | R1 | R1 | R1 | c''1"
+            musicStyle: ({ createMultiMeasureRests: true })
             title: qsTrc("EditStyleBase", "Margin within barlines:")
             step: 0.1
             enabled: Boolean(page.value("createMultiMeasureRests"))
@@ -161,6 +189,8 @@ EoPage {
 
         EoNumber {
             sid: "mmRestHBarVStrokeThickness"
+            music: "R1 | R1 | R1 | R1 | c''1"
+            musicStyle: ({ createMultiMeasureRests: true })
             title: qsTrc("EditStyleBase", "Vertical stroke thickness:")
             max: 4
             enabled: Boolean(page.value("createMultiMeasureRests"))
@@ -168,6 +198,8 @@ EoPage {
 
         EoNumber {
             sid: "mmRestHBarVStrokeHeight"
+            music: "R1 | R1 | R1 | R1 | c''1"
+            musicStyle: ({ createMultiMeasureRests: true })
             title: qsTrc("EditStyleBase", "Vertical stroke height:")
             max: 10
             step: 0.5
@@ -180,6 +212,7 @@ EoPage {
 
         EoNumber {
             sid: "restChordMinClearance"
+            music: "<< { r8 r8 r4 r2 } \\\\ { b'4 r4 r2 } >>"
             title: qsTrc("notation/engravingoptions", "Rest to notes of another voice")
             hint: qsTrc("notation/engravingoptions",
                          "Minimum vertical gap between a rest and the notes of another voice at the same position; applies to all rests except whole and half rests.")
@@ -188,6 +221,7 @@ EoPage {
 
         EoNumber {
             sid: "restChordMinClearanceWholeHalf"
+            music: "<< { r2 r2 } \\\\ { c'''2 c'''2 } >>"
             title: qsTrc("notation/engravingoptions", "Whole and half rests to notes of another voice")
             hint: qsTrc("notation/engravingoptions",
                          "Minimum vertical gap between a whole or half rest and the notes of another voice at the same position.")
@@ -196,6 +230,7 @@ EoPage {
 
         EoNumber {
             sid: "restRestMinClearance"
+            music: "<< { r4 r4 r4 r4 } \\\\ { r1 } >>"
             title: qsTrc("notation/engravingoptions", "Rest to rest of another voice")
             hint: qsTrc("notation/engravingoptions",
                          "Minimum vertical gap between the rests of two voices at the same position.")
@@ -204,6 +239,7 @@ EoPage {
 
         EoNumber {
             sid: "fullMeasureRestMinHorizontalClearance"
+            music: "<< { R1 } \\\\ { c'4 e'4 c'''4 e'4 } >>"
             title: qsTrc("notation/engravingoptions", "Full-measure rest: horizontal range checked for collisions")
             hint: qsTrc("notation/engravingoptions",
                          "In multi-voice measures, notes of other voices closer than this horizontally to a full-measure rest can push the rest up or down.")
@@ -213,6 +249,7 @@ EoPage {
 
         EoNumber {
             sid: "fullMeasureRestMinVerticalClearance"
+            music: "<< { R1 } \\\\ { c'4 e'4 c'''4 e'4 } >>"
             title: qsTrc("notation/engravingoptions", "Full-measure rest: vertical clearance from other voices")
             hint: qsTrc("notation/engravingoptions",
                          "Minimum vertical gap between a full-measure rest and nearby notes of other voices in the same measure.")

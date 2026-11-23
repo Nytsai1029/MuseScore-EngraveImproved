@@ -134,7 +134,8 @@ Item {
         wrapMode: Text.WordWrap
 
         text: qsTrc("notation/engravingoptions",
-                    "Every value of the style, by the name it has in a style file. Distances are in staff spaces unless the name says otherwise.")
+                    "Every value of the style, by the name it has in a style file. "
+                    + "Distances are in staff spaces unless the name says otherwise.")
         font: AtStyle.font(12)
         color: AtStyle.text3
     }

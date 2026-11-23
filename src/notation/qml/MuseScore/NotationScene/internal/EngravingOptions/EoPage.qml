@@ -36,6 +36,17 @@ QtObject {
 
     property string title: ""
 
+    //! NOTE: the music of the options of the page which have none of their own, and whose section has none
+    property string music: ""
+
+    //! NOTE: style values by name which the picture of the music sets whatever the score has (the situation
+    //! needs a style switch); merged with those of the section and the page, the nearer one wins
+    property var musicStyle: ({})
+
+    //! NOTE: the width of the systems the music is laid out with, in staff spaces (0: as wide as the
+    //! music needs). It belongs to the music: it counts on the object which gives it
+    property real systemWidth: 0
+
     //! NOTE: the title of the group of pages in the list which the page belongs to
     property string group: ""
 

@@ -1,0 +1,62 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * MuseScore-CLA-applies
+ *
+ * MuseScore
+ * Music Composition & Notation
+ *
+ * Copyright (C) 2026 MuseScore Limited and others
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+#pragma once
+
+#include <optional>
+
+#include <QColor>
+#include <QPointF>
+#include <QPolygonF>
+#include <QRectF>
+#include <QVector>
+
+class QPainter;
+
+namespace mu::notation {
+//! NOTE What a preview draws over its picture to show what an option does: a wash behind the items which the
+//! option changes, the handle which is dragged to change it, and the control points of slurs and ties.
+//! All of it in the pixels of the item, so it can be painted without a score
+class PreviewOverlay
+{
+public:
+    struct Handle {
+        QPointF position;
+        QPointF direction;      // a unit vector
+    };
+
+    QVector<QRectF> washes;
+    std::optional<Handle> handle;
+    QVector<QPolygonF> controlPolygons;     // start, bezier 1, bezier 2, end of each curve
+
+    QColor accent;
+
+    //! NOTE The washes, painted behind the music so that it is not smeared
+    void paintBelow(QPainter* painter) const;
+    //! NOTE The control polygons and the handle, painted over the music
+    void paintAbove(QPainter* painter) const;
+
+private:
+    void paintWashes(QPainter* painter) const;
+    void paintControlPolygons(QPainter* painter) const;
+    void paintHandle(QPainter* painter) const;
+};
+}

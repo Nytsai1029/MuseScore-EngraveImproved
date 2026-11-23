@@ -44631,5 +44631,30 @@ The score will be saved as:
         <source>Spreads the staves and systems over the height of the page.</source>
         <translation>把谱表与系统在页面高度上均匀铺开。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="151"/>
+        <source>Show the option on</source>
+        <translation>显示该选项作用于</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="154"/>
+        <source>Single notes</source>
+        <translation>单音符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="155"/>
+        <source>Chords</source>
+        <translation>和弦</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewPane.qml" line="173"/>
+        <source>Show handles</source>
+        <translation>显示拖动手柄</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewPane.qml" line="301"/>
+        <source>This music does not show the option.</source>
+        <translation>这段乐谱无法显示该选项的效果。</translation>
+    </message>
 </context>
 </TS>

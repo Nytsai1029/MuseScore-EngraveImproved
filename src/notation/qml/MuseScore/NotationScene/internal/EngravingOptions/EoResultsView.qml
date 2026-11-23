@@ -42,6 +42,8 @@ StyledFlickable {
     property var searchWords: []
     property bool modifiedOnly: false
 
+    property var session: null
+
     property NavigationPanel navigationPanel: null
 
     readonly property int sideMargin: 28
@@ -123,6 +125,7 @@ StyledFlickable {
                     sourceComponent: EoPageContent {
                         page: pageItem.page
                         optionsModel: root.optionsModel
+                        session: root.session
 
                         searchWords: root.searchWords
                         modifiedOnly: root.modifiedOnly

@@ -39,10 +39,13 @@ set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/engravingoptionsmodel_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/engravingoptionspages_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/engravingpreview_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/engravingpreview_contactsheets.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ledgerguides_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/linepreview_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/notationruler_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/notationviewinputcontroller_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/previewmusic_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/previewoverlay_tests.cpp
 )
 
 set(MODULE_TEST_LINK
