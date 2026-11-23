@@ -45,8 +45,8 @@ Interface check (QML, dialogs, panels): operate the installed app without a scre
 `tools/uitest/run.sh <script.js> [score]` runs an autobot script in the GUI (`--test-case … --test-case-gui`) in
 the `uitest` profile — `MUSE_APP_PROFILE` gives the app its own settings, user data and instance group, so nothing
 of the real user is touched (Atelier skin, zh_CN, dark by default; `UITEST_SKIN` / `UITEST_THEME` /
-`UITEST_LANGUAGE` change that). A script dispatches actions (`api.dispatcher.dispatch`), moves with
-`api.navigation` / `api.keyboard`, and saves a PNG of every open window with
+`UITEST_LANGUAGE` change that, `UITEST_DPR=2` gives the screen a Retina pixel ratio). A script dispatches actions
+(`api.dispatcher.dispatch`), moves with `api.navigation` / `api.keyboard`, and saves a PNG of every open window with
 `api.autobot.saveScreenshots(dir)`; start from `tools/uitest/examples/screenshots.js`. Results are in
 `tmp/uitest/<script>/` (`app.log` has the QML errors). Give it a score in the current format: an older file stops
 at the migration dialog. Shadows and other shader effects are not drawn (software renderer).

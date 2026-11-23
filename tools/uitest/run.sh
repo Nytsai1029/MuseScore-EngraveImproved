@@ -34,6 +34,7 @@ readonly SKIN="${UITEST_SKIN:-atelier}"
 readonly THEME="${UITEST_THEME:-dark}"
 readonly LANGUAGE="${UITEST_LANGUAGE:-zh_CN}"
 readonly SCREEN_SIZE="${UITEST_SCREEN_SIZE:-1600x1000}"
+readonly DPR="${UITEST_DPR:-1}"
 readonly TIMEOUT="${UITEST_TIMEOUT:-120}"
 readonly MSCORE_BIN="${UITEST_MSCORE:-${ROOT}/build.install/mscore.app/Contents/MacOS/mscore}"
 
@@ -51,6 +52,7 @@ function usage() {
         "  UITEST_THEME        theme: light, dark [${THEME}]" \
         "  UITEST_LANGUAGE     interface language [${LANGUAGE}]" \
         "  UITEST_SCREEN_SIZE  size of the screen which the app sees [${SCREEN_SIZE}]" \
+        "  UITEST_DPR          device pixel ratio of that screen (2: a Retina screen) [${DPR}]" \
         "  UITEST_TIMEOUT      seconds after which the app is killed [${TIMEOUT}]" \
         "  UITEST_MSCORE       the app to run [build.install/…/mscore]"
 }
@@ -89,8 +91,11 @@ function main() {
     # whose names may have other characters
     local -r screen_config="$(mktemp "${TMPDIR:-/tmp}/uitest-screen.XXXXXX")"
     trap 'rm -f "${screen_config}"' EXIT
-    printf '{ "screens": [ { "name": "uitest", "x": 0, "y": 0, "width": %s, "height": %s } ] }\n' \
-        "${SCREEN_SIZE%x*}" "${SCREEN_SIZE#*x}" > "${screen_config}"
+    #! NOTE Windows derive their scale factor from logicalDpi / logicalBaseDpi (QHighDpiScaling);
+    # the "dpr" key alone only changes QScreen::devicePixelRatio, not the raster pipeline.
+    # width/height are native pixels, so the logical size stays UITEST_SCREEN_SIZE at any DPR.
+    printf '{ "screens": [ { "name": "uitest", "x": 0, "y": 0, "width": %s, "height": %s, "dpr": %s, "logicalDpi": %s, "logicalBaseDpi": 96 } ] }\n' \
+        "$((${SCREEN_SIZE%x*} * DPR))" "$((${SCREEN_SIZE#*x} * DPR))" "${DPR}" "$((96 * DPR))" > "${screen_config}"
 
     write_settings
 
