@@ -34,11 +34,15 @@ EoPage {
     group: qsTrc("notation/engravingoptions", "Layout")
 
     EoSection {
-        title: qsTrc("EditStyleBase", "Horizontal spacing")
+        title: qsTrc("notation/engravingoptions", "Note spacing")
 
         EoNumber {
             sid: "spacingDensity"
+            music: "c''2 c''4 c''8 c''16 c''16"
             title: qsTrc("EditStyleBase", "System density:")
+            hint: qsTrc("notation/engravingoptions",
+                        "How tightly the notes are packed before each system is stretched out to the right margin: " +
+                        "higher values put more measures on a system, lower values fewer.")
             min: 10
             max: 1000
             step: 1.0
@@ -48,7 +52,11 @@ EoPage {
 
         EoNumber {
             sid: "measureSpacing"
+            music: "c''2 c''4 c''8 c''16 c''16"
             title: qsTrc("EditStyleBase", "Spacing ratio:")
+            hint: qsTrc("notation/engravingoptions",
+                        "How much more room a note gets when its value doubles: with 1.5 a half note takes one and a " +
+                        "half times the space of a quarter note, with 2 twice as much.")
             min: 1
             max: 2
             step: 0.1
@@ -56,15 +64,47 @@ EoPage {
         }
 
         EoNumber {
+            sid: "spacingQuarterNoteSpace"
+            music: "c''4 d'' e'' f''"
+            title: qsTrc("notation/engravingoptions", "Space for a quarter note")
+            hint: qsTrc("notation/engravingoptions",
+                        "The width a quarter note is given before the system is stretched or compressed to the line; " +
+                        "the other note values follow from it by the spacing ratio.")
+            min: 0.5
+            max: 10
+            step: 0.1
+        }
+
+        EoNumber {
+            sid: "minNoteDistance"
+            music: "c''32[ c'' c'' c''] c''32[ c'' c'' c'']"
+            title: qsTrc("EditStyleBase", "Note to note:")
+            hint: qsTrc("notation/engravingoptions",
+                        "The least gap between consecutive notes, and between a note and the stem of the next; it is " +
+                        "what keeps very short notes apart in a crowded system.")
+            step: 0.1
+        }
+
+        EoNumber {
             sid: "minMeasureWidth"
+            music: "\\time 1/4 c''4 | c''4"
             title: qsTrc("EditStyleBase", "Minimum measure width:")
+            hint: qsTrc("notation/engravingoptions",
+                        "No full measure is narrower than this, however little it holds; a shorter measure, such as " +
+                        "a pickup, gets a proportional part of it.")
             min: 2
             step: 1.0
         }
 
         EoNumber {
             sid: "lastSystemFillLimit"
+            music: "c''4 d'' e'' f''"
+            systemWidth: 36
             title: qsTrc("EditStyleBase", "Last system fill threshold:")
+            hint: qsTrc("notation/engravingoptions",
+                        "The last system of the score, or of a section, is stretched to the right margin only if its " +
+                        "music already fills at least this much of the width; otherwise it ends where the music " +
+                        "ends.")
             max: 100
             step: 1
             decimals: 0
@@ -73,212 +113,791 @@ EoPage {
     }
 
     EoSection {
-        title: qsTrc("EditStyleBase", "Padding")
-
-        EoNumber {
-            sid: "clefKeyDistance"
-            title: qsTrc("EditStyleBase", "Clef to key signature:")
-            step: 0.01
-        }
-
-        EoNumber {
-            sid: "clefTimesigDistance"
-            title: qsTrc("EditStyleBase", "Clef to time signature:")
-            step: 0.01
-        }
-
-        EoNumber {
-            sid: "keyTimesigDistance"
-            title: qsTrc("EditStyleBase", "Key signature to time signature:")
-            step: 0.01
-        }
-
-        EoNumber {
-            sid: "clefKeyRightMargin"
-            title: qsTrc("EditStyleBase", "Clef to note:")
-        }
-
-        EoNumber {
-            sid: "minNoteDistance"
-            title: qsTrc("EditStyleBase", "Note to note:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "noteBarDistance"
-            title: qsTrc("EditStyleBase", "Note to barline:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "barNoteDistance"
-            title: qsTrc("EditStyleBase", "Barline to note:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "barAccidentalDistance"
-            title: qsTrc("EditStyleBase", "Barline to accidental:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "barGraceDistance"
-            title: qsTrc("EditStyleBase", "Barline to grace note:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "clefLeftMargin"
-            title: qsTrc("EditStyleBase", "Barline to clef:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "clefBarlineDistance"
-            title: qsTrc("EditStyleBase", "Clef to barline:")
-            step: 0.01
-        }
-
-        EoNumber {
-            sid: "keysigLeftMargin"
-            title: qsTrc("EditStyleBase", "Barline to key signature:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "keyBarlineDistance"
-            title: qsTrc("EditStyleBase", "Key signature to barline:")
-            step: 0.01
-        }
-
-        EoNumber {
-            sid: "timesigLeftMargin"
-            title: qsTrc("EditStyleBase", "Barline to time signature:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "timesigBarlineDistance"
-            title: qsTrc("EditStyleBase", "Time signature to barline:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "headerToLineStartDistance"
-            title: qsTrc("EditStyleBase", "System header to continued tie or line:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "barlineToLineStartDistance"
-            title: qsTrc("EditStyleBase", "Barline to continued tie or line:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "lineEndToBarlineDistance"
-            title: qsTrc("EditStyleBase", "Continued tie or line to barline:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "systemTrailerRightMargin"
-            title: qsTrc("EditStyleBase", "Right margin after courtesy signatures:")
-            step: 0.1
-        }
-    }
-
-    EoSection {
-        title: qsTrc("EditStyleBase", "System header")
-
-        EoNumber {
-            sid: "systemHeaderDistance"
-            title: qsTrc("EditStyleBase", "Clef/key signature to first note:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "systemHeaderTimeSigDistance"
-            title: qsTrc("EditStyleBase", "Time signature to first note:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "systemHeaderMinStartOfSystemDistance"
-            title: qsTrc("EditStyleBase", "Start of the system to first note:")
-            step: 1.0
-        }
-    }
-
-    EoSection {
-        title: qsTrc("EditStyleBase", "Japanese-style spacing")
+        title: qsTrc("notation/engravingoptions", "Japanese-style spacing")
 
         EoToggle {
             sid: "useAdaptiveSpacingRatio"
+            music: "c''2 c''4 c''8 c''16 c''16"
             title: qsTrc("EditStyleBase", "Vary spacing ratio by note density of each system")
+            hint: qsTrc("notation/engravingoptions",
+                        "Every system gets its own spacing ratio, between the two set below: a system crowded with " +
+                        "notes the dense-line ratio, which leaves more room for short notes, an open system the " +
+                        "sparse-line ratio.")
         }
 
         EoNumber {
             sid: "spacingRatioDense"
+            music: "c''16 c'' c'' c'' c''8 c'' c''4 c''2"
+            systemWidth: 30
+            musicStyle: ({ useAdaptiveSpacingRatio: true })
             title: qsTrc("EditStyleBase", "Dense-line spacing ratio:")
+            hint: qsTrc("notation/engravingoptions",
+                        "The spacing ratio of a system crowded with notes; a smaller ratio gives the short notes a " +
+                        "larger share of the line.")
             min: 1
             max: 2
             step: 0.1
             decimals: 3
+        }
+
+        EoNumber {
+            sid: "spacingRatioDenseThreshold"
+            music: "c''2 c''4 c''8 c''8"
+            systemWidth: 24
+            musicStyle: ({ useAdaptiveSpacingRatio: true })
+            title: qsTrc("notation/engravingoptions", "Note density of a dense line")
+            hint: qsTrc("notation/engravingoptions",
+                        "From this many notes for every staff space of its width, a system gets the full dense-line " +
+                        "ratio: 0.4 is a note every 2.5 staff spaces (a line of sixteenth notes is about 0.5). Notes " +
+                        "struck together count once; keep the value above that of a sparse line.")
+            min: 0.31
+            max: 2
+            step: 0.01
         }
 
         EoNumber {
             sid: "spacingRatioSparse"
+            music: "c''1 | c''2 c''4 c''4"
+            musicStyle: ({ useAdaptiveSpacingRatio: true })
             title: qsTrc("EditStyleBase", "Sparse-line spacing ratio:")
+            hint: qsTrc("notation/engravingoptions",
+                        "The spacing ratio of a system with few notes; a larger ratio spreads the long notes more " +
+                        "nearly in proportion to their value.")
             min: 1
             max: 2
             step: 0.1
             decimals: 3
         }
 
-        EoToggle {
-            sid: "keepEqualDurationSpacing"
-            title: qsTrc("EditStyleBase", "Keep equal spacing for equal note values (per system)")
-        }
-
-        EoToggle {
-            sid: "crossStaffBeamSpacingOffset"
-            title: qsTrc("EditStyleBase", "Offset spacing of cross-staff beamed notes")
-        }
-    }
-
-    EoSection {
-        title: qsTrc("notation/engravingoptions", "Rhythmic spacing")
-
-        EoNumber {
-            sid: "spacingQuarterNoteSpace"
-            title: qsTrc("notation/engravingoptions", "Space for a quarter note")
-            hint: qsTrc("notation/engravingoptions",
-                         "Width given to a quarter note before the spacing density and justification are applied; other note values follow from it through the spacing ratio.")
-            min: 0.5
-            max: 10
-            step: 0.1
-        }
-
         EoNumber {
             sid: "spacingRatioSparseThreshold"
-            title: qsTrc("notation/engravingoptions", "Sparse-line density threshold")
+            music: "c''1 | c''2 c''2"
+            musicStyle: ({ useAdaptiveSpacingRatio: true })
+            title: qsTrc("notation/engravingoptions", "Note density of a sparse line")
             hint: qsTrc("notation/engravingoptions",
-                         "Note density (notes per staff space of system width) at or below which a system gets the sparse-line spacing ratio; between the two thresholds the ratio is interpolated.")
+                        "Up to this many notes for every staff space of its width, a system gets the full " +
+                        "sparse-line ratio: 0.1 is a note every ten staff spaces (a line of whole notes is about " +
+                        "0.08). Between the two values the ratio changes gradually.")
             min: 0.01
             max: 0.3
             step: 0.01
         }
 
-        EoNumber {
-            sid: "spacingRatioDenseThreshold"
-            title: qsTrc("notation/engravingoptions", "Dense-line density threshold")
+        EoToggle {
+            sid: "keepEqualDurationSpacing"
+            music: "<< { c''4 c''4 } \\\\ { a'8 a' a' a' } >>"
+            title: qsTrc("EditStyleBase", "Keep equal spacing for equal note values (per system)")
             hint: qsTrc("notation/engravingoptions",
-                         "Note density (notes per staff space of system width) at or above which a system gets the dense-line spacing ratio; keep it above the sparse-line threshold.")
-            min: 0.31
-            max: 2
-            step: 0.01
+                        "Notes of the same value get the same width everywhere in a system, also where the voices " +
+                        "move in different rhythms, such as triplets against eighth notes.")
+        }
+
+        EoToggle {
+            sid: "crossStaffBeamSpacingOffset"
+            music: "\\staves 2 c''8[ \\crossStaff down e'8 c''8 \\crossStaff down e'8]"
+            title: qsTrc("EditStyleBase", "Offset spacing of cross-staff beamed notes")
+            hint: qsTrc("notation/engravingoptions",
+                        "Under a beam which crosses between staves, a stem-up note followed by a stem-down note is " +
+                        "set a notehead’s width further apart, and the opposite pair as much closer, so that the " +
+                        "stems rather than the noteheads are evenly spaced.")
+        }
+    }
+
+    EoSection {
+        title: qsTrc("notation/engravingoptions", "Start of the system")
+
+        EoNumber {
+            sid: "systemHeaderDistance"
+            music: "c''4 d''4"
+            title: qsTrc("EditStyleBase", "Clef/key signature to first note:")
+            hint: qsTrc("notation/engravingoptions",
+                        "The distance from the clef or key signature which begins the system to the first notehead; " +
+                        "an accidental before that note reaches into this space.")
+            step: 0.1
+        }
+
+        EoNumber {
+            sid: "systemHeaderTimeSigDistance"
+            music: "\\time 2/4 c''4 d''4"
+            title: qsTrc("EditStyleBase", "Time signature to first note:")
+            hint: qsTrc("notation/engravingoptions",
+                        "The distance from the time signature which begins the system to the first notehead; an " +
+                        "accidental before that note reaches into this space.")
+            step: 0.1
+        }
+
+        EoNumber {
+            sid: "systemHeaderMinStartOfSystemDistance"
+            music: "c''4 d''4"
+            title: qsTrc("EditStyleBase", "Start of the system to first note:")
+            hint: qsTrc("notation/engravingoptions",
+                        "The first note stands at least this far from the left end of the staff; it shows where a " +
+                        "system begins without clef or key signature.")
+            step: 1.0
+        }
+
+        EoNumber {
+            sid: "systemHeaderMinClearDistance"
+            music: "\\key 3 <ceses'' eses''>4 d''4"
+            title: qsTrc("notation/engravingoptions", "Free space after the clef, key or time signature")
+            hint: qsTrc("notation/engravingoptions",
+                        "At least this much stays empty between the clef, key or time signature which begins the " +
+                        "system and whatever comes first after it: the accidentals of the first note, or a " +
+                        "start-repeat barline.")
+            max: 5
+        }
+
+        EoNumber {
+            sid: "headerToLineStartDistance"
+            music: "c''2~ | \\break c''2"
+            systemWidth: 16
+            title: qsTrc("EditStyleBase", "System header to continued tie or line:")
+            hint: qsTrc("notation/engravingoptions",
+                        "Where a tie, slur or other line carried over from the previous system begins: this far " +
+                        "after the clef, key or time signature.")
+            step: 0.1
+        }
+
+        EoNumber {
+            sid: "barlineToLineStartDistance"
+            music: "c''2~ | \\break c''2"
+            systemWidth: 16
+            title: qsTrc("EditStyleBase", "Barline to continued tie or line:")
+            hint: qsTrc("notation/engravingoptions",
+                        "Where a tie or line begins which comes out of a barline inside a system, as after a repeat " +
+                        "barline or at the start of a second ending.")
+            step: 0.1
+        }
+
+        EoNumber {
+            sid: "clefLeftMargin"
+            music: "c''4 d''4"
+            title: qsTrc("EditStyleBase", "Barline to clef:")
+            hint: qsTrc("notation/engravingoptions",
+                        "The distance from the left end of the staff to the clef at the start of every system; also " +
+                        "the gap before a clef which stands after a barline.")
+            step: 0.1
+        }
+
+        EoNumber {
+            sid: "keysigLeftMargin"
+            music: "c''4 | \\key 2 d''4"
+            title: qsTrc("EditStyleBase", "Barline to key signature:")
+            hint: qsTrc("notation/engravingoptions",
+                        "The gap before a key signature which follows a barline: a change of key, or the courtesy " +
+                        "key signature at the end of a system.")
+            step: 0.1
+        }
+
+        EoNumber {
+            sid: "timesigLeftMargin"
+            music: "c''4 | \\time 3/4 d''4"
+            title: qsTrc("EditStyleBase", "Barline to time signature:")
+            hint: qsTrc("notation/engravingoptions",
+                        "The gap before a time signature which follows a barline: a change of time, or the courtesy " +
+                        "time signature at the end of a system.")
+            step: 0.1
+        }
+
+        EoNumber {
+            sid: "clefKeyRightMargin"
+            music: "c''8 \\clef bass e8 d8 c8"
+            title: qsTrc("EditStyleBase", "Clef to note:")
+            hint: qsTrc("notation/engravingoptions",
+                        "The least gap between any clef and the note or rest after it. At the start of a system the " +
+                        "larger ‘Clef/key signature to first note’ rules, so this shows at clef changes.")
+        }
+    }
+
+    EoSection {
+        title: qsTrc("notation/engravingoptions", "End of the system")
+
+        EoNumber {
+            sid: "lineEndToBarlineDistance"
+            music: "c''2_\"la-\" | \\break c''2_\"la\""
+            systemWidth: 16
+            title: qsTrc("EditStyleBase", "Continued tie or line to barline:")
+            hint: qsTrc("notation/engravingoptions",
+                        "Where a tie, slur or other line which goes on in the next system ends: this far before the " +
+                        "last barline.")
+            step: 0.1
+        }
+
+        EoNumber {
+            sid: "systemTrailerRightMargin"
+            music: "c''2 | \\break \\key 2 d''2"
+            systemWidth: 16
+            title: qsTrc("EditStyleBase", "Right margin after courtesy signatures:")
+            hint: qsTrc("notation/engravingoptions",
+                        "The space left after a courtesy clef, key or time signature at the end of a system, before " +
+                        "the right end of the staff.")
+            step: 0.1
+        }
+    }
+
+    EoSection {
+        title: qsTrc("notation/engravingoptions", "Padding between items")
+        hint: qsTrc("notation/engravingoptions",
+                    "The smallest gap between an item (row) and the item which follows it on its right (column). " +
+                    "Small notes get proportionally less, and so does everything in a system which is compressed to " +
+                    "fit the line.")
+
+        EoNote {
+            title: qsTrc("notation/engravingoptions",
+                         "The smallest gap between an item (row) and the item which follows it (column), in staff " +
+                         "spaces.")
+        }
+
+        EoGrid {
+            hint: qsTrc("notation/engravingoptions",
+                        "The ‘Accidental’ column also applies to a fingering which stands before its note.")
+            cornerTitle: qsTrc("notation/engravingoptions", "From ↓ to →")
+            rowTitles: [
+                qsTrc("notation/engravingoptions", "Note"),
+                qsTrc("notation/engravingoptions", "Flag"),
+                qsTrc("notation/engravingoptions", "Dot"),
+                qsTrc("notation/engravingoptions", "Rest"),
+                qsTrc("notation/engravingoptions", "Stem"),
+                qsTrc("notation/engravingoptions", "Clef"),
+                qsTrc("notation/engravingoptions", "Barline"),
+                qsTrc("notation/engravingoptions", "Key signature"),
+                qsTrc("notation/engravingoptions", "Time signature")
+            ]
+            columnTitles: [
+                qsTrc("notation/engravingoptions", "Note"),
+                qsTrc("notation/engravingoptions", "Accidental"),
+                qsTrc("notation/engravingoptions", "Rest"),
+                qsTrc("notation/engravingoptions", "Stem"),
+                qsTrc("notation/engravingoptions", "Clef"),
+                qsTrc("notation/engravingoptions", "Key signature"),
+                qsTrc("notation/engravingoptions", "Time signature"),
+                qsTrc("notation/engravingoptions", "Barline"),
+                qsTrc("notation/engravingoptions", "Arpeggio")
+            ]
+            compact: true
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "noteAccidentalDistance"
+                music: "\\stemDown c''16 cis''16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Note to accidental")
+                hint: qsTrc("notation/engravingoptions",
+                            "The gap between a note and the accidental of the next note; if the distance set between " +
+                            "an accidental and its own notehead is larger, that is used.")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "noteRestDistance"
+                music: "\\stemDown c''16 r16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Note to rest")
+                hint: qsTrc("notation/engravingoptions", "Also used from a rest to a note and between two rests.")
+                max: 5
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "noteClefDistance"
+                music: "\\stemDown c''16 \\clef bass e16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Note to clef")
+                hint: qsTrc("notation/engravingoptions", "Also used from a rest to a clef.")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "noteKeyDistance"
+                music: "c''4 | \\key 2 c''4"
+                musicStyle: ({ noteBarDistance: 0.0, keysigLeftMargin: 0.0 })
+                title: qsTrc("notation/engravingoptions", "Note to key signature")
+                hint: qsTrc("notation/engravingoptions",
+                            "Seen where a key signature follows a note with no barline between them, as a courtesy " +
+                            "key signature before a repeat barline does.")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "noteTimesigDistance"
+                music: "c''4 | \\time 3/4 c''4"
+                musicStyle: ({ noteBarDistance: 0.0, timesigLeftMargin: 0.0 })
+                title: qsTrc("notation/engravingoptions", "Note to time signature")
+                hint: qsTrc("notation/engravingoptions",
+                            "Seen where a time signature follows a note with no barline between them, as a courtesy " +
+                            "time signature before a repeat barline does.")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "noteBarDistance"
+                music: "\\stemDown c''16 | c''4"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("EditStyleBase", "Note to barline:")
+                hint: qsTrc("notation/engravingoptions", "The room left after the last note of a measure.")
+                step: 0.1
+            }
+
+            EoNumber {
+                sid: "noteArpeggioDistance"
+                music: "\\stemDown c''16 <c'' e''>16 \\arpeggio"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Note to arpeggio")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "flagNoteDistance"
+                music: "\\stemUp \\noBeam g'8 c''16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Flag to note")
+                hint: qsTrc("notation/engravingoptions", "Also used from a flag to a rest.")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "flagAccidentalDistance"
+                music: "\\stemUp \\noBeam g'8 cis''16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Flag to accidental")
+                max: 5
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "flagClefDistance"
+                music: "\\stemUp \\noBeam g'8 \\clef bass e16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Flag to clef")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "flagKeyDistance"
+                music: "\\stemUp \\noBeam g'8 | \\key 2 c''16"
+                musicStyle: ({ flagBarlineDistance: 0.0, keysigLeftMargin: 0.0, spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Flag to key signature")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "flagTimesigDistance"
+                music: "\\stemUp \\noBeam g'8 | \\time 3/4 c''16"
+                musicStyle: ({ flagBarlineDistance: 0.0, timesigLeftMargin: 0.0, spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Flag to time signature")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "flagBarlineDistance"
+                music: "\\stemUp \\noBeam g'8 | c''4"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Flag to barline")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "flagArpeggioDistance"
+                music: "\\stemUp \\noBeam g'8 <c'' e''>16 \\arpeggio"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Flag to arpeggio")
+                max: 5
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "dotAccidentalDistance"
+                music: "c''8. cis''16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Augmentation dot to accidental")
+                max: 5
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "dotClefDistance"
+                music: "c''8. \\clef bass e16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Augmentation dot to clef")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "dotKeyDistance"
+                music: "c''8. | \\key 2 c''16"
+                musicStyle: ({ dotBarlineDistance: 0.0, keysigLeftMargin: 0.0, spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Augmentation dot to key signature")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "dotTimesigDistance"
+                music: "c''8. | \\time 3/4 c''16"
+                musicStyle: ({ dotBarlineDistance: 0.0, timesigLeftMargin: 0.0, spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Augmentation dot to time signature")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "dotBarlineDistance"
+                music: "c''8. | c''4"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Augmentation dot to barline")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "dotArpeggioDistance"
+                music: "c''8. <c'' e''>16 \\arpeggio"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Augmentation dot to arpeggio")
+                max: 5
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "restAccidentalDistance"
+                music: "r16 cis''16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Rest to accidental")
+                max: 5
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "restKeyDistance"
+                music: "r16 | \\key 2 c''16"
+                musicStyle: ({ restBarlineDistance: 0.0, keysigLeftMargin: 0.0, spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Rest to key signature")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "restTimesigDistance"
+                music: "r16 | \\time 3/4 c''16"
+                musicStyle: ({ restBarlineDistance: 0.0, timesigLeftMargin: 0.0, spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Rest to time signature")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "restBarlineDistance"
+                music: "r16 | c''4"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Rest to barline")
+                max: 5
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "stemAccidentalDistance"
+                music: "\\stemUp a'16[ cis''16]"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Stem to accidental")
+                max: 5
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "stemStemDistance"
+                music: "\\stemUp a'16 \\stemDown e''16 \\stemUp a'16 \\stemDown e''16"
+                title: qsTrc("notation/engravingoptions", "Stem to stem")
+                hint: qsTrc("notation/engravingoptions",
+                            "The gap between the stems of neighbouring chords; it shows above all under beams which " +
+                            "cross between staves.")
+                max: 5
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "clefAccidentalDistance"
+                music: "c''16 \\clef bass fis16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Clef to accidental")
+                max: 5
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "clefStemDistance"
+                music: "c''16 \\clef bass \\stemDown g16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Clef to stem")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "clefClefDistance"
+                music: "c''4 \\clef bass e4"
+                title: qsTrc("notation/engravingoptions", "Clef to clef")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "clefKeyDistance"
+                music: "c''4 | \\clef bass \\key 2 e4"
+                musicStyle: ({ clefBarlineDistance: 0.0, keysigLeftMargin: 0.0 })
+                title: qsTrc("EditStyleBase", "Clef to key signature:")
+                step: 0.01
+            }
+
+            EoNumber {
+                sid: "clefTimesigDistance"
+                music: "c''4 | \\clef bass \\time 3/4 e4"
+                musicStyle: ({ clefBarlineDistance: 0.0, timesigLeftMargin: 0.0 })
+                title: qsTrc("EditStyleBase", "Clef to time signature:")
+                step: 0.01
+            }
+
+            EoNumber {
+                sid: "clefBarlineDistance"
+                music: "c''16 \\clef bass | c''4"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("EditStyleBase", "Clef to barline:")
+                hint: qsTrc("notation/engravingoptions",
+                            "The gap after a clef change which stands at the end of a measure.")
+                step: 0.01
+            }
+
+            EoNumber {
+                sid: "clefArpeggioDistance"
+                music: "c''4 \\clef bass <e g>4 \\arpeggio"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Clef to arpeggio")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "barNoteDistance"
+                music: "c''16 | c''16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("EditStyleBase", "Barline to note:")
+                hint: qsTrc("notation/engravingoptions",
+                            "The room left before the first note of a measure; also used from a barline to a rest.")
+                step: 0.1
+            }
+
+            EoNumber {
+                sid: "barAccidentalDistance"
+                music: "c''16 | cis''16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("EditStyleBase", "Barline to accidental:")
+                hint: qsTrc("notation/engravingoptions",
+                            "The gap between a barline and the accidental of the first note after it.")
+                step: 0.1
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "barBarlineDistance"
+                music: "c''4 | c''4"
+                title: qsTrc("notation/engravingoptions", "Barline to barline")
+                hint: qsTrc("notation/engravingoptions",
+                            "The least inner width of a measure whose content takes up no room.")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "barArpeggioDistance"
+                music: "c''16 | <c'' e''>16 \\arpeggio"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Barline to arpeggio")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "keyNoteDistance"
+                music: "c''16 | \\key 2 e''16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Key signature to note")
+                hint: qsTrc("notation/engravingoptions",
+                            "Also used from a key signature to a rest. At the start of a system the larger ‘Clef/key " +
+                            "signature to first note’ rules.")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "keyNoteAccidentalDistance"
+                music: "c''16 | \\key 2 bes'16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Key signature to accidental")
+                hint: qsTrc("notation/engravingoptions",
+                            "The gap between a key signature and the accidental of the first note after it.")
+                max: 5
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "keyClefDistance"
+                music: "c''4 | \\key 2 \\clef bass e4"
+                title: qsTrc("notation/engravingoptions", "Key signature to clef")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "keyKeyDistance"
+                music: "c''4 | \\key 2 c''4 | \\key -2 c''4"
+                title: qsTrc("notation/engravingoptions", "Key signature to key signature")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "keyTimesigDistance"
+                music: "c''4 | \\key 2 \\time 3/4 c''4"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("EditStyleBase", "Key signature to time signature:")
+                hint: qsTrc("notation/engravingoptions", "Also used from a time signature to a key signature.")
+                step: 0.01
+            }
+
+            EoNumber {
+                sid: "keyBarlineDistance"
+                music: "c''4 | \\key 2 c''4 | c''4"
+                title: qsTrc("EditStyleBase", "Key signature to barline:")
+                hint: qsTrc("notation/engravingoptions",
+                            "Seen where a barline follows a key signature: a start-repeat barline after a change of " +
+                            "key, or the barline after a courtesy key signature at a repeat.")
+                step: 0.01
+            }
+
+            EoNumber {
+                sid: "keyArpeggioDistance"
+                music: "c''16 | \\key 2 <c'' e''>16 \\arpeggio"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Key signature to arpeggio")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "timesigNoteDistance"
+                music: "c''16 | \\time 3/4 c''16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Time signature to note")
+                hint: qsTrc("notation/engravingoptions",
+                            "Also used from a time signature to a rest. At the start of a system the larger ‘Time " +
+                            "signature to first note’ rules.")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "timesigAccidentalDistance"
+                music: "c''16 | \\time 3/4 cis''16"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Time signature to accidental")
+                max: 5
+            }
+
+            EoGap {
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "timesigClefDistance"
+                music: "c''4 | \\time 3/4 \\clef bass e4"
+                title: qsTrc("notation/engravingoptions", "Time signature to clef")
+                max: 5
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "timesigTimesigDistance"
+                music: "c''4 | \\time 3/4 c''4 | \\time 2/4 c''4"
+                title: qsTrc("notation/engravingoptions", "Time signature to time signature")
+                max: 5
+            }
+
+            EoNumber {
+                sid: "timesigBarlineDistance"
+                music: "c''4 | \\time 3/4 c''4 | c''4"
+                title: qsTrc("EditStyleBase", "Time signature to barline:")
+                hint: qsTrc("notation/engravingoptions",
+                            "Seen where a barline follows a time signature: a start-repeat barline after a change of " +
+                            "time, or the barline after a courtesy time signature at a repeat.")
+                step: 0.1
+            }
+
+            EoNumber {
+                sid: "timesigArpeggioDistance"
+                music: "c''16 | \\time 3/4 <c'' e''>16 \\arpeggio"
+                musicStyle: ({ spacingDensity: 1.0 })
+                title: qsTrc("notation/engravingoptions", "Time signature to arpeggio")
+                max: 5
+            }
         }
     }
 
@@ -287,477 +906,54 @@ EoPage {
 
         EoNumber {
             sid: "spacingDefaultPadding"
+            music: "<< { c'16 c' c' c' } \\\\ { c'''16 c''' c''' c''' } >>"
             title: qsTrc("notation/engravingoptions", "Default padding between items")
             hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between two items of kinds that have no setting of their own, and between two noteheads that may come closer than the minimum note distance.")
+                        "The gap between two neighbouring items of kinds which have no value of their own in the " +
+                        "table above; also between notes of different voices, which need not keep ‘Note to note’.")
             max: 2
         }
 
         EoNumber {
             sid: "spacingAbsoluteMinPadding"
+            music: "a'16 r16 a'16 r16"
+            musicStyle: ({ noteRestDistance: 0.0, spacingDensity: 1.0 })
             title: qsTrc("notation/engravingoptions", "Least padding between items")
             hint: qsTrc("notation/engravingoptions",
-                         "No pair of items gets less padding than this, whatever its own setting is; like every padding it shrinks when an overfull system is squeezed.")
+                        "No two neighbouring items come closer than this, whatever their own value says; like all " +
+                        "padding it shrinks when a crowded system is compressed.")
             max: 2
         }
 
         EoNumber {
             sid: "kerningVerticalClearance"
-            title: qsTrc("notation/engravingoptions", "Vertical clearance for kerning")
+            music: "c'16 \\stemDown a''16 c'16 \\stemDown a''16"
+            title: qsTrc("notation/engravingoptions", "Vertical gap needed for items to tuck past each other")
             hint: qsTrc("notation/engravingoptions",
-                         "Two items may overlap horizontally (one tucked above or below the other) only if this much vertical space stays between them.")
+                        "Two neighbouring items at different heights, such as a low note after the flag of a high " +
+                        "one, may overlap sideways only while this much vertical space stays between them; with " +
+                        "less, they are set side by side.")
             max: 2
         }
 
         EoNumber {
             sid: "kerningVerticalClearanceAccidental"
-            title: qsTrc("notation/engravingoptions", "Vertical clearance for kerning accidentals")
+            music: "c''16 bes16 c''16 bes16"
+            title: qsTrc("notation/engravingoptions", "Vertical gap needed for an accidental to tuck in")
             hint: qsTrc("notation/engravingoptions",
-                         "Vertical space that must stay between an accidental and the item before it for the accidental to tuck above or below that item.")
+                        "An accidental may slide above or below the item before it, a note or a flag, only while " +
+                        "this much vertical space stays between the two.")
             max: 2
         }
 
         EoNumber {
             sid: "kerningVerticalClearanceParenthesis"
-            title: qsTrc("notation/engravingoptions", "Vertical clearance for kerning parentheses")
+            music: "c''16 a'?16 c''16 a'?16"
+            title: qsTrc("notation/engravingoptions", "Vertical gap needed for a parenthesis to tuck in")
             hint: qsTrc("notation/engravingoptions",
-                         "Vertical space that must stay between a parenthesis and a neighbouring item for one to tuck above or below the other.")
+                        "A parenthesis and its neighbour may overlap sideways only while this much vertical space " +
+                        "stays between them.")
             max: 2
-        }
-    }
-
-    EoSection {
-        title: qsTrc("notation/engravingoptions", "Gaps after notes and rests")
-
-        EoNumber {
-            sid: "noteRestDistance"
-            title: qsTrc("notation/engravingoptions", "Note to rest")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a notehead and a rest that follows it. Also used from a rest to a note and between two rests.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "noteClefDistance"
-            title: qsTrc("notation/engravingoptions", "Note to clef")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a notehead and a clef that follows it. Also used from a rest to a clef.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "noteArpeggioDistance"
-            title: qsTrc("notation/engravingoptions", "Note to arpeggio")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a notehead and an arpeggio that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "noteKeyDistance"
-            title: qsTrc("notation/engravingoptions", "Note to key signature")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a notehead and a key signature that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "noteTimesigDistance"
-            title: qsTrc("notation/engravingoptions", "Note to time signature")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a notehead and a time signature that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "noteAccidentalDistance"
-            title: qsTrc("notation/engravingoptions", "Note to accidental")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a notehead and an accidental that follows it. The accidental to note distance is used instead if it is larger.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "flagNoteDistance"
-            title: qsTrc("notation/engravingoptions", "Flag to note")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a flag and a notehead that follows it. Also used from a flag to a rest.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "flagAccidentalDistance"
-            title: qsTrc("notation/engravingoptions", "Flag to accidental")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a flag and an accidental that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "flagClefDistance"
-            title: qsTrc("notation/engravingoptions", "Flag to clef")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a flag and a clef that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "flagArpeggioDistance"
-            title: qsTrc("notation/engravingoptions", "Flag to arpeggio")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a flag and an arpeggio that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "flagBarlineDistance"
-            title: qsTrc("notation/engravingoptions", "Flag to barline")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a flag and a barline that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "flagKeyDistance"
-            title: qsTrc("notation/engravingoptions", "Flag to key signature")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a flag and a key signature that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "flagTimesigDistance"
-            title: qsTrc("notation/engravingoptions", "Flag to time signature")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a flag and a time signature that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "dotAccidentalDistance"
-            title: qsTrc("notation/engravingoptions", "Augmentation dot to accidental")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between an augmentation dot and an accidental that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "dotClefDistance"
-            title: qsTrc("notation/engravingoptions", "Augmentation dot to clef")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between an augmentation dot and a clef that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "dotArpeggioDistance"
-            title: qsTrc("notation/engravingoptions", "Augmentation dot to arpeggio")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between an augmentation dot and an arpeggio that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "dotBarlineDistance"
-            title: qsTrc("notation/engravingoptions", "Augmentation dot to barline")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between an augmentation dot and a barline that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "dotKeyDistance"
-            title: qsTrc("notation/engravingoptions", "Augmentation dot to key signature")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between an augmentation dot and a key signature that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "dotTimesigDistance"
-            title: qsTrc("notation/engravingoptions", "Augmentation dot to time signature")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between an augmentation dot and a time signature that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "restAccidentalDistance"
-            title: qsTrc("notation/engravingoptions", "Rest to accidental")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a rest and an accidental that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "restBarlineDistance"
-            title: qsTrc("notation/engravingoptions", "Rest to barline")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a rest and a barline that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "restKeyDistance"
-            title: qsTrc("notation/engravingoptions", "Rest to key signature")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a rest and a key signature that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "restTimesigDistance"
-            title: qsTrc("notation/engravingoptions", "Rest to time signature")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a rest and a time signature that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "stemStemDistance"
-            title: qsTrc("notation/engravingoptions", "Stem to stem")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a stem and a stem that follows it. Applies between the stems of adjacent chords, above all under cross-staff beams.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "stemAccidentalDistance"
-            title: qsTrc("notation/engravingoptions", "Stem to accidental")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a stem and an accidental that follows it.")
-            max: 5
-        }
-    }
-
-    EoSection {
-        title: qsTrc("notation/engravingoptions", "Gaps after clefs, signatures and barlines")
-
-        EoNumber {
-            sid: "systemHeaderMinClearDistance"
-            title: qsTrc("notation/engravingoptions", "System header: least clear gap")
-            hint: qsTrc("notation/engravingoptions",
-                         "Least clear space between the right edge of the clef, key or time signature that ends the system header and the leftmost point of what follows: the first note or rest with its accidentals, or a start repeat barline.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "clefAccidentalDistance"
-            title: qsTrc("notation/engravingoptions", "Clef to accidental")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a clef and an accidental that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "clefClefDistance"
-            title: qsTrc("notation/engravingoptions", "Clef to clef")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a clef and a clef that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "clefArpeggioDistance"
-            title: qsTrc("notation/engravingoptions", "Clef to arpeggio")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a clef and an arpeggio that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "clefStemDistance"
-            title: qsTrc("notation/engravingoptions", "Clef to stem")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a clef and a stem that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "barArpeggioDistance"
-            title: qsTrc("notation/engravingoptions", "Barline to arpeggio")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a barline and an arpeggio that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "barBarlineDistance"
-            title: qsTrc("notation/engravingoptions", "Barline to barline")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a barline and a barline that follows it. This is the least inner width of a bar whose content takes up no room.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "keyNoteDistance"
-            title: qsTrc("notation/engravingoptions", "Key signature to note")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a key signature and a notehead that follows it. In a system header the system header distance applies instead if it is larger; also used from a key signature to a rest.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "keyNoteAccidentalDistance"
-            title: qsTrc("notation/engravingoptions", "Key signature to accidental")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a key signature and an accidental that follows it. The accidental is that of the first note after the key signature.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "keyClefDistance"
-            title: qsTrc("notation/engravingoptions", "Key signature to clef")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a key signature and a clef that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "keyArpeggioDistance"
-            title: qsTrc("notation/engravingoptions", "Key signature to arpeggio")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a key signature and an arpeggio that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "keyKeyDistance"
-            title: qsTrc("notation/engravingoptions", "Key signature to key signature")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a key signature and a key signature that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "timesigNoteDistance"
-            title: qsTrc("notation/engravingoptions", "Time signature to note")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a time signature and a notehead that follows it. In a system header the system header distance for time signatures applies instead if it is larger; also used from a time signature to a rest.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "timesigAccidentalDistance"
-            title: qsTrc("notation/engravingoptions", "Time signature to accidental")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a time signature and an accidental that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "timesigClefDistance"
-            title: qsTrc("notation/engravingoptions", "Time signature to clef")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a time signature and a clef that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "timesigArpeggioDistance"
-            title: qsTrc("notation/engravingoptions", "Time signature to arpeggio")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a time signature and an arpeggio that follows it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "timesigTimesigDistance"
-            title: qsTrc("notation/engravingoptions", "Time signature to time signature")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a time signature and a time signature that follows it.")
-            max: 5
-        }
-    }
-
-    EoSection {
-        title: qsTrc("notation/engravingoptions", "Gaps around other items")
-
-        EoNumber {
-            sid: "lyricsAvoidBarlinesPadding"
-            title: qsTrc("notation/engravingoptions", "Lyrics to barline padding (× x-height)")
-            hint: qsTrc("notation/engravingoptions",
-                         "Gap kept between a lyric syllable and a barline it must avoid, as a multiple of the x-height of the lyrics font.")
-            max: 3
-        }
-
-        EoNumber {
-            sid: "breathHorizontalPadding"
-            title: qsTrc("notation/engravingoptions", "Padding around breath marks")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a breath mark or caesura and the items before and after it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "harmonyFretDiagramPadding"
-            title: qsTrc("notation/engravingoptions", "Chord symbol to fretboard diagram")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a chord symbol and a neighbouring fretboard diagram, in either order.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "fretDiagramPadding"
-            title: qsTrc("notation/engravingoptions", "Fretboard diagram to fretboard diagram")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between two neighbouring fretboard diagrams.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "chordlineHorizontalPadding"
-            title: qsTrc("notation/engravingoptions", "Padding around falls, doits and scoops")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a fall, doit, plop or scoop and the items before and after it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "chordlineBarlinePadding"
-            title: qsTrc("notation/engravingoptions", "Fall, doit or scoop to barline")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a fall, doit, plop or scoop and a barline, in either order.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "articulationHorizontalPadding"
-            title: qsTrc("notation/engravingoptions", "Padding around articulations and fermatas")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between an articulation, fermata or tapping sign and neighbouring items it cannot overlap.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "parenthesesMinInnerWidth"
-            title: qsTrc("notation/engravingoptions", "Parentheses: minimum inner width")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum distance between a left and a right parenthesis; an item narrower than this is centred between them.")
-            max: 5
-        }
-    }
-
-    EoSection {
-        title: qsTrc("notation/engravingoptions", "Tablature and guitar bends")
-
-        EoNumber {
-            sid: "tabFretPaddingScale"
-            title: qsTrc("notation/engravingoptions", "Fret mark padding scale")
-            hint: qsTrc("notation/engravingoptions",
-                         "Factor applied to the padding between adjacent fret marks on a tablature staff.")
-            min: 0.5
-            max: 5
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "minGuitarBendLength"
-            title: qsTrc("notation/engravingoptions", "Minimum guitar bend length")
-            hint: qsTrc("notation/engravingoptions",
-                         "Horizontal space reserved between two notes that are joined by a guitar bend.")
-            max: 10
-            step: 0.1
         }
     }
 }

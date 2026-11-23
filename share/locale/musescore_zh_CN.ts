@@ -47405,5 +47405,412 @@ The score will be saved as:
         <source>Draw inner stems to nearest beam (“French” style)</source>
         <translation>符干只连到外侧符杠（法式）</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="37"/>
+        <source>Note spacing</source>
+        <translation>音符间距</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="43"/>
+        <source>How tightly the notes are packed before each system is stretched out to the right margin: higher values put more measures on a system, lower values fewer.</source>
+        <translation>谱行组拉满到右边距之前，音符排得有多紧：数值越大，每个谱行组容纳的小节越多；数值越小则越少。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="57"/>
+        <source>How much more room a note gets when its value doubles: with 1.5 a half note takes one and a half times the space of a quarter note, with 2 twice as much.</source>
+        <translation>音符时值加倍时所占宽度变为原来的多少倍：1.5 表示二分音符占四分音符 1.5 倍的宽度，2 表示两倍。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="70"/>
+        <source>The width a quarter note is given before the system is stretched or compressed to the line; the other note values follow from it by the spacing ratio.</source>
+        <translation>谱行组按行宽拉伸或压缩之前，四分音符所占的宽度；其余时值按间距比由它推出。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="82"/>
+        <source>The least gap between consecutive notes, and between a note and the stem of the next; it is what keeps very short notes apart in a crowded system.</source>
+        <translation>前后相邻的音符之间、音符与下一个音符的符干之间至少保留的间隙；在拥挤的谱行组里，短时值音符靠它保持分开。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="92"/>
+        <source>No full measure is narrower than this, however little it holds; a shorter measure, such as a pickup, gets a proportional part of it.</source>
+        <translation>完整的小节不论内容多少，宽度都不小于此值；不完整的小节（如弱起小节）按比例折算。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="104"/>
+        <source>The last system of the score, or of a section, is stretched to the right margin only if its music already fills at least this much of the width; otherwise it ends where the music ends.</source>
+        <translation>全曲或某个分节的最后一个谱行组，只有当内容已占行宽的这一比例以上时才拉满到右边距；否则在内容结束处收尾。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="116"/>
+        <source>Japanese-style spacing</source>
+        <translation>日式间距</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="122"/>
+        <source>Every system gets its own spacing ratio, between the two set below: a system crowded with notes the dense-line ratio, which leaves more room for short notes, an open system the sparse-line ratio.</source>
+        <translation>每个谱行组各自取一个间距比，介于下面两个数值之间：音符密集的谱行组用密集谱行间距比，给短时值音符留出更多空间；稀疏的谱行组用稀疏谱行间距比。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="134"/>
+        <source>The spacing ratio of a system crowded with notes; a smaller ratio gives the short notes a larger share of the line.</source>
+        <translation>音符密集的谱行组所用的间距比；数值越小，短时值音符在行中所占的份额越大。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="148"/>
+        <source>Note density of a dense line</source>
+        <translation>密集谱行的音符密度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="149"/>
+        <source>From this many notes for every staff space of its width, a system gets the full dense-line ratio: 0.4 is a note every 2.5 staff spaces (a line of sixteenth notes is about 0.5). Notes struck together count once; keep the value above that of a sparse line.</source>
+        <translation>谱行组每一谱间宽度内的音符数达到此值时，完全采用密集谱行间距比：0.4 即每 2.5 谱间一个音符（一行十六分音符约为 0.5）。同时发声的音符只计一次；此值应大于稀疏谱行的数值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="163"/>
+        <source>The spacing ratio of a system with few notes; a larger ratio spreads the long notes more nearly in proportion to their value.</source>
+        <translation>音符稀疏的谱行组所用的间距比；数值越大，长时值音符越接近按时值比例分布。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="176"/>
+        <source>Note density of a sparse line</source>
+        <translation>稀疏谱行的音符密度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="177"/>
+        <source>Up to this many notes for every staff space of its width, a system gets the full sparse-line ratio: 0.1 is a note every ten staff spaces (a line of whole notes is about 0.08). Between the two values the ratio changes gradually.</source>
+        <translation>谱行组每一谱间宽度内的音符数不超过此值时，完全采用稀疏谱行间距比：0.1 即每 10 谱间一个音符（一行全音符约为 0.08）。介于两个数值之间时，间距比逐渐过渡。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="190"/>
+        <source>Notes of the same value get the same width everywhere in a system, also where the voices move in different rhythms, such as triplets against eighth notes.</source>
+        <translation>同一谱行组内，相同时值的音符处处等宽；各声部节奏不同时（如三连音对八分音符）亦然。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="199"/>
+        <source>Under a beam which crosses between staves, a stem-up note followed by a stem-down note is set a notehead’s width further apart, and the opposite pair as much closer, so that the stems rather than the noteheads are evenly spaced.</source>
+        <translation>在跨谱表的符杠之下，符干朝上的音符后接符干朝下的音符时，两者间距加宽一个符头的宽度，反之则收窄同样的宽度，使符干（而非符头）等距。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="207"/>
+        <source>Start of the system</source>
+        <translation>谱行组起始处</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="213"/>
+        <source>The distance from the clef or key signature which begins the system to the first notehead; an accidental before that note reaches into this space.</source>
+        <translation>谱行组起始的谱号或调号到第一个符头的距离；该音符前的变音记号会伸入这段空间。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="223"/>
+        <source>The distance from the time signature which begins the system to the first notehead; an accidental before that note reaches into this space.</source>
+        <translation>谱行组起始的拍号到第一个符头的距离；该音符前的变音记号会伸入这段空间。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="233"/>
+        <source>The first note stands at least this far from the left end of the staff; it shows where a system begins without clef or key signature.</source>
+        <translation>第一个音符至少距谱表左端这么远；见于起始处没有谱号或调号的谱行组。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="242"/>
+        <source>Free space after the clef, key or time signature</source>
+        <translation>谱号、调号、拍号之后的净空</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="243"/>
+        <source>At least this much stays empty between the clef, key or time signature which begins the system and whatever comes first after it: the accidentals of the first note, or a start-repeat barline.</source>
+        <translation>谱行组起始的谱号、调号或拍号，与其后最先出现的内容（第一个音符的变音记号，或起始反复小节线）之间至少留出的空白。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="255"/>
+        <source>Where a tie, slur or other line carried over from the previous system begins: this far after the clef, key or time signature.</source>
+        <translation>自上一谱行组延续而来的延音线、圆滑线或其他线条的起点：位于谱号、调号或拍号之后这么远处。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="266"/>
+        <source>Where a tie or line begins which comes out of a barline inside a system, as after a repeat barline or at the start of a second ending.</source>
+        <translation>在谱行组内部自小节线引出的延音线或线条的起点，例如反复小节线之后或第二跳房子的开头。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="276"/>
+        <source>The distance from the left end of the staff to the clef at the start of every system; also the gap before a clef which stands after a barline.</source>
+        <translation>每个谱行组起始处谱表左端到谱号的距离；也是位于小节线之后的谱号前的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="286"/>
+        <source>The gap before a key signature which follows a barline: a change of key, or the courtesy key signature at the end of a system.</source>
+        <translation>小节线之后的调号前的间隙：见于转调处，以及谱行组末尾的提示性调号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="296"/>
+        <source>The gap before a time signature which follows a barline: a change of time, or the courtesy time signature at the end of a system.</source>
+        <translation>小节线之后的拍号前的间隙：见于变换拍号处，以及谱行组末尾的提示性拍号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="306"/>
+        <source>The least gap between any clef and the note or rest after it. At the start of a system the larger ‘Clef/key signature to first note’ rules, so this shows at clef changes.</source>
+        <translation>任何谱号与其后的音符或休止符之间至少保留的间隙。谱行组起始处以更大的“谱号/调号-首音符”为准，因此本项见于换谱号处。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="313"/>
+        <source>End of the system</source>
+        <translation>谱行组结尾处</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="320"/>
+        <source>Where a tie, slur or other line which goes on in the next system ends: this far before the last barline.</source>
+        <translation>延续到下一谱行组的延音线、圆滑线或其他线条的终点：位于最后一条小节线之前这么远处。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="331"/>
+        <source>The space left after a courtesy clef, key or time signature at the end of a system, before the right end of the staff.</source>
+        <translation>谱行组末尾的提示性谱号、调号或拍号之后，到谱表右端之间留出的空间。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="339"/>
+        <source>Padding between items</source>
+        <translation>各项之间的内距</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="340"/>
+        <source>The smallest gap between an item (row) and the item which follows it on its right (column). Small notes get proportionally less, and so does everything in a system which is compressed to fit the line.</source>
+        <translation>某一项（行）与其右侧紧随的一项（列）之间的最小间隙。小音符按比例缩小；为适应行宽而压缩的谱行组中，所有内距也相应缩小。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="346"/>
+        <source>The smallest gap between an item (row) and the item which follows it (column), in staff spaces.</source>
+        <translation>一个项目（行）与紧随其后的项目（列）之间的最小间隙，以谱间为单位。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="352"/>
+        <source>The ‘Accidental’ column also applies to a fingering which stands before its note.</source>
+        <translation>“变音记号”一列也适用于位于音符之前的指法。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="354"/>
+        <source>From ↓ to →</source>
+        <translation>前项 ↓ 后项 →</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="356"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="367"/>
+        <source>Note</source>
+        <translation>音符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="357"/>
+        <source>Flag</source>
+        <translation>符尾</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="358"/>
+        <source>Dot</source>
+        <translation>圆点</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="359"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="369"/>
+        <source>Rest</source>
+        <translation>休止符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="360"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="370"/>
+        <source>Stem</source>
+        <translation>符干</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="361"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="371"/>
+        <source>Clef</source>
+        <translation>谱号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="362"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="374"/>
+        <source>Barline</source>
+        <translation>小节线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="363"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="372"/>
+        <source>Key signature</source>
+        <translation>调号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="364"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="373"/>
+        <source>Time signature</source>
+        <translation>拍号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="368"/>
+        <source>Accidental</source>
+        <translation>变音记号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="375"/>
+        <source>Arpeggio</source>
+        <translation>琶音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="387"/>
+        <source>The gap between a note and the accidental of the next note; if the distance set between an accidental and its own notehead is larger, that is used.</source>
+        <translation>音符与下一个音符的变音记号之间的间隙；若变音记号到自身符头的距离设得更大，则采用后者。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="398"/>
+        <source>Also used from a rest to a note and between two rests.</source>
+        <translation>也用于休止符到音符、休止符到休止符。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="410"/>
+        <source>Also used from a rest to a clef.</source>
+        <translation>也用于休止符到谱号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="419"/>
+        <source>Seen where a key signature follows a note with no barline between them, as a courtesy key signature before a repeat barline does.</source>
+        <translation>见于调号紧跟音符、中间没有小节线之处，例如反复小节线之前的提示性调号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="430"/>
+        <source>Seen where a time signature follows a note with no barline between them, as a courtesy time signature before a repeat barline does.</source>
+        <translation>见于拍号紧跟音符、中间没有小节线之处，例如反复小节线之前的提示性拍号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="441"/>
+        <source>The room left after the last note of a measure.</source>
+        <translation>小节最后一个音符之后留出的空间。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="458"/>
+        <source>Also used from a flag to a rest.</source>
+        <translation>也用于符尾到休止符。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="638"/>
+        <source>The gap between the stems of neighbouring chords; it shows above all under beams which cross between staves.</source>
+        <translation>相邻和弦的符干之间的间隙；主要见于跨谱表的符杠之下。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="709"/>
+        <source>The gap after a clef change which stands at the end of a measure.</source>
+        <translation>位于小节末尾的换谱号之后的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="727"/>
+        <source>The room left before the first note of a measure; also used from a barline to a rest.</source>
+        <translation>小节第一个音符之前留出的空间；也用于小节线到休止符。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="737"/>
+        <source>The gap between a barline and the accidental of the first note after it.</source>
+        <translation>小节线与其后第一个音符的变音记号之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="761"/>
+        <source>The least inner width of a measure whose content takes up no room.</source>
+        <translation>内容不占宽度的小节的最小内宽。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="779"/>
+        <source>Also used from a key signature to a rest. At the start of a system the larger ‘Clef/key signature to first note’ rules.</source>
+        <translation>也用于调号到休止符。在谱行组起始处，以更大的“谱号/调号-首音符”为准。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="790"/>
+        <source>The gap between a key signature and the accidental of the first note after it.</source>
+        <translation>调号与其后第一个音符的变音记号之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="820"/>
+        <source>Also used from a time signature to a key signature.</source>
+        <translation>也用于拍号到调号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="828"/>
+        <source>Seen where a barline follows a key signature: a start-repeat barline after a change of key, or the barline after a courtesy key signature at a repeat.</source>
+        <translation>见于调号之后紧接小节线之处：转调后的起始反复小节线，或反复处提示性调号之后的小节线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="847"/>
+        <source>Also used from a time signature to a rest. At the start of a system the larger ‘Time signature to first note’ rules.</source>
+        <translation>也用于拍号到休止符。在谱行组起始处，以更大的“拍号到首个音符”为准。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="888"/>
+        <source>Seen where a barline follows a time signature: a start-repeat barline after a change of time, or the barline after a courtesy time signature at a repeat.</source>
+        <translation>见于拍号之后紧接小节线之处：变换拍号后的起始反复小节线，或反复处提示性拍号之后的小节线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="911"/>
+        <source>The gap between two neighbouring items of kinds which have no value of their own in the table above; also between notes of different voices, which need not keep ‘Note to note’.</source>
+        <translation>上表中没有专门数值的两类相邻内容之间的间隙；也用于不同声部的音符之间（它们不必遵守“音符到音符”）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="922"/>
+        <source>No two neighbouring items come closer than this, whatever their own value says; like all padding it shrinks when a crowded system is compressed.</source>
+        <translation>任何相邻的两项都不会比此值更近，不论其各自的数值如何；与所有内距一样，拥挤的谱行组被压缩时它也随之缩小。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="931"/>
+        <source>Vertical gap needed for items to tuck past each other</source>
+        <translation>上下错开紧排所需的垂直间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="932"/>
+        <source>Two neighbouring items at different heights, such as a low note after the flag of a high one, may overlap sideways only while this much vertical space stays between them; with less, they are set side by side.</source>
+        <translation>高低不同的相邻两项（如高音符的符尾之后的低音符），只有在彼此之间留有这么多垂直空隙时，才允许横向交叠；不足时则左右并排。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="942"/>
+        <source>Vertical gap needed for an accidental to tuck in</source>
+        <translation>变音记号紧排所需的垂直间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="943"/>
+        <source>An accidental may slide above or below the item before it, a note or a flag, only while this much vertical space stays between the two.</source>
+        <translation>变音记号只有在与前一项（音符或符尾）之间留有这么多垂直空隙时，才允许滑入其上方或下方。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="952"/>
+        <source>Vertical gap needed for a parenthesis to tuck in</source>
+        <translation>圆括号紧排所需的垂直间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="953"/>
+        <source>A parenthesis and its neighbour may overlap sideways only while this much vertical space stays between them.</source>
+        <translation>圆括号与相邻一项之间只有留有这么多垂直空隙时，才允许横向交叠。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="37"/>
+        <source>Small and grace sizes</source>
+        <translation>小谱表、小音符与装饰音的大小</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="43"/>
+        <source>The size of a staff marked as small, such as an ossia or the solo line above a piano part, as a percentage of a normal staff.</source>
+        <translation>标为“小谱表”的谱表（如 ossia、钢琴伴奏上方的独奏声部）相对普通谱表的大小。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="57"/>
+        <source>The size of a clef change in the course of the music, and of a courtesy clef, as a percentage of the clef at the start of a system.</source>
+        <translation>乐谱中途的换谱号以及提示性谱号，相对谱行组起始处谱号的大小。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="71"/>
+        <source>The size of notes and rests marked as small, such as cue notes, as a percentage of normal notes.</source>
+        <translation>标为“小音符”的音符与休止符（如提示音符）相对普通音符的大小。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="85"/>
+        <source>The size of grace notes as a percentage of normal notes; a grace note which is also marked as small is reduced by both.</source>
+        <translation>装饰音相对普通音符的大小；同时标为“小音符”的装饰音会按两者叠加缩小。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="99"/>
+        <source>Where only small notes move, as in a cue passage, the horizontal space they get is reduced in the same proportion as their size.</source>
+        <translation>只有小音符在进行之处（如提示音符乐句），其横向间距按与大小相同的比例缩减。</translation>
+    </message>
 </context>
 </TS>

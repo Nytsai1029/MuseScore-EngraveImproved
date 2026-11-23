@@ -566,7 +566,7 @@ TEST_F(Notation_EngravingPreviewTests, theStaffLinesAreMarked)
 namespace {
 //! The pages whose every option is meant to show what it does
 const char* const EFFECT_TEST_PAGES[] = {
-    "SystemPage",
+    "SpacingPage", "SizesPage", "SystemPage",
     "NotesPage", "AccidentalsPage", "StemsPage", "BeamsPage", "TremolosPage",
     "RestsPage", "TupletsPage", "ArpeggiosPage", "TiesPage", "SlursPage"
 };
@@ -616,6 +616,32 @@ const std::set<QString>& optionsWhoseMusicCannotShowItYet()
         // loop stops with the beam at an inner stem's anchor + reduction; for a slope above three quarter
         // spaces every group tried snapped the beam above all inner tips instead (the small-slant case is
         // shown by "\stemUp c'8[ e'8 f'8 f'8]")
+        // the start of a hanging tie or line after a repeat barline, and two barlines side by side: the music cannot
+        // write repeat barlines yet (PreviewMusic)
+        "barBarlineDistance",
+        "barlineToLineStartDistance",
+        // pairs which the layout never sets side by side: a clef change stands before the barline, key and time
+        // signatures after it in the order clef, key, time (Segment types in segment.h), and a key or time
+        // signature is followed by notes
+        "clefClefDistance",
+        "keyBarlineDistance",
+        "keyClefDistance",
+        "keyKeyDistance",
+        "timesigBarlineDistance",
+        "timesigClefDistance",
+        "timesigTimesigDistance",
+        // the music which shows these is not found yet: the note to key and time signature pairs (the dot, flag and
+        // rest pairs show with the barline paddings at 0), the kerning clearances, the default padding, stem to stem,
+        // equal duration spacing and the least start of a system
+        "kerningVerticalClearance",
+        "kerningVerticalClearanceAccidental",
+        "kerningVerticalClearanceParenthesis",
+        "keepEqualDurationSpacing",
+        "noteKeyDistance",
+        "noteTimesigDistance",
+        "spacingDefaultPadding",
+        "stemStemDistance",
+        "systemHeaderMinStartOfSystemDistance",
         "beamInnerStemShorteningLargeSlant",
         "beamInnerStemShorteningMediumSlant",
         "bracketedAccidentalBraceYOffset",
@@ -683,6 +709,10 @@ const std::map<QString, const char*>& optionsWhichMusicCannotFitThePane()
         { "dividerRightSym",                "two systems after a \\break" },
         { "dividerRightX",                  "two systems after a \\break" },
         { "dividerRightY",                  "two systems after a \\break" },
+        { "headerToLineStartDistance",      "two systems after a \\break" },
+        { "lineEndToBarlineDistance",       "two systems after a \\break" },
+        { "barlineToLineStartDistance",     "two systems after a \\break" },
+        { "systemTrailerRightMargin",       "two systems after a \\break" },
         { "slurContinuedEndOffset",         "two systems after a \\break" },
         { "slurContinuedMaxHeightDiff",     "two systems after a \\break" },
         { "slurContinuedSingleChordRise",   "two systems after a \\break" },
