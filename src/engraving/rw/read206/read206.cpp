@@ -1173,10 +1173,7 @@ bool Read206::readNoteProperties206(Note* note, XmlReader& e, ReadContext& ctx)
             if (sp->isTie()) {
                 note->setTieBack(toTie(sp));
             } else {
-                bool isNoteAnchoredTextLine = sp->isNoteLine() && toNoteLine(sp)->enforceMinLength();
-                if ((sp->isGlissando() || isNoteAnchoredTextLine) && note->explicitParent() && note->explicitParent()->isChord()) {
-                    toChord(note->explicitParent())->setEndsNoteAnchoredLine(true);
-                }
+                // The note has no chord yet: markChordsEndingNoteAnchoredLines() marks it once the score is read
                 note->addSpannerBack(sp);
             }
             ctx.removeSpanner(sp);
@@ -3352,6 +3349,37 @@ static void readStyle206(MStyle* style, XmlReader& e, ReadContext& ctx, ReadChor
     readChordListHook.validate();
 }
 
+//---------------------------------------------------------
+//   markChordsEndingNoteAnchoredLines
+//   A chord on which a glissando or a note-anchored line ends gets room for it in the spacing. The readers of
+//   later formats mark it when they connect the line; here the end of a line is read while its note has no chord
+//   yet, so a score of this format was spaced without it until it was saved and opened again.
+//---------------------------------------------------------
+
+static void markChordsEndingNoteAnchoredLines(Score* score)
+{
+    auto mark = [](Chord* chord) {
+        for (Note* note : chord->notes()) {
+            for (Spanner* spanner : note->spannerBack()) {
+                if (spanner->isGlissando() || (spanner->isNoteLine() && toNoteLine(spanner)->enforceMinLength())) {
+                    chord->setEndsNoteAnchoredLine(true);
+                }
+            }
+        }
+    };
+    for (Segment* segment = score->firstSegment(SegmentType::ChordRest); segment;
+         segment = segment->next1(SegmentType::ChordRest)) {
+        for (EngravingItem* item : segment->elist()) {
+            if (item && item->isChord()) {
+                mark(toChord(item));
+                for (Chord* grace : toChord(item)->graceNotes()) {
+                    mark(grace);
+                }
+            }
+        }
+    }
+}
+
 bool Read206::readScore206(Score* score, XmlReader& e, ReadContext& ctx)
 {
     while (e.readNextStartElement()) {
@@ -3510,6 +3538,7 @@ bool Read206::readScore206(Score* score, XmlReader& e, ReadContext& ctx)
     }
 
     score->connectTies();
+    markChordsEndingNoteAnchoredLines(score);
 
     score->setFileDivision(Constants::DIVISION);
 

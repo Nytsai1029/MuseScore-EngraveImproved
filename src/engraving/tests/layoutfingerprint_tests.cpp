@@ -465,6 +465,12 @@ TEST_F(Engraving_LayoutFingerprintTests, oldTupletNumberHasTheTupletTextStyle)
     expectSameLayoutAfterReopening(fixture, u"layoutFingerprint-tuplets-2.msdz");
 }
 
+//! The glissandos of a 2.x file are given their room in the spacing when it is opened, as after a reopen
+TEST_F(Engraving_LayoutFingerprintTests, oldGlissandoIsSpacedAsAfterReopening)
+{
+    expectSameLayoutAfterReopening(dataPath(VTEST_DIR + u"gliss-1.mscx"), u"layoutFingerprint-gliss-1.msdz");
+}
+
 //! An empty guitar-bend text is drawn nowhere, but its box must be the same box in every layout — the
 //! fingerprint of a saved file must match the reopened layout
 TEST_F(Engraving_LayoutFingerprintTests, emptyBendTextSurvivesSaveReload)

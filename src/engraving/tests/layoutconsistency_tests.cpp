@@ -1038,6 +1038,29 @@ TEST_F(Engraving_LayoutConsistencyTests, framesOfAnOldFileKeepTheirDistances)
     EXPECT_EQ(distances(reloaded), opened);
 }
 
+//! A chord on which a glissando ends gets room for it in the spacing also in a 2.x file, whose reader reads the end
+//! of the glissando before its note has a chord: else the score was spaced without it until a save and a reopen
+TEST_F(Engraving_LayoutConsistencyTests, glissandoOfA2xFileGivesItsEndChordRoom)
+{
+    MasterScore* score = openLikeTheApp(u"../../../vtest/scores/gliss-1.mscx");
+    ASSERT_TRUE(score);
+    ASSERT_LT(score->mscVersion(), 300);
+
+    size_t glissandos = 0;
+    score->scanElements(&glissandos, [](void* d, EngravingItem* e) {
+        if (!e->isNote()) {
+            return;
+        }
+        for (Spanner* spanner : toNote(e)->spannerBack()) {
+            if (spanner->isGlissando()) {
+                ++*static_cast<size_t*>(d);
+                EXPECT_TRUE(toNote(e)->chord()->endsNoteAnchoredLine()) << spanner->tick2().toString().toStdString();
+            }
+        }
+    });
+    EXPECT_GT(glissandos, 0u);
+}
+
 //! A segment's end offset — what a drag of the end grip changes, leaving the segment's position styled — is
 //! written also when nothing else about its line is user-modified (the writer used to leave the whole Segment
 //! block out then, so the drag was lost on save)
