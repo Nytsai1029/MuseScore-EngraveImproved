@@ -454,6 +454,14 @@ TEST_F(Engraving_LayoutFingerprintTests, emptyBendTextSurvivesSaveReload)
                                    u"layoutFingerprint-guitarBend-1.msdz");
 }
 
+//! The parts of an ornament (the accidentals it shows, the parentheses of its cue note) stand on its track, as
+//! opened and after a reopen: the fingerprint, which tells the items apart by their track, finds no difference
+TEST_F(Engraving_LayoutFingerprintTests, ornamentSurvivesSaveReload)
+{
+    expectSameLayoutAfterReopening(dataPath(CONSISTENCY_DIR + u"ornament-2.mscz"),
+                                   u"layoutFingerprint-ornament-2.msdz");
+}
+
 //---------------------------------------------------------
 //   The file
 //---------------------------------------------------------

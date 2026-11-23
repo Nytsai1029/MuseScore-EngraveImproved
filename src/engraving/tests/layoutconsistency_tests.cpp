@@ -54,6 +54,10 @@
 #include "dom/tuplet.h"
 #include "dom/undo.h"
 
+#include "compat/engravingcompat.h"
+#include "compat/mscxcompat.h"
+#include "engravingproject.h"
+
 #include "utils/scorerw.h"
 
 using namespace mu;
@@ -76,6 +80,30 @@ MasterScore* saveAndReload(Score* score, const String& name)
     EXPECT_TRUE(ScoreRW::saveScore(score, name));
     const std::string path = std::filesystem::absolute(name.toStdString()).string();
     return ScoreRW::readScore(String::fromStdString(path), true);
+}
+
+//! A score as the application has it: set up by its project, with the compat steps of
+//! NotationProject::doLoad before and after the first layout (its style migration dialog aside)
+MasterScore* openLikeTheApp(const String& name)
+{
+    static std::vector<EngravingProjectPtr> keepAlive;
+    EngravingProjectPtr project = EngravingProject::create(nullptr);
+    if (!compat::loadMsczOrMscx(project, ScoreRW::rootPath() + u"/" + name, false)) {
+        return nullptr;
+    }
+    MasterScore* score = project->masterScore();
+    score->lockUpdates(true);
+    if (!project->setupMasterScore(true)) {
+        score->lockUpdates(false);
+        return nullptr;
+    }
+    compat::EngravingCompat::doPreLayoutCompatIfNeeded(score);
+    score->lockUpdates(false);
+    score->setLayoutAll();
+    score->update();
+    compat::EngravingCompat::doPostLayoutCompatIfNeeded(score);
+    keepAlive.push_back(project);
+    return score;
 }
 
 Spanner* spannerAt(Score* score, ElementType type, const Fraction& tick)
@@ -928,6 +956,51 @@ TEST_F(Engraving_LayoutConsistencyTests, arpeggioIsHiddenOnTheStandardStaffWhenT
     EXPECT_NEAR(stdChordWithArp->shape().left(), leftWithArpeggio, 1e-5);
 
     delete score;
+}
+
+//! What an item owns stands on its track: the parentheses of a note (here those of a trill's cue note, which
+//! are made while the note is read, before its chord gets its track) and the accidentals which an ornament
+//! shows above and below it (a 4.0 file gives them a track of their own). Else they are on another voice
+//! than their note, and another one again after a save and a reopen.
+TEST_F(Engraving_LayoutConsistencyTests, ornamentPartsStandOnTheTrackOfTheirItem)
+{
+    struct Owned {
+        size_t parentheses = 0;
+        size_t ornamentAccidentals = 0;
+        std::vector<std::string> offTrack;
+    };
+    auto check = [](Score* s) {
+        Owned owned;
+        s->scanElements(&owned, [](void* d, EngravingItem* e) {
+            Owned* o = static_cast<Owned*>(d);
+            const EngravingItem* owner = e->parentItem();
+            if (e->isParenthesis()) {
+                ++o->parentheses;
+            } else if (e->isAccidental() && owner && owner->isOrnament()) {
+                ++o->ornamentAccidentals;
+            } else {
+                return;
+            }
+            if (e->track() != owner->track()) {
+                o->offTrack.push_back(e->typeName() + std::string(" at ") + e->tick().toString().toStdString());
+            }
+        });
+        return owned;
+    };
+
+    MasterScore* score = openLikeTheApp(LAYOUTCONSISTENCY_DATA_DIR + u"ornament-2.mscz");
+    ASSERT_TRUE(score);
+    const Owned opened = check(score);
+    ASSERT_GE(opened.parentheses, 2u);
+    ASSERT_GE(opened.ornamentAccidentals, 1u);
+    EXPECT_TRUE(opened.offTrack.empty()) << ::testing::PrintToString(opened.offTrack);
+
+    MasterScore* reloaded = saveAndReload(score, u"ornamentTracks.mscx");
+    ASSERT_TRUE(reloaded);
+    const Owned reopened = check(reloaded);
+    EXPECT_EQ(reopened.parentheses, opened.parentheses);
+    EXPECT_EQ(reopened.ornamentAccidentals, opened.ornamentAccidentals);
+    EXPECT_TRUE(reopened.offTrack.empty()) << ::testing::PrintToString(reopened.offTrack);
 }
 
 //! An empty bend text lays out to the same (empty) box in every pass, also in the first pass of a segment

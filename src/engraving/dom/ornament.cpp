@@ -111,7 +111,12 @@ void Ornament::setTrack(track_idx_t val)
     if (m_cueNoteChord) {
         m_cueNoteChord->setTrack(val);
     }
-    m_track = val;
+    for (Accidental* accidental : m_accidentalsAboveAndBelow) {
+        if (accidental) {
+            accidental->setTrack(val);
+        }
+    }
+    Articulation::setTrack(val);
 }
 
 void Ornament::scanElements(void* data, void (* func)(void*, EngravingItem*), bool all)

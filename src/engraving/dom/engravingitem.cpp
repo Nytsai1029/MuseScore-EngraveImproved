@@ -436,6 +436,13 @@ track_idx_t EngravingItem::track() const
 void EngravingItem::setTrack(track_idx_t val)
 {
     m_track = val;
+    // The parentheses of an item stand on its track, also when they were made before it had its final one
+    if (m_leftParenthesis) {
+        m_leftParenthesis->setTrack(val);
+    }
+    if (m_rightParenthesis) {
+        m_rightParenthesis->setTrack(val);
+    }
 }
 
 //---------------------------------------------------------
