@@ -32,6 +32,7 @@
 #include "dom/chordline.h"
 #include "dom/editdata.h"
 #include "dom/factory.h"
+#include "dom/guitarbend.h"
 #include "dom/hairpin.h"
 #include "dom/hammeronpulloff.h"
 #include "dom/ledgerline.h"
@@ -927,4 +928,30 @@ TEST_F(Engraving_LayoutConsistencyTests, arpeggioIsHiddenOnTheStandardStaffWhenT
     EXPECT_NEAR(stdChordWithArp->shape().left(), leftWithArpeggio, 1e-5);
 
     delete score;
+}
+
+//! An empty bend text lays out to the same (empty) box in every pass, also in the first pass of a segment
+//! which the layout makes itself (as for a new bend, or any bend of a reopened file)
+TEST_F(Engraving_LayoutConsistencyTests, emptyBendTextLaysOutToAnEmptyBox)
+{
+    MasterScore* score = ScoreRW::readScore(LAYOUTCONSISTENCY_DATA_DIR + u"twoStaves.mscx");
+    ASSERT_TRUE(score);
+    Note* note = noteAt(score, Fraction(0, 1));
+    Note* endNote = noteAt(score, Fraction(1, 1));
+    ASSERT_TRUE(note && endNote);
+
+    score->startCmd(TranslatableString::untranslatable("Add bend test"));
+    GuitarBend* bend = score->addGuitarBend(GuitarBendType::BEND, note, endNote);
+    score->endCmd();
+    ASSERT_TRUE(bend);
+    ASSERT_FALSE(bend->segmentsEmpty());
+
+    const GuitarBendText* text = toGuitarBendSegment(bend->frontSegment())->bendText();
+    ASSERT_TRUE(text->empty());
+    const RectF firstPass = text->ldata()->bbox();
+    EXPECT_TRUE(firstPass.isNull());
+
+    score->setLayoutAll();
+    score->update();
+    EXPECT_EQ(toGuitarBendSegment(bend->frontSegment())->bendText()->ldata()->bbox(), firstPass);
 }

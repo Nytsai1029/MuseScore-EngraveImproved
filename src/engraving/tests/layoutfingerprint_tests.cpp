@@ -446,6 +446,14 @@ TEST_F(Engraving_LayoutFingerprintTests, migratedFileIsLaidOutToItsFixedPoint)
     expectSameFingerprint(before, LayoutFingerprint::of(reopened.score()));
 }
 
+//! An empty guitar-bend text is drawn nowhere, but its box must be the same box in every layout — the
+//! fingerprint of a saved file must match the reopened layout
+TEST_F(Engraving_LayoutFingerprintTests, emptyBendTextSurvivesSaveReload)
+{
+    expectSameLayoutAfterReopening(dataPath(VTEST_DIR + u"guitarBend-1.mscz"),
+                                   u"layoutFingerprint-guitarBend-1.msdz");
+}
+
 //---------------------------------------------------------
 //   The file
 //---------------------------------------------------------

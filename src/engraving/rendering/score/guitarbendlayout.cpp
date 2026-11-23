@@ -39,6 +39,15 @@ using namespace mu::engraving;
 using namespace muse::draw;
 using namespace mu::engraving::rendering::score;
 
+//! An empty bend text shows nothing, so its box is empty. Left to itself it keeps the box of an empty
+//! line, which the styling of a new text already gives it (TextBase::initElementStyle lays it out) and
+//! which the full-layout reset clears only for texts made before the layout: a segment this layout makes
+//! would otherwise lay out differently in its first pass and in the next one.
+static void layoutEmptyBendText(GuitarBendText* text)
+{
+    text->mutldata()->setShape(Shape());
+}
+
 void GuitarBendLayout::updateSegmentsAndLayout(SLine* item, LayoutContext& ctx)
 {
     Note* startNote = toNote(item->startElement());
@@ -81,6 +90,9 @@ void GuitarBendLayout::updateSegmentsAndLayout(SLine* item, LayoutContext& ctx)
 void GuitarBendLayout::layoutStandardStaff(GuitarBendSegment* item, LayoutContext& ctx)
 {
     GuitarBend* bend = item->guitarBend();
+
+    // Only a tablature staff writes the amount of a bend
+    layoutEmptyBendText(item->bendText());
 
     if (bend->type() != GuitarBendType::SLIGHT_BEND) {
         layoutAngularBend(item, ctx);
@@ -490,7 +502,11 @@ void GuitarBendLayout::layoutTabStaff(GuitarBendSegment* item, LayoutContext& ct
     GuitarBendText* guitarBendText = item->bendText();
     guitarBendText->setParent(item);
     guitarBendText->setXmlText(bend->ldata()->bendDigit());
-    TLayout::layoutBaseTextBase(toTextBase(guitarBendText), ctx);
+    if (guitarBendText->empty()) {
+        layoutEmptyBendText(guitarBendText);
+    } else {
+        TLayout::layoutBaseTextBase(toTextBase(guitarBendText), ctx);
+    }
     double verticalTextPad = style.styleS(Sid::guitarBendTabTextPadding).val() * spatium;
     PointF centering(-0.5 * guitarBendText->width(),
                      (bend->isReleaseBend() ? verticalTextPad : -(guitarBendText->height() + verticalTextPad)));
