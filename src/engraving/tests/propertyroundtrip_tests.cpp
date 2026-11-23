@@ -221,7 +221,7 @@ PropertyValue otherStyleValue(const PropertyValue& v)
     case P_TYPE::SPATIUM:
         return Spatium(otherNumber(v.value<Spatium>().val()));
     case P_TYPE::STRING:
-        return v.value<String>() + u"x";
+        return v.value<String>() + u"x&";
     case P_TYPE::POINT:
         return PointF(otherNumber(v.value<PointF>().x()), otherNumber(v.value<PointF>().y()) + 0.25);
     case P_TYPE::SIZE:
