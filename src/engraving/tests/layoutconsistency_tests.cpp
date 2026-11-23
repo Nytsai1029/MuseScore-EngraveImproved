@@ -811,3 +811,54 @@ TEST_F(Engraving_LayoutConsistencyTests, openedLayoutMatchesRelayoutForStaffDist
         delete score;
     }
 }
+
+//---------------------------------------------------------
+//   spannerToTheEndOfTheScoreSurvivesUnderAMultimeasureRest
+//   A spanner which runs to the last tick of the score has its end written at the last segment of the
+//   last measure. When that measure is under a multimeasure rest no segment at the end tick is
+//   visited, so the end tag was lost and the volta disappeared on reopen.
+//---------------------------------------------------------
+
+TEST_F(Engraving_LayoutConsistencyTests, spannerToTheEndOfTheScoreSurvivesUnderAMultimeasureRest)
+{
+    MasterScore* score = ScoreRW::readScore(LAYOUTCONSISTENCY_DATA_DIR + u"voltaToTheEndUnderMMRest.mscz");
+    ASSERT_TRUE(score);
+
+    const Fraction voltaTick(1, 1);                // measure 2
+    const Fraction scoreEnd(6, 1);
+    EXPECT_EQ(score->endTick(), scoreEnd);
+    EXPECT_TRUE(score->style().styleB(Sid::createMultiMeasureRests));
+
+    auto voltaRunsToTheEnd = [voltaTick, scoreEnd](Score* s) {
+        Spanner* volta = spannerAt(s, ElementType::VOLTA, voltaTick);
+        return volta && volta->tick2() == scoreEnd;
+    };
+
+    EXPECT_TRUE(voltaRunsToTheEnd(score));
+
+    Measure* m3 = score->crMeasure(2);
+    ASSERT_TRUE(m3 && m3->mmRest() && m3->mmRest()->isMMRest());
+    EXPECT_EQ(m3->mmRest()->mmRestCount(), 4);      // measures 3-6 under one multimeasure rest
+
+    // Why the end was lost: under the rest the last measure has no segment at the end of the score,
+    // so nothing which is written visits the tick where the volta ends
+    Measure* lastMeasure = score->lastMeasure();
+    ASSERT_TRUE(lastMeasure && lastMeasure->last());
+    EXPECT_LT(lastMeasure->last()->tick(), scoreEnd);
+
+    MasterScore* reloaded = saveAndReload(score, u"voltaMMRest-test.mscx");
+    ASSERT_TRUE(reloaded);
+    EXPECT_TRUE(voltaRunsToTheEnd(reloaded));
+    delete reloaded;
+
+    // Control: without a multimeasure rest the end is written (before and after the fix)
+    score->style().set(Sid::createMultiMeasureRests, false);
+    score->doLayout();
+
+    MasterScore* controlReloaded = saveAndReload(score, u"voltaMMRest-control-test.mscx");
+    ASSERT_TRUE(controlReloaded);
+    EXPECT_TRUE(voltaRunsToTheEnd(controlReloaded));
+    delete controlReloaded;
+
+    delete score;
+}

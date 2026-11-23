@@ -21,6 +21,8 @@
  */
 #include "twrite.h"
 
+#include <unordered_set>
+
 #include "global/io/fileinfo.h"
 
 #include "../../iengravingfont.h"
@@ -3407,8 +3409,8 @@ void TWrite::write(const WhammyBar* item, XmlWriter& xml, WriteContext& ctx)
 //    Returns true if <voice> tag was written.
 //---------------------------------------------------------
 
-static bool writeVoiceMove(XmlWriter& xml, WriteContext& ctx, Segment* seg, const Fraction& startTick, track_idx_t track,
-                           int* lastTrackWrittenPtr)
+static bool openVoiceTag(XmlWriter& xml, WriteContext& ctx, const Fraction& startTick, track_idx_t track,
+                         int* lastTrackWrittenPtr)
 {
     bool voiceTagWritten = false;
     int& lastTrackWritten = *lastTrackWrittenPtr;
@@ -3423,23 +3425,35 @@ static bool writeVoiceMove(XmlWriter& xml, WriteContext& ctx, Segment* seg, cons
         ++lastTrackWritten;
         voiceTagWritten = true;
     }
+    return voiceTagWritten;
+}
 
-    if ((ctx.curTick() != seg->tick()) || (track != ctx.curTrack())) {
-        Location curr = Location::absolute();
-        Location dest = Location::absolute();
-        curr.setFrac(ctx.curTick());
-        dest.setFrac(seg->tick());
-        curr.setTrack(static_cast<int>(ctx.curTrack()));
-        dest.setTrack(static_cast<int>(track));
-
-        dest.toRelative(curr);
-        dest.setIsTimeTick(seg->isTimeTickType());
-        TWrite::write(&dest, xml, ctx);
-
-        ctx.setCurTick(seg->tick());
-        ctx.setCurTrack(track);
+static void writeLocationMove(XmlWriter& xml, WriteContext& ctx, const Fraction& tick, track_idx_t track, bool isTimeTick)
+{
+    if ((ctx.curTick() == tick) && (track == ctx.curTrack())) {
+        return;
     }
 
+    Location curr = Location::absolute();
+    Location dest = Location::absolute();
+    curr.setFrac(ctx.curTick());
+    dest.setFrac(tick);
+    curr.setTrack(static_cast<int>(ctx.curTrack()));
+    dest.setTrack(static_cast<int>(track));
+
+    dest.toRelative(curr);
+    dest.setIsTimeTick(isTimeTick);
+    TWrite::write(&dest, xml, ctx);
+
+    ctx.setCurTick(tick);
+    ctx.setCurTrack(track);
+}
+
+static bool writeVoiceMove(XmlWriter& xml, WriteContext& ctx, Segment* seg, const Fraction& startTick, track_idx_t track,
+                           int* lastTrackWrittenPtr)
+{
+    bool voiceTagWritten = openVoiceTag(xml, ctx, startTick, track, lastTrackWrittenPtr);
+    writeLocationMove(xml, ctx, seg->tick(), track, seg->isTimeTickType());
     return voiceTagWritten;
 }
 
@@ -3500,6 +3514,8 @@ void TWrite::writeSegments(XmlWriter& xml, WriteContext& ctx, track_idx_t strack
         }
 
         bool voiceTagWritten = false;
+
+        std::unordered_set<const Spanner*> endsWritten;    // spanner ends written inside the segment loop
 
         bool timeSigWritten = false;     // for forceTimeSig
         bool crWritten = false;          // for forceTimeSig
@@ -3595,6 +3611,7 @@ void TWrite::writeSegments(XmlWriter& xml, WriteContext& ctx, track_idx_t strack
                             needMove = false;
                         }
                         writeSpannerEnd(s, xml, ctx, segment, track);
+                        endsWritten.insert(s);
                     }
                 }
             }
@@ -3658,27 +3675,24 @@ void TWrite::writeSegments(XmlWriter& xml, WriteContext& ctx, track_idx_t strack
             }
         }
 
-        // write spanners whose end tick lies outside the clip region
-        if (clip) {
+        // An end can be left over after the segment loop: its end tick lies outside the clip region,
+        // or the only segment which could have taken it (the last segment of the score) is under a
+        // multimeasure rest and was never visited.
+        //! NOTE eseg is also nullptr for the head measure of a multimeasure rest (its segment list is
+        //! detached from the covered ones), so the measure must be checked, not only eseg
+        if (clip || (eseg == nullptr && sseg->measure() == score->lastMeasure())) {
             for (Spanner* s : spanners) {
                 Fraction spannerEndTick = s->tick2();
-                bool spannerEndingAtEdgeOfClipZone = spannerEndTick == endTick && !s->isSlur() && s->effectiveTrack2() == track
-                                                     && s->tick() >= sseg->tick();
-                if (!spannerEndingAtEdgeOfClipZone) {
+                bool spannerEndingAtEdge = spannerEndTick == endTick && !s->isSlur() && s->effectiveTrack2() == track
+                                           && (!clip || s->tick() >= sseg->tick());
+                if (!spannerEndingAtEdge || endsWritten.count(s)) {
                     continue;
                 }
-                bool needMove = spannerEndTick != ctx.curTick();
-                if (needMove) {
-                    // If spanner started on a timeTick and there was no other segment in between there and here,
-                    // ctx.curTick hasn't been moved forward, so we must move it forward here.
-                    Location curr = Location::absolute();
-                    Location dest = Location::absolute();
-                    curr.setFrac(ctx.curTick());
-                    dest.setFrac(spannerEndTick);
-                    dest.toRelative(curr);
-                    TWrite::write(&dest, xml, ctx);
-                    ctx.setCurTick(spannerEndTick);
-                }
+                // If the spanner started on a timeTick and there was no other segment in between there and here,
+                // or no segment at all was visited, ctx.curTick hasn't been moved forward, so we must move it
+                // forward here.
+                voiceTagWritten |= openVoiceTag(xml, ctx, startTick, track, &lastTrackWritten);
+                writeLocationMove(xml, ctx, spannerEndTick, track, false);
                 writeSpannerEnd(s, xml, ctx, score->lastMeasure(), track, endTick);
             }
         }
