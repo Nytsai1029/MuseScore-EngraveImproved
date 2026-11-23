@@ -48532,5 +48532,115 @@ The score will be saved as:
         <source>Least white space between a vertical frame and the highest note or sign of the system below it; the system moves down when ‘Gap below a vertical frame’ would leave less. For every frame which has not been given its own.</source>
         <translation>垂直框与其下方谱行组中位置最高的音符或记号之间至少保留的空白；“垂直框下方的间隙”不足以保证时，谱行组向下移。适用于未单独设置此项的框。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="52"/>
+        <source>The thickness of the bracket’s heavy vertical line.</source>
+        <translation>直连谱号粗竖线的粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="60"/>
+        <source>The gap between a bracket and the line which joins the staves at the start of the system.</source>
+        <translation>直连谱号与谱行组起始处连接各谱表的竖线之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="72"/>
+        <source>Only with the music fonts Emmentaler and Gonville, where it is the width of the whole brace; with every other font the brace is the font’s own symbol, shaped by ‘Brace width’.</source>
+        <translation>仅用于音乐字体 Emmentaler 与 Gonville，此时它是整个花连谱号的宽度；其他字体的花连谱号取自字体本身的符号，由“花连谱号宽度”决定其形状。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="82"/>
+        <source>The gap between a brace and the line which joins the staves at the start of the system.</source>
+        <translation>花连谱号与谱行组起始处连接各谱表的竖线之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="91"/>
+        <source>On, the staves start at the left margin and the brackets hang out into it; off, the staves are moved right so that the brackets stay inside the margin.</source>
+        <translation>开启时谱表从左页边距开始，连谱号伸出到页边距之内；关闭时谱表右移，使连谱号留在页边距以内。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="100"/>
+        <source>How far the bracket’s heavy line runs on above the top staff line and below the bottom one, before the curved tips begin. For every music font except Leland.</source>
+        <translation>直连谱号的粗线在顶线之上与底线之下、卷钩开始之前继续延伸的长度。用于 Leland 以外的音乐字体。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="109"/>
+        <source>How far the bracket’s heavy line runs on above the top staff line and below the bottom one, before the curved tips begin, when the music font is Leland.</source>
+        <translation>音乐字体为 Leland 时，直连谱号的粗线在顶线之上与底线之下、卷钩开始之前继续延伸的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="119"/>
+        <source>The length of the two horizontal strokes of a square bracket; it is also how far the bracket stands out to the left of the staves.</source>
+        <translation>辅助连谱号两条横向折钩的长度；也是它在谱表左侧伸出的宽度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="128"/>
+        <source>Line bracket thickness</source>
+        <translation>线条连谱号粗细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="129"/>
+        <source>The thickness of a line bracket, a plain vertical line without tips, as a multiple of the bracket thickness: 0.67 is two thirds of it.</source>
+        <translation>线条连谱号（不带卷钩的竖线）的粗细，以直连谱号粗细的倍数计：0.67 即其三分之二。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="140"/>
+        <source>Brace width</source>
+        <translation>花连谱号宽度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="141"/>
+        <source>How broad a brace is drawn: this much is added, in widths of the font’s brace symbol, for every gap between the staves it joins, so a smaller value gives a slimmer brace. Not used with the music fonts Emmentaler and Gonville.</source>
+        <translation>花连谱号画得有多宽：所连谱表之间每有一个间隔，就加宽此值（以字体中花连谱号符号的宽度为单位），因此数值越小花连谱号越瘦。不用于音乐字体 Emmentaler 与 Gonville。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="153"/>
+        <source>Square bracket thickness</source>
+        <translation>辅助连谱号粗细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="154"/>
+        <source>The thickness of the lines of a square bracket as a multiple of the staff line thickness.</source>
+        <translation>辅助连谱号线条的粗细，以谱线粗细的倍数计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="163"/>
+        <source>System dividers</source>
+        <translation>谱行组分行号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="164"/>
+        <source>The pair of slanting strokes which separates the systems of a large score, at the left or the right margin or both.</source>
+        <translation>在大型总谱中分隔相邻谱行组的一对斜线，位于左页边距处、右页边距处，或两侧皆有。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="185"/>
+        <source>A divider is drawn at the left margin between every two systems of a page.</source>
+        <translation>在同一页相邻的两个谱行组之间、靠左页边距处画出分行号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="200"/>
+        <source>Positive values move the left divider to the right, towards the staves.</source>
+        <translation>正值使左侧分行号右移，靠近谱表。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="211"/>
+        <source>Positive values move the left divider down from the middle between the two systems.</source>
+        <translation>正值使左侧分行号自两个谱行组的正中向下移动。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="221"/>
+        <source>A divider is drawn at the right margin between every two systems of a page.</source>
+        <translation>在同一页相邻的两个谱行组之间、靠右页边距处画出分行号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="236"/>
+        <source>Positive values move the right divider to the right, out into the margin; negative values towards the staves.</source>
+        <translation>正值使右侧分行号右移，伸入页边距；负值则靠近谱表。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="248"/>
+        <source>Positive values move the right divider down from the middle between the two systems.</source>
+        <translation>正值使右侧分行号自两个谱行组的正中向下移动。</translation>
+    </message>
 </context>
 </TS>
