@@ -566,7 +566,7 @@ TEST_F(Notation_EngravingPreviewTests, theStaffLinesAreMarked)
 namespace {
 //! The pages whose every option is meant to show what it does
 const char* const EFFECT_TEST_PAGES[] = {
-    "SpacingPage", "SizesPage", "SystemPage",
+    "ScorePage", "SpacingPage", "SizesPage", "SystemPage", "MeasureNumberPage",
     "NotesPage", "AccidentalsPage", "StemsPage", "BeamsPage", "TremolosPage",
     "RestsPage", "TupletsPage", "ArpeggiosPage", "TiesPage", "SlursPage"
 };
@@ -690,6 +690,20 @@ const std::set<QString>& optionsWhoseMusicCannotShowItYet()
         "tupletExtendToEndOfDurationPadding",
         "tupletMaxSlope",
         "tupletNumberRhythmicCenterStemShift",
+        // the measure number and the measure number range are moved by their minimum distance only where the
+        // skyline under them comes nearer (Autoplace::autoplaceMeasureElement, autoplace.cpp:129): no tried
+        // measure (high notes under left and centred numbers, a high multimeasure rest number) brought them together
+        "measureNumberMinDistance",
+        "mmRestRangeMinDistance",
+        // playback only: the swing of the score is read by Staff::swing (staff.cpp:1010) for playing, by nothing in
+        // the layout
+        "swingRatio",
+        "swingUnit",
+        // concert pitch shows only on a transposing instrument, and the music is always written for a piano
+        "concertPitch",
+        // only where the bottom staff of the score is one of the staves chosen to show system markings (the
+        // preview's score has no such staves)
+        "systemObjectsBelowBottomStaff",
     };
 
     return OPTIONS;
@@ -709,6 +723,7 @@ const std::map<QString, const char*>& optionsWhichMusicCannotFitThePane()
         { "dividerRightSym",                "two systems after a \\break" },
         { "dividerRightX",                  "two systems after a \\break" },
         { "dividerRightY",                  "two systems after a \\break" },
+        { "subsSystemInstNameVisibility",   "two systems after a \\break" },
         { "headerToLineStartDistance",      "two systems after a \\break" },
         { "lineEndToBarlineDistance",       "two systems after a \\break" },
         { "barlineToLineStartDistance",     "two systems after a \\break" },

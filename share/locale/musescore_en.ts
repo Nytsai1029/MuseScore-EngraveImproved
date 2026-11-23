@@ -1965,31 +1965,31 @@
         <translation type="unfinished">Text styles</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="42"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="43"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="293"/>
         <source>Musical symbols font:</source>
         <translation type="unfinished">Musical symbols font:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="49"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="54"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="353"/>
         <source>MuseScore Studio will change the style to suit the font better</source>
         <translation type="unfinished">MuseScore Studio will change the style to suit the font better</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="48"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="53"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="356"/>
         <source>Automatically load style settings based on font</source>
         <translation type="unfinished">Automatically load style settings based on font</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="65"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="71"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="379"/>
         <source>Musical text font:</source>
         <translation type="unfinished">Musical text font:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="72"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="86"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="423"/>
         <source>Staff line thickness:</source>
         <translation type="unfinished">Staff line thickness:</translation>
@@ -2346,19 +2346,19 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Staff line thickness&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="78"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="93"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="464"/>
         <source>Display in concert pitch</source>
         <translation type="unfinished">Display in concert pitch</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="83"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="168"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="471"/>
         <source>Enable indentation on first system</source>
         <translation type="unfinished">Enable indentation on first system</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="88"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="177"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="489"/>
         <source>First system indentation:</source>
         <translation type="unfinished">First system indentation:</translation>
@@ -2369,43 +2369,41 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;First system indentation&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="96"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="194"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="547"/>
         <source>Automatically hide all empty staves</source>
         <translation type="unfinished">Automatically hide all empty staves</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="101"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="206"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="559"/>
         <source>Don’t hide empty staves in first system</source>
         <translation type="unfinished">Don’t hide empty staves in first system</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="107"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="216"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="566"/>
         <source>Show brackets when spanning a single staff</source>
         <translation type="unfinished">Show brackets when spanning a single staff</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="113"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="227"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="573"/>
         <source>Show square brackets when spanning a single staff</source>
         <translation type="unfinished">Show square brackets when spanning a single staff</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="119"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="583"/>
         <source>Display note values across measure boundaries (EXPERIMENTAL, early music only!)</source>
         <translation type="unfinished">Display note values across measure boundaries (EXPERIMENTAL, early music only!)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="125"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="590"/>
         <source>Instrument names</source>
         <translation type="unfinished">Instrument names</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="129"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="242"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="596"/>
         <source>Hide if there is only 1 instrument</source>
         <translation type="unfinished">Hide if there is only 1 instrument</translation>
@@ -2433,11 +2431,13 @@ space unit</extracomment>
         <translation type="unfinished">Hide</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="272"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="652"/>
         <source>On subsequent systems:</source>
         <translation type="unfinished">On subsequent systems:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="253"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="659"/>
         <source>On first system of sections:</source>
         <translation type="unfinished">On first system of sections:</translation>
@@ -2454,7 +2454,6 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Distance from staff&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="140"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="777"/>
         <source>Swing settings</source>
         <translation type="unfinished">Swing settings</translation>
@@ -2480,19 +2479,17 @@ space unit</extracomment>
         <translation type="unfinished">Sixteenth note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="144"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="833"/>
         <source>Select swing ratio:</source>
         <translation type="unfinished">Select swing ratio:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="153"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="883"/>
         <source>Autoplace</source>
         <translation type="unfinished">Autoplace</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="167"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="351"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="889"/>
         <source>Min. vertical distance:</source>
         <translation type="unfinished">Min. vertical distance:</translation>
@@ -2503,7 +2500,6 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Min. vertical distance&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="157"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="953"/>
         <source>Vertical align range:</source>
         <translation type="unfinished">Vertical align range:</translation>
@@ -2514,7 +2510,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Vertical align range&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="174"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="363"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="989"/>
         <source>Min. horizontal distance:</source>
         <translation type="unfinished">Min. horizontal distance:</translation>
@@ -3693,7 +3689,7 @@ space unit</extracomment>
         <translation type="unfinished">Proportional to time signature</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="209"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="210"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6019"/>
         <source>Minimum width:</source>
         <translation type="unfinished">Minimum width:</translation>
@@ -3747,21 +3743,21 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Vertical position of number&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="310"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="311"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6180"/>
         <source>Center between staves on multi-staff instruments</source>
         <translation type="unfinished">Center between staves on multi-staff instruments</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="50"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="257"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="258"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6193"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12726"/>
         <source>Vertical position:</source>
         <translation type="unfinished">Vertical position:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="285"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="286"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6219"/>
         <source>Break H-bar if number overlaps</source>
         <translation type="unfinished">Break H-bar if number overlaps</translation>
@@ -3778,13 +3774,13 @@ space unit</extracomment>
         <translation type="unfinished">Old-style multimeasure rests</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="382"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="383"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6283"/>
         <source>Maximum number of measures:</source>
         <translation type="unfinished">Maximum number of measures:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="394"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="395"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6326"/>
         <source>Spacing of symbols:</source>
         <translation type="unfinished">Spacing of symbols:</translation>
@@ -3811,7 +3807,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Margin within barlines&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="354"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="355"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6429"/>
         <source>Margin within barlines:</source>
         <translation type="unfinished">Margin within barlines:</translation>
@@ -4693,7 +4689,7 @@ space unit</extracomment>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="59"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="134"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="288"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="704"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10428"/>
         <source>Distance from staff:</source>
@@ -32384,21 +32380,18 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Apply to all parts</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="159"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="776"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1369"/>
         <source>Segment</source>
         <translation type="unfinished">Segment</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="160"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="777"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1370"/>
         <source>Measure</source>
         <translation type="unfinished">Measure</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="161"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="778"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1371"/>
         <source>System</source>
@@ -33500,27 +33493,33 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="61"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="44"/>
         <source>Show measure numbers</source>
         <translation type="unfinished">Show measure numbers</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="68"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="51"/>
         <source>Show initial measure number</source>
         <translation type="unfinished">Show initial measure number</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="78"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="318"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="110"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="327"/>
         <source>Text style</source>
         <translation type="unfinished">Text style</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="115"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="62"/>
         <source>Frequency</source>
         <translation type="unfinished">Frequency</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="124"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="67"/>
         <source>Start of each system</source>
         <translation type="unfinished">Start of each system</translation>
     </message>
@@ -33543,16 +33542,19 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="173"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="170"/>
         <source>Align</source>
         <translation type="unfinished">Align</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="180"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="175"/>
         <source>To the barline</source>
         <translation type="unfinished">To the barline</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="186"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="176"/>
         <source>To the measure</source>
         <translation type="unfinished">To the measure</translation>
     </message>
@@ -33560,6 +33562,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="190"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="380"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="137"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="149"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="350"/>
         <source>Alignment</source>
         <translation type="unfinished">Alignment</translation>
     </message>
@@ -33617,11 +33621,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="309"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="304"/>
         <source>Show measure number ranges</source>
         <translation type="unfinished">Show measure number ranges</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="353"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="313"/>
         <source>Bracket type</source>
         <translation type="unfinished">Bracket type</translation>
     </message>
@@ -34542,14 +34548,260 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Divider</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="37"/>
+        <source>Measure numbers</source>
+        <translation type="unfinished">Measure numbers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="52"/>
+        <source>The first measure of the score, and of every section, gets its number too. Numbering at a regular interval then counts 1, 6, 11 … instead of 5, 10, 15 …</source>
+        <translation type="unfinished">The first measure of the score, and of every section, gets its number too. Numbering at a regular interval then counts 1, 6, 11 … instead of 5, 10, 15 …</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="63"/>
+        <source>Whether the first measure of every system is numbered, or measures at a regular interval wherever they fall.</source>
+        <translation type="unfinished">Whether the first measure of every system is numbered, or measures at a regular interval wherever they fall.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="68"/>
+        <source>At a regular interval</source>
+        <translation type="unfinished">At a regular interval</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="77"/>
+        <source>Interval</source>
+        <translation type="unfinished">Interval</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="78"/>
+        <source>A number is shown every this many measures: 5 numbers measures 5, 10, 15 … Only with the frequency ‘At a regular interval’.</source>
+        <translation type="unfinished">A number is shown every this many measures: 5 numbers measures 5, 10, 15 … Only with the frequency ‘At a regular interval’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="93"/>
+        <source>Placement in the system</source>
+        <translation type="unfinished">Placement in the system</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="94"/>
+        <source>The numbers stand above the top staff of each system, below its bottom staff, on the staves which also carry tempo and rehearsal marks, or on every staff.</source>
+        <translation type="unfinished">The numbers stand above the top staff of each system, below its bottom staff, on the staves which also carry tempo and rehearsal marks, or on every staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="98"/>
+        <source>Above system</source>
+        <translation type="unfinished">Above system</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="99"/>
+        <source>Below system</source>
+        <translation type="unfinished">Below system</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="100"/>
+        <source>At system marking positions</source>
+        <translation type="unfinished">At system marking positions</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="101"/>
+        <source>On all staves</source>
+        <translation type="unfinished">On all staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="111"/>
+        <source>The text style which gives the numbers their font, size and frame; ‘Measure number (alternate)’ is a second, bolder and framed style kept for this purpose.</source>
+        <translation type="unfinished">The text style which gives the numbers their font, size and frame; ‘Measure number (alternate)’ is a second, bolder and framed style kept for this purpose.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="134"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="338"/>
+        <source>Above or below the staff</source>
+        <translation type="unfinished">Above or below the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="135"/>
+        <source>Used only with the placement ‘On all staves’; with the other placements the numbers stand above the staff, or below it for ‘Below system’.</source>
+        <translation type="unfinished">Used only with the placement ‘On all staves’; with the other placements the numbers stand above the staff, or below it for ‘Below system’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="139"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="340"/>
+        <source>Above</source>
+        <translation type="unfinished">Above</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="140"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="341"/>
+        <source>Below</source>
+        <translation type="unfinished">Below</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="150"/>
+        <source>Whether the number begins at, is centred on, or ends at the point it is aligned to: the barline or the measure, as chosen under ‘Align’.</source>
+        <translation type="unfinished">Whether the number begins at, is centred on, or ends at the point it is aligned to: the barline or the measure, as chosen under ‘Align’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="154"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="354"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="150"/>
         <source>Left</source>
         <translation type="unfinished">Left</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="155"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="355"/>
+        <source>Center</source>
+        <translation type="unfinished">Center</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="156"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="356"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="150"/>
         <source>Right</source>
         <translation type="unfinished">Right</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="171"/>
+        <source>To the barline: the number sits at the barline which begins its measure. To the measure: at the left end, the middle or the right end of the measure, after any clef and key signature.</source>
+        <translation type="unfinished">To the barline: the number sits at the barline which begins its measure. To the measure: at the left end, the middle or the right end of the measure, after any clef and key signature.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="183"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="363"/>
+        <source>Offset</source>
+        <translation type="unfinished">Offset</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="184"/>
+        <source>Offset with the alternate text style</source>
+        <translation type="unfinished">Offset with the alternate text style</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="187"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="366"/>
+        <source>Above the staff</source>
+        <translation type="unfinished">Above the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="188"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="367"/>
+        <source>Below the staff</source>
+        <translation type="unfinished">Below the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="195"/>
+        <source>The sideways and vertical shift of a number which stands above the staff; a negative vertical value moves it further up. Applies with the text style ‘Measure number’.</source>
+        <translation type="unfinished">The sideways and vertical shift of a number which stands above the staff; a negative vertical value moves it further up. Applies with the text style ‘Measure number’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="210"/>
+        <source>The sideways and vertical shift of a number which stands below the staff; a positive vertical value moves it further down. Applies with the text style ‘Measure number’.</source>
+        <translation type="unfinished">The sideways and vertical shift of a number which stands below the staff; a positive vertical value moves it further down. Applies with the text style ‘Measure number’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="225"/>
+        <source>Offset above the staff with the alternate text style</source>
+        <translation type="unfinished">Offset above the staff with the alternate text style</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="226"/>
+        <source>Takes the place of the offset above the staff while the text style is ‘Measure number (alternate)’; a negative vertical value moves the number further up.</source>
+        <translation type="unfinished">Takes the place of the offset above the staff while the text style is ‘Measure number (alternate)’; a negative vertical value moves the number further up.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="242"/>
+        <source>Offset below the staff with the alternate text style</source>
+        <translation type="unfinished">Offset below the staff with the alternate text style</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="243"/>
+        <source>Takes the place of the offset below the staff while the text style is ‘Measure number (alternate)’.</source>
+        <translation type="unfinished">Takes the place of the offset below the staff while the text style is ‘Measure number (alternate)’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="254"/>
+        <source>Distance from a one-line staff</source>
+        <translation type="unfinished">Distance from a one-line staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="255"/>
+        <source>On a staff with a single line, such as a percussion line, the numbers start this far above or below the line, because the barlines reach beyond it. Also used for the measure number ranges at multimeasure rests.</source>
+        <translation type="unfinished">On a staff with a single line, such as a percussion line, the numbers start this far above or below the line, because the barlines reach beyond it. Also used for the measure number ranges at multimeasure rests.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="275"/>
+        <source>Least gap to a barline</source>
+        <translation type="unfinished">Least gap to a barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="276"/>
+        <source>A left- or right-aligned number which would touch a barline running between the staves is moved sideways until it is this far from it; centred numbers stay where they are.</source>
+        <translation type="unfinished">A left- or right-aligned number which would touch a barline running between the staves is moved sideways until it is this far from it; centred numbers stay where they are.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="288"/>
+        <source>Least vertical gap between a measure number and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a measure number and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="296"/>
+        <source>Measure number ranges at multimeasure rests</source>
+        <translation type="unfinished">Measure number ranges at multimeasure rests</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="305"/>
+        <source>A multimeasure rest shows the first and the last measure number it covers, such as 12–19.</source>
+        <translation type="unfinished">A multimeasure rest shows the first and the last measure number it covers, such as 12–19.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="314"/>
+        <source>What encloses the range: [12–19], (12–19) or 12–19.</source>
+        <translation type="unfinished">What encloses the range: [12–19], (12–19) or 12–19.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="316"/>
+        <source>Square brackets</source>
+        <translation type="unfinished">Square brackets</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="318"/>
+        <source>None</source>
+        <translation type="unfinished">None</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="328"/>
+        <source>The text style which gives the range its font and size.</source>
+        <translation type="unfinished">The text style which gives the range its font and size.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="351"/>
+        <source>The range stands at the left end of the measure, centred over it, or at its right end.</source>
+        <translation type="unfinished">The range stands at the left end of the measure, centred over it, or at its right end.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="374"/>
+        <source>The sideways and vertical shift of a range which stands above the staff; a negative vertical value moves it further up.</source>
+        <translation type="unfinished">The sideways and vertical shift of a range which stands above the staff; a negative vertical value moves it further up.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="388"/>
+        <source>The sideways and vertical shift of a range which stands below the staff; a positive vertical value moves it further down.</source>
+        <translation type="unfinished">The sideways and vertical shift of a range which stands below the staff; a positive vertical value moves it further down.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="399"/>
+        <source>Separator</source>
+        <translation type="unfinished">Separator</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="400"/>
+        <source>The character between the first and the last number of the range; an en dash by default, as in 12–19.</source>
+        <translation type="unfinished">The character between the first and the last number of the range; an en dash by default, as in 12–19.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="411"/>
+        <source>Least vertical gap between a measure number range and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a measure number range and the notes or other signs which lie between it and the staff.</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="152"/>
@@ -36058,27 +36310,23 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Dash at the start of a system</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="37"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="121"/>
         <source>Position</source>
         <translation type="unfinished">Position</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="41"/>
         <source>Measure numbers on one-line staves: extra distance</source>
         <translation type="unfinished">Measure numbers on one-line staves: extra distance</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="42"/>
         <source>Extra vertical distance of measure numbers and multimeasure-rest ranges from a one-line staff, where the barline extends beyond the staff line.</source>
         <translation type="unfinished">Extra vertical distance of measure numbers and multimeasure-rest ranges from a one-line staff, where the barline extends beyond the staff line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="50"/>
         <source>Measure number to barline clearance</source>
         <translation type="unfinished">Measure number to barline clearance</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="51"/>
         <source>Minimum horizontal gap between a left- or right-aligned measure number and a barline that runs through its position.</source>
         <translation type="unfinished">Minimum horizontal gap between a left- or right-aligned measure number and a barline that runs through its position.</translation>
     </message>
@@ -36491,6 +36739,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">How far the ottava line continues past the right edge of the last note it covers (never beyond the next note).</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="317"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="32"/>
         <source>Parentheses</source>
         <translation type="unfinished">Parentheses</translation>
@@ -36971,144 +37220,144 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Prints a 1 above the whole rest of a single empty measure. An H-bar always has its number.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="171"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="172"/>
         <source>Width of multimeasure rests</source>
         <translation type="unfinished">Width of multimeasure rests</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="178"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="179"/>
         <source>Basic width</source>
         <translation type="unfinished">Basic width</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="179"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="180"/>
         <source>Whether a multimeasure rest takes the room of one measure of the time signature (wider in 4/4 than in 2/4) or the same room in every time signature.</source>
         <translation type="unfinished">Whether a multimeasure rest takes the room of one measure of the time signature (wider in 4/4 than in 2/4) or the same room in every time signature.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="183"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="184"/>
         <source>Proportional to time signature</source>
         <translation type="unfinished">Proportional to time signature</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="184"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="185"/>
         <source>The same in every time signature</source>
         <translation type="unfinished">The same in every time signature</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="193"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="194"/>
         <source>Fixed basic width, in quarter notes</source>
         <translation type="unfinished">Fixed basic width, in quarter notes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="194"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="195"/>
         <source>The rest takes the room of a note of this many quarter notes: 2 the room of a half note, 4 that of a whole note. Only with ‘Basic width’ set to ‘The same in every time signature’.</source>
         <translation type="unfinished">The rest takes the room of a note of this many quarter notes: 2 the room of a half note, 4 that of a whole note. Only with ‘Basic width’ set to ‘The same in every time signature’.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="210"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="211"/>
         <source>A measure with a multimeasure rest is never narrower than this, however tightly the system is spaced.</source>
         <translation type="unfinished">A measure with a multimeasure rest is never narrower than this, however tightly the system is spaced.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="222"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="223"/>
         <source>Number of further measures which widen the rest</source>
         <translation type="unfinished">Number of further measures which widen the rest</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="223"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="224"/>
         <source>Every measure beyond the ‘Longest rest at the basic width’ widens the rest by one beat (one quarter note when the basic width is fixed); after this many it grows no more.</source>
         <translation type="unfinished">Every measure beyond the ‘Longest rest at the basic width’ widens the rest by one beat (one quarter note when the basic width is fixed); after this many it grows no more.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="236"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="237"/>
         <source>Longest rest at the basic width</source>
         <translation type="unfinished">Longest rest at the basic width</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="237"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="238"/>
         <source>A multimeasure rest of up to this many measures has the basic width; longer rests are wider.</source>
         <translation type="unfinished">A multimeasure rest of up to this many measures has the basic width; longer rests are wider.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="249"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="250"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="37"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="58"/>
         <source>Number</source>
         <translation type="unfinished">Number</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="258"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="259"/>
         <source>Measured from the top staff line to the lower edge of the number; negative values are above the line.</source>
         <translation type="unfinished">Measured from the top staff line to the lower edge of the number; negative values are above the line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="270"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="271"/>
         <source>Lowest position on one-line staves</source>
         <translation type="unfinished">Lowest position on one-line staves</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="271"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="272"/>
         <source>On a staff of one line the number is never lower than this, whatever ‘Vertical position’ says; negative values are above the line.</source>
         <translation type="unfinished">On a staff of one line the number is never lower than this, whatever ‘Vertical position’ says; negative values are above the line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="286"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="287"/>
         <source>When the number is placed so low that it stands on the H-bar, the bar is interrupted around it.</source>
         <translation type="unfinished">When the number is placed so low that it stands on the H-bar, the bar is interrupted around it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="296"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="297"/>
         <source>Space beside the number in a broken H-bar</source>
         <translation type="unfinished">Space beside the number in a broken H-bar</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="297"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="298"/>
         <source>The bar is interrupted for the width of the number plus this much, half of it on each side. Only with ‘Break H-bar if number overlaps’ on.</source>
         <translation type="unfinished">The bar is interrupted for the width of the number plus this much, half of it on each side. Only with ‘Break H-bar if number overlaps’ on.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="311"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="312"/>
         <source>On a piano or another instrument with several staves the number is printed once, halfway between two staves, instead of above each staff.</source>
         <translation type="unfinished">On a piano or another instrument with several staves the number is printed once, halfway between two staves, instead of above each staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="319"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="320"/>
         <source>H-bar</source>
         <translation type="unfinished">H-bar</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="320"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="321"/>
         <source>The thick horizontal bar with a short vertical stroke at each end.</source>
         <translation type="unfinished">The thick horizontal bar with a short vertical stroke at each end.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="355"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="356"/>
         <source>The space left free between each end of the H-bar and the barline (or the clef, key or time signature) next to it; a larger value makes the bar shorter.</source>
         <translation type="unfinished">The space left free between each end of the H-bar and the barline (or the clef, key or time signature) next to it; a larger value makes the bar shorter.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="364"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="365"/>
         <source>Old-style multimeasure rests</source>
         <translation type="unfinished">Old-style multimeasure rests</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="371"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="372"/>
         <source>Use old-style multimeasure rests</source>
         <translation type="unfinished">Use old-style multimeasure rests</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="372"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="373"/>
         <source>Short multimeasure rests are drawn with whole, double whole and longa rest symbols under the number, instead of the H-bar.</source>
         <translation type="unfinished">Short multimeasure rests are drawn with whole, double whole and longa rest symbols under the number, instead of the H-bar.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="383"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="384"/>
         <source>Rests of more measures than this are drawn with the H-bar.</source>
         <translation type="unfinished">Rests of more measures than this are drawn with the H-bar.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="395"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="396"/>
         <source>The gap between neighbouring rest symbols of an old-style multimeasure rest.</source>
         <translation type="unfinished">The gap between neighbouring rest symbols of an old-style multimeasure rest.</translation>
     </message>
@@ -37170,8 +37419,236 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="38"/>
+        <source>Music fonts</source>
+        <translation type="unfinished">Music fonts</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="44"/>
+        <source>The font of the notes, rests, clefs and every other music symbol. With ‘Automatically load style settings based on font’ on, the line thicknesses and distances which the font recommends are loaded with it.</source>
+        <translation type="unfinished">The font of the notes, rests, clefs and every other music symbol. With ‘Automatically load style settings based on font’ on, the line thicknesses and distances which the font recommends are loaded with it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="72"/>
+        <source>The font of music symbols which stand inside text: the note of a metronome mark, the accidentals of a chord symbol.</source>
+        <translation type="unfinished">The font of music symbols which stand inside text: the note of a metronome mark, the accidentals of a chord symbol.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="81"/>
         <source>General</source>
         <translation type="unfinished">General</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="94"/>
+        <source>Transposing instruments are written at sounding pitch instead of in their own transposition.</source>
+        <translation type="unfinished">Transposing instruments are written at sounding pitch instead of in their own transposition.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="102"/>
+        <source>Write a note tied across a barline as one note value</source>
+        <translation type="unfinished">Write a note tied across a barline as one note value</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="103"/>
+        <source>Early-music notation (experimental): a note tied over the barline to a single note is drawn before the barline as one longer note when the two add up to one note value; the tie and the second note are not drawn.</source>
+        <translation type="unfinished">Early-music notation (experimental): a note tied over the barline to a single note is drawn before the barline as one longer note when the two add up to one note value; the tie and the second note are not drawn.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="112"/>
+        <source>System markings below the bottom staff</source>
+        <translation type="unfinished">System markings below the bottom staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="113"/>
+        <source>Where the bottom staff of the score also carries the system markings (tempo, rehearsal marks, voltas…), they stand below that staff instead of above it. The Layout panel sets this itself when the system markings are moved under the last instrument.</source>
+        <translation type="unfinished">Where the bottom staff of the score also carries the system markings (tempo, rehearsal marks, voltas…), they stand below that staff instead of above it. The Layout panel sets this itself when the system markings are moved under the last instrument.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="121"/>
+        <source>Superscript and subscript in text</source>
+        <translation type="unfinished">Superscript and subscript in text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="126"/>
+        <source>Size</source>
+        <translation type="unfinished">Size</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="127"/>
+        <source>The size of superscript and subscript characters as a fraction of the text around them: 0.6 is 60%.</source>
+        <translation type="unfinished">The size of superscript and subscript characters as a fraction of the text around them: 0.6 is 60%.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="138"/>
+        <source>Superscript position</source>
+        <translation type="unfinished">Superscript position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="139"/>
+        <source>Where the baseline of a superscript lies against the baseline of the text, in x-heights of the text; negative is above, so −0.9 lifts it by nine tenths of the height of a lower-case x.</source>
+        <translation type="unfinished">Where the baseline of a superscript lies against the baseline of the text, in x-heights of the text; negative is above, so −0.9 lifts it by nine tenths of the height of a lower-case x.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="151"/>
+        <source>Subscript position</source>
+        <translation type="unfinished">Subscript position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="152"/>
+        <source>Where the baseline of a subscript lies against the baseline of the text, in x-heights of the text; positive is below, so 0.5 lowers it by half the height of a lower-case x.</source>
+        <translation type="unfinished">Where the baseline of a subscript lies against the baseline of the text, in x-heights of the text; positive is below, so 0.5 lowers it by half the height of a lower-case x.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="162"/>
+        <source>First system</source>
+        <translation type="unfinished">First system</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="169"/>
+        <source>Applies to the first system of the score and to the first system after every section break.</source>
+        <translation type="unfinished">Applies to the first system of the score and to the first system after every section break.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="178"/>
+        <source>The staves of the first system start at least this far from the left page margin; wider instrument names push them further.</source>
+        <translation type="unfinished">The staves of the first system start at least this far from the left page margin; wider instrument names push them further.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="188"/>
+        <source>Empty staves</source>
+        <translation type="unfinished">Empty staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="195"/>
+        <source>A staff which has no notes in a system is left out of that system. The staves of a piano or other multi-staff instrument go only when all of them are empty, unless ‘Only hide staves on a system if the entire instrument is empty’ is off in the instrument’s settings, as in the preview.</source>
+        <translation type="unfinished">A staff which has no notes in a system is left out of that system. The staves of a piano or other multi-staff instrument go only when all of them are empty, unless ‘Only hide staves on a system if the entire instrument is empty’ is off in the instrument’s settings, as in the preview.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="207"/>
+        <source>The first system of the score, and of every section, then shows all the instruments.</source>
+        <translation type="unfinished">The first system of the score, and of every section, then shows all the instruments.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="217"/>
+        <source>When hiding staves leaves a bracket or brace around a single staff, it is still drawn; off, it is left out.</source>
+        <translation type="unfinished">When hiding staves leaves a bracket or brace around a single staff, it is still drawn; off, it is left out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="228"/>
+        <source>When hiding staves leaves a square bracket around a single staff, it is still drawn; off, it is left out.</source>
+        <translation type="unfinished">When hiding staves leaves a square bracket around a single staff, it is still drawn; off, it is left out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="236"/>
+        <source>Instrument names</source>
+        <translation type="unfinished">Instrument names</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="254"/>
+        <source>That is, the first system of the score and the first system after every section break.</source>
+        <translation type="unfinished">That is, the first system of the score and the first system after every section break.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="257"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="274"/>
+        <source>Long name</source>
+        <translation type="unfinished">Long name</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="258"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="275"/>
+        <source>Short name</source>
+        <translation type="unfinished">Short name</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="259"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="276"/>
+        <source>Hide</source>
+        <translation type="unfinished">Hide</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="289"/>
+        <source>The gap between the instrument names and the staves; where there are brackets, it is measured from the outermost bracket.</source>
+        <translation type="unfinished">The gap between the instrument names and the staves; where there are brackets, it is measured from the outermost bracket.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="304"/>
+        <source>Widen the distance for larger name fonts</source>
+        <translation type="unfinished">Widen the distance for larger name fonts</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="305"/>
+        <source>‘Distance from staff’ is multiplied by how much larger the instrument-name font is than its default size; off, the distance stays exactly as set.</source>
+        <translation type="unfinished">‘Distance from staff’ is multiplied by how much larger the instrument-name font is than its default size; off, the distance stays exactly as set.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="312"/>
+        <source>Swing</source>
+        <translation type="unfinished">Swing</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="313"/>
+        <source>For playback only; nothing changes on the page.</source>
+        <translation type="unfinished">For playback only; nothing changes on the page.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="318"/>
+        <source>Swung note value</source>
+        <translation type="unfinished">Swung note value</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="319"/>
+        <source>Pairs of eighth notes, or of sixteenth notes, are played long–short throughout the score; a swing text in the score takes over from the place where it stands.</source>
+        <translation type="unfinished">Pairs of eighth notes, or of sixteenth notes, are played long–short throughout the score; a swing text in the score takes over from the place where it stands.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="323"/>
+        <source>Off</source>
+        <translation type="unfinished">Off</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="324"/>
+        <source>Eighth note</source>
+        <translation type="unfinished">Eighth note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="325"/>
+        <source>Sixteenth note</source>
+        <translation type="unfinished">Sixteenth note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="332"/>
+        <source>Swing ratio</source>
+        <translation type="unfinished">Swing ratio</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="333"/>
+        <source>The share of the beat which the first note of a swung pair takes: 50% is even, 67% a triplet swing. No effect while ‘Swung note value’ is ‘Off’.</source>
+        <translation type="unfinished">The share of the beat which the first note of a swung pair takes: 50% is even, 67% a triplet swing. No effect while ‘Swung note value’ is ‘Off’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="346"/>
+        <source>Automatic placement</source>
+        <translation type="unfinished">Automatic placement</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="352"/>
+        <source>The least white space between the lowest note or mark of a staff and the highest note or mark of the staff below it; staves and systems are moved apart to keep it.</source>
+        <translation type="unfinished">The least white space between the lowest note or mark of a staff and the highest note or mark of the staff below it; staves and systems are moved apart to keep it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="364"/>
+        <source>Two marks, one above the other, count as colliding and are moved apart vertically when they pass each other sideways by less than this.</source>
+        <translation type="unfinished">Two marks, one above the other, count as colliding and are moved apart vertically when they pass each other sideways by less than this.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="372"/>
+        <source>Enable automatic placement</source>
+        <translation type="unfinished">Enable automatic placement</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="373"/>
+        <source>Off: nothing is moved out of the way of anything else. Every sign stands at its default position or where it was dragged, collisions are left as they are, and notes are spaced by their duration alone, with no extra room for accidentals, dots or lyrics. The same switch as the command ‘Toggle automatic placement for entire score’.</source>
+        <translation type="unfinished">Off: nothing is moved out of the way of anything else. Every sign stands at its default position or where it was dragged, collisions are left as they are, and notes are spaced by their duration alone, with no extra room for accidentals, dots or lyrics. The same switch as the command ‘Toggle automatic placement for entire score’.</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="32"/>
@@ -37442,222 +37919,222 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">For slurs of the ‘Flat middle’ type: with a larger value the two corners between the rising ends and the flat middle are rounder and more gradual, with a smaller value they are tighter.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="443"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="448"/>
         <source>Greatest height in relation to length</source>
         <translation type="unfinished">Greatest height in relation to length</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="444"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="449"/>
         <source>However much a slur is raised to clear the notes under it, its height stays under this multiple of its length: at 1 a slur is never higher than it is long.</source>
         <translation type="unfinished">However much a slur is raised to clear the notes under it, its height stays under this multiple of its length: at 1 a slur is never higher than it is long.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="454"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="459"/>
         <source>Collision avoidance</source>
         <translation type="unfinished">Collision avoidance</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="460"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="465"/>
         <source>The least vertical distance between a slur and the noteheads it passes over, other than those of its first and last chord.</source>
         <translation type="unfinished">The least vertical distance between a slur and the noteheads it passes over, other than those of its first and last chord.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="470"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="475"/>
         <source>The least vertical distance between a slur and the articulations, ornaments and tapping marks it passes over.</source>
         <translation type="unfinished">The least vertical distance between a slur and the articulations, ornaments and tapping marks it passes over.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="480"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="485"/>
         <source>The least vertical distance between a slur and anything else it passes over: stems, beams, flags, accidentals, rests.</source>
         <translation type="unfinished">The least vertical distance between a slur and anything else it passes over: stems, beams, flags, accidentals, rests.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="489"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="494"/>
         <source>Extra clearance in the middle: growth with length</source>
         <translation type="unfinished">Extra clearance in the middle: growth with length</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="490"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="495"/>
         <source>On top of the clearances above, the middle of a slur keeps an extra distance from the music under it which grows with its length: this many sp for every sp of length, less for slanted slurs. Nothing is added at the ends.</source>
         <translation type="unfinished">On top of the clearances above, the middle of a slur keeps an extra distance from the music under it which grows with its length: this many sp for every sp of length, less for slanted slurs. Nothing is added at the ends.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="502"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="507"/>
         <source>Extra clearance in the middle: at least</source>
         <translation type="unfinished">Extra clearance in the middle: at least</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="503"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="508"/>
         <source>Short slurs get this much extra room under their middle.</source>
         <translation type="unfinished">Short slurs get this much extra room under their middle.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="510"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="515"/>
         <source>Extra clearance in the middle: at most</source>
         <translation type="unfinished">Extra clearance in the middle: at most</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="511"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="516"/>
         <source>However long the slur, the extra room under its middle is not more than this.</source>
         <translation type="unfinished">However long the slur, the extra room under its middle is not more than this.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="517"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="522"/>
         <source>Moving the end point or reshaping the curve</source>
         <translation type="unfinished">Moving the end point or reshaping the curve</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="518"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="523"/>
         <source>A slur which runs into notes can lift its end points or bend its curve further out. 0 = the end point stays and only the curve changes; 1 = only the end point moves. Constrained: an end with an accent, ornament or similar mark outside it, the end on the note of a slur which goes on to another system, and the ends of a slur between two staves. Free: the open end at a system break and an end which was slid along a stem. Normal: every other end.</source>
         <translation type="unfinished">A slur which runs into notes can lift its end points or bend its curve further out. 0 = the end point stays and only the curve changes; 1 = only the end point moves. Constrained: an end with an accent, ornament or similar mark outside it, the end on the note of a slur which goes on to another system, and the ends of a slur between two staves. Free: the open end at a system break and an end which was slid along a stem. Normal: every other end.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="525"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="530"/>
         <source>Constrained end</source>
         <translation type="unfinished">Constrained end</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="526"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="531"/>
         <source>Normal end</source>
         <translation type="unfinished">Normal end</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="527"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="532"/>
         <source>Free end</source>
         <translation type="unfinished">Free end</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="530"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="535"/>
         <source>Share of end-point movement</source>
         <translation type="unfinished">Share of end-point movement</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="555"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="560"/>
         <source>Size of one avoidance step</source>
         <translation type="unfinished">Size of one avoidance step</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="556"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="561"/>
         <source>A slur is moved off the music in steps of this size, a limited number of times: small steps fit it closely over the notes but may not get it clear of a tall obstacle, large steps clear more but may leave it further away than needed.</source>
         <translation type="unfinished">A slur is moved off the music in steps of this size, a limited number of times: small steps fit it closely over the notes but may not get it clear of a tall obstacle, large steps clear more but may leave it further away than needed.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="567"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="572"/>
         <source>Slurs longer than this take larger steps</source>
         <translation type="unfinished">Slurs longer than this take larger steps</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="568"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="573"/>
         <source>Beyond this length the step grows in proportion to the length of the slur, up to the ‘Largest avoidance step’.</source>
         <translation type="unfinished">Beyond this length the step grows in proportion to the length of the slur, up to the ‘Largest avoidance step’.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="579"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="584"/>
         <source>Largest avoidance step</source>
         <translation type="unfinished">Largest avoidance step</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="580"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="585"/>
         <source>The upper limit of the enlarged step of long slurs.</source>
         <translation type="unfinished">The upper limit of the enlarged step of long slurs.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="590"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="595"/>
         <source>Steep slurs: angle above which the far end is moved too</source>
         <translation type="unfinished">Steep slurs: angle above which the far end is moved too</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="591"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="596"/>
         <source>While a slur is being moved off the notes under it, a slur steeper than this also has its left end (rising slur) or right end (falling slur) moved outwards, even if nothing touches it there; for a slur above the notes this makes it less steep.</source>
         <translation type="unfinished">While a slur is being moved off the notes under it, a slur steeper than this also has its left end (rising slur) or right end (falling slur) moved outwards, even if nothing touches it there; for a slur above the notes this makes it less steep.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="604"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="609"/>
         <source>Collision in the middle: slant above which the slur is levelled</source>
         <translation type="unfinished">Collision in the middle: slant above which the slur is levelled</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="605"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="610"/>
         <source>When a slur touches the music in its middle part only and slants by more than this, its lower end (the higher end of a slur below the notes) is moved out more than the other end, so that the slur also becomes less steep. Only for slurs longer than the next value.</source>
         <translation type="unfinished">When a slur touches the music in its middle part only and slants by more than this, its lower end (the higher end of a slur below the notes) is moved out more than the other end, so that the slur also becomes less steep. Only for slurs longer than the next value.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="618"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="623"/>
         <source>Collision in the middle: levelling only for slurs longer than</source>
         <translation type="unfinished">Collision in the middle: levelling only for slurs longer than</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="619"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="624"/>
         <source>Shorter slurs keep their slant and move both ends by their normal shares.</source>
         <translation type="unfinished">Shorter slurs keep their slant and move both ends by their normal shares.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="628"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="633"/>
         <source>Across systems</source>
         <translation type="unfinished">Across systems</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="629"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="634"/>
         <source>The open end is the end of a slur which is cut off at a system break; the slur goes on in the next system.</source>
         <translation type="unfinished">The open end is the end of a slur which is cut off at a system break; the slur goes on in the next system.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="639"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="644"/>
         <source>Open end: distance from the chord next to it</source>
         <translation type="unfinished">Open end: distance from the chord next to it</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="640"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="645"/>
         <source>The open end is level with the top (slur above) or bottom of the last chord before the break, or the first chord after it; this distance is added when the slur is on the notehead side of that chord.</source>
         <translation type="unfinished">The open end is level with the top (slur above) or bottom of the last chord before the break, or the first chord after it; this distance is added when the slur is on the notehead side of that chord.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="651"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="656"/>
         <source>Open end at the end of a system: greatest drop towards the staff</source>
         <translation type="unfinished">Open end at the end of a system: greatest drop towards the staff</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="653"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="658"/>
         <source>At the end of a system the open end follows the last chord, but it ends at most this much nearer the staff than the slur began.</source>
         <translation type="unfinished">At the end of a system the open end follows the last chord, but it ends at most this much nearer the staff than the slur began.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="664"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="669"/>
         <source>Open end: rise when only one chord is under the slur</source>
         <translation type="unfinished">Open end: rise when only one chord is under the slur</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="665"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="670"/>
         <source>When a slur begins on the last chord of a system, or ends on the first chord of the next, its open end lies this much further from the staff than its end on the note.</source>
         <translation type="unfinished">When a slur begins on the last chord of a system, or ends on the first chord of the next, its open end lies this much further from the staff than its end on the note.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="673"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="678"/>
         <source>Open end: rise when angled away from the staff</source>
         <translation type="unfinished">Open end: rise when angled away from the staff</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="674"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="679"/>
         <source>With ‘Slurs cut off at a break angle away from the staff’ on, the open end lies at least this much further from the staff than the end on the note.</source>
         <translation type="unfinished">With ‘Slurs cut off at a break angle away from the staff’ on, the open end lies at least this much further from the staff than the end on the note.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="686"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="691"/>
         <source>Slurs and ties which go on in the next system run right up to the last barline of the system instead of stopping a little before it.</source>
         <translation type="unfinished">Slurs and ties which go on in the next system run right up to the last barline of the system instead of stopping a little before it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="700"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="705"/>
         <source>Horizontal length of the half slur drawn before a note tapped with the left hand.</source>
         <translation type="unfinished">Horizontal length of the half slur drawn before a note tapped with the left hand.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="711"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="716"/>
         <source>Height of the half slur on standard staves, measured at the control points of the curve.</source>
         <translation type="unfinished">Height of the half slur on standard staves, measured at the control points of the curve.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="721"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="726"/>
         <source>The same height on tablature staves.</source>
         <translation type="unfinished">The same height on tablature staves.</translation>
     </message>
@@ -37953,7 +38430,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Slur collision avoidance</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="459"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="464"/>
         <source>Clearance from noteheads</source>
         <translation type="unfinished">Clearance from noteheads</translation>
     </message>
@@ -37962,7 +38439,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum vertical distance between a slur and the noteheads it passes over (other than those of its first and last chord).</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="469"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="474"/>
         <source>Clearance from articulations</source>
         <translation type="unfinished">Clearance from articulations</translation>
     </message>
@@ -37971,7 +38448,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum vertical distance between a slur and the articulations, ornaments and tapping marks it passes over.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="479"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="484"/>
         <source>Clearance from other items</source>
         <translation type="unfinished">Clearance from other items</translation>
     </message>
@@ -38088,7 +38565,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">With ‘Angle away from staff’ chosen for partial slurs across repeats and breaks, the open end lies at least this much further from the staff than the attached end.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="685"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="690"/>
         <source>Extend to the last barline before a system break</source>
         <translation type="unfinished">Extend to the last barline before a system break</translation>
     </message>
@@ -38097,12 +38574,12 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Slurs and ties that continue on the next system end flush with the last barline of the system instead of stopping short of it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="693"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="698"/>
         <source>Tapping half slurs</source>
         <translation type="unfinished">Tapping half slurs</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="699"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="704"/>
         <source>Length</source>
         <translation type="unfinished">Length</translation>
     </message>
@@ -38111,7 +38588,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Horizontal length of the half slur drawn before a tapped note.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="710"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="715"/>
         <source>Height</source>
         <translation type="unfinished">Height</translation>
     </message>
@@ -38120,7 +38597,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Shoulder height of the tapping half slur on standard staves.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="720"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="725"/>
         <source>Height (tablature)</source>
         <translation type="unfinished">Height (tablature)</translation>
     </message>
@@ -40378,6 +40855,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">When the rhythmic centre falls on a note and the number is on the stem side, the number moves this far from the middle of the notehead towards the stem, as a fraction of the notehead width (0.5 = exactly over the stem). Only with ‘Number alignment’ set to ‘Rhythmic center’.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="287"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="410"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="103"/>
         <source>Minimum distance from notes and signs</source>
         <translation type="unfinished">Minimum distance from notes and signs</translation>
@@ -46985,7 +47464,7 @@ The score will be saved as:
     </message>
     <message>
         <location filename="../../src/inspector/models/abstractinspectormodel.cpp" line="529"/>
-        <location filename="../../src/notation/view/engravingoptions/engravingoptionsmodel.cpp" line="134"/>
+        <location filename="../../src/notation/view/engravingoptions/engravingoptionsmodel.cpp" line="136"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1316"/>
         <source>Edit style</source>
         <translation type="unfinished">Edit style</translation>

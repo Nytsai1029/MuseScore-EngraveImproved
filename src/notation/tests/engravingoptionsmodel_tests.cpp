@@ -34,6 +34,7 @@
 #include "engraving/compat/scoreaccess.h"
 #include "engraving/dom/masterscore.h"
 #include "engraving/style/defaultstyle.h"
+#include "engraving/style/textstyle.h"
 
 #include "notation/view/engravingoptions/engravingoptionsmodel.h"
 #include "notation/view/styledialog/styleitem.h"
@@ -306,6 +307,33 @@ TEST_F(Notation_EngravingOptionsModelTests, musicFontTakesDynamicsFontAlong)
     ASSERT_EQ(m_written.size(), 1u);
     EXPECT_EQ(m_written.front().first, Sid::musicalSymbolFont);
     EXPECT_EQ(m_written.front().second.value<String>(), String(u"Petaluma"));
+
+    holder.destroy();
+}
+
+/**
+ * @TEST_CASE textStylesAreAListOfChoices
+ * @details The list of the text styles, for the text style of measure numbers and of their ranges: every text style
+ *          by its name, with its number as the value
+ */
+TEST_F(Notation_EngravingOptionsModelTests, textStylesAreAListOfChoices)
+{
+    ModelInEngine holder;
+    EngravingOptionsModel* model = holder.get();
+    model->load();
+    ASSERT_TRUE(model->isLoaded());
+
+    const QVariantList choices = model->choices("textStyles");
+    ASSERT_EQ(choices.size(), static_cast<int>(allTextStyles().size()));
+
+    bool hasMeasureNumber = false;
+    for (const QVariant& choice : choices) {
+        const QVariantMap map = choice.toMap();
+        EXPECT_FALSE(map.value("title").toString().isEmpty());
+        hasMeasureNumber = hasMeasureNumber
+                           || map.value("value").toInt() == static_cast<int>(TextStyleType::MEASURE_NUMBER);
+    }
+    EXPECT_TRUE(hasMeasureNumber);
 
     holder.destroy();
 }

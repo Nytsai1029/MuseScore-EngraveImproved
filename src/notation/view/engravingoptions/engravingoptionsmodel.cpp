@@ -28,7 +28,9 @@
 #include "engraving/dom/masterscore.h"
 #include "engraving/iengravingfont.h"
 #include "engraving/style/style.h"
+#include "engraving/style/textstyle.h"
 #include "engraving/types/symnames.h"
+#include "engraving/types/typesconv.h"
 #include "types/translatablestring.h"
 
 #include "notation/inotation.h"
@@ -309,6 +311,11 @@ QVariantList EngravingOptionsModel::choices(const QString& list) const
                 //! NOTE The value of the text font is the name of its family
                 add(name + " Text", QString::fromStdString(font->family()) + " Text");
             }
+        }
+    } else if (list == "textStyles") {
+        //! NOTE Every text style by its name, as the style dialog lists them for the text of measure numbers
+        for (TextStyleType type : allTextStyles()) {
+            add(TConv::userName(type).qTranslated(), static_cast<int>(type));
         }
     } else if (list == "dividerSymbols") {
         for (SymId id : { SymId::systemDivider, SymId::systemDividerLong, SymId::systemDividerExtraLong }) {

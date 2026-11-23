@@ -47812,5 +47812,475 @@ The score will be saved as:
         <source>Where only small notes move, as in a cue passage, the horizontal space they get is reduced in the same proportion as their size.</source>
         <translation>只有小音符在进行之处（如提示音符乐句），其横向间距按与大小相同的比例缩减。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="37"/>
+        <source>Measure numbers</source>
+        <translation>小节号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="52"/>
+        <source>The first measure of the score, and of every section, gets its number too. Numbering at a regular interval then counts 1, 6, 11 … instead of 5, 10, 15 …</source>
+        <translation>全曲以及每个分节的第一小节也标出小节号。按固定间隔编号时，随之改为第 1、6、11……小节，而不是第 5、10、15……小节。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="63"/>
+        <source>Whether the first measure of every system is numbered, or measures at a regular interval wherever they fall.</source>
+        <translation>在每个谱行组的第一小节标小节号，还是不论位置、按固定间隔标出。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="77"/>
+        <source>Interval</source>
+        <translation>间隔</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="78"/>
+        <source>A number is shown every this many measures: 5 numbers measures 5, 10, 15 … Only with the frequency ‘At a regular interval’.</source>
+        <translation>每隔这么多小节标一次小节号：5 即标在第 5、10、15……小节。仅在“频率”为“按固定间隔”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="93"/>
+        <source>Placement in the system</source>
+        <translation>在谱行组中的位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="94"/>
+        <source>The numbers stand above the top staff of each system, below its bottom staff, on the staves which also carry tempo and rehearsal marks, or on every staff.</source>
+        <translation>小节号位于每个谱行组最上方谱表之上、最下方谱表之下，位于同时标示速度记号与排练号的谱表上，或位于每一个谱表上。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="98"/>
+        <source>Above system</source>
+        <translation>谱行组之上</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="99"/>
+        <source>Below system</source>
+        <translation>谱行组之下</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="100"/>
+        <source>At system marking positions</source>
+        <translation>在谱行标志位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="101"/>
+        <source>On all staves</source>
+        <translation>各谱表上</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="111"/>
+        <source>The text style which gives the numbers their font, size and frame; ‘Measure number (alternate)’ is a second, bolder and framed style kept for this purpose.</source>
+        <translation>决定小节号字体、字号与边框的文本样式；“小节号（间隔）”是专为此准备的第二种样式，字体较粗并带边框。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="134"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="338"/>
+        <source>Above or below the staff</source>
+        <translation>位于谱表上方或下方</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="135"/>
+        <source>Used only with the placement ‘On all staves’; with the other placements the numbers stand above the staff, or below it for ‘Below system’.</source>
+        <translation>仅在位置为“在所有谱表上”时有效；其余情况下小节号位于谱表上方，选“谱行组之下”时位于下方。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="139"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="340"/>
+        <source>Above</source>
+        <translation>上方</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="140"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="341"/>
+        <source>Below</source>
+        <translation>下方</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="150"/>
+        <source>Whether the number begins at, is centred on, or ends at the point it is aligned to: the barline or the measure, as chosen under ‘Align’.</source>
+        <translation>小节号以其左端、中心还是右端对准对齐点；对齐点为小节线或小节，由“对齐”决定。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="155"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="355"/>
+        <source>Center</source>
+        <translation>居中</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="171"/>
+        <source>To the barline: the number sits at the barline which begins its measure. To the measure: at the left end, the middle or the right end of the measure, after any clef and key signature.</source>
+        <translation>到小节线：小节号位于该小节起始的小节线处。到小节：位于小节的左端、中间或右端，起始处有谱号、调号时排在其后。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="183"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="363"/>
+        <source>Offset</source>
+        <translation>偏移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="184"/>
+        <source>Offset with the alternate text style</source>
+        <translation>使用“小节号（间隔）”样式时的偏移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="187"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="366"/>
+        <source>Above the staff</source>
+        <translation>谱表上方</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="188"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="367"/>
+        <source>Below the staff</source>
+        <translation>谱表下方</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="195"/>
+        <source>The sideways and vertical shift of a number which stands above the staff; a negative vertical value moves it further up. Applies with the text style ‘Measure number’.</source>
+        <translation>位于谱表上方的小节号的横向与纵向偏移；纵向为负值时更往上。用于文本样式“小节号”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="210"/>
+        <source>The sideways and vertical shift of a number which stands below the staff; a positive vertical value moves it further down. Applies with the text style ‘Measure number’.</source>
+        <translation>位于谱表下方的小节号的横向与纵向偏移；纵向为正值时更往下。用于文本样式“小节号”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="225"/>
+        <source>Offset above the staff with the alternate text style</source>
+        <translation>使用“小节号（间隔）”样式时在谱表上方的偏移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="226"/>
+        <source>Takes the place of the offset above the staff while the text style is ‘Measure number (alternate)’; a negative vertical value moves the number further up.</source>
+        <translation>文本样式为“小节号（间隔）”时，以此取代“谱表上方”的偏移；纵向为负值时更往上。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="242"/>
+        <source>Offset below the staff with the alternate text style</source>
+        <translation>使用“小节号（间隔）”样式时在谱表下方的偏移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="243"/>
+        <source>Takes the place of the offset below the staff while the text style is ‘Measure number (alternate)’.</source>
+        <translation>文本样式为“小节号（间隔）”时，以此取代“谱表下方”的偏移。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="254"/>
+        <source>Distance from a one-line staff</source>
+        <translation>与单线谱表的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="255"/>
+        <source>On a staff with a single line, such as a percussion line, the numbers start this far above or below the line, because the barlines reach beyond it. Also used for the measure number ranges at multimeasure rests.</source>
+        <translation>在单线谱表（如打击乐单线谱）上，小节号从距谱线这么远的上方或下方算起，因为小节线伸出谱线之外。也用于多小节休止符处的小节号范围。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="275"/>
+        <source>Least gap to a barline</source>
+        <translation>与小节线的最小间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="276"/>
+        <source>A left- or right-aligned number which would touch a barline running between the staves is moved sideways until it is this far from it; centred numbers stay where they are.</source>
+        <translation>左对齐或右对齐的小节号若会碰到贯通谱表之间的小节线，就横向移开，直至与其保持此距离；居中的小节号不移动。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="288"/>
+        <source>Least vertical gap between a measure number and the notes or other signs which lie between it and the staff.</source>
+        <translation>小节号与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="296"/>
+        <source>Measure number ranges at multimeasure rests</source>
+        <translation>多小节休止符处的小节号范围</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="305"/>
+        <source>A multimeasure rest shows the first and the last measure number it covers, such as 12–19.</source>
+        <translation>多小节休止符处标出其所含的首末小节号，例如 12–19。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="314"/>
+        <source>What encloses the range: [12–19], (12–19) or 12–19.</source>
+        <translation>小节号范围两侧所加的括号：[12–19]、(12–19) 或 12–19。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="316"/>
+        <source>Square brackets</source>
+        <translation>方括号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="318"/>
+        <source>None</source>
+        <translation>无</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="328"/>
+        <source>The text style which gives the range its font and size.</source>
+        <translation>决定小节号范围字体与字号的文本样式。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="351"/>
+        <source>The range stands at the left end of the measure, centred over it, or at its right end.</source>
+        <translation>小节号范围位于小节左端、小节正中，或小节右端。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="374"/>
+        <source>The sideways and vertical shift of a range which stands above the staff; a negative vertical value moves it further up.</source>
+        <translation>位于谱表上方的小节号范围的横向与纵向偏移；纵向为负值时更往上。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="388"/>
+        <source>The sideways and vertical shift of a range which stands below the staff; a positive vertical value moves it further down.</source>
+        <translation>位于谱表下方的小节号范围的横向与纵向偏移；纵向为正值时更往下。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="399"/>
+        <source>Separator</source>
+        <translation>分隔符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="400"/>
+        <source>The character between the first and the last number of the range; an en dash by default, as in 12–19.</source>
+        <translation>小节号范围中首末两个数字之间的字符；默认为短破折号，如 12–19。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="411"/>
+        <source>Least vertical gap between a measure number range and the notes or other signs which lie between it and the staff.</source>
+        <translation>小节号范围与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="38"/>
+        <source>Music fonts</source>
+        <translation>音乐字体</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="44"/>
+        <source>The font of the notes, rests, clefs and every other music symbol. With ‘Automatically load style settings based on font’ on, the line thicknesses and distances which the font recommends are loaded with it.</source>
+        <translation>音符、休止符、谱号等全部乐谱记号所用的字体。开启“基于字体自动加载样式”时，会同时载入该字体建议的线条粗细与距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="72"/>
+        <source>The font of music symbols which stand inside text: the note of a metronome mark, the accidentals of a chord symbol.</source>
+        <translation>文字中夹用的音乐记号所用的字体，例如节拍器标记里的音符、和弦符号里的变音记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="94"/>
+        <source>Transposing instruments are written at sounding pitch instead of in their own transposition.</source>
+        <translation>移调乐器按实际音高记谱，而不按各自的移调记谱。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="102"/>
+        <source>Write a note tied across a barline as one note value</source>
+        <translation>越过小节线的延音合写为一个音符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="103"/>
+        <source>Early-music notation (experimental): a note tied over the barline to a single note is drawn before the barline as one longer note when the two add up to one note value; the tie and the second note are not drawn.</source>
+        <translation>早期音乐记谱法（实验性功能）：以延音线越过小节线相连的两个单音，若时值之和恰为一种音符时值，就在小节线前画成一个较长的音符，延音线与后一个音符不再画出。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="112"/>
+        <source>System markings below the bottom staff</source>
+        <translation>谱行组记号置于最下方谱表之下</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="113"/>
+        <source>Where the bottom staff of the score also carries the system markings (tempo, rehearsal marks, voltas…), they stand below that staff instead of above it. The Layout panel sets this itself when the system markings are moved under the last instrument.</source>
+        <translation>乐谱最下方的谱表同时标示谱行组记号（速度、排练号、跳房子等）时，这些记号置于该谱表下方而非上方。在“版面”面板中把谱行组记号移到最后一件乐器之下时，会自动设置此项。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="121"/>
+        <source>Superscript and subscript in text</source>
+        <translation>文本中的上标与下标</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="126"/>
+        <source>Size</source>
+        <translation>大小</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="127"/>
+        <source>The size of superscript and subscript characters as a fraction of the text around them: 0.6 is 60%.</source>
+        <translation>上标与下标字符的大小，以周围文字字号的比例计：0.6 即 60%。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="138"/>
+        <source>Superscript position</source>
+        <translation>上标位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="139"/>
+        <source>Where the baseline of a superscript lies against the baseline of the text, in x-heights of the text; negative is above, so −0.9 lifts it by nine tenths of the height of a lower-case x.</source>
+        <translation>上标基线相对文字基线的位置，以文字 x 字高的倍数计；负值向上，−0.9 即上移 0.9 个 x 字高。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="151"/>
+        <source>Subscript position</source>
+        <translation>下标位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="152"/>
+        <source>Where the baseline of a subscript lies against the baseline of the text, in x-heights of the text; positive is below, so 0.5 lowers it by half the height of a lower-case x.</source>
+        <translation>下标基线相对文字基线的位置，以文字 x 字高的倍数计；正值向下，0.5 即下移半个 x 字高。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="162"/>
+        <source>First system</source>
+        <translation>首个谱行组</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="169"/>
+        <source>Applies to the first system of the score and to the first system after every section break.</source>
+        <translation>适用于全曲的首个谱行组，以及每个分节符之后的首个谱行组。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="178"/>
+        <source>The staves of the first system start at least this far from the left page margin; wider instrument names push them further.</source>
+        <translation>首个谱行组的谱表至少从距页面左边距这么远处开始；乐器名称更宽时会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="188"/>
+        <source>Empty staves</source>
+        <translation>空谱表</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="206"/>
+        <source>The first system of the score, and of every section, then shows all the instruments.</source>
+        <translation>这样全曲以及每个分节的首个谱行组会显示全部乐器。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="217"/>
+        <source>When hiding staves leaves a bracket or brace around a single staff, it is still drawn; off, it is left out.</source>
+        <translation>隐藏谱表后，只剩一个谱表的直连谱号或花连谱号仍然画出；关闭则省去。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="229"/>
+        <source>When hiding staves leaves a square bracket around a single staff, it is still drawn; off, it is left out.</source>
+        <translation>隐藏谱表后，只剩一个谱表的辅助连谱号仍然画出；关闭则省去。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="237"/>
+        <source>Instrument names</source>
+        <translation>乐器名称</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="255"/>
+        <source>That is, the first system of the score and the first system after every section break.</source>
+        <translation>指全曲的首个谱行组，以及每个分节符之后的首个谱行组。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="258"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="275"/>
+        <source>Long name</source>
+        <translation>全称</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="259"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="276"/>
+        <source>Short name</source>
+        <translation>简称</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="260"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="277"/>
+        <source>Hide</source>
+        <translation>隐藏</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="290"/>
+        <source>The gap between the instrument names and the staves; where there are brackets, it is measured from the outermost bracket.</source>
+        <translation>乐器名称与谱表之间的间隙；有连谱号时，从最外侧的连谱号量起。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="305"/>
+        <source>Widen the distance for larger name fonts</source>
+        <translation>名称字号加大时加宽距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="306"/>
+        <source>‘Distance from staff’ is multiplied by how much larger the instrument-name font is than its default size; off, the distance stays exactly as set.</source>
+        <translation>“到谱表的距离”按乐器名称字号超出默认字号的比例放大；关闭则严格保持所设的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="313"/>
+        <source>Swing</source>
+        <translation>摇摆节奏</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="314"/>
+        <source>For playback only; nothing changes on the page.</source>
+        <translation>仅影响播放，谱面不变。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="319"/>
+        <source>Swung note value</source>
+        <translation>摇摆的音符时值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="320"/>
+        <source>Pairs of eighth notes, or of sixteenth notes, are played long–short throughout the score; a swing text in the score takes over from the place where it stands.</source>
+        <translation>全曲中成对的八分音符或十六分音符按前长后短演奏；乐谱中的摇摆文字自其所在处起取代此设置。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="324"/>
+        <source>Off</source>
+        <translation>关闭</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="325"/>
+        <source>Eighth note</source>
+        <translation>八分音符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="326"/>
+        <source>Sixteenth note</source>
+        <translation>十六分音符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="333"/>
+        <source>Swing ratio</source>
+        <translation>摇摆比例</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="334"/>
+        <source>The share of the beat which the first note of a swung pair takes: 50% is even, 67% a triplet swing. No effect while ‘Swung note value’ is ‘Off’.</source>
+        <translation>一对摇摆音符中前一个所占拍子的比例：50% 为均分，67% 为三连音式摇摆。“摇摆的音符时值”为“关闭”时无效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="347"/>
+        <source>Automatic placement</source>
+        <translation>自动排布</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="353"/>
+        <source>The least white space between the lowest note or mark of a staff and the highest note or mark of the staff below it; staves and systems are moved apart to keep it.</source>
+        <translation>上方谱表中位置最低的音符或记号，与下方谱表中位置最高的音符或记号之间至少保留的空白；不足时谱表或谱行组会被拉开。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="365"/>
+        <source>Two marks, one above the other, count as colliding and are moved apart vertically when they pass each other sideways by less than this.</source>
+        <translation>一上一下的两个记号，横向错开不足此值时即视为相撞，并在垂直方向上拉开。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="373"/>
+        <source>Enable automatic placement</source>
+        <translation>启用自动排布</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="374"/>
+        <source>Off: nothing is moved out of the way of anything else. Every sign stands at its default position or where it was dragged, collisions are left as they are, and notes are spaced by their duration alone, with no extra room for accidentals, dots or lyrics. The same switch as the command ‘Toggle automatic placement for entire score’.</source>
+        <translation>关闭后，任何记号都不再为避让而移动：各记号停在默认位置或手动拖放的位置，相撞也不处理；音符只按时值排列间距，不再为变音记号、附点或歌词另留空间。与命令“为全谱切换自动排布”是同一个开关。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="68"/>
+        <source>At a regular interval</source>
+        <translation>按固定间隔</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="195"/>
+        <source>A staff which has no notes in a system is left out of that system. The staves of a piano or other multi-staff instrument go only when all of them are empty, unless ‘Only hide staves on a system if the entire instrument is empty’ is off in the instrument’s settings, as in the preview.</source>
+        <translation>在某个谱行组中没有音符的谱表，不在该谱行组中显示。钢琴等多谱表乐器的各谱表全部为空时才一并隐藏；若在乐器设置中关闭“仅当整个乐器为空时隐藏谱行上的谱表”（如预览中的钢琴），则各谱表分别隐藏。</translation>
+    </message>
 </context>
 </TS>
