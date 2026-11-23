@@ -292,15 +292,25 @@ void HarmonyLayout::layoutModifierParentheses(const Harmony* item)
         }
     }
 
-    auto computePadding = [](HarmonyRenderItem* item1, HarmonyRenderItem* item2) {
+    const double parenInnerPadding = style.styleD(Sid::parenthesisChordSymbolInnerPadding);
+    const double parenOuterPadding = style.styleD(Sid::parenthesisChordSymbolOuterPadding);
+    auto parenPadding = [parenInnerPadding, parenOuterPadding](const HarmonyRenderItem* renderItem, bool leftSide) {
+        const ChordSymbolParen* paren = static_cast<const ChordSymbolParen*>(renderItem);
+        const bool opening = paren->parenItem->direction() == DirectionH::LEFT;
+        return opening == leftSide ? parenOuterPadding : parenInnerPadding;
+    };
+
+    auto computePadding = [&parenPadding](HarmonyRenderItem* item1, HarmonyRenderItem* item2) {
         bool item1Paren = item1->type() == HarmonyRenderItemType::PAREN;
         bool item2Paren = item2->type() == HarmonyRenderItemType::PAREN;
+        const double rightPadding1 = item1Paren ? parenPadding(item1, false) : item1->rightPadding();
+        const double leftPadding2 = item2Paren ? parenPadding(item2, true) : item2->leftPadding();
 
         double padding = 0.0;
         if (item1Paren && item2Paren) {
-            padding = std::min(item1->rightPadding(), item2->leftPadding());
+            padding = std::min(rightPadding1, leftPadding2);
         } else {
-            padding = std::max(item1->rightPadding(), item2->leftPadding());
+            padding = std::max(rightPadding1, leftPadding2);
         }
 
         double scaling = (item1->height() + item2->height()) / 2;
@@ -314,6 +324,7 @@ void HarmonyLayout::layoutModifierParentheses(const Harmony* item)
     // C7(#11(#13))
     double additionalSpace = 0.0;
     bool prevParen = false;
+    const double parenTallOpeningWidthScale = style.styleD(Sid::parenthesisChordSymbolTallOpeningWidthScale);
 
     for (size_t i = 0; i < itemList.size(); i++) {
         HarmonyRenderItem* renderItem = itemList.at(i);
@@ -323,8 +334,7 @@ void HarmonyLayout::layoutModifierParentheses(const Harmony* item)
             if (paren->parenItem->direction() == DirectionH::LEFT) {
                 double heightToRefRatio = std::max(paren->height(), rootRefHeight) / rootRefHeight;
                 bool scaleParenWidth = !prevParen && !muse::RealIsEqual(heightToRefRatio, 1.0);
-                const double PAREN_PADDING_SCALER = 0.6;
-                double scaledParenWidth = paren->parenItem->width() * PAREN_PADDING_SCALER / heightToRefRatio;
+                double scaledParenWidth = paren->parenItem->width() * parenTallOpeningWidthScale / heightToRefRatio;
 
                 double parenWidth = scaleParenWidth ? scaledParenWidth : paren->parenItem->width();
                 additionalSpace += parenWidth + padding;

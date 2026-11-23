@@ -2624,7 +2624,8 @@ void TLayout::layoutFingering(const Fingering* item, Fingering::LayoutData* ldat
         const Chord* chord = note->chord();
 
         bool voices  = chord->measure()->hasVoices(chord->staffIdx(), chord->tick(), chord->actualTicks());
-        bool tight   = voices && chord->notes().size() == 1 && !chord->beam() && item->textStyleType() != TextStyleType::STRING_NUMBER;
+        bool tight   = voices && chord->notes().size() == 1 && !chord->beam() && item->textStyleType() != TextStyleType::STRING_NUMBER
+                       && item->style().styleB(Sid::fingeringVoicesTightPlacement);
 
         double headWidth = note->bboxRightPos();
 
@@ -2897,6 +2898,11 @@ void TLayout::layoutFretDiagram(const FretDiagram* item, FretDiagram::LayoutData
     }
 
     ldata->slurPaths.clear();
+    const double barreSlurHeightTwoStrings = ctx.conf().styleD(Sid::barreSlurHeightTwoStrings);
+    const double barreSlurHeightThreeStrings = ctx.conf().styleD(Sid::barreSlurHeightThreeStrings);
+    const double barreSlurHeight = ctx.conf().styleD(Sid::barreSlurHeight);
+    const double barreSlurThicknessTwoStrings = ctx.conf().styleS(Sid::barreSlurThicknessTwoStrings).val();
+    const double barreSlurThickness = ctx.conf().styleS(Sid::barreSlurThickness).val();
     for (auto i : item->barres()) {
         FretItem::Barre barre = i.second;
         if (!barre.exists()) {
@@ -2920,8 +2926,11 @@ void TLayout::layoutFretDiagram(const FretDiagram* item, FretDiagram::LayoutData
         double endX = (endString) * ldata->stringDist - insetX;
         double shoulderXoffset = 0.2 * (endX - startX);
         double startEndY = (fret - 1) * ldata->fretDist - insetY;
-        double shoulderY = startEndY - (length < 2 ? 0.3 : length < 3 ? 0.4 : 0.5) * ldata->fretDist;
-        double slurThickness = (length < 2 ? 0.08 : 0.1) * item->spatium() * item->userMag();
+        const double slurHeight = length < 2 ? barreSlurHeightTwoStrings
+                                  : length < 3 ? barreSlurHeightThreeStrings : barreSlurHeight;
+        const double slurThicknessSp = length < 2 ? barreSlurThicknessTwoStrings : barreSlurThickness;
+        double shoulderY = startEndY - slurHeight * ldata->fretDist;
+        double slurThickness = slurThicknessSp * item->spatium() * item->userMag();
         double shoulderYfor = shoulderY - slurThickness;
         double shoulderYback = shoulderY + slurThickness;
         PointF bezier1for = PointF(startX + shoulderXoffset, shoulderYfor);
@@ -5102,7 +5111,7 @@ void TLayout::layoutRehearsalMark(const RehearsalMark* item, RehearsalMark::Layo
     const System* sys = m->system();
     bool systemFirst = (sys && m->isFirstInSystem());
 
-    if (!header || repeat || !systemFirst) {
+    if (!header || repeat || !systemFirst || !item->style().styleB(Sid::rehearsalMarkAfterHeaderAtSystemStart)) {
         // no header, or header with repeat, or header mid-system - align with barline
         ldata->setPosX(barlineX);
         checkRehearsalMarkVSBigTimeSig(item, ldata);
@@ -6019,7 +6028,8 @@ void TLayout::layoutStringTunings(StringTunings* item, LayoutContext& ctx)
     }
 
     Segment* parentSegment = item->segment();
-    item->move(PointF(-parentSegment->x() + item->spatium(), 0.0));
+    const double measureStartDistance = ctx.conf().styleS(Sid::stringTuningsMeasureStartDistance).val();
+    item->move(PointF(-parentSegment->x() + measureStartDistance * item->spatium(), 0.0));
 
     Autoplace::autoplaceSegmentElement(item, item->mutldata());
 }
@@ -6244,7 +6254,7 @@ void TLayout::layoutTempoText(const TempoText* item, TempoText::LayoutData* ldat
     RectF rehearsalMarkBbox = rehearsalMark ? rehearsalMark->ldata()->bbox().translated(rehearsalMark->pos()) : RectF();
     RectF thisBbox = ldata->bbox().translated(item->pos());
 
-    if (s->rtick().isZero()) {
+    if (s->rtick().isZero() && item->style().styleB(Sid::tempoAlignWithTimeSig)) {
         Segment* p = item->segment()->prev(SegmentType::TimeSig);
         if (p && !p->allElementsInvisible()) {
             ldata->moveX(-(s->x() - p->x()));

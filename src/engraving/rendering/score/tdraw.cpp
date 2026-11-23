@@ -1339,7 +1339,8 @@ void TDraw::draw(const FretDiagram* item, Painter* painter)
     // Draw dots, sym pen is used to draw them (and markers)
     Pen symPen(pen);
     symPen.setCapStyle(PenCapStyle::FlatCap);
-    double symPenWidth = ldata->stringLineWidth * 1.2;
+    const double markerLineThicknessRatio = item->style().styleD(Sid::fretMarkerLineThicknessRatio);
+    double symPenWidth = ldata->stringLineWidth * markerLineThicknessRatio;
     symPen.setWidthF(symPenWidth);
 
     for (auto const& i : item->dots()) {
@@ -1386,7 +1387,7 @@ void TDraw::draw(const FretDiagram* item, Painter* painter)
     }
 
     // Draw markers
-    symPen.setWidthF(ldata->stringLineWidth * 1.2);
+    symPen.setWidthF(ldata->stringLineWidth * markerLineThicknessRatio);
     painter->setBrush(BrushStyle::NoBrush);
     painter->setPen(symPen);
     for (auto const& i : item->markers()) {

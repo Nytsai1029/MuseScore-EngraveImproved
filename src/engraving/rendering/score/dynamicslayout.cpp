@@ -87,7 +87,7 @@ void DynamicsLayout::doLayoutDynamic(Dynamic* item, Dynamic::LayoutData* ldata, 
     // Use SMuFL optical center for dynamic if available
     SymId symId = TConv::symId(item->dynamicType());
     double opticalCenter = item->symSmuflAnchor(symId, SmuflAnchorId::opticalCenter).x();
-    if (symId != SymId::noSym && opticalCenter) {
+    if (symId != SymId::noSym && opticalCenter && conf.styleB(Sid::dynamicsUseOpticalCenter)) {
         double symWidth = item->symBbox(symId).width();
         double offset = symWidth / 2 - opticalCenter + item->symBbox(symId).left();
         double spatiumScaling = item->spatium() / conf.spatium();

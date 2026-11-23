@@ -65,10 +65,6 @@ using namespace muse::draw;
 using namespace mu::engraving;
 
 namespace mu::engraving {
-static constexpr double subScriptSize     = 0.6;
-static constexpr double subScriptOffset   = 0.5; // of x-height
-static constexpr double superScriptOffset = -0.9; // of x-height
-
 static const char* FALLBACK_SYMBOL_FONT = "Bravura";
 static const char* FALLBACK_SYMBOLTEXT_FONT = "Bravura Text";
 
@@ -905,7 +901,7 @@ Font TextFragment::font(const TextBase* t) const
         m *= spatiumScaling;
     }
     if (format.valign() != VerticalAlignment::AlignNormal) {
-        m *= subScriptSize;
+        m *= t->style().styleD(Sid::textSubSuperscriptSizeRatio);
     }
 
     String family;
@@ -1061,6 +1057,11 @@ void TextBlock::layout(const TextBase* t)
             break;
         }
     }
+
+    const MStyle& style = t->style();
+    const double subScriptSize = style.styleD(Sid::textSubSuperscriptSizeRatio);
+    const double subScriptOffset = style.styleD(Sid::textSubscriptOffsetRatio);
+    const double superScriptOffset = style.styleD(Sid::textSuperscriptOffsetRatio);
 
     if (m_fragments.empty()) {
         FontMetrics fm = t->fontMetrics();

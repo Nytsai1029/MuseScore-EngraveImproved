@@ -860,7 +860,8 @@ double LyricsLayout::lyricsLineEndX(const LyricsLineSegment* item, const Lyrics*
     if (endChordRest->isChord()) {
         const Chord* endChord = toChord(endChordRest);
         const Note* note = endChord->up() ? endChord->downNote() : endChord->upNote();
-        return note->pageX() - systemPageX + note->headWidth();
+        const double noteheadWidthRatio = melisma ? style.styleD(Sid::lyricsMelismaEndNoteheadWidthRatio) : 1.0;
+        return note->pageX() - systemPageX + note->headWidth() * noteheadWidthRatio;
     }
 
     return endChordRest->pageX() - systemPageX + endChordRest->rightEdge();
