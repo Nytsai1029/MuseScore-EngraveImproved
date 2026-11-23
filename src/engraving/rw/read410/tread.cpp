@@ -2870,7 +2870,10 @@ void TRead::read(Glissando* g, XmlReader& e, ReadContext& ctx)
     }
 
     if (g->score()->mscVersion() < 450 && !textRead) {
+        // The glissando's own (before 4.5 a text showed only if it was written), not the style's: unstyled,
+        // so that a save keeps it
         g->setShowText(false);
+        g->setPropertyFlags(Pid::GLISS_SHOW_TEXT, PropertyFlags::UNSTYLED);
     }
 }
 

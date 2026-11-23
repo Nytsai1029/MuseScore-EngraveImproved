@@ -28,10 +28,12 @@
 #include "dom/arpeggio.h"
 #include "dom/articulation.h"
 #include "dom/barline.h"
+#include "dom/box.h"
 #include "dom/chord.h"
 #include "dom/chordline.h"
 #include "dom/editdata.h"
 #include "dom/factory.h"
+#include "dom/glissando.h"
 #include "dom/guitarbend.h"
 #include "dom/hairpin.h"
 #include "dom/hammeronpulloff.h"
@@ -956,6 +958,82 @@ TEST_F(Engraving_LayoutConsistencyTests, arpeggioIsHiddenOnTheStandardStaffWhenT
     EXPECT_NEAR(stdChordWithArp->shape().left(), leftWithArpeggio, 1e-5);
 
     delete score;
+}
+
+//! What an old file says about a glissando — its kind of line, whether it shows its text — is the glissando's own,
+//! also where the reader sets it without reading a value (no text written: none shown; a straight line without
+//! text on tablature). A styled value is not written, so a save would hand it back to the style: a wavy
+//! glissando came back straight, one without text came back with it.
+TEST_F(Engraving_LayoutConsistencyTests, glissandoOfAnOldFileKeepsItsLineAndText)
+{
+    auto glissandos = [](Score* s) {
+        std::vector<std::pair<GlissandoType, bool> > result;
+        s->scanElements(&result, [](void* d, EngravingItem* e) {
+            if (!e->isNote()) {
+                return;
+            }
+            for (Spanner* spanner : toNote(e)->spannerFor()) {
+                if (spanner->isGlissando()) {
+                    const Glissando* glissando = toGlissando(spanner);
+                    static_cast<std::vector<std::pair<GlissandoType, bool> >*>(d)->emplace_back(
+                        glissando->glissandoType(), glissando->showText());
+                }
+            }
+        });
+        return result;
+    };
+
+    bool anyWavy = false;
+    bool anyWithoutText = false;
+    for (const String& fixture : { LAYOUTCONSISTENCY_DATA_DIR + u"glissandos-400.mscx",
+                                   LAYOUTCONSISTENCY_DATA_DIR + u"glissandos-420.mscx",
+                                   String(u"../../../vtest/scores/tablature-1.mscx") }) {
+        MasterScore* score = openLikeTheApp(fixture);
+        ASSERT_TRUE(score) << fixture.toStdString();
+        const auto opened = glissandos(score);
+        ASSERT_FALSE(opened.empty()) << fixture.toStdString();
+        for (const auto& [type, showText] : opened) {
+            anyWavy |= type == GlissandoType::WAVY;
+            anyWithoutText |= !showText;
+        }
+
+        MasterScore* reloaded = saveAndReload(score, u"oldGlissandos.mscx");
+        ASSERT_TRUE(reloaded) << fixture.toStdString();
+        EXPECT_EQ(glissandos(reloaded), opened) << fixture.toStdString();
+    }
+    EXPECT_TRUE(anyWavy);
+    EXPECT_TRUE(anyWithoutText);
+}
+
+//! A frame of a file before 4.6 keeps the distances it had: no padding to the music (there was none), and the
+//! two gaps of frames which follow each other added up in the first one's bottom gap (as they were laid out)
+TEST_F(Engraving_LayoutConsistencyTests, framesOfAnOldFileKeepTheirDistances)
+{
+    auto distances = [](Score* s) {
+        std::vector<std::tuple<double, double, double> > result;
+        for (MeasureBase* mb = s->first(); mb; mb = mb->next()) {
+            if (mb->isVBox()) {
+                const VBox* box = toVBox(mb);
+                result.emplace_back(box->getProperty(Pid::PADDING_TO_NOTATION_ABOVE).value<Spatium>().val(),
+                                    box->getProperty(Pid::PADDING_TO_NOTATION_BELOW).value<Spatium>().val(),
+                                    box->bottomGap().val());
+            }
+        }
+        return result;
+    };
+
+    MasterScore* score = openLikeTheApp(LAYOUTCONSISTENCY_DATA_DIR + u"framesAboveTheMusic-440.mscx");
+    ASSERT_TRUE(score);
+    const auto opened = distances(score);
+    ASSERT_EQ(opened.size(), 2u);
+    EXPECT_EQ(std::get<0>(opened[0]), 0.0);
+    EXPECT_EQ(std::get<1>(opened[0]), 0.0);
+    EXPECT_DOUBLE_EQ(std::get<2>(opened[0]),
+                     (score->style().styleS(Sid::frameSystemDistance) + score->style().styleS(Sid::systemFrameDistance)).val());
+
+    MasterScore* reloaded = saveAndReload(score, u"oldFrames.mscx");
+    ASSERT_TRUE(reloaded);
+    EXPECT_EQ(distances(reloaded), opened);
 }
 
 //! What an item owns stands on its track: the parentheses of a note (here those of a trill's cue note, which

@@ -1924,10 +1924,13 @@ bool Read206::readChordProperties206(XmlReader& e, ReadContext& ctx, Chord* ch)
         gliss->setAnchor(Spanner::Anchor::NOTE);
         gliss->setStartElement(nullptr);
         gliss->setEndElement(nullptr);
-        // in TAB, use straight line with no text
+        // in TAB, use straight line with no text (the glissando's own then, not the style's: unstyled, so that
+        // a save keeps it)
         if (ctx.staff(static_cast<int>(ctx.track()) >> 2)->isTabStaff(ch->tick())) {
             gliss->setGlissandoType(GlissandoType::STRAIGHT);
+            gliss->setPropertyFlags(Pid::GLISS_TYPE, PropertyFlags::UNSTYLED);
             gliss->setShowText(false);
+            gliss->setPropertyFlags(Pid::GLISS_SHOW_TEXT, PropertyFlags::UNSTYLED);
         }
         finalNote->addSpannerBack(gliss);
     } else if (tag == "Tremolo") {

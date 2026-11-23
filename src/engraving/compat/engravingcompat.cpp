@@ -218,14 +218,18 @@ void EngravingCompat::adjustVBoxDistances(MasterScore* masterScore)
         for (MeasureBase* mb = score->first(); mb; mb = mb->next()) {
             MeasureBase* nextmb = mb->next();
             if (mb->isVBoxBase()) {
+                // The values set here are the frame's own, not the style's: unstyled, so that a save keeps them
                 VBox* vbox = static_cast<VBox*>(mb);
                 vbox->setProperty(Pid::PADDING_TO_NOTATION_ABOVE, Spatium()); // Because pre-4.6 these didn't exist
+                vbox->setPropertyFlags(Pid::PADDING_TO_NOTATION_ABOVE, PropertyFlags::UNSTYLED);
                 vbox->setProperty(Pid::PADDING_TO_NOTATION_BELOW, Spatium());
+                vbox->setPropertyFlags(Pid::PADDING_TO_NOTATION_BELOW, PropertyFlags::UNSTYLED);
                 if (nextmb && nextmb->isVBoxBase()) {
                     VBox* first = static_cast<VBox*>(mb);
                     VBox* second = static_cast<VBox*>(nextmb);
                     if (first->bottomGap() > Spatium(0) && second->topGap() > Spatium(0)) {
                         first->setBottomGap(first->bottomGap() + second->topGap()); // Because pre-4.6 these used to be added
+                        first->setPropertyFlags(Pid::BOTTOM_GAP, PropertyFlags::UNSTYLED);
                     }
                 }
             }

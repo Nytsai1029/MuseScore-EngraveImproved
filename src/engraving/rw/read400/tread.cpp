@@ -2680,7 +2680,10 @@ void TRead::read(Glissando* g, XmlReader& e, ReadContext& ctx)
         g->setIsHarpGliss(instrId == "harp");
     }
     g->resetProperty(Pid::GLISS_STYLE);
+    // Whether the text shows and the kind of line are the glissando's own in these files, not the style's:
+    // unstyled, so that a save keeps them
     g->setShowText(false);
+    g->setPropertyFlags(Pid::GLISS_SHOW_TEXT, PropertyFlags::UNSTYLED);
     while (e.readNextStartElement()) {
         const AsciiStringView tag = e.name();
         if (tag == "text") {
@@ -2688,6 +2691,7 @@ void TRead::read(Glissando* g, XmlReader& e, ReadContext& ctx)
             TRead::readProperty(g, e, ctx, Pid::GLISS_TEXT);
         } else if (tag == "subtype") {
             g->setGlissandoType(TConv::fromXml(e.readAsciiText(), GlissandoType::STRAIGHT));
+            g->setPropertyFlags(Pid::GLISS_TYPE, PropertyFlags::UNSTYLED);
         } else if (tag == "glissandoStyle") {
             TRead::readProperty(g, e, ctx, Pid::GLISS_STYLE);
         } else if (tag == "easeInSpin") {
