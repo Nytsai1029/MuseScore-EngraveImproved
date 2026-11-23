@@ -71,6 +71,10 @@ namespace mu::notation {
 //!   `\hideStavesIndividually` lets the style hide an empty staff of the two although the other has notes.
 //!   `\group` with `bracket`, `square`, `line`, `brace` or `none` chooses the bracket over the two staves
 //!   (a grand staff has a brace, `none` none at all).
+//!   `\instruments 2` at the beginning, instead of `\staves 2`: two instruments of one staff each (with no
+//!   bracket, unless `\group` gives one), written on as the two staves of a grand staff are.
+//! - `\title "text"` at the beginning: the title of the score, in a frame above the music (as the work title, for
+//!   the headers and footers too).
 //! - Before the first chord of a beam group: `\beamAt y1 y2` writes the y its ends have, in staff
 //!   spaces — which the file carries as a beam the user moved, so it is laid out like one —
 //!   and `\beamMove -1|0|1` writes which staff a cross-staff beam counts as belonging to.

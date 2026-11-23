@@ -296,7 +296,7 @@ using Music = std::deque<Measure>;
 struct Piece {
     Music measures;
     int staves = 1;
-    //! the bracket over the staves, as the BracketType enum: brace by default, -1 for none
+    //! the bracket over the staves, as the BracketType enum: brace by default (none for two instruments), -1 for none
     int bracket = 1;
     std::set<int> tabStaves;        // 0-based indices of the staves which are tablature
     std::map<int, int> staffLines;  // the number of lines of a staff which has not five, by its 0-based index
@@ -305,6 +305,8 @@ struct Piece {
     bool hideStavesIndividually = false;    // an empty staff is hidden although the other staff has notes
     QString longName;               // of the instrument, on the first system
     QString shortName;              // on the other systems
+    bool instruments = false;       // the two staves are two instruments of one staff each, not a grand staff
+    QString title;                  // of the score, in a frame above the music; empty: no frame
 };
 
 //---------------------------------------------------------
@@ -425,8 +427,9 @@ public:
             fail("there is no music", 0);
         }
 
-        return { std::move(m_music), m_staves, m_bracket, std::move(m_tabStaves), std::move(m_staffLines),
-                 std::move(m_smallStaves), m_spanBarlines, m_hideStavesIndividually, m_longName, m_shortName };
+        return { std::move(m_music), m_staves, m_bracket.value_or(m_instruments ? -1 : 1), std::move(m_tabStaves),
+                 std::move(m_staffLines), std::move(m_smallStaves), m_spanBarlines, m_hideStavesIndividually,
+                 m_longName, m_shortName, m_instruments, m_title };
     }
 
 private:
@@ -596,6 +599,10 @@ private:
             m_ambitus = true;
         } else if (text == "\\staves") {
             readStaves(token);
+        } else if (text == "\\instruments") {
+            readInstruments(token);
+        } else if (text == "\\title") {
+            readTitle(token);
         } else if (text == "\\group") {
             readGroup(token);
         } else if (text == "\\staff") {
@@ -751,6 +758,10 @@ private:
     void readStaves(const Token& command)
     {
         const Token number = takeToken("a number of staves (1 or 2)", command);
+        if (m_instruments) {
+            fail("\\staves and \\instruments are not written together", command.position);
+        }
+
         m_staves = readNumber(number.text, number.position);
         if (m_staves < 1 || m_staves > 2) {
             fail("one or two staves", number.position);
@@ -759,6 +770,36 @@ private:
         if (m_music.size() > 1 || !measure().isEmpty()) {
             fail("\\staves is written at the beginning", command.position);
         }
+    }
+
+    //! `\\instruments 2`: two instruments of one staff each, where `\\staves 2` is one instrument on two staves
+    void readInstruments(const Token& command)
+    {
+        const Token number = takeToken("a number of instruments (2)", command);
+        if (m_staves > 1) {
+            fail("\\staves and \\instruments are not written together", command.position);
+        }
+
+        if (readNumber(number.text, number.position) != 2) {
+            fail("two instruments", number.position);
+        }
+
+        if (m_music.size() > 1 || !measure().isEmpty()) {
+            fail("\\instruments is written at the beginning", command.position);
+        }
+
+        m_staves = 2;
+        m_instruments = true;
+    }
+
+    //! `\\title "text"`: the title of the score, in a frame above the music (written at the beginning)
+    void readTitle(const Token& command)
+    {
+        if (m_music.size() > 1 || !measure().isEmpty()) {
+            fail("\\title is written at the beginning", command.position);
+        }
+
+        m_title = quoted(takeToken("the title in quotes", command));
     }
 
     //! `\\lines N`: the current staff has N lines instead of five (written at the beginning, like `\\tab`)
@@ -789,11 +830,12 @@ private:
         m_shortName = quoted(takeToken("the short name in quotes", command));
     }
 
+    //! The text of a name or title, which is written in quotes
     static QString quoted(const Token& token)
     {
         const QString& word = token.text;
         if (word.size() < 2 || !word.startsWith('"') || !word.endsWith('"')) {
-            fail("a name is written in quotes", token.position);
+            fail("this is written in quotes", token.position);
         }
 
         return word.mid(1, word.size() - 2);
@@ -1256,7 +1298,8 @@ private:
     const char* m_noBarlines = nullptr;     // why a bar line is not allowed here, if it is not
 
     int m_staves = 1;
-    int m_bracket = 1;
+    bool m_instruments = false;
+    std::optional<int> m_bracket;   // as given by `\\group`
     int m_staff = 0;
     int m_crossStaff = 0;
     int m_slurStyle = 0;
@@ -1267,6 +1310,7 @@ private:
     std::map<int, int> m_staffLines;
     QString m_longName;
     QString m_shortName;
+    QString m_title;
     bool m_ambitus = false;
     bool m_inGraceGroup = false;
     bool m_graceGroupFirst = false;
@@ -1478,7 +1522,7 @@ public:
         m_xml.writeStartElement("Score");
 
         writeScoreProperties();
-        writePart();
+        writeParts();
         for (int staff = 0; staff < m_piece.staves; ++staff) {
             writeStaff(staff);
         }
@@ -1503,14 +1547,34 @@ private:
         for (const char* tag : { "showInvisible", "showUnprintable", "showFrames", "showMargins" }) {
             number(tag, 0);
         }
+        if (!m_piece.title.isEmpty()) {
+            //! NOTE: for the variables of headers and footers
+            m_xml.writeStartElement("metaTag");
+            m_xml.writeAttribute("name", "workTitle");
+            m_xml.writeCharacters(m_piece.title);
+            m_xml.writeEndElement();
+        }
     }
 
-    void writePart()
+    //! The instrument on all the staves, or (`\\instruments 2`) an instrument on each staff
+    void writeParts()
     {
-        m_xml.writeStartElement("Part");
-        m_xml.writeAttribute("id", "1");
+        if (!m_piece.instruments) {
+            writePart(0, m_piece.staves);
+            return;
+        }
 
         for (int staff = 0; staff < m_piece.staves; ++staff) {
+            writePart(staff, 1);
+        }
+    }
+
+    void writePart(int firstStaff, int staves)
+    {
+        m_xml.writeStartElement("Part");
+        m_xml.writeAttribute("id", QString::number(firstStaff + 1));
+
+        for (int staff = firstStaff; staff < firstStaff + staves; ++staff) {
             m_xml.writeStartElement("Staff");
             m_xml.writeAttribute("id", QString::number(staff + 1));
             m_xml.writeStartElement("StaffType");
@@ -1531,7 +1595,7 @@ private:
             if (staff == 0 && m_piece.staves > 1 && m_piece.spanBarlines) {
                 number("barLineSpan", 1);
             }
-            if (staff == 1 && !m_piece.tabStaves.count(staff)) {
+            if (staff == 1 && !m_piece.instruments && !m_piece.tabStaves.count(staff)) {
                 text("defaultClef", "F");
             }
             //! NOTE: the staves' bracket, as TWrite writes it (twrite.cpp): type, span, col, visible
@@ -1551,7 +1615,7 @@ private:
         }
         m_xml.writeStartElement("Instrument");
         m_xml.writeAttribute("id", "piano");
-        if (!m_piece.longName.isEmpty()) {
+        if (firstStaff == 0 && !m_piece.longName.isEmpty()) {
             text("longName", m_piece.longName);
             text("shortName", m_piece.shortName);
         }
@@ -1569,6 +1633,16 @@ private:
     {
         m_xml.writeStartElement("Staff");
         m_xml.writeAttribute("id", QString::number(staff + 1));
+
+        //! NOTE: a frame of the size of its text (VBox::m_isAutoSizeEnabled)
+        if (staff == 0 && !m_piece.title.isEmpty()) {
+            m_xml.writeStartElement("VBox");
+            m_xml.writeStartElement("Text");
+            text("style", "title");
+            text("text", m_piece.title);
+            m_xml.writeEndElement();
+            m_xml.writeEndElement();
+        }
 
         for (const Measure& measure : m_piece.measures) {
             writeMeasure(measure, staff);

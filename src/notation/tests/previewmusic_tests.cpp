@@ -28,6 +28,7 @@
 #include "engraving/dom/arpeggio.h"
 #include "engraving/dom/articulation.h"
 #include "engraving/dom/beam.h"
+#include "engraving/dom/box.h"
 #include "engraving/dom/bracketitem.h"
 #include "engraving/dom/chord.h"
 #include "engraving/dom/dynamic.h"
@@ -49,6 +50,7 @@
 #include "engraving/dom/stafftext.h"
 #include "engraving/dom/stafftype.h"
 #include "engraving/dom/tapping.h"
+#include "engraving/dom/text.h"
 #include "engraving/dom/tie.h"
 #include "engraving/dom/tremolosinglechord.h"
 #include "engraving/dom/tremolotwochord.h"
@@ -688,6 +690,58 @@ TEST_F(Notation_PreviewMusicTests, barlinesSpanTwoStaves)
     EXPECT_EQ(score()->staff(0)->barLineSpan(), 0);
 
     EXPECT_FALSE(errorOf("\\staves 2 c''1 | \\spanBarlines c''1").empty());
+}
+
+/**
+ * @TEST_CASE twoInstruments
+ * @details `\instruments 2` writes the two staves as two instruments of one staff each, both in the treble clef and
+ *          with no bracket unless `\group` gives one; it is not written together with `\staves`
+ */
+TEST_F(Notation_PreviewMusicTests, twoInstruments)
+{
+    ASSERT_TRUE(load("\\instruments 2 << { c''1 } \\\\ { \\staff 2 e'1 } >>"));
+    ASSERT_EQ(score()->parts().size(), 2u);
+    EXPECT_EQ(score()->staff(0)->part(), score()->parts().at(0));
+    EXPECT_EQ(score()->staff(1)->part(), score()->parts().at(1));
+    EXPECT_EQ(score()->staff(1)->defaultClefType().concertClef, ClefType::G);
+    EXPECT_TRUE(score()->staff(0)->brackets().empty());
+    EXPECT_EQ(score()->firstMeasure()->findChord(Fraction(0, 1), 4)->upNote()->pitch(), 64);
+
+    ASSERT_TRUE(load("\\instruments 2 \\group bracket c''1"));
+    ASSERT_EQ(score()->staff(0)->brackets().size(), 1u);
+    EXPECT_EQ(score()->staff(0)->brackets().front()->bracketType(), BracketType::NORMAL);
+    EXPECT_EQ(score()->staff(0)->brackets().front()->bracketSpan(), 2u);
+
+    EXPECT_FALSE(errorOf("\\staves 2 \\instruments 2 c''1").empty());
+    EXPECT_FALSE(errorOf("\\instruments 3 c''1").empty());
+    EXPECT_FALSE(errorOf("c''1 | \\instruments 2 c''1").empty());
+}
+
+/**
+ * @TEST_CASE titleFrame
+ * @details `\title "text"` puts a frame with the title text before the first measure, of the size of its text, and
+ *          makes it the work title of the score
+ */
+TEST_F(Notation_PreviewMusicTests, titleFrame)
+{
+    ASSERT_TRUE(load("\\title \"Sonata in C\" c''1"));
+    const MeasureBase* first = score()->first();
+    ASSERT_TRUE(first && first->isVBox());
+    EXPECT_TRUE(toVBox(first)->isAutoSizeEnabled());
+
+    const Text* title = nullptr;
+    for (const EngravingItem* item : toVBox(first)->el()) {
+        if (item->isText()) {
+            title = toText(item);
+        }
+    }
+    ASSERT_TRUE(title);
+    EXPECT_EQ(title->textStyleType(), TextStyleType::TITLE);
+    EXPECT_EQ(title->plainText(), u"Sonata in C");
+    EXPECT_EQ(score()->metaTag(u"workTitle"), u"Sonata in C");
+
+    EXPECT_FALSE(errorOf("\\title Sonata c''1").empty());
+    EXPECT_FALSE(errorOf("c''1 | \\title \"Sonata\" c''1").empty());
 }
 
 /**
