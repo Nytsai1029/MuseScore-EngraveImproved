@@ -25,8 +25,6 @@ import Muse.Ui 1.0
 
 import ".."
 
-//! NOTE: the texts which are printed at the top and the foot of every page of the score.
-//! Page texts are not music: the page has no preview pane until the preview can show a page
 EoPage {
     id: page
 
@@ -34,11 +32,12 @@ EoPage {
     legacyCodes: ["headerAndFooter"]
     title: qsTrc("EditStyleBase", "Header & footer")
     group: qsTrc("notation/engravingoptions", "Layout")
-
-    hasPreview: false
+    //! NOTE: three pages: the first, with the title; an even one; an odd one
+    previewScope: "page"
+    music: "\\title \"Sonata\" c''1 \\pageBreak c''1 \\pageBreak c''1"
 
     EoSection {
-        title: qsTrc("EditStyleBase", "Header")
+        title: qsTrc("notation/engravingoptions", "Header")
 
         EoToggle {
             sid: "showHeader"
@@ -47,102 +46,139 @@ EoPage {
 
         EoToggle {
             sid: "headerFirstPage"
+            musicStyle: ({ oddHeaderC: "$:workTitle:" })
             title: qsTrc("EditStyleBase", "Show on first page")
         }
 
         EoToggle {
             sid: "headerOddEven"
             title: qsTrc("EditStyleBase", "Different odd/even pages")
+            hint: qsTrc("notation/engravingoptions", "Off, the texts of the odd pages are used on every page.")
         }
 
         EoGrid {
-            cornerTitle: qsTrc("EditStyleBase", "Header")
-            rowTitles: [qsTrc("EditStyleBase", "Odd"), qsTrc("EditStyleBase", "Even")]
+            title: qsTrc("notation/engravingoptions", "Header text")
+            hint: qsTrc("notation/engravingoptions",
+                        "Each field may hold several lines and the variables listed below, such as $p for the page " +
+                        "number.")
+            rowTitles: [
+                qsTrc("notation/engravingoptions", "Odd pages"),
+                qsTrc("notation/engravingoptions", "Even pages")
+            ]
             columnTitles: [
-                qsTrc("EditStyleBase", "Left"), qsTrc("EditStyleBase", "Middle"), qsTrc("EditStyleBase", "Right")
+                qsTrc("notation/engravingoptions", "Left"),
+                qsTrc("notation/engravingoptions", "Middle"),
+                qsTrc("notation/engravingoptions", "Right")
             ]
 
             EoText {
                 multiline: true
                 sid: "oddHeaderL"
             }
+
             EoText {
                 multiline: true
                 sid: "oddHeaderC"
             }
+
             EoText {
                 multiline: true
                 sid: "oddHeaderR"
             }
+
             EoText {
                 multiline: true
                 sid: "evenHeaderL"
+                hint: qsTrc("notation/engravingoptions", "Only with ‘Different odd/even pages’ on.")
                 enabled: Boolean(page.value("headerOddEven"))
             }
+
             EoText {
                 multiline: true
                 sid: "evenHeaderC"
+                hint: qsTrc("notation/engravingoptions", "Only with ‘Different odd/even pages’ on.")
                 enabled: Boolean(page.value("headerOddEven"))
             }
+
             EoText {
                 multiline: true
                 sid: "evenHeaderR"
+                hint: qsTrc("notation/engravingoptions", "Only with ‘Different odd/even pages’ on.")
                 enabled: Boolean(page.value("headerOddEven"))
             }
         }
-
     }
 
     EoSection {
-        title: qsTrc("EditStyleBase", "Footer")
+        title: qsTrc("notation/engravingoptions", "Footer")
 
         EoToggle {
             sid: "showFooter"
+            musicStyle: ({ oddFooterR: "$p", evenFooterL: "$p" })
             title: qsTrc("notation/engravingoptions", "Show footer")
         }
 
         EoToggle {
             sid: "footerFirstPage"
+            musicStyle: ({ oddFooterC: "$:workTitle:" })
             title: qsTrc("EditStyleBase", "Show on first page")
         }
 
         EoToggle {
             sid: "footerOddEven"
+            musicStyle: ({ oddFooterR: "$p", evenFooterL: "$p" })
             title: qsTrc("EditStyleBase", "Different odd/even pages")
+            hint: qsTrc("notation/engravingoptions", "Off, the texts of the odd pages are used on every page.")
         }
 
         EoGrid {
-            cornerTitle: qsTrc("EditStyleBase", "Footer")
-            rowTitles: [qsTrc("EditStyleBase", "Odd"), qsTrc("EditStyleBase", "Even")]
+            title: qsTrc("notation/engravingoptions", "Footer text")
+            hint: qsTrc("notation/engravingoptions",
+                        "Each field may hold several lines and the variables listed below, such as $p for the page " +
+                        "number.")
+            rowTitles: [
+                qsTrc("notation/engravingoptions", "Odd pages"),
+                qsTrc("notation/engravingoptions", "Even pages")
+            ]
             columnTitles: [
-                qsTrc("EditStyleBase", "Left"), qsTrc("EditStyleBase", "Middle"), qsTrc("EditStyleBase", "Right")
+                qsTrc("notation/engravingoptions", "Left"),
+                qsTrc("notation/engravingoptions", "Middle"),
+                qsTrc("notation/engravingoptions", "Right")
             ]
 
             EoText {
                 multiline: true
                 sid: "oddFooterL"
             }
+
             EoText {
                 multiline: true
                 sid: "oddFooterC"
             }
+
             EoText {
                 multiline: true
                 sid: "oddFooterR"
             }
+
             EoText {
                 multiline: true
                 sid: "evenFooterL"
+                hint: qsTrc("notation/engravingoptions", "Only with ‘Different odd/even pages’ on.")
                 enabled: Boolean(page.value("footerOddEven"))
             }
+
             EoText {
                 multiline: true
                 sid: "evenFooterC"
+                hint: qsTrc("notation/engravingoptions", "Only with ‘Different odd/even pages’ on.")
                 enabled: Boolean(page.value("footerOddEven"))
             }
+
             EoText {
                 multiline: true
                 sid: "evenFooterR"
+                hint: qsTrc("notation/engravingoptions", "Only with ‘Different odd/even pages’ on.")
                 enabled: Boolean(page.value("footerOddEven"))
             }
         }

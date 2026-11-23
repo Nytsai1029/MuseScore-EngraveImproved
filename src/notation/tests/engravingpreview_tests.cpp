@@ -614,7 +614,8 @@ TEST_F(Notation_EngravingPreviewTests, theStaffLinesAreMarked)
 namespace {
 //! The pages whose every option is meant to show what it does
 const char* const EFFECT_TEST_PAGES[] = {
-    "ScorePage", "SpacingPage", "SizesPage", "SystemPage", "MeasureNumberPage",
+    "ScorePage", "VerticalSpacingPage", "SpacingPage", "SizesPage", "SystemPage", "HeaderAndFooterPage",
+    "MeasureNumberPage",
     "NotesPage", "AccidentalsPage", "StemsPage", "BeamsPage", "TremolosPage",
     "RestsPage", "TupletsPage", "ArpeggiosPage", "TiesPage", "SlursPage"
 };
@@ -752,6 +753,18 @@ const std::set<QString>& optionsWhoseMusicCannotShowItYet()
         // only where the bottom staff of the score is one of the staves chosen to show system markings (the
         // preview's score has no such staves)
         "systemObjectsBelowBottomStaff",
+        // a frame below a system: the music writes a frame only before the first measure (`\title`)
+        "paddingToNotationAbove",
+        "systemFrameDistance",
+        // the gap between a bracketed (braced) group and a staff outside it in the same system (VerticalGapData::
+        // addSpaceAroundNormalBracket): the music has two staves at most, so the group is the whole system, and
+        // between systems the larger factor for systems wins
+        "spreadCurlyBracket",
+        "spreadSquareBracket",
+        // the least distance between systems decides how many systems fit on a page, so it shows only on a page
+        // which is full to within a step of it: none of 228 pages tried (7 to 10 systems, music top margin in steps
+        // of 0.25 sp) was
+        "minSystemDistance",
     };
 
     return OPTIONS;

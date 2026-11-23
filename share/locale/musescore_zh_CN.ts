@@ -48282,5 +48282,255 @@ The score will be saved as:
         <source>A staff which has no notes in a system is left out of that system. The staves of a piano or other multi-staff instrument go only when all of them are empty, unless ‘Only hide staves on a system if the entire instrument is empty’ is off in the instrument’s settings, as in the preview.</source>
         <translation>在某个谱行组中没有音符的谱表，不在该谱行组中显示。钢琴等多谱表乐器的各谱表全部为空时才一并隐藏；若在乐器设置中关闭“仅当整个乐器为空时隐藏谱行上的谱表”（如预览中的钢琴），则各谱表分别隐藏。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="40"/>
+        <source>Header</source>
+        <translation>页眉</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="56"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="131"/>
+        <source>Off, the texts of the odd pages are used on every page.</source>
+        <translation>关闭时，所有页面都使用奇数页的文字。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="60"/>
+        <source>Header text</source>
+        <translation>页眉文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="61"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="136"/>
+        <source>Each field may hold several lines and the variables listed below, such as $p for the page number.</source>
+        <translation>每一栏可写多行文字，并可使用下方所列的变量，例如以 $p 表示页码。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="65"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="140"/>
+        <source>Odd pages</source>
+        <translation>奇数页</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="66"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="141"/>
+        <source>Even pages</source>
+        <translation>偶数页</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="70"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="145"/>
+        <source>Middle</source>
+        <translation>中</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="92"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="99"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="106"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="167"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="174"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="181"/>
+        <source>Only with ‘Different odd/even pages’ on.</source>
+        <translation>仅在开启“奇偶页不同”时使用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="113"/>
+        <source>Footer</source>
+        <translation>页脚</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="135"/>
+        <source>Footer text</source>
+        <translation>页脚文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="38"/>
+        <source>Music area</source>
+        <translation>乐谱区域</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="43"/>
+        <source>The distance from the top page margin to the top line of the first staff on the page; notes and marks above that staff can push it further down.</source>
+        <translation>页面上边距到本页第一个谱表顶线的距离；该谱表上方的音符与记号可能把它再往下推。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="55"/>
+        <source>The least distance from the bottom line of the last staff on the page to the bottom page margin.</source>
+        <translation>本页最后一个谱表的底线到页面下边距至少保留的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="69"/>
+        <source>The least gap between the music, with everything above and below the staves, and the text of the header or footer.</source>
+        <translation>乐谱内容（含谱表上下的音符与记号）与页眉、页脚文字之间至少保留的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="77"/>
+        <source>Vertical justification</source>
+        <translation>纵向两端对齐</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="83"/>
+        <source>The gaps between staves and between systems are opened up evenly until the music reaches down to the bottom margin. Off, the staves of a system keep fixed distances and only the gaps between systems grow.</source>
+        <translation>均匀拉开谱表之间、谱行组之间的间隙，使乐谱向下撑到下边距。关闭后，谱行组内的谱表距离固定，只拉开谱行组之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="90"/>
+        <source>Distance</source>
+        <translation>距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="91"/>
+        <source>The limits between which the gaps may vary when the page is justified.</source>
+        <translation>两端对齐时，各间隙可在此范围内伸缩。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="94"/>
+        <source>Between systems</source>
+        <translation>谱行组之间</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="95"/>
+        <source>Between staves</source>
+        <translation>谱表之间</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="98"/>
+        <source>Minimum</source>
+        <translation>最小</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="99"/>
+        <source>Maximum</source>
+        <translation>最大</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="106"/>
+        <source>Measured from the bottom line of one system to the top line of the next; notes and marks in between can force more.</source>
+        <translation>自上一谱行组的底线量至下一谱行组的顶线；其间的音符与记号可能使其加大。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="117"/>
+        <source>Justifying never opens the gap between two systems further than this.</source>
+        <translation>两端对齐时，谱行组之间的间隙最多拉开到此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="126"/>
+        <source>Applies between all staves of a system, also between the two staves of a piano part.</source>
+        <translation>适用于谱行组内的所有谱表之间，包括钢琴的两行谱表之间。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="136"/>
+        <source>Justifying never opens the gap between two staves of a system further than this; between staves joined by a brace, ‘Max. grand staff distance’ applies instead.</source>
+        <translation>两端对齐时，谱行组内谱表之间的间隙最多拉开到此值；由花连谱号连接的谱表之间改用“大谱表最大距离”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="148"/>
+        <source>When the page is justified, a gap between two systems is made this many times as large as a gap between ordinary neighbouring staves of a system.</source>
+        <translation>两端对齐时，谱行组之间的间隙取谱行组内普通相邻谱表之间间隙的这么多倍。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="160"/>
+        <source>When the page is justified, the gap between a bracketed group of staves and the staff above or below it is made this many times as large as a gap between two staves inside the group.</source>
+        <translation>两端对齐时，直连谱号所括的一组谱表与其上方或下方谱表之间的间隙，取组内两个谱表之间间隙的这么多倍。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="172"/>
+        <source>When the page is justified, the gap between the staves joined by a brace, such as a piano part, and the staff above or below them is made this many times as large as a gap between ordinary neighbouring staves.</source>
+        <translation>两端对齐时，花连谱号所连的谱表（如钢琴）与其上方或下方谱表之间的间隙，取普通相邻谱表之间间隙的这么多倍。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="186"/>
+        <source>Justifying never opens the gap between the staves joined by a brace further than this.</source>
+        <translation>两端对齐时，花连谱号所连谱表之间的间隙最多拉开到此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="196"/>
+        <source>Once the gaps are even, each may be opened by at most this much more to bring the last staff down to the bottom margin; a page which would need more stays short.</source>
+        <translation>各间隙拉匀之后，为使最后一个谱表抵达下边距，每个间隙最多再拉开此值；仍不够时页面底部留空。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="205"/>
+        <source>Without vertical justification</source>
+        <translation>不使用纵向两端对齐时</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="206"/>
+        <source>These distances apply while ‘Justify staves vertically’ is off.</source>
+        <translation>以下距离在“谱表纵向两端对齐”关闭时生效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="213"/>
+        <source>The distance between the staves of different instruments in a system, from bottom line to top line; notes and marks in between can force more.</source>
+        <translation>谱行组内不同乐器的谱表之间的距离，自上方谱表底线量至下方谱表顶线；其间的音符与记号可能使其加大。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="226"/>
+        <source>The distance between the staves of one instrument, such as the two staves of a piano part.</source>
+        <translation>同一乐器各谱表之间的距离，例如钢琴的两行谱表。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="236"/>
+        <source>The least gap between two systems, from the bottom line of one to the top line of the next.</source>
+        <translation>两个谱行组之间至少保留的间隙，自上一谱行组的底线量至下一谱行组的顶线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="247"/>
+        <source>To fill the page, the gaps between systems are opened up evenly, but never further than this.</source>
+        <translation>为撑满页面，谱行组之间的间隙会被均匀拉开，但最多拉开到此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="257"/>
+        <source>Frames</source>
+        <translation>框</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="262"/>
+        <source>Gap above a vertical frame</source>
+        <translation>垂直框上方的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="263"/>
+        <source>The distance between a vertical frame and the system above it, for every frame which has not been given its own.</source>
+        <translation>垂直框与其上方谱行组之间的距离；适用于未单独设置此项的框。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="273"/>
+        <source>Gap below a vertical frame</source>
+        <translation>垂直框下方的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="274"/>
+        <source>The distance between a vertical frame and the system below it, for every frame which has not been given its own.</source>
+        <translation>垂直框与其下方谱行组之间的距离；适用于未单独设置此项的框。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="284"/>
+        <source>Least height of an auto-sized vertical frame</source>
+        <translation>自动高度垂直框的最小高度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="285"/>
+        <source>A vertical frame which takes its height from its content is never lower than this; the same holds for an empty fretboard diagram legend.</source>
+        <translation>按内容自动确定高度的垂直框，其高度不小于此值；空的品格图图例框同样适用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="295"/>
+        <source>Clearance for notation above a vertical frame</source>
+        <translation>垂直框与上方乐谱内容的净空</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="296"/>
+        <source>Least white space between a vertical frame and the lowest note or sign of the system above it; the frame moves down when ‘Gap above a vertical frame’ would leave less. For every frame which has not been given its own.</source>
+        <translation>垂直框与其上方谱行组中位置最低的音符或记号之间至少保留的空白；“垂直框上方的间隙”不足以保证时，框向下移。适用于未单独设置此项的框。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="307"/>
+        <source>Clearance for notation below a vertical frame</source>
+        <translation>垂直框与下方乐谱内容的净空</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="308"/>
+        <source>Least white space between a vertical frame and the highest note or sign of the system below it; the system moves down when ‘Gap below a vertical frame’ would leave less. For every frame which has not been given its own.</source>
+        <translation>垂直框与其下方谱行组中位置最高的音符或记号之间至少保留的空白；“垂直框下方的间隙”不足以保证时，谱行组向下移。适用于未单独设置此项的框。</translation>
+    </message>
 </context>
 </TS>
