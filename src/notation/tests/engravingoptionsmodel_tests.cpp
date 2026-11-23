@@ -311,6 +311,45 @@ TEST_F(Notation_EngravingOptionsModelTests, musicFontTakesDynamicsFontAlong)
 }
 
 /**
+ * @TEST_CASE oldStyleMultiMeasureRestsTakeTheWholeRestAlong
+ * @details Switching old-style multimeasure rests on makes a single empty measure a whole rest, which is the only
+ *          form an old-style rest of one measure has; switching them off changes nothing else
+ */
+TEST_F(Notation_EngravingOptionsModelTests, oldStyleMultiMeasureRestsTakeTheWholeRestAlong)
+{
+    ModelInEngine holder;
+    EngravingOptionsModel* model = holder.get();
+    model->load();
+    ASSERT_TRUE(model->isLoaded());
+
+    StyleItem* item = model->item("oldStyleMultiMeasureRests");
+    ASSERT_TRUE(item);
+
+    // [GIVEN] A single empty measure is an H-bar
+    m_values[Sid::singleMeasureMMRestUseNormalRest] = false;
+
+    // [WHEN] Old-style rests are switched on
+    item->modifyValue(true);
+
+    // [THEN] The single measure becomes a whole rest, then the old style is written
+    ASSERT_EQ(m_written.size(), 2u);
+    EXPECT_EQ(m_written.at(0).first, Sid::singleMeasureMMRestUseNormalRest);
+    EXPECT_TRUE(m_written.at(0).second.toBool());
+    EXPECT_EQ(m_written.at(1).first, Sid::oldStyleMultiMeasureRests);
+    EXPECT_TRUE(m_written.at(1).second.toBool());
+
+    // [WHEN] They are switched off again
+    m_written.clear();
+    item->modifyValue(false);
+
+    // [THEN] Only the old style is written
+    ASSERT_EQ(m_written.size(), 1u);
+    EXPECT_EQ(m_written.front().first, Sid::oldStyleMultiMeasureRests);
+
+    holder.destroy();
+}
+
+/**
  * @TEST_CASE countsAndResetsByName
  * @details The values which differ from their defaults are counted, names of no value are left out
  */

@@ -259,6 +259,13 @@ void EngravingOptionsModel::setValue(StyleId id, const PropertyValue& value)
         return;
     }
 
+    //! NOTE An old-style multimeasure rest of a single measure can only be a whole rest: switching the old style on
+    //! chooses the whole rest for single measures too, as the style dialog does (EditStyle::styleValueChanged)
+    if (id == StyleId::oldStyleMultiMeasureRests && value.toBool()
+        && !style()->styleValue(StyleId::singleMeasureMMRestUseNormalRest).toBool()) {
+        style()->setStyleValue(StyleId::singleMeasureMMRestUseNormalRest, true);
+    }
+
     style()->setStyleValue(id, value);
 }
 

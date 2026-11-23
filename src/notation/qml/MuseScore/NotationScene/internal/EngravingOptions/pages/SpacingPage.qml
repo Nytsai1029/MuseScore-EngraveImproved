@@ -165,18 +165,6 @@ EoPage {
         }
 
         EoNumber {
-            sid: "graceToMainNoteDist"
-            title: qsTrc("EditStyleBase", "Grace note to main note:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "graceToGraceNoteDist"
-            title: qsTrc("EditStyleBase", "Grace note to grace note:")
-            step: 0.1
-        }
-
-        EoNumber {
             sid: "headerToLineStartDistance"
             title: qsTrc("EditStyleBase", "System header to continued tie or line:")
             step: 0.1
@@ -197,12 +185,6 @@ EoPage {
         EoNumber {
             sid: "systemTrailerRightMargin"
             title: qsTrc("EditStyleBase", "Right margin after courtesy signatures:")
-            step: 0.1
-        }
-
-        EoNumber {
-            sid: "ambitusMargin"
-            title: qsTrc("EditStyleBase", "Ambitus padding:")
             step: 0.1
         }
     }
@@ -297,17 +279,6 @@ EoPage {
             min: 0.31
             max: 2
             step: 0.01
-        }
-
-        EoNumber {
-            sid: "mmRestBaseWidthMeasures"
-            title: qsTrc("notation/engravingoptions", "Multimeasure rest: measures at base width")
-            hint: qsTrc("notation/engravingoptions",
-                         "A multimeasure rest of up to this many measures keeps the base width; each further measure widens it by one step, up to the maximum width increase.")
-            min: 1
-            max: 20
-            step: 1
-            decimals: 0
         }
     }
 
@@ -711,31 +682,6 @@ EoPage {
         }
 
         EoNumber {
-            sid: "ledgerLineLedgerLineDistance"
-            title: qsTrc("notation/engravingoptions", "Ledger line to ledger line")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum gap between the ledger lines of neighbouring chords; automatically shortened ledger lines keep a fraction of it.")
-            max: 2
-        }
-
-        EoNumber {
-            sid: "arpeggioLedgerLineDistance"
-            title: qsTrc("notation/engravingoptions", "Arpeggio to ledger line")
-            hint: qsTrc("notation/engravingoptions",
-                         "Gap between an arpeggio and the ledger lines of the chord it belongs to.")
-            max: 2
-        }
-
-        EoNumber {
-            sid: "accidentalLedgerLineDistance"
-            title: qsTrc("notation/engravingoptions", "Accidental to ledger line")
-            hint: qsTrc("notation/engravingoptions",
-                         "Gap between an accidental and the ledger lines of the chord it belongs to.")
-            max: 2
-            step: 0.01
-        }
-
-        EoNumber {
             sid: "breathHorizontalPadding"
             title: qsTrc("notation/engravingoptions", "Padding around breath marks")
             hint: qsTrc("notation/engravingoptions",
@@ -775,44 +721,11 @@ EoPage {
             max: 5
         }
 
-
         EoNumber {
             sid: "articulationHorizontalPadding"
             title: qsTrc("notation/engravingoptions", "Padding around articulations and fermatas")
             hint: qsTrc("notation/engravingoptions",
                          "Minimum horizontal gap between an articulation, fermata or tapping sign and neighbouring items it cannot overlap.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "laissezVibNoteDistance"
-            title: qsTrc("notation/engravingoptions", "Laissez vibrer tie to note")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between the end of a laissez vibrer tie and the next note or rest.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "laissezVibAccidentalDistance"
-            title: qsTrc("notation/engravingoptions", "Laissez vibrer tie to accidental")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between the end of a laissez vibrer tie and an accidental of the next note.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "laissezVibBarlineDistance"
-            title: qsTrc("notation/engravingoptions", "Laissez vibrer tie to barline")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between the end of a laissez vibrer tie and the barline after it.")
-            max: 5
-        }
-
-        EoNumber {
-            sid: "laissezVibStemDistance"
-            title: qsTrc("notation/engravingoptions", "Laissez vibrer tie to stem")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between the end of a laissez vibrer tie and the stem of the next note.")
             max: 5
         }
 

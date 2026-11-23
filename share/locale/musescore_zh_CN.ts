@@ -44959,5 +44959,2451 @@ The score will be saved as:
         <source>Shortening of the inner stems</source>
         <translation>内侧符干的缩短量</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="37"/>
+        <source>Distances</source>
+        <translation>距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="43"/>
+        <source>Gap between an accidental and the notehead to its right.</source>
+        <translation>变音记号与其右侧符头之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="51"/>
+        <source>Horizontal gap between accidentals which stand in neighbouring columns of a chord.</source>
+        <translation>和弦中相邻两列变音记号之间的横向间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="60"/>
+        <source>Two accidentals may stand in the same column when they are at least this far apart vertically; with less room one of them moves to the next column.</source>
+        <translation>两个变音记号的纵向间隙不小于此值时可排在同一列；不足时，其中一个移到下一列。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="71"/>
+        <source>The same for two sharps, which may sit closer above one another than other accidentals.</source>
+        <translation>两个升号之间的同类间隙；升号上下之间可以比其他变音记号靠得更近。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="81"/>
+        <source>An accidental may slide past a notehead, stem or ledger line of the chord, instead of stopping to the left of it, when it is at least this far above or below it.</source>
+        <translation>变音记号与和弦的某个符头、符干或加线在纵向上至少相隔此距离时，可以从其上方或下方越过，而不必停在其左侧。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="92"/>
+        <source>Extra horizontal space between a natural and a stem, or a natural or flat close above or below it, so that their upright strokes do not seem to run together.</source>
+        <translation>还原号与符干之间，或与上下邻近的还原号、降号之间额外增加的横向间距，避免各自的竖线看上去连在一起。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="103"/>
+        <source>A flat may come this close to a notehead which lies lower than its own note, instead of keeping ‘Accidental to note distance’.</source>
+        <translation>降号与位置低于其所属音符的符头之间可以靠近到此距离，而不必保持“变音号到音符距离”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="112"/>
+        <source>Accidentals and ledger lines</source>
+        <translation>变音记号与加线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="118"/>
+        <source>The accidental of a note on a ledger line is set right against the end of the ledger line, with no gap; when off, it keeps the distances below.</source>
+        <translation>加线上音符的变音记号紧贴加线端点，不留间隙；关闭后，按下面各项距离排布。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="126"/>
+        <source>Overlap of a flush accidental with the ledger line</source>
+        <translation>贴齐时变音记号伸入加线的长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="127"/>
+        <source>How far the accidental reaches into the end of the ledger line, so that the two join without a hairline gap. Only with ‘Keep rightmost accidental flush with ledger lines’ on.</source>
+        <translation>变音记号伸入加线端点的长度，使两者相接而不露细缝。仅在开启“最右侧变音号贴齐加线”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="138"/>
+        <source>Smallest gap from a sharp or natural to a ledger line</source>
+        <translation>升号、还原号与加线的最小间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="139"/>
+        <source>A sharp or natural never comes closer than this to the end of a ledger line which passes anywhere between its top and bottom, even where its outline would leave room; flats may reach over ledger lines. Not used while ‘Keep rightmost accidental flush with ledger lines’ is on.</source>
+        <translation>升号或还原号与从其上下端之间任何高度经过的加线端点之间，至少保持此间隙，即使其轮廓在该处留有空位；降号可以越过加线。开启“最右侧变音号贴齐加线”时不使用此项。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="152"/>
+        <source>Gap between an accidental and a ledger line</source>
+        <translation>变音记号与加线的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="153"/>
+        <source>Horizontal gap between an accidental and the end of a ledger line beside it. A flat keeps no gap from a ledger line below its own note, which its bowl may touch.</source>
+        <translation>变音记号与其旁边加线端点之间的横向间隙。降号与低于其所属音符的加线之间不留间隙，其腹部可以贴到加线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="162"/>
+        <source>Stacking in chords</source>
+        <translation>和弦中的排列</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="168"/>
+        <source>The accidentals of two notes a second apart are placed one directly after the other, in neighbouring columns, instead of being separated by the usual stacking order.</source>
+        <translation>相距二度的两个音符的变音记号依次紧邻排在相邻两列，而不被通常的排列次序拆开。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="177"/>
+        <source>In a wide chord the accidentals are stacked in separate groups (see ‘Interval that starts a new stack’). With this on, groups which contain the same accidental an octave apart are stacked together, so that the two stand in one column.</source>
+        <translation>音域较宽的和弦中，变音记号分成几组各自排列（见“另起堆叠的音程”）。开启后，含有相隔八度的同种变音记号的各组合并排列，使这两个记号排在同一列。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="187"/>
+        <source>Two accidentals of the same kind an octave apart are lined up in one column even when they would stand at different distances from the chord, for instance because one of the notes is displaced by a second.</source>
+        <translation>相隔八度的两个同种变音记号即使到和弦的距离本来不同（例如其中一个音符因二度而错位），也对齐在同一列。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="197"/>
+        <source>In a chord with noteheads on both sides of the stem, the accidentals are placed one column of noteheads after the other, beginning with the noteheads on the right, so that each accidental stays as near as possible to its own notehead.</source>
+        <translation>符头分列符干两侧的和弦中，变音记号按符头所在的列依次排布，先排右侧一列符头的变音记号，使每个变音记号尽量靠近自己的符头。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="207"/>
+        <source>When two vertically neighbouring accidentals of a chord are at least this many staff positions apart (6 = a seventh), the lower one starts a new stack close to the notes instead of continuing the columns above.</source>
+        <translation>和弦中上下相邻的两个变音记号相距不少于此音级数（6 即七度）时，下方的变音记号重新从靠近音符处开始堆叠，而不接续上方的各列。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="220"/>
+        <source>Largest stack placed in zigzag order</source>
+        <translation>按交替次序排列的堆叠的最大数量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="221"/>
+        <source>Stacks of up to this many accidentals are placed in the classical order: top, bottom, second from the top, and so on. Two neighbouring stacks which together are no larger than this are treated as one.</source>
+        <translation>变音记号不超过此数量的堆叠按传统次序排列：最上、最下、次上，依此类推。相邻两个堆叠的总数不超过此值时合并为一个。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="233"/>
+        <source>Largest stack before the compact order</source>
+        <translation>改用紧凑次序前堆叠的最大数量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="234"/>
+        <source>Stacks of more accidentals than this are packed compactly, each column taking as many accidentals as fit. Stacks between the two limits use whichever order needs fewer columns.</source>
+        <translation>变音记号多于此数量的堆叠按紧凑次序排列，每一列尽量多排。数量介于两个界限之间的堆叠，采用列数较少的那种次序。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="245"/>
+        <source>Difference in position which splits a stack</source>
+        <translation>拆分堆叠的位置差</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="246"/>
+        <source>When some accidentals of a chord can come closer to the notes than the others by more than this (past a ledger line, or beside a notehead displaced by a second), they are placed first as a stack of their own and the others follow to their left.</source>
+        <translation>和弦中部分变音记号能比其余的更靠近音符且相差超过此值时（越过加线，或在因二度错位的符头旁），它们先单独成组排布，其余的排在其左侧。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="256"/>
+        <source>Tolerance for aligning a column</source>
+        <translation>同列对齐的容差</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="257"/>
+        <source>Accidentals of the same kind which stand in the same column are set exactly above one another when their horizontal positions differ by less than this; with a larger difference each keeps its own position.</source>
+        <translation>同一列中的同种变音记号，横向位置相差小于此值时上下对齐；相差更大时各自保持原位。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="267"/>
+        <source>Largest difference for aligning offset octaves</source>
+        <translation>对齐偏移八度的最大位置差</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="268"/>
+        <source>With ‘Align accidentals on offset octaves’ on, two accidentals an octave apart are lined up only when their horizontal positions differ by less than this.</source>
+        <translation>开启“将相隔八度偏移音符的变音号对齐”时，相隔八度的两个变音记号只有在横向位置相差小于此值时才对齐。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="277"/>
+        <source>Kerning</source>
+        <translation>紧排</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="278"/>
+        <source>How accidentals may tuck under one another to save a column.</source>
+        <translation>变音记号如何相互收进，以节省一列的位置。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="285"/>
+        <source>A flat is tucked partly under the flat or natural a fourth above it instead of standing clear to its left.</source>
+        <translation>降号部分收进其上方四度的降号或还原号之下，而不是完全排在其左侧。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="293"/>
+        <source>Gap of a flat tucked under a flat</source>
+        <translation>降号收进降号之下时的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="294"/>
+        <source>Horizontal gap between the lower flat and the flat a fourth above it; a negative value makes them overlap. Only with ‘Tuck flats a fourth apart’ on.</source>
+        <translation>下方降号与其上方四度的降号之间的横向间隙；负值表示两者重叠。仅在开启“四度时收进降号”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="305"/>
+        <source>Gap of a flat tucked under a natural</source>
+        <translation>降号收进还原号之下时的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="306"/>
+        <source>Horizontal gap between the flat and the natural a fourth above it; a negative value makes them overlap. Only with ‘Tuck flats a fourth apart’ on.</source>
+        <translation>降号与其上方四度的还原号之间的横向间隙；负值表示两者重叠。仅在开启“四度时收进降号”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="318"/>
+        <source>Two naturals a sixth apart stand in the same column and interlock, although their outlines are closer than ‘Vertical clearance between accidentals’.</source>
+        <translation>相距六度的两个还原号排在同一列并相互嵌入，尽管其轮廓的间隙小于“变音记号之间的纵向间隙”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="325"/>
+        <source>Cautionary accidentals and parentheses</source>
+        <translation>提示性变音记号与括号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="331"/>
+        <source>A note which was altered in the previous measure gets a reminder accidental the first time it comes back in the next measure; not after a key change or a section break.</source>
+        <translation>上一小节中被变化过的音，在下一小节首次出现时加提示性变音记号；调号改变或分段之后不加。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="341"/>
+        <source>Only with ‘Show cautionary accidentals’ on.</source>
+        <translation>仅在开启“显示提示性变音号”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="350"/>
+        <source>A flat, natural, sharp or double accidental in parentheses is drawn with the music font’s ready-made symbol, in which the parentheses hug the accidental; when off, separate parentheses are set around it with ‘Padding inside parentheses’.</source>
+        <translation>带圆括号的降号、还原号、升号或重升、重降号使用音乐字体中现成的带括号符号，其括号紧贴变音记号；关闭后，在变音记号两侧另加括号，间距由“括号内间距”决定。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="360"/>
+        <source>Gap between an accidental and each of its parentheses, square brackets or braces. No effect on an accidental drawn with a ready-made parenthesised symbol.</source>
+        <translation>变音记号与其两侧圆括号、方括号或花括号之间的间隙。对使用现成带括号符号的变音记号无效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="372"/>
+        <source>Downward shift of braces around an accidental</source>
+        <translation>变音记号两侧花括号的下移量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/AccidentalsPage.qml" line="373"/>
+        <source>Braces around an accidental are set this much lower than the accidental; parentheses and square brackets are not affected.</source>
+        <translation>变音记号两侧的花括号相对于变音记号下移此距离；圆括号与方括号不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="43"/>
+        <source>Distance from one beam to the next in a group with several beams, measured between the same edges: ¾ sp (regular) or 1 sp (wide).</source>
+        <translation>多条符杠的符杠组中相邻两条符杠之间的距离，按同侧边缘量取：¾ 谱间（常规）或 1 谱间（宽）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="48"/>
+        <source>Regular</source>
+        <translation>常规</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="49"/>
+        <source>Wide</source>
+        <translation>宽</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="63"/>
+        <source>Length of beamlets</source>
+        <translation>短符杠的长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="64"/>
+        <source>Length of the short stub of beam on a single note, as on the sixteenth after a dotted eighth.</source>
+        <translation>单个音符上那一小段符杠的长度，例如附点八分音符之后的十六分音符上的短符杠。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="72"/>
+        <source>Gap after a beamlet</source>
+        <translation>短符杠之后的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="73"/>
+        <source>Smallest horizontal gap between the free end of a beamlet which points to the right and the note or sign that follows. The same gap is kept after the strokes of a single-note tremolo.</source>
+        <translation>向右伸出的短符杠的自由端与其后音符或记号之间的最小横向间隙。单音震音的震音线之后也保持同样的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="84"/>
+        <source>Draw inner stems through beams</source>
+        <translation>符干贯穿所有符杠</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="96"/>
+        <source>A beam which was moved by hand has each of its ends rounded to the nearest quarter of a staff space.</source>
+        <translation>手动移动过的符杠，其两端各自取整到最近的四分之一谱间。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="109"/>
+        <source>Every beam is drawn horizontal, whatever its notes. A single beam can still be changed in its own properties.</source>
+        <translation>所有符杠一律水平，不论其音符如何。单条符杠仍可在其属性中另行设置。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="117"/>
+        <source>On: the slant follows the built-in rules of ‘Slant: default rules’, which also keep the beam clear of the staff lines. Off: the slant is taken from the tables of ‘Slant: custom rules’.</source>
+        <translation>开启：斜度按“斜度：默认规则”中的内置规则确定，并使符杠避开谱线。关闭：斜度取自“斜度：自定义规则”中的表格。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="127"/>
+        <source>A group in which a note between the ends lies nearer the beam than both end notes gets a horizontal beam; when off, such a beam slants by its end notes.</source>
+        <translation>符杠组中间有音符比首尾两个音符都更靠近符杠时，符杠保持水平；关闭后，此类符杠按首尾音符倾斜。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="135"/>
+        <source>Groups on two pitches follow their own slant rule</source>
+        <translation>只有两个音高的符杠组使用专门的斜度规则</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="136"/>
+        <source>Groups of three or more notes which use only two pitches: if a single note at one end differs from all the others, the beam slants when that note is the one nearer the beam and stays horizontal when it is the farther one; two pitches in equal numbers slant the beam. When off, such groups follow the general rules.</source>
+        <translation>只有两个音高、含三个及以上音符的符杠组：若一端的单个音符与其余各音不同，该音符离符杠较近时符杠倾斜，较远时符杠水平；两个音高数量相等时符杠倾斜。关闭后，此类符杠组按一般规则处理。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="146"/>
+        <source>Slant of a cross-staff beam over level notes</source>
+        <translation>音符等高时跨谱表符杠的斜度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="147"/>
+        <source>For a cross-staff beam which lies above or below both staves: when the notes on the staff next to the beam are level but the group begins and ends on different staves, the beam gets this slant towards the other staff.</source>
+        <translation>位于两个谱表上方或下方的跨谱表符杠：靠近符杠的谱表上各音符等高、而符杠组首尾分处不同谱表时，符杠按此斜度向另一谱表倾斜。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="160"/>
+        <source>Used while ‘Apply default beam slant rules’ is on. A slant is the difference in height between the two ends of the beam.</source>
+        <translation>在开启“应用默认符杠倾斜规则”时使用。斜度指符杠两端的高度差。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="166"/>
+        <source>Maximum slant by interval and by beam length</source>
+        <translation>按音程与符杠长度确定的最大斜度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="167"/>
+        <source>A beam slants by the smaller of two limits: the maximum slant for the interval between its first and last notes, and the maximum slant of the first row whose length it stays under; so a short beam cannot slant much, whatever its interval. Lengths are measured from the first to the last stem.</source>
+        <translation>符杠的斜度取两个上限中较小的一个：首尾音符音程对应的最大斜度，以及符杠长度所不及的第一行的最大斜度；因此短符杠无论音程多大，斜度都有限。长度自第一个符干量到最后一个符干。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="172"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="393"/>
+        <source>Interval between first and last note</source>
+        <translation>首尾音符的音程</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="183"/>
+        <source>Maximum slant (quarter spaces)</source>
+        <translation>最大斜度（四分之一谱间）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="184"/>
+        <source>Also the most for beams shorter than</source>
+        <translation>同时作为短于此长度的符杠的上限</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="306"/>
+        <source>When the end note nearest the beam is repeated by the note next to it, the beam would be horizontal; it gets this small slant instead.</source>
+        <translation>离符杠最近的端点音符被相邻音符重复时，符杠本应水平；此时改用这一小斜度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="319"/>
+        <source>Notes far outside the staff have their stems lengthened to the middle of the staff, which would leave the beam lying level on one line; when the end notes differ it gets this slant instead.</source>
+        <translation>远离谱表的音符其符干延长到谱表中部，符杠本会水平地落在同一条谱线上；首尾音符不同时改用此斜度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="332"/>
+        <source>Smaller slant of beams extended to the middle of the staff</source>
+        <translation>符干延伸至谱表中部时的较小符杠斜度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="333"/>
+        <source>Used instead of the value above when the end notes are a second apart, when the rules allow only a quarter-space slant, or when the group has two beams.</source>
+        <translation>首尾音符相距二度、规则只允许四分之一谱间的斜度，或符杠组有两条符杠时，取代上一项。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="345"/>
+        <source>Slight slant of level three-beam groups</source>
+        <translation>水平的三条符杠组的微小斜度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="346"/>
+        <source>A group with three beams which the staff lines force to lie level although its end notes differ has one end moved by this much, too little to cut wedges against the staff lines; 0 keeps it level. Not with the wide beam distance.</source>
+        <translation>有三条符杠的符杠组因谱线限制只能水平、而首尾音符并不相同时，其一端移动此距离，斜度小到不致与谱线形成楔形空隙；设为 0 则保持水平。宽符杠距离时不使用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="358"/>
+        <source>Extra beam distance in such a group</source>
+        <translation>此类符杠组增加的符杠距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="359"/>
+        <source>Added to the distance between the three beams of a group which gets the slight slant above, so that the slanted beams still meet the staff lines cleanly.</source>
+        <translation>获得上述微小斜度的符杠组，其三条符杠之间额外增加的距离，使倾斜后的符杠仍与谱线整齐相接。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="370"/>
+        <source>Used while ‘Apply default beam slant rules’ is off. A slant is the difference in height between the two ends of the beam.</source>
+        <translation>在关闭“应用默认符杠倾斜规则”时使用。斜度指符杠两端的高度差。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="379"/>
+        <source>On: a beam inside the staff is moved so that neither end floats in the middle of a space, a group entirely on ledger lines gets a slant of its own, and no stem is left shorter than normal (see the last four values of this section). Off: the beam keeps the slant of the table and is only moved away from the notes until its ends touch a staff line and its stems are long enough.</source>
+        <translation>开启：谱表内的符杠会移动，使两端都不悬在谱间正中；全部位于加线上的符杠组使用专门的斜度；任何符干都不短于正常长度（见本节最后四项）。关闭：符杠保持表格中的斜度，只在两端未触及谱线或符干过短时移离音符。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="388"/>
+        <source>Slant by interval (quarter spaces)</source>
+        <translation>按音程确定的斜度（四分之一谱间）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="389"/>
+        <source>The slant a beam takes for the interval between its first and last notes; beams of only two notes have a column of their own. A group whose inner notes call for a horizontal beam stays horizontal.</source>
+        <translation>符杠按首尾音符的音程所取的斜度；只有两个音符的符杠另用一列。中间音符要求符杠水平的符杠组仍保持水平。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="608"/>
+        <source>When the end note nearest the beam is repeated by the note next to it, the beam takes this slant instead of the slant of the table.</source>
+        <translation>离符杠最近的端点音符被相邻音符重复时，符杠改用此斜度，而不取表格中的斜度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="622"/>
+        <source>The stems at the two ends of a beam may be this much shorter than their normal length, while the stems between them keep their full length; if the slant asks for more, it is reduced or the beam is moved away from the notes. Only with ‘Apply positioning rules for staff lines, ledger lines and stem length’ on.</source>
+        <translation>符杠两端的符干可以比正常长度短这么多，中间各符干则保持完整长度；斜度所需超出此值时，减小斜度或将符杠移离音符。仅在开启“应用针对谱线、加线与符干长度的定位规则”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="637"/>
+        <source>In a group whose notes all lie on ledger lines, a stem may be this much shorter than its normal length; beyond that the whole beam is moved towards the staff by whole staff spaces. Only with ‘Apply positioning rules for staff lines, ledger lines and stem length’ on.</source>
+        <translation>所有音符都在加线上的符杠组中，符干可以比正常长度短这么多；超出后整条符杠以整个谱间为单位移向谱表。仅在开启“应用针对谱线、加线与符干长度的定位规则”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="650"/>
+        <source>Slant of every beam whose notes all lie on ledger lines and are not level, whatever their interval; 0 keeps such beams horizontal. Only with ‘Apply positioning rules for staff lines, ledger lines and stem length’ on.</source>
+        <translation>所有音符都在加线上且不等高的符杠一律使用此斜度，不论音程大小；设为 0 时此类符杠保持水平。仅在开启“应用针对谱线、加线与符干长度的定位规则”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="664"/>
+        <source>Stem shortening allowed to seat a ledger-line group</source>
+        <translation>为使加线符杠组贴线而允许的符干缩短量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="665"/>
+        <source>In a ledger-line group the edge of the beam which faces the staff is set on a line; to get there the stem at the end nearer the notes may be shortened by at most this much, otherwise the beam moves the other way and the stem gets longer. Only with ‘Apply positioning rules for staff lines, ledger lines and stem length’ on.</source>
+        <translation>加线符杠组中，符杠朝向谱表的一侧边缘须落在线上；为此，靠近音符一端的符干最多可缩短此量，否则符杠向另一方向移动，符干加长。仅在开启“应用针对谱线、加线与符干长度的定位规则”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="681"/>
+        <source>Shortest stem under a beam</source>
+        <translation>符杠下的最短符干</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="682"/>
+        <source>However the beam is slanted, it is moved away from the notes until every stem between its ends is at least this long (from the notehead to the stem tip, rounded to quarter spaces), and the default rules do not shorten the end stems below it. Not used where ‘Apply positioning rules for staff lines, ledger lines and stem length’ places the beam.</source>
+        <translation>无论符杠如何倾斜，都会移离音符，直到两端之间的每个符干至少达到此长度（自符头量到符干末端，取整到四分之一谱间）；默认规则也不会把两端的符干缩短到此值以下。由“应用针对谱线、加线与符干长度的定位规则”确定位置的符杠不使用此表。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="687"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="299"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="346"/>
+        <source>Number of beams</source>
+        <translation>符杠数量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="768"/>
+        <source>Stems under a slanted beam</source>
+        <translation>倾斜符杠下的符干</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="769"/>
+        <source>A slanted beam may cut this much off the normal stem length of the notes between its ends; if it would cut more, the whole beam is moved away from the notes. Not used where ‘Apply positioning rules for staff lines, ledger lines and stem length’ places the beam.</source>
+        <translation>倾斜的符杠最多可使两端之间各音符的符干比正常长度短这么多；超出时整条符杠移离音符。由“应用针对谱线、加线与符干长度的定位规则”确定位置的符杠不使用此表。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="773"/>
+        <source>Slant of the beam</source>
+        <translation>符杠斜度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="775"/>
+        <source>Small slant (up to ¾ sp)</source>
+        <translation>小斜度（不超过 ¾ 谱间）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="776"/>
+        <source>Medium slant (1 to 1½ sp)</source>
+        <translation>中斜度（1 至 1½ 谱间）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="777"/>
+        <source>Large slant (more than 1½ sp)</source>
+        <translation>大斜度（超过 1½ 谱间）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="780"/>
+        <source>Stems between the ends may be shortened by</source>
+        <translation>两端之间的符干可缩短</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="810"/>
+        <source>Smallest vertical gap between a beam and a rest inside its group; a rest which would come closer is moved away from the beam by whole staff spaces.</source>
+        <translation>符杠与其符杠组内的休止符之间的最小纵向间隙；距离不足的休止符以整个谱间为单位移离符杠。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="820"/>
+        <source>The same for 32nd rests and shorter, which are taller and may come closer to the beam.</source>
+        <translation>同上，用于三十二分及更短的休止符；这类休止符较高，可以更靠近符杠。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="121"/>
+        <source>Relative to the size of the note the dot belongs to.</source>
+        <translation>相对于附点所属音符的大小。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="133"/>
+        <source>Gap between the notehead, or a rest, and its first dot.</source>
+        <translation>符头或休止符与其第一个附点之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="141"/>
+        <source>Measured from the left edge of one dot to the left edge of the next, so it includes the width of a dot.</source>
+        <translation>从一个附点的左缘量到下一个附点的左缘，因此包含一个附点的宽度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="50"/>
+        <source>Extension past the notehead</source>
+        <translation>伸出符头的长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="51"/>
+        <source>How far a ledger line sticks out on each side of the notehead.</source>
+        <translation>加线在符头左右两侧各伸出的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="59"/>
+        <source>Standard gap between neighbouring ledger lines</source>
+        <translation>相邻加线之间的标准间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="60"/>
+        <source>The gap which ‘Gap between shortened ledger lines’ is a fraction of. Notes are spaced without regard to their ledger lines, so this value alone does not move them apart.</source>
+        <translation>“缩短后加线之间的间隙”即按此间隙的比例计算。音符间距并不考虑加线，因此单改此值不会把音符拉开。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="70"/>
+        <source>In tightly spaced music the ledger lines of neighbouring notes are shortened on the sides which face each other; only the part that sticks out past the notehead is taken away.</source>
+        <translation>音符排得很密时，相邻音符的加线在彼此相对的一侧缩短；只削去伸出符头之外的部分。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="80"/>
+        <source>As a fraction of ‘Standard gap between neighbouring ledger lines’: 0.5 leaves half of that gap between two shortened lines. Only with ‘Shorten ledger lines that would touch their neighbours’ on.</source>
+        <translation>以“相邻加线之间的标准间隙”的比例表示：0.5 即在两条缩短后的加线之间留出该间隙的一半。仅在开启“缩短会与相邻加线相碰的加线”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="91"/>
+        <source>Smallest gap between shortened ledger lines</source>
+        <translation>缩短后加线之间的最小间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="92"/>
+        <source>The gap between shortened ledger lines is never smaller than this, whatever the fraction above gives; 0 leaves it to the fraction alone.</source>
+        <translation>无论上一项的比例算出多少，缩短后加线之间的间隙都不小于此值；设为 0 时完全由比例决定。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="103"/>
+        <source>Smallest extension left on a shortened ledger line</source>
+        <translation>缩短后加线保留的最小伸出长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="104"/>
+        <source>A shortened ledger line still sticks out past the notehead by at least this much, even if the lines then come closer than the gap; 0 lets a line be cut back to the width of the notehead.</source>
+        <translation>缩短后的加线在符头之外至少保留这一长度，即使因此加线之间小于所设间隙；设为 0 时加线可缩短到与符头等宽。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="151"/>
+        <source>For a note on a staff line, the dots of voices 2 and 4 go into the space below the line; when off, the dots of all voices go into the space above.</source>
+        <translation>音符位于谱线上时，第 2、4 声部的附点放在该线下方的间内；关闭后，所有声部的附点都放在上方的间内。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="159"/>
+        <source>Clearance between a flag and the dot below it</source>
+        <translation>符尾与其下方附点的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="160"/>
+        <source>On a stem-up note with a flag, the dots stay beside the notehead only if the flag ends at least this far above the top dot; otherwise they move to the right of the flag.</source>
+        <translation>符干朝上且带符尾的音符，只有当符尾下端高出最上方的附点至少此距离时，附点才留在符头旁；否则附点移到符尾的右侧。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="169"/>
+        <source>Voices sharing a staff</source>
+        <translation>同一谱表上的多个声部</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="175"/>
+        <source>Voices which sound together with their stems in the same direction are set like one chord: a second between them is written on both sides of the stem and their dots line up in one column. When off, each voice is placed on its own.</source>
+        <translation>同时发音且符干方向相同的声部按一个和弦排版：声部之间的二度分列符干两侧，附点对齐成一列。关闭后，各声部分别排版。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="184"/>
+        <source>Dotted and undotted unisons share one notehead</source>
+        <translation>附点与非附点的同度音共用符头</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="185"/>
+        <source>Two voices on the same pitch with the same kind of notehead share it even when they have a different number of dots; when off, they are set side by side.</source>
+        <translation>两个声部同度且符头类型相同时，即使附点数量不同也共用一个符头；关闭后，两个符头左右并排。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="193"/>
+        <source>Gap between voices set side by side</source>
+        <translation>左右并排的声部之间的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="194"/>
+        <source>Space between the two columns of noteheads when the voices cannot overlap: a unison which cannot share a notehead, or interlocking voices with a second between them.</source>
+        <translation>两个声部无法重叠时（不能共用符头的同度，或相互交错且其间有二度），两列符头之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="205"/>
+        <source>Gap when the up-stem voice is set to the right</source>
+        <translation>符干朝上的声部排在右侧时的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="206"/>
+        <source>Used when only the up-stem voice is dotted in a unison or second, or when its noteheads must stay clear of a flag of the down-stem voice: the up-stem voice then stands to the right, this far from the other noteheads.</source>
+        <translation>同度或二度中只有符干朝上的声部带附点，或其符头须避让符干朝下声部的符尾时，符干朝上的声部排在右侧，与另一声部的符头相隔此间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="218"/>
+        <source>Overlap of the noteheads in a crossed second</source>
+        <translation>声部交叉二度中符头的重叠量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="219"/>
+        <source>When the down-stem voice lies a second above the up-stem voice, the up-stem notehead stands to the right and is pushed into the other notehead by this much; 0 sets them edge to edge.</source>
+        <translation>符干朝下的声部比符干朝上的声部高二度时，符干朝上的符头排在右侧，并向另一符头收进此距离；设为 0 时两者边缘相接。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="230"/>
+        <source>Gap in a crossed second with dots</source>
+        <translation>带附点的声部交叉二度的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="231"/>
+        <source>When the down-stem voice lies a second above the up-stem voice and only it is dotted, it is set to the right, this far from the other notehead.</source>
+        <translation>符干朝下的声部比符干朝上的声部高二度且只有它带附点时，该声部排在右侧，与另一符头相隔此间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="242"/>
+        <source>Gap beside a flagged down-stem voice</source>
+        <translation>带符尾的符干朝下声部旁的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="243"/>
+        <source>When the voices overlap and only the down-stem voice has a flag, that voice is set to the right, with its stem this far from the noteheads of the up-stem voice, so that the flag does not run into them.</source>
+        <translation>两个声部相互重叠且只有符干朝下的声部带符尾时，该声部排在右侧，其符干与符干朝上声部的符头相隔此间隙，以免符尾与之相碰。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="254"/>
+        <source>Stem to noteheads of the other voice</source>
+        <translation>符干与另一声部符头的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="255"/>
+        <source>When the voices interlock without a unison or a second, the up-stem voice is moved right until every stem is this far from the noteheads of the other voice.</source>
+        <translation>两个声部相互交错但没有同度或二度时，符干朝上的声部右移，直到各符干与另一声部的符头相隔此间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="265"/>
+        <source>Stem or flag to ledger lines of the other voice</source>
+        <translation>符干或符尾与另一声部加线的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="266"/>
+        <source>Outside the staff, where the stem of one voice passes the ledger lines of the other, the voices are moved apart until the stem or flag is this far from the end of those ledger lines.</source>
+        <translation>在谱表之外，一个声部的符干经过另一声部的加线时，两个声部错开，直到符干或符尾与这些加线的端点相隔此间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="276"/>
+        <source>Grace notes</source>
+        <translation>装饰音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="282"/>
+        <source>Grace note stems always up</source>
+        <translation>装饰音符干始终朝上</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="283"/>
+        <source>In a single voice, grace notes have their stems up whatever their pitch; when off, their stems follow the staff position like those of normal notes. With several voices the stem direction follows the voice in both cases.</source>
+        <translation>单声部中，装饰音无论音高符干一律朝上；关闭后，其符干方向与普通音符一样由谱表位置决定。有多个声部时，两种情况下符干方向都随声部而定。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="293"/>
+        <source>Smallest gap between a grace note and the normal note or rest next to it.</source>
+        <translation>装饰音与相邻的普通音符或休止符之间的最小间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="302"/>
+        <source>Smallest gap between two successive grace notes.</source>
+        <translation>相邻两个装饰音之间的最小间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="310"/>
+        <source>How far from the end of the stem the slash starts, on a grace note with a curved flag.</source>
+        <translation>带弯曲符尾的装饰音上，斜线起点到符干末端的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="319"/>
+        <source>Measured from the horizontal: a larger angle makes the slash steeper.</source>
+        <translation>自水平方向量起：角度越大，斜线越陡。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="338"/>
+        <source>Slash distance from stem tip without a curved flag</source>
+        <translation>无弯曲符尾时斜线到符干末端的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="339"/>
+        <source>As a multiple of ‘Grace note slash distance from stem tip’: on beamed grace notes, on stems without a flag and with straight flags the slash sits nearer the end of the stem.</source>
+        <translation>以“装饰音斜线到符尖的距离”的倍数表示：有符杠的装饰音、无符尾的符干以及直线符尾上，斜线更靠近符干末端。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="349"/>
+        <source>Slash angle with two or more curved flags</source>
+        <translation>两条及以上弯曲符尾时的斜线角度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="350"/>
+        <source>As a multiple of ‘Grace note slash angle’, so that the slash crosses the taller double flags of Bravura, Finale Maestro and Gonville; other music fonts are not affected.</source>
+        <translation>以“装饰音斜线角度”的倍数表示，使斜线能穿过 Bravura、Finale Maestro 与 Gonville 较高的双符尾；其他音乐字体不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="362"/>
+        <source>Length of the slash drawn through the first stem and the beam of a group of beamed grace notes.</source>
+        <translation>穿过有符杠的装饰音组第一个符干及其符杠的斜线长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="372"/>
+        <source>Slash lengthening when the beam slants away</source>
+        <translation>符杠背向倾斜时斜线的加长倍数</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="373"/>
+        <source>On beamed grace notes the slash is made this many times longer when the beam slants away from it (a rising beam with stems up, a falling beam with stems down), so that it still crosses the beam.</source>
+        <translation>有符杠的装饰音上，符杠背向斜线倾斜时（符干朝上而符杠上行，或符干朝下而符杠下行），斜线加长为此倍数，以便仍能穿过符杠。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="385"/>
+        <source>Slash start to the left of the stem</source>
+        <translation>斜线起点在符干左侧伸出的长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="386"/>
+        <source>As a fraction of the notehead width: how far to the left of the stem the slash begins. On a grace note with neither flag nor beam it ends equally far to the right.</source>
+        <translation>以符头宽度的比例表示：斜线起点在符干左侧伸出多远。既无符尾也无符杠的装饰音上，斜线在右侧也伸出同样的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="411"/>
+        <source>The line which joins the two noteheads stops this far from the centre of each of them.</source>
+        <translation>连接两个符头的线在距每个符头中心此距离处截止。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="419"/>
+        <source>Lower accidental tucked under the upper one</source>
+        <translation>下方变音记号收进上方变音记号之下的程度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="420"/>
+        <source>When the two accidentals of an ambitus would collide, a lower flat or natural moves left by this fraction of its own width only and tucks under the upper accidental; 1 sets it fully to the left.</source>
+        <translation>音域记号的两个变音记号相碰时，下方的降号或还原号只向左移动自身宽度的这一比例，其余部分收进上方变音记号之下；设为 1 时完全排在左侧。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/NotesPage.qml" line="401"/>
+        <source>Smallest gap between an ambitus and whatever stands on either side of it: clef, key signature, time signature or the first note.</source>
+        <translation>音域记号与其左右相邻的谱号、调号、拍号或第一个音符之间的最小间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="37"/>
+        <source>Rests in voices</source>
+        <translation>多声部中的休止符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="44"/>
+        <source>How far a rest moves up (voices 1 and 3) or down (voices 2 and 4) from its normal place when its staff has more than one voice.</source>
+        <translation>谱表上有多个声部时，休止符从常规位置上移（第 1、3 声部）或下移（第 2、4 声部）的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="49"/>
+        <source>1 space</source>
+        <translation>1 个谱间</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="50"/>
+        <source>2 spaces</source>
+        <translation>2 个谱间</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="58"/>
+        <source>When all the voices of a staff rest at the same moment for the same duration, one rest is printed in the normal place instead of one for each voice (as in choral music).</source>
+        <translation>同一谱表的各声部在同一时刻有相同时值的休止时，只在常规位置印出一个休止符，而不是每个声部各印一个（如合唱谱）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="67"/>
+        <source>The smallest vertical gap between a rest and the notes which another voice has at the same moment; a rest which would be nearer moves further away. For all rests except whole and half rests.</source>
+        <translation>休止符与其他声部在同一时刻的音符之间的最小垂直间隙；间隙不足时休止符移得更远。适用于全休止符和二分休止符以外的休止符。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="78"/>
+        <source>The same gap for whole and half rests, which move away by whole staff spaces because they hang from or sit on a line.</source>
+        <translation>全休止符和二分休止符的同一间隙；这两种休止符挂在或坐在谱线上，因此按整个谱间移动。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="88"/>
+        <source>The smallest vertical gap between the rests which two voices have at the same moment; when they are nearer, both move apart.</source>
+        <translation>两个声部在同一时刻的休止符之间的最小垂直间隙；间隙不足时两个休止符各自移开。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="97"/>
+        <source>Full-measure rest: horizontal distance within which notes count</source>
+        <translation>全小节休止符：计入音符的水平范围</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="98"/>
+        <source>Only notes of the other voices which are nearer to the rest than this, measured sideways, can push it up or down.</source>
+        <translation>只有与休止符水平距离小于此值的其他声部音符，才会使它上移或下移。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="108"/>
+        <source>Full-measure rest: vertical gap to notes of other voices</source>
+        <translation>全小节休止符：与其他声部音符的垂直间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="109"/>
+        <source>The rest moves up (voice 1) or down (other voices) by whole staff spaces until it is at least this far from those notes.</source>
+        <translation>休止符按整个谱间上移（第 1 声部）或下移（其他声部），直到与这些音符至少相距此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="117"/>
+        <source>Multimeasure rests</source>
+        <translation>多小节休止符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="123"/>
+        <source>Empty measures which follow each other are printed as one rest with the number of measures above it.</source>
+        <translation>连续的空小节合并印成一个休止符，上方标出小节数。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="133"/>
+        <source>Fewer empty measures in a row than this are left as single measures.</source>
+        <translation>连续空小节少于此数时，仍保持为单独的小节。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="147"/>
+        <source>What a multimeasure rest of one measure looks like. Only matters when ‘Minimum number of empty measures’ is 1.</source>
+        <translation>一小节的多小节休止符的样子。仅在“最小空小节数”为 1 时起作用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="152"/>
+        <source>Use normal rest</source>
+        <translation>使用常规休止符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="153"/>
+        <source>Use H-bar</source>
+        <translation>使用 H 型休止符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="164"/>
+        <source>Prints a 1 above the whole rest of a single empty measure. An H-bar always has its number.</source>
+        <translation>在单独空小节的全休止符上方印出数字 1。H 型休止符总是带有数字。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="171"/>
+        <source>Width of multimeasure rests</source>
+        <translation>多小节休止符的宽度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="178"/>
+        <source>Basic width</source>
+        <translation>基本宽度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="179"/>
+        <source>Whether a multimeasure rest takes the room of one measure of the time signature (wider in 4/4 than in 2/4) or the same room in every time signature.</source>
+        <translation>多小节休止符所占的宽度是相当于当前拍号的一个小节（4/4 拍比 2/4 拍宽），还是在任何拍号下都相同。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="183"/>
+        <source>Proportional to time signature</source>
+        <translation>随拍号变化</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="184"/>
+        <source>The same in every time signature</source>
+        <translation>各拍号下相同</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="193"/>
+        <source>Fixed basic width, in quarter notes</source>
+        <translation>固定的基本宽度（以四分音符计）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="194"/>
+        <source>The rest takes the room of a note of this many quarter notes: 2 the room of a half note, 4 that of a whole note. Only with ‘Basic width’ set to ‘The same in every time signature’.</source>
+        <translation>休止符所占宽度相当于一个此时值的音符：2 相当于二分音符，4 相当于全音符。仅在“基本宽度”设为“各拍号下相同”时起作用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="210"/>
+        <source>A measure with a multimeasure rest is never narrower than this, however tightly the system is spaced.</source>
+        <translation>无论谱行组排得多紧，多小节休止符所在的小节都不会窄于此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="222"/>
+        <source>Number of further measures which widen the rest</source>
+        <translation>使休止符加宽的后续小节数</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="223"/>
+        <source>Every measure beyond the ‘Longest rest at the basic width’ widens the rest by one beat (one quarter note when the basic width is fixed); after this many it grows no more.</source>
+        <translation>超出“保持基本宽度的最长休止”的每个小节使休止符加宽一拍（基本宽度固定时为一个四分音符）；达到此小节数后不再加宽。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="236"/>
+        <source>Longest rest at the basic width</source>
+        <translation>保持基本宽度的最长休止</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="237"/>
+        <source>A multimeasure rest of up to this many measures has the basic width; longer rests are wider.</source>
+        <translation>不超过此小节数的多小节休止符使用基本宽度；更长的休止符更宽。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="249"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="37"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="58"/>
+        <source>Number</source>
+        <translation>连音数</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="258"/>
+        <source>Measured from the top staff line to the lower edge of the number; negative values are above the line.</source>
+        <translation>从最上方谱线量到数字下缘；负值在谱线上方。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="270"/>
+        <source>Lowest position on one-line staves</source>
+        <translation>单线谱表上的最低位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="271"/>
+        <source>On a staff of one line the number is never lower than this, whatever ‘Vertical position’ says; negative values are above the line.</source>
+        <translation>在单线谱表上，无论“垂直位置”如何设置，数字都不会低于此值；负值在谱线上方。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="286"/>
+        <source>When the number is placed so low that it stands on the H-bar, the bar is interrupted around it.</source>
+        <translation>数字位置低到落在 H 型休止符的横条上时，横条在数字处断开。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="296"/>
+        <source>Space beside the number in a broken H-bar</source>
+        <translation>断开的 H 型休止符在数字两侧的留空</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="297"/>
+        <source>The bar is interrupted for the width of the number plus this much, half of it on each side. Only with ‘Break H-bar if number overlaps’ on.</source>
+        <translation>横条断开的宽度为数字宽度加上此值，两侧各占一半。仅在“若数字重叠则断开H型休止符”开启时起作用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="311"/>
+        <source>On a piano or another instrument with several staves the number is printed once, halfway between two staves, instead of above each staff.</source>
+        <translation>钢琴等多谱表乐器的数字只在两个谱表正中印一次，而不是每个谱表上方各印一个。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="319"/>
+        <source>H-bar</source>
+        <translation>H 型休止符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="320"/>
+        <source>The thick horizontal bar with a short vertical stroke at each end.</source>
+        <translation>两端带短竖线的粗横条。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="355"/>
+        <source>The space left free between each end of the H-bar and the barline (or the clef, key or time signature) next to it; a larger value makes the bar shorter.</source>
+        <translation>横条两端与相邻小节线（或谱号、调号、拍号）之间留出的空白；数值越大，横条越短。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="364"/>
+        <source>Old-style multimeasure rests</source>
+        <translation>旧式多小节休止符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="372"/>
+        <source>Short multimeasure rests are drawn with whole, double whole and longa rest symbols under the number, instead of the H-bar.</source>
+        <translation>较短的多小节休止符用全休止符、二全休止符和四全休止符组合表示（数字在上方），而不用 H 型休止符。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="383"/>
+        <source>Rests of more measures than this are drawn with the H-bar.</source>
+        <translation>小节数超过此值的休止符改用 H 型休止符。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="395"/>
+        <source>The gap between neighbouring rest symbols of an old-style multimeasure rest.</source>
+        <translation>旧式多小节休止符中相邻休止符号之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="48"/>
+        <source>Short slurs are thinner than this: see ‘Slurs and ties shorter than this are thinner’.</source>
+        <translation>较短的圆滑线比此值细：见“短于此长度的圆滑线和延音线变细”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="56"/>
+        <source>Thickness of dotted and dashed slurs</source>
+        <translation>点状与虚线圆滑线的粗细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="63"/>
+        <source>Slurs and ties shorter than this are thinner</source>
+        <translation>短于此长度的圆滑线和延音线变细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="64"/>
+        <source>Below this length the middle of a slur or tie becomes gradually thinner, down to the ‘Middle thickness of the shortest slurs and ties’ at the minimum tie length.</source>
+        <translation>短于此长度时，圆滑线和延音线的中部逐渐变细，到延音线最小长度时降至“最短圆滑线和延音线的中部粗细”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="75"/>
+        <source>Middle thickness of the shortest slurs and ties</source>
+        <translation>最短圆滑线和延音线的中部粗细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="76"/>
+        <source>The thickness in the middle of a slur or tie which is only as long as the ‘Minimum tie length’ of the Ties page.</source>
+        <translation>长度仅为“延音线”页“延音线最小长度”的圆滑线或延音线的中部粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="86"/>
+        <source>Dashed and dotted slurs and ties</source>
+        <translation>虚线与点状的圆滑线和延音线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="87"/>
+        <source>All lengths are multiples of the thickness of dotted and dashed slurs or ties, so the pattern keeps its look when the line is made thicker.</source>
+        <translation>各长度均以点状与虚线圆滑线（或延音线）粗细的倍数计，因此线条加粗时图案的比例不变。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="95"/>
+        <source>Dotted: distance from dot to dot</source>
+        <translation>点状：点与点的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="96"/>
+        <source>From the middle of one dot to the middle of the next, as a multiple of the line thickness: at 2 the white space between two dots is as wide as a dot.</source>
+        <translation>从一个点的中心到下一个点的中心，以线条粗细的倍数计：为 2 时，两点之间的空白与点同宽。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="105"/>
+        <source>Length of the dashes and of the gaps between them. The dashes have square ends, which make each printed dash one line thickness longer and each gap one thickness shorter than the numbers say.</source>
+        <translation>线段的长度及线段之间的间隔。线段两端为方头，因此印出的线段比数值长一个线条粗细，间隔则短一个线条粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="110"/>
+        <source>Dashed</source>
+        <translation>虚线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="111"/>
+        <source>Wide dashed</source>
+        <translation>长虚线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="114"/>
+        <source>Dash</source>
+        <translation>线段</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="115"/>
+        <source>Gap</source>
+        <translation>间隔</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="159"/>
+        <source>Slurs cut off at a break angle away from the staff</source>
+        <translation>换行或反复处中断的圆滑线向谱表外侧倾斜</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="160"/>
+        <source>A slur which goes on in the next system, or into or out of a repeat or volta, has its open end drawn further from the staff than its end on the note, so that the half slur visibly points outwards.</source>
+        <translation>延续到下一谱行组，或进入、离开反复或跳房子的圆滑线，其悬浮端比音符上的端点离谱表更远，使这半条圆滑线明显向外指。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="168"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="203"/>
+        <source>End points</source>
+        <translation>端点</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="175"/>
+        <source>Vertical distance between the middle of the notehead and a slur end on the notehead side; the end is centred over the notehead.</source>
+        <translation>圆滑线端点位于符头一侧时，端点与符头中心之间的垂直距离；端点水平对准符头中央。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="185"/>
+        <source>The same distance on tablature staves, measured from the middle of the fret mark.</source>
+        <translation>指法谱上的同一距离，自品格号中心量起。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="194"/>
+        <source>A slur end on the stem side sits beside the stem, this far back from the stem tip towards the notehead; 0 puts it level with the tip.</source>
+        <translation>圆滑线端点位于符干一侧时，端点在符干旁边，自符干末端向符头方向退回这一距离；0 表示与符干末端齐平。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="204"/>
+        <source>Horizontal distance between a stem and a slur end which starts or stops beside it.</source>
+        <translation>圆滑线端点位于符干旁时，端点与符干之间的水平距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="221"/>
+        <source>Over a beam: shift inwards from the stem</source>
+        <translation>符杠外侧：自符干向内的偏移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="222"/>
+        <source>A slur end placed over a beam is moved this far from the stem towards the middle of the slur.</source>
+        <translation>位于符杠外侧的圆滑线端点，自符干向圆滑线中部方向移动这一距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="232"/>
+        <source>On grace notes and small notes ‘Horizontal gap to stem’ and ‘Gap to beam’ shrink with the size of the note, but not below this.</source>
+        <translation>在装饰音和小音符上，“与符干的水平间隙”和“与符杠的间隙”随音符大小缩小，但不小于此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="241"/>
+        <source>Stems in opposite directions: slide along the stem</source>
+        <translation>首尾符干方向相反：端点沿符干滑动的比例</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="242"/>
+        <source>When the first and last notes have stems in opposite directions, the slur end on a stem side slides along that stem towards the other note, by this share of the height difference between the two notes (0 = it stays by the notehead).</source>
+        <translation>首尾音符的符干方向相反时，位于符干一侧的圆滑线端点沿该符干向另一个音符的方向滑动，滑动量为两音符高度差的这一比例（0 表示留在符头旁）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="252"/>
+        <source>Stems in opposite directions: furthest point beyond the stem tip</source>
+        <translation>首尾符干方向相反：端点超出符干末端的上限</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="254"/>
+        <source>The sliding slur end stops at the latest this far beyond the tip of the stem.</source>
+        <translation>沿符干滑动的端点最多超出符干末端这一距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="264"/>
+        <source>When a staccato dot, tenuto line or similar mark sits next to the notehead on the slur’s side, the slur end is placed outside it at this vertical distance.</source>
+        <translation>断奏点、保持音线等紧贴符头的记号位于圆滑线一侧时，圆滑线端点置于该记号外侧，与之相距此垂直距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="274"/>
+        <source>Such a slur end is centred on the articulation and then moved this far towards the middle of the slur.</source>
+        <translation>这样的端点先对准运音法记号的中心，再向圆滑线中部方向移动这一距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="284"/>
+        <source>A slur end inside the staff which would be closer than this to a staff line is moved outwards, in the direction the slur curves, until it is this far from the line.</source>
+        <translation>位于谱表内的圆滑线端点与谱线的距离小于此值时，端点沿圆滑线的弯曲方向外移，直到与该谱线相距此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="296"/>
+        <source>When the note at a slur end also has a tie on the same side, the slur end is placed at least this far outside the end of the tie.</source>
+        <translation>圆滑线端点所在的音符在同一侧还有延音线时，圆滑线端点至少位于延音线端点外侧这一距离处。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="306"/>
+        <source>When a tie arrives at the note where a slur begins, or leaves the note where it ends, and its tip is at about the same height, the slur end is moved this far along, away from the tie.</source>
+        <translation>延音线到达圆滑线起始的音符（或从圆滑线结束的音符出发）且其端点高度相近时，圆滑线端点沿水平方向移开这一距离，远离延音线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="316"/>
+        <source>Slurs sharing an end point: lift of the outer slur</source>
+        <translation>端点重合的圆滑线：外层圆滑线的抬升量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="317"/>
+        <source>When two slurs on the same side begin or end at the same place, the end of the longer, outer slur is moved this far out so that the two do not touch.</source>
+        <translation>同侧的两条圆滑线在同一位置开始或结束时，较长的外层圆滑线的端点向外移动这一距离，以免两线相碰。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="326"/>
+        <source>Slurs meeting on a note: pull-back of each end</source>
+        <translation>在同一音符相接的圆滑线：两端各自的退让量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="327"/>
+        <source>When one slur ends on the note where the next begins, each of the two ends is drawn back by this amount, leaving a gap between them.</source>
+        <translation>一条圆滑线结束、下一条在同一音符开始时，两个端点各自退回这一距离，在其间留出空隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="335"/>
+        <source>Shape</source>
+        <translation>形状</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="339"/>
+        <source>The shoulder width says how square a slur is: with a larger value its ends rise more steeply and its middle is flatter, with a smaller value it is more pointed (it is the distance between the two control points of the curve, as a fraction of the slur’s length). It is set separately for four classes of length.</source>
+        <translation>肩宽决定圆滑线的方正程度：数值越大，两端越陡、中段越平；数值越小，圆滑线越尖（它是曲线两个控制点的间距占圆滑线长度的比例）。按四个长度等级分别设置。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="345"/>
+        <source>Short slurs</source>
+        <translation>短圆滑线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="346"/>
+        <source>Medium slurs</source>
+        <translation>中等圆滑线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="347"/>
+        <source>Long slurs</source>
+        <translation>长圆滑线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="348"/>
+        <source>Very long slurs</source>
+        <translation>超长圆滑线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="351"/>
+        <source>Up to a length of</source>
+        <translation>长度上限</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="407"/>
+        <source>Height in relation to length</source>
+        <translation>相对长度的弧高</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="408"/>
+        <source>A slur is as high as this value times the square root of its length, both in sp: at 0.5 a slur 16 sp long is 2 sp high. The height is that of the control points of the curve; the arc itself rises three quarters as high.</source>
+        <translation>圆滑线的高度等于此值乘以其长度的平方根（均以谱间计）：为 0.5 时，长 16 个谱间的圆滑线高 2 个谱间。此高度按曲线控制点计；弧线本身的升高量为其四分之三。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="419"/>
+        <source>Height of slurs along a beam</source>
+        <translation>沿符杠的圆滑线的弧高</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="420"/>
+        <source>A slur whose notes are all beamed, with the beams on the slur’s side, has its height multiplied by this; under 1 it is flatter than other slurs.</source>
+        <translation>圆滑线下的音符全部带符杠且符杠位于圆滑线一侧时，弧高乘以此值；小于 1 时比其他圆滑线更平。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="430"/>
+        <source>Flat-middle slurs: roundness of the corners</source>
+        <translation>平连线：转角的圆度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="431"/>
+        <source>For slurs of the ‘Flat middle’ type: with a larger value the two corners between the rising ends and the flat middle are rounder and more gradual, with a smaller value they are tighter.</source>
+        <translation>用于“平连线”类型的圆滑线：数值越大，上升的两端与平直中段之间的两个转角越圆缓；数值越小，转角越紧。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="443"/>
+        <source>Greatest height in relation to length</source>
+        <translation>弧高与长度之比的上限</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="444"/>
+        <source>However much a slur is raised to clear the notes under it, its height stays under this multiple of its length: at 1 a slur is never higher than it is long.</source>
+        <translation>无论圆滑线为避开下方音符而抬高多少，其高度都不超过长度的这一倍数：为 1 时，圆滑线的高度不会超过其长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="454"/>
+        <source>Collision avoidance</source>
+        <translation>避让</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="460"/>
+        <source>The least vertical distance between a slur and the noteheads it passes over, other than those of its first and last chord.</source>
+        <translation>圆滑线与其跨过的符头（首尾和弦的符头除外）之间的最小垂直距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="470"/>
+        <source>The least vertical distance between a slur and the articulations, ornaments and tapping marks it passes over.</source>
+        <translation>圆滑线与其跨过的运音法记号、装饰记号和点弦记号之间的最小垂直距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="480"/>
+        <source>The least vertical distance between a slur and anything else it passes over: stems, beams, flags, accidentals, rests.</source>
+        <translation>圆滑线与其跨过的其他元素（符干、符杠、符尾、变音记号、休止符等）之间的最小垂直距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="489"/>
+        <source>Extra clearance in the middle: growth with length</source>
+        <translation>中部附加间隙：随长度的增长</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="490"/>
+        <source>On top of the clearances above, the middle of a slur keeps an extra distance from the music under it which grows with its length: this many sp for every sp of length, less for slanted slurs. Nothing is added at the ends.</source>
+        <translation>在上述间隙之外，圆滑线中部与下方内容再多留一段距离，并随长度增加：长度每增加 1 个谱间，间隙增加此数值的谱间，倾斜的圆滑线相应减少。两端不增加。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="502"/>
+        <source>Extra clearance in the middle: at least</source>
+        <translation>中部附加间隙：最小值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="503"/>
+        <source>Short slurs get this much extra room under their middle.</source>
+        <translation>较短的圆滑线中部下方也至少多留这一距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="510"/>
+        <source>Extra clearance in the middle: at most</source>
+        <translation>中部附加间隙：最大值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="511"/>
+        <source>However long the slur, the extra room under its middle is not more than this.</source>
+        <translation>圆滑线无论多长，中部下方多留的距离都不超过此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="517"/>
+        <source>Moving the end point or reshaping the curve</source>
+        <translation>移动端点还是改变弧形</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="518"/>
+        <source>A slur which runs into notes can lift its end points or bend its curve further out. 0 = the end point stays and only the curve changes; 1 = only the end point moves. Constrained: an end with an accent, ornament or similar mark outside it, the end on the note of a slur which goes on to another system, and the ends of a slur between two staves. Free: the open end at a system break and an end which was slid along a stem. Normal: every other end.</source>
+        <translation>圆滑线碰到音符时，可以抬高端点，也可以让弧线更向外弯。0 表示端点不动、只改变弧线；1 表示只移动端点。受限端点：外侧有重音、装饰记号等记号的端点，延续到另一谱行组的圆滑线在音符上的端点，以及跨谱表圆滑线的两端。自由端点：换行处的悬浮端，以及沿符干滑动过的端点。普通端点：其余所有端点。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="525"/>
+        <source>Constrained end</source>
+        <translation>受限端点</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="526"/>
+        <source>Normal end</source>
+        <translation>普通端点</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="527"/>
+        <source>Free end</source>
+        <translation>自由端点</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="530"/>
+        <source>Share of end-point movement</source>
+        <translation>端点移动所占比例</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="555"/>
+        <source>Size of one avoidance step</source>
+        <translation>每步避让的移动量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="556"/>
+        <source>A slur is moved off the music in steps of this size, a limited number of times: small steps fit it closely over the notes but may not get it clear of a tall obstacle, large steps clear more but may leave it further away than needed.</source>
+        <translation>圆滑线按此步长、在有限的次数内逐步移开：步长小则贴合音符，但可能避不开很高的障碍；步长大则避得更远，但可能离得比需要的更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="567"/>
+        <source>Slurs longer than this take larger steps</source>
+        <translation>长于此长度的圆滑线加大步长</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="568"/>
+        <source>Beyond this length the step grows in proportion to the length of the slur, up to the ‘Largest avoidance step’.</source>
+        <translation>超过此长度后，步长按圆滑线长度成比例加大，直至“最大避让步长”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="579"/>
+        <source>Largest avoidance step</source>
+        <translation>最大避让步长</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="580"/>
+        <source>The upper limit of the enlarged step of long slurs.</source>
+        <translation>长圆滑线加大后的步长的上限。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="589"/>
+        <source>Steep slurs: angle above which the far end is moved too</source>
+        <translation>陡峭的圆滑线：另一端也随之移动的角度下限</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="590"/>
+        <source>While a slur is being moved off the notes under it, a slur steeper than this also has its left end (rising slur) or right end (falling slur) moved outwards, even if nothing touches it there; for a slur above the notes this makes it less steep.</source>
+        <translation>圆滑线为避开下方音符而移动时，若其倾斜超过此角度，即使该端没有碰到任何内容，上行圆滑线的左端或下行圆滑线的右端也一并外移；位于音符上方的圆滑线因此变得平缓一些。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="603"/>
+        <source>Collision in the middle: slant above which the slur is levelled</source>
+        <translation>中部碰撞：开始放平的倾斜角度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="604"/>
+        <source>When a slur touches the music in its middle part only and slants by more than this, its lower end (the higher end of a slur below the notes) is moved out more than the other end, so that the slur also becomes less steep. Only for slurs longer than the next value.</source>
+        <translation>圆滑线仅在中段碰到音符等内容且倾斜超过此值时，较低的一端（圆滑线在音符下方时为较高的一端）比另一端外移得更多，使圆滑线同时变得平缓。仅用于长于下一项数值的圆滑线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="618"/>
+        <source>Collision in the middle: levelling only for slurs longer than</source>
+        <translation>中部碰撞：仅放平长于此值的圆滑线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="619"/>
+        <source>Shorter slurs keep their slant and move both ends by their normal shares.</source>
+        <translation>较短的圆滑线保持原有倾斜，两端按各自的正常比例移动。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="628"/>
+        <source>Across systems</source>
+        <translation>跨行</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="629"/>
+        <source>The open end is the end of a slur which is cut off at a system break; the slur goes on in the next system.</source>
+        <translation>悬浮端是圆滑线在换行处中断的一端；圆滑线在下一谱行组继续。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="639"/>
+        <source>Open end: distance from the chord next to it</source>
+        <translation>悬浮端：与相邻和弦的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="640"/>
+        <source>The open end is level with the top (slur above) or bottom of the last chord before the break, or the first chord after it; this distance is added when the slur is on the notehead side of that chord.</source>
+        <translation>悬浮端与换行前最后一个和弦或换行后第一个和弦的顶端（圆滑线在上方时）或底端齐平；圆滑线位于该和弦的符头一侧时，再加上这一距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="651"/>
+        <source>Open end at the end of a system: greatest drop towards the staff</source>
+        <translation>行末悬浮端：向谱表方向回落的上限</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="653"/>
+        <source>At the end of a system the open end follows the last chord, but it ends at most this much nearer the staff than the slur began.</source>
+        <translation>行末的悬浮端跟随最后一个和弦，但最多比圆滑线起点向谱表方向靠近这一距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="664"/>
+        <source>Open end: rise when only one chord is under the slur</source>
+        <translation>悬浮端：圆滑线下只有一个和弦时的抬升量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="665"/>
+        <source>When a slur begins on the last chord of a system, or ends on the first chord of the next, its open end lies this much further from the staff than its end on the note.</source>
+        <translation>圆滑线从谱行组的最后一个和弦开始，或在下一谱行组的第一个和弦结束时，其悬浮端比音符上的端点离谱表远这一距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="673"/>
+        <source>Open end: rise when angled away from the staff</source>
+        <translation>悬浮端：向谱表外侧倾斜时的抬升量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="674"/>
+        <source>With ‘Slurs cut off at a break angle away from the staff’ on, the open end lies at least this much further from the staff than the end on the note.</source>
+        <translation>“换行或反复处中断的圆滑线向谱表外侧倾斜”开启时，悬浮端至少比音符上的端点离谱表远这一距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="686"/>
+        <source>Slurs and ties which go on in the next system run right up to the last barline of the system instead of stopping a little before it.</source>
+        <translation>延续到下一谱行组的圆滑线和延音线一直画到行末小节线，而不是在它之前稍稍停住。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="700"/>
+        <source>Horizontal length of the half slur drawn before a note tapped with the left hand.</source>
+        <translation>左手点弦音符之前所画半圆滑线的水平长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="711"/>
+        <source>Height of the half slur on standard staves, measured at the control points of the curve.</source>
+        <translation>五线谱上半圆滑线的弧高，按曲线控制点计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="721"/>
+        <source>The same height on tablature staves.</source>
+        <translation>指法谱上的同一弧高。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="36"/>
+        <source>Stems</source>
+        <translation>符干</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="49"/>
+        <source>Length of the stem of a note inside the staff, from the notehead to the stem tip (3.5 sp is an octave), before any shortening outside the staff or lengthening for beams and tremolos.</source>
+        <translation>谱表内音符的符干长度，自符头量到符干末端（3.5 谱间即一个八度），不含伸出谱表时的缩短以及为符杠、震音所做的加长。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="62"/>
+        <source>A note on the middle staff line, and a chord or beamed group whose notes balance around it, gets its stem up; when off, down.</source>
+        <translation>位于谱表中线上的音符，以及各音符围绕中线对称的和弦与符杠组，符干朝上；关闭时朝下。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="69"/>
+        <source>Stem shortening outside the staff</source>
+        <translation>符干伸出谱表时的缩短</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="77"/>
+        <source>On: stems whose tip stands out beyond the staff are shortened by the built-in rules, governed by the next four values. Off: the stem length is taken from the table ‘Custom stem length by notehead position’ instead.</source>
+        <translation>开启：末端伸出谱表的符干按内置规则缩短，由下面四项控制。关闭：符干长度改由“按符头位置自定义符干长度”表格决定。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="87"/>
+        <source>A stem whose tip would stand out beyond the staff (an up-stem on a high note, a down-stem on a low note) is shortened, the more the further it reaches out. Only with ‘Apply default stem shortening rules’ on.</source>
+        <translation>末端会伸出谱表的符干（高音上朝上的符干、低音上朝下的符干）予以缩短，伸出越多缩短越多。仅在开启“应用默认符干缩短规则”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="97"/>
+        <source>The shortening never makes a stem shorter than this. Only with ‘Shorten stems’ on.</source>
+        <translation>缩短后的符干不短于此长度。仅在开启“缩短符干”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="109"/>
+        <source>How far the stem tip must stand out beyond the outer staff line before the stem is shortened: 1 is half a staff space, 2 a whole one. Only with ‘Shorten stems’ on.</source>
+        <translation>符干末端须伸出最外侧谱线多远才开始缩短：1 为半个谱间，2 为一个谱间。仅在开启“缩短符干”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="123"/>
+        <source>Takes the place of ‘Shortest stem’ when ‘Beam distance’ on the Beams page is ‘Wide’.</source>
+        <translation>符杠页的“符杠距离”设为“宽”时，取代“最短符干”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="131"/>
+        <source>Custom stem length by notehead position</source>
+        <translation>按符头位置自定义符干长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="132"/>
+        <source>Used when ‘Apply default stem shortening rules’ is off. Positions are shown for stems pointing up on a five-line staff; stems pointing down mirror them. On other staves they are counted from the staff line nearest the stem tip. Noteheads beyond the opposite staff line keep the default rules. Flagged notes always use the standard stem length. Stems still lengthen for beams and flags that would otherwise collide.</source>
+        <translation>在关闭“应用默认符干缩短规则”时使用。这些位置按五线谱上朝上的符干示意，朝下的符干与之镜像。其他谱表从靠近符干末端的谱线起算。越过对侧谱线的符头仍使用默认规则。带符尾的音符始终使用标准符干长度。为避免与符杠或符尾相碰，符干仍会加长。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="138"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="392"/>
+        <source>Notehead position</source>
+        <translation>符头位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="140"/>
+        <source>Top line and above</source>
+        <translation>顶线及以上</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="141"/>
+        <source>4th space</source>
+        <translation>第四间</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="142"/>
+        <source>4th line</source>
+        <translation>第四线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="143"/>
+        <source>3rd space</source>
+        <translation>第三间</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="144"/>
+        <source>Middle line</source>
+        <translation>中线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="145"/>
+        <source>2nd space</source>
+        <translation>第二间</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="146"/>
+        <source>2nd line</source>
+        <translation>第二线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="147"/>
+        <source>1st space</source>
+        <translation>第一间</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="148"/>
+        <source>Bottom line</source>
+        <translation>底线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="265"/>
+        <source>Stem length with flags and beams</source>
+        <translation>带符尾或符杠时的符干长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="266"/>
+        <source>Stem lengths are worked out in quarter staff spaces: the values of this section are rounded to 0.25 sp.</source>
+        <translation>符干长度按四分之一谱间计算：本节各值均取整到 0.25 谱间。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="274"/>
+        <source>Added to the standard stem length of notes under three beams. With four or more beams the stem grows by one beam distance for every beam beyond three instead.</source>
+        <translation>带三条符杠的音符在标准符干长度上增加的长度。四条及以上符杠时，改为每超出三条一条便加长一个符杠距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="284"/>
+        <source>Shortening of beamed stems ending in mid-space</source>
+        <translation>末端落在谱间正中的带符杠符干的缩短量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="285"/>
+        <source>A stem with one or two beams whose tip would fall in the middle of a staff space is shortened by this much; with 0.25 sp the beam then lies centred on a staff line. 0 switches it off.</source>
+        <translation>带一条或两条符杠的符干，若末端落在谱间正中，则缩短此长度；设为 0.25 谱间时，符杠恰好骑在谱线上。设为 0 即关闭。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="294"/>
+        <source>Free stem under the beams</source>
+        <translation>符杠下露出的符干</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="295"/>
+        <source>A note in a beamed group, or in a two-note tremolo, keeps at least this much stem between its notehead and the nearest beam before the beam is positioned; the height of the beams comes on top.</source>
+        <translation>符杠组或双音震音中的音符，在确定符杠位置之前，其符头与最近一条符杠之间至少保留这一段符干；符杠本身所占的高度另计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="301"/>
+        <source>No beam</source>
+        <translation>无符杠</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="302"/>
+        <source>One beam</source>
+        <translation>一条符杠</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="303"/>
+        <source>Two beams</source>
+        <translation>两条符杠</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="304"/>
+        <source>Three or more beams</source>
+        <translation>三条及以上符杠</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="307"/>
+        <source>Shortest stem between notehead and beam</source>
+        <translation>符头与符杠之间的最短符干</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="341"/>
+        <source>Notes far outside the staff</source>
+        <translation>远离谱表的音符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="342"/>
+        <source>The stem of a note on ledger lines is lengthened until its tip is this far inside the staff, measured from the staff line nearest the notehead; 2 sp is the middle line of a five-line staff. Unbeamed and flagged notes, and small notes, use the first row.</source>
+        <translation>加线上音符的符干会加长，直到其末端伸入谱表这么远（从离符头最近的谱线量起）；2 谱间即五线谱的中线。无符杠、带符尾的音符以及小音符使用第一行。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="348"/>
+        <source>Up to two beams</source>
+        <translation>不超过两条符杠</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="349"/>
+        <source>Three beams</source>
+        <translation>三条符杠</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="350"/>
+        <source>Four beams</source>
+        <translation>四条符杠</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="351"/>
+        <source>Four beams (wide beam distance)</source>
+        <translation>四条符杠（宽符杠距离）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="354"/>
+        <source>Stem reaches into the staff by</source>
+        <translation>符干伸入谱表的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="388"/>
+        <source>Four beams just outside the staff</source>
+        <translation>紧靠谱表之外的四条符杠</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="389"/>
+        <source>For a note with four beams which sits just outside the staff with its stem pointing towards the staff: on the first ledger line, or one or two steps beyond it.</source>
+        <translation>用于紧靠谱表之外、符干指向谱表且带四条符杠的音符：位于第一条加线上，或再向外一至两个音级。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="394"/>
+        <source>First ledger line</source>
+        <translation>第一条加线上</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="395"/>
+        <source>Beyond the first ledger line</source>
+        <translation>第一条加线之外</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="398"/>
+        <source>Shortest stem with four beams</source>
+        <translation>四条符杠时的最短符干</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="421"/>
+        <source>Extra stem length for four or more beams inside the staff</source>
+        <translation>谱表内四条及以上符杠时增加的符干长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="422"/>
+        <source>Added to the shortest stem of a note with four or more beams whose notehead lies inside the staff, in quarter staff spaces: 1 makes those stems 0.25 sp longer.</source>
+        <translation>符头位于谱表之内、带四条及以上符杠的音符，其最短符干额外增加的长度，以四分之一谱间为单位：1 即加长 0.25 谱间。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="440"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="89"/>
+        <source>Traditional</source>
+        <translation>传统</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="441"/>
+        <source>Straight</source>
+        <translation>直线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="448"/>
+        <source>Flag height the stem need not cover, stem up</source>
+        <translation>符干无须容纳的符尾高度：符干朝上</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="449"/>
+        <source>Taken off the height of a curved flag when working out how much stem the flag needs, because its tip curls away from the stem; a larger value allows a shorter stem. It shows on flagged notes with tremolo strokes: ordinary stems are longer than their flags need anyway.</source>
+        <translation>计算弯曲符尾需要多长的符干时，从符尾高度中扣除的部分（符尾末梢向外卷离符干）；数值越大，允许的符干越短。主要见于带震音线的带符尾音符：普通符干本来就比符尾所需的长。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="460"/>
+        <source>Flag height the stem need not cover, stem down</source>
+        <translation>符干无须容纳的符尾高度：符干朝下</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="461"/>
+        <source>The same for down-stem notes, whose flags are shaped differently.</source>
+        <translation>同上，用于符干朝下的音符，其符尾形状不同。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="470"/>
+        <source>Largest flag height the stem makes room for</source>
+        <translation>符干为之留位的最大符尾高度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="471"/>
+        <source>A flag taller than this counts as this tall when the stem is made long enough for it, so that music fonts with very long flags do not give overlong stems.</source>
+        <translation>为容纳符尾而加长符干时，高于此值的符尾按此值计，以免符尾很长的音乐字体产生过长的符干。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="44"/>
+        <source>‘Outside’: the tie starts and ends above or below the noteheads. ‘Inside’: it runs between the noteheads, beside them.</source>
+        <translation>“外侧”：延音线的两端位于符头的上方或下方。“内侧”：延音线位于两个符头之间，端点在符头旁边。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="48"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="66"/>
+        <source>Inside</source>
+        <translation>内侧</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="49"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="67"/>
+        <source>Outside</source>
+        <translation>外侧</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="57"/>
+        <source>Placement on chords</source>
+        <translation>和弦上的位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="60"/>
+        <source>The same choice for ties where at least one of the two notes belongs to a chord. With ‘Outside’ the top and bottom ties are attached over and under their noteheads; a tie of an inner note whose way is blocked by a neighbouring notehead still starts beside the noteheads.</source>
+        <translation>两个音符中至少有一个属于和弦时的同一选择。选“外侧”时，最上和最下的延音线连接在符头的上方和下方；内部音符的延音线若被相邻符头挡住，仍从符头旁边开始。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="78"/>
+        <source>For ties which start beside a dotted notehead. ‘Auto’: the tie starts after a dot only when the dot is at its height. ‘Always before dots’: it starts at the notehead. ‘Always after dots’: it starts to the right of all the dots of the chord.</source>
+        <translation>用于从带附点的符头旁边起始的延音线。“自动”：只有附点与延音线同高时，延音线才从附点之后开始。“总在附点前”：从符头处开始。“总在附点后”：从和弦所有附点的右侧开始。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="83"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="47"/>
+        <source>Auto</source>
+        <translation>自动</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="84"/>
+        <source>Always before dots</source>
+        <translation>总在附点前</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="85"/>
+        <source>Always after dots</source>
+        <translation>总在附点后</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="105"/>
+        <source>Short ties are thinner than this: see ‘Slurs and ties shorter than this are thinner’ on the Slurs page.</source>
+        <translation>较短的延音线比此值细：见“圆滑线”页的“短于此长度的圆滑线和延音线变细”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="114"/>
+        <source>Thickness of dotted and dashed ties</source>
+        <translation>点状与虚线延音线的粗细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="126"/>
+        <source>Minimum tie length</source>
+        <translation>延音线最小长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="127"/>
+        <source>Tied notes are spaced far enough apart for the tie between them to be at least this long.</source>
+        <translation>有延音线相连的音符会被排得足够开，使其间的延音线至少有这么长。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="135"/>
+        <source>The same for a tie which is cut off at one end: the half of a tie before or after a system break, and ties into or out of a repeat or volta.</source>
+        <translation>用于一端断开的延音线的同一设置：换行处前后的半条延音线，以及进入或离开反复、跳房子的延音线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="144"/>
+        <source>Height of the shortest ties. Tie heights are measured at the control points of the curve; the arc itself rises three quarters as high.</source>
+        <translation>最短延音线的高度。延音线的高度按曲线控制点计；弧线本身的升高量为其四分之三。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="152"/>
+        <source>However long a tie is, it does not arch higher than this.</source>
+        <translation>延音线无论多长，其弧高都不超过此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="158"/>
+        <source>Height gained with length</source>
+        <translation>弧高随长度的增长量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="159"/>
+        <source>Longer ties arch higher: a tie 4 sp longer than the ‘Tie length with the minimum height’ is higher than the minimum by twice this value (in sp), one 9 sp longer by three times, up to the maximum height.</source>
+        <translation>延音线越长弧越高：比“取最小高度的延音线长度”长 4 个谱间的延音线，高度比最小高度多出此值的两倍（以谱间计）；长 9 个谱间的多出三倍；直至最大高度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="169"/>
+        <source>Tie length with the minimum height</source>
+        <translation>取最小高度的延音线长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="170"/>
+        <source>A tie of this length gets the ‘Minimum tie height’; from there the height grows with the length.</source>
+        <translation>此长度的延音线取“延音线最小高度”；由此开始，弧高随长度增加。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="182"/>
+        <source>How square the tie is: with a larger value the ends rise more steeply and the middle is flatter; with a smaller value the tie is more pointed. It is the distance between the two control points of the curve, as a fraction of the tie’s length.</source>
+        <translation>延音线的方正程度：数值越大，两端越陡、中段越平；数值越小，延音线越尖。它是曲线两个控制点的间距占延音线长度的比例。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="193"/>
+        <source>The least white space between two neighbouring ties of a chord which curve the same way; ties which would be closer have their arcs pushed apart.</source>
+        <translation>同一和弦中相邻且弯向相同的两条延音线之间的最小空白；过近时两条弧线会被推开。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="220"/>
+        <source>For an outside tie, the gap between its ends and the top or bottom of the notehead; for an inside tie, how far its ends sit above or below the middle of the notehead.</source>
+        <translation>外侧延音线：端点与符头上缘或下缘之间的间隙；内侧延音线：端点高于或低于符头中线的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="229"/>
+        <source>How far the ends of an outside tie are moved from the middle of the notehead towards the other note; 0 puts them exactly over the middle.</source>
+        <translation>外侧延音线的端点从符头中央向另一个音符方向移动的距离；0 表示正对符头中央。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="240"/>
+        <source>Used instead when the chord has another note straight above the tied one (for a tie curving up; below for one curving down), so that the tie end clears that notehead.</source>
+        <translation>和弦中在被连音符的正上方（延音线向上弯时；向下弯时为正下方）另有音符时，改用此值，使延音线端点避开那个符头。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="251"/>
+        <source>The horizontal gap between the notehead and the end of an inside tie; also used for ties on slash noteheads and on hidden fret marks.</source>
+        <translation>内侧延音线端点与符头之间的水平间隙；也用于斜线符头和隐藏品格号上的延音线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="261"/>
+        <source>The horizontal gap a tie end keeps from an augmentation dot, an accidental, a stem or a neighbouring notehead which is in its way.</source>
+        <translation>延音线端点与挡在其路径上的附点、变音记号、符干或相邻符头之间保持的水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="269"/>
+        <source>Extra shift where two ties meet on a note</source>
+        <translation>两条延音线在同一音符相接处的额外内移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="270"/>
+        <source>When a note is tied on both sides and both ties curve the same way, each of the two tie ends is moved this much further from the middle of the notehead, so that the ties do not touch. For outside ties.</source>
+        <translation>音符两侧都有延音线且弯向相同时，两个端点各自从符头中央再移开这一距离，使两条延音线不相接。适用于外侧延音线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="281"/>
+        <source>A tie end which would be closer than this to a ledger line lying on the side it curves to is moved back from that line.</source>
+        <translation>延音线端点与位于其弯向一侧的加线距离小于此值时，端点从该加线处退开。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="290"/>
+        <source>Items the tie end avoids: reach on the curved side</source>
+        <translation>端点避让范围：弯向一侧</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="291"/>
+        <source>A tie end stops short of an accidental, dot, stem or neighbouring notehead when that item lies within this distance above the end point (for a tie curving up; below for one curving down).</source>
+        <translation>变音记号、附点、符干或相邻符头位于端点上方（延音线向上弯时；向下弯时为下方）这一距离之内时，延音线端点会在它之前停住。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="302"/>
+        <source>Items the tie end avoids: reach on the other side</source>
+        <translation>端点避让范围：另一侧</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="303"/>
+        <source>The same reach on the side the tie curves away from: below the end point of a tie curving up.</source>
+        <translation>延音线背向一侧的同一范围：向上弯的延音线为端点下方。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="313"/>
+        <source>Slash noteheads: distance of the tie from the tip of the slash</source>
+        <translation>斜线符头：延音线与斜线尖端的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="314"/>
+        <source>On slash noteheads a tie above is attached near the upper right tip of the slash and a tie below near the lower left tip; this is how far inwards from the tip.</source>
+        <translation>在斜线符头上，上方的延音线连接在斜线右上端附近，下方的延音线连接在左下端附近；此值为从尖端向内的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="324"/>
+        <source>Ties and staff lines</source>
+        <translation>延音线与谱线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="331"/>
+        <source>A tie end never stops closer than this to the staff line it curves towards: it is moved to this distance on the far side of that line.</source>
+        <translation>延音线端点不会停在距其弯向的谱线小于此值的位置：端点会被移到该谱线另一侧、与之相距此值处。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="343"/>
+        <source>The thick middle of a tie inside the staff stays at least this far from the nearest staff line: the tie is made a little higher or flatter until the gap is there.</source>
+        <translation>位于谱表内的延音线，其较粗的中段与最近的谱线至少保持此距离：延音线会略微加高或压平，直到留出这一间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="355"/>
+        <source>The same gap for ties shorter than the ‘Length below which a tie counts as short’.</source>
+        <translation>短于“视为短延音线的长度上限”的延音线所用的同一间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="365"/>
+        <source>Length below which a tie counts as short</source>
+        <translation>视为短延音线的长度上限</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="366"/>
+        <source>Ties shorter than this use ‘Arc distance from staff lines (short ties)’.</source>
+        <translation>短于此长度的延音线采用“弧顶与谱线的最小距离（短延音线）”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="375"/>
+        <source>Small tie: shorter than</source>
+        <translation>小延音线：长度上限</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="376"/>
+        <source>A tie which is both shorter than this and lower than the next value is not reshaped when its arc comes too near a staff line: it is moved as a whole into the staff space, or, where it cannot be moved, made higher but never flatter.</source>
+        <translation>长度小于此值且高度小于下一项的延音线，弧顶过于靠近谱线时不改变形状：整体移入谱间；无法移动时只加高、不压平。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="388"/>
+        <source>Small tie: lower than</source>
+        <translation>小延音线：高度上限</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="389"/>
+        <source>The height limit of the same rule, measured over the whole tie including its thickness.</source>
+        <translation>同一规则的高度条件，按整条延音线（含粗细）的高度计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="398"/>
+        <source>Largest change of height to avoid a staff line</source>
+        <translation>避让谱线时弧高的最大改变量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="399"/>
+        <source>The arc is made higher or flatter by at most this share of the tie’s height; when it would have to be raised more, the whole tie is moved outwards for the rest.</source>
+        <translation>弧高的增减不超过延音线高度的这一比例；需要加高更多时，余下的部分改为把整条延音线向外移动。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="434"/>
+        <source>On a note in parentheses the laissez vibrer tie starts this far above or below the parenthesis, so that it passes clear of it.</source>
+        <translation>带圆括号的音符上，放任号从圆括号上方或下方相距此值处开始，以便绕开圆括号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="444"/>
+        <source>Gap to the next note or rest</source>
+        <translation>与其后音符或休止符的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="445"/>
+        <source>The least horizontal space between the end of a laissez vibrer tie and the note or rest which follows; the music is spaced wider if needed.</source>
+        <translation>放任号末端与其后的音符或休止符之间的最小水平间隙；必要时乐谱会排得更宽。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="454"/>
+        <source>Gap to the next accidental</source>
+        <translation>与其后变音记号的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="455"/>
+        <source>The same when the following note has an accidental in the way of the tie.</source>
+        <translation>其后音符的变音记号挡在放任号前方时的同一间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="463"/>
+        <source>Gap to the next stem</source>
+        <translation>与其后符干的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="464"/>
+        <source>The same when the stem of the following note is in the way of the tie.</source>
+        <translation>其后音符的符干挡在放任号前方时的同一间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="472"/>
+        <source>Gap to the barline</source>
+        <translation>与小节线的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="473"/>
+        <source>The least horizontal space between the end of a laissez vibrer tie and the barline after it.</source>
+        <translation>放任号末端与其后小节线之间的最小水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="414"/>
+        <source>Minimum length</source>
+        <translation>最小长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="415"/>
+        <source>A laissez vibrer tie is drawn this long; in a chord all of them end at the same point, so some are longer.</source>
+        <translation>放任号按此长度绘制；和弦中的各条放任号在同一位置结束，因此有的会更长。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="425"/>
+        <source>The laissez vibrer tie is the ready-made sign of the music font, with a fixed length and shape, instead of a drawn tie.</source>
+        <translation>放任号改用音乐符号字体中现成的字形，长度和形状固定，而不是绘制的延音线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="37"/>
+        <source>These values shape the strokes of single-note tremolos. The strokes of two-note tremolos are drawn like beams, with the beam thickness and beam distance of the Beams page.</source>
+        <translation>这些值决定单音震音的震音线。双音震音的震音线按符杠绘制，使用符杠页的符杠粗细与符杠距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="45"/>
+        <source>Length of each stroke of a single-note tremolo, from its left end to its right end.</source>
+        <translation>单音震音每条震音线自左端到右端的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="52"/>
+        <source>Thickness of each stroke of a single-note tremolo.</source>
+        <translation>单音震音每条震音线的粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="58"/>
+        <source>Measured from the upper edge of one stroke to the upper edge of the next, so it includes the thickness of a stroke.</source>
+        <translation>从一条震音线的上缘量到下一条的上缘，因此包含一条震音线的粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="66"/>
+        <source>The strokes stay at least this far from the notehead: where the stem is too short for that, it is made longer.</source>
+        <translation>震音线与符头至少保持此距离：符干不够长时会相应加长。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="74"/>
+        <source>Gap between the end of the stem and the stroke nearest to it. On flagged and beamed notes the room for the flag or the beams comes on top.</source>
+        <translation>符干末端与最靠近它的震音线之间的间隙。带符尾或符杠的音符上，另加符尾或符杠所占的位置。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="82"/>
+        <source>Strokes between two half notes</source>
+        <translation>两个二分音符之间的震音线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="83"/>
+        <source>‘Default’: all strokes stop short of both stems. ‘Traditional’: all strokes join the two stems like beams. ‘Traditional alternative’: only the outer stroke joins the stems, the others stop short of them. Not used on tablature staves.</source>
+        <translation>“默认”：所有震音线两端都与符干留有间隙。“传统”：所有震音线像符杠一样连接两个符干。“传统变体”：只有最外侧一条连接符干，其余各条与符干留有间隙。指法谱上不适用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="88"/>
+        <source>Default</source>
+        <translation>默认</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="90"/>
+        <source>Traditional alternative</source>
+        <translation>传统变体</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="104"/>
+        <source>On a note with a straight flag the strokes are set this much further from the stem end than ‘Distance from stem end’, to leave room for the flag.</source>
+        <translation>带直线符尾的音符上，震音线比“到符干末端的距离”再远离符干末端这么多，为符尾留出位置。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="113"/>
+        <source>The same on an up-stem note with a curved flag.</source>
+        <translation>同上，用于符干朝上、带弯曲符尾的音符。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="120"/>
+        <source>The same on a down-stem note with a curved flag, whose flag is shaped differently.</source>
+        <translation>同上，用于符干朝下、带弯曲符尾的音符，其符尾形状不同。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="130"/>
+        <source>Added once more when the note has two or more straight flags (sixteenth notes and shorter).</source>
+        <translation>音符带两条及以上直线符尾（十六分音符及更短）时再加上的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="139"/>
+        <source>Added once more when the note has two or more curved flags (sixteenth notes and shorter).</source>
+        <translation>音符带两条及以上弯曲符尾（十六分音符及更短）时再加上的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="148"/>
+        <source>A buzz roll (the Z on the stem) on an up-stem note is set this much further from the stem end.</source>
+        <translation>符干朝上的音符上，压奏记号（符干上的 Z 形记号）再远离符干末端这么多。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="157"/>
+        <source>How much each stroke rises from its left end to its right end, as a multiple of the stroke thickness: 1 lifts the right end by one thickness, 0 draws level strokes.</source>
+        <translation>每条震音线自左端到右端升高的量，以震音线粗细的倍数表示：1 即右端升高一个粗细，0 即水平。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="172"/>
+        <source>Horizontal gap between each of the two stems and the ends of the strokes, where the strokes do not join the stems (in the traditional alternate style: for the inner strokes).</source>
+        <translation>震音线不与符干相连时，两个符干各自与震音线端点之间的横向间隙（传统交替样式中用于内侧的震音线）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="182"/>
+        <source>When the two notes stand so close that the strokes would be shorter than this, the gap to the stems is narrowed to keep them this long.</source>
+        <translation>两个音符靠得很近、震音线将短于此长度时，缩小与符干的间隙，使震音线保持这一长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TremolosPage.qml" line="192"/>
+        <source>The narrowing never takes the gap below this, even if the strokes then become shorter than ‘Shortest stroke before the gap is reduced’.</source>
+        <translation>间隙不会缩小到此值以下，即使震音线因此短于“缩小间隙前的最短震音线长度”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="43"/>
+        <source>On which side of the notes the number and the bracket stand; ‘Auto’ puts them on the side of the stems.</source>
+        <translation>数字和括号位于音符的哪一侧；“自动”时位于符干一侧。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="48"/>
+        <source>Up</source>
+        <translation>向上</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="49"/>
+        <source>Down</source>
+        <translation>向下</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="56"/>
+        <source>‘Number’ prints 3, ‘Ratio’ prints 3:2, ‘None’ prints no number.</source>
+        <translation>“连音数”印作 3，“比率”印作 3:2，“无”则不印数字。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="59"/>
+        <source>Ratio</source>
+        <translation>比率</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="67"/>
+        <source>The digits are the tuplet numerals of the music font instead of the text font of the tuplet text style.</source>
+        <translation>数字使用音乐符号字体中的连音数字字形，而不是连音文本样式所设的文字字体。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="76"/>
+        <source>‘Graphical center’ puts the number in the middle of the bracket; ‘Rhythmic center’ puts it over the middle unit of the tuplet (the second eighth of an eighth-note triplet), which is somewhere else when the notes are of unequal length.</source>
+        <translation>“图形中心”把数字放在括号正中；“节奏中心”把数字放在连音的中间单位上（如八分三连音的第二个八分音符处），音符时值不等时两者位置不同。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="82"/>
+        <source>Graphical center</source>
+        <translation>图形中心</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="83"/>
+        <source>Rhythmic center</source>
+        <translation>节奏中心</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="91"/>
+        <source>Number at the rhythmic centre: shift towards the stem</source>
+        <translation>节奏中心的数字：向符干一侧的偏移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="92"/>
+        <source>When the rhythmic centre falls on a note and the number is on the stem side, the number moves this far from the middle of the notehead towards the stem, as a fraction of the notehead width (0.5 = exactly over the stem). Only with ‘Number alignment’ set to ‘Rhythmic center’.</source>
+        <translation>节奏中心恰好落在某个音符上且数字位于符干一侧时，数字从符头中央向符干方向移动的距离，以符头宽度的倍数计（0.5 即正对符干）。仅在“数字对齐”设为“节奏中心”时起作用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="103"/>
+        <source>Minimum distance from notes and signs</source>
+        <translation>与音符和记号的最小距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="104"/>
+        <source>Least vertical gap between a tuplet’s number or bracket and whatever lies on its side: notes, stems, beams, articulations, slurs and, with ‘Avoid staves’ on, the staff lines. ‘Vertical distance from stem’ and ‘Vertical distance from notehead’ cannot bring the bracket closer than this.</source>
+        <translation>连音数字或括号与其所在一侧的音符、符干、符杠、运音法记号、圆滑线之间的最小垂直间隙；启用“避开谱表”时也包括谱线。“符干垂距”和“符头垂距”设得再小，括号也不会比此值更近。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="120"/>
+        <source>‘Automatic’ leaves the bracket out where a beam already shows which notes belong to the tuplet.</source>
+        <translation>“自动”时，符杠已能标明连音包含哪些音符的地方不加括号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="124"/>
+        <source>Automatic</source>
+        <translation>自动</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="140"/>
+        <source>Length of the short vertical strokes at the two ends of the bracket. A number without a bracket stands this much further from the notes as well.</source>
+        <translation>括号两端短竖线的长度。不带括号的数字与音符的距离也随之增加同样的量。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="150"/>
+        <source>The clear space on each side of the number where the bracket is interrupted.</source>
+        <translation>括号在数字处断开，数字两侧各留出的空隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="159"/>
+        <source>Shortest bracket stroke beside the number</source>
+        <translation>数字两侧括号横线的最短长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="160"/>
+        <source>The horizontal stroke on each side of the number is at least this long, as a multiple of the ‘Bracket hook height’; a bracket over very close notes is widened to make room for it.</source>
+        <translation>数字两侧的括号横线至少有这么长，以“连音括号高度”的倍数计；音符很密时括号会被加宽以留出位置。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="171"/>
+        <source>A beamed tuplet whose number is on the notehead side gets a bracket; turn off to print the number alone there too, as on the beam side. Only with ‘Bracket type’ set to ‘Automatic’.</source>
+        <translation>带符杠的连音在数字位于符头一侧时加括号；关闭后与数字位于符杠一侧时一样只印数字。仅在“括号类型”为“自动”时起作用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="179"/>
+        <source>No bracket when the secondary beams mark off the tuplet</source>
+        <translation>次级符杠已标明连音范围时省略括号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="180"/>
+        <source>A tuplet inside a longer beam gets no bracket when a break in the secondary beams, or neighbouring notes with fewer beams, already shows where it begins and ends; turn off to bracket every tuplet which does not fill its whole beam. Only with ‘Bracket type’ set to ‘Automatic’.</source>
+        <translation>连音位于更长的符杠组内时，若次级符杠的断开或相邻音符较少的符杠已标明其起止，则不加括号；关闭后，凡未占满整条符杠的连音一律加括号。仅在“括号类型”为“自动”时起作用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="190"/>
+        <source>Extend bracket to end of duration</source>
+        <translation>括号延伸到时值末尾</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="191"/>
+        <source>When the last note of a tuplet is a long one, the bracket runs on to the right over the time that note lasts instead of stopping at the note.</source>
+        <translation>连音的最后一个音符时值较长时，括号向右延伸，覆盖该音符所占的时间，而不是止于音符处。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="199"/>
+        <source>Extended bracket: gap before the next note or sign</source>
+        <translation>延伸的括号：与其后音符或记号的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="200"/>
+        <source>The right end of an extended bracket stops at least this far before the following note, clef, barline or tuplet bracket. Only with ‘Extend bracket to end of duration’ on.</source>
+        <translation>延伸的括号右端至少在其后的音符、谱号、小节线或下一个连音括号之前留出此间隙。仅在“括号延伸到时值末尾”开启时起作用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="209"/>
+        <source>The bracket runs parallel to the beam, or to the line through the tips of the first and last stems, however steep that is; ‘Maximum slope’ is then not applied.</source>
+        <translation>括号与符杠平行，没有符杠时与首尾符干顶端的连线平行，不论多陡；此时不受“最大斜度”限制。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="216"/>
+        <source>Vertical distance from the notes</source>
+        <translation>与音符的垂直距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="222"/>
+        <source>The steepest a bracket may be, as rise over length: 0.5 lets it climb one staff space for every two it runs. Steeper brackets are flattened by moving one end away from the notes.</source>
+        <translation>括号允许的最大倾斜，以升高量与长度之比计：0.5 表示每前进两个谱间最多升高一个谱间。更陡的括号通过把一端移离音符而放平。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="233"/>
+        <source>Gap between the ends of the bracket hooks and the stem tips, where the tuplet is on the stem side; also the gap to the staff when ‘Avoid staves’ has moved the bracket out.</source>
+        <translation>连音位于符干一侧时，括号折钩末端与符干顶端之间的间隙；“避开谱表”把括号移出谱表时，也是它与谱表的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="245"/>
+        <source>Gap between the ends of the bracket hooks and the noteheads, where the tuplet is on the notehead side.</source>
+        <translation>连音位于符头一侧时，括号折钩末端与符头之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="256"/>
+        <source>A bracket which would lie inside the staff is moved out, to just above the top line or below the bottom line.</source>
+        <translation>会落在谱表内的括号被移到谱表之外，即最上方谱线之上或最下方谱线之下。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="263"/>
+        <source>Horizontal distance from the notes</source>
+        <translation>与音符的水平距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="267"/>
+        <source>How far the bracket reaches beyond the first and the last note: measured from the stem where the bracket is on the stem side, from the outer edge of the notehead where it is on the notehead side. Negative values pull the end inwards.</source>
+        <translation>括号超出第一个和最后一个音符的距离：括号在符干一侧时从符干量起，在符头一侧时从符头外缘量起。负值使括号端点内收。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="272"/>
+        <source>Before the first note</source>
+        <translation>第一个音符之前</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="273"/>
+        <source>After the last note</source>
+        <translation>最后一个音符之后</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="276"/>
+        <source>From the stem</source>
+        <translation>距符干</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="277"/>
+        <source>From the notehead</source>
+        <translation>距符头</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="37"/>
+        <source>Arpeggios</source>
+        <translation>琶音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="44"/>
+        <source>Gap between the arpeggio and the noteheads to its right, for a chord without accidentals.</source>
+        <translation>和弦没有变音记号时，琶音记号与其右侧符头之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="53"/>
+        <source>Distance to accidental</source>
+        <translation>到变音记号的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="54"/>
+        <source>Gap between the arpeggio and the accidentals of its chord. Under an arrowhead or inside a bracket the accidentals may slip in beside the line, so the gap is measured from the line itself.</source>
+        <translation>琶音记号与其和弦的变音记号之间的间隙。箭头下方或括号内侧可以容纳变音记号，因此间隙从线条本身量起。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="64"/>
+        <source>Distance from arrowhead or hook to accidental</source>
+        <translation>箭头或折钩到变音记号的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="65"/>
+        <source>Used instead of ‘Distance to accidental’ when the outermost accidental is level with the arrowhead of an arpeggio, or with a hook of a bracket arpeggio, so that it cannot slip in beside the line.</source>
+        <translation>最外侧的变音记号与琶音的箭头或括号式琶音的折钩处于同一高度、无法嵌入线条旁边时，用此值代替“到变音记号的距离”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="75"/>
+        <source>Distance to ledger line</source>
+        <translation>到加线的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="76"/>
+        <source>Gap between the arpeggio and the left ends of the ledger lines of its chord.</source>
+        <translation>琶音记号与其和弦的加线左端之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="85"/>
+        <source>For bracket arpeggios and straight arpeggios with an arrow; the wavy line is a shape of the music font.</source>
+        <translation>用于括号式琶音和带箭头的直线琶音；波浪线取自音乐符号字体的字形。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="96"/>
+        <source>Length of the two short horizontal strokes at the ends of a bracket arpeggio.</source>
+        <translation>括号式琶音两端短横线的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="106"/>
+        <source>On a staff which is linked to a visible tablature staff the arpeggio is printed in the tablature only.</source>
+        <translation>谱表与可见的指法谱相链接时，琶音记号只印在指法谱上。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="113"/>
+        <source>Extent</source>
+        <translation>伸出范围</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="114"/>
+        <source>How far an arpeggio reaches beyond the outer notes of its chord.</source>
+        <translation>琶音记号超出和弦两端音符的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="119"/>
+        <source>Wavy arpeggio: rise above a top note in a space</source>
+        <translation>波浪琶音：顶音位于谱间时的上延长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="120"/>
+        <source>How far the wavy line rises above the top notehead when that note is in a space inside the staff. Over a top note on a line or outside the staff it ends level with the notehead.</source>
+        <translation>顶音位于谱表内的谱间时，波浪线超出顶部符头的长度。顶音在谱线上或谱表之外时，波浪线与符头齐平。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="129"/>
+        <source>Wavy arpeggio: rise when both outer notes are in spaces</source>
+        <translation>波浪琶音：两端音均位于谱间时的上延长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="130"/>
+        <source>Used instead of the value above when the bottom note of the chord is in a space inside the staff as well.</source>
+        <translation>和弦的底音也位于谱表内的谱间时，用此值代替上一项。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="139"/>
+        <source>Straight arpeggio: reach beyond the outer notes</source>
+        <translation>直线琶音：超出两端音的长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="140"/>
+        <source>How far a straight arpeggio with an arrow reaches above the top notehead and below the bottom notehead.</source>
+        <translation>带箭头的直线琶音在顶部符头之上和底部符头之下各伸出的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BeamsPage.qml" line="85"/>
+        <source>Draw inner stems to nearest beam (“French” style)</source>
+        <translation>符干只连到外侧符杠（法式）</translation>
+    </message>
 </context>
 </TS>

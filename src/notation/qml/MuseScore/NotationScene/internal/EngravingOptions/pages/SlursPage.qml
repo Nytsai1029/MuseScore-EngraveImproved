@@ -32,7 +32,6 @@ EoPage {
     title: qsTrc("notation/engravingoptions", "Slurs")
     group: qsTrc("notation/engravingoptions", "Notes and rests")
 
-
     EoSection {
         title: qsTrc("notation/engravingoptions", "Thickness")
         music: "c''4( d'' e'' f'')"
@@ -46,22 +45,25 @@ EoPage {
         EoNumber {
             sid: "slurMidWidth"
             title: qsTrc("notation/editstyle/slursandties", "Line thickness middle:")
+            hint: qsTrc("notation/engravingoptions",
+                        "Short slurs are thinner than this: see ‘Slurs and ties shorter than this are thinner’.")
             step: 0.01
         }
 
         EoNumber {
             sid: "slurDottedWidth"
             music: "\\slurDotted c''4( d'' e'' f'')"
-            title: qsTrc("notation/editstyle/slursandties", "Dotted line thickness:")
+            title: qsTrc("notation/engravingoptions", "Thickness of dotted and dashed slurs")
             step: 0.01
         }
 
         EoNumber {
             sid: "slurTieShortLengthLimit"
             music: "c''16~ c''16 c''2~ c''2"
-            title: qsTrc("notation/engravingoptions", "Thinning starts below length")
+            title: qsTrc("notation/engravingoptions", "Slurs and ties shorter than this are thinner")
             hint: qsTrc("notation/engravingoptions",
-                         "Slurs and ties shorter than this are drawn progressively thinner, down to the thickness for the shortest curves at the minimum tie length.")
+                        "Below this length the middle of a slur or tie becomes gradually thinner, down to the " +
+                        "‘Middle thickness of the shortest slurs and ties’ at the minimum tie length.")
             min: 1
             max: 20
             step: 0.5
@@ -70,98 +72,109 @@ EoPage {
         EoNumber {
             sid: "slurTieShortMidWidth"
             music: "c''16~ c''16"
-            title: qsTrc("notation/engravingoptions", "Middle thickness of the shortest curves")
+            title: qsTrc("notation/engravingoptions", "Middle thickness of the shortest slurs and ties")
             hint: qsTrc("notation/engravingoptions",
-                         "Middle thickness of a slur or tie whose length equals the minimum tie length.")
+                        "The thickness in the middle of a slur or tie which is only as long as the ‘Minimum tie " +
+                        "length’ of the Ties page.")
             min: 0.05
             max: 0.5
             step: 0.01
         }
+    }
+
+    EoSection {
+        title: qsTrc("notation/engravingoptions", "Dashed and dotted slurs and ties")
+        hint: qsTrc("notation/engravingoptions",
+                    "All lengths are multiples of the thickness of dotted and dashed slurs or ties, so the pattern " +
+                    "keeps its look when the line is made thicker.")
+        music: "\\slurDashed c''4( d'' e'' f'')"
 
         EoNumber {
             sid: "slurTieDottedGap"
             music: "\\slurDotted c''4( d'' e'' f'')"
-            title: qsTrc("notation/engravingoptions", "Dotted: gap")
+            title: qsTrc("notation/engravingoptions", "Dotted: distance from dot to dot")
             hint: qsTrc("notation/engravingoptions",
-                         "Gap between the dots of dotted slurs and ties, in multiples of the dotted line thickness.")
+                        "From the middle of one dot to the middle of the next, as a multiple of the line thickness: " +
+                        "at 2 the white space between two dots is as wide as a dot.")
             min: 0.5
             max: 10
             step: 0.1
         }
 
-        EoNumber {
-            sid: "slurTieDashLength"
-            music: "\\slurDashed c''4( d'' e'' f'')"
-            title: qsTrc("notation/engravingoptions", "Dashed: dash length")
+        EoGrid {
             hint: qsTrc("notation/engravingoptions",
-                         "Length of the dashes of dashed slurs and ties, in multiples of the dotted line thickness.")
-            min: 0.5
-            max: 20
-            step: 0.25
-        }
+                        "Length of the dashes and of the gaps between them. The dashes have square ends, which make " +
+                        "each printed dash one line thickness longer and each gap one thickness shorter than the " +
+                        "numbers say.")
+            rowTitles: [
+                qsTrc("notation/engravingoptions", "Dashed"),
+                qsTrc("notation/engravingoptions", "Wide dashed")
+            ]
+            columnTitles: [
+                qsTrc("notation/engravingoptions", "Dash"),
+                qsTrc("notation/engravingoptions", "Gap")
+            ]
 
-        EoNumber {
-            sid: "slurTieDashGap"
-            music: "\\slurDashed c''4( d'' e'' f'')"
-            title: qsTrc("notation/engravingoptions", "Dashed: gap")
-            hint: qsTrc("notation/engravingoptions",
-                         "Gap between the dashes of dashed slurs and ties, in multiples of the dotted line thickness.")
-            min: 0.5
-            max: 20
-            step: 0.25
-        }
+            EoNumber {
+                sid: "slurTieDashLength"
+                music: "\\slurDashed c''4( d'' e'' f'')"
+                min: 0.5
+                max: 20
+                step: 0.25
+            }
 
-        EoNumber {
-            sid: "slurTieWideDashLength"
-            music: "\\slurWideDashed c''4( d'' e'' f'')"
-            title: qsTrc("notation/engravingoptions", "Wide dashed: dash length")
-            hint: qsTrc("notation/engravingoptions",
-                         "Length of the dashes of wide-dashed slurs and ties, in multiples of the dotted line thickness.")
-            min: 0.5
-            max: 30
-            step: 0.25
-        }
+            EoNumber {
+                sid: "slurTieDashGap"
+                music: "\\slurDashed c''4( d'' e'' f'')"
+                min: 0.5
+                max: 20
+                step: 0.25
+            }
 
-        EoNumber {
-            sid: "slurTieWideDashGap"
-            music: "\\slurWideDashed c''4( d'' e'' f'')"
-            title: qsTrc("notation/engravingoptions", "Wide dashed: gap")
-            hint: qsTrc("notation/engravingoptions",
-                         "Gap between the dashes of wide-dashed slurs and ties, in multiples of the dotted line thickness.")
-            min: 0.5
-            max: 30
-            step: 0.25
+            EoNumber {
+                sid: "slurTieWideDashLength"
+                music: "\\slurWideDashed c''4( d'' e'' f'')"
+                min: 0.5
+                max: 30
+                step: 0.25
+            }
+
+            EoNumber {
+                sid: "slurTieWideDashGap"
+                music: "\\slurWideDashed c''4( d'' e'' f'')"
+                min: 0.5
+                max: 30
+                step: 0.25
+            }
         }
     }
 
     EoSection {
         title: qsTrc("notation/engravingoptions", "Placement")
-        music: "c''4( d'' e'' f'')"
-
-        EoNumber {
-            sid: "slurMinDistance"
-            title: qsTrc("notation/editstyle/slursandties", "Autoplace min. distance:")
-            step: 0.1
-        }
 
         EoToggle {
             sid: "angleHangingSlursAwayFromStaff"
             music: "c'4( d'4 \\break e'4) f'4"
             systemWidth: 26
-            title: qsTrc("notation/editstyle/slursandties", "Angle away from staff")
-            hint: qsTrc("notation/engravingoptions", "For slurs which hang over the end of a system.")
+            title: qsTrc("notation/engravingoptions", "Slurs cut off at a break angle away from the staff")
+            hint: qsTrc("notation/engravingoptions",
+                        "A slur which goes on in the next system, or into or out of a repeat or volta, has its open " +
+                        "end drawn further from the staff than its end on the note, so that the half slur visibly " +
+                        "points outwards.")
         }
     }
 
     EoSection {
-        title: qsTrc("notation/engravingoptions", "Slur end points")
-        music: "c''4( d'' e'' f'')"
+        title: qsTrc("notation/engravingoptions", "End points")
+        music: "\\slurUp \\stemUp c'8[( e'8 g'8 c''8])"
 
         EoNumber {
             sid: "slurEndpointNoteDistance"
+            music: "c''4( d'' e'' f'')"
             title: qsTrc("notation/engravingoptions", "Distance from notehead centre")
             hint: qsTrc("notation/engravingoptions",
-                         "Vertical distance from the centre of the notehead to a slur end that attaches on the notehead side.")
+                        "Vertical distance between the middle of the notehead and a slur end on the notehead side; " +
+                        "the end is centred over the notehead.")
             max: 3
         }
 
@@ -170,7 +183,7 @@ EoPage {
             music: "\\tab c'4( d'4)"
             title: qsTrc("notation/engravingoptions", "Distance from fret mark centre (tablature)")
             hint: qsTrc("notation/engravingoptions",
-                         "The same distance on tablature staves, measured from the centre of the fret mark.")
+                        "The same distance on tablature staves, measured from the middle of the fret mark.")
             max: 3
         }
 
@@ -179,7 +192,8 @@ EoPage {
             music: "\\slurUp \\stemUp c'4( d'4)"
             title: qsTrc("notation/engravingoptions", "Inset from stem tip")
             hint: qsTrc("notation/engravingoptions",
-                         "How far a slur end that attaches to a stem sits back from the stem tip towards the notehead.")
+                        "A slur end on the stem side sits beside the stem, this far back from the stem tip towards " +
+                        "the notehead; 0 puts it level with the tip.")
             max: 2
         }
 
@@ -188,7 +202,7 @@ EoPage {
             music: "\\slurUp \\stemUp c'4( d'4)"
             title: qsTrc("notation/engravingoptions", "Horizontal gap to stem")
             hint: qsTrc("notation/engravingoptions",
-                         "Horizontal distance between a stem and a slur end that starts or ends beside it.")
+                        "Horizontal distance between a stem and a slur end which starts or stops beside it.")
             max: 2
         }
 
@@ -197,16 +211,17 @@ EoPage {
             music: "\\slurUp \\stemUp c'8[( e'8 g'8 c''8])"
             title: qsTrc("notation/engravingoptions", "Gap to beam")
             hint: qsTrc("notation/engravingoptions",
-                         "Vertical distance between the outer edge of a beam and a slur end placed over it.")
+                        "Vertical distance between the outer edge of a beam and a slur end placed over it.")
             max: 2
         }
 
         EoNumber {
             sid: "slurBeamAnchorInset"
             music: "\\slurUp \\stemUp c'8[( e'8 g'8 c''8])"
-            title: qsTrc("notation/engravingoptions", "Inset from stem over beams")
+            title: qsTrc("notation/engravingoptions", "Over a beam: shift inwards from the stem")
             hint: qsTrc("notation/engravingoptions",
-                         "Horizontal distance by which a slur end placed over a beam moves inwards from the stem.")
+                        "A slur end placed over a beam is moved this far from the stem towards the middle of the " +
+                        "slur.")
             max: 1
         }
 
@@ -215,17 +230,31 @@ EoPage {
             music: "\\slurUp \\stemUp c'8[( e'8 g'8 c''8])"
             title: qsTrc("notation/engravingoptions", "Minimum gap to stems and beams (small notes)")
             hint: qsTrc("notation/engravingoptions",
-                         "Lower limit of the stem and beam gaps after they are scaled down for grace notes and cue-size chords.")
+                        "On grace notes and small notes ‘Horizontal gap to stem’ and ‘Gap to beam’ shrink with the " +
+                        "size of the note, but not below this.")
             max: 1
         }
 
         EoNumber {
             sid: "slurStemFloatRatio"
             music: "\\stemUp e'4( \\stemDown b''4)"
-            title: qsTrc("notation/engravingoptions", "End point float along stem")
+            title: qsTrc("notation/engravingoptions", "Stems in opposite directions: slide along the stem")
             hint: qsTrc("notation/engravingoptions",
-                         "When the first and last chord have opposite stem directions, the stem-side slur end moves along the stem by this share of the pitch difference.")
+                        "When the first and last notes have stems in opposite directions, the slur end on a stem " +
+                        "side slides along that stem towards the other note, by this share of the height difference " +
+                        "between the two notes (0 = it stays by the notehead).")
             max: 1
+        }
+
+        EoNumber {
+            sid: "slurStemFloatMaxOvershoot"
+            music: "\\stemUp c'4( \\stemDown c''''4)"
+            title: qsTrc("notation/engravingoptions",
+                         "Stems in opposite directions: furthest point beyond the stem tip")
+            hint: qsTrc("notation/engravingoptions",
+                        "The sliding slur end stops at the latest this far beyond the tip of the stem.")
+            max: 4
+            step: 0.05
         }
 
         EoNumber {
@@ -233,7 +262,8 @@ EoPage {
             music: "\\stemUp c''4-.( d''4)"
             title: qsTrc("notation/engravingoptions", "Distance beyond articulation")
             hint: qsTrc("notation/engravingoptions",
-                         "Vertical distance between an articulation next to the notehead (staccato, tenuto) and the slur end placed outside it.")
+                        "When a staccato dot, tenuto line or similar mark sits next to the notehead on the slur’s " +
+                        "side, the slur end is placed outside it at this vertical distance.")
             max: 2
         }
 
@@ -242,15 +272,18 @@ EoPage {
             music: "\\stemUp c''4-.( d''4)"
             title: qsTrc("notation/engravingoptions", "Inward shift at articulation")
             hint: qsTrc("notation/engravingoptions",
-                         "Horizontal shift towards the inside of the slur of an end point centred on such an articulation.")
+                        "Such a slur end is centred on the articulation and then moved this far towards the middle " +
+                        "of the slur.")
             max: 1
         }
 
         EoNumber {
             sid: "slurEndpointStaffLineMargin"
+            music: "c''4( d'' e'' f'')"
             title: qsTrc("notation/engravingoptions", "End point distance from staff lines")
             hint: qsTrc("notation/engravingoptions",
-                         "Slur ends inside the staff keep at least this distance (plus half the staff line thickness) from a staff line.")
+                        "A slur end inside the staff which would be closer than this to a staff line is moved " +
+                        "outwards, in the direction the slur curves, until it is this far from the line.")
             max: 0.45
             step: 0.025
             decimals: 3
@@ -261,7 +294,8 @@ EoPage {
             music: "c'4~( c'4 d'4 e'4)"
             title: qsTrc("notation/engravingoptions", "Vertical gap to tie on same note")
             hint: qsTrc("notation/engravingoptions",
-                         "Minimum vertical distance between a slur end and the end of a tie that curves the same way on the same note.")
+                        "When the note at a slur end also has a tie on the same side, the slur end is placed at " +
+                        "least this far outside the end of the tie.")
             max: 2
         }
 
@@ -270,102 +304,111 @@ EoPage {
             music: "c''4~ c''4( d''4)"
             title: qsTrc("notation/engravingoptions", "Horizontal shift next to tie end")
             hint: qsTrc("notation/engravingoptions",
-                         "Horizontal shift of a slur end when a tie arriving at (or leaving from) the same note ends at about the same height.")
+                        "When a tie arrives at the note where a slur begins, or leaves the note where it ends, and " +
+                        "its tip is at about the same height, the slur end is moved this far along, away from the " +
+                        "tie.")
             max: 2
         }
 
         EoNumber {
             sid: "slurOverlapOffsetY"
             music: "c''4(( d''4) e''4 f''4)"
-            title: qsTrc("notation/engravingoptions", "Nested slur end offset")
+            title: qsTrc("notation/engravingoptions", "Slurs sharing an end point: lift of the outer slur")
             hint: qsTrc("notation/engravingoptions",
-                         "When two slurs on the same side share a start or end position, the end of the outer slur moves away vertically by this amount.")
+                        "When two slurs on the same side begin or end at the same place, the end of the longer, " +
+                        "outer slur is moved this far out so that the two do not touch.")
             max: 2
         }
 
         EoNumber {
             sid: "slurOverlapOffsetX"
             music: "c''4( d''4)( e''4)"
-            title: qsTrc("notation/engravingoptions", "Pull-back between consecutive slurs")
+            title: qsTrc("notation/engravingoptions", "Slurs meeting on a note: pull-back of each end")
             hint: qsTrc("notation/engravingoptions",
-                         "When one slur ends on the chord where the next begins, each end point is pulled back horizontally by this amount.")
+                        "When one slur ends on the note where the next begins, each of the two ends is drawn back by " +
+                        "this amount, leaving a gap between them.")
             max: 1
         }
     }
 
     EoSection {
-        title: qsTrc("notation/engravingoptions", "Slur shape")
-        music: "c''4( d'' e'' f'' g'' a'' b'' c''')"
+        title: qsTrc("notation/engravingoptions", "Shape")
+        music: "c''4( d'' e'' f'')"
 
-        EoNumber {
-            sid: "slurShoulderLengthShort"
-            music: "c''8( d''8)"
-            title: qsTrc("notation/engravingoptions", "Short slur limit")
+        EoGrid {
             hint: qsTrc("notation/engravingoptions",
-                         "Slurs shorter than this use the shoulder width for short slurs.")
-            max: 50
-            step: 0.5
-        }
+                        "The shoulder width says how square a slur is: with a larger value its ends rise more " +
+                        "steeply and its middle is flatter, with a smaller value it is more pointed (it is the " +
+                        "distance between the two control points of the curve, as a fraction of the slur’s length). " +
+                        "It is set separately for four classes of length.")
+            rowTitles: [
+                qsTrc("notation/engravingoptions", "Short slurs"),
+                qsTrc("notation/engravingoptions", "Medium slurs"),
+                qsTrc("notation/engravingoptions", "Long slurs"),
+                qsTrc("notation/engravingoptions", "Very long slurs")
+            ]
+            columnTitles: [
+                qsTrc("notation/engravingoptions", "Up to a length of"),
+                qsTrc("notation/engravingoptions", "Shoulder width")
+            ]
 
-        EoNumber {
-            sid: "slurShoulderLengthMedium"
-            music: "c''4( d'' e'' f'')"
-            title: qsTrc("notation/engravingoptions", "Medium slur limit")
-            hint: qsTrc("notation/engravingoptions",
-                         "Slurs shorter than this (but not short) use the shoulder width for medium slurs.")
-            max: 100
-            step: 0.5
-        }
+            EoNumber {
+                sid: "slurShoulderLengthShort"
+                music: "c''8( d''8)"
+                max: 50
+                step: 0.5
+            }
 
-        EoNumber {
-            sid: "slurShoulderLengthLong"
-            music: "c''4( d'' e'' f'' | g''4 a'' b'' c''')"
-            title: qsTrc("notation/engravingoptions", "Long slur limit")
-            hint: qsTrc("notation/engravingoptions",
-                         "Slurs shorter than this use the shoulder width for long slurs; longer ones use the width for very long slurs.")
-            max: 200
-            step: 0.5
-        }
+            EoNumber {
+                sid: "slurShoulderWidthShort"
+                music: "c''16( d''16)"
+                max: 1
+            }
 
-        EoNumber {
-            sid: "slurShoulderWidthShort"
-            music: "c''16( d''16)"
-            title: qsTrc("notation/engravingoptions", "Shoulder width, short slurs")
-            hint: qsTrc("notation/engravingoptions",
-                         "Distance between the two curve control points as a fraction of the slur length; larger values give a flatter middle and steeper ends.")
-            max: 1
-        }
+            EoNumber {
+                sid: "slurShoulderLengthMedium"
+                music: "c''4( d'' e'' f'')"
+                max: 100
+                step: 0.5
+            }
 
-        EoNumber {
-            sid: "slurShoulderWidthMedium"
-            music: "c''8( e''8)"
-            title: qsTrc("notation/engravingoptions", "Shoulder width, medium slurs")
-            hint: qsTrc("notation/engravingoptions", "The same fraction for medium slurs.")
-            max: 1
-        }
+            EoNumber {
+                sid: "slurShoulderWidthMedium"
+                music: "c''8( e''8)"
+                max: 1
+            }
 
-        EoNumber {
-            sid: "slurShoulderWidthLong"
-            music: "c''4( d'' e'' f'')"
-            title: qsTrc("notation/engravingoptions", "Shoulder width, long slurs")
-            hint: qsTrc("notation/engravingoptions", "The same fraction for long slurs.")
-            max: 1
-        }
+            EoNumber {
+                sid: "slurShoulderLengthLong"
+                music: "c''4( d'' e'' f'' | g''4 a'' b'' c''')"
+                max: 200
+                step: 0.5
+            }
 
-        EoNumber {
-            sid: "slurShoulderWidthVeryLong"
-            music: "c''1( | d''1 | e''1 | f''1)"
-            title: qsTrc("notation/engravingoptions", "Shoulder width, very long slurs")
-            hint: qsTrc("notation/engravingoptions", "The same fraction for very long slurs.")
-            max: 1
+            EoNumber {
+                sid: "slurShoulderWidthLong"
+                music: "c''4( d'' e'' f'')"
+                max: 1
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "slurShoulderWidthVeryLong"
+                music: "c''1( | d''1 | e''1 | f''1)"
+                max: 1
+            }
         }
 
         EoNumber {
             sid: "slurShoulderHeightFactor"
             music: "c''4( d'' e'' f'')"
-            title: qsTrc("notation/engravingoptions", "Height factor")
+            title: qsTrc("notation/engravingoptions", "Height in relation to length")
             hint: qsTrc("notation/engravingoptions",
-                         "Default slur height in sp = factor × √(length in sp); larger values give more arched slurs.")
+                        "A slur is as high as this value times the square root of its length, both in sp: at 0.5 a " +
+                        "slur 16 sp long is 2 sp high. The height is that of the control points of the curve; the " +
+                        "arc itself rises three quarters as high.")
             min: 0.05
             max: 2
         }
@@ -373,9 +416,10 @@ EoPage {
         EoNumber {
             sid: "slurOverBeamsHeightFactor"
             music: "\\slurUp \\stemUp c'8[( e'8 g'8 c''8])"
-            title: qsTrc("notation/engravingoptions", "Height factor over beams")
+            title: qsTrc("notation/engravingoptions", "Height of slurs along a beam")
             hint: qsTrc("notation/engravingoptions",
-                         "Slurs whose notes are all beamed on the slur side have their height multiplied by this factor.")
+                        "A slur whose notes are all beamed, with the beams on the slur’s side, has its height " +
+                        "multiplied by this; under 1 it is flatter than other slurs.")
             min: 0.1
             max: 1.5
         }
@@ -383,24 +427,39 @@ EoPage {
         EoNumber {
             sid: "slurFlatCurveHandleRatio"
             music: "\\slurFlat c''8( c'' c'' c'' c'' c'' c'' c'')"
-            title: qsTrc("notation/engravingoptions", "Flat-middle slur handle length")
+            title: qsTrc("notation/engravingoptions", "Flat-middle slurs: roundness of the corners")
             hint: qsTrc("notation/engravingoptions",
-                         "Length of the curve handles of a flat-middle slur as a fraction of one third of its length; larger values give rounder, more gradual corners.")
+                        "For slurs of the ‘Flat middle’ type: with a larger value the two corners between the rising " +
+                        "ends and the flat middle are rounder and more gradual, with a smaller value they are " +
+                        "tighter.")
             min: 0.05
             max: 1
+        }
+
+        EoNumber {
+            sid: "slurMaxHeightToLengthRatio"
+            music: "g'16( g''' g') r16"
+            musicStyle: ({ slurCollisionBalanceFree: 0.0, slurCollisionBalanceConstrained: 0.0, slurCollisionStep: 1.0, measureSpacing: 1.2 })
+            title: qsTrc("notation/engravingoptions", "Greatest height in relation to length")
+            hint: qsTrc("notation/engravingoptions",
+                        "However much a slur is raised to clear the notes under it, its height stays under this " +
+                        "multiple of its length: at 1 a slur is never higher than it is long.")
+            min: 0.1
+            max: 3
+            step: 0.05
         }
     }
 
     EoSection {
-        title: qsTrc("notation/engravingoptions", "Slur collision avoidance")
-        music: "\\stemUp c''4-.( g''4 c''4)"
+        title: qsTrc("notation/engravingoptions", "Collision avoidance")
 
         EoNumber {
             sid: "slurNoteClearance"
             music: "c''4( e''4 g''4 c''4)"
             title: qsTrc("notation/engravingoptions", "Clearance from noteheads")
             hint: qsTrc("notation/engravingoptions",
-                         "Minimum vertical distance between a slur and the noteheads it passes over (other than those of its first and last chord).")
+                        "The least vertical distance between a slur and the noteheads it passes over, other than " +
+                        "those of its first and last chord.")
             max: 2
         }
 
@@ -409,7 +468,8 @@ EoPage {
             music: "\\stemUp c''4( d''4-. e''4)"
             title: qsTrc("notation/engravingoptions", "Clearance from articulations")
             hint: qsTrc("notation/engravingoptions",
-                         "Minimum vertical distance between a slur and the articulations, ornaments and tapping marks it passes over.")
+                        "The least vertical distance between a slur and the articulations, ornaments and tapping " +
+                        "marks it passes over.")
             max: 2
         }
 
@@ -418,16 +478,19 @@ EoPage {
             music: "\\stemUp c''4( g''4 c''4)"
             title: qsTrc("notation/engravingoptions", "Clearance from other items")
             hint: qsTrc("notation/engravingoptions",
-                         "Minimum vertical distance between a slur and anything else it passes over (stems, beams, accidentals, rests…).")
+                        "The least vertical distance between a slur and anything else it passes over: stems, beams, " +
+                        "flags, accidentals, rests.")
             max: 2
         }
 
         EoNumber {
             sid: "slurArcClearanceLengthRatio"
             music: "c''4( d'' e'' f'' | g''' f'' e'' d'')"
-            title: qsTrc("notation/engravingoptions", "Mid-arc clearance per sp of length")
+            title: qsTrc("notation/engravingoptions", "Extra clearance in the middle: growth with length")
             hint: qsTrc("notation/engravingoptions",
-                         "Extra clearance under the middle of the slur, in sp per sp of slur length (reduced for slanted slurs).")
+                        "On top of the clearances above, the middle of a slur keeps an extra distance from the music " +
+                        "under it which grows with its length: this many sp for every sp of length, less for slanted " +
+                        "slurs. Nothing is added at the ends.")
             max: 0.2
             step: 0.005
             decimals: 3
@@ -436,52 +499,64 @@ EoPage {
         EoNumber {
             sid: "slurArcClearanceMin"
             music: "c''4( g'''4 c''4)"
-            title: qsTrc("notation/engravingoptions", "Minimum mid-arc clearance")
-            hint: qsTrc("notation/engravingoptions",
-                         "Lower limit of the extra clearance under the middle of the slur.")
+            title: qsTrc("notation/engravingoptions", "Extra clearance in the middle: at least")
+            hint: qsTrc("notation/engravingoptions", "Short slurs get this much extra room under their middle.")
             max: 2
         }
 
         EoNumber {
             sid: "slurArcClearanceMax"
             music: "c''1( | d''1 | g'''1 | d''1)"
-            title: qsTrc("notation/engravingoptions", "Maximum mid-arc clearance")
+            title: qsTrc("notation/engravingoptions", "Extra clearance in the middle: at most")
             hint: qsTrc("notation/engravingoptions",
-                         "Upper limit of the extra clearance under the middle of the slur.")
+                        "However long the slur, the extra room under its middle is not more than this.")
             max: 3
         }
 
-        EoNumber {
-            sid: "slurCollisionBalanceConstrained"
-            music: "c''4( \\fermata d''4 g'''4 d''4 c''4)"
-            title: qsTrc("notation/engravingoptions", "End point share: constrained end")
+        EoGrid {
+            title: qsTrc("notation/engravingoptions", "Moving the end point or reshaping the curve")
             hint: qsTrc("notation/engravingoptions",
-                         "Share of a collision correction made by moving the end point instead of reshaping the curve (0 = curve only, 1 = end point only), for ends with an articulation or ornament above, cross-staff slurs and the attached end of a slur broken across systems.")
-            max: 1
-        }
+                        "A slur which runs into notes can lift its end points or bend its curve further out. 0 = the " +
+                        "end point stays and only the curve changes; 1 = only the end point moves. Constrained: an " +
+                        "end with an accent, ornament or similar mark outside it, the end on the note of a slur " +
+                        "which goes on to another system, and the ends of a slur between two staves. Free: the open " +
+                        "end at a system break and an end which was slid along a stem. Normal: every other end.")
+            rowTitles: [
+                qsTrc("notation/engravingoptions", "Constrained end"),
+                qsTrc("notation/engravingoptions", "Normal end"),
+                qsTrc("notation/engravingoptions", "Free end")
+            ]
+            columnTitles: [
+                qsTrc("notation/engravingoptions", "Share of end-point movement")
+            ]
 
-        EoNumber {
-            sid: "slurCollisionBalanceNormal"
-            music: "c''4( g'''4 c''4 c''4)"
-            title: qsTrc("notation/engravingoptions", "End point share: ordinary end")
-            hint: qsTrc("notation/engravingoptions", "The same share for an ordinary slur end attached to a note.")
-            max: 1
-        }
+            EoNumber {
+                sid: "slurCollisionBalanceConstrained"
+                music: "c''4( \\fermata d''4 g'''4 d''4 c''4)"
+                max: 1
+            }
 
-        EoNumber {
-            sid: "slurCollisionBalanceFree"
-            title: qsTrc("notation/engravingoptions", "End point share: free end")
-            hint: qsTrc("notation/engravingoptions",
-                         "The same share for open ends at a system break and for ends floated along a stem.")
-            max: 1
+            EoNumber {
+                sid: "slurCollisionBalanceNormal"
+                music: "c''4( g'''4 c''4 c''4)"
+                max: 1
+            }
+
+            EoNumber {
+                sid: "slurCollisionBalanceFree"
+                music: "\\stemUp c''4-.( g''4 c''4)"
+                max: 1
+            }
         }
 
         EoNumber {
             sid: "slurCollisionStep"
             music: "c''8( c'' c'' g'''8 c''8 c''8 c''8 c''8)"
-            title: qsTrc("notation/engravingoptions", "Adjustment step")
+            title: qsTrc("notation/engravingoptions", "Size of one avoidance step")
             hint: qsTrc("notation/engravingoptions",
-                         "Distance the curve or an end point moves in each collision-avoidance pass; smaller values fit the music more tightly but may leave collisions in crowded passages.")
+                        "A slur is moved off the music in steps of this size, a limited number of times: small steps " +
+                        "fit it closely over the notes but may not get it clear of a tall obstacle, large steps " +
+                        "clear more but may leave it further away than needed.")
             min: 0.05
             max: 1
         }
@@ -489,9 +564,10 @@ EoPage {
         EoNumber {
             sid: "slurCollisionLongSlurLength"
             music: "c''1( | c''1 | g'''1 | c''1)"
-            title: qsTrc("notation/engravingoptions", "Long slur length for larger steps")
+            title: qsTrc("notation/engravingoptions", "Slurs longer than this take larger steps")
             hint: qsTrc("notation/engravingoptions",
-                         "Slurs longer than this use a proportionally larger adjustment step.")
+                        "Beyond this length the step grows in proportion to the length of the slur, up to the " +
+                        "‘Largest avoidance step’.")
             min: 4
             max: 100
             step: 1
@@ -500,16 +576,59 @@ EoPage {
         EoNumber {
             sid: "slurCollisionMaxStep"
             music: "c''1( | g'''1 | c''1)"
-            title: qsTrc("notation/engravingoptions", "Maximum adjustment step")
-            hint: qsTrc("notation/engravingoptions", "Upper limit of the enlarged adjustment step of long slurs.")
+            title: qsTrc("notation/engravingoptions", "Largest avoidance step")
+            hint: qsTrc("notation/engravingoptions", "The upper limit of the enlarged step of long slurs.")
             min: 0.1
             max: 5
             step: 0.1
         }
+
+        EoNumber {
+            sid: "slurSteepAngleLimit"
+            music: "\\stemDown c'16[( d' e' b'' c''')] r16 r4"
+            musicStyle: ({ measureSpacing: 1.45 })
+            title: qsTrc("notation/engravingoptions", "Steep slurs: angle above which the far end is moved too")
+            hint: qsTrc("notation/engravingoptions",
+                        "While a slur is being moved off the notes under it, a slur steeper than this also has its " +
+                        "left end (rising slur) or right end (falling slur) moved outwards, even if nothing touches " +
+                        "it there; for a slur above the notes this makes it less steep.")
+            max: 90
+            step: 1
+            decimals: 0
+            unit: "°"
+        }
+
+        EoNumber {
+            sid: "slurSlantReductionAngle"
+            music: "\\stemDown c''4( d'' e''' e'' f'' g'')"
+            title: qsTrc("notation/engravingoptions", "Collision in the middle: slant above which the slur is levelled")
+            hint: qsTrc("notation/engravingoptions",
+                        "When a slur touches the music in its middle part only and slants by more than this, its " +
+                        "lower end (the higher end of a slur below the notes) is moved out more than the other end, " +
+                        "so that the slur also becomes less steep. Only for slurs longer than the next value.")
+            max: 45
+            step: 0.5
+            decimals: 1
+            unit: "°"
+        }
+
+        EoNumber {
+            sid: "slurSlantReductionMinLength"
+            music: "\\stemDown c''4( d'' a''' e'' f'')"
+            title: qsTrc("notation/engravingoptions", "Collision in the middle: levelling only for slurs longer than")
+            hint: qsTrc("notation/engravingoptions",
+                        "Shorter slurs keep their slant and move both ends by their normal shares.")
+            max: 40
+            step: 0.5
+            decimals: 1
+        }
     }
 
     EoSection {
-        title: qsTrc("notation/engravingoptions", "Slurs and ties across systems")
+        title: qsTrc("notation/engravingoptions", "Across systems")
+        hint: qsTrc("notation/engravingoptions",
+                    "The open end is the end of a slur which is cut off at a system break; the slur goes on in the " +
+                    "next system.")
         music: "c'4( d'4 \\break e'4) f'4"
         systemWidth: 26
 
@@ -517,9 +636,11 @@ EoPage {
             sid: "slurContinuedEndOffset"
             music: "c'4( d'4 \\break e'4) f'4"
             systemWidth: 26
-            title: qsTrc("notation/engravingoptions", "Open end distance from chord")
+            title: qsTrc("notation/engravingoptions", "Open end: distance from the chord next to it")
             hint: qsTrc("notation/engravingoptions",
-                         "Vertical distance between the open end of a slur broken across systems and the first or last chord of that system.")
+                        "The open end is level with the top (slur above) or bottom of the last chord before the " +
+                        "break, or the first chord after it; this distance is added when the slur is on the notehead " +
+                        "side of that chord.")
             max: 2
         }
 
@@ -527,9 +648,11 @@ EoPage {
             sid: "slurContinuedMaxHeightDiff"
             music: "c'''4( d'4 \\break e'4) f'4"
             systemWidth: 26
-            title: qsTrc("notation/engravingoptions", "Maximum drop of the open end at system end")
+            title: qsTrc("notation/engravingoptions",
+                         "Open end at the end of a system: greatest drop towards the staff")
             hint: qsTrc("notation/engravingoptions",
-                         "Limits how far the open end at the end of a system may move towards the staff relative to the slur’s start.")
+                        "At the end of a system the open end follows the last chord, but it ends at most this much " +
+                        "nearer the staff than the slur began.")
             max: 10
             step: 0.25
         }
@@ -538,17 +661,19 @@ EoPage {
             sid: "slurContinuedSingleChordRise"
             music: "c'4( \\break e'4) f'4 r4"
             systemWidth: 26
-            title: qsTrc("notation/engravingoptions", "Open end rise over a single chord")
+            title: qsTrc("notation/engravingoptions", "Open end: rise when only one chord is under the slur")
             hint: qsTrc("notation/engravingoptions",
-                         "When a slur covers only one chord before or after a system break, its open end is placed this much further out than the attached end.")
+                        "When a slur begins on the last chord of a system, or ends on the first chord of the next, " +
+                        "its open end lies this much further from the staff than its end on the note.")
             max: 2
         }
 
         EoNumber {
             sid: "slurHangingEndHeight"
-            title: qsTrc("notation/engravingoptions", "Open end rise when angled away from staff")
+            title: qsTrc("notation/engravingoptions", "Open end: rise when angled away from the staff")
             hint: qsTrc("notation/engravingoptions",
-                         "With ‘Angle away from staff’ chosen for partial slurs across repeats and breaks, the open end lies at least this much further from the staff than the attached end.")
+                        "With ‘Slurs cut off at a break angle away from the staff’ on, the open end lies at least " +
+                        "this much further from the staff than the end on the note.")
             max: 4
             step: 0.1
         }
@@ -559,18 +684,21 @@ EoPage {
             systemWidth: 26
             title: qsTrc("notation/engravingoptions", "Extend to the last barline before a system break")
             hint: qsTrc("notation/engravingoptions",
-                         "Slurs and ties that continue on the next system end flush with the last barline of the system instead of stopping short of it.")
+                        "Slurs and ties which go on in the next system run right up to the last barline of the " +
+                        "system instead of stopping a little before it.")
         }
     }
 
     EoSection {
         title: qsTrc("notation/engravingoptions", "Tapping half slurs")
+        music: "c'4 \\tapping left"
 
         EoNumber {
             sid: "tappingHalfSlurLength"
             music: "c'4 \\tapping left"
             title: qsTrc("notation/engravingoptions", "Length")
-            hint: qsTrc("notation/engravingoptions", "Horizontal length of the half slur drawn before a tapped note.")
+            hint: qsTrc("notation/engravingoptions",
+                        "Horizontal length of the half slur drawn before a note tapped with the left hand.")
             min: 0.5
             max: 10
             step: 0.1
@@ -580,7 +708,8 @@ EoPage {
             sid: "tappingHalfSlurHeight"
             music: "c'4 \\tapping left"
             title: qsTrc("notation/engravingoptions", "Height")
-            hint: qsTrc("notation/engravingoptions", "Shoulder height of the tapping half slur on standard staves.")
+            hint: qsTrc("notation/engravingoptions",
+                        "Height of the half slur on standard staves, measured at the control points of the curve.")
             min: 0.1
             max: 3
         }
@@ -589,7 +718,7 @@ EoPage {
             sid: "tappingHalfSlurHeightTab"
             music: "\\tab c'4 \\tapping left"
             title: qsTrc("notation/engravingoptions", "Height (tablature)")
-            hint: qsTrc("notation/engravingoptions", "Shoulder height of the tapping half slur on tablature staves.")
+            hint: qsTrc("notation/engravingoptions", "The same height on tablature staves.")
             min: 0.1
             max: 3
         }

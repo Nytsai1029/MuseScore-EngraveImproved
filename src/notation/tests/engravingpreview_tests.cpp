@@ -629,7 +629,6 @@ const std::set<QString>& optionsWhoseMusicCannotShowItYet()
         "minHangingTieLength",
         "minMMRestWidth",
         "mmRestNumberMaskHBar",
-        "mmRestReferenceWidth",
         "restChordMinClearanceWholeHalf",
         "slurArcClearanceMin",
         "slurCollisionBalanceConstrained",
@@ -640,6 +639,11 @@ const std::set<QString>& optionsWhoseMusicCannotShowItYet()
         "slurShoulderLengthLong",
         "slurShoulderLengthMedium",
         "slurShoulderLengthShort",
+        // avoidCollisions (slurtielayout.cpp:1621, 1639) applies the slant reduction only to a slur with a
+        // collision in its middle third and none in its left third, rising more than the reduction angle, and
+        // longer than this; the probe moves the limit by 0.25 sp, so the slur must also be 8 to 8.25 sp long:
+        // none of 660 slurs tried (four to six notes, spacing in steps of 0.01) met all of it at once
+        "slurSlantReductionMinLength",
 
         "slurTieShortLengthLimit",
         "stemMinInnerLengthNoBeam",
@@ -650,6 +654,11 @@ const std::set<QString>& optionsWhoseMusicCannotShowItYet()
         "tieDotsPlacement",
         "tieMaxShoulderHeight",
         "tieOutsideInsetChord",
+        // adjustTieForStaffLines (slurtielayout.cpp:3000-3017) treats a tie as small only on an inner note of a
+        // chord with outside placement whose arc needs a staff-line correction, and the tie must also be 0.7 to
+        // 0.95 sp high for the probe to matter: none of 233 ties tried (inner ties of five chords, spacing in steps
+        // of 0.04, minimum tie height 0.5 to 1.0 sp) met both
+        "tieSmallMaxHeight",
         "tremoloTwoNoteMinStemGap",
         "tupletBracketMinArmLengthRatio",
         "tupletExtendToEndOfDurationPadding",
