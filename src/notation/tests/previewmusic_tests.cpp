@@ -653,6 +653,27 @@ TEST_F(Notation_PreviewMusicTests, namedInstrument)
 }
 
 /**
+ * @TEST_CASE smallChordsAndStaves
+ * @details `\small` makes the next chord or rest small; `\smallStaff` at the beginning makes the staff small
+ */
+TEST_F(Notation_PreviewMusicTests, smallChordsAndStaves)
+{
+    ASSERT_TRUE(load("\\small c''4 d''4 \\small r4"));
+
+    const std::vector<ChordRest*> found = chordRests();
+    ASSERT_EQ(found.size(), 3u);
+    EXPECT_TRUE(found[0]->isSmall());
+    EXPECT_FALSE(found[1]->isSmall());
+    EXPECT_TRUE(found[2]->isSmall());
+    EXPECT_FALSE(score()->staff(0)->constStaffType(Fraction(0, 1))->isSmall());
+
+    ASSERT_TRUE(load("\\smallStaff c''1"));
+    EXPECT_TRUE(score()->staff(0)->constStaffType(Fraction(0, 1))->isSmall());
+
+    EXPECT_FALSE(errorOf("c''4 \\smallStaff c''4").empty());
+}
+
+/**
  * @TEST_CASE staffWithOneLine
  * @details `\lines 1` gives the staff one line instead of five; written later, or with a count which is not
  *          1 to 5, it is an error

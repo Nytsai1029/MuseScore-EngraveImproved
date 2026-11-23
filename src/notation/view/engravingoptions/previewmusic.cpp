@@ -26,6 +26,7 @@
 #include <iterator>
 #include <map>
 #include <optional>
+#include <set>
 #include <utility>
 #include <vector>
 
@@ -203,6 +204,7 @@ struct Event {
     bool tie = false;
     int tieStyle = 0;               // SlurStyleType: solid, dotted, dashed, wide dashed
     bool slashHeads = false;        // `\\slash`: the noteheads are slashes (rhythm slash notation)
+    bool small = false;             // `\\small`: a small (cue) chord or rest
     int slurStyle = 0;
     int slurDirection = 0;          // DirectionV: 0 auto, 1 up, 2 down
     bool slurFlat = false;          // CurveMode::FlatMiddle
@@ -298,6 +300,7 @@ struct Piece {
     int bracket = 1;
     std::set<int> tabStaves;        // 0-based indices of the staves which are tablature
     std::map<int, int> staffLines;  // the number of lines of a staff which has not five, by its 0-based index
+    std::set<int> smallStaves;      // 0-based indices of the small staves
     QString longName;               // of the instrument, on the first system
     QString shortName;              // on the other systems
 };
@@ -420,8 +423,8 @@ public:
             fail("there is no music", 0);
         }
 
-        return { std::move(m_music), m_staves, m_bracket, std::move(m_tabStaves), std::move(m_staffLines), m_longName,
-                 m_shortName };
+        return { std::move(m_music), m_staves, m_bracket, std::move(m_tabStaves), std::move(m_staffLines),
+                 std::move(m_smallStaves), m_longName, m_shortName };
     }
 
 private:
@@ -605,6 +608,13 @@ private:
             m_noBeam = true;
         } else if (text == "\\slash") {
             m_slashHeads = true;
+        } else if (text == "\\small") {
+            m_small = true;
+        } else if (text == "\\smallStaff") {
+            if (m_music.size() > 1 || !measure().isEmpty()) {
+                fail("\\smallStaff is written at the beginning", token.position);
+            }
+            m_smallStaves.insert(m_staff);
         } else if (text == "\\break") {
             //! NOTE A break ends the measure it stands in, like a bar line, and the measure ends the system.
             //! After `|` it takes back the bar line instead: `e''4 \break f''4` and `e''4 | \break f''4` are the same
@@ -1159,6 +1169,7 @@ private:
 
         takePending(event);
         event.slashHeads = std::exchange(m_slashHeads, false);
+        event.small = std::exchange(m_small, false);
         takeBeam(event);
         takeTuplet(event);
 
@@ -1253,6 +1264,8 @@ private:
     Event::Grace m_grace = Event::Grace::None;
     bool m_noBeam = false;
     bool m_slashHeads = false;
+    bool m_small = false;
+    std::set<int> m_smallStaves;
     std::optional<int> m_beamBegin;         // the place of the `[` of the beam which is open
     bool m_beamHasBegun = false;            // the `[` is on the chord which is being read
     bool m_beamEnds = false;
@@ -1496,6 +1509,9 @@ private:
             }
             if (m_piece.staffLines.count(staff)) {
                 number("lines", m_piece.staffLines.at(staff));
+            }
+            if (m_piece.smallStaves.count(staff)) {
+                number("small", 1);
             }
             m_xml.writeEndElement();
             if (staff == 1 && !m_piece.tabStaves.count(staff)) {
@@ -1807,6 +1823,9 @@ private:
         text("durationType", event.duration.typeName());
         if (event.staffMove != 0) {
             number("staffMove", event.staffMove);
+        }
+        if (event.small) {
+            number("small", 1);
         }
         writeBeam(event);
 
