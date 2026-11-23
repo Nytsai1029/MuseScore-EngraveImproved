@@ -78,6 +78,20 @@ FocusScope {
         return 80
     }
 
+    //! NOTE: the widest a control of its kind becomes in a cell. The loader of the control gives it the loader's
+    //! width, so a number field in a wide column would stretch over all of it and look empty
+    function maxWidthOf(cell) {
+        if (!Boolean(cell)) {
+            return 0
+        }
+        switch (cell.kind) {
+        case "number": return 112
+        case "toggle": return 44
+        case "color": return 56
+        }
+        return Number.POSITIVE_INFINITY
+    }
+
     function cellAt(row, column) {
         var index = row * columnCount + column
         return index < grid.cells.length ? grid.cells[index] : null
@@ -393,7 +407,7 @@ FocusScope {
                                     EoEditor {
                                         anchors.left: parent.left
                                         anchors.verticalCenter: parent.verticalCenter
-                                        width: cellItem.width - 20
+                                        width: Math.min(cellItem.width - 20, root.maxWidthOf(cellItem.cell))
 
                                         active: cellItem.hasCell
 
