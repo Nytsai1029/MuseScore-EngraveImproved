@@ -290,6 +290,9 @@ public:
     virtual void setStyleDialogLastSubPageIndex(int value) = 0;
 
     virtual void resetStyleDialogPageIndices() = 0;
+
+    virtual EngravingOptionsDialogState engravingOptionsDialogState() const = 0;
+    virtual void setEngravingOptionsDialogState(const EngravingOptionsDialogState& state) = 0;
 };
 }
 

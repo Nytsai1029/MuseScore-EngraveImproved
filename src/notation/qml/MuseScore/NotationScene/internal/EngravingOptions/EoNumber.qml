@@ -37,6 +37,11 @@ EoOption {
     //! NOTE: the value is a ratio which is shown as a percentage (0.7 as 70 %)
     property bool percent: false
 
+    //! NOTE: the units in which the value is shown, as a multiple of the stored units:
+    //! a value which is stored in quarter staff spaces is shown in staff spaces with 0.25.
+    //! min, max and step are in the shown units
+    property real unitScale: 1.0
+
     //! NOTE: for a value which is a point (an offset) and of which the option is one coordinate: "x" or "y"
     property string axis: ""
 }

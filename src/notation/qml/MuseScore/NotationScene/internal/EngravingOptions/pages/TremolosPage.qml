@@ -34,6 +34,36 @@ EoPage {
 
 
     EoSection {
+        title: qsTrc("notation/engravingoptions", "Strokes")
+        music: "\\stemUp c''8:16 \\noBeam d''8:32 \\noBeam"
+
+        EoNumber {
+            sid: "tremoloWidth"
+            title: qsTrc("notation/engravingoptions", "Tremolo stroke width")
+        }
+
+        EoNumber {
+            sid: "tremoloLineWidth"
+            title: qsTrc("notation/engravingoptions", "Tremolo stroke thickness")
+        }
+
+        EoNumber {
+            sid: "tremoloDistance"
+            title: qsTrc("notation/engravingoptions", "Distance between tremolo strokes")
+        }
+
+        EoNumber {
+            sid: "tremoloNoteSidePadding"
+            title: qsTrc("notation/engravingoptions", "Gap between a tremolo and the note side")
+        }
+
+        EoNumber {
+            sid: "tremoloOutSidePadding"
+            title: qsTrc("notation/engravingoptions", "Gap between a tremolo and what is outside it")
+        }
+    }
+
+    EoSection {
         title: qsTrc("notation/engravingoptions", "Single-note tremolos")
         music: "\\stemUp c''8:16 \\noBeam d''8:32 \\noBeam \\stemDown e'8:16 \\noBeam"
 

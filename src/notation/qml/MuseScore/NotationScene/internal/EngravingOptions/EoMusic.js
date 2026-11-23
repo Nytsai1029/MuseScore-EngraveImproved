@@ -26,7 +26,8 @@
 //! NOTE: the music of an option and the width its systems are laid out with: both of the object which
 //! gives the music — the option itself, else its section, else its page
 function musicInfoOf(option, section, page) {
-    for (const object of [option, section, page]) {
+    const grid = Boolean(option) ? option.grid : null
+    for (const object of [option, grid, section, page]) {
         if (Boolean(object) && Boolean(object.music)) {
             return { music: object.music, systemWidth: object.systemWidth || 0 }
         }
@@ -51,6 +52,28 @@ function musicStyleOf(option, section, page) {
     }
 
     return result
+}
+
+//! NOTE: the units in which the value of a number option is shown, as a multiple of the stored units:
+//! 100 for a percentage, `unitScale` for a value which is stored in finer units than it is shown in
+function shownScale(option) {
+    return Boolean(option) && option.percent ? 100 : (Boolean(option) ? (option.unitScale || 1.0) : 1.0)
+}
+
+//! NOTE: the stored value of a number option in the units in which it is shown
+function toShown(option, stored) {
+    return Number(stored) * shownScale(option)
+}
+
+//! NOTE: a value in the shown units of a number option in its stored units
+function toStored(option, shown) {
+    return Number(shown) / shownScale(option)
+}
+
+//! NOTE: the stored units of one shown unit of a number option; the handle of the preview uses it
+//! to turn the shown min / max / step into the units of the style
+function unitsPerShownUnit(option) {
+    return 1.0 / shownScale(option)
 }
 
 //! NOTE: the width of a segment of an AtSegmented so that the longest title fits:

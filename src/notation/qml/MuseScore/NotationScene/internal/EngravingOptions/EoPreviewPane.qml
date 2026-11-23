@@ -27,6 +27,7 @@ import MuseScore.NotationScene 1.0
 import MuseScore.Atelier 1.0
 
 import "EoMusic.js" as EoMusic
+import "EoTitles.js" as EoTitles
 
 //! NOTE: the column beside the options of a page: the picture of the music which the option being edited shows,
 //! with what the option changes marked and a handle to drag its value, the situations which the picture can show,
@@ -39,6 +40,9 @@ Item {
 
     //! NOTE: the EngravingOptionsModel
     required property var optionsModel
+
+    //! NOTE: the EngravingOptionsDialogState, which keeps whether the handles are shown
+    property var dialogState: null
 
     property NavigationPanel navigationPanel: null
 
@@ -81,8 +85,9 @@ Item {
         })
     }
 
-    //! NOTE: an option of a percentage is dragged in the ratio which the style has
-    readonly property real unitsPerShownUnit: Boolean(option) && option.percent === true ? 0.01 : 1.0
+    //! NOTE: an option shown in other units than it is stored in (a percentage, quarter spaces)
+    //! is dragged in the units of the style
+    readonly property real unitsPerShownUnit: EoMusic.unitsPerShownUnit(option)
 
     onPageChanged: {
         userScale = 1.0
@@ -132,7 +137,7 @@ Item {
                 //! NOTE: a point (an offset, of which the option is the x or the y) is not dragged: the probe
                 //! of a point has nothing to move it with, so it has no effect and no handle anyway
                 isDraggable: Boolean(root.option) && root.option.kind === "number" && !root.option.axis
-                showsHandles: root.optionsModel.showsHandles
+                showsHandles: root.dialogState.showsHandles
 
                 dragMinimum: Boolean(root.option) && root.option.min !== undefined
                              ? root.option.min * root.unitsPerShownUnit : -1e9
@@ -174,7 +179,7 @@ Item {
                     AtSwitch {
                         anchors.verticalCenter: parent.verticalCenter
 
-                        checked: root.optionsModel.showsHandles
+                        checked: root.dialogState.showsHandles
 
                         navigation.panel: root.navigationPanel
                         navigation.row: 900000
@@ -183,7 +188,7 @@ Item {
                         navigation.accessible.name: handlesLabel.text
 
                         onToggled: {
-                            root.optionsModel.showsHandles = !root.optionsModel.showsHandles
+                            root.dialogState.showsHandles = !root.dialogState.showsHandles
                         }
                     }
 
@@ -334,7 +339,7 @@ Item {
                     horizontalAlignment: Text.AlignLeft
                     wrapMode: Text.WordWrap
 
-                    text: Boolean(root.option) ? String(root.option.title).replace(/\s*[:：]\s*$/, "") : ""
+                    text: Boolean(root.option) ? EoTitles.plain(root.option.fullTitle) : ""
                     font: AtStyle.font(13, Font.Medium)
                 }
 

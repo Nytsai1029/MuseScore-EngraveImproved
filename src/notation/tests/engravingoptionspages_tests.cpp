@@ -330,17 +330,64 @@ TEST_F(Notation_EngravingOptionsPagesTests, optionsOfPagesWithMusicHaveMusic)
         }
 
         for (const SourceBlock& section : page.children) {
-            for (const SourceBlock& option : section.children) {
+            for (const auto& entry : optionsOf(section)) {
+                const SourceBlock& option = *entry.first;
                 if (option.sid().isEmpty()) {
                     continue;
                 }
 
                 ++checked;
-                const bool hasOwn = option.property("music") || section.property("music") || page.property("music");
+                const bool hasOwn = option.property("music") || section.property("music") || page.property("music")
+                                    || (entry.second && entry.second->property("music").has_value());
                 EXPECT_TRUE(hasOwn) << file.toStdString() << ": " << option.sid().toStdString() << " has no music";
             }
         }
     }
 
     EXPECT_GT(checked, 0u);
+}
+
+/**
+ * @TEST_CASE everyGridIsARectangle
+ * @details The cells of an EoGrid fill its rows and its columns exactly: as many cells (gaps count)
+ *          as the titles of its rows and columns ask for
+ */
+TEST_F(Notation_EngravingOptionsPagesTests, everyGridIsARectangle)
+{
+    size_t grids = 0;
+
+    //! NOTE: the entries of a `titles: [ … ]` list: each a `qsTrc(…)` call or a plain string
+    const auto titleCount = [](const SourceBlock& block, const QString& name) {
+        QString list = block.property(name).value_or(QString());
+        static const QRegularExpression TRANSLATED("qsTrc?\\s*\\([^)]*\\)");
+        const int translated = list.count(TRANSLATED);
+        list.remove(TRANSLATED);
+        static const QRegularExpression PLAIN("\"(?:[^\"\\\\]|\\\\.)*\"");
+        return translated + list.count(PLAIN);
+    };
+
+    for (const QString& file : pageFiles()) {
+        const SourceBlock page = readPageSource(OPTIONS_DIR + "/pages/" + file);
+
+        forEachBlock(page, [&](const SourceBlock& block) {
+            if (block.type != "EoGrid") {
+                return;
+            }
+
+            ++grids;
+
+            const int rows = titleCount(block, "rowTitles");
+            const int columns = titleCount(block, "columnTitles");
+            EXPECT_GT(rows * columns, 0) << file.toStdString() << ": an EoGrid has no row or column titles";
+            EXPECT_EQ(static_cast<int>(block.children.size()), rows * columns)
+                << file.toStdString() << ": an EoGrid does not fill its rows and columns";
+
+            for (const SourceBlock& cell : block.children) {
+                EXPECT_TRUE(cell.sid().isEmpty() || cell.type.startsWith("Eo"))
+                    << file.toStdString() << ": a cell of an EoGrid is not an option";
+            }
+        });
+    }
+
+    EXPECT_GT(grids, 0u);
 }

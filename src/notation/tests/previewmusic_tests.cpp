@@ -28,6 +28,7 @@
 #include "engraving/dom/arpeggio.h"
 #include "engraving/dom/articulation.h"
 #include "engraving/dom/beam.h"
+#include "engraving/dom/bracketitem.h"
 #include "engraving/dom/chord.h"
 #include "engraving/dom/dynamic.h"
 #include "engraving/dom/fermata.h"
@@ -460,6 +461,31 @@ TEST_F(Notation_PreviewMusicTests, slursAndTiesHaveTheLineOfTheCommand)
  * @TEST_CASE laissezVibrerAndAccidentalMarks
  * @details \laissezVibrer follows a note; ! shows an accidental, ? shows it in parentheses
  */
+/**
+ * @TEST_CASE groupChoosesTheBracket
+ * @details `\\staves 2` gives the staves a brace; `\\group` with `bracket`, `square`, `line`,
+ *          `brace` or `none` chooses the kind of their bracket
+ */
+TEST_F(Notation_PreviewMusicTests, groupChoosesTheBracket)
+{
+    ASSERT_TRUE(load("\\staves 2 c''1 | c''1"));
+    ASSERT_EQ(score()->staff(0)->brackets().size(), 1u);
+    EXPECT_EQ(score()->staff(0)->brackets().front()->bracketType(), BracketType::BRACE);
+    EXPECT_EQ(score()->staff(0)->brackets().front()->bracketSpan(), 2u);
+
+    ASSERT_TRUE(load("\\staves 2 \\group square c''1 | c''1"));
+    EXPECT_EQ(score()->staff(0)->brackets().front()->bracketType(), BracketType::SQUARE);
+
+    ASSERT_TRUE(load("\\staves 2 \\group bracket c''1 | c''1"));
+    EXPECT_EQ(score()->staff(0)->brackets().front()->bracketType(), BracketType::NORMAL);
+
+    ASSERT_TRUE(load("\\staves 2 \\group line c''1 | c''1"));
+    EXPECT_EQ(score()->staff(0)->brackets().front()->bracketType(), BracketType::LINE);
+
+    ASSERT_TRUE(load("\\staves 2 \\group none c''1 | c''1"));
+    EXPECT_TRUE(score()->staff(0)->brackets().empty());
+}
+
 TEST_F(Notation_PreviewMusicTests, laissezVibrerAndAccidentalMarks)
 {
     ASSERT_TRUE(load("c'2 \\laissezVibrer cis'?4 c''!4 <d' f'!>4"));

@@ -277,6 +277,9 @@ public:
     MOCK_METHOD(void, setStyleDialogLastSubPageIndex, (int), (override));
 
     MOCK_METHOD(void, resetStyleDialogPageIndices, (), (override));
+
+    MOCK_METHOD(EngravingOptionsDialogState, engravingOptionsDialogState, (), (const, override));
+    MOCK_METHOD(void, setEngravingOptionsDialogState, (const EngravingOptionsDialogState&), (override));
 };
 }
 

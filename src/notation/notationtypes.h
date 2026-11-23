@@ -207,6 +207,17 @@ struct FitMusicReflowOptions
     bool smoothing = true;
 };
 
+//! NOTE How the Engraving Options dialog looked when it was last open: the page it showed, whether the
+//! previews drew their handles, and the widths of its side columns — kept in the settings of the
+//! application, so the dialog opens as it was left
+struct EngravingOptionsDialogState
+{
+    QString lastPageCode;
+    bool showsHandles = true;
+    int sidebarWidth = 272;
+    int previewWidth = 400;
+};
+
 enum class BoxType : unsigned char
 {
     Unknown,

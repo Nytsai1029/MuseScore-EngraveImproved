@@ -63,6 +63,11 @@ static const Settings::Key DEFAULT_ZOOM(module_name, "ui/canvas/zoomDefaultLevel
 static const Settings::Key KEYBOARD_ZOOM_PRECISION(module_name, "ui/canvas/zoomPrecisionKeyboard");
 static const Settings::Key MOUSE_ZOOM_PRECISION(module_name, "ui/canvas/zoomPrecisionMouse");
 
+static const Settings::Key EO_DIALOG_LAST_PAGE(module_name, "ui/notation/engravingOptions/lastPage");
+static const Settings::Key EO_DIALOG_SHOWS_HANDLES(module_name, "ui/notation/engravingOptions/showsHandles");
+static const Settings::Key EO_DIALOG_SIDEBAR_WIDTH(module_name, "ui/notation/engravingOptions/sidebarWidth");
+static const Settings::Key EO_DIALOG_PREVIEW_WIDTH(module_name, "ui/notation/engravingOptions/previewWidth");
+
 static const Settings::Key USER_STYLES_PATH(module_name, "application/paths/myStyles");
 static const Settings::Key USER_MUSIC_FONTS_PATH(module_name, "application/paths/myMusicFonts");
 
@@ -212,6 +217,12 @@ void NotationConfiguration::init()
     settings()->valueChanged(MOUSE_ZOOM_PRECISION).onReceive(this, [this](const Val&) {
         m_mouseZoomPrecisionChanged.notify();
     });
+
+    const EngravingOptionsDialogState dialogState;
+    settings()->setDefaultValue(EO_DIALOG_LAST_PAGE, Val(dialogState.lastPageCode));
+    settings()->setDefaultValue(EO_DIALOG_SHOWS_HANDLES, Val(dialogState.showsHandles));
+    settings()->setDefaultValue(EO_DIALOG_SIDEBAR_WIDTH, Val(dialogState.sidebarWidth));
+    settings()->setDefaultValue(EO_DIALOG_PREVIEW_WIDTH, Val(dialogState.previewWidth));
 
     settings()->setDefaultValue(USER_STYLES_PATH, Val(globalConfiguration()->userDataPath() + "/Styles"));
     settings()->valueChanged(USER_STYLES_PATH).onReceive(nullptr, [this](const Val& val) {
@@ -1469,4 +1480,32 @@ void NotationConfiguration::resetStyleDialogPageIndices()
 {
     setStyleDialogLastPageIndex(0);
     setStyleDialogLastSubPageIndex(0);
+}
+
+EngravingOptionsDialogState NotationConfiguration::engravingOptionsDialogState() const
+{
+    EngravingOptionsDialogState state;
+    state.lastPageCode = settings()->value(EO_DIALOG_LAST_PAGE).toQString();
+    state.showsHandles = settings()->value(EO_DIALOG_SHOWS_HANDLES).toBool();
+    state.sidebarWidth = settings()->value(EO_DIALOG_SIDEBAR_WIDTH).toInt();
+    state.previewWidth = settings()->value(EO_DIALOG_PREVIEW_WIDTH).toInt();
+    return state;
+}
+
+void NotationConfiguration::setEngravingOptionsDialogState(const EngravingOptionsDialogState& state)
+{
+    //! NOTE only the keys whose value differs are written: the drag of a column calls this once
+    //! at its end, and an unchanged part must not be written or notify other instances
+    if (settings()->value(EO_DIALOG_LAST_PAGE).toQString() != state.lastPageCode) {
+        settings()->setSharedValue(EO_DIALOG_LAST_PAGE, Val(state.lastPageCode));
+    }
+    if (settings()->value(EO_DIALOG_SHOWS_HANDLES).toBool() != state.showsHandles) {
+        settings()->setSharedValue(EO_DIALOG_SHOWS_HANDLES, Val(state.showsHandles));
+    }
+    if (settings()->value(EO_DIALOG_SIDEBAR_WIDTH).toInt() != state.sidebarWidth) {
+        settings()->setSharedValue(EO_DIALOG_SIDEBAR_WIDTH, Val(state.sidebarWidth));
+    }
+    if (settings()->value(EO_DIALOG_PREVIEW_WIDTH).toInt() != state.previewWidth) {
+        settings()->setSharedValue(EO_DIALOG_PREVIEW_WIDTH, Val(state.previewWidth));
+    }
 }

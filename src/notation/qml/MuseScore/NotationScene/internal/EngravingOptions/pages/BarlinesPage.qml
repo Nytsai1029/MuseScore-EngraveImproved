@@ -122,49 +122,6 @@ EoPage {
             decimals: 0
         }
 
-        EoNumber {
-            sid: "bracketOvershoot"
-            title: qsTrc("notation/engravingoptions", "Bracket overshoot beyond the staff")
-            hint: qsTrc("notation/engravingoptions",
-                         "How far the thick line of a bracket extends above the top staff and below the bottom staff before its tips, with music fonts other than Leland.")
-            max: 2
-        }
-
-        EoNumber {
-            sid: "bracketOvershootLeland"
-            title: qsTrc("notation/engravingoptions", "Bracket overshoot beyond the staff (Leland)")
-            hint: qsTrc("notation/engravingoptions",
-                         "How far the thick line of a bracket extends above the top staff and below the bottom staff before its tips, with the music font Leland.")
-            max: 2
-        }
-
-        EoNumber {
-            sid: "bracketSquareHookLength"
-            title: qsTrc("notation/engravingoptions", "Square bracket hook length")
-            hint: qsTrc("notation/engravingoptions",
-                         "Length of the horizontal hooks of a square (sub-)bracket, which is also the room the bracket takes up left of the staves.")
-            max: 3
-        }
-
-        EoNumber {
-            sid: "bracketLineWidthRatio"
-            title: qsTrc("notation/engravingoptions", "Line bracket thickness (× bracket thickness)")
-            hint: qsTrc("notation/engravingoptions",
-                         "Thickness of a line bracket as a multiple of the thickness of a regular bracket.")
-            min: 0.1
-            max: 2
-            step: 0.01
-        }
-
-        EoNumber {
-            sid: "braceWidthGapFactor"
-            title: qsTrc("notation/engravingoptions", "Brace width growth per staff gap")
-            hint: qsTrc("notation/engravingoptions",
-                         "Horizontal stretch of a brace is one glyph width per staff it spans plus this much per gap between those staves; lower values give a slimmer brace.")
-            max: 5
-            step: 0.025
-            decimals: 3
-        }
     }
 
     EoSection {

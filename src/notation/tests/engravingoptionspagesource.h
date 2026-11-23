@@ -39,15 +39,23 @@ struct SourceBlock {
     QStringList ownLines;
     std::vector<SourceBlock> children;
 
-    //! What follows `name:` in a line of the block itself
+    //! What follows `name:` in a line of the block itself. A `[ … ]` array or `({ … })` object may span
+    //! several lines; they are joined into the one expression
     std::optional<QString> property(const QString& name) const
     {
         const QRegularExpression line("^\\s*" + name + ":\\s*(.+?)\\s*$");
-        for (const QString& text : ownLines) {
-            const QRegularExpressionMatch match = line.match(text);
-            if (match.hasMatch()) {
-                return match.captured(1);
+        for (int i = 0; i < ownLines.size(); ++i) {
+            const QRegularExpressionMatch match = line.match(ownLines.at(i));
+            if (!match.hasMatch()) {
+                continue;
             }
+
+            QString expression = match.captured(1);
+            for (int j = i + 1; j < ownLines.size() && !balanced(expression); ++j) {
+                expression += ' ' + ownLines.at(j).trimmed();
+            }
+
+            return expression;
         }
 
         return std::nullopt;
@@ -56,7 +64,7 @@ struct SourceBlock {
     //! The style values of `musicStyle: ({ name: value, … })` of the block, as text, by name
     std::vector<std::pair<QString, QString> > musicStyle() const
     {
-        static const QRegularExpression PAIR("(\\w+)\\s*:\\s*(true|false|-?[0-9.]+)");
+        static const QRegularExpression PAIR("(\\w+)\\s*:\\s*(true|false|-?[0-9.]+|\"(?:[^\"\\\\]|\\\\.)*\")");
 
         std::vector<std::pair<QString, QString> > result;
         const std::optional<QString> expression = property("musicStyle");
@@ -103,6 +111,16 @@ struct SourceBlock {
         }
 
         return result;
+    }
+
+    //! Every opening bracket of the expression is closed outside of a string literal
+    static bool balanced(const QString& expression)
+    {
+        static const QRegularExpression STRINGS("\"(?:[^\"\\\\]|\\\\.)*\"");
+
+        QString bare = expression;
+        bare.remove(STRINGS);
+        return bare.count('[') == bare.count(']') && bare.count('(') == bare.count(')');
     }
 
     //! The text of an expression which is nothing but a string literal
@@ -227,10 +245,10 @@ inline QString musicResolved(const QString& expression, const QMap<QString, QStr
 }
 
 //! The music of an option and the width its systems are laid out with: both of the block which gives the
-//! music (its own, else its section's, else its page's), resolved with the first value of the contexts
-//! which the expression can name — the same resolution as `EoMusic.musicInfoOf` on the QML side
-inline std::pair<QString, double> musicInfoOf(const SourceBlock& option, const SourceBlock& section,
-                                              const SourceBlock& page)
+//! music (its own, else its grid's, else its section's, else its page's), resolved with the first value of
+//! the contexts which the expression can name — the same resolution as `EoMusic.musicInfoOf` on the QML side
+inline std::pair<QString, double> musicInfoOf(const SourceBlock& option, const SourceBlock* grid,
+                                              const SourceBlock& section, const SourceBlock& page)
 {
     const QMap<QString, QString> contexts = [&section, &page] {
         QMap<QString, QString> merged = contextsOf(page);
@@ -238,7 +256,10 @@ inline std::pair<QString, double> musicInfoOf(const SourceBlock& option, const S
         return merged;
     }();
 
-    for (const SourceBlock* block : { &option, &section, &page }) {
+    for (const SourceBlock* block : { &option, grid, &section, &page }) {
+        if (!block) {
+            continue;
+        }
         const std::optional<QString> expression = block->property("music");
         if (expression) {
             const QString music = musicResolved(*expression, contexts);
@@ -252,6 +273,26 @@ inline std::pair<QString, double> musicInfoOf(const SourceBlock& option, const S
     return { QString(), 0.0 };
 }
 
+//! The options of a section as the dialog lists them: the cells of a grid in the place of the grid —
+//! { option, the grid it is a cell of, else nullptr }
+inline std::vector<std::pair<const SourceBlock*, const SourceBlock*> > optionsOf(const SourceBlock& section)
+{
+    std::vector<std::pair<const SourceBlock*, const SourceBlock*> > result;
+    for (const SourceBlock& option : section.children) {
+        if (option.type == "EoGrid") {
+            for (const SourceBlock& cell : option.children) {
+                if (cell.type != "EoGap") {
+                    result.emplace_back(&cell, &option);
+                }
+            }
+        } else {
+            result.emplace_back(&option, nullptr);
+        }
+    }
+
+    return result;
+}
+
 //! The `max` of a number option, as the renderer's probe uses it to pick the direction with room
 inline double dragMaximumOf(const SourceBlock& option)
 {
@@ -261,6 +302,7 @@ inline double dragMaximumOf(const SourceBlock& option)
     }
 
     const bool percent = option.property("percent").value_or(QString()) == "true";
-    return max->toDouble() * (percent ? 0.01 : 1.0);
+    const double unitScale = option.property("unitScale").value_or(QStringLiteral("1")).toDouble();
+    return max->toDouble() * (percent ? 0.01 : 1.0 / unitScale);
 }
 }

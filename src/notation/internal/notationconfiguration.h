@@ -293,6 +293,9 @@ public:
 
     void resetStyleDialogPageIndices() override;
 
+    EngravingOptionsDialogState engravingOptionsDialogState() const override;
+    void setEngravingOptionsDialogState(const EngravingOptionsDialogState& state) override;
+
 private:
     muse::io::path_t firstScoreOrderListPath() const;
     void setFirstScoreOrderListPath(const muse::io::path_t& path);

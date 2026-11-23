@@ -230,6 +230,12 @@ struct Event {
     std::optional<int> key;
     std::optional<std::pair<int, int> > time;
 
+    //! What the <Beam> element written before this chord carries: the y its ends have, in staff
+    //! spaces — a Fragment, which reads back as a beam the user moved — and/or the move which says
+    //! which staff a cross-staff beam counts as belonging to
+    std::optional<std::pair<double, double> > beamAnchor;
+    std::optional<int> beamMove;
+
     Place place;
     std::vector<Link> startingLinks;
     std::vector<Link> endingLinks;
@@ -281,6 +287,8 @@ using Music = std::deque<Measure>;
 struct Piece {
     Music measures;
     int staves = 1;
+    //! the bracket over the staves, as the BracketType enum: brace by default, -1 for none
+    int bracket = 1;
     std::set<int> tabStaves;        // 0-based indices of the staves which are tablature
 };
 
@@ -402,7 +410,7 @@ public:
             fail("there is no music", 0);
         }
 
-        return { std::move(m_music), m_staves, std::move(m_tabStaves) };
+        return { std::move(m_music), m_staves, m_bracket, std::move(m_tabStaves) };
     }
 
 private:
@@ -568,10 +576,16 @@ private:
             m_ambitus = true;
         } else if (text == "\\staves") {
             readStaves(token);
+        } else if (text == "\\group") {
+            readGroup(token);
         } else if (text == "\\staff") {
             readStaff(token);
         } else if (text == "\\crossStaff") {
             readCrossStaff(token);
+        } else if (text == "\\beamAt") {
+            readBeamAt(token);
+        } else if (text == "\\beamMove") {
+            readBeamMove(token);
         } else if (text == "\\noBeam") {
             m_noBeam = true;
         } else if (text == "\\break") {
@@ -708,6 +722,28 @@ private:
         }
     }
 
+    //! `\\group bracket|square|line|brace|none`: the kind of the bracket which the two staves
+    //! of `\\staves 2` get (a grand staff has a brace; written at the beginning too)
+    void readGroup(const Token& command)
+    {
+        const Token kind = takeToken("bracket, square, line, brace or none", command);
+        static const std::map<QString, int> KINDS {
+            { "bracket", 0 },
+            { "brace", 1 },
+            { "square", 2 },
+            { "line", 3 },
+            { "none", -1 },
+        };
+        if (!KINDS.count(kind.text)) {
+            fail("bracket, square, line, brace or none", kind.position);
+        }
+        m_bracket = KINDS.at(kind.text);
+
+        if (m_music.size() > 1 || !measure().isEmpty()) {
+            fail("\\group is written at the beginning", command.position);
+        }
+    }
+
     //! `\\staff 2`: what follows is written on the second staff, until `\\staff 1`
     void readStaff(const Token& command)
     {
@@ -737,6 +773,32 @@ private:
 
         if (m_crossStaff != 0 && m_staves < 2) {
             fail("\\crossStaff needs \\staves 2", command.position);
+        }
+    }
+
+    //! `\\beamAt y1 y2`: where the ends of the beam which the next chord begins lie, in staff
+    //! spaces — written as the position a user would have dragged it to, which reads back as
+    //! a user-modified beam
+    void readBeamAt(const Token& command)
+    {
+        const Token y1 = takeToken("the y of the beam's ends, in staff spaces", command);
+        const Token y2 = takeToken("the y of the beam's ends, in staff spaces", command);
+        bool ok1 = false, ok2 = false;
+        m_beamAt = { y1.text.toDouble(&ok1), y2.text.toDouble(&ok2) };
+        if (!ok1 || !ok2) {
+            fail("two numbers, in staff spaces", command.position);
+        }
+    }
+
+    //! `\\beamMove n`: which staff the beam which the next chord begins counts as belonging to,
+    //! as the move of a cross-staff beam (a cross-staff beam whose chords are all on one side
+    //! of it sits above or below the staves only when it counts as the staff on that side)
+    void readBeamMove(const Token& command)
+    {
+        const Token move = takeToken("a number (-1, 0 or 1)", command);
+        m_beamMove = readNumber(move.text, move.position);
+        if (*m_beamMove < -1 || *m_beamMove > 1) {
+            fail("-1, 0 or 1", move.position);
         }
     }
 
@@ -1012,6 +1074,10 @@ private:
         takeBeam(event);
         takeTuplet(event);
 
+        if ((event.beamAnchor || event.beamMove) && event.beam != Event::Beam::Begin) {
+            fail("\\beamAt and \\beamMove stand before the first note of a beam group", event.textPosition);
+        }
+
         voice().push_back(std::move(event));
         m_last = &voice().back();
     }
@@ -1035,6 +1101,8 @@ private:
         event.clef = std::exchange(m_clef, std::nullopt);
         event.key = std::exchange(m_key, std::nullopt);
         event.time = std::exchange(m_time, std::nullopt);
+        event.beamAnchor = std::exchange(m_beamAt, std::nullopt);
+        event.beamMove = std::exchange(m_beamMove, std::nullopt);
     }
 
     //! A beam begins at the chord with `[`, goes on through the ones after it, and ends with the chord with `]`
@@ -1077,6 +1145,7 @@ private:
     const char* m_noBarlines = nullptr;     // why a bar line is not allowed here, if it is not
 
     int m_staves = 1;
+    int m_bracket = 1;
     int m_staff = 0;
     int m_crossStaff = 0;
     int m_slurStyle = 0;
@@ -1095,6 +1164,8 @@ private:
     std::optional<int> m_beamBegin;         // the place of the `[` of the beam which is open
     bool m_beamHasBegun = false;            // the `[` is on the chord which is being read
     bool m_beamEnds = false;
+    std::optional<std::pair<double, double> > m_beamAt;
+    std::optional<int> m_beamMove;
     std::optional<std::pair<int, int> > m_tuplet;
     bool m_tupletIsOpen = false;            // no event of the tuplet yet
 
@@ -1293,6 +1364,7 @@ public:
 private:
     void text(const QString& tag, const QString& value) { m_xml.writeTextElement(tag, value); }
     void number(const QString& tag, int value) { text(tag, QString::number(value)); }
+    void number(const QString& tag, double value) { text(tag, QString::number(value)); }
     void fraction(const QString& tag, const Fraction& value)
     {
         const Fraction reduced = value.reduced();
@@ -1326,6 +1398,14 @@ private:
             m_xml.writeEndElement();
             if (staff == 1 && !m_piece.tabStaves.count(staff)) {
                 text("defaultClef", "F");
+            }
+            //! NOTE: the staves' bracket, as TWrite writes it (twrite.cpp): type, span, col, visible
+            if (staff == 0 && m_piece.staves > 1 && m_piece.bracket >= 0) {
+                m_xml.writeEmptyElement("bracket");
+                m_xml.writeAttribute("type", QString::number(m_piece.bracket));
+                m_xml.writeAttribute("span", QString::number(m_piece.staves));
+                m_xml.writeAttribute("col", "0");
+                m_xml.writeAttribute("visible", "1");
             }
             m_xml.writeEndElement();
         }
@@ -1475,6 +1555,10 @@ private:
             writeTupletStart(event);
         }
 
+        if (event.beamAnchor || event.beamMove) {
+            writeBeamElement(event);
+        }
+
         writeChordRest(event, continuesLyric);
 
         if (event.tupletEnd) {
@@ -1549,6 +1633,24 @@ private:
         text("style", "tuplet");
         number("text", event.tupletActual);
         m_xml.writeEndElement();
+        m_xml.writeEndElement();
+    }
+
+    //! The beam which begins at this chord, written so that a file carries it: the anchor
+    //! position a user gave it (a Fragment, which reads back as a user-modified beam) and/or
+    //! the staff it counts as belonging to when it is cross-staff — as TWrite writes them
+    void writeBeamElement(const Event& event)
+    {
+        m_xml.writeStartElement("Beam");
+        if (event.beamMove) {
+            number("crossStaffMove", *event.beamMove);
+        }
+        if (event.beamAnchor) {
+            m_xml.writeStartElement("Fragment");
+            number("y1", event.beamAnchor->first);
+            number("y2", event.beamAnchor->second);
+            m_xml.writeEndElement();
+        }
         m_xml.writeEndElement();
     }
 

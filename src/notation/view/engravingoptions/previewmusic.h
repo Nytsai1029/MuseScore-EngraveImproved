@@ -62,7 +62,12 @@ namespace mu::notation {
 //! - Two staves (a grand staff) with `\staves 2` at the beginning. `\staff 1|2` says on which staff the notes which
 //!   follow are written (at the start of each voice it is staff 1 again), and `\crossStaff down|up|off` shows the
 //!   chords which follow on the neighbouring staff. A slur, a tie and a hairpin stay on one staff.
-//!   `\tab` at the beginning makes the current staff a six-string tablature.
+//!   `\tab` at the beginning makes the current staff a six-string tablature. `\group` with
+//!   `bracket`, `square`, `line`, `brace` or `none` chooses the bracket over the two staves
+//!   (a grand staff has a brace, `none` none at all).
+//! - Before the first chord of a beam group: `\beamAt y1 y2` writes the y its ends have, in staff
+//!   spaces — which the file carries as a beam the user moved, so it is laid out like one —
+//!   and `\beamMove -1|0|1` writes which staff a cross-staff beam counts as belonging to.
 //! - `\slurUp`, `\slurDown`, `\slurAuto` give the slurs which begin after them a direction; `\slurFlat` makes them
 //!   flat in the middle. `\tapping` and `\tapping left` mark the note before them as tapped (right hand unless
 //!   `left` follows), with the half slur a tap has.

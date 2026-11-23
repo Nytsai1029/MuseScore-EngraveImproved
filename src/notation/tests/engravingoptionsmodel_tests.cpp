@@ -31,12 +31,15 @@
 
 #include "modularity/ioc.h"
 
+#include "engraving/compat/scoreaccess.h"
+#include "engraving/dom/masterscore.h"
 #include "engraving/style/defaultstyle.h"
 
 #include "notation/view/engravingoptions/engravingoptionsmodel.h"
 #include "notation/view/styledialog/styleitem.h"
 
 #include "mocks/globalcontextmock.h"
+#include "mocks/notationelementsmock.h"
 #include "mocks/notationmock.h"
 #include "mocks/notationstylemock.h"
 #include "mocks/notationundostackmock.h"
@@ -336,6 +339,51 @@ TEST_F(Notation_EngravingOptionsModelTests, countsAndResetsByName)
     // [THEN] Exactly the known ones are reset
     EXPECT_CALL(*m_style, resetStyleValues(ElementsAre(Sid::minNoteDistance, Sid::showHeader, Sid::measureSpacing))).Times(1);
     model->resetValues(names);
+
+    holder.destroy();
+}
+
+/**
+ * @TEST_CASE metaTagsListTheScores
+ * @details The tags of the score are listed, the master's first for an excerpt, "-" for an empty value
+ */
+TEST_F(Notation_EngravingOptionsModelTests, metaTagsListTheScores)
+{
+    ModelInEngine holder;
+    EngravingOptionsModel* model = holder.get();
+
+    // [THEN] No notation: nothing
+    EXPECT_TRUE(model->metaTags().isEmpty());
+
+    auto elements = std::make_shared<NiceMock<NotationElementsMock> >();
+    ON_CALL(*m_notation, elements()).WillByDefault(Return(elements));
+
+    // [GIVEN] A master score with tags, one of them empty
+    std::unique_ptr<engraving::MasterScore> master(engraving::compat::ScoreAccess::createMasterScore(nullptr));
+    ASSERT_TRUE(master);
+    master->setMetaTags({ { u"workTitle", u"The Piece" }, { u"source", u"" } });
+    ON_CALL(*elements, msScore()).WillByDefault(Return(master.get()));
+
+    // [THEN] Its tags only, "-" for the empty one (the map keeps them by name)
+    QVariantList tags = model->metaTags();
+    ASSERT_EQ(tags.size(), 2);
+    EXPECT_EQ(tags.at(0).toMap().value("tag").toString(), QString("source"));
+    EXPECT_EQ(tags.at(0).toMap().value("value").toString(), QString("-"));
+    EXPECT_EQ(tags.at(1).toMap().value("tag").toString(), QString("workTitle"));
+    EXPECT_EQ(tags.at(1).toMap().value("value").toString(), QString("The Piece"));
+
+    // [GIVEN] An excerpt with a tag of its own
+    std::unique_ptr<engraving::Score> excerpt(master->createScore());
+    excerpt->setMetaTags({ { u"arranger", u"Me" } });
+    ON_CALL(*elements, msScore()).WillByDefault(Return(excerpt.get()));
+
+    // [THEN] The tags of the master first, then its own
+    tags = model->metaTags();
+    ASSERT_EQ(tags.size(), 3);
+    EXPECT_EQ(tags.at(0).toMap().value("tag").toString(), QString("source"));
+    EXPECT_EQ(tags.at(1).toMap().value("tag").toString(), QString("workTitle"));
+    EXPECT_EQ(tags.at(2).toMap().value("tag").toString(), QString("arranger"));
+    EXPECT_EQ(tags.at(2).toMap().value("value").toString(), QString("Me"));
 
     holder.destroy();
 }

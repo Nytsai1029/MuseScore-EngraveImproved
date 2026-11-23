@@ -24,11 +24,15 @@
 #include <QHash>
 #include <QQmlEngine>
 
+#include "engraving/dom/score.h"
+#include "engraving/dom/masterscore.h"
 #include "engraving/iengravingfont.h"
 #include "engraving/style/style.h"
 #include "engraving/types/symnames.h"
 #include "types/translatablestring.h"
 
+#include "notation/inotation.h"
+#include "notation/inotationelements.h"
 #include "notation/inotationstyle.h"
 #include "notation/internal/inotationundostack.h"
 
@@ -74,9 +78,6 @@ static std::vector<StyleId> styleIdsByNames(const QStringList& names)
     return ids;
 }
 
-static QString s_lastPageCode;
-static bool s_showsHandles = true;
-
 EngravingOptionsModel::EngravingOptionsModel(QObject* parent)
     : QObject(parent), muse::Injectable(muse::iocCtxForQmlObject(this))
 {
@@ -102,36 +103,6 @@ bool EngravingOptionsModel::canApplyToAllParts() const
 int EngravingOptionsModel::revision() const
 {
     return m_revision;
-}
-
-QString EngravingOptionsModel::lastPageCode() const
-{
-    return s_lastPageCode;
-}
-
-void EngravingOptionsModel::setLastPageCode(const QString& code)
-{
-    if (s_lastPageCode == code) {
-        return;
-    }
-
-    s_lastPageCode = code;
-    emit lastPageCodeChanged();
-}
-
-bool EngravingOptionsModel::showsHandles() const
-{
-    return s_showsHandles;
-}
-
-void EngravingOptionsModel::setShowsHandles(bool shows)
-{
-    if (s_showsHandles == shows) {
-        return;
-    }
-
-    s_showsHandles = shows;
-    emit showsHandlesChanged();
 }
 
 bool EngravingOptionsModel::loadsFontDefaults() const
@@ -370,6 +341,37 @@ int EngravingOptionsModel::modifiedCount(const QStringList& names) const
     }
 
     return count;
+}
+
+QVariantList EngravingOptionsModel::metaTags() const
+{
+    QVariantList result;
+
+    const INotationPtr notation = m_notation ? m_notation : globalContext()->currentNotation();
+    if (!notation || !notation->elements()) {
+        return result;
+    }
+
+    const engraving::Score* score = notation->elements()->msScore();
+    if (!score) {
+        return result;
+    }
+
+    const auto addTags = [&result](const std::map<muse::String, muse::String>& tags) {
+        for (const auto& tag : tags) {
+            result.append(QVariantMap {
+                { "tag", tag.first.toQString() },
+                { "value", tag.second.empty() ? QStringLiteral("-") : tag.second.toQString() }
+            });
+        }
+    };
+
+    if (!score->isMaster()) {
+        addTags(score->masterScore()->metaTags());
+    }
+    addTags(score->metaTags());
+
+    return result;
 }
 
 void EngravingOptionsModel::resetValues(const QStringList& names)

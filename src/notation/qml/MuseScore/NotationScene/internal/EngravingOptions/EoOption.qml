@@ -56,4 +56,15 @@ QtObject {
     //! NOTE: more style values which the control of the option changes;
     //! they are reset and counted with the one of the option
     property var extraSids: []
+
+    //! NOTE: for a cell of an EoGrid: the grid, and the row and the column of the cell in it;
+    //! the grid sets them on its cells itself
+    property var grid: null
+    property int gridRow: -1
+    property int gridColumn: -1
+
+    //! NOTE: the title under which the option is searched and read aloud: its own, or the one
+    //! which the grid of a cell makes of its row and column titles when the cell has none of its own
+    readonly property string fullTitle: Boolean(title) ? title
+                                        : (Boolean(grid) ? grid.cellTitle(gridRow, gridColumn) : "")
 }

@@ -25,16 +25,20 @@ import Muse.Ui 1.0
 
 import ".."
 
+//! NOTE: the texts which are printed at the top and the foot of every page of the score.
+//! Page texts are not music: the page has no preview pane until the preview can show a page
 EoPage {
     id: page
 
     code: "header-and-footer"
-    legacyCodes: ["header-and-footer"]
+    legacyCodes: ["headerAndFooter"]
     title: qsTrc("EditStyleBase", "Header & footer")
     group: qsTrc("notation/engravingoptions", "Layout")
 
+    hasPreview: false
+
     EoSection {
-        title: qsTrc("EditStyleBase", "Header & footer")
+        title: qsTrc("EditStyleBase", "Header")
 
         EoToggle {
             sid: "showHeader"
@@ -44,56 +48,53 @@ EoPage {
         EoToggle {
             sid: "headerFirstPage"
             title: qsTrc("EditStyleBase", "Show on first page")
-            enabled: Boolean(page.value("showHeader"))
         }
 
         EoToggle {
             sid: "headerOddEven"
             title: qsTrc("EditStyleBase", "Different odd/even pages")
-            enabled: Boolean(page.value("showHeader"))
         }
 
-        EoText {
-            sid: "oddHeaderL"
-            title: qsTrc("notation/engravingoptions", "Odd pages, left")
-            multiline: true
-            enabled: Boolean(page.value("showHeader"))
+        EoGrid {
+            cornerTitle: qsTrc("EditStyleBase", "Header")
+            rowTitles: [qsTrc("EditStyleBase", "Odd"), qsTrc("EditStyleBase", "Even")]
+            columnTitles: [
+                qsTrc("EditStyleBase", "Left"), qsTrc("EditStyleBase", "Middle"), qsTrc("EditStyleBase", "Right")
+            ]
+
+            EoText {
+                multiline: true
+                sid: "oddHeaderL"
+            }
+            EoText {
+                multiline: true
+                sid: "oddHeaderC"
+            }
+            EoText {
+                multiline: true
+                sid: "oddHeaderR"
+            }
+            EoText {
+                multiline: true
+                sid: "evenHeaderL"
+                enabled: Boolean(page.value("headerOddEven"))
+            }
+            EoText {
+                multiline: true
+                sid: "evenHeaderC"
+                enabled: Boolean(page.value("headerOddEven"))
+            }
+            EoText {
+                multiline: true
+                sid: "evenHeaderR"
+                enabled: Boolean(page.value("headerOddEven"))
+            }
         }
 
-        EoText {
-            sid: "oddHeaderC"
-            title: qsTrc("notation/engravingoptions", "Odd pages, middle")
-            multiline: true
-            enabled: Boolean(page.value("showHeader"))
-        }
+    }
 
-        EoText {
-            sid: "oddHeaderR"
-            title: qsTrc("notation/engravingoptions", "Odd pages, right")
-            multiline: true
-            enabled: Boolean(page.value("showHeader"))
-        }
-
-        EoText {
-            sid: "evenHeaderL"
-            title: qsTrc("notation/engravingoptions", "Even pages, left")
-            multiline: true
-            enabled: Boolean(page.value("showHeader"))
-        }
-
-        EoText {
-            sid: "evenHeaderC"
-            title: qsTrc("notation/engravingoptions", "Even pages, middle")
-            multiline: true
-            enabled: Boolean(page.value("showHeader"))
-        }
-
-        EoText {
-            sid: "evenHeaderR"
-            title: qsTrc("notation/engravingoptions", "Even pages, right")
-            multiline: true
-            enabled: Boolean(page.value("showHeader"))
-        }
+    EoSection {
+        title: qsTrc("EditStyleBase", "Footer")
 
         EoToggle {
             sid: "showFooter"
@@ -103,55 +104,56 @@ EoPage {
         EoToggle {
             sid: "footerFirstPage"
             title: qsTrc("EditStyleBase", "Show on first page")
-            enabled: Boolean(page.value("showFooter"))
         }
 
         EoToggle {
             sid: "footerOddEven"
             title: qsTrc("EditStyleBase", "Different odd/even pages")
-            enabled: Boolean(page.value("showFooter"))
         }
 
-        EoText {
-            sid: "oddFooterL"
-            title: qsTrc("notation/engravingoptions", "Odd pages, left")
-            multiline: true
-            enabled: Boolean(page.value("showFooter"))
-        }
+        EoGrid {
+            cornerTitle: qsTrc("EditStyleBase", "Footer")
+            rowTitles: [qsTrc("EditStyleBase", "Odd"), qsTrc("EditStyleBase", "Even")]
+            columnTitles: [
+                qsTrc("EditStyleBase", "Left"), qsTrc("EditStyleBase", "Middle"), qsTrc("EditStyleBase", "Right")
+            ]
 
-        EoText {
-            sid: "oddFooterC"
-            title: qsTrc("notation/engravingoptions", "Odd pages, middle")
-            multiline: true
-            enabled: Boolean(page.value("showFooter"))
+            EoText {
+                multiline: true
+                sid: "oddFooterL"
+            }
+            EoText {
+                multiline: true
+                sid: "oddFooterC"
+            }
+            EoText {
+                multiline: true
+                sid: "oddFooterR"
+            }
+            EoText {
+                multiline: true
+                sid: "evenFooterL"
+                enabled: Boolean(page.value("footerOddEven"))
+            }
+            EoText {
+                multiline: true
+                sid: "evenFooterC"
+                enabled: Boolean(page.value("footerOddEven"))
+            }
+            EoText {
+                multiline: true
+                sid: "evenFooterR"
+                enabled: Boolean(page.value("footerOddEven"))
+            }
         }
+    }
 
-        EoText {
-            sid: "oddFooterR"
-            title: qsTrc("notation/engravingoptions", "Odd pages, right")
-            multiline: true
-            enabled: Boolean(page.value("showFooter"))
-        }
+    EoSection {
+        title: qsTrc("notation/editstyle", "Using variables in the header/footer")
 
-        EoText {
-            sid: "evenFooterL"
-            title: qsTrc("notation/engravingoptions", "Even pages, left")
-            multiline: true
-            enabled: Boolean(page.value("showFooter"))
-        }
-
-        EoText {
-            sid: "evenFooterC"
-            title: qsTrc("notation/engravingoptions", "Even pages, middle")
-            multiline: true
-            enabled: Boolean(page.value("showFooter"))
-        }
-
-        EoText {
-            sid: "evenFooterR"
-            title: qsTrc("notation/engravingoptions", "Even pages, right")
-            multiline: true
-            enabled: Boolean(page.value("showFooter"))
+        EoCustom {
+            component: EoVariablesTable {
+            }
         }
     }
 }

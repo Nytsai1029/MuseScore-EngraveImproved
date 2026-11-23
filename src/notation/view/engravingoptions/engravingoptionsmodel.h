@@ -53,14 +53,6 @@ class EngravingOptionsModel : public QObject, public muse::Injectable, public mu
     //! (the number of the changed values of a page, a filter) is bound to it
     Q_PROPERTY(int revision READ revision NOTIFY revisionChanged)
 
-    //! NOTE The code of the page which the dialog showed last, so that it opens with that page again.
-    //! Kept as long as the application runs
-    Q_PROPERTY(QString lastPageCode READ lastPageCode WRITE setLastPageCode NOTIFY lastPageCodeChanged)
-
-    //! NOTE Whether the previews draw the handles with which a value is dragged. Kept as long as the
-    //! application runs
-    Q_PROPERTY(bool showsHandles READ showsHandles WRITE setShowsHandles NOTIFY showsHandlesChanged)
-
     //! NOTE Whether a change of the font of the musical symbols also sets the values which suit the font
     //! (the thicknesses of its lines and the like, which the font recommends)
     Q_PROPERTY(bool loadsFontDefaults READ loadsFontDefaults WRITE setLoadsFontDefaults NOTIFY loadsFontDefaultsChanged)
@@ -75,12 +67,6 @@ public:
     bool isLoaded() const;
     bool canApplyToAllParts() const;
     int revision() const;
-
-    QString lastPageCode() const;
-    void setLastPageCode(const QString& code);
-
-    bool showsHandles() const;
-    void setShowsHandles(bool shows);
 
     bool loadsFontDefaults() const;
     void setLoadsFontDefaults(bool loads);
@@ -113,6 +99,11 @@ public:
     //! NOTE The names of all the style values, in the order of the style
     Q_INVOKABLE QStringList names() const;
 
+    //! NOTE The metadata tags of the score with their values ("-" when empty), as a list of
+    //! { tag, value }: for a part the tags of the master score first — the variables a header
+    //! or footer can use
+    Q_INVOKABLE QVariantList metaTags() const;
+
     //! NOTE How many of these values differ from their defaults
     Q_INVOKABLE int modifiedCount(const QStringList& names) const;
 
@@ -127,8 +118,6 @@ public:
 signals:
     void isLoadedChanged();
     void revisionChanged();
-    void lastPageCodeChanged();
-    void showsHandlesChanged();
     void loadsFontDefaultsChanged();
 
 private:

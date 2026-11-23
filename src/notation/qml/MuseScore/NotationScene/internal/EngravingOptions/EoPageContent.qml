@@ -226,15 +226,39 @@ Column {
                     active: isShown
                     visible: isShown
 
-                    sourceComponent: EoOptionView {
-                        option: optionLoader.option
-                        section: sectionItem.section
-                        page: root.page
-                        session: root.session
-                        optionsModel: root.optionsModel
+                    sourceComponent: optionLoader.option.kind === "grid" ? gridComp : optionComp
 
-                        navigationPanel: root.navigationPanel
-                        navigationRow: sectionItem.navigationRowStart + optionLoader.optionIndex + 1
+                    Component {
+                        id: optionComp
+
+                        EoOptionView {
+                            option: optionLoader.option
+                            section: sectionItem.section
+                            page: root.page
+                            session: root.session
+                            optionsModel: root.optionsModel
+
+                            navigationPanel: root.navigationPanel
+                            navigationRow: sectionItem.navigationRowStart + optionLoader.optionIndex * 20 + 1
+                        }
+                    }
+
+                    Component {
+                        id: gridComp
+
+                        EoGridView {
+                            option: optionLoader.option
+                            section: sectionItem.section
+                            page: root.page
+                            session: root.session
+                            optionsModel: root.optionsModel
+
+                            searchWords: root.searchWords
+                            modifiedOnly: root.modifiedOnly
+
+                            navigationPanel: root.navigationPanel
+                            navigationRow: sectionItem.navigationRowStart + optionLoader.optionIndex * 20 + 1
+                        }
                     }
                 }
             }

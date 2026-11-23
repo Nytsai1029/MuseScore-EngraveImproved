@@ -37,6 +37,7 @@ set(MODULE_TEST_SRC
 
     ${CMAKE_CURRENT_LIST_DIR}/environment.cpp
     ${CMAKE_CURRENT_LIST_DIR}/engravingoptionsmodel_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/engravingoptionsstate_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/engravingoptionspages_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/engravingpreview_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/engravingpreview_contactsheets.cpp

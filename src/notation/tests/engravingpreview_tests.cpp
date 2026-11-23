@@ -177,6 +177,28 @@ TEST_F(Notation_EngravingPreviewTests, itemsAreTheNotesAndTheTie)
  * @TEST_CASE overrideChangesTheLayout
  * @details A value which the preview sets is the one the layout uses
  */
+/**
+ * @TEST_CASE theBracketOfAGrandStaffIsInThePicture
+ * @details `\staves 2` gives the two staves a brace; the drawn bracket item is inside
+ *          the picture's box — the picture contains everything which is drawn on the page
+ */
+TEST_F(Notation_EngravingPreviewTests, theBracketOfAGrandStaffIsInThePicture)
+{
+    auto renderer = laidOut("\\staves 2 c''1 | c''1", baseStyle());
+    ASSERT_TRUE(renderer);
+
+    const std::vector<EngravingPreviewRenderer::Item> items = renderer->items();
+    EXPECT_GE(count(items, ElementType::BRACKET), 1);
+
+    const muse::SizeF size = renderer->sizeInStaffSpaces();
+    for (const auto& item : items) {
+        if (item.type == ElementType::BRACKET) {
+            EXPECT_GE(item.box.left(), -0.01);
+            EXPECT_LE(item.box.right(), size.width() + 0.01);
+        }
+    }
+}
+
 TEST_F(Notation_EngravingPreviewTests, overrideChangesTheLayout)
 {
     const MStyle style = baseStyle();
@@ -542,8 +564,9 @@ TEST_F(Notation_EngravingPreviewTests, theStaffLinesAreMarked)
 }
 
 namespace {
-//! The pages of the group "Notes and rests": every option of them is meant to show what it does
-const char* const NOTES_AND_RESTS_PAGES[] = {
+//! The pages whose every option is meant to show what it does
+const char* const EFFECT_TEST_PAGES[] = {
+    "SystemPage",
     "NotesPage", "AccidentalsPage", "StemsPage", "BeamsPage", "TremolosPage",
     "RestsPage", "TupletsPage", "ArpeggiosPage", "TiesPage", "SlursPage"
 };
@@ -579,26 +602,22 @@ const std::set<QString>& optionsWhoseMusicCannotShowItYet()
         "arpeggioAccidentalDistanceMin",
         "arpeggioHiddenInStdIfTab",     // needs a standard staff linked to a tablature staff
         "arpeggioLineWidth",
-        "beamCrossStaffLevelNotesSlant",
+        // the custom-positioning deficit pass (beamtremololayout.cpp:1031) needs
+        // useDefaultBeamSlantRules=false + beamCustomPositioningRules=true AND a group where an end
+        // stem's deficit exceeds the allowance; every group tried had zero deficit
         "beamCustomEndStemMaxShortening",
+        // the ledger-group branch of the same pass (beamtremololayout.cpp:1060): same switches, plus a
+        // group of notes all on ledger lines whose deep-end deficit exceeds the tolerance
         "beamCustomLedgerGroupMaxShortening",
+        // applyCustomLedgerGroupPosition (beamtremololayout.cpp:388): same switches, plus a ledger-line
+        // group whose base lands off the line grid with a toward-notes snap shortening it past the bound
         "beamCustomLedgerGroupSnapShortening",
-        "beamCustomRepeatedEndNoteSlant",
-        "beamDefaultMaxSlantOctave",
-        "beamDefaultSlantFifthMaxWidth",
-        "beamDefaultSlantFourthMaxWidth",
-        "beamDefaultSlantSeventhMaxWidth",
-        "beamDefaultSlantSixthMaxWidth",
-        "beamDefaultSlantThirdMaxWidth",
+        // offsetBeamToRemoveCollisions (beamtremololayout.cpp:484): the reduction binds only when the
+        // loop stops with the beam at an inner stem's anchor + reduction; for a slope above three quarter
+        // spaces every group tried snapped the beam above all inner tips instead (the small-slant case is
+        // shown by "\stemUp c'8[ e'8 f'8 f'8]")
         "beamInnerStemShorteningLargeSlant",
         "beamInnerStemShorteningMediumSlant",
-        "beamInnerStemShorteningSmallSlant",
-        "beamMinStemLengthEightBeams",
-        "beamMinStemLengthFiveBeams",
-        "beamMinStemLengthSevenBeams",
-        "beamMinStemLengthSixBeams",
-        "beamRestPadding",
-        "beamRestPaddingShortRests",
         "bracketedAccidentalBraceYOffset",
         "combineVoice",
         "dotFlagVerticalClearance",
@@ -647,6 +666,14 @@ const std::map<QString, const char*>& optionsWhichMusicCannotFitThePane()
 {
     static const std::map<QString, const char*> OPTIONS {
         { "angleHangingSlursAwayFromStaff", "two systems after a \\break" },
+        { "dividerLeft",                    "two systems after a \\break" },
+        { "dividerLeftSym",                 "two systems after a \\break" },
+        { "dividerLeftX",                   "two systems after a \\break" },
+        { "dividerLeftY",                   "two systems after a \\break" },
+        { "dividerRight",                   "two systems after a \\break" },
+        { "dividerRightSym",                "two systems after a \\break" },
+        { "dividerRightX",                  "two systems after a \\break" },
+        { "dividerRightY",                  "two systems after a \\break" },
         { "slurContinuedEndOffset",         "two systems after a \\break" },
         { "slurContinuedMaxHeightDiff",     "two systems after a \\break" },
         { "slurContinuedSingleChordRise",   "two systems after a \\break" },
@@ -659,11 +686,14 @@ const std::map<QString, const char*>& optionsWhichMusicCannotFitThePane()
 
 //! The style values which the music of an option sets: those of the page, the section and the option,
 //! the nearer one wins
-std::vector<EngravingPreviewRenderer::Override> musicStyleOf(const SourceBlock& option, const SourceBlock& section,
-                                                             const SourceBlock& page)
+std::vector<EngravingPreviewRenderer::Override> musicStyleOf(const SourceBlock& option, const SourceBlock* grid,
+                                                             const SourceBlock& section, const SourceBlock& page)
 {
     std::map<QString, QString> merged;
-    for (const SourceBlock* block : { &page, &section, &option }) {
+    for (const SourceBlock* block : { &page, &section, grid, &option }) {
+        if (!block) {
+            continue;
+        }
         for (const auto& [name, value] : block->musicStyle()) {
             merged[name] = value;
         }
@@ -675,6 +705,7 @@ std::vector<EngravingPreviewRenderer::Override> musicStyleOf(const SourceBlock& 
         EXPECT_NE(id, StyleId::NOSTYLE) << name.toStdString();
 
         const QVariant plain = text == "true" || text == "false" ? QVariant(text == "true")
+                               : text.startsWith('"') ? QVariant(SourceBlock::unquoted(text))
                                : text.contains('.') ? QVariant(text.toDouble()) : QVariant(text.toInt());
         const PropertyValue value = styleValueFromUi(id, plain);
 
@@ -722,20 +753,23 @@ TEST_F(Notation_EngravingPreviewTests, previewShowsWhatTheOptionDoes)
     const QString pagesDir = QString::fromUtf8(ENGRAVING_OPTIONS_QML_DIR) + "/pages/";
 
     size_t checked = 0;
-    for (const char* name : NOTES_AND_RESTS_PAGES) {
+    for (const char* name : EFFECT_TEST_PAGES) {
         const SourceBlock page = readPageSource(pagesDir + name + ".qml");
         ASSERT_EQ(page.type, QString("EoPage")) << name;
 
         for (const SourceBlock& section : page.children) {
-            for (const SourceBlock& option : section.children) {
+            for (const auto& entry : optionsOf(section)) {
+                const SourceBlock& option = *entry.first;
+                const SourceBlock* grid = entry.second;
                 const QString sid = option.sid();
-                const auto [music, systemWidth] = musicInfoOf(option, section, page);
+                const auto [music, systemWidth] = musicInfoOf(option, grid, section, page);
                 if (sid.isEmpty() || music.isEmpty()) {
                     continue;
                 }
 
                 const StyleId id = MStyle::styleIdx(muse::String::fromQString(sid));
-                const std::vector<EngravingPreviewRenderer::Override> overrides = musicStyleOf(option, section, page);
+                const std::vector<EngravingPreviewRenderer::Override> overrides
+                    = musicStyleOf(option, grid, section, page);
                 const std::optional<PropertyValue> probe = option.type == "EoChoice"
                                                            ? choiceProbeOf(option, style, overrides, id)
                                                            : EngravingPreviewRenderer::probeOf(style, overrides, id,
@@ -782,14 +816,16 @@ TEST_F(Notation_EngravingPreviewTests, theMusicOfEveryOptionFitsThePane)
     const QString pagesDir = QString::fromUtf8(ENGRAVING_OPTIONS_QML_DIR) + "/pages/";
 
     size_t checked = 0;
-    for (const char* name : NOTES_AND_RESTS_PAGES) {
+    for (const char* name : EFFECT_TEST_PAGES) {
         const SourceBlock page = readPageSource(pagesDir + name + ".qml");
         ASSERT_EQ(page.type, QString("EoPage")) << name;
 
         for (const SourceBlock& section : page.children) {
-            for (const SourceBlock& option : section.children) {
+            for (const auto& entry : optionsOf(section)) {
+                const SourceBlock& option = *entry.first;
+                const SourceBlock* grid = entry.second;
                 const QString sid = option.sid();
-                const auto [music, systemWidth] = musicInfoOf(option, section, page);
+                const auto [music, systemWidth] = musicInfoOf(option, grid, section, page);
                 if (sid.isEmpty() || music.isEmpty()) {
                     continue;
                 }
@@ -797,7 +833,7 @@ TEST_F(Notation_EngravingPreviewTests, theMusicOfEveryOptionFitsThePane)
                     continue;
                 }
 
-                auto renderer = laidOut(music, style, musicStyleOf(option, section, page), systemWidth);
+                auto renderer = laidOut(music, style, musicStyleOf(option, grid, section, page), systemWidth);
                 if (!renderer) {
                     ADD_FAILURE() << name << ": the music of " << sid.toStdString() << " is not valid: "
                                   << music.toStdString();
@@ -907,12 +943,13 @@ TEST_F(Notation_EngravingPreviewTests, aMusicWithABreakHasASystemWidth)
 {
     const QString pagesDir = QString::fromUtf8(ENGRAVING_OPTIONS_QML_DIR) + "/pages/";
 
-    for (const char* name : NOTES_AND_RESTS_PAGES) {
+    for (const char* name : EFFECT_TEST_PAGES) {
         const SourceBlock page = readPageSource(pagesDir + name + ".qml");
 
         for (const SourceBlock& section : page.children) {
-            for (const SourceBlock& option : section.children) {
-                const auto [music, systemWidth] = musicInfoOf(option, section, page);
+            for (const auto& entry : optionsOf(section)) {
+                const SourceBlock& option = *entry.first;
+                const auto [music, systemWidth] = musicInfoOf(option, entry.second, section, page);
                 if (music.contains("\\break")) {
                     EXPECT_GT(systemWidth, 0.0) << name << ": " << option.sid().toStdString()
                                                 << " has a \\break but no systemWidth";

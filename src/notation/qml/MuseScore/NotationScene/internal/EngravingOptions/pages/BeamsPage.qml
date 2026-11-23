@@ -35,143 +35,249 @@ EoPage {
 
 
     EoSection {
-        title: qsTrc("notation/engravingoptions", "Beam slant: default rules")
+        title: qsTrc("notation/engravingoptions", "Beams")
+        music: "c'32[ e'32 g'32 e'32 g'32]"
+
+        EoChoice {
+            sid: "useWideBeams"
+            title: qsTrc("notation", "Beam distance")
+            presentation: "tiles"
+            choices: [
+                { value: false, title: qsTrc("notation", "Regular") },
+                { value: true, title: qsTrc("notation", "Wide") }
+            ]
+            tileWidth: 200
+            tileHeight: 96
+        }
+
+        EoNumber {
+            sid: "beamWidth"
+            title: qsTrc("notation", "Beam thickness")
+        }
+
+        EoNumber {
+            sid: "beamMinLen"
+            music: "c'8[ e'16]"
+            title: qsTrc("notation/engravingoptions", "Shortest beam or beamlet")
+        }
+
+        EoNumber {
+            sid: "beamletPadding"
+            music: "c'16[ e'8.]"
+            title: qsTrc("notation/engravingoptions", "Gap before a beamlet")
+        }
+
+
+        EoChoice {
+            sid: "frenchStyleBeams"
+            music: "c'16[ e'16 g'16 e'16]"
+            title: qsTrc("notation", "Beam style")
+            presentation: "tiles"
+            choices: [
+                { value: false, title: qsTrc("notation", "Draw inner stems through beams") },
+                { value: true, title: qsTrc("notation", "Draw inner stems to nearest beam (“French” style)") }
+            ]
+            tileWidth: 200
+            tileHeight: 96
+        }
+
+        EoToggle {
+            sid: "snapCustomBeamsToGrid"
+            music: "\\beamAt 4.4 4.4 c'8[ d'8 e'8 c''8]"
+            title: qsTrc("notation/engravingoptions", "Snap custom beam positions to the grid")
+        }
+    }
+
+    EoSection {
+        title: qsTrc("notation/engravingoptions", "Beam slant")
+        music: "c'8[ g' e' c''8]"
+
+        EoToggle {
+            sid: "beamNoSlope"
+            title: qsTrc("notation", "Flatten all beams")
+        }
+
+        EoToggle {
+            sid: "useDefaultBeamSlantRules"
+            title: qsTrc("notation/engravingoptions", "Slant by the default rules")
+        }
+
+        EoToggle {
+            sid: "beamFlattenConcave"
+            music: "\\stemUp d'8[ a'8 f'8]"
+            title: qsTrc("notation/engravingoptions", "Flatten concave beam groups")
+            hint: qsTrc("notation/engravingoptions",
+                         "Keeps the beam horizontal when a note inside the group lies beyond both end notes on the beam side; when off, such a beam slants according to its end notes.")
+        }
+
+        EoToggle {
+            sid: "beamTwoPitchSlantRule"
+            music: "\\stemUp g'8[ e'8 e'8 e'8] e'8[ g'8 g'8 g'8] e'8[ g'8 e'8 g'8]"
+            title: qsTrc("notation/engravingoptions", "Fixed slants for two-pitch groups")
+            hint: qsTrc("notation/engravingoptions",
+                         "Groups of three or more notes on only two pitches: a single different note at one end slants the beam if it is the note nearer the beam and leaves it flat otherwise; evenly alternating pitches slant the beam. When off, the general contour rules apply.")
+        }
+
+        EoNumber {
+            sid: "beamCrossStaffLevelNotesSlant"
+            music: "\\\staves 2 \\\beamMove -1 c''8[ \\\crossStaff down e'8 f'8 a''8]"
+            title: qsTrc("notation/engravingoptions", "Cross-staff beam slant over level notes")
+            hint: qsTrc("notation/engravingoptions",
+                         "Cross-staff beam lying above or below both staves: when the notes on the staff nearest the beam are level, the beam slants this much towards the notes of the other staff. Value in quarter spaces (1 = ¼ sp).")
+            max: 8
+            step: 1
+            decimals: 0
+        }
+    }
+
+    EoSection {
+        title: qsTrc("notation/engravingoptions", "Slant: default rules")
         music: "c''8[ d''] c''8[ e'']"
 
-        EoNumber {
-            sid: "beamDefaultMaxSlantSecondInterval"
-            title: qsTrc("notation/engravingoptions", "Maximum slant, 2nd")
-            hint: qsTrc("notation/engravingoptions",
-                         "Default slant rules: the largest slant of a beam whose first and last notes are a second apart. Value in quarter spaces (1 = ¼ sp).")
-            max: 12
-            step: 1
-            decimals: 0
-        }
+        EoGrid {
+            cornerTitle: qsTrc("notation/engravingoptions", "Slant: default rules")
+            rowTitles: [
+                qsTrc("notation/engravingoptions", "2nd"), qsTrc("notation/engravingoptions", "3rd"),
+                qsTrc("notation/engravingoptions", "4th"), qsTrc("notation/engravingoptions", "5th"),
+                qsTrc("notation/engravingoptions", "6th"), qsTrc("notation/engravingoptions", "7th"),
+                qsTrc("notation/engravingoptions", "Octave and more")
+            ]
+            columnTitles: [qsTrc("notation/engravingoptions", "Maximum slant"),
+                           qsTrc("notation/engravingoptions", "Applies up to a beam width of")]
+            compact: true
 
-        EoNumber {
-            sid: "beamDefaultMaxSlantThirdInterval"
-            music: "\\stemDown c'8[ d' e']"
-            title: qsTrc("notation/engravingoptions", "Maximum slant, 3rd")
-            hint: qsTrc("notation/engravingoptions",
-                         "Default slant rules: the largest slant of a beam whose first and last notes are a third apart. Value in quarter spaces (1 = ¼ sp).")
-            max: 12
-            step: 1
-            decimals: 0
-        }
+            EoNumber {
+                sid: "beamDefaultMaxSlantSecondInterval"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Default slant rules: the largest slant of a beam whose first and last notes are a second apart. Value in quarter spaces (1 = ¼ sp).")
+                max: 12
+                step: 1
+                decimals: 0
+            }
 
-        EoNumber {
-            sid: "beamDefaultMaxSlantFourthInterval"
-            music: "\\stemUp f'8[ g'8 a'8 b'8]"
-            title: qsTrc("notation/engravingoptions", "Maximum slant, 4th")
-            hint: qsTrc("notation/engravingoptions",
-                         "Default slant rules: the largest slant of a beam whose first and last notes are a fourth apart. Value in quarter spaces (1 = ¼ sp).")
-            max: 12
-            step: 1
-            decimals: 0
-        }
+            EoNumber {
+                sid: "beamDefaultSlantSecondMaxWidth"
+                music: "\\stemDown c'16[ d' e']"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a second, whatever its interval.")
+                max: 40
+                step: 0.5
+            }
 
-        EoNumber {
-            sid: "beamDefaultMaxSlantFifthInterval"
-            music: "\\stemUp f'8[ g'8 a'8 b'8 c''8]"
-            title: qsTrc("notation/engravingoptions", "Maximum slant, 5th")
-            hint: qsTrc("notation/engravingoptions",
-                         "Default slant rules: the largest slant of a beam whose first and last notes are a fifth apart. Value in quarter spaces (1 = ¼ sp).")
-            max: 12
-            step: 1
-            decimals: 0
-        }
+            EoNumber {
+                sid: "beamDefaultMaxSlantThirdInterval"
+                music: "\\stemDown c'8[ d' e']"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Default slant rules: the largest slant of a beam whose first and last notes are a third apart. Value in quarter spaces (1 = ¼ sp).")
+                max: 12
+                step: 1
+                decimals: 0
+            }
 
-        EoNumber {
-            sid: "beamDefaultMaxSlantSixthInterval"
-            music: "\\stemUp c'8[ d'8 e'8 f'8 g'8 a'8]"
-            title: qsTrc("notation/engravingoptions", "Maximum slant, 6th")
-            hint: qsTrc("notation/engravingoptions",
-                         "Default slant rules: the largest slant of a beam whose first and last notes are a sixth apart. Value in quarter spaces (1 = ¼ sp).")
-            max: 12
-            step: 1
-            decimals: 0
-        }
+            EoNumber {
+                sid: "beamDefaultSlantThirdMaxWidth"
+                music: "b'8[ d'' e'' f'']"
+                musicStyle: ({ measureSpacing: 2.05 })
+                hint: qsTrc("notation/engravingoptions",
+                                     "Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a third, whatever its interval.")
+                max: 40
+                step: 0.5
+            }
 
-        EoNumber {
-            sid: "beamDefaultMaxSlantSeventhInterval"
-            music: "\\stemDown c'8[ d' e' f' g' a' b' c'']"
-            title: qsTrc("notation/engravingoptions", "Maximum slant, 7th")
-            hint: qsTrc("notation/engravingoptions",
-                         "Default slant rules: the largest slant of a beam whose first and last notes are a seventh apart. Value in quarter spaces (1 = ¼ sp).")
-            max: 12
-            step: 1
-            decimals: 0
-        }
+            EoNumber {
+                sid: "beamDefaultMaxSlantFourthInterval"
+                music: "\\stemUp f'8[ g'8 a'8 b'8]"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Default slant rules: the largest slant of a beam whose first and last notes are a fourth apart. Value in quarter spaces (1 = ¼ sp).")
+                max: 12
+                step: 1
+                decimals: 0
+            }
 
-        EoNumber {
-            sid: "beamDefaultMaxSlantOctave"
-            music: "\\stemUp c'16[ d'16 e'16 f'16 g'16 a'16 b'16 c''16]"
-            title: qsTrc("notation/engravingoptions", "Maximum slant, octave or more")
-            hint: qsTrc("notation/engravingoptions",
-                         "Default slant rules: the largest slant of a beam whose first and last notes are an octave or more apart. Value in quarter spaces (1 = ¼ sp).")
-            max: 12
-            step: 1
-            decimals: 0
-        }
+            EoNumber {
+                sid: "beamDefaultSlantFourthMaxWidth"
+                music: "d''8[ f'' a'' b'']"
+                musicStyle: ({ measureSpacing: 1.35 })
+                hint: qsTrc("notation/engravingoptions",
+                                     "Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a fourth, whatever its interval.")
+                max: 40
+                step: 0.5
+            }
 
-        EoNumber {
-            sid: "beamDefaultSlantSecondMaxWidth"
-            music: "\\stemDown c'16[ d' e']"
-            title: qsTrc("notation/engravingoptions", "Beam width limit for the slant of a 2nd")
-            hint: qsTrc("notation/engravingoptions",
-                         "Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a second, whatever its interval.")
-            max: 40
-            step: 0.5
-        }
+            EoNumber {
+                sid: "beamDefaultMaxSlantFifthInterval"
+                music: "\\stemUp f'8[ g'8 a'8 b'8 c''8]"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Default slant rules: the largest slant of a beam whose first and last notes are a fifth apart. Value in quarter spaces (1 = ¼ sp).")
+                max: 12
+                step: 1
+                decimals: 0
+            }
 
-        EoNumber {
-            sid: "beamDefaultSlantThirdMaxWidth"
-            music: "\\stemUp c'8[ a'8]"
-            title: qsTrc("notation/engravingoptions", "Beam width limit for the slant of a 3rd")
-            hint: qsTrc("notation/engravingoptions",
-                         "Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a third, whatever its interval.")
-            max: 40
-            step: 0.5
-        }
+            EoNumber {
+                sid: "beamDefaultSlantFifthMaxWidth"
+                music: "c'8[ e' f' g' a']"
+                musicStyle: ({ measureSpacing: 1.36 })
+                hint: qsTrc("notation/engravingoptions",
+                                     "Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a fifth, whatever its interval.")
+                max: 40
+                step: 0.5
+            }
 
-        EoNumber {
-            sid: "beamDefaultSlantFourthMaxWidth"
-            music: "\\stemUp c'8[ e'8 c''8]"
-            title: qsTrc("notation/engravingoptions", "Beam width limit for the slant of a 4th")
-            hint: qsTrc("notation/engravingoptions",
-                         "Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a fourth, whatever its interval.")
-            max: 40
-            step: 0.5
-        }
+            EoNumber {
+                sid: "beamDefaultMaxSlantSixthInterval"
+                music: "\\stemUp c'8[ d'8 e'8 f'8 g'8 a'8]"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Default slant rules: the largest slant of a beam whose first and last notes are a sixth apart. Value in quarter spaces (1 = ¼ sp).")
+                max: 12
+                step: 1
+                decimals: 0
+            }
 
-        EoNumber {
-            sid: "beamDefaultSlantFifthMaxWidth"
-            music: "\\stemUp c'8[ e'8 g'8 c''8]"
-            title: qsTrc("notation/engravingoptions", "Beam width limit for the slant of a 5th")
-            hint: qsTrc("notation/engravingoptions",
-                         "Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a fifth, whatever its interval.")
-            max: 40
-            step: 0.5
-        }
+            EoNumber {
+                sid: "beamDefaultSlantSixthMaxWidth"
+                music: "c''8[ d'' e'' f'' g'' a'' b'']"
+                musicStyle: ({ measureSpacing: 1.37 })
+                hint: qsTrc("notation/engravingoptions",
+                                     "Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a sixth, whatever its interval.")
+                max: 40
+                step: 0.5
+            }
 
-        EoNumber {
-            sid: "beamDefaultSlantSixthMaxWidth"
-            music: "\\stemUp c'8[ e'8 g'8 c''8]"
-            title: qsTrc("notation/engravingoptions", "Beam width limit for the slant of a 6th")
-            hint: qsTrc("notation/engravingoptions",
-                         "Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a sixth, whatever its interval.")
-            max: 40
-            step: 0.5
-        }
+            EoNumber {
+                sid: "beamDefaultMaxSlantSeventhInterval"
+                music: "\\stemDown c'8[ d' e' f' g' a' b' c'']"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Default slant rules: the largest slant of a beam whose first and last notes are a seventh apart. Value in quarter spaces (1 = ¼ sp).")
+                max: 12
+                step: 1
+                decimals: 0
+            }
 
-        EoNumber {
-            sid: "beamDefaultSlantSeventhMaxWidth"
-            music: "\\stemUp c'8[ d'8 e'8 g'8 a'8 c''8]"
-            title: qsTrc("notation/engravingoptions", "Beam width limit for the slant of a 7th")
-            hint: qsTrc("notation/engravingoptions",
-                         "Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a seventh, whatever its interval.")
-            max: 40
-            step: 0.5
+            EoNumber {
+                sid: "beamDefaultSlantSeventhMaxWidth"
+                music: "b'8[ c'' d'' e'' f'' g'' a'' b'']"
+                musicStyle: ({ measureSpacing: 1.21 })
+                hint: qsTrc("notation/engravingoptions",
+                                     "Default slant rules: a beam narrower than this, measured between its first and last stems, slants no more than the maximum slant of a seventh, whatever its interval.")
+                max: 40
+                step: 0.5
+            }
+
+            EoNumber {
+                sid: "beamDefaultMaxSlantOctave"
+                music: "d''8[ e'' f'' g'' a'' b'' c''' d''']"
+                musicStyle: ({ measureSpacing: 1.15 })
+                title: qsTrc("notation/engravingoptions", "Maximum slant, octave or more")
+                hint: qsTrc("notation/engravingoptions",
+                                     "Default slant rules: the largest slant of a beam whose first and last notes are an octave or more apart. Value in quarter spaces (1 = ¼ sp).")
+                max: 12
+                step: 1
+                decimals: 0
+            }
+
+            EoGap {
+            }
         }
 
         EoNumber {
@@ -231,44 +337,197 @@ EoPage {
     }
 
     EoSection {
-        title: qsTrc("notation/engravingoptions", "Beam slant: contour rules")
-        music: "c'8[ g' e' c''8]"
+        title: qsTrc("notation/engravingoptions", "Slant: custom rules")
+        music: "\\stemUp c'8[ e'8 g'8 c''8]"
+        musicStyle: ({ useDefaultBeamSlantRules: false })
 
         EoToggle {
-            sid: "beamFlattenConcave"
-            music: "\\stemUp d'8[ a'8 f'8]"
-            title: qsTrc("notation/engravingoptions", "Flatten concave beam groups")
-            hint: qsTrc("notation/engravingoptions",
-                         "Keeps the beam horizontal when a note inside the group lies beyond both end notes on the beam side; when off, such a beam slants according to its end notes.")
+            sid: "beamCustomPositioningRules"
+            music: "\\stemUp d'8[ f'8 a'8]"
+            title: qsTrc("notation/engravingoptions", "Stems positioned by the custom rules")
         }
 
-        EoToggle {
-            sid: "beamTwoPitchSlantRule"
-            music: "\\stemUp g'8[ e'8 e'8 e'8] e'8[ g'8 g'8 g'8] e'8[ g'8 e'8 g'8]"
-            title: qsTrc("notation/engravingoptions", "Fixed slants for two-pitch groups")
-            hint: qsTrc("notation/engravingoptions",
-                         "Groups of three or more notes on only two pitches: a single different note at one end slants the beam if it is the note nearer the beam and leaves it flat otherwise; evenly alternating pitches slant the beam. When off, the general contour rules apply.")
-        }
+        EoGrid {
+            cornerTitle: qsTrc("notation/engravingoptions", "Slant: custom rules")
+            rowTitles: [
+                qsTrc("notation/engravingoptions", "2nd"), qsTrc("notation/engravingoptions", "3rd"),
+                qsTrc("notation/engravingoptions", "4th"), qsTrc("notation/engravingoptions", "5th"),
+                qsTrc("notation/engravingoptions", "6th"), qsTrc("notation/engravingoptions", "7th"),
+                qsTrc("notation/engravingoptions", "8th"), qsTrc("notation/engravingoptions", "9th"),
+                qsTrc("notation/engravingoptions", "10th"),
+                qsTrc("notation/engravingoptions", "Greater than 10th")
+            ]
+            columnTitles: [qsTrc("notation/engravingoptions", "Two notes"),
+                           qsTrc("notation/engravingoptions", "More than two notes")]
+            compact: true
 
-        EoNumber {
-            sid: "beamCrossStaffLevelNotesSlant"
-            music: "\\staves 2 \\crossStaff down c''8[ d''8 \\crossStaff off e''8 e''8]"
-            title: qsTrc("notation/engravingoptions", "Cross-staff beam slant over level notes")
-            hint: qsTrc("notation/engravingoptions",
-                         "Cross-staff beam lying above or below both staves: when the notes on the staff nearest the beam are level, the beam slants this much towards the notes of the other staff. Value in quarter spaces (1 = ¼ sp).")
-            max: 8
-            step: 1
-            decimals: 0
-        }
-    }
+            EoNumber {
+                sid: "beamCustomTwoNoteMaxSlantSecondInterval"
+                music: "\\stemUp c'8[ d'8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
 
-    EoSection {
-        title: qsTrc("notation/engravingoptions", "Beam positioning: custom rules")
+            EoNumber {
+                sid: "beamCustomMaxSlantSecondInterval"
+                music: "\\stemUp c'8[ c'8 d'8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomTwoNoteMaxSlantThirdInterval"
+                music: "\\stemUp c'8[ e'8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomMaxSlantThirdInterval"
+                music: "\\stemUp c'8[ a,8 e'8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomTwoNoteMaxSlantFourthInterval"
+                music: "\\stemUp e'8[ a'8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomMaxSlantFourthInterval"
+                music: "\\stemUp c'8[ a,8 f'8]"
+                musicStyle: ({ beamCustomPositioningRules: false })
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomTwoNoteMaxSlantFifthInterval"
+                music: "\\stemUp c'8[ g'8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomMaxSlantFifthInterval"
+                music: "\\stemUp c'8[ a,8 g'8]"
+                musicStyle: ({ beamCustomPositioningRules: false })
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomTwoNoteMaxSlantSixthInterval"
+                music: "\\stemUp c'8[ a'8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomMaxSlantSixthInterval"
+                music: "\\stemUp c'8[ a,8 a'8]"
+                musicStyle: ({ beamCustomPositioningRules: false })
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomTwoNoteMaxSlantSeventhInterval"
+                music: "\\stemUp c'8[ b'8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomMaxSlantSeventhInterval"
+                music: "\\stemUp c'8[ a,8 b'8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomTwoNoteMaxSlantOctaveInterval"
+                music: "\\stemUp c'8[ c''8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomMaxSlantOctave"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomTwoNoteMaxSlantNinthInterval"
+                music: "\\stemUp c'8[ d''8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomMaxSlantNinthInterval"
+                music: "\\stemUp c'8[ a'8 d''8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomTwoNoteMaxSlantTenthInterval"
+                music: "\\stemUp c'8[ e''8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomMaxSlantTenthInterval"
+                music: "\\stemUp c'8[ b'8 e''8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomTwoNoteMaxSlantGreaterThanTenthInterval"
+                music: "\\stemUp c'8[ g''8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+
+            EoNumber {
+                sid: "beamCustomMaxSlantGreaterThanTenthInterval"
+                music: "\\stemUp c'8[ e'8 g''8]"
+                max: 16
+                step: 1
+                decimals: 0
+            }
+        }
 
         EoNumber {
             sid: "beamCustomRepeatedEndNoteSlant"
             music: "\\stemUp a'8[ a'8 f'8 d'8]"
-            musicStyle: ({ useDefaultBeamSlantRules: false })
+            musicStyle: ({ useDefaultBeamSlantRules: false, beamCustomPositioningRules: false })
             title: qsTrc("notation/engravingoptions", "Slant when the end note is repeated (custom rules)")
             hint: qsTrc("notation/engravingoptions",
                          "Custom slant rules: slant of a beam whose end note nearest the beam is repeated by the note next to it. Value in quarter spaces (1 = ¼ sp).")
@@ -326,132 +585,153 @@ EoPage {
     }
 
     EoSection {
-        title: qsTrc("notation/engravingoptions", "Beams: minimum stem length")
+        title: qsTrc("notation/engravingoptions", "Stems of beamed notes")
         music: "\\stemUp c'8[ g' e']"
 
-        EoNumber {
-            sid: "beamMinStemLengthOneBeam"
-            music: "\\stemDown c''8[ a' c''' g']"
-            title: qsTrc("notation/engravingoptions", "Minimum stem length under a beam, one beam")
-            hint: qsTrc("notation/engravingoptions",
-                         "Shortest stem a beam may leave to a chord with one beam: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
-            min: 1
-            max: 12
-            step: 0.25
+        EoGrid {
+            cornerTitle: qsTrc("notation/engravingoptions", "Minimum stem length")
+            rowTitles: [
+                qsTrc("notation/engravingoptions", "1 beam"), qsTrc("notation/engravingoptions", "2 beams"),
+                qsTrc("notation/engravingoptions", "3 beams"), qsTrc("notation/engravingoptions", "4 beams"),
+                qsTrc("notation/engravingoptions", "5 beams"), qsTrc("notation/engravingoptions", "6 beams"),
+                qsTrc("notation/engravingoptions", "7 beams"), qsTrc("notation/engravingoptions", "8 beams")
+            ]
+            columnTitles: [qsTrc("notation/engravingoptions", "Shortest stem")]
+            compact: true
+
+            EoNumber {
+                sid: "beamMinStemLengthOneBeam"
+                music: "\\stemDown c''8[ a' c''' g']"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Shortest stem a beam may leave to a chord with one beam: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
+                min: 1
+                max: 12
+                step: 0.25
+            }
+
+
+            EoNumber {
+                sid: "beamMinStemLengthTwoBeams"
+                music: "\\stemUp c'16[ g' e']"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Shortest stem a beam may leave to a chord with two beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
+                min: 1
+                max: 12
+                step: 0.25
+            }
+
+
+            EoNumber {
+                sid: "beamMinStemLengthThreeBeams"
+                music: "\\stemUp c''32[ g'' e'']"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Shortest stem a beam may leave to a chord with three beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
+                min: 1
+                max: 12
+                step: 0.25
+            }
+
+
+            EoNumber {
+                sid: "beamMinStemLengthFourBeams"
+                music: "\\stemUp c''64[ g'' e'']"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Shortest stem a beam may leave to a chord with four beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
+                min: 1
+                max: 12
+                step: 0.25
+            }
+
+
+            EoNumber {
+                sid: "beamMinStemLengthFiveBeams"
+                music: "\\stemUp c''128[ g''128 e''128]"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Shortest stem a beam may leave to a chord with five beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
+                min: 1
+                max: 12
+                step: 0.25
+            }
+
+
+            EoNumber {
+                sid: "beamMinStemLengthSixBeams"
+                music: "\\stemUp c''256[ g''256 e''256]"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Shortest stem a beam may leave to a chord with six beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
+                min: 1
+                max: 12
+                step: 0.25
+            }
+
+
+            EoNumber {
+                sid: "beamMinStemLengthSevenBeams"
+                music: "\\stemUp c''512[ g''512 e''512]"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Shortest stem a beam may leave to a chord with seven beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
+                min: 1
+                max: 12
+                step: 0.25
+            }
+
+
+            EoNumber {
+                sid: "beamMinStemLengthEightBeams"
+                music: "\\stemUp c''1024[ g''1024 e''1024]"
+                hint: qsTrc("notation/engravingoptions",
+                                     "Shortest stem a beam may leave to a chord with eight beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
+                min: 1
+                max: 12
+                step: 0.25
+            }
         }
 
-        EoNumber {
-            sid: "beamMinStemLengthTwoBeams"
-            music: "\\stemUp c'16[ g' e']"
-            title: qsTrc("notation/engravingoptions", "Minimum stem length under a beam, two beams")
-            hint: qsTrc("notation/engravingoptions",
-                         "Shortest stem a beam may leave to a chord with two beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
-            min: 1
-            max: 12
-            step: 0.25
-        }
+        EoGrid {
+            cornerTitle: qsTrc("notation/engravingoptions", "Inner stems")
+            rowTitles: [
+                qsTrc("notation/engravingoptions", "Small slant"),
+                qsTrc("notation/engravingoptions", "Medium slant"),
+                qsTrc("notation/engravingoptions", "Large slant")
+            ]
+            columnTitles: [qsTrc("notation/engravingoptions", "Shortening of the inner stems")]
+            compact: true
 
-        EoNumber {
-            sid: "beamMinStemLengthThreeBeams"
-            music: "\\stemUp c''32[ g'' e'']"
-            title: qsTrc("notation/engravingoptions", "Minimum stem length under a beam, three beams")
-            hint: qsTrc("notation/engravingoptions",
-                         "Shortest stem a beam may leave to a chord with three beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
-            min: 1
-            max: 12
-            step: 0.25
-        }
 
-        EoNumber {
-            sid: "beamMinStemLengthFourBeams"
-            music: "\\stemUp c''64[ g'' e'']"
-            title: qsTrc("notation/engravingoptions", "Minimum stem length under a beam, four beams")
-            hint: qsTrc("notation/engravingoptions",
-                         "Shortest stem a beam may leave to a chord with four beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
-            min: 1
-            max: 12
-            step: 0.25
-        }
+            EoNumber {
+                sid: "beamInnerStemShorteningSmallSlant"
+                music: "\\stemUp c'8[ e'8 f'8 f'8]"
+                hint: qsTrc("notation/engravingoptions",
+                                     "How far a slanted beam (slant up to ¾ sp) may cut into the default stem length of the chords between its ends before it is moved away from the notes.")
+                max: 2
+            }
 
-        EoNumber {
-            sid: "beamMinStemLengthFiveBeams"
-            music: "\\stemUp c'128[ a'128 c'128]"
-            title: qsTrc("notation/engravingoptions", "Minimum stem length under a beam, five beams")
-            hint: qsTrc("notation/engravingoptions",
-                         "Shortest stem a beam may leave to a chord with five beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
-            min: 1
-            max: 12
-            step: 0.25
-        }
 
-        EoNumber {
-            sid: "beamMinStemLengthSixBeams"
-            music: "\\stemUp c'256[ a'256 c'256]"
-            title: qsTrc("notation/engravingoptions", "Minimum stem length under a beam, six beams")
-            hint: qsTrc("notation/engravingoptions",
-                         "Shortest stem a beam may leave to a chord with six beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
-            min: 1
-            max: 12
-            step: 0.25
-        }
+            EoNumber {
+                sid: "beamInnerStemShorteningMediumSlant"
+                music: "\\stemUp c'8[ a'8 f'8 g'8]"
+                hint: qsTrc("notation/engravingoptions",
+                                     "How far a slanted beam (slant from 1 to 1½ sp) may cut into the default stem length of the chords between its ends before it is moved away from the notes.")
+                max: 2
+            }
 
-        EoNumber {
-            sid: "beamMinStemLengthSevenBeams"
-            music: "\\stemUp c'512[ a'512 c'512]"
-            title: qsTrc("notation/engravingoptions", "Minimum stem length under a beam, seven beams")
-            hint: qsTrc("notation/engravingoptions",
-                         "Shortest stem a beam may leave to a chord with seven beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
-            min: 1
-            max: 12
-            step: 0.25
-        }
 
-        EoNumber {
-            sid: "beamMinStemLengthEightBeams"
-            music: "\\stemUp c'1024[ a'1024 c'1024]"
-            title: qsTrc("notation/engravingoptions", "Minimum stem length under a beam, eight beams")
-            hint: qsTrc("notation/engravingoptions",
-                         "Shortest stem a beam may leave to a chord with eight beams: the beam is moved away from the notes until the chords between its ends reach this length, and the end stems are not shortened below it when the beam is seated on a staff line. Rounded to quarter spaces.")
-            min: 1
-            max: 12
-            step: 0.25
-        }
-
-        EoNumber {
-            sid: "beamInnerStemShorteningSmallSlant"
-            music: "\\stemUp c'8[ f'8 d'8 e'8]"
-            title: qsTrc("notation/engravingoptions", "Inner stem shortening, beam slant up to ¾ sp")
-            hint: qsTrc("notation/engravingoptions",
-                         "How far a slanted beam (slant up to ¾ sp) may cut into the default stem length of the chords between its ends before it is moved away from the notes.")
-            max: 2
-        }
-
-        EoNumber {
-            sid: "beamInnerStemShorteningMediumSlant"
-            music: "\\stemUp c'8[ a'8 f'8 g'8]"
-            title: qsTrc("notation/engravingoptions", "Inner stem shortening, beam slant from 1 to 1½ sp")
-            hint: qsTrc("notation/engravingoptions",
-                         "How far a slanted beam (slant from 1 to 1½ sp) may cut into the default stem length of the chords between its ends before it is moved away from the notes.")
-            max: 2
-        }
-
-        EoNumber {
-            sid: "beamInnerStemShorteningLargeSlant"
-            music: "\\stemUp c'16[ d'16 e'16 g'16 c''16 e''16]"
-            title: qsTrc("notation/engravingoptions", "Inner stem shortening, beam slant more than 1½ sp")
-            hint: qsTrc("notation/engravingoptions",
-                         "How far a slanted beam (slant more than 1½ sp) may cut into the default stem length of the chords between its ends before it is moved away from the notes.")
-            max: 2
+            EoNumber {
+                sid: "beamInnerStemShorteningLargeSlant"
+                music: "\\stemUp c'16[ d'16 e'16 g'16 c''16 e''16]"
+                hint: qsTrc("notation/engravingoptions",
+                                     "How far a slanted beam (slant more than 1½ sp) may cut into the default stem length of the chords between its ends before it is moved away from the notes.")
+                max: 2
+            }
         }
     }
 
     EoSection {
         title: qsTrc("notation/engravingoptions", "Rests under beams")
-        music: "c'8[ r8 c'8 c'8]"
 
         EoNumber {
             sid: "beamRestPadding"
-            music: "c''8[ r8 c''8]"
+            music: "\\beamAt 1.6 1.6 \\stemUp e'8[ r8 e'8]"
             title: qsTrc("notation/engravingoptions", "Rest to beam clearance")
             hint: qsTrc("notation/engravingoptions",
                          "Smallest vertical gap between a beam and a rest inside the beamed group; a rest that comes closer is moved away from the beam by whole staff spaces.")
@@ -460,7 +740,7 @@ EoPage {
 
         EoNumber {
             sid: "beamRestPaddingShortRests"
-            music: "c''32[ r32 c''32 c''32]"
+            music: "\\beamAt 1.8 1.8 \\stemUp e'16[ r32 e'16]"
             title: qsTrc("notation/engravingoptions", "Rest to beam clearance, 32nd rests and shorter")
             hint: qsTrc("notation/engravingoptions", "The same clearance for 32nd rests and shorter ones.")
             max: 2

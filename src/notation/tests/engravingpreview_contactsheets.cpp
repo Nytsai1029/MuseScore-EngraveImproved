@@ -71,11 +71,14 @@ MStyle baseStyle()
 
 //! The style values which the music of an option sets: those of the page, the section and the option,
 //! the nearer one wins
-std::vector<EngravingPreviewRenderer::Override> musicStyleOf(const SourceBlock& option, const SourceBlock& section,
-                                                             const SourceBlock& page)
+std::vector<EngravingPreviewRenderer::Override> musicStyleOf(const SourceBlock& option, const SourceBlock* grid,
+                                                             const SourceBlock& section, const SourceBlock& page)
 {
     std::map<QString, QString> merged;
-    for (const SourceBlock* block : { &page, &section, &option }) {
+    for (const SourceBlock* block : { &page, &section, grid, &option }) {
+        if (!block) {
+            continue;
+        }
         for (const auto& [name, value] : block->musicStyle()) {
             merged[name] = value;
         }
@@ -89,6 +92,7 @@ std::vector<EngravingPreviewRenderer::Override> musicStyleOf(const SourceBlock& 
         }
 
         const QVariant plain = text == "true" || text == "false" ? QVariant(text == "true")
+                               : text.startsWith('"') ? QVariant(SourceBlock::unquoted(text))
                                : text.contains('.') ? QVariant(text.toDouble()) : QVariant(text.toInt());
         overrides.push_back({ id, styleValueFromUi(id, plain) });
     }
@@ -120,17 +124,21 @@ std::optional<PropertyValue> probeOf(const SourceBlock& option, const MStyle& st
 {
     if (option.type == "EoChoice") {
         const QVariantList values = choiceValuesOf(option);
-        if (values.size() > 1) {
-            const QVariant current = styleValueToUi(id, EngravingPreviewRenderer::valueOf(style, overrides, id));
-            int index = 0;
-            for (int i = 0; i < values.size(); ++i) {
-                if (values.at(i) == current) {
-                    index = i;
-                    break;
-                }
-            }
-            return styleValueFromUi(id, values.at((index + 1) % values.size()));
+        if (values.size() < 2) {
+            //! NOTE A choice whose values come from the model (not a literal `choices` list) is not
+            //! probeable from the source: as the pane and the effect test do, it is left unprobed
+            return std::nullopt;
         }
+
+        const QVariant current = styleValueToUi(id, EngravingPreviewRenderer::valueOf(style, overrides, id));
+        int index = 0;
+        for (int i = 0; i < values.size(); ++i) {
+            if (values.at(i) == current) {
+                index = i;
+                break;
+            }
+        }
+        return styleValueFromUi(id, values.at((index + 1) % values.size()));
     }
 
     return EngravingPreviewRenderer::probeOf(style, overrides, id, dragMaximumOf(option));
@@ -140,6 +148,7 @@ std::optional<PropertyValue> probeOf(const SourceBlock& option, const MStyle& st
 struct Cell {
     QString sid;
     QImage image;
+    bool probed = true;
     bool hasEffect = true;
 };
 
@@ -164,6 +173,7 @@ Cell cellOf(const QString& sid, const QString& music, const MStyle& style,
     }
 
     const QImage picture = renderer.picture(PIXELS_PER_STAFF_SPACE);
+    cell.probed = probe.has_value();
     cell.hasEffect = !effect.isEmpty();
 
     //! NOTE As the pane paints it: the washes behind the music, the handle and the control points over it
@@ -245,9 +255,10 @@ void writeSheets(const QDir& dir, const QString& pageCode, const std::vector<Cel
 
         painter.drawImage(x + (columnWidth - cell.image.width()) / 2, y + CELL_PADDING, cell.image);
 
-        painter.setPen(cell.hasEffect ? QColor(0x33, 0x33, 0x33) : QColor(0xD9, 0x3A, 0x3A));
+        painter.setPen(cell.probed && !cell.hasEffect ? QColor(0xD9, 0x3A, 0x3A) : QColor(0x33, 0x33, 0x33));
         painter.drawText(QRect(x, y + CELL_PADDING + cell.image.height() + CAPTION_GAP, columnWidth, CAPTION_HEIGHT),
-                         Qt::AlignHCenter, cell.hasEffect ? cell.sid : cell.sid + " — NO EFFECT");
+                         Qt::AlignHCenter,
+                         cell.probed && !cell.hasEffect ? cell.sid + " — NO EFFECT" : cell.sid);
 
         x += columnWidth;
         rowHeight = std::max(rowHeight, cellHeight);
@@ -287,9 +298,11 @@ TEST(Notation_EngravingPreviewContactSheets, DISABLED_ContactSheets)
         std::vector<Cell> cells;
 
         for (const SourceBlock& section : page.children) {
-            for (const SourceBlock& option : section.children) {
+            for (const auto& entry : optionsOf(section)) {
+                const SourceBlock& option = *entry.first;
+                const SourceBlock* grid = entry.second;
                 const QString sid = option.sid();
-                const auto [music, systemWidth] = musicInfoOf(option, section, page);
+                const auto [music, systemWidth] = musicInfoOf(option, grid, section, page);
                 if (sid.isEmpty() || music.isEmpty()) {
                     continue;
                 }
@@ -299,7 +312,8 @@ TEST(Notation_EngravingPreviewContactSheets, DISABLED_ContactSheets)
                     continue;
                 }
 
-                const std::vector<EngravingPreviewRenderer::Override> overrides = musicStyleOf(option, section, page);
+                const std::vector<EngravingPreviewRenderer::Override> overrides
+                    = musicStyleOf(option, grid, section, page);
                 cells.push_back(cellOf(sid, music, style, overrides, probeOf(option, style, overrides, id),
                                      systemWidth));
             }

@@ -775,13 +775,6 @@ EoPage {
             max: 5
         }
 
-        EoNumber {
-            sid: "beamletPadding"
-            title: qsTrc("notation/engravingoptions", "Padding after beamlets")
-            hint: qsTrc("notation/engravingoptions",
-                         "Minimum horizontal gap between a beamlet (the stub of a beam) or a single-note tremolo and the item that follows; also the gap between two beamlets that face each other in a cross-staff beam.")
-            max: 5
-        }
 
         EoNumber {
             sid: "articulationHorizontalPadding"

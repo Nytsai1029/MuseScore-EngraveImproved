@@ -253,6 +253,9 @@ public:
     muse::io::path_t styleFileImportPath() const override;
     void setStyleFileImportPath(const muse::io::path_t& path)  override;
     muse::async::Channel<std::string> styleFileImportPathChanged() const override;
+
+    EngravingOptionsDialogState engravingOptionsDialogState() const override;
+    void setEngravingOptionsDialogState(const EngravingOptionsDialogState& state) override;
 };
 }
 

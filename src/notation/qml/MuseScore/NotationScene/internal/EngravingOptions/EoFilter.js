@@ -76,7 +76,7 @@ function joined(texts) {
 //! NOTE: the text in which an option is searched: its own, the titles of its choices,
 //! and the titles of its section and of its page, so that a search for the name of a page finds all of it
 function searchedText(option, section, page) {
-    var texts = [option.title, option.hint, option.sid, section.title, page.title]
+    var texts = [option.fullTitle, option.hint, option.sid, section.title, page.title]
     texts = texts.concat(option.keywords, page.keywords)
 
     var choices = option.choices
@@ -97,11 +97,26 @@ function hasAllWords(text, searchWords) {
     return true
 }
 
+//! NOTE: whether a grid is shown: it is if one of its cells is
+function isGridShown(grid, section, page, searchWords, modifiedOnly, model) {
+    for (var i = 0; i < grid.cells.length; ++i) {
+        var cell = grid.cells[i]
+        if (cell.kind !== "gap" && isOptionShown(cell, section, page, searchWords, modifiedOnly, model)) {
+            return true
+        }
+    }
+    return false
+}
+
 //! NOTE: whether an option with style values is shown: it is found by the search,
 //! and, if only the changed values are wanted, one of its values is changed
 function isOptionShown(option, section, page, searchWords, modifiedOnly, model) {
     if (!option.visible || !section.visible) {
         return false
+    }
+
+    if (option.kind === "grid") {
+        return isGridShown(option, section, page, searchWords, modifiedOnly, model)
     }
 
     var sids = optionSids(option)
