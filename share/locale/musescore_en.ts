@@ -4175,6 +4175,7 @@ space unit</extracomment>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="43"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="107"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="113"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="42"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="42"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="42"/>
@@ -27583,11 +27584,13 @@ pickup measure</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretAdvancedSettingsTab.qml" line="80"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="401"/>
         <source>Strings</source>
         <translation type="unfinished">Strings</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretAdvancedSettingsTab.qml" line="104"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="411"/>
         <source>Visible frets</source>
         <translation type="unfinished">Visible frets</translation>
     </message>
@@ -27598,6 +27601,7 @@ pickup measure</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/fretdiagrams/internal/FretAdvancedSettingsTab.qml" line="143"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="422"/>
         <source>Show nut</source>
         <translation type="unfinished">Show nut</translation>
     </message>
@@ -30466,6 +30470,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="264"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="341"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="72"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="53"/>
         <source>Scale:</source>
         <translation type="unfinished">Scale:</translation>
     </message>
@@ -30584,6 +30589,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="79"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="66"/>
         <source>Orientation:</source>
         <translation type="unfinished">Orientation:</translation>
     </message>
@@ -30599,6 +30605,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="90"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="147"/>
         <source>Nut line thickness:</source>
         <translation type="unfinished">Nut line thickness:</translation>
     </message>
@@ -30614,26 +30621,31 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="113"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="226"/>
         <source>Left</source>
         <translation type="unfinished">Left</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="113"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="225"/>
         <source>Bottom</source>
         <translation type="unfinished">Bottom</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="119"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="228"/>
         <source>Right</source>
         <translation type="unfinished">Right</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="119"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="227"/>
         <source>Top</source>
         <translation type="unfinished">Top</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="126"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="241"/>
         <source>Format:</source>
         <translation type="unfinished">Format:</translation>
     </message>
@@ -30644,6 +30656,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="143"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="251"/>
         <source>Custom suffix:</source>
         <translation type="unfinished">Custom suffix:</translation>
     </message>
@@ -30692,6 +30705,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="213"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="265"/>
         <source>Show fingerings</source>
         <translation type="unfinished">Show fingerings</translation>
     </message>
@@ -30717,11 +30731,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="239"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="131"/>
         <source>String spacing:</source>
         <translation type="unfinished">String spacing:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="246"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="139"/>
         <source>Fret spacing:</source>
         <translation type="unfinished">Fret spacing:</translation>
     </message>
@@ -34217,7 +34233,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="69"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="37"/>
         <source>Details</source>
         <translation type="unfinished">Details</translation>
     </message>
@@ -35632,6 +35647,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="510"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="49"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="111"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="119"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="66"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="77"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="46"/>
@@ -35670,6 +35686,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="511"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="50"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="112"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="120"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="67"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="78"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="47"/>
@@ -37620,6 +37637,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="35"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="107"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="199"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="381"/>
@@ -37913,57 +37931,46 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Extra distance, as a fraction of the fingering’s own height, added when a fingering has to move away from other objects above or below the chord.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="34"/>
         <source>Fretted instruments</source>
         <translation type="unfinished">Fretted instruments</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="41"/>
         <source>Fretboard diagrams: string and fret line thickness</source>
         <translation type="unfinished">Fretboard diagrams: string and fret line thickness</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="42"/>
         <source>Thickness of the string and fret lines of fretboard diagrams.</source>
         <translation type="unfinished">Thickness of the string and fret lines of fretboard diagrams.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="50"/>
         <source>Fretboard diagrams: open and mute marker size</source>
         <translation type="unfinished">Fretboard diagrams: open and mute marker size</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="51"/>
         <source>Size of the ○ and × markers above the nut as a fraction of the string spacing.</source>
         <translation type="unfinished">Size of the ○ and × markers above the nut as a fraction of the string spacing.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="59"/>
         <source>Fretboard diagrams: marker distance from the nut</source>
         <translation type="unfinished">Fretboard diagrams: marker distance from the nut</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="60"/>
         <source>Gap between the ○ and × markers and the nut of a fretboard diagram.</source>
         <translation type="unfinished">Gap between the ○ and × markers and the nut of a fretboard diagram.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="67"/>
         <source>Fretboard diagrams: fret number distance</source>
         <translation type="unfinished">Fretboard diagrams: fret number distance</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="68"/>
         <source>Gap between the fret number and the diagram, as a fraction of the string spacing.</source>
         <translation type="unfinished">Gap between the fret number and the diagram, as a fraction of the string spacing.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="75"/>
         <source>Fretboard diagrams: fingering distance</source>
         <translation type="unfinished">Fretboard diagrams: fingering distance</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="76"/>
         <source>Gap between a fretboard diagram and its fingering numbers.</source>
         <translation type="unfinished">Gap between a fretboard diagram and its fingering numbers.</translation>
     </message>
@@ -40512,6 +40519,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="53"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="310"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="36"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="46"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="93"/>
@@ -44326,6 +44334,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="351"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="59"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="136"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="79"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="53"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="288"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="411"/>
@@ -45838,6 +45847,321 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="181"/>
         <source>The line after the word: dashed by default.</source>
         <translation type="unfinished">The line after the word: dashed by default.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="37"/>
+        <source>Fretboard diagrams</source>
+        <translation type="unfinished">Fretboard diagrams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="42"/>
+        <source>Distance above the staff</source>
+        <translation type="unfinished">Distance above the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="43"/>
+        <source>Gap between the top staff line and the bottom of the diagram, before collision avoidance moves it further up.</source>
+        <translation type="unfinished">Gap between the top staff line and the bottom of the diagram, before collision avoidance moves it further up.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="54"/>
+        <source>Size of all fretboard diagrams; string and fret spacing, dots and line thicknesses grow with it.</source>
+        <translation type="unfinished">Size of all fretboard diagrams; string and fret spacing, dots and line thicknesses grow with it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="67"/>
+        <source>Vertical: the nut is at the top and the strings run downwards. Horizontal: the diagram lies on its side with the nut at the left.</source>
+        <translation type="unfinished">Vertical: the nut is at the top and the strings run downwards. Horizontal: the diagram lies on its side with the nut at the left.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="71"/>
+        <source>Vertical</source>
+        <translation type="unfinished">Vertical</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="72"/>
+        <source>Horizontal</source>
+        <translation type="unfinished">Horizontal</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="80"/>
+        <source>Least vertical gap between a fretboard diagram and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a fretboard diagram and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="92"/>
+        <source>Gap between neighbouring diagrams</source>
+        <translation type="unfinished">Gap between neighbouring diagrams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="93"/>
+        <source>Notes are spaced apart far enough to keep this horizontal gap between two fretboard diagrams.</source>
+        <translation type="unfinished">Notes are spaced apart far enough to keep this horizontal gap between two fretboard diagrams.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="103"/>
+        <source>Gap between a diagram and a neighbouring chord symbol</source>
+        <translation type="unfinished">Gap between a diagram and a neighbouring chord symbol</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="104"/>
+        <source>Notes are spaced apart far enough to keep this horizontal gap between a fretboard diagram and a chord symbol on the next or previous note.</source>
+        <translation type="unfinished">Notes are spaced apart far enough to keep this horizontal gap between a fretboard diagram and a chord symbol on the next or previous note.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="114"/>
+        <source>Side of the staff on which fretboard diagrams are placed, unless one is flipped by hand. Below the staff a diagram hangs under the lowest note or sign at ‘Minimum distance from notes and signs’; ‘Distance above the staff’ is not used there.</source>
+        <translation type="unfinished">Side of the staff on which fretboard diagrams are placed, unless one is flipped by hand. Below the staff a diagram hangs under the lowest note or sign at ‘Minimum distance from notes and signs’; ‘Distance above the staff’ is not used there.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="126"/>
+        <source>Strings and frets</source>
+        <translation type="unfinished">Strings and frets</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="148"/>
+        <source>Thickness of the heavy top line; it is only drawn heavy when the diagram starts at the first fret.</source>
+        <translation type="unfinished">Thickness of the heavy top line; it is only drawn heavy when the diagram starts at the first fret.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="158"/>
+        <source>String and fret line thickness</source>
+        <translation type="unfinished">String and fret line thickness</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="166"/>
+        <source>Dot size</source>
+        <translation type="unfinished">Dot size</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="167"/>
+        <source>Diameter of the dots which show where the fingers go.</source>
+        <translation type="unfinished">Diameter of the dots which show where the fingers go.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="175"/>
+        <source>Size of the open and mute markers</source>
+        <translation type="unfinished">Size of the open and mute markers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="176"/>
+        <source>Size of the ○ and × above the nut, as a fraction of the string spacing.</source>
+        <translation type="unfinished">Size of the ○ and × above the nut, as a fraction of the string spacing.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="184"/>
+        <source>Gap between the markers and the nut</source>
+        <translation type="unfinished">Gap between the markers and the nut</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="190"/>
+        <source>Line thickness of the markers</source>
+        <translation type="unfinished">Line thickness of the markers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="191"/>
+        <source>Thickness of the ○ and × and of the outlined dot shapes (cross, square, triangle), as a multiple of the string line thickness.</source>
+        <translation type="unfinished">Thickness of the ○ and × and of the outlined dot shapes (cross, square, triangle), as a multiple of the string line thickness.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="202"/>
+        <source>Fretboard style</source>
+        <translation type="unfinished">Fretboard style</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="203"/>
+        <source>Trimmed: the strings end at the last fret line. Extended: they run on for half a fret, as if the fretboard continued.</source>
+        <translation type="unfinished">Trimmed: the strings end at the last fret line. Extended: they run on for half a fret, as if the fretboard continued.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="207"/>
+        <source>Trimmed</source>
+        <translation type="unfinished">Trimmed</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="208"/>
+        <source>Extended</source>
+        <translation type="unfinished">Extended</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="214"/>
+        <source>Fret number</source>
+        <translation type="unfinished">Fret number</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="216"/>
+        <source>The number beside a diagram which does not start at the first fret.</source>
+        <translation type="unfinished">The number beside a diagram which does not start at the first fret.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="220"/>
+        <source>Side of the diagram</source>
+        <translation type="unfinished">Side of the diagram</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="221"/>
+        <source>On which side of the diagram the number of its first fret stands; a horizontal diagram has it below or above instead.</source>
+        <translation type="unfinished">On which side of the diagram the number of its first fret stands; a horizontal diagram has it below or above instead.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="234"/>
+        <source>Gap between the number and the diagram</source>
+        <translation type="unfinished">Gap between the number and the diagram</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="235"/>
+        <source>As a fraction of the string spacing.</source>
+        <translation type="unfinished">As a fraction of the string spacing.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="243"/>
+        <source>Number only</source>
+        <translation type="unfinished">Number only</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="244"/>
+        <source>Number with suffix</source>
+        <translation type="unfinished">Number with suffix</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="252"/>
+        <source>Text written directly after the fret number, for example ‘fr’ to give ‘3fr’. Only with ‘Format’ set to ‘Number with suffix’.</source>
+        <translation type="unfinished">Text written directly after the fret number, for example ‘fr’ to give ‘3fr’. Only with ‘Format’ set to ‘Number with suffix’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="260"/>
+        <source>Fingerings and barrés</source>
+        <translation type="unfinished">Fingerings and barrés</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="266"/>
+        <source>Shows the finger numbers entered for a diagram, in a row under its strings.</source>
+        <translation type="unfinished">Shows the finger numbers entered for a diagram, in a row under its strings.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="273"/>
+        <source>Gap between the diagram and its fingerings</source>
+        <translation type="unfinished">Gap between the diagram and its fingerings</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="280"/>
+        <source>Barré appearance</source>
+        <translation type="unfinished">Barré appearance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="281"/>
+        <source>Line: a thick bar across the barred strings. Slur: an arc over them, with a dot on every string.</source>
+        <translation type="unfinished">Line: a thick bar across the barred strings. Slur: an arc over them, with a dot on every string.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="285"/>
+        <source>Line</source>
+        <translation type="unfinished">Line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="286"/>
+        <source>Slur</source>
+        <translation type="unfinished">Slur</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="292"/>
+        <source>Barré line thickness</source>
+        <translation type="unfinished">Barré line thickness</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="293"/>
+        <source>As a percentage of the dot size. Only with ‘Barré appearance’ set to ‘Line’.</source>
+        <translation type="unfinished">As a percentage of the dot size. Only with ‘Barré appearance’ set to ‘Line’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="304"/>
+        <source>Slur-style barrés</source>
+        <translation type="unfinished">Slur-style barrés</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="305"/>
+        <source>Arc height is given as a fraction of the fret spacing; the thickness for three strings is also used for wider barrés. Only with ‘Barré appearance’ set to ‘Slur’.</source>
+        <translation type="unfinished">Arc height is given as a fraction of the fret spacing; the thickness for three strings is also used for wider barrés. Only with ‘Barré appearance’ set to ‘Slur’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="309"/>
+        <source>Arc height</source>
+        <translation type="unfinished">Arc height</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="313"/>
+        <source>Two strings</source>
+        <translation type="unfinished">Two strings</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="314"/>
+        <source>Three strings</source>
+        <translation type="unfinished">Three strings</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="315"/>
+        <source>Four or more strings</source>
+        <translation type="unfinished">Four or more strings</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="323"/>
+        <source>How far the arc of a slur-style barré across two strings bulges above its ends, as a fraction of the fret spacing.</source>
+        <translation type="unfinished">How far the arc of a slur-style barré across two strings bulges above its ends, as a fraction of the fret spacing.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="334"/>
+        <source>How far the arc of a slur-style barré across three strings bulges above its ends, as a fraction of the fret spacing.</source>
+        <translation type="unfinished">How far the arc of a slur-style barré across three strings bulges above its ends, as a fraction of the fret spacing.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="345"/>
+        <source>How far the arc of a slur-style barré across four or more strings bulges above its ends, as a fraction of the fret spacing.</source>
+        <translation type="unfinished">How far the arc of a slur-style barré across four or more strings bulges above its ends, as a fraction of the fret spacing.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="356"/>
+        <source>Thickness of the arc of a slur-style barré across two strings.</source>
+        <translation type="unfinished">Thickness of the arc of a slur-style barré across two strings.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="366"/>
+        <source>Thickness of the arc of a slur-style barré across three or more strings.</source>
+        <translation type="unfinished">Thickness of the arc of a slur-style barré across three or more strings.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="380"/>
+        <source>Shoulder position of the barré arc</source>
+        <translation type="unfinished">Shoulder position of the barré arc</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="381"/>
+        <source>How far in from each end the arc reaches its full height, as a fraction of its length: a small value gives a flat top with steep ends, 0.5 a pointed arc. Only with ‘Barré appearance’ set to ‘Slur’.</source>
+        <translation type="unfinished">How far in from each end the arc reaches its full height, as a fraction of its length: a small value gives a flat top with steep ends, 0.5 a pointed arc. Only with ‘Barré appearance’ set to ‘Slur’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="392"/>
+        <source>Defaults of the diagram properties</source>
+        <translation type="unfinished">Defaults of the diagram properties</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="394"/>
+        <source>A fretboard diagram follows these values until it is given its own in the Properties panel. Diagrams taken from the palette or made from a chord symbol bring their own number of strings and frets.</source>
+        <translation type="unfinished">A fretboard diagram follows these values until it is given its own in the Properties panel. Diagrams taken from the palette or made from a chord symbol bring their own number of strings and frets.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="402"/>
+        <source>Number of strings of a diagram which has not been given its own.</source>
+        <translation type="unfinished">Number of strings of a diagram which has not been given its own.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="412"/>
+        <source>Number of frets drawn in a diagram which has not been given its own.</source>
+        <translation type="unfinished">Number of frets drawn in a diagram which has not been given its own.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="423"/>
+        <source>The thick line of the nut is drawn at the top of every diagram which starts at the first fret, unless ‘Show nut’ was switched off for that diagram.</source>
+        <translation type="unfinished">The thick line of the nut is drawn at the top of every diagram which starts at the first fret, unless ‘Show nut’ was switched off for that diagram.</translation>
     </message>
 </context>
 <context>

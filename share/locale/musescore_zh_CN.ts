@@ -52925,5 +52925,320 @@ The score will be saved as:
         <source>Height of a chord symbol above the nut of the fretboard diagram it stands on. It also keeps ‘Minimum distance from notes and signs’ from the top of the diagram, where the ○ and × markers are; with the default values that distance is the larger one.</source>
         <translation>和弦符号高出其下方品格图弦枕的距离。和弦符号同时与品格图顶端（○ 与 × 标记所在处）保持“与音符和记号的最小距离”；在默认值下后者更大，由它决定。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="37"/>
+        <source>Fretboard diagrams</source>
+        <translation>品格图</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="42"/>
+        <source>Distance above the staff</source>
+        <translation>高出谱表的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="43"/>
+        <source>Gap between the top staff line and the bottom of the diagram, before collision avoidance moves it further up.</source>
+        <translation>品格图底端与谱表顶线之间的间隙；自动避让可能把它再向上推。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="54"/>
+        <source>Size of all fretboard diagrams; string and fret spacing, dots and line thicknesses grow with it.</source>
+        <translation>所有品格图的大小；弦距、品距、圆点和线条粗细都随之缩放。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="67"/>
+        <source>Vertical: the nut is at the top and the strings run downwards. Horizontal: the diagram lies on its side with the nut at the left.</source>
+        <translation>垂直：弦枕在上，琴弦向下延伸。水平：品格图横放，弦枕在左。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="71"/>
+        <source>Vertical</source>
+        <translation>垂直</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="72"/>
+        <source>Horizontal</source>
+        <translation>水平</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="80"/>
+        <source>Least vertical gap between a fretboard diagram and the notes or other signs which lie between it and the staff.</source>
+        <translation>品格图与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="92"/>
+        <source>Gap between neighbouring diagrams</source>
+        <translation>相邻品格图之间的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="93"/>
+        <source>Notes are spaced apart far enough to keep this horizontal gap between two fretboard diagrams.</source>
+        <translation>必要时拉开音符间距，使相邻两个品格图之间保持此水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="103"/>
+        <source>Gap between a diagram and a neighbouring chord symbol</source>
+        <translation>品格图与相邻和弦符号的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="104"/>
+        <source>Notes are spaced apart far enough to keep this horizontal gap between a fretboard diagram and a chord symbol on the next or previous note.</source>
+        <translation>必要时拉开音符间距，使品格图与前一或后一音符上的和弦符号之间保持此水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="114"/>
+        <source>Side of the staff on which fretboard diagrams are placed, unless one is flipped by hand. Below the staff a diagram hangs under the lowest note or sign at ‘Minimum distance from notes and signs’; ‘Distance above the staff’ is not used there.</source>
+        <translation>品格图置于谱表的哪一侧；单独翻转过的不受影响。置于谱表下方时，品格图悬于最低的音符或记号之下，间隔为“与音符和记号的最小距离”；“高出谱表的距离”此时不适用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="126"/>
+        <source>Strings and frets</source>
+        <translation>弦与品</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="148"/>
+        <source>Thickness of the heavy top line; it is only drawn heavy when the diagram starts at the first fret.</source>
+        <translation>顶端粗线的粗细；只有品格图从第一品开始时才画成粗线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="158"/>
+        <source>String and fret line thickness</source>
+        <translation>弦线与品线的粗细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="166"/>
+        <source>Dot size</source>
+        <translation>圆点大小</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="167"/>
+        <source>Diameter of the dots which show where the fingers go.</source>
+        <translation>标示按弦位置的圆点的直径。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="175"/>
+        <source>Size of the open and mute markers</source>
+        <translation>空弦与闷音标记的大小</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="176"/>
+        <source>Size of the ○ and × above the nut, as a fraction of the string spacing.</source>
+        <translation>弦枕上方 ○ 与 × 标记的大小，以弦距的比例计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="184"/>
+        <source>Gap between the markers and the nut</source>
+        <translation>标记与弦枕的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="190"/>
+        <source>Line thickness of the markers</source>
+        <translation>标记的线条粗细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="191"/>
+        <source>Thickness of the ○ and × and of the outlined dot shapes (cross, square, triangle), as a multiple of the string line thickness.</source>
+        <translation>○、× 标记以及叉形、方形、三角形等空心指位符号的线条粗细，以弦线粗细的倍数计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="202"/>
+        <source>Fretboard style</source>
+        <translation>品格样式</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="203"/>
+        <source>Trimmed: the strings end at the last fret line. Extended: they run on for half a fret, as if the fretboard continued.</source>
+        <translation>截短：弦线止于最后一条品线。延伸：弦线再向下延伸半个品格，表示指板继续延伸。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="207"/>
+        <source>Trimmed</source>
+        <translation>截短</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="208"/>
+        <source>Extended</source>
+        <translation>延伸</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="214"/>
+        <source>Fret number</source>
+        <translation>品位数字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="216"/>
+        <source>The number beside a diagram which does not start at the first fret.</source>
+        <translation>品格图不从第一品开始时，标在其旁边的起始品位数字。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="220"/>
+        <source>Side of the diagram</source>
+        <translation>所在一侧</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="221"/>
+        <source>On which side of the diagram the number of its first fret stands; a horizontal diagram has it below or above instead.</source>
+        <translation>起始品位的数字标在品格图的哪一侧；水平放置的品格图则标在下方或上方。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="234"/>
+        <source>Gap between the number and the diagram</source>
+        <translation>数字与品格图的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="235"/>
+        <source>As a fraction of the string spacing.</source>
+        <translation>以弦距的比例计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="243"/>
+        <source>Number only</source>
+        <translation>仅数字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="244"/>
+        <source>Number with suffix</source>
+        <translation>数字加后缀</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="252"/>
+        <source>Text written directly after the fret number, for example ‘fr’ to give ‘3fr’. Only with ‘Format’ set to ‘Number with suffix’.</source>
+        <translation>紧跟在品位数字之后的文字，例如用“fr”得到“3fr”。仅在“格式”设为“数字加后缀”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="260"/>
+        <source>Fingerings and barrés</source>
+        <translation>指法与横按</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="266"/>
+        <source>Shows the finger numbers entered for a diagram, in a row under its strings.</source>
+        <translation>显示为品格图输入的指法数字，排在各弦下方。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="273"/>
+        <source>Gap between the diagram and its fingerings</source>
+        <translation>品格图与指法数字的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="280"/>
+        <source>Barré appearance</source>
+        <translation>横按外观</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="281"/>
+        <source>Line: a thick bar across the barred strings. Slur: an arc over them, with a dot on every string.</source>
+        <translation>线条：横跨被按各弦的一条粗线。圆滑线：各弦上各有一个圆点，上方加一条弧线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="285"/>
+        <source>Line</source>
+        <translation>线条</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="286"/>
+        <source>Slur</source>
+        <translation>圆滑线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="292"/>
+        <source>Barré line thickness</source>
+        <translation>横按线条粗细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="293"/>
+        <source>As a percentage of the dot size. Only with ‘Barré appearance’ set to ‘Line’.</source>
+        <translation>以圆点大小的百分比计。仅在“横按外观”设为“线条”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="304"/>
+        <source>Slur-style barrés</source>
+        <translation>圆滑线式横按</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="305"/>
+        <source>Arc height is given as a fraction of the fret spacing; the thickness for three strings is also used for wider barrés. Only with ‘Barré appearance’ set to ‘Slur’.</source>
+        <translation>弧高以品距的比例计；三根弦的粗细同样用于更宽的横按。仅在“横按外观”设为“圆滑线”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="309"/>
+        <source>Arc height</source>
+        <translation>弧高</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="313"/>
+        <source>Two strings</source>
+        <translation>两根弦</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="314"/>
+        <source>Three strings</source>
+        <translation>三根弦</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="315"/>
+        <source>Four or more strings</source>
+        <translation>四根及更多弦</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="323"/>
+        <source>How far the arc of a slur-style barré across two strings bulges above its ends, as a fraction of the fret spacing.</source>
+        <translation>跨两根弦的圆滑线式横按，其弧线高出两端的程度，以品距的比例计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="334"/>
+        <source>How far the arc of a slur-style barré across three strings bulges above its ends, as a fraction of the fret spacing.</source>
+        <translation>跨三根弦的圆滑线式横按，其弧线高出两端的程度，以品距的比例计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="345"/>
+        <source>How far the arc of a slur-style barré across four or more strings bulges above its ends, as a fraction of the fret spacing.</source>
+        <translation>跨四根及更多弦的圆滑线式横按，其弧线高出两端的程度，以品距的比例计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="356"/>
+        <source>Thickness of the arc of a slur-style barré across two strings.</source>
+        <translation>跨两根弦的圆滑线式横按弧线的粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="366"/>
+        <source>Thickness of the arc of a slur-style barré across three or more strings.</source>
+        <translation>跨三根及更多弦的圆滑线式横按弧线的粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="380"/>
+        <source>Shoulder position of the barré arc</source>
+        <translation>横按弧线的肩部位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="381"/>
+        <source>How far in from each end the arc reaches its full height, as a fraction of its length: a small value gives a flat top with steep ends, 0.5 a pointed arc. Only with ‘Barré appearance’ set to ‘Slur’.</source>
+        <translation>弧线自两端向内多远处达到最大高度，以弧线长度的比例计：数值小则顶部平、两端陡，取 0.5 则成尖顶。仅在“横按外观”设为“圆滑线”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="392"/>
+        <source>Defaults of the diagram properties</source>
+        <translation>品格图属性的默认值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="394"/>
+        <source>A fretboard diagram follows these values until it is given its own in the Properties panel. Diagrams taken from the palette or made from a chord symbol bring their own number of strings and frets.</source>
+        <translation>品格图在“属性”面板中单独设置之前，一直采用这里的值。取自符号面板或由和弦符号生成的品格图自带弦数和品格数。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="402"/>
+        <source>Number of strings of a diagram which has not been given its own.</source>
+        <translation>未单独设置弦数的品格图的弦数。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="412"/>
+        <source>Number of frets drawn in a diagram which has not been given its own.</source>
+        <translation>未单独设置品格数的品格图所画出的品格数。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="423"/>
+        <source>The thick line of the nut is drawn at the top of every diagram which starts at the first fret, unless ‘Show nut’ was switched off for that diagram.</source>
+        <translation>从第一品开始的品格图顶端画出粗的弦枕线；已单独关闭“显示上弦枕”的品格图除外。</translation>
+    </message>
 </context>
 </TS>
