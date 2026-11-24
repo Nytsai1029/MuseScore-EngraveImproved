@@ -50851,5 +50851,40 @@ The score will be saved as:
         <source>Raises (negative) or lowers (positive) extension lines from their normal place, where the lower edge of the line lies on the baseline of the text. Dashes are not affected.</source>
         <translation>使延长线自正常位置（线的下缘落在文字基线上）上移（负值）或下移（正值）。连字符不受影响。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="37"/>
+        <source>All lines</source>
+        <translation>各类线条通用</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="41"/>
+        <source>Gap between a line’s end and the next note</source>
+        <translation>线条末端与下一音符的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="42"/>
+        <source>How far text lines, let-ring, palm-mute, tempo-change and similar lines stop before the note, rest or barline at which they end. Ottavas, pedal lines, trills, hairpins and voltas have their own values.</source>
+        <translation>文本线性记号、持续延音、手掌闷音、速度渐变记号等线条在其结束处的音符、休止符或小节线之前留出的距离。八度号、踏板线、颤音线、楔形力度记号和跳跃号另有各自的设置。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="51"/>
+        <source>Width of an angled hook</source>
+        <translation>斜折钩的宽度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="52"/>
+        <source>As a multiple of the hook’s height: 1 gives a true 45° hook, smaller values a steeper one.</source>
+        <translation>以折钩高度的倍数计：1 为真正的 45° 斜钩，数值越小折钩越陡。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="59"/>
+        <source>Spacing of the dots of a dotted line</source>
+        <translation>点线的点距</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="60"/>
+        <source>Distance from dot to dot as a multiple of the line thickness; 2 leaves one dot’s width of white between neighbouring dots.</source>
+        <translation>相邻两点的中心距，以线条粗细的倍数计；取 2 时两点之间的空白约等于一个点的宽度。</translation>
+    </message>
 </context>
 </TS>

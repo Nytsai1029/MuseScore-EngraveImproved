@@ -37244,37 +37244,65 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Lines in general</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="36"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="37"/>
+        <source>All lines</source>
+        <translation type="unfinished">All lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="41"/>
+        <source>Gap between a line’s end and the next note</source>
+        <translation type="unfinished">Gap between a line’s end and the next note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="42"/>
+        <source>How far text lines, let-ring, palm-mute, tempo-change and similar lines stop before the note, rest or barline at which they end. Ottavas, pedal lines, trills, hairpins and voltas have their own values.</source>
+        <translation type="unfinished">How far text lines, let-ring, palm-mute, tempo-change and similar lines stop before the note, rest or barline at which they end. Ottavas, pedal lines, trills, hairpins and voltas have their own values.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="51"/>
+        <source>Width of an angled hook</source>
+        <translation type="unfinished">Width of an angled hook</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="52"/>
+        <source>As a multiple of the hook’s height: 1 gives a true 45° hook, smaller values a steeper one.</source>
+        <translation type="unfinished">As a multiple of the hook’s height: 1 gives a true 45° hook, smaller values a steeper one.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="59"/>
+        <source>Spacing of the dots of a dotted line</source>
+        <translation type="unfinished">Spacing of the dots of a dotted line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="60"/>
+        <source>Distance from dot to dot as a multiple of the line thickness; 2 leaves one dot’s width of white between neighbouring dots.</source>
+        <translation type="unfinished">Distance from dot to dot as a multiple of the line thickness; 2 leaves one dot’s width of white between neighbouring dots.</translation>
+    </message>
+    <message>
         <source>Lines (general)</source>
         <translation type="unfinished">Lines (general)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="40"/>
         <source>Line end: distance before end position</source>
         <translation type="unfinished">Line end: distance before end position</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="41"/>
         <source>How far before the note, rest or barline at their end position text lines, let-ring and palm-mute lines, gradual tempo changes and similar lines stop.</source>
         <translation type="unfinished">How far before the note, rest or barline at their end position text lines, let-ring and palm-mute lines, gradual tempo changes and similar lines stop.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="48"/>
         <source>Angled hook: width (× hook height)</source>
         <translation type="unfinished">Angled hook: width (× hook height)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="49"/>
         <source>Horizontal run of an angled (‘45°’) line hook as a multiple of its height; 1 gives a true 45° hook.</source>
         <translation type="unfinished">Horizontal run of an angled (‘45°’) line hook as a multiple of its height; 1 gives a true 45° hook.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="56"/>
         <source>Dotted lines: gap between dots (line widths)</source>
         <translation type="unfinished">Dotted lines: gap between dots (line widths)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="57"/>
         <source>Gap between the dots of dotted lines (text lines, glissandos, hairpins…), in line widths; the distance from dot to dot is this value plus 0.01.</source>
         <translation type="unfinished">Gap between the dots of dotted lines (text lines, glissandos, hairpins…), in line widths; the distance from dot to dot is this value plus 0.01.</translation>
     </message>

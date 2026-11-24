@@ -31,34 +31,39 @@ EoPage {
     code: "lines"
     title: qsTrc("notation/engravingoptions", "Lines in general")
     group: qsTrc("notation/engravingoptions", "Lines")
+    music: "c''4 \\startTextLine \"sul pont.\" \\hooks none 45 d''4 e''4 f''4 | e''4 d''4 \\stopTextLine c''2"
 
     EoSection {
-        title: qsTrc("notation/engravingoptions", "Lines (general)")
+        title: qsTrc("notation/engravingoptions", "All lines")
 
         EoNumber {
             sid: "lineEndInset"
-            title: qsTrc("notation/engravingoptions", "Line end: distance before end position")
+            title: qsTrc("notation/engravingoptions", "Gap between a line’s end and the next note")
             hint: qsTrc("notation/engravingoptions",
-                         "How far before the note, rest or barline at their end position text lines, let-ring and palm-mute lines, gradual tempo changes and similar lines stop.")
+                        "How far text lines, let-ring, palm-mute, tempo-change and similar lines stop before the " +
+                        "note, rest or barline at which they end. Ottavas, pedal lines, trills, hairpins and voltas " +
+                        "have their own values.")
             max: 5
         }
 
         EoNumber {
             sid: "lineAngledHookWidthRatio"
-            title: qsTrc("notation/engravingoptions", "Angled hook: width (× hook height)")
+            title: qsTrc("notation/engravingoptions", "Width of an angled hook")
             hint: qsTrc("notation/engravingoptions",
-                         "Horizontal run of an angled (‘45°’) line hook as a multiple of its height; 1 gives a true 45° hook.")
+                        "As a multiple of the hook’s height: 1 gives a true 45° hook, smaller values a steeper one.")
             max: 2
         }
 
         EoNumber {
             sid: "lineDottedGapLen"
-            title: qsTrc("notation/engravingoptions", "Dotted lines: gap between dots (line widths)")
+            title: qsTrc("notation/engravingoptions", "Spacing of the dots of a dotted line")
             hint: qsTrc("notation/engravingoptions",
-                         "Gap between the dots of dotted lines (text lines, glissandos, hairpins…), in line widths; the distance from dot to dot is this value plus 0.01.")
+                        "Distance from dot to dot as a multiple of the line thickness; 2 leaves one dot’s width of " +
+                        "white between neighbouring dots.")
             min: 0.5
             max: 10
             step: 0.01
+            musicStyle: ({ textLineLineStyle: 2 })
         }
     }
 }
