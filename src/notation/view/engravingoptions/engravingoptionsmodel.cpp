@@ -433,7 +433,8 @@ QVariantList EngravingOptionsModel::textStyleProperties(int textStyleType) const
 
     for (const engraving::TextStyleProperty& property : *textStyle) {
         const auto name = PROPERTIES.find(property.type);
-        if (name == PROPERTIES.end()) {
+        //! NOTE Most styles give their musical symbols a scale which nothing reads (dummyMusicalSymbolsScale)
+        if (name == PROPERTIES.end() || property.sid == Sid::dummyMusicalSymbolsScale) {
             continue;
         }
 

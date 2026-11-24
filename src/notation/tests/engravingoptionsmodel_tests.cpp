@@ -23,6 +23,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
+#include <algorithm>
 #include <map>
 #include <memory>
 
@@ -487,6 +488,12 @@ TEST_F(Notation_EngravingOptionsModelTests, textStylesAndTheirValues)
     EXPECT_TRUE(pairs.contains("fontFace=staffTextFontFace"));
     EXPECT_TRUE(pairs.contains("frameType=staffTextFrameType"));
     EXPECT_TRUE(pairs.contains("offset=staffTextPosAbove"));
+    EXPECT_FALSE(pairs.join(' ').contains("musicalSymbolsScale"));
+
+    const QVariantList tuplet = model->textStyleProperties(static_cast<int>(TextStyleType::TUPLET));
+    EXPECT_TRUE(std::any_of(tuplet.cbegin(), tuplet.cend(), [](const QVariant& property) {
+        return property.toMap().value("sid").toString() == "tupletMusicalSymbolsScale";
+    }));
 
     holder.destroy();
 }
