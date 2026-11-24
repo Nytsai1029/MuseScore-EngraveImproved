@@ -192,11 +192,12 @@ struct LineStop {
 
 //! A spanner which begins or ends at an event, in the terms of the file: how far the other end is
 struct Link {
-    enum class Kind { Slur, Tie, Hairpin, Line, Glissando, NoteLine };
+    enum class Kind { Slur, Tie, Hairpin, Line, Glissando, NoteLine, GuitarBend };
 
     Kind kind = Kind::Slur;
-    int midi = 0;           // of the note, for a tie, a glissando and a note-anchored line
-    int subtype = 0;        // of a hairpin: HairpinType (0 crescendo, 1 decrescendo, 2 and 3 as lines with text)
+    int midi = 0;           // of the note, for a tie, a glissando, a note-anchored line and a bend
+    int subtype = 0;        // of a hairpin: HairpinType (0 crescendo, 1 decrescendo, 2 and 3 as lines with text);
+                            // of a bend: GuitarBendType
     bool circledTip = false;    // of a hairpin: it begins or ends at niente
     std::optional<double> diagonalEnd;  // of a hairpin: how much lower its end is, in staff spaces, as if dragged
     int slurDirection = 0;
@@ -204,6 +205,9 @@ struct Link {
     LineMark line;          // of a line over chords
     int measures = 0;
     Fraction fractions;
+    //! NOTE The other end is a grace note: which one of its main chord, counted from the first (a location in the
+    //! file has the grace index itself, not a difference)
+    std::optional<int> otherGraceIndex;
 };
 
 struct Place {
@@ -212,6 +216,12 @@ struct Place {
 };
 
 constexpr int BUZZ_ROLL = -1;
+
+//! NOTE As GuitarBendType
+constexpr int BEND = 0;
+constexpr int PRE_BEND = 1;
+constexpr int GRACE_NOTE_BEND = 2;
+constexpr int SLIGHT_BEND = 3;
 
 //! `_"text"`: a syllable of a verse; the first `_` after a note is the first verse, the next one the second
 struct Syllable {
@@ -311,6 +321,12 @@ struct Event {
     std::vector<LineStop> lineStops;    // and those which end with it
     bool glissando = false;         // `\\glissando`: from the notes of the chord to those of the next one
     bool noteLine = false;          // `\\noteLine`: a note-anchored line, the same way
+    //! `\\bend`, `\\preBend`, `\\slightBend`: the GuitarBendType of the bends which begin at the notes of the
+    //! chord; a bend goes to the notes of the next chord (a slight bend stays on its note)
+    std::optional<int> guitarBend;
+    bool oldBend = false;           // `\\oldBend`: a bend of points on the top note, as before guitar bends
+    bool tremoloBar = false;        // `\\tremoloBar`: a dip of the tremolo (whammy) bar above the chord
+    int graceIndex = -1;            // a grace note: which of those before its main chord, from the first
 
     QStringList articulations;      // the subtypes in the file
     int fingering = 0;
@@ -873,6 +889,12 @@ private:
             readHooks(token);
         } else if (text == "\\noLine") {
             lastLineWithHooks(token).lineHidden = true;
+        } else if (text == "\\bend" || text == "\\preBend" || text == "\\slightBend") {
+            readBend(token);
+        } else if (text == "\\oldBend") {
+            lastEvent(token).oldBend = true;
+        } else if (text == "\\tremoloBar") {
+            lastEvent(token).tremoloBar = true;
         } else if (text == "\\glissando") {
             lastEvent(token).glissando = true;
         } else if (text == "\\noteLine") {
@@ -913,6 +935,28 @@ private:
         static const std::map<QString, int> STYLES { { "Solid", 0 }, { "Dotted", 1 }, { "Dashed", 2 },
                                                      { "WideDashed", 3 } };
         return STYLES.at(name);
+    }
+
+    //! `\\bend` (to the next chord; from a grace note it is a grace note bend), `\\preBend` (from a grace note: the
+    //! string is bent before it is struck) and `\\slightBend` (a quarter tone, which stays on its note)
+    void readBend(const Token& command)
+    {
+        Event& event = lastEvent(command);
+        if (event.isRest) {
+            fail("a bend begins on a note", command.position);
+        }
+
+        const bool isGrace = event.grace != Event::Grace::None;
+        if (command.text == "\\preBend") {
+            if (!isGrace) {
+                fail("a pre-bend begins on a grace note", command.position);
+            }
+            event.guitarBend = PRE_BEND;
+        } else if (command.text == "\\slightBend") {
+            event.guitarBend = SLIGHT_BEND;
+        } else {
+            event.guitarBend = isGrace ? GRACE_NOTE_BEND : BEND;
+        }
     }
 
     //! The next word if it is one of these, which is then taken
@@ -1950,8 +1994,11 @@ private:
             }
 
             Fraction position;
+            int graceIndex = 0;
             for (Event& event : m_music[m].voices[voiceIndex]) {
                 event.place = { static_cast<int>(m), position };
+                event.graceIndex = event.grace != Event::Grace::None ? graceIndex++ : -1;
+                graceIndex = event.grace != Event::Grace::None ? graceIndex : 0;
                 position += event.length();
                 events.push_back(&event);
             }
@@ -1976,10 +2023,16 @@ private:
 
         start.measures = to.place.measure - from.place.measure;
         start.fractions = to.place.position + intoTo - from.place.position;
+        if (to.graceIndex >= 0) {
+            start.otherGraceIndex = to.graceIndex;
+        }
         from.startingLinks.push_back(start);
 
         end.measures = -start.measures;
         end.fractions = -start.fractions;
+        if (from.graceIndex >= 0) {
+            end.otherGraceIndex = from.graceIndex;
+        }
         to.endingLinks.push_back(end);
     }
 
@@ -2153,33 +2206,51 @@ private:
         }
     }
 
-    //! `\\glissando` and `\\noteLine` join the notes of a chord to those of the next one, from the lowest up, as
-    //! many as the smaller of the two chords has
+    //! `\\glissando`, `\\noteLine` and a bend join the notes of a chord to those of the next one, from the lowest
+    //! up, as many as the smaller of the two chords has; a slight bend begins and ends on its note
     void planNoteToNoteLines(const std::vector<Event*>& events)
     {
         for (size_t i = 0; i < events.size(); ++i) {
             Event& from = *events[i];
-            for (const auto& [isThere, kind] : { std::pair(from.glissando, Link::Kind::Glissando),
-                                                 std::pair(from.noteLine, Link::Kind::NoteLine) }) {
-                if (!isThere) {
-                    continue;
-                }
+            if (from.glissando) {
+                connectNotes(events, i, Link { Link::Kind::Glissando });
+            }
 
-                Event* to = nextChord(events, i);
-                if (!to || from.isRest) {
-                    fail("a glissando and a note-anchored line go from a chord to the next one", from.textPosition);
-                }
+            if (from.noteLine) {
+                connectNotes(events, i, Link { Link::Kind::NoteLine });
+            }
 
-                std::vector<int> lower = midisOf(from);
-                std::vector<int> upper = midisOf(*to);
-                for (size_t n = 0; n < std::min(lower.size(), upper.size()); ++n) {
-                    Link start { kind };
-                    start.midi = lower[n];
-                    Link end { kind };
-                    end.midi = upper[n];
-                    connect(from, start, *to, end, Fraction());
+            if (from.guitarBend) {
+                Link bend { Link::Kind::GuitarBend };
+                bend.subtype = *from.guitarBend;
+                if (*from.guitarBend == SLIGHT_BEND) {
+                    for (int midi : midisOf(from)) {
+                        bend.midi = midi;
+                        connect(from, bend, from, bend, Fraction());
+                    }
+                } else {
+                    connectNotes(events, i, bend);
                 }
             }
+        }
+    }
+
+    void connectNotes(const std::vector<Event*>& events, size_t fromIndex, const Link& link)
+    {
+        Event& from = *events[fromIndex];
+        Event* to = nextChord(events, fromIndex);
+        if (!to || from.isRest) {
+            fail("a glissando, a note-anchored line and a bend go from a chord to the next one", from.textPosition);
+        }
+
+        const std::vector<int> lower = midisOf(from);
+        const std::vector<int> upper = midisOf(*to);
+        for (size_t n = 0; n < std::min(lower.size(), upper.size()); ++n) {
+            Link start = link;
+            start.midi = lower[n];
+            Link end = link;
+            end.midi = upper[n];
+            connect(from, start, *to, end, Fraction());
         }
     }
 
@@ -2668,6 +2739,18 @@ private:
             writeStaffText(event.staffText);
         }
 
+        //! NOTE A dip of the bar (DIP_CURVE of tremolobar.cpp)
+        if (event.tremoloBar) {
+            m_xml.writeStartElement("TremoloBar");
+            for (const auto& [time, pitch] : { std::pair(0, 0), std::pair(30, -100), std::pair(60, 0) }) {
+                m_xml.writeEmptyElement("point");
+                m_xml.writeAttribute("time", QString::number(time));
+                m_xml.writeAttribute("pitch", QString::number(pitch));
+                m_xml.writeAttribute("vibrato", "0");
+            }
+            m_xml.writeEndElement();
+        }
+
         if (event.fermata) {
             m_xml.writeStartElement("Fermata");
             text("subtype", "fermataAbove");
@@ -3005,6 +3088,19 @@ private:
         writeLinks(event, Link::Kind::Tie, pitch.midi);
         writeLinks(event, Link::Kind::Glissando, pitch.midi);
         writeLinks(event, Link::Kind::NoteLine, pitch.midi);
+        writeLinks(event, Link::Kind::GuitarBend, pitch.midi);
+
+        //! NOTE The bend of MuseScore 3 with the standard curve (BEND_CURVE of bend.cpp): up a whole tone and held
+        if (event.oldBend && isTopNote) {
+            m_xml.writeStartElement("Bend");
+            for (const auto& [time, pitch] : { std::pair(0, 0), std::pair(15, 100), std::pair(60, 100) }) {
+                m_xml.writeEmptyElement("point");
+                m_xml.writeAttribute("time", QString::number(time));
+                m_xml.writeAttribute("pitch", QString::number(pitch));
+                m_xml.writeAttribute("vibrato", "0");
+            }
+            m_xml.writeEndElement();
+        }
 
         if (event.slashHeads) {
             text("head", "slash");
@@ -3067,6 +3163,7 @@ private:
         case Link::Kind::Line: return link.line.type;
         case Link::Kind::Glissando: return "Glissando";
         case Link::Kind::NoteLine: return "NoteLine";
+        case Link::Kind::GuitarBend: return "GuitarBend";
         }
 
         return QString();
@@ -3107,6 +3204,8 @@ private:
             m_xml.writeStartElement(spannerType(link));
             if (link.kind == Link::Kind::Line) {
                 writeLineProperties(link.line);
+            } else if (link.kind == Link::Kind::GuitarBend) {
+                number("guitarBendType", link.subtype);
             } else if (link.kind == Link::Kind::Hairpin) {
                 number("subtype", link.subtype);
                 if (link.circledTip) {
@@ -3187,6 +3286,10 @@ private:
 
         if (link.fractions.isNotZero() || link.measures == 0) {
             fraction("fractions", link.fractions);
+        }
+
+        if (link.otherGraceIndex) {
+            number("grace", *link.otherGraceIndex);
         }
 
         m_xml.writeEndElement();

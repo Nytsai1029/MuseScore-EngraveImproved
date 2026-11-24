@@ -30,6 +30,7 @@
 #include "engraving/dom/barline.h"
 #include "engraving/dom/articulation.h"
 #include "engraving/dom/beam.h"
+#include "engraving/dom/bend.h"
 #include "engraving/dom/box.h"
 #include "engraving/dom/bracketitem.h"
 #include "engraving/dom/breath.h"
@@ -41,6 +42,7 @@
 #include "engraving/dom/fingering.h"
 #include "engraving/dom/glissando.h"
 #include "engraving/dom/gradualtempochange.h"
+#include "engraving/dom/guitarbend.h"
 #include "engraving/dom/hairpin.h"
 #include "engraving/dom/harmony.h"
 #include "engraving/dom/instrument.h"
@@ -74,6 +76,7 @@
 #include "engraving/dom/textline.h"
 #include "engraving/dom/tie.h"
 #include "engraving/dom/timesig.h"
+#include "engraving/dom/tremolobar.h"
 #include "engraving/dom/tremolosinglechord.h"
 #include "engraving/dom/tremolotwochord.h"
 #include "engraving/dom/trill.h"
@@ -1347,4 +1350,69 @@ TEST_F(Notation_PreviewMusicTests, linesOverChordsAndBetweenNotes)
     EXPECT_FALSE(errorOf("c'4 \\startTextLine poco \\stopTextLine").empty());
     EXPECT_FALSE(errorOf("c'4 \\startTempoChange slower \\stopTempoChange").empty());
     EXPECT_FALSE(errorOf("c'4 \\glissando r4").empty());
+}
+
+/**
+ * @TEST_CASE bendsAndTremoloBars
+ * @details `\\bend` bends a note up to the note of the next chord (from a grace note: a grace note bend), `\\preBend`
+ * bends a grace note before it is struck, `\\slightBend` stays on its note; `\\oldBend` and `\\tremoloBar` are the
+ * bend of MuseScore 3 and a tremolo bar dip. A spanner which begins on a grace note ends where it should
+ */
+TEST_F(Notation_PreviewMusicTests, bendsAndTremoloBars)
+{
+    ASSERT_TRUE(load("a'4 \\bend b'4 \\grace g'8 \\bend a'4 \\grace g'8 \\preBend a'4 | "
+                     "a'4 \\slightBend c''4 \\oldBend d''4 \\tremoloBar \\grace c''8( d''4)"));
+
+    struct BendSeen {
+        GuitarBendType type;
+        int from;
+        int to;
+        bool fromGrace;
+        bool operator==(const BendSeen& other) const
+        {
+            return type == other.type && from == other.from && to == other.to && fromGrace == other.fromGrace;
+        }
+    };
+    std::vector<BendSeen> bends;
+    std::vector<const Note*> notes;
+    for (const Chord* chord : chords()) {
+        for (const Chord* grace : chord->graceNotes()) {
+            notes.insert(notes.end(), grace->notes().begin(), grace->notes().end());
+        }
+        notes.insert(notes.end(), chord->notes().begin(), chord->notes().end());
+    }
+    for (const Note* note : notes) {
+        for (const Spanner* spanner : note->spannerFor()) {
+            if (spanner->isGuitarBend()) {
+                ASSERT_TRUE(spanner->endElement() && spanner->endElement()->isNote());
+                bends.push_back({ toGuitarBend(spanner)->type(), note->pitch(), toNote(spanner->endElement())->pitch(),
+                                  note->chord()->isGrace() });
+            }
+        }
+    }
+    const std::vector<BendSeen> expected {
+        { GuitarBendType::BEND, 69, 71, false },
+        { GuitarBendType::GRACE_NOTE_BEND, 67, 69, true },
+        { GuitarBendType::PRE_BEND, 67, 69, true },
+        { GuitarBendType::SLIGHT_BEND, 69, 69, false },
+    };
+    EXPECT_TRUE(bends == expected) << bends.size() << " bends";
+
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 8u);
+    const Note* bent = found[5]->upNote();
+    EXPECT_TRUE(std::any_of(bent->el().begin(), bent->el().end(), [](const EngravingItem* item) {
+        return item->isBend();
+    }));
+    EXPECT_TRUE(found[6]->segment()->findAnnotation(ElementType::TREMOLOBAR, 0, 0));
+
+    const std::vector<const Spanner*> slurs = spannersOf(ElementType::SLUR);
+    ASSERT_EQ(slurs.size(), 1u);
+    ASSERT_TRUE(slurs[0]->startElement() && slurs[0]->endElement());
+    EXPECT_TRUE(toChord(slurs[0]->startElement())->isGrace());
+    EXPECT_EQ(slurs[0]->endElement(), found[7]);
+
+    EXPECT_FALSE(errorOf("c'4 \\preBend d'4").empty());
+    EXPECT_FALSE(errorOf("r4 \\bend d'4").empty());
+    EXPECT_FALSE(errorOf("c'4 \\bend").empty());
 }
