@@ -1397,6 +1397,12 @@ TEST_F(Notation_PreviewMusicTests, bendsAndTremoloBars)
         { GuitarBendType::SLIGHT_BEND, 69, 69, false },
     };
     EXPECT_TRUE(bends == expected) << bends.size() << " bends";
+    for (const Note* note : notes) {
+        if (note->chord()->isGrace()) {
+            // [THEN] A grace note which begins a bend has no stem, the others have one
+            EXPECT_EQ(note->chord()->noStem(), note->bendFor() != nullptr);
+        }
+    }
 
     const std::vector<Chord*> found = chords();
     ASSERT_EQ(found.size(), 8u);

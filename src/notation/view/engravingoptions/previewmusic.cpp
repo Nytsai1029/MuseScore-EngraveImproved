@@ -2966,6 +2966,11 @@ private:
         if (event.grace != Event::Grace::None) {
             m_xml.writeEmptyElement(TAGS.at(event.grace));
         }
+
+        //! NOTE A grace note which begins a bend has no stem, as the bend command makes it (Score::addGuitarBend)
+        if (event.guitarBend == PRE_BEND || event.guitarBend == GRACE_NOTE_BEND) {
+            number("noStem", 1);
+        }
     }
 
     void writeBeam(const Event& event)
