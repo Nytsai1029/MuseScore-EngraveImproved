@@ -31,24 +31,35 @@ EoPage {
     code: "fermatas"
     legacyCodes: ["fermatas"]
     title: qsTrc("EditStyleBase", "Fermatas")
-    group: qsTrc("notation/engravingoptions", "Notations")
+    group: qsTrc("notation/engravingoptions", "Signs")
+    music: "<< { c''1 \\fermata } \\\\ { e'1 \\fermata } >>"
 
     EoSection {
-        title: qsTrc("EditStyleBase", "Fermatas")
+        title: qsTrc("notation/engravingoptions", "Fermatas")
 
         EoOffset {
             sid: "fermataPosAbove"
-            title: qsTrc("EditStyleBase", "Offset above:")
+            title: qsTrc("notation/engravingoptions", "Position above the staff")
+            hint: qsTrc("notation/engravingoptions",
+                        "Horizontal shift and height of a fermata placed above, measured from the top staff line " +
+                        "(negative is up); notes and signs in the way still push it further out.")
         }
 
         EoOffset {
             sid: "fermataPosBelow"
-            title: qsTrc("EditStyleBase", "Offset below:")
+            title: qsTrc("notation/engravingoptions", "Position below the staff")
+            hint: qsTrc("notation/engravingoptions",
+                        "Horizontal shift and depth of a fermata placed below, measured from the bottom staff line " +
+                        "(positive is down); notes and signs in the way still push it further out.")
         }
 
         EoNumber {
             sid: "fermataMinDistance"
-            title: qsTrc("EditStyleBase", "Autoplace min. distance:")
+            music: "a''2 \\fermata c''2 \\fermata"
+            title: qsTrc("notation/engravingoptions", "Minimum distance from notes and signs")
+            hint: qsTrc("notation/engravingoptions",
+                        "Least vertical gap between a fermata and the note, articulations or other signs which lie " +
+                        "between it and the staff.")
             max: 1000
             step: 0.2
         }

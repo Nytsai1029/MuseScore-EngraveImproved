@@ -49885,5 +49885,35 @@ The score will be saved as:
         <source>Prefer closeness to notehead</source>
         <translation>优先靠近符头</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="38"/>
+        <source>Fermatas</source>
+        <translation>延长记号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="42"/>
+        <source>Position above the staff</source>
+        <translation>谱表上方的位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="43"/>
+        <source>Horizontal shift and height of a fermata placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的延长记号的水平偏移和高度，自谱表最上方谱线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="50"/>
+        <source>Position below the staff</source>
+        <translation>谱表下方的位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="51"/>
+        <source>Horizontal shift and depth of a fermata placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的延长记号的水平偏移和深度，自谱表最下方谱线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="60"/>
+        <source>Least vertical gap between a fermata and the note, articulations or other signs which lie between it and the staff.</source>
+        <translation>延长记号与它和谱表之间的音符、运音法记号等之间的最小垂直间隙。</translation>
+    </message>
 </context>
 </TS>
