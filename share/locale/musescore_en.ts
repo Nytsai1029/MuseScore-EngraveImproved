@@ -4038,7 +4038,7 @@ space unit</extracomment>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="438"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="51"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="174"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="273"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="211"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="70"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="60"/>
@@ -4079,7 +4079,6 @@ space unit</extracomment>
         <translation type="unfinished">Min. distance to accidental:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="180"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8127"/>
         <source>Vertical ends on diagonal hairpins</source>
         <translation type="unfinished">Vertical ends on diagonal hairpins</translation>
@@ -4173,7 +4172,6 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Autoplace min. distance&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="102"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="60"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="60"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="60"/>
@@ -4186,13 +4184,12 @@ space unit</extracomment>
         <translation type="unfinished">Autoplace min. distance:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7584"/>
         <source>Default positions of dynamics and hairpins</source>
         <translation type="unfinished">Default positions of dynamics and hairpins</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="43"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="41"/>
@@ -4236,27 +4233,24 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Position&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="51"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="57"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7647"/>
         <source>Place above the staff on vocal instruments</source>
         <translation type="unfinished">Place above the staff on vocal instruments</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="56"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="66"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7654"/>
         <source>Center on grand staff instruments automatically</source>
         <translation type="unfinished">Center on grand staff instruments automatically</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="61"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7664"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="13266"/>
         <source>Dynamics</source>
         <translation type="unfinished">Dynamics</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="97"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="151"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="75"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="58"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="55"/>
@@ -4312,8 +4306,6 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Avoid barlines&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="92"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="146"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="58"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="46"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="50"/>
@@ -4341,7 +4333,7 @@ space unit</extracomment>
         <translation type="unfinished">Offset above:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="78"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="113"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="104"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7787"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="11680"/>
@@ -4350,20 +4342,19 @@ space unit</extracomment>
         <translation type="unfinished">Avoid barlines</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="83"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="102"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7810"/>
         <source>Scale:</source>
         <translation type="unfinished">Scale:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="65"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7820"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7823"/>
         <source>Override score font</source>
         <translation type="unfinished">Override score font</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="70"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="90"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7832"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12706"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="13812"/>
@@ -4371,7 +4362,6 @@ space unit</extracomment>
         <translation type="unfinished">Font:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="142"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7868"/>
         <source>Hairpins</source>
         <translation type="unfinished">Hairpins</translation>
@@ -4382,7 +4372,6 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Autoplace, distance to dynamics&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="168"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7923"/>
         <source>Autoplace, distance to dynamics:</source>
         <translation type="unfinished">Autoplace, distance to dynamics:</translation>
@@ -4393,7 +4382,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Continue height&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="156"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="254"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7971"/>
         <source>Height:</source>
         <translation type="unfinished">Height:</translation>
@@ -4409,7 +4398,6 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Line thickness&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="162"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8085"/>
         <source>Continue height:</source>
         <translation type="unfinished">Continue height:</translation>
@@ -4432,6 +4420,8 @@ space unit</extracomment>
         <translation type="unfinished">Dash size:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="370"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="471"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="76"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="66"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="66"/>
@@ -27433,6 +27423,7 @@ pickup measure</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/dynamics/DynamicsSettings.qml" line="125"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="211"/>
         <source>Center on notehead</source>
         <translation type="unfinished">Center on notehead</translation>
     </message>
@@ -32318,13 +32309,11 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Dotted</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="43"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="219"/>
         <source>Based on voice</source>
         <translation type="unfinished">Based on voice</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="44"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="43"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="43"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="43"/>
@@ -32341,7 +32330,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Above</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="45"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="44"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="44"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="44"/>
@@ -33696,13 +33684,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="163"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="127"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="128"/>
         <source>After key signature</source>
         <translation type="unfinished">After key signature</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="169"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="128"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="129"/>
         <source>On key signature</source>
         <translation type="unfinished">On key signature</translation>
     </message>
@@ -33713,13 +33701,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="197"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="140"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="141"/>
         <source>To right side of barlines</source>
         <translation type="unfinished">To right side of barlines</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="203"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="141"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="142"/>
         <source>To left side of barlines</source>
         <translation type="unfinished">To left side of barlines</translation>
     </message>
@@ -34311,7 +34299,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">How far straight arpeggio lines with an arrow extend beyond the top and the bottom notehead.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="33"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="33"/>
         <source>Notations</source>
@@ -35293,6 +35280,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="155"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="169"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="184"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="49"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="140"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="341"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="198"/>
@@ -35305,6 +35293,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="156"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="170"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="185"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="50"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="141"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="342"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="199"/>
@@ -35569,12 +35558,18 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Offset with the alternate text style</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="124"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="227"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="445"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="188"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="367"/>
         <source>Above the staff</source>
         <translation type="unfinished">Above the staff</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="125"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="228"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="446"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="189"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="368"/>
         <source>Below the staff</source>
@@ -36777,92 +36772,77 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Multiplies the accidental distance where two different accidentals meet in a key signature, for example between the cancelling naturals and the new sharps or flats.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="110"/>
         <source>Dynamic anchored to end of previous note: gap</source>
         <translation type="unfinished">Dynamic anchored to end of previous note: gap</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="111"/>
         <source>For a dynamic set to anchor to the end of the previous note, the gap between its right edge and the start of its beat (the barline, clef or note found there).</source>
         <translation type="unfinished">For a dynamic set to anchor to the end of the previous note, the gap between its right edge and the start of its beat (the barline, clef or note found there).</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="118"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="172"/>
         <source>Minimum distance from barlines</source>
         <translation type="unfinished">Minimum distance from barlines</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="119"/>
         <source>With ‘avoid barlines’ on, a dynamic between staves joined by barlines is moved sideways until it is this far from the barline.</source>
         <translation type="unfinished">With ‘avoid barlines’ on, a dynamic between staves joined by barlines is moved sideways until it is this far from the barline.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="126"/>
         <source>Gap between dynamic and expression text</source>
         <translation type="unfinished">Gap between dynamic and expression text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="127"/>
         <source>Horizontal gap between a dynamic and expression text on the same beat (scaled by the size of both).</source>
         <translation type="unfinished">Horizontal gap between a dynamic and expression text on the same beat (scaled by the size of both).</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="134"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="192"/>
         <source>Gap after a dynamic ending in f</source>
         <translation type="unfinished">Gap after a dynamic ending in f</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="135"/>
         <source>The same gap when the dynamic ends with the letter f, whose overhanging top needs less room.</source>
         <translation type="unfinished">The same gap when the dynamic ends with the letter f, whose overhanging top needs less room.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="185"/>
         <source>Gap between hairpin and its text</source>
         <translation type="unfinished">Gap between hairpin and its text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="186"/>
         <source>Space between the lines of a hairpin and text attached to its start or end.</source>
         <translation type="unfinished">Space between the lines of a hairpin and text attached to its start or end.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="193"/>
         <source>Minimum hairpin length</source>
         <translation type="unfinished">Minimum hairpin length</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="194"/>
         <source>A hairpin segment is never drawn shorter than this.</source>
         <translation type="unfinished">A hairpin segment is never drawn shorter than this.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="201"/>
         <source>Niente circle diameter</source>
         <translation type="unfinished">Niente circle diameter</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="202"/>
         <source>Diameter of the circle at the tip of a ‘niente’ hairpin.</source>
         <translation type="unfinished">Diameter of the circle at the tip of a ‘niente’ hairpin.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="209"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="330"/>
         <source>Extend to following dynamic when gap exceeds</source>
         <translation type="unfinished">Extend to following dynamic when gap exceeds</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="210"/>
         <source>A hairpin that snaps to the dynamic or expression text after it is lengthened to reach it only when the remaining gap is larger than this; smaller gaps are left as they are.</source>
         <translation type="unfinished">A hairpin that snaps to the dynamic or expression text after it is lengthened to reach it only when the remaining gap is larger than this; smaller gaps are left as they are.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="218"/>
         <source>Hairpin end: distance before end position</source>
         <translation type="unfinished">Hairpin end: distance before end position</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="219"/>
         <source>How far before the note, rest or barline at its end position a hairpin stops when no dynamic determines its end.</source>
         <translation type="unfinished">How far before the note, rest or barline at its end position a hairpin stops when no dynamic determines its end.</translation>
     </message>
@@ -37250,6 +37230,9 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="285"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="121"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="224"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="442"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="122"/>
         <source>Position</source>
         <translation type="unfinished">Position</translation>
@@ -38597,6 +38580,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="34"/>
@@ -38862,6 +38846,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Length of the dashes and of the gaps between them. The dashes have square ends, which make each printed dash one line thickness longer and each gap one thickness shorter than the numbers say.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="374"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="475"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="110"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="73"/>
         <source>Dashed</source>
@@ -41683,6 +41669,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Laissez vibrer</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="299"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="419"/>
         <source>Minimum length</source>
         <translation type="unfinished">Minimum length</translation>
@@ -42046,13 +42033,15 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Horizontal shift and depth of a fermata placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="149"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="351"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="59"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="288"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="411"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="205"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="253"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="103"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="107"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="108"/>
         <source>Minimum distance from notes and signs</source>
         <translation type="unfinished">Minimum distance from notes and signs</translation>
     </message>
@@ -42592,62 +42581,373 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Length of the vertical strokes which close the volta bracket at its ends.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="37"/>
+        <source>Default positions</source>
+        <translation type="unfinished">Default positions</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="38"/>
+        <source>These three settings act on dynamics and hairpins alike.</source>
+        <translation type="unfinished">These three settings act on dynamics and hairpins alike.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="44"/>
+        <source>‘Based on voice’ puts them below the staff, except where several voices share a staff: there the marks of voices 1 and 3 go above and those of voices 2 and 4 below.</source>
+        <translation type="unfinished">‘Based on voice’ puts them below the staff, except where several voices share a staff: there the marks of voices 1 and 3 go above and those of voices 2 and 4 below.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="48"/>
+        <source>Based on voice</source>
+        <translation type="unfinished">Based on voice</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="58"/>
+        <source>Dynamics and hairpins of singers’ staves go above the staff, out of the way of the lyrics. Only with the position ‘Based on voice’.</source>
+        <translation type="unfinished">Dynamics and hairpins of singers’ staves go above the staff, out of the way of the lyrics. Only with the position ‘Based on voice’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="67"/>
+        <source>On piano, harp and other instruments written on two or more staves, dynamics and hairpins which apply to the whole instrument are centred between the staves.</source>
+        <translation type="unfinished">On piano, harp and other instruments written on two or more staves, dynamics and hairpins which apply to the whole instrument are centred between the staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="74"/>
+        <source>Dynamics</source>
+        <translation type="unfinished">Dynamics</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="81"/>
+        <source>Use a different music font for dynamics</source>
+        <translation type="unfinished">Use a different music font for dynamics</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="82"/>
+        <source>Off, the letters of dynamics come from the musical symbols font of the score.</source>
+        <translation type="unfinished">Off, the letters of dynamics come from the musical symbols font of the score.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="91"/>
+        <source>The music font from which the letters of dynamics are taken. Only with ‘Use a different music font for dynamics’ on.</source>
+        <translation type="unfinished">The music font from which the letters of dynamics are taken. Only with ‘Use a different music font for dynamics’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="103"/>
+        <source>Size of dynamics relative to their normal size.</source>
+        <translation type="unfinished">Size of dynamics relative to their normal size.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="114"/>
+        <source>A dynamic between two staves which are joined by barlines is moved sideways so that it does not sit on the barline.</source>
+        <translation type="unfinished">A dynamic between two staves which are joined by barlines is moved sideways so that it does not sit on the barline.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="132"/>
+        <source>Horizontal shift and height of a dynamic placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and height of a dynamic placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="140"/>
+        <source>Horizontal shift and depth of a dynamic placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and depth of a dynamic placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="150"/>
+        <source>Least vertical gap between a dynamic and the notes, stems, slurs or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a dynamic and the notes, stems, slurs or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="161"/>
+        <source>Gap after a dynamic placed before its beat</source>
+        <translation type="unfinished">Gap after a dynamic placed before its beat</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="162"/>
+        <source>For a dynamic set to stand at the end of the note before, such as a p just before a barline: the gap between its right edge and the barline, clef or note at which its beat begins.</source>
+        <translation type="unfinished">For a dynamic set to stand at the end of the note before, such as a p just before a barline: the gap between its right edge and the barline, clef or note at which its beat begins.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="173"/>
+        <source>With ‘Avoid barlines’ on: how far from the barline a dynamic ends up after it has been moved aside.</source>
+        <translation type="unfinished">With ‘Avoid barlines’ on: how far from the barline a dynamic ends up after it has been moved aside.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="182"/>
+        <source>Gap between a dynamic and expression text</source>
+        <translation type="unfinished">Gap between a dynamic and expression text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="183"/>
+        <source>Horizontal gap between a dynamic and the expression text which follows it on the same beat, as in p dolce; it grows with the size of both.</source>
+        <translation type="unfinished">Horizontal gap between a dynamic and the expression text which follows it on the same beat, as in p dolce; it grows with the size of both.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="193"/>
+        <source>Used instead of the gap above when the dynamic ends with the letter f, whose top leans to the right and needs less room.</source>
+        <translation type="unfinished">Used instead of the gap above when the dynamic ends with the letter f, whose top leans to the right and needs less room.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="202"/>
+        <source>Centre dynamics on their optical centre</source>
+        <translation type="unfinished">Centre dynamics on their optical centre</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="203"/>
+        <source>A dynamic centred on a note is aligned by the optical centre which the music font gives for it, not by the middle of its outline; a slanted f, for example, then looks centred.</source>
+        <translation type="unfinished">A dynamic centred on a note is aligned by the optical centre which the music font gives for it, not by the middle of its outline; a slanted f, for example, then looks centred.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="212"/>
+        <source>A dynamic is centred under the middle of its notehead. Off: it follows the alignment of the text style ‘Dynamics’, so a left-aligned dynamic starts at the left edge of the note.</source>
+        <translation type="unfinished">A dynamic is centred under the middle of its notehead. Off: it follows the alignment of the text style ‘Dynamics’, so a left-aligned dynamic starts at the left edge of the note.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="219"/>
+        <source>Hairpins</source>
+        <translation type="unfinished">Hairpins</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="235"/>
+        <source>Horizontal shift and height of the middle line of a hairpin placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and height of the middle line of a hairpin placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="244"/>
+        <source>Horizontal shift and depth of the middle line of a hairpin placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and depth of the middle line of a hairpin placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="255"/>
+        <source>Distance between the two lines at the open end of a hairpin.</source>
+        <translation type="unfinished">Distance between the two lines at the open end of a hairpin.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="263"/>
+        <source>Opening at a system break</source>
+        <translation type="unfinished">Opening at a system break</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="264"/>
+        <source>Distance between the two lines at the narrow end of a hairpin which is broken off at the end of a system or taken up again on the next one.</source>
+        <translation type="unfinished">Distance between the two lines at the narrow end of a hairpin which is broken off at the end of a system or taken up again on the next one.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="280"/>
+        <source>Vertical ends on diagonal hairpins</source>
+        <translation type="unfinished">Vertical ends on diagonal hairpins</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="281"/>
+        <source>When a hairpin is drawn at an angle, its open end is cut vertically instead of at right angles to its direction.</source>
+        <translation type="unfinished">When a hairpin is drawn at an angle, its open end is cut vertically instead of at right angles to its direction.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="289"/>
+        <source>Diameter of the niente circle</source>
+        <translation type="unfinished">Diameter of the niente circle</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="290"/>
+        <source>The small circle at the tip of a hairpin which starts from nothing or fades to nothing.</source>
+        <translation type="unfinished">The small circle at the tip of a hairpin which starts from nothing or fades to nothing.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="300"/>
+        <source>A hairpin, or the part of it on one system, is never drawn shorter than this.</source>
+        <translation type="unfinished">A hairpin, or the part of it on one system, is never drawn shorter than this.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="310"/>
+        <source>Gap between a hairpin and its text</source>
+        <translation type="unfinished">Gap between a hairpin and its text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="311"/>
+        <source>Space between the lines of a hairpin and a text attached to its start or end.</source>
+        <translation type="unfinished">Space between the lines of a hairpin and a text attached to its start or end.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="319"/>
+        <source>Distance from dynamics</source>
+        <translation type="unfinished">Distance from dynamics</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="320"/>
+        <source>Horizontal gap between the end of a hairpin and the dynamic or expression text before or after it.</source>
+        <translation type="unfinished">Horizontal gap between the end of a hairpin and the dynamic or expression text before or after it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="331"/>
+        <source>A hairpin which stops short of the dynamic or expression text after it is lengthened to reach it only if the gap left is wider than this; a narrower gap stays open.</source>
+        <translation type="unfinished">A hairpin which stops short of the dynamic or expression text after it is lengthened to reach it only if the gap left is wider than this; a narrower gap stays open.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="341"/>
+        <source>Distance of the end before the next note or barline</source>
+        <translation type="unfinished">Distance of the end before the next note or barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="342"/>
+        <source>A hairpin stops this far before the note, rest or barline at which it ends, unless a dynamic there decides where it ends.</source>
+        <translation type="unfinished">A hairpin stops this far before the note, rest or barline at which it ends, unless a dynamic there decides where it ends.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="352"/>
+        <source>Least vertical gap between a hairpin and the notes or other signs which lie between it and the staff. Cresc. and dim. lines use it too.</source>
+        <translation type="unfinished">Least vertical gap between a hairpin and the notes or other signs which lie between it and the staff. Cresc. and dim. lines use it too.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="360"/>
+        <source>Text at the start of every hairpin</source>
+        <translation type="unfinished">Text at the start of every hairpin</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="361"/>
+        <source>A text set here appears at the start of every hairpin, crescendo and diminuendo alike, and again on each following system. Normally empty; it has nothing to do with the cresc. and dim. lines of this section.</source>
+        <translation type="unfinished">A text set here appears at the start of every hairpin, crescendo and diminuendo alike, and again on each following system. Normally empty; it has nothing to do with the cresc. and dim. lines of this section.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="371"/>
+        <source>The two lines of a hairpin drawn solid, dashed or dotted.</source>
+        <translation type="unfinished">The two lines of a hairpin drawn solid, dashed or dotted.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="373"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="474"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="72"/>
         <source>Solid</source>
         <translation type="unfinished">Solid</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="375"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="476"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="74"/>
         <source>Dotted</source>
         <translation type="unfinished">Dotted</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="81"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="383"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="483"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="82"/>
         <source>Dash length</source>
         <translation type="unfinished">Dash length</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="82"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="384"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="484"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="83"/>
         <source>Length of each dash as a multiple of the line thickness. Only with the line style ‘Dashed’.</source>
         <translation type="unfinished">Length of each dash as a multiple of the line thickness. Only with the line style ‘Dashed’.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="94"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="393"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="493"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="95"/>
         <source>Gap length</source>
         <translation type="unfinished">Gap length</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="95"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="394"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="494"/>
+        <source>Gap between two dashes as a multiple of the line thickness; it is evened out slightly so that the line ends with a full dash. Only with the line style ‘Dashed’.</source>
+        <translation type="unfinished">Gap between two dashes as a multiple of the line thickness; it is evened out slightly so that the line ends with a full dash. Only with the line style ‘Dashed’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="402"/>
+        <source>Cresc. and dim. written as text with a line</source>
+        <translation type="unfinished">Cresc. and dim. written as text with a line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="403"/>
+        <source>The lines which begin with a word such as ‘cresc.’ or ‘dim.’ and run on as a dashed line, used in place of a hairpin.</source>
+        <translation type="unfinished">The lines which begin with a word such as ‘cresc.’ or ‘dim.’ and run on as a dashed line, used in place of a hairpin.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="411"/>
+        <source>Crescendo: text</source>
+        <translation type="unfinished">Crescendo: text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="412"/>
+        <source>The word with which a crescendo line begins.</source>
+        <translation type="unfinished">The word with which a crescendo line begins.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="419"/>
+        <source>Crescendo: text on following systems</source>
+        <translation type="unfinished">Crescendo: text on following systems</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="420"/>
+        <source>The word which is repeated where a crescendo line goes on after a system break.</source>
+        <translation type="unfinished">The word which is repeated where a crescendo line goes on after a system break.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="427"/>
+        <source>Diminuendo: text</source>
+        <translation type="unfinished">Diminuendo: text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="428"/>
+        <source>The word with which a diminuendo line begins.</source>
+        <translation type="unfinished">The word with which a diminuendo line begins.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="435"/>
+        <source>Diminuendo: text on following systems</source>
+        <translation type="unfinished">Diminuendo: text on following systems</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="436"/>
+        <source>The word which is repeated where a diminuendo line goes on after a system break.</source>
+        <translation type="unfinished">The word which is repeated where a diminuendo line goes on after a system break.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="453"/>
+        <source>Horizontal shift and height of a cresc. or dim. line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and height of a cresc. or dim. line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="461"/>
+        <source>Horizontal shift and depth of a cresc. or dim. line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and depth of a cresc. or dim. line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="472"/>
+        <source>The line which follows the word: dashed by default.</source>
+        <translation type="unfinished">The line which follows the word: dashed by default.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="96"/>
         <source>Length of the gap between two dashes as a multiple of the line thickness. Only with the line style ‘Dashed’.</source>
         <translation type="unfinished">Length of the gap between two dashes as a multiple of the line thickness. Only with the line style ‘Dashed’.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="108"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="109"/>
         <source>Least vertical gap between a volta and the notes or other signs which lie between it and the staff.</source>
         <translation type="unfinished">Least vertical gap between a volta and the notes or other signs which lie between it and the staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="116"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="117"/>
         <source>Alignment</source>
         <translation type="unfinished">Alignment</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="121"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="122"/>
         <source>At the start of a system, start the volta over the key signature</source>
         <translation type="unfinished">At the start of a system, start the volta over the key signature</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="123"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="124"/>
         <source>Off, a volta which begins or continues at the start of a system starts just before the first note, after the key signature.</source>
         <translation type="unfinished">Off, a volta which begins or continues at the start of a system starts just before the first note, after the key signature.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="134"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="135"/>
         <source>After an end repeat, start the hook at the left of the thick barline</source>
         <translation type="unfinished">After an end repeat, start the hook at the left of the thick barline</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="136"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="137"/>
         <source>Off, the hook of a volta which follows an end repeat barline stands at the right edge of that barline.</source>
         <translation type="unfinished">Off, the hook of a volta which follows an end repeat barline stands at the right edge of that barline.</translation>
     </message>

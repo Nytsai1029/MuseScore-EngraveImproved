@@ -41702,22 +41702,22 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="185"/>
         <source>Gap between hairpin and its text</source>
-        <translation>渐强渐弱线与其文本的间隔</translation>
+        <translation>楔形力度记号与其文本的间隔</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="186"/>
         <source>Space between the lines of a hairpin and text attached to its start or end.</source>
-        <translation>渐强渐弱线的线条与附于其首端或末端的文本之间的间隔。</translation>
+        <translation>楔形力度记号的线条与附于其首端或末端的文本之间的间隔。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="193"/>
         <source>Minimum hairpin length</source>
-        <translation>渐强渐弱线最小长度</translation>
+        <translation>楔形力度记号最小长度</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="194"/>
         <source>A hairpin segment is never drawn shorter than this.</source>
-        <translation>渐强渐弱线的任何一段都不会短于此长度。</translation>
+        <translation>楔形力度记号的任何一段都不会短于此长度。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="201"/>
@@ -41727,7 +41727,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="202"/>
         <source>Diameter of the circle at the tip of a ‘niente’ hairpin.</source>
-        <translation>“无响度”渐强渐弱线尖端圆圈的直径。</translation>
+        <translation>“无响度”楔形力度记号尖端圆圈的直径。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="209"/>
@@ -41737,17 +41737,17 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="210"/>
         <source>A hairpin that snaps to the dynamic or expression text after it is lengthened to reach it only when the remaining gap is larger than this; smaller gaps are left as they are.</source>
-        <translation>吸附到后方力度记号或表情记号的渐强渐弱线，仅在剩余空隙大于此值时才延长到该记号；较小的空隙保持不变。</translation>
+        <translation>吸附到后方力度记号或表情记号的楔形力度记号，仅在剩余空隙大于此值时才延长到该记号；较小的空隙保持不变。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="218"/>
         <source>Hairpin end: distance before end position</source>
-        <translation>渐强渐弱线末端：距结束位置的距离</translation>
+        <translation>楔形力度记号末端：距结束位置的距离</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="219"/>
         <source>How far before the note, rest or barline at its end position a hairpin stops when no dynamic determines its end.</source>
-        <translation>没有力度记号决定末端位置时，渐强渐弱线在其结束处的音符、休止符或小节线之前多远处收住。</translation>
+        <translation>没有力度记号决定末端位置时，楔形力度记号在其结束处的音符、休止符或小节线之前多远处收住。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="73"/>
@@ -42056,7 +42056,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="57"/>
         <source>Gap between the dots of dotted lines (text lines, glissandos, hairpins…), in line widths; the distance from dot to dot is this value plus 0.01.</source>
-        <translation>点状线条（文本线性记号、滑音、渐强渐弱线等）各点之间的间隔，以线宽为单位；相邻两点的间距为此值加 0.01。</translation>
+        <translation>点状线条（文本线性记号、滑音、楔形力度记号等）各点之间的间隔，以线宽为单位；相邻两点的间距为此值加 0.01。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="133"/>
@@ -49914,6 +49914,307 @@ The score will be saved as:
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="60"/>
         <source>Least vertical gap between a fermata and the note, articulations or other signs which lie between it and the staff.</source>
         <translation>延长记号与它和谱表之间的音符、运音法记号等之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="37"/>
+        <source>Default positions</source>
+        <translation>默认位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="38"/>
+        <source>These three settings act on dynamics and hairpins alike.</source>
+        <translation>以下三项同时作用于力度记号和楔形力度记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="44"/>
+        <source>‘Based on voice’ puts them below the staff, except where several voices share a staff: there the marks of voices 1 and 3 go above and those of voices 2 and 4 below.</source>
+        <translation>“基于声部”时置于谱表下方；但同一谱表上有多个声部时，第 1、3 声部的记号置于上方，第 2、4 声部的置于下方。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="48"/>
+        <source>Based on voice</source>
+        <translation>基于声部</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="58"/>
+        <source>Dynamics and hairpins of singers’ staves go above the staff, out of the way of the lyrics. Only with the position ‘Based on voice’.</source>
+        <translation>声乐谱表的力度记号和楔形力度记号置于谱表上方，以让开歌词。仅在位置为“基于声部”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="67"/>
+        <source>On piano, harp and other instruments written on two or more staves, dynamics and hairpins which apply to the whole instrument are centred between the staves.</source>
+        <translation>在钢琴、竖琴等使用两行或更多谱表的乐器上，作用于整件乐器的力度记号和楔形力度记号在谱表之间垂直居中。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="74"/>
+        <source>Dynamics</source>
+        <translation>力度记号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="81"/>
+        <source>Use a different music font for dynamics</source>
+        <translation>力度记号使用另一种音乐字体</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="82"/>
+        <source>Off, the letters of dynamics come from the musical symbols font of the score.</source>
+        <translation>关闭后，力度记号的字母取自乐谱的音乐符号字体。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="91"/>
+        <source>The music font from which the letters of dynamics are taken. Only with ‘Use a different music font for dynamics’ on.</source>
+        <translation>力度记号字母所用的音乐字体。仅在启用“力度记号使用另一种音乐字体”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="103"/>
+        <source>Size of dynamics relative to their normal size.</source>
+        <translation>力度记号相对于正常大小的比例。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="114"/>
+        <source>A dynamic between two staves which are joined by barlines is moved sideways so that it does not sit on the barline.</source>
+        <translation>力度记号位于由小节线贯通的两行谱表之间时，向一侧移开，以免压在小节线上。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="132"/>
+        <source>Horizontal shift and height of a dynamic placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的力度记号的水平偏移和高度，自谱表最上方谱线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="140"/>
+        <source>Horizontal shift and depth of a dynamic placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的力度记号的水平偏移和深度，自谱表最下方谱线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="150"/>
+        <source>Least vertical gap between a dynamic and the notes, stems, slurs or other signs which lie between it and the staff.</source>
+        <translation>力度记号与它和谱表之间的音符、符干、圆滑线等之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="161"/>
+        <source>Gap after a dynamic placed before its beat</source>
+        <translation>置于拍点之前的力度记号之后的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="162"/>
+        <source>For a dynamic set to stand at the end of the note before, such as a p just before a barline: the gap between its right edge and the barline, clef or note at which its beat begins.</source>
+        <translation>力度记号设为置于前一音符末尾时（例如紧靠小节线之前的 p），其右缘与所属拍点起始处的小节线、谱号或音符之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="173"/>
+        <source>With ‘Avoid barlines’ on: how far from the barline a dynamic ends up after it has been moved aside.</source>
+        <translation>启用“避开小节线”时，力度记号被移开后与小节线保持的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="182"/>
+        <source>Gap between a dynamic and expression text</source>
+        <translation>力度记号与表情文本的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="183"/>
+        <source>Horizontal gap between a dynamic and the expression text which follows it on the same beat, as in p dolce; it grows with the size of both.</source>
+        <translation>同一拍点上力度记号与其后表情文本（如 p dolce）之间的水平间隙；随两者的大小增减。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="193"/>
+        <source>Used instead of the gap above when the dynamic ends with the letter f, whose top leans to the right and needs less room.</source>
+        <translation>力度记号以字母 f 结尾时，用此值代替上一项；f 的上部向右伸出，所需空隙较小。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="202"/>
+        <source>Centre dynamics on their optical centre</source>
+        <translation>力度记号按视觉中心居中</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="203"/>
+        <source>A dynamic centred on a note is aligned by the optical centre which the music font gives for it, not by the middle of its outline; a slanted f, for example, then looks centred.</source>
+        <translation>居中于音符的力度记号按音乐字体为其给出的视觉中心对齐，而不是按外框的正中；例如倾斜的 f 这样看起来才居中。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="212"/>
+        <source>A dynamic is centred under the middle of its notehead. Off: it follows the alignment of the text style ‘Dynamics’, so a left-aligned dynamic starts at the left edge of the note.</source>
+        <translation>力度记号以符头中央为准居中。关闭后按文本样式“力度记号”的对齐方式放置，例如左对齐时从音符左缘开始。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="219"/>
+        <source>Hairpins</source>
+        <translation>楔形力度记号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="235"/>
+        <source>Horizontal shift and height of the middle line of a hairpin placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的楔形力度记号中轴的水平偏移和高度，自谱表最上方谱线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="244"/>
+        <source>Horizontal shift and depth of the middle line of a hairpin placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的楔形力度记号中轴的水平偏移和深度，自谱表最下方谱线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="255"/>
+        <source>Distance between the two lines at the open end of a hairpin.</source>
+        <translation>楔形力度记号开口一端两条线之间的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="263"/>
+        <source>Opening at a system break</source>
+        <translation>跨谱行组处的开口</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="264"/>
+        <source>Distance between the two lines at the narrow end of a hairpin which is broken off at the end of a system or taken up again on the next one.</source>
+        <translation>楔形力度记号在谱行组末尾中断或在下一谱行组接续时，较窄一端两条线之间的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="280"/>
+        <source>Vertical ends on diagonal hairpins</source>
+        <translation>倾斜的楔形力度记号开口端保持竖直</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="281"/>
+        <source>When a hairpin is drawn at an angle, its open end is cut vertically instead of at right angles to its direction.</source>
+        <translation>楔形力度记号倾斜绘制时，开口端的两个端点上下对齐，而不是垂直于其走向。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="289"/>
+        <source>Diameter of the niente circle</source>
+        <translation>无响度圈记号的直径</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="290"/>
+        <source>The small circle at the tip of a hairpin which starts from nothing or fades to nothing.</source>
+        <translation>表示从无声开始或渐弱至无声的楔形力度记号，其尖端小圆圈的直径。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="300"/>
+        <source>A hairpin, or the part of it on one system, is never drawn shorter than this.</source>
+        <translation>楔形力度记号（或它在一个谱行组内的一段）不会短于此长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="310"/>
+        <source>Gap between a hairpin and its text</source>
+        <translation>楔形力度记号与其文字的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="311"/>
+        <source>Space between the lines of a hairpin and a text attached to its start or end.</source>
+        <translation>楔形力度记号的线条与附在其起点或终点的文字之间的空隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="319"/>
+        <source>Distance from dynamics</source>
+        <translation>与力度记号的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="320"/>
+        <source>Horizontal gap between the end of a hairpin and the dynamic or expression text before or after it.</source>
+        <translation>楔形力度记号的端点与其前后的力度记号或表情文本之间的水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="331"/>
+        <source>A hairpin which stops short of the dynamic or expression text after it is lengthened to reach it only if the gap left is wider than this; a narrower gap stays open.</source>
+        <translation>楔形力度记号的末端未到其后的力度记号或表情文本时，仅当剩余空隙大于此值才延长到该记号；较小的空隙保持不变。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="341"/>
+        <source>Distance of the end before the next note or barline</source>
+        <translation>末端在下一音符或小节线之前的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="342"/>
+        <source>A hairpin stops this far before the note, rest or barline at which it ends, unless a dynamic there decides where it ends.</source>
+        <translation>楔形力度记号在其结束处的音符、休止符或小节线之前这一距离处收住；该处有力度记号时则由力度记号决定。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="352"/>
+        <source>Least vertical gap between a hairpin and the notes or other signs which lie between it and the staff. Cresc. and dim. lines use it too.</source>
+        <translation>楔形力度记号与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。渐强、渐弱文字线同样适用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="360"/>
+        <source>Text at the start of every hairpin</source>
+        <translation>每条楔形力度记号开头的文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="361"/>
+        <source>A text set here appears at the start of every hairpin, crescendo and diminuendo alike, and again on each following system. Normally empty; it has nothing to do with the cresc. and dim. lines of this section.</source>
+        <translation>在此填写的文字会出现在每一条楔形力度记号的开头（渐强、渐弱都一样），并在后续每个谱行组上重复。通常留空；它与本节的渐强、渐弱文字线无关。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="371"/>
+        <source>The two lines of a hairpin drawn solid, dashed or dotted.</source>
+        <translation>楔形力度记号的两条线画成实线、虚线或点线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="394"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="494"/>
+        <source>Gap between two dashes as a multiple of the line thickness; it is evened out slightly so that the line ends with a full dash. Only with the line style ‘Dashed’.</source>
+        <translation>相邻两段短线之间空隙的长度，以线条粗细的倍数计；实际间隔会略作调整，使线条以完整的一段收尾。仅在线条样式为“虚线”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="402"/>
+        <source>Cresc. and dim. written as text with a line</source>
+        <translation>以文字加线条表示的渐强与渐弱</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="403"/>
+        <source>The lines which begin with a word such as ‘cresc.’ or ‘dim.’ and run on as a dashed line, used in place of a hairpin.</source>
+        <translation>以“cresc.”“dim.”等文字开头、其后接虚线的线条，用来代替楔形力度记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="411"/>
+        <source>Crescendo: text</source>
+        <translation>渐强：文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="412"/>
+        <source>The word with which a crescendo line begins.</source>
+        <translation>渐强文字线开头的文字。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="419"/>
+        <source>Crescendo: text on following systems</source>
+        <translation>渐强：后续谱行组上的文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="420"/>
+        <source>The word which is repeated where a crescendo line goes on after a system break.</source>
+        <translation>渐强文字线换行后，在新谱行组开头重复的文字。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="427"/>
+        <source>Diminuendo: text</source>
+        <translation>渐弱：文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="428"/>
+        <source>The word with which a diminuendo line begins.</source>
+        <translation>渐弱文字线开头的文字。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="435"/>
+        <source>Diminuendo: text on following systems</source>
+        <translation>渐弱：后续谱行组上的文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="436"/>
+        <source>The word which is repeated where a diminuendo line goes on after a system break.</source>
+        <translation>渐弱文字线换行后，在新谱行组开头重复的文字。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="453"/>
+        <source>Horizontal shift and height of a cresc. or dim. line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的渐强、渐弱文字线的水平偏移和高度，自谱表最上方谱线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="461"/>
+        <source>Horizontal shift and depth of a cresc. or dim. line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的渐强、渐弱文字线的水平偏移和深度，自谱表最下方谱线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="472"/>
+        <source>The line which follows the word: dashed by default.</source>
+        <translation>文字之后的线条的样式，默认为虚线。</translation>
     </message>
 </context>
 </TS>
