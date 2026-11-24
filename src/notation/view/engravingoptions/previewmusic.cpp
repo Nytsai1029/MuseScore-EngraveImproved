@@ -202,6 +202,7 @@ struct Link {
     std::optional<double> diagonalEnd;  // of a hairpin: how much lower its end is, in staff spaces, as if dragged
     int slurDirection = 0;
     bool slurFlat = false;
+    bool hammerOnPullOff = false;   // a slur which is a hammer-on / pull-off slur
     LineMark line;          // of a line over chords
     int measures = 0;
     Fraction fractions;
@@ -310,6 +311,7 @@ struct Event {
     int slurStyle = 0;
     int slurDirection = 0;          // DirectionV: 0 auto, 1 up, 2 down
     bool slurFlat = false;          // CurveMode::FlatMiddle
+    bool hammerOnPullOff = false;   // `\\hopoOn`: the slurs which begin at the chord are hammer-on / pull-off slurs
     bool laissezVibrer = false;
     int slurStarts = 0;
     int slurStops = 0;
@@ -737,6 +739,8 @@ private:
             m_slurDirection = text == "\\slurAuto" ? 0 : (text == "\\slurUp" ? 1 : 2);
         } else if (text == "\\slurFlat") {
             m_slurFlat = true;
+        } else if (text == "\\hopoOn" || text == "\\hopoOff") {
+            m_hammerOnPullOff = text == "\\hopoOn";
         } else if (text == "\\tapping") {
             readTapping(token);
         } else if (text == "\\tab") {
@@ -1848,6 +1852,7 @@ private:
         event.slurStyle = m_slurStyle;
         event.slurDirection = m_slurDirection;
         event.slurFlat = m_slurFlat;
+        event.hammerOnPullOff = m_hammerOnPullOff;
         event.tieStyle = m_tieStyle;
         event.staff = m_staff;
         event.staffMove = m_crossStaff;
@@ -1912,6 +1917,7 @@ private:
     int m_staff = 0;
     int m_crossStaff = 0;
     int m_slurStyle = 0;
+    bool m_hammerOnPullOff = false;
     int m_slurDirection = 0;
     bool m_slurFlat = false;
     int m_tieStyle = 0;
@@ -2049,6 +2055,7 @@ private:
                 link.subtype = open.back()->slurStyle;
                 link.slurDirection = open.back()->slurDirection;
                 link.slurFlat = open.back()->slurFlat;
+                link.hammerOnPullOff = open.back()->hammerOnPullOff;
                 connect(*open.back(), *event, link);
                 open.pop_back();
             }
@@ -3167,7 +3174,7 @@ private:
     static QString spannerType(const Link& link)
     {
         switch (link.kind) {
-        case Link::Kind::Slur: return "Slur";
+        case Link::Kind::Slur: return link.hammerOnPullOff ? "HammerOnPullOff" : "Slur";
         case Link::Kind::Tie: return "Tie";
         case Link::Kind::Hairpin: return "HairPin";
         case Link::Kind::Line: return link.line.type;

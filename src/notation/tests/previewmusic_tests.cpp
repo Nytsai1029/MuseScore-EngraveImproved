@@ -1429,3 +1429,21 @@ TEST_F(Notation_PreviewMusicTests, bendsAndTremoloBars)
     EXPECT_FALSE(errorOf("r4 \\bend d'4").empty());
     EXPECT_FALSE(errorOf("c'4 \\bend").empty());
 }
+
+/**
+ * @TEST_CASE hammerOnPullOffSlurs
+ * @details The slurs which begin between `\\hopoOn` and `\\hopoOff` are hammer-on / pull-off slurs, the others
+ * plain slurs
+ */
+TEST_F(Notation_PreviewMusicTests, hammerOnPullOffSlurs)
+{
+    ASSERT_TRUE(load("\\hopoOn e'4( g'4 a'4) \\hopoOff g'4( | e'1)"));
+
+    const std::vector<const Spanner*> hopos = spannersOf(ElementType::HAMMER_ON_PULL_OFF);
+    ASSERT_EQ(hopos.size(), 1u);
+    EXPECT_EQ(hopos[0]->tick(), Fraction(0, 1));
+    EXPECT_EQ(hopos[0]->tick2(), Fraction(1, 2));
+    const std::vector<const Spanner*> slurs = spannersOf(ElementType::SLUR);
+    ASSERT_EQ(slurs.size(), 1u);
+    EXPECT_EQ(slurs[0]->tick(), Fraction(3, 4));
+}

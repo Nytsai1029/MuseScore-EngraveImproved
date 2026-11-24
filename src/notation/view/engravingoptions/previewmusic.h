@@ -111,7 +111,8 @@ namespace mu::notation {
 //!   spaces — which the file carries as a beam the user moved, so it is laid out like one —
 //!   and `\beamMove -1|0|1` writes which staff a cross-staff beam counts as belonging to.
 //! - `\slurUp`, `\slurDown`, `\slurAuto` give the slurs which begin after them a direction; `\slurFlat` makes them
-//!   flat in the middle. `\tapping` and `\tapping left` mark the note before them as tapped (right hand unless
+//!   flat in the middle; between `\hopoOn` and `\hopoOff` they are hammer-on / pull-off slurs (‘H’ and ‘P’ over
+//!   them). `\tapping` and `\tapping left` mark the note before them as tapped (right hand unless
 //!   `left` follows), with the half slur a tap has.
 //!
 //! What is not in it is an error, and so is what is not written as above, with the place in the text.
