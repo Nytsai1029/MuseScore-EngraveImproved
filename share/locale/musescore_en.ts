@@ -1936,6 +1936,7 @@
         <translation type="unfinished">Fretboard diagrams</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="231"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9331"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9334"/>
@@ -4962,6 +4963,7 @@ followed by dashes</translation>
         <translation type="unfinished">Historic</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="123"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12906"/>
         <source>Select the elements you would like displayed in common and simple tablature staves</source>
         <translation type="unfinished">Select the elements you would like displayed in common and simple tablature staves</translation>
@@ -5077,6 +5079,7 @@ followed by dashes</translation>
         <translation type="unfinished">Always show parenthesized fret marks when articulation markings are present</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="42"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="13421"/>
         <source>Padding around fret numbers:</source>
         <translation type="unfinished">Padding around fret numbers:</translation>
@@ -5097,6 +5100,7 @@ followed by dashes</translation>
         <translation type="unfinished">Reset &apos;Text for new palm mutes&apos; value</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="65"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="13519"/>
         <source>Prefer the same string when transposing</source>
         <translation type="unfinished">Prefer the same string when transposing</translation>
@@ -36143,6 +36147,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="177"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="131"/>
         <source>Show</source>
         <translation type="unfinished">Show</translation>
     </message>
@@ -37644,6 +37649,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="381"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="34"/>
         <source>Text</source>
         <translation type="unfinished">Text</translation>
@@ -39076,6 +39082,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="56"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="140"/>
         <source>Let ring</source>
         <translation type="unfinished">Let ring</translation>
     </message>
@@ -40471,6 +40478,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="32"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="133"/>
         <source>Slurs</source>
         <translation type="unfinished">Slurs</translation>
     </message>
@@ -44297,6 +44305,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="38"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="134"/>
         <source>Fermatas</source>
         <translation type="unfinished">Fermatas</translation>
     </message>
@@ -44919,6 +44928,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="74"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="135"/>
         <source>Dynamics</source>
         <translation type="unfinished">Dynamics</translation>
     </message>
@@ -45009,6 +45019,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="219"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="136"/>
         <source>Hairpins</source>
         <translation type="unfinished">Hairpins</translation>
     </message>
@@ -46245,6 +46256,321 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="161"/>
         <source>How far a continuation line runs on past the left edge of the last note it covers.</source>
         <translation type="unfinished">How far a continuation line runs on past the left edge of the last note it covers.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="37"/>
+        <source>Fret numbers</source>
+        <translation type="unfinished">Fret numbers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="43"/>
+        <source>How much of the string line is left blank on each side of a fret number; the same space separates a number from its parentheses.</source>
+        <translation type="unfinished">How much of the string line is left blank on each side of a fret number; the same space separates a number from its parentheses.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="53"/>
+        <source>Minimum gap between fret numbers</source>
+        <translation type="unfinished">Minimum gap between fret numbers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="54"/>
+        <source>As a multiple of the minimum gap which notes keep from each other on a standard staff: at 1.5 tightly spaced fret numbers stand half as far apart again.</source>
+        <translation type="unfinished">As a multiple of the minimum gap which notes keep from each other on a standard staff: at 1.5 tightly spaced fret numbers stand half as far apart again.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="66"/>
+        <source>When the music is transposed, each note stays on its string wherever the new fret can be played, instead of being fretted afresh at the lowest position.</source>
+        <translation type="unfinished">When the music is transposed, each note stays on its string wherever the new fret can be played, instead of being fretted afresh at the lowest position.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="73"/>
+        <source>Tied notes</source>
+        <translation type="unfinished">Tied notes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="78"/>
+        <source>Tied fret marks</source>
+        <translation type="unfinished">Tied fret marks</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="79"/>
+        <source>What is drawn for a note which is tied to the one before it.</source>
+        <translation type="unfinished">What is drawn for a note which is tied to the one before it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="81"/>
+        <source>Show ties and repeat fret marks</source>
+        <translation type="unfinished">Show ties and repeat fret marks</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="82"/>
+        <source>Show ties only</source>
+        <translation type="unfinished">Show ties only</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="83"/>
+        <source>Show initial fret mark only</source>
+        <translation type="unfinished">Show initial fret mark only</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="90"/>
+        <source>Parentheses indicating ties</source>
+        <translation type="unfinished">Parentheses indicating ties</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="91"/>
+        <source>Where the fret number of a tied note is left out, it can still be given in parentheses as a reminder after a system break or a barline. Not used with ‘Show ties and repeat fret marks’.</source>
+        <translation type="unfinished">Where the fret number of a tied note is left out, it can still be given in parentheses as a reminder after a system break or a barline. Not used with ‘Show ties and repeat fret marks’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="96"/>
+        <source>Only show at the start of a system</source>
+        <translation type="unfinished">Only show at the start of a system</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="97"/>
+        <source>Always show at the start of a measure</source>
+        <translation type="unfinished">Always show at the start of a measure</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="98"/>
+        <source>Never show</source>
+        <translation type="unfinished">Never show</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="107"/>
+        <source>Always show parenthesized fret marks when articulation markings are present</source>
+        <translation type="unfinished">Always show parenthesized fret marks when articulation markings are present</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="109"/>
+        <source>A tied note which carries an articulation, a fall or doit, a vibrato or tremolo bar, or which starts a glissando, gets its fret number in parentheses wherever it stands.</source>
+        <translation type="unfinished">A tied note which carries an articulation, a fall or doit, a vibrato or tremolo bar, or which starts a glissando, gets its fret number in parentheses wherever it stands.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="117"/>
+        <source>Marks shown on tablature staves</source>
+        <translation type="unfinished">Marks shown on tablature staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="118"/>
+        <source>Which marks are shown on simple and on common tablature staves; a mark which is switched off stays in the score and on a linked standard staff.</source>
+        <translation type="unfinished">Which marks are shown on simple and on common tablature staves; a mark which is switched off stays in the score and on a linked standard staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="128"/>
+        <source>‘Simple’ covers the simple tablature staff types and the lute tablatures; ‘Common’ is every other tablature staff, common and full alike.</source>
+        <translation type="unfinished">‘Simple’ covers the simple tablature staff types and the lute tablatures; ‘Common’ is every other tablature staff, common and full alike.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="137"/>
+        <source>Accents and marcatos</source>
+        <translation type="unfinished">Accents and marcatos</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="138"/>
+        <source>Staccatos</source>
+        <translation type="unfinished">Staccatos</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="139"/>
+        <source>Harmonic marks</source>
+        <translation type="unfinished">Harmonic marks</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="141"/>
+        <source>Palm mute (P.M.)</source>
+        <translation type="unfinished">Palm mute (P.M.)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="142"/>
+        <source>Rasgueado</source>
+        <translation type="unfinished">Rasgueado</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="143"/>
+        <source>Mordents</source>
+        <translation type="unfinished">Mordents</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="144"/>
+        <source>Turns</source>
+        <translation type="unfinished">Turns</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="145"/>
+        <source>Wah open / close</source>
+        <translation type="unfinished">Wah open / close</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="146"/>
+        <source>Golpe</source>
+        <translation type="unfinished">Golpe</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="149"/>
+        <source>Simple</source>
+        <translation type="unfinished">Simple</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="150"/>
+        <source>Common</source>
+        <translation type="unfinished">Common</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="156"/>
+        <source>Shows slurs on simple tablature staves.</source>
+        <translation type="unfinished">Shows slurs on simple tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="162"/>
+        <source>Shows slurs on common and full tablature staves.</source>
+        <translation type="unfinished">Shows slurs on common and full tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="168"/>
+        <source>Shows fermatas on simple tablature staves.</source>
+        <translation type="unfinished">Shows fermatas on simple tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="174"/>
+        <source>Shows fermatas on common and full tablature staves.</source>
+        <translation type="unfinished">Shows fermatas on common and full tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="180"/>
+        <source>Shows dynamics on simple tablature staves.</source>
+        <translation type="unfinished">Shows dynamics on simple tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="186"/>
+        <source>Shows dynamics on common and full tablature staves.</source>
+        <translation type="unfinished">Shows dynamics on common and full tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="192"/>
+        <source>Shows hairpins on simple tablature staves.</source>
+        <translation type="unfinished">Shows hairpins on simple tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="198"/>
+        <source>Shows hairpins on common and full tablature staves.</source>
+        <translation type="unfinished">Shows hairpins on common and full tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="204"/>
+        <source>Shows accents and marcatos on simple tablature staves.</source>
+        <translation type="unfinished">Shows accents and marcatos on simple tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="210"/>
+        <source>Shows accents and marcatos on common and full tablature staves.</source>
+        <translation type="unfinished">Shows accents and marcatos on common and full tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="217"/>
+        <source>Shows staccatos on simple tablature staves.</source>
+        <translation type="unfinished">Shows staccatos on simple tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="223"/>
+        <source>Shows staccatos on common and full tablature staves.</source>
+        <translation type="unfinished">Shows staccatos on common and full tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="229"/>
+        <source>Shows harmonic marks on simple tablature staves.</source>
+        <translation type="unfinished">Shows harmonic marks on simple tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="235"/>
+        <source>Shows harmonic marks on common and full tablature staves.</source>
+        <translation type="unfinished">Shows harmonic marks on common and full tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="241"/>
+        <source>Shows let-ring lines on simple tablature staves.</source>
+        <translation type="unfinished">Shows let-ring lines on simple tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="247"/>
+        <source>Shows let-ring lines on common and full tablature staves.</source>
+        <translation type="unfinished">Shows let-ring lines on common and full tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="253"/>
+        <source>Shows palm-mute lines on simple tablature staves.</source>
+        <translation type="unfinished">Shows palm-mute lines on simple tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="259"/>
+        <source>Shows palm-mute lines on common and full tablature staves.</source>
+        <translation type="unfinished">Shows palm-mute lines on common and full tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="265"/>
+        <source>Shows rasgueado lines on simple tablature staves.</source>
+        <translation type="unfinished">Shows rasgueado lines on simple tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="271"/>
+        <source>Shows rasgueado lines on common and full tablature staves.</source>
+        <translation type="unfinished">Shows rasgueado lines on common and full tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="277"/>
+        <source>Shows mordents on simple tablature staves.</source>
+        <translation type="unfinished">Shows mordents on simple tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="283"/>
+        <source>Shows mordents on common and full tablature staves.</source>
+        <translation type="unfinished">Shows mordents on common and full tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="289"/>
+        <source>Shows turns on simple tablature staves.</source>
+        <translation type="unfinished">Shows turns on simple tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="295"/>
+        <source>Shows turns on common and full tablature staves.</source>
+        <translation type="unfinished">Shows turns on common and full tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="301"/>
+        <source>Shows wah open and close marks on simple tablature staves.</source>
+        <translation type="unfinished">Shows wah open and close marks on simple tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="307"/>
+        <source>Shows wah open and close marks on common and full tablature staves.</source>
+        <translation type="unfinished">Shows wah open and close marks on common and full tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="314"/>
+        <source>Shows golpe marks on simple tablature staves.</source>
+        <translation type="unfinished">Shows golpe marks on simple tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="320"/>
+        <source>Shows golpe marks on common and full tablature staves.</source>
+        <translation type="unfinished">Shows golpe marks on common and full tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="326"/>
+        <source>String tunings</source>
+        <translation type="unfinished">String tunings</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="331"/>
+        <source>Distance from the start of the measure</source>
+        <translation type="unfinished">Distance from the start of the measure</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="332"/>
+        <source>How far to the right of the left edge of its measure the string tunings indication begins.</source>
+        <translation type="unfinished">How far to the right of the left edge of its measure the string tunings indication begins.</translation>
     </message>
 </context>
 <context>

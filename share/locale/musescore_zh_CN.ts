@@ -53330,5 +53330,320 @@ The score will be saved as:
         <source>How far a continuation line runs on past the left edge of the last note it covers.</source>
         <translation>延长线越过其涵盖的最后一个音符左缘之后继续延伸的长度。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="37"/>
+        <source>Fret numbers</source>
+        <translation>品格号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="43"/>
+        <source>How much of the string line is left blank on each side of a fret number; the same space separates a number from its parentheses.</source>
+        <translation>品格号两侧各留出多长一段不画弦线；品格号与其圆括号之间也用这一间距。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="53"/>
+        <source>Minimum gap between fret numbers</source>
+        <translation>品格号之间的最小间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="54"/>
+        <source>As a multiple of the minimum gap which notes keep from each other on a standard staff: at 1.5 tightly spaced fret numbers stand half as far apart again.</source>
+        <translation>以标准谱表上音符之间最小间隙的倍数计：取 1.5 时，紧排的品格号之间比音符之间多留一半的空。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="66"/>
+        <source>When the music is transposed, each note stays on its string wherever the new fret can be played, instead of being fretted afresh at the lowest position.</source>
+        <translation>移调时，只要新的品位可以演奏，每个音符就留在原来的弦上，而不是重新按最低把位分配。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="73"/>
+        <source>Tied notes</source>
+        <translation>延音线连接的音符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="78"/>
+        <source>Tied fret marks</source>
+        <translation>延音线连接的品格号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="79"/>
+        <source>What is drawn for a note which is tied to the one before it.</source>
+        <translation>被延音线连到前一个音符的音，在指法谱上如何表示。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="81"/>
+        <source>Show ties and repeat fret marks</source>
+        <translation>显示延音线并重复品格号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="82"/>
+        <source>Show ties only</source>
+        <translation>仅显示延音线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="83"/>
+        <source>Show initial fret mark only</source>
+        <translation>仅显示起始品格号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="90"/>
+        <source>Parentheses indicating ties</source>
+        <translation>表示延音的圆括号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="91"/>
+        <source>Where the fret number of a tied note is left out, it can still be given in parentheses as a reminder after a system break or a barline. Not used with ‘Show ties and repeat fret marks’.</source>
+        <translation>省略被延音线连接的品格号时，仍可在换行或小节线之后用圆括号提示。选用“显示延音线并重复品格号”时无效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="96"/>
+        <source>Only show at the start of a system</source>
+        <translation>仅在谱行组开头显示</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="97"/>
+        <source>Always show at the start of a measure</source>
+        <translation>总是在小节开头显示</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="98"/>
+        <source>Never show</source>
+        <translation>从不显示</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="107"/>
+        <source>Always show parenthesized fret marks when articulation markings are present</source>
+        <translation>带运音法记号时总是显示带圆括号的品格号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="109"/>
+        <source>A tied note which carries an articulation, a fall or doit, a vibrato or tremolo bar, or which starts a glissando, gets its fret number in parentheses wherever it stands.</source>
+        <translation>被延音线连接的音符若带有运音法记号、坠音或上倚音、揉颤音线或摇把颤音，或是滑音的起点，则无论位于何处都显示带圆括号的品格号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="117"/>
+        <source>Marks shown on tablature staves</source>
+        <translation>指法谱上显示的记号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="118"/>
+        <source>Which marks are shown on simple and on common tablature staves; a mark which is switched off stays in the score and on a linked standard staff.</source>
+        <translation>选择在简易与常用指法谱上显示哪些记号；关闭的记号仍保留在乐谱中，并照常显示在联动的标准谱表上。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="128"/>
+        <source>‘Simple’ covers the simple tablature staff types and the lute tablatures; ‘Common’ is every other tablature staff, common and full alike.</source>
+        <translation>“简易”包括各种简易指法谱和鲁特琴指法谱；“常用”指其余各种指法谱，常用与完整两种都在内。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="137"/>
+        <source>Accents and marcatos</source>
+        <translation>重音与加强音记号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="138"/>
+        <source>Staccatos</source>
+        <translation>断奏记号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="139"/>
+        <source>Harmonic marks</source>
+        <translation>泛音记号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="141"/>
+        <source>Palm mute (P.M.)</source>
+        <translation>手掌闷音（P.M.）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="142"/>
+        <source>Rasgueado</source>
+        <translation>轮指</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="143"/>
+        <source>Mordents</source>
+        <translation>波音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="144"/>
+        <source>Turns</source>
+        <translation>回音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="145"/>
+        <source>Wah open / close</source>
+        <translation>哇音开／关</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="146"/>
+        <source>Golpe</source>
+        <translation>打板</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="149"/>
+        <source>Simple</source>
+        <translation>简易</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="150"/>
+        <source>Common</source>
+        <translation>常用</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="156"/>
+        <source>Shows slurs on simple tablature staves.</source>
+        <translation>在简易指法谱上显示圆滑线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="162"/>
+        <source>Shows slurs on common and full tablature staves.</source>
+        <translation>在常用与完整指法谱上显示圆滑线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="168"/>
+        <source>Shows fermatas on simple tablature staves.</source>
+        <translation>在简易指法谱上显示延长记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="174"/>
+        <source>Shows fermatas on common and full tablature staves.</source>
+        <translation>在常用与完整指法谱上显示延长记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="180"/>
+        <source>Shows dynamics on simple tablature staves.</source>
+        <translation>在简易指法谱上显示力度记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="186"/>
+        <source>Shows dynamics on common and full tablature staves.</source>
+        <translation>在常用与完整指法谱上显示力度记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="192"/>
+        <source>Shows hairpins on simple tablature staves.</source>
+        <translation>在简易指法谱上显示楔形力度记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="198"/>
+        <source>Shows hairpins on common and full tablature staves.</source>
+        <translation>在常用与完整指法谱上显示楔形力度记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="204"/>
+        <source>Shows accents and marcatos on simple tablature staves.</source>
+        <translation>在简易指法谱上显示重音与加强音记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="210"/>
+        <source>Shows accents and marcatos on common and full tablature staves.</source>
+        <translation>在常用与完整指法谱上显示重音与加强音记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="217"/>
+        <source>Shows staccatos on simple tablature staves.</source>
+        <translation>在简易指法谱上显示断奏记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="223"/>
+        <source>Shows staccatos on common and full tablature staves.</source>
+        <translation>在常用与完整指法谱上显示断奏记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="229"/>
+        <source>Shows harmonic marks on simple tablature staves.</source>
+        <translation>在简易指法谱上显示泛音记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="235"/>
+        <source>Shows harmonic marks on common and full tablature staves.</source>
+        <translation>在常用与完整指法谱上显示泛音记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="241"/>
+        <source>Shows let-ring lines on simple tablature staves.</source>
+        <translation>在简易指法谱上显示持续延音线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="247"/>
+        <source>Shows let-ring lines on common and full tablature staves.</source>
+        <translation>在常用与完整指法谱上显示持续延音线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="253"/>
+        <source>Shows palm-mute lines on simple tablature staves.</source>
+        <translation>在简易指法谱上显示手掌闷音线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="259"/>
+        <source>Shows palm-mute lines on common and full tablature staves.</source>
+        <translation>在常用与完整指法谱上显示手掌闷音线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="265"/>
+        <source>Shows rasgueado lines on simple tablature staves.</source>
+        <translation>在简易指法谱上显示轮指线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="271"/>
+        <source>Shows rasgueado lines on common and full tablature staves.</source>
+        <translation>在常用与完整指法谱上显示轮指线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="277"/>
+        <source>Shows mordents on simple tablature staves.</source>
+        <translation>在简易指法谱上显示波音。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="283"/>
+        <source>Shows mordents on common and full tablature staves.</source>
+        <translation>在常用与完整指法谱上显示波音。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="289"/>
+        <source>Shows turns on simple tablature staves.</source>
+        <translation>在简易指法谱上显示回音。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="295"/>
+        <source>Shows turns on common and full tablature staves.</source>
+        <translation>在常用与完整指法谱上显示回音。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="301"/>
+        <source>Shows wah open and close marks on simple tablature staves.</source>
+        <translation>在简易指法谱上显示哇音开关记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="307"/>
+        <source>Shows wah open and close marks on common and full tablature staves.</source>
+        <translation>在常用与完整指法谱上显示哇音开关记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="314"/>
+        <source>Shows golpe marks on simple tablature staves.</source>
+        <translation>在简易指法谱上显示打板记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="320"/>
+        <source>Shows golpe marks on common and full tablature staves.</source>
+        <translation>在常用与完整指法谱上显示打板记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="326"/>
+        <source>String tunings</source>
+        <translation>定弦</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="331"/>
+        <source>Distance from the start of the measure</source>
+        <translation>与小节起点的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="332"/>
+        <source>How far to the right of the left edge of its measure the string tunings indication begins.</source>
+        <translation>定弦标记的起点位于所在小节左端右侧多远处。</translation>
+    </message>
 </context>
 </TS>

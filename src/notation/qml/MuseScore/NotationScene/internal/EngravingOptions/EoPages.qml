@@ -74,6 +74,7 @@ QtObject {
         ChordSymbolsPage { model: root.model },
         FretboardDiagramsPage { model: root.model },
         FiguredBassPage { model: root.model },
+        TablaturePage { model: root.model },
         AllValuesPage { model: root.model }
     ]
 

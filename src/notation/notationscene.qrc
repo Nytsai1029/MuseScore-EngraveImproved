@@ -181,6 +181,7 @@
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml</file>
+        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml</file>
