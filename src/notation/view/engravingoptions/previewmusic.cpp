@@ -295,6 +295,16 @@ struct OrnamentMark {
     bool showsAllAccidentals = false;
 };
 
+//! `\\fretDiagram "x32010"`: the six strings from the lowest, each not played (`x`), open (`0`) or the fret of its dot;
+//! `at N` after it: the diagram starts at fret N (its number is shown), `barre N`: a barré at fret N over the strings
+//! from the first to the last with a dot there, `fingers "032010"`: the finger of each string (0: none)
+struct FretDiagramMark {
+    QString strings;
+    QString fingers;
+    int firstFret = 1;
+    int barre = 0;
+};
+
 //! `\\fall` `\\doit` `\\plop` `\\scoop`, curved, or with `Straight` or `Wavy` after the word
 struct ChordLineMark {
     int type = 0;           // ChordLineType
@@ -371,7 +381,7 @@ struct Event {
     std::vector<std::pair<QString, QString> > texts;
     int harpPedals = 0;             // `\\harpPedals` 1: a harp pedal diagram, `\\harpPedalsText` 2: the same as text
     std::optional<std::pair<int, QString> > numeral;   // `\\romanNumeral` `\\nashville`: HarmonyType and the text
-    QString fretDiagram;            // `\\fretDiagram "x32010"`: from the lowest string up
+    std::optional<FretDiagramMark> fretDiagram;    // `\\fretDiagram "x32010"`
     QStringList figuredBass;        // `\\figuredBass "6 4"`: the figures from the top
     bool notesInParentheses = false;    // `\\parenthesize` before the chord: each of its notes
     bool chordInParentheses = false;    // `\\parenthesizeChord`: the chord as a whole
@@ -1002,17 +1012,43 @@ private:
         }
     }
 
-    //! `\\fretDiagram "x32010"`: a fretboard diagram of six strings, from the lowest; each `x` (not played), `0` (open)
-    //! or the fret where the string is stopped, 1 to 9
+    //! `\\fretDiagram "x32010"` and what may follow it (see FretDiagramMark)
     void readFretDiagram(const Token& command)
     {
         Event& event = lastEvent(command);
         const Token strings = takeToken("the strings in quotes", command);
-        event.fretDiagram = quoted(strings);
+        FretDiagramMark diagram;
+        diagram.strings = quoted(strings);
         static const QRegularExpression DIAGRAM("^[x0-9]{6}$");
-        if (!DIAGRAM.match(event.fretDiagram).hasMatch()) {
+        if (!DIAGRAM.match(diagram.strings).hasMatch()) {
             fail("a fretboard diagram is six strings, each x, 0 or a fret 1 to 9, as x32010", strings.position);
         }
+
+        while (const std::optional<QString> word = takeWordIfOneOf({ "at", "barre", "fingers" })) {
+            const Token value = takeToken(*word == "fingers" ? "the fingers in quotes" : "the fret", command);
+            if (*word == "fingers") {
+                diagram.fingers = quoted(value);
+                static const QRegularExpression FINGERS("^[0-5]{6}$");
+                if (!FINGERS.match(diagram.fingers).hasMatch()) {
+                    fail("the fingers are six digits, one for each string, 0 for none, as 032010", value.position);
+                }
+            } else if (*word == "at") {
+                diagram.firstFret = readNumber(value.text, value.position);
+            } else {
+                diagram.barre = readNumber(value.text, value.position);
+                if (!diagram.strings.contains(QString::number(diagram.barre))) {
+                    fail("a barré is at a fret which has dots", value.position);
+                }
+            }
+        }
+
+        for (const QChar fret : diagram.strings) {
+            if (fret.isDigit() && fret != '0' && fret.digitValue() < diagram.firstFret) {
+                fail("a dot is below the fret at which the diagram starts", strings.position);
+            }
+        }
+
+        event.fretDiagram = diagram;
     }
 
     //! `\\figuredBass "6 4"`: the figures from the top, each a figure, an accidental (`b`, `#`, `n`) or both, as b7
@@ -2826,7 +2862,7 @@ private:
         }
 
         //! NOTE The chord symbol of a chord with a fretboard diagram stands on the diagram, as one added to it does
-        if (event.chordSymbol && event.fretDiagram.isEmpty()) {
+        if (event.chordSymbol && !event.fretDiagram) {
             writeChordSymbol(*event.chordSymbol);
         }
 
@@ -2854,8 +2890,8 @@ private:
             m_xml.writeEndElement();
         }
 
-        if (!event.fretDiagram.isEmpty()) {
-            writeFretDiagram(event.fretDiagram, event.chordSymbol);
+        if (event.fretDiagram) {
+            writeFretDiagram(*event.fretDiagram, event.chordSymbol);
         }
 
         if (!event.figuredBass.isEmpty()) {
@@ -2986,21 +3022,44 @@ private:
 
     //! NOTE As TWrite writes a FretDiagram: the strings from the lowest (0), each with a marker (X = 88, O = 79) or a
     //! dot on its fret
-    void writeFretDiagram(const QString& strings, const std::optional<ChordSymbol>& chordSymbol)
+    //! NOTE The frets of the dots and of the barré are counted from the first fret of the diagram, as a diagram has
+    //! them; the barré is in the format of 4.x (a diagram of it alone, after the strings)
+    void writeFretDiagram(const FretDiagramMark& diagram, const std::optional<ChordSymbol>& chordSymbol)
     {
+        const int offset = diagram.firstFret - 1;
         m_xml.writeStartElement("FretDiagram");
+        if (offset > 0) {
+            number("fretOffset", offset);
+        }
+        if (!diagram.fingers.isEmpty()) {
+            QStringList fingers;
+            for (const QChar finger : diagram.fingers) {
+                fingers << QString(finger);
+            }
+            text("fretFingering", fingers.join(','));
+        }
         if (chordSymbol) {
             writeChordSymbol(*chordSymbol);
         }
-        for (int string = 0; string < strings.size(); ++string) {
-            const QChar fret = strings.at(string);
+        for (int string = 0; string < diagram.strings.size(); ++string) {
+            const QChar fret = diagram.strings.at(string);
             m_xml.writeStartElement("string");
             m_xml.writeAttribute("no", QString::number(string));
             if (fret == 'x' || fret == '0') {
                 number("marker", fret == 'x' ? 88 : 79);
             } else {
-                number("dot", fret.digitValue());
+                number("dot", fret.digitValue() - offset);
             }
+            m_xml.writeEndElement();
+        }
+        if (diagram.barre > 0) {
+            const QString fret = QString::number(diagram.barre);
+            m_xml.writeStartElement("fretDiagram");
+            m_xml.writeStartElement("barre");
+            m_xml.writeAttribute("start", QString::number(diagram.strings.indexOf(fret)));
+            m_xml.writeAttribute("end", QString::number(diagram.strings.lastIndexOf(fret)));
+            m_xml.writeCharacters(QString::number(diagram.barre - offset));
+            m_xml.writeEndElement();
             m_xml.writeEndElement();
         }
         m_xml.writeEndElement();

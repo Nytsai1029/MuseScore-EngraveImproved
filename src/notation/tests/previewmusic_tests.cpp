@@ -1283,6 +1283,43 @@ TEST_F(Notation_PreviewMusicTests, polychordsAlternateChordSymbolsAndDiagrams)
 }
 
 /**
+ * @TEST_CASE fretboardDiagramsAtAFretWithBarresAndFingers
+ * @details `at N` starts a diagram at fret N, so that its dots are counted from there; `barre N` draws a barré at
+ * fret N from the first to the last string with a dot there; `fingers` gives the finger of each string
+ */
+TEST_F(Notation_PreviewMusicTests, fretboardDiagramsAtAFretWithBarresAndFingers)
+{
+    ASSERT_TRUE(load("c'2 \\fretDiagram \"x35553\" at 3 barre 3 fingers \"013331\" e'2 \\fretDiagram \"x02220\" "
+                     "barre 2"));
+
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 2u);
+
+    const EngravingItem* c = found[0]->segment()->findAnnotation(ElementType::FRET_DIAGRAM, 0, 0);
+    ASSERT_TRUE(c);
+    const FretDiagram* atThird = toFretDiagram(c);
+    EXPECT_EQ(atThird->fretOffset(), 2);
+    ASSERT_FALSE(atThird->dot(1).empty());
+    EXPECT_EQ(atThird->dot(1).front().fret, 1);
+    EXPECT_EQ(atThird->dot(2).front().fret, 3);
+    ASSERT_TRUE(atThird->barre(1).exists());
+    EXPECT_EQ(atThird->barre(1).startString, 1);
+    EXPECT_EQ(atThird->barre(1).endString, 5);
+    EXPECT_EQ(atThird->fingering(), std::vector<int>({ 0, 1, 3, 3, 3, 1 }));
+
+    const EngravingItem* a = found[1]->segment()->findAnnotation(ElementType::FRET_DIAGRAM, 0, 0);
+    ASSERT_TRUE(a);
+    EXPECT_EQ(toFretDiagram(a)->fretOffset(), 0);
+    ASSERT_TRUE(toFretDiagram(a)->barre(2).exists());
+    EXPECT_EQ(toFretDiagram(a)->barre(2).startString, 2);
+    EXPECT_EQ(toFretDiagram(a)->barre(2).endString, 4);
+
+    EXPECT_FALSE(errorOf("c'4 \\fretDiagram \"x32010\" barre 4").empty());
+    EXPECT_FALSE(errorOf("c'4 \\fretDiagram \"x32010\" at 3").empty());
+    EXPECT_FALSE(errorOf("c'4 \\fretDiagram \"x32010\" fingers \"0321\"").empty());
+}
+
+/**
  * @TEST_CASE versesAndExtensionLines
  * @details Each further `_"text"` of a chord is the next verse; the syllables of a verse are joined across barlines
  * and across notes without a syllable, and `__` draws an extension line to the last note before the next syllable

@@ -80,7 +80,9 @@ namespace mu::notation {
 //!   ♩ = 120), `\mark "A"` (a rehearsal mark), `\instrumentChange "text"`, `\harpPedals` and
 //!   `\harpPedalsText` (a harp pedal diagram, all pedals at natural, drawn or written), `\romanNumeral "V7"`,
 //!   `\nashville "5"`, `\fretDiagram "x32010"` (six strings from the lowest: x not played, 0 open, or the
-//!   fret 1 to 9) and `\figuredBass "6 4"` (the figures from the top, each a digit, an accidental b # n, or both).
+//!   fret 1 to 9; after it `at 3` starts the diagram at that fret, `barre 3` draws a barré at that fret over the
+//!   strings from the first to the last with a dot there, `fingers "032010"` gives the finger of each string, 0 for
+//!   none) and `\figuredBass "6 4"` (the figures from the top, each a digit, an accidental b # n, or both).
 //! - Before a note: `\stemUp` `\stemDown` `\stemNeutral` (until changed), `\noBeam`, `\slash` (slash noteheads, as in
 //!   rhythm slash notation) and `\small` (a small cue chord or rest) for this chord only, `\parenthesize` (its notes in
 //!   parentheses) and `\parenthesizeChord` (the chord as a whole),
