@@ -370,11 +370,11 @@ TEST_F(Notation_EngravingOptionsModelTests, oldStyleMultiMeasureRestsTakeTheWhol
     // [WHEN] Old-style rests are switched on
     item->modifyValue(true);
 
-    // [THEN] The single measure becomes a whole rest, then the old style is written
+    // [THEN] The old style is written, then the single measure becomes a whole rest
     ASSERT_EQ(m_written.size(), 2u);
-    EXPECT_EQ(m_written.at(0).first, Sid::singleMeasureMMRestUseNormalRest);
+    EXPECT_EQ(m_written.at(0).first, Sid::oldStyleMultiMeasureRests);
     EXPECT_TRUE(m_written.at(0).second.toBool());
-    EXPECT_EQ(m_written.at(1).first, Sid::oldStyleMultiMeasureRests);
+    EXPECT_EQ(m_written.at(1).first, Sid::singleMeasureMMRestUseNormalRest);
     EXPECT_TRUE(m_written.at(1).second.toBool());
 
     // [WHEN] They are switched off again
@@ -384,6 +384,53 @@ TEST_F(Notation_EngravingOptionsModelTests, oldStyleMultiMeasureRestsTakeTheWhol
     // [THEN] Only the old style is written
     ASSERT_EQ(m_written.size(), 1u);
     EXPECT_EQ(m_written.front().first, Sid::oldStyleMultiMeasureRests);
+
+    holder.destroy();
+}
+
+/**
+ * @TEST_CASE chordSymbolPresetTakesItsFileAlong
+ * @details A preset of the chord symbols is written, then its description file, so that the chord list is read
+ *          again with the new preset; the legacy preset keeps the bass note on the line; a custom file is chosen by
+ *          itself, so the custom preset writes nothing else
+ */
+TEST_F(Notation_EngravingOptionsModelTests, chordSymbolPresetTakesItsFileAlong)
+{
+    ModelInEngine holder;
+    EngravingOptionsModel* model = holder.get();
+    model->load();
+    ASSERT_TRUE(model->isLoaded());
+
+    StyleItem* item = model->item("chordStyle");
+    ASSERT_TRUE(item);
+
+    // [WHEN] The jazz preset is chosen
+    item->modifyValue(static_cast<int>(ChordStylePreset::JAZZ));
+
+    // [THEN] The preset, then the jazz file
+    ASSERT_EQ(m_written.size(), 2u);
+    EXPECT_EQ(m_written.at(0).first, Sid::chordStyle);
+    EXPECT_EQ(m_written.at(0).second.value<ChordStylePreset>(), ChordStylePreset::JAZZ);
+    EXPECT_EQ(m_written.at(1).first, Sid::chordDescriptionFile);
+    EXPECT_EQ(m_written.at(1).second.value<String>(), String(u"chords_jazz.xml"));
+
+    // [WHEN] The legacy preset is chosen
+    m_written.clear();
+    item->modifyValue(static_cast<int>(ChordStylePreset::LEGACY));
+
+    // [THEN] Its file, and the bass note on the line
+    ASSERT_EQ(m_written.size(), 3u);
+    EXPECT_EQ(m_written.at(1).second.value<String>(), String(u"chords_legacy.xml"));
+    EXPECT_EQ(m_written.at(2).first, Sid::chordBassNoteStagger);
+    EXPECT_FALSE(m_written.at(2).second.toBool());
+
+    // [WHEN] The custom preset is chosen
+    m_written.clear();
+    item->modifyValue(static_cast<int>(ChordStylePreset::CUSTOM));
+
+    // [THEN] Only the preset
+    ASSERT_EQ(m_written.size(), 1u);
+    EXPECT_EQ(m_written.front().first, Sid::chordStyle);
 
     holder.destroy();
 }

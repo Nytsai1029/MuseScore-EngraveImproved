@@ -211,6 +211,7 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/engravingpreview.h
     ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/engravingpreviewrenderer.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/engravingpreviewrenderer.h
+    ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/linkedstylevalues.h
     ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/previewhandle.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/previewhandle.h
     ${CMAKE_CURRENT_LIST_DIR}/view/engravingoptions/previewmusic.cpp

@@ -44,6 +44,7 @@
 #include "engraving/rw/mscloader.h"
 #include "engraving/types/types.h"
 
+#include "linkedstylevalues.h"
 #include "previewmusic.h"
 
 #include "log.h"
@@ -242,8 +243,12 @@ void EngravingPreviewRenderer::layout(const MStyle& style, const std::vector<Ove
         makePreviewStyle(previewStyle, systemWidthSp);
     }
 
+    //! NOTE A value is shown with what choosing it sets too (as a preset of the chord symbols, its file)
     for (const Override& override : overrides) {
         previewStyle.set(override.id, override.value);
+        for (const auto& [linkedId, linkedValue] : linkedStyleValues(override.id, override.value)) {
+            previewStyle.set(linkedId, linkedValue);
+        }
     }
 
     //! NOTE What a change of the style takes with it, as when a style is applied to a score (see ChangeStyle)

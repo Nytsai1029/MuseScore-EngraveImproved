@@ -39,6 +39,7 @@
 #include "notation/internal/inotationundostack.h"
 
 #include "../styledialog/styleuivalue.h"
+#include "linkedstylevalues.h"
 
 #include "log.h"
 
@@ -268,14 +269,12 @@ void EngravingOptionsModel::setValue(StyleId id, const PropertyValue& value)
         return;
     }
 
-    //! NOTE An old-style multimeasure rest of a single measure can only be a whole rest: switching the old style on
-    //! chooses the whole rest for single measures too, as the style dialog does (EditStyle::styleValueChanged)
-    if (id == StyleId::oldStyleMultiMeasureRests && value.toBool()
-        && !style()->styleValue(StyleId::singleMeasureMMRestUseNormalRest).toBool()) {
-        style()->setStyleValue(StyleId::singleMeasureMMRestUseNormalRest, true);
-    }
-
+    //! NOTE The value first: what comes with it is set after it, so that the chord list is read again with the
+    //! preset which the new description file belongs to
     style()->setStyleValue(id, value);
+    for (const auto& [linkedId, linkedValue] : linkedStyleValues(id, value)) {
+        style()->setStyleValue(linkedId, linkedValue);
+    }
 }
 
 //! NOTE The font of the musical symbols takes other values with it, as in the style dialog:
