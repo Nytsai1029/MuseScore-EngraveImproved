@@ -52387,5 +52387,146 @@ The score will be saved as:
         <source>Least vertical gap between a harp pedal setting written as text and the notes or other signs which lie between it and the staff.</source>
         <translation>以文字表示的竖琴踏板设置与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="37"/>
+        <source>Rehearsal marks</source>
+        <translation>排练号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="43"/>
+        <source>Side of the staff on which rehearsal marks are placed, unless one is flipped by hand.</source>
+        <translation>排练号置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="52"/>
+        <source>Offset: X moves the mark to the right, Y moves it down from the top staff line (above the staff) or from the bottom staff line (below the staff), so a Y of −2 above means 2 sp over the staff.</source>
+        <translation>偏移：X 为向右的水平位移；Y 自谱表顶线（置于上方时）或底线（置于下方时）向下计量，因此上方的 Y 取 −2 即高出谱表 2 谱间。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="66"/>
+        <source>Horizontal shift and height of a rehearsal mark placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的排练号的水平偏移和高度，自谱表顶线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="74"/>
+        <source>Horizontal shift and depth of a rehearsal mark placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的排练号的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="84"/>
+        <source>Least vertical gap between a rehearsal mark and the notes or other signs which lie between it and the staff.</source>
+        <translation>排练号与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="96"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="106"/>
+        <source>Gap to a time signature above the staves</source>
+        <translation>与谱表上方拍号的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="97"/>
+        <source>Where time signatures are placed above the staves, a rehearsal mark is moved to the right until it clears the time signature by this much, given as a multiple of the x-height of its font.</source>
+        <translation>拍号置于谱表上方时，排练号向右移动，直至与拍号相隔此距离；以排练号字体的 x 字高的倍数计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="108"/>
+        <source>At the start of a system, place after the clef and key signature</source>
+        <translation>谱行组开头的排练号置于谱号与调号之后</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="110"/>
+        <source>A rehearsal mark on the first note of a system starts where the clef, key signature and time signature end; off, it starts at the left end of the staff, like a rehearsal mark over a barline.</source>
+        <translation>位于谱行组第一个音符上的排练号，从谱号、调号、拍号结束处开始；关闭后与小节线处的排练号一样，从谱表左端开始。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="37"/>
+        <source>Tempo text</source>
+        <translation>速度文本</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="43"/>
+        <source>Side of the staff on which tempo markings are placed, unless one is flipped by hand.</source>
+        <translation>速度文本置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="52"/>
+        <source>Offset: X moves the text to the right, Y moves it down from the top staff line (above the staff) or from the bottom staff line (below the staff), so a Y of −2 above means 2 sp over the staff. Rit. and accel. lines use the same offsets.</source>
+        <translation>偏移：X 为向右的水平位移；Y 自谱表顶线（置于上方时）或底线（置于下方时）向下计量，因此上方的 Y 取 −2 即高出谱表 2 谱间。rit.、accel. 等速度渐变线采用相同的偏移。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="66"/>
+        <source>Horizontal shift and height of a tempo marking placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的速度文本的水平偏移和高度，自谱表顶线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="74"/>
+        <source>Horizontal shift and depth of a tempo marking placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的速度文本的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="84"/>
+        <source>Least vertical gap between a tempo marking and the notes or other signs which lie between it and the staff.</source>
+        <translation>速度文本与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="95"/>
+        <source>Gap to a rehearsal mark</source>
+        <translation>与排练号的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="96"/>
+        <source>A tempo marking which would collide with a rehearsal mark at the same place moves to the right of it and keeps this gap; the gap grows with the font size of the tempo text.</source>
+        <translation>速度文本与同一位置上的排练号相撞时，移到排练号右侧并保持此间隙；间隙随速度文本的字号增大。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="107"/>
+        <source>Where time signatures are placed above the staves, a tempo marking at the start of the measure begins this far to the right of the time signature. Only with ‘Align with the time signature’ on.</source>
+        <translation>拍号置于谱表上方时，小节开头的速度文本从拍号右侧此距离处开始。仅在“与拍号对齐”开启时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="118"/>
+        <source>Align with the time signature</source>
+        <translation>与拍号对齐</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="119"/>
+        <source>A tempo marking on the first beat of a measure which begins with a time signature starts at the left edge of the time signature; off, it starts at the first note.</source>
+        <translation>位于以拍号开头的小节第一拍上的速度文本，自拍号左缘开始；关闭后自第一个音符开始。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="126"/>
+        <source>Gradual tempo change lines</source>
+        <translation>速度渐变线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="132"/>
+        <source>Gap before the following tempo marking</source>
+        <translation>与后续速度标记的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="133"/>
+        <source>A rit. or accel. line which leads up to a tempo marking, or to another such line, on the same system stops this far before it; the gap grows with the font size of that marking.</source>
+        <translation>rit. 或 accel. 的线条延伸到同一谱行组上的速度文本或下一条速度渐变线时，在其之前留出此距离；间隙随该标记的字号增大。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="144"/>
+        <source>Side of the staff on which rit., accel. and similar lines are placed, unless one is flipped by hand.</source>
+        <translation>rit.、accel. 等速度渐变线置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="157"/>
+        <source>Horizontal shift and depth of a rit. or accel. line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘Gradual tempo change’.</source>
+        <translation>置于下方的速度渐变线的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。谱表上方的偏移即文本样式“速度渐变记号”的“偏移”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="167"/>
+        <source>Least vertical gap between a rit. or accel. line and the notes or other signs which lie between it and the staff.</source>
+        <translation>速度渐变线与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="181"/>
+        <source>The line after the word: dashed by default.</source>
+        <translation>文字之后线条的样式，默认为虚线。</translation>
+    </message>
 </context>
 </TS>

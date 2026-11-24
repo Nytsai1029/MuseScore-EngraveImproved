@@ -34,63 +34,83 @@ EoPage {
     group: qsTrc("notation/engravingoptions", "Text")
 
     EoSection {
-        title: qsTrc("EditStyleBase", "Rehearsal marks")
+        title: qsTrc("notation/engravingoptions", "Rehearsal marks")
+        music: "c''1 | c''4 \\mark \"B\" e''4 g''4 e''4"
 
         EoChoice {
             sid: "rehearsalMarkPlacement"
             title: qsTrc("EditStyleBase", "Position:")
+            hint: qsTrc("notation/engravingoptions",
+                        "Side of the staff on which rehearsal marks are placed, unless one is flipped by hand.")
             choices: [
-                { value: 0, title: qsTrc("notation/editstyle", "Above") },
-                { value: 1, title: qsTrc("notation/editstyle", "Below") }
+                { value: 0, title: qsTrc("notation/engravingoptions", "Above") },
+                { value: 1, title: qsTrc("notation/engravingoptions", "Below") }
             ]
         }
 
-        EoOffset {
-            sid: "rehearsalMarkPosAbove"
-            title: qsTrc("EditStyleBase", "Offset above:")
-        }
+        EoGrid {
+            hint: qsTrc("notation/engravingoptions",
+                        "Offset: X moves the mark to the right, Y moves it down from the top staff line (above the " +
+                        "staff) or from the bottom staff line (below the staff), so a Y of −2 above means 2 sp over " +
+                        "the staff.")
+            rowTitles: [
+                qsTrc("notation/engravingoptions", "Offset")
+            ]
+            columnTitles: [
+                qsTrc("notation/engravingoptions", "Above the staff"),
+                qsTrc("notation/engravingoptions", "Below the staff")
+            ]
 
-        EoOffset {
-            sid: "rehearsalMarkPosBelow"
-            title: qsTrc("EditStyleBase", "Offset below:")
+            EoOffset {
+                sid: "rehearsalMarkPosAbove"
+                hint: qsTrc("notation/engravingoptions",
+                            "Horizontal shift and height of a rehearsal mark placed above, measured from the top " +
+                            "staff line (negative is up); notes and signs in the way still push it further out.")
+            }
+
+            EoOffset {
+                sid: "rehearsalMarkPosBelow"
+                musicStyle: ({ rehearsalMarkPlacement: 1 })
+                hint: qsTrc("notation/engravingoptions",
+                            "Horizontal shift and depth of a rehearsal mark placed below, measured from the bottom " +
+                            "staff line (positive is down); notes and signs in the way still push it further out.")
+            }
         }
 
         EoNumber {
             sid: "rehearsalMarkMinDistance"
-            title: qsTrc("EditStyleBase", "Autoplace min. distance:")
+            music: "c''1 | a''4 \\mark \"B\" c'''4 e'''4 c'''4"
+            title: qsTrc("notation/engravingoptions", "Minimum distance from notes and signs")
+            hint: qsTrc("notation/engravingoptions",
+                        "Least vertical gap between a rehearsal mark and the notes or other signs which lie between " +
+                        "it and the staff.")
             min: -100
             step: 0.5
             decimals: 1
         }
-    }
-
-    EoSection {
-        title: qsTrc("notation/engravingoptions", "Jumps, markers, tempo and rehearsal marks")
-
-        EoNumber {
-            sid: "tempoRehearsalMarkPadding"
-            title: qsTrc("notation/engravingoptions", "Tempo text to rehearsal mark")
-            hint: qsTrc("notation/engravingoptions",
-                         "Gap between a rehearsal mark and a tempo marking moved to its right to avoid it; scales with the font size.")
-            max: 3
-        }
-
-        EoNumber {
-            sid: "tempoTimeSigAboveStavesDistance"
-            title: qsTrc("notation/engravingoptions", "Tempo text to time signature above the staves")
-            hint: qsTrc("notation/engravingoptions",
-                         "Gap between a time signature placed above the staves and a tempo marking at the start of the measure, which begins to its right.")
-            max: 5
-            step: 0.1
-        }
 
         EoNumber {
             sid: "rehearsalMarkTimeSigMargin"
-            title: qsTrc("notation/engravingoptions", "Rehearsal mark to time signature above the staves")
+            music: "c''1 | \\time 3/4 c''4 \\mark \"B\" e''4 g''4"
+            musicStyle: ({ timeSigPlacement: 1 })
+            title: qsTrc("notation/engravingoptions", "Gap to a time signature above the staves")
             hint: qsTrc("notation/engravingoptions",
-                         "Minimum gap between a time signature placed above the staves and a rehearsal mark, in x-heights of the rehearsal mark font.")
+                        "Where time signatures are placed above the staves, a rehearsal mark is moved to the right " +
+                        "until it clears the time signature by this much, given as a multiple of the x-height of its " +
+                        "font.")
             max: 5
             step: 0.1
+        }
+
+        EoToggle {
+            sid: "rehearsalMarkAfterHeaderAtSystemStart"
+            music: "\\key 2 \\time 4/4 d''4 \\mark \"A\" fis''4 a''4 fis''4"
+            title: qsTrc("notation/engravingoptions",
+                         "At the start of a system, place after the clef and key signature")
+            hint: qsTrc("notation/engravingoptions",
+                        "A rehearsal mark on the first note of a system starts where the clef, key signature and " +
+                        "time signature end; off, it starts at the left end of the staff, like a rehearsal mark over " +
+                        "a barline.")
         }
     }
 }
