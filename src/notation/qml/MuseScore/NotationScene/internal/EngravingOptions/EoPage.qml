@@ -57,7 +57,8 @@ QtObject {
     property string group: ""
 
     //! NOTE: whether the preview pane is shown for the page (a page whose options cannot be shown
-    //! by a piece of music — page texts like the header and the footer — has none for now)
+    //! by a piece of music — page texts like the header and the footer — has none for now; nor has a page with a
+    //! view of its own which shows no options, as All values)
     property bool hasPreview: true
 
     //! NOTE: other words by which the search finds the page

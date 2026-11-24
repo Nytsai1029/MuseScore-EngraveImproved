@@ -31,5 +31,6 @@ EoPage {
     code: "all-values"
     title: qsTrc("notation/engravingoptions", "All style values")
     group: qsTrc("notation/engravingoptions", "Advanced")
+    hasPreview: false
     view: EoAllValuesView {}
 }

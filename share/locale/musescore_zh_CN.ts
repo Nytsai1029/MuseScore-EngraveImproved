@@ -53645,5 +53645,40 @@ The score will be saved as:
         <source>How far to the right of the left edge of its measure the string tunings indication begins.</source>
         <translation>定弦标记的起点位于所在小节左端右侧多远处。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoTextStylesView.qml" line="99"/>
+        <source>The distance from one line of the text to the next, as a multiple of the usual one.</source>
+        <translation>文字各行之间的距离，以通常行距的倍数计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoTextStylesView.qml" line="105"/>
+        <source>Space added between the letters, as a percentage of the usual one; 0 is the font’s own spacing.</source>
+        <translation>字母之间额外加入的间距，以通常间距的百分比计；0 即字体自身的间距。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoTextStylesView.qml" line="110"/>
+        <source>The text grows and shrinks with the staff: on a small staff, or with another staff space, it is smaller or larger.</source>
+        <translation>文字随谱表一同缩放：在小谱表上或谱间大小不同时，文字也相应变小或变大。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoTextStylesView.qml" line="119"/>
+        <source>Which point of the text stands at its place: its left edge, centre or right edge, and its top, middle, bottom or baseline.</source>
+        <translation>文字的哪个点对准其位置：左缘、中央或右缘，以及顶端、中部、底端或基线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoTextStylesView.qml" line="124"/>
+        <source>Where the text stands from the place it belongs to: X to the right, Y down.</source>
+        <translation>文字相对于其所属位置的偏移：X 向右，Y 向下。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoTextStylesView.qml" line="148"/>
+        <source>Size of the musical symbols in the text, as a percentage of their size in the staff.</source>
+        <translation>文字中音乐符号的大小，以其在谱表中大小的百分比计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoTextStylesView.qml" line="404"/>
+        <source>Reset text style</source>
+        <translation>重置文本样式</translation>
+    </message>
 </context>
 </TS>

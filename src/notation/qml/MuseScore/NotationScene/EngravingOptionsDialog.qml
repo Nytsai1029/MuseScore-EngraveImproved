@@ -377,8 +377,7 @@ StyledDialogView {
 
             width: root.previewWidthShown
 
-            visible: eoModel.isLoaded && (root.isFiltered
-                                          || (!Boolean(root.currentPage.view) && root.currentPage.hasPreview))
+            visible: eoModel.isLoaded && (root.isFiltered || root.currentPage.hasPreview)
 
             session: eoSession
             optionsModel: eoModel
@@ -497,6 +496,10 @@ StyledDialogView {
 
                 if (item.hasOwnProperty("navigationPanel")) {
                     item.navigationPanel = pageNavPanel
+                }
+
+                if (item.hasOwnProperty("session")) {
+                    item.session = eoSession
                 }
 
                 if (item.hasOwnProperty("subPageCode")) {

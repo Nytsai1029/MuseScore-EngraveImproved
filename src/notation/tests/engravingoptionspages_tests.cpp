@@ -37,6 +37,7 @@
 #include "engraving/style/style.h"
 
 #include "notation/view/engravingoptions/previewmusic.h"
+#include "notation/view/styledialog/textstylepagecodes.h"
 
 #include "engravingoptionspagesource.h"
 
@@ -225,6 +226,28 @@ TEST_F(Notation_EngravingOptionsPagesTests, everyFileIsPackaged)
         EXPECT_TRUE(list.contains(QRegularExpression("\\b" + type + R"(\s*\{)")))
             << type.toStdString() << " is not in EoPages.qml";
     }
+}
+
+/**
+ * @TEST_CASE textStyleMusicsNameTextStyles
+ * @details The music of the text styles page is given to text styles which exist, each once
+ */
+TEST_F(Notation_EngravingOptionsPagesTests, textStyleMusicsNameTextStyles)
+{
+    const SourceBlock page = readPageSource(OPTIONS_DIR + "/pages/TextStylesPage.qml");
+    ASSERT_EQ(page.type, QString("EoPage"));
+
+    std::set<QString> codes;
+    for (const SourceBlock& block : page.children) {
+        if (block.type != "EoTextStyleMusic") {
+            continue;
+        }
+        const QString code = SourceBlock::unquoted(block.property("styleCode").value_or(QString()));
+        EXPECT_TRUE(textStyleSubPageCodes().contains(code)) << code.toStdString() << " is no text style";
+        EXPECT_TRUE(codes.insert(code).second) << code.toStdString() << " has two musics";
+    }
+
+    EXPECT_GT(codes.size(), 30u);
 }
 
 /**

@@ -74,6 +74,8 @@ Loader {
         case "text": return textComp
         case "color": return colorComp
         case "font": return fontComp
+        case "align": return alignComp
+        case "fontStyle": return fontStyleComp
         case "choice":
             switch (option.presentation) {
             case "tiles": return root.compact ? choiceComp : tilesComp
@@ -147,6 +149,30 @@ Loader {
     Component {
         id: colorComp
         EoColorEditor {
+            option: root.option
+            optionsModel: root.optionsModel
+            session: root.session
+            navigationPanel: root.navigationPanel
+            navigationRow: root.navigationRow
+            navigationColumn: root.navigationColumn
+            compact: root.compact
+        }
+    }
+    Component {
+        id: alignComp
+        EoAlignEditor {
+            option: root.option
+            optionsModel: root.optionsModel
+            session: root.session
+            navigationPanel: root.navigationPanel
+            navigationRow: root.navigationRow
+            navigationColumn: root.navigationColumn
+            compact: root.compact
+        }
+    }
+    Component {
+        id: fontStyleComp
+        EoFontStyleEditor {
             option: root.option
             optionsModel: root.optionsModel
             session: root.session
