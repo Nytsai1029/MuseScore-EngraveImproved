@@ -1884,7 +1884,6 @@
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="33"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="191"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10831"/>
         <source>Staff text</source>
@@ -1905,7 +1904,6 @@
         <translation type="unfinished">Lyrics</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="68"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="206"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12319"/>
         <source>Expression text</source>
@@ -4139,7 +4137,6 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Alignment of syllables with an extension line&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="77"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12358"/>
         <source>Place expression before dynamic</source>
         <translation type="unfinished">Place expression before dynamic</translation>
@@ -4164,7 +4161,6 @@ space unit</extracomment>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="60"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="60"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="60"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7670"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10693"/>
@@ -4186,7 +4182,9 @@ space unit</extracomment>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="42"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="193"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="42"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="149"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="187"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="42"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="147"/>
@@ -4243,7 +4241,6 @@ space unit</extracomment>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="55"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="55"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="55"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7680"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8043"/>
@@ -4291,7 +4288,6 @@ space unit</extracomment>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="50"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="50"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="50"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7739"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7893"/>
@@ -4905,7 +4901,6 @@ followed by dashes</translation>
         <translation type="unfinished">Reset &apos;Omit extension line when space is limited&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="72"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12325"/>
         <source>Snap to dynamics</source>
         <translation type="unfinished">Snap to dynamics</translation>
@@ -32257,7 +32252,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="43"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="43"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="43"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="220"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="771"/>
@@ -32267,7 +32261,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="44"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="44"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="44"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="221"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="772"/>
@@ -35242,6 +35235,11 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="198"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="234"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="246"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="46"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="153"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="192"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="221"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="243"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="46"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="151"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="120"/>
@@ -35269,6 +35267,11 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="199"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="235"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="247"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="47"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="154"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="193"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="222"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="244"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="47"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="152"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="121"/>
@@ -35527,6 +35530,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="364"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="54"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="57"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="57"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="57"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="162"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="46"/>
@@ -35548,6 +35552,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="367"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="58"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="60"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="60"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="60"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="165"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="49"/>
@@ -35564,6 +35569,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="368"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="59"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="61"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="61"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="61"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="166"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="50"/>
@@ -35713,13 +35719,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="49"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="143"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="144"/>
         <source>Standard staves</source>
         <translation type="unfinished">Standard staves</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="50"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="144"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="145"/>
         <source>Tablature staves</source>
         <translation type="unfinished">Tablature staves</translation>
     </message>
@@ -35764,139 +35770,139 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">What is written when one slur covers several hammer-ons or pull-offs in a row.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="99"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="100"/>
         <source>Show ‘H’ or ‘P’ between each pair of notes</source>
         <translation type="unfinished">Show ‘H’ or ‘P’ between each pair of notes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="101"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="102"/>
         <source>Show ‘H’ or ‘P’ once per group of ascending/descending notes</source>
         <translation type="unfinished">Show ‘H’ or ‘P’ once per group of ascending/descending notes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="109"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="110"/>
         <source>Gap between the letters and the slur</source>
         <translation type="unfinished">Gap between the letters and the slur</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="110"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="111"/>
         <source>Vertical gap between an ‘H’ or ‘P’ and the slur, or whatever else lies next to it; the letters also stay at least this far outside the staff.</source>
         <translation type="unfinished">Vertical gap between an ‘H’ or ‘P’ and the slur, or whatever else lies next to it; the letters also stay at least this far outside the staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="120"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="121"/>
         <source>Least distance of the letters from the notes</source>
         <translation type="unfinished">Least distance of the letters from the notes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="121"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="122"/>
         <source>The letter keeps at least this distance from the nearer of its two notes, given as a multiple of ‘Gap between the letters and the slur’.</source>
         <translation type="unfinished">The letter keeps at least this distance from the nearer of its two notes, given as a multiple of ‘Gap between the letters and the slur’.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="134"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="135"/>
         <source>A left-hand tap is marked by a half slur leading into the note, by a symbol over it, or by both; its symbol only matters where a symbol is shown.</source>
         <translation type="unfinished">A left-hand tap is marked by a half slur leading into the note, by a symbol over it, or by both; its symbol only matters where a symbol is shown.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="138"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="139"/>
         <source>Left-hand tapping: symbol</source>
         <translation type="unfinished">Left-hand tapping: symbol</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="139"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="140"/>
         <source>Left-hand tapping: shown as</source>
         <translation type="unfinished">Left-hand tapping: shown as</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="140"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="141"/>
         <source>Right-hand tapping: symbol</source>
         <translation type="unfinished">Right-hand tapping: symbol</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="151"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="152"/>
         <source>The symbol of a left-hand tap on standard staves, where one is shown.</source>
         <translation type="unfinished">The symbol of a left-hand tap on standard staves, where one is shown.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="155"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="167"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="156"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="168"/>
         <source>Circled T</source>
         <translation type="unfinished">Circled T</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="163"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="164"/>
         <source>The symbol of a left-hand tap on tablature staves, where one is shown.</source>
         <translation type="unfinished">The symbol of a left-hand tap on tablature staves, where one is shown.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="174"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="175"/>
         <source>Whether a left-hand tap on standard staves is marked by a half slur leading into the note, by a symbol over it, or by both.</source>
         <translation type="unfinished">Whether a left-hand tap on standard staves is marked by a half slur leading into the note, by a symbol over it, or by both.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="178"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="191"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="179"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="192"/>
         <source>Half slur</source>
         <translation type="unfinished">Half slur</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="179"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="192"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="180"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="193"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="178"/>
         <source>Symbol</source>
         <translation type="unfinished">Symbol</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="180"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="193"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="181"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="194"/>
         <source>Both</source>
         <translation type="unfinished">Both</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="187"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="188"/>
         <source>Whether a left-hand tap on tablature staves is marked by a half slur leading into the note, by a symbol over it, or by both.</source>
         <translation type="unfinished">Whether a left-hand tap on tablature staves is marked by a half slur leading into the note, by a symbol over it, or by both.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="200"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="201"/>
         <source>The symbol of a right-hand tap on standard staves.</source>
         <translation type="unfinished">The symbol of a right-hand tap on standard staves.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="202"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="212"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="203"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="213"/>
         <source>Letter T</source>
         <translation type="unfinished">Letter T</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="203"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="213"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="204"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="214"/>
         <source>Plus sign</source>
         <translation type="unfinished">Plus sign</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="210"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="211"/>
         <source>The symbol of a right-hand tap on tablature staves.</source>
         <translation type="unfinished">The symbol of a right-hand tap on tablature staves.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="221"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="222"/>
         <source>On tablature, slur both the top and the bottom note of a chord</source>
         <translation type="unfinished">On tablature, slur both the top and the bottom note of a chord</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="222"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="223"/>
         <source>Off: a chord tapped with the left hand gets a single half slur, on its top note. Only where left-hand taps are shown with a half slur on tablature staves.</source>
         <translation type="unfinished">Off: a chord tapped with the left hand gets a single half slur, on its top note. Only where left-hand taps are shown with a half slur on tablature staves.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="231"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="232"/>
         <source>Size of the left-hand tapping dot</source>
         <translation type="unfinished">Size of the left-hand tapping dot</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="232"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="233"/>
         <source>As a fraction of the dot’s normal size in the music font; 0.5 is half size.</source>
         <translation type="unfinished">As a fraction of the dot’s normal size in the music font; 0.5 is half size.</translation>
     </message>
@@ -37423,6 +37429,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="119"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="45"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="116"/>
         <source>Offset above the staff</source>
         <translation type="unfinished">Offset above the staff</translation>
     </message>
@@ -37434,6 +37441,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="127"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="46"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="125"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="161"/>
         <source>Offset below the staff</source>
         <translation type="unfinished">Offset below the staff</translation>
     </message>
@@ -37715,7 +37724,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">How far the ‘gliss.’ text is raised above the centre of a wavy glissando line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="131"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="132"/>
         <source>Tapping</source>
         <translation type="unfinished">Tapping</translation>
     </message>
@@ -41464,8 +41473,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Flag</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="154"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="166"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="155"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="167"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="358"/>
         <source>Dot</source>
         <translation type="unfinished">Dot</translation>
@@ -43895,6 +43904,10 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="160"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="205"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="253"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="83"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="134"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="171"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="200"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="132"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="237"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="103"/>
@@ -45080,6 +45093,171 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="238"/>
         <source>Least vertical gap between a system text line and the notes or other signs which lie between it and the staff.</source>
         <translation type="unfinished">Least vertical gap between a system text line and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="37"/>
+        <source>Staff text</source>
+        <translation type="unfinished">Staff text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="43"/>
+        <source>Side of the staff on which staff text is placed, unless one is flipped by hand.</source>
+        <translation type="unfinished">Side of the staff on which staff text is placed, unless one is flipped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="52"/>
+        <source>Offset: X moves the text to the right, Y moves it down from the top staff line (above the staff) or from the bottom staff line (below the staff), so a Y of −2 above means 2 sp over the staff.</source>
+        <translation type="unfinished">Offset: X moves the text to the right, Y moves it down from the top staff line (above the staff) or from the bottom staff line (below the staff), so a Y of −2 above means 2 sp over the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="66"/>
+        <source>Horizontal shift and height of a staff text placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and height of a staff text placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="74"/>
+        <source>Horizontal shift and depth of a staff text placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and depth of a staff text placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="84"/>
+        <source>Least vertical gap between a staff text and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a staff text and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="94"/>
+        <source>Expression text</source>
+        <translation type="unfinished">Expression text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="99"/>
+        <source>Snap to dynamics</source>
+        <translation type="unfinished">Snap to dynamics</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="100"/>
+        <source>Expression text beside a dynamic is set at the height of the dynamic, and the two then move up or down together.</source>
+        <translation type="unfinished">Expression text beside a dynamic is set at the height of the dynamic, and the two then move up or down together.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="107"/>
+        <source>Place expression before dynamic</source>
+        <translation type="unfinished">Place expression before dynamic</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="108"/>
+        <source>Off: expression text on the same note as a dynamic follows it (‘p dolce’). On: it stands before it (‘dolce p’).</source>
+        <translation type="unfinished">Off: expression text on the same note as a dynamic follows it (‘p dolce’). On: it stands before it (‘dolce p’).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="117"/>
+        <source>Horizontal shift and height of expression text placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and height of expression text placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="126"/>
+        <source>Horizontal shift and depth of expression text placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and depth of expression text placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="135"/>
+        <source>Least vertical gap between expression text and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between expression text and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="142"/>
+        <source>System text</source>
+        <translation type="unfinished">System text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="143"/>
+        <source>Text which belongs to the whole system instead of one staff, and so appears in every part.</source>
+        <translation type="unfinished">Text which belongs to the whole system instead of one staff, and so appears in every part.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="150"/>
+        <source>Side of the staff on which system text is placed, unless one is flipped by hand.</source>
+        <translation type="unfinished">Side of the staff on which system text is placed, unless one is flipped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="162"/>
+        <source>Horizontal shift and depth of system text placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘System’.</source>
+        <translation type="unfinished">Horizontal shift and depth of system text placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘System’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="172"/>
+        <source>Least vertical gap between system text and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between system text and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="179"/>
+        <source>Instrument changes</source>
+        <translation type="unfinished">Instrument changes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="181"/>
+        <source>The text which tells a player to change to another instrument (‘To Piccolo’).</source>
+        <translation type="unfinished">The text which tells a player to change to another instrument (‘To Piccolo’).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="188"/>
+        <source>Side of the staff on which instrument change texts are placed, unless one is flipped by hand.</source>
+        <translation type="unfinished">Side of the staff on which instrument change texts are placed, unless one is flipped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="201"/>
+        <source>Least vertical gap between an instrument change text and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between an instrument change text and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="208"/>
+        <source>Harp pedal diagrams</source>
+        <translation type="unfinished">Harp pedal diagrams</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="210"/>
+        <source>The pedal setting of the harp is shown either as a diagram or as text (the note names of the seven strings); each kind has its own values.</source>
+        <translation type="unfinished">The pedal setting of the harp is shown either as a diagram or as text (the note names of the seven strings); each kind has its own values.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="217"/>
+        <source>Diagram: position</source>
+        <translation type="unfinished">Diagram: position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="218"/>
+        <source>Side of the staff on which harp pedal diagrams are placed, unless one is flipped by hand.</source>
+        <translation type="unfinished">Side of the staff on which harp pedal diagrams are placed, unless one is flipped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="229"/>
+        <source>Diagram: minimum distance from notes and signs</source>
+        <translation type="unfinished">Diagram: minimum distance from notes and signs</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="230"/>
+        <source>Least vertical gap between a harp pedal diagram and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a harp pedal diagram and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="238"/>
+        <source>Text: position</source>
+        <translation type="unfinished">Text: position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="239"/>
+        <source>Side of the staff on which harp pedal settings written as text are placed, unless one is flipped by hand.</source>
+        <translation type="unfinished">Side of the staff on which harp pedal settings written as text are placed, unless one is flipped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="251"/>
+        <source>Text: minimum distance from notes and signs</source>
+        <translation type="unfinished">Text: minimum distance from notes and signs</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="252"/>
+        <source>Least vertical gap between a harp pedal setting written as text and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a harp pedal setting written as text and the notes or other signs which lie between it and the staff.</translation>
     </message>
 </context>
 <context>

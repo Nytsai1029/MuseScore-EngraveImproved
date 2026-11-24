@@ -52222,5 +52222,170 @@ The score will be saved as:
         <source>The labels written out in full, as &lt;sym&gt;ottavaAlta&lt;/sym&gt; for 8va.</source>
         <translation>完整写出的标记，例如 &lt;sym&gt;ottavaAlta&lt;/sym&gt; 表示 8va。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="37"/>
+        <source>Staff text</source>
+        <translation>谱表文本</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="43"/>
+        <source>Side of the staff on which staff text is placed, unless one is flipped by hand.</source>
+        <translation>谱表文本置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="52"/>
+        <source>Offset: X moves the text to the right, Y moves it down from the top staff line (above the staff) or from the bottom staff line (below the staff), so a Y of −2 above means 2 sp over the staff.</source>
+        <translation>偏移：X 为向右的水平位移；Y 自谱表顶线（置于上方时）或底线（置于下方时）向下计量，因此上方的 Y 取 −2 即高出谱表 2 谱间。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="66"/>
+        <source>Horizontal shift and height of a staff text placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的谱表文本的水平偏移和高度，自谱表顶线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="74"/>
+        <source>Horizontal shift and depth of a staff text placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的谱表文本的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="84"/>
+        <source>Least vertical gap between a staff text and the notes or other signs which lie between it and the staff.</source>
+        <translation>谱表文本与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="94"/>
+        <source>Expression text</source>
+        <translation>表情文本</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="99"/>
+        <source>Snap to dynamics</source>
+        <translation>吸附到力度记号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="100"/>
+        <source>Expression text beside a dynamic is set at the height of the dynamic, and the two then move up or down together.</source>
+        <translation>与力度记号相邻的表情文本和该力度记号保持同一高度，并随之一同上下移动。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="107"/>
+        <source>Place expression before dynamic</source>
+        <translation>表情文本置于力度记号之前</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="108"/>
+        <source>Off: expression text on the same note as a dynamic follows it (‘p dolce’). On: it stands before it (‘dolce p’).</source>
+        <translation>关闭时，与力度记号位于同一音符上的表情文本排在力度记号之后（如“p dolce”）；开启后排在其之前（如“dolce p”）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="117"/>
+        <source>Horizontal shift and height of expression text placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的表情文本的水平偏移和高度，自谱表顶线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="126"/>
+        <source>Horizontal shift and depth of expression text placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的表情文本的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="135"/>
+        <source>Least vertical gap between expression text and the notes or other signs which lie between it and the staff.</source>
+        <translation>表情文本与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="142"/>
+        <source>System text</source>
+        <translation>谱行组文本</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="143"/>
+        <source>Text which belongs to the whole system instead of one staff, and so appears in every part.</source>
+        <translation>属于整个谱行组而非某一谱表的文字，因此会出现在每份分谱中。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="150"/>
+        <source>Side of the staff on which system text is placed, unless one is flipped by hand.</source>
+        <translation>谱行组文本置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="162"/>
+        <source>Horizontal shift and depth of system text placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘System’.</source>
+        <translation>置于下方的谱行组文本的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。谱表上方的偏移即文本样式“谱行组”的“偏移”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="172"/>
+        <source>Least vertical gap between system text and the notes or other signs which lie between it and the staff.</source>
+        <translation>谱行组文本与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="179"/>
+        <source>Instrument changes</source>
+        <translation>乐器更换</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="181"/>
+        <source>The text which tells a player to change to another instrument (‘To Piccolo’).</source>
+        <translation>提示演奏者改换乐器的文字（如“To Piccolo”）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="188"/>
+        <source>Side of the staff on which instrument change texts are placed, unless one is flipped by hand.</source>
+        <translation>乐器更换文本置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="201"/>
+        <source>Least vertical gap between an instrument change text and the notes or other signs which lie between it and the staff.</source>
+        <translation>乐器更换文本与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="208"/>
+        <source>Harp pedal diagrams</source>
+        <translation>竖琴踏板图</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="210"/>
+        <source>The pedal setting of the harp is shown either as a diagram or as text (the note names of the seven strings); each kind has its own values.</source>
+        <translation>竖琴的踏板设置可以用图示表示，也可以用文字（七根弦的音名）表示；两种形式各有一组设置。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="217"/>
+        <source>Diagram: position</source>
+        <translation>图示：位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="218"/>
+        <source>Side of the staff on which harp pedal diagrams are placed, unless one is flipped by hand.</source>
+        <translation>竖琴踏板图置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="229"/>
+        <source>Diagram: minimum distance from notes and signs</source>
+        <translation>图示：与音符和记号的最小距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="230"/>
+        <source>Least vertical gap between a harp pedal diagram and the notes or other signs which lie between it and the staff.</source>
+        <translation>竖琴踏板图与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="238"/>
+        <source>Text: position</source>
+        <translation>文字：位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="239"/>
+        <source>Side of the staff on which harp pedal settings written as text are placed, unless one is flipped by hand.</source>
+        <translation>以文字表示的竖琴踏板设置置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="251"/>
+        <source>Text: minimum distance from notes and signs</source>
+        <translation>文字：与音符和记号的最小距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="252"/>
+        <source>Least vertical gap between a harp pedal setting written as text and the notes or other signs which lie between it and the staff.</source>
+        <translation>以文字表示的竖琴踏板设置与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
 </context>
 </TS>
