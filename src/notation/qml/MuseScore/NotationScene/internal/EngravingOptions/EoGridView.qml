@@ -144,7 +144,18 @@ FocusScope {
     }
     readonly property int tableHeight: rowHeights.reduce(function(sum, h) { return sum + h }, 0)
 
-    readonly property int headerHeight: grid.columnTitles.some(function(title) { return Boolean(title) }) ? 22 : 0
+    //! NOTE: a column title which is wider than its column takes two lines (and is elided after them)
+    readonly property bool hasLongColumnTitle: {
+        for (var i = 0; i < grid.columnTitles.length && i < columnWidths.length; ++i) {
+            if (columnTitleMetrics.advanceWidth(String(grid.columnTitles[i])) > columnWidths[i] - 8) {
+                return true
+            }
+        }
+        return false
+    }
+
+    readonly property int headerHeight: !grid.columnTitles.some(function(title) { return Boolean(title) }) ? 0
+                                        : (hasLongColumnTitle ? 36 : 22)
 
     //! NOTE: the column of the row titles: the widest title measured with its font,
     //! at most two fifths of the grid's width; a longer title wraps
@@ -202,6 +213,12 @@ FocusScope {
         id: rowTitleMetrics
 
         font: AtStyle.font(12.5)
+    }
+
+    FontMetrics {
+        id: columnTitleMetrics
+
+        font: AtStyle.font(11.5, Font.Medium)
     }
 
     Column {
@@ -325,14 +342,17 @@ FocusScope {
                                     StyledTextLabel {
                                         anchors.left: parent.left
                                         anchors.right: parent.right
+                                        anchors.rightMargin: 8
                                         anchors.bottom: parent.bottom
                                         horizontalAlignment: Text.AlignLeft
 
                                         visible: index < root.grid.columnTitles.length
                                         text: index < root.grid.columnTitles.length
                                               ? root.grid.columnTitles[index] : ""
-                                        font: AtStyle.font(11.5, Font.Medium)
+                                        font: columnTitleMetrics.font
                                         color: AtStyle.text3
+                                        wrapMode: Text.Wrap
+                                        maximumLineCount: 2
                                         elide: Text.ElideRight
                                     }
                                 }
