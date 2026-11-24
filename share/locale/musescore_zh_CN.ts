@@ -52202,5 +52202,25 @@ The score will be saved as:
         <source>Show ‘H’ or ‘P’ once per group of ascending/descending notes</source>
         <translation>每组上行或下行的音符只显示一次“H”或“P”</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="33"/>
+        <source>Bends</source>
+        <translation>推弦</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="183"/>
+        <source>For each kind of ottava: its side of the staff, the label at the start of the line and the label repeated at the start of each following system, as they are while ‘Numbers only’ is on (the default). A symbol of the music font is written as &lt;sym&gt;name&lt;/sym&gt;, for example &lt;sym&gt;ottava&lt;/sym&gt; for 8.</source>
+        <translation>每种八度号各自的设置：位于谱表哪一侧、线条开头的标记，以及在后续每个谱行组开头重复的标记（“仅显示数字”开启时，即默认情况下所用的标记）。音乐字体中的符号写作 &lt;sym&gt;名称&lt;/sym&gt;，例如 &lt;sym&gt;ottava&lt;/sym&gt; 表示 8。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="368"/>
+        <source>Texts while ‘Numbers only’ is off</source>
+        <translation>“仅显示数字”关闭时的文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="369"/>
+        <source>The labels written out in full, as &lt;sym&gt;ottavaAlta&lt;/sym&gt; for 8va.</source>
+        <translation>完整写出的标记，例如 &lt;sym&gt;ottavaAlta&lt;/sym&gt; 表示 8va。</translation>
+    </message>
 </context>
 </TS>

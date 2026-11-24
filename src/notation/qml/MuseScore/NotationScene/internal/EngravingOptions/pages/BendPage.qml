@@ -30,7 +30,7 @@ EoPage {
 
     code: "bend"
     legacyCodes: ["bend"]
-    title: qsTrc("EditStyleBase", "Bends")
+    title: qsTrc("notation/engravingoptions", "Bends")
     group: qsTrc("notation/engravingoptions", "Lines")
 
     EoSection {

@@ -30,7 +30,7 @@ EoPage {
 
     code: "glissando-note-line"
     legacyCodes: ["glissando-note-line"]
-    title: qsTrc("EditStyleBase", "Glissandos & note-anchored lines")
+    title: qsTrc("notation/engravingoptions", "Glissandos and note-anchored lines")
     group: qsTrc("notation/engravingoptions", "Lines")
 
     EoSection {
