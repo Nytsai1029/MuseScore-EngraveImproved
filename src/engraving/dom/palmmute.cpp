@@ -59,6 +59,8 @@ static const ElementStyle palmMuteStyle {
     { Sid::palmMuteLineWidth,                     Pid::LINE_WIDTH },
     { Sid::palmMutePlacement,                     Pid::PLACEMENT },
     { Sid::palmMutePosBelow,                      Pid::OFFSET },
+    { Sid::palmMuteText,                          Pid::BEGIN_TEXT },
+    { Sid::palmMuteText,                          Pid::CONTINUE_TEXT },
 };
 
 PalmMuteSegment::PalmMuteSegment(PalmMute* sp, System* parent)

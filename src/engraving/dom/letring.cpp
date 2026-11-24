@@ -54,6 +54,8 @@ static const ElementStyle letRingStyle {
     { Sid::letRingEndHookType,                   Pid::END_HOOK_TYPE },
     { Sid::letRingLineWidth,                     Pid::LINE_WIDTH },
     { Sid::letRingPlacement,                     Pid::PLACEMENT },
+    { Sid::letRingText,                          Pid::BEGIN_TEXT },
+    { Sid::letRingText,                          Pid::CONTINUE_TEXT },
     //{ Sid::letRingPosBelow,                      Pid::OFFSET                 },
 };
 

@@ -22,6 +22,9 @@
 
 #include <gtest/gtest.h>
 
+#include <algorithm>
+#include <vector>
+
 #include "dom/chord.h"
 #include "dom/excerpt.h"
 #include "dom/factory.h"
@@ -33,6 +36,7 @@
 #include "dom/part.h"
 #include "dom/staff.h"
 #include "dom/system.h"
+#include "dom/textlinebase.h"
 #include "dom/undo.h"
 #include "dom/volta.h"
 
@@ -621,6 +625,47 @@ TEST_F(Engraving_SpannersTests, segmentFollowsTheStyle)
     score->style().set(Sid::voltaMinDistance, Spatium(3.0));
     score->styleChanged();
     EXPECT_EQ(segment->minDistance(), Spatium(3.0));
+
+    delete score;
+}
+
+/**
+ * @TEST_CASE lineTextFollowsTheStyle
+ * @details The text of a let ring and of a palm mute line is the style's, also after the style changes: a line in
+ *          the score shows the new text without being read again. A text which the line has of its own stays
+ */
+TEST_F(Engraving_SpannersTests, lineTextFollowsTheStyle)
+{
+    MasterScore* score = ScoreRW::readScore(SPANNERS_DATA_DIR + "letring-palmmute-style.mscx");
+    ASSERT_TRUE(score);
+    score->doLayout();
+
+    std::vector<const TextLineBase*> letRings;
+    const TextLineBase* palmMute = nullptr;
+    for (const auto& [tick, spanner] : score->spannerMap().map()) {
+        if (spanner->isLetRing()) {
+            letRings.push_back(toTextLineBase(spanner));
+        } else if (spanner->isPalmMute()) {
+            palmMute = toTextLineBase(spanner);
+        }
+    }
+    ASSERT_EQ(letRings.size(), 2u);
+    ASSERT_TRUE(palmMute);
+    std::sort(letRings.begin(), letRings.end(), [](const TextLineBase* a, const TextLineBase* b) {
+        return a->tick() < b->tick();
+    });
+    EXPECT_EQ(letRings[0]->beginText(), score->style().styleSt(Sid::letRingText));
+    EXPECT_EQ(palmMute->beginText(), score->style().styleSt(Sid::palmMuteText));
+    EXPECT_EQ(letRings[1]->beginText(), String(u"sempre l.v."));
+
+    score->style().set(Sid::letRingText, String(u"l.v."));
+    score->style().set(Sid::palmMuteText, String(u"P.M. ×"));
+    score->styleChanged();
+    EXPECT_EQ(letRings[0]->beginText(), String(u"l.v."));
+    EXPECT_EQ(letRings[0]->continueText(), String(u"l.v."));
+    EXPECT_EQ(palmMute->beginText(), String(u"P.M. ×"));
+    EXPECT_EQ(palmMute->continueText(), String(u"P.M. ×"));
+    EXPECT_EQ(letRings[1]->beginText(), String(u"sempre l.v."));
 
     delete score;
 }
