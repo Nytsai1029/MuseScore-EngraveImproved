@@ -50,14 +50,14 @@ namespace mu::notation {
 //!   the end of the text joins it to the next syllable), `^"text"` a staff text above the chord (`<sup>…</sup>`,
 //!   `<sub>`, `<b>`, `<i>` format the letters between them, as in the text of a score).
 //! - After a note, as words: `\fermata`, `\arpeggio` (also `\arpeggioUp|Down|Bracket|UpStraight|DownStraight`),
-//!   `\laissezVibrer`, a dynamic (`\ppp \pp \p \mp \mf \f \ff \fff \sf \sfz \fp`; `\atEndOfPrevious` after it
-//!   puts it before its beat), `\expression "text"` (as dolce after a p), `\<` and `\>` (a hairpin begins),
-//!   `\cresc` and `\dim` (a line with the word begins), `\niente` after any of these four (it begins or ends at
-//!   niente, a small circle), `\diagonal y` after them (its end is y staff spaces lower, as if dragged) and `\!` (it
-//!   ends). The ornaments `\trill` `\turn` `\mordent` `\prall`
-//!   (with `!`, as `\turn!`, the accidentals of the notes they play are shown, also those of the key), `\upbow`
-//!   `\downbow`, `\luteFinger thumb|1|2|3` (the right hand in lute music), the lines `\fall` `\doit` `\plop`
-//!   `\scoop` (curved; `\fallStraight`, `\fallWavy` and so on), `\breathe` and `\caesura` (after the chord), and
+//!   `\laissezVibrer`, a dynamic (`\ppp \pp \p \mp \mf \f \ff \fff \sf \sfz \fp`; `\atEndOfPrevious` after it puts it
+//!   before its beat), `\expression "text"` (as dolce after a p), `\sticking "text"` (the hand of a percussion note, as
+//!   R), `\<` and `\>` (a hairpin begins), `\cresc` and `\dim` (a line with the word begins), `\niente` after any of
+//!   these four (it begins or ends at niente, a small circle), `\diagonal y` after them (its end is y staff spaces
+//!   lower, as if dragged) and `\!` (it ends). The ornaments `\trill` `\turn` `\mordent` `\prall` (with `!`, as
+//!   `\turn!`, the accidentals of the notes they play are shown, also those of the key), `\upbow` `\downbow`,
+//!   `\luteFinger thumb|1|2|3` (the right hand in lute music), the lines `\fall` `\doit` `\plop` `\scoop` (curved;
+//!   `\fallStraight`, `\fallWavy` and so on), `\breathe` and `\caesura` (after the chord), and
 //!   `\handBracket left|right` (the hand which plays the chord, a bracket left of its lowest note).
 //! - Before a note: `\stemUp` `\stemDown` `\stemNeutral` (until changed), `\noBeam`, `\slash` (slash
 //!   noteheads, as in rhythm slash notation) and `\small` (a small cue chord or rest) for this chord only,

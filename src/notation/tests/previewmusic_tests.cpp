@@ -59,6 +59,7 @@
 #include "engraving/dom/staff.h"
 #include "engraving/dom/stafftext.h"
 #include "engraving/dom/stafftype.h"
+#include "engraving/dom/sticking.h"
 #include "engraving/dom/symbol.h"
 #include "engraving/dom/tapping.h"
 #include "engraving/dom/text.h"
@@ -1125,4 +1126,23 @@ TEST_F(Notation_PreviewMusicTests, hairpinLinesExpressionsAndInstruments)
     EXPECT_FALSE(errorOf("c'4 \\atEndOfPrevious").empty());
     EXPECT_FALSE(errorOf("c'4 \\instrument voice").empty());
     EXPECT_FALSE(errorOf("\\instrument \"Voice\" c'4").empty());
+}
+
+/**
+ * @TEST_CASE stickingNamesTheHand
+ * @details `\\sticking "R"` writes the letters which name the hand above or below the note
+ */
+TEST_F(Notation_PreviewMusicTests, stickingNamesTheHand)
+{
+    ASSERT_TRUE(load("c''4 \\sticking \"R\" c''4 \\sticking \"L\" c''2"));
+
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 3u);
+    const EngravingItem* right = found[0]->segment()->findAnnotation(ElementType::STICKING, 0, 0);
+    ASSERT_TRUE(right);
+    EXPECT_EQ(toSticking(right)->plainText(), muse::String(u"R"));
+    EXPECT_TRUE(found[1]->segment()->findAnnotation(ElementType::STICKING, 0, 0));
+    EXPECT_FALSE(found[2]->segment()->findAnnotation(ElementType::STICKING, 0, 0));
+
+    EXPECT_FALSE(errorOf("c'4 \\sticking R").empty());
 }

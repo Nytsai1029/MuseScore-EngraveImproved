@@ -258,6 +258,7 @@ struct Event {
     QString dynamic;
     bool dynamicAtEndOfPrevious = false;    // `\\atEndOfPrevious`: the dynamic stands before its beat
     QString expression;             // `\\expression "text"`: an expression text, as dolce after a p
+    QString sticking;               // `\\sticking "text"`: the hand of a percussion note, as R or L
 
     int tupletActual = 0;
     int tupletNormal = 0;
@@ -770,6 +771,9 @@ private:
         } else if (text == "\\expression") {
             Event& event = lastEvent(token);
             event.expression = quoted(takeToken("the text in quotes", token));
+        } else if (text == "\\sticking") {
+            Event& event = lastEvent(token);
+            event.sticking = quoted(takeToken("the letters in quotes", token));
         } else if (text == "\\instrument") {
             readInstrument(token);
         } else if (text == "\\!") {
@@ -2281,6 +2285,12 @@ private:
         if (!event.expression.isEmpty()) {
             m_xml.writeStartElement("Expression");
             text("text", event.expression);
+            m_xml.writeEndElement();
+        }
+
+        if (!event.sticking.isEmpty()) {
+            m_xml.writeStartElement("Sticking");
+            text("text", event.sticking);
             m_xml.writeEndElement();
         }
 
