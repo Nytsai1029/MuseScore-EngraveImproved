@@ -42256,7 +42256,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="105"/>
         <source>Off: the ottava line ends just past the last note it covers. On: it continues to just before the next note or barline.</source>
-        <translation>关闭时，八度记号的线条在其所含最后一个音符之后不远处结束；开启后，线条延伸到下一个音符或小节线之前。</translation>
+        <translation>关闭时，八度号的线条在其所含最后一个音符之后不远处结束；开启后，线条延伸到下一个音符或小节线之前。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="111"/>
@@ -42266,7 +42266,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="112"/>
         <source>How far the ottava line continues past the right edge of the last note it covers (never beyond the next note).</source>
-        <translation>八度记号的线条超出其所含最后一个音符右缘的长度（不会越过下一个音符）。</translation>
+        <translation>八度号的线条超出其所含最后一个音符右缘的长度（不会越过下一个音符）。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="32"/>
@@ -50900,6 +50900,281 @@ The score will be saved as:
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="425"/>
         <source>Baseline</source>
         <translation>基线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="38"/>
+        <source>Ottavas</source>
+        <translation>八度号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="43"/>
+        <source>The label is the number alone (8, 15, 22) instead of 8va, 15ma, 22ma and their bassa forms.</source>
+        <translation>八度号的标记只写数字（8、15、22），不带 va、ma、bassa 等字样。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="48"/>
+        <source>Offset: X moves the line to the right, Y moves it down from the top staff line (above the staff) or from the bottom staff line (below the staff), so a Y of −2 above means 2 sp over the staff. Hook height: the hook at the end of the line points towards the staff; a negative value turns it away.</source>
+        <translation>偏移：X 为向右的水平位移；Y 自谱表顶线（置于上方时）或底线（置于下方时）向下计量，因此上方的 Y 取 −2 即高出谱表 2 谱间。折钩高度：线条末端的折钩朝向谱表，取负值则背向谱表。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="55"/>
+        <source>Hook height</source>
+        <translation>折钩高度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="64"/>
+        <source>Horizontal shift and height of an ottava line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的八度号的水平偏移和高度，自谱表顶线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="72"/>
+        <source>Horizontal shift and depth of an ottava line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的八度号的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="79"/>
+        <source>Length of the hook at the end of an ottava line above the staff; it points down towards the staff, a negative value turns it upwards.</source>
+        <translation>谱表上方八度号末端折钩的长度；折钩朝下指向谱表，取负值则朝上。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="89"/>
+        <source>Length of the hook at the end of an ottava line below the staff; it points up towards the staff, a negative value turns it downwards.</source>
+        <translation>谱表下方八度号末端折钩的长度；折钩朝上指向谱表，取负值则朝下。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="139"/>
+        <source>Off: the line ends just past the last note it covers. On: it runs on to just before the next note or barline.</source>
+        <translation>关闭时，线条在其涵盖的最后一个音符之后不远处结束；开启后，线条一直延伸到下一个音符或小节线之前。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="147"/>
+        <source>How far the line continues past the right edge of the last note it covers, never beyond the next note. Only with ‘Extend line to end of last note’s duration’ off.</source>
+        <translation>线条越过其涵盖的最后一个音符右缘的长度，但不会超过下一个音符。仅在“线条延伸到末音时值结束处”关闭时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="156"/>
+        <source>Text alignment below the staff</source>
+        <translation>谱表下方时文字的对齐</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="157"/>
+        <source>Which part of the label of an ottava below the staff lies on the line: with ‘Baseline’ the label stands on the line and the hook rises beside it. For ottavas above the staff this is the alignment of the text style ‘Ottava’ (‘Top’: the label hangs from the line).</source>
+        <translation>置于谱表下方的八度号，其标记以哪个部位对准线条：选“基线”时标记立在线条上，折钩在一旁向上伸出。置于上方的八度号则采用文本样式“八度号”的对齐方式（“顶部”：标记悬挂在线条之下）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="173"/>
+        <source>Least vertical gap between an ottava line and the notes or other signs which lie between it and the staff.</source>
+        <translation>八度号与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="180"/>
+        <source>Texts and placement</source>
+        <translation>文字与位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="183"/>
+        <source>For each kind of ottava: its side of the staff, the label at the start of the line and the label repeated at the start of each following system. The last two columns are used while ‘Numbers only’ is on. A symbol of the music font is written as &lt;sym&gt;name&lt;/sym&gt;, for example &lt;sym&gt;ottavaAlta&lt;/sym&gt; for 8va and &lt;sym&gt;ottava&lt;/sym&gt; for 8.</source>
+        <translation>每种八度号各自的设置：位于谱表哪一侧、线条开头的标记，以及在后续每个谱行组开头重复的标记。后两列在“仅显示数字”开启时使用。音乐字体中的符号写作 &lt;sym&gt;名称&lt;/sym&gt;，例如 &lt;sym&gt;ottavaAlta&lt;/sym&gt; 表示 8va，&lt;sym&gt;ottava&lt;/sym&gt; 表示 8。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="188"/>
+        <source>Kind</source>
+        <translation>类型</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="190"/>
+        <source>8va</source>
+        <translation>8va</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="191"/>
+        <source>8vb</source>
+        <translation>8vb</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="192"/>
+        <source>15ma</source>
+        <translation>15ma</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="193"/>
+        <source>15mb</source>
+        <translation>15mb</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="194"/>
+        <source>22ma</source>
+        <translation>22ma</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="195"/>
+        <source>22mb</source>
+        <translation>22mb</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="200"/>
+        <source>Text on following systems</source>
+        <translation>后续谱行组上的文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="201"/>
+        <source>Text, numbers only</source>
+        <translation>文字（仅显示数字）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="202"/>
+        <source>Text on following systems, numbers only</source>
+        <translation>后续谱行组上的文字（仅显示数字）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="208"/>
+        <source>Side of the staff on which 8va lines are placed, unless one is flipped by hand. Rasgueado, whammy bar and harmonic mark lines follow this value too.</source>
+        <translation>8va 八度号置于谱表的哪一侧；单独翻转过的不受影响。轮指线、摇把线和泛音记号线也随此项而定。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="221"/>
+        <source>Label at the start of an 8va line while ‘Numbers only’ is off.</source>
+        <translation>“仅显示数字”关闭时，8va 八度号开头的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="230"/>
+        <source>Label repeated at the start of each following system of an 8va line while ‘Numbers only’ is off.</source>
+        <translation>“仅显示数字”关闭时，8va 八度号在后续每个谱行组开头重复的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="238"/>
+        <source>Label at the start of an 8va line while ‘Numbers only’ is on.</source>
+        <translation>“仅显示数字”开启时，8va 八度号开头的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="246"/>
+        <source>Label repeated at the start of each following system of an 8va line while ‘Numbers only’ is on.</source>
+        <translation>“仅显示数字”开启时，8va 八度号在后续每个谱行组开头重复的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="254"/>
+        <source>Side of the staff on which 8vb lines are placed, unless one is flipped by hand.</source>
+        <translation>8vb 八度号置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="266"/>
+        <source>Label at the start of an 8vb line while ‘Numbers only’ is off.</source>
+        <translation>“仅显示数字”关闭时，8vb 八度号开头的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="275"/>
+        <source>Label repeated at the start of each following system of an 8vb line while ‘Numbers only’ is off.</source>
+        <translation>“仅显示数字”关闭时，8vb 八度号在后续每个谱行组开头重复的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="283"/>
+        <source>Label at the start of an 8vb line while ‘Numbers only’ is on.</source>
+        <translation>“仅显示数字”开启时，8vb 八度号开头的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="291"/>
+        <source>Label repeated at the start of each following system of an 8vb line while ‘Numbers only’ is on.</source>
+        <translation>“仅显示数字”开启时，8vb 八度号在后续每个谱行组开头重复的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="299"/>
+        <source>Side of the staff on which 15ma lines are placed, unless one is flipped by hand.</source>
+        <translation>15ma 八度号置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="311"/>
+        <source>Label at the start of a 15ma line while ‘Numbers only’ is off.</source>
+        <translation>“仅显示数字”关闭时，15ma 八度号开头的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="320"/>
+        <source>Label repeated at the start of each following system of a 15ma line while ‘Numbers only’ is off.</source>
+        <translation>“仅显示数字”关闭时，15ma 八度号在后续每个谱行组开头重复的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="328"/>
+        <source>Label at the start of a 15ma line while ‘Numbers only’ is on.</source>
+        <translation>“仅显示数字”开启时，15ma 八度号开头的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="336"/>
+        <source>Label repeated at the start of each following system of a 15ma line while ‘Numbers only’ is on.</source>
+        <translation>“仅显示数字”开启时，15ma 八度号在后续每个谱行组开头重复的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="344"/>
+        <source>Side of the staff on which 15mb lines are placed, unless one is flipped by hand.</source>
+        <translation>15mb 八度号置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="356"/>
+        <source>Label at the start of a 15mb line while ‘Numbers only’ is off.</source>
+        <translation>“仅显示数字”关闭时，15mb 八度号开头的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="365"/>
+        <source>Label repeated at the start of each following system of a 15mb line while ‘Numbers only’ is off.</source>
+        <translation>“仅显示数字”关闭时，15mb 八度号在后续每个谱行组开头重复的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="373"/>
+        <source>Label at the start of a 15mb line while ‘Numbers only’ is on.</source>
+        <translation>“仅显示数字”开启时，15mb 八度号开头的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="381"/>
+        <source>Label repeated at the start of each following system of a 15mb line while ‘Numbers only’ is on.</source>
+        <translation>“仅显示数字”开启时，15mb 八度号在后续每个谱行组开头重复的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="389"/>
+        <source>Side of the staff on which 22ma lines are placed, unless one is flipped by hand.</source>
+        <translation>22ma 八度号置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="401"/>
+        <source>Label at the start of a 22ma line while ‘Numbers only’ is off.</source>
+        <translation>“仅显示数字”关闭时，22ma 八度号开头的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="410"/>
+        <source>Label repeated at the start of each following system of a 22ma line while ‘Numbers only’ is off.</source>
+        <translation>“仅显示数字”关闭时，22ma 八度号在后续每个谱行组开头重复的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="418"/>
+        <source>Label at the start of a 22ma line while ‘Numbers only’ is on.</source>
+        <translation>“仅显示数字”开启时，22ma 八度号开头的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="426"/>
+        <source>Label repeated at the start of each following system of a 22ma line while ‘Numbers only’ is on.</source>
+        <translation>“仅显示数字”开启时，22ma 八度号在后续每个谱行组开头重复的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="434"/>
+        <source>Side of the staff on which 22mb lines are placed, unless one is flipped by hand.</source>
+        <translation>22mb 八度号置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="446"/>
+        <source>Label at the start of a 22mb line while ‘Numbers only’ is off.</source>
+        <translation>“仅显示数字”关闭时，22mb 八度号开头的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="455"/>
+        <source>Label repeated at the start of each following system of a 22mb line while ‘Numbers only’ is off.</source>
+        <translation>“仅显示数字”关闭时，22mb 八度号在后续每个谱行组开头重复的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="463"/>
+        <source>Label at the start of a 22mb line while ‘Numbers only’ is on.</source>
+        <translation>“仅显示数字”开启时，22mb 八度号开头的标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="471"/>
+        <source>Label repeated at the start of each following system of a 22mb line while ‘Numbers only’ is on.</source>
+        <translation>“仅显示数字”开启时，22mb 八度号在后续每个谱行组开头重复的标记。</translation>
     </message>
 </context>
 </TS>
