@@ -666,8 +666,9 @@ const std::set<QString>& optionsWhoseMusicCannotShowItYet()
         // loop stops with the beam at an inner stem's anchor + reduction; for a slope above three quarter
         // spaces every group tried snapped the beam above all inner tips instead (the small-slant case is
         // shown by "\stemUp c'8[ e'8 f'8 f'8]")
-        // the start of a hanging tie or line after a repeat barline, and two barlines side by side: the music cannot
-        // write repeat barlines yet (PreviewMusic)
+        // two barlines side by side (around a measure with nothing in it) and a "partial" tie which hangs from a
+        // barline (into a second volta): the music writes neither, and the ties across repeat barlines and into
+        // voltas which it writes are laid out whole
         "barBarlineDistance",
         "barlineToLineStartDistance",
         // pairs which the layout never sets side by side: a clef change stands before the barline, key and time
