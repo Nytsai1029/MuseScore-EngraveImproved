@@ -159,16 +159,17 @@ struct SourceBlock {
         return result;
     }
 
-    //! Every string literal which can be the value of the expression: the expression itself, or the branches
-    //! of a conditional
+    //! Every text which can be the value of the expression: the expression itself, or the branches of a
+    //! conditional; each is string literals, joined with `+` if there are several (a long text is written so)
     static QStringList literalsOf(const QString& expression)
     {
-        static const QRegularExpression BRANCH("(?:^|[?:])\\s*\"((?:[^\"\\\\]|\\\\.)*)\"");
+        static const QRegularExpression BRANCH(
+            "(?:^|[?:])\\s*(\"(?:[^\"\\\\]|\\\\.)*\"(?:\\s*\\+\\s*\"(?:[^\"\\\\]|\\\\.)*\")*)");
 
         QStringList result;
         QRegularExpressionMatchIterator it = BRANCH.globalMatch(expression);
         while (it.hasNext()) {
-            result << unescaped(it.next().captured(1));
+            result << unquoted(it.next().captured(1));
         }
 
         return result;
