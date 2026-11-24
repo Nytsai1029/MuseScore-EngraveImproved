@@ -95,7 +95,8 @@ namespace mu::notation {
 //! - Two staves (a grand staff) with `\staves 2` at the beginning. `\staff 1|2` says on which staff the notes which
 //!   follow are written (at the start of each voice it is staff 1 again), and `\crossStaff down|up|off` shows the
 //!   chords which follow on the neighbouring staff. A slur, a tie and a hairpin stay on one staff.
-//!   `\tab` at the beginning makes the current staff a six-string tablature, `\lines N` gives it N lines
+//!   `\tab` at the beginning makes the current staff a six-string tablature (its part is a guitar in standard
+//!   tuning; a note is on the highest string which has it), `\lines N` gives it N lines
 //!   (1 to 5) instead of five. `\name "long" "short"` at the beginning names the instrument,
 //!   `\smallStaff` makes the current staff a small staff, `\spanBarlines` joins the barlines of two staves,
 //!   `\hideStavesIndividually` lets the style hide an empty staff of the two although the other has notes.

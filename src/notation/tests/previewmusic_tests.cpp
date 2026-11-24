@@ -69,6 +69,7 @@
 #include "engraving/dom/staff.h"
 #include "engraving/dom/stafftext.h"
 #include "engraving/dom/stafftype.h"
+#include "engraving/dom/stringdata.h"
 #include "engraving/dom/sticking.h"
 #include "engraving/dom/symbol.h"
 #include "engraving/dom/tapping.h"
@@ -1038,6 +1039,31 @@ TEST_F(Notation_PreviewMusicTests, tabStaffAndTapping)
     EXPECT_EQ(handOf(found[0]), TappingHand::RIGHT);
     EXPECT_EQ(handOf(found[1]), TappingHand::LEFT);
     EXPECT_EQ(handOf(found[2]), TappingHand::INVALID);
+}
+
+/**
+ * @TEST_CASE tablatureNotesHaveStringAndFret
+ * @details The part of a tablature staff is a six-string guitar in standard tuning, and each note is on the highest
+ * string which has it, the lower notes of a chord on lower strings
+ */
+TEST_F(Notation_PreviewMusicTests, tablatureNotesHaveStringAndFret)
+{
+    ASSERT_TRUE(load("\\tab a'4 b'4 <e' c''>4 c'4"));
+
+    const StringData* strings = score()->staff(0)->part()->instrument()->stringData();
+    ASSERT_TRUE(strings);
+    EXPECT_EQ(strings->strings(), 6u);
+
+    const auto placeOf = [](const Note* note) {
+        return std::pair(note->string(), note->fret());
+    };
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 4u);
+    EXPECT_EQ(placeOf(found[0]->upNote()), std::pair(0, 5));
+    EXPECT_EQ(placeOf(found[1]->upNote()), std::pair(0, 7));
+    EXPECT_EQ(placeOf(found[2]->upNote()), std::pair(0, 8));
+    EXPECT_EQ(placeOf(found[2]->downNote()), std::pair(1, 5));
+    EXPECT_EQ(placeOf(found[3]->upNote()), std::pair(1, 1));
 }
 
 /**

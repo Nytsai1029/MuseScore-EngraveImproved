@@ -22,6 +22,7 @@
 #include "previewmusic.h"
 
 #include <algorithm>
+#include <array>
 #include <deque>
 #include <iterator>
 #include <map>
@@ -217,6 +218,10 @@ struct Place {
 };
 
 constexpr int BUZZ_ROLL = -1;
+
+//! The strings of a six-string guitar in standard tuning, from the highest (string 0 in the file), and its frets
+constexpr std::array<int, 6> GUITAR_STRINGS { 64, 59, 55, 50, 45, 40 };
+constexpr int GUITAR_FRETS = 24;
 
 //! NOTE As GuitarBendType
 constexpr int BEND = 0;
@@ -2389,21 +2394,37 @@ private:
             m_xml.writeEndElement();
         }
 
-        text("trackName", "Piano");
+        //! NOTE A part with a tablature staff is a guitar, whose strings the tablature needs
+        bool hasTablature = false;
+        for (int staff = firstStaff; staff < firstStaff + staves; ++staff) {
+            hasTablature = hasTablature || m_piece.tabStaves.count(staff) > 0;
+        }
+        const QString trackName = hasTablature ? "Guitar" : "Piano";
+
+        text("trackName", trackName);
         if (m_piece.hideStavesIndividually) {
             number("hideStavesWhenIndividuallyEmpty", 1);
         }
         m_xml.writeStartElement("Instrument");
         const auto instrumentId = m_piece.instrumentIds.find(firstStaff);
-        m_xml.writeAttribute("id", instrumentId != m_piece.instrumentIds.end() ? instrumentId->second : "piano");
+        m_xml.writeAttribute("id", instrumentId != m_piece.instrumentIds.end() ? instrumentId->second
+                             : (hasTablature ? "guitar-steel" : "piano"));
         if (firstStaff == 0 && !m_piece.longName.isEmpty()) {
             text("longName", m_piece.longName);
             text("shortName", m_piece.shortName);
         }
-        text("trackName", "Piano");
+        text("trackName", trackName);
+        if (hasTablature) {
+            m_xml.writeStartElement("StringData");
+            number("frets", GUITAR_FRETS);
+            for (auto string = GUITAR_STRINGS.crbegin(); string != GUITAR_STRINGS.crend(); ++string) {
+                number("string", *string);
+            }
+            m_xml.writeEndElement();
+        }
         m_xml.writeStartElement("Channel");
         m_xml.writeEmptyElement("program");
-        m_xml.writeAttribute("value", "0");
+        m_xml.writeAttribute("value", hasTablature ? "25" : "0");
         m_xml.writeEndElement();
         m_xml.writeEndElement();
 
@@ -3044,8 +3065,12 @@ private:
 
         const auto lowest = std::min_element(event.pitches.cbegin(), event.pitches.cend(),
                                              [](const Pitch& a, const Pitch& b) { return a.midi < b.midi; });
+        const std::map<int, std::pair<int, int> > fretting
+            = m_piece.tabStaves.count(event.staff) ? frettingOf(event) : std::map<int, std::pair<int, int> >();
         for (auto pitch = event.pitches.cbegin(); pitch != event.pitches.cend(); ++pitch) {
-            writeNote(event, *pitch, pitch == lowest, std::next(pitch) == event.pitches.cend());
+            const auto place = fretting.find(pitch->midi);
+            writeNote(event, *pitch, pitch == lowest, std::next(pitch) == event.pitches.cend(),
+                      place != fretting.end() ? std::optional(place->second) : std::nullopt);
         }
 
         //! NOTE The reader takes a tremolo only after the notes of its chord
@@ -3082,7 +3107,35 @@ private:
         m_xml.writeEndElement();
     }
 
-    void writeNote(const Event& event, const Pitch& pitch, bool isBottomNote, bool isTopNote)
+    //! Where each note of a chord is played on the guitar, as (string, fret) by its pitch: the highest note on the
+    //! highest string which has it, each lower note on a lower string (as StringData::fretChords gives it)
+    static std::map<int, std::pair<int, int> > frettingOf(const Event& event)
+    {
+        std::vector<int> midis;
+        for (const Pitch& pitch : event.pitches) {
+            midis.push_back(pitch.midi);
+        }
+        std::sort(midis.rbegin(), midis.rend());
+
+        std::map<int, std::pair<int, int> > fretting;
+        size_t string = 0;
+        for (int midi : midis) {
+            for (; string < GUITAR_STRINGS.size(); ++string) {
+                const int fret = midi - GUITAR_STRINGS[string];
+                if (fret >= 0 && fret <= GUITAR_FRETS) {
+                    fretting[midi] = { static_cast<int>(string), fret };
+                    ++string;
+                    break;
+                }
+            }
+        }
+
+        return fretting;
+    }
+
+    //! `fretting`: the string and fret of a note on a tablature staff
+    void writeNote(const Event& event, const Pitch& pitch, bool isBottomNote, bool isTopNote,
+                   const std::optional<std::pair<int, int> >& fretting)
     {
         m_xml.writeStartElement("Note");
 
@@ -3129,6 +3182,10 @@ private:
 
         number("pitch", pitch.midi);
         number("tpc", pitch.tpc);
+        if (fretting) {
+            number("fret", fretting->second);
+            number("string", fretting->first);
+        }
         m_xml.writeEndElement();
     }
 
