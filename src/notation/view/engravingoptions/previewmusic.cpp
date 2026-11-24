@@ -238,18 +238,24 @@ struct Syllable {
     Fraction melismaTicks;          // from this note to the last note of the extension line
 };
 
-//! `\\chordSymbol "text"`: the root and the bass as tonal pitch classes, and the name of the chord as the text has it
+//! `\\chordSymbol "text"`: of each chord (a polychord has more, from the top), the root and the bass as tonal pitch
+//! classes and the name of the chord as the text has it
 struct ChordSymbol {
-    int rootTpc = 14;
-    QString name;           // what follows the root, as 7(b9)
-    std::optional<int> bassTpc;
+    struct Chord {
+        int rootTpc = 14;
+        QString name;       // what follows the root, as 7(b9)
+        std::optional<int> bassTpc;
+    };
+
+    std::vector<Chord> chords;
     bool inParentheses = false;     // the whole text is in parentheses: the symbol is
+    bool alternate = false;         // `alternate` after the text: the text style Chord symbol (alternate)
 };
 
-//! The chord symbol of the text, as C7(b9)/E or (F), if it is one
+//! The chord symbol of the text, as C7(b9)/E, (F) or the polychord C|D, if it is one
 std::optional<ChordSymbol> chordSymbolOf(const QString& text)
 {
-    static const QRegularExpression SYMBOL("^([A-G])([b#]?)([^/]*)(?:/([A-G])([b#]?))?$");
+    static const QRegularExpression SYMBOL("^([A-G])([b#]?)([^/|]*)(?:/([A-G])([b#]?))?$");
     static const std::map<QString, int> NATURAL_TPCS {
         { "F", 13 }, { "C", 14 }, { "G", 15 }, { "D", 16 }, { "A", 17 }, { "E", 18 }, { "B", 19 }
     };
@@ -264,15 +270,19 @@ std::optional<ChordSymbol> chordSymbolOf(const QString& text)
         body = body.mid(1, body.size() - 2);
     }
 
-    const QRegularExpressionMatch match = SYMBOL.match(body);
-    if (!match.hasMatch()) {
-        return std::nullopt;
-    }
+    for (const QString& part : body.split('|')) {
+        const QRegularExpressionMatch match = SYMBOL.match(part);
+        if (!match.hasMatch()) {
+            return std::nullopt;
+        }
 
-    symbol.rootTpc = tpcOf(match.captured(1), match.captured(2));
-    symbol.name = match.captured(3);
-    if (match.hasCaptured(4)) {
-        symbol.bassTpc = tpcOf(match.captured(4), match.captured(5));
+        ChordSymbol::Chord chord;
+        chord.rootTpc = tpcOf(match.captured(1), match.captured(2));
+        chord.name = match.captured(3);
+        if (match.hasCaptured(4)) {
+            chord.bassTpc = tpcOf(match.captured(4), match.captured(5));
+        }
+        symbol.chords.push_back(chord);
     }
 
     return symbol;
@@ -356,7 +366,7 @@ struct Event {
     bool dynamicAtEndOfPrevious = false;    // `\\atEndOfPrevious`: the dynamic stands before its beat
     QString expression;             // `\\expression "text"`: an expression text, as dolce after a p
     QString sticking;               // `\\sticking "text"`: the hand of a percussion note, as R or L
-    QString chordSymbol;            // `\\chordSymbol "text"`: a chord symbol, as C7(b9)/E or, in parentheses, (F)
+    std::optional<ChordSymbol> chordSymbol;    // `\\chordSymbol "text"`: as C7(b9)/E, in parentheses (F), C|D
     //! The texts at the chord by the element they are in the file: SystemText, Tempo, RehearsalMark, InstrumentChange
     std::vector<std::pair<QString, QString> > texts;
     int harpPedals = 0;             // `\\harpPedals` 1: a harp pedal diagram, `\\harpPedalsText` 2: the same as text
@@ -902,11 +912,12 @@ private:
         } else if (text == "\\chordSymbol") {
             Event& event = lastEvent(token);
             const Token symbol = takeToken("the chord symbol in quotes", token);
-            event.chordSymbol = quoted(symbol);
-            if (!chordSymbolOf(event.chordSymbol)) {
+            event.chordSymbol = chordSymbolOf(quoted(symbol));
+            if (!event.chordSymbol) {
                 fail("a chord symbol is a root A to G, b or #, what follows it and /bass, as C7(b9)/E, or that in "
-                     "parentheses", symbol.position);
+                     "parentheses; a polychord is the chords from the top, separated by |", symbol.position);
             }
+            event.chordSymbol->alternate = takeWordIfOneOf({ "alternate" }).has_value();
         } else if (text == "\\parenthesize") {
             m_parenthesize = true;
         } else if (text == "\\parenthesizeChord") {
@@ -2814,8 +2825,9 @@ private:
             m_xml.writeEndElement();
         }
 
-        if (!event.chordSymbol.isEmpty()) {
-            writeChordSymbol(*chordSymbolOf(event.chordSymbol));
+        //! NOTE The chord symbol of a chord with a fretboard diagram stands on the diagram, as one added to it does
+        if (event.chordSymbol && event.fretDiagram.isEmpty()) {
+            writeChordSymbol(*event.chordSymbol);
         }
 
         writeLinks(event, Link::Kind::Hairpin);
@@ -2843,7 +2855,7 @@ private:
         }
 
         if (!event.fretDiagram.isEmpty()) {
-            writeFretDiagram(event.fretDiagram);
+            writeFretDiagram(event.fretDiagram, event.chordSymbol);
         }
 
         if (!event.figuredBass.isEmpty()) {
@@ -2897,16 +2909,21 @@ private:
     void writeChordSymbol(const ChordSymbol& symbol)
     {
         m_xml.writeStartElement("Harmony");
+        if (symbol.alternate) {
+            text("style", "harmony_b");
+        }
         writeParentheses(symbol.inParentheses);
-        m_xml.writeStartElement("harmonyInfo");
-        if (!symbol.name.isEmpty()) {
-            text("name", symbol.name);
+        for (const ChordSymbol::Chord& chord : symbol.chords) {
+            m_xml.writeStartElement("harmonyInfo");
+            if (!chord.name.isEmpty()) {
+                text("name", chord.name);
+            }
+            number("root", chord.rootTpc);
+            if (chord.bassTpc) {
+                number("bass", *chord.bassTpc);
+            }
+            m_xml.writeEndElement();
         }
-        number("root", symbol.rootTpc);
-        if (symbol.bassTpc) {
-            number("bass", *symbol.bassTpc);
-        }
-        m_xml.writeEndElement();
         m_xml.writeEndElement();
     }
 
@@ -2969,9 +2986,12 @@ private:
 
     //! NOTE As TWrite writes a FretDiagram: the strings from the lowest (0), each with a marker (X = 88, O = 79) or a
     //! dot on its fret
-    void writeFretDiagram(const QString& strings)
+    void writeFretDiagram(const QString& strings, const std::optional<ChordSymbol>& chordSymbol)
     {
         m_xml.writeStartElement("FretDiagram");
+        if (chordSymbol) {
+            writeChordSymbol(*chordSymbol);
+        }
         for (int string = 0; string < strings.size(); ++string) {
             const QChar fret = strings.at(string);
             m_xml.writeStartElement("string");

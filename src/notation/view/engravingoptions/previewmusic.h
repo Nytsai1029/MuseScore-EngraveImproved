@@ -54,7 +54,9 @@ namespace mu::notation {
 //!   `\laissezVibrer`, a dynamic (`\ppp \pp \p \mp \mf \f \ff \fff \sf \sfz \fp`; `\atEndOfPrevious` after it puts it
 //!   before its beat), `\expression "text"` (as dolce after a p), `\sticking "text"` (the hand of a percussion note, as
 //!   R), `\chordSymbol "text"` (a chord symbol, as C7(b9)/E; the text in parentheses, as (F), puts the symbol in
-//!   parentheses), `\<` and `\>` (a hairpin begins), `\cresc` and `\dim` (a line with the word begins), `\niente` after
+//!   parentheses; a polychord is its chords from the top, separated by `|`, as D|C7; `alternate` after the text
+//!   gives it the text style Chord symbol (alternate); at a chord with a `\fretDiagram` it stands on the diagram),
+//!   `\<` and `\>` (a hairpin begins), `\cresc` and `\dim` (a line with the word begins), `\niente` after
 //!   any of these four (it begins or ends at niente, a small circle), `\diagonal y` after them (its end is y staff
 //!   spaces lower, as if dragged) and `\!` (it ends). The ornaments `\trill` `\turn` `\mordent` `\prall` (with `!`, as
 //!   `\turn!`, the accidentals of the notes they play are shown, also those of the key), `\upbow` `\downbow`,

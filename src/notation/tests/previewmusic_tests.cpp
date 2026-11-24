@@ -1249,6 +1249,40 @@ TEST_F(Notation_PreviewMusicTests, parenthesesAndChordSymbols)
 }
 
 /**
+ * @TEST_CASE polychordsAlternateChordSymbolsAndDiagrams
+ * @details A polychord is its chords from the top, separated by `|`; `alternate` after the text gives the chord
+ * symbol the text style Chord symbol (alternate); the chord symbol of a chord with a fretboard diagram stands on it
+ */
+TEST_F(Notation_PreviewMusicTests, polychordsAlternateChordSymbolsAndDiagrams)
+{
+    ASSERT_TRUE(load("c'4 \\chordSymbol \"D|C7\" e'4 \\chordSymbol \"F\" alternate g'2 \\fretDiagram \"x32010\" "
+                     "\\chordSymbol \"C\""));
+
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 3u);
+
+    const EngravingItem* polychord = found[0]->segment()->findAnnotation(ElementType::HARMONY, 0, 0);
+    ASSERT_TRUE(polychord);
+    ASSERT_EQ(toHarmony(polychord)->chords().size(), 2u);
+    EXPECT_EQ(toHarmony(polychord)->chords().front()->rootTpc(), 16);
+    EXPECT_EQ(toHarmony(polychord)->chords().back()->rootTpc(), 14);
+    EXPECT_EQ(toHarmony(polychord)->chords().back()->textName(), muse::String(u"7"));
+    EXPECT_EQ(toHarmony(polychord)->textStyleType(), TextStyleType::HARMONY_A);
+
+    const EngravingItem* alternate = found[1]->segment()->findAnnotation(ElementType::HARMONY, 0, 0);
+    ASSERT_TRUE(alternate);
+    EXPECT_EQ(toHarmony(alternate)->textStyleType(), TextStyleType::HARMONY_B);
+
+    const EngravingItem* diagram = found[2]->segment()->findAnnotation(ElementType::FRET_DIAGRAM, 0, 0);
+    ASSERT_TRUE(diagram);
+    ASSERT_TRUE(toFretDiagram(diagram)->harmony());
+    EXPECT_EQ(toFretDiagram(diagram)->harmony()->chords().front()->rootTpc(), 14);
+    EXPECT_FALSE(found[2]->segment()->findAnnotation(ElementType::HARMONY, 0, 0));
+
+    EXPECT_FALSE(errorOf("c'4 \\chordSymbol \"C|\"").empty());
+}
+
+/**
  * @TEST_CASE versesAndExtensionLines
  * @details Each further `_"text"` of a chord is the next verse; the syllables of a verse are joined across barlines
  * and across notes without a syllable, and `__` draws an extension line to the last note before the next syllable
