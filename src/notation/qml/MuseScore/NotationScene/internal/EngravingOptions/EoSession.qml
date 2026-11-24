@@ -36,6 +36,13 @@ QtObject {
     property string dragSid: ""
     property var dragValue: null
 
+    //! NOTE: a page is asked for (by its code), with what it is to show (the code of a text style)
+    signal pageRequested(string pageCode, string subPageCode)
+
+    function openPage(pageCode, subPageCode) {
+        root.pageRequested(pageCode, subPageCode)
+    }
+
     //! NOTE: an option which is not a style value (a picture, a paragraph) cannot be edited, so it is not taken
     function activate(option, section, page) {
         if (!Boolean(option) || !Boolean(option.sid) || option === root.activeOption) {

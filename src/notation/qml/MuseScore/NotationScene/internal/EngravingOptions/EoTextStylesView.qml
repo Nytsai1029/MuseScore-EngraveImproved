@@ -220,6 +220,11 @@ Item {
         }
 
         root.options = made
+
+        //! NOTE: the preview shows the chosen style at once, with its first value
+        if (Boolean(root.session) && made.length > 0) {
+            root.session.activate(made[0], null, root.page)
+        }
     }
 
     onCurrentStyleChanged: {
@@ -246,6 +251,13 @@ Item {
 
     onCurrentIndexChanged: {
         Qt.callLater(root.showCurrentStyle)
+    }
+
+    //! NOTE: the dialog gives the session after the view is made, with its first style
+    onSessionChanged: {
+        if (Boolean(root.session) && root.options.length > 0) {
+            root.session.activate(root.options[0], null, root.page)
+        }
     }
 
     onSubPageCodeChanged: {

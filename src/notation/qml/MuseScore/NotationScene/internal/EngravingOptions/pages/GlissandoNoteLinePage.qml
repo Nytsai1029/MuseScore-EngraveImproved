@@ -173,6 +173,11 @@ EoPage {
                 { value: 0, title: qsTrc("notation/engravingoptions", "Chromatic") }
             ]
         }
+
+        EoLink {
+            title: qsTrc("notation", "Edit glissando text style")
+            target: "glissando"
+        }
     }
 
     EoSection {
@@ -249,6 +254,11 @@ EoPage {
                         "distance between two strings, so that a slide along one string is not drawn flat. " +
                         "Glissandos use it too.")
             max: 1
+        }
+
+        EoLink {
+            title: qsTrc("notation", "Edit note-anchored line text style")
+            target: "note-line"
         }
     }
 }

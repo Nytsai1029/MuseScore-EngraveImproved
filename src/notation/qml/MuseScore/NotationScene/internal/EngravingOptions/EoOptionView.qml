@@ -69,11 +69,11 @@ FocusScope {
     //! NOTE: the kinds of which the editor takes the width of the page, under the title:
     //! the ones the editor itself calls wide, and the ones it does not edit (a note, a full-width
     //! custom view)
-    readonly property bool isWide: option.kind === "note"
+    readonly property bool isWide: option.kind === "note" || option.kind === "link"
                                    || (option.kind === "custom" && Boolean(option.fullWidth))
                                    || narrowEditor.isWide
 
-    readonly property bool hasTitleRow: option.kind !== "note"
+    readonly property bool hasTitleRow: option.kind !== "note" && option.kind !== "link"
                                         && (Boolean(option.fullTitle) || Boolean(option.hint) || !isWide)
 
     //! NOTE: a title which is taken from a form ends with a colon, which a line of this list does not need
@@ -248,6 +248,7 @@ FocusScope {
             sourceComponent: {
                 switch (root.option.kind) {
                 case "note": return noteComp
+                case "link": return linkComp
                 case "custom": return customComp
                 }
                 return wideEditorComp
@@ -281,6 +282,35 @@ FocusScope {
             text: root.option.title
             font: AtStyle.font(12)
             color: AtStyle.text2
+        }
+    }
+
+    Component {
+        id: linkComp
+
+        Item {
+            implicitHeight: linkButton.height
+
+            AtToolButton {
+                id: linkButton
+
+                height: 24
+
+                text: root.option.title
+                textFont: AtStyle.font(12, Font.Medium)
+
+                navigation.panel: root.navigationPanel
+                navigation.row: root.navigationRow
+                navigation.column: 1
+                navigation.name: "Link_" + root.option.target
+                navigation.accessible.name: root.option.title
+
+                onClicked: {
+                    if (Boolean(root.session)) {
+                        root.session.openPage(root.option.targetPage, root.option.target)
+                    }
+                }
+            }
         }
     }
 

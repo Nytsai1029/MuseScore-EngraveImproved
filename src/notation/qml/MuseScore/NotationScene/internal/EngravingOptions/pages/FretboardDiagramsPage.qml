@@ -254,6 +254,11 @@ EoPage {
                         "‘Format’ set to ‘Number with suffix’.")
             enabled: page.value("fretUseCustomSuffix") === true
         }
+
+        EoLink {
+            title: qsTrc("notation", "Edit fret number text style")
+            target: "fretboard-diagram-fret-number"
+        }
     }
 
     EoSection {
@@ -385,6 +390,11 @@ EoPage {
             max: 0.5
             step: 0.01
             enabled: page.value("barreAppearanceSlur") === true
+        }
+
+        EoLink {
+            title: qsTrc("notation", "Edit fingering text style")
+            target: "fretboard-diagram-fingering"
         }
     }
 

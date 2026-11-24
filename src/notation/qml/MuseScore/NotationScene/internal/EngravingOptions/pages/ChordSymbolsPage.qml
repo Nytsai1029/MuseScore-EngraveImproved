@@ -134,6 +134,11 @@ EoPage {
                         "Fis). Only with ‘Automatically capitalize note names’ on.")
             enabled: page.value("automaticCapitalization") === true
         }
+
+        EoLink {
+            title: qsTrc("notation", "Edit chord symbol text style")
+            target: "chord-symbols"
+        }
     }
 
     EoSection {

@@ -146,7 +146,18 @@ StyledDialogView {
         }
 
         root.currentPageIndex = pageIndex
+        root.currentSubPageCode = ""
         dialogState.lastPageCode = pages[pageIndex].code
+    }
+
+    //! NOTE: a page which a link of another page asks for, with what it is to show
+    Connections {
+        target: eoSession
+
+        function onPageRequested(pageCode, subPageCode) {
+            root.openPage(pagesList.indexOfCode(pageCode))
+            root.currentSubPageCode = subPageCode
+        }
     }
 
     Component.onCompleted: {
@@ -503,7 +514,7 @@ StyledDialogView {
                 }
 
                 if (item.hasOwnProperty("subPageCode")) {
-                    item.subPageCode = root.currentSubPageCode
+                    item.subPageCode = Qt.binding(function() { return root.currentSubPageCode })
                 }
             }
         }

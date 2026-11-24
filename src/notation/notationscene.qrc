@@ -132,6 +132,7 @@
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoEditor.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoFilter.js</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoFont.qml</file>
+        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoLink.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoTextStyleMusic.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoTextStylesView.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoFontStyle.qml</file>

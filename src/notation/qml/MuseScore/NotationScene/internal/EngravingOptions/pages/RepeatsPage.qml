@@ -208,6 +208,11 @@ EoPage {
                         "it and the staff.")
             step: 0.1
         }
+
+        EoLink {
+            title: qsTrc("notation", "Edit text style")
+            target: "repeat-play-count"
+        }
     }
 
     EoSection {

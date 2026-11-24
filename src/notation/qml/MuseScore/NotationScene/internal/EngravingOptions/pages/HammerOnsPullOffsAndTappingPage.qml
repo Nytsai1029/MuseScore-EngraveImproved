@@ -126,6 +126,11 @@ EoPage {
             step: 0.1
             decimals: 1
         }
+
+        EoLink {
+            title: qsTrc("notation/editstyle/hammeronpulloff", "Edit text style")
+            target: "hammer-ons-pull-offs-and-tapping"
+        }
     }
 
     EoSection {

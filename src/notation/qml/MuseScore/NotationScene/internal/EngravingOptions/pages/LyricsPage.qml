@@ -158,6 +158,11 @@ EoPage {
             step: 0.5
             decimals: 1
         }
+
+        EoLink {
+            title: qsTrc("EditStyleBase", "Edit lyrics text style")
+            target: "lyrics-odd-lines"
+        }
     }
 
     EoSection {
