@@ -51518,5 +51518,70 @@ The score will be saved as:
         <source>On tablature one end of the line is lowered and the other raised by this fraction of the distance between two strings, so that a slide along one string is not drawn flat. Glissandos use it too.</source>
         <translation>在指法谱上，线条一端下移、另一端上移，移动量为相邻两弦间距的这一比例，使同一根弦上的滑音不致画成水平。滑音同样适用。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="37"/>
+        <source>Text lines</source>
+        <translation>文本线条</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="43"/>
+        <source>Side of the staff on which text lines are placed, unless one is flipped by hand.</source>
+        <translation>文本线条置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="66"/>
+        <source>Horizontal shift and height of a text line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的文本线条的水平偏移和高度，自谱表顶线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="74"/>
+        <source>Horizontal shift and depth of a text line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的文本线条的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="124"/>
+        <source>Length of the hooks of a text line which has hooks; they point towards the staff, a negative value turns them away.</source>
+        <translation>带折钩的文本线条的折钩长度；折钩指向谱表，取负值则背向谱表。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="133"/>
+        <source>Least vertical gap between a text line and the notes or other signs which lie between it and the staff.</source>
+        <translation>文本线条与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="140"/>
+        <source>System text lines</source>
+        <translation>谱行组文本线条</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="142"/>
+        <source>Text lines which belong to the whole system instead of one staff, and so appear in every part.</source>
+        <translation>属于整个谱行组而非某一谱表的文本线条，因此会出现在每份分谱中。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="148"/>
+        <source>Side of the staff on which system text lines are placed, unless one is flipped by hand.</source>
+        <translation>谱行组文本线条置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="171"/>
+        <source>Horizontal shift and height of a system text line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的谱行组文本线条的水平偏移和高度，自谱表顶线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="179"/>
+        <source>Horizontal shift and depth of a system text line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的谱行组文本线条的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="229"/>
+        <source>Length of the hooks of a system text line which has hooks; they point towards the staff, a negative value turns them away.</source>
+        <translation>带折钩的谱行组文本线条的折钩长度；折钩指向谱表，取负值则背向谱表。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="238"/>
+        <source>Least vertical gap between a system text line and the notes or other signs which lie between it and the staff.</source>
+        <translation>谱行组文本线条与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
 </context>
 </TS>

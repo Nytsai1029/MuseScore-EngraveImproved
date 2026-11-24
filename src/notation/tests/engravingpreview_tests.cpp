@@ -751,7 +751,8 @@ const char* const EFFECT_TEST_PAGES[] = {
     "RestsPage", "TupletsPage", "ArpeggiosPage", "TiesPage", "SlursPage",
     "BarlinesPage", "RepeatsPage", "VoltasPage", "ClefsKeyAndTimeSignaturesPage", "ArticulationsAndOrnamentsPage",
     "FermatasPage", "DynamicsHairpinsPage", "FingeringPage", "ParenthesesPage", "LyricsPage",
-    "LinesPage", "OttavaPage", "PedalPage", "TrillPage", "GlissandoNoteLinePage"
+    "LinesPage", "OttavaPage", "PedalPage", "TrillPage", "GlissandoNoteLinePage",
+    "TextLinePage"
 };
 
 //! NOTE The options whose value nothing in the layout reads, each with the code fact which shows it
