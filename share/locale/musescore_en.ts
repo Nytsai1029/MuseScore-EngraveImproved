@@ -35232,6 +35232,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="184"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="49"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="111"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="66"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="77"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="46"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="140"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="341"/>
@@ -35257,6 +35259,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="185"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="50"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="112"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="67"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="78"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="47"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="141"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="342"/>
@@ -36557,6 +36561,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="36"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="33"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="34"/>
@@ -36977,6 +36983,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="119"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="45"/>
         <source>Offset above the staff</source>
         <translation type="unfinished">Offset above the staff</translation>
     </message>
@@ -36987,6 +36994,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="127"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="46"/>
         <source>Offset below the staff</source>
         <translation type="unfinished">Offset below the staff</translation>
     </message>
@@ -37727,6 +37735,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="121"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="224"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="442"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="44"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="106"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="122"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="198"/>
@@ -38153,12 +38162,162 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Offset: X moves the line to the right, Y moves it down from the top staff line (above the staff) or from the bottom staff line (below the staff), so a Y of −2 above means 2 sp over the staff. Hook height: the hook at the end of the line points towards the staff; a negative value turns it away.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="32"/>
+        <source>Let ring and palm mute</source>
+        <translation type="unfinished">Let ring and palm mute</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="40"/>
+        <source>The let ring values, except the position, also shape rasgueado, whammy bar and harmonic mark lines; the palm mute values also shape pick scrape lines.</source>
+        <translation type="unfinished">The let ring values, except the position, also shape rasgueado, whammy bar and harmonic mark lines; the palm mute values also shape pick scrape lines.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="47"/>
+        <source>Line thickness</source>
+        <translation type="unfinished">Line thickness</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="48"/>
+        <source>Line style</source>
+        <translation type="unfinished">Line style</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="51"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="55"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="151"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="123"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="228"/>
         <source>Hook height</source>
         <translation type="unfinished">Hook height</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="52"/>
+        <source>End hook</source>
+        <translation type="unfinished">End hook</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="56"/>
+        <source>Let ring</source>
+        <translation type="unfinished">Let ring</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="57"/>
+        <source>Palm mute</source>
+        <translation type="unfinished">Palm mute</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="63"/>
+        <source>Side of the staff on which let ring lines are placed, unless one is flipped by hand.</source>
+        <translation type="unfinished">Side of the staff on which let ring lines are placed, unless one is flipped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="73"/>
+        <source>Side of the staff on which palm mute lines are placed, unless one is flipped by hand. Pick scrape lines follow it too.</source>
+        <translation type="unfinished">Side of the staff on which palm mute lines are placed, unless one is flipped by hand. Pick scrape lines follow it too.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="88"/>
+        <source>Horizontal shift and height of a palm mute line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and height of a palm mute line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="98"/>
+        <source>Horizontal shift and depth of a palm mute line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and depth of a palm mute line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="106"/>
+        <source>Thickness of the line of a let ring marking.</source>
+        <translation type="unfinished">Thickness of the line of a let ring marking.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="112"/>
+        <source>Thickness of the line of a palm mute marking.</source>
+        <translation type="unfinished">Thickness of the line of a palm mute marking.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="119"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="129"/>
+        <source>The line after the text: dashed by default.</source>
+        <translation type="unfinished">The line after the text: dashed by default.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="186"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="193"/>
+        <source>Length of the stroke which closes the line: a T-shaped end reaches this far to both sides of the line, a hook this far towards the staff.</source>
+        <translation type="unfinished">Length of the stroke which closes the line: a T-shaped end reaches this far to both sides of the line, a hook this far towards the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="201"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="214"/>
+        <source>How the line ends: without a hook, with a hook at a right angle or at 45°, or with a short stroke across the line (T-style, the default).</source>
+        <translation type="unfinished">How the line ends: without a hook, with a hook at a right angle or at 45°, or with a short stroke across the line (T-style, the default).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="205"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="218"/>
+        <source>No hook</source>
+        <translation type="unfinished">No hook</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="206"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="219"/>
+        <source>Hooked 90°</source>
+        <translation type="unfinished">Hooked 90°</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="207"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="220"/>
+        <source>Hooked 45°</source>
+        <translation type="unfinished">Hooked 45°</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="208"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="221"/>
+        <source>Hooked 90° T-style</source>
+        <translation type="unfinished">Hooked 90° T-style</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="228"/>
+        <source>Least vertical gap between a let ring line and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a let ring line and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="236"/>
+        <source>Least vertical gap between a palm mute line and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a palm mute line and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="249"/>
+        <source>Let ring text</source>
+        <translation type="unfinished">Let ring text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="250"/>
+        <source>The text with which let ring lines begin and which they repeat on each following system; a line whose text was changed by hand keeps its own.</source>
+        <translation type="unfinished">The text with which let ring lines begin and which they repeat on each following system; a line whose text was changed by hand keeps its own.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="258"/>
+        <source>Palm mute text</source>
+        <translation type="unfinished">Palm mute text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="259"/>
+        <source>The text with which palm mute lines begin and which they repeat on each following system; a line whose text was changed by hand keeps its own.</source>
+        <translation type="unfinished">The text with which palm mute lines begin and which they repeat on each following system; a line whose text was changed by hand keeps its own.</translation>
+    </message>
+    <message>
+        <source>Text for new let rings</source>
+        <translation type="unfinished">Text for new let rings</translation>
+    </message>
+    <message>
+        <source>The text with which newly added let ring lines begin, and which they repeat on each following system.</source>
+        <translation type="unfinished">The text with which newly added let ring lines begin, and which they repeat on each following system.</translation>
+    </message>
+    <message>
+        <source>The text with which newly added palm mute lines begin.</source>
+        <translation type="unfinished">The text with which newly added palm mute lines begin.</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="64"/>
@@ -38759,6 +38918,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Least vertical gap between a pedal line and the notes or other signs which lie between it and the staff.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="244"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="168"/>
         <source>Texts</source>
         <translation type="unfinished">Texts</translation>
@@ -39699,6 +39859,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="475"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="55"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="187"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="122"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="132"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="108"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="91"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="110"/>
@@ -43265,6 +43427,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="351"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="59"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="136"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="53"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="288"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="411"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="172"/>
@@ -44050,6 +44213,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="474"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="54"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="186"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="121"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="131"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="107"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="90"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="90"/>
@@ -44063,6 +44228,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="476"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="56"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="188"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="123"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="133"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="109"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="92"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="92"/>
@@ -44076,6 +44243,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="483"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="73"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="201"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="49"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="115"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="99"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="99"/>
@@ -44089,6 +44257,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="484"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="74"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="202"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="140"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="151"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="116"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="100"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="100"/>
@@ -44102,6 +44272,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="493"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="87"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="213"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="50"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="126"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="111"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="111"/>
@@ -44115,6 +44286,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="494"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="88"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="214"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="163"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="174"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="127"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="112"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="112"/>

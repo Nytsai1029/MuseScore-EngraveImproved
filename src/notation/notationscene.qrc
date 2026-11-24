@@ -185,6 +185,7 @@
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml</file>
+        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml</file>

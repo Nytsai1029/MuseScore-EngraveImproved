@@ -51583,5 +51583,157 @@ The score will be saved as:
         <source>Least vertical gap between a system text line and the notes or other signs which lie between it and the staff.</source>
         <translation>谱行组文本线条与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="32"/>
+        <source>Let ring and palm mute</source>
+        <translation>持续延音与手掌闷音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="39"/>
+        <source>The let ring values, except the position, also shape rasgueado, whammy bar and harmonic mark lines; the palm mute values also shape pick scrape lines.</source>
+        <translation>持续延音的各项设置（位置除外）同样用于轮指线、摇把线和泛音记号线；手掌闷音的各项设置同样用于拨片刮弦线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="46"/>
+        <source>Line thickness</source>
+        <translation>线条粗细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="47"/>
+        <source>Line style</source>
+        <translation>线条样式</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="51"/>
+        <source>End hook</source>
+        <translation>末端折钩</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="55"/>
+        <source>Let ring</source>
+        <translation>持续延音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="56"/>
+        <source>Palm mute</source>
+        <translation>手掌闷音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="62"/>
+        <source>Side of the staff on which let ring lines are placed, unless one is flipped by hand.</source>
+        <translation>持续延音线置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="73"/>
+        <source>Side of the staff on which palm mute lines are placed, unless one is flipped by hand. Pick scrape lines follow it too.</source>
+        <translation>手掌闷音线置于谱表的哪一侧；单独翻转过的不受影响。拨片刮弦线也随此项而定。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="89"/>
+        <source>Horizontal shift and height of a palm mute line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的手掌闷音线的水平偏移和高度，自谱表顶线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="100"/>
+        <source>Horizontal shift and depth of a palm mute line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的手掌闷音线的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="108"/>
+        <source>Thickness of the line of a let ring marking.</source>
+        <translation>持续延音记号线条的粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="115"/>
+        <source>Thickness of the line of a palm mute marking.</source>
+        <translation>手掌闷音记号线条的粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="122"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="133"/>
+        <source>The line after the text: dashed by default.</source>
+        <translation>文字之后线条的样式，默认为虚线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="192"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="200"/>
+        <source>Length of the stroke which closes the line: a T-shaped end reaches this far to both sides of the line, a hook this far towards the staff.</source>
+        <translation>线条末端收尾竖线的长度：T 形折钩向线条两侧各伸出此长度，普通折钩朝谱表方向伸出此长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="208"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="222"/>
+        <source>How the line ends: without a hook, with a hook at a right angle or at 45°, or with a short stroke across the line (T-style, the default).</source>
+        <translation>线条的收尾方式：无折钩、直角折钩、45° 折钩，或横穿线条的短竖线（T 形，默认）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="212"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="226"/>
+        <source>No hook</source>
+        <translation>无折钩</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="213"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="227"/>
+        <source>Hooked 90°</source>
+        <translation>直角折钩</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="214"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="228"/>
+        <source>Hooked 45°</source>
+        <translation>45° 折钩</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="215"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="229"/>
+        <source>Hooked 90° T-style</source>
+        <translation>T 形折钩</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="236"/>
+        <source>Least vertical gap between a let ring line and the notes or other signs which lie between it and the staff.</source>
+        <translation>持续延音线与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="244"/>
+        <source>Least vertical gap between a palm mute line and the notes or other signs which lie between it and the staff.</source>
+        <translation>手掌闷音线与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="257"/>
+        <source>Text for new let rings</source>
+        <translation>新建持续延音的文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="258"/>
+        <source>The text with which newly added let ring lines begin, and which they repeat on each following system.</source>
+        <translation>新添加的持续延音线开头的文字，换行后在后续每个谱行组上重复。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="267"/>
+        <source>The text with which newly added palm mute lines begin.</source>
+        <translation>新添加的手掌闷音线开头的文字。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="249"/>
+        <source>Let ring text</source>
+        <translation>持续延音的文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="250"/>
+        <source>The text with which let ring lines begin and which they repeat on each following system; a line whose text was changed by hand keeps its own.</source>
+        <translation>持续延音线开头的文字，换行后在后续每个谱行组上重复；单独改过文字的线条保留自己的文字。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="258"/>
+        <source>Palm mute text</source>
+        <translation>手掌闷音的文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="259"/>
+        <source>The text with which palm mute lines begin and which they repeat on each following system; a line whose text was changed by hand keeps its own.</source>
+        <translation>手掌闷音线开头的文字，换行后在后续每个谱行组上重复；单独改过文字的线条保留自己的文字。</translation>
+    </message>
 </context>
 </TS>

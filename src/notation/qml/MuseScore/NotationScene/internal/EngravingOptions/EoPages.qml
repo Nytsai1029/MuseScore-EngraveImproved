@@ -65,6 +65,7 @@ QtObject {
         TrillPage { model: root.model },
         GlissandoNoteLinePage { model: root.model },
         TextLinePage { model: root.model },
+        LetRingAndPalmMutePage { model: root.model },
         BendPage { model: root.model },
         HammerOnsPullOffsAndTappingPage { model: root.model },
         StaffTextPage { model: root.model },
