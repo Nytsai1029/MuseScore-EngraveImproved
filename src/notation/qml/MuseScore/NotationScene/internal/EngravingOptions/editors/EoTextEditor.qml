@@ -50,7 +50,7 @@ Loader {
     Component {
         id: textComp
 
-        TextInputField {
+        EoTextField {
             width: root.compact ? parent.width : 260
 
             currentText: root.styleItem.value

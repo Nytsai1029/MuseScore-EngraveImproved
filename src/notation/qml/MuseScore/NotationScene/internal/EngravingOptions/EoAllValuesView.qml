@@ -26,6 +26,7 @@ import Muse.UiComponents 1.0
 import MuseScore.NotationScene 1.0
 import MuseScore.Atelier 1.0
 
+import "editors"
 import "EoFilter.js" as EoFilter
 
 //! NOTE: every value of the style by its name (the tag which it has in a style file), with a control which is chosen
@@ -310,7 +311,7 @@ Item {
             Component {
                 id: stringComp
 
-                TextInputField {
+                EoTextField {
                     width: 280
 
                     currentText: valueLine.styleItem.value
