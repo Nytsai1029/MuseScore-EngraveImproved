@@ -50886,5 +50886,20 @@ The score will be saved as:
         <source>Distance from dot to dot as a multiple of the line thickness; 2 leaves one dot’s width of white between neighbouring dots.</source>
         <translation>相邻两点的中心距，以线条粗细的倍数计；取 2 时两点之间的空白约等于一个点的宽度。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="422"/>
+        <source>Top</source>
+        <translation>顶部</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="424"/>
+        <source>Bottom</source>
+        <translation>底部</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="425"/>
+        <source>Baseline</source>
+        <translation>基线</translation>
+    </message>
 </context>
 </TS>

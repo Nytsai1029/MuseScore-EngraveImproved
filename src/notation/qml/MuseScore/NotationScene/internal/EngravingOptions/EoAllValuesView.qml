@@ -228,6 +228,7 @@ Item {
                         case "string": return stringComp
                         case "point": return pointComp
                         case "size": return sizeComp
+                        case "align": return alignComp
                         case "color": return colorComp
                         }
                         return otherComp
@@ -403,6 +404,56 @@ Item {
             }
 
             Component {
+                id: alignComp
+
+                //! NOTE: an alignment is the text the score file has for it, horizontal then vertical
+                //! ("left,baseline"); each of the two lists changes its part of it
+                Row {
+                    spacing: 6
+
+                    Repeater {
+                        model: [
+                            [
+                                { title: qsTrc("notation/engravingoptions", "Left"), value: "left" },
+                                { title: qsTrc("notation/engravingoptions", "Center"), value: "center" },
+                                { title: qsTrc("notation/engravingoptions", "Right"), value: "right" }
+                            ],
+                            [
+                                { title: qsTrc("notation/engravingoptions", "Top"), value: "top" },
+                                { title: qsTrc("notation/engravingoptions", "Middle"), value: "center" },
+                                { title: qsTrc("notation/engravingoptions", "Bottom"), value: "bottom" },
+                                { title: qsTrc("notation/engravingoptions", "Baseline"), value: "baseline" }
+                            ]
+                        ]
+
+                        delegate: StyledDropdown {
+                            readonly property int part: index
+
+                            width: 104
+
+                            model: modelData
+                            textRole: "title"
+                            valueRole: "value"
+
+                            currentIndex: indexOfValue(String(valueLine.styleItem.value).split(",")[part])
+
+                            navigation.panel: root.navigationPanel
+                            navigation.row: valueLine.navigationRow
+                            navigation.column: 1 + part
+                            navigation.name: "Value_" + valueLine.name + "_" + part
+                            navigation.accessible.name: valueLine.name
+
+                            onActivated: function(index, value) {
+                                var parts = String(valueLine.styleItem.value).split(",")
+                                parts[part] = value
+                                valueLine.styleItem.value = parts.join(",")
+                            }
+                        }
+                    }
+                }
+            }
+
+            Component {
                 id: colorComp
 
                 ColorPicker {
@@ -426,7 +477,8 @@ Item {
             Component {
                 id: otherComp
 
-                //! NOTE: a value which is not a number, a text, a point or a color is edited on its page
+                //! NOTE: a value which is not a number, a text, a point, a size, an alignment or a color is edited on
+                //! its page
                 StyledTextLabel {
                     text: qsTrc("notation/engravingoptions", "Edited on its page")
                     font: AtStyle.font(12)

@@ -196,6 +196,11 @@ QString EngravingOptionsModel::valueKind(const QString& name) const
         return QStringLiteral("spatium");
     }
 
+    //! NOTE The interface has an alignment as a text (see styleValueToUi), but it is not edited as one
+    if (MStyle::valueType(id) == P_TYPE::ALIGN) {
+        return QStringLiteral("align");
+    }
+
     //! NOTE By what the interface gets, so that an enumeration, which it gets as a number, is a number
     switch (styleValueToUi(id, style()->defaultStyleValue(id)).typeId()) {
     case QMetaType::Bool:

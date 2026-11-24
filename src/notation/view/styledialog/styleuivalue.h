@@ -24,16 +24,23 @@
 #include <QVariant>
 
 #include "engraving/style/style.h"
+#include "engraving/types/typesconv.h"
 
 #include "notationtypes.h"
 
 namespace mu::notation {
-//! NOTE A style value as the interface has it: a distance in staff spaces is a plain number,
-//! any other value is what PropertyValue makes of it for QML
+//! NOTE A style value as the interface has it: a distance in staff spaces is a plain number, an alignment the
+//! text which the score file has for it (as "left,baseline", horizontal then vertical), any other value is what
+//! PropertyValue makes of it for QML
 inline QVariant styleValueToUi(StyleId id, const PropertyValue& value)
 {
-    if (engraving::MStyle::valueType(id) == engraving::P_TYPE::SPATIUM) {
+    switch (engraving::MStyle::valueType(id)) {
+    case engraving::P_TYPE::SPATIUM:
         return value.value<engraving::Spatium>().val();
+    case engraving::P_TYPE::ALIGN:
+        return engraving::TConv::toXml(value.value<engraving::Align>()).toQString();
+    default:
+        break;
     }
 
     return value.toQVariant();
@@ -41,8 +48,13 @@ inline QVariant styleValueToUi(StyleId id, const PropertyValue& value)
 
 inline PropertyValue styleValueFromUi(StyleId id, const QVariant& uiValue)
 {
-    if (engraving::MStyle::valueType(id) == engraving::P_TYPE::SPATIUM) {
+    switch (engraving::MStyle::valueType(id)) {
+    case engraving::P_TYPE::SPATIUM:
         return engraving::Spatium(uiValue.toDouble());
+    case engraving::P_TYPE::ALIGN:
+        return engraving::TConv::fromXml(muse::String::fromQString(uiValue.toString()), engraving::Align());
+    default:
+        break;
     }
 
     return PropertyValue::fromQVariant(uiValue, engraving::MStyle::valueType(id));

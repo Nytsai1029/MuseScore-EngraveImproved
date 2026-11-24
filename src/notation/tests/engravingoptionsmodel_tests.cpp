@@ -232,6 +232,15 @@ TEST_F(Notation_EngravingOptionsModelTests, itemReadsAndWritesByName)
     EXPECT_EQ(m_written.front().first, Sid::minNoteDistance);
     EXPECT_EQ(m_written.front().second.value<Spatium>().val(), 0.75);
 
+    // [THEN] An alignment is the text of the score file, horizontal then vertical, and is written back as one
+    StyleItem* align = model->item("ottavaTextAlignBelow");
+    ASSERT_TRUE(align);
+    EXPECT_EQ(align->value().toString(), QString("left,baseline"));
+    EXPECT_CALL(*m_style, setStyleValue(Sid::ottavaTextAlignBelow, _)).Times(1);
+    align->modifyValue(QString("center,top"));
+    ASSERT_EQ(m_written.size(), 2u);
+    EXPECT_EQ(m_written.back().second.value<Align>(), Align(AlignH::HCENTER, AlignV::TOP));
+
     // [THEN] A name which is not a style value gives nothing
     EXPECT_EQ(model->item("noSuchStyleValue"), nullptr);
     EXPECT_FALSE(model->contains("noSuchStyleValue"));
@@ -263,6 +272,7 @@ TEST_F(Notation_EngravingOptionsModelTests, valueKinds)
     EXPECT_EQ(model->valueKind("lyricsPosAbove"), QString("point"));
     EXPECT_EQ(model->valueKind("timeSigNormalScale"), QString("size"));
     EXPECT_EQ(model->valueKind("hairpinColor"), QString("color"));
+    EXPECT_EQ(model->valueKind("ottavaTextAlignBelow"), QString("align"));
     EXPECT_EQ(model->valueKind("noSuchStyleValue"), QString());
 
     EXPECT_TRUE(model->isInStaffSpaces("minNoteDistance"));
