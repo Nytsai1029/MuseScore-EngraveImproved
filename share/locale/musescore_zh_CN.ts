@@ -46042,7 +46042,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="160"/>
         <source>A slur which goes on in the next system, or into or out of a repeat or volta, has its open end drawn further from the staff than its end on the note, so that the half slur visibly points outwards.</source>
-        <translation>延续到下一谱行组，或进入、离开反复或跳房子的圆滑线，其悬浮端比音符上的端点离谱表更远，使这半条圆滑线明显向外指。</translation>
+        <translation>延续到下一谱行组，或进入、离开反复或跳跃号的圆滑线，其悬浮端比音符上的端点离谱表更远，使这半条圆滑线明显向外指。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="168"/>
@@ -46783,7 +46783,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="135"/>
         <source>The same for a tie which is cut off at one end: the half of a tie before or after a system break, and ties into or out of a repeat or volta.</source>
-        <translation>用于一端断开的延音线的同一设置：换行处前后的半条延音线，以及进入或离开反复、跳房子的延音线。</translation>
+        <translation>用于一端断开的延音线的同一设置：换行处前后的半条延音线，以及进入或离开反复、跳跃号的延音线。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="144"/>
@@ -47528,7 +47528,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="266"/>
         <source>Where a tie or line begins which comes out of a barline inside a system, as after a repeat barline or at the start of a second ending.</source>
-        <translation>在谱行组内部自小节线引出的延音线或线条的起点，例如反复小节线之后或第二跳房子的开头。</translation>
+        <translation>在谱行组内部自小节线引出的延音线或线条的起点，例如反复小节线之后或第二跳跃号的开头。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="276"/>
@@ -48087,7 +48087,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="113"/>
         <source>Where the bottom staff of the score also carries the system markings (tempo, rehearsal marks, voltas…), they stand below that staff instead of above it. The Layout panel sets this itself when the system markings are moved under the last instrument.</source>
-        <translation>乐谱最下方的谱表同时标示谱行组记号（速度、排练号、跳房子等）时，这些记号置于该谱表下方而非上方。在“版面”面板中把谱行组记号移到最后一件乐器之下时，会自动设置此项。</translation>
+        <translation>乐谱最下方的谱表同时标示谱行组记号（速度、排练号、跳跃号等）时，这些记号置于该谱表下方而非上方。在“版面”面板中把谱行组记号移到最后一件乐器之下时，会自动设置此项。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="121"/>
@@ -48847,17 +48847,17 @@ The score will be saved as:
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="33"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="38"/>
         <source>Voltas</source>
-        <translation>跳房子</translation>
+        <translation>跳跃号</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="43"/>
         <source>Height of the volta line above the top staff line (negative numbers are above the staff); notes and signs in the way still push the volta higher.</source>
-        <translation>跳房子横线在谱表最上方谱线上方的高度（负值表示在谱表上方）；遇到音符或记号阻挡时仍会被推得更高。</translation>
+        <translation>跳跃号横线在谱表最上方谱线上方的高度（负值表示在谱表上方）；遇到音符或记号阻挡时仍会被推得更高。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="57"/>
         <source>Length of the vertical strokes which close the volta bracket at its ends.</source>
-        <translation>跳房子两端向下的竖线的长度。</translation>
+        <translation>跳跃号两端向下的竖线的长度。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="72"/>
@@ -48892,7 +48892,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="108"/>
         <source>Least vertical gap between a volta and the notes or other signs which lie between it and the staff.</source>
-        <translation>跳房子与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+        <translation>跳跃号与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="116"/>
@@ -48902,12 +48902,12 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="121"/>
         <source>At the start of a system, start the volta over the key signature</source>
-        <translation>在谱行组开头，跳房子从调号处开始</translation>
+        <translation>在谱行组开头，跳跃号从调号处开始</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="123"/>
         <source>Off, a volta which begins or continues at the start of a system starts just before the first note, after the key signature.</source>
-        <translation>关闭后，在谱行组开头起始或延续的跳房子从调号之后、第一个音符稍前处开始。</translation>
+        <translation>关闭后，在谱行组开头起始或延续的跳跃号从调号之后、第一个音符稍前处开始。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="134"/>
@@ -48917,7 +48917,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="136"/>
         <source>Off, the hook of a volta which follows an end repeat barline stands at the right edge of that barline.</source>
-        <translation>关闭后，紧接反复结束小节线的跳房子，其始端折钩位于该小节线右缘。</translation>
+        <translation>关闭后，紧接反复结束小节线的跳跃号，其始端折钩位于该小节线右缘。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="37"/>
