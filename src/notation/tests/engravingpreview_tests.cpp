@@ -1087,6 +1087,29 @@ TEST_F(Notation_EngravingPreviewTests, aNumberAboveTheStaffMarksOnlyItself)
 }
 
 /**
+ * @TEST_CASE aSignHighAboveTheStaffMovesAlone
+ * @details A time signature above the staff reaches higher than the first system usually stands below the top of
+ *          the page; when its position changes, the system stays where it is, and only the time signature is marked
+ */
+TEST_F(Notation_EngravingPreviewTests, aSignHighAboveTheStaffMovesAlone)
+{
+    const MStyle style = baseStyle();
+    const std::vector<EngravingPreviewRenderer::Override> overrides {
+        { Sid::timeSigPlacement, PropertyValue(TimeSigPlacement::ABOVE_STAVES) },
+    };
+    auto renderer = laidOut("\\time 3/4 c''2.", style, overrides);
+    ASSERT_TRUE(renderer);
+
+    const double current = style.styleS(Sid::timeSigAboveY).val();
+    const EngravingPreviewRenderer::Effect effect = renderer->effectOf(style, overrides, Sid::timeSigAboveY,
+                                                                       PropertyValue(Spatium(current + 0.25)));
+
+    ASSERT_FALSE(effect.changed.empty());
+    EXPECT_TRUE(marksOnly(*renderer, effect, ElementType::TIMESIG))
+        << "an item is marked which the position of the time signature cannot move";
+}
+
+/**
  * @TEST_CASE aMusicWithABreakHasASystemWidth
  * @details A music which ends a system is laid out with a width in staff spaces, or the break makes the
  *          system as wide as the page can be — unless it is shown on a whole page, whose systems are as wide as it

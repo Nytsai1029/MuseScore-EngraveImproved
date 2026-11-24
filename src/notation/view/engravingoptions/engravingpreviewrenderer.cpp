@@ -56,6 +56,10 @@ static constexpr double PAGE_SIZE_INCH = 80.0;
 //! NOTE The distance between two systems of a picture of the music, in staff spaces
 static constexpr double SYSTEM_DISTANCE = 5.0;
 
+//! NOTE How far below the top of the page the first system of a picture of the music stands, in staff spaces: more
+//! than anything above a staff reaches
+static constexpr double FIRST_SYSTEM_TOP = 40.0;
+
 //! NOTE Room around what is printed, in staff spaces: half of a line on the edge and the antialiasing of a
 //! glyph would be cut otherwise
 static constexpr double PICTURE_MARGIN = 0.5;
@@ -177,6 +181,11 @@ void EngravingPreviewRenderer::makePreviewStyle(MStyle& style, double systemWidt
     //! have room in the pane. What is in between still keeps them apart
     style.set(Sid::minSystemDistance, Spatium(SYSTEM_DISTANCE));
     style.set(Sid::maxSystemDistance, Spatium(SYSTEM_DISTANCE));
+
+    //! NOTE The first system stands as low on the page as this, and lower only when something reaches higher above it
+    //! (PageLayout): so low that nothing does, the system stays where it is when an option moves a sign above it, and
+    //! the sign is what moves in the picture — not the staff, away from it
+    style.set(Sid::staffUpperBorder, Spatium(FIRST_SYSTEM_TOP));
 }
 
 void EngravingPreviewRenderer::layout(const MStyle& style, const std::vector<Override>& overrides, double systemWidthSp)
