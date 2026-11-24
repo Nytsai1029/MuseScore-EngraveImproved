@@ -50216,5 +50216,105 @@ The score will be saved as:
         <source>The line which follows the word: dashed by default.</source>
         <translation>文字之后的线条的样式，默认为虚线。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="41"/>
+        <source>Below the notes on the bottom staff of an instrument</source>
+        <translation>多谱表乐器最下方谱表的指法置于音符下方</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="42"/>
+        <source>On an instrument written on several staves, such as the piano, fingering of the bottom staff goes below the notes and that of the other staves above; off puts all fingering above. Where a staff has several voices, the stem direction decides instead.</source>
+        <translation>在钢琴等使用多行谱表的乐器上，最下方谱表的指法置于音符下方，其余谱表的置于上方；关闭后全部置于上方。谱表上有多个声部时，改由符干方向决定。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="51"/>
+        <source>In voices: fingering next to the note</source>
+        <translation>多声部时：指法紧贴音符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="52"/>
+        <source>Where a staff has several voices, the fingering of a single note without a beam stands right by its notehead, at the two distances below; off places it beyond the stem and outside the staff like other fingering.</source>
+        <translation>谱表上有多个声部时，不带符杠的单音的指法紧贴符头放置，位置由下面两个距离决定；关闭后与其他指法一样，置于符干末端之外、谱表之外。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="61"/>
+        <source>In voices: sideways shift away from the stem</source>
+        <translation>多声部时：避开符干的水平偏移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="62"/>
+        <source>How far such a fingering is moved sideways from the middle of the notehead so that it clears the stem. Only with ‘In voices: fingering next to the note’ on.</source>
+        <translation>此类指法自符头中心横向移开的距离，以避开符干。仅在启用“多声部时：指法紧贴音符”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="71"/>
+        <source>In voices: distance above or below the note</source>
+        <translation>多声部时：与音符的垂直距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="72"/>
+        <source>How far such a fingering stands above or below the middle of the notehead. Only with ‘In voices: fingering next to the note’ on.</source>
+        <translation>此类指法在符头中心上方或下方的距离。仅在启用“多声部时：指法紧贴音符”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="82"/>
+        <source>Extra gap when moved out of the way</source>
+        <translation>避让时的额外间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="83"/>
+        <source>A fingering which has to move away from a slur, articulation or other sign moves a little further, by this fraction of its own height; 0.25 is a quarter of the height of the digit.</source>
+        <translation>指法需要避开圆滑线、运音法记号等记号时，再多移开一些，其量为指法自身高度乘以此比例；0.25 即数字高度的四分之一。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="92"/>
+        <source>Minimum distance from the staff and the notes</source>
+        <translation>与谱表及音符的最小距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="93"/>
+        <source>Fingering placed above or below a chord stays at least this far outside the staff, and this far beyond the outermost notehead or the end of a beamed stem.</source>
+        <translation>置于和弦上方或下方的指法，至少在谱表之外这么远，并与最外侧的符头或带符杠符干的末端至少保持此距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="100"/>
+        <source>Sticking</source>
+        <translation>鼓法</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="102"/>
+        <source>The letters under or over percussion notes which name the hand (L, R).</source>
+        <translation>标在打击乐音符上方或下方、指明左右手的字母（L、R）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="108"/>
+        <source>Side of the staff on which sticking letters are placed, unless one is flipped by hand.</source>
+        <translation>鼓法字母置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="119"/>
+        <source>Offset above the staff</source>
+        <translation>谱表上方的偏移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="120"/>
+        <source>Horizontal shift and height of sticking placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的鼓法字母的水平偏移和高度，自谱表最上方谱线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="127"/>
+        <source>Offset below the staff</source>
+        <translation>谱表下方的偏移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="128"/>
+        <source>Horizontal shift and depth of sticking placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的鼓法字母的水平偏移和深度，自谱表最下方谱线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="137"/>
+        <source>Least vertical gap between a sticking letter and the notes or other signs which lie between it and the staff.</source>
+        <translation>鼓法字母与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
 </context>
 </TS>

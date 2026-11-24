@@ -4190,6 +4190,7 @@ space unit</extracomment>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="43"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="107"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="41"/>
@@ -34299,7 +34300,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">How far straight arpeggio lines with an arrow extend beyond the top and the bottom notehead.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="33"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="33"/>
         <source>Notations</source>
         <translation type="unfinished">Notations</translation>
@@ -35281,6 +35281,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="169"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="184"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="49"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="111"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="140"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="341"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="198"/>
@@ -35294,6 +35295,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="170"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="185"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="50"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="112"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="141"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="342"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="199"/>
@@ -36903,32 +36905,126 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Fingering</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="40"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="41"/>
+        <source>Below the notes on the bottom staff of an instrument</source>
+        <translation type="unfinished">Below the notes on the bottom staff of an instrument</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="42"/>
+        <source>On an instrument written on several staves, such as the piano, fingering of the bottom staff goes below the notes and that of the other staves above; off puts all fingering above. Where a staff has several voices, the stem direction decides instead.</source>
+        <translation type="unfinished">On an instrument written on several staves, such as the piano, fingering of the bottom staff goes below the notes and that of the other staves above; off puts all fingering above. Where a staff has several voices, the stem direction decides instead.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="51"/>
+        <source>In voices: fingering next to the note</source>
+        <translation type="unfinished">In voices: fingering next to the note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="52"/>
+        <source>Where a staff has several voices, the fingering of a single note without a beam stands right by its notehead, at the two distances below; off places it beyond the stem and outside the staff like other fingering.</source>
+        <translation type="unfinished">Where a staff has several voices, the fingering of a single note without a beam stands right by its notehead, at the two distances below; off places it beyond the stem and outside the staff like other fingering.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="61"/>
+        <source>In voices: sideways shift away from the stem</source>
+        <translation type="unfinished">In voices: sideways shift away from the stem</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="62"/>
+        <source>How far such a fingering is moved sideways from the middle of the notehead so that it clears the stem. Only with ‘In voices: fingering next to the note’ on.</source>
+        <translation type="unfinished">How far such a fingering is moved sideways from the middle of the notehead so that it clears the stem. Only with ‘In voices: fingering next to the note’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="71"/>
+        <source>In voices: distance above or below the note</source>
+        <translation type="unfinished">In voices: distance above or below the note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="72"/>
+        <source>How far such a fingering stands above or below the middle of the notehead. Only with ‘In voices: fingering next to the note’ on.</source>
+        <translation type="unfinished">How far such a fingering stands above or below the middle of the notehead. Only with ‘In voices: fingering next to the note’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="82"/>
+        <source>Extra gap when moved out of the way</source>
+        <translation type="unfinished">Extra gap when moved out of the way</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="83"/>
+        <source>A fingering which has to move away from a slur, articulation or other sign moves a little further, by this fraction of its own height; 0.25 is a quarter of the height of the digit.</source>
+        <translation type="unfinished">A fingering which has to move away from a slur, articulation or other sign moves a little further, by this fraction of its own height; 0.25 is a quarter of the height of the digit.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="92"/>
+        <source>Minimum distance from the staff and the notes</source>
+        <translation type="unfinished">Minimum distance from the staff and the notes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="93"/>
+        <source>Fingering placed above or below a chord stays at least this far outside the staff, and this far beyond the outermost notehead or the end of a beamed stem.</source>
+        <translation type="unfinished">Fingering placed above or below a chord stays at least this far outside the staff, and this far beyond the outermost notehead or the end of a beamed stem.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="100"/>
+        <source>Sticking</source>
+        <translation type="unfinished">Sticking</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="102"/>
+        <source>The letters under or over percussion notes which name the hand (L, R).</source>
+        <translation type="unfinished">The letters under or over percussion notes which name the hand (L, R).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="108"/>
+        <source>Side of the staff on which sticking letters are placed, unless one is flipped by hand.</source>
+        <translation type="unfinished">Side of the staff on which sticking letters are placed, unless one is flipped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="119"/>
+        <source>Offset above the staff</source>
+        <translation type="unfinished">Offset above the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="120"/>
+        <source>Horizontal shift and height of sticking placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and height of sticking placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="127"/>
+        <source>Offset below the staff</source>
+        <translation type="unfinished">Offset below the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="128"/>
+        <source>Horizontal shift and depth of sticking placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and depth of sticking placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="137"/>
+        <source>Least vertical gap between a sticking letter and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a sticking letter and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
         <source>Fingering in voices: horizontal shift away from the stem</source>
         <translation type="unfinished">Fingering in voices: horizontal shift away from the stem</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="41"/>
         <source>In multi-voice passages, a fingering on a single unbeamed note is shifted sideways by this amount so that it clears the stem.</source>
         <translation type="unfinished">In multi-voice passages, a fingering on a single unbeamed note is shifted sideways by this amount so that it clears the stem.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="48"/>
         <source>Fingering in voices: vertical distance from the note</source>
         <translation type="unfinished">Fingering in voices: vertical distance from the note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="49"/>
         <source>In multi-voice passages, a fingering on a single unbeamed note is placed this far above or below the note instead of beyond the stem.</source>
         <translation type="unfinished">In multi-voice passages, a fingering on a single unbeamed note is placed this far above or below the note instead of beyond the stem.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="57"/>
         <source>Fingering: extra clearance when avoiding collisions</source>
         <translation type="unfinished">Fingering: extra clearance when avoiding collisions</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="58"/>
         <source>Extra distance, as a fraction of the fingering’s own height, added when a fingering has to move away from other objects above or below the chord.</source>
         <translation type="unfinished">Extra distance, as a fraction of the fingering’s own height, added when a fingering has to move away from other objects above or below the chord.</translation>
     </message>
@@ -38582,6 +38678,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="33"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="34"/>
         <source>Signs</source>
@@ -42036,6 +42133,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="149"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="351"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="59"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="136"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="288"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="411"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="205"/>
