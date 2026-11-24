@@ -320,16 +320,25 @@ void EngravingPreviewRenderer::paint(muse::draw::Painter& painter, double pixels
     options.printPageBackground = false;
     options.fromPage = 0;
     options.deviceDpi = deviceLogicalDpi;
-    //! NOTE Every page, whole, where the layout put it (beside the one before), or the first page; either way the
-    //! picture is placed by its own box, not by the page's (Page::tbbox, which a trimmed paint would take, has what
-    //! is not drawn too, such as a layout break, and would move the music)
-    options.toPage = m_showsPage ? -1 : 0;
-    options.isMultiPage = m_showsPage;
 
     const double pixelsPerSpatium = pixelsPerStaffSpace / m_score->style().spatium();
     painter.save();
     painter.scale(pixelsPerSpatium, pixelsPerSpatium);
-    painter.translate(-pictureRect().topLeft());
+    if (m_showsPage) {
+        //! NOTE Every page, whole, where the layout put it (beside the one before)
+        options.toPage = -1;
+        options.isMultiPage = true;
+        painter.translate(-pictureRect().topLeft());
+    } else {
+        //! NOTE A trimmed paint clips to the box of all that the page has (Page::tbbox), which holds what hangs out of
+        //! the page too, such as the brace of a grand staff, and puts that box in the corner. The picture's own box has
+        //! only what is drawn (a layout break above the first system is not): the music is moved back to it
+        const Page* page = m_score->pages().front();
+        options.toPage = 0;
+        options.trimMarginPixelSize = static_cast<int>(std::ceil(PICTURE_MARGIN * m_score->style().spatium()));
+        const double trim = options.trimMarginPixelSize;
+        painter.translate(page->tbbox().adjusted(-trim, -trim, trim, trim).topLeft() - pictureRect().topLeft());
+    }
     scoreRenderer()->paintScore(&painter, m_score.get(), options);
     painter.restore();
 }

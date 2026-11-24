@@ -367,35 +367,41 @@ TEST_F(Notation_EngravingPreviewTests, paintsInk)
 
 /**
  * @TEST_CASE theMusicIsPaintedInsideItsPicture
- * @details The picture is painted from the box it is measured by: a layout break, which is not printed but stands
- *          above the first system, does not move the music down, so the bottom of the second system is not cut off
+ * @details The picture is painted from the box it is measured by, and the box has all that is printed: a layout
+ *          break, which is not printed but stands above the first system, does not move the music down (the bottom
+ *          of the second system was cut off), and the brace of a grand staff is in the picture
  */
 TEST_F(Notation_EngravingPreviewTests, theMusicIsPaintedInsideItsPicture)
 {
-    auto renderer = laidOut("c''1 \\cresc \\break d''2 e''2 \\!", baseStyle(), {}, 16.0);
-    ASSERT_TRUE(renderer);
-
     constexpr double PIXELS_PER_STAFF_SPACE = 10.0;
-    const QImage image = renderer->picture(PIXELS_PER_STAFF_SPACE);
-    ASSERT_FALSE(image.isNull());
 
-    int firstInkRow = -1;
-    int lastInkRow = -1;
-    for (int y = 0; y < image.height(); ++y) {
-        for (int x = 0; x < image.width(); ++x) {
-            if (qAlpha(image.pixel(x, y)) > 128) {
-                firstInkRow = firstInkRow < 0 ? y : firstInkRow;
-                lastInkRow = y;
-                break;
+    for (const char* music : { "c''1 \\cresc \\break d''2 e''2 \\!", "\\staves 2 c''1" }) {
+        auto renderer = laidOut(music, baseStyle(), {}, 16.0);
+        ASSERT_TRUE(renderer) << music;
+
+        const QImage image = renderer->picture(PIXELS_PER_STAFF_SPACE);
+        ASSERT_FALSE(image.isNull()) << music;
+
+        QRect ink;
+        for (int y = 0; y < image.height(); ++y) {
+            for (int x = 0; x < image.width(); ++x) {
+                if (qAlpha(image.pixel(x, y)) > 128) {
+                    ink |= QRect(x, y, 1, 1);
+                }
             }
         }
-    }
 
-    //! NOTE The picture has a margin of half a staff space (5 pixels) around what is printed
-    EXPECT_GE(firstInkRow, 2);
-    EXPECT_LE(firstInkRow, 9);
-    EXPECT_GE(lastInkRow, image.height() - 12);
-    EXPECT_LE(lastInkRow, image.height() - 3);
+        //! NOTE The picture has a margin of half a staff space (5 pixels) around what is printed; boxes of text are a
+        //! little taller than its ink
+        EXPECT_GE(ink.left(), 2) << music;
+        EXPECT_LE(ink.left(), 9) << music;
+        EXPECT_GE(ink.top(), 2) << music;
+        EXPECT_LE(ink.top(), 9) << music;
+        EXPECT_GE(ink.right(), image.width() - 12) << music;
+        EXPECT_LE(ink.right(), image.width() - 3) << music;
+        EXPECT_GE(ink.bottom(), image.height() - 12) << music;
+        EXPECT_LE(ink.bottom(), image.height() - 3) << music;
+    }
 }
 
 /**
