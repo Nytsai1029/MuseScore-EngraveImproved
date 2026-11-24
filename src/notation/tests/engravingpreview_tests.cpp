@@ -366,6 +366,39 @@ TEST_F(Notation_EngravingPreviewTests, paintsInk)
 }
 
 /**
+ * @TEST_CASE theMusicIsPaintedInsideItsPicture
+ * @details The picture is painted from the box it is measured by: a layout break, which is not printed but stands
+ *          above the first system, does not move the music down, so the bottom of the second system is not cut off
+ */
+TEST_F(Notation_EngravingPreviewTests, theMusicIsPaintedInsideItsPicture)
+{
+    auto renderer = laidOut("c''1 \\cresc \\break d''2 e''2 \\!", baseStyle(), {}, 16.0);
+    ASSERT_TRUE(renderer);
+
+    constexpr double PIXELS_PER_STAFF_SPACE = 10.0;
+    const QImage image = renderer->picture(PIXELS_PER_STAFF_SPACE);
+    ASSERT_FALSE(image.isNull());
+
+    int firstInkRow = -1;
+    int lastInkRow = -1;
+    for (int y = 0; y < image.height(); ++y) {
+        for (int x = 0; x < image.width(); ++x) {
+            if (qAlpha(image.pixel(x, y)) > 128) {
+                firstInkRow = firstInkRow < 0 ? y : firstInkRow;
+                lastInkRow = y;
+                break;
+            }
+        }
+    }
+
+    //! NOTE The picture has a margin of half a staff space (5 pixels) around what is printed
+    EXPECT_GE(firstInkRow, 2);
+    EXPECT_LE(firstInkRow, 9);
+    EXPECT_GE(lastInkRow, image.height() - 12);
+    EXPECT_LE(lastInkRow, image.height() - 3);
+}
+
+/**
  * @TEST_CASE pictureMatchesTheItemsAtEveryScale
  * @details The regression of the glyph-size bug: the ink fills the boxes of the items at every scale and
  *          pixel ratio; the clef reaches above and below the staff, so a clef which a wrong DPI makes a

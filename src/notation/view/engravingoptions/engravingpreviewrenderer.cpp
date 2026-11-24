@@ -270,18 +270,15 @@ void EngravingPreviewRenderer::layout(const MStyle& style, const std::vector<Ove
     m_score->doLayout();
 
     if (m_score->pages().empty()) {
-        m_pictureMargin = 0;
         m_pictureRect = muse::RectF();
     } else if (m_showsPage) {
-        m_pictureMargin = 0;
         m_pictureRect = muse::RectF();
         for (const Page* page : m_score->pages()) {
             m_pictureRect.unite(page->ldata()->bbox().translated(page->pos()));
         }
     } else {
-        m_pictureMargin = static_cast<int>(std::lrint(PICTURE_MARGIN * previewStyle.spatium()));
-        m_pictureRect = drawnBoxOf(m_score->pages().front()).adjusted(-m_pictureMargin, -m_pictureMargin,
-                                                                    m_pictureMargin, m_pictureMargin);
+        const double margin = PICTURE_MARGIN * previewStyle.spatium();
+        m_pictureRect = drawnBoxOf(m_score->pages().front()).adjusted(-margin, -margin, margin, margin);
     }
 }
 
@@ -323,21 +320,16 @@ void EngravingPreviewRenderer::paint(muse::draw::Painter& painter, double pixels
     options.printPageBackground = false;
     options.fromPage = 0;
     options.deviceDpi = deviceLogicalDpi;
-    if (m_showsPage) {
-        //! NOTE Every page, whole, where the layout put it (beside the one before)
-        options.toPage = -1;
-        options.isMultiPage = true;
-    } else {
-        options.toPage = 0;
-        options.trimMarginPixelSize = m_pictureMargin;
-    }
+    //! NOTE Every page, whole, where the layout put it (beside the one before), or the first page; either way the
+    //! picture is placed by its own box, not by the page's (Page::tbbox, which a trimmed paint would take, has what
+    //! is not drawn too, such as a layout break, and would move the music)
+    options.toPage = m_showsPage ? -1 : 0;
+    options.isMultiPage = m_showsPage;
 
     const double pixelsPerSpatium = pixelsPerStaffSpace / m_score->style().spatium();
     painter.save();
     painter.scale(pixelsPerSpatium, pixelsPerSpatium);
-    if (m_showsPage) {
-        painter.translate(-pictureRect().topLeft());
-    }
+    painter.translate(-pictureRect().topLeft());
     scoreRenderer()->paintScore(&painter, m_score.get(), options);
     painter.restore();
 }
