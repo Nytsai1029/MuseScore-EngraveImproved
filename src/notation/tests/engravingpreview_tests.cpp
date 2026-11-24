@@ -750,7 +750,7 @@ const char* const EFFECT_TEST_PAGES[] = {
     "NotesPage", "AccidentalsPage", "StemsPage", "BeamsPage", "TremolosPage",
     "RestsPage", "TupletsPage", "ArpeggiosPage", "TiesPage", "SlursPage",
     "BarlinesPage", "RepeatsPage", "VoltasPage", "ClefsKeyAndTimeSignaturesPage", "ArticulationsAndOrnamentsPage",
-    "FermatasPage", "DynamicsHairpinsPage", "FingeringPage", "ParenthesesPage"
+    "FermatasPage", "DynamicsHairpinsPage", "FingeringPage", "ParenthesesPage", "LyricsPage"
 };
 
 //! NOTE The options whose value nothing in the layout reads, each with the code fact which shows it
@@ -908,6 +908,10 @@ const std::set<QString>& optionsWhoseMusicCannotShowItYet()
         // a note's parentheses are spaced against its ledger lines (ParenthesisLayout::getParentShape adds them),
         // but the parenthesis does not move however large this is: an engine finding, not fixed yet
         "parenthesisLedgerLinePadding",
+        // the number of dashes changes only where a gap passes a multiple of this (16 sp): a probe of a quarter of a
+        // staff space shows it only on a gap within a quarter of 16 or 32 sp, which any change of the spacing would
+        // move; dragging it in the pane over the long gap of its music shows it
+        "lyricsDashMaxDistance",
     };
 
     return OPTIONS;

@@ -50611,5 +50611,245 @@ The score will be saved as:
         <source>Gap between the clef and the closing parenthesis.</source>
         <translation>谱号与右圆括号之间的间隙。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="38"/>
+        <source>Lyrics</source>
+        <translation>歌词</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="43"/>
+        <source>The side of the staff on which lyrics are placed unless a syllable is set otherwise.</source>
+        <translation>歌词默认位于谱表的哪一侧（单独设置过的音节除外）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="55"/>
+        <source>Distance from the baseline of one verse to that of the next; 100 % is the natural line spacing of the lyrics font.</source>
+        <translation>相邻两段歌词基线之间的距离；100% 为歌词字体自身的行距。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="67"/>
+        <source>Minimum space between syllables</source>
+        <translation>音节之间的最小间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="68"/>
+        <source>Least horizontal gap between two neighbouring syllables of a verse; the notes are moved apart to keep it.</source>
+        <translation>同一段歌词中相邻两个音节之间的最小水平间隙；必要时拉开音符间距来保证。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="77"/>
+        <source>Align verse numbers</source>
+        <translation>对齐段号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="78"/>
+        <source>A verse number or punctuation in front of a syllable hangs to the left and the word itself is aligned with the note, so that the first words of all verses line up; off centres number and word together.</source>
+        <translation>音节前的段号或标点向左悬出，词本身与音符对齐，使各段的首词上下对齐；关闭后段号与词作为整体居中。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="88"/>
+        <source>Where barlines run between the staves, a syllable is kept clear of the barline: the notes are moved apart rather than letting text and barline overprint.</source>
+        <translation>小节线贯通上下谱表时，音节避开小节线：宁可拉开音符间距，也不让文字与小节线重叠。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="96"/>
+        <source>Distance from barlines</source>
+        <translation>与小节线的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="97"/>
+        <source>With ‘Avoid barlines’ on: the gap kept between a syllable and the barline, as a multiple of the height of a small letter x of the lyrics font.</source>
+        <translation>启用“避开小节线”时，音节与小节线之间保留的间隙，以歌词字体小写字母 x 的高度的倍数表示。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="116"/>
+        <source>Height of the baseline of lyrics above the staff, measured from the top staff line (negative is up); notes in the way push the whole line of lyrics further out.</source>
+        <translation>谱表上方歌词基线的高度，自谱表最上方谱线量起（负值向上）；遇到音符阻挡时整行歌词会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="127"/>
+        <source>Depth of the baseline of the first verse below the staff, measured from the bottom staff line (positive is down); notes in the way push the whole line of lyrics further out.</source>
+        <translation>谱表下方第一段歌词基线的深度，自谱表最下方谱线量起（正值向下）；遇到音符阻挡时整行歌词会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="141"/>
+        <source>Minimum distance from the notes of their own staff</source>
+        <translation>与所属谱表音符的最小距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="142"/>
+        <source>Least vertical gap between the lyrics and the notes, stems, slurs and other signs of the staff they belong to; applies above and below alike.</source>
+        <translation>歌词与所属谱表上的音符、符干、圆滑线等之间的最小垂直间隙；位于上方或下方时都适用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="153"/>
+        <source>Minimum distance from the neighbouring staff</source>
+        <translation>与相邻谱表的最小距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="154"/>
+        <source>Least vertical gap between the lyrics and the staff on their far side: the next staff down for lyrics below, the next staff up for lyrics above.</source>
+        <translation>歌词与其外侧相邻谱表之间的最小垂直间隙：下方歌词指下一行谱表，上方歌词指上一行谱表。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="164"/>
+        <source>Dashes</source>
+        <translation>连字符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="170"/>
+        <source>Minimum dash length</source>
+        <translation>连字符最小长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="171"/>
+        <source>A dash is never drawn shorter than this; where two syllables stand closer, the dash is left out, or the notes are moved apart if ‘Omit dash when space is limited’ is off.</source>
+        <translation>连字符不会短于此长度；两个音节靠得更近时，要么省略连字符，要么（关闭“当空间受限时省略连字符”时）拉开音符间距。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="179"/>
+        <source>Maximum dash length</source>
+        <translation>连字符最大长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="180"/>
+        <source>The length of a dash where there is room for it; in a narrower gap the dash is as long as the gap allows.</source>
+        <translation>空间充足时连字符的长度；空隙较窄时，连字符取空隙所容许的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="189"/>
+        <source>Dash thickness</source>
+        <translation>连字符粗细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="197"/>
+        <source>Height of the dash above the baseline of the text: 50 % puts it at half the height of a small letter x.</source>
+        <translation>连字符在文字基线之上的高度：50% 即位于小写字母 x 高度的一半处。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="208"/>
+        <source>Minimum gap between dash and syllable</source>
+        <translation>连字符与音节的最小间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="209"/>
+        <source>Least white space between a dash and the syllables on either side of it.</source>
+        <translation>连字符与其两侧音节之间的最小空白。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="218"/>
+        <source>Maximum distance between dashes</source>
+        <translation>连字符之间的最大距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="219"/>
+        <source>Across a wide gap between two syllables the dash is repeated, so that two dashes are never further apart than this.</source>
+        <translation>两个音节相距较远时重复绘制连字符，使相邻连字符之间的距离不超过此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="230"/>
+        <source>Limit the number of dashes</source>
+        <translation>限制连字符的数量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="231"/>
+        <source>Off, a long gap gets as many dashes as ‘Maximum distance between dashes’ calls for.</source>
+        <translation>关闭后，较长的空隙按“连字符之间的最大距离”绘制所需数量的连字符。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="239"/>
+        <source>Between two syllables no more dashes than this are drawn, however wide the gap. Only with ‘Limit the number of dashes’ on.</source>
+        <translation>无论空隙多宽，两个音节之间绘制的连字符都不超过此数量。仅在启用“限制连字符的数量”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="252"/>
+        <source>Omit dash when space is limited</source>
+        <translation>当空间受限时省略连字符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="253"/>
+        <source>When two syllables of a word stand too close for a dash of the minimum length, the dash is left out; off moves the notes apart so that every divided word shows its dash.</source>
+        <translation>同一个词的两个音节靠得太近、容不下最小长度的连字符时，省略连字符；关闭后则拉开音符间距，保证每个分开的词都有连字符。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="263"/>
+        <source>A syllable which is held over several notes and continues with a dash stays centred under its first note; off aligns it like a syllable with an extension line.</source>
+        <translation>跨多个音符演唱、其后接连字符的音节仍在第一个音符下居中；关闭后按带延长线的音节的方式对齐。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="273"/>
+        <source>When a word is divided at a system break and its next syllable falls on the first note of the new system, a dash is drawn in front of that syllable as well.</source>
+        <translation>一个词在换行处被分开、下一个音节落在新谱行组的第一个音符上时，在该音节之前也画一个连字符。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="283"/>
+        <source>Where the dash stands when a word continues from the system before: centred between the start of the music and the next syllable, right after the clef and key signature, or under the first note.</source>
+        <translation>一个词从上一谱行组延续过来时连字符的位置：在乐谱起点与下一个音节之间居中，紧接谱号和调号之后，或位于第一个音符之下。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="290"/>
+        <source>Inside the header</source>
+        <translation>紧接谱号与调号之后</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="291"/>
+        <source>Under the first note</source>
+        <translation>第一个音符之下</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="298"/>
+        <source>Halve the gap before the first and after the last dash</source>
+        <translation>首个连字符之前与末个连字符之后的间隙减半</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="299"/>
+        <source>When several dashes fill a gap, the space between a syllable and the dash nearest to it is half the space between two dashes; off makes all the spaces equal.</source>
+        <translation>一个空隙中有多个连字符时，音节与最近的连字符之间的距离为相邻连字符间距的一半；关闭后各段距离相等。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="306"/>
+        <source>Extension lines</source>
+        <translation>延长线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="314"/>
+        <source>An extension line which would be shorter than this is left out, or drawn at this length if ‘Omit extension line when space is limited’ is off.</source>
+        <translation>延长线短于此长度时省略；若关闭“当空间受限时省略延长线”，则按此长度绘制。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="329"/>
+        <source>Gap between syllable and line</source>
+        <translation>音节与延长线的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="330"/>
+        <source>White space between the end of a syllable and the start of its extension line.</source>
+        <translation>音节末尾与其延长线起点之间的空白。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="340"/>
+        <source>When the notes of a melisma stand too close for a line of the minimum length, the line is left out; off moves the notes apart so that every melisma shows its line.</source>
+        <translation>一字多音处的音符靠得太近、容不下最小长度的延长线时，省略延长线；关闭后则拉开音符间距，保证每处一字多音都有延长线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="348"/>
+        <source>End of the line on the last note</source>
+        <translation>延长线在末音上的终点</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="349"/>
+        <source>Where the line ends on the last note of the melisma, as a fraction of the notehead width from its left edge: 1 is the right edge of the notehead, 0.5 its middle.</source>
+        <translation>延长线在一字多音的最后一个音符上的终点，以自符头左缘量起的符头宽度比例表示：1 为符头右缘，0.5 为符头正中。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="358"/>
+        <source>Vertical position of the line</source>
+        <translation>延长线的垂直位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="359"/>
+        <source>Raises (negative) or lowers (positive) extension lines from their normal place, where the lower edge of the line lies on the baseline of the text. Dashes are not affected.</source>
+        <translation>使延长线自正常位置（线的下缘落在文字基线上）上移（负值）或下移（正值）。连字符不受影响。</translation>
+    </message>
 </context>
 </TS>
