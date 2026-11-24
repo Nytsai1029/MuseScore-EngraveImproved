@@ -913,6 +913,9 @@ private:
         } else if (TEXT_ELEMENTS.count(text)) {
             Event& event = lastEvent(token);
             event.texts.emplace_back(TEXT_ELEMENTS.at(text), quoted(takeToken("the text in quotes", token)));
+        } else if (text == "\\stringTunings") {
+            //! NOTE Drop D, as the palette's string tunings of that name show it: the lowest string down a tone
+            lastEvent(token).texts.emplace_back("StringTunings", QString("<sym>guitarString6</sym> \u2013 D"));
         } else if (text == "\\harpPedals" || text == "\\harpPedalsText") {
             lastEvent(token).harpPedals = text == "\\harpPedals" ? 1 : 2;
         } else if (text == "\\romanNumeral" || text == "\\nashville") {
@@ -3015,6 +3018,15 @@ private:
             m_xml.writeStartElement("Instrument");
             m_xml.writeAttribute("id", "piano");
             text("trackName", "Piano");
+            m_xml.writeEndElement();
+        } else if (element == "StringTunings") {
+            //! NOTE The strings of a guitar from the lowest, which is shown: tuned down to D
+            text("visibleStrings", "0");
+            m_xml.writeStartElement("StringData");
+            number("frets", GUITAR_FRETS);
+            for (auto string = GUITAR_STRINGS.crbegin(); string != GUITAR_STRINGS.crend(); ++string) {
+                number("string", string == GUITAR_STRINGS.crbegin() ? *string - 2 : *string);
+            }
             m_xml.writeEndElement();
         }
         m_xml.writeStartElement("text");

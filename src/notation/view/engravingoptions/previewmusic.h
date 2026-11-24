@@ -80,7 +80,8 @@ namespace mu::notation {
 //!   `\noLine` shows only its texts (as Ped. and * of a pedal).
 //! - Texts after a note, each standing at its chord: `\systemText "text"`, `\tempo "text"` (a tempo of
 //!   ♩ = 120), `\mark "A"` (a rehearsal mark), `\instrumentChange "text"`, `\harpPedals` and
-//!   `\harpPedalsText` (a harp pedal diagram, all pedals at natural, drawn or written), `\romanNumeral "V7"`,
+//!   `\harpPedalsText` (a harp pedal diagram, all pedals at natural, drawn or written), `\stringTunings` (the
+//!   lowest string of a guitar tuned down to D, as ⑥ = D), `\romanNumeral "V7"`,
 //!   `\nashville "5"`, `\fretDiagram "x32010"` (six strings from the lowest: x not played, 0 open, or the
 //!   fret 1 to 9; after it `at 3` starts the diagram at that fret, `barre 3` draws a barré at that fret over the
 //!   strings from the first to the last with a dot there, `fingers "032010"` gives the finger of each string, 0 for

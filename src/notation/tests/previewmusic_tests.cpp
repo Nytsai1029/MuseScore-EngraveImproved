@@ -72,6 +72,7 @@
 #include "engraving/dom/slur.h"
 #include "engraving/dom/spanner.h"
 #include "engraving/dom/staff.h"
+#include "engraving/dom/stringtunings.h"
 #include "engraving/dom/stafftext.h"
 #include "engraving/dom/stafftype.h"
 #include "engraving/dom/stringdata.h"
@@ -1076,11 +1077,12 @@ TEST_F(Notation_PreviewMusicTests, tablatureNotesHaveStringAndFret)
 /**
  * @TEST_CASE commonTablatureAndGuitarMarks
  * @details `\\tab common` makes a common tablature (`\\tab` alone a simple one); wah and golpe are articulations,
- * a rasgueado and a harmonic mark (with its text) are lines over chords
+ * a rasgueado and a harmonic mark (with its text) are lines over chords, `\\stringTunings` a drop D tuning
  */
 TEST_F(Notation_PreviewMusicTests, commonTablatureAndGuitarMarks)
 {
-    ASSERT_TRUE(load("\\tab common c'4 \\wahOpen d'4 \\wahClosed e'4 \\golpe \\startRasgueado f'4 \\stopRasgueado | "
+    ASSERT_TRUE(load("\\tab common c'4 \\wahOpen \\stringTunings d'4 \\wahClosed e'4 \\golpe \\startRasgueado f'4 "
+                     "\\stopRasgueado | "
                      "g'4 \\startHarmonicMark \"A.H.\" a'4 \\stopHarmonicMark r2"));
     EXPECT_TRUE(score()->staff(0)->staffType(Fraction())->isCommonTabStaff());
 
@@ -1092,6 +1094,12 @@ TEST_F(Notation_PreviewMusicTests, commonTablatureAndGuitarMarks)
     EXPECT_EQ(symbolOf(found[0]), SymId::brassMuteOpen);
     EXPECT_EQ(symbolOf(found[1]), SymId::brassMuteClosed);
     EXPECT_EQ(symbolOf(found[2]), SymId::guitarGolpe);
+
+    const EngravingItem* tunings = found[0]->segment()->findAnnotation(ElementType::STRING_TUNINGS, 0, 0);
+    ASSERT_TRUE(tunings);
+    ASSERT_EQ(toStringTunings(tunings)->stringData()->stringList().size(), 6u);
+    EXPECT_EQ(toStringTunings(tunings)->stringData()->stringList().front().pitch, 38);
+    EXPECT_TRUE(toStringTunings(tunings)->plainText().contains(u"D"));
 
     const std::vector<const Spanner*> rasgueados = spannersOf(ElementType::RASGUEADO);
     ASSERT_EQ(rasgueados.size(), 1u);
