@@ -68,14 +68,6 @@ EoPage {
         title: qsTrc("notation/engravingoptions", "Jumps, markers, tempo and rehearsal marks")
 
         EoNumber {
-            sid: "repeatTextBarlinePadding"
-            title: qsTrc("notation/engravingoptions", "Jumps and markers: distance from barline on lower staves")
-            hint: qsTrc("notation/engravingoptions",
-                         "Gap between a jump or marker shown on a staff other than the top one and the barline coming down from the staff above; scales with the font size.")
-            max: 3
-        }
-
-        EoNumber {
             sid: "tempoRehearsalMarkPadding"
             title: qsTrc("notation/engravingoptions", "Tempo text to rehearsal mark")
             hint: qsTrc("notation/engravingoptions",

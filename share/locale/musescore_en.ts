@@ -1763,6 +1763,7 @@
         <translation type="unfinished">Rests</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="33"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="101"/>
         <source>Repeats</source>
         <translation type="unfinished">Repeats</translation>
@@ -4196,6 +4197,7 @@ space unit</extracomment>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="193"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="41"/>
@@ -25751,6 +25753,7 @@ Fret %1 on strings %2</translation>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="54"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="61"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="78"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="48"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="55"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="101"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="162"/>
@@ -30878,6 +30881,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/RepeatPage.qml" line="61"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="42"/>
         <source>Number position:</source>
         <translation type="unfinished">Number position:</translation>
     </message>
@@ -30888,11 +30892,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/RepeatPage.qml" line="77"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="62"/>
         <source>Show extenders on 4-measure repeats</source>
         <translation type="unfinished">Show extenders on 4-measure repeats</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/RepeatPage.qml" line="83"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="71"/>
         <source>Number consecutive measure repeats</source>
         <translation type="unfinished">Number consecutive measure repeats</translation>
     </message>
@@ -30918,6 +30924,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/RepeatPage.qml" line="180"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="179"/>
         <source>Preset</source>
         <translation type="unfinished">Preset</translation>
     </message>
@@ -33094,30 +33101,36 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <name>notation/editstyle/repeatplaycount</name>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/RepeatPage.qml" line="164"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="161"/>
         <source>Automatically show text at repeat barlines</source>
         <translation type="unfinished">Automatically show text at repeat barlines</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/RepeatPage.qml" line="169"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="170"/>
         <source>Show for single repeats (e.g. “x2”)</source>
         <translation type="unfinished">Show for single repeats (e.g. “x2”)</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="183"/>
         <location filename="../../src/notation/view/styledialog/repeatplaycounttextmodel.cpp" line="45"/>
         <source>x3</source>
         <translation type="unfinished">x3</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="184"/>
         <location filename="../../src/notation/view/styledialog/repeatplaycounttextmodel.cpp" line="48"/>
         <source>3x</source>
         <translation type="unfinished">3x</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="185"/>
         <location filename="../../src/notation/view/styledialog/repeatplaycounttextmodel.cpp" line="51"/>
         <source>Play 3 times</source>
         <translation type="unfinished">Play 3 times</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="186"/>
         <location filename="../../src/notation/view/styledialog/repeatplaycounttextmodel.cpp" line="54"/>
         <source>3 repeats</source>
         <translation type="unfinished">3 repeats</translation>
@@ -34708,12 +34721,18 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="140"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="341"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="198"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="234"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="246"/>
         <source>Above</source>
         <translation type="unfinished">Above</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="141"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="342"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="199"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="235"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="247"/>
         <source>Below</source>
         <translation type="unfinished">Below</translation>
     </message>
@@ -37215,42 +37234,40 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Jumps, markers, tempo and rehearsal marks</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="72"/>
         <source>Jumps and markers: distance from barline on lower staves</source>
         <translation type="unfinished">Jumps and markers: distance from barline on lower staves</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="73"/>
         <source>Gap between a jump or marker shown on a staff other than the top one and the barline coming down from the staff above; scales with the font size.</source>
         <translation type="unfinished">Gap between a jump or marker shown on a staff other than the top one and the barline coming down from the staff above; scales with the font size.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="80"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="72"/>
         <source>Tempo text to rehearsal mark</source>
         <translation type="unfinished">Tempo text to rehearsal mark</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="81"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="73"/>
         <source>Gap between a rehearsal mark and a tempo marking moved to its right to avoid it; scales with the font size.</source>
         <translation type="unfinished">Gap between a rehearsal mark and a tempo marking moved to its right to avoid it; scales with the font size.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="88"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="80"/>
         <source>Tempo text to time signature above the staves</source>
         <translation type="unfinished">Tempo text to time signature above the staves</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="89"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="81"/>
         <source>Gap between a time signature placed above the staves and a tempo marking at the start of the measure, which begins to its right.</source>
         <translation type="unfinished">Gap between a time signature placed above the staves and a tempo marking at the start of the measure, which begins to its right.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="97"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="89"/>
         <source>Rehearsal mark to time signature above the staves</source>
         <translation type="unfinished">Rehearsal mark to time signature above the staves</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="98"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="90"/>
         <source>Minimum gap between a time signature placed above the staves and a rehearsal mark, in x-heights of the rehearsal mark font.</source>
         <translation type="unfinished">Minimum gap between a time signature placed above the staves and a rehearsal mark, in x-heights of the rehearsal mark font.</translation>
     </message>
@@ -37792,6 +37809,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="34"/>
         <source>Signs</source>
         <translation type="unfinished">Signs</translation>
@@ -41195,6 +41213,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="288"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="411"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="205"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="253"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="103"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="107"/>
         <source>Minimum distance from notes and signs</source>
@@ -41789,6 +41809,166 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="136"/>
         <source>Off, the hook of a volta which follows an end repeat barline stands at the right edge of that barline.</source>
         <translation type="unfinished">Off, the hook of a volta which follows an end repeat barline stands at the right edge of that barline.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="37"/>
+        <source>Measure repeats</source>
+        <translation type="unfinished">Measure repeats</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="43"/>
+        <source>Height of the number over a measure repeat sign, measured from the top staff line; negative values move it up.</source>
+        <translation type="unfinished">Height of the number over a measure repeat sign, measured from the top staff line; negative values move it up.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="54"/>
+        <source>Show ‘1’ on 1-measure repeats</source>
+        <translation type="unfinished">Show ‘1’ on 1-measure repeats</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="55"/>
+        <source>Not used while ‘Number consecutive measure repeats’ is on, which prints its own numbers.</source>
+        <translation type="unfinished">Not used while ‘Number consecutive measure repeats’ is on, which prints its own numbers.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="63"/>
+        <source>A line runs from each side of the sign across the four measures it stands for, when they are all on one system.</source>
+        <translation type="unfinished">A line runs from each side of the sign across the four measures it stands for, when they are all on one system.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="72"/>
+        <source>In a row of one-measure repeats a running count is printed over the signs, so that players can keep their place.</source>
+        <translation type="unfinished">In a row of one-measure repeats a running count is printed over the signs, so that players can keep their place.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="81"/>
+        <source>Count shown every … measures</source>
+        <translation type="unfinished">Count shown every … measures</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="82"/>
+        <source>With 4, the count appears on the 4th, 8th, 12th measure of the row; with 1, on every repeat sign. Only with ‘Number consecutive measure repeats’ on.</source>
+        <translation type="unfinished">With 4, the count appears on the 4th, 8th, 12th measure of the row; with 1, on every repeat sign. Only with ‘Number consecutive measure repeats’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="96"/>
+        <source>Count in parentheses</source>
+        <translation type="unfinished">Count in parentheses</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="97"/>
+        <source>Prints the count as (4), (8), (12). Only with ‘Number consecutive measure repeats’ on.</source>
+        <translation type="unfinished">Prints the count as (4), (8), (12). Only with ‘Number consecutive measure repeats’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="106"/>
+        <source>Count starts with</source>
+        <translation type="unfinished">Count starts with</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="107"/>
+        <source>Whether the measure which is written out counts as number 1, so that the first repeat sign is number 2, or only the repeat signs are counted. Only with ‘Number consecutive measure repeats’ on.</source>
+        <translation type="unfinished">Whether the measure which is written out counts as number 1, so that the first repeat sign is number 2, or only the repeat signs are counted. Only with ‘Number consecutive measure repeats’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="120"/>
+        <source>Show ‘2’ on 2-measure repeats</source>
+        <translation type="unfinished">Show ‘2’ on 2-measure repeats</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="126"/>
+        <source>Show ‘4’ on 4-measure repeats</source>
+        <translation type="unfinished">Show ‘4’ on 4-measure repeats</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="133"/>
+        <source>Gap between a 4-measure repeat sign and its extenders</source>
+        <translation type="unfinished">Gap between a 4-measure repeat sign and its extenders</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="134"/>
+        <source>White space on each side of the sign before the extender line begins. Only with ‘Show extenders on 4-measure repeats’ on.</source>
+        <translation type="unfinished">White space on each side of the sign before the extender line begins. Only with ‘Show extenders on 4-measure repeats’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="145"/>
+        <source>Extra height of the number on one-line staves</source>
+        <translation type="unfinished">Extra height of the number on one-line staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="146"/>
+        <source>On a one-line staff the number is raised by this much more, to clear the barlines which reach above the line.</source>
+        <translation type="unfinished">On a one-line staff the number is raised by this much more, to clear the barlines which reach above the line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="156"/>
+        <source>Repeat play count</source>
+        <translation type="unfinished">Repeat play count</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="162"/>
+        <source>An end repeat barline which is played three times or more gets a text such as ‘3x’ above it.</source>
+        <translation type="unfinished">An end repeat barline which is played three times or more gets a text such as ‘3x’ above it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="171"/>
+        <source>Also marks an ordinary repeat, which is played twice. Only with ‘Automatically show text at repeat barlines’ on.</source>
+        <translation type="unfinished">Also marks an ordinary repeat, which is played twice. Only with ‘Automatically show text at repeat barlines’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="180"/>
+        <source>The wording of the automatic text, shown here for a passage played three times.</source>
+        <translation type="unfinished">The wording of the automatic text, shown here for a passage played three times.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="194"/>
+        <source>Side of the staff on which the play count texts of repeat barlines (‘3x’) are placed, unless one is flipped by hand.</source>
+        <translation type="unfinished">Side of the staff on which the play count texts of repeat barlines (‘3x’) are placed, unless one is flipped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="206"/>
+        <source>Least vertical gap between a play count text and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a play count text and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="214"/>
+        <source>Jumps and markers</source>
+        <translation type="unfinished">Jumps and markers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="219"/>
+        <source>Distance from the barline on lower staves</source>
+        <translation type="unfinished">Distance from the barline on lower staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="220"/>
+        <source>A jump or marker which is shown on a staff below the top one keeps this distance from the barline coming down from the staff above; given for 10 pt text and growing with the text size.</source>
+        <translation type="unfinished">A jump or marker which is shown on a staff below the top one keeps this distance from the barline coming down from the staff above; given for 10 pt text and growing with the text size.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="229"/>
+        <source>Markers: position</source>
+        <translation type="unfinished">Markers: position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="230"/>
+        <source>Side of the staff on which markers (Segno, Coda, Fine, To Coda…) are placed, unless one is flipped by hand.</source>
+        <translation type="unfinished">Side of the staff on which markers (Segno, Coda, Fine, To Coda…) are placed, unless one is flipped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="241"/>
+        <source>Jumps: position</source>
+        <translation type="unfinished">Jumps: position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="242"/>
+        <source>Side of the staff on which jumps (D.C., D.S. al Coda…) are placed, unless one is flipped by hand.</source>
+        <translation type="unfinished">Side of the staff on which jumps (D.C., D.S. al Coda…) are placed, unless one is flipped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="254"/>
+        <source>Least vertical gap between a jump or marker and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a jump or marker and the notes or other signs which lie between it and the staff.</translation>
     </message>
 </context>
 <context>

@@ -48919,5 +48919,165 @@ The score will be saved as:
         <source>Off, the hook of a volta which follows an end repeat barline stands at the right edge of that barline.</source>
         <translation>关闭后，紧接反复结束小节线的跳房子，其始端折钩位于该小节线右缘。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="37"/>
+        <source>Measure repeats</source>
+        <translation>小节反复号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="43"/>
+        <source>Height of the number over a measure repeat sign, measured from the top staff line; negative values move it up.</source>
+        <translation>小节反复号上方数字的高度，自谱表最上方谱线量起；负值使其上移。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="54"/>
+        <source>Show ‘1’ on 1-measure repeats</source>
+        <translation>单小节反复号上显示“1”</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="55"/>
+        <source>Not used while ‘Number consecutive measure repeats’ is on, which prints its own numbers.</source>
+        <translation>启用“显示小节连续反复次数”时不起作用，此时由后者标注数字。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="63"/>
+        <source>A line runs from each side of the sign across the four measures it stands for, when they are all on one system.</source>
+        <translation>从反复号两侧各引一条横线，贯穿它所代表的四个小节（四个小节须在同一谱行组内）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="72"/>
+        <source>In a row of one-measure repeats a running count is printed over the signs, so that players can keep their place.</source>
+        <translation>一连串单小节反复号上方标注连续计数，便于演奏者数小节。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="81"/>
+        <source>Count shown every … measures</source>
+        <translation>每隔几个小节标注一次计数</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="82"/>
+        <source>With 4, the count appears on the 4th, 8th, 12th measure of the row; with 1, on every repeat sign. Only with ‘Number consecutive measure repeats’ on.</source>
+        <translation>设为 4 时，计数标在这一串的第 4、8、12 小节上；设为 1 时每个反复号都标注。仅在启用“显示小节连续反复次数”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="96"/>
+        <source>Count in parentheses</source>
+        <translation>计数加圆括号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="97"/>
+        <source>Prints the count as (4), (8), (12). Only with ‘Number consecutive measure repeats’ on.</source>
+        <translation>计数写作（4）、（8）、（12）的形式。仅在启用“显示小节连续反复次数”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="106"/>
+        <source>Count starts with</source>
+        <translation>计数的起点</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="107"/>
+        <source>Whether the measure which is written out counts as number 1, so that the first repeat sign is number 2, or only the repeat signs are counted. Only with ‘Number consecutive measure repeats’ on.</source>
+        <translation>写出音符的那一小节是否算作第 1 小节（此时第一个反复号为第 2）；否则只数反复号。仅在启用“显示小节连续反复次数”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="120"/>
+        <source>Show ‘2’ on 2-measure repeats</source>
+        <translation>两小节反复号上显示“2”</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="126"/>
+        <source>Show ‘4’ on 4-measure repeats</source>
+        <translation>四小节反复号上显示“4”</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="133"/>
+        <source>Gap between a 4-measure repeat sign and its extenders</source>
+        <translation>四小节反复号与延长线的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="134"/>
+        <source>White space on each side of the sign before the extender line begins. Only with ‘Show extenders on 4-measure repeats’ on.</source>
+        <translation>反复号两侧到延长线起点之间的空白。仅在启用“使用4小节反复号时显示延长线”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="145"/>
+        <source>Extra height of the number on one-line staves</source>
+        <translation>单线谱表上数字的额外高度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="146"/>
+        <source>On a one-line staff the number is raised by this much more, to clear the barlines which reach above the line.</source>
+        <translation>在单线谱表上，数字再抬高这一距离，以避开伸出谱线上方的小节线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="156"/>
+        <source>Repeat play count</source>
+        <translation>反复演奏次数</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="162"/>
+        <source>An end repeat barline which is played three times or more gets a text such as ‘3x’ above it.</source>
+        <translation>演奏三遍或更多遍的反复结束小节线上方，自动标注“3×”之类的文字。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="171"/>
+        <source>Also marks an ordinary repeat, which is played twice. Only with ‘Automatically show text at repeat barlines’ on.</source>
+        <translation>普通的反复（演奏两遍）也加标注。仅在启用“自动显示反复小节线处的文本”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="180"/>
+        <source>The wording of the automatic text, shown here for a passage played three times.</source>
+        <translation>自动标注所用的措辞，这里以演奏三遍为例。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="194"/>
+        <source>Side of the staff on which the play count texts of repeat barlines (‘3x’) are placed, unless one is flipped by hand.</source>
+        <translation>反复小节线处的演奏次数文字（如“3×”）置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="206"/>
+        <source>Least vertical gap between a play count text and the notes or other signs which lie between it and the staff.</source>
+        <translation>演奏次数文字与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="214"/>
+        <source>Jumps and markers</source>
+        <translation>跳转记号与标记</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="219"/>
+        <source>Distance from the barline on lower staves</source>
+        <translation>在下方谱表上与小节线的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="220"/>
+        <source>A jump or marker which is shown on a staff below the top one keeps this distance from the barline coming down from the staff above; given for 10 pt text and growing with the text size.</source>
+        <translation>显示在最上方谱表以下的跳转记号或标记，与从上一谱表延伸下来的小节线保持这一距离；数值按 10 pt 字号给出，并随字号增大。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="229"/>
+        <source>Markers: position</source>
+        <translation>标记：位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="230"/>
+        <source>Side of the staff on which markers (Segno, Coda, Fine, To Coda…) are placed, unless one is flipped by hand.</source>
+        <translation>标记（Segno、Coda、Fine、To Coda 等）置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="241"/>
+        <source>Jumps: position</source>
+        <translation>跳转记号：位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="242"/>
+        <source>Side of the staff on which jumps (D.C., D.S. al Coda…) are placed, unless one is flipped by hand.</source>
+        <translation>跳转记号（D.C.、D.S. al Coda 等）置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="254"/>
+        <source>Least vertical gap between a jump or marker and the notes or other signs which lie between it and the staff.</source>
+        <translation>跳转记号或标记与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
 </context>
 </TS>

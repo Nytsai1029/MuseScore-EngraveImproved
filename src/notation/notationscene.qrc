@@ -191,6 +191,7 @@
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml</file>
+        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml</file>

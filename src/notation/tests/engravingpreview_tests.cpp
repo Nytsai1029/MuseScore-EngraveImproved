@@ -618,7 +618,7 @@ const char* const EFFECT_TEST_PAGES[] = {
     "MeasureNumberPage",
     "NotesPage", "AccidentalsPage", "StemsPage", "BeamsPage", "TremolosPage",
     "RestsPage", "TupletsPage", "ArpeggiosPage", "TiesPage", "SlursPage",
-    "BarlinesPage", "VoltasPage"
+    "BarlinesPage", "RepeatsPage", "VoltasPage"
 };
 
 //! NOTE The options whose value nothing in the layout reads, each with the code fact which shows it
@@ -763,6 +763,12 @@ const std::set<QString>& optionsWhoseMusicCannotShowItYet()
         // between systems the larger factor for systems wins
         "spreadCurlyBracket",
         "spreadSquareBracket",
+        // a jump or marker shown on a staff below the top one (a staff chosen to show system markings): the music
+        // has no such staves
+        "repeatTextBarlinePadding",
+        // the text of a play count keeps clear of the notes under it, but no music tried (high notes up to the end
+        // repeat barline, spacing 0.8 to 1.2) moved it by this
+        "repeatPlayCountMinDistance",
         // the least distance between systems decides how many systems fit on a page, so it shows only on a page
         // which is full to within a step of it: none of 228 pages tried (7 to 10 systems, music top margin in steps
         // of 0.25 sp) was
