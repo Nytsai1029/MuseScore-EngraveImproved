@@ -1924,7 +1924,7 @@
         <translation type="unfinished">Figured bass</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="34"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="221"/>
         <source>Chord symbols</source>
         <translation type="unfinished">Chord symbols</translation>
@@ -30482,6 +30482,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="515"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="247"/>
         <source>Bass note scale:</source>
         <translation type="unfinished">Bass note scale:</translation>
     </message>
@@ -30497,16 +30498,19 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="651"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="299"/>
         <source>Alignment to notehead:</source>
         <translation type="unfinished">Alignment to notehead:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="665"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="324"/>
         <source>Alignment to fretboard diagram:</source>
         <translation type="unfinished">Alignment to fretboard diagram:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="702"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="374"/>
         <source>Min. space to fretboard diagram:</source>
         <translation type="unfinished">Min. space to fretboard diagram:</translation>
     </message>
@@ -30517,6 +30521,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="769"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="360"/>
         <source>Min. space between chord symbols:</source>
         <translation type="unfinished">Min. space between chord symbols:</translation>
     </message>
@@ -30530,21 +30535,25 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="808"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="423"/>
         <source>Interpretation:</source>
         <translation type="unfinished">Interpretation:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="841"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="435"/>
         <source>Voicing:</source>
         <translation type="unfinished">Voicing:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="867"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="450"/>
         <source>Duration:</source>
         <translation type="unfinished">Duration:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="892"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="466"/>
         <source>Capo fret position:</source>
         <translation type="unfinished">Capo fret position:</translation>
     </message>
@@ -31602,6 +31611,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">MuseScore style file</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="76"/>
         <location filename="../../src/notation/internal/notationactioncontroller.cpp" line="1950"/>
         <location filename="../../src/notation/view/styledialog/chordsymbolspagemodel.cpp" line="122"/>
         <source>Load style</source>
@@ -32148,6 +32158,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Bottom note</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="75"/>
         <location filename="../../src/notation/view/styledialog/chordsymbolspagemodel.cpp" line="120"/>
         <source>MuseScore chord symbol style files</source>
         <translation type="unfinished">MuseScore chord symbol style files</translation>
@@ -32615,6 +32626,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <name>notation/editstyle/chordsymbols</name>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="112"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="44"/>
         <source>Preset</source>
         <translation type="unfinished">Preset</translation>
     </message>
@@ -32625,11 +32637,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="170"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="89"/>
         <source>Spelling</source>
         <translation type="unfinished">Spelling</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="205"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="105"/>
         <source>Automatically capitalize note names</source>
         <translation type="unfinished">Automatically capitalize note names</translation>
     </message>
@@ -32640,11 +32654,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="228"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="121"/>
         <source>Lowercase bass notes</source>
         <translation type="unfinished">Lowercase bass notes</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="234"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="131"/>
         <source>All caps note names</source>
         <translation type="unfinished">All caps note names</translation>
     </message>
@@ -32660,6 +32676,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="401"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="206"/>
         <source>Vertically stack modifiers</source>
         <translation type="unfinished">Vertically stack modifiers</translation>
     </message>
@@ -32690,6 +32707,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ChordSymbolsPage.qml" line="678"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="338"/>
         <source>Exclude modifiers from horizontal alignment</source>
         <translation type="unfinished">Exclude modifiers from horizontal alignment</translation>
     </message>
@@ -34198,7 +34216,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Advanced</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="37"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="69"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="37"/>
         <source>Details</source>
@@ -34832,9 +34849,407 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Numeral style</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="38"/>
+        <source>Appearance</source>
+        <translation type="unfinished">Appearance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="45"/>
+        <source>‘Standard’ sets chord symbols in the text font, ‘Jazz’ in the handwritten MuseJazz font with small raised modifiers, ‘Legacy MuseScore’ as versions before 4.6 drew them; ‘Custom file’ uses a style file of your own.</source>
+        <translation type="unfinished">‘Standard’ sets chord symbols in the text font, ‘Jazz’ in the handwritten MuseJazz font with small raised modifiers, ‘Legacy MuseScore’ as versions before 4.6 drew them; ‘Custom file’ uses a style file of your own.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="52"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="428"/>
+        <source>Jazz</source>
+        <translation type="unfinished">Jazz</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="53"/>
+        <source>Legacy MuseScore</source>
+        <translation type="unfinished">Legacy MuseScore</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="54"/>
+        <source>Custom file</source>
+        <translation type="unfinished">Custom file</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="60"/>
+        <source>Chord symbol style file</source>
+        <translation type="unfinished">Chord symbol style file</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="61"/>
+        <source>The XML file of your own which describes how chord symbols are drawn, as a copy of a built-in one (chords_std.xml, chords_jazz.xml) changed to your liking.</source>
+        <translation type="unfinished">The XML file of your own which describes how chord symbols are drawn, as a copy of a built-in one (chords_std.xml, chords_jazz.xml) changed to your liking.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="90"/>
+        <source>How note names are written. Standard: B♭ and B. German: B♭ and H. Full German: B and H, with Fis, Es and the like. Solfeggio: Do Re Mi. French: Do Ré Mi.</source>
+        <translation type="unfinished">How note names are written. Standard: B♭ and B. German: B♭ and H. Full German: B and H, with Fis, Es and the like. Solfeggio: Do Re Mi. French: Do Ré Mi.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="95"/>
+        <source>German</source>
+        <translation type="unfinished">German</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="96"/>
+        <source>Full German</source>
+        <translation type="unfinished">Full German</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="97"/>
+        <source>Solfeggio</source>
+        <translation type="unfinished">Solfeggio</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="98"/>
+        <source>French</source>
+        <translation type="unfinished">French</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="106"/>
+        <source>Off: note names stay in upper or lower case exactly as they were typed.</source>
+        <translation type="unfinished">Off: note names stay in upper or lower case exactly as they were typed.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="112"/>
+        <source>Lowercase minor chords</source>
+        <translation type="unfinished">Lowercase minor chords</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="113"/>
+        <source>The root of minor, diminished and half-diminished chords is written in lower case (c for C minor). Only with ‘Automatically capitalize note names’ on.</source>
+        <translation type="unfinished">The root of minor, diminished and half-diminished chords is written in lower case (c for C minor). Only with ‘Automatically capitalize note names’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="122"/>
+        <source>The bass note after the slash is written in lower case (C/e). Only with ‘Automatically capitalize note names’ on.</source>
+        <translation type="unfinished">The bass note after the slash is written in lower case (C/e). Only with ‘Automatically capitalize note names’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="132"/>
+        <source>Note names of more than one letter are written entirely in capitals (DO, FIS instead of Do, Fis). Only with ‘Automatically capitalize note names’ on.</source>
+        <translation type="unfinished">Note names of more than one letter are written entirely in capitals (DO, FIS instead of Do, Fis). Only with ‘Automatically capitalize note names’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="140"/>
+        <source>Extensions and modifiers</source>
+        <translation type="unfinished">Extensions and modifiers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="144"/>
+        <source>Scale is the size relative to the root letter. The vertical offset is a percentage of the height of a capital letter; negative values raise, positive values lower.</source>
+        <translation type="unfinished">Scale is the size relative to the root letter. The vertical offset is a percentage of the height of a capital letter; negative values raise, positive values lower.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="148"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="288"/>
         <source>Scale</source>
         <translation type="unfinished">Scale</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="152"/>
+        <source>Extensions (e.g. 7, 11)</source>
+        <translation type="unfinished">Extensions (e.g. 7, 11)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="153"/>
+        <source>Modifiers (e.g. sus4, no 3)</source>
+        <translation type="unfinished">Modifiers (e.g. sus4, no 3)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="158"/>
+        <source>Size of extensions (7, 9, 11, 13…) relative to the root letter.</source>
+        <translation type="unfinished">Size of extensions (7, 9, 11, 13…) relative to the root letter.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="169"/>
+        <source>Size of modifiers (sus4, add9, ♭5…) relative to the root letter.</source>
+        <translation type="unfinished">Size of modifiers (sus4, add9, ♭5…) relative to the root letter.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="180"/>
+        <source>Vertical shift of extensions as a percentage of the height of a capital letter; negative values raise, positive values lower.</source>
+        <translation type="unfinished">Vertical shift of extensions as a percentage of the height of a capital letter; negative values raise, positive values lower.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="192"/>
+        <source>Vertical shift of modifiers as a percentage of the height of a capital letter; negative values raise, positive values lower.</source>
+        <translation type="unfinished">Vertical shift of modifiers as a percentage of the height of a capital letter; negative values raise, positive values lower.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="207"/>
+        <source>Two or more modifiers are set one above the other after the chord symbol instead of in a row.</source>
+        <translation type="unfinished">Two or more modifiers are set one above the other after the chord symbol instead of in a row.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="216"/>
+        <source>Scale of stacked modifiers</source>
+        <translation type="unfinished">Scale of stacked modifiers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="217"/>
+        <source>Size of modifiers which are stacked, relative to the modifier size set above.</source>
+        <translation type="unfinished">Size of modifiers which are stacked, relative to the modifier size set above.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="229"/>
+        <source>Bass notes and polychords</source>
+        <translation type="unfinished">Bass notes and polychords</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="234"/>
+        <source>Bass note of slash chords</source>
+        <translation type="unfinished">Bass note of slash chords</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="235"/>
+        <source>Whether the bass note after the slash stays on the line of the chord symbol (A7/G) or is set lower, diagonally below the slash.</source>
+        <translation type="unfinished">Whether the bass note after the slash stays on the line of the chord symbol (A7/G) or is set lower, diagonally below the slash.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="239"/>
+        <source>On the same line</source>
+        <translation type="unfinished">On the same line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="240"/>
+        <source>Lowered diagonally</source>
+        <translation type="unfinished">Lowered diagonally</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="248"/>
+        <source>Size of the bass note after the slash relative to the root letter.</source>
+        <translation type="unfinished">Size of the bass note after the slash relative to the root letter.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="261"/>
+        <source>Extra gap before the bass note after stacked modifiers</source>
+        <translation type="unfinished">Extra gap before the bass note after stacked modifiers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="262"/>
+        <source>When the chord symbol has stacked modifiers, or is a 6/9 chord, the slash and bass note are moved to the right by this much, as a multiple of the height of a capital letter.</source>
+        <translation type="unfinished">When the chord symbol has stacked modifiers, or is a 6/9 chord, the slash and bass note are moved to the right by this much, as a multiple of the height of a capital letter.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="272"/>
+        <source>Polychord divider thickness</source>
+        <translation type="unfinished">Polychord divider thickness</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="273"/>
+        <source>Thickness of the horizontal line between the upper and the lower chord of a polychord.</source>
+        <translation type="unfinished">Thickness of the horizontal line between the upper and the lower chord of a polychord.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="283"/>
+        <source>Polychord divider spacing</source>
+        <translation type="unfinished">Polychord divider spacing</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="284"/>
+        <source>White space left above and below the line.</source>
+        <translation type="unfinished">White space left above and below the line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="300"/>
+        <source>Which part of a chord symbol is lined up with its note: left edges together, centred over the notehead, or right edges together.</source>
+        <translation type="unfinished">Which part of a chord symbol is lined up with its note: left edges together, centred over the notehead, or right edges together.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="305"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="330"/>
+        <source>Centre</source>
+        <translation type="unfinished">Centre</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="313"/>
+        <source>Vertically align chord symbols and fretboard diagrams on the same system</source>
+        <translation type="unfinished">Vertically align chord symbols and fretboard diagrams on the same system</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="315"/>
+        <source>All chord symbols of a system stand at one height, that of the one which had to be placed furthest from the staff, instead of each as close as its own notes allow; fretboard diagrams are lined up in the same way.</source>
+        <translation type="unfinished">All chord symbols of a system stand at one height, that of the one which had to be placed furthest from the staff, instead of each as close as its own notes allow; fretboard diagrams are lined up in the same way.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="325"/>
+        <source>For a chord symbol which stands on a fretboard diagram: lined up with the left edge of the diagram, centred over it, or lined up with its right edge.</source>
+        <translation type="unfinished">For a chord symbol which stands on a fretboard diagram: lined up with the left edge of the diagram, centred over it, or lined up with its right edge.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="339"/>
+        <source>Only the part of the chord symbol before its first modifier is centred or right-aligned; the modifiers hang out to the right.</source>
+        <translation type="unfinished">Only the part of the chord symbol before its first modifier is centred or right-aligned; the modifiers hang out to the right.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="348"/>
+        <source>Least vertical gap between a chord symbol and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a chord symbol and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="361"/>
+        <source>Notes are spaced apart far enough to keep this horizontal gap between neighbouring chord symbols; half of it is kept between a chord symbol and a barline.</source>
+        <translation type="unfinished">Notes are spaced apart far enough to keep this horizontal gap between neighbouring chord symbols; half of it is kept between a chord symbol and a barline.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="375"/>
+        <source>Height of a chord symbol above the nut of the fretboard diagram it stands on. It also keeps ‘Minimum distance from notes and signs’ from the top of the diagram, where the ○ and × markers are; with the default values that distance is the larger one.</source>
+        <translation type="unfinished">Height of a chord symbol above the nut of the fretboard diagram it stands on. It also keeps ‘Minimum distance from notes and signs’ from the top of the diagram, where the ○ and × markers are; with the default values that distance is the larger one.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="388"/>
+        <source>Side of the staff on which chord symbols are placed, unless one is flipped by hand.</source>
+        <translation type="unfinished">Side of the staff on which chord symbols are placed, unless one is flipped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="400"/>
+        <source>Horizontal shift and depth of a chord symbol placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘Chord symbol’.</source>
+        <translation type="unfinished">Horizontal shift and depth of a chord symbol placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘Chord symbol’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="410"/>
+        <source>Offset below the staff, alternate text style</source>
+        <translation type="unfinished">Offset below the staff, alternate text style</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="411"/>
+        <source>The same offset for chord symbols which use the text style ‘Chord symbol (alternate)’.</source>
+        <translation type="unfinished">The same offset for chord symbols which use the text style ‘Chord symbol (alternate)’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="419"/>
+        <source>How chord symbols sound in playback; nothing changes on the page.</source>
+        <translation type="unfinished">How chord symbols sound in playback; nothing changes on the page.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="424"/>
+        <source>‘Literal’ plays exactly the notes the chord symbol names; ‘Jazz’ voices it as a jazz player would, adding or leaving out notes.</source>
+        <translation type="unfinished">‘Literal’ plays exactly the notes the chord symbol names; ‘Jazz’ voices it as a jazz player would, adding or leaving out notes.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="429"/>
+        <source>Literal</source>
+        <translation type="unfinished">Literal</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="436"/>
+        <source>How the notes of the chord are spread when it is played.</source>
+        <translation type="unfinished">How the notes of the chord are spread when it is played.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="439"/>
+        <source>Root only</source>
+        <translation type="unfinished">Root only</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="440"/>
+        <source>Close</source>
+        <translation type="unfinished">Close</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="441"/>
+        <source>Drop two</source>
+        <translation type="unfinished">Drop two</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="442"/>
+        <source>Six note</source>
+        <translation type="unfinished">Six note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="443"/>
+        <source>Four note</source>
+        <translation type="unfinished">Four note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="444"/>
+        <source>Three note</source>
+        <translation type="unfinished">Three note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="451"/>
+        <source>How long the chord sounds when it is played.</source>
+        <translation type="unfinished">How long the chord sounds when it is played.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="453"/>
+        <source>Until next chord symbol</source>
+        <translation type="unfinished">Until next chord symbol</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="454"/>
+        <source>Until end of measure</source>
+        <translation type="unfinished">Until end of measure</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="455"/>
+        <source>Chord/rest duration</source>
+        <translation type="unfinished">Chord/rest duration</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="461"/>
+        <source>Capo</source>
+        <translation type="unfinished">Capo</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="467"/>
+        <source>With a capo at this fret, every chord symbol is followed in parentheses by the chord actually fingered, e.g. E♭ (D) with the capo at fret 1; 0 shows nothing.</source>
+        <translation type="unfinished">With a capo at this fret, every chord symbol is followed in parentheses by the chord actually fingered, e.g. E♭ (D) with the capo at fret 1; 0 shows nothing.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="478"/>
+        <source>Roman numerals and Nashville numbers</source>
+        <translation type="unfinished">Roman numerals and Nashville numbers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="480"/>
+        <source>The two other kinds of harmony text: Roman numeral analysis (‘V7/IV’) and Nashville numbers.</source>
+        <translation type="unfinished">The two other kinds of harmony text: Roman numeral analysis (‘V7/IV’) and Nashville numbers.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="485"/>
+        <source>Roman numerals: position</source>
+        <translation type="unfinished">Roman numerals: position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="486"/>
+        <source>Side of the staff on which Roman numerals are placed, unless one is flipped by hand.</source>
+        <translation type="unfinished">Side of the staff on which Roman numerals are placed, unless one is flipped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="496"/>
+        <source>Roman numerals: offset below the staff</source>
+        <translation type="unfinished">Roman numerals: offset below the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="497"/>
+        <source>Horizontal shift and depth of a Roman numeral placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘Roman numeral analysis’.</source>
+        <translation type="unfinished">Horizontal shift and depth of a Roman numeral placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘Roman numeral analysis’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="506"/>
+        <source>Nashville numbers: position</source>
+        <translation type="unfinished">Nashville numbers: position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="507"/>
+        <source>Side of the staff on which Nashville numbers are placed, unless one is flipped by hand.</source>
+        <translation type="unfinished">Side of the staff on which Nashville numbers are placed, unless one is flipped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="519"/>
+        <source>Nashville numbers: offset below the staff</source>
+        <translation type="unfinished">Nashville numbers: offset below the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="520"/>
+        <source>Horizontal shift and depth of a Nashville number placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘Nashville number’.</source>
+        <translation type="unfinished">Horizontal shift and depth of a Nashville number placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘Nashville number’.</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="289"/>
@@ -34847,6 +35262,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Vertical position</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="51"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="94"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="301"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="311"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="322"/>
@@ -35083,6 +35500,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">The text style which gives the numbers their font, size and frame; ‘Measure number (alternate)’ is a second, bolder and framed style kept for this purpose.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="387"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="135"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="339"/>
         <source>Above or below the staff</source>
@@ -35209,6 +35627,9 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="155"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="169"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="184"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="391"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="489"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="510"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="49"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="111"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="66"/>
@@ -35244,6 +35665,9 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="156"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="170"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="185"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="392"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="490"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="511"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="50"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="112"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="67"/>
@@ -35492,6 +35916,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="418"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="304"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="329"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="69"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="144"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="155"/>
@@ -35509,6 +35935,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="420"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="306"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="331"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="71"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="146"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="157"/>
@@ -35915,6 +36343,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Horizontal offset</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="149"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="180"/>
         <source>Vertical offset</source>
         <translation type="unfinished">Vertical offset</translation>
@@ -37189,7 +37618,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">On tablature, the dashed hold line stops this far before the end of the space taken by its last note, unless another bend continues from that note.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="35"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="107"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="199"/>
@@ -37201,12 +37630,10 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="41"/>
         <source>Bass note: extra offset after stacked modifiers</source>
         <translation type="unfinished">Bass note: extra offset after stacked modifiers</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="42"/>
         <source>Extra horizontal shift of the slash and bass note, in capital heights, when the chord symbol has vertically stacked modifiers or a 6/9.</source>
         <translation type="unfinished">Extra horizontal shift of the slash and bass note, in capital heights, when the chord symbol has vertically stacked modifiers or a 6/9.</translation>
     </message>
@@ -37442,6 +37869,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Horizontal shift and height of sticking placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="399"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="127"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="46"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="125"/>
@@ -37618,6 +38046,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">The two notes are spaced apart far enough for a wavy glissando of at least this length.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="417"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="151"/>
         <source>Playback</source>
         <translation type="unfinished">Playback</translation>
@@ -38181,6 +38610,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Raises (negative) or lowers (positive) extension lines from their normal place, where the lower edge of the line lies on the baseline of the text. Dashes are not affected.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="293"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="285"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="121"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="224"/>
@@ -38635,7 +39065,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="51"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="55"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="151"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="152"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="123"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="228"/>
         <source>Hook height</source>
@@ -38874,7 +39304,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="200"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="382"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="192"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="193"/>
         <source>Text on following systems</source>
         <translation type="unfinished">Text on following systems</translation>
     </message>
@@ -39369,88 +39799,88 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">How far a pedal line, or its release sign, stops before the note or barline at which it ends.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="142"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="143"/>
         <source>Gap between the line’s end and a following pedal line</source>
         <translation type="unfinished">Gap between the line’s end and a following pedal line</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="143"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="144"/>
         <source>Used instead of the gap above when the next pedal line starts on the very note at which this one ends, to leave room for its Ped. symbol.</source>
         <translation type="unfinished">Used instead of the gap above when the next pedal line starts on the very note at which this one ends, to leave room for its Ped. symbol.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="152"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="153"/>
         <source>Length of the hooks at the start and the end of a pedal line; they point towards the staff, a negative value turns them away.</source>
         <translation type="unfinished">Length of the hooks at the start and the end of a pedal line; they point towards the staff, a negative value turns them away.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="161"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="162"/>
         <source>Least vertical gap between a pedal line and the notes or other signs which lie between it and the staff.</source>
         <translation type="unfinished">Least vertical gap between a pedal line and the notes or other signs which lie between it and the staff.</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="244"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="168"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="169"/>
         <source>Texts</source>
         <translation type="unfinished">Texts</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="169"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="170"/>
         <source>A symbol of the music font is written as &lt;sym&gt;name&lt;/sym&gt;: &lt;sym&gt;keyboardPedalPed&lt;/sym&gt; is the Ped. sign, &lt;sym&gt;keyboardPedalUp&lt;/sym&gt; the release sign.</source>
         <translation type="unfinished">A symbol of the music font is written as &lt;sym&gt;name&lt;/sym&gt;: &lt;sym&gt;keyboardPedalPed&lt;/sym&gt; is the Ped. sign, &lt;sym&gt;keyboardPedalUp&lt;/sym&gt; the release sign.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="175"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="176"/>
         <source>Text at the start</source>
         <translation type="unfinished">Text at the start</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="176"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="177"/>
         <source>For pedal lines which begin without a hook: the Ped. sign by default.</source>
         <translation type="unfinished">For pedal lines which begin without a hook: the Ped. sign by default.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="183"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="184"/>
         <source>Text at the start of a line which begins with a hook</source>
         <translation type="unfinished">Text at the start of a line which begins with a hook</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="184"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="185"/>
         <source>Empty by default, so that a bracket-style pedal line shows the hook alone.</source>
         <translation type="unfinished">Empty by default, so that a bracket-style pedal line shows the hook alone.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="193"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="194"/>
         <source>Repeated at the start of each following system of a pedal line which begins without a hook: the Ped. sign in parentheses by default.</source>
         <translation type="unfinished">Repeated at the start of each following system of a pedal line which begins without a hook: the Ped. sign in parentheses by default.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="202"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="203"/>
         <source>Text on following systems of a line which begins with a hook</source>
         <translation type="unfinished">Text on following systems of a line which begins with a hook</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="203"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="204"/>
         <source>Repeated at the start of each following system of a pedal line which begins with a hook; empty by default, so that only the line goes on.</source>
         <translation type="unfinished">Repeated at the start of each following system of a pedal line which begins with a hook; empty by default, so that only the line goes on.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="210"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="211"/>
         <source>Text at the end of a visible line</source>
         <translation type="unfinished">Text at the end of a visible line</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="211"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="212"/>
         <source>Empty by default: a pedal drawn with a line ends with its hook.</source>
         <translation type="unfinished">Empty by default: a pedal drawn with a line ends with its hook.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="217"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="218"/>
         <source>Text at the end when the line is hidden</source>
         <translation type="unfinished">Text at the end when the line is hidden</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="218"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="219"/>
         <source>For the pedal marking written as Ped. … ✱ without a line: the release sign by default.</source>
         <translation type="unfinished">For the pedal marking written as Ped. … ✱ without a line: the release sign by default.</translation>
     </message>
@@ -43891,6 +44321,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Horizontal shift and depth of a fermata placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="347"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="149"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="351"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="59"/>
@@ -43899,7 +44330,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="288"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="411"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="172"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="160"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="161"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="83"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="205"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="253"/>
@@ -43934,6 +44365,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">‘Automatic’ leaves the bracket out where a beam already shows which notes belong to the tuplet.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="438"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="124"/>
         <source>Automatic</source>
         <translation type="unfinished">Automatic</translation>
@@ -51685,7 +52117,7 @@ The score will be saved as:
     </message>
     <message>
         <location filename="../../src/inspector/models/abstractinspectormodel.cpp" line="529"/>
-        <location filename="../../src/notation/view/engravingoptions/engravingoptionsmodel.cpp" line="136"/>
+        <location filename="../../src/notation/view/engravingoptions/engravingoptionsmodel.cpp" line="142"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1316"/>
         <source>Edit style</source>
         <translation type="unfinished">Edit style</translation>

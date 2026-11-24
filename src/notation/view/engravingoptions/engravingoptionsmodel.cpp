@@ -108,6 +108,11 @@ int EngravingOptionsModel::revision() const
     return m_revision;
 }
 
+QString EngravingOptionsModel::userStylesPath() const
+{
+    return configuration()->userStylesPath().toQString();
+}
+
 bool EngravingOptionsModel::loadsFontDefaults() const
 {
     return m_loadsFontDefaults;

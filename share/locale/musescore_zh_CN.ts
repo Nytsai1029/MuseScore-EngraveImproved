@@ -52528,5 +52528,402 @@ The score will be saved as:
         <source>The line after the word: dashed by default.</source>
         <translation>文字之后线条的样式，默认为虚线。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="38"/>
+        <source>Appearance</source>
+        <translation>外观</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="45"/>
+        <source>‘Standard’ sets chord symbols in the text font, ‘Jazz’ in the handwritten MuseJazz font with small raised modifiers, ‘Legacy MuseScore’ as versions before 4.6 drew them; ‘Custom file’ uses a style file of your own.</source>
+        <translation>“标准”以文字字体排印和弦符号；“爵士”采用手写风格的 MuseJazz 字体，修饰符缩小并上提；“旧版 MuseScore”沿用 4.6 之前版本的画法；“自定义文件”使用您自己的样式文件。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="52"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="428"/>
+        <source>Jazz</source>
+        <translation>爵士</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="60"/>
+        <source>Chord symbol style file</source>
+        <translation>和弦符号样式文件</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="90"/>
+        <source>How note names are written. Standard: B♭ and B. German: B♭ and H. Full German: B and H, with Fis, Es and the like. Solfeggio: Do Re Mi. French: Do Ré Mi.</source>
+        <translation>音名的写法。标准：B♭ 与 B；德式：B♭ 与 H；完整德式：B 与 H，并写作 Fis、Es 等；唱名：Do Re Mi；法式：Do Ré Mi。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="95"/>
+        <source>German</source>
+        <translation>德式</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="96"/>
+        <source>Full German</source>
+        <translation>完整德式</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="97"/>
+        <source>Solfeggio</source>
+        <translation>唱名</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="98"/>
+        <source>French</source>
+        <translation>法式</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="106"/>
+        <source>Off: note names stay in upper or lower case exactly as they were typed.</source>
+        <translation>关闭时，音名的大小写保持键入时的原样。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="112"/>
+        <source>Lowercase minor chords</source>
+        <translation>小调和弦的根音小写</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="113"/>
+        <source>The root of minor, diminished and half-diminished chords is written in lower case (c for C minor). Only with ‘Automatically capitalize note names’ on.</source>
+        <translation>小三和弦、减和弦与半减和弦的根音用小写字母（如以 c 表示 C 小三和弦）。仅在“音名自动大写”开启时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="122"/>
+        <source>The bass note after the slash is written in lower case (C/e). Only with ‘Automatically capitalize note names’ on.</source>
+        <translation>斜线之后的低音音名用小写字母（如 C/e）。仅在“音名自动大写”开启时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="132"/>
+        <source>Note names of more than one letter are written entirely in capitals (DO, FIS instead of Do, Fis). Only with ‘Automatically capitalize note names’ on.</source>
+        <translation>多于一个字母的音名全部用大写字母（如 DO、FIS，而非 Do、Fis）。仅在“音名自动大写”开启时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="140"/>
+        <source>Extensions and modifiers</source>
+        <translation>扩展与修饰符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="144"/>
+        <source>Scale is the size relative to the root letter. The vertical offset is a percentage of the height of a capital letter; negative values raise, positive values lower.</source>
+        <translation>缩放比指相对于根音字母的大小。垂直偏移以大写字母高度的百分比计，负值上移，正值下移。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="152"/>
+        <source>Extensions (e.g. 7, 11)</source>
+        <translation>扩展（如 7、11）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="153"/>
+        <source>Modifiers (e.g. sus4, no 3)</source>
+        <translation>修饰符（如 sus4、no 3）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="158"/>
+        <source>Size of extensions (7, 9, 11, 13…) relative to the root letter.</source>
+        <translation>扩展（7、9、11、13 等）相对于根音字母的大小。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="169"/>
+        <source>Size of modifiers (sus4, add9, ♭5…) relative to the root letter.</source>
+        <translation>修饰符（sus4、add9、♭5 等）相对于根音字母的大小。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="180"/>
+        <source>Vertical shift of extensions as a percentage of the height of a capital letter; negative values raise, positive values lower.</source>
+        <translation>扩展的垂直位移，以大写字母高度的百分比计；负值上移，正值下移。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="192"/>
+        <source>Vertical shift of modifiers as a percentage of the height of a capital letter; negative values raise, positive values lower.</source>
+        <translation>修饰符的垂直位移，以大写字母高度的百分比计；负值上移，正值下移。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="207"/>
+        <source>Two or more modifiers are set one above the other after the chord symbol instead of in a row.</source>
+        <translation>两个或更多修饰符在和弦符号之后上下叠排，而不是排成一行。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="216"/>
+        <source>Scale of stacked modifiers</source>
+        <translation>堆叠修饰符的缩放比</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="217"/>
+        <source>Size of modifiers which are stacked, relative to the modifier size set above.</source>
+        <translation>叠排的修饰符相对于上面所设修饰符大小的比例。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="229"/>
+        <source>Bass notes and polychords</source>
+        <translation>低音音符与复和弦</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="234"/>
+        <source>Bass note of slash chords</source>
+        <translation>斜线和弦的低音音符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="235"/>
+        <source>Whether the bass note after the slash stays on the line of the chord symbol (A7/G) or is set lower, diagonally below the slash.</source>
+        <translation>斜线之后的低音音符是与和弦符号排在同一行（如 A7/G），还是斜向下移。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="239"/>
+        <source>On the same line</source>
+        <translation>同一行</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="240"/>
+        <source>Lowered diagonally</source>
+        <translation>斜向下移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="248"/>
+        <source>Size of the bass note after the slash relative to the root letter.</source>
+        <translation>斜线之后的低音音符相对于根音字母的大小。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="261"/>
+        <source>Extra gap before the bass note after stacked modifiers</source>
+        <translation>堆叠修饰符之后低音音符前的额外间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="262"/>
+        <source>When the chord symbol has stacked modifiers, or is a 6/9 chord, the slash and bass note are moved to the right by this much, as a multiple of the height of a capital letter.</source>
+        <translation>和弦符号带有堆叠修饰符或为 6/9 和弦时，斜线与低音音符向右移动的距离，以大写字母高度的倍数计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="272"/>
+        <source>Polychord divider thickness</source>
+        <translation>复和弦分隔线粗细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="273"/>
+        <source>Thickness of the horizontal line between the upper and the lower chord of a polychord.</source>
+        <translation>复和弦上下两个和弦之间横线的粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="283"/>
+        <source>Polychord divider spacing</source>
+        <translation>复和弦分隔线间距</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="284"/>
+        <source>White space left above and below the line.</source>
+        <translation>分隔线上方与下方各自留出的空白。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="300"/>
+        <source>Which part of a chord symbol is lined up with its note: left edges together, centred over the notehead, or right edges together.</source>
+        <translation>和弦符号以哪一部分对准其音符：左缘对齐、在符头上方居中，或右缘对齐。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="305"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="330"/>
+        <source>Centre</source>
+        <translation>居中</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="313"/>
+        <source>Vertically align chord symbols and fretboard diagrams on the same system</source>
+        <translation>同一谱行组内的和弦符号与品格图纵向对齐</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="315"/>
+        <source>All chord symbols of a system stand at one height, that of the one which had to be placed furthest from the staff, instead of each as close as its own notes allow; fretboard diagrams are lined up in the same way.</source>
+        <translation>同一谱行组内的和弦符号都排在同一高度，即离谱表最远的那一个的高度，而不是各自尽量贴近谱表；品格图也照此对齐。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="325"/>
+        <source>For a chord symbol which stands on a fretboard diagram: lined up with the left edge of the diagram, centred over it, or lined up with its right edge.</source>
+        <translation>位于品格图上方的和弦符号：与品格图左缘对齐、居中，或与右缘对齐。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="339"/>
+        <source>Only the part of the chord symbol before its first modifier is centred or right-aligned; the modifiers hang out to the right.</source>
+        <translation>只以第一个修饰符之前的部分来居中或右对齐，修饰符向右伸出。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="348"/>
+        <source>Least vertical gap between a chord symbol and the notes or other signs which lie between it and the staff.</source>
+        <translation>和弦符号与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="361"/>
+        <source>Notes are spaced apart far enough to keep this horizontal gap between neighbouring chord symbols; half of it is kept between a chord symbol and a barline.</source>
+        <translation>必要时拉开音符间距，使相邻和弦符号之间保持此水平间隙；和弦符号与小节线之间保持其一半。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="388"/>
+        <source>Side of the staff on which chord symbols are placed, unless one is flipped by hand.</source>
+        <translation>和弦符号置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="400"/>
+        <source>Horizontal shift and depth of a chord symbol placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘Chord symbol’.</source>
+        <translation>置于下方的和弦符号的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。谱表上方的偏移即文本样式“和弦符号”的“偏移”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="410"/>
+        <source>Offset below the staff, alternate text style</source>
+        <translation>谱表下方的偏移（“和弦符号（可选）”样式）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="411"/>
+        <source>The same offset for chord symbols which use the text style ‘Chord symbol (alternate)’.</source>
+        <translation>使用文本样式“和弦符号（可选）”的和弦符号在谱表下方的偏移。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="419"/>
+        <source>How chord symbols sound in playback; nothing changes on the page.</source>
+        <translation>和弦符号在回放时的发声方式，不影响谱面。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="424"/>
+        <source>‘Literal’ plays exactly the notes the chord symbol names; ‘Jazz’ voices it as a jazz player would, adding or leaving out notes.</source>
+        <translation>“原样”只演奏和弦符号所示的音；“爵士”按爵士乐手的习惯配置声部，会增减个别音。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="429"/>
+        <source>Literal</source>
+        <translation>原样</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="436"/>
+        <source>How the notes of the chord are spread when it is played.</source>
+        <translation>回放时和弦各音的排列方式。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="439"/>
+        <source>Root only</source>
+        <translation>仅根音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="440"/>
+        <source>Close</source>
+        <translation>密集排列</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="441"/>
+        <source>Drop two</source>
+        <translation>Drop 2</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="442"/>
+        <source>Six note</source>
+        <translation>六音和弦</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="443"/>
+        <source>Four note</source>
+        <translation>四音和弦</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="444"/>
+        <source>Three note</source>
+        <translation>三音和弦</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="451"/>
+        <source>How long the chord sounds when it is played.</source>
+        <translation>回放时和弦持续的时间。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="453"/>
+        <source>Until next chord symbol</source>
+        <translation>直到下一个和弦符号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="454"/>
+        <source>Until end of measure</source>
+        <translation>直到小节结束</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="455"/>
+        <source>Chord/rest duration</source>
+        <translation>所在音符或休止符的时值</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="461"/>
+        <source>Capo</source>
+        <translation>变调夹</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="467"/>
+        <source>With a capo at this fret, every chord symbol is followed in parentheses by the chord actually fingered, e.g. E♭ (D) with the capo at fret 1; 0 shows nothing.</source>
+        <translation>变调夹夹在此品时，每个和弦符号之后用圆括号注出实际按法的和弦，例如夹一品时在 E♭ 之后注出 D；0 表示不标注。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="478"/>
+        <source>Roman numerals and Nashville numbers</source>
+        <translation>罗马数字与纳什维尔数字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="480"/>
+        <source>The two other kinds of harmony text: Roman numeral analysis (‘V7/IV’) and Nashville numbers.</source>
+        <translation>另外两种和声标记：罗马数字分析（如“V7/IV”）与纳什维尔数字。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="485"/>
+        <source>Roman numerals: position</source>
+        <translation>罗马数字：位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="486"/>
+        <source>Side of the staff on which Roman numerals are placed, unless one is flipped by hand.</source>
+        <translation>罗马数字分析置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="496"/>
+        <source>Roman numerals: offset below the staff</source>
+        <translation>罗马数字：谱表下方的偏移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="497"/>
+        <source>Horizontal shift and depth of a Roman numeral placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘Roman numeral analysis’.</source>
+        <translation>置于下方的罗马数字的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。谱表上方的偏移即文本样式“罗马数字分析”的“偏移”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="506"/>
+        <source>Nashville numbers: position</source>
+        <translation>纳什维尔数字：位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="507"/>
+        <source>Side of the staff on which Nashville numbers are placed, unless one is flipped by hand.</source>
+        <translation>纳什维尔数字置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="519"/>
+        <source>Nashville numbers: offset below the staff</source>
+        <translation>纳什维尔数字：谱表下方的偏移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="520"/>
+        <source>Horizontal shift and depth of a Nashville number placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘Nashville number’.</source>
+        <translation>置于下方的纳什维尔数字的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。谱表上方的偏移即文本样式“纳什维尔数字”的“偏移”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="53"/>
+        <source>Legacy MuseScore</source>
+        <translation>旧版 MuseScore</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="54"/>
+        <source>Custom file</source>
+        <translation>自定义文件</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="61"/>
+        <source>The XML file of your own which describes how chord symbols are drawn, as a copy of a built-in one (chords_std.xml, chords_jazz.xml) changed to your liking.</source>
+        <translation>您自己的、描述和弦符号画法的 XML 文件，例如按需修改过的内置文件（chords_std.xml、chords_jazz.xml）副本。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="375"/>
+        <source>Height of a chord symbol above the nut of the fretboard diagram it stands on. It also keeps ‘Minimum distance from notes and signs’ from the top of the diagram, where the ○ and × markers are; with the default values that distance is the larger one.</source>
+        <translation>和弦符号高出其下方品格图弦枕的距离。和弦符号同时与品格图顶端（○ 与 × 标记所在处）保持“与音符和记号的最小距离”；在默认值下后者更大，由它决定。</translation>
+    </message>
 </context>
 </TS>

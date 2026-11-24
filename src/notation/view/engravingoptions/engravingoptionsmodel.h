@@ -32,6 +32,7 @@
 #include "context/iglobalcontext.h"
 #include "engraving/iengravingfontsprovider.h"
 #include "notation/inotation.h"
+#include "notation/inotationconfiguration.h"
 #include "notation/notationtypes.h"
 
 #include "../styledialog/styleitem.h"
@@ -57,8 +58,12 @@ class EngravingOptionsModel : public QObject, public muse::Injectable, public mu
     //! (the thicknesses of its lines and the like, which the font recommends)
     Q_PROPERTY(bool loadsFontDefaults READ loadsFontDefaults WRITE setLoadsFontDefaults NOTIFY loadsFontDefaultsChanged)
 
+    //! NOTE Where a file of the user's own (a chord symbol style file) is looked for first
+    Q_PROPERTY(QString userStylesPath READ userStylesPath CONSTANT)
+
     muse::Inject<context::IGlobalContext> globalContext = { this };
     muse::Inject<engraving::IEngravingFontsProvider> engravingFonts = { this };
+    muse::Inject<INotationConfiguration> configuration = { this };
 
 public:
     explicit EngravingOptionsModel(QObject* parent = nullptr);
@@ -70,6 +75,8 @@ public:
 
     bool loadsFontDefaults() const;
     void setLoadsFontDefaults(bool loads);
+
+    QString userStylesPath() const;
 
     //! NOTE Begins the session with the current score; nothing else works before
     Q_INVOKABLE void load();
