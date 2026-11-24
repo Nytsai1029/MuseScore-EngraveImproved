@@ -227,6 +227,7 @@ Item {
                         case "bool": return boolComp
                         case "string": return stringComp
                         case "point": return pointComp
+                        case "size": return sizeComp
                         case "color": return colorComp
                         }
                         return otherComp
@@ -356,6 +357,45 @@ Item {
                                 var value = valueLine.styleItem.value
                                 valueLine.styleItem.value = axis === "x" ? Qt.point(newValue, value.y)
                                                                          : Qt.point(value.x, newValue)
+                            }
+                        }
+                    }
+                }
+            }
+
+            Component {
+                id: sizeComp
+
+                Row {
+                    spacing: 6
+
+                    Repeater {
+                        model: ["width", "height"]
+
+                        delegate: IncrementalPropertyControl {
+                            readonly property string dimension: modelData
+
+                            width: 104
+
+                            prefixIcon: dimension === "width" ? IconCode.HORIZONTAL : IconCode.VERTICAL
+                            currentValue: dimension === "width" ? valueLine.styleItem.value.width
+                                                                : valueLine.styleItem.value.height
+
+                            minValue: 0
+                            maxValue: 9999
+                            step: 0.05
+                            decimals: 3
+
+                            navigation.panel: root.navigationPanel
+                            navigation.row: valueLine.navigationRow
+                            navigation.column: 1 + index
+                            navigation.name: "Value_" + valueLine.name + "_" + dimension
+                            navigation.accessible.name: valueLine.name + " " + dimension
+
+                            onValueEdited: function(newValue) {
+                                var value = valueLine.styleItem.value
+                                valueLine.styleItem.value = dimension === "width" ? Qt.size(newValue, value.height)
+                                                                                  : Qt.size(value.width, newValue)
                             }
                         }
                     }

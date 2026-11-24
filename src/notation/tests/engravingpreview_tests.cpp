@@ -433,6 +433,29 @@ TEST_F(Notation_EngravingPreviewTests, spacingEffectHasAHorizontalHandle)
 }
 
 /**
+ * @TEST_CASE aScaleIsProbedInBothDimensions
+ * @details The probe of a scale steps its width and its height alike, so that a scale whose two are kept the same
+ *          stays so, and turns back below its maximum
+ */
+TEST_F(Notation_EngravingPreviewTests, aScaleIsProbedInBothDimensions)
+{
+    const MStyle style = baseStyle();
+    const ScaleF current = style.styleV(Sid::timeSigNormalScale).value<ScaleF>();
+
+    const std::optional<PropertyValue> up
+        = EngravingPreviewRenderer::probeOf(style, {}, Sid::timeSigNormalScale, 10.0);
+    ASSERT_TRUE(up);
+    EXPECT_GT(up->value<ScaleF>().width(), current.width());
+    EXPECT_DOUBLE_EQ(up->value<ScaleF>().width() - current.width(), up->value<ScaleF>().height() - current.height());
+
+    const std::optional<PropertyValue> down
+        = EngravingPreviewRenderer::probeOf(style, {}, Sid::timeSigNormalScale, current.width());
+    ASSERT_TRUE(down);
+    EXPECT_LT(down->value<ScaleF>().width(), current.width());
+    EXPECT_LT(down->value<ScaleF>().height(), current.height());
+}
+
+/**
  * @TEST_CASE effectOfATieValueIsTheTie
  * @details A value of the tie changes the tie and nothing else
  */
@@ -659,7 +682,7 @@ const char* const EFFECT_TEST_PAGES[] = {
     "MeasureNumberPage",
     "NotesPage", "AccidentalsPage", "StemsPage", "BeamsPage", "TremolosPage",
     "RestsPage", "TupletsPage", "ArpeggiosPage", "TiesPage", "SlursPage",
-    "BarlinesPage", "RepeatsPage", "VoltasPage"
+    "BarlinesPage", "RepeatsPage", "VoltasPage", "ClefsKeyAndTimeSignaturesPage"
 };
 
 //! NOTE The options whose value nothing in the layout reads, each with the code fact which shows it
@@ -833,6 +856,8 @@ const std::map<QString, const char*>& optionsWhichMusicCannotFitThePane()
         { "dividerRightSym",                "two systems of a grand staff after a \\break" },
         { "dividerRightX",                  "two systems of a grand staff after a \\break" },
         { "dividerRightY",                  "two systems of a grand staff after a \\break" },
+        { "timeSigVSMarginCentered",        "two systems after a \\break, each with a time signature above" },
+        { "timeSigVSMarginNonCentered",     "two systems after a \\break, each with a time signature above" },
     };
 
     return OPTIONS;

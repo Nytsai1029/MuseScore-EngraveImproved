@@ -212,6 +212,8 @@ QString EngravingOptionsModel::valueKind(const QString& name) const
         return QStringLiteral("string");
     case QMetaType::QPointF:
         return QStringLiteral("point");
+    case QMetaType::QSizeF:
+        return QStringLiteral("size");
     case QMetaType::QColor:
         return QStringLiteral("color");
     default:

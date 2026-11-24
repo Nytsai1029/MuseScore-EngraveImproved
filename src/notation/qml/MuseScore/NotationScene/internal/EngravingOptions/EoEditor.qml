@@ -69,6 +69,7 @@ Loader {
         switch (option.kind) {
         case "number": return numberComp
         case "offset": return offsetComp
+        case "scale": return scaleComp
         case "toggle": return toggleComp
         case "text": return textComp
         case "color": return colorComp
@@ -98,6 +99,18 @@ Loader {
     Component {
         id: offsetComp
         EoOffsetEditor {
+            option: root.option
+            optionsModel: root.optionsModel
+            session: root.session
+            navigationPanel: root.navigationPanel
+            navigationRow: root.navigationRow
+            navigationColumn: root.navigationColumn
+            compact: root.compact
+        }
+    }
+    Component {
+        id: scaleComp
+        EoScaleEditor {
             option: root.option
             optionsModel: root.optionsModel
             session: root.session

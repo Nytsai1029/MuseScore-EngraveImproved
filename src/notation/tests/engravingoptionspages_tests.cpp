@@ -92,9 +92,11 @@ QStringList extraSidsOf(const QString& text)
     return result;
 }
 
+//! The style values which the options of a page edit: their `sid`, their `extraSids`, and the `lockSid` of a scale
+//! (EoScale makes it one of its extraSids)
 QStringList sidsOptionsClaim(const QString& text)
 {
-    static const QRegularExpression SID(R"re(\bsid:\s*"([^"]+)")re");
+    static const QRegularExpression SID(R"re(\b(?:sid|lockSid):\s*"([^"]+)")re");
     return allMatches(text, SID) + extraSidsOf(text);
 }
 
@@ -133,7 +135,8 @@ class Notation_EngravingOptionsPagesTests : public ::testing::Test
 
 /**
  * @TEST_CASE everyOptionNamesAStyleValue
- * @details Every `sid`, every name in `extraSids` and every `page.value("x")` of a page is a style value
+ * @details Every `sid`, every name in `extraSids`, every `lockSid` and every `page.value("x")` of a page is a style
+ *          value
  */
 TEST_F(Notation_EngravingOptionsPagesTests, everyOptionNamesAStyleValue)
 {

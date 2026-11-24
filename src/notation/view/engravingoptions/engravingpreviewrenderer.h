@@ -135,7 +135,8 @@ public:
     static PropertyValue valueOf(const engraving::MStyle& style, const std::vector<Override>& overrides, StyleId id);
 
     //! NOTE What a value is changed to, to see what it does: a visible step in the direction which has room
-    //! (below `maximum`), or the other value of a switch. Nothing for a value which a handle cannot take
+    //! (below `maximum`) — of a scale, in both dimensions —, or the other value of a switch. Nothing for a value
+    //! which a handle cannot take
     static std::optional<PropertyValue> probeOf(const engraving::MStyle& style, const std::vector<Override>& overrides,
                                                 StyleId id, double maximum = 1e9);
 

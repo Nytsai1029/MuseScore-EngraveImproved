@@ -3454,6 +3454,7 @@ space unit</extracomment>
         <translation type="unfinished">Mask barlines when intersecting text</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="120"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5230"/>
         <source>Use double barlines before key signatures</source>
         <translation type="unfinished">Use double barlines before key signatures</translation>
@@ -3476,6 +3477,7 @@ space unit</extracomment>
         <translation type="unfinished">Only before courtesy key signatures</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="254"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5260"/>
         <source>Use double barlines before time signatures</source>
         <translation type="unfinished">Use double barlines before time signatures</translation>
@@ -25747,7 +25749,7 @@ Fret %1 on strings %2</translation>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="95"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoNumberEditor.qml" line="95"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoOffsetEditor.qml" line="75"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="276"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="277"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="185"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="197"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="54"/>
@@ -32670,16 +32672,19 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="161"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="163"/>
         <source>Distance between sharps:</source>
         <translation type="unfinished">Distance between sharps:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="175"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="176"/>
         <source>Distance between flats:</source>
         <translation type="unfinished">Distance between flats:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/AccidentalsPage.qml" line="189"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="189"/>
         <source>Distance between naturals:</source>
         <translation type="unfinished">Distance between naturals:</translation>
     </message>
@@ -33246,6 +33251,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ClefKeyTimeSigPage.qml" line="88"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="43"/>
         <source>Show all clefs on every system</source>
         <translation type="unfinished">Show all clefs on every system</translation>
     </message>
@@ -33256,16 +33262,19 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ClefKeyTimeSigPage.qml" line="101"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="53"/>
         <source>Hide tab clefs after the first system where they appear</source>
         <translation type="unfinished">Hide tab clefs after the first system where they appear</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ClefKeyTimeSigPage.qml" line="108"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="62"/>
         <source>Show courtesy clefs</source>
         <translation type="unfinished">Show courtesy clefs</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ClefKeyTimeSigPage.qml" line="115"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="84"/>
         <source>Default TAB clef</source>
         <translation type="unfinished">Default TAB clef</translation>
     </message>
@@ -33286,6 +33295,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ClefKeyTimeSigPage.qml" line="152"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="268"/>
         <source>Position:</source>
         <translation type="unfinished">Position:</translation>
     </message>
@@ -33346,6 +33356,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ClefKeyTimeSigPage.qml" line="393"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="244"/>
         <source>Show courtesy time signatures</source>
         <translation type="unfinished">Show courtesy time signatures</translation>
     </message>
@@ -33376,6 +33387,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ClefKeyTimeSigPage.qml" line="461"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="101"/>
         <source>Show on every system</source>
         <translation type="unfinished">Show on every system</translation>
     </message>
@@ -33386,6 +33398,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ClefKeyTimeSigPage.qml" line="474"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="110"/>
         <source>Show courtesy key signatures</source>
         <translation type="unfinished">Show courtesy key signatures</translation>
     </message>
@@ -33421,6 +33434,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/ClefKeyTimeSigPage.qml" line="590"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="71"/>
         <source>Place clefs before repeats</source>
         <translation type="unfinished">Place clefs before repeats</translation>
     </message>
@@ -33813,20 +33827,20 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Every value of the style, by the name it has in a style file. Distances are in staff spaces unless the name says otherwise.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="248"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoGridView.qml" line="459"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoGridView.qml" line="476"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="249"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoGridView.qml" line="485"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoGridView.qml" line="502"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoOptionView.qml" line="222"/>
         <source>Reset to default</source>
         <translation type="unfinished">Reset to default</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="391"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="431"/>
         <source>Edited on its page</source>
         <translation type="unfinished">Edited on its page</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="406"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="446"/>
         <source>No style value matches</source>
         <translation type="unfinished">No style value matches</translation>
     </message>
@@ -34301,7 +34315,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="34"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="33"/>
@@ -34698,9 +34711,480 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">At system marking positions</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="37"/>
+        <source>Clefs</source>
+        <translation type="unfinished">Clefs</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="44"/>
+        <source>Off, a clef is shown only on the first system after it is set or changed, as in many jazz and studio parts.</source>
+        <translation type="unfinished">Off, a clef is shown only on the first system after it is set or changed, as in many jazz and studio parts.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="54"/>
+        <source>Tablature staves follow only this switch, whatever ‘Show all clefs on every system’ says.</source>
+        <translation type="unfinished">Tablature staves follow only this switch, whatever ‘Show all clefs on every system’ says.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="63"/>
+        <source>A change of clef at the start of a system is announced by a small clef at the end of the system before. Off also removes the courtesy clefs at repeats and jumps.</source>
+        <translation type="unfinished">A change of clef at the start of a system is announced by a small clef at the end of the system before. Off also removes the courtesy clefs at repeats and jumps.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="72"/>
+        <source>Where a change of clef falls on an end repeat barline: whether the new clef stands before that barline or after it.</source>
+        <translation type="unfinished">Where a change of clef falls on an end repeat barline: whether the new clef stands before that barline or after it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="76"/>
+        <source>Before the repeat barline</source>
+        <translation type="unfinished">Before the repeat barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="77"/>
+        <source>After the repeat barline</source>
+        <translation type="unfinished">After the repeat barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="85"/>
+        <source>The clef which tablature staves get by default.</source>
+        <translation type="unfinished">The clef which tablature staves get by default.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="88"/>
+        <source>Standard TAB clef</source>
+        <translation type="unfinished">Standard TAB clef</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="89"/>
+        <source>Serif TAB clef</source>
+        <translation type="unfinished">Serif TAB clef</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="102"/>
+        <source>Off, the key signature is shown only on the first system after it is set or changed.</source>
+        <translation type="unfinished">Off, the key signature is shown only on the first system after it is set or changed.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="111"/>
+        <source>A change of key at the start of a system is announced by a key signature at the end of the system before. Off also removes the courtesy key signatures at repeats and jumps.</source>
+        <translation type="unfinished">A change of key at the start of a system is announced by a key signature at the end of the system before. Off also removes the courtesy key signatures at repeats and jumps.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="121"/>
+        <source>Whether the barline in front of a change of key becomes a double barline.</source>
+        <translation type="unfinished">Whether the barline in front of a change of key becomes a double barline.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="125"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="259"/>
+        <source>Never</source>
+        <translation type="unfinished">Never</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="126"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="260"/>
+        <source>Always</source>
+        <translation type="unfinished">Always</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="127"/>
+        <source>Only before courtesy key signatures</source>
+        <translation type="unfinished">Only before courtesy key signatures</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="134"/>
+        <source>Naturals at a change of key</source>
+        <translation type="unfinished">Naturals at a change of key</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="135"/>
+        <source>The naturals which cancel sharps or flats of the old key: whether they are shown, and on which side of the new key signature.</source>
+        <translation type="unfinished">The naturals which cancel sharps or flats of the old key: whether they are shown, and on which side of the new key signature.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="140"/>
+        <source>Only for a change to C major / A minor</source>
+        <translation type="unfinished">Only for a change to C major / A minor</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="141"/>
+        <source>Before the new key signature when it has fewer ♯ or ♭</source>
+        <translation type="unfinished">Before the new key signature when it has fewer ♯ or ♭</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="143"/>
+        <source>After the new key signature when it has fewer ♯ or ♭; before it when changing between ♯ and ♭</source>
+        <translation type="unfinished">After the new key signature when it has fewer ♯ or ♭; before it when changing between ♯ and ♭</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="151"/>
+        <source>Distance between</source>
+        <translation type="unfinished">Distance between</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="154"/>
+        <source>Sharps</source>
+        <translation type="unfinished">Sharps</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="155"/>
+        <source>Flats</source>
+        <translation type="unfinished">Flats</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="156"/>
+        <source>Naturals</source>
+        <translation type="unfinished">Naturals</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="164"/>
+        <source>Gap between two neighbouring sharps of a key signature; a negative value pushes them together.</source>
+        <translation type="unfinished">Gap between two neighbouring sharps of a key signature; a negative value pushes them together.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="177"/>
+        <source>Gap between two neighbouring flats of a key signature; a negative value pushes them together.</source>
+        <translation type="unfinished">Gap between two neighbouring flats of a key signature; a negative value pushes them together.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="190"/>
+        <source>Gap between two neighbouring naturals where a key signature is cancelled.</source>
+        <translation type="unfinished">Gap between two neighbouring naturals where a key signature is cancelled.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="203"/>
+        <source>Distance where different accidentals meet</source>
+        <translation type="unfinished">Distance where different accidentals meet</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="204"/>
+        <source>Where the cancelling naturals meet the new sharps or flats, the distance is multiplied by this; 1 keeps the same distance as between like accidentals.</source>
+        <translation type="unfinished">Where the cancelling naturals meet the new sharps or flats, the distance is multiplied by this; 1 keeps the same distance as between like accidentals.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="214"/>
+        <source>Interlock the accidentals</source>
+        <translation type="unfinished">Interlock the accidentals</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="215"/>
+        <source>Sharps and naturals tuck into the notch of their neighbour where the music font provides one; off sets all accidentals side by side at their full width.</source>
+        <translation type="unfinished">Sharps and naturals tuck into the notch of their neighbour where the music font provides one; off sets all accidentals side by side at their full width.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="224"/>
+        <source>Distance before a natural which follows sharps or flats</source>
+        <translation type="unfinished">Distance before a natural which follows sharps or flats</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="225"/>
+        <source>Also the distance before an accidental of a custom key signature which is neither a sharp, a flat nor a natural. Where the two accidentals differ it is multiplied by ‘Distance where different accidentals meet’.</source>
+        <translation type="unfinished">Also the distance before an accidental of a custom key signature which is neither a sharp, a flat nor a natural. Where the two accidentals differ it is multiplied by ‘Distance where different accidentals meet’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="237"/>
+        <source>Time signatures</source>
+        <translation type="unfinished">Time signatures</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="245"/>
+        <source>A change of time signature at the start of a system is announced at the end of the system before. Off also removes the courtesy time signatures at repeats and jumps.</source>
+        <translation type="unfinished">A change of time signature at the start of a system is announced at the end of the system before. Off also removes the courtesy time signatures at repeats and jumps.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="255"/>
+        <source>Whether the barline in front of a change of time signature becomes a double barline.</source>
+        <translation type="unfinished">Whether the barline in front of a change of time signature becomes a double barline.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="261"/>
+        <source>Only before courtesy time signatures</source>
+        <translation type="unfinished">Only before courtesy time signatures</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="269"/>
+        <source>Above or across the staves, one large time signature serves a whole group of staves; the staves at which it appears are chosen in the Layout panel.</source>
+        <translation type="unfinished">Above or across the staves, one large time signature serves a whole group of staves; the staves at which it appears are chosen in the Layout panel.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="274"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="293"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="102"/>
         <source>On all staves</source>
         <translation type="unfinished">On all staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="275"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="294"/>
+        <source>Above the staves</source>
+        <translation type="unfinished">Above the staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="276"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="295"/>
+        <source>Across the staves</source>
+        <translation type="unfinished">Across the staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="281"/>
+        <source>Style and size</source>
+        <translation type="unfinished">Style and size</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="282"/>
+        <source>Each position has its own settings; only the column of the chosen ‘Position’ shows in the score.</source>
+        <translation type="unfinished">Each position has its own settings; only the column of the chosen ‘Position’ shows in the score.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="287"/>
+        <source>Numeral style</source>
+        <translation type="unfinished">Numeral style</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="288"/>
+        <source>Scale</source>
+        <translation type="unfinished">Scale</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="289"/>
+        <source>Gap between the numbers</source>
+        <translation type="unfinished">Gap between the numbers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="290"/>
+        <source>Vertical position</source>
+        <translation type="unfinished">Vertical position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="301"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="311"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="322"/>
+        <source>Standard</source>
+        <translation type="unfinished">Standard</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="302"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="312"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="323"/>
+        <source>Narrow</source>
+        <translation type="unfinished">Narrow</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="303"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="313"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="324"/>
+        <source>Large sans-serif</source>
+        <translation type="unfinished">Large sans-serif</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="331"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="340"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="350"/>
+        <source>Width and height of the numerals as multiples of their normal size; the lock between them keeps the two the same.</source>
+        <translation type="unfinished">Width and height of the numerals as multiples of their normal size; the lock between them keeps the two the same.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="357"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="367"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="378"/>
+        <source>Extra space between the upper and the lower number; it grows with the vertical scale.</source>
+        <translation type="unfinished">Extra space between the upper and the lower number; it grows with the vertical scale.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="387"/>
+        <source>Positive values move the time signature down from the middle of the staff, negative values up.</source>
+        <translation type="unfinished">Positive values move the time signature down from the middle of the staff, negative values up.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="398"/>
+        <source>Negative values lift the time signature further away from the staff it stands over; 0 lets it sit on the staff line.</source>
+        <translation type="unfinished">Negative values lift the time signature further away from the staff it stands over; 0 lets it sit on the staff line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="410"/>
+        <source>Positive values move the time signature down from the top line of the uppermost staff of its group; not used while the time signature is centred on the group.</source>
+        <translation type="unfinished">Positive values move the time signature down from the top line of the uppermost staff of its group; not used while the time signature is centred on the group.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="424"/>
+        <source>Above the staves: centre on the barline</source>
+        <translation type="unfinished">Above the staves: centre on the barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="425"/>
+        <source>Where a time signature above the staves stands at a barline: centred on the barline, or starting just after it.</source>
+        <translation type="unfinished">Where a time signature above the staves stands at a barline: centred on the barline, or starting just after it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="429"/>
+        <source>Starts after the barline</source>
+        <translation type="unfinished">Starts after the barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="430"/>
+        <source>Centred on the barline</source>
+        <translation type="unfinished">Centred on the barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="439"/>
+        <source>Across the staves: centre on the group of staves</source>
+        <translation type="unfinished">Across the staves: centre on the group of staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="440"/>
+        <source>A time signature across the staves either hangs down from the top line of the uppermost staff of its group, or is centred on the whole group.</source>
+        <translation type="unfinished">A time signature across the staves either hangs down from the top line of the uppermost staff of its group, or is centred on the whole group.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="444"/>
+        <source>From the top staff down</source>
+        <translation type="unfinished">From the top staff down</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="445"/>
+        <source>Centred on the group</source>
+        <translation type="unfinished">Centred on the group</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="455"/>
+        <source>Above the staves: courtesy at the end of the system, centred</source>
+        <translation type="unfinished">Above the staves: courtesy at the end of the system, centred</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="456"/>
+        <source>For a time signature above the staves which is centred on the barline: the courtesy time signature may hang into the margin, end at the margin beside the last barline, or stay centred on a last barline which is moved in.</source>
+        <translation type="unfinished">For a time signature above the staves which is centred on the barline: the courtesy time signature may hang into the margin, end at the margin beside the last barline, or stay centred on a last barline which is moved in.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="462"/>
+        <source>Hang into the page margin</source>
+        <translation type="unfinished">Hang into the page margin</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="463"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="483"/>
+        <source>Inset the time signature</source>
+        <translation type="unfinished">Inset the time signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="464"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="484"/>
+        <source>Inset the barline</source>
+        <translation type="unfinished">Inset the barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="475"/>
+        <source>Above the staves: courtesy at the end of the system, not centred</source>
+        <translation type="unfinished">Above the staves: courtesy at the end of the system, not centred</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="477"/>
+        <source>For a time signature above the staves which starts after the barline: the courtesy time signature either ends at the margin beside the last barline, or the last barline is moved in to leave room for it.</source>
+        <translation type="unfinished">For a time signature above the staves which starts after the barline: the courtesy time signature either ends at the margin beside the last barline, or the last barline is moved in to leave room for it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="492"/>
+        <source>Courtesies at repeats and jumps</source>
+        <translation type="unfinished">Courtesies at repeats and jumps</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="494"/>
+        <source>What is shown where the music goes back or jumps to a passage whose clef, key or time signature is different. A clef, key or time signature gets these courtesies only while its own ‘Show courtesy …’ switch above is on.</source>
+        <translation type="unfinished">What is shown where the music goes back or jumps to a passage whose clef, key or time signature is different. A clef, key or time signature gets these courtesies only while its own ‘Show courtesy …’ switch above is on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="501"/>
+        <source>At repeats</source>
+        <translation type="unfinished">At repeats</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="502"/>
+        <source>At all other jumps</source>
+        <translation type="unfinished">At all other jumps</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="505"/>
+        <source>Show a courtesy</source>
+        <translation type="unfinished">Show a courtesy</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="506"/>
+        <source>Cancel the courtesy after the barline</source>
+        <translation type="unfinished">Cancel the courtesy after the barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="507"/>
+        <source>Courtesy in parentheses</source>
+        <translation type="unfinished">Courtesy in parentheses</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="508"/>
+        <source>Cancellation in parentheses</source>
+        <translation type="unfinished">Cancellation in parentheses</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="509"/>
+        <source>Only show changes before the barline</source>
+        <translation type="unfinished">Only show changes before the barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="514"/>
+        <source>At an end repeat: when the passage the music goes back to has another clef, key or time signature than the one in force, a courtesy before the repeat barline announces it.</source>
+        <translation type="unfinished">At an end repeat: when the passage the music goes back to has another clef, key or time signature than the one in force, a courtesy before the repeat barline announces it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="521"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="561"/>
+        <source>After such a courtesy, the clef, key or time signature which holds for the music going on is restated after the barline. Only with ‘Show a courtesy’ on.</source>
+        <translation type="unfinished">After such a courtesy, the clef, key or time signature which holds for the music going on is restated after the barline. Only with ‘Show a courtesy’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="529"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="570"/>
+        <source>The courtesy before the barline is enclosed in parentheses.</source>
+        <translation type="unfinished">The courtesy before the barline is enclosed in parentheses.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="535"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="577"/>
+        <source>The signature restated after the barline is enclosed in parentheses.</source>
+        <translation type="unfinished">The signature restated after the barline is enclosed in parentheses.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="544"/>
+        <source>A change which holds both for the passage the music goes back to and for the measure after the repeat barline is written once, before the barline, instead of after it.</source>
+        <translation type="unfinished">A change which holds both for the passage the music goes back to and for the measure after the repeat barline is written once, before the barline, instead of after it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="552"/>
+        <source>At a D.C., D.S. or other jump: when the passage the music jumps to has another clef, key or time signature than the one in force, a courtesy before the barline announces it.</source>
+        <translation type="unfinished">At a D.C., D.S. or other jump: when the passage the music jumps to has another clef, key or time signature than the one in force, a courtesy before the barline announces it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="586"/>
+        <source>A change which holds both for the passage the music jumps to and for the measure after the barline is written once, before the barline, instead of after it.</source>
+        <translation type="unfinished">A change which holds both for the passage the music jumps to and for the measure after the barline is written once, before the barline, instead of after it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="595"/>
+        <source>Place changes between an end repeat and a start repeat</source>
+        <translation type="unfinished">Place changes between an end repeat and a start repeat</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="596"/>
+        <source>Where an end repeat is followed at once by a start repeat, a change of clef, key or time signature stands between the two barlines; off puts it after the start repeat.</source>
+        <translation type="unfinished">Where an end repeat is followed at once by a start repeat, a change of clef, key or time signature stands between the two barlines; off puts it after the start repeat.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="603"/>
+        <source>Small parentheses</source>
+        <translation type="unfinished">Small parentheses</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="604"/>
+        <source>The parentheses are only as tall as the signatures they enclose; off makes them as tall as the staff.</source>
+        <translation type="unfinished">The parentheses are only as tall as the signatures they enclose; off makes them as tall as the staff.</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="112"/>
@@ -35977,17 +36461,15 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Extra horizontal shift of the slash and bass note, in capital heights, when the chord symbol has vertically stacked modifiers or a 6/9.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="37"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="95"/>
         <source>Key signatures</source>
         <translation type="unfinished">Key signatures</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="41"/>
         <source>Distance scale between different accidentals</source>
         <translation type="unfinished">Distance scale between different accidentals</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="42"/>
         <source>Multiplies the accidental distance where two different accidentals meet in a key signature, for example between the cancelling naturals and the new sharps or flats.</source>
         <translation type="unfinished">Multiplies the accidental distance where two different accidentals meet in a key signature, for example between the cancelling naturals and the new sharps or flats.</translation>
     </message>
@@ -36464,6 +36946,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Dash at the start of a system</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="285"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="122"/>
         <source>Position</source>
         <translation type="unfinished">Position</translation>
@@ -37809,6 +38292,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="34"/>
         <source>Signs</source>
@@ -38944,6 +39428,22 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Horizontal length of the half slur drawn before a tapped note.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoScaleEditor.qml" line="102"/>
+        <source>Width</source>
+        <translation type="unfinished">Width</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoScaleEditor.qml" line="119"/>
+        <source>Width and height are kept the same</source>
+        <translation type="unfinished">Width and height are kept the same</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoScaleEditor.qml" line="120"/>
+        <source>Keep width and height the same</source>
+        <translation type="unfinished">Keep width and height the same</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoScaleEditor.qml" line="149"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="715"/>
         <source>Height</source>
         <translation type="unfinished">Height</translation>

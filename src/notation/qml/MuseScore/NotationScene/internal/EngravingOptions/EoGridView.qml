@@ -69,6 +69,7 @@ FocusScope {
         switch (cell.kind) {
         case "number": return grid.compact ? 56 : 76
         case "offset": return 150
+        case "scale": return 124
         case "toggle": return 44
         case "choice": return 110
         case "text": return 120
@@ -86,6 +87,7 @@ FocusScope {
         }
         switch (cell.kind) {
         case "number": return 112
+        case "scale": return 124
         case "toggle": return 44
         case "color": return 56
         }
@@ -130,6 +132,10 @@ FocusScope {
             var cell = cellAt(row, column)
             if (Boolean(cell) && cell.kind === "text" && cell.multiline) {
                 height = Math.max(height, 48)
+            }
+            //! NOTE: a scale in a cell has its two numbers one under the other
+            if (Boolean(cell) && cell.kind === "scale") {
+                height = Math.max(height, 64)
             }
         }
         return height + 6

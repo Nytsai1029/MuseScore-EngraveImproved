@@ -139,6 +139,7 @@
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoNote.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoNumber.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoOffset.qml</file>
+        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoScale.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoOption.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoOptionView.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/EoPage.qml</file>
@@ -163,6 +164,7 @@
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoListEditor.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoNumberEditor.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoOffsetEditor.qml</file>
+        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoScaleEditor.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoTextEditor.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoTilesEditor.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoToggleEditor.qml</file>

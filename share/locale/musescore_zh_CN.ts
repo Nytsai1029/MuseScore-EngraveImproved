@@ -49079,5 +49079,489 @@ The score will be saved as:
         <source>Least vertical gap between a jump or marker and the notes or other signs which lie between it and the staff.</source>
         <translation>跳转记号或标记与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="37"/>
+        <source>Clefs</source>
+        <translation>谱号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="44"/>
+        <source>Off, a clef is shown only on the first system after it is set or changed, as in many jazz and studio parts.</source>
+        <translation>关闭后，谱号只在其出现或更换后的第一个谱行组开头显示，常见于爵士乐和录音棚分谱。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="54"/>
+        <source>Tablature staves follow only this switch, whatever ‘Show all clefs on every system’ says.</source>
+        <translation>指法谱谱表只受此开关控制，与“每个谱行组均显示谱号”无关。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="63"/>
+        <source>A change of clef at the start of a system is announced by a small clef at the end of the system before. Off also removes the courtesy clefs at repeats and jumps.</source>
+        <translation>谱号在谱行组开头更换时，在上一谱行组末尾用小谱号预先提示。关闭后，反复与跳转处的提示谱号也不再显示。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="72"/>
+        <source>Where a change of clef falls on an end repeat barline: whether the new clef stands before that barline or after it.</source>
+        <translation>谱号恰在反复结束小节线处更换时，新谱号位于该小节线之前还是之后。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="76"/>
+        <source>Before the repeat barline</source>
+        <translation>反复小节线之前</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="77"/>
+        <source>After the repeat barline</source>
+        <translation>反复小节线之后</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="85"/>
+        <source>The clef which tablature staves get by default.</source>
+        <translation>指法谱谱表默认使用的谱号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="88"/>
+        <source>Standard TAB clef</source>
+        <translation>标准指法谱谱号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="89"/>
+        <source>Serif TAB clef</source>
+        <translation>衬线体指法谱谱号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="102"/>
+        <source>Off, the key signature is shown only on the first system after it is set or changed.</source>
+        <translation>关闭后，调号只在其出现或更换后的第一个谱行组显示。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="111"/>
+        <source>A change of key at the start of a system is announced by a key signature at the end of the system before. Off also removes the courtesy key signatures at repeats and jumps.</source>
+        <translation>调号在谱行组开头更换时，在上一谱行组末尾预先提示新调号。关闭后，反复与跳转处的提示调号也不再显示。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="121"/>
+        <source>Whether the barline in front of a change of key becomes a double barline.</source>
+        <translation>调号更换处之前的小节线是否改为双小节线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="125"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="259"/>
+        <source>Never</source>
+        <translation>从不</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="126"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="260"/>
+        <source>Always</source>
+        <translation>始终</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="127"/>
+        <source>Only before courtesy key signatures</source>
+        <translation>仅在提示调号前</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="134"/>
+        <source>Naturals at a change of key</source>
+        <translation>调号更换时的还原号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="135"/>
+        <source>The naturals which cancel sharps or flats of the old key: whether they are shown, and on which side of the new key signature.</source>
+        <translation>用于取消旧调号中升号或降号的还原号：是否显示，以及位于新调号的哪一侧。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="140"/>
+        <source>Only for a change to C major / A minor</source>
+        <translation>仅在转为 C 大调 / a 小调时</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="141"/>
+        <source>Before the new key signature when it has fewer ♯ or ♭</source>
+        <translation>♯ 或 ♭ 减少时，置于新调号之前</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="143"/>
+        <source>After the new key signature when it has fewer ♯ or ♭; before it when changing between ♯ and ♭</source>
+        <translation>♯ 或 ♭ 减少时置于新调号之后；♯ 与 ♭ 互换时置于其前</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="151"/>
+        <source>Distance between</source>
+        <translation>相邻间距</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="154"/>
+        <source>Sharps</source>
+        <translation>升号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="155"/>
+        <source>Flats</source>
+        <translation>降号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="156"/>
+        <source>Naturals</source>
+        <translation>还原号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="164"/>
+        <source>Gap between two neighbouring sharps of a key signature; a negative value pushes them together.</source>
+        <translation>调号中相邻两个升号之间的间隙；负值使其靠得更紧。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="177"/>
+        <source>Gap between two neighbouring flats of a key signature; a negative value pushes them together.</source>
+        <translation>调号中相邻两个降号之间的间隙；负值使其靠得更紧。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="190"/>
+        <source>Gap between two neighbouring naturals where a key signature is cancelled.</source>
+        <translation>取消调号时相邻两个还原号之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="203"/>
+        <source>Distance where different accidentals meet</source>
+        <translation>不同变音记号相接处的间距</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="204"/>
+        <source>Where the cancelling naturals meet the new sharps or flats, the distance is multiplied by this; 1 keeps the same distance as between like accidentals.</source>
+        <translation>还原号与新调号的升号或降号相接处，间距乘以此倍数；1 表示与同类记号之间的间距相同。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="214"/>
+        <source>Interlock the accidentals</source>
+        <translation>变音记号相互嵌合</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="215"/>
+        <source>Sharps and naturals tuck into the notch of their neighbour where the music font provides one; off sets all accidentals side by side at their full width.</source>
+        <translation>音乐字体提供缺口时，升号和还原号嵌入相邻记号的缺口；关闭后所有变音记号按完整宽度并排。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="224"/>
+        <source>Distance before a natural which follows sharps or flats</source>
+        <translation>升号或降号之后的还原号之前的间距</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="225"/>
+        <source>Also the distance before an accidental of a custom key signature which is neither a sharp, a flat nor a natural. Where the two accidentals differ it is multiplied by ‘Distance where different accidentals meet’.</source>
+        <translation>自定义调号中既非升号、降号也非还原号的变音记号之前，同样采用此间距。相邻两个记号不同时，还要乘以“不同变音记号相接处的间距”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="237"/>
+        <source>Time signatures</source>
+        <translation>拍号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="245"/>
+        <source>A change of time signature at the start of a system is announced at the end of the system before. Off also removes the courtesy time signatures at repeats and jumps.</source>
+        <translation>拍号在谱行组开头更换时，在上一谱行组末尾预先提示新拍号。关闭后，反复与跳转处的提示拍号也不再显示。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="255"/>
+        <source>Whether the barline in front of a change of time signature becomes a double barline.</source>
+        <translation>拍号更换处之前的小节线是否改为双小节线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="261"/>
+        <source>Only before courtesy time signatures</source>
+        <translation>仅在提示拍号前</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="269"/>
+        <source>Above or across the staves, one large time signature serves a whole group of staves; the staves at which it appears are chosen in the Layout panel.</source>
+        <translation>选择“谱表上方”或“横跨谱表”时，一个大拍号供一组谱表共用；它出现在哪些谱表处，在“版面”面板中设置。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="275"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="294"/>
+        <source>Above the staves</source>
+        <translation>谱表上方</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="276"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="295"/>
+        <source>Across the staves</source>
+        <translation>横跨谱表</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="281"/>
+        <source>Style and size</source>
+        <translation>样式与大小</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="282"/>
+        <source>Each position has its own settings; only the column of the chosen ‘Position’ shows in the score.</source>
+        <translation>每种位置各有一套设置，只有所选“位置”的一列在乐谱中生效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="287"/>
+        <source>Numeral style</source>
+        <translation>数字样式</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="288"/>
+        <source>Scale</source>
+        <translation>缩放比</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="289"/>
+        <source>Gap between the numbers</source>
+        <translation>上下数字的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="290"/>
+        <source>Vertical position</source>
+        <translation>垂直位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="301"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="311"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="322"/>
+        <source>Standard</source>
+        <translation>标准</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="302"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="312"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="323"/>
+        <source>Narrow</source>
+        <translation>窄体</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="303"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="313"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="324"/>
+        <source>Large sans-serif</source>
+        <translation>无衬线大号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="331"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="340"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="350"/>
+        <source>Width and height of the numerals as multiples of their normal size; the lock between them keeps the two the same.</source>
+        <translation>数字的宽度和高度，以正常大小的倍数表示；两者之间的锁可使二者保持相同。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="357"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="367"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="378"/>
+        <source>Extra space between the upper and the lower number; it grows with the vertical scale.</source>
+        <translation>上方数字与下方数字之间额外的间隙；随垂直缩放一同放大。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="387"/>
+        <source>Positive values move the time signature down from the middle of the staff, negative values up.</source>
+        <translation>正值使拍号自谱表中央下移，负值上移。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="398"/>
+        <source>Negative values lift the time signature further away from the staff it stands over; 0 lets it sit on the staff line.</source>
+        <translation>负值使拍号离其所在的谱表更远；0 表示紧贴谱线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="410"/>
+        <source>Positive values move the time signature down from the top line of the uppermost staff of its group; not used while the time signature is centred on the group.</source>
+        <translation>正值使拍号自所在谱表组最上方谱表的顶端谱线下移；拍号在谱表组内居中时不起作用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="424"/>
+        <source>Above the staves: centre on the barline</source>
+        <translation>位于谱表上方时：以小节线为中心</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="425"/>
+        <source>Where a time signature above the staves stands at a barline: centred on the barline, or starting just after it.</source>
+        <translation>谱表上方的拍号位于小节线处时：以小节线为中心，或紧接小节线之后开始。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="429"/>
+        <source>Starts after the barline</source>
+        <translation>始于小节线右侧</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="430"/>
+        <source>Centred on the barline</source>
+        <translation>以小节线为中心</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="439"/>
+        <source>Across the staves: centre on the group of staves</source>
+        <translation>横跨谱表时：在谱表组内垂直居中</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="440"/>
+        <source>A time signature across the staves either hangs down from the top line of the uppermost staff of its group, or is centred on the whole group.</source>
+        <translation>横跨谱表的拍号或从所在谱表组最上方谱表的顶端谱线向下排列，或在整个谱表组内垂直居中。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="444"/>
+        <source>From the top staff down</source>
+        <translation>自最上方谱表向下</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="445"/>
+        <source>Centred on the group</source>
+        <translation>在谱表组内居中</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="455"/>
+        <source>Above the staves: courtesy at the end of the system, centred</source>
+        <translation>位于谱表上方时：谱行组末尾的提示拍号（居中时）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="456"/>
+        <source>For a time signature above the staves which is centred on the barline: the courtesy time signature may hang into the margin, end at the margin beside the last barline, or stay centred on a last barline which is moved in.</source>
+        <translation>谱表上方的拍号以小节线为中心时：提示拍号可伸入页边距，可右端对齐页边距而位于末尾小节线旁，也可保持居中而让末尾小节线内缩。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="462"/>
+        <source>Hang into the page margin</source>
+        <translation>伸入页边距</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="463"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="483"/>
+        <source>Inset the time signature</source>
+        <translation>拍号内缩</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="464"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="484"/>
+        <source>Inset the barline</source>
+        <translation>小节线内缩</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="475"/>
+        <source>Above the staves: courtesy at the end of the system, not centred</source>
+        <translation>位于谱表上方时：谱行组末尾的提示拍号（不居中时）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="477"/>
+        <source>For a time signature above the staves which starts after the barline: the courtesy time signature either ends at the margin beside the last barline, or the last barline is moved in to leave room for it.</source>
+        <translation>谱表上方的拍号从小节线之后开始时：提示拍号或右端对齐页边距而位于末尾小节线旁，或让末尾小节线内缩为其留出位置。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="492"/>
+        <source>Courtesies at repeats and jumps</source>
+        <translation>反复与跳转处的提示性记号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="494"/>
+        <source>What is shown where the music goes back or jumps to a passage whose clef, key or time signature is different. A clef, key or time signature gets these courtesies only while its own ‘Show courtesy …’ switch above is on.</source>
+        <translation>乐曲反复或跳转到谱号、调号、拍号不同的段落时，如何标示。谱号、调号、拍号各自只有在上方对应的“显示提示…”开关启用时，才会有这些提示性记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="501"/>
+        <source>At repeats</source>
+        <translation>反复处</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="502"/>
+        <source>At all other jumps</source>
+        <translation>其他跳转处</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="505"/>
+        <source>Show a courtesy</source>
+        <translation>显示提示性记号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="506"/>
+        <source>Cancel the courtesy after the barline</source>
+        <translation>小节线后取消提示</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="507"/>
+        <source>Courtesy in parentheses</source>
+        <translation>提示性记号加圆括号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="508"/>
+        <source>Cancellation in parentheses</source>
+        <translation>取消提示的记号加圆括号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="509"/>
+        <source>Only show changes before the barline</source>
+        <translation>更改只标在小节线之前</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="514"/>
+        <source>At an end repeat: when the passage the music goes back to has another clef, key or time signature than the one in force, a courtesy before the repeat barline announces it.</source>
+        <translation>反复结束小节线处：返回之处的谱号、调号或拍号与当前不同时，在小节线之前显示提示性记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="521"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="561"/>
+        <source>After such a courtesy, the clef, key or time signature which holds for the music going on is restated after the barline. Only with ‘Show a courtesy’ on.</source>
+        <translation>显示了上述提示性记号后，在小节线之后重新标出继续演奏时所用的谱号、调号或拍号。仅在启用“显示提示性记号”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="529"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="570"/>
+        <source>The courtesy before the barline is enclosed in parentheses.</source>
+        <translation>小节线之前的提示性记号加圆括号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="535"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="577"/>
+        <source>The signature restated after the barline is enclosed in parentheses.</source>
+        <translation>小节线之后重新标出的记号加圆括号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="544"/>
+        <source>A change which holds both for the passage the music goes back to and for the measure after the repeat barline is written once, before the barline, instead of after it.</source>
+        <translation>如果某一更改既适用于返回之处，也适用于反复小节线后的小节，则只在小节线之前标出一次，而不标在其后。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="552"/>
+        <source>At a D.C., D.S. or other jump: when the passage the music jumps to has another clef, key or time signature than the one in force, a courtesy before the barline announces it.</source>
+        <translation>在 D.C.、D.S. 等跳转记号处：跳转目标处的谱号、调号或拍号与当前不同时，在小节线之前显示提示性记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="586"/>
+        <source>A change which holds both for the passage the music jumps to and for the measure after the barline is written once, before the barline, instead of after it.</source>
+        <translation>如果某一更改既适用于跳转目标处，也适用于小节线后的小节，则只在小节线之前标出一次，而不标在其后。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="595"/>
+        <source>Place changes between an end repeat and a start repeat</source>
+        <translation>更改置于反复结束与反复开始小节线之间</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="596"/>
+        <source>Where an end repeat is followed at once by a start repeat, a change of clef, key or time signature stands between the two barlines; off puts it after the start repeat.</source>
+        <translation>反复结束小节线后紧接反复开始小节线时，谱号、调号或拍号的更改位于两条小节线之间；关闭则位于反复开始小节线之后。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="603"/>
+        <source>Small parentheses</source>
+        <translation>小圆括号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="604"/>
+        <source>The parentheses are only as tall as the signatures they enclose; off makes them as tall as the staff.</source>
+        <translation>圆括号只与其中的记号等高；关闭后与谱表等高。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoScaleEditor.qml" line="102"/>
+        <source>Width</source>
+        <translation>宽度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoScaleEditor.qml" line="119"/>
+        <source>Width and height are kept the same</source>
+        <translation>宽度与高度保持相同</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoScaleEditor.qml" line="120"/>
+        <source>Keep width and height the same</source>
+        <translation>使宽度与高度保持相同</translation>
+    </message>
 </context>
 </TS>

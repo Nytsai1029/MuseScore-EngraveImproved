@@ -261,6 +261,7 @@ TEST_F(Notation_EngravingOptionsModelTests, valueKinds)
     EXPECT_EQ(model->valueKind("showHeader"), QString("bool"));
     EXPECT_EQ(model->valueKind("musicalSymbolFont"), QString("string"));
     EXPECT_EQ(model->valueKind("lyricsPosAbove"), QString("point"));
+    EXPECT_EQ(model->valueKind("timeSigNormalScale"), QString("size"));
     EXPECT_EQ(model->valueKind("hairpinColor"), QString("color"));
     EXPECT_EQ(model->valueKind("noSuchStyleValue"), QString());
 

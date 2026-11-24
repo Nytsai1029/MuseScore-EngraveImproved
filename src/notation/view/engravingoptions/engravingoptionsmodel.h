@@ -84,8 +84,9 @@ public:
     Q_INVOKABLE bool isInStaffSpaces(const QString& name) const;
 
     //! NOTE What kind of value it is, for a control which is chosen by the value and not by a description:
-    //! "spatium" (a distance in staff spaces), "real", "int", "bool", "string", "point", "color",
-    //! or "other" (a value which only a control made for it can edit); empty if there is no such value
+    //! "spatium" (a distance in staff spaces), "real", "int", "bool", "string", "point", "size" (a width and a
+    //! height), "color", or "other" (a value which only a control made for it can edit); empty if there is no such
+    //! value
     Q_INVOKABLE QString valueKind(const QString& name) const;
 
     //! NOTE The value with this name; null (and an error in the log) if there is no such value

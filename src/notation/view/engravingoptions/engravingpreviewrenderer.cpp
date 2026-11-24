@@ -826,6 +826,10 @@ std::optional<PropertyValue> EngravingPreviewRenderer::probeOf(const MStyle& sty
         return PropertyValue(step(current.toReal(), PROBE_AMOUNT));
     case P_TYPE::SPATIUM:
         return PropertyValue(Spatium(step(current.value<Spatium>().val(), PROBE_AMOUNT)));
+    case P_TYPE::SCALE: {
+        const ScaleF scale = current.value<ScaleF>();
+        return PropertyValue(ScaleF(step(scale.width(), PROBE_AMOUNT), step(scale.height(), PROBE_AMOUNT)));
+    }
     default:
         return std::nullopt;
     }
