@@ -46238,7 +46238,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="470"/>
         <source>The least vertical distance between a slur and the articulations, ornaments and tapping marks it passes over.</source>
-        <translation>圆滑线与其跨过的运音法记号、装饰记号和点弦记号之间的最小垂直距离。</translation>
+        <translation>圆滑线与其跨过的运音法记号、装饰音记号和点弦记号之间的最小垂直距离。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="480"/>
@@ -46283,7 +46283,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="518"/>
         <source>A slur which runs into notes can lift its end points or bend its curve further out. 0 = the end point stays and only the curve changes; 1 = only the end point moves. Constrained: an end with an accent, ornament or similar mark outside it, the end on the note of a slur which goes on to another system, and the ends of a slur between two staves. Free: the open end at a system break and an end which was slid along a stem. Normal: every other end.</source>
-        <translation>圆滑线碰到音符时，可以抬高端点，也可以让弧线更向外弯。0 表示端点不动、只改变弧线；1 表示只移动端点。受限端点：外侧有重音、装饰记号等记号的端点，延续到另一谱行组的圆滑线在音符上的端点，以及跨谱表圆滑线的两端。自由端点：换行处的悬浮端，以及沿符干滑动过的端点。普通端点：其余所有端点。</translation>
+        <translation>圆滑线碰到音符时，可以抬高端点，也可以让弧线更向外弯。0 表示端点不动、只改变弧线；1 表示只移动端点。受限端点：外侧有重音、装饰音记号等记号的端点，延续到另一谱行组的圆滑线在音符上的端点，以及跨谱表圆滑线的两端。自由端点：换行处的悬浮端，以及沿符干滑动过的端点。普通端点：其余所有端点。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="525"/>
