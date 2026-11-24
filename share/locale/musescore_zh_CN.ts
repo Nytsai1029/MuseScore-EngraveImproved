@@ -44534,7 +44534,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="33"/>
         <source>Trill and vibrato lines</source>
-        <translation>颤音线与揉弦线</translation>
+        <translation>颤音线与揉颤音线</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="87"/>
@@ -51300,6 +51300,81 @@ The score will be saved as:
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="218"/>
         <source>For the pedal marking written as Ped. … ✱ without a line: the release sign by default.</source>
         <translation>用于不画线条、写作 Ped. … ✱ 的踏板记号，默认为松开记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="38"/>
+        <source>Trill lines</source>
+        <translation>颤音线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="55"/>
+        <source>Horizontal shift and height of a trill line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的颤音线的水平偏移和高度，自谱表顶线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="63"/>
+        <source>Horizontal shift and depth of a trill line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的颤音线的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="72"/>
+        <source>The small note in parentheses after the main note which shows the upper note of the trill.</source>
+        <translation>紧随主音之后、带圆括号的小音符，标明颤音的上方辅助音。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="77"/>
+        <source>Show for all intervals</source>
+        <translation>所有音程都显示</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="84"/>
+        <source>How far the wavy line stops before the next note, grace notes, clef or barline. Also used for vibrato lines.</source>
+        <translation>波浪线在下一个音符、装饰音、谱号或小节线之前留出的距离；揉颤音线同样适用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="93"/>
+        <source>Gap between the trill sign and its accidental</source>
+        <translation>颤音记号与其变音记号的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="94"/>
+        <source>Vertical gap between the sign at the start of a trill line and the accidental above or below it.</source>
+        <translation>颤音线起始记号与标在其上方或下方的变音记号之间的垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="104"/>
+        <source>Least vertical gap between a trill line and the notes or other signs which lie between it and the staff.</source>
+        <translation>颤音线与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="111"/>
+        <source>Vibrato lines</source>
+        <translation>揉颤音线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="117"/>
+        <source>Side of the staff on which vibrato lines are placed, unless one is flipped by hand.</source>
+        <translation>揉颤音线置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="140"/>
+        <source>Horizontal shift and height of a vibrato line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的揉颤音线的水平偏移和高度，自谱表顶线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="148"/>
+        <source>Horizontal shift and depth of a vibrato line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的揉颤音线的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="158"/>
+        <source>Least vertical gap between a vibrato line and the notes or other signs which lie between it and the staff.</source>
+        <translation>揉颤音线与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="75"/>
+        <source>Show only for intervals other than seconds</source>
+        <translation>仅在非二度音程时显示</translation>
     </message>
 </context>
 </TS>

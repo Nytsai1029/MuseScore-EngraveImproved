@@ -1828,14 +1828,12 @@
         <translation type="unfinished">Pedal lines</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="146"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8948"/>
         <source>Trill lines</source>
         <translation type="unfinished">Trill lines</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="60"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="151"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9084"/>
         <source>Vibrato lines</source>
@@ -4196,8 +4194,7 @@ space unit</extracomment>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="98"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="41"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="64"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="116"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7595"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8775"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9004"/>
@@ -4254,8 +4251,6 @@ space unit</extracomment>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="55"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="55"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="112"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="55"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="78"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7680"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8043"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8274"/>
@@ -4306,8 +4301,6 @@ space unit</extracomment>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="50"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="50"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="107"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="50"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="73"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7739"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7893"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="8212"/>
@@ -4696,6 +4689,7 @@ space unit</extracomment>
         <translation type="unfinished">Prefer closeness to notehead (combined articulations may become separated)</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="71"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10638"/>
         <source>Trill cue note</source>
         <translation type="unfinished">Trill cue note</translation>
@@ -32283,8 +32277,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="43"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="43"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="100"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="43"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="66"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="220"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="771"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1365"/>
@@ -32297,8 +32289,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="44"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="44"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="101"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="44"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="67"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="221"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="772"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1366"/>
@@ -34245,7 +34235,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="37"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="69"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="37"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="83"/>
         <source>Details</source>
         <translation type="unfinished">Details</translation>
     </message>
@@ -35269,6 +35258,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="198"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="234"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="246"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="120"/>
         <source>Above</source>
         <translation type="unfinished">Above</translation>
     </message>
@@ -35291,6 +35281,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="199"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="235"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="247"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="121"/>
         <source>Below</source>
         <translation type="unfinished">Below</translation>
     </message>
@@ -35546,6 +35537,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="364"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="54"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="57"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="46"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="131"/>
         <source>Offset</source>
         <translation type="unfinished">Offset</translation>
     </message>
@@ -35563,6 +35556,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="367"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="58"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="60"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="49"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="134"/>
         <source>Above the staff</source>
         <translation type="unfinished">Above the staff</translation>
     </message>
@@ -35575,6 +35570,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="368"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="59"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="61"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="50"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="135"/>
         <source>Below the staff</source>
         <translation type="unfinished">Below the staff</translation>
     </message>
@@ -38571,6 +38568,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="52"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="41"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="126"/>
         <source>Offset: X moves the line to the right, Y moves it down from the top staff line (above the staff) or from the bottom staff line (below the staff), so a Y of −2 above means 2 sp over the staff.</source>
         <translation type="unfinished">Offset: X moves the line to the right, Y moves it down from the top staff line (above the staff) or from the bottom staff line (below the staff), so a Y of −2 above means 2 sp over the staff.</translation>
     </message>
@@ -38596,6 +38595,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="132"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="83"/>
         <source>Gap between the line’s end and the next note</source>
         <translation type="unfinished">Gap between the line’s end and the next note</translation>
     </message>
@@ -42947,22 +42947,93 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Trill and vibrato lines</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="87"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="38"/>
+        <source>Trill lines</source>
+        <translation type="unfinished">Trill lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="55"/>
+        <source>Horizontal shift and height of a trill line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and height of a trill line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="63"/>
+        <source>Horizontal shift and depth of a trill line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and depth of a trill line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="72"/>
+        <source>The small note in parentheses after the main note which shows the upper note of the trill.</source>
+        <translation type="unfinished">The small note in parentheses after the main note which shows the upper note of the trill.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="75"/>
+        <source>Show only for intervals other than seconds</source>
+        <translation type="unfinished">Show only for intervals other than seconds</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="77"/>
+        <source>Show for all intervals</source>
+        <translation type="unfinished">Show for all intervals</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="84"/>
+        <source>How far the wavy line stops before the next note, grace notes, clef or barline. Also used for vibrato lines.</source>
+        <translation type="unfinished">How far the wavy line stops before the next note, grace notes, clef or barline. Also used for vibrato lines.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="93"/>
+        <source>Gap between the trill sign and its accidental</source>
+        <translation type="unfinished">Gap between the trill sign and its accidental</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="94"/>
+        <source>Vertical gap between the sign at the start of a trill line and the accidental above or below it.</source>
+        <translation type="unfinished">Vertical gap between the sign at the start of a trill line and the accidental above or below it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="104"/>
+        <source>Least vertical gap between a trill line and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a trill line and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="111"/>
+        <source>Vibrato lines</source>
+        <translation type="unfinished">Vibrato lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="117"/>
+        <source>Side of the staff on which vibrato lines are placed, unless one is flipped by hand.</source>
+        <translation type="unfinished">Side of the staff on which vibrato lines are placed, unless one is flipped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="140"/>
+        <source>Horizontal shift and height of a vibrato line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and height of a vibrato line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="148"/>
+        <source>Horizontal shift and depth of a vibrato line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation type="unfinished">Horizontal shift and depth of a vibrato line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="158"/>
+        <source>Least vertical gap between a vibrato line and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a vibrato line and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
         <source>Trill / vibrato line end: distance before end position</source>
         <translation type="unfinished">Trill / vibrato line end: distance before end position</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="88"/>
         <source>How far before the next note, grace notes, clef or barline the wavy line of a trill or vibrato stops.</source>
         <translation type="unfinished">How far before the next note, grace notes, clef or barline the wavy line of a trill or vibrato stops.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="95"/>
         <source>Trill line accidental: vertical gap</source>
         <translation type="unfinished">Trill line accidental: vertical gap</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="96"/>
         <source>Vertical gap between the first symbol of a trill line and the accidental placed above (or below) it.</source>
         <translation type="unfinished">Vertical gap between the first symbol of a trill line and the accidental placed above (or below) it.</translation>
     </message>
@@ -43061,6 +43132,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="160"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="205"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="253"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="103"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml" line="157"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="103"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="108"/>
         <source>Minimum distance from notes and signs</source>
