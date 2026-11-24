@@ -39,11 +39,14 @@
 #include "engraving/dom/expression.h"
 #include "engraving/dom/fermata.h"
 #include "engraving/dom/fingering.h"
+#include "engraving/dom/glissando.h"
+#include "engraving/dom/gradualtempochange.h"
 #include "engraving/dom/hairpin.h"
 #include "engraving/dom/harmony.h"
 #include "engraving/dom/instrument.h"
 #include "engraving/dom/jump.h"
 #include "engraving/dom/keysig.h"
+#include "engraving/dom/letring.h"
 #include "engraving/dom/lyrics.h"
 #include "engraving/dom/marker.h"
 #include "engraving/dom/masterscore.h"
@@ -51,8 +54,12 @@
 #include "engraving/dom/measure.h"
 #include "engraving/dom/measurerepeat.h"
 #include "engraving/dom/note.h"
+#include "engraving/dom/noteline.h"
 #include "engraving/dom/ornament.h"
+#include "engraving/dom/ottava.h"
+#include "engraving/dom/palmmute.h"
 #include "engraving/dom/part.h"
+#include "engraving/dom/pedal.h"
 #include "engraving/dom/rest.h"
 #include "engraving/dom/segment.h"
 #include "engraving/dom/slur.h"
@@ -64,12 +71,15 @@
 #include "engraving/dom/symbol.h"
 #include "engraving/dom/tapping.h"
 #include "engraving/dom/text.h"
+#include "engraving/dom/textline.h"
 #include "engraving/dom/tie.h"
 #include "engraving/dom/timesig.h"
 #include "engraving/dom/tremolosinglechord.h"
 #include "engraving/dom/tremolotwochord.h"
+#include "engraving/dom/trill.h"
 #include "engraving/dom/laissezvib.h"
 #include "engraving/dom/tuplet.h"
+#include "engraving/dom/vibrato.h"
 #include "engraving/dom/volta.h"
 
 #include "notation/view/engravingoptions/engravingpreviewrenderer.h"
@@ -140,6 +150,22 @@ protected:
         }
 
         return count;
+    }
+
+    //! The spanners of a type, by the time they begin
+    std::vector<const Spanner*> spannersOf(ElementType type) const
+    {
+        std::vector<const Spanner*> found;
+        for (const auto& [tick, spanner] : score()->spannerMap().map()) {
+            if (spanner->type() == type) {
+                found.push_back(spanner);
+            }
+        }
+        std::stable_sort(found.begin(), found.end(), [](const Spanner* a, const Spanner* b) {
+            return a->tick() < b->tick();
+        });
+
+        return found;
     }
 
     static std::string errorOf(const QString& notation)
@@ -1225,4 +1251,100 @@ TEST_F(Notation_PreviewMusicTests, versesAndExtensionLines)
     ASSERT_TRUE(verseOf(found[5], 0));
     EXPECT_EQ(verseOf(found[5], 0)->syllabic(), LyricsSyllabic::SINGLE);
     EXPECT_TRUE(verseOf(found[5], 0)->ticks().isZero());
+}
+
+/**
+ * @TEST_CASE linesOverChordsAndBetweenNotes
+ * @details `\\start…` begins a line with a chord and `\\stop…` ends it with the end of a chord (also of the last
+ * chord of a measure), of the kind and with the hooks, texts and accidental the commands say; `\\glissando` and
+ * `\\noteLine` join the notes of a chord to those of the next one, from the lowest up
+ */
+TEST_F(Notation_PreviewMusicTests, linesOverChordsAndBetweenNotes)
+{
+    ASSERT_TRUE(load("c''4 \\startOttava 15mb \\startPedal \\hooks 90 45 d''4 \\stopPedal "
+                     "e''4 \\startPedal \\noLine f''4 \\stopOttava | "
+                     "g'4 \\stopPedal \\startTrill! upprall a'4 \\startTextLine \"poco\" \\startVibrato wide "
+                     "b'4 \\stopTrill \\stopVibrato \\startSystemTextLine \"Solo\" "
+                     "c''4 \\stopTextLine \\stopSystemTextLine \\startLetRing \\startPalmMute "
+                     "\\startTempoChange rit \\stopLetRing \\stopPalmMute \\stopTempoChange | "
+                     "<c' e'>4 \\glissando <g' c''>4 \\noteLine e'4 r4"));
+
+    const auto lasts = [](const Spanner* spanner, Fraction from, Fraction to) {
+        return spanner->tick() == from && spanner->tick2() == to;
+    };
+
+    const std::vector<const Spanner*> ottavas = spannersOf(ElementType::OTTAVA);
+    ASSERT_EQ(ottavas.size(), 1u);
+    EXPECT_EQ(toOttava(ottavas[0])->ottavaType(), OttavaType::OTTAVA_15MB);
+    EXPECT_TRUE(lasts(ottavas[0], Fraction(0, 1), Fraction(1, 1)));
+
+    const std::vector<const Spanner*> pedals = spannersOf(ElementType::PEDAL);
+    ASSERT_EQ(pedals.size(), 2u);
+    EXPECT_TRUE(lasts(pedals[0], Fraction(0, 1), Fraction(1, 2)));
+    EXPECT_EQ(toPedal(pedals[0])->beginHookType(), HookType::HOOK_90);
+    EXPECT_EQ(toPedal(pedals[0])->endHookType(), HookType::HOOK_45);
+    EXPECT_TRUE(toPedal(pedals[0])->lineVisible());
+    EXPECT_TRUE(lasts(pedals[1], Fraction(1, 2), Fraction(5, 4)));
+    EXPECT_FALSE(toPedal(pedals[1])->lineVisible());
+
+    const std::vector<const Spanner*> trills = spannersOf(ElementType::TRILL);
+    ASSERT_EQ(trills.size(), 1u);
+    EXPECT_EQ(toTrill(trills[0])->trillType(), TrillType::UPPRALL_LINE);
+    ASSERT_TRUE(toTrill(trills[0])->ornament());
+    EXPECT_EQ(toTrill(trills[0])->ornament()->showAccidental(), OrnamentShowAccidental::ALWAYS);
+    EXPECT_TRUE(lasts(trills[0], Fraction(1, 1), Fraction(7, 4)));
+
+    const std::vector<const Spanner*> vibratos = spannersOf(ElementType::VIBRATO);
+    ASSERT_EQ(vibratos.size(), 1u);
+    EXPECT_EQ(toVibrato(vibratos[0])->vibratoType(), VibratoType::GUITAR_VIBRATO_WIDE);
+    EXPECT_TRUE(lasts(vibratos[0], Fraction(5, 4), Fraction(7, 4)));
+
+    const std::vector<const Spanner*> textLines = spannersOf(ElementType::TEXTLINE);
+    ASSERT_EQ(textLines.size(), 2u);
+    EXPECT_EQ(toTextLine(textLines[0])->beginText(), muse::String(u"poco"));
+    EXPECT_FALSE(textLines[0]->systemFlag());
+    EXPECT_TRUE(lasts(textLines[0], Fraction(5, 4), Fraction(2, 1)));
+    EXPECT_EQ(toTextLine(textLines[1])->beginText(), muse::String(u"Solo"));
+    EXPECT_TRUE(textLines[1]->systemFlag());
+    EXPECT_TRUE(lasts(textLines[1], Fraction(3, 2), Fraction(2, 1)));
+
+    for (const ElementType type : { ElementType::LET_RING, ElementType::PALM_MUTE,
+                                    ElementType::GRADUAL_TEMPO_CHANGE }) {
+        const std::vector<const Spanner*> found = spannersOf(type);
+        ASSERT_EQ(found.size(), 1u);
+        EXPECT_TRUE(lasts(found[0], Fraction(7, 4), Fraction(2, 1)));
+    }
+    const GradualTempoChange* rit = toGradualTempoChange(spannersOf(ElementType::GRADUAL_TEMPO_CHANGE).front());
+    EXPECT_EQ(rit->tempoChangeType(), GradualTempoChangeType::Ritardando);
+    EXPECT_EQ(rit->beginText(), muse::String(u"rit."));
+
+    //! NOTE A glissando and a note-anchored line belong to the note where they begin, not to the spanners of the score
+    std::vector<std::pair<int, int> > glissandos;
+    std::vector<std::pair<int, int> > noteLines;
+    for (const Chord* chord : chords()) {
+        for (const Note* note : chord->notes()) {
+            for (const Spanner* spanner : note->spannerFor()) {
+                ASSERT_TRUE(spanner->endElement() && spanner->endElement()->isNote());
+                const std::pair<int, int> pitches(note->pitch(), toNote(spanner->endElement())->pitch());
+                if (spanner->isGlissando()) {
+                    glissandos.push_back(pitches);
+                } else if (spanner->isNoteLine()) {
+                    noteLines.push_back(pitches);
+                }
+            }
+        }
+    }
+    std::sort(glissandos.begin(), glissandos.end());
+    EXPECT_EQ(glissandos, (std::vector<std::pair<int, int> > { { 60, 67 }, { 64, 72 } }));
+    EXPECT_EQ(noteLines, (std::vector<std::pair<int, int> > { { 67, 64 } }));
+
+    EXPECT_FALSE(errorOf("c'4 \\stopPedal").empty());
+    EXPECT_FALSE(errorOf("c'4 \\startPedal d'4").empty());
+    EXPECT_FALSE(errorOf("c'4 \\startOttava 9va d'4 \\stopOttava").empty());
+    EXPECT_FALSE(errorOf("c'4 \\startTrill \\hooks 90 90 \\stopTrill").empty());
+    EXPECT_FALSE(errorOf("c'4 \\hooks 90 90").empty());
+    EXPECT_FALSE(errorOf("c'4 \\startPedal \\hooks 90 x \\stopPedal").empty());
+    EXPECT_FALSE(errorOf("c'4 \\startTextLine poco \\stopTextLine").empty());
+    EXPECT_FALSE(errorOf("c'4 \\startTempoChange slower \\stopTempoChange").empty());
+    EXPECT_FALSE(errorOf("c'4 \\glissando r4").empty());
 }

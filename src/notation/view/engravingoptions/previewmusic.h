@@ -61,6 +61,15 @@ namespace mu::notation {
 //!   `\luteFinger thumb|1|2|3` (the right hand in lute music), the lines `\fall` `\doit` `\plop` `\scoop` (curved;
 //!   `\fallStraight`, `\fallWavy` and so on), `\breathe` and `\caesura` (after the chord), and
 //!   `\handBracket left|right` (the hand which plays the chord, a bracket left of its lowest note).
+//!   `\glissando` and `\noteLine` (a note-anchored line) go from the notes of the chord to those of the next one.
+//! - Lines over chords: `\start<Name>` after the chord with which the line begins, `\stop<Name>` after the last
+//!   chord it lasts through (unlike `\!` of a hairpin, which stands at the chord where it ends). The names:
+//!   `Ottava` (with `8va` `8vb` `15ma` `15mb` `22ma` `22mb` after `\startOttava`), `Pedal`, `Trill` (`upprall`
+//!   `downprall` `prallprall` may follow `\startTrill`; `\startTrill!` shows the accidental of the upper note,
+//!   also one of the key), `Vibrato` (`wide` `sawtooth` `sawtoothWide` may follow), `TextLine` and
+//!   `SystemTextLine` (the text in quotes follows), `LetRing`, `PalmMute`, `TempoChange` (`accel` `allarg` `rall`
+//!   `rit` follows). After the start of a line which has hooks, `\hooks begin end` gives the hooks of its two ends
+//!   (`none` `90` `45` `90t`) and `\noLine` shows only its texts (as Ped. and * of a pedal).
 //! - Before a note: `\stemUp` `\stemDown` `\stemNeutral` (until changed), `\noBeam`, `\slash` (slash noteheads, as in
 //!   rhythm slash notation) and `\small` (a small cue chord or rest) for this chord only, `\parenthesize` (its notes in
 //!   parentheses) and `\parenthesizeChord` (the chord as a whole),

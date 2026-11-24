@@ -169,17 +169,39 @@ struct Pitch {
     bool tie = false;
 };
 
+//! `\\startOttava 8va` … `\\stopOttava` and the other lines over chords: what the file says of the line, which
+//! begins with the chord after which its start stands and lasts to the end of the chord after which its stop stands
+struct LineMark {
+    QString name;           // as in the commands: `Ottava` of `\\startOttava`
+    QString type;           // the spanner in the file
+    QString subtype;        // of an ottava, trill or vibrato; the tempoChangeType of a tempo change
+    QString beginText;      // of a text line or tempo change
+    bool isSystemLine = false;          // a system text line
+    std::optional<int> beginHook;       // `\\hooks begin end`: HookType
+    std::optional<int> endHook;
+    bool lineHidden = false;            // `\\noLine`: only the texts of the line are shown (as Ped. and *)
+    bool showsAllAccidentals = false;   // `\\startTrill!`: the accidental of the upper note is shown
+    int textPosition = 0;
+};
+
+//! `\\stop…`: a line ends with the chord after which it stands
+struct LineStop {
+    QString name;
+    int textPosition = 0;
+};
+
 //! A spanner which begins or ends at an event, in the terms of the file: how far the other end is
 struct Link {
-    enum class Kind { Slur, Tie, Hairpin };
+    enum class Kind { Slur, Tie, Hairpin, Line, Glissando, NoteLine };
 
     Kind kind = Kind::Slur;
-    int midi = 0;           // of the note, for a tie
+    int midi = 0;           // of the note, for a tie, a glissando and a note-anchored line
     int subtype = 0;        // of a hairpin: HairpinType (0 crescendo, 1 decrescendo, 2 and 3 as lines with text)
     bool circledTip = false;    // of a hairpin: it begins or ends at niente
     std::optional<double> diagonalEnd;  // of a hairpin: how much lower its end is, in staff spaces, as if dragged
     int slurDirection = 0;
     bool slurFlat = false;
+    LineMark line;          // of a line over chords
     int measures = 0;
     Fraction fractions;
 };
@@ -285,6 +307,10 @@ struct Event {
     bool hairpinCircledTip = false; // `\\niente` after the hairpin: it begins or ends at niente, a small circle
     std::optional<double> hairpinDiagonalEnd;  // `\\diagonal y`: the end of the hairpin is y staff spaces lower
     bool hairpinEnd = false;
+    std::vector<LineMark> lines;    // the lines which begin with the chord
+    std::vector<LineStop> lineStops;    // and those which end with it
+    bool glissando = false;         // `\\glissando`: from the notes of the chord to those of the next one
+    bool noteLine = false;          // `\\noteLine`: a note-anchored line, the same way
 
     QStringList articulations;      // the subtypes in the file
     int fingering = 0;
@@ -839,6 +865,18 @@ private:
             m_parenthesizeChord = true;
         } else if (text == "\\instrument") {
             readInstrument(token);
+        } else if (const std::optional<QString> name = lineNameOf(text, "\\start")) {
+            readLineStart(*name, token);
+        } else if (const std::optional<QString> name = lineNameOf(text, "\\stop")) {
+            lastEvent(token).lineStops.push_back({ *name, token.position });
+        } else if (text == "\\hooks") {
+            readHooks(token);
+        } else if (text == "\\noLine") {
+            lastLineWithHooks(token).lineHidden = true;
+        } else if (text == "\\glissando") {
+            lastEvent(token).glissando = true;
+        } else if (text == "\\noteLine") {
+            lastEvent(token).noteLine = true;
         } else if (text == "\\!") {
             lastEvent(token).hairpinEnd = true;
         } else if (DYNAMICS.contains(text.mid(1))) {
@@ -875,6 +913,129 @@ private:
         static const std::map<QString, int> STYLES { { "Solid", 0 }, { "Dotted", 1 }, { "Dashed", 2 },
                                                      { "WideDashed", 3 } };
         return STYLES.at(name);
+    }
+
+    //! The next word if it is one of these, which is then taken
+    std::optional<QString> takeWordIfOneOf(const QStringList& words)
+    {
+        if (m_next < m_tokens.size() && words.contains(m_tokens.at(m_next).text)) {
+            return m_tokens.at(m_next++).text;
+        }
+
+        return std::nullopt;
+    }
+
+    //! The lines over chords, by the name in their commands, and the spanner each is in the file
+    static const std::map<QString, QString>& lineTypes()
+    {
+        static const std::map<QString, QString> TYPES {
+            { "Ottava", "Ottava" }, { "Pedal", "Pedal" }, { "Trill", "Trill" }, { "Vibrato", "Vibrato" },
+            { "TextLine", "TextLine" }, { "SystemTextLine", "TextLine" }, { "LetRing", "LetRing" },
+            { "PalmMute", "PalmMute" }, { "TempoChange", "GradualTempoChange" }
+        };
+        return TYPES;
+    }
+
+    //! The line which `\\start<Name>` or `\\stop<Name>` names, if the word is one of these (`\\startTrill!` too)
+    static std::optional<QString> lineNameOf(const QString& word, const QString& prefix)
+    {
+        if (!word.startsWith(prefix)) {
+            return std::nullopt;
+        }
+
+        QString name = word.mid(prefix.size());
+        if (prefix == "\\start" && name == "Trill!") {
+            name.chop(1);
+        }
+
+        if (!lineTypes().count(name)) {
+            return std::nullopt;
+        }
+
+        return name;
+    }
+
+    //! `\\start<Name>`: a line begins with the note before it. An ottava says its kind (`8va` `8vb` `15ma` `15mb`
+    //! `22ma` `22mb`), a text line its text in quotes, a tempo change its kind (`accel` `allarg` `rall` `rit`); a
+    //! trill may say its kind (`upprall` `downprall` `prallprall`), a vibrato too (`wide` `sawtooth` `sawtoothWide`)
+    void readLineStart(const QString& name, const Token& command)
+    {
+        Event& event = lastEvent(command);
+
+        LineMark line;
+        line.name = name;
+        line.type = lineTypes().at(name);
+        line.textPosition = command.position;
+
+        if (name == "Ottava") {
+            static const QStringList OTTAVAS { "8va", "8vb", "15ma", "15mb", "22ma", "22mb" };
+            const Token kind = takeToken("the kind of the ottava", command);
+            if (!OTTAVAS.contains(kind.text)) {
+                fail("an ottava is 8va, 8vb, 15ma, 15mb, 22ma or 22mb", kind.position);
+            }
+            line.subtype = kind.text;
+        } else if (name == "Trill") {
+            line.subtype = takeWordIfOneOf({ "upprall", "downprall", "prallprall" }).value_or("trill");
+            line.showsAllAccidentals = command.text.endsWith('!');
+        } else if (name == "Vibrato") {
+            static const std::map<QString, QString> VIBRATOS {
+                { "wide", "guitarVibratoWide" }, { "sawtooth", "vibratoSawtooth" },
+                { "sawtoothWide", "vibratoSawtoothWide" }
+            };
+            const std::optional<QString> kind = takeWordIfOneOf({ "wide", "sawtooth", "sawtoothWide" });
+            line.subtype = kind ? VIBRATOS.at(*kind) : QString("guitarVibrato");
+        } else if (name == "TextLine" || name == "SystemTextLine") {
+            line.beginText = quoted(takeToken("the text of the line in quotes", command));
+            line.isSystemLine = name == "SystemTextLine";
+        } else if (name == "TempoChange") {
+            //! NOTE The kind of the change and the text which the palette gives it
+            static const std::map<QString, std::pair<QString, QString> > CHANGES {
+                { "accel", { "accelerando", "accel." } }, { "allarg", { "allargando", "allarg." } },
+                { "rall", { "rallentando", "rall." } }, { "rit", { "ritardando", "rit." } }
+            };
+            const Token kind = takeToken("the kind of the tempo change", command);
+            const auto change = CHANGES.find(kind.text);
+            if (change == CHANGES.end()) {
+                fail("a tempo change is accel, allarg, rall or rit", kind.position);
+            }
+            line.subtype = change->second.first;
+            line.beginText = change->second.second;
+        }
+
+        event.lines.push_back(line);
+    }
+
+    //! The line which the note before the command begins, which has hooks (a trill and a vibrato have none)
+    LineMark& lastLineWithHooks(const Token& command)
+    {
+        Event& event = lastEvent(command);
+        if (event.lines.empty()) {
+            fail(QString("%1 follows the start of a line").arg(command.text), command.position);
+        }
+
+        LineMark& line = event.lines.back();
+        if (line.name == "Trill" || line.name == "Vibrato") {
+            fail(QString("%1 is not for a trill or a vibrato").arg(command.text), command.position);
+        }
+
+        return line;
+    }
+
+    //! `\\hooks begin end` after the start of a line: the hooks at its ends, each `none`, `90`, `45` or `90t`
+    void readHooks(const Token& command)
+    {
+        //! NOTE As HookType
+        static const std::map<QString, int> HOOKS { { "none", 0 }, { "90", 1 }, { "45", 2 }, { "90t", 3 } };
+
+        LineMark& line = lastLineWithHooks(command);
+        for (std::optional<int>* hook : { &line.beginHook, &line.endHook }) {
+            const Token word = takeToken("none, 90, 45 or 90t", command);
+            const auto type = HOOKS.find(word.text);
+            if (type == HOOKS.end()) {
+                fail("a hook is none, 90, 45 or 90t", word.position);
+            }
+            *hook = type->second;
+        }
     }
 
     //! `\\tapping` and `\\tapping left`: the note before it is tapped (a `T` mark, with a half slur)
@@ -1748,7 +1909,7 @@ private:
 //   Where spanners go
 //---------------------------------------------------------
 
-//! Gives each event its place and finds the other end of each slur, tie and hairpin
+//! Gives each event its place and finds the other end of each slur, tie, hairpin and line
 class SpannerPlanner
 {
 public:
@@ -1762,6 +1923,8 @@ public:
             planSlurs(events);
             planTies(events);
             planHairpins(events);
+            planLines(events);
+            planNoteToNoteLines(events);
             planLyrics(events);
         }
     }
@@ -1797,19 +1960,27 @@ private:
         return events;
     }
 
-    static void connect(Event& from, Event& to, Link link)
+    //! The link begins with `from` and ends with `to`, at its beginning
+    static void connect(Event& from, Event& to, const Link& link)
+    {
+        connect(from, link, to, link, Fraction());
+    }
+
+    //! The ends of a link, which can differ in the note they are at: it begins with `from` and ends `intoTo` after
+    //! the beginning of `to`
+    static void connect(Event& from, Link start, Event& to, Link end, const Fraction& intoTo)
     {
         if (from.staff != to.staff) {
-            fail("a slur, a tie and a hairpin stay on one staff", from.textPosition);
+            fail("a slur, a tie, a hairpin and a line stay on one staff", from.textPosition);
         }
 
-        link.measures = to.place.measure - from.place.measure;
-        link.fractions = to.place.position - from.place.position;
-        from.startingLinks.push_back(link);
+        start.measures = to.place.measure - from.place.measure;
+        start.fractions = to.place.position + intoTo - from.place.position;
+        from.startingLinks.push_back(start);
 
-        link.measures = -link.measures;
-        link.fractions = -link.fractions;
-        to.endingLinks.push_back(link);
+        end.measures = -start.measures;
+        end.fractions = -start.fractions;
+        to.endingLinks.push_back(end);
     }
 
     void planSlurs(const std::vector<Event*>& events)
@@ -1950,6 +2121,77 @@ private:
             link.diagonalEnd = from.hairpinDiagonalEnd;
             connect(from, **end, link);
         }
+    }
+
+    //! Each `\\stop<Name>` ends the line of that name which began first of those still open; a line lasts to the
+    //! end of the chord with its stop, so one which begins and ends with the same chord is as long as the chord
+    void planLines(const std::vector<Event*>& events)
+    {
+        std::map<QString, std::deque<std::pair<Event*, LineMark> > > open;
+        for (Event* event : events) {
+            for (const LineMark& line : event->lines) {
+                open[line.name].emplace_back(event, line);
+            }
+
+            for (const LineStop& stop : event->lineStops) {
+                auto& lines = open[stop.name];
+                if (lines.empty()) {
+                    fail(QString("this \\stop%1 has no \\start%1 before it").arg(stop.name), stop.textPosition);
+                }
+
+                Link link { Link::Kind::Line };
+                link.line = lines.front().second;
+                connect(*lines.front().first, link, *event, link, event->length());
+                lines.pop_front();
+            }
+        }
+
+        for (const auto& [name, lines] : open) {
+            if (!lines.empty()) {
+                fail(QString("this line has no \\stop%1").arg(name), lines.front().second.textPosition);
+            }
+        }
+    }
+
+    //! `\\glissando` and `\\noteLine` join the notes of a chord to those of the next one, from the lowest up, as
+    //! many as the smaller of the two chords has
+    void planNoteToNoteLines(const std::vector<Event*>& events)
+    {
+        for (size_t i = 0; i < events.size(); ++i) {
+            Event& from = *events[i];
+            for (const auto& [isThere, kind] : { std::pair(from.glissando, Link::Kind::Glissando),
+                                                 std::pair(from.noteLine, Link::Kind::NoteLine) }) {
+                if (!isThere) {
+                    continue;
+                }
+
+                Event* to = nextChord(events, i);
+                if (!to || from.isRest) {
+                    fail("a glissando and a note-anchored line go from a chord to the next one", from.textPosition);
+                }
+
+                std::vector<int> lower = midisOf(from);
+                std::vector<int> upper = midisOf(*to);
+                for (size_t n = 0; n < std::min(lower.size(), upper.size()); ++n) {
+                    Link start { kind };
+                    start.midi = lower[n];
+                    Link end { kind };
+                    end.midi = upper[n];
+                    connect(from, start, *to, end, Fraction());
+                }
+            }
+        }
+    }
+
+    //! The pitches of the notes of a chord, from the lowest
+    static std::vector<int> midisOf(const Event& event)
+    {
+        std::vector<int> midis;
+        for (const Pitch& pitch : event.pitches) {
+            midis.push_back(pitch.midi);
+        }
+        std::sort(midis.begin(), midis.end());
+        return midis;
     }
 
     Music& m_music;
@@ -2420,6 +2662,7 @@ private:
         }
 
         writeLinks(event, Link::Kind::Hairpin);
+        writeLinksWhichStart(event, Link::Kind::Line);
 
         if (!event.staffText.isEmpty()) {
             writeStaffText(event.staffText);
@@ -2451,6 +2694,9 @@ private:
             text("symbol", event.breath);
             m_xml.writeEndElement();
         }
+
+        //! NOTE A line lasts to the end of the chord with its stop, which is where the reader is after the chord
+        writeLinksWhichEnd(event, Link::Kind::Line);
     }
 
     //! NOTE As TWrite writes a Harmony: the name of the chord, its root and bass in a harmonyInfo
@@ -2757,6 +3003,8 @@ private:
         }
 
         writeLinks(event, Link::Kind::Tie, pitch.midi);
+        writeLinks(event, Link::Kind::Glissando, pitch.midi);
+        writeLinks(event, Link::Kind::NoteLine, pitch.midi);
 
         if (event.slashHeads) {
             text("head", "slash");
@@ -2810,26 +3058,39 @@ private:
     //   Spanners
     //-----------------------------------------------------
 
-    static const char* spannerType(Link::Kind kind)
+    static QString spannerType(const Link& link)
     {
-        switch (kind) {
+        switch (link.kind) {
         case Link::Kind::Slur: return "Slur";
         case Link::Kind::Tie: return "Tie";
         case Link::Kind::Hairpin: return "HairPin";
+        case Link::Kind::Line: return link.line.type;
+        case Link::Kind::Glissando: return "Glissando";
+        case Link::Kind::NoteLine: return "NoteLine";
         }
 
-        return "";
+        return QString();
     }
 
-    //! The ends of the spanners of a kind which are at the event. A tie belongs to a note, which is given
+    //! The ends of the spanners of a kind which are at the event. A tie, a glissando and a note-anchored line
+    //! belong to a note, which is given
     void writeLinks(const Event& event, Link::Kind kind, int midi = 0)
+    {
+        writeLinksWhichStart(event, kind, midi);
+        writeLinksWhichEnd(event, kind, midi);
+    }
+
+    void writeLinksWhichStart(const Event& event, Link::Kind kind, int midi = 0)
     {
         for (const Link& link : event.startingLinks) {
             if (link.kind == kind && link.midi == midi) {
                 writeSpanner(link, true);
             }
         }
+    }
 
+    void writeLinksWhichEnd(const Event& event, Link::Kind kind, int midi = 0)
+    {
         for (const Link& link : event.endingLinks) {
             if (link.kind == kind && link.midi == midi) {
                 writeSpanner(link, false);
@@ -2840,11 +3101,13 @@ private:
     void writeSpanner(const Link& link, bool isStart)
     {
         m_xml.writeStartElement("Spanner");
-        m_xml.writeAttribute("type", spannerType(link.kind));
+        m_xml.writeAttribute("type", spannerType(link));
 
         if (isStart) {
-            m_xml.writeStartElement(spannerType(link.kind));
-            if (link.kind == Link::Kind::Hairpin) {
+            m_xml.writeStartElement(spannerType(link));
+            if (link.kind == Link::Kind::Line) {
+                writeLineProperties(link.line);
+            } else if (link.kind == Link::Kind::Hairpin) {
                 number("subtype", link.subtype);
                 if (link.circledTip) {
                     number("hairpinCircledTip", 1);
@@ -2866,6 +3129,39 @@ private:
 
         writeLocation(isStart ? "next" : "prev", link);
         m_xml.writeEndElement();
+    }
+
+    void writeLineProperties(const LineMark& line)
+    {
+        if (line.isSystemLine) {
+            m_xml.writeAttribute("system", "1");
+        }
+
+        if (!line.subtype.isEmpty()) {
+            text(line.type == "GradualTempoChange" ? "tempoChangeType" : "subtype", line.subtype);
+        }
+
+        if (line.beginHook) {
+            number("beginHookType", *line.beginHook);
+        }
+
+        if (line.endHook) {
+            number("endHookType", *line.endHook);
+        }
+
+        if (line.lineHidden) {
+            number("lineVisible", 0);
+        }
+
+        if (!line.beginText.isEmpty()) {
+            text("beginText", line.beginText);
+        }
+
+        if (line.showsAllAccidentals) {
+            m_xml.writeStartElement("Ornament");
+            number("ornamentShowAccidental", 2);    // OrnamentShowAccidental::ALWAYS
+            m_xml.writeEndElement();
+        }
     }
 
     //! NOTE A diagonal line is one whose segment the user moved: its end is offset (as TWrite writes a segment)
