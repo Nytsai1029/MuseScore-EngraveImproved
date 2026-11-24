@@ -191,6 +191,15 @@ struct Place {
 
 constexpr int BUZZ_ROLL = -1;
 
+//! `_"text"`: a syllable of a verse; the first `_` after a note is the first verse, the next one the second
+struct Syllable {
+    QString text;
+    bool continues = false;         // `-` at the end: the word goes on in the next syllable of the verse
+    bool continuesPrevious = false; // the syllable before it in the verse goes on in this one
+    bool melisma = false;           // `__` at the end: an extension line, over the notes up to the next syllable
+    Fraction melismaTicks;          // from this note to the last note of the extension line
+};
+
 //! `\\chordSymbol "text"`: the root and the bass as tonal pitch classes, and the name of the chord as the text has it
 struct ChordSymbol {
     int rootTpc = 14;
@@ -284,8 +293,7 @@ struct Event {
     bool ambitus = false;           // an ambitus stands before this event
     int staff = 0;                  // where the event is written
     int staffMove = 0;              // -1 and 1: shown on the staff above and below
-    QString lyric;
-    bool lyricContinues = false;
+    std::vector<Syllable> lyrics;   // by verse
     //! `^"text"`: a staff text above the chord; `<sup>` `<sub>` `<b>` `<i>` in it format the letters between them
     QString staffText;
     bool fermata = false;
@@ -1547,13 +1555,17 @@ private:
         }
 
         const int close = word.indexOf('"', index + 2);
-        QString syllable = word.mid(index + 2, close - index - 2);
-        event.lyricContinues = syllable.endsWith('-');
-        if (event.lyricContinues) {
-            syllable.chop(1);
+        Syllable syllable;
+        syllable.text = word.mid(index + 2, close - index - 2);
+        if (syllable.text.endsWith("__")) {
+            syllable.melisma = true;
+            syllable.text.chop(2);
+        } else if (syllable.text.endsWith('-')) {
+            syllable.continues = true;
+            syllable.text.chop(1);
         }
 
-        event.lyric = syllable;
+        event.lyrics.push_back(syllable);
         return close + 1;
     }
 
@@ -1602,7 +1614,7 @@ private:
             fail("a measure with voices has nothing after them", event.textPosition);
         }
 
-        if (event.isRest && !event.lyric.isEmpty()) {
+        if (event.isRest && !event.lyrics.empty()) {
             fail("a rest has no lyrics", event.textPosition);
         }
 
@@ -1750,6 +1762,7 @@ public:
             planSlurs(events);
             planTies(events);
             planHairpins(events);
+            planLyrics(events);
         }
     }
 
@@ -1869,6 +1882,51 @@ private:
         }
 
         return nullptr;
+    }
+
+    //! The syllables of each verse are joined across the events which have none in it, also across barlines, and an
+    //! extension line reaches the last note before the next syllable of its verse
+    void planLyrics(const std::vector<Event*>& events)
+    {
+        std::vector<Fraction> measureStarts(m_music.size());
+        for (size_t m = 1; m < m_music.size(); ++m) {
+            measureStarts[m] = measureStarts[m - 1] + m_music[m - 1].length();
+        }
+        const auto tickOf = [&measureStarts](const Event* event) {
+            return measureStarts[event->place.measure] + event->place.position;
+        };
+
+        size_t verses = 0;
+        for (const Event* event : events) {
+            verses = std::max(verses, event->lyrics.size());
+        }
+
+        for (size_t verse = 0; verse < verses; ++verse) {
+            Syllable* previous = nullptr;
+            const Event* melismaStart = nullptr;
+            const Event* melismaEnd = nullptr;
+            for (Event* event : events) {
+                Syllable* syllable = event->lyrics.size() > verse ? &event->lyrics[verse] : nullptr;
+                if (!syllable && melismaStart && !event->isRest) {
+                    melismaEnd = event;
+                }
+                if (!syllable) {
+                    continue;
+                }
+
+                if (melismaStart && melismaEnd) {
+                    previous->melismaTicks = tickOf(melismaEnd) - tickOf(melismaStart);
+                }
+                syllable->continuesPrevious = previous && previous->continues;
+                previous = syllable;
+                melismaStart = syllable->melisma ? event : nullptr;
+                melismaEnd = nullptr;
+            }
+
+            if (melismaStart && melismaEnd) {
+                previous->melismaTicks = tickOf(melismaEnd) - tickOf(melismaStart);
+            }
+        }
     }
 
     void planHairpins(const std::vector<Event*>& events)
@@ -2239,7 +2297,7 @@ private:
         for (size_t i = 0; i < events.size(); ++i) {
             writeGapRests(events[i]->place.position - cursor);
 
-            writeEvent(*events[i], i > 0 && events[i - 1]->lyricContinues);
+            writeEvent(*events[i]);
             cursor = events[i]->place.position + events[i]->length();
         }
 
@@ -2332,7 +2390,7 @@ private:
         }
     }
 
-    void writeEvent(const Event& event, bool continuesLyric)
+    void writeEvent(const Event& event)
     {
         writePrefix(event);
 
@@ -2381,7 +2439,7 @@ private:
             writeBeamElement(event);
         }
 
-        writeChordRest(event, continuesLyric);
+        writeChordRest(event);
 
         if (event.tupletEnd) {
             m_xml.writeEmptyElement("endTuplet");
@@ -2532,7 +2590,7 @@ private:
         m_xml.writeEndElement();
     }
 
-    void writeChordRest(const Event& event, bool continuesLyric)
+    void writeChordRest(const Event& event)
     {
         m_xml.writeStartElement(event.isRest ? "Rest" : "Chord");
 
@@ -2558,7 +2616,7 @@ private:
         writeBeam(event);
 
         if (!event.isRest) {
-            writeChordContent(event, continuesLyric);
+            writeChordContent(event);
         }
 
         m_xml.writeEndElement();
@@ -2586,10 +2644,10 @@ private:
         }
     }
 
-    void writeChordContent(const Event& event, bool continuesLyric)
+    void writeChordContent(const Event& event)
     {
-        if (!event.lyric.isEmpty()) {
-            writeLyric(event, continuesLyric);
+        for (size_t verse = 0; verse < event.lyrics.size(); ++verse) {
+            writeLyric(event.lyrics[verse], static_cast<int>(verse));
         }
 
         writeLinks(event, Link::Kind::Slur);
@@ -2658,17 +2716,23 @@ private:
         }
     }
 
-    void writeLyric(const Event& event, bool continuesLyric)
+    void writeLyric(const Syllable& syllable, int verse)
     {
         m_xml.writeStartElement("Lyrics");
 
-        if (event.lyricContinues) {
-            text("syllabic", continuesLyric ? "middle" : "begin");
-        } else if (continuesLyric) {
+        if (verse > 0) {
+            number("no", verse);
+        }
+        if (syllable.continues) {
+            text("syllabic", syllable.continuesPrevious ? "middle" : "begin");
+        } else if (syllable.continuesPrevious) {
             text("syllabic", "end");
         }
+        if (syllable.melismaTicks.isNotZero()) {
+            fraction("ticks_f", syllable.melismaTicks);
+        }
 
-        text("text", event.lyric);
+        text("text", syllable.text);
         m_xml.writeEndElement();
     }
 

@@ -1185,3 +1185,44 @@ TEST_F(Notation_PreviewMusicTests, parenthesesAndChordSymbols)
     EXPECT_FALSE(errorOf("\\parenthesize r4").empty());
     EXPECT_FALSE(errorOf("c'4 \\chordSymbol \"H7\"").empty());
 }
+
+/**
+ * @TEST_CASE versesAndExtensionLines
+ * @details Each further `_"text"` of a chord is the next verse; the syllables of a verse are joined across barlines
+ * and across notes without a syllable, and `__` draws an extension line to the last note before the next syllable
+ */
+TEST_F(Notation_PreviewMusicTests, versesAndExtensionLines)
+{
+    ASSERT_TRUE(load("c'4_\"1. Glo-\"_\"2. Ah\" d'4_\"ri-\" | e'4_\"a__\" f'4 g'2 | c''1_\"Deo\""));
+
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 6u);
+
+    ASSERT_EQ(found[0]->lyrics().size(), 2u);
+    const auto verseOf = [](const Chord* chord, int verse) -> const Lyrics* {
+        for (const Lyrics* lyrics : chord->lyrics()) {
+            if (lyrics->no() == verse) {
+                return lyrics;
+            }
+        }
+        return nullptr;
+    };
+    ASSERT_TRUE(verseOf(found[0], 0) && verseOf(found[0], 1));
+    EXPECT_EQ(verseOf(found[0], 0)->syllabic(), LyricsSyllabic::BEGIN);
+    EXPECT_EQ(verseOf(found[0], 1)->plainText(), muse::String(u"2. Ah"));
+    EXPECT_EQ(verseOf(found[0], 1)->syllabic(), LyricsSyllabic::SINGLE);
+
+    ASSERT_TRUE(verseOf(found[1], 0));
+    EXPECT_EQ(verseOf(found[1], 0)->syllabic(), LyricsSyllabic::MIDDLE);
+
+    //! "a" ends the word begun before the barline, and its extension line reaches g' (half a whole note later)
+    const Lyrics* melisma = verseOf(found[2], 0);
+    ASSERT_TRUE(melisma);
+    EXPECT_EQ(melisma->syllabic(), LyricsSyllabic::END);
+    EXPECT_EQ(melisma->ticks(), Fraction(1, 2));
+    EXPECT_TRUE(found[3]->lyrics().empty());
+
+    ASSERT_TRUE(verseOf(found[5], 0));
+    EXPECT_EQ(verseOf(found[5], 0)->syllabic(), LyricsSyllabic::SINGLE);
+    EXPECT_TRUE(verseOf(found[5], 0)->ticks().isZero());
+}

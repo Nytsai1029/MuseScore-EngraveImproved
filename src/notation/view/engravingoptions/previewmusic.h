@@ -44,11 +44,12 @@ namespace mu::notation {
 //!   as the measure `R` (with the duration of the measure).
 //! - The duration follows the pitch or chord: `1 2 4 8 … 1024`, then dots. It is the one before if left out
 //!   (the first is a quarter).
-//! - After the duration, in any order: `~` (tie to the next chord), `(` and `)` (slur), `[` and `]` (beam from
-//!   this chord to that one), `-.` staccato, `->` accent, `--` tenuto, `-^` marcato, `-!` staccatissimo,
-//!   `-1` to `-5` fingering, `:8` `:16` `:32` tremolo (`:z` a buzz roll), `_"text"` a lyric syllable (a `-` at
-//!   the end of the text joins it to the next syllable), `^"text"` a staff text above the chord (`<sup>…</sup>`,
-//!   `<sub>`, `<b>`, `<i>` format the letters between them, as in the text of a score).
+//! - After the duration, in any order: `~` (tie to the next chord), `(` and `)` (slur), `[` and `]` (beam from this
+//!   chord to that one), `-.` staccato, `->` accent, `--` tenuto, `-^` marcato, `-!` staccatissimo, `-1` to `-5`
+//!   fingering, `:8` `:16` `:32` tremolo (`:z` a buzz roll), `_"text"` a lyric syllable (a `-` at the end of the text
+//!   joins it to the next syllable of the verse, `__` draws an extension line to the last note before it; each further
+//!   `_"text"` of the chord is the next verse), `^"text"` a staff text above the chord (`<sup>…</sup>`, `<sub>`, `<b>`,
+//!   `<i>` format the letters between them, as in the text of a score).
 //! - After a note, as words: `\fermata`, `\arpeggio` (also `\arpeggioUp|Down|Bracket|UpStraight|DownStraight`),
 //!   `\laissezVibrer`, a dynamic (`\ppp \pp \p \mp \mf \f \ff \fff \sf \sfz \fp`; `\atEndOfPrevious` after it puts it
 //!   before its beat), `\expression "text"` (as dolce after a p), `\sticking "text"` (the hand of a percussion note, as
