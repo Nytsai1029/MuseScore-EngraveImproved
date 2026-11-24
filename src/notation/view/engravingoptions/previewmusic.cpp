@@ -273,6 +273,9 @@ struct Measure {
     QString voltaText;          // a volta begins with the measure, with this text,
     int voltaMeasures = 0;      // and spans this many measures; 0: no volta begins here
     int voltaPosition = 0;      // where `\\volta` stands in the text
+    int repeatGroup = 0;        // the measure is one of a measure repeat of this many measures (1, 2 or 4),
+    int repeatIndex = 0;        // the how-manieth of them, from 1,
+    Fraction repeatedLength;    // and as long as the measure it repeats
 
     static Fraction lengthOf(const Voice& voice)
     {
@@ -286,6 +289,10 @@ struct Measure {
 
     bool isEmpty() const
     {
+        if (repeatGroup > 0) {
+            return false;
+        }
+
         for (const Voice& voice : voices) {
             if (!voice.empty()) {
                 return false;
@@ -295,7 +302,7 @@ struct Measure {
         return true;
     }
 
-    Fraction length() const { return lengthOf(voices.front()); }
+    Fraction length() const { return repeatGroup > 0 ? repeatedLength : lengthOf(voices.front()); }
 };
 
 using Music = std::deque<Measure>;
@@ -670,6 +677,8 @@ private:
             readPlayCount(token);
         } else if (text == "\\volta") {
             readVolta(token);
+        } else if (text == "\\measureRepeat") {
+            readMeasureRepeat(token);
         } else if (text == "\\tuplet") {
             readTuplet(token);
         } else if (text == "\\clef") {
@@ -859,6 +868,36 @@ private:
         measure().voltaText = text;
         measure().voltaMeasures = measures;
         measure().voltaPosition = command.position;
+    }
+
+    //! `\\measureRepeat N`: N measures (1, 2 or 4) which repeat the N measures before them, written where a measure
+    //! begins; the music goes on after them
+    void readMeasureRepeat(const Token& command)
+    {
+        const Token number = takeToken("how many measures are repeated (1, 2 or 4)", command);
+        const int count = readNumber(number.text, number.position);
+        if (count != 1 && count != 2 && count != 4) {
+            fail("1, 2 or 4 measures", number.position);
+        }
+
+        if (!measure().isEmpty()) {
+            fail("a measure repeat begins with a measure: \\measureRepeat is written after a `|`", command.position);
+        }
+
+        if (m_music.size() - 1 < static_cast<size_t>(count)) {
+            fail("there are not as many measures before it to repeat", command.position);
+        }
+
+        for (int i = 0; i < count; ++i) {
+            Measure& repeat = measure();
+            repeat.repeatGroup = count;
+            repeat.repeatIndex = i + 1;
+            repeat.repeatedLength = m_music[m_music.size() - 1 - count].length();
+            m_music.emplace_back();
+        }
+
+        m_music[m_music.size() - 2].barlineSaid = true;
+        m_isMeasureSealed = false;
     }
 
     //! `\\playCount N`: the repeat which ends at the `\\bar` before it is played N times
@@ -1775,9 +1814,18 @@ private:
             }
         }
 
+        if (measure.repeatGroup > 0) {
+            number("measureRepeatCount", measure.repeatIndex);
+        }
+
         if ((measure.lineBreak || measure.pageBreak) && staff == 0) {
             m_xml.writeStartElement("LayoutBreak");
             text("subtype", measure.pageBreak ? "page" : "line");
+            m_xml.writeEndElement();
+        } else if (measure.repeatIndex < measure.repeatGroup && staff == 0) {
+            //! NOTE The measures of a measure repeat stay on one system (as the command which makes them does)
+            m_xml.writeStartElement("LayoutBreak");
+            text("subtype", "nobreak");
             m_xml.writeEndElement();
         }
 
@@ -1794,7 +1842,16 @@ private:
         if (!hasVoice) {
             m_xml.writeStartElement("voice");
             writeVoltas(index, staff, true);
-            writeMeasureRest(writtenLength(measure));
+            //! NOTE The sign of a measure repeat is in its only measure, or the last of its first half
+            if (measure.repeatGroup > 0 && measure.repeatIndex == std::max(1, measure.repeatGroup / 2)) {
+                m_xml.writeStartElement("MeasureRepeat");
+                number("subtype", measure.repeatGroup);
+                text("durationType", "measure");
+                fraction("duration", writtenLength(measure));
+                m_xml.writeEndElement();
+            } else {
+                writeMeasureRest(writtenLength(measure));
+            }
             writeVoltas(index, staff, false);
             writeBarline(measure);
             m_xml.writeEndElement();

@@ -65,7 +65,8 @@ namespace mu::notation {
 //! - `\bar "type"` where a barline stands (it ends the measure as `|` does, or, after a `|`, gives the barline of the
 //!   measure before): `||` `|.` `.|` `!` (dashed) `;` (dotted) `.` (heavy) `..`, and the repeats `.|:` `:|.` `:|.|:`;
 //!   `\playCount N` after a `\bar` which ends a repeat: it is played N times. `\volta "1." N` at the beginning of
-//!   a measure: a volta with the text over N measures.
+//!   a measure: a volta with the text over N measures. `\measureRepeat N` at the beginning of a measure: N measures
+//!   (1, 2 or 4) which repeat the N before them, after which the music goes on.
 //! - Two voices of a whole measure, of the same length: `<< { ... } \\ { ... } >>`.
 //! - Two staves (a grand staff) with `\staves 2` at the beginning. `\staff 1|2` says on which staff the notes which
 //!   follow are written (at the start of each voice it is staff 1 again), and `\crossStaff down|up|off` shows the

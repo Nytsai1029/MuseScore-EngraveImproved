@@ -42,6 +42,7 @@
 #include "engraving/dom/masterscore.h"
 #include "engraving/dom/mscore.h"
 #include "engraving/dom/measure.h"
+#include "engraving/dom/measurerepeat.h"
 #include "engraving/dom/note.h"
 #include "engraving/dom/part.h"
 #include "engraving/dom/rest.h"
@@ -812,6 +813,38 @@ TEST_F(Notation_PreviewMusicTests, voltas)
     EXPECT_FALSE(errorOf("c''4 \\volta \"1.\" 1 c''4").empty());
     EXPECT_FALSE(errorOf("\\volta \"1.\" 3 c''1 | c''1").empty());
     EXPECT_FALSE(errorOf("\\volta 1. 1 c''1").empty());
+}
+
+/**
+ * @TEST_CASE measureRepeats
+ * @details `\measureRepeat N` adds N measures which repeat the N before them, as long as those, with the sign in
+ *          the middle of the group; it begins with a measure and has enough measures before it
+ */
+TEST_F(Notation_PreviewMusicTests, measureRepeats)
+{
+    ASSERT_TRUE(load("c''4 c''4 c''4 c''4 | \\measureRepeat 1 \\measureRepeat 2 c''2 c''2"));
+
+    std::vector<const Measure*> measures;
+    for (const Measure* measure = score()->firstMeasure(); measure; measure = measure->nextMeasure()) {
+        measures.push_back(measure);
+    }
+    ASSERT_EQ(measures.size(), 5u);
+
+    EXPECT_EQ(measures[0]->measureRepeatCount(0), 0);
+    EXPECT_EQ(measures[1]->measureRepeatCount(0), 1);
+    ASSERT_TRUE(measures[1]->measureRepeatElement(0));
+    EXPECT_EQ(measures[1]->measureRepeatElement(0)->numMeasures(), 1);
+    EXPECT_EQ(measures[2]->measureRepeatCount(0), 1);
+    EXPECT_EQ(measures[3]->measureRepeatCount(0), 2);
+    ASSERT_TRUE(measures[3]->measureRepeatElement(0));
+    EXPECT_EQ(measures[3]->measureRepeatElement(0)->numMeasures(), 2);
+    EXPECT_EQ(measures[3]->ticks(), Fraction(1, 1));
+    EXPECT_EQ(measures[4]->measureRepeatCount(0), 0);
+
+    EXPECT_FALSE(errorOf("\\measureRepeat 1 c''1").empty());
+    EXPECT_FALSE(errorOf("c''1 | \\measureRepeat 3").empty());
+    EXPECT_FALSE(errorOf("c''1 | \\measureRepeat 2").empty());
+    EXPECT_FALSE(errorOf("c''2 \\measureRepeat 1").empty());
 }
 
 /**
