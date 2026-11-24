@@ -313,6 +313,29 @@ TEST_F(Notation_EngravingPreviewTests, twoSystemsHaveRoomInThePane)
 }
 
 /**
+ * @TEST_CASE onlyWhatIsDrawnIsInThePicture
+ * @details A time signature across the staves is drawn on the first staff only: the one which the second staff
+ *          carries for it is neither an item of the picture nor in its size
+ */
+TEST_F(Notation_EngravingPreviewTests, onlyWhatIsDrawnIsInThePicture)
+{
+    auto renderer = laidOut("\\instruments 2 \\time 3/4 c''2.", baseStyle(),
+                            { { Sid::timeSigPlacement, PropertyValue(TimeSigPlacement::ACROSS_STAVES) } });
+    ASSERT_TRUE(renderer);
+
+    size_t timeSigs = 0;
+    for (const EngravingPreviewRenderer::Item& item : renderer->items()) {
+        if (item.type == ElementType::TIMESIG) {
+            ++timeSigs;
+            EXPECT_EQ(item.track, 0);
+        }
+    }
+
+    EXPECT_EQ(timeSigs, 1u);
+    EXPECT_LE(renderer->sizeInStaffSpaces().height(), 20.0);
+}
+
+/**
  * @TEST_CASE paintsInk
  * @details The picture of the laid out music has the size it says, and ink in it
  */

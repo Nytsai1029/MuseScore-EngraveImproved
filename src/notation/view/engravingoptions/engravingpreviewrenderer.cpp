@@ -35,6 +35,9 @@
 #include "engraving/dom/mscore.h"
 #include "engraving/dom/page.h"
 #include "engraving/dom/slurtie.h"
+#include "engraving/dom/staff.h"
+#include "engraving/dom/stafftype.h"
+#include "engraving/dom/timesig.h"
 #include "engraving/iengravingfontsprovider.h"
 #include "engraving/infrastructure/localfileinfoprovider.h"
 #include "engraving/infrastructure/mscreader.h"
@@ -80,6 +83,36 @@ static muse::ByteArray inXmlContainer(const muse::ByteArray& mscx)
     text.replace("]]>", "]]]]><![CDATA[>");
 
     return muse::ByteArray::fromQByteArray("<files><file name=\"score.mscx\"><![CDATA[" + text + "]]></file></files>");
+}
+
+namespace {
+//! Whether the engine draws the item (TDraw): a time signature which a staff carries only for the large one above or
+//! across the staves, or which its staff type does not show, is laid out but not drawn, and so are its parentheses
+bool isDrawn(const EngravingItem* item)
+{
+    const EngravingItem* parent = item->parentItem();
+    const EngravingItem* owner = item->isParenthesis() && parent && parent->isTimeSig() ? parent : item;
+    if (!owner->isTimeSig()) {
+        return true;
+    }
+
+    const TimeSig* timeSig = toTimeSig(owner);
+    const Staff* staff = timeSig->staff();
+    return timeSig->showOnThisStaff() && (!staff || staff->staffType(timeSig->tick())->genTimesig());
+}
+
+//! The box of what the page prints, as Page::tbbox has it, but of what is drawn only
+muse::RectF drawnBoxOf(const Page* page)
+{
+    muse::RectF result;
+    for (EngravingItem* item : page->elements()) {
+        if (item != page && item->isPrintable() && isDrawn(item)) {
+            result.unite(item->pageBoundingRect());
+        }
+    }
+
+    return result.isEmpty() ? page->pageBoundingRect() : result;
+}
 }
 
 muse::Ret EngravingPreviewRenderer::setMusic(const QString& notation)
@@ -247,8 +280,8 @@ void EngravingPreviewRenderer::layout(const MStyle& style, const std::vector<Ove
         }
     } else {
         m_pictureMargin = static_cast<int>(std::lrint(PICTURE_MARGIN * previewStyle.spatium()));
-        m_pictureRect = m_score->pages().front()->tbbox().adjusted(-m_pictureMargin, -m_pictureMargin,
-                                                                 m_pictureMargin, m_pictureMargin);
+        m_pictureRect = drawnBoxOf(m_score->pages().front()).adjusted(-m_pictureMargin, -m_pictureMargin,
+                                                                    m_pictureMargin, m_pictureMargin);
     }
 }
 
@@ -399,8 +432,9 @@ std::vector<muse::PointF> curveOf(const EngravingItem* item, const muse::PointF&
 void collectItem(void* data, EngravingItem* item)
 {
     //! NOTE The page is not music, an item without a box (an empty key signature) has nothing to compare, and a
-    //! mark which is not printed (a layout break, a spacer) is not in the picture
-    if (item->isPage() || item->ldata()->bbox().isEmpty() || item->isLayoutBreak() || item->isSpacer()) {
+    //! mark which is not printed (a layout break, a spacer) or not drawn is not in the picture
+    if (item->isPage() || item->ldata()->bbox().isEmpty() || item->isLayoutBreak() || item->isSpacer()
+        || !isDrawn(item)) {
         return;
     }
 
