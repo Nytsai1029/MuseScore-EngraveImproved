@@ -1687,6 +1687,7 @@
 <context>
     <name>EditStyleBase</name>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="43"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="14"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12767"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12770"/>
@@ -1917,7 +1918,6 @@
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="33"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="216"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12582"/>
         <source>Figured bass</source>
@@ -3710,7 +3710,7 @@ space unit</extracomment>
         <translation type="unfinished">Center between staves on multi-staff instruments</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="50"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="78"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RestsPage.qml" line="258"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6193"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12726"/>
@@ -4907,7 +4907,6 @@ followed by dashes</translation>
         <translation type="unfinished">Reset &apos;Snap to dynamics&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="41"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12590"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="13989"/>
         <source>Size:</source>
@@ -4930,12 +4929,13 @@ followed by dashes</translation>
         <translation type="unfinished">of font height</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="59"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="90"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12671"/>
         <source>Line height:</source>
         <translation type="unfinished">Line height:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="55"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12741"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12744"/>
         <source>Alignment</source>
@@ -25678,7 +25678,7 @@ Fret %1 on strings %2</translation>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="279"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="185"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="197"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="54"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="85"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="121"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="133"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="48"/>
@@ -33768,12 +33768,14 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="423"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="60"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="162"/>
         <source>Top</source>
         <translation type="unfinished">Top</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="425"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="61"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="164"/>
         <source>Bottom</source>
         <translation type="unfinished">Bottom</translation>
@@ -34232,7 +34234,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Advanced</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="69"/>
         <source>Details</source>
         <translation type="unfinished">Details</translation>
     </message>
@@ -37744,52 +37745,42 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">How far before the note, rest or barline at its end position a hairpin stops when no dynamic determines its end.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="73"/>
         <source>Figured bass: continuation line thickness</source>
         <translation type="unfinished">Figured bass: continuation line thickness</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="74"/>
         <source>Thickness of figured bass continuation lines.</source>
         <translation type="unfinished">Thickness of figured bass continuation lines.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="83"/>
         <source>Figured bass: gap between figure and continuation line</source>
         <translation type="unfinished">Figured bass: gap between figure and continuation line</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="84"/>
         <source>Blank space between a figure and the continuation line that follows it.</source>
         <translation type="unfinished">Blank space between a figure and the continuation line that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="93"/>
         <source>Figured bass: overlap of joined continuation lines</source>
         <translation type="unfinished">Figured bass: overlap of joined continuation lines</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="94"/>
         <source>How far an extended continuation line runs into the continuation line of the next figure so that the two join without a gap.</source>
         <translation type="unfinished">How far an extended continuation line runs into the continuation line of the next figure so that the two join without a gap.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="103"/>
         <source>Figured bass: continuation line height</source>
         <translation type="unfinished">Figured bass: continuation line height</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="104"/>
         <source>Vertical position of a continuation line within its row of figures, as a fraction of the row height measured from the top.</source>
         <translation type="unfinished">Vertical position of a continuation line within its row of figures, as a fraction of the row height measured from the top.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="113"/>
         <source>Figured bass: continuation line reach into the last note</source>
         <translation type="unfinished">Figured bass: continuation line reach into the last note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="114"/>
         <source>How far a continuation line runs past the left edge of the last note it covers.</source>
         <translation type="unfinished">How far a continuation line runs past the left edge of the last note it covers.</translation>
     </message>
@@ -40519,6 +40510,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="53"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="120"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="310"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="36"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="46"/>
@@ -44333,6 +44325,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="149"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="351"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="59"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="104"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="136"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="79"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="53"/>
@@ -46162,6 +46155,96 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="423"/>
         <source>The thick line of the nut is drawn at the top of every diagram which starts at the first fret, unless ‘Show nut’ was switched off for that diagram.</source>
         <translation type="unfinished">The thick line of the nut is drawn at the top of every diagram which starts at the first fret, unless ‘Show nut’ was switched off for that diagram.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="37"/>
+        <source>Figured bass</source>
+        <translation type="unfinished">Figured bass</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="44"/>
+        <source>The form of the digits drawn with a stroke or a cross through them, for a raised interval; plain digits look the same in both styles.</source>
+        <translation type="unfinished">The form of the digits drawn with a stroke or a cross through them, for a raised interval; plain digits look the same in both styles.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="48"/>
+        <source>Modern</source>
+        <translation type="unfinished">Modern</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="49"/>
+        <source>Historic</source>
+        <translation type="unfinished">Historic</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="56"/>
+        <source>Top: the first figure of a stack stands at the vertical position below and the others hang under it. Bottom: the last figure stands there and the others pile up above it.</source>
+        <translation type="unfinished">Top: the first figure of a stack stands at the vertical position below and the others hang under it. Bottom: the last figure stands there and the others pile up above it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="67"/>
+        <source>Font size</source>
+        <translation type="unfinished">Font size</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="68"/>
+        <source>For a staff of the default size; the figures scale with the staff.</source>
+        <translation type="unfinished">For a staff of the default size; the figures scale with the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="79"/>
+        <source>Distance from the top staff line down to the first row of figures; 6 sp puts the figures under a five-line staff.</source>
+        <translation type="unfinished">Distance from the top staff line down to the first row of figures; 6 sp puts the figures under a five-line staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="91"/>
+        <source>Distance from one figure of a stack to the next, as a percentage of the line height of the font.</source>
+        <translation type="unfinished">Distance from one figure of a stack to the next, as a percentage of the line height of the font.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="105"/>
+        <source>Least vertical gap between figured bass and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between figured bass and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="115"/>
+        <source>Continuation lines</source>
+        <translation type="unfinished">Continuation lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="129"/>
+        <source>Gap between a figure and its line</source>
+        <translation type="unfinished">Gap between a figure and its line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="138"/>
+        <source>Overlap with the next line</source>
+        <translation type="unfinished">Overlap with the next line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="139"/>
+        <source>Where a continuation line carries on into the line of the next figure, it runs this far into it, so that the two join without a gap.</source>
+        <translation type="unfinished">Where a continuation line carries on into the line of the next figure, it runs this far into it, so that the two join without a gap.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="149"/>
+        <source>Height within the row of figures</source>
+        <translation type="unfinished">Height within the row of figures</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="150"/>
+        <source>Vertical position of the line in its row, as a fraction of the row height measured from the top: 0.5 is the middle of the row, 1 its bottom.</source>
+        <translation type="unfinished">Vertical position of the line in its row, as a fraction of the row height measured from the top: 0.5 is the middle of the row, 1 its bottom.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="160"/>
+        <source>Length past the start of the last note</source>
+        <translation type="unfinished">Length past the start of the last note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="161"/>
+        <source>How far a continuation line runs on past the left edge of the last note it covers.</source>
+        <translation type="unfinished">How far a continuation line runs on past the left edge of the last note it covers.</translation>
     </message>
 </context>
 <context>

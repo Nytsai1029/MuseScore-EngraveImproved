@@ -53240,5 +53240,95 @@ The score will be saved as:
         <source>The thick line of the nut is drawn at the top of every diagram which starts at the first fret, unless ‘Show nut’ was switched off for that diagram.</source>
         <translation>从第一品开始的品格图顶端画出粗的弦枕线；已单独关闭“显示上弦枕”的品格图除外。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="37"/>
+        <source>Figured bass</source>
+        <translation>数字低音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="44"/>
+        <source>The form of the digits drawn with a stroke or a cross through them, for a raised interval; plain digits look the same in both styles.</source>
+        <translation>带斜划或十字划（表示升高的音程）的数字的写法；不带划的数字在两种样式中相同。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="48"/>
+        <source>Modern</source>
+        <translation>现代</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="49"/>
+        <source>Historic</source>
+        <translation>传统</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="56"/>
+        <source>Top: the first figure of a stack stands at the vertical position below and the others hang under it. Bottom: the last figure stands there and the others pile up above it.</source>
+        <translation>顶部：一组数字的第一个位于下面设定的垂直位置，其余依次向下排列。底部：最后一个位于该位置，其余依次向上叠放。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="67"/>
+        <source>Font size</source>
+        <translation>字号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="68"/>
+        <source>For a staff of the default size; the figures scale with the staff.</source>
+        <translation>以默认大小的谱表为准，数字随谱表大小缩放。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="79"/>
+        <source>Distance from the top staff line down to the first row of figures; 6 sp puts the figures under a five-line staff.</source>
+        <translation>自谱表顶线向下到第一行数字的距离；取 6 谱间时数字位于五线谱下方。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="91"/>
+        <source>Distance from one figure of a stack to the next, as a percentage of the line height of the font.</source>
+        <translation>一组数字中相邻两个数字的行距，以字体行高的百分比计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="105"/>
+        <source>Least vertical gap between figured bass and the notes or other signs which lie between it and the staff.</source>
+        <translation>数字低音与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="115"/>
+        <source>Continuation lines</source>
+        <translation>延长线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="129"/>
+        <source>Gap between a figure and its line</source>
+        <translation>数字与其延长线的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="138"/>
+        <source>Overlap with the next line</source>
+        <translation>与下一条延长线的重叠</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="139"/>
+        <source>Where a continuation line carries on into the line of the next figure, it runs this far into it, so that the two join without a gap.</source>
+        <translation>延长线接续到下一个数字的延长线时，伸入后者此长度，使两者相接而不留缝隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="149"/>
+        <source>Height within the row of figures</source>
+        <translation>在数字行内的高度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="150"/>
+        <source>Vertical position of the line in its row, as a fraction of the row height measured from the top: 0.5 is the middle of the row, 1 its bottom.</source>
+        <translation>延长线在所在数字行内的垂直位置，以自行顶起算的行高比例计：0.5 为行的正中，1 为行底。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="160"/>
+        <source>Length past the start of the last note</source>
+        <translation>越过末音起点的长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="161"/>
+        <source>How far a continuation line runs on past the left edge of the last note it covers.</source>
+        <translation>延长线越过其涵盖的最后一个音符左缘之后继续延伸的长度。</translation>
+    </message>
 </context>
 </TS>
