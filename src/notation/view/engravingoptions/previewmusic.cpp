@@ -191,6 +191,46 @@ struct Place {
 
 constexpr int BUZZ_ROLL = -1;
 
+//! `\\chordSymbol "text"`: the root and the bass as tonal pitch classes, and the name of the chord as the text has it
+struct ChordSymbol {
+    int rootTpc = 14;
+    QString name;           // what follows the root, as 7(b9)
+    std::optional<int> bassTpc;
+    bool inParentheses = false;     // the whole text is in parentheses: the symbol is
+};
+
+//! The chord symbol of the text, as C7(b9)/E or (F), if it is one
+std::optional<ChordSymbol> chordSymbolOf(const QString& text)
+{
+    static const QRegularExpression SYMBOL("^([A-G])([b#]?)([^/]*)(?:/([A-G])([b#]?))?$");
+    static const std::map<QString, int> NATURAL_TPCS {
+        { "F", 13 }, { "C", 14 }, { "G", 15 }, { "D", 16 }, { "A", 17 }, { "E", 18 }, { "B", 19 }
+    };
+    const auto tpcOf = [](const QString& letter, const QString& accidental) {
+        return NATURAL_TPCS.at(letter) + (accidental == "#" ? 7 : (accidental == "b" ? -7 : 0));
+    };
+
+    ChordSymbol symbol;
+    QString body = text;
+    if (body.startsWith('(') && body.endsWith(')')) {
+        symbol.inParentheses = true;
+        body = body.mid(1, body.size() - 2);
+    }
+
+    const QRegularExpressionMatch match = SYMBOL.match(body);
+    if (!match.hasMatch()) {
+        return std::nullopt;
+    }
+
+    symbol.rootTpc = tpcOf(match.captured(1), match.captured(2));
+    symbol.name = match.captured(3);
+    if (match.hasCaptured(4)) {
+        symbol.bassTpc = tpcOf(match.captured(4), match.captured(5));
+    }
+
+    return symbol;
+}
+
 //! `\\trill` `\\turn` `\\mordent` `\\prall`, written as an Ornament
 struct OrnamentMark {
     QString symbol;
@@ -259,6 +299,9 @@ struct Event {
     bool dynamicAtEndOfPrevious = false;    // `\\atEndOfPrevious`: the dynamic stands before its beat
     QString expression;             // `\\expression "text"`: an expression text, as dolce after a p
     QString sticking;               // `\\sticking "text"`: the hand of a percussion note, as R or L
+    QString chordSymbol;            // `\\chordSymbol "text"`: a chord symbol, as C7(b9)/E or, in parentheses, (F)
+    bool notesInParentheses = false;    // `\\parenthesize` before the chord: each of its notes
+    bool chordInParentheses = false;    // `\\parenthesizeChord`: the chord as a whole
 
     int tupletActual = 0;
     int tupletNormal = 0;
@@ -774,6 +817,18 @@ private:
         } else if (text == "\\sticking") {
             Event& event = lastEvent(token);
             event.sticking = quoted(takeToken("the letters in quotes", token));
+        } else if (text == "\\chordSymbol") {
+            Event& event = lastEvent(token);
+            const Token symbol = takeToken("the chord symbol in quotes", token);
+            event.chordSymbol = quoted(symbol);
+            if (!chordSymbolOf(event.chordSymbol)) {
+                fail("a chord symbol is a root A to G, b or #, what follows it and /bass, as C7(b9)/E, or that in "
+                     "parentheses", symbol.position);
+            }
+        } else if (text == "\\parenthesize") {
+            m_parenthesize = true;
+        } else if (text == "\\parenthesizeChord") {
+            m_parenthesizeChord = true;
         } else if (text == "\\instrument") {
             readInstrument(token);
         } else if (text == "\\!") {
@@ -1561,6 +1616,10 @@ private:
             fail("\\beamAt and \\beamMove stand before the first note of a beam group", event.textPosition);
         }
 
+        if (event.isRest && (event.notesInParentheses || event.chordInParentheses)) {
+            fail("\\parenthesize and \\parenthesizeChord stand before notes", event.textPosition);
+        }
+
         voice().push_back(std::move(event));
         m_last = &voice().back();
     }
@@ -1584,6 +1643,8 @@ private:
         event.clef = std::exchange(m_clef, std::nullopt);
         event.key = std::exchange(m_key, std::nullopt);
         event.time = std::exchange(m_time, std::nullopt);
+        event.notesInParentheses = std::exchange(m_parenthesize, false);
+        event.chordInParentheses = std::exchange(m_parenthesizeChord, false);
         event.beamAnchor = std::exchange(m_beamAt, std::nullopt);
         event.beamMove = std::exchange(m_beamMove, std::nullopt);
     }
@@ -1667,6 +1728,8 @@ private:
     std::optional<QString> m_clef;
     std::optional<int> m_key;
     std::optional<std::pair<int, int> > m_time;
+    bool m_parenthesize = false;            // `\\parenthesize` waits for the chord it puts in parentheses
+    bool m_parenthesizeChord = false;
 };
 
 //---------------------------------------------------------
@@ -2294,6 +2357,10 @@ private:
             m_xml.writeEndElement();
         }
 
+        if (!event.chordSymbol.isEmpty()) {
+            writeChordSymbol(*chordSymbolOf(event.chordSymbol));
+        }
+
         writeLinks(event, Link::Kind::Hairpin);
 
         if (!event.staffText.isEmpty()) {
@@ -2326,6 +2393,23 @@ private:
             text("symbol", event.breath);
             m_xml.writeEndElement();
         }
+    }
+
+    //! NOTE As TWrite writes a Harmony: the name of the chord, its root and bass in a harmonyInfo
+    void writeChordSymbol(const ChordSymbol& symbol)
+    {
+        m_xml.writeStartElement("Harmony");
+        writeParentheses(symbol.inParentheses);
+        m_xml.writeStartElement("harmonyInfo");
+        if (!symbol.name.isEmpty()) {
+            text("name", symbol.name);
+        }
+        number("root", symbol.rootTpc);
+        if (symbol.bassTpc) {
+            number("bass", *symbol.bassTpc);
+        }
+        m_xml.writeEndElement();
+        m_xml.writeEndElement();
     }
 
     //! The format tags of the text are written as elements in the text, as rich text is in a score file
@@ -2382,6 +2466,13 @@ private:
             number("sigN", event.time->first);
             number("sigD", event.time->second);
             m_xml.writeEndElement();
+        }
+    }
+
+    void writeParentheses(bool inParentheses)
+    {
+        if (inParentheses) {
+            text("parentheses", "both");
         }
     }
 
@@ -2463,6 +2554,7 @@ private:
         if (event.small) {
             number("small", 1);
         }
+        writeParentheses(event.chordInParentheses);
         writeBeam(event);
 
         if (!event.isRest) {
@@ -2591,6 +2683,8 @@ private:
         if (!event.handBracket.isEmpty() && isBottomNote) {
             writeHandBracket(event.handBracket);
         }
+
+        writeParentheses(event.notesInParentheses);
 
         if (event.fingering > 0 && isTopNote) {
             m_xml.writeStartElement("Fingering");

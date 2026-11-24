@@ -40,6 +40,7 @@
 #include "engraving/dom/fermata.h"
 #include "engraving/dom/fingering.h"
 #include "engraving/dom/hairpin.h"
+#include "engraving/dom/harmony.h"
 #include "engraving/dom/instrument.h"
 #include "engraving/dom/jump.h"
 #include "engraving/dom/keysig.h"
@@ -1145,4 +1146,42 @@ TEST_F(Notation_PreviewMusicTests, stickingNamesTheHand)
     EXPECT_FALSE(found[2]->segment()->findAnnotation(ElementType::STICKING, 0, 0));
 
     EXPECT_FALSE(errorOf("c'4 \\sticking R").empty());
+}
+
+/**
+ * @TEST_CASE parenthesesAndChordSymbols
+ * @details `\\parenthesize` puts each note of the next chord in parentheses, `\\parenthesizeChord` the chord as a
+ * whole; `\\chordSymbol` writes a chord symbol, in parentheses when its text is
+ */
+TEST_F(Notation_PreviewMusicTests, parenthesesAndChordSymbols)
+{
+    ASSERT_TRUE(load("\\parenthesize <a' c''>4 \\parenthesizeChord <d' fis'>4 \\chordSymbol \"D7(b9)/F#\" "
+                     "a'2 \\chordSymbol \"(G)\""));
+
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 3u);
+
+    for (const Note* note : found[0]->notes()) {
+        EXPECT_TRUE(note->leftParen() && note->rightParen());
+    }
+    EXPECT_FALSE(found[0]->leftParen());
+    EXPECT_TRUE(found[1]->leftParen() && found[1]->rightParen());
+    EXPECT_FALSE(found[1]->notes().front()->leftParen());
+    EXPECT_FALSE(found[2]->notes().front()->leftParen());
+
+    const EngravingItem* seventh = found[1]->segment()->findAnnotation(ElementType::HARMONY, 0, 0);
+    ASSERT_TRUE(seventh);
+    ASSERT_FALSE(toHarmony(seventh)->chords().empty());
+    const HarmonyInfo* info = toHarmony(seventh)->chords().front();
+    EXPECT_EQ(info->rootTpc(), 16);
+    EXPECT_EQ(info->bassTpc(), 20);
+    EXPECT_EQ(info->textName(), muse::String(u"7(b9)"));
+    EXPECT_FALSE(seventh->leftParen());
+
+    const EngravingItem* g = found[2]->segment()->findAnnotation(ElementType::HARMONY, 0, 0);
+    ASSERT_TRUE(g);
+    EXPECT_TRUE(g->leftParen() && g->rightParen());
+
+    EXPECT_FALSE(errorOf("\\parenthesize r4").empty());
+    EXPECT_FALSE(errorOf("c'4 \\chordSymbol \"H7\"").empty());
 }

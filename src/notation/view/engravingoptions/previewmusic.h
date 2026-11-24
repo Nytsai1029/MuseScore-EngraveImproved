@@ -52,24 +52,25 @@ namespace mu::notation {
 //! - After a note, as words: `\fermata`, `\arpeggio` (also `\arpeggioUp|Down|Bracket|UpStraight|DownStraight`),
 //!   `\laissezVibrer`, a dynamic (`\ppp \pp \p \mp \mf \f \ff \fff \sf \sfz \fp`; `\atEndOfPrevious` after it puts it
 //!   before its beat), `\expression "text"` (as dolce after a p), `\sticking "text"` (the hand of a percussion note, as
-//!   R), `\<` and `\>` (a hairpin begins), `\cresc` and `\dim` (a line with the word begins), `\niente` after any of
-//!   these four (it begins or ends at niente, a small circle), `\diagonal y` after them (its end is y staff spaces
-//!   lower, as if dragged) and `\!` (it ends). The ornaments `\trill` `\turn` `\mordent` `\prall` (with `!`, as
+//!   R), `\chordSymbol "text"` (a chord symbol, as C7(b9)/E; the text in parentheses, as (F), puts the symbol in
+//!   parentheses), `\<` and `\>` (a hairpin begins), `\cresc` and `\dim` (a line with the word begins), `\niente` after
+//!   any of these four (it begins or ends at niente, a small circle), `\diagonal y` after them (its end is y staff
+//!   spaces lower, as if dragged) and `\!` (it ends). The ornaments `\trill` `\turn` `\mordent` `\prall` (with `!`, as
 //!   `\turn!`, the accidentals of the notes they play are shown, also those of the key), `\upbow` `\downbow`,
 //!   `\luteFinger thumb|1|2|3` (the right hand in lute music), the lines `\fall` `\doit` `\plop` `\scoop` (curved;
 //!   `\fallStraight`, `\fallWavy` and so on), `\breathe` and `\caesura` (after the chord), and
 //!   `\handBracket left|right` (the hand which plays the chord, a bracket left of its lowest note).
-//! - Before a note: `\stemUp` `\stemDown` `\stemNeutral` (until changed), `\noBeam`, `\slash` (slash
-//!   noteheads, as in rhythm slash notation) and `\small` (a small cue chord or rest) for this chord only,
+//! - Before a note: `\stemUp` `\stemDown` `\stemNeutral` (until changed), `\noBeam`, `\slash` (slash noteheads, as in
+//!   rhythm slash notation) and `\small` (a small cue chord or rest) for this chord only, `\parenthesize` (its notes in
+//!   parentheses) and `\parenthesizeChord` (the chord as a whole),
 //!   `\grace` `\acciaccatura` `\appoggiatura` (the next chord, or all the chords of `{ ... }` which follow, beamed
 //!   together, are grace notes of the one after them), `\slurSolid|Dotted|Dashed|WideDashed` and
 //!   `\tieSolid|Dotted|Dashed|WideDashed` (the line of the slurs and ties which begin after it, until changed),
 //!   `\tremolo 16 { c'2 e'2 }` (a tremolo between two chords), `\ambitus` (an ambitus before the next note, of the
-//!   highest and lowest notes of the music),
-//!   `\tuplet 3/2 { ... }`, `\clef treble|bass|alto|tenor`, `\key N` (N sharps, negative: flats), `\time 3/4`
-//!   (at the beginning of a measure the key and the time signature are on all the staves, as in a score),
-//!   `\break` (the system ends after this measure, as if a `|` had come before it), `\pageBreak` (the page ends
-//!   after it).
+//!   highest and lowest notes of the music), `\tuplet 3/2 { ... }`, `\clef treble|bass|alto|tenor`, `\key N` (N sharps,
+//!   negative: flats), `\time 3/4` (at the beginning of a measure the key and the time signature are on all the staves,
+//!   as in a score), `\break` (the system ends after this measure, as if a `|` had come before it), `\pageBreak` (the
+//!   page ends after it).
 //! - `\bar "type"` where a barline stands (it ends the measure as `|` does, or, after a `|`, gives the barline of the
 //!   measure before): `||` `|.` `.|` `!` (dashed) `;` (dotted) `.` (heavy) `..`, and the repeats `.|:` `:|.` `:|.|:`;
 //!   `\playCount N` after a `\bar` which ends a repeat: it is played N times. `\volta "1." N` at the beginning of
