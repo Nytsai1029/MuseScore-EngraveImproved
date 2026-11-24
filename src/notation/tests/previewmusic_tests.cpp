@@ -37,8 +37,10 @@
 #include "engraving/dom/fermata.h"
 #include "engraving/dom/fingering.h"
 #include "engraving/dom/hairpin.h"
+#include "engraving/dom/jump.h"
 #include "engraving/dom/keysig.h"
 #include "engraving/dom/lyrics.h"
+#include "engraving/dom/marker.h"
 #include "engraving/dom/masterscore.h"
 #include "engraving/dom/mscore.h"
 #include "engraving/dom/measure.h"
@@ -845,6 +847,42 @@ TEST_F(Notation_PreviewMusicTests, measureRepeats)
     EXPECT_FALSE(errorOf("c''1 | \\measureRepeat 3").empty());
     EXPECT_FALSE(errorOf("c''1 | \\measureRepeat 2").empty());
     EXPECT_FALSE(errorOf("c''2 \\measureRepeat 1").empty());
+}
+
+/**
+ * @TEST_CASE markersAndJumps
+ * @details `\segno` `\coda` `\fine` `\toCoda` are the markers of the measure being written, `\jump` its jump
+ */
+TEST_F(Notation_PreviewMusicTests, markersAndJumps)
+{
+    ASSERT_TRUE(load("\\segno c''1 | c''1 \\fine | \\coda c''1 \\toCoda \\jump \"D.S. al Coda\""));
+
+    std::vector<std::vector<const EngravingItem*> > items;
+    for (const Measure* measure = score()->firstMeasure(); measure; measure = measure->nextMeasure()) {
+        items.emplace_back(measure->el().begin(), measure->el().end());
+    }
+    ASSERT_EQ(items.size(), 3u);
+
+    const auto markerTypes = [](const std::vector<const EngravingItem*>& list) {
+        std::vector<MarkerType> types;
+        for (const EngravingItem* item : list) {
+            if (item->isMarker()) {
+                types.push_back(toMarker(item)->markerType());
+            }
+        }
+        return types;
+    };
+    EXPECT_EQ(markerTypes(items[0]), std::vector<MarkerType> { MarkerType::SEGNO });
+    EXPECT_EQ(markerTypes(items[1]), std::vector<MarkerType> { MarkerType::FINE });
+    EXPECT_EQ(markerTypes(items[2]), (std::vector<MarkerType> { MarkerType::CODA, MarkerType::TOCODA }));
+
+    const auto jump = std::find_if(items[2].begin(), items[2].end(), [](const EngravingItem* item) {
+        return item->isJump();
+    });
+    ASSERT_NE(jump, items[2].end());
+    EXPECT_EQ(toJump(*jump)->plainText(), u"D.S. al Coda");
+
+    EXPECT_FALSE(errorOf("c''1 \\jump D.C.").empty());
 }
 
 /**

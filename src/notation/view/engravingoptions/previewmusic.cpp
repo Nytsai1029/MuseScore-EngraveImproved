@@ -276,6 +276,8 @@ struct Measure {
     int repeatGroup = 0;        // the measure is one of a measure repeat of this many measures (1, 2 or 4),
     int repeatIndex = 0;        // the how-manieth of them, from 1,
     Fraction repeatedLength;    // and as long as the measure it repeats
+    QStringList markers;        // `\\segno` `\\coda` `\\fine` `\\toCoda` of the measure, by their command names
+    QString jump;               // the text of a jump at its end
 
     static Fraction lengthOf(const Voice& voice)
     {
@@ -679,6 +681,10 @@ private:
             readVolta(token);
         } else if (text == "\\measureRepeat") {
             readMeasureRepeat(token);
+        } else if (text == "\\segno" || text == "\\coda" || text == "\\fine" || text == "\\toCoda") {
+            measure().markers << text.mid(1);
+        } else if (text == "\\jump") {
+            measure().jump = quoted(takeToken("the text of the jump in quotes", token));
         } else if (text == "\\tuplet") {
             readTuplet(token);
         } else if (text == "\\clef") {
@@ -1829,6 +1835,10 @@ private:
             m_xml.writeEndElement();
         }
 
+        if (staff == 0) {
+            writeMarkersAndJump(measure);
+        }
+
         //! NOTE The voices which have events on the staff are its voices, one after the other; the barline ends the
         //! first of them
         bool hasVoice = false;
@@ -1962,6 +1972,50 @@ private:
         }
 
         m_xml.writeEndElement();
+    }
+
+    //! The markers of the measure (as TWrite writes a Marker: the text is a symbol or a word) and its jump, which
+    //! plays from the start to the end
+    void writeMarkersAndJump(const Measure& measure)
+    {
+        struct MarkerKind {
+            const char* style;      // repeat_left: at the beginning of the measure; repeat_right: at its end
+            const char* symbol;     // the text is this symbol, or else
+            const char* word;       // this word
+            const char* type;       // the MarkerType, as TConv writes it
+        };
+        static const std::map<QString, MarkerKind> KINDS {
+            { "segno", { "repeat_left", "segno", nullptr, "segno" } },
+            { "coda", { "repeat_left", "coda", nullptr, "codab" } },
+            { "fine", { "repeat_right", nullptr, "Fine", "fine" } },
+            { "toCoda", { "repeat_right", nullptr, "To Coda", "coda" } },
+        };
+
+        for (const QString& name : measure.markers) {
+            const MarkerKind& kind = KINDS.at(name);
+            m_xml.writeStartElement("Marker");
+            text("style", kind.style);
+            m_xml.writeStartElement("text");
+            if (kind.symbol) {
+                text("sym", kind.symbol);
+            } else {
+                m_xml.writeCharacters(kind.word);
+            }
+            m_xml.writeEndElement();
+            text("label", kind.type);
+            text("markerType", kind.type);
+            m_xml.writeEndElement();
+        }
+
+        if (!measure.jump.isEmpty()) {
+            m_xml.writeStartElement("Jump");
+            text("style", "repeat_right");
+            text("text", measure.jump);
+            text("jumpTo", "start");
+            text("playUntil", "end");
+            text("continueAt", QString());
+            m_xml.writeEndElement();
+        }
     }
 
     //! The barline at the end of the measure, if `\\bar` gives one other than a repeat (which the measure's repeats
