@@ -163,6 +163,7 @@ private:
     muse::RectF pictureRect() const { return m_pictureRect; }
 
     std::unique_ptr<engraving::MasterScore> m_score;
+    bool m_isLaidOut = false;   // the music has been laid out at least once since it was read
     bool m_showsPage = false;
     muse::RectF m_pictureRect;
     int m_pictureMargin = 0;    // of m_pictureRect around the printed music, in page units

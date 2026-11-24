@@ -106,6 +106,7 @@ muse::Ret EngravingPreviewRenderer::setMusic(const QString& notation)
         ret = MscLoader().loadMscz(score.get(), reader, audioSettings, false);
         if (ret) {
             m_score = std::move(score);
+            m_isLaidOut = false;
         }
     }
 
@@ -173,6 +174,16 @@ void EngravingPreviewRenderer::layout(const MStyle& style, const std::vector<Ove
 {
     IF_ASSERT_FAILED(isLoaded()) {
         return;
+    }
+
+    //! NOTE What the style makes of the music on a style change can depend on what a layout derives first: the
+    //! texts of the play counts are made for the measures whose end barline a layout has made an end repeat
+    //! (Measure::styleChanged). The music is laid out once as it is read, as a score which is opened is, so that
+    //! every layout of the preview starts from there
+    if (!m_isLaidOut) {
+        m_score->setLayoutAll();
+        m_score->doLayout();
+        m_isLaidOut = true;
     }
 
     MStyle previewStyle = style;
