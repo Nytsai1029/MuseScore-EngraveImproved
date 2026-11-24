@@ -1320,13 +1320,15 @@ TEST_F(Notation_PreviewMusicTests, fretboardDiagramsAtAFretWithBarresAndFingers)
 }
 
 /**
- * @TEST_CASE figuredBassContinuationLines
- * @details `_` after a figure draws a continuation line, `__` one which joins the next figured bass; a figured bass
- * with a line lasts until the next figured bass of the voice, or to its end, one without lasts its chord
+ * @TEST_CASE figuredBassStrokesAndContinuationLines
+ * @details `+` and `/` after a digit cross or slash it; `_` after a figure draws a continuation line, `__` one which
+ * joins the next figured bass; a figured bass with a line lasts until the next figured bass of the voice, or to its
+ * end, one without lasts its chord
  */
-TEST_F(Notation_PreviewMusicTests, figuredBassContinuationLines)
+TEST_F(Notation_PreviewMusicTests, figuredBassStrokesAndContinuationLines)
 {
-    ASSERT_TRUE(load("c'4 \\figuredBass \"6_\" d'4 e'4 \\figuredBass \"5\" f'4 \\figuredBass \"#4__ 2\" | g'1"));
+    ASSERT_TRUE(load("c'4 \\figuredBass \"6_\" d'4 e'4 \\figuredBass \"5/\" f'4 \\figuredBass \"#4__ 2+\" "
+                     "| g'1"));
 
     const std::vector<Chord*> found = chords();
     ASSERT_EQ(found.size(), 5u);
@@ -1347,6 +1349,8 @@ TEST_F(Notation_PreviewMusicTests, figuredBassContinuationLines)
     ASSERT_TRUE(fifth);
     EXPECT_EQ(fifth->ticks(), Fraction(1, 4));
     EXPECT_EQ(fifth->items().front()->contLine(), FiguredBassItem::ContLine::NONE);
+    EXPECT_EQ(fifth->items().front()->digit(), 5);
+    EXPECT_EQ(fifth->items().front()->suffix(), FiguredBassItem::Modifier::SLASH);
 
     const FiguredBass* fourth = figuredBassAt(found[3]);
     ASSERT_TRUE(fourth);
@@ -1355,6 +1359,7 @@ TEST_F(Notation_PreviewMusicTests, figuredBassContinuationLines)
     EXPECT_EQ(fourth->items().front()->contLine(), FiguredBassItem::ContLine::EXTENDED);
     EXPECT_EQ(fourth->items().front()->prefix(), FiguredBassItem::Modifier::SHARP);
     EXPECT_EQ(fourth->items().back()->contLine(), FiguredBassItem::ContLine::NONE);
+    EXPECT_EQ(fourth->items().back()->suffix(), FiguredBassItem::Modifier::CROSS);
 
     EXPECT_FALSE(errorOf("c'4 \\figuredBass \"6___\"").empty());
 }

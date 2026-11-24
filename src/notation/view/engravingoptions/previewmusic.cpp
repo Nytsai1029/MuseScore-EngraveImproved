@@ -1053,17 +1053,18 @@ private:
     }
 
     //! `\\figuredBass "6 4"`: the figures from the top, each a figure, an accidental (`b`, `#`, `n`) or both, as b7, then
-    //! `_` (a continuation line) or `__` (one which joins the line of the next figured bass)
+    //! `+` or `/` (a digit crossed or slashed: raised), then `_` (a continuation line) or `__` (one which joins the
+    //! line of the next figured bass)
     void readFiguredBass(const Token& command)
     {
         Event& event = lastEvent(command);
         const Token figures = takeToken("the figures in quotes", command);
         event.figuredBass = quoted(figures).split(' ', Qt::SkipEmptyParts);
-        static const QRegularExpression FIGURE("^[b#n]?[0-9]?_{0,2}$");
+        static const QRegularExpression FIGURE("^[b#n]?(?:[0-9][+/]?)?_{0,2}$");
         for (const QString& figure : event.figuredBass) {
             if (!FIGURE.match(figure).hasMatch()) {
-                fail("a figure is a digit, an accidental (b, # or n) or both, as b7, then _ or __ for a continuation "
-                     "line", figures.position);
+                fail("a figure is a digit, an accidental (b, # or n) or both, as b7, the digit crossed with + or "
+                     "slashed with /, then _ or __ for a continuation line", figures.position);
             }
         }
         if (event.figuredBass.isEmpty()) {
@@ -3100,22 +3101,32 @@ private:
         m_xml.writeEndElement();
     }
 
-    //! The figures as FiguredBassItem, each with its accidental as the prefix (FiguredBassItem::Modifier)
+    //! The figures as FiguredBassItem, each with its accidental as the prefix and its stroke as the suffix
+    //! (FiguredBassItem::Modifier)
     void writeFiguredBass(const Event& event)
     {
         static const std::map<QChar, int> MODIFIERS { { 'b', 2 }, { 'n', 3 }, { '#', 4 } };
+        static const std::map<QChar, int> STROKES { { '+', 6 }, { '/', 8 } };
 
         m_xml.writeStartElement("FiguredBass");
         number("ticks", (event.figuredBassTicks.isZero() ? event.length() : event.figuredBassTicks).ticks());
         for (const QString& written : event.figuredBass) {
             const qsizetype lines = written.size() - QString(written).remove('_').size();
-            const QString figure = written.left(written.size() - lines);
+            QString figure = written.left(written.size() - lines);
+            const std::optional<int> stroke = !figure.isEmpty() && STROKES.count(figure.back())
+                                              ? std::optional<int>(STROKES.at(figure.back())) : std::nullopt;
+            if (stroke) {
+                figure.chop(1);
+            }
             m_xml.writeStartElement("FiguredBassItem");
             if (!figure.isEmpty() && MODIFIERS.count(figure.front())) {
                 number("prefix", MODIFIERS.at(figure.front()));
             }
             if (!figure.isEmpty() && figure.back().isDigit()) {
                 number("digit", figure.back().digitValue());
+            }
+            if (stroke) {
+                number("suffix", *stroke);
             }
             if (lines > 0) {
                 number("continuationLine", static_cast<int>(lines));     // ContLine: 1 simple, 2 extended
