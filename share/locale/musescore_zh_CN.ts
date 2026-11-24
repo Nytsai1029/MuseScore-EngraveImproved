@@ -51176,5 +51176,130 @@ The score will be saved as:
         <source>Label repeated at the start of each following system of a 22mb line while ‘Numbers only’ is on.</source>
         <translation>“仅显示数字”开启时，22mb 八度号在后续每个谱行组开头重复的标记。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="38"/>
+        <source>Pedal lines</source>
+        <translation>踏板线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="43"/>
+        <source>Side of the staff on which pedal lines are placed, unless one is flipped by hand.</source>
+        <translation>踏板线置于谱表的哪一侧；单独翻转过的不受影响。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="52"/>
+        <source>Offset: X moves the line to the right, Y moves it down from the top staff line (above the staff) or from the bottom staff line (below the staff), so a Y of −2 above means 2 sp over the staff.</source>
+        <translation>偏移：X 为向右的水平位移；Y 自谱表顶线（置于上方时）或底线（置于下方时）向下计量，因此上方的 Y 取 −2 即高出谱表 2 谱间。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="67"/>
+        <source>Horizontal shift and height of a pedal line placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
+        <translation>置于上方的踏板线的水平偏移和高度，自谱表顶线量起（负值向上）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="74"/>
+        <source>Horizontal shift and depth of a pedal line placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
+        <translation>置于下方的踏板线的水平偏移和深度，自谱表底线量起（正值向下）；遇到音符或记号阻挡时仍会被推得更远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="124"/>
+        <source>How far to the left of its note a pedal line which begins with the Ped. symbol starts.</source>
+        <translation>以 Ped. 记号开头的踏板线，其起点比所属音符靠左多少。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="132"/>
+        <source>Gap between the line’s end and the next note</source>
+        <translation>线条末端与下一音符的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="133"/>
+        <source>How far a pedal line, or its release sign, stops before the note or barline at which it ends.</source>
+        <translation>踏板线（或其松开记号）在结束处的音符或小节线之前留出的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="142"/>
+        <source>Gap between the line’s end and a following pedal line</source>
+        <translation>线条末端与后续踏板线的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="143"/>
+        <source>Used instead of the gap above when the next pedal line starts on the very note at which this one ends, to leave room for its Ped. symbol.</source>
+        <translation>当下一条踏板线正好从本线结束处的音符开始时，改用此距离，为其 Ped. 记号留出位置。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="152"/>
+        <source>Length of the hooks at the start and the end of a pedal line; they point towards the staff, a negative value turns them away.</source>
+        <translation>踏板线起点和终点折钩的长度；折钩指向谱表，取负值则背向谱表。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="161"/>
+        <source>Least vertical gap between a pedal line and the notes or other signs which lie between it and the staff.</source>
+        <translation>踏板线与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="168"/>
+        <source>Texts</source>
+        <translation>文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="169"/>
+        <source>A symbol of the music font is written as &lt;sym&gt;name&lt;/sym&gt;: &lt;sym&gt;keyboardPedalPed&lt;/sym&gt; is the Ped. sign, &lt;sym&gt;keyboardPedalUp&lt;/sym&gt; the release sign.</source>
+        <translation>音乐字体中的符号写作 &lt;sym&gt;名称&lt;/sym&gt;：&lt;sym&gt;keyboardPedalPed&lt;/sym&gt; 即 Ped. 记号，&lt;sym&gt;keyboardPedalUp&lt;/sym&gt; 即松开记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="175"/>
+        <source>Text at the start</source>
+        <translation>开头的文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="176"/>
+        <source>For pedal lines which begin without a hook: the Ped. sign by default.</source>
+        <translation>用于起点不带折钩的踏板线，默认为 Ped. 记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="183"/>
+        <source>Text at the start of a line which begins with a hook</source>
+        <translation>以折钩开头的踏板线开头的文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="184"/>
+        <source>Empty by default, so that a bracket-style pedal line shows the hook alone.</source>
+        <translation>默认留空，括线式的踏板线只画折钩。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="193"/>
+        <source>Repeated at the start of each following system of a pedal line which begins without a hook: the Ped. sign in parentheses by default.</source>
+        <translation>起点不带折钩的踏板线换行后，在后续每个谱行组开头重复的文字，默认为带圆括号的 Ped. 记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="202"/>
+        <source>Text on following systems of a line which begins with a hook</source>
+        <translation>起点带折钩的线条在后续谱行组上的文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="203"/>
+        <source>Repeated at the start of each following system of a pedal line which begins with a hook; empty by default, so that only the line goes on.</source>
+        <translation>起点带折钩的踏板线换行后，在后续每个谱行组开头重复的文字；默认为空，只延续线条。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="210"/>
+        <source>Text at the end of a visible line</source>
+        <translation>线条可见时末端的文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="211"/>
+        <source>Empty by default: a pedal drawn with a line ends with its hook.</source>
+        <translation>默认留空：画出线条的踏板记号以折钩收尾。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="217"/>
+        <source>Text at the end when the line is hidden</source>
+        <translation>线条隐藏时末端的文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="218"/>
+        <source>For the pedal marking written as Ped. … ✱ without a line: the release sign by default.</source>
+        <translation>用于不画线条、写作 Ped. … ✱ 的踏板记号，默认为松开记号。</translation>
+    </message>
 </context>
 </TS>
