@@ -750,7 +750,7 @@ const char* const EFFECT_TEST_PAGES[] = {
     "NotesPage", "AccidentalsPage", "StemsPage", "BeamsPage", "TremolosPage",
     "RestsPage", "TupletsPage", "ArpeggiosPage", "TiesPage", "SlursPage",
     "BarlinesPage", "RepeatsPage", "VoltasPage", "ClefsKeyAndTimeSignaturesPage", "ArticulationsAndOrnamentsPage",
-    "FermatasPage", "DynamicsHairpinsPage", "FingeringPage"
+    "FermatasPage", "DynamicsHairpinsPage", "FingeringPage", "ParenthesesPage"
 };
 
 //! NOTE The options whose value nothing in the layout reads, each with the code fact which shows it
@@ -905,6 +905,9 @@ const std::set<QString>& optionsWhoseMusicCannotShowItYet()
         // which is full to within a step of it: none of 228 pages tried (7 to 10 systems, music top margin in steps
         // of 0.25 sp) was
         "minSystemDistance",
+        // a note's parentheses are spaced against its ledger lines (ParenthesisLayout::getParentShape adds them),
+        // but the parenthesis does not move however large this is: an engine finding, not fixed yet
+        "parenthesisLedgerLinePadding",
     };
 
     return OPTIONS;

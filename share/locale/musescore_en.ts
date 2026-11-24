@@ -34300,7 +34300,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">How far straight arpeggio lines with an arrow extend beyond the top and the bottom notehead.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="33"/>
         <source>Notations</source>
         <translation type="unfinished">Notations</translation>
     </message>
@@ -37764,302 +37763,250 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Parentheses</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="36"/>
         <source>Parentheses: shape</source>
         <translation type="unfinished">Parentheses: shape</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="40"/>
         <source>Parenthesis: maximum thickness in the middle</source>
         <translation type="unfinished">Parenthesis: maximum thickness in the middle</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="41"/>
         <source>Limits how thick a drawn parenthesis can become in the middle, however tall it is.</source>
         <translation type="unfinished">Limits how thick a drawn parenthesis can become in the middle, however tall it is.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="50"/>
         <source>Parenthesis: shoulder position</source>
         <translation type="unfinished">Parenthesis: shoulder position</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="51"/>
         <source>Where the curve of a drawn parenthesis turns, as a fraction of its height from each end; smaller values give rounder ends and a flatter middle, larger values a more pointed curve.</source>
         <translation type="unfinished">Where the curve of a drawn parenthesis turns, as a fraction of its height from each end; smaller values give rounder ends and a flatter middle, larger values a more pointed curve.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="59"/>
         <source>Parenthesis: curvature</source>
         <translation type="unfinished">Parenthesis: curvature</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="60"/>
         <source>How far a drawn parenthesis bulges sideways in proportion to its height; larger values give a more curved parenthesis.</source>
         <translation type="unfinished">How far a drawn parenthesis bulges sideways in proportion to its height; larger values give a more curved parenthesis.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="69"/>
         <source>Parenthesis: minimum bulge</source>
         <translation type="unfinished">Parenthesis: minimum bulge</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="70"/>
         <source>Smallest sideways bulge of a drawn parenthesis, so that short parentheses keep a visible curve.</source>
         <translation type="unfinished">Smallest sideways bulge of a drawn parenthesis, so that short parentheses keep a visible curve.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="77"/>
         <source>Parentheses around notes and chords</source>
         <translation type="unfinished">Parentheses around notes and chords</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="81"/>
         <source>Note parentheses: extension above and below the notehead</source>
         <translation type="unfinished">Note parentheses: extension above and below the notehead</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="82"/>
         <source>How far the parentheses around a single note extend beyond the top and the bottom of the notehead.</source>
         <translation type="unfinished">How far the parentheses around a single note extend beyond the top and the bottom of the notehead.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="89"/>
         <source>Note parentheses: height-to-thickness ratio</source>
         <translation type="unfinished">Note parentheses: height-to-thickness ratio</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="90"/>
         <source>The thickness of note parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.</source>
         <translation type="unfinished">The thickness of note parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="99"/>
         <source>Note and chord parentheses: tip thickness</source>
         <translation type="unfinished">Note and chord parentheses: tip thickness</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="100"/>
         <source>Thickness of the two tips of the parentheses around notes and chords.</source>
         <translation type="unfinished">Thickness of the two tips of the parentheses around notes and chords.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="108"/>
         <source>Chord parentheses: extension above and below the chord</source>
         <translation type="unfinished">Chord parentheses: extension above and below the chord</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="109"/>
         <source>How far the parentheses around a whole chord extend beyond its top and bottom noteheads.</source>
         <translation type="unfinished">How far the parentheses around a whole chord extend beyond its top and bottom noteheads.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="116"/>
         <source>Chord parentheses: height-to-thickness ratio</source>
         <translation type="unfinished">Chord parentheses: height-to-thickness ratio</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="117"/>
         <source>The thickness of chord parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.</source>
         <translation type="unfinished">The thickness of chord parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="126"/>
         <source>Chord parentheses: distance from noteheads and accidentals</source>
         <translation type="unfinished">Chord parentheses: distance from noteheads and accidentals</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="127"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="196"/>
         <source>Horizontal gap between the parentheses around a whole chord and its outermost noteheads or accidentals.</source>
         <translation type="unfinished">Horizontal gap between the parentheses around a whole chord and its outermost noteheads or accidentals.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="134"/>
         <source>Parentheses: padding</source>
         <translation type="unfinished">Parentheses: padding</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="138"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="326"/>
         <source>Parenthesis to notehead</source>
         <translation type="unfinished">Parenthesis to notehead</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="139"/>
         <source>Horizontal gap between a parenthesis and the notehead it encloses on standard staves.</source>
         <translation type="unfinished">Horizontal gap between a parenthesis and the notehead it encloses on standard staves.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="146"/>
         <source>Parenthesis to articulation</source>
         <translation type="unfinished">Parenthesis to articulation</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="147"/>
         <source>Horizontal gap between a note’s parenthesis and an articulation of the same chord.</source>
         <translation type="unfinished">Horizontal gap between a note’s parenthesis and an articulation of the same chord.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="154"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="336"/>
         <source>Parenthesis to accidental</source>
         <translation type="unfinished">Parenthesis to accidental</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="155"/>
         <source>Horizontal gap between a note’s parenthesis and an accidental of the same chord.</source>
         <translation type="unfinished">Horizontal gap between a note’s parenthesis and an accidental of the same chord.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="162"/>
         <source>Parenthesis to stem or flag</source>
         <translation type="unfinished">Parenthesis to stem or flag</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="163"/>
         <source>Horizontal gap between a note’s parenthesis and the stem or flag of the same chord.</source>
         <translation type="unfinished">Horizontal gap between a note’s parenthesis and the stem or flag of the same chord.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="170"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="345"/>
         <source>Parenthesis to augmentation dot</source>
         <translation type="unfinished">Parenthesis to augmentation dot</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="171"/>
         <source>Horizontal gap between a note’s parenthesis and its augmentation dot.</source>
         <translation type="unfinished">Horizontal gap between a note’s parenthesis and its augmentation dot.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="178"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="354"/>
         <source>Parenthesis to ledger line</source>
         <translation type="unfinished">Parenthesis to ledger line</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="179"/>
         <source>Horizontal gap between a note’s parenthesis and the ledger lines of the same chord.</source>
         <translation type="unfinished">Horizontal gap between a note’s parenthesis and the ledger lines of the same chord.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="186"/>
         <source>Opening parenthesis to key signature</source>
         <translation type="unfinished">Opening parenthesis to key signature</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="187"/>
         <source>Gap between the opening parenthesis and a key signature shown in parentheses.</source>
         <translation type="unfinished">Gap between the opening parenthesis and a key signature shown in parentheses.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="194"/>
         <source>Key signature to closing parenthesis</source>
         <translation type="unfinished">Key signature to closing parenthesis</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="195"/>
         <source>Gap between a key signature shown in parentheses and the closing parenthesis.</source>
         <translation type="unfinished">Gap between a key signature shown in parentheses and the closing parenthesis.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="202"/>
         <source>Opening parenthesis to time signature</source>
         <translation type="unfinished">Opening parenthesis to time signature</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="203"/>
         <source>Gap between the opening parenthesis and a time signature shown in parentheses.</source>
         <translation type="unfinished">Gap between the opening parenthesis and a time signature shown in parentheses.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="210"/>
         <source>Time signature to closing parenthesis</source>
         <translation type="unfinished">Time signature to closing parenthesis</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="211"/>
         <source>Gap between a time signature shown in parentheses and the closing parenthesis.</source>
         <translation type="unfinished">Gap between a time signature shown in parentheses and the closing parenthesis.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="218"/>
         <source>Opening parenthesis to clef</source>
         <translation type="unfinished">Opening parenthesis to clef</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="219"/>
         <source>Gap between the opening parenthesis and a clef shown in parentheses.</source>
         <translation type="unfinished">Gap between the opening parenthesis and a clef shown in parentheses.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="226"/>
         <source>Clef to closing parenthesis</source>
         <translation type="unfinished">Clef to closing parenthesis</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="227"/>
         <source>Gap between a clef shown in parentheses and the closing parenthesis.</source>
         <translation type="unfinished">Gap between a clef shown in parentheses and the closing parenthesis.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="234"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="363"/>
         <source>Parenthesis to chord symbol</source>
         <translation type="unfinished">Parenthesis to chord symbol</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="235"/>
         <source>Gap between a chord symbol and the parentheses that enclose the whole symbol.</source>
         <translation type="unfinished">Gap between a chord symbol and the parentheses that enclose the whole symbol.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="242"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="316"/>
         <source>Parenthesis to other objects</source>
         <translation type="unfinished">Parenthesis to other objects</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="243"/>
         <source>Gap between a parenthesis and any other object of the same chord that has no setting of its own.</source>
         <translation type="unfinished">Gap between a parenthesis and any other object of the same chord that has no setting of its own.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="250"/>
         <source>Parentheses in chord symbols</source>
         <translation type="unfinished">Parentheses in chord symbols</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="254"/>
         <source>Chord-symbol parentheses: extension above and below the text</source>
         <translation type="unfinished">Chord-symbol parentheses: extension above and below the text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="255"/>
         <source>How far parentheses in chord symbols extend above the capital height and below the baseline; scales with the font size.</source>
         <translation type="unfinished">How far parentheses in chord symbols extend above the capital height and below the baseline; scales with the font size.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="263"/>
         <source>Chord-symbol parentheses: height-to-thickness ratio</source>
         <translation type="unfinished">Chord-symbol parentheses: height-to-thickness ratio</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="264"/>
         <source>The thickness of chord-symbol parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.</source>
         <translation type="unfinished">The thickness of chord-symbol parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="273"/>
         <source>Chord-symbol parentheses: tip thickness</source>
         <translation type="unfinished">Chord-symbol parentheses: tip thickness</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="274"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="185"/>
         <source>Thickness of the two tips of the parentheses in chord symbols.</source>
         <translation type="unfinished">Thickness of the two tips of the parentheses in chord symbols.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="281"/>
         <source>Chord-symbol parentheses: curvature</source>
         <translation type="unfinished">Chord-symbol parentheses: curvature</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="282"/>
         <source>How far the parentheses in chord symbols bulge sideways in proportion to their height.</source>
         <translation type="unfinished">How far the parentheses in chord symbols bulge sideways in proportion to their height.</translation>
     </message>
@@ -38679,6 +38626,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="33"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="34"/>
         <source>Signs</source>
@@ -39082,6 +39030,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">When one slur ends on the note where the next begins, each of the two ends is drawn back by this amount, leaving a gap between them.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="36"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="335"/>
         <source>Shape</source>
         <translation type="unfinished">Shape</translation>
@@ -40102,6 +40051,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Stem</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="376"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="361"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="371"/>
         <source>Clef</source>
@@ -40114,16 +40064,313 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Barline</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="43"/>
+        <source>Maximum thickness in the middle</source>
+        <translation type="unfinished">Maximum thickness in the middle</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="44"/>
+        <source>However tall a parenthesis is, it does not become thicker than this in the middle.</source>
+        <translation type="unfinished">However tall a parenthesis is, it does not become thicker than this in the middle.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="53"/>
+        <source>Shoulder position</source>
+        <translation type="unfinished">Shoulder position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="54"/>
+        <source>Where the curve turns, as a fraction of the height measured from each end: smaller values give round ends and a flat middle, larger values a more pointed curve.</source>
+        <translation type="unfinished">Where the curve turns, as a fraction of the height measured from each end: smaller values give round ends and a flat middle, larger values a more pointed curve.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="63"/>
+        <source>Sideways bulge</source>
+        <translation type="unfinished">Sideways bulge</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="64"/>
+        <source>How far a parenthesis bulges sideways, as a fraction of its height; larger values give a more curved parenthesis. Parentheses in chord symbols have their own value below.</source>
+        <translation type="unfinished">How far a parenthesis bulges sideways, as a fraction of its height; larger values give a more curved parenthesis. Parentheses in chord symbols have their own value below.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="74"/>
+        <source>Minimum sideways bulge</source>
+        <translation type="unfinished">Minimum sideways bulge</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="75"/>
+        <source>Short parentheses bulge at least this far, so that they keep a visible curve.</source>
+        <translation type="unfinished">Short parentheses bulge at least this far, so that they keep a visible curve.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="84"/>
+        <source>Minimum width between the two parentheses</source>
+        <translation type="unfinished">Minimum width between the two parentheses</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="85"/>
+        <source>The opening and the closing parenthesis stay at least this far apart; an item narrower than this is centred between them.</source>
+        <translation type="unfinished">The opening and the closing parenthesis stay at least this far apart; an item narrower than this is centred between them.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="94"/>
+        <source>Around notes, chords and chord symbols</source>
+        <translation type="unfinished">Around notes, chords and chord symbols</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="98"/>
+        <source>‘Notes’ are parentheses around a single notehead, ‘Chords’ those around a whole chord, ‘Chord symbols’ those inside or around a chord symbol.</source>
+        <translation type="unfinished">‘Notes’ are parentheses around a single notehead, ‘Chords’ those around a whole chord, ‘Chord symbols’ those inside or around a chord symbol.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="102"/>
+        <source>Extension above and below</source>
+        <translation type="unfinished">Extension above and below</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="103"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="289"/>
+        <source>Height ÷ thickness in the middle</source>
+        <translation type="unfinished">Height ÷ thickness in the middle</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="104"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="301"/>
+        <source>Thickness at the ends</source>
+        <translation type="unfinished">Thickness at the ends</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="107"/>
+        <source>Notes</source>
+        <translation type="unfinished">Notes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="109"/>
+        <source>Chord symbols</source>
+        <translation type="unfinished">Chord symbols</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="116"/>
+        <source>How far the parentheses around a single note reach beyond the top and the bottom of the notehead.</source>
+        <translation type="unfinished">How far the parentheses around a single note reach beyond the top and the bottom of the notehead.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="125"/>
+        <source>How far the parentheses around a whole chord reach beyond its top and bottom noteheads.</source>
+        <translation type="unfinished">How far the parentheses around a whole chord reach beyond its top and bottom noteheads.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="132"/>
+        <source>How far parentheses in chord symbols reach above the capital letters and below the baseline; given for 10 pt text and growing with the text size.</source>
+        <translation type="unfinished">How far parentheses in chord symbols reach above the capital letters and below the baseline; given for 10 pt text and growing with the text size.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="142"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="153"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="163"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="290"/>
+        <source>The thickness in the middle is the height divided by this number: larger numbers give thinner parentheses.</source>
+        <translation type="unfinished">The thickness in the middle is the height divided by this number: larger numbers give thinner parentheses.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="174"/>
+        <source>Thickness of the two tips of the parentheses around notes and around whole chords.</source>
+        <translation type="unfinished">Thickness of the two tips of the parentheses around notes and around whole chords.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="195"/>
+        <source>Chords: distance from noteheads and accidentals</source>
+        <translation type="unfinished">Chords: distance from noteheads and accidentals</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="204"/>
+        <source>Chord symbols: sideways bulge</source>
+        <translation type="unfinished">Chord symbols: sideways bulge</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="205"/>
+        <source>How far the parentheses in chord symbols bulge sideways, as a fraction of their height.</source>
+        <translation type="unfinished">How far the parentheses in chord symbols bulge sideways, as a fraction of their height.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="215"/>
+        <source>Chord symbols: gap to the text inside</source>
+        <translation type="unfinished">Chord symbols: gap to the text inside</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="216"/>
+        <source>Gap between a parenthesis in a chord symbol and the text it encloses, as a fraction of the height of the two.</source>
+        <translation type="unfinished">Gap between a parenthesis in a chord symbol and the text it encloses, as a fraction of the height of the two.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="226"/>
+        <source>Chord symbols: gap to the text outside</source>
+        <translation type="unfinished">Chord symbols: gap to the text outside</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="227"/>
+        <source>Gap between a parenthesis in a chord symbol and the text before an opening or after a closing parenthesis, as a fraction of the height of the two.</source>
+        <translation type="unfinished">Gap between a parenthesis in a chord symbol and the text before an opening or after a closing parenthesis, as a fraction of the height of the two.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="238"/>
+        <source>Chord symbols: room for a tall opening parenthesis</source>
+        <translation type="unfinished">Chord symbols: room for a tall opening parenthesis</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="239"/>
+        <source>An opening parenthesis which is taller than the root letter, as around stacked alterations, takes up less room than its width so that the text after it tucks into its curve; smaller values tuck it in further.</source>
+        <translation type="unfinished">An opening parenthesis which is taller than the root letter, as around stacked alterations, takes up less room than its width so that the text after it tucks into its curve; smaller values tuck it in further.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="249"/>
+        <source>Around courtesy signatures at repeats</source>
+        <translation type="unfinished">Around courtesy signatures at repeats</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="250"/>
+        <source>Parentheses of the courtesies switched on under Clefs, key and time signatures &gt; Courtesies at repeats and jumps; ‘Small parentheses’ there chooses between the small and the tall form.</source>
+        <translation type="unfinished">Parentheses of the courtesies switched on under Clefs, key and time signatures &gt; Courtesies at repeats and jumps; ‘Small parentheses’ there chooses between the small and the tall form.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="257"/>
+        <source>Small parentheses: shorter than the signatures by</source>
+        <translation type="unfinished">Small parentheses: shorter than the signatures by</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="258"/>
+        <source>How far each end of the parentheses stops short of the top and the bottom of the clef, key or time signature they enclose; negative values make them taller than the signatures.</source>
+        <translation type="unfinished">How far each end of the parentheses stops short of the top and the bottom of the clef, key or time signature they enclose; negative values make them taller than the signatures.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="269"/>
+        <source>Tall parentheses: reach beyond the staff</source>
+        <translation type="unfinished">Tall parentheses: reach beyond the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="270"/>
+        <source>How far the parentheses reach above the top staff line and below the bottom one.</source>
+        <translation type="unfinished">How far the parentheses reach above the top staff line and below the bottom one.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="279"/>
+        <source>Tall parentheses around large time signatures: extension</source>
+        <translation type="unfinished">Tall parentheses around large time signatures: extension</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="280"/>
+        <source>For time signatures above or across the staves: how far the parentheses reach beyond the top and the bottom of the numerals.</source>
+        <translation type="unfinished">For time signatures above or across the staves: how far the parentheses reach beyond the top and the bottom of the numerals.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="302"/>
+        <source>Thickness of the two tips of these parentheses.</source>
+        <translation type="unfinished">Thickness of the two tips of these parentheses.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="309"/>
+        <source>Padding</source>
+        <translation type="unfinished">Padding</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="310"/>
+        <source>The white space between a parenthesis and what stands next to it.</source>
+        <translation type="unfinished">The white space between a parenthesis and what stands next to it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="317"/>
+        <source>Gap between a parenthesis and anything of the same chord which has no value of its own below.</source>
+        <translation type="unfinished">Gap between a parenthesis and anything of the same chord which has no value of its own below.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="327"/>
+        <source>Horizontal gap between a parenthesis and the notehead it encloses; tablature has its own value.</source>
+        <translation type="unfinished">Horizontal gap between a parenthesis and the notehead it encloses; tablature has its own value.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="337"/>
+        <source>Horizontal gap between the parenthesis of a note and an accidental of the same chord.</source>
+        <translation type="unfinished">Horizontal gap between the parenthesis of a note and an accidental of the same chord.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="346"/>
+        <source>Horizontal gap between the parenthesis of a note and its augmentation dot.</source>
+        <translation type="unfinished">Horizontal gap between the parenthesis of a note and its augmentation dot.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="355"/>
+        <source>Horizontal gap between the parenthesis of a note and the ledger lines of the same chord.</source>
+        <translation type="unfinished">Horizontal gap between the parenthesis of a note and the ledger lines of the same chord.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="364"/>
+        <source>Gap between a chord symbol and the parentheses which enclose the whole symbol.</source>
+        <translation type="unfinished">Gap between a chord symbol and the parentheses which enclose the whole symbol.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="370"/>
+        <source>Signatures in parentheses</source>
+        <translation type="unfinished">Signatures in parentheses</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="371"/>
+        <source>Gap between a clef, key or time signature and the parenthesis on each side of it.</source>
+        <translation type="unfinished">Gap between a clef, key or time signature and the parenthesis on each side of it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="374"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="363"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="372"/>
         <source>Key signature</source>
         <translation type="unfinished">Key signature</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="375"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="364"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="373"/>
         <source>Time signature</source>
         <translation type="unfinished">Time signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="379"/>
+        <source>On the left</source>
+        <translation type="unfinished">On the left</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="380"/>
+        <source>On the right</source>
+        <translation type="unfinished">On the right</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="385"/>
+        <source>Gap between the opening parenthesis and the key signature it encloses.</source>
+        <translation type="unfinished">Gap between the opening parenthesis and the key signature it encloses.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="392"/>
+        <source>Gap between the key signature and the closing parenthesis.</source>
+        <translation type="unfinished">Gap between the key signature and the closing parenthesis.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="399"/>
+        <source>Gap between the opening parenthesis and the time signature it encloses.</source>
+        <translation type="unfinished">Gap between the opening parenthesis and the time signature it encloses.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="407"/>
+        <source>Gap between the time signature and the closing parenthesis.</source>
+        <translation type="unfinished">Gap between the time signature and the closing parenthesis.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="414"/>
+        <source>Gap between the opening parenthesis and the clef it encloses.</source>
+        <translation type="unfinished">Gap between the opening parenthesis and the clef it encloses.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="422"/>
+        <source>Gap between the clef and the closing parenthesis.</source>
+        <translation type="unfinished">Gap between the clef and the closing parenthesis.</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="368"/>
@@ -41633,6 +41880,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Single notes</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="108"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="213"/>
         <source>Chords</source>
         <translation type="unfinished">Chords</translation>

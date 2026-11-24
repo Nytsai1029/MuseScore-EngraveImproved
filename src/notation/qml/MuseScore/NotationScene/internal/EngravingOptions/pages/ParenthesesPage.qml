@@ -30,16 +30,19 @@ EoPage {
 
     code: "parentheses"
     title: qsTrc("notation/engravingoptions", "Parentheses")
-    group: qsTrc("notation/engravingoptions", "Notations")
+    group: qsTrc("notation/engravingoptions", "Signs")
 
     EoSection {
-        title: qsTrc("notation/engravingoptions", "Parentheses: shape")
+        title: qsTrc("notation/engravingoptions", "Shape")
+        music: "\\parenthesize c''2 \\parenthesizeChord <e' g' c''>2"
 
         EoNumber {
             sid: "parenthesisMaxMidThickness"
-            title: qsTrc("notation/engravingoptions", "Parenthesis: maximum thickness in the middle")
+            music: "\\parenthesizeChord <c' e' g' c'' e''>1"
+            musicStyle: ({ parenthesisChordHeightToThicknessRatio: 20 })
+            title: qsTrc("notation/engravingoptions", "Maximum thickness in the middle")
             hint: qsTrc("notation/engravingoptions",
-                         "Limits how thick a drawn parenthesis can become in the middle, however tall it is.")
+                        "However tall a parenthesis is, it does not become thicker than this in the middle.")
             min: 0.02
             max: 1
             step: 0.01
@@ -47,18 +50,20 @@ EoPage {
 
         EoNumber {
             sid: "parenthesisShoulderHeightRatio"
-            title: qsTrc("notation/engravingoptions", "Parenthesis: shoulder position")
+            title: qsTrc("notation/engravingoptions", "Shoulder position")
             hint: qsTrc("notation/engravingoptions",
-                         "Where the curve of a drawn parenthesis turns, as a fraction of its height from each end; smaller values give rounder ends and a flatter middle, larger values a more pointed curve.")
+                        "Where the curve turns, as a fraction of the height measured from each end: smaller values " +
+                        "give round ends and a flat middle, larger values a more pointed curve.")
             max: 0.5
             step: 0.01
         }
 
         EoNumber {
             sid: "parenthesisShoulderWidthFactor"
-            title: qsTrc("notation/engravingoptions", "Parenthesis: curvature")
+            title: qsTrc("notation/engravingoptions", "Sideways bulge")
             hint: qsTrc("notation/engravingoptions",
-                         "How far a drawn parenthesis bulges sideways in proportion to its height; larger values give a more curved parenthesis.")
+                        "How far a parenthesis bulges sideways, as a fraction of its height; larger values give a " +
+                        "more curved parenthesis. Parentheses in chord symbols have their own value below.")
             min: 0.05
             max: 0.6
             step: 0.01
@@ -66,224 +71,357 @@ EoPage {
 
         EoNumber {
             sid: "parenthesisMinShoulderWidth"
-            title: qsTrc("notation/engravingoptions", "Parenthesis: minimum bulge")
+            title: qsTrc("notation/engravingoptions", "Minimum sideways bulge")
             hint: qsTrc("notation/engravingoptions",
-                         "Smallest sideways bulge of a drawn parenthesis, so that short parentheses keep a visible curve.")
+                        "Short parentheses bulge at least this far, so that they keep a visible curve.")
             max: 1
+        }
+
+        EoNumber {
+            sid: "parenthesesMinInnerWidth"
+            music: "\\key -1 f'2 | \\key 0 c''2 \\bar \":|.\" c''2"
+            musicStyle: ({ smallParens: false })
+            title: qsTrc("notation/engravingoptions", "Minimum width between the two parentheses")
+            hint: qsTrc("notation/engravingoptions",
+                        "The opening and the closing parenthesis stay at least this far apart; an item narrower than " +
+                        "this is centred between them.")
+            max: 5
+            step: 0.05
         }
     }
 
     EoSection {
-        title: qsTrc("notation/engravingoptions", "Parentheses around notes and chords")
+        title: qsTrc("notation/engravingoptions", "Around notes, chords and chord symbols")
+        music: "c''1 \\chordSymbol \"(C7)\""
+
+        EoGrid {
+            hint: qsTrc("notation/engravingoptions",
+                        "‘Notes’ are parentheses around a single notehead, ‘Chords’ those around a whole chord, " +
+                        "‘Chord symbols’ those inside or around a chord symbol.")
+            rowTitles: [
+                qsTrc("notation/engravingoptions", "Extension above and below"),
+                qsTrc("notation/engravingoptions", "Height ÷ thickness in the middle"),
+                qsTrc("notation/engravingoptions", "Thickness at the ends")
+            ]
+            columnTitles: [
+                qsTrc("notation/engravingoptions", "Notes"),
+                qsTrc("notation/engravingoptions", "Chords"),
+                qsTrc("notation/engravingoptions", "Chord symbols")
+            ]
+            compact: true
+
+            EoNumber {
+                sid: "parenthesisNoteExtension"
+                music: "\\parenthesize c''2 \\parenthesize e''2"
+                hint: qsTrc("notation/engravingoptions",
+                            "How far the parentheses around a single note reach beyond the top and the bottom of the " +
+                            "notehead.")
+                max: 2
+            }
+
+            EoNumber {
+                sid: "parenthesisChordExtension"
+                music: "\\parenthesizeChord <e' g' c''>2 \\parenthesizeChord <f' a' d''>2"
+                hint: qsTrc("notation/engravingoptions",
+                            "How far the parentheses around a whole chord reach beyond its top and bottom noteheads.")
+                max: 2
+            }
+
+            EoNumber {
+                sid: "parenthesisChordSymbolExtension"
+                hint: qsTrc("notation/engravingoptions",
+                            "How far parentheses in chord symbols reach above the capital letters and below the " +
+                            "baseline; given for 10 pt text and growing with the text size.")
+                max: 1
+                step: 0.01
+            }
+
+            EoNumber {
+                sid: "parenthesisNoteHeightToThicknessRatio"
+                music: "\\parenthesize c''2 \\parenthesize e''2"
+                hint: qsTrc("notation/engravingoptions",
+                            "The thickness in the middle is the height divided by this number: larger numbers give " +
+                            "thinner parentheses.")
+                min: 5
+                max: 200
+                step: 1
+            }
+
+            EoNumber {
+                sid: "parenthesisChordHeightToThicknessRatio"
+                music: "\\parenthesizeChord <e' g' c''>2 \\parenthesizeChord <f' a' d''>2"
+                hint: qsTrc("notation/engravingoptions",
+                            "The thickness in the middle is the height divided by this number: larger numbers give " +
+                            "thinner parentheses.")
+                min: 5
+                max: 200
+                step: 1
+            }
+
+            EoNumber {
+                sid: "parenthesisChordSymbolHeightToThicknessRatio"
+                hint: qsTrc("notation/engravingoptions",
+                            "The thickness in the middle is the height divided by this number: larger numbers give " +
+                            "thinner parentheses.")
+                min: 5
+                max: 200
+                step: 1
+            }
+
+            EoNumber {
+                sid: "parenthesisNoteEndThickness"
+                music: "\\parenthesize c''2 \\parenthesize e''2"
+                hint: qsTrc("notation/engravingoptions",
+                            "Thickness of the two tips of the parentheses around notes and around whole chords.")
+                max: 0.5
+                step: 0.01
+            }
+
+            EoGap {
+            }
+
+            EoNumber {
+                sid: "parenthesisChordSymbolEndThickness"
+                hint: qsTrc("notation/engravingoptions",
+                            "Thickness of the two tips of the parentheses in chord symbols.")
+                max: 0.5
+                step: 0.01
+            }
+        }
 
         EoNumber {
-            sid: "parenthesisNoteExtension"
-            title: qsTrc("notation/engravingoptions", "Note parentheses: extension above and below the notehead")
+            sid: "parenthesisChordPadding"
+            music: "\\parenthesizeChord <e' g' c''>2 \\parenthesizeChord <f' a' d''>2"
+            title: qsTrc("notation/engravingoptions", "Chords: distance from noteheads and accidentals")
             hint: qsTrc("notation/engravingoptions",
-                         "How far the parentheses around a single note extend beyond the top and the bottom of the notehead.")
+                        "Horizontal gap between the parentheses around a whole chord and its outermost noteheads or " +
+                        "accidentals.")
             max: 2
         }
 
         EoNumber {
-            sid: "parenthesisNoteHeightToThicknessRatio"
-            title: qsTrc("notation/engravingoptions", "Note parentheses: height-to-thickness ratio")
+            sid: "parenthesisChordSymbolShoulderWidthFactor"
+            title: qsTrc("notation/engravingoptions", "Chord symbols: sideways bulge")
             hint: qsTrc("notation/engravingoptions",
-                         "The thickness of note parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.")
-            min: 5
-            max: 200
-            step: 1
+                        "How far the parentheses in chord symbols bulge sideways, as a fraction of their height.")
+            min: 0.05
+            max: 0.6
+            step: 0.01
         }
 
         EoNumber {
-            sid: "parenthesisNoteEndThickness"
-            title: qsTrc("notation/engravingoptions", "Note and chord parentheses: tip thickness")
+            sid: "parenthesisChordSymbolInnerPadding"
+            music: "c''1 \\chordSymbol \"C7(b9)\""
+            title: qsTrc("notation/engravingoptions", "Chord symbols: gap to the text inside")
             hint: qsTrc("notation/engravingoptions",
-                         "Thickness of the two tips of the parentheses around notes and chords.")
+                        "Gap between a parenthesis in a chord symbol and the text it encloses, as a fraction of the " +
+                        "height of the two.")
             max: 0.5
             step: 0.01
         }
 
         EoNumber {
-            sid: "parenthesisChordExtension"
-            title: qsTrc("notation/engravingoptions", "Chord parentheses: extension above and below the chord")
+            sid: "parenthesisChordSymbolOuterPadding"
+            music: "c''1 \\chordSymbol \"C7(b9)/E\""
+            title: qsTrc("notation/engravingoptions", "Chord symbols: gap to the text outside")
             hint: qsTrc("notation/engravingoptions",
-                         "How far the parentheses around a whole chord extend beyond its top and bottom noteheads.")
-            max: 2
+                        "Gap between a parenthesis in a chord symbol and the text before an opening or after a " +
+                        "closing parenthesis, as a fraction of the height of the two.")
+            max: 0.5
+            step: 0.01
         }
 
         EoNumber {
-            sid: "parenthesisChordHeightToThicknessRatio"
-            title: qsTrc("notation/engravingoptions", "Chord parentheses: height-to-thickness ratio")
+            sid: "parenthesisChordSymbolTallOpeningWidthScale"
+            music: "c''1 \\chordSymbol \"C7(b9#11)\""
+            musicStyle: ({ verticallyStackModifiers: true })
+            title: qsTrc("notation/engravingoptions", "Chord symbols: room for a tall opening parenthesis")
             hint: qsTrc("notation/engravingoptions",
-                         "The thickness of chord parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.")
-            min: 5
-            max: 200
-            step: 1
-        }
-
-        EoNumber {
-            sid: "parenthesisChordPadding"
-            title: qsTrc("notation/engravingoptions", "Chord parentheses: distance from noteheads and accidentals")
-            hint: qsTrc("notation/engravingoptions",
-                         "Horizontal gap between the parentheses around a whole chord and its outermost noteheads or accidentals.")
+                        "An opening parenthesis which is taller than the root letter, as around stacked alterations, " +
+                        "takes up less room than its width so that the text after it tucks into its curve; smaller " +
+                        "values tuck it in further.")
             max: 2
+            step: 0.05
         }
     }
 
     EoSection {
-        title: qsTrc("notation/engravingoptions", "Parentheses: padding")
+        title: qsTrc("notation/engravingoptions", "Around courtesy signatures at repeats")
+        hint: qsTrc("notation/engravingoptions",
+                    "Parentheses of the courtesies switched on under Clefs, key and time signatures > Courtesies at " +
+                    "repeats and jumps; ‘Small parentheses’ there chooses between the small and the tall form.")
+        music: "\\time 2/4 c''2 | \\time 3/4 c''2. \\bar \":|.\" c''2."
 
         EoNumber {
-            sid: "parenthesisNotePadding"
-            title: qsTrc("notation/engravingoptions", "Parenthesis to notehead")
+            sid: "parenthesisCourtesySmallInset"
+            title: qsTrc("notation/engravingoptions", "Small parentheses: shorter than the signatures by")
             hint: qsTrc("notation/engravingoptions",
-                         "Horizontal gap between a parenthesis and the notehead it encloses on standard staves.")
+                        "How far each end of the parentheses stops short of the top and the bottom of the clef, key " +
+                        "or time signature they enclose; negative values make them taller than the signatures.")
+            min: -2
+            max: 2
+            step: 0.05
+        }
+
+        EoNumber {
+            sid: "parenthesisCourtesyOvershoot"
+            musicStyle: ({ smallParens: false })
+            title: qsTrc("notation/engravingoptions", "Tall parentheses: reach beyond the staff")
+            hint: qsTrc("notation/engravingoptions",
+                        "How far the parentheses reach above the top staff line and below the bottom one.")
+            max: 4
+            step: 0.05
+        }
+
+        EoNumber {
+            sid: "parenthesisCourtesyBigTimeSigExtension"
+            musicStyle: ({ smallParens: false, timeSigPlacement: 1 })
+            title: qsTrc("notation/engravingoptions", "Tall parentheses around large time signatures: extension")
+            hint: qsTrc("notation/engravingoptions",
+                        "For time signatures above or across the staves: how far the parentheses reach beyond the " +
+                        "top and the bottom of the numerals.")
+            max: 5
+            step: 0.05
+        }
+
+        EoNumber {
+            sid: "parenthesisCourtesyHeightToThicknessRatio"
+            title: qsTrc("notation/engravingoptions", "Height ÷ thickness in the middle")
+            hint: qsTrc("notation/engravingoptions",
+                        "The thickness in the middle is the height divided by this number: larger numbers give " +
+                        "thinner parentheses.")
+            min: 5
+            max: 200
+            step: 1
+            decimals: 0
+        }
+
+        EoNumber {
+            sid: "parenthesisCourtesyEndThickness"
+            title: qsTrc("notation/engravingoptions", "Thickness at the ends")
+            hint: qsTrc("notation/engravingoptions", "Thickness of the two tips of these parentheses.")
+            max: 0.5
+            step: 0.01
+        }
+    }
+
+    EoSection {
+        title: qsTrc("notation/engravingoptions", "Padding")
+        hint: qsTrc("notation/engravingoptions", "The white space between a parenthesis and what stands next to it.")
+        music: "\\key 2 a'2 | \\key 0 c''2 \\bar \":|.\" c''2"
+
+        EoNumber {
+            sid: "parenthesisDefaultPadding"
+            music: "\\parenthesize c''2 \\handBracket left \\parenthesize e''2"
+            title: qsTrc("notation/engravingoptions", "Parenthesis to other objects")
+            hint: qsTrc("notation/engravingoptions",
+                        "Gap between a parenthesis and anything of the same chord which has no value of its own " +
+                        "below.")
             max: 2
         }
 
         EoNumber {
-            sid: "parenthesisArticulationPadding"
-            title: qsTrc("notation/engravingoptions", "Parenthesis to articulation")
+            sid: "parenthesisNotePadding"
+            music: "\\parenthesize c''2 \\parenthesize e''2"
+            title: qsTrc("notation/engravingoptions", "Parenthesis to notehead")
             hint: qsTrc("notation/engravingoptions",
-                         "Horizontal gap between a note’s parenthesis and an articulation of the same chord.")
+                        "Horizontal gap between a parenthesis and the notehead it encloses; tablature has its own " +
+                        "value.")
             max: 2
         }
 
         EoNumber {
             sid: "parenthesisAccidentalPadding"
+            music: "\\parenthesize cis''2 \\parenthesize ees''2"
             title: qsTrc("notation/engravingoptions", "Parenthesis to accidental")
             hint: qsTrc("notation/engravingoptions",
-                         "Horizontal gap between a note’s parenthesis and an accidental of the same chord.")
-            max: 2
-        }
-
-        EoNumber {
-            sid: "parenthesisStemPadding"
-            title: qsTrc("notation/engravingoptions", "Parenthesis to stem or flag")
-            hint: qsTrc("notation/engravingoptions",
-                         "Horizontal gap between a note’s parenthesis and the stem or flag of the same chord.")
+                        "Horizontal gap between the parenthesis of a note and an accidental of the same chord.")
             max: 2
         }
 
         EoNumber {
             sid: "parenthesisDotPadding"
+            music: "\\parenthesize c''2. \\parenthesize e''4"
             title: qsTrc("notation/engravingoptions", "Parenthesis to augmentation dot")
             hint: qsTrc("notation/engravingoptions",
-                         "Horizontal gap between a note’s parenthesis and its augmentation dot.")
+                        "Horizontal gap between the parenthesis of a note and its augmentation dot.")
             max: 2
         }
 
         EoNumber {
             sid: "parenthesisLedgerLinePadding"
+            music: "\\parenthesize c'''2 \\parenthesize a2"
             title: qsTrc("notation/engravingoptions", "Parenthesis to ledger line")
             hint: qsTrc("notation/engravingoptions",
-                         "Horizontal gap between a note’s parenthesis and the ledger lines of the same chord.")
-            max: 2
-        }
-
-        EoNumber {
-            sid: "parenthesisKeySigPaddingLeft"
-            title: qsTrc("notation/engravingoptions", "Opening parenthesis to key signature")
-            hint: qsTrc("notation/engravingoptions",
-                         "Gap between the opening parenthesis and a key signature shown in parentheses.")
-            max: 2
-        }
-
-        EoNumber {
-            sid: "parenthesisKeySigPaddingRight"
-            title: qsTrc("notation/engravingoptions", "Key signature to closing parenthesis")
-            hint: qsTrc("notation/engravingoptions",
-                         "Gap between a key signature shown in parentheses and the closing parenthesis.")
-            max: 2
-        }
-
-        EoNumber {
-            sid: "parenthesisTimeSigPaddingLeft"
-            title: qsTrc("notation/engravingoptions", "Opening parenthesis to time signature")
-            hint: qsTrc("notation/engravingoptions",
-                         "Gap between the opening parenthesis and a time signature shown in parentheses.")
-            max: 2
-        }
-
-        EoNumber {
-            sid: "parenthesisTimeSigPaddingRight"
-            title: qsTrc("notation/engravingoptions", "Time signature to closing parenthesis")
-            hint: qsTrc("notation/engravingoptions",
-                         "Gap between a time signature shown in parentheses and the closing parenthesis.")
-            max: 2
-        }
-
-        EoNumber {
-            sid: "parenthesisClefPaddingLeft"
-            title: qsTrc("notation/engravingoptions", "Opening parenthesis to clef")
-            hint: qsTrc("notation/engravingoptions",
-                         "Gap between the opening parenthesis and a clef shown in parentheses.")
-            max: 2
-        }
-
-        EoNumber {
-            sid: "parenthesisClefPaddingRight"
-            title: qsTrc("notation/engravingoptions", "Clef to closing parenthesis")
-            hint: qsTrc("notation/engravingoptions",
-                         "Gap between a clef shown in parentheses and the closing parenthesis.")
+                        "Horizontal gap between the parenthesis of a note and the ledger lines of the same chord.")
             max: 2
         }
 
         EoNumber {
             sid: "parenthesisChordSymbolPadding"
+            music: "c''1 \\chordSymbol \"(C7)\""
             title: qsTrc("notation/engravingoptions", "Parenthesis to chord symbol")
             hint: qsTrc("notation/engravingoptions",
-                         "Gap between a chord symbol and the parentheses that enclose the whole symbol.")
+                        "Gap between a chord symbol and the parentheses which enclose the whole symbol.")
             max: 2
         }
 
-        EoNumber {
-            sid: "parenthesisDefaultPadding"
-            title: qsTrc("notation/engravingoptions", "Parenthesis to other objects")
+        EoGrid {
+            title: qsTrc("notation/engravingoptions", "Signatures in parentheses")
             hint: qsTrc("notation/engravingoptions",
-                         "Gap between a parenthesis and any other object of the same chord that has no setting of its own.")
-            max: 2
-        }
-    }
+                        "Gap between a clef, key or time signature and the parenthesis on each side of it.")
+            rowTitles: [
+                qsTrc("notation/engravingoptions", "Key signature"),
+                qsTrc("notation/engravingoptions", "Time signature"),
+                qsTrc("notation/engravingoptions", "Clef")
+            ]
+            columnTitles: [
+                qsTrc("notation/engravingoptions", "On the left"),
+                qsTrc("notation/engravingoptions", "On the right")
+            ]
 
-    EoSection {
-        title: qsTrc("notation/engravingoptions", "Parentheses in chord symbols")
+            EoNumber {
+                sid: "parenthesisKeySigPaddingLeft"
+                hint: qsTrc("notation/engravingoptions",
+                            "Gap between the opening parenthesis and the key signature it encloses.")
+                max: 2
+            }
 
-        EoNumber {
-            sid: "parenthesisChordSymbolExtension"
-            title: qsTrc("notation/engravingoptions", "Chord-symbol parentheses: extension above and below the text")
-            hint: qsTrc("notation/engravingoptions",
-                         "How far parentheses in chord symbols extend above the capital height and below the baseline; scales with the font size.")
-            max: 1
-            step: 0.01
-        }
+            EoNumber {
+                sid: "parenthesisKeySigPaddingRight"
+                hint: qsTrc("notation/engravingoptions", "Gap between the key signature and the closing parenthesis.")
+                max: 2
+            }
 
-        EoNumber {
-            sid: "parenthesisChordSymbolHeightToThicknessRatio"
-            title: qsTrc("notation/engravingoptions", "Chord-symbol parentheses: height-to-thickness ratio")
-            hint: qsTrc("notation/engravingoptions",
-                         "The thickness of chord-symbol parentheses in the middle is their height divided by this value; smaller values give bolder parentheses.")
-            min: 5
-            max: 200
-            step: 1
-        }
+            EoNumber {
+                sid: "parenthesisTimeSigPaddingLeft"
+                music: "\\time 2/4 c''2 | \\time 3/4 c''2. \\bar \":|.\" c''2."
+                hint: qsTrc("notation/engravingoptions",
+                            "Gap between the opening parenthesis and the time signature it encloses.")
+                max: 2
+            }
 
-        EoNumber {
-            sid: "parenthesisChordSymbolEndThickness"
-            title: qsTrc("notation/engravingoptions", "Chord-symbol parentheses: tip thickness")
-            hint: qsTrc("notation/engravingoptions", "Thickness of the two tips of the parentheses in chord symbols.")
-            max: 0.5
-            step: 0.01
-        }
+            EoNumber {
+                sid: "parenthesisTimeSigPaddingRight"
+                music: "\\time 2/4 c''2 | \\time 3/4 c''2. \\bar \":|.\" c''2."
+                hint: qsTrc("notation/engravingoptions", "Gap between the time signature and the closing parenthesis.")
+                max: 2
+            }
 
-        EoNumber {
-            sid: "parenthesisChordSymbolShoulderWidthFactor"
-            title: qsTrc("notation/engravingoptions", "Chord-symbol parentheses: curvature")
-            hint: qsTrc("notation/engravingoptions",
-                         "How far the parentheses in chord symbols bulge sideways in proportion to their height.")
-            min: 0.05
-            max: 0.6
-            step: 0.01
+            EoNumber {
+                sid: "parenthesisClefPaddingLeft"
+                music: "c''2 | \\clef bass c2 \\bar \":|.\" c2"
+                hint: qsTrc("notation/engravingoptions",
+                            "Gap between the opening parenthesis and the clef it encloses.")
+                max: 2
+            }
+
+            EoNumber {
+                sid: "parenthesisClefPaddingRight"
+                music: "c''2 | \\clef bass c2 \\bar \":|.\" c2"
+                hint: qsTrc("notation/engravingoptions", "Gap between the clef and the closing parenthesis.")
+                max: 2
+            }
         }
     }
 }

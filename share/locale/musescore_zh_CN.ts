@@ -50316,5 +50316,300 @@ The score will be saved as:
         <source>Least vertical gap between a sticking letter and the notes or other signs which lie between it and the staff.</source>
         <translation>鼓法字母与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="43"/>
+        <source>Maximum thickness in the middle</source>
+        <translation>中部最大粗细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="44"/>
+        <source>However tall a parenthesis is, it does not become thicker than this in the middle.</source>
+        <translation>无论圆括号多高，其中部都不会粗于此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="53"/>
+        <source>Shoulder position</source>
+        <translation>肩部位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="54"/>
+        <source>Where the curve turns, as a fraction of the height measured from each end: smaller values give round ends and a flat middle, larger values a more pointed curve.</source>
+        <translation>曲线转弯的位置，以自两端量起的高度比例表示：数值越小两端越圆、中部越平，数值越大曲线越尖。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="63"/>
+        <source>Sideways bulge</source>
+        <translation>向外鼓出的幅度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="64"/>
+        <source>How far a parenthesis bulges sideways, as a fraction of its height; larger values give a more curved parenthesis. Parentheses in chord symbols have their own value below.</source>
+        <translation>圆括号向外侧鼓出的幅度，以其高度的比例表示；数值越大圆括号越弯。和弦符号中的圆括号另有单独的数值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="74"/>
+        <source>Minimum sideways bulge</source>
+        <translation>向外鼓出的最小幅度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="75"/>
+        <source>Short parentheses bulge at least this far, so that they keep a visible curve.</source>
+        <translation>较短的圆括号至少向外鼓出这一距离，以保持可见的弧度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="84"/>
+        <source>Minimum width between the two parentheses</source>
+        <translation>左右圆括号之间的最小宽度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="85"/>
+        <source>The opening and the closing parenthesis stay at least this far apart; an item narrower than this is centred between them.</source>
+        <translation>左圆括号与右圆括号之间至少保持这一距离；比它窄的记号在两者之间居中。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="94"/>
+        <source>Around notes, chords and chord symbols</source>
+        <translation>音符、和弦与和弦符号的圆括号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="98"/>
+        <source>‘Notes’ are parentheses around a single notehead, ‘Chords’ those around a whole chord, ‘Chord symbols’ those inside or around a chord symbol.</source>
+        <translation>“音符”指括住单个符头的圆括号，“和弦”指括住整个和弦的圆括号，“和弦符号”指和弦符号内部或括住整个和弦符号的圆括号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="102"/>
+        <source>Extension above and below</source>
+        <translation>上下两端超出的长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="103"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="289"/>
+        <source>Height ÷ thickness in the middle</source>
+        <translation>高度 ÷ 中部粗细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="104"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="301"/>
+        <source>Thickness at the ends</source>
+        <translation>末端粗细</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="107"/>
+        <source>Notes</source>
+        <translation>音符</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="109"/>
+        <source>Chord symbols</source>
+        <translation>和弦符号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="116"/>
+        <source>How far the parentheses around a single note reach beyond the top and the bottom of the notehead.</source>
+        <translation>单个音符的圆括号在上下两端各超出符头的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="125"/>
+        <source>How far the parentheses around a whole chord reach beyond its top and bottom noteheads.</source>
+        <translation>括住整个和弦的圆括号在上下两端各超出最外侧符头的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="132"/>
+        <source>How far parentheses in chord symbols reach above the capital letters and below the baseline; given for 10 pt text and growing with the text size.</source>
+        <translation>和弦符号中的圆括号超出大写字母顶端之上和基线之下的长度；数值按 10 pt 字号给出，并随字号增大。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="142"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="153"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="163"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="290"/>
+        <source>The thickness in the middle is the height divided by this number: larger numbers give thinner parentheses.</source>
+        <translation>中部粗细等于高度除以此数：数值越大圆括号越细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="174"/>
+        <source>Thickness of the two tips of the parentheses around notes and around whole chords.</source>
+        <translation>音符圆括号与和弦圆括号两个末端的粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="195"/>
+        <source>Chords: distance from noteheads and accidentals</source>
+        <translation>和弦：与符头及变音记号的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="204"/>
+        <source>Chord symbols: sideways bulge</source>
+        <translation>和弦符号：向外鼓出的幅度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="205"/>
+        <source>How far the parentheses in chord symbols bulge sideways, as a fraction of their height.</source>
+        <translation>和弦符号中的圆括号向外侧鼓出的幅度，以其高度的比例表示。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="215"/>
+        <source>Chord symbols: gap to the text inside</source>
+        <translation>和弦符号：与括号内文字的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="216"/>
+        <source>Gap between a parenthesis in a chord symbol and the text it encloses, as a fraction of the height of the two.</source>
+        <translation>和弦符号中的圆括号与括号内文字之间的间隙，以两者高度的比例表示。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="226"/>
+        <source>Chord symbols: gap to the text outside</source>
+        <translation>和弦符号：与括号外文字的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="227"/>
+        <source>Gap between a parenthesis in a chord symbol and the text before an opening or after a closing parenthesis, as a fraction of the height of the two.</source>
+        <translation>和弦符号中左圆括号与其前方文字、右圆括号与其后方文字之间的间隙，以两者高度的比例表示。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="238"/>
+        <source>Chord symbols: room for a tall opening parenthesis</source>
+        <translation>和弦符号：较高的左圆括号所占的宽度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="239"/>
+        <source>An opening parenthesis which is taller than the root letter, as around stacked alterations, takes up less room than its width so that the text after it tucks into its curve; smaller values tuck it in further.</source>
+        <translation>左圆括号高于根音字母时（如括住上下堆叠的变化音），所占宽度小于其实际宽度，使其后的文字嵌入括号的弧内；数值越小嵌入越深。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="249"/>
+        <source>Around courtesy signatures at repeats</source>
+        <translation>反复处提示性记号的圆括号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="250"/>
+        <source>Parentheses of the courtesies switched on under Clefs, key and time signatures &gt; Courtesies at repeats and jumps; ‘Small parentheses’ there chooses between the small and the tall form.</source>
+        <translation>在“谱号、调号、拍号 &gt; 反复与跳转处的提示性记号”中启用的提示性记号所用的圆括号；该处的“小圆括号”决定使用小圆括号还是大圆括号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="257"/>
+        <source>Small parentheses: shorter than the signatures by</source>
+        <translation>小圆括号：比记号短的长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="258"/>
+        <source>How far each end of the parentheses stops short of the top and the bottom of the clef, key or time signature they enclose; negative values make them taller than the signatures.</source>
+        <translation>圆括号的上下两端各比所括谱号、调号或拍号的上下边缘短多少；负值使圆括号高出记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="269"/>
+        <source>Tall parentheses: reach beyond the staff</source>
+        <translation>大圆括号：超出谱表的长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="270"/>
+        <source>How far the parentheses reach above the top staff line and below the bottom one.</source>
+        <translation>圆括号向上超出谱表最上方谱线、向下超出最下方谱线的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="279"/>
+        <source>Tall parentheses around large time signatures: extension</source>
+        <translation>大圆括号括住大拍号时：两端加长</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="280"/>
+        <source>For time signatures above or across the staves: how far the parentheses reach beyond the top and the bottom of the numerals.</source>
+        <translation>拍号位于谱表上方或横跨谱表时，圆括号在数字的上下两端各超出的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="302"/>
+        <source>Thickness of the two tips of these parentheses.</source>
+        <translation>此类圆括号两个末端的粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="309"/>
+        <source>Padding</source>
+        <translation>内距</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="310"/>
+        <source>The white space between a parenthesis and what stands next to it.</source>
+        <translation>圆括号与相邻记号之间的空白。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="317"/>
+        <source>Gap between a parenthesis and anything of the same chord which has no value of its own below.</source>
+        <translation>圆括号与同一和弦上未在下面单独列出的其他记号之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="327"/>
+        <source>Horizontal gap between a parenthesis and the notehead it encloses; tablature has its own value.</source>
+        <translation>圆括号与其所括符头之间的水平间隙；指法谱另有单独的数值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="337"/>
+        <source>Horizontal gap between the parenthesis of a note and an accidental of the same chord.</source>
+        <translation>音符的圆括号与同一和弦上变音记号之间的水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="346"/>
+        <source>Horizontal gap between the parenthesis of a note and its augmentation dot.</source>
+        <translation>音符的圆括号与附点之间的水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="355"/>
+        <source>Horizontal gap between the parenthesis of a note and the ledger lines of the same chord.</source>
+        <translation>音符的圆括号与同一和弦的加线之间的水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="364"/>
+        <source>Gap between a chord symbol and the parentheses which enclose the whole symbol.</source>
+        <translation>和弦符号与括住整个符号的圆括号之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="370"/>
+        <source>Signatures in parentheses</source>
+        <translation>加圆括号的谱号、调号与拍号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="371"/>
+        <source>Gap between a clef, key or time signature and the parenthesis on each side of it.</source>
+        <translation>谱号、调号或拍号与其两侧圆括号之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="379"/>
+        <source>On the left</source>
+        <translation>左侧</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="380"/>
+        <source>On the right</source>
+        <translation>右侧</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="385"/>
+        <source>Gap between the opening parenthesis and the key signature it encloses.</source>
+        <translation>左圆括号与其所括调号之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="392"/>
+        <source>Gap between the key signature and the closing parenthesis.</source>
+        <translation>调号与右圆括号之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="399"/>
+        <source>Gap between the opening parenthesis and the time signature it encloses.</source>
+        <translation>左圆括号与其所括拍号之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="407"/>
+        <source>Gap between the time signature and the closing parenthesis.</source>
+        <translation>拍号与右圆括号之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="414"/>
+        <source>Gap between the opening parenthesis and the clef it encloses.</source>
+        <translation>左圆括号与其所括谱号之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="422"/>
+        <source>Gap between the clef and the closing parenthesis.</source>
+        <translation>谱号与右圆括号之间的间隙。</translation>
+    </message>
 </context>
 </TS>
