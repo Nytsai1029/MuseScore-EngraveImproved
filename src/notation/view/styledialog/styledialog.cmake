@@ -41,4 +41,5 @@ set(STYLEDIALOG_SRC
     ${CMAKE_CURRENT_LIST_DIR}/slursandtiespagemodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/slursandtiespagemodel.h
     ${CMAKE_CURRENT_LIST_DIR}/styleuivalue.h
+    ${CMAKE_CURRENT_LIST_DIR}/textstylepagecodes.h
     )

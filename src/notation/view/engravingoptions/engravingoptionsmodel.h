@@ -104,6 +104,14 @@ public:
     //! "dividerSymbols" (the symbols which divide the systems of a page)
     Q_INVOKABLE QVariantList choices(const QString& list) const;
 
+    //! NOTE The text styles which can be edited, in the order of the style dialog's list, as
+    //! { type (TextStyleType), code (the code by which it is asked for from outside, see textStyleSubPageCodes),
+    //! name (a user style: the name it has in this score), nameSid (a user style: the value of its name) }
+    Q_INVOKABLE QVariantList textStyles() const;
+
+    //! NOTE The values of a text style, as { property (fontFace, fontSize, … see TextStylePropertyType), sid }
+    Q_INVOKABLE QVariantList textStyleProperties(int textStyleType) const;
+
     //! NOTE The names of all the style values, in the order of the style
     Q_INVOKABLE QStringList names() const;
 

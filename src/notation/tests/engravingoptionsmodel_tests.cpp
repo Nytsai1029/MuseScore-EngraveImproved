@@ -445,6 +445,53 @@ TEST_F(Notation_EngravingOptionsModelTests, chordSymbolPresetTakesItsFileAlong)
 }
 
 /**
+ * @TEST_CASE textStylesAndTheirValues
+ * @details The text styles which can be edited are listed with the codes by which they are asked for from outside
+ *          and their names (a user style by the name the score gives it); the values of a style are given by name
+ */
+TEST_F(Notation_EngravingOptionsModelTests, textStylesAndTheirValues)
+{
+    ModelInEngine holder;
+    EngravingOptionsModel* model = holder.get();
+    m_values[Sid::user2Name] = String(u"Comments");
+    model->load();
+    ASSERT_TRUE(model->isLoaded());
+
+    const QVariantList styles = model->textStyles();
+    ASSERT_EQ(styles.size(), static_cast<qsizetype>(editableTextStyles().size()));
+
+    const auto styleWithCode = [&styles](const QString& code) {
+        for (const QVariant& style : styles) {
+            if (style.toMap().value("code").toString() == code) {
+                return style.toMap();
+            }
+        }
+        return QVariantMap();
+    };
+
+    const QVariantMap staff = styleWithCode("staff");
+    EXPECT_EQ(staff.value("type").toInt(), static_cast<int>(TextStyleType::STAFF));
+    EXPECT_EQ(staff.value("name").toString(), QString("Staff"));
+    EXPECT_TRUE(staff.value("nameSid").toString().isEmpty());
+
+    EXPECT_EQ(styleWithCode("lyrics-odd-lines").value("type").toInt(), static_cast<int>(TextStyleType::LYRICS_ODD));
+    EXPECT_EQ(styleWithCode("user1").value("name").toString(), QString("User-1"));
+    EXPECT_EQ(styleWithCode("user2").value("name").toString(), QString("Comments"));
+    EXPECT_EQ(styleWithCode("user2").value("nameSid").toString(), QString("user2Name"));
+
+    const QVariantList properties = model->textStyleProperties(static_cast<int>(TextStyleType::STAFF));
+    QStringList pairs;
+    for (const QVariant& property : properties) {
+        pairs << property.toMap().value("property").toString() + "=" + property.toMap().value("sid").toString();
+    }
+    EXPECT_TRUE(pairs.contains("fontFace=staffTextFontFace"));
+    EXPECT_TRUE(pairs.contains("frameType=staffTextFrameType"));
+    EXPECT_TRUE(pairs.contains("offset=staffTextPosAbove"));
+
+    holder.destroy();
+}
+
+/**
  * @TEST_CASE countsAndResetsByName
  * @details The values which differ from their defaults are counted, names of no value are left out
  */

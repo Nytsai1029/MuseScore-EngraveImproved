@@ -22,6 +22,8 @@
 
 #include "editstyle.h"
 
+#include "../styledialog/textstylepagecodes.h"
+
 #include <QAnyStringView>
 #include <QButtonGroup>
 #include <QQmlContext>
@@ -102,77 +104,8 @@ static const QStringList ALL_PAGE_CODES {
     "text-styles"
 };
 
-static const QStringList ALL_TEXT_STYLE_SUBPAGE_CODES {
-    "title",
-    "subtitle",
-    "composer",
-    "poet",
-    "translator",
-    "frame",
-    "instrument-name-part",
-    "instrument-name-long",
-    "instrument-name-short",
-    "instrument-change",
-    "header",
-    "footer",
-    "copyright",
-    "page-number",
-    "measure-number",
-    "measure-number-alternate",
-    "multimeasure-rest-range",
-    "tempo",
-    "tempo-change",
-    "metronome",
-    "repeat-play-count",
-    "repeat-text-left",
-    "repeat-text-right",
-    "rehearsal-mark",
-    "system",
-    "staff",
-    "expression",
-    "hairpin",
-    "lyrics-odd-lines",
-    "lyrics-even-lines",
-    "chord-symbols",
-    "chord-symbols-alternate",
-    "roman-numeral-analysis",
-    "nashville-number",
-    "tuplet",
-    "articulation",
-    "sticking",
-    "fingering",
-    "tab-fret-number",
-    "lh-guitar-fingering",
-    "rh-guitar-fingering",
-    "hammer-ons-pull-offs-and-tapping",
-    "string-number",
-    "string-tunings",
-    "fretboard-diagram-fingering",
-    "fretboard-diagram-fret-number",
-    "harp-pedal-diagram",
-    "harp-pedal-text-diagram",
-    "text-line",
-    "note-line",
-    "volta",
-    "ottava",
-    "glissando",
-    "pedal",
-    "bend",
-    "let-ring",
-    "palm-mute",
-    "user1",
-    "user2",
-    "user3",
-    "user4",
-    "user5",
-    "user6",
-    "user7",
-    "user8",
-    "user9",
-    "user10",
-    "user11",
-    "user12"
-};
+//! NOTE The text styles in the order of the list of the page (editableTextStyles())
+static const QStringList& ALL_TEXT_STYLE_SUBPAGE_CODES = textStyleSubPageCodes();
 
 class EditStyle::LineStyleSelect : public QObject
 {

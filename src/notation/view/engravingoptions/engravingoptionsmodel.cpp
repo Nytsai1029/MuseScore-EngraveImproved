@@ -39,6 +39,7 @@
 #include "notation/internal/inotationundostack.h"
 
 #include "../styledialog/styleuivalue.h"
+#include "../styledialog/textstylepagecodes.h"
 #include "linkedstylevalues.h"
 
 #include "log.h"
@@ -366,6 +367,83 @@ int EngravingOptionsModel::modifiedCount(const QStringList& names) const
     }
 
     return count;
+}
+
+QVariantList EngravingOptionsModel::textStyles() const
+{
+    QVariantList result;
+
+    const std::vector<TextStyleType>& types = editableTextStyles();
+    const QStringList& codes = textStyleSubPageCodes();
+    IF_ASSERT_FAILED(codes.size() == static_cast<qsizetype>(types.size())) {
+        return result;
+    }
+
+    for (size_t i = 0; i < types.size(); ++i) {
+        const TextStyleType type = types.at(i);
+        const int userIndex = static_cast<int>(type) - static_cast<int>(TextStyleType::USER1);
+        const bool isUser = type >= TextStyleType::USER1 && type <= TextStyleType::USER12;
+        const QString nameSid = isUser ? QString("user%1Name").arg(userIndex + 1) : QString();
+
+        //! NOTE A user style is called by the name the score gives it, if any (as Score::getTextStyleUserName)
+        QString name = isLoaded() && isUser ? style()->styleValue(styleIdByName(nameSid)).value<String>().toQString()
+                       : QString();
+        if (name.isEmpty()) {
+            name = TConv::userName(type).qTranslated();
+        }
+
+        result << QVariantMap {
+            { "type", static_cast<int>(type) },
+            { "code", codes.at(static_cast<qsizetype>(i)) },
+            { "name", name },
+            { "nameSid", nameSid }
+        };
+    }
+
+    return result;
+}
+
+QVariantList EngravingOptionsModel::textStyleProperties(int textStyleType) const
+{
+    static const std::map<TextStylePropertyType, QString> PROPERTIES {
+        { TextStylePropertyType::FontFace, "fontFace" },
+        { TextStylePropertyType::FontSize, "fontSize" },
+        { TextStylePropertyType::LineSpacing, "lineSpacing" },
+        { TextStylePropertyType::LetterSpacing, "letterSpacing" },
+        { TextStylePropertyType::SizeSpatiumDependent, "sizeSpatiumDependent" },
+        { TextStylePropertyType::FontStyle, "fontStyle" },
+        { TextStylePropertyType::Color, "color" },
+        { TextStylePropertyType::TextAlign, "textAlign" },
+        { TextStylePropertyType::Offset, "offset" },
+        { TextStylePropertyType::FrameType, "frameType" },
+        { TextStylePropertyType::FramePadding, "framePadding" },
+        { TextStylePropertyType::FrameWidth, "frameWidth" },
+        { TextStylePropertyType::FrameRound, "frameRound" },
+        { TextStylePropertyType::FrameBorderColor, "frameBorderColor" },
+        { TextStylePropertyType::FrameFillColor, "frameFillColor" },
+        { TextStylePropertyType::MusicalSymbolsScale, "musicalSymbolsScale" },
+        { TextStylePropertyType::Position, "position" }
+    };
+
+    QVariantList result;
+    const engraving::TextStyle* textStyle = engraving::textStyle(static_cast<TextStyleType>(textStyleType));
+    if (!textStyle) {
+        return result;
+    }
+
+    for (const engraving::TextStyleProperty& property : *textStyle) {
+        const auto name = PROPERTIES.find(property.type);
+        if (name == PROPERTIES.end()) {
+            continue;
+        }
+
+        result << QVariantMap {
+            { "property", name->second },
+            { "sid", QString::fromLatin1(MStyle::valueName(property.sid)) }
+        };
+    }
+
+    return result;
 }
 
 QVariantList EngravingOptionsModel::metaTags() const
