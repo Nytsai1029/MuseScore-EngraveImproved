@@ -32846,6 +32846,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/HammerOnPullOffTappingPage.qml" line="98"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="85"/>
         <source>Case</source>
         <translation type="unfinished">Case</translation>
     </message>
@@ -32876,6 +32877,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/HammerOnPullOffTappingPage.qml" line="164"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="95"/>
         <source>Consecutive hammer-ons/pull-offs</source>
         <translation type="unfinished">Consecutive hammer-ons/pull-offs</translation>
     </message>
@@ -35693,9 +35695,213 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Show</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="37"/>
+        <source>Hammer-ons and pull-offs</source>
+        <translation type="unfinished">Hammer-ons and pull-offs</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="41"/>
+        <source>Aligned letters stand in a row at one height, together with a tapping ‘T’ on the first note of the slur.</source>
+        <translation type="unfinished">Aligned letters stand in a row at one height, together with a tapping ‘T’ on the first note of the slur.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="45"/>
+        <source>Show ‘H’ and ‘P’</source>
+        <translation type="unfinished">Show ‘H’ and ‘P’</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="46"/>
+        <source>Align the letters of one slur</source>
+        <translation type="unfinished">Align the letters of one slur</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="49"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="143"/>
+        <source>Standard staves</source>
+        <translation type="unfinished">Standard staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="50"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="144"/>
+        <source>Tablature staves</source>
+        <translation type="unfinished">Tablature staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="55"/>
+        <source>Writes ‘H’ and ‘P’ over hammer-on and pull-off slurs on standard staves.</source>
+        <translation type="unfinished">Writes ‘H’ and ‘P’ over hammer-on and pull-off slurs on standard staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="62"/>
+        <source>Writes ‘H’ and ‘P’ over hammer-on and pull-off slurs on tablature staves.</source>
+        <translation type="unfinished">Writes ‘H’ and ‘P’ over hammer-on and pull-off slurs on tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="69"/>
+        <source>On standard staves the letters under one slur, and a tapping ‘T’ on its first note, stand in a row at one height.</source>
+        <translation type="unfinished">On standard staves the letters under one slur, and a tapping ‘T’ on its first note, stand in a row at one height.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="77"/>
+        <source>On tablature staves the letters under one slur, and a tapping ‘T’ on its first note, stand in a row at one height.</source>
+        <translation type="unfinished">On tablature staves the letters under one slur, and a tapping ‘T’ on its first note, stand in a row at one height.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="86"/>
+        <source>‘H’ and ‘P’, or ‘h’ and ‘p’.</source>
+        <translation type="unfinished">‘H’ and ‘P’, or ‘h’ and ‘p’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="88"/>
+        <source>Upper case</source>
+        <translation type="unfinished">Upper case</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="89"/>
+        <source>Lower case</source>
+        <translation type="unfinished">Lower case</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="96"/>
+        <source>What is written when one slur covers several hammer-ons or pull-offs in a row.</source>
+        <translation type="unfinished">What is written when one slur covers several hammer-ons or pull-offs in a row.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="99"/>
+        <source>Show ‘H’ or ‘P’ between each pair of notes</source>
+        <translation type="unfinished">Show ‘H’ or ‘P’ between each pair of notes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="101"/>
+        <source>Show ‘H’ or ‘P’ once per group of ascending/descending notes</source>
+        <translation type="unfinished">Show ‘H’ or ‘P’ once per group of ascending/descending notes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="109"/>
+        <source>Gap between the letters and the slur</source>
+        <translation type="unfinished">Gap between the letters and the slur</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="110"/>
+        <source>Vertical gap between an ‘H’ or ‘P’ and the slur, or whatever else lies next to it; the letters also stay at least this far outside the staff.</source>
+        <translation type="unfinished">Vertical gap between an ‘H’ or ‘P’ and the slur, or whatever else lies next to it; the letters also stay at least this far outside the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="120"/>
+        <source>Least distance of the letters from the notes</source>
+        <translation type="unfinished">Least distance of the letters from the notes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="121"/>
+        <source>The letter keeps at least this distance from the nearer of its two notes, given as a multiple of ‘Gap between the letters and the slur’.</source>
+        <translation type="unfinished">The letter keeps at least this distance from the nearer of its two notes, given as a multiple of ‘Gap between the letters and the slur’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="134"/>
+        <source>A left-hand tap is marked by a half slur leading into the note, by a symbol over it, or by both; its symbol only matters where a symbol is shown.</source>
+        <translation type="unfinished">A left-hand tap is marked by a half slur leading into the note, by a symbol over it, or by both; its symbol only matters where a symbol is shown.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="138"/>
+        <source>Left-hand tapping: symbol</source>
+        <translation type="unfinished">Left-hand tapping: symbol</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="139"/>
+        <source>Left-hand tapping: shown as</source>
+        <translation type="unfinished">Left-hand tapping: shown as</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="140"/>
+        <source>Right-hand tapping: symbol</source>
+        <translation type="unfinished">Right-hand tapping: symbol</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="151"/>
+        <source>The symbol of a left-hand tap on standard staves, where one is shown.</source>
+        <translation type="unfinished">The symbol of a left-hand tap on standard staves, where one is shown.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="155"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="167"/>
+        <source>Circled T</source>
+        <translation type="unfinished">Circled T</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="163"/>
+        <source>The symbol of a left-hand tap on tablature staves, where one is shown.</source>
+        <translation type="unfinished">The symbol of a left-hand tap on tablature staves, where one is shown.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="174"/>
+        <source>Whether a left-hand tap on standard staves is marked by a half slur leading into the note, by a symbol over it, or by both.</source>
+        <translation type="unfinished">Whether a left-hand tap on standard staves is marked by a half slur leading into the note, by a symbol over it, or by both.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="178"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="191"/>
+        <source>Half slur</source>
+        <translation type="unfinished">Half slur</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="179"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="192"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="178"/>
         <source>Symbol</source>
         <translation type="unfinished">Symbol</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="180"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="193"/>
+        <source>Both</source>
+        <translation type="unfinished">Both</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="187"/>
+        <source>Whether a left-hand tap on tablature staves is marked by a half slur leading into the note, by a symbol over it, or by both.</source>
+        <translation type="unfinished">Whether a left-hand tap on tablature staves is marked by a half slur leading into the note, by a symbol over it, or by both.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="200"/>
+        <source>The symbol of a right-hand tap on standard staves.</source>
+        <translation type="unfinished">The symbol of a right-hand tap on standard staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="202"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="212"/>
+        <source>Letter T</source>
+        <translation type="unfinished">Letter T</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="203"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="213"/>
+        <source>Plus sign</source>
+        <translation type="unfinished">Plus sign</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="210"/>
+        <source>The symbol of a right-hand tap on tablature staves.</source>
+        <translation type="unfinished">The symbol of a right-hand tap on tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="221"/>
+        <source>On tablature, slur both the top and the bottom note of a chord</source>
+        <translation type="unfinished">On tablature, slur both the top and the bottom note of a chord</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="222"/>
+        <source>Off: a chord tapped with the left hand gets a single half slur, on its top note. Only where left-hand taps are shown with a half slur on tablature staves.</source>
+        <translation type="unfinished">Off: a chord tapped with the left hand gets a single half slur, on its top note. Only where left-hand taps are shown with a half slur on tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="231"/>
+        <source>Size of the left-hand tapping dot</source>
+        <translation type="unfinished">Size of the left-hand tapping dot</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="232"/>
+        <source>As a fraction of the dot’s normal size in the music font; 0.5 is half size.</source>
+        <translation type="unfinished">As a fraction of the dot’s normal size in the music font; 0.5 is half size.</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="179"/>
@@ -36557,6 +36763,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="33"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="36"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LinesPage.qml" line="33"/>
@@ -37263,7 +37470,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="34"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="34"/>
         <source>Fretted instruments</source>
         <translation type="unfinished">Fretted instruments</translation>
     </message>
@@ -37505,17 +37711,15 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">How far the ‘gliss.’ text is raised above the centre of a wavy glissando line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="37"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="131"/>
         <source>Tapping</source>
         <translation type="unfinished">Tapping</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="41"/>
         <source>Left-hand tapping dot scale</source>
         <translation type="unfinished">Left-hand tapping dot scale</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="42"/>
         <source>Size of the dot used as the left-hand tapping symbol relative to the glyph’s normal size.</source>
         <translation type="unfinished">Size of the dot used as the left-hand tapping symbol relative to the glyph’s normal size.</translation>
     </message>
@@ -41235,6 +41439,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Flag</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="154"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="166"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="358"/>
         <source>Dot</source>
         <translation type="unfinished">Dot</translation>

@@ -52000,5 +52000,207 @@ The score will be saved as:
         <source>Height in sp drawn for each hundredth of a semitone of pitch change: at 0.02 a dip of a semitone is 2 sp deep.</source>
         <translation>每百分之一个半音的音高变化所画的高度（谱间）：取 0.02 时，下沉一个半音画成 2 谱间深。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="37"/>
+        <source>Hammer-ons and pull-offs</source>
+        <translation>击弦与勾弦</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="41"/>
+        <source>Aligned letters stand in a row at one height, together with a tapping ‘T’ on the first note of the slur.</source>
+        <translation>对齐后，同一圆滑线内的字母（以及圆滑线首音上的点弦“T”）排成一行，高度一致。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="45"/>
+        <source>Show ‘H’ and ‘P’</source>
+        <translation>显示“H”和“P”</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="46"/>
+        <source>Align the letters of one slur</source>
+        <translation>对齐同一圆滑线内的字母</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="49"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="143"/>
+        <source>Standard staves</source>
+        <translation>标准谱表</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="50"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="144"/>
+        <source>Tablature staves</source>
+        <translation>指法谱</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="55"/>
+        <source>Writes ‘H’ and ‘P’ over hammer-on and pull-off slurs on standard staves.</source>
+        <translation>在标准谱表的击弦、勾弦圆滑线上标出“H”和“P”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="62"/>
+        <source>Writes ‘H’ and ‘P’ over hammer-on and pull-off slurs on tablature staves.</source>
+        <translation>在指法谱的击弦、勾弦圆滑线上标出“H”和“P”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="69"/>
+        <source>On standard staves the letters under one slur, and a tapping ‘T’ on its first note, stand in a row at one height.</source>
+        <translation>在标准谱表上，同一圆滑线内的字母（以及圆滑线首音上的点弦“T”）排成一行，高度一致。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="77"/>
+        <source>On tablature staves the letters under one slur, and a tapping ‘T’ on its first note, stand in a row at one height.</source>
+        <translation>在指法谱上，同一圆滑线内的字母（以及圆滑线首音上的点弦“T”）排成一行，高度一致。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="86"/>
+        <source>‘H’ and ‘P’, or ‘h’ and ‘p’.</source>
+        <translation>写作“H”“P”，还是“h”“p”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="88"/>
+        <source>Upper case</source>
+        <translation>大写</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="89"/>
+        <source>Lower case</source>
+        <translation>小写</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="96"/>
+        <source>What is written when one slur covers several hammer-ons or pull-offs in a row.</source>
+        <translation>一条圆滑线下连续多次击弦或勾弦时的标注方式。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="109"/>
+        <source>Gap between the letters and the slur</source>
+        <translation>字母与圆滑线的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="110"/>
+        <source>Vertical gap between an ‘H’ or ‘P’ and the slur, or whatever else lies next to it; the letters also stay at least this far outside the staff.</source>
+        <translation>“H”或“P”与圆滑线（或其他相邻记号）之间的垂直间隙；字母与谱表之间也至少保持此距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="120"/>
+        <source>Least distance of the letters from the notes</source>
+        <translation>字母与音符的最小距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="121"/>
+        <source>The letter keeps at least this distance from the nearer of its two notes, given as a multiple of ‘Gap between the letters and the slur’.</source>
+        <translation>字母与其前后两个音符中较近者之间至少保持的距离，以“字母与圆滑线的间隙”的倍数计。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="134"/>
+        <source>A left-hand tap is marked by a half slur leading into the note, by a symbol over it, or by both; its symbol only matters where a symbol is shown.</source>
+        <translation>左手点弦可用引向音符的半圆滑线、音符上方的符号或两者同时标记；只有显示符号时，其符号的选择才起作用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="138"/>
+        <source>Left-hand tapping: symbol</source>
+        <translation>左手点弦：符号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="139"/>
+        <source>Left-hand tapping: shown as</source>
+        <translation>左手点弦：标记方式</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="140"/>
+        <source>Right-hand tapping: symbol</source>
+        <translation>右手点弦：符号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="151"/>
+        <source>The symbol of a left-hand tap on standard staves, where one is shown.</source>
+        <translation>标准谱表上左手点弦所用的符号（在显示符号时）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="155"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="167"/>
+        <source>Circled T</source>
+        <translation>带圈的 T</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="163"/>
+        <source>The symbol of a left-hand tap on tablature staves, where one is shown.</source>
+        <translation>指法谱上左手点弦所用的符号（在显示符号时）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="174"/>
+        <source>Whether a left-hand tap on standard staves is marked by a half slur leading into the note, by a symbol over it, or by both.</source>
+        <translation>标准谱表上的左手点弦用引向音符的半圆滑线、音符上方的符号，还是两者同时标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="178"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="191"/>
+        <source>Half slur</source>
+        <translation>半圆滑线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="180"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="193"/>
+        <source>Both</source>
+        <translation>两者</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="187"/>
+        <source>Whether a left-hand tap on tablature staves is marked by a half slur leading into the note, by a symbol over it, or by both.</source>
+        <translation>指法谱上的左手点弦用引向音符的半圆滑线、音符上方的符号，还是两者同时标记。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="200"/>
+        <source>The symbol of a right-hand tap on standard staves.</source>
+        <translation>标准谱表上右手点弦所用的符号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="202"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="212"/>
+        <source>Letter T</source>
+        <translation>字母 T</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="203"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="213"/>
+        <source>Plus sign</source>
+        <translation>加号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="210"/>
+        <source>The symbol of a right-hand tap on tablature staves.</source>
+        <translation>指法谱上右手点弦所用的符号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="221"/>
+        <source>On tablature, slur both the top and the bottom note of a chord</source>
+        <translation>指法谱上，和弦的最高音与最低音都加半圆滑线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="222"/>
+        <source>Off: a chord tapped with the left hand gets a single half slur, on its top note. Only where left-hand taps are shown with a half slur on tablature staves.</source>
+        <translation>关闭时，左手点弦的和弦只在最高音上加一条半圆滑线。仅在指法谱上的左手点弦以半圆滑线标记时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="231"/>
+        <source>Size of the left-hand tapping dot</source>
+        <translation>左手点弦圆点的大小</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="232"/>
+        <source>As a fraction of the dot’s normal size in the music font; 0.5 is half size.</source>
+        <translation>以该圆点在音乐字体中正常大小的比例计，0.5 即一半大小。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="99"/>
+        <source>Show ‘H’ or ‘P’ between each pair of notes</source>
+        <translation>在每一对音符之间显示“H”或“P”</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="101"/>
+        <source>Show ‘H’ or ‘P’ once per group of ascending/descending notes</source>
+        <translation>每组上行或下行的音符只显示一次“H”或“P”</translation>
+    </message>
 </context>
 </TS>
