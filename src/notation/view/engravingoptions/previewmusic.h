@@ -51,7 +51,11 @@ namespace mu::notation {
 //!   `<sub>`, `<b>`, `<i>` format the letters between them, as in the text of a score).
 //! - After a note, as words: `\fermata`, `\arpeggio` (also `\arpeggioUp|Down|Bracket|UpStraight|DownStraight`),
 //!   `\laissezVibrer`, a dynamic (`\ppp \pp \p \mp \mf \f \ff \fff \sf \sfz \fp`),
-//!   `\<` and `\>` (a hairpin begins) and `\!` (it ends).
+//!   `\<` and `\>` (a hairpin begins) and `\!` (it ends). The ornaments `\trill` `\turn` `\mordent` `\prall`
+//!   (with `!`, as `\turn!`, the accidentals of the notes they play are shown, also those of the key), `\upbow`
+//!   `\downbow`, `\luteFinger thumb|1|2|3` (the right hand in lute music), the lines `\fall` `\doit` `\plop`
+//!   `\scoop` (curved; `\fallStraight`, `\fallWavy` and so on), `\breathe` and `\caesura` (after the chord), and
+//!   `\handBracket left|right` (the hand which plays the chord, a bracket left of its lowest note).
 //! - Before a note: `\stemUp` `\stemDown` `\stemNeutral` (until changed), `\noBeam`, `\slash` (slash
 //!   noteheads, as in rhythm slash notation) and `\small` (a small cue chord or rest) for this chord only,
 //!   `\grace` `\acciaccatura` `\appoggiatura` (the next chord, or all the chords of `{ ... }` which follow, beamed

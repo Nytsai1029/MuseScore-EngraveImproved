@@ -32,7 +32,9 @@
 #include "engraving/dom/beam.h"
 #include "engraving/dom/box.h"
 #include "engraving/dom/bracketitem.h"
+#include "engraving/dom/breath.h"
 #include "engraving/dom/chord.h"
+#include "engraving/dom/chordline.h"
 #include "engraving/dom/dynamic.h"
 #include "engraving/dom/fermata.h"
 #include "engraving/dom/fingering.h"
@@ -46,6 +48,7 @@
 #include "engraving/dom/measure.h"
 #include "engraving/dom/measurerepeat.h"
 #include "engraving/dom/note.h"
+#include "engraving/dom/ornament.h"
 #include "engraving/dom/part.h"
 #include "engraving/dom/rest.h"
 #include "engraving/dom/segment.h"
@@ -54,6 +57,7 @@
 #include "engraving/dom/staff.h"
 #include "engraving/dom/stafftext.h"
 #include "engraving/dom/stafftype.h"
+#include "engraving/dom/symbol.h"
 #include "engraving/dom/tapping.h"
 #include "engraving/dom/text.h"
 #include "engraving/dom/tie.h"
@@ -1001,4 +1005,69 @@ TEST_F(Notation_PreviewMusicTests, tabStaffAndTapping)
     EXPECT_EQ(handOf(found[0]), TappingHand::RIGHT);
     EXPECT_EQ(handOf(found[1]), TappingHand::LEFT);
     EXPECT_EQ(handOf(found[2]), TappingHand::INVALID);
+}
+
+/**
+ * @TEST_CASE ornamentsLinesAndBreathMarks
+ * @details Ornaments (with `!` all their accidentals are shown), bowings, lute fingering, falls and the like,
+ * breath marks and caesuras after their chords, and a keyboard hand bracket at the lowest note of its chord
+ */
+TEST_F(Notation_PreviewMusicTests, ornamentsLinesAndBreathMarks)
+{
+    ASSERT_TRUE(load("c''4 \\trill \\upbow d''4 \\turn! \\breathe e''4 \\fallWavy \\luteFinger 2 "
+                     "<g' e' c''>4 \\doitStraight \\caesura \\handBracket left"));
+
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 4u);
+
+    ASSERT_EQ(found[0]->articulations().size(), 2u);
+    const Articulation* trill = found[0]->articulations()[0]->isOrnament() ? found[0]->articulations()[0]
+                                : found[0]->articulations()[1];
+    const Articulation* bowing = trill == found[0]->articulations()[0] ? found[0]->articulations()[1]
+                                 : found[0]->articulations()[0];
+    ASSERT_TRUE(trill->isOrnament());
+    EXPECT_EQ(trill->symId(), SymId::ornamentTrill);
+    EXPECT_EQ(toOrnament(trill)->showAccidental(), OrnamentShowAccidental::DEFAULT);
+    EXPECT_EQ(bowing->symId(), SymId::stringsUpBow);
+
+    ASSERT_EQ(found[1]->articulations().size(), 1u);
+    ASSERT_TRUE(found[1]->articulations().front()->isOrnament());
+    EXPECT_EQ(found[1]->articulations().front()->symId(), SymId::ornamentTurn);
+    EXPECT_EQ(toOrnament(found[1]->articulations().front())->showAccidental(), OrnamentShowAccidental::ALWAYS);
+
+    const Segment* breathAfterTurn = found[1]->segment()->next(SegmentType::Breath);
+    ASSERT_TRUE(breathAfterTurn);
+    EXPECT_EQ(breathAfterTurn->tick(), found[1]->tick() + found[1]->actualTicks());
+    ASSERT_TRUE(breathAfterTurn->element(0) && breathAfterTurn->element(0)->isBreath());
+    EXPECT_EQ(toBreath(breathAfterTurn->element(0))->symId(), SymId::breathMarkComma);
+
+    ASSERT_TRUE(found[2]->chordLine());
+    EXPECT_EQ(found[2]->chordLine()->chordLineType(), ChordLineType::FALL);
+    EXPECT_TRUE(found[2]->chordLine()->isWavy());
+    EXPECT_FALSE(found[2]->chordLine()->isStraight());
+    ASSERT_EQ(found[2]->articulations().size(), 1u);
+    EXPECT_EQ(found[2]->articulations().front()->symId(), SymId::luteFingeringRHSecond);
+
+    ASSERT_TRUE(found[3]->chordLine());
+    EXPECT_EQ(found[3]->chordLine()->chordLineType(), ChordLineType::DOIT);
+    EXPECT_TRUE(found[3]->chordLine()->isStraight());
+    const Segment* caesura = found[3]->segment()->next(SegmentType::Breath);
+    ASSERT_TRUE(caesura && caesura->element(0));
+    EXPECT_EQ(toBreath(caesura->element(0))->symId(), SymId::caesura);
+
+    int brackets = 0;
+    for (const Note* note : found[3]->notes()) {
+        for (const EngravingItem* item : note->el()) {
+            if (item->isSymbol() && toSymbol(item)->sym() == SymId::keyboardPlayWithLH) {
+                EXPECT_EQ(note->pitch(), 64) << "the bracket is at the lowest note";
+                ++brackets;
+            }
+        }
+    }
+    EXPECT_EQ(brackets, 1);
+
+    EXPECT_FALSE(errorOf("c'4 \\luteFinger 4").empty());
+    EXPECT_FALSE(errorOf("c'4 \\handBracket").empty());
+    EXPECT_FALSE(errorOf("c'4 \\fermata!").empty());
+    EXPECT_FALSE(errorOf("\\trill c'4").empty());
 }

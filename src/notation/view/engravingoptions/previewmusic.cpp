@@ -86,7 +86,7 @@ int endOfNoteWord(const QString& text, int start)
     return i;
 }
 
-//! NOTE A command is a backslash and letters, or `\<`, `\>`, `\!` and `\\`
+//! NOTE A command is a backslash and letters, which a `!` may end (`\turn!`), or `\<`, `\>`, `\!` and `\\`
 int endOfCommand(const QString& text, int start)
 {
     int i = start + 1;
@@ -95,6 +95,10 @@ int endOfCommand(const QString& text, int start)
     }
 
     while (i < text.size() && text.at(i).isLetter()) {
+        ++i;
+    }
+
+    if (i > start + 1 && i < text.size() && text.at(i) == '!') {
         ++i;
     }
 
@@ -185,6 +189,20 @@ struct Place {
 
 constexpr int BUZZ_ROLL = -1;
 
+//! `\\trill` `\\turn` `\\mordent` `\\prall`, written as an Ornament
+struct OrnamentMark {
+    QString symbol;
+    //! `!` after the word: the accidentals of the notes it plays are shown, also those which the key has
+    bool showsAllAccidentals = false;
+};
+
+//! `\\fall` `\\doit` `\\plop` `\\scoop`, curved, or with `Straight` or `Wavy` after the word
+struct ChordLineMark {
+    int type = 0;           // ChordLineType
+    bool straight = false;
+    bool wavy = false;
+};
+
 struct Event {
     enum class Grace { None, Grace, Acciaccatura, Appoggiatura };
     enum class Beam { Auto, Begin, Mid, No };
@@ -227,6 +245,10 @@ struct Event {
     QString staffText;
     bool fermata = false;
     int arpeggio = -1;              // ArpeggioType, or -1
+    std::vector<OrnamentMark> ornaments;
+    std::optional<ChordLineMark> chordLine;
+    QString breath;                 // the symbol of the breath mark or caesura after the chord, or none
+    QString handBracket;            // the symbol of the keyboard hand bracket at the lowest note, or none
     int tapping = 0;                // 0 none, 1 left hand, 2 right hand
     QString dynamic;
 
@@ -587,6 +609,14 @@ private:
             { "\\arpeggioUpStraight", 4 }, { "\\arpeggioDownStraight", 5 }
         };
         static const QStringList DYNAMICS { "ppp", "pp", "p", "mp", "mf", "f", "ff", "fff", "sf", "sfz", "fp" };
+        //! NOTE Signs which are articulations in the file, but not in the narrow sense: their position has a style
+        //! value of its own
+        static const std::map<QString, QString> PLAYING_MARKS {
+            { "\\upbow", "stringsUpBow" }, { "\\downbow", "stringsDownBow" }
+        };
+        static const std::map<QString, QString> BREATHS {
+            { "\\breathe", "breathMarkComma" }, { "\\caesura", "caesura" }
+        };
 
         const QString& text = token.text;
 
@@ -695,6 +725,18 @@ private:
             readTime(token);
         } else if (text == "\\fermata") {
             lastEvent(token).fermata = true;
+        } else if (const std::optional<OrnamentMark> ornament = ornamentOf(text)) {
+            lastEvent(token).ornaments.push_back(*ornament);
+        } else if (const std::optional<ChordLineMark> chordLine = chordLineOf(text)) {
+            lastEvent(token).chordLine = chordLine;
+        } else if (PLAYING_MARKS.count(text)) {
+            lastEvent(token).articulations << PLAYING_MARKS.at(text);
+        } else if (text == "\\luteFinger") {
+            readLuteFinger(token);
+        } else if (BREATHS.count(text)) {
+            lastEvent(token).breath = BREATHS.at(text);
+        } else if (text == "\\handBracket") {
+            readHandBracket(token);
         } else if (ARPEGGIOS.count(text)) {
             lastEvent(token).arpeggio = ARPEGGIOS.at(text);
         } else if (text == "\\<" || text == "\\>") {
@@ -746,6 +788,74 @@ private:
             ++m_next;
         }
         lastEvent(command).tapping = hand;
+    }
+
+    //! `\\trill` `\\turn` `\\mordent` `\\prall`, also with `!`: the ornament the word asks for, if it is one
+    static std::optional<OrnamentMark> ornamentOf(const QString& word)
+    {
+        static const std::map<QString, QString> ORNAMENTS {
+            { "\\trill", "ornamentTrill" }, { "\\turn", "ornamentTurn" }, { "\\mordent", "ornamentMordent" },
+            { "\\prall", "ornamentShortTrill" }
+        };
+
+        const bool showsAllAccidentals = word.endsWith('!');
+        const auto ornament = ORNAMENTS.find(showsAllAccidentals ? word.chopped(1) : word);
+        if (ornament == ORNAMENTS.end()) {
+            return std::nullopt;
+        }
+
+        return OrnamentMark { ornament->second, showsAllAccidentals };
+    }
+
+    //! `\\fall` `\\doit` `\\plop` `\\scoop`, also with `Straight` or `Wavy`: the line the word asks for, if it
+    //! is one
+    static std::optional<ChordLineMark> chordLineOf(const QString& word)
+    {
+        static const std::map<QString, int> TYPES {    // ChordLineType
+            { "fall", 1 }, { "doit", 2 }, { "plop", 3 }, { "scoop", 4 }
+        };
+
+        for (const auto& [name, type] : TYPES) {
+            const QString command = "\\" + name;
+            if (word == command) {
+                return ChordLineMark { type, false, false };
+            }
+            if (word == command + "Straight") {
+                return ChordLineMark { type, true, false };
+            }
+            if (word == command + "Wavy") {
+                return ChordLineMark { type, false, true };
+            }
+        }
+
+        return std::nullopt;
+    }
+
+    //! `\\luteFinger thumb|1|2|3`: the right-hand finger of lute music, a stroke (the thumb) or dots
+    void readLuteFinger(const Token& command)
+    {
+        static const std::map<QString, QString> FINGERS {
+            { "thumb", "luteFingeringRHThumb" }, { "1", "luteFingeringRHFirst" }, { "2", "luteFingeringRHSecond" },
+            { "3", "luteFingeringRHThird" }
+        };
+
+        Event& event = lastEvent(command);
+        const Token finger = takeToken("the finger (thumb, 1, 2 or 3)", command);
+        if (!FINGERS.count(finger.text)) {
+            fail("the finger is thumb, 1, 2 or 3", finger.position);
+        }
+        event.articulations << FINGERS.at(finger.text);
+    }
+
+    //! `\\handBracket left|right`: the bracket which says with which hand the chord is played, at its lowest note
+    void readHandBracket(const Token& command)
+    {
+        Event& event = lastEvent(command);
+        const Token hand = takeToken("the hand (left or right)", command);
+        if (hand.text != "left" && hand.text != "right") {
+            fail("the hand is left or right", hand.position);
+        }
+        event.handBracket = hand.text == "left" ? "keyboardPlayWithLH" : "keyboardPlayWithRH";
     }
 
     //! `\\grace`, `\\acciaccatura` and `\\appoggiatura` make the next chord a grace note of the one after it, or, with
@@ -2121,6 +2231,13 @@ private:
         if (event.tupletEnd) {
             m_xml.writeEmptyElement("endTuplet");
         }
+
+        //! NOTE The reader puts a breath mark at the time where it is read, which is the end of the chord before it
+        if (!event.breath.isEmpty()) {
+            m_xml.writeStartElement("Breath");
+            text("symbol", event.breath);
+            m_xml.writeEndElement();
+        }
     }
 
     //! The format tags of the text are written as elements in the text, as rich text is in a score file
@@ -2307,9 +2424,30 @@ private:
             m_xml.writeEndElement();
         }
 
+        for (const OrnamentMark& ornament : event.ornaments) {
+            m_xml.writeStartElement("Ornament");
+            if (ornament.showsAllAccidentals) {
+                number("ornamentShowAccidental", 2);    // OrnamentShowAccidental::ALWAYS
+            }
+            text("subtype", ornament.symbol);
+            m_xml.writeEndElement();
+        }
+
         if (event.arpeggio >= 0) {
             m_xml.writeStartElement("Arpeggio");
             number("subtype", event.arpeggio);
+            m_xml.writeEndElement();
+        }
+
+        if (event.chordLine) {
+            m_xml.writeStartElement("ChordLine");
+            number("subtype", event.chordLine->type);
+            if (event.chordLine->straight) {
+                number("straight", 1);
+            }
+            if (event.chordLine->wavy) {
+                number("wavy", 1);
+            }
             m_xml.writeEndElement();
         }
 
@@ -2320,8 +2458,10 @@ private:
             m_xml.writeEndElement();
         }
 
-        for (size_t i = 0; i < event.pitches.size(); ++i) {
-            writeNote(event, event.pitches[i], i + 1 == event.pitches.size());
+        const auto lowest = std::min_element(event.pitches.cbegin(), event.pitches.cend(),
+                                             [](const Pitch& a, const Pitch& b) { return a.midi < b.midi; });
+        for (auto pitch = event.pitches.cbegin(); pitch != event.pitches.cend(); ++pitch) {
+            writeNote(event, *pitch, pitch == lowest, std::next(pitch) == event.pitches.cend());
         }
 
         //! NOTE The reader takes a tremolo only after the notes of its chord
@@ -2352,12 +2492,16 @@ private:
         m_xml.writeEndElement();
     }
 
-    void writeNote(const Event& event, const Pitch& pitch, bool isTopNote)
+    void writeNote(const Event& event, const Pitch& pitch, bool isBottomNote, bool isTopNote)
     {
         m_xml.writeStartElement("Note");
 
         if (pitch.accidental != Pitch::Accidental::Auto) {
             writeAccidental(pitch);
+        }
+
+        if (!event.handBracket.isEmpty() && isBottomNote) {
+            writeHandBracket(event.handBracket);
         }
 
         if (event.fingering > 0 && isTopNote) {
@@ -2378,6 +2522,18 @@ private:
 
         number("pitch", pitch.midi);
         number("tpc", pitch.tpc);
+        m_xml.writeEndElement();
+    }
+
+    //! NOTE A hand bracket is a symbol of the note, which the user places: it stands left of the notehead and
+    //! reaches up from just below it
+    void writeHandBracket(const QString& symbol)
+    {
+        m_xml.writeStartElement("Symbol");
+        text("name", symbol);
+        m_xml.writeEmptyElement("offset");
+        m_xml.writeAttribute("x", "-2");
+        m_xml.writeAttribute("y", "0.5");
         m_xml.writeEndElement();
     }
 
