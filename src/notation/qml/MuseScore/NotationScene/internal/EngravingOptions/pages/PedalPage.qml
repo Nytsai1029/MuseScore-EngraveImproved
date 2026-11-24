@@ -138,7 +138,8 @@ EoPage {
 
         EoNumber {
             sid: "pedalEndInsetBeforeNextPedal"
-            music: "c'4 \\startPedal \\hooks none 90 e'4 \\stopPedal g'4 \\startPedal \\hooks none 90 c''4 | e''2 \\stopPedal c''2"
+            music: "c'4 \\startPedal \\hooks none 90 e'4 \\stopPedal g'4 \\startPedal \\hooks none 90 c''4 | e''2 " +
+                   "\\stopPedal c''2"
             title: qsTrc("notation/engravingoptions", "Gap between the line’s end and a following pedal line")
             hint: qsTrc("notation/engravingoptions",
                         "Used instead of the gap above when the next pedal line starts on the very note at which " +
