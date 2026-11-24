@@ -206,5 +206,6 @@
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TrillPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml</file>
         <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml</file>
+        <file>qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml</file>
     </qresource>
 </RCC>

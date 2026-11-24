@@ -48642,5 +48642,282 @@ The score will be saved as:
         <source>Positive values move the right divider down from the middle between the two systems.</source>
         <translation>正值使右侧分行号自两个谱行组的正中向下移动。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="34"/>
+        <source>Signs</source>
+        <translation>记号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="38"/>
+        <source>Barlines</source>
+        <translation>小节线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="43"/>
+        <source>Normal barlines, and the thin line of final and repeat barlines.</source>
+        <translation>普通小节线，以及终止小节线和反复小节线中的细线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="49"/>
+        <source>Double barline</source>
+        <translation>双小节线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="50"/>
+        <source>Thick line of final and repeat barlines</source>
+        <translation>终止与反复小节线中的粗线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="54"/>
+        <source>Distance between the lines</source>
+        <translation>线间距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="60"/>
+        <source>Thickness of each of the two lines of a double barline.</source>
+        <translation>双小节线中每条线的粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="67"/>
+        <source>White space between the two lines of a double barline.</source>
+        <translation>双小节线两条线之间的空白。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="74"/>
+        <source>The thick line of final and repeat barlines, and the heavy barline.</source>
+        <translation>终止小节线和反复小节线中的粗线，以及粗小节线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="82"/>
+        <source>White space between the thick line and the thin line beside it in final and repeat barlines.</source>
+        <translation>终止小节线和反复小节线中，粗线与旁边细线之间的空白。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="91"/>
+        <source>Repeat barline to dots distance</source>
+        <translation>反复小节线与圆点的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="92"/>
+        <source>White space between the thin line of a repeat barline and its two dots.</source>
+        <translation>反复小节线的细线与两个圆点之间的空白。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="99"/>
+        <source>Show repeat barline tips (“winged” repeats)</source>
+        <translation>反复小节线加翼形钩（“带翼”反复记号）</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="105"/>
+        <source>Scale barlines to staff size</source>
+        <translation>小节线随谱表大小缩放</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="106"/>
+        <source>On a small staff the barlines become thinner and their lines closer together in proportion; off keeps the full-size thicknesses on every staff.</source>
+        <translation>在小谱表上，小节线按比例变细、线间距离按比例变窄；关闭后所有谱表都用正常大小的粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="113"/>
+        <source>At the start of the system</source>
+        <translation>谱行组开头</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="120"/>
+        <source>Draws a barline at the left end of every system which shows one staff only; a system with a bracket has it in any case.</source>
+        <translation>只显示一行谱表的谱行组，在左端加一条小节线；带连谱号的谱行组无论如何都有。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="128"/>
+        <source>Draws the line which joins all staves at the left end of every system with more than one staff.</source>
+        <translation>显示多行谱表的谱行组，在左端加一条贯穿所有谱表的起始线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="135"/>
+        <source>Before a start repeat with a new key or time signature</source>
+        <translation>反复开始处遇调号或拍号更换时</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="136"/>
+        <source>These three settings act only at a start repeat barline; double barlines before ordinary changes are set under Clefs, key and time signatures.</source>
+        <translation>这三项只作用于反复开始小节线处；普通调号、拍号更换前的双小节线在“谱号、调号、拍号”页设置。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="144"/>
+        <source>When a measure opening with a start repeat also brings a new key or time signature, a barline closes the measure before, in front of the signatures; off, they follow the last note with no barline.</source>
+        <translation>以反复开始小节线开头的小节同时更换调号或拍号时，在这些记号之前用小节线结束上一小节；关闭后，记号直接跟在上一小节最后一个音符之后，其间没有小节线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="154"/>
+        <source>That barline is a double barline when the key changes. Only with ‘Show barline before key and time signature changes’ on.</source>
+        <translation>更换调号时，上述小节线用双小节线。仅在启用“在调号和拍号更改前显示小节线”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="164"/>
+        <source>That barline is a double barline when the time signature changes. Only with ‘Show barline before key and time signature changes’ on.</source>
+        <translation>更换拍号时，上述小节线用双小节线。仅在启用“在调号和拍号更改前显示小节线”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="172"/>
+        <source>One-line staves</source>
+        <translation>单线谱表</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="177"/>
+        <source>Top end of the barline</source>
+        <translation>小节线上端</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="178"/>
+        <source>How far barlines reach above the line of a one-line staff; negative numbers are above the line (−2 = 2 sp above it).</source>
+        <translation>单线谱表上小节线向谱线上方伸出的长度，向上为负（−2 即谱线上方 2 sp）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="191"/>
+        <source>Bottom end of the barline</source>
+        <translation>小节线下端</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="192"/>
+        <source>How far barlines reach below the line of a one-line staff (2 = 2 sp below it).</source>
+        <translation>单线谱表上小节线向谱线下方伸出的长度（2 即谱线下方 2 sp）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="203"/>
+        <source>Barlines which cross text</source>
+        <translation>与文本相交的小节线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="209"/>
+        <source>A barline which joins two staves is broken off where it would run through a text between them, such as a dynamic or a lyric; off, only a text whose own ‘Mask barlines’ property is on does this.</source>
+        <translation>连接上下谱表的小节线穿过谱表之间的文本（如力度记号或歌词）时，在文本处断开；关闭后，只有自身启用了“小节线遮罩”属性的文本才如此。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="219"/>
+        <source>Distance at which a barline is broken</source>
+        <translation>小节线断开的临界距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="220"/>
+        <source>A barline which passes closer than this to a text is broken there, even if it does not touch it; given for 10 pt text and growing with the text size.</source>
+        <translation>小节线与文本的距离小于此值时即在该处断开，即使两者并未相碰；数值按 10 pt 字号给出，并随字号增大。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="229"/>
+        <source>Gap between text and barline</source>
+        <translation>文本与小节线断口的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="230"/>
+        <source>White space left between the text and the ends of the broken barline; given for 10 pt text and growing with the text size. Framed text gets no extra gap.</source>
+        <translation>文本与断开的小节线两端之间留出的空白；数值按 10 pt 字号给出，并随字号增大。带边框的文本不另留空白。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="239"/>
+        <source>Smallest gap</source>
+        <translation>最小间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="240"/>
+        <source>The gap between text and barline never becomes smaller than this, however small the text.</source>
+        <translation>无论文本字号多小，文本与小节线断口的间隙都不小于此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="248"/>
+        <source>Largest gap</source>
+        <translation>最大间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="249"/>
+        <source>The gap between text and barline never becomes larger than this, however large the text.</source>
+        <translation>无论文本字号多大，文本与小节线断口的间隙都不大于此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="257"/>
+        <source>Shortest piece of barline left standing</source>
+        <translation>保留的最短小节线段</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="258"/>
+        <source>A stub of barline shorter than this, between two texts or between a text and the end of the barline, is removed as well.</source>
+        <translation>两处文本之间，或文本与小节线端点之间剩下的小节线段若短于此值，也一并去掉。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="38"/>
+        <source>Voltas</source>
+        <translation>跳房子</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="43"/>
+        <source>Height of the volta line above the top staff line (negative numbers are above the staff); notes and signs in the way still push the volta higher.</source>
+        <translation>跳房子横线在谱表最上方谱线上方的高度（负值表示在谱表上方）；遇到音符或记号阻挡时仍会被推得更高。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="57"/>
+        <source>Length of the vertical strokes which close the volta bracket at its ends.</source>
+        <translation>跳房子两端向下的竖线的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="72"/>
+        <source>Solid</source>
+        <translation>实线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="74"/>
+        <source>Dotted</source>
+        <translation>点线</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="81"/>
+        <source>Dash length</source>
+        <translation>虚线段长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="82"/>
+        <source>Length of each dash as a multiple of the line thickness. Only with the line style ‘Dashed’.</source>
+        <translation>每段短线的长度，以线条粗细的倍数计。仅在线条样式为“虚线”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="94"/>
+        <source>Gap length</source>
+        <translation>虚线间隔长度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="95"/>
+        <source>Length of the gap between two dashes as a multiple of the line thickness. Only with the line style ‘Dashed’.</source>
+        <translation>相邻两段短线之间空隙的长度，以线条粗细的倍数表示。仅在线条样式为“虚线”时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="108"/>
+        <source>Least vertical gap between a volta and the notes or other signs which lie between it and the staff.</source>
+        <translation>跳房子与位于它和谱表之间的音符或其他记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="116"/>
+        <source>Alignment</source>
+        <translation>对齐</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="121"/>
+        <source>At the start of a system, start the volta over the key signature</source>
+        <translation>在谱行组开头，跳房子从调号处开始</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="123"/>
+        <source>Off, a volta which begins or continues at the start of a system starts just before the first note, after the key signature.</source>
+        <translation>关闭后，在谱行组开头起始或延续的跳房子从调号之后、第一个音符稍前处开始。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="134"/>
+        <source>After an end repeat, start the hook at the left of the thick barline</source>
+        <translation>反复结束小节线之后，始端折钩对齐粗线左侧</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="136"/>
+        <source>Off, the hook of a volta which follows an end repeat barline stands at the right edge of that barline.</source>
+        <translation>关闭后，紧接反复结束小节线的跳房子，其始端折钩位于该小节线右缘。</translation>
+    </message>
 </context>
 </TS>

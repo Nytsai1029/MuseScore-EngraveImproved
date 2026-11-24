@@ -51,6 +51,7 @@ QtObject {
         SlursPage { model: root.model },
         ClefsKeyAndTimeSignaturesPage { model: root.model },
         BarlinesPage { model: root.model },
+        VoltasPage { model: root.model },
         ArticulationsAndOrnamentsPage { model: root.model },
         FermatasPage { model: root.model },
         FingeringPage { model: root.model },

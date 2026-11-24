@@ -1744,7 +1744,6 @@
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="33"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="86"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4892"/>
         <source>Barlines</source>
@@ -3336,7 +3335,7 @@ space unit</extracomment>
         <translation type="unfinished">Symbol:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="90"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="66"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4898"/>
         <source>Double barline distance:</source>
         <translation type="unfinished">Double barline distance:</translation>
@@ -3352,7 +3351,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Thin barline thickness&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="46"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="119"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4973"/>
         <source>Barline at start of single staff</source>
         <translation type="unfinished">Barline at start of single staff</translation>
@@ -3373,13 +3372,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Thick barline thickness&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="51"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="127"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5019"/>
         <source>Barline at start of multiple staves</source>
         <translation type="unfinished">Barline at start of multiple staves</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="72"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="73"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5042"/>
         <source>Thick barline thickness:</source>
         <translation type="unfinished">Thick barline thickness:</translation>
@@ -3395,25 +3394,23 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Scale barlines to staff size&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="78"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="81"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5091"/>
         <source>Thick barline distance:</source>
         <translation type="unfinished">Thick barline distance:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="96"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5101"/>
         <source>Repeat barline to dots distance:</source>
         <translation type="unfinished">Repeat barline to dots distance:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="66"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="42"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5111"/>
         <source>Thin barline thickness:</source>
         <translation type="unfinished">Thin barline thickness:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="56"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5121"/>
         <source>Scale barlines to staff size</source>
         <translation type="unfinished">Scale barlines to staff size</translation>
@@ -3429,13 +3426,12 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Repeat barline to dots distance&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="41"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5167"/>
         <source>Show repeat barline tips (“winged” repeats)</source>
         <translation type="unfinished">Show repeat barline tips (“winged” repeats)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="84"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="59"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5187"/>
         <source>Double barline thickness:</source>
         <translation type="unfinished">Double barline thickness:</translation>
@@ -3451,7 +3447,7 @@ space unit</extracomment>
         <translation type="unfinished">Mask barlines</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="61"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="208"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="5213"/>
         <source>Mask barlines when intersecting text</source>
         <translation type="unfinished">Mask barlines when intersecting text</translation>
@@ -13610,37 +13606,37 @@ Fret %1 on strings %2</translation>
         <translation type="unfinished">Annotations:</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/spanner.cpp" line="1648"/>
+        <location filename="../../src/engraving/dom/spanner.cpp" line="1650"/>
         <location filename="../../src/notation/internal/notationaccessibility.cpp" line="159"/>
         <source>Start measure: %1</source>
         <translation type="unfinished">Start measure: %1</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/spanner.cpp" line="1651"/>
+        <location filename="../../src/engraving/dom/spanner.cpp" line="1653"/>
         <location filename="../../src/notation/internal/notationaccessibility.cpp" line="161"/>
         <source>Start displayed measure: %1</source>
         <translation type="unfinished">Start displayed measure: %1</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/spanner.cpp" line="1654"/>
+        <location filename="../../src/engraving/dom/spanner.cpp" line="1656"/>
         <location filename="../../src/notation/internal/notationaccessibility.cpp" line="163"/>
         <source>Start beat: %1</source>
         <translation type="unfinished">Start beat: %1</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/spanner.cpp" line="1661"/>
+        <location filename="../../src/engraving/dom/spanner.cpp" line="1663"/>
         <location filename="../../src/notation/internal/notationaccessibility.cpp" line="166"/>
         <source>End measure: %1</source>
         <translation type="unfinished">End measure: %1</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/spanner.cpp" line="1664"/>
+        <location filename="../../src/engraving/dom/spanner.cpp" line="1666"/>
         <location filename="../../src/notation/internal/notationaccessibility.cpp" line="168"/>
         <source>End displayed measure: %1</source>
         <translation type="unfinished">End displayed measure: %1</translation>
     </message>
     <message>
-        <location filename="../../src/engraving/dom/spanner.cpp" line="1667"/>
+        <location filename="../../src/engraving/dom/spanner.cpp" line="1669"/>
         <location filename="../../src/notation/internal/notationaccessibility.cpp" line="170"/>
         <source>End beat: %1</source>
         <translation type="unfinished">End beat: %1</translation>
@@ -25750,6 +25746,8 @@ Fret %1 on strings %2</translation>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoNumberEditor.qml" line="95"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoOffsetEditor.qml" line="75"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="276"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="185"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="197"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="54"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="61"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="78"/>
@@ -25769,6 +25767,7 @@ Fret %1 on strings %2</translation>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="241"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="252"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="226"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="50"/>
         <location filename="../../src/palette/qml/MuseScore/Palette/PaletteCellPropertiesDialog.qml" line="105"/>
         <location filename="../../src/palette/qml/MuseScore/Palette/PaletteCellPropertiesDialog.qml" line="121"/>
         <location filename="../../src/palette/qml/MuseScore/Palette/PalettePropertiesDialog.qml" line="131"/>
@@ -30744,6 +30743,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="205"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/LineStyleSection.qml" line="58"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="64"/>
         <source>Line thickness:</source>
         <translation type="unfinished">Line thickness:</translation>
     </message>
@@ -30821,6 +30821,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/LineStyleSection.qml" line="47"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="103"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="70"/>
         <source>Line style:</source>
         <translation type="unfinished">Line style:</translation>
     </message>
@@ -32685,16 +32686,19 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <name>notation/editstyle/barlines</name>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/RepeatBarlinesSection.qml" line="58"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="143"/>
         <source>Show barline before key and time signature changes</source>
         <translation type="unfinished">Show barline before key and time signature changes</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/RepeatBarlinesSection.qml" line="66"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="153"/>
         <source>Use double barline before key signatures</source>
         <translation type="unfinished">Use double barline before key signatures</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/RepeatBarlinesSection.qml" line="74"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="163"/>
         <source>Use double barline before time signatures</source>
         <translation type="unfinished">Use double barline before time signatures</translation>
     </message>
@@ -33636,11 +33640,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="57"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="42"/>
         <source>Vertical position:</source>
         <translation type="unfinished">Vertical position:</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="85"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="56"/>
         <source>Hook height:</source>
         <translation type="unfinished">Hook height:</translation>
     </message>
@@ -33666,11 +33672,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="163"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="127"/>
         <source>After key signature</source>
         <translation type="unfinished">After key signature</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="169"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="128"/>
         <source>On key signature</source>
         <translation type="unfinished">On key signature</translation>
     </message>
@@ -33681,11 +33689,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="197"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="140"/>
         <source>To right side of barlines</source>
         <translation type="unfinished">To right side of barlines</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="203"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="141"/>
         <source>To left side of barlines</source>
         <translation type="unfinished">To left side of barlines</translation>
     </message>
@@ -34278,7 +34288,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="34"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="34"/>
@@ -34413,27 +34422,22 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Vertical position of caesuras relative to the top staff line (the bottom line when placed below); positive values are below that line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="102"/>
         <source>Barline details</source>
         <translation type="unfinished">Barline details</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="106"/>
         <source>One-line staff: barline top (half spaces)</source>
         <translation type="unfinished">One-line staff: barline top (half spaces)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="107"/>
         <source>Where barlines start on a one-line staff, in half staff spaces from the staff line (negative is above); the staff is treated as this tall for brackets and staff spacing.</source>
         <translation type="unfinished">Where barlines start on a one-line staff, in half staff spaces from the staff line (negative is above); the staff is treated as this tall for brackets and staff spacing.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="117"/>
         <source>One-line staff: barline bottom (half spaces)</source>
         <translation type="unfinished">One-line staff: barline bottom (half spaces)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="118"/>
         <source>Where barlines end on a one-line staff, in half staff spaces below the staff line; the staff is treated as this tall for brackets and staff spacing.</source>
         <translation type="unfinished">Where barlines end on a one-line staff, in half staff spaces below the staff line; the staff is treated as this tall for brackets and staff spacing.</translation>
     </message>
@@ -34906,57 +34910,46 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Vertical offset</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="128"/>
         <source>Barline masks</source>
         <translation type="unfinished">Barline masks</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="132"/>
         <source>Barline masks: detection margin around text</source>
         <translation type="unfinished">Barline masks: detection margin around text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="133"/>
         <source>A barline is interrupted when it comes closer than this to a text; scales with the font size.</source>
         <translation type="unfinished">A barline is interrupted when it comes closer than this to a text; scales with the font size.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="140"/>
         <source>Barline masks: gap around text</source>
         <translation type="unfinished">Barline masks: gap around text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="141"/>
         <source>White space left between an unframed text and the ends of the interrupted barline; scales with the font size.</source>
         <translation type="unfinished">White space left between an unframed text and the ends of the interrupted barline; scales with the font size.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="148"/>
         <source>Barline masks: minimum gap around text</source>
         <translation type="unfinished">Barline masks: minimum gap around text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="149"/>
         <source>Lower limit of the gap around text, which matters for small font sizes.</source>
         <translation type="unfinished">Lower limit of the gap around text, which matters for small font sizes.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="156"/>
         <source>Barline masks: maximum gap around text</source>
         <translation type="unfinished">Barline masks: maximum gap around text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="157"/>
         <source>Upper limit of the gap around text, which matters for large font sizes.</source>
         <translation type="unfinished">Upper limit of the gap around text, which matters for large font sizes.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="164"/>
         <source>Barline masks: shortest barline fragment</source>
         <translation type="unfinished">Barline masks: shortest barline fragment</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="165"/>
         <source>Barline pieces shorter than this, left between two masks or at an end of the barline, are removed.</source>
         <translation type="unfinished">Barline pieces shorter than this, left between two masks or at an end of the barline, are removed.</translation>
     </message>
@@ -37798,11 +37791,213 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Slurs</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="34"/>
+        <source>Signs</source>
+        <translation type="unfinished">Signs</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="38"/>
+        <source>Barlines</source>
+        <translation type="unfinished">Barlines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="43"/>
+        <source>Normal barlines, and the thin line of final and repeat barlines.</source>
+        <translation type="unfinished">Normal barlines, and the thin line of final and repeat barlines.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="49"/>
+        <source>Double barline</source>
+        <translation type="unfinished">Double barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="50"/>
+        <source>Thick line of final and repeat barlines</source>
+        <translation type="unfinished">Thick line of final and repeat barlines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="53"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="36"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="46"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="93"/>
         <source>Thickness</source>
         <translation type="unfinished">Thickness</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="54"/>
+        <source>Distance between the lines</source>
+        <translation type="unfinished">Distance between the lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="60"/>
+        <source>Thickness of each of the two lines of a double barline.</source>
+        <translation type="unfinished">Thickness of each of the two lines of a double barline.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="67"/>
+        <source>White space between the two lines of a double barline.</source>
+        <translation type="unfinished">White space between the two lines of a double barline.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="74"/>
+        <source>The thick line of final and repeat barlines, and the heavy barline.</source>
+        <translation type="unfinished">The thick line of final and repeat barlines, and the heavy barline.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="82"/>
+        <source>White space between the thick line and the thin line beside it in final and repeat barlines.</source>
+        <translation type="unfinished">White space between the thick line and the thin line beside it in final and repeat barlines.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="91"/>
+        <source>Repeat barline to dots distance</source>
+        <translation type="unfinished">Repeat barline to dots distance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="92"/>
+        <source>White space between the thin line of a repeat barline and its two dots.</source>
+        <translation type="unfinished">White space between the thin line of a repeat barline and its two dots.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="99"/>
+        <source>Show repeat barline tips (“winged” repeats)</source>
+        <translation type="unfinished">Show repeat barline tips (“winged” repeats)</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="105"/>
+        <source>Scale barlines to staff size</source>
+        <translation type="unfinished">Scale barlines to staff size</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="106"/>
+        <source>On a small staff the barlines become thinner and their lines closer together in proportion; off keeps the full-size thicknesses on every staff.</source>
+        <translation type="unfinished">On a small staff the barlines become thinner and their lines closer together in proportion; off keeps the full-size thicknesses on every staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="113"/>
+        <source>At the start of the system</source>
+        <translation type="unfinished">At the start of the system</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="120"/>
+        <source>Draws a barline at the left end of every system which shows one staff only; a system with a bracket has it in any case.</source>
+        <translation type="unfinished">Draws a barline at the left end of every system which shows one staff only; a system with a bracket has it in any case.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="128"/>
+        <source>Draws the line which joins all staves at the left end of every system with more than one staff.</source>
+        <translation type="unfinished">Draws the line which joins all staves at the left end of every system with more than one staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="135"/>
+        <source>Before a start repeat with a new key or time signature</source>
+        <translation type="unfinished">Before a start repeat with a new key or time signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="136"/>
+        <source>These three settings act only at a start repeat barline; double barlines before ordinary changes are set under Clefs, key and time signatures.</source>
+        <translation type="unfinished">These three settings act only at a start repeat barline; double barlines before ordinary changes are set under Clefs, key and time signatures.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="144"/>
+        <source>When a measure opening with a start repeat also brings a new key or time signature, a barline closes the measure before, in front of the signatures; off, they follow the last note with no barline.</source>
+        <translation type="unfinished">When a measure opening with a start repeat also brings a new key or time signature, a barline closes the measure before, in front of the signatures; off, they follow the last note with no barline.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="154"/>
+        <source>That barline is a double barline when the key changes. Only with ‘Show barline before key and time signature changes’ on.</source>
+        <translation type="unfinished">That barline is a double barline when the key changes. Only with ‘Show barline before key and time signature changes’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="164"/>
+        <source>That barline is a double barline when the time signature changes. Only with ‘Show barline before key and time signature changes’ on.</source>
+        <translation type="unfinished">That barline is a double barline when the time signature changes. Only with ‘Show barline before key and time signature changes’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="172"/>
+        <source>One-line staves</source>
+        <translation type="unfinished">One-line staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="177"/>
+        <source>Top end of the barline</source>
+        <translation type="unfinished">Top end of the barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="178"/>
+        <source>How far barlines reach above the line of a one-line staff; negative numbers are above the line (−2 = 2 sp above it).</source>
+        <translation type="unfinished">How far barlines reach above the line of a one-line staff; negative numbers are above the line (−2 = 2 sp above it).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="191"/>
+        <source>Bottom end of the barline</source>
+        <translation type="unfinished">Bottom end of the barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="192"/>
+        <source>How far barlines reach below the line of a one-line staff (2 = 2 sp below it).</source>
+        <translation type="unfinished">How far barlines reach below the line of a one-line staff (2 = 2 sp below it).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="203"/>
+        <source>Barlines which cross text</source>
+        <translation type="unfinished">Barlines which cross text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="209"/>
+        <source>A barline which joins two staves is broken off where it would run through a text between them, such as a dynamic or a lyric; off, only a text whose own ‘Mask barlines’ property is on does this.</source>
+        <translation type="unfinished">A barline which joins two staves is broken off where it would run through a text between them, such as a dynamic or a lyric; off, only a text whose own ‘Mask barlines’ property is on does this.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="219"/>
+        <source>Distance at which a barline is broken</source>
+        <translation type="unfinished">Distance at which a barline is broken</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="220"/>
+        <source>A barline which passes closer than this to a text is broken there, even if it does not touch it; given for 10 pt text and growing with the text size.</source>
+        <translation type="unfinished">A barline which passes closer than this to a text is broken there, even if it does not touch it; given for 10 pt text and growing with the text size.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="229"/>
+        <source>Gap between text and barline</source>
+        <translation type="unfinished">Gap between text and barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="230"/>
+        <source>White space left between the text and the ends of the broken barline; given for 10 pt text and growing with the text size. Framed text gets no extra gap.</source>
+        <translation type="unfinished">White space left between the text and the ends of the broken barline; given for 10 pt text and growing with the text size. Framed text gets no extra gap.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="239"/>
+        <source>Smallest gap</source>
+        <translation type="unfinished">Smallest gap</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="240"/>
+        <source>The gap between text and barline never becomes smaller than this, however small the text.</source>
+        <translation type="unfinished">The gap between text and barline never becomes smaller than this, however small the text.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="248"/>
+        <source>Largest gap</source>
+        <translation type="unfinished">Largest gap</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="249"/>
+        <source>The gap between text and barline never becomes larger than this, however large the text.</source>
+        <translation type="unfinished">The gap between text and barline never becomes larger than this, however large the text.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="257"/>
+        <source>Shortest piece of barline left standing</source>
+        <translation type="unfinished">Shortest piece of barline left standing</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="258"/>
+        <source>A stub of barline shorter than this, between two texts or between a text and the end of the barline, is removed as well.</source>
+        <translation type="unfinished">A stub of barline shorter than this, between two texts or between a text and the end of the barline, is removed as well.</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="48"/>
@@ -37861,6 +38056,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="110"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="73"/>
         <source>Dashed</source>
         <translation type="unfinished">Dashed</translation>
     </message>
@@ -41000,6 +41196,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="288"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="411"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="103"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="107"/>
         <source>Minimum distance from notes and signs</source>
         <translation type="unfinished">Minimum distance from notes and signs</translation>
     </message>
@@ -41516,6 +41713,82 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SizesPage.qml" line="99"/>
         <source>Where only small notes move, as in a cue passage, the horizontal space they get is reduced in the same proportion as their size.</source>
         <translation type="unfinished">Where only small notes move, as in a cue passage, the horizontal space they get is reduced in the same proportion as their size.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="33"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="38"/>
+        <source>Voltas</source>
+        <translation type="unfinished">Voltas</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="43"/>
+        <source>Height of the volta line above the top staff line (negative numbers are above the staff); notes and signs in the way still push the volta higher.</source>
+        <translation type="unfinished">Height of the volta line above the top staff line (negative numbers are above the staff); notes and signs in the way still push the volta higher.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="57"/>
+        <source>Length of the vertical strokes which close the volta bracket at its ends.</source>
+        <translation type="unfinished">Length of the vertical strokes which close the volta bracket at its ends.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="72"/>
+        <source>Solid</source>
+        <translation type="unfinished">Solid</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="74"/>
+        <source>Dotted</source>
+        <translation type="unfinished">Dotted</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="81"/>
+        <source>Dash length</source>
+        <translation type="unfinished">Dash length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="82"/>
+        <source>Length of each dash as a multiple of the line thickness. Only with the line style ‘Dashed’.</source>
+        <translation type="unfinished">Length of each dash as a multiple of the line thickness. Only with the line style ‘Dashed’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="94"/>
+        <source>Gap length</source>
+        <translation type="unfinished">Gap length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="95"/>
+        <source>Length of the gap between two dashes as a multiple of the line thickness. Only with the line style ‘Dashed’.</source>
+        <translation type="unfinished">Length of the gap between two dashes as a multiple of the line thickness. Only with the line style ‘Dashed’.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="108"/>
+        <source>Least vertical gap between a volta and the notes or other signs which lie between it and the staff.</source>
+        <translation type="unfinished">Least vertical gap between a volta and the notes or other signs which lie between it and the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="116"/>
+        <source>Alignment</source>
+        <translation type="unfinished">Alignment</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="121"/>
+        <source>At the start of a system, start the volta over the key signature</source>
+        <translation type="unfinished">At the start of a system, start the volta over the key signature</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="123"/>
+        <source>Off, a volta which begins or continues at the start of a system starts just before the first note, after the key signature.</source>
+        <translation type="unfinished">Off, a volta which begins or continues at the start of a system starts just before the first note, after the key signature.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="134"/>
+        <source>After an end repeat, start the hook at the left of the thick barline</source>
+        <translation type="unfinished">After an end repeat, start the hook at the left of the thick barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="136"/>
+        <source>Off, the hook of a volta which follows an end repeat barline stands at the right edge of that barline.</source>
+        <translation type="unfinished">Off, the hook of a volta which follows an end repeat barline stands at the right edge of that barline.</translation>
     </message>
 </context>
 <context>
