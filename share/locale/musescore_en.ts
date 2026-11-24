@@ -4035,6 +4035,8 @@ space unit</extracomment>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="51"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="273"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="63"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="194"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="322"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="99"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="82"/>
@@ -4405,6 +4407,8 @@ space unit</extracomment>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="370"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="471"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="51"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="184"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="105"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="88"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="66"/>
@@ -30741,6 +30745,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/GlissandoSection.qml" line="48"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="42"/>
         <source>Line type:</source>
         <translation type="unfinished">Line type:</translation>
     </message>
@@ -30757,11 +30762,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/GlissandoSection.qml" line="67"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="132"/>
         <source>Min. length (straight):</source>
         <translation type="unfinished">Min. length (straight):</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/GlissandoSection.qml" line="74"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="143"/>
         <source>Min. length (wavy):</source>
         <translation type="unfinished">Min. length (wavy):</translation>
     </message>
@@ -36741,6 +36748,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FiguredBassPage.qml" line="34"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="107"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="199"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="34"/>
@@ -37083,57 +37091,189 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Gap between a fretboard diagram and its fingering numbers.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="37"/>
         <source>Glissandos and note-anchored lines</source>
         <translation type="unfinished">Glissandos and note-anchored lines</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="41"/>
         <source>Distance from notes</source>
         <translation type="unfinished">Distance from notes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="42"/>
         <source>Gap between each end of a glissando or note-anchored line and the notehead, dots or accidental next to it.</source>
         <translation type="unfinished">Gap between each end of a glissando or note-anchored line and the notehead, dots or accidental next to it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="49"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="37"/>
+        <source>Glissandos</source>
+        <translation type="unfinished">Glissandos</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="45"/>
+        <source>Wavy</source>
+        <translation type="unfinished">Wavy</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="52"/>
+        <source>Only for straight glissandos.</source>
+        <translation type="unfinished">Only for straight glissandos.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="64"/>
+        <source>Only for straight glissandos; a wavy one takes its weight from the music font.</source>
+        <translation type="unfinished">Only for straight glissandos; a wavy one takes its weight from the music font.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="100"/>
+        <source>Show text</source>
+        <translation type="unfinished">Show text</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="101"/>
+        <source>Writes the text below along the line, wherever the line is long enough to hold it.</source>
+        <translation type="unfinished">Writes the text below along the line, wherever the line is long enough to hold it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="108"/>
+        <source>The word written along the line, ‘gliss.’ by default. Only with ‘Show text’ on.</source>
+        <translation type="unfinished">The word written along the line, ‘gliss.’ by default. Only with ‘Show text’ on.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="115"/>
+        <source>Text distance above a straight line</source>
+        <translation type="unfinished">Text distance above a straight line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="116"/>
+        <source>How far the text is raised above a straight glissando line.</source>
+        <translation type="unfinished">How far the text is raised above a straight glissando line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="123"/>
+        <source>Text distance above a wavy line</source>
+        <translation type="unfinished">Text distance above a wavy line</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="124"/>
+        <source>How far the text is raised above the middle of a wavy glissando line.</source>
+        <translation type="unfinished">How far the text is raised above the middle of a wavy glissando line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="133"/>
+        <source>The two notes are spaced apart far enough for a straight glissando of at least this length. Note-anchored lines use it too.</source>
+        <translation type="unfinished">The two notes are spaced apart far enough for a straight glissando of at least this length. Note-anchored lines use it too.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="144"/>
+        <source>The two notes are spaced apart far enough for a wavy glissando of at least this length.</source>
+        <translation type="unfinished">The two notes are spaced apart far enough for a wavy glissando of at least this length.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="151"/>
+        <source>Playback</source>
+        <translation type="unfinished">Playback</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="152"/>
+        <source>Which notes sound between the two ends of a glissando: every semitone, only the white or the black keys, the notes of the scale as written, or a continuous slide. For playback only; nothing changes on the page.</source>
+        <translation type="unfinished">Which notes sound between the two ends of a glissando: every semitone, only the white or the black keys, the notes of the scale as written, or a continuous slide. For playback only; nothing changes on the page.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="157"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="173"/>
+        <source>Chromatic</source>
+        <translation type="unfinished">Chromatic</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="158"/>
+        <source>White keys</source>
+        <translation type="unfinished">White keys</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="159"/>
+        <source>Black keys</source>
+        <translation type="unfinished">Black keys</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="160"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="172"/>
+        <source>Diatonic</source>
+        <translation type="unfinished">Diatonic</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="161"/>
+        <source>Portamento</source>
+        <translation type="unfinished">Portamento</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="167"/>
+        <source>Playback on harp staves</source>
+        <translation type="unfinished">Playback on harp staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="168"/>
+        <source>‘Diatonic’ plays the strings as the current harp pedal diagram sets them; ‘Chromatic’ plays every semitone. For playback only.</source>
+        <translation type="unfinished">‘Diatonic’ plays the strings as the current harp pedal diagram sets them; ‘Chromatic’ plays every semitone. For playback only.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="179"/>
+        <source>Note-anchored lines</source>
+        <translation type="unfinished">Note-anchored lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="225"/>
+        <source>Gap between the line and its notes</source>
+        <translation type="unfinished">Gap between the line and its notes</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="226"/>
+        <source>Gap between each end of the line and the notehead, augmentation dots or accidental next to it. Glissandos use it too.</source>
+        <translation type="unfinished">Gap between each end of the line and the notehead, augmentation dots or accidental next to it. Glissandos use it too.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="235"/>
         <source>Slant between notes at the same staff position</source>
         <translation type="unfinished">Slant between notes at the same staff position</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="50"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="236"/>
+        <source>When both notes sit on the same line or space, one end of the line is lowered and the other raised by this much, so that the line still shows whether the pitch rises or falls. Glissandos use it too.</source>
+        <translation type="unfinished">When both notes sit on the same line or space, one end of the line is lowered and the other raised by this much, so that the line still shows whether the pitch rises or falls. Glissandos use it too.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="246"/>
+        <source>Slant on tablature staves</source>
+        <translation type="unfinished">Slant on tablature staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="247"/>
+        <source>On tablature one end of the line is lowered and the other raised by this fraction of the distance between two strings, so that a slide along one string is not drawn flat. Glissandos use it too.</source>
+        <translation type="unfinished">On tablature one end of the line is lowered and the other raised by this fraction of the distance between two strings, so that a slide along one string is not drawn flat. Glissandos use it too.</translation>
+    </message>
+    <message>
         <source>When both notes sit on the same line or space, each end of the line is moved vertically by this amount so that the line is not horizontal.</source>
         <translation type="unfinished">When both notes sit on the same line or space, each end of the line is moved vertically by this amount so that the line is not horizontal.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="57"/>
         <source>Tablature: slant (× string distance)</source>
         <translation type="unfinished">Tablature: slant (× string distance)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="58"/>
         <source>On tablature, each end of a glissando is moved vertically by this fraction of the distance between string lines, so that slides along one string are slanted.</source>
         <translation type="unfinished">On tablature, each end of a glissando is moved vertically by this fraction of the distance between string lines, so that slides along one string are slanted.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="65"/>
         <source>Text distance above straight glissando</source>
         <translation type="unfinished">Text distance above straight glissando</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="66"/>
         <source>How far the ‘gliss.’ text is raised above a straight glissando line.</source>
         <translation type="unfinished">How far the ‘gliss.’ text is raised above a straight glissando line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="73"/>
         <source>Text distance above wavy glissando</source>
         <translation type="unfinished">Text distance above wavy glissando</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="74"/>
         <source>How far the ‘gliss.’ text is raised above the centre of a wavy glissando line.</source>
         <translation type="unfinished">How far the ‘gliss.’ text is raised above the centre of a wavy glissando line.</translation>
     </message>
@@ -39563,6 +39703,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="374"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="475"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="55"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="187"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="108"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="91"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="110"/>
@@ -42021,6 +42163,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Traditional</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="44"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="441"/>
         <source>Straight</source>
         <translation type="unfinished">Straight</translation>
@@ -43907,6 +44050,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="373"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="474"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="54"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="186"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="107"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="90"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="72"/>
@@ -43916,6 +44061,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="375"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="476"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="56"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="188"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="109"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="92"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="74"/>
@@ -43925,6 +44072,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="383"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="483"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="73"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="201"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="115"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="99"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="82"/>
@@ -43934,6 +44083,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="384"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="484"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="74"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="202"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="116"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="100"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="83"/>
@@ -43943,6 +44094,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="393"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="493"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="87"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="213"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="126"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="111"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="95"/>
@@ -43952,6 +44105,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="394"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="494"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="88"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="214"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="127"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="112"/>
         <source>Gap between two dashes as a multiple of the line thickness; it is evened out slightly so that the line ends with a full dash. Only with the line style ‘Dashed’.</source>

@@ -51376,5 +51376,147 @@ The score will be saved as:
         <source>Show only for intervals other than seconds</source>
         <translation>仅在非二度音程时显示</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="37"/>
+        <source>Glissandos</source>
+        <translation>滑音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="45"/>
+        <source>Wavy</source>
+        <translation>波浪型</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="52"/>
+        <source>Only for straight glissandos.</source>
+        <translation>仅用于直线滑音。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="64"/>
+        <source>Only for straight glissandos; a wavy one takes its weight from the music font.</source>
+        <translation>仅用于直线滑音；波浪型滑音的粗细由音乐字体决定。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="100"/>
+        <source>Show text</source>
+        <translation>显示文字</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="101"/>
+        <source>Writes the text below along the line, wherever the line is long enough to hold it.</source>
+        <translation>沿线条写出下面设定的文字；线条短于文字时不写。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="108"/>
+        <source>The word written along the line, ‘gliss.’ by default. Only with ‘Show text’ on.</source>
+        <translation>沿线条书写的文字，默认为“gliss.”。仅在“显示文字”开启时有效。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="115"/>
+        <source>Text distance above a straight line</source>
+        <translation>文字与直线滑音的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="116"/>
+        <source>How far the text is raised above a straight glissando line.</source>
+        <translation>文字高出直线滑音的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="123"/>
+        <source>Text distance above a wavy line</source>
+        <translation>文字与波浪型滑音的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="124"/>
+        <source>How far the text is raised above the middle of a wavy glissando line.</source>
+        <translation>文字高出波浪型滑音中线的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="133"/>
+        <source>The two notes are spaced apart far enough for a straight glissando of at least this length. Note-anchored lines use it too.</source>
+        <translation>必要时拉开两个音符的间距，使直线滑音不短于此长度。音符锚索同样适用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="144"/>
+        <source>The two notes are spaced apart far enough for a wavy glissando of at least this length.</source>
+        <translation>必要时拉开两个音符的间距，使波浪型滑音不短于此长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="151"/>
+        <source>Playback</source>
+        <translation>回放方式</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="152"/>
+        <source>Which notes sound between the two ends of a glissando: every semitone, only the white or the black keys, the notes of the scale as written, or a continuous slide. For playback only; nothing changes on the page.</source>
+        <translation>滑音两端之间奏出哪些音：每个半音、只奏白键或黑键、按记谱的音阶各音，或连续滑动。仅影响回放，谱面不变。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="157"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="173"/>
+        <source>Chromatic</source>
+        <translation>半音阶</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="158"/>
+        <source>White keys</source>
+        <translation>白键</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="159"/>
+        <source>Black keys</source>
+        <translation>黑键</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="160"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="172"/>
+        <source>Diatonic</source>
+        <translation>自然音阶</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="161"/>
+        <source>Portamento</source>
+        <translation>连续滑音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="167"/>
+        <source>Playback on harp staves</source>
+        <translation>竖琴谱表上的回放方式</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="168"/>
+        <source>‘Diatonic’ plays the strings as the current harp pedal diagram sets them; ‘Chromatic’ plays every semitone. For playback only.</source>
+        <translation>“自然音阶”按当前竖琴踏板图所设定的各弦奏出；“半音阶”则奏出每个半音。仅影响回放。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="179"/>
+        <source>Note-anchored lines</source>
+        <translation>音符锚索</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="225"/>
+        <source>Gap between the line and its notes</source>
+        <translation>线条与两端音符的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="226"/>
+        <source>Gap between each end of the line and the notehead, augmentation dots or accidental next to it. Glissandos use it too.</source>
+        <translation>线条两端与相邻符头、附点或变音记号之间的间隙。滑音同样适用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="236"/>
+        <source>When both notes sit on the same line or space, one end of the line is lowered and the other raised by this much, so that the line still shows whether the pitch rises or falls. Glissandos use it too.</source>
+        <translation>两个音符位于同一线或同一间时，线条一端下移、另一端上移此距离，使线条仍能显示音高的升降。滑音同样适用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="246"/>
+        <source>Slant on tablature staves</source>
+        <translation>指法谱上的斜度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="247"/>
+        <source>On tablature one end of the line is lowered and the other raised by this fraction of the distance between two strings, so that a slide along one string is not drawn flat. Glissandos use it too.</source>
+        <translation>在指法谱上，线条一端下移、另一端上移，移动量为相邻两弦间距的这一比例，使同一根弦上的滑音不致画成水平。滑音同样适用。</translation>
+    </message>
 </context>
 </TS>

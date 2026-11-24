@@ -751,7 +751,7 @@ const char* const EFFECT_TEST_PAGES[] = {
     "RestsPage", "TupletsPage", "ArpeggiosPage", "TiesPage", "SlursPage",
     "BarlinesPage", "RepeatsPage", "VoltasPage", "ClefsKeyAndTimeSignaturesPage", "ArticulationsAndOrnamentsPage",
     "FermatasPage", "DynamicsHairpinsPage", "FingeringPage", "ParenthesesPage", "LyricsPage",
-    "LinesPage", "OttavaPage", "PedalPage", "TrillPage"
+    "LinesPage", "OttavaPage", "PedalPage", "TrillPage", "GlissandoNoteLinePage"
 };
 
 //! NOTE The options whose value nothing in the layout reads, each with the code fact which shows it
@@ -883,6 +883,9 @@ const std::set<QString>& optionsWhoseMusicCannotShowItYet()
         // the layout
         "swingRatio",
         "swingUnit",
+        // playback only: which notes a glissando plays (Glissando::pitchSteps, spannersmetaparser.cpp)
+        "glissandoStyle",
+        "glissandoStyleHarp",
         // concert pitch shows only on a transposing instrument, and the music is always written for a piano
         "concertPitch",
         // only where the bottom staff of the score is one of the staves chosen to show system markings (the
