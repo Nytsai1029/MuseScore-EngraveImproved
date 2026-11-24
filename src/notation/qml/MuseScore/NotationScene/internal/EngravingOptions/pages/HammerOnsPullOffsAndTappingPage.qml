@@ -95,6 +95,7 @@ EoPage {
             title: qsTrc("notation/editstyle/hammeronpulloff", "Consecutive hammer-ons/pull-offs")
             hint: qsTrc("notation/engravingoptions",
                         "What is written when one slur covers several hammer-ons or pull-offs in a row.")
+            presentation: "list"
             choices: [
                 { value: true, title: qsTrc("notation/engravingoptions",
                                             "Show ‘H’ or ‘P’ between each pair of notes") },
