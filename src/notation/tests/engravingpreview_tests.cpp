@@ -848,10 +848,14 @@ std::optional<PropertyValue> choiceProbeOf(const SourceBlock& option, const MSty
         return std::nullopt;
     }
 
+    //! NOTE A value is the current one if it is written so, or if both are numbers and equal: a word as `true` is no
+    //! number (its toDouble() would be 0, as false is)
     const QVariant current = styleValueToUi(id, EngravingPreviewRenderer::valueOf(style, overrides, id));
     int index = 0;
     for (int i = 0; i < values.size(); ++i) {
-        if (values[i] == current.toString() || values[i].toDouble() == current.toDouble()) {
+        bool isNumber = false;
+        const double number = values[i].toDouble(&isNumber);
+        if (values[i] == current.toString() || (isNumber && number == current.toDouble())) {
             index = i;
             break;
         }

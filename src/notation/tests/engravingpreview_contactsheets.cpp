@@ -107,7 +107,9 @@ QVariantList choiceValuesOf(const SourceBlock& option)
 {
     QVariantList values;
     for (const QString& text : option.choiceValues()) {
-        if (text.startsWith('"')) {
+        if (text == "true" || text == "false") {
+            values << (text == "true");
+        } else if (text.startsWith('"')) {
             values << SourceBlock::unquoted(text);
         } else if (text.contains('.')) {
             values << text.toDouble();
