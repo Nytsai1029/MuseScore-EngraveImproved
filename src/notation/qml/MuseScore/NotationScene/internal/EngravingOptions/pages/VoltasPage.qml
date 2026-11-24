@@ -77,6 +77,7 @@ EoPage {
 
         EoNumber {
             sid: "voltaDashLineLen"
+            music: "\\volta \"1.\" 2 c''1 | c''1"
             musicStyle: ({ voltaLineStyle: 1 })
             title: qsTrc("notation/engravingoptions", "Dash length")
             hint: qsTrc("notation/engravingoptions",
