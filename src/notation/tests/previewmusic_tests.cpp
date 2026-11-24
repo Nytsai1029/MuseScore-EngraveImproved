@@ -1412,6 +1412,13 @@ TEST_F(Notation_PreviewMusicTests, bendsAndTremoloBars)
     EXPECT_TRUE(toChord(slurs[0]->startElement())->isGrace());
     EXPECT_EQ(slurs[0]->endElement(), found[7]);
 
+    // [THEN] In a chord, a note which keeps its pitch is held, not bent
+    ASSERT_TRUE(load("<a' e''>4 \\bend <b' e''>4 r2"));
+    const std::vector<Chord*> chordBend = chords();
+    ASSERT_EQ(chordBend.size(), 2u);
+    EXPECT_TRUE(chordBend[0]->downNote()->bendFor());
+    EXPECT_FALSE(chordBend[0]->upNote()->bendFor());
+
     EXPECT_FALSE(errorOf("c'4 \\preBend d'4").empty());
     EXPECT_FALSE(errorOf("r4 \\bend d'4").empty());
     EXPECT_FALSE(errorOf("c'4 \\bend").empty());

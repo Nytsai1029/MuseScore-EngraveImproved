@@ -62,9 +62,10 @@ namespace mu::notation {
 //!   `\fallStraight`, `\fallWavy` and so on), `\breathe` and `\caesura` (after the chord), and
 //!   `\handBracket left|right` (the hand which plays the chord, a bracket left of its lowest note).
 //!   `\glissando` and `\noteLine` (a note-anchored line) go from the notes of the chord to those of the next one.
-//!   So does `\bend` (a guitar bend; from a grace note a grace note bend); `\preBend` after a grace note bends
-//!   the string before it is struck, `\slightBend` is a quarter-tone bend on the note itself. `\oldBend` is the
-//!   bend of MuseScore 3 on the top note (up a whole tone), `\tremoloBar` a dip of the tremolo bar.
+//!   So does `\bend` (a guitar bend; from a grace note a grace note bend; a note of the chord which keeps its pitch is
+//!   held, not bent); `\preBend` after a grace note bends the string before it is struck, `\slightBend` is a
+//!   quarter-tone bend on the note itself. `\oldBend` is the bend of MuseScore 3 on the top note (up a whole tone),
+//!   `\tremoloBar` a dip of the tremolo bar.
 //! - Lines over chords: `\start<Name>` after the chord with which the line begins, `\stop<Name>` after the last
 //!   chord it lasts through (unlike `\!` of a hairpin, which stands at the chord where it ends). The names:
 //!   `Ottava` (with `8va` `8vb` `15ma` `15mb` `22ma` `22mb` after `\startOttava`), `Pedal`, `Trill` (`upprall`

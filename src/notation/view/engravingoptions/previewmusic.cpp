@@ -2207,7 +2207,8 @@ private:
     }
 
     //! `\\glissando`, `\\noteLine` and a bend join the notes of a chord to those of the next one, from the lowest
-    //! up, as many as the smaller of the two chords has; a slight bend begins and ends on its note
+    //! up, as many as the smaller of the two chords has; a note which keeps its pitch is held, not bent, and a slight
+    //! bend begins and ends on its note
     void planNoteToNoteLines(const std::vector<Event*>& events)
     {
         for (size_t i = 0; i < events.size(); ++i) {
@@ -2229,13 +2230,13 @@ private:
                         connect(from, bend, from, bend, Fraction());
                     }
                 } else {
-                    connectNotes(events, i, bend);
+                    connectNotes(events, i, bend, true);
                 }
             }
         }
     }
 
-    void connectNotes(const std::vector<Event*>& events, size_t fromIndex, const Link& link)
+    void connectNotes(const std::vector<Event*>& events, size_t fromIndex, const Link& link, bool onlyChanges = false)
     {
         Event& from = *events[fromIndex];
         Event* to = nextChord(events, fromIndex);
@@ -2246,6 +2247,10 @@ private:
         const std::vector<int> lower = midisOf(from);
         const std::vector<int> upper = midisOf(*to);
         for (size_t n = 0; n < std::min(lower.size(), upper.size()); ++n) {
+            if (onlyChanges && lower[n] == upper[n]) {
+                continue;
+            }
+
             Link start = link;
             start.midi = lower[n];
             Link end = link;
