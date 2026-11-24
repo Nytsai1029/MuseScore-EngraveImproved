@@ -357,6 +357,12 @@ struct Event {
     QString expression;             // `\\expression "text"`: an expression text, as dolce after a p
     QString sticking;               // `\\sticking "text"`: the hand of a percussion note, as R or L
     QString chordSymbol;            // `\\chordSymbol "text"`: a chord symbol, as C7(b9)/E or, in parentheses, (F)
+    //! The texts at the chord by the element they are in the file: SystemText, Tempo, RehearsalMark, InstrumentChange
+    std::vector<std::pair<QString, QString> > texts;
+    int harpPedals = 0;             // `\\harpPedals` 1: a harp pedal diagram, `\\harpPedalsText` 2: the same as text
+    std::optional<std::pair<int, QString> > numeral;   // `\\romanNumeral` `\\nashville`: HarmonyType and the text
+    QString fretDiagram;            // `\\fretDiagram "x32010"`: from the lowest string up
+    QStringList figuredBass;        // `\\figuredBass "6 4"`: the figures from the top
     bool notesInParentheses = false;    // `\\parenthesize` before the chord: each of its notes
     bool chordInParentheses = false;    // `\\parenthesizeChord`: the chord as a whole
 
@@ -727,6 +733,11 @@ private:
             { "\\<", Event::Hairpin::Crescendo }, { "\\>", Event::Hairpin::Decrescendo },
             { "\\cresc", Event::Hairpin::CrescendoLine }, { "\\dim", Event::Hairpin::DecrescendoLine }
         };
+        //! NOTE The texts which are elements of their own in the file, by the command which writes them
+        static const std::map<QString, QString> TEXT_ELEMENTS {
+            { "\\systemText", "SystemText" }, { "\\tempo", "Tempo" }, { "\\mark", "RehearsalMark" },
+            { "\\instrumentChange", "InstrumentChange" }
+        };
         static const std::map<QString, QString> BREATHS {
             { "\\breathe", "breathMarkComma" }, { "\\caesura", "caesura" }
         };
@@ -876,6 +887,18 @@ private:
         } else if (text == "\\sticking") {
             Event& event = lastEvent(token);
             event.sticking = quoted(takeToken("the letters in quotes", token));
+        } else if (TEXT_ELEMENTS.count(text)) {
+            Event& event = lastEvent(token);
+            event.texts.emplace_back(TEXT_ELEMENTS.at(text), quoted(takeToken("the text in quotes", token)));
+        } else if (text == "\\harpPedals" || text == "\\harpPedalsText") {
+            lastEvent(token).harpPedals = text == "\\harpPedals" ? 1 : 2;
+        } else if (text == "\\romanNumeral" || text == "\\nashville") {
+            Event& event = lastEvent(token);
+            event.numeral = std::pair(text == "\\romanNumeral" ? 1 : 2, quoted(takeToken("the text in quotes", token)));
+        } else if (text == "\\fretDiagram") {
+            readFretDiagram(token);
+        } else if (text == "\\figuredBass") {
+            readFiguredBass(token);
         } else if (text == "\\chordSymbol") {
             Event& event = lastEvent(token);
             const Token symbol = takeToken("the chord symbol in quotes", token);
@@ -965,6 +988,36 @@ private:
             event.guitarBend = SLIGHT_BEND;
         } else {
             event.guitarBend = isGrace ? GRACE_NOTE_BEND : BEND;
+        }
+    }
+
+    //! `\\fretDiagram "x32010"`: a fretboard diagram of six strings, from the lowest; each `x` (not played), `0` (open)
+    //! or the fret where the string is stopped, 1 to 9
+    void readFretDiagram(const Token& command)
+    {
+        Event& event = lastEvent(command);
+        const Token strings = takeToken("the strings in quotes", command);
+        event.fretDiagram = quoted(strings);
+        static const QRegularExpression DIAGRAM("^[x0-9]{6}$");
+        if (!DIAGRAM.match(event.fretDiagram).hasMatch()) {
+            fail("a fretboard diagram is six strings, each x, 0 or a fret 1 to 9, as x32010", strings.position);
+        }
+    }
+
+    //! `\\figuredBass "6 4"`: the figures from the top, each a figure, an accidental (`b`, `#`, `n`) or both, as b7
+    void readFiguredBass(const Token& command)
+    {
+        Event& event = lastEvent(command);
+        const Token figures = takeToken("the figures in quotes", command);
+        event.figuredBass = quoted(figures).split(' ', Qt::SkipEmptyParts);
+        static const QRegularExpression FIGURE("^[b#n]?[0-9]?$");
+        for (const QString& figure : event.figuredBass) {
+            if (!FIGURE.match(figure).hasMatch()) {
+                fail("a figure is a digit, an accidental (b, # or n) or both, as b7", figures.position);
+            }
+        }
+        if (event.figuredBass.isEmpty()) {
+            fail("the figures are separated by spaces, as \"6 4\"", figures.position);
         }
     }
 
@@ -2769,7 +2822,32 @@ private:
         writeLinksWhichStart(event, Link::Kind::Line);
 
         if (!event.staffText.isEmpty()) {
-            writeStaffText(event.staffText);
+            writeTextElement("StaffText", event.staffText);
+        }
+
+        for (const auto& [element, text] : event.texts) {
+            writeTextElement(element, text);
+        }
+
+        if (event.harpPedals) {
+            writeHarpPedals(event.harpPedals == 1);
+        }
+
+        if (event.numeral) {
+            m_xml.writeStartElement("Harmony");
+            number("harmonyType", event.numeral->first);
+            m_xml.writeStartElement("harmonyInfo");
+            text("name", event.numeral->second);
+            m_xml.writeEndElement();
+            m_xml.writeEndElement();
+        }
+
+        if (!event.fretDiagram.isEmpty()) {
+            writeFretDiagram(event.fretDiagram);
+        }
+
+        if (!event.figuredBass.isEmpty()) {
+            writeFiguredBass(event);
         }
 
         //! NOTE A dip of the bar (DIP_CURVE of tremolobar.cpp)
@@ -2832,10 +2910,20 @@ private:
         m_xml.writeEndElement();
     }
 
-    //! The format tags of the text are written as elements in the text, as rich text is in a score file
-    void writeStaffText(const QString& staffText)
+    //! A text element (StaffText, Tempo …). The format tags of the text are written as elements in the text, as rich
+    //! text is in a score file
+    void writeTextElement(const QString& element, const QString& staffText)
     {
-        m_xml.writeStartElement("StaffText");
+        m_xml.writeStartElement(element);
+        if (element == "Tempo") {
+            number("tempo", 2);     // ♩ = 120, in beats per second
+        } else if (element == "InstrumentChange") {
+            //! NOTE The instrument of the staff stays: the change is shown by its text
+            m_xml.writeStartElement("Instrument");
+            m_xml.writeAttribute("id", "piano");
+            text("trackName", "Piano");
+            m_xml.writeEndElement();
+        }
         m_xml.writeStartElement("text");
 
         static const QRegularExpression TAG("<(/?)([a-z]+)>");
@@ -2854,6 +2942,67 @@ private:
         m_xml.writeCharacters(staffText.mid(at));
 
         m_xml.writeEndElement();
+        m_xml.writeEndElement();
+    }
+
+    //! The pedals of a harp, all at natural, as a diagram or as text
+    void writeHarpPedals(bool isDiagram)
+    {
+        static constexpr int STRINGS = 7;       // HarpStringType: D C B E F G A
+        static constexpr int NATURAL = 1;       // PedalPosition
+
+        m_xml.writeStartElement("HarpPedalDiagram");
+        number("isDiagram", isDiagram ? 1 : 0);
+        m_xml.writeStartElement("pedalState");
+        for (int string = 0; string < STRINGS; ++string) {
+            m_xml.writeStartElement("string");
+            m_xml.writeAttribute("name", QString::number(string));
+            m_xml.writeCharacters(QString::number(NATURAL));
+            m_xml.writeEndElement();
+        }
+        m_xml.writeEndElement();
+        if (!isDiagram) {
+            text("style", "harp_pedal_text_diagram");
+        }
+        m_xml.writeEndElement();
+    }
+
+    //! NOTE As TWrite writes a FretDiagram: the strings from the lowest (0), each with a marker (X = 88, O = 79) or a
+    //! dot on its fret
+    void writeFretDiagram(const QString& strings)
+    {
+        m_xml.writeStartElement("FretDiagram");
+        for (int string = 0; string < strings.size(); ++string) {
+            const QChar fret = strings.at(string);
+            m_xml.writeStartElement("string");
+            m_xml.writeAttribute("no", QString::number(string));
+            if (fret == 'x' || fret == '0') {
+                number("marker", fret == 'x' ? 88 : 79);
+            } else {
+                number("dot", fret.digitValue());
+            }
+            m_xml.writeEndElement();
+        }
+        m_xml.writeEndElement();
+    }
+
+    //! The figures as FiguredBassItem, each with its accidental as the prefix (FiguredBassItem::Modifier)
+    void writeFiguredBass(const Event& event)
+    {
+        static const std::map<QChar, int> MODIFIERS { { 'b', 2 }, { 'n', 3 }, { '#', 4 } };
+
+        m_xml.writeStartElement("FiguredBass");
+        number("ticks", event.length().ticks());
+        for (const QString& figure : event.figuredBass) {
+            m_xml.writeStartElement("FiguredBassItem");
+            if (MODIFIERS.count(figure.front())) {
+                number("prefix", MODIFIERS.at(figure.front()));
+            }
+            if (figure.back().isDigit()) {
+                number("digit", figure.back().digitValue());
+            }
+            m_xml.writeEndElement();
+        }
         m_xml.writeEndElement();
     }
 

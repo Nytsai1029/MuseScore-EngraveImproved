@@ -39,12 +39,16 @@
 #include "engraving/dom/dynamic.h"
 #include "engraving/dom/expression.h"
 #include "engraving/dom/fermata.h"
+#include "engraving/dom/figuredbass.h"
 #include "engraving/dom/fingering.h"
+#include "engraving/dom/fret.h"
 #include "engraving/dom/glissando.h"
 #include "engraving/dom/gradualtempochange.h"
 #include "engraving/dom/guitarbend.h"
 #include "engraving/dom/hairpin.h"
 #include "engraving/dom/harmony.h"
+#include "engraving/dom/harppedaldiagram.h"
+#include "engraving/dom/instrchange.h"
 #include "engraving/dom/instrument.h"
 #include "engraving/dom/jump.h"
 #include "engraving/dom/keysig.h"
@@ -62,6 +66,7 @@
 #include "engraving/dom/palmmute.h"
 #include "engraving/dom/part.h"
 #include "engraving/dom/pedal.h"
+#include "engraving/dom/rehearsalmark.h"
 #include "engraving/dom/rest.h"
 #include "engraving/dom/segment.h"
 #include "engraving/dom/slur.h"
@@ -72,7 +77,9 @@
 #include "engraving/dom/stringdata.h"
 #include "engraving/dom/sticking.h"
 #include "engraving/dom/symbol.h"
+#include "engraving/dom/systemtext.h"
 #include "engraving/dom/tapping.h"
+#include "engraving/dom/tempotext.h"
 #include "engraving/dom/text.h"
 #include "engraving/dom/textline.h"
 #include "engraving/dom/tie.h"
@@ -1472,4 +1479,59 @@ TEST_F(Notation_PreviewMusicTests, hammerOnPullOffSlurs)
     const std::vector<const Spanner*> slurs = spannersOf(ElementType::SLUR);
     ASSERT_EQ(slurs.size(), 1u);
     EXPECT_EQ(slurs[0]->tick(), Fraction(3, 4));
+}
+
+/**
+ * @TEST_CASE textsAtChords
+ * @details System text, tempo text, a rehearsal mark, an instrument change, harp pedal diagrams, Roman numerals,
+ * Nashville numbers, a fretboard diagram and figured bass stand at the chord after which they are written
+ */
+TEST_F(Notation_PreviewMusicTests, textsAtChords)
+{
+    ASSERT_TRUE(load("c'4 \\systemText \"Tutti\" \\tempo \"Allegro\" \\mark \"A\" "
+                     "d'4 \\instrumentChange \"To flute\" \\harpPedals e'4 \\harpPedalsText \\romanNumeral \"V7\" "
+                     "f'4 \\nashville \"5\" \\fretDiagram \"x32010\" \\figuredBass \"6 b4\""));
+
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 4u);
+    const auto at = [&found](size_t chord, ElementType type) {
+        return found[chord]->segment()->findAnnotation(type, 0, 0);
+    };
+
+    ASSERT_TRUE(at(0, ElementType::SYSTEM_TEXT));
+    EXPECT_EQ(toSystemText(at(0, ElementType::SYSTEM_TEXT))->plainText(), muse::String(u"Tutti"));
+    ASSERT_TRUE(at(0, ElementType::TEMPO_TEXT));
+    EXPECT_EQ(toTempoText(at(0, ElementType::TEMPO_TEXT))->plainText(), muse::String(u"Allegro"));
+    ASSERT_TRUE(at(0, ElementType::REHEARSAL_MARK));
+    EXPECT_EQ(toRehearsalMark(at(0, ElementType::REHEARSAL_MARK))->plainText(), muse::String(u"A"));
+
+    ASSERT_TRUE(at(1, ElementType::INSTRUMENT_CHANGE));
+    EXPECT_EQ(toInstrumentChange(at(1, ElementType::INSTRUMENT_CHANGE))->plainText(), muse::String(u"To flute"));
+    ASSERT_TRUE(at(1, ElementType::HARP_DIAGRAM));
+    EXPECT_TRUE(toHarpPedalDiagram(at(1, ElementType::HARP_DIAGRAM))->isDiagram());
+    ASSERT_TRUE(at(2, ElementType::HARP_DIAGRAM));
+    EXPECT_FALSE(toHarpPedalDiagram(at(2, ElementType::HARP_DIAGRAM))->isDiagram());
+
+    const EngravingItem* roman = at(2, ElementType::HARMONY);
+    ASSERT_TRUE(roman);
+    EXPECT_EQ(toHarmony(roman)->harmonyType(), HarmonyType::ROMAN);
+    const EngravingItem* nashville = at(3, ElementType::HARMONY);
+    ASSERT_TRUE(nashville);
+    EXPECT_EQ(toHarmony(nashville)->harmonyType(), HarmonyType::NASHVILLE);
+
+    const EngravingItem* diagram = at(3, ElementType::FRET_DIAGRAM);
+    ASSERT_TRUE(diagram);
+    EXPECT_EQ(toFretDiagram(diagram)->strings(), 6);
+    EXPECT_EQ(toFretDiagram(diagram)->marker(0).mtype, FretMarkerType::CROSS);
+    EXPECT_EQ(toFretDiagram(diagram)->marker(3).mtype, FretMarkerType::CIRCLE);
+    ASSERT_FALSE(toFretDiagram(diagram)->dot(1).empty());
+    EXPECT_EQ(toFretDiagram(diagram)->dot(1).front().fret, 3);
+
+    const EngravingItem* figures = at(3, ElementType::FIGURED_BASS);
+    ASSERT_TRUE(figures);
+    EXPECT_EQ(toFiguredBass(figures)->items().size(), 2u);
+
+    EXPECT_FALSE(errorOf("c'4 \\fretDiagram \"x3201\"").empty());
+    EXPECT_FALSE(errorOf("c'4 \\figuredBass \"6 x\"").empty());
+    EXPECT_FALSE(errorOf("c'4 \\mark A").empty());
 }
