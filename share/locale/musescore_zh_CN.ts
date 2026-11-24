@@ -49563,5 +49563,327 @@ The score will be saved as:
         <source>Keep width and height the same</source>
         <translation>使宽度与高度保持相同</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="38"/>
+        <source>Articulations</source>
+        <translation>运音法记号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="43"/>
+        <source>Size of articulations, ornaments and fermatas relative to their normal size.</source>
+        <translation>运音法记号、装饰音记号和延长记号相对于正常大小的比例。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="54"/>
+        <source>Minimum vertical distance</source>
+        <translation>最小垂直距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="55"/>
+        <source>Least vertical gap between two articulations stacked on one note, and between an articulation and a slur or another sign which it must clear.</source>
+        <translation>同一音符上叠放的两个运音法记号之间，以及运音法记号与圆滑线或其他须避开的记号之间的最小垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="65"/>
+        <source>Vertical gap between the notehead and the nearest articulation on the notehead side when that mark stands outside the staff; inside the staff, staccato and tenuto sit in the middle of the next space.</source>
+        <translation>符头一侧最靠近符头的运音法记号位于谱表之外时，它与符头之间的垂直间隙；在谱表之内，断奏点和保持音记号则居于相邻谱间的正中。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="75"/>
+        <source>Distance from stem</source>
+        <translation>到符干的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="76"/>
+        <source>Vertical gap between the tip of the stem or flag and the nearest articulation on the stem side.</source>
+        <translation>符干一侧最靠近的运音法记号与符干或符尾末端之间的垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="86"/>
+        <source>Accents and other articulations which are kept outside the staff stay at least this far from the outer staff line.</source>
+        <translation>重音等须置于谱表之外的运音法记号，与谱表外侧谱线至少保持这一距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="96"/>
+        <source>Whether a staccato dot, tenuto or similar mark at the stem end of a note is centred on the stem, on the notehead, or halfway between the two.</source>
+        <translation>位于符干末端的断奏点、保持音等记号，是对准符干、对准符头，还是位于两者正中。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="101"/>
+        <source>Align with stem</source>
+        <translation>与符干对齐</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="102"/>
+        <source>Align with notehead</source>
+        <translation>与符头对齐</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="103"/>
+        <source>Center between stem and notehead</source>
+        <translation>在符干与符头之间居中</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="110"/>
+        <source>Keep combined articulations together</source>
+        <translation>组合的运音法记号保持在一起</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="111"/>
+        <source>‘Always keep together’: a staccato or tenuto on a note which also has an accent or another mark outside the staff moves out of the staff to join it. ‘Prefer closeness to notehead’ leaves it next to the notehead, so that the two may be far apart.</source>
+        <translation>“始终保持在一起”：音符同时带有断奏或保持音与另一个须置于谱表之外的记号（如重音）时，断奏或保持音移到谱表之外与之相聚。“优先靠近符头”则让它仍紧贴符头，两者可能相距较远。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="125"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="359"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="409"/>
+        <source>Horizontal padding</source>
+        <translation>水平内距</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="126"/>
+        <source>Least horizontal gap which note spacing keeps between an articulation or fermata and the items next to it in the staff.</source>
+        <translation>排列音符间距时，运音法记号或延长记号与同一谱表中左右相邻记号之间保留的最小水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="136"/>
+        <source>Sideways clearance when avoiding collisions</source>
+        <translation>避让时的水平余量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="137"/>
+        <source>An articulation, ornament or fermata is pushed away from the staff by anything above or below it, and also by anything closer than this to its left or right; 0 lets it stand right beside its neighbours.</source>
+        <translation>运音法记号、装饰音记号或延长记号除了避开正上方或正下方的记号外，还避开左右两侧距离小于此值的记号；0 表示可紧挨相邻记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="147"/>
+        <source>Position of articulations and ornaments</source>
+        <translation>运音法记号与装饰音记号的位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="148"/>
+        <source>‘Auto’ puts staccato, tenuto, accents and the like on the notehead side, or on the stem side where the staff has several voices; ornaments and trill lines go above for voices 1 and 3 and below for voices 2 and 4. ‘Above’ and ‘Below’ put them all on one side of the notes.</source>
+        <translation>“自动”时，断奏、保持音、重音等置于符头一侧，谱表上有多个声部时置于符干一侧；装饰音记号和颤音线在第 1、3 声部置于上方，在第 2、4 声部置于下方。“上方”“下方”则一律置于音符的同一侧。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="163"/>
+        <source>Position of lute right-hand fingering</source>
+        <translation>鲁特琴右手指法记号的位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="164"/>
+        <source>The dots and strokes which name the fingers of the right hand in lute music: below the notes (default), above them, or ‘Auto’ as for articulations.</source>
+        <translation>鲁特琴乐谱中标示右手手指的圆点和竖线记号：置于音符下方（默认）、上方，或与运音法记号一样“自动”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="177"/>
+        <source>Position of bowings and other playing marks</source>
+        <translation>弓法及其他演奏记号的位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="178"/>
+        <source>Up bow and down bow, harmonics, open and stopped signs, snap pizzicato and the other signs which are not articulations in the narrow sense: above the notes (default), below them, or ‘Auto’ as for articulations.</source>
+        <translation>上弓、下弓、泛音、开音与闭音、巴托克拨弦等不属于狭义运音法记号的演奏记号：置于音符上方（默认）、下方，或与运音法记号一样“自动”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="191"/>
+        <source>Kinds of articulation</source>
+        <translation>各类运音法记号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="197"/>
+        <source>Marcato marks stand above the staff whatever the stem direction; off puts them on the notehead side like other articulations.</source>
+        <translation>加强音记号不论符干方向一律置于谱表上方；关闭后与其他运音法记号一样置于符头一侧。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="205"/>
+        <source>Staccato next to the notehead</source>
+        <translation>断奏点紧贴符头</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="206"/>
+        <source>The dot sits right at the notehead, in a staff space if need be and inside slurs; off stacks it outside the staff and outside slurs, with accents and the other articulations.</source>
+        <translation>断奏点紧贴符头，必要时落在谱间内，并位于圆滑线之内；关闭后与重音等其他运音法记号一同置于谱表和圆滑线之外。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="214"/>
+        <source>Tenuto next to the notehead</source>
+        <translation>保持音记号紧贴符头</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="215"/>
+        <source>The dash sits right at the notehead, in a staff space if need be and inside slurs; off stacks it outside the staff and outside slurs, with accents and the other articulations.</source>
+        <translation>保持音记号紧贴符头，必要时落在谱间内，并位于圆滑线之内；关闭后与重音等其他运音法记号一同置于谱表和圆滑线之外。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="223"/>
+        <source>Accent drawn towards a staccato dot</source>
+        <translation>重音向断奏点靠拢</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="224"/>
+        <source>Outside the staff, an accent stacked on a staccato dot is moved towards the dot by this much, so that the two read as one sign.</source>
+        <translation>在谱表之外，叠放在断奏点外侧的重音记号向断奏点靠拢这一距离，使两者读作一个记号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="234"/>
+        <source>Added to ‘Distance from notehead’ when the tenuto stands outside the staff on the side where a tie starts or ends, so that the tie passes between notehead and mark.</source>
+        <translation>保持音记号位于谱表之外，且延音线在同一侧起止时，在“到符头的距离”之外再加这一距离，让延音线从符头与记号之间通过。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="244"/>
+        <source>Added to ‘Distance from notehead’ when the staccato dot stands outside the staff on the side where a tie starts or ends, so that the tie passes between notehead and dot.</source>
+        <translation>断奏点位于谱表之外，且延音线在同一侧起止时，在“到符头的距离”之外再加这一距离，让延音线从符头与断奏点之间通过。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="257"/>
+        <source>Accidental: distance from the ornament</source>
+        <translation>变音记号：与装饰音记号的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="258"/>
+        <source>Vertical gap between a trill, turn or other ornament and the small accidental above or below it.</source>
+        <translation>颤音、回音等装饰音记号与其上方或下方小变音记号之间的垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="266"/>
+        <source>Accidental: size</source>
+        <translation>变音记号：大小</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="267"/>
+        <source>Size of the accidentals above and below ornaments as a multiple of a normal accidental; 0.6 is 60 %.</source>
+        <translation>装饰音记号上下方变音记号的大小，以普通变音记号的倍数表示；0.6 即 60%。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="276"/>
+        <source>Falls, doits, plops and scoops</source>
+        <translation>坠音、上倚音、轻落音与舀音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="282"/>
+        <source>Thickness of the straight and curved lines; the wavy forms are symbols of the music font and keep their own weight.</source>
+        <translation>直线和曲线形式的线条粗细；波浪形式是音乐字体中的符号，粗细不变。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="291"/>
+        <source>How far a straight or curved line rises or falls, as long as it has not been reshaped by hand.</source>
+        <translation>直线或曲线形式上升或下降的幅度（未经手动改形时）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="302"/>
+        <source>Horizontal extent as a multiple of the height; 1.2 makes the line a little wider than it is tall.</source>
+        <translation>水平方向的长度，以高度的倍数表示；1.2 表示线条略宽于其高度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="312"/>
+        <source>Distance from the note</source>
+        <translation>与音符的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="313"/>
+        <source>Horizontal gap between the line and whatever lies at its height on that side of the chord: the notehead, an augmentation dot or an accidental.</source>
+        <translation>线条与和弦该侧同一高度上最近的记号（符头、附点或变音记号）之间的水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="322"/>
+        <source>Start height above or below the notehead centre</source>
+        <translation>起点相对符头中心的高度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="323"/>
+        <source>Falls and scoops meet the note this far below the middle of the notehead, doits and plops this far above it.</source>
+        <translation>坠音和舀音在符头中心下方这一距离处与音符相接，上倚音和轻落音则在上方这一距离处。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="333"/>
+        <source>Wavy doits and plops: shift downwards</source>
+        <translation>波浪形上倚音与轻落音：下移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="334"/>
+        <source>A fine adjustment which lowers the wavy symbol so that it meets the note at the right height in the chosen music font.</source>
+        <translation>用于微调：使波浪形符号下移，以便在所选音乐字体中以合适的高度与音符相接。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="346"/>
+        <source>Wavy falls and scoops: shift upwards</source>
+        <translation>波浪形坠音与舀音：上移</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="347"/>
+        <source>A fine adjustment which raises the wavy symbol, which otherwise hangs below its start height by its full height.</source>
+        <translation>用于微调：波浪形符号本来整体挂在起点高度之下，此值使其上移。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="360"/>
+        <source>Least horizontal gap which note spacing keeps between a fall, doit, plop or scoop and the items before and after it.</source>
+        <translation>排列音符间距时，坠音、上倚音、轻落音或舀音与前后相邻记号之间保留的最小水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="370"/>
+        <source>Distance from a barline</source>
+        <translation>与小节线的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="371"/>
+        <source>Least horizontal gap between a fall, doit, plop or scoop and a barline.</source>
+        <translation>坠音、上倚音、轻落音或舀音与小节线之间的最小水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="384"/>
+        <source>Breath mark: vertical position</source>
+        <translation>换气记号：垂直位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="385"/>
+        <source>Height of breath marks relative to the top staff line, or the bottom line for a mark placed below; negative values are above that line.</source>
+        <translation>换气记号相对于谱表最上方谱线的高度（置于下方时相对于最下方谱线）；负值位于该线上方。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="396"/>
+        <source>Caesura: vertical position</source>
+        <translation>音顿号：垂直位置</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="397"/>
+        <source>Height of the foot of a caesura relative to the top staff line, or the bottom line for a mark placed below; positive values are below that line, so 1 sp lets the strokes cut through the line.</source>
+        <translation>音顿号底端相对于谱表最上方谱线的高度（置于下方时相对于最下方谱线）；正值位于该线下方，1 sp 时斜线正好穿过该线。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="410"/>
+        <source>Least horizontal gap which note spacing keeps between a breath mark or caesura and the items before and after it.</source>
+        <translation>排列音符间距时，换气记号或音顿号与前后相邻记号之间保留的最小水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="419"/>
+        <source>Keyboard hand brackets</source>
+        <translation>左右手括号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="421"/>
+        <source>The angled brackets which mark notes to be played with the left or the right hand.</source>
+        <translation>标示音符由左手或右手弹奏的直角括号。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="427"/>
+        <source>Length of the horizontal stroke of the bracket.</source>
+        <translation>括号横线的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="433"/>
+        <source>Length of the vertical stroke of the bracket.</source>
+        <translation>括号竖线的长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="117"/>
+        <source>Always keep together</source>
+        <translation>始终保持在一起</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="118"/>
+        <source>Prefer closeness to notehead</source>
+        <translation>优先靠近符头</translation>
+    </message>
 </context>
 </TS>

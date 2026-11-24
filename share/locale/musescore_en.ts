@@ -1873,7 +1873,6 @@
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="33"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="176"/>
         <source>Articulations &amp; ornaments</source>
         <translation type="unfinished">Articulations &amp; ornaments</translation>
@@ -4037,6 +4036,7 @@ space unit</extracomment>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="84"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="438"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="41"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="51"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="174"/>
@@ -4119,7 +4119,6 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Legacy bend arrow width&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="74"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10495"/>
         <source>Fall, doit, plop and scoop line thickness:</source>
         <translation type="unfinished">Fall, doit, plop and scoop line thickness:</translation>
@@ -4644,13 +4643,12 @@ space unit</extracomment>
         <translation type="unfinished">sp</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="53"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10349"/>
         <source>Distance from stem:</source>
         <translation type="unfinished">Distance from stem:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="65"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="42"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10359"/>
         <source>Articulation size:</source>
         <translation type="unfinished">Articulation size:</translation>
@@ -4666,7 +4664,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Notehead distance&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="59"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="85"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="288"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="704"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10428"/>
@@ -4674,7 +4672,7 @@ space unit</extracomment>
         <translation type="unfinished">Distance from staff:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="47"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="64"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10451"/>
         <source>Distance from notehead:</source>
         <translation type="unfinished">Distance from notehead:</translation>
@@ -4685,12 +4683,12 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Articulation size&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="41"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10468"/>
         <source>Minimum vertical distance:</source>
         <translation type="unfinished">Minimum vertical distance:</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="95"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10553"/>
         <source>Articulation alignment when positioned at the stem</source>
         <translation type="unfinished">Articulation alignment when positioned at the stem</translation>
@@ -28626,11 +28624,13 @@ pickup measure</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/symbols/SymbolSettings.qml" line="114"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="426"/>
         <source>Short side</source>
         <translation type="unfinished">Short side</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/symbols/SymbolSettings.qml" line="134"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="432"/>
         <source>Long side</source>
         <translation type="unfinished">Long side</translation>
     </message>
@@ -30748,6 +30748,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="205"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/LineStyleSection.qml" line="58"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="281"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="64"/>
         <source>Line thickness:</source>
         <translation type="unfinished">Line thickness:</translation>
@@ -34314,7 +34315,6 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">How far straight arpeggio lines with an arrow extend beyond the top and the bottom notehead.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FermatasPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="33"/>
@@ -34323,127 +34323,107 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Notations</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="80"/>
         <source>Articulation details</source>
         <translation type="unfinished">Articulation details</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="84"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="233"/>
         <source>Tenuto: extra distance from notehead next to a tie</source>
         <translation type="unfinished">Tenuto: extra distance from notehead next to a tie</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="85"/>
         <source>Extra distance between a tenuto mark and the notehead when the mark sits outside the staff and an outer tie starts or ends on the same side of the note.</source>
         <translation type="unfinished">Extra distance between a tenuto mark and the notehead when the mark sits outside the staff and an outer tie starts or ends on the same side of the note.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="92"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="243"/>
         <source>Staccato: extra distance from notehead next to a tie</source>
         <translation type="unfinished">Staccato: extra distance from notehead next to a tie</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="93"/>
         <source>Extra distance between a staccato dot and the notehead when the dot sits outside the staff and an outer tie starts or ends on the same side of the note.</source>
         <translation type="unfinished">Extra distance between a staccato dot and the notehead when the dot sits outside the staff and an outer tie starts or ends on the same side of the note.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="100"/>
         <source>Staccato–accent kerning</source>
         <translation type="unfinished">Staccato–accent kerning</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="101"/>
         <source>How far an accent is pulled towards a staccato dot stacked on the same side outside the staff.</source>
         <translation type="unfinished">How far an accent is pulled towards a staccato dot stacked on the same side outside the staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="108"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="196"/>
         <source>Marcato always above the staff</source>
         <translation type="unfinished">Marcato always above the staff</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="109"/>
         <source>With automatic placement, marcato marks go above the staff whatever the stem direction; when off they are placed on the notehead side like other articulations.</source>
         <translation type="unfinished">With automatic placement, marcato marks go above the staff whatever the stem direction; when off they are placed on the notehead side like other articulations.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="115"/>
         <source>Staccato next to the notehead (inside staff and slurs)</source>
         <translation type="unfinished">Staccato next to the notehead (inside staff and slurs)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="116"/>
         <source>Staccato dots are placed right next to the note, in a staff space and inside slurs; when off they are stacked outside the staff with the other articulations.</source>
         <translation type="unfinished">Staccato dots are placed right next to the note, in a staff space and inside slurs; when off they are stacked outside the staff with the other articulations.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="122"/>
         <source>Tenuto next to the notehead (inside staff and slurs)</source>
         <translation type="unfinished">Tenuto next to the notehead (inside staff and slurs)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="123"/>
         <source>Tenuto marks are placed right next to the note, in a staff space and inside slurs; when off they are stacked outside the staff with the other articulations.</source>
         <translation type="unfinished">Tenuto marks are placed right next to the note, in a staff space and inside slurs; when off they are stacked outside the staff with the other articulations.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="129"/>
         <source>Articulations, ornaments and fermatas: horizontal clearance</source>
         <translation type="unfinished">Articulations, ornaments and fermatas: horizontal clearance</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="130"/>
         <source>Horizontal margin within which neighbouring objects count as colliding when articulations, ornaments and fermatas are moved away from the staff automatically.</source>
         <translation type="unfinished">Horizontal margin within which neighbouring objects count as colliding when articulations, ornaments and fermatas are moved away from the staff automatically.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="137"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="252"/>
         <source>Ornaments</source>
         <translation type="unfinished">Ornaments</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="141"/>
         <source>Ornament to accidental distance</source>
         <translation type="unfinished">Ornament to accidental distance</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="142"/>
         <source>Vertical gap between an ornament and the accidental shown above or below it.</source>
         <translation type="unfinished">Vertical gap between an ornament and the accidental shown above or below it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="149"/>
         <source>Ornament accidental scale</source>
         <translation type="unfinished">Ornament accidental scale</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="150"/>
         <source>Size of the accidentals above and below ornaments relative to normal accidentals.</source>
         <translation type="unfinished">Size of the accidentals above and below ornaments relative to normal accidentals.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="158"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="379"/>
         <source>Breath marks and caesuras</source>
         <translation type="unfinished">Breath marks and caesuras</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="162"/>
         <source>Breath mark vertical position</source>
         <translation type="unfinished">Breath mark vertical position</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="163"/>
         <source>Vertical position of breath marks relative to the top staff line (the bottom line when placed below); negative values are above that line.</source>
         <translation type="unfinished">Vertical position of breath marks relative to the top staff line (the bottom line when placed below); negative values are above that line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="172"/>
         <source>Caesura vertical position</source>
         <translation type="unfinished">Caesura vertical position</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="173"/>
         <source>Vertical position of caesuras relative to the top staff line (the bottom line when placed below); positive values are below that line.</source>
         <translation type="unfinished">Vertical position of caesuras relative to the top staff line (the bottom line when placed below); positive values are below that line.</translation>
     </message>
@@ -35203,6 +35183,121 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Used only with the placement ‘On all staves’; with the other placements the numbers stand above the staff, or below it for ‘Below system’.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="38"/>
+        <source>Articulations</source>
+        <translation type="unfinished">Articulations</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="43"/>
+        <source>Size of articulations, ornaments and fermatas relative to their normal size.</source>
+        <translation type="unfinished">Size of articulations, ornaments and fermatas relative to their normal size.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="54"/>
+        <source>Minimum vertical distance</source>
+        <translation type="unfinished">Minimum vertical distance</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="55"/>
+        <source>Least vertical gap between two articulations stacked on one note, and between an articulation and a slur or another sign which it must clear.</source>
+        <translation type="unfinished">Least vertical gap between two articulations stacked on one note, and between an articulation and a slur or another sign which it must clear.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="65"/>
+        <source>Vertical gap between the notehead and the nearest articulation on the notehead side when that mark stands outside the staff; inside the staff, staccato and tenuto sit in the middle of the next space.</source>
+        <translation type="unfinished">Vertical gap between the notehead and the nearest articulation on the notehead side when that mark stands outside the staff; inside the staff, staccato and tenuto sit in the middle of the next space.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="75"/>
+        <source>Distance from stem</source>
+        <translation type="unfinished">Distance from stem</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="76"/>
+        <source>Vertical gap between the tip of the stem or flag and the nearest articulation on the stem side.</source>
+        <translation type="unfinished">Vertical gap between the tip of the stem or flag and the nearest articulation on the stem side.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="86"/>
+        <source>Accents and other articulations which are kept outside the staff stay at least this far from the outer staff line.</source>
+        <translation type="unfinished">Accents and other articulations which are kept outside the staff stay at least this far from the outer staff line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="96"/>
+        <source>Whether a staccato dot, tenuto or similar mark at the stem end of a note is centred on the stem, on the notehead, or halfway between the two.</source>
+        <translation type="unfinished">Whether a staccato dot, tenuto or similar mark at the stem end of a note is centred on the stem, on the notehead, or halfway between the two.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="101"/>
+        <source>Align with stem</source>
+        <translation type="unfinished">Align with stem</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="102"/>
+        <source>Align with notehead</source>
+        <translation type="unfinished">Align with notehead</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="103"/>
+        <source>Center between stem and notehead</source>
+        <translation type="unfinished">Center between stem and notehead</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="110"/>
+        <source>Keep combined articulations together</source>
+        <translation type="unfinished">Keep combined articulations together</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="111"/>
+        <source>‘Always keep together’: a staccato or tenuto on a note which also has an accent or another mark outside the staff moves out of the staff to join it. ‘Prefer closeness to notehead’ leaves it next to the notehead, so that the two may be far apart.</source>
+        <translation type="unfinished">‘Always keep together’: a staccato or tenuto on a note which also has an accent or another mark outside the staff moves out of the staff to join it. ‘Prefer closeness to notehead’ leaves it next to the notehead, so that the two may be far apart.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="117"/>
+        <source>Always keep together</source>
+        <translation type="unfinished">Always keep together</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="118"/>
+        <source>Prefer closeness to notehead</source>
+        <translation type="unfinished">Prefer closeness to notehead</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="125"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="359"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="409"/>
+        <source>Horizontal padding</source>
+        <translation type="unfinished">Horizontal padding</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="126"/>
+        <source>Least horizontal gap which note spacing keeps between an articulation or fermata and the items next to it in the staff.</source>
+        <translation type="unfinished">Least horizontal gap which note spacing keeps between an articulation or fermata and the items next to it in the staff.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="136"/>
+        <source>Sideways clearance when avoiding collisions</source>
+        <translation type="unfinished">Sideways clearance when avoiding collisions</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="137"/>
+        <source>An articulation, ornament or fermata is pushed away from the staff by anything above or below it, and also by anything closer than this to its left or right; 0 lets it stand right beside its neighbours.</source>
+        <translation type="unfinished">An articulation, ornament or fermata is pushed away from the staff by anything above or below it, and also by anything closer than this to its left or right; 0 lets it stand right beside its neighbours.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="147"/>
+        <source>Position of articulations and ornaments</source>
+        <translation type="unfinished">Position of articulations and ornaments</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="148"/>
+        <source>‘Auto’ puts staccato, tenuto, accents and the like on the notehead side, or on the stem side where the staff has several voices; ornaments and trill lines go above for voices 1 and 3 and below for voices 2 and 4. ‘Above’ and ‘Below’ put them all on one side of the notes.</source>
+        <translation type="unfinished">‘Auto’ puts staccato, tenuto, accents and the like on the notehead side, or on the stem side where the staff has several voices; ornaments and trill lines go above for voices 1 and 3 and below for voices 2 and 4. ‘Above’ and ‘Below’ put them all on one side of the notes.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="155"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="169"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="184"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="140"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="341"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="198"/>
@@ -35212,6 +35307,9 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Above</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="156"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="170"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="185"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="141"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="342"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="199"/>
@@ -35219,6 +35317,216 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="247"/>
         <source>Below</source>
         <translation type="unfinished">Below</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="163"/>
+        <source>Position of lute right-hand fingering</source>
+        <translation type="unfinished">Position of lute right-hand fingering</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="164"/>
+        <source>The dots and strokes which name the fingers of the right hand in lute music: below the notes (default), above them, or ‘Auto’ as for articulations.</source>
+        <translation type="unfinished">The dots and strokes which name the fingers of the right hand in lute music: below the notes (default), above them, or ‘Auto’ as for articulations.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="177"/>
+        <source>Position of bowings and other playing marks</source>
+        <translation type="unfinished">Position of bowings and other playing marks</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="178"/>
+        <source>Up bow and down bow, harmonics, open and stopped signs, snap pizzicato and the other signs which are not articulations in the narrow sense: above the notes (default), below them, or ‘Auto’ as for articulations.</source>
+        <translation type="unfinished">Up bow and down bow, harmonics, open and stopped signs, snap pizzicato and the other signs which are not articulations in the narrow sense: above the notes (default), below them, or ‘Auto’ as for articulations.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="191"/>
+        <source>Kinds of articulation</source>
+        <translation type="unfinished">Kinds of articulation</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="197"/>
+        <source>Marcato marks stand above the staff whatever the stem direction; off puts them on the notehead side like other articulations.</source>
+        <translation type="unfinished">Marcato marks stand above the staff whatever the stem direction; off puts them on the notehead side like other articulations.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="205"/>
+        <source>Staccato next to the notehead</source>
+        <translation type="unfinished">Staccato next to the notehead</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="206"/>
+        <source>The dot sits right at the notehead, in a staff space if need be and inside slurs; off stacks it outside the staff and outside slurs, with accents and the other articulations.</source>
+        <translation type="unfinished">The dot sits right at the notehead, in a staff space if need be and inside slurs; off stacks it outside the staff and outside slurs, with accents and the other articulations.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="214"/>
+        <source>Tenuto next to the notehead</source>
+        <translation type="unfinished">Tenuto next to the notehead</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="215"/>
+        <source>The dash sits right at the notehead, in a staff space if need be and inside slurs; off stacks it outside the staff and outside slurs, with accents and the other articulations.</source>
+        <translation type="unfinished">The dash sits right at the notehead, in a staff space if need be and inside slurs; off stacks it outside the staff and outside slurs, with accents and the other articulations.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="223"/>
+        <source>Accent drawn towards a staccato dot</source>
+        <translation type="unfinished">Accent drawn towards a staccato dot</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="224"/>
+        <source>Outside the staff, an accent stacked on a staccato dot is moved towards the dot by this much, so that the two read as one sign.</source>
+        <translation type="unfinished">Outside the staff, an accent stacked on a staccato dot is moved towards the dot by this much, so that the two read as one sign.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="234"/>
+        <source>Added to ‘Distance from notehead’ when the tenuto stands outside the staff on the side where a tie starts or ends, so that the tie passes between notehead and mark.</source>
+        <translation type="unfinished">Added to ‘Distance from notehead’ when the tenuto stands outside the staff on the side where a tie starts or ends, so that the tie passes between notehead and mark.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="244"/>
+        <source>Added to ‘Distance from notehead’ when the staccato dot stands outside the staff on the side where a tie starts or ends, so that the tie passes between notehead and dot.</source>
+        <translation type="unfinished">Added to ‘Distance from notehead’ when the staccato dot stands outside the staff on the side where a tie starts or ends, so that the tie passes between notehead and dot.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="257"/>
+        <source>Accidental: distance from the ornament</source>
+        <translation type="unfinished">Accidental: distance from the ornament</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="258"/>
+        <source>Vertical gap between a trill, turn or other ornament and the small accidental above or below it.</source>
+        <translation type="unfinished">Vertical gap between a trill, turn or other ornament and the small accidental above or below it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="266"/>
+        <source>Accidental: size</source>
+        <translation type="unfinished">Accidental: size</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="267"/>
+        <source>Size of the accidentals above and below ornaments as a multiple of a normal accidental; 0.6 is 60 %.</source>
+        <translation type="unfinished">Size of the accidentals above and below ornaments as a multiple of a normal accidental; 0.6 is 60 %.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="276"/>
+        <source>Falls, doits, plops and scoops</source>
+        <translation type="unfinished">Falls, doits, plops and scoops</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="282"/>
+        <source>Thickness of the straight and curved lines; the wavy forms are symbols of the music font and keep their own weight.</source>
+        <translation type="unfinished">Thickness of the straight and curved lines; the wavy forms are symbols of the music font and keep their own weight.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="291"/>
+        <source>How far a straight or curved line rises or falls, as long as it has not been reshaped by hand.</source>
+        <translation type="unfinished">How far a straight or curved line rises or falls, as long as it has not been reshaped by hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="302"/>
+        <source>Horizontal extent as a multiple of the height; 1.2 makes the line a little wider than it is tall.</source>
+        <translation type="unfinished">Horizontal extent as a multiple of the height; 1.2 makes the line a little wider than it is tall.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="312"/>
+        <source>Distance from the note</source>
+        <translation type="unfinished">Distance from the note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="313"/>
+        <source>Horizontal gap between the line and whatever lies at its height on that side of the chord: the notehead, an augmentation dot or an accidental.</source>
+        <translation type="unfinished">Horizontal gap between the line and whatever lies at its height on that side of the chord: the notehead, an augmentation dot or an accidental.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="322"/>
+        <source>Start height above or below the notehead centre</source>
+        <translation type="unfinished">Start height above or below the notehead centre</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="323"/>
+        <source>Falls and scoops meet the note this far below the middle of the notehead, doits and plops this far above it.</source>
+        <translation type="unfinished">Falls and scoops meet the note this far below the middle of the notehead, doits and plops this far above it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="333"/>
+        <source>Wavy doits and plops: shift downwards</source>
+        <translation type="unfinished">Wavy doits and plops: shift downwards</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="334"/>
+        <source>A fine adjustment which lowers the wavy symbol so that it meets the note at the right height in the chosen music font.</source>
+        <translation type="unfinished">A fine adjustment which lowers the wavy symbol so that it meets the note at the right height in the chosen music font.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="346"/>
+        <source>Wavy falls and scoops: shift upwards</source>
+        <translation type="unfinished">Wavy falls and scoops: shift upwards</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="347"/>
+        <source>A fine adjustment which raises the wavy symbol, which otherwise hangs below its start height by its full height.</source>
+        <translation type="unfinished">A fine adjustment which raises the wavy symbol, which otherwise hangs below its start height by its full height.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="360"/>
+        <source>Least horizontal gap which note spacing keeps between a fall, doit, plop or scoop and the items before and after it.</source>
+        <translation type="unfinished">Least horizontal gap which note spacing keeps between a fall, doit, plop or scoop and the items before and after it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="370"/>
+        <source>Distance from a barline</source>
+        <translation type="unfinished">Distance from a barline</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="371"/>
+        <source>Least horizontal gap between a fall, doit, plop or scoop and a barline.</source>
+        <translation type="unfinished">Least horizontal gap between a fall, doit, plop or scoop and a barline.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="384"/>
+        <source>Breath mark: vertical position</source>
+        <translation type="unfinished">Breath mark: vertical position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="385"/>
+        <source>Height of breath marks relative to the top staff line, or the bottom line for a mark placed below; negative values are above that line.</source>
+        <translation type="unfinished">Height of breath marks relative to the top staff line, or the bottom line for a mark placed below; negative values are above that line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="396"/>
+        <source>Caesura: vertical position</source>
+        <translation type="unfinished">Caesura: vertical position</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="397"/>
+        <source>Height of the foot of a caesura relative to the top staff line, or the bottom line for a mark placed below; positive values are below that line, so 1 sp lets the strokes cut through the line.</source>
+        <translation type="unfinished">Height of the foot of a caesura relative to the top staff line, or the bottom line for a mark placed below; positive values are below that line, so 1 sp lets the strokes cut through the line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="410"/>
+        <source>Least horizontal gap which note spacing keeps between a breath mark or caesura and the items before and after it.</source>
+        <translation type="unfinished">Least horizontal gap which note spacing keeps between a breath mark or caesura and the items before and after it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="419"/>
+        <source>Keyboard hand brackets</source>
+        <translation type="unfinished">Keyboard hand brackets</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="421"/>
+        <source>The angled brackets which mark notes to be played with the left or the right hand.</source>
+        <translation type="unfinished">The angled brackets which mark notes to be played with the left or the right hand.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="427"/>
+        <source>Length of the horizontal stroke of the bracket.</source>
+        <translation type="unfinished">Length of the horizontal stroke of the bracket.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="433"/>
+        <source>Length of the vertical stroke of the bracket.</source>
+        <translation type="unfinished">Length of the vertical stroke of the bracket.</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="151"/>
@@ -38291,6 +38599,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Slurs</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="34"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="34"/>
@@ -39429,6 +39738,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoScaleEditor.qml" line="102"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="301"/>
         <source>Width</source>
         <translation type="unfinished">Width</translation>
     </message>
@@ -39444,6 +39754,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoScaleEditor.qml" line="149"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="290"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="715"/>
         <source>Height</source>
         <translation type="unfinished">Height</translation>
@@ -40965,6 +41276,9 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">For ties which start beside a dotted notehead. ‘Auto’: the tie starts after a dot only when the dot is at its height. ‘Always before dots’: it starts at the notehead. ‘Always after dots’: it starts to the right of all the dots of the chord.</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="154"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="168"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="183"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="83"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="47"/>
         <source>Auto</source>
