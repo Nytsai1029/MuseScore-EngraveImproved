@@ -2161,6 +2161,8 @@ static void changeStyleValue(Score* score, Sid idx, const PropertyValue& oldValu
     case Sid::chordModifierMag:
     case Sid::chordModifierAdjust:
     case Sid::chordStackedModifierMag:
+    case Sid::chordStyle:
+    case Sid::chordsXmlFile:
     case Sid::chordDescriptionFile:
     case Sid::verticallyStackModifiers:
     case Sid::chordAlignmentExcludeModifiers:

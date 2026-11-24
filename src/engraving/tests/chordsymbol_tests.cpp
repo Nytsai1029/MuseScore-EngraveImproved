@@ -459,3 +459,36 @@ TEST_F(Engraving_ChordSymbolTests, testAddHarmonyToFretDiagram)
 
     delete score;
 }
+
+/**
+ * @TEST_CASE chordListFollowsTheStyle
+ * @details The chord list of a score is what the style says at once, not only when the score is opened again:
+ *          the old list chords.xml is read with the style file when it is asked for, and the list of a score
+ *          whose preset is a custom file is the score's own (it is saved with the score)
+ */
+TEST_F(Engraving_ChordSymbolTests, chordListFollowsTheStyle)
+{
+    //! NOTE The descriptions of chords.xml have ids from 1 (those which the style file makes are negative)
+    const auto hasOldList = [](const MasterScore* score) {
+        return score->chordList()->find(1) != score->chordList()->end();
+    };
+
+    MasterScore* score = test_pre(u"extend");
+    ASSERT_TRUE(score);
+    EXPECT_FALSE(hasOldList(score));
+    EXPECT_FALSE(score->chordList()->customChordList());
+
+    score->startCmd(TranslatableString::untranslatable("Chord list tests"));
+    score->undoChangeStyleVal(Sid::chordsXmlFile, true);
+    score->undoChangeStyleVal(Sid::chordStyle, ChordStylePreset::CUSTOM);
+    score->endCmd();
+
+    EXPECT_TRUE(hasOldList(score));
+    EXPECT_TRUE(score->chordList()->customChordList());
+
+    score->undoRedo(true, nullptr);
+    EXPECT_FALSE(hasOldList(score));
+    EXPECT_FALSE(score->chordList()->customChordList());
+
+    delete score;
+}
