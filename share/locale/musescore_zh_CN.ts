@@ -51735,5 +51735,270 @@ The score will be saved as:
         <source>The text with which palm mute lines begin and which they repeat on each following system; a line whose text was changed by hand keeps its own.</source>
         <translation>手掌闷音线开头的文字，换行后在后续每个谱行组上重复；单独改过文字的线条保留自己的文字。</translation>
     </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="37"/>
+        <source>Guitar bends</source>
+        <translation>推弦</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="42"/>
+        <source>Label for full bends</source>
+        <translation>全音推弦的标注</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="43"/>
+        <source>How a bend of a whole tone is labelled above its arrow on tablature staves.</source>
+        <translation>指法谱上，全音推弦在箭头上方的标注方式。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="46"/>
+        <source>1</source>
+        <translation>1</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="47"/>
+        <source>full</source>
+        <translation>full</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="54"/>
+        <source>Use cue sized numbers for grace note bends</source>
+        <translation>装饰音推弦使用小号品格号</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="55"/>
+        <source>Off: on tablature the fret number of a grace note which starts a bend or pre-bend stays full size. On: it is as small as any other grace note.</source>
+        <translation>关闭时，指法谱上作为推弦或预推弦起点的装饰音，其品格号保持正常大小；开启后，与其他装饰音一样缩小。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="64"/>
+        <source>The two notes of a bend are spaced apart far enough for a bend of at least this length.</source>
+        <translation>必要时拉开推弦两端音符的间距，使推弦不短于此长度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="73"/>
+        <source>On standard staves</source>
+        <translation>标准谱表上</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="84"/>
+        <source>Vertical gap to the noteheads</source>
+        <translation>与符头的垂直间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="85"/>
+        <source>Vertical gap between each end of the bend line and its notehead.</source>
+        <translation>推弦线两端与各自符头之间的垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="91"/>
+        <source>Inset of the ends from the notehead centres</source>
+        <translation>两端自符头中心内收的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="92"/>
+        <source>How far the start of the bend line lies to the right of the centre of its notehead, and its end to the left; inside a chord it is measured from the edge of the notehead instead.</source>
+        <translation>推弦线起点位于其符头中心右侧、终点位于其符头中心左侧的距离；在和弦内部则自符头边缘量起。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="100"/>
+        <source>Peak height of the shortest bends</source>
+        <translation>最短推弦的顶点高度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="101"/>
+        <source>How far the corner of the angled bend line stands off the straight line between its two ends, for a bend one staff space long.</source>
+        <translation>长度为 1 谱间的推弦，其折线的顶点偏离两端连线的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="111"/>
+        <source>Greatest peak height</source>
+        <translation>顶点高度上限</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="112"/>
+        <source>The peak of a long bend never stands higher than this.</source>
+        <translation>较长推弦的顶点高度不超过此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="118"/>
+        <source>Peak height gained with length</source>
+        <translation>顶点高度随长度的增量</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="119"/>
+        <source>How much higher the peak stands for every staff space of bend length beyond the first.</source>
+        <translation>推弦长度超过 1 谱间后，每增加 1 谱间，顶点升高的谱间数。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="127"/>
+        <source>Gap to staff lines</source>
+        <translation>与谱线的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="128"/>
+        <source>Ends and peak of a bend line inside the staff are moved until they are at least this far from the nearest staff line, so that they do not merge with it.</source>
+        <translation>位于谱表之内的推弦线端点和顶点会被移开，直至与最近的谱线至少相距此值，以免与谱线粘连。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="138"/>
+        <source>Gap to stems and other notes of the chord</source>
+        <translation>与符干及和弦内其他音符的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="139"/>
+        <source>Horizontal gap kept between an end of the bend line and a stem, a dot or another note of the chord which stands at the same height.</source>
+        <translation>推弦线端点与同一高度上的符干、附点或和弦内其他音符之间保持的水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="148"/>
+        <source>Slight bend: gap after the notehead</source>
+        <translation>轻微推弦：与符头的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="149"/>
+        <source>Horizontal gap between the notehead and the start of the little curve of a quarter-tone bend.</source>
+        <translation>符头与四分之一音推弦小弧线起点之间的水平间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="158"/>
+        <source>Slight bend: start height above the note</source>
+        <translation>轻微推弦：起点高出音符的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="159"/>
+        <source>How far above the middle of the notehead the curve starts.</source>
+        <translation>弧线起点高出符头中心的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="168"/>
+        <source>Horizontal length of the curve; also used on tablature staves.</source>
+        <translation>弧线的水平长度；指法谱上同样适用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="177"/>
+        <source>How far the curve rises from its start to its tip.</source>
+        <translation>弧线自起点到顶端上升的高度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="184"/>
+        <source>On tablature staves</source>
+        <translation>指法谱上</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="190"/>
+        <source>Also the thickness of the dashed hold line.</source>
+        <translation>同时也是虚线保持线的粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="211"/>
+        <source>How high above the top line of the tablature staff a bend curve rises before its arrowhead, as a multiple of the distance between two string lines.</source>
+        <translation>推弦弧线（不含箭头）升至指法谱顶线上方的高度，以相邻两条弦线的间距为单位。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="220"/>
+        <source>Partial bend height</source>
+        <translation>部分推弦的高度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="221"/>
+        <source>How far a bend which continues from another bend rises above it, and how far a release which does not return to the unbent note drops.</source>
+        <translation>接在前一个推弦之后的推弦再升高的高度，以及没有完全放回原音的放弦下降的高度。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="230"/>
+        <source>Vertical gap to the fret numbers</source>
+        <translation>与品格号的垂直间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="231"/>
+        <source>Vertical gap between a fret number and the start of a pre-bend above it, or the arrowhead of a full release coming down to it.</source>
+        <translation>品格号与其上方预推弦的起点之间、或与落向它的完全放弦箭头之间的垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="239"/>
+        <source>Horizontal gap to the fret number</source>
+        <translation>与品格号的水平间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="240"/>
+        <source>Gap between the right edge of the fret number and the start of the bend curve.</source>
+        <translation>品格号右缘与推弦弧线起点之间的间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="247"/>
+        <source>Gap between arrow and bend amount</source>
+        <translation>箭头与推弦幅度标注的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="248"/>
+        <source>Vertical gap between the tip of the arrow and the label of the bend (‘full’, ‘½’…).</source>
+        <translation>箭头尖端与推弦幅度标注（“full”“½”等）之间的垂直间隙。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="256"/>
+        <source>Minimum width of a bend</source>
+        <translation>推弦的最小宽度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="257"/>
+        <source>A bend curve is never drawn narrower than this, however close its notes are.</source>
+        <translation>无论两音相距多近，推弦弧线的宽度都不小于此值。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="265"/>
+        <source>Hold line: gap before the next note</source>
+        <translation>保持线：与下一音符的间隙</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="266"/>
+        <source>The dashed hold line runs on past its last note and stops this far before the following note or barline, unless another bend starts on that last note.</source>
+        <translation>虚线保持线越过其最后一个音符继续延伸，在下一个音符或小节线之前留出此距离；若该音符上又开始一个推弦，则止于该音符。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="274"/>
+        <source>Legacy bends</source>
+        <translation>旧式推弦</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="276"/>
+        <source>Bends of the old kind, as found in scores from earlier versions and in some imported Guitar Pro files.</source>
+        <translation>旧式推弦，见于早期版本的乐谱以及部分导入的 Guitar Pro 文件。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="283"/>
+        <source>Width of the arrowhead, which is as high as it is wide.</source>
+        <translation>箭头的宽度；箭头的高度与宽度相等。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="290"/>
+        <source>Thickness of the curve and of the shaft of the arrow.</source>
+        <translation>弧线及箭杆的粗细。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="295"/>
+        <source>Tremolo bar</source>
+        <translation>摇把颤音</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="300"/>
+        <source>Height above the staff</source>
+        <translation>高出谱表的距离</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="301"/>
+        <source>How far above the top staff line the curve starts.</source>
+        <translation>曲线起点高出谱表顶线的距离。</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="309"/>
+        <source>Height of the curve</source>
+        <translation>曲线的高度</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="310"/>
+        <source>Height in sp drawn for each hundredth of a semitone of pitch change: at 0.02 a dip of a semitone is 2 sp deep.</source>
+        <translation>每百分之一个半音的音高变化所画的高度（谱间）：取 0.02 时，下沉一个半音画成 2 谱间深。</translation>
+    </message>
 </context>
 </TS>

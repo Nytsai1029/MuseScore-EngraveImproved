@@ -1943,7 +1943,6 @@
         <translation type="unfinished">Fretboard diagrams</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="47"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="231"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9331"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9334"/>
@@ -4030,8 +4029,10 @@ space unit</extracomment>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="84"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="438"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="41"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="51"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="78"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="189"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="289"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="321"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="273"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="63"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="194"/>
@@ -4080,7 +4081,7 @@ space unit</extracomment>
         <translation type="unfinished">Vertical ends on diagonal hairpins</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="71"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="210"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9476"/>
         <source>Height above staff (line distances):</source>
         <translation type="unfinished">Height above staff (line distances):</translation>
@@ -4091,7 +4092,6 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Height above staff&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="77"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9512"/>
         <source>Partial bend height:</source>
         <translation type="unfinished">Partial bend height:</translation>
@@ -4102,7 +4102,6 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Partial bend height&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="83"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9554"/>
         <source>Legacy bends</source>
         <translation type="unfinished">Legacy bends</translation>
@@ -4521,7 +4520,6 @@ space unit</extracomment>
         <translation type="unfinished">Label for full bends</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="37"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9273"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9276"/>
         <source>Standard staff</source>
@@ -4538,8 +4536,8 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Line thickness on standard staves&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="58"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="87"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="197"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="282"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9340"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9560"/>
         <source>Arrow width:</source>
@@ -4551,7 +4549,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Arrow width&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="65"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="204"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9370"/>
         <source>Arrow height:</source>
         <translation type="unfinished">Arrow height:</translation>
@@ -4572,13 +4570,11 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Line thickness on tablature staves&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="93"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9631"/>
         <source>Tablature fret numbers</source>
         <translation type="unfinished">Tablature fret numbers</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="97"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="9637"/>
         <source>Use cue sized numbers for grace note bends</source>
         <translation type="unfinished">Use cue sized numbers for grace note bends</translation>
@@ -36572,172 +36568,405 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Lines</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="102"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="37"/>
+        <source>Guitar bends</source>
+        <translation type="unfinished">Guitar bends</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="42"/>
+        <source>Label for full bends</source>
+        <translation type="unfinished">Label for full bends</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="43"/>
+        <source>How a bend of a whole tone is labelled above its arrow on tablature staves.</source>
+        <translation type="unfinished">How a bend of a whole tone is labelled above its arrow on tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="46"/>
+        <source>1</source>
+        <translation type="unfinished">1</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="47"/>
+        <source>full</source>
+        <translation type="unfinished">full</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="54"/>
+        <source>Use cue sized numbers for grace note bends</source>
+        <translation type="unfinished">Use cue sized numbers for grace note bends</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="55"/>
+        <source>Off: on tablature the fret number of a grace note which starts a bend or pre-bend stays full size. On: it is as small as any other grace note.</source>
+        <translation type="unfinished">Off: on tablature the fret number of a grace note which starts a bend or pre-bend stays full size. On: it is as small as any other grace note.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="64"/>
+        <source>The two notes of a bend are spaced apart far enough for a bend of at least this length.</source>
+        <translation type="unfinished">The two notes of a bend are spaced apart far enough for a bend of at least this length.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="73"/>
+        <source>On standard staves</source>
+        <translation type="unfinished">On standard staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="84"/>
+        <source>Vertical gap to the noteheads</source>
+        <translation type="unfinished">Vertical gap to the noteheads</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="85"/>
+        <source>Vertical gap between each end of the bend line and its notehead.</source>
+        <translation type="unfinished">Vertical gap between each end of the bend line and its notehead.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="91"/>
+        <source>Inset of the ends from the notehead centres</source>
+        <translation type="unfinished">Inset of the ends from the notehead centres</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="92"/>
+        <source>How far the start of the bend line lies to the right of the centre of its notehead, and its end to the left; inside a chord it is measured from the edge of the notehead instead.</source>
+        <translation type="unfinished">How far the start of the bend line lies to the right of the centre of its notehead, and its end to the left; inside a chord it is measured from the edge of the notehead instead.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="100"/>
+        <source>Peak height of the shortest bends</source>
+        <translation type="unfinished">Peak height of the shortest bends</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="101"/>
+        <source>How far the corner of the angled bend line stands off the straight line between its two ends, for a bend one staff space long.</source>
+        <translation type="unfinished">How far the corner of the angled bend line stands off the straight line between its two ends, for a bend one staff space long.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="111"/>
+        <source>Greatest peak height</source>
+        <translation type="unfinished">Greatest peak height</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="112"/>
+        <source>The peak of a long bend never stands higher than this.</source>
+        <translation type="unfinished">The peak of a long bend never stands higher than this.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="118"/>
+        <source>Peak height gained with length</source>
+        <translation type="unfinished">Peak height gained with length</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="119"/>
+        <source>How much higher the peak stands for every staff space of bend length beyond the first.</source>
+        <translation type="unfinished">How much higher the peak stands for every staff space of bend length beyond the first.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="127"/>
+        <source>Gap to staff lines</source>
+        <translation type="unfinished">Gap to staff lines</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="128"/>
+        <source>Ends and peak of a bend line inside the staff are moved until they are at least this far from the nearest staff line, so that they do not merge with it.</source>
+        <translation type="unfinished">Ends and peak of a bend line inside the staff are moved until they are at least this far from the nearest staff line, so that they do not merge with it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="138"/>
+        <source>Gap to stems and other notes of the chord</source>
+        <translation type="unfinished">Gap to stems and other notes of the chord</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="139"/>
+        <source>Horizontal gap kept between an end of the bend line and a stem, a dot or another note of the chord which stands at the same height.</source>
+        <translation type="unfinished">Horizontal gap kept between an end of the bend line and a stem, a dot or another note of the chord which stands at the same height.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="148"/>
+        <source>Slight bend: gap after the notehead</source>
+        <translation type="unfinished">Slight bend: gap after the notehead</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="149"/>
+        <source>Horizontal gap between the notehead and the start of the little curve of a quarter-tone bend.</source>
+        <translation type="unfinished">Horizontal gap between the notehead and the start of the little curve of a quarter-tone bend.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="158"/>
+        <source>Slight bend: start height above the note</source>
+        <translation type="unfinished">Slight bend: start height above the note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="159"/>
+        <source>How far above the middle of the notehead the curve starts.</source>
+        <translation type="unfinished">How far above the middle of the notehead the curve starts.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="168"/>
+        <source>Horizontal length of the curve; also used on tablature staves.</source>
+        <translation type="unfinished">Horizontal length of the curve; also used on tablature staves.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="177"/>
+        <source>How far the curve rises from its start to its tip.</source>
+        <translation type="unfinished">How far the curve rises from its start to its tip.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="184"/>
+        <source>On tablature staves</source>
+        <translation type="unfinished">On tablature staves</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="190"/>
+        <source>Also the thickness of the dashed hold line.</source>
+        <translation type="unfinished">Also the thickness of the dashed hold line.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="211"/>
+        <source>How high above the top line of the tablature staff a bend curve rises before its arrowhead, as a multiple of the distance between two string lines.</source>
+        <translation type="unfinished">How high above the top line of the tablature staff a bend curve rises before its arrowhead, as a multiple of the distance between two string lines.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="220"/>
+        <source>Partial bend height</source>
+        <translation type="unfinished">Partial bend height</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="221"/>
+        <source>How far a bend which continues from another bend rises above it, and how far a release which does not return to the unbent note drops.</source>
+        <translation type="unfinished">How far a bend which continues from another bend rises above it, and how far a release which does not return to the unbent note drops.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="230"/>
+        <source>Vertical gap to the fret numbers</source>
+        <translation type="unfinished">Vertical gap to the fret numbers</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="231"/>
+        <source>Vertical gap between a fret number and the start of a pre-bend above it, or the arrowhead of a full release coming down to it.</source>
+        <translation type="unfinished">Vertical gap between a fret number and the start of a pre-bend above it, or the arrowhead of a full release coming down to it.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="239"/>
+        <source>Horizontal gap to the fret number</source>
+        <translation type="unfinished">Horizontal gap to the fret number</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="240"/>
+        <source>Gap between the right edge of the fret number and the start of the bend curve.</source>
+        <translation type="unfinished">Gap between the right edge of the fret number and the start of the bend curve.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="247"/>
+        <source>Gap between arrow and bend amount</source>
+        <translation type="unfinished">Gap between arrow and bend amount</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="248"/>
+        <source>Vertical gap between the tip of the arrow and the label of the bend (‘full’, ‘½’…).</source>
+        <translation type="unfinished">Vertical gap between the tip of the arrow and the label of the bend (‘full’, ‘½’…).</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="256"/>
+        <source>Minimum width of a bend</source>
+        <translation type="unfinished">Minimum width of a bend</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="257"/>
+        <source>A bend curve is never drawn narrower than this, however close its notes are.</source>
+        <translation type="unfinished">A bend curve is never drawn narrower than this, however close its notes are.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="265"/>
+        <source>Hold line: gap before the next note</source>
+        <translation type="unfinished">Hold line: gap before the next note</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="266"/>
+        <source>The dashed hold line runs on past its last note and stops this far before the following note or barline, unless another bend starts on that last note.</source>
+        <translation type="unfinished">The dashed hold line runs on past its last note and stops this far before the following note or barline, unless another bend starts on that last note.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="274"/>
+        <source>Legacy bends</source>
+        <translation type="unfinished">Legacy bends</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="276"/>
+        <source>Bends of the old kind, as found in scores from earlier versions and in some imported Guitar Pro files.</source>
+        <translation type="unfinished">Bends of the old kind, as found in scores from earlier versions and in some imported Guitar Pro files.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="283"/>
+        <source>Width of the arrowhead, which is as high as it is wide.</source>
+        <translation type="unfinished">Width of the arrowhead, which is as high as it is wide.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="290"/>
+        <source>Thickness of the curve and of the shaft of the arrow.</source>
+        <translation type="unfinished">Thickness of the curve and of the shaft of the arrow.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="295"/>
+        <source>Tremolo bar</source>
+        <translation type="unfinished">Tremolo bar</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="300"/>
+        <source>Height above the staff</source>
+        <translation type="unfinished">Height above the staff</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="301"/>
+        <source>How far above the top staff line the curve starts.</source>
+        <translation type="unfinished">How far above the top staff line the curve starts.</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="309"/>
+        <source>Height of the curve</source>
+        <translation type="unfinished">Height of the curve</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="310"/>
+        <source>Height in sp drawn for each hundredth of a semitone of pitch change: at 0.02 a dip of a semitone is 2 sp deep.</source>
+        <translation type="unfinished">Height in sp drawn for each hundredth of a semitone of pitch change: at 0.02 a dip of a semitone is 2 sp deep.</translation>
+    </message>
+    <message>
         <source>Guitar bends (standard staff)</source>
         <translation type="unfinished">Guitar bends (standard staff)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="106"/>
         <source>Vertical distance from noteheads</source>
         <translation type="unfinished">Vertical distance from noteheads</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="107"/>
         <source>On a standard staff, vertical gap between the ends of a bend line and the noteheads.</source>
         <translation type="unfinished">On a standard staff, vertical gap between the ends of a bend line and the noteheads.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="114"/>
         <source>Horizontal indent from noteheads</source>
         <translation type="unfinished">Horizontal indent from noteheads</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="115"/>
         <source>On a standard staff, how far the ends of a bend line are moved inwards from the notehead centre (from the notehead edge inside chords).</source>
         <translation type="unfinished">On a standard staff, how far the ends of a bend line are moved inwards from the notehead centre (from the notehead edge inside chords).</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="122"/>
         <source>Minimum peak height</source>
         <translation type="unfinished">Minimum peak height</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="123"/>
         <source>Height of the peak of an angled bend line above the straight line between its ends, for the shortest bends.</source>
         <translation type="unfinished">Height of the peak of an angled bend line above the straight line between its ends, for the shortest bends.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="130"/>
         <source>Maximum peak height</source>
         <translation type="unfinished">Maximum peak height</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="131"/>
         <source>Upper limit of the peak height of long angled bend lines.</source>
         <translation type="unfinished">Upper limit of the peak height of long angled bend lines.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="137"/>
         <source>Peak height growth with length</source>
         <translation type="unfinished">Peak height growth with length</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="138"/>
         <source>How much the peak rises for every staff space of bend length beyond one staff space.</source>
         <translation type="unfinished">How much the peak rises for every staff space of bend length beyond one staff space.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="146"/>
         <source>Clearance from staff lines</source>
         <translation type="unfinished">Clearance from staff lines</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="147"/>
         <source>Ends and peak of a bend line inside the staff are moved so that they stay at least this far (plus half the staff line thickness) from the nearest staff line.</source>
         <translation type="unfinished">Ends and peak of a bend line inside the staff are moved so that they stay at least this far (plus half the staff line thickness) from the nearest staff line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="155"/>
         <source>Padding from stems and other notes</source>
         <translation type="unfinished">Padding from stems and other notes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="156"/>
         <source>Horizontal clearance kept between the ends of a bend line and the stems, dots or other notes of the chord at that height.</source>
         <translation type="unfinished">Horizontal clearance kept between the ends of a bend line and the stems, dots or other notes of the chord at that height.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="163"/>
         <source>Slight bend: gap after notehead</source>
         <translation type="unfinished">Slight bend: gap after notehead</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="164"/>
         <source>On a standard staff, horizontal gap between the notehead and the start of a slight-bend curve.</source>
         <translation type="unfinished">On a standard staff, horizontal gap between the notehead and the start of a slight-bend curve.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="171"/>
         <source>Slight bend: start height above note</source>
         <translation type="unfinished">Slight bend: start height above note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="172"/>
         <source>On a standard staff, how far above the vertical position of the note a slight-bend curve starts.</source>
         <translation type="unfinished">On a standard staff, how far above the vertical position of the note a slight-bend curve starts.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="180"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="167"/>
         <source>Slight bend: width</source>
         <translation type="unfinished">Slight bend: width</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="181"/>
         <source>Horizontal length of a slight-bend curve, on standard and tablature staves.</source>
         <translation type="unfinished">Horizontal length of a slight-bend curve, on standard and tablature staves.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="189"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="176"/>
         <source>Slight bend: height</source>
         <translation type="unfinished">Slight bend: height</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="190"/>
         <source>On a standard staff, vertical rise of a slight-bend curve.</source>
         <translation type="unfinished">On a standard staff, vertical rise of a slight-bend curve.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="197"/>
         <source>Guitar bends (tablature)</source>
         <translation type="unfinished">Guitar bends (tablature)</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="201"/>
         <source>Vertical distance from fret numbers</source>
         <translation type="unfinished">Vertical distance from fret numbers</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="202"/>
         <source>On tablature, vertical gap between a fret number and the start of a pre-bend, or the arrow of a full release.</source>
         <translation type="unfinished">On tablature, vertical gap between a fret number and the start of a pre-bend, or the arrow of a full release.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="209"/>
         <source>Horizontal distance from fret numbers</source>
         <translation type="unfinished">Horizontal distance from fret numbers</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="210"/>
         <source>On tablature, gap between the right edge of the fret number and the start of the bend curve.</source>
         <translation type="unfinished">On tablature, gap between the right edge of the fret number and the start of the bend curve.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="217"/>
         <source>Distance between arrow and bend amount</source>
         <translation type="unfinished">Distance between arrow and bend amount</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="218"/>
         <source>On tablature, vertical gap between the arrowhead and the bend amount text (‘full’, ‘½’…).</source>
         <translation type="unfinished">On tablature, vertical gap between the arrowhead and the bend amount text (‘full’, ‘½’…).</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="225"/>
         <source>Minimum bend width</source>
         <translation type="unfinished">Minimum bend width</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="226"/>
         <source>On tablature, a bend curve is never narrower than this.</source>
         <translation type="unfinished">On tablature, a bend curve is never narrower than this.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="232"/>
         <source>Hold line: distance before end of last note</source>
         <translation type="unfinished">Hold line: distance before end of last note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="233"/>
         <source>On tablature, the dashed hold line stops this far before the end of the space taken by its last note, unless another bend continues from that note.</source>
         <translation type="unfinished">On tablature, the dashed hold line stops this far before the end of the space taken by its last note, unless another bend continues from that note.</translation>
     </message>
@@ -42987,6 +43216,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Laissez vibrer</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="63"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="299"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="313"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="419"/>
