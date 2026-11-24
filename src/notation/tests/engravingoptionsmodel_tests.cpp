@@ -392,7 +392,7 @@ TEST_F(Notation_EngravingOptionsModelTests, oldStyleMultiMeasureRestsTakeTheWhol
  * @TEST_CASE chordSymbolPresetTakesItsFileAlong
  * @details A preset of the chord symbols is written, then its description file, so that the chord list is read
  *          again with the new preset; the legacy preset keeps the bass note on the line; a custom file is chosen by
- *          itself, so the custom preset writes nothing else
+ *          itself, so the custom preset writes nothing else; a reset of the preset brings the default file back
  */
 TEST_F(Notation_EngravingOptionsModelTests, chordSymbolPresetTakesItsFileAlong)
 {
@@ -431,6 +431,15 @@ TEST_F(Notation_EngravingOptionsModelTests, chordSymbolPresetTakesItsFileAlong)
     // [THEN] Only the preset
     ASSERT_EQ(m_written.size(), 1u);
     EXPECT_EQ(m_written.front().first, Sid::chordStyle);
+
+    // [WHEN] The preset is reset
+    m_written.clear();
+    model->resetValues({ "chordStyle" });
+
+    // [THEN] The file of the default preset comes back with it
+    ASSERT_EQ(m_written.size(), 1u);
+    EXPECT_EQ(m_written.front().first, Sid::chordDescriptionFile);
+    EXPECT_EQ(m_written.front().second.value<String>(), String(u"chords_std.xml"));
 
     holder.destroy();
 }

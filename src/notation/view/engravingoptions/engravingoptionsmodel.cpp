@@ -400,7 +400,15 @@ void EngravingOptionsModel::resetValues(const QStringList& names)
         return;
     }
 
-    style()->resetStyleValues(styleIdsByNames(names));
+    //! NOTE A value which is reset is chosen again as its default is: what comes with it is set too (the file of
+    //! the default preset of the chord symbols)
+    const std::vector<StyleId> ids = styleIdsByNames(names);
+    style()->resetStyleValues(ids);
+    for (const StyleId id : ids) {
+        for (const auto& [linkedId, linkedValue] : linkedStyleValues(id, style()->defaultStyleValue(id))) {
+            style()->setStyleValue(linkedId, linkedValue);
+        }
+    }
 }
 
 void EngravingOptionsModel::resetAllValues()
