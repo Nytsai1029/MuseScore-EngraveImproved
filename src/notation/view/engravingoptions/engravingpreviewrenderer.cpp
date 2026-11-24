@@ -53,6 +53,9 @@ using namespace mu::engraving::rendering;
 //! A system fills the width only if a width is given
 static constexpr double PAGE_SIZE_INCH = 80.0;
 
+//! NOTE The distance between two systems of a picture of the music, in staff spaces
+static constexpr double SYSTEM_DISTANCE = 5.0;
+
 //! NOTE Room around what is printed, in staff spaces: half of a line on the edge and the antialiasing of a
 //! glyph would be cut otherwise
 static constexpr double PICTURE_MARGIN = 0.5;
@@ -168,6 +171,12 @@ void EngravingPreviewRenderer::makePreviewStyle(MStyle& style, double systemWidt
     //! NOTE The systems are neither spread over the height of the page, nor is the last one made as wide as the page
     style.set(Sid::enableVerticalSpread, false);
     style.set(Sid::lastSystemFillLimit, 1.0);
+
+    //! NOTE The system after a break stands close under the one before: how far apart the systems of a page are is
+    //! no part of what a picture of the music shows (the vertical spacing is shown on pages), and so two systems
+    //! have room in the pane. What is in between still keeps them apart
+    style.set(Sid::minSystemDistance, Spatium(SYSTEM_DISTANCE));
+    style.set(Sid::maxSystemDistance, Spatium(SYSTEM_DISTANCE));
 }
 
 void EngravingPreviewRenderer::layout(const MStyle& style, const std::vector<Override>& overrides, double systemWidthSp)

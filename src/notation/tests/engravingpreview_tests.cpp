@@ -295,6 +295,24 @@ TEST_F(Notation_EngravingPreviewTests, givenSystemWidthIsNotExceeded)
 }
 
 /**
+ * @TEST_CASE twoSystemsHaveRoomInThePane
+ * @details The system after a break stands close under the one before, whatever distance the style gives the systems
+ *          of a page, so that a picture of two systems has room in the pane (20 staff spaces high)
+ */
+TEST_F(Notation_EngravingPreviewTests, twoSystemsHaveRoomInThePane)
+{
+    MStyle style = baseStyle();
+    style.set(Sid::minSystemDistance, Spatium(12.0));
+    style.set(Sid::maxSystemDistance, Spatium(20.0));
+
+    auto renderer = laidOut("c''1 \\break c''1", style, {}, 16.0);
+    ASSERT_TRUE(renderer);
+
+    EXPECT_GT(renderer->sizeInStaffSpaces().height(), 8.0 + 5.0);
+    EXPECT_LE(renderer->sizeInStaffSpaces().height(), 20.0);
+}
+
+/**
  * @TEST_CASE paintsInk
  * @details The picture of the laid out music has the size it says, and ink in it
  */
@@ -778,30 +796,20 @@ const std::set<QString>& optionsWhoseMusicCannotShowItYet()
     return OPTIONS;
 }
 
-//! NOTE The options whose music cannot fit 44 × 20 staff spaces, each with the reason. Two systems
-//! after a `\break` are spread over the height of the page, so they stand about 28 staff spaces high
+//! NOTE The options whose music cannot fit 44 × 20 staff spaces, each with the reason. The systems of a picture stand
+//! 5 staff spaces apart, but two systems of a grand staff are still about 37 staff spaces high. This list must only
+//! shrink: an option whose music fits fails the test as a stale entry
 const std::map<QString, const char*>& optionsWhichMusicCannotFitThePane()
 {
     static const std::map<QString, const char*> OPTIONS {
-        { "angleHangingSlursAwayFromStaff", "two systems after a \\break" },
-        { "dividerLeft",                    "two systems after a \\break" },
-        { "dividerLeftSym",                 "two systems after a \\break" },
-        { "dividerLeftX",                   "two systems after a \\break" },
-        { "dividerLeftY",                   "two systems after a \\break" },
-        { "dividerRight",                   "two systems after a \\break" },
-        { "dividerRightSym",                "two systems after a \\break" },
-        { "dividerRightX",                  "two systems after a \\break" },
-        { "dividerRightY",                  "two systems after a \\break" },
-        { "subsSystemInstNameVisibility",   "two systems after a \\break" },
-        { "headerToLineStartDistance",      "two systems after a \\break" },
-        { "lineEndToBarlineDistance",       "two systems after a \\break" },
-        { "barlineToLineStartDistance",     "two systems after a \\break" },
-        { "systemTrailerRightMargin",       "two systems after a \\break" },
-        { "slurContinuedEndOffset",         "two systems after a \\break" },
-        { "slurContinuedMaxHeightDiff",     "two systems after a \\break" },
-        { "slurContinuedSingleChordRise",   "two systems after a \\break" },
-        { "slurHangingEndHeight",           "two systems after a \\break" },
-        { "slurTieExtendToSystemEndBarline", "two systems after a \\break" },
+        { "dividerLeft",                    "two systems of a grand staff after a \\break" },
+        { "dividerLeftSym",                 "two systems of a grand staff after a \\break" },
+        { "dividerLeftX",                   "two systems of a grand staff after a \\break" },
+        { "dividerLeftY",                   "two systems of a grand staff after a \\break" },
+        { "dividerRight",                   "two systems of a grand staff after a \\break" },
+        { "dividerRightSym",                "two systems of a grand staff after a \\break" },
+        { "dividerRightX",                  "two systems of a grand staff after a \\break" },
+        { "dividerRightY",                  "two systems of a grand staff after a \\break" },
     };
 
     return OPTIONS;
@@ -947,7 +955,7 @@ TEST_F(Notation_EngravingPreviewTests, previewShowsWhatTheOptionDoes)
  * @TEST_CASE theMusicOfEveryOptionFitsThePane
  * @details For every option with a sid on a page with music, the picture its music lays out — with its
  *          musicStyle and the first value of its contexts — fits the pane: at most 44 staff spaces wide
- *          and 20 high
+ *          and 20 high; an option on the list of those which cannot fit does not
  */
 TEST_F(Notation_EngravingPreviewTests, theMusicOfEveryOptionFitsThePane)
 {
@@ -969,9 +977,6 @@ TEST_F(Notation_EngravingPreviewTests, theMusicOfEveryOptionFitsThePane)
                 if (sid.isEmpty() || music.isEmpty() || showsPage) {
                     continue;
                 }
-                if (optionsWhichMusicCannotFitThePane().count(sid)) {
-                    continue;
-                }
 
                 auto renderer = laidOut(music, style, musicStyleOf(option, grid, section, page), systemWidth);
                 if (!renderer) {
@@ -982,6 +987,13 @@ TEST_F(Notation_EngravingPreviewTests, theMusicOfEveryOptionFitsThePane)
 
                 ++checked;
                 const muse::SizeF size = renderer->sizeInStaffSpaces();
+                if (optionsWhichMusicCannotFitThePane().count(sid)) {
+                    EXPECT_TRUE(size.width() > 44.0 + 0.01 || size.height() > 20.0 + 0.01)
+                        << name << ": " << sid.toStdString() << " fits the pane — take it off the list of the "
+                        << "options whose music cannot fit";
+                    continue;
+                }
+
                 EXPECT_LE(size.width(), 44.0 + 0.01) << name << ": " << sid.toStdString()
                                                      << " is " << size.width() << " staff spaces wide: "
                                                         << music.toStdString();
