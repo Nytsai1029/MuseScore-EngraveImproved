@@ -175,7 +175,9 @@ struct Link {
 
     Kind kind = Kind::Slur;
     int midi = 0;           // of the note, for a tie
-    int subtype = 0;        // of a hairpin: 0 crescendo, 1 decrescendo
+    int subtype = 0;        // of a hairpin: HairpinType (0 crescendo, 1 decrescendo, 2 and 3 as lines with text)
+    bool circledTip = false;    // of a hairpin: it begins or ends at niente
+    std::optional<double> diagonalEnd;  // of a hairpin: how much lower its end is, in staff spaces, as if dragged
     int slurDirection = 0;
     bool slurFlat = false;
     int measures = 0;
@@ -207,7 +209,8 @@ struct Event {
     enum class Grace { None, Grace, Acciaccatura, Appoggiatura };
     enum class Beam { Auto, Begin, Mid, No };
     enum class Stem { Auto, Up, Down };
-    enum class Hairpin { None, Crescendo, Decrescendo };
+    //! As HairpinType: the two hairpins, then the lines with the words cresc. and dim.
+    enum class Hairpin { None = -1, Crescendo, Decrescendo, CrescendoLine, DecrescendoLine };
 
     int textPosition = 0;
 
@@ -230,6 +233,8 @@ struct Event {
     int slurStarts = 0;
     int slurStops = 0;
     Hairpin hairpin = Hairpin::None;
+    bool hairpinCircledTip = false; // `\\niente` after the hairpin: it begins or ends at niente, a small circle
+    std::optional<double> hairpinDiagonalEnd;  // `\\diagonal y`: the end of the hairpin is y staff spaces lower
     bool hairpinEnd = false;
 
     QStringList articulations;      // the subtypes in the file
@@ -251,6 +256,8 @@ struct Event {
     QString handBracket;            // the symbol of the keyboard hand bracket at the lowest note, or none
     int tapping = 0;                // 0 none, 1 left hand, 2 right hand
     QString dynamic;
+    bool dynamicAtEndOfPrevious = false;    // `\\atEndOfPrevious`: the dynamic stands before its beat
+    QString expression;             // `\\expression "text"`: an expression text, as dolce after a p
 
     int tupletActual = 0;
     int tupletNormal = 0;
@@ -346,6 +353,7 @@ struct Piece {
     QString shortName;              // on the other systems
     bool instruments = false;       // the two staves are two instruments of one staff each, not a grand staff
     QString title;                  // of the score, in a frame above the music; empty: no frame
+    std::map<int, QString> instrumentIds;   // of the parts which are not a piano, by the index of their first staff
 };
 
 //---------------------------------------------------------
@@ -474,7 +482,7 @@ public:
 
         return { std::move(m_music), m_staves, m_bracket.value_or(m_instruments ? -1 : 1), std::move(m_tabStaves),
                  std::move(m_staffLines), std::move(m_smallStaves), m_spanBarlines, m_hideStavesIndividually,
-                 m_longName, m_shortName, m_instruments, m_title };
+                 m_longName, m_shortName, m_instruments, m_title, std::move(m_instrumentIds) };
     }
 
 private:
@@ -614,6 +622,10 @@ private:
         static const std::map<QString, QString> PLAYING_MARKS {
             { "\\upbow", "stringsUpBow" }, { "\\downbow", "stringsDownBow" }
         };
+        static const std::map<QString, Event::Hairpin> HAIRPINS {
+            { "\\<", Event::Hairpin::Crescendo }, { "\\>", Event::Hairpin::Decrescendo },
+            { "\\cresc", Event::Hairpin::CrescendoLine }, { "\\dim", Event::Hairpin::DecrescendoLine }
+        };
         static const std::map<QString, QString> BREATHS {
             { "\\breathe", "breathMarkComma" }, { "\\caesura", "caesura" }
         };
@@ -739,8 +751,27 @@ private:
             readHandBracket(token);
         } else if (ARPEGGIOS.count(text)) {
             lastEvent(token).arpeggio = ARPEGGIOS.at(text);
-        } else if (text == "\\<" || text == "\\>") {
-            lastEvent(token).hairpin = text == "\\<" ? Event::Hairpin::Crescendo : Event::Hairpin::Decrescendo;
+        } else if (HAIRPINS.count(text)) {
+            lastEvent(token).hairpin = HAIRPINS.at(text);
+        } else if (text == "\\niente") {
+            Event& event = lastEvent(token);
+            if (event.hairpin == Event::Hairpin::None) {
+                fail("\\niente follows \\<, \\>, \\cresc or \\dim", token.position);
+            }
+            event.hairpinCircledTip = true;
+        } else if (text == "\\diagonal") {
+            readDiagonal(token);
+        } else if (text == "\\atEndOfPrevious") {
+            Event& event = lastEvent(token);
+            if (event.dynamic.isEmpty()) {
+                fail("\\atEndOfPrevious follows a dynamic", token.position);
+            }
+            event.dynamicAtEndOfPrevious = true;
+        } else if (text == "\\expression") {
+            Event& event = lastEvent(token);
+            event.expression = quoted(takeToken("the text in quotes", token));
+        } else if (text == "\\instrument") {
+            readInstrument(token);
         } else if (text == "\\!") {
             lastEvent(token).hairpinEnd = true;
         } else if (DYNAMICS.contains(text.mid(1))) {
@@ -1089,6 +1120,40 @@ private:
 
         m_longName = quoted(takeToken("the long name in quotes", command));
         m_shortName = quoted(takeToken("the short name in quotes", command));
+    }
+
+    //! `\\diagonal y` after `\\<`, `\\>`, `\\cresc` or `\\dim`: the hairpin is diagonal, its end y staff spaces lower
+    //! (higher when negative) than its start, as when the user drags it
+    void readDiagonal(const Token& command)
+    {
+        Event& event = lastEvent(command);
+        if (event.hairpin == Event::Hairpin::None) {
+            fail("\\diagonal follows \\<, \\>, \\cresc or \\dim", command.position);
+        }
+
+        const Token y = takeToken("how much lower the end is, in staff spaces", command);
+        bool ok = false;
+        event.hairpinDiagonalEnd = y.text.toDouble(&ok);
+        if (!ok) {
+            fail("a number, in staff spaces", y.position);
+        }
+    }
+
+    //! `\\instrument id`: the instrument of the part of the current staff, by its id in the instrument list (as
+    //! `voice`), instead of a piano; it says, for example, whether the staff is a vocal one (written at the
+    //! beginning)
+    void readInstrument(const Token& command)
+    {
+        if (m_music.size() > 1 || !measure().isEmpty()) {
+            fail("\\instrument is written at the beginning", command.position);
+        }
+
+        static const QRegularExpression ID("^[a-z0-9-]+$");
+        const Token id = takeToken("the id of the instrument", command);
+        if (!ID.match(id.text).hasMatch()) {
+            fail("the id of an instrument is written in lower case letters, digits and -", id.position);
+        }
+        m_instrumentIds[m_staff] = id.text;
     }
 
     //! The text of a name or title, which is written in quotes
@@ -1573,6 +1638,7 @@ private:
     QString m_longName;
     QString m_shortName;
     QString m_title;
+    std::map<int, QString> m_instrumentIds;
     bool m_ambitus = false;
     bool m_inGraceGroup = false;
     bool m_graceGroupFirst = false;
@@ -1754,7 +1820,9 @@ private:
             }
 
             Link link { Link::Kind::Hairpin };
-            link.subtype = from.hairpin == Event::Hairpin::Decrescendo ? 1 : 0;
+            link.subtype = static_cast<int>(from.hairpin);
+            link.circledTip = from.hairpinCircledTip;
+            link.diagonalEnd = from.hairpinDiagonalEnd;
             connect(from, **end, link);
         }
     }
@@ -1876,7 +1944,8 @@ private:
             number("hideStavesWhenIndividuallyEmpty", 1);
         }
         m_xml.writeStartElement("Instrument");
-        m_xml.writeAttribute("id", "piano");
+        const auto instrumentId = m_piece.instrumentIds.find(firstStaff);
+        m_xml.writeAttribute("id", instrumentId != m_piece.instrumentIds.end() ? instrumentId->second : "piano");
         if (firstStaff == 0 && !m_piece.longName.isEmpty()) {
             text("longName", m_piece.longName);
             text("shortName", m_piece.shortName);
@@ -2203,6 +2272,15 @@ private:
         if (!event.dynamic.isEmpty()) {
             m_xml.writeStartElement("Dynamic");
             text("subtype", event.dynamic);
+            if (event.dynamicAtEndOfPrevious) {
+                number("anchorToEndOfPrevious", 1);
+            }
+            m_xml.writeEndElement();
+        }
+
+        if (!event.expression.isEmpty()) {
+            m_xml.writeStartElement("Expression");
+            text("text", event.expression);
             m_xml.writeEndElement();
         }
 
@@ -2600,6 +2678,12 @@ private:
             m_xml.writeStartElement(spannerType(link.kind));
             if (link.kind == Link::Kind::Hairpin) {
                 number("subtype", link.subtype);
+                if (link.circledTip) {
+                    number("hairpinCircledTip", 1);
+                }
+                if (link.diagonalEnd) {
+                    writeDiagonalEnd(*link.diagonalEnd);
+                }
             } else if (link.subtype != 0) {
                 number("lineType", link.subtype);
             }
@@ -2613,6 +2697,18 @@ private:
         }
 
         writeLocation(isStart ? "next" : "prev", link);
+        m_xml.writeEndElement();
+    }
+
+    //! NOTE A diagonal line is one whose segment the user moved: its end is offset (as TWrite writes a segment)
+    void writeDiagonalEnd(double y)
+    {
+        number("diagonal", 1);
+        m_xml.writeStartElement("Segment");
+        number("subtype", 0);    // SpannerSegmentType::SINGLE
+        m_xml.writeEmptyElement("off2");
+        m_xml.writeAttribute("x", "0");
+        m_xml.writeAttribute("y", QString::number(y));
         m_xml.writeEndElement();
     }
 

@@ -50,8 +50,11 @@ namespace mu::notation {
 //!   the end of the text joins it to the next syllable), `^"text"` a staff text above the chord (`<sup>…</sup>`,
 //!   `<sub>`, `<b>`, `<i>` format the letters between them, as in the text of a score).
 //! - After a note, as words: `\fermata`, `\arpeggio` (also `\arpeggioUp|Down|Bracket|UpStraight|DownStraight`),
-//!   `\laissezVibrer`, a dynamic (`\ppp \pp \p \mp \mf \f \ff \fff \sf \sfz \fp`),
-//!   `\<` and `\>` (a hairpin begins) and `\!` (it ends). The ornaments `\trill` `\turn` `\mordent` `\prall`
+//!   `\laissezVibrer`, a dynamic (`\ppp \pp \p \mp \mf \f \ff \fff \sf \sfz \fp`; `\atEndOfPrevious` after it
+//!   puts it before its beat), `\expression "text"` (as dolce after a p), `\<` and `\>` (a hairpin begins),
+//!   `\cresc` and `\dim` (a line with the word begins), `\niente` after any of these four (it begins or ends at
+//!   niente, a small circle), `\diagonal y` after them (its end is y staff spaces lower, as if dragged) and `\!` (it
+//!   ends). The ornaments `\trill` `\turn` `\mordent` `\prall`
 //!   (with `!`, as `\turn!`, the accidentals of the notes they play are shown, also those of the key), `\upbow`
 //!   `\downbow`, `\luteFinger thumb|1|2|3` (the right hand in lute music), the lines `\fall` `\doit` `\plop`
 //!   `\scoop` (curved; `\fallStraight`, `\fallWavy` and so on), `\breathe` and `\caesura` (after the chord), and
@@ -85,6 +88,8 @@ namespace mu::notation {
 //!   (a grand staff has a brace, `none` none at all).
 //!   `\instruments 2` at the beginning, instead of `\staves 2`: two instruments of one staff each (with no
 //!   bracket, unless `\group` gives one), written on as the two staves of a grand staff are.
+//! - `\instrument id` at the beginning: the instrument of the current staff, by its id in the instrument list (as
+//!   `voice`), instead of a piano.
 //! - `\title "text"` at the beginning: the title of the score, in a frame above the music (as the work title, for
 //!   the headers and footers too).
 //! - Before the first chord of a beam group: `\beamAt y1 y2` writes the y its ends have, in staff

@@ -36,9 +36,11 @@
 #include "engraving/dom/chord.h"
 #include "engraving/dom/chordline.h"
 #include "engraving/dom/dynamic.h"
+#include "engraving/dom/expression.h"
 #include "engraving/dom/fermata.h"
 #include "engraving/dom/fingering.h"
 #include "engraving/dom/hairpin.h"
+#include "engraving/dom/instrument.h"
 #include "engraving/dom/jump.h"
 #include "engraving/dom/keysig.h"
 #include "engraving/dom/lyrics.h"
@@ -1070,4 +1072,57 @@ TEST_F(Notation_PreviewMusicTests, ornamentsLinesAndBreathMarks)
     EXPECT_FALSE(errorOf("c'4 \\handBracket").empty());
     EXPECT_FALSE(errorOf("c'4 \\fermata!").empty());
     EXPECT_FALSE(errorOf("\\trill c'4").empty());
+}
+
+/**
+ * @TEST_CASE hairpinLinesExpressionsAndInstruments
+ * @details `\cresc` and `\dim` are hairpins drawn as lines with text, `\niente` gives the hairpin a circled tip,
+ * `\diagonal` makes it diagonal, `\atEndOfPrevious` puts a dynamic before its beat, `\expression` writes an
+ * expression text and `\instrument` chooses the instrument of the part
+ */
+TEST_F(Notation_PreviewMusicTests, hairpinLinesExpressionsAndInstruments)
+{
+    ASSERT_TRUE(load("\\instrument voice c''4 \\cresc \\niente d''4 \\! e''4 \\p \\expression \"dolce\" | "
+                     "f''4 \\f \\atEndOfPrevious \\dim \\diagonal -2 e''4 \\!"));
+
+    EXPECT_TRUE(score()->staff(0)->part()->instrument()->isVocalInstrument());
+
+    std::vector<const Hairpin*> hairpins;
+    for (const auto& [tick, spanner] : score()->spannerMap().map()) {
+        if (spanner->isHairpin()) {
+            hairpins.push_back(toHairpin(spanner));
+        }
+    }
+    ASSERT_EQ(hairpins.size(), 2u);
+    std::sort(hairpins.begin(), hairpins.end(), [](const Hairpin* a, const Hairpin* b) {
+        return a->tick() < b->tick();
+    });
+    EXPECT_EQ(hairpins[0]->hairpinType(), HairpinType::CRESC_LINE);
+    EXPECT_TRUE(hairpins[0]->hairpinCircledTip());
+    EXPECT_EQ(hairpins[1]->hairpinType(), HairpinType::DIM_LINE);
+    EXPECT_FALSE(hairpins[1]->hairpinCircledTip());
+    EXPECT_FALSE(hairpins[0]->diagonal());
+    EXPECT_TRUE(hairpins[1]->diagonal());
+    ASSERT_EQ(hairpins[1]->spannerSegments().size(), 1u);
+    EXPECT_DOUBLE_EQ(hairpins[1]->frontSegment()->userOff2().y(), -2 * hairpins[1]->spatium());
+
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 5u);
+    const EngravingItem* piano = found[2]->segment()->findAnnotation(ElementType::DYNAMIC, 0, 0);
+    ASSERT_TRUE(piano);
+    EXPECT_FALSE(toDynamic(piano)->anchorToEndOfPrevious());
+    const EngravingItem* dolce = found[2]->segment()->findAnnotation(ElementType::EXPRESSION, 0, 0);
+    ASSERT_TRUE(dolce);
+    EXPECT_EQ(toExpression(dolce)->plainText(), muse::String(u"dolce"));
+
+    const EngravingItem* forte = found[3]->segment()->findAnnotation(ElementType::DYNAMIC, 0, 0);
+    ASSERT_TRUE(forte);
+    EXPECT_TRUE(toDynamic(forte)->anchorToEndOfPrevious());
+
+    EXPECT_FALSE(errorOf("c'4 \\niente").empty());
+    EXPECT_FALSE(errorOf("c'4 \\diagonal 2").empty());
+    EXPECT_FALSE(errorOf("c'4 \\< \\diagonal x d'4 \\!").empty());
+    EXPECT_FALSE(errorOf("c'4 \\atEndOfPrevious").empty());
+    EXPECT_FALSE(errorOf("c'4 \\instrument voice").empty());
+    EXPECT_FALSE(errorOf("\\instrument \"Voice\" c'4").empty());
 }
