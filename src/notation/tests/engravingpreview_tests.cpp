@@ -495,6 +495,34 @@ TEST_F(Notation_EngravingPreviewTests, aScaleIsProbedInBothDimensions)
 }
 
 /**
+ * @TEST_CASE aPlainNumberIsProbedByAPartOfItself
+ * @details A ratio of 30 changed by a quarter changes nothing which can be seen: a plain number is probed by half of
+ *          itself, a small one still by a quarter, and a value in staff spaces by a quarter of one
+ */
+TEST_F(Notation_EngravingPreviewTests, aPlainNumberIsProbedByAPartOfItself)
+{
+    const MStyle style = baseStyle();
+
+    const double ratio = style.styleD(Sid::parenthesisNoteHeightToThicknessRatio);
+    const std::optional<PropertyValue> ratioProbe
+        = EngravingPreviewRenderer::probeOf(style, {}, Sid::parenthesisNoteHeightToThicknessRatio, 1000.0);
+    ASSERT_TRUE(ratioProbe);
+    EXPECT_DOUBLE_EQ(ratioProbe->toReal(), ratio * 1.5);
+
+    const std::optional<PropertyValue> smallProbe = EngravingPreviewRenderer::probeOf(
+        style, { { Sid::parenthesisNoteHeightToThicknessRatio, PropertyValue(0.2) } },
+        Sid::parenthesisNoteHeightToThicknessRatio, 1000.0);
+    ASSERT_TRUE(smallProbe);
+    EXPECT_DOUBLE_EQ(smallProbe->toReal(), 0.2 + 0.25);
+
+    const Spatium distance = style.styleS(Sid::parenthesisNotePadding);
+    const std::optional<PropertyValue> distanceProbe
+        = EngravingPreviewRenderer::probeOf(style, {}, Sid::parenthesisNotePadding, 1000.0);
+    ASSERT_TRUE(distanceProbe);
+    EXPECT_DOUBLE_EQ(distanceProbe->value<Spatium>().val(), distance.val() + 0.25);
+}
+
+/**
  * @TEST_CASE effectOfATieValueIsTheTie
  * @details A value of the tie changes the tie and nothing else
  */

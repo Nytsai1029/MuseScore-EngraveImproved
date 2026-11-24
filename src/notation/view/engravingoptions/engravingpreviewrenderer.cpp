@@ -808,6 +808,10 @@ EngravingPreviewRenderer::Effect EngravingPreviewRenderer::effectOf(const MStyle
 //! NOTE How much of a value is changed to see what it does, in the units of the value
 static constexpr double PROBE_AMOUNT = 0.25;
 
+//! NOTE A plain number (a ratio, a factor) is changed by this part of itself when that is more: a ratio of 30 which
+//! changes by 0.25 changes nothing that can be seen
+static constexpr double PROBE_PART_OF_A_NUMBER = 0.5;
+
 std::optional<PropertyValue> EngravingPreviewRenderer::probeOf(const MStyle& style,
                                                                const std::vector<Override>& overrides,
                                                                StyleId id, double maximum)
@@ -823,8 +827,10 @@ std::optional<PropertyValue> EngravingPreviewRenderer::probeOf(const MStyle& sty
         return PropertyValue(!current.toBool());
     case P_TYPE::INT:
         return PropertyValue(static_cast<int>(step(current.toInt(), 1.0)));
-    case P_TYPE::REAL:
-        return PropertyValue(step(current.toReal(), PROBE_AMOUNT));
+    case P_TYPE::REAL: {
+        const double value = current.toReal();
+        return PropertyValue(step(value, std::max(PROBE_AMOUNT, std::abs(value) * PROBE_PART_OF_A_NUMBER)));
+    }
     case P_TYPE::SPATIUM:
         return PropertyValue(Spatium(step(current.value<Spatium>().val(), PROBE_AMOUNT)));
     case P_TYPE::SCALE: {
