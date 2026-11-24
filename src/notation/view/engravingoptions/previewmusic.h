@@ -60,6 +60,7 @@ namespace mu::notation {
 //!   any of these four (it begins or ends at niente, a small circle), `\diagonal y` after them (its end is y staff
 //!   spaces lower, as if dragged) and `\!` (it ends). The ornaments `\trill` `\turn` `\mordent` `\prall` (with `!`, as
 //!   `\turn!`, the accidentals of the notes they play are shown, also those of the key), `\upbow` `\downbow`,
+//!   `\wahOpen` `\wahClosed` `\golpe`,
 //!   `\luteFinger thumb|1|2|3` (the right hand in lute music), the lines `\fall` `\doit` `\plop` `\scoop` (curved;
 //!   `\fallStraight`, `\fallWavy` and so on), `\breathe` and `\caesura` (after the chord), and
 //!   `\handBracket left|right` (the hand which plays the chord, a bracket left of its lowest note).
@@ -74,8 +75,9 @@ namespace mu::notation {
 //!   `downprall` `prallprall` may follow `\startTrill`; `\startTrill!` shows the accidental of the upper note,
 //!   also one of the key), `Vibrato` (`wide` `sawtooth` `sawtoothWide` may follow), `TextLine` and
 //!   `SystemTextLine` (the text in quotes follows), `LetRing`, `PalmMute`, `TempoChange` (`accel` `allarg` `rall`
-//!   `rit` follows). After the start of a line which has hooks, `\hooks begin end` gives the hooks of its two ends
-//!   (`none` `90` `45` `90t`) and `\noLine` shows only its texts (as Ped. and * of a pedal).
+//!   `rit` follows), `Rasgueado`, `HarmonicMark` (its text in quotes follows, as "A.H."). After the start of a
+//!   line which has hooks, `\hooks begin end` gives the hooks of its two ends (`none` `90` `45` `90t`) and
+//!   `\noLine` shows only its texts (as Ped. and * of a pedal).
 //! - Texts after a note, each standing at its chord: `\systemText "text"`, `\tempo "text"` (a tempo of
 //!   ♩ = 120), `\mark "A"` (a rehearsal mark), `\instrumentChange "text"`, `\harpPedals` and
 //!   `\harpPedalsText` (a harp pedal diagram, all pedals at natural, drawn or written), `\romanNumeral "V7"`,
@@ -107,7 +109,8 @@ namespace mu::notation {
 //!   follow are written (at the start of each voice it is staff 1 again), and `\crossStaff down|up|off` shows the
 //!   chords which follow on the neighbouring staff. A slur, a tie and a hairpin stay on one staff.
 //!   `\tab` at the beginning makes the current staff a six-string tablature (its part is a guitar in standard
-//!   tuning; a note is on the highest string which has it), `\lines N` gives it N lines
+//!   tuning; a note is on the highest string which has it), a simple one which shows the frets alone; `\tab common`
+//!   a common one, which shows the rhythm too. `\lines N` gives it N lines
 //!   (1 to 5) instead of five. `\name "long" "short"` at the beginning names the instrument,
 //!   `\smallStaff` makes the current staff a small staff, `\spanBarlines` joins the barlines of two staves,
 //!   `\hideStavesIndividually` lets the style hide an empty staff of the two although the other has notes.

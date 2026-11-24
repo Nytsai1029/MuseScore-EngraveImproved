@@ -1074,6 +1074,39 @@ TEST_F(Notation_PreviewMusicTests, tablatureNotesHaveStringAndFret)
 }
 
 /**
+ * @TEST_CASE commonTablatureAndGuitarMarks
+ * @details `\\tab common` makes a common tablature (`\\tab` alone a simple one); wah and golpe are articulations,
+ * a rasgueado and a harmonic mark (with its text) are lines over chords
+ */
+TEST_F(Notation_PreviewMusicTests, commonTablatureAndGuitarMarks)
+{
+    ASSERT_TRUE(load("\\tab common c'4 \\wahOpen d'4 \\wahClosed e'4 \\golpe \\startRasgueado f'4 \\stopRasgueado | "
+                     "g'4 \\startHarmonicMark \"A.H.\" a'4 \\stopHarmonicMark r2"));
+    EXPECT_TRUE(score()->staff(0)->staffType(Fraction())->isCommonTabStaff());
+
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 6u);
+    const auto symbolOf = [](const Chord* chord) {
+        return chord->articulations().empty() ? SymId::noSym : chord->articulations().front()->symId();
+    };
+    EXPECT_EQ(symbolOf(found[0]), SymId::brassMuteOpen);
+    EXPECT_EQ(symbolOf(found[1]), SymId::brassMuteClosed);
+    EXPECT_EQ(symbolOf(found[2]), SymId::guitarGolpe);
+
+    const std::vector<const Spanner*> rasgueados = spannersOf(ElementType::RASGUEADO);
+    ASSERT_EQ(rasgueados.size(), 1u);
+    EXPECT_EQ(rasgueados.front()->tick(), Fraction(2, 4));
+    EXPECT_EQ(rasgueados.front()->tick2(), Fraction(1, 1));
+
+    const std::vector<const Spanner*> harmonics = spannersOf(ElementType::HARMONIC_MARK);
+    ASSERT_EQ(harmonics.size(), 1u);
+    EXPECT_EQ(harmonics.front()->getProperty(Pid::BEGIN_TEXT).value<String>(), String(u"A.H."));
+
+    ASSERT_TRUE(load("\\tab c'4"));
+    EXPECT_TRUE(score()->staff(0)->staffType(Fraction())->isSimpleTabStaff());
+}
+
+/**
  * @TEST_CASE ornamentsLinesAndBreathMarks
  * @details Ornaments (with `!` all their accidentals are shown), bowings, lute fingering, falls and the like,
  * breath marks and caesuras after their chords, and a keyboard hand bracket at the lowest note of its chord

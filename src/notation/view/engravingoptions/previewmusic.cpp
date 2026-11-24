@@ -472,7 +472,7 @@ struct Piece {
     int staves = 1;
     //! the bracket over the staves, as the BracketType enum: brace by default (none for two instruments), -1 for none
     int bracket = 1;
-    std::set<int> tabStaves;        // 0-based indices of the staves which are tablature
+    std::map<int, bool> tabStaves;  // the staves which are tablature (0-based), each true if it is a common one
     std::map<int, int> staffLines;  // the number of lines of a staff which has not five, by its 0-based index
     std::set<int> smallStaves;      // 0-based indices of the small staves
     bool spanBarlines = false;      // the barlines of the first staff go down through the second
@@ -748,7 +748,8 @@ private:
         //! NOTE Signs which are articulations in the file, but not in the narrow sense: their position has a style
         //! value of its own
         static const std::map<QString, QString> PLAYING_MARKS {
-            { "\\upbow", "stringsUpBow" }, { "\\downbow", "stringsDownBow" }
+            { "\\upbow", "stringsUpBow" }, { "\\downbow", "stringsDownBow" },
+            { "\\wahOpen", "brassMuteOpen" }, { "\\wahClosed", "brassMuteClosed" }, { "\\golpe", "guitarGolpe" }
         };
         static const std::map<QString, Event::Hairpin> HAIRPINS {
             { "\\<", Event::Hairpin::Crescendo }, { "\\>", Event::Hairpin::Decrescendo },
@@ -784,7 +785,8 @@ private:
             if (m_music.size() > 1 || !measure().isEmpty()) {
                 fail("\\tab is written at the beginning", token.position);
             }
-            m_tabStaves.insert(m_staff);
+            //! NOTE A simple tablature shows the frets alone, a common one also the rhythm (with stems)
+            m_tabStaves[m_staff] = takeWordIfOneOf({ "common" }).has_value();
         } else if (text == "\\lines") {
             readLines(token);
         } else if (text == "\\name") {
@@ -1088,7 +1090,8 @@ private:
         static const std::map<QString, QString> TYPES {
             { "Ottava", "Ottava" }, { "Pedal", "Pedal" }, { "Trill", "Trill" }, { "Vibrato", "Vibrato" },
             { "TextLine", "TextLine" }, { "SystemTextLine", "TextLine" }, { "LetRing", "LetRing" },
-            { "PalmMute", "PalmMute" }, { "TempoChange", "GradualTempoChange" }
+            { "PalmMute", "PalmMute" }, { "TempoChange", "GradualTempoChange" }, { "Rasgueado", "Rasgueado" },
+            { "HarmonicMark", "HarmonicMark" }
         };
         return TYPES;
     }
@@ -1113,8 +1116,9 @@ private:
     }
 
     //! `\\start<Name>`: a line begins with the note before it. An ottava says its kind (`8va` `8vb` `15ma` `15mb`
-    //! `22ma` `22mb`), a text line its text in quotes, a tempo change its kind (`accel` `allarg` `rall` `rit`); a
-    //! trill may say its kind (`upprall` `downprall` `prallprall`), a vibrato too (`wide` `sawtooth` `sawtoothWide`)
+    //! `22ma` `22mb`), a text line and a harmonic mark their text in quotes, a tempo change its kind (`accel` `allarg`
+    //! `rall` `rit`); a trill may say its kind (`upprall` `downprall` `prallprall`), a vibrato too (`wide` `sawtooth`
+    //! `sawtoothWide`)
     void readLineStart(const QString& name, const Token& command)
     {
         Event& event = lastEvent(command);
@@ -1141,7 +1145,7 @@ private:
             };
             const std::optional<QString> kind = takeWordIfOneOf({ "wide", "sawtooth", "sawtoothWide" });
             line.subtype = kind ? VIBRATOS.at(*kind) : QString("guitarVibrato");
-        } else if (name == "TextLine" || name == "SystemTextLine") {
+        } else if (name == "TextLine" || name == "SystemTextLine" || name == "HarmonicMark") {
             line.beginText = quoted(takeToken("the text of the line in quotes", command));
             line.isSystemLine = name == "SystemTextLine";
         } else if (name == "TempoChange") {
@@ -2030,7 +2034,7 @@ private:
     int m_slurDirection = 0;
     bool m_slurFlat = false;
     int m_tieStyle = 0;
-    std::set<int> m_tabStaves;
+    std::map<int, bool> m_tabStaves;
     std::map<int, int> m_staffLines;
     QString m_longName;
     QString m_shortName;
@@ -2501,7 +2505,7 @@ private:
             m_xml.writeStartElement("StaffType");
             if (m_piece.tabStaves.count(staff)) {
                 m_xml.writeAttribute("group", "tablature");
-                text("name", "tab6StrSimple");
+                text("name", m_piece.tabStaves.at(staff) ? "tab6StrCommon" : "tab6StrSimple");
             } else {
                 m_xml.writeAttribute("group", "pitched");
                 text("name", "stdNormal");
