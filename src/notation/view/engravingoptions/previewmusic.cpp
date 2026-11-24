@@ -383,6 +383,7 @@ struct Event {
     std::optional<std::pair<int, QString> > numeral;   // `\\romanNumeral` `\\nashville`: HarmonyType and the text
     std::optional<FretDiagramMark> fretDiagram;    // `\\fretDiagram "x32010"`
     QStringList figuredBass;        // `\\figuredBass "6 4"`: the figures from the top
+    Fraction figuredBassTicks;      // how long the figured bass lasts, if not as long as the chord (see planFiguredBass)
     bool notesInParentheses = false;    // `\\parenthesize` before the chord: each of its notes
     bool chordInParentheses = false;    // `\\parenthesizeChord`: the chord as a whole
 
@@ -1051,16 +1052,18 @@ private:
         event.fretDiagram = diagram;
     }
 
-    //! `\\figuredBass "6 4"`: the figures from the top, each a figure, an accidental (`b`, `#`, `n`) or both, as b7
+    //! `\\figuredBass "6 4"`: the figures from the top, each a figure, an accidental (`b`, `#`, `n`) or both, as b7, then
+    //! `_` (a continuation line) or `__` (one which joins the line of the next figured bass)
     void readFiguredBass(const Token& command)
     {
         Event& event = lastEvent(command);
         const Token figures = takeToken("the figures in quotes", command);
         event.figuredBass = quoted(figures).split(' ', Qt::SkipEmptyParts);
-        static const QRegularExpression FIGURE("^[b#n]?[0-9]?$");
+        static const QRegularExpression FIGURE("^[b#n]?[0-9]?_{0,2}$");
         for (const QString& figure : event.figuredBass) {
             if (!FIGURE.match(figure).hasMatch()) {
-                fail("a figure is a digit, an accidental (b, # or n) or both, as b7", figures.position);
+                fail("a figure is a digit, an accidental (b, # or n) or both, as b7, then _ or __ for a continuation "
+                     "line", figures.position);
             }
         }
         if (event.figuredBass.isEmpty()) {
@@ -2081,6 +2084,7 @@ public:
             planLines(events);
             planNoteToNoteLines(events);
             planLyrics(events);
+            planFiguredBass(events);
         }
     }
 
@@ -2262,6 +2266,37 @@ private:
             if (melismaStart && melismaEnd) {
                 previous->melismaTicks = tickOf(melismaEnd) - tickOf(melismaStart);
             }
+        }
+    }
+
+    //! NOTE A figured bass with a continuation line lasts until the next figured bass of the voice, or to its end:
+    //! the line is drawn over the notes in between, as a figure is held over a moving bass
+    void planFiguredBass(const std::vector<Event*>& events)
+    {
+        std::vector<Fraction> measureStarts(m_music.size());
+        for (size_t m = 1; m < m_music.size(); ++m) {
+            measureStarts[m] = measureStarts[m - 1] + m_music[m - 1].length();
+        }
+        const auto tickOf = [&measureStarts](const Event* event) {
+            return measureStarts[event->place.measure] + event->place.position;
+        };
+
+        for (size_t i = 0; i < events.size(); ++i) {
+            Event* event = events[i];
+            const bool hasLine = std::any_of(event->figuredBass.cbegin(), event->figuredBass.cend(),
+                                             [](const QString& figure) { return figure.endsWith('_'); });
+            if (!hasLine) {
+                continue;
+            }
+
+            Fraction end = tickOf(events.back()) + events.back()->length();
+            for (size_t j = i + 1; j < events.size(); ++j) {
+                if (!events[j]->figuredBass.isEmpty()) {
+                    end = tickOf(events[j]);
+                    break;
+                }
+            }
+            event->figuredBassTicks = end - tickOf(event);
         }
     }
 
@@ -3071,14 +3106,19 @@ private:
         static const std::map<QChar, int> MODIFIERS { { 'b', 2 }, { 'n', 3 }, { '#', 4 } };
 
         m_xml.writeStartElement("FiguredBass");
-        number("ticks", event.length().ticks());
-        for (const QString& figure : event.figuredBass) {
+        number("ticks", (event.figuredBassTicks.isZero() ? event.length() : event.figuredBassTicks).ticks());
+        for (const QString& written : event.figuredBass) {
+            const qsizetype lines = written.size() - QString(written).remove('_').size();
+            const QString figure = written.left(written.size() - lines);
             m_xml.writeStartElement("FiguredBassItem");
-            if (MODIFIERS.count(figure.front())) {
+            if (!figure.isEmpty() && MODIFIERS.count(figure.front())) {
                 number("prefix", MODIFIERS.at(figure.front()));
             }
-            if (figure.back().isDigit()) {
+            if (!figure.isEmpty() && figure.back().isDigit()) {
                 number("digit", figure.back().digitValue());
+            }
+            if (lines > 0) {
+                number("continuationLine", static_cast<int>(lines));     // ContLine: 1 simple, 2 extended
             }
             m_xml.writeEndElement();
         }

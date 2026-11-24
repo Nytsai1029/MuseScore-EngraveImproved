@@ -1320,6 +1320,46 @@ TEST_F(Notation_PreviewMusicTests, fretboardDiagramsAtAFretWithBarresAndFingers)
 }
 
 /**
+ * @TEST_CASE figuredBassContinuationLines
+ * @details `_` after a figure draws a continuation line, `__` one which joins the next figured bass; a figured bass
+ * with a line lasts until the next figured bass of the voice, or to its end, one without lasts its chord
+ */
+TEST_F(Notation_PreviewMusicTests, figuredBassContinuationLines)
+{
+    ASSERT_TRUE(load("c'4 \\figuredBass \"6_\" d'4 e'4 \\figuredBass \"5\" f'4 \\figuredBass \"#4__ 2\" | g'1"));
+
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 5u);
+
+    const auto figuredBassAt = [](const Chord* chord) {
+        const EngravingItem* item = chord->segment()->findAnnotation(ElementType::FIGURED_BASS, 0, 0);
+        return item ? toFiguredBass(item) : nullptr;
+    };
+
+    const FiguredBass* sixth = figuredBassAt(found[0]);
+    ASSERT_TRUE(sixth);
+    EXPECT_EQ(sixth->ticks(), Fraction(1, 2));
+    ASSERT_EQ(sixth->items().size(), 1u);
+    EXPECT_EQ(sixth->items().front()->contLine(), FiguredBassItem::ContLine::SIMPLE);
+    EXPECT_EQ(sixth->items().front()->digit(), 6);
+
+    const FiguredBass* fifth = figuredBassAt(found[2]);
+    ASSERT_TRUE(fifth);
+    EXPECT_EQ(fifth->ticks(), Fraction(1, 4));
+    EXPECT_EQ(fifth->items().front()->contLine(), FiguredBassItem::ContLine::NONE);
+
+    const FiguredBass* fourth = figuredBassAt(found[3]);
+    ASSERT_TRUE(fourth);
+    EXPECT_EQ(fourth->ticks(), Fraction(5, 4));
+    ASSERT_EQ(fourth->items().size(), 2u);
+    EXPECT_EQ(fourth->items().front()->contLine(), FiguredBassItem::ContLine::EXTENDED);
+    EXPECT_EQ(fourth->items().front()->prefix(), FiguredBassItem::Modifier::SHARP);
+    EXPECT_EQ(fourth->items().back()->contLine(), FiguredBassItem::ContLine::NONE);
+
+    EXPECT_FALSE(errorOf("c'4 \\figuredBass \"6___\"").empty());
+}
+
+/**
  * @TEST_CASE versesAndExtensionLines
  * @details Each further `_"text"` of a chord is the next verse; the syllables of a verse are joined across barlines
  * and across notes without a syllable, and `__` draws an extension line to the last note before the next syllable
