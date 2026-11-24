@@ -57,6 +57,7 @@
 #include "engraving/dom/tapping.h"
 #include "engraving/dom/text.h"
 #include "engraving/dom/tie.h"
+#include "engraving/dom/timesig.h"
 #include "engraving/dom/tremolosinglechord.h"
 #include "engraving/dom/tremolotwochord.h"
 #include "engraving/dom/laissezvib.h"
@@ -296,6 +297,36 @@ TEST_F(Notation_PreviewMusicTests, keyAndTimeSignatureAreOnlyThereWhenAsked)
     ASSERT_TRUE(key);
     EXPECT_EQ(toKeySig(key->element(0))->key(), Key::D);
     EXPECT_TRUE(score()->firstMeasure()->first(SegmentType::TimeSig));
+}
+
+/**
+ * @TEST_CASE keyAndTimeSignatureAreOnEveryStaff
+ * @details A key or a time signature at the beginning of a measure is one of the score: it is on every staff,
+ *          whichever staff the notes which ask for it are on
+ */
+TEST_F(Notation_PreviewMusicTests, keyAndTimeSignatureAreOnEveryStaff)
+{
+    ASSERT_TRUE(load("\\instruments 2 \\key 2 \\time 3/4 c''2. | \\staff 2 \\key -1 \\time 2/4 c''2"));
+    ASSERT_EQ(score()->nstaves(), 2u);
+
+    for (const Measure* measure : { score()->firstMeasure(), score()->firstMeasure()->nextMeasure() }) {
+        ASSERT_TRUE(measure);
+        const Segment* key = measure->first(SegmentType::KeySig);
+        const Segment* time = measure->first(SegmentType::TimeSig);
+        ASSERT_TRUE(key);
+        ASSERT_TRUE(time);
+
+        const Key wanted = measure == score()->firstMeasure() ? Key::D : Key::F;
+        const int numerator = measure == score()->firstMeasure() ? 3 : 2;
+        for (staff_idx_t staff = 0; staff < 2; ++staff) {
+            const KeySig* keySig = toKeySig(key->element(staff * VOICES));
+            const TimeSig* timeSig = toTimeSig(time->element(staff * VOICES));
+            ASSERT_TRUE(keySig) << "staff " << staff;
+            ASSERT_TRUE(timeSig) << "staff " << staff;
+            EXPECT_EQ(keySig->key(), wanted) << "staff " << staff;
+            EXPECT_EQ(timeSig->sig().numerator(), numerator) << "staff " << staff;
+        }
+    }
 }
 
 /**

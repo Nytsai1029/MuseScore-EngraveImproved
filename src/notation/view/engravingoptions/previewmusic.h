@@ -59,7 +59,8 @@ namespace mu::notation {
 //!   `\tieSolid|Dotted|Dashed|WideDashed` (the line of the slurs and ties which begin after it, until changed),
 //!   `\tremolo 16 { c'2 e'2 }` (a tremolo between two chords), `\ambitus` (an ambitus before the next note, of the
 //!   highest and lowest notes of the music),
-//!   `\tuplet 3/2 { ... }`, `\clef treble|bass|alto|tenor`, `\key N` (N sharps, negative: flats), `\time 3/4`,
+//!   `\tuplet 3/2 { ... }`, `\clef treble|bass|alto|tenor`, `\key N` (N sharps, negative: flats), `\time 3/4`
+//!   (at the beginning of a measure the key and the time signature are on all the staves, as in a score),
 //!   `\break` (the system ends after this measure, as if a `|` had come before it), `\pageBreak` (the page ends
 //!   after it).
 //! - `\bar "type"` where a barline stands (it ends the measure as `|` does, or, after a `|`, gives the barline of the

@@ -1852,6 +1852,7 @@ private:
         if (!hasVoice) {
             m_xml.writeStartElement("voice");
             writeVoltas(index, staff, true);
+            writeSignaturesOfOtherStaves(measure, staff);
             //! NOTE The sign of a measure repeat is in its only measure, or the last of its first half
             if (measure.repeatGroup > 0 && measure.repeatIndex == std::max(1, measure.repeatGroup / 2)) {
                 m_xml.writeStartElement("MeasureRepeat");
@@ -1888,6 +1889,36 @@ private:
         return std::any_of(voice.begin(), voice.end(), [staff](const Event& event) {
             return event.staff == staff;
         });
+    }
+
+    //! A key or a time signature at the beginning of the measure is one of the score, on all its staves: on a staff
+    //! where no event of the beginning gives it, it is written as an event of another staff gives it
+    void writeSignaturesOfOtherStaves(const Measure& measure, int staff)
+    {
+        std::optional<int> key;
+        std::optional<std::pair<int, int> > time;
+        bool hasOwnKey = false;
+        bool hasOwnTime = false;
+        for (const Voice& voice : measure.voices) {
+            for (const Event& event : voice) {
+                if (event.place.position != Fraction()) {
+                    continue;
+                }
+                if (event.key) {
+                    key = event.key;
+                    hasOwnKey |= event.staff == staff;
+                }
+                if (event.time) {
+                    time = event.time;
+                    hasOwnTime |= event.staff == staff;
+                }
+            }
+        }
+
+        Event signatures;
+        signatures.key = hasOwnKey ? std::nullopt : key;
+        signatures.time = hasOwnTime ? std::nullopt : time;
+        writePrefix(signatures);
     }
 
     //! The voice of a measure on a staff: its events written there, with rests where the voice is on the other staff
@@ -1955,6 +1986,7 @@ private:
         m_xml.writeStartElement("voice");
         if (withBarline) {
             writeVoltas(index, staff, true);
+            writeSignaturesOfOtherStaves(measure, staff);
         }
 
         Fraction cursor;
