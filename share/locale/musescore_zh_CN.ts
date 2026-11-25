@@ -43834,12 +43834,12 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="707"/>
         <source>Lyrics to barline padding (× x-height)</source>
-        <translation>歌词-小节线内距（× x 字高）</translation>
+        <translation>唱词-小节线内距（× x 字高）</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="708"/>
         <source>Gap kept between a lyric syllable and a barline it must avoid, as a multiple of the x-height of the lyrics font.</source>
-        <translation>歌词音节与其需要避让的小节线之间保留的间隙，以歌词字体 x 字高的倍数表示。</translation>
+        <translation>唱词音节与其需要避让的小节线之间保留的间隙，以唱词字体 x 字高的倍数表示。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="715"/>
@@ -48270,7 +48270,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="374"/>
         <source>Off: nothing is moved out of the way of anything else. Every sign stands at its default position or where it was dragged, collisions are left as they are, and notes are spaced by their duration alone, with no extra room for accidentals, dots or lyrics. The same switch as the command ‘Toggle automatic placement for entire score’.</source>
-        <translation>关闭后，任何记号都不再为避让而移动：各记号停在默认位置或手动拖放的位置，相撞也不处理；音符只按时值排列间距，不再为变音记号、附点或歌词另留空间。与命令“为全谱切换自动排布”是同一个开关。</translation>
+        <translation>关闭后，任何记号都不再为避让而移动：各记号停在默认位置或手动拖放的位置，相撞也不处理；音符只按时值排列间距，不再为变音记号、附点或唱词另留空间。与命令“为全谱切换自动排布”是同一个开关。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="68"/>
@@ -48791,7 +48791,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="209"/>
         <source>A barline which joins two staves is broken off where it would run through a text between them, such as a dynamic or a lyric; off, only a text whose own ‘Mask barlines’ property is on does this.</source>
-        <translation>连接上下谱表的小节线穿过谱表之间的文本（如力度记号或歌词）时，在文本处断开；关闭后，只有自身启用了“小节线遮罩”属性的文本才如此。</translation>
+        <translation>连接上下谱表的小节线穿过谱表之间的文本（如力度记号或唱词）时，在文本处断开；关闭后，只有自身启用了“小节线遮罩”属性的文本才如此。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BarlinesPage.qml" line="219"/>
@@ -49938,7 +49938,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="58"/>
         <source>Dynamics and hairpins of singers’ staves go above the staff, out of the way of the lyrics. Only with the position ‘Based on voice’.</source>
-        <translation>声乐谱表的力度记号和楔形力度记号置于谱表上方，以让开歌词。仅在位置为“基于声部”时有效。</translation>
+        <translation>声乐谱表的力度记号和楔形力度记号置于谱表上方，以让开唱词。仅在位置为“基于声部”时有效。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="67"/>
@@ -50614,17 +50614,17 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="38"/>
         <source>Lyrics</source>
-        <translation>歌词</translation>
+        <translation>唱词</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="43"/>
         <source>The side of the staff on which lyrics are placed unless a syllable is set otherwise.</source>
-        <translation>歌词默认位于谱表的哪一侧（单独设置过的音节除外）。</translation>
+        <translation>唱词默认位于谱表的哪一侧（单独设置过的音节除外）。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="55"/>
         <source>Distance from the baseline of one verse to that of the next; 100 % is the natural line spacing of the lyrics font.</source>
-        <translation>相邻两段歌词基线之间的距离；100% 为歌词字体自身的行距。</translation>
+        <translation>相邻两段唱词基线之间的距离；100% 为唱词字体自身的行距。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="67"/>
@@ -50634,7 +50634,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="68"/>
         <source>Least horizontal gap between two neighbouring syllables of a verse; the notes are moved apart to keep it.</source>
-        <translation>同一段歌词中相邻两个音节之间的最小水平间隙；必要时拉开音符间距来保证。</translation>
+        <translation>同一段唱词中相邻两个音节之间的最小水平间隙；必要时拉开音符间距来保证。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="77"/>
@@ -50659,17 +50659,17 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="97"/>
         <source>With ‘Avoid barlines’ on: the gap kept between a syllable and the barline, as a multiple of the height of a small letter x of the lyrics font.</source>
-        <translation>启用“避开小节线”时，音节与小节线之间保留的间隙，以歌词字体小写字母 x 的高度的倍数表示。</translation>
+        <translation>启用“避开小节线”时，音节与小节线之间保留的间隙，以唱词字体小写字母 x 的高度的倍数表示。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="116"/>
         <source>Height of the baseline of lyrics above the staff, measured from the top staff line (negative is up); notes in the way push the whole line of lyrics further out.</source>
-        <translation>谱表上方歌词基线的高度，自谱表最上方谱线量起（负值向上）；遇到音符阻挡时整行歌词会被推得更远。</translation>
+        <translation>谱表上方唱词基线的高度，自谱表最上方谱线量起（负值向上）；遇到音符阻挡时整行唱词会被推得更远。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="127"/>
         <source>Depth of the baseline of the first verse below the staff, measured from the bottom staff line (positive is down); notes in the way push the whole line of lyrics further out.</source>
-        <translation>谱表下方第一段歌词基线的深度，自谱表最下方谱线量起（正值向下）；遇到音符阻挡时整行歌词会被推得更远。</translation>
+        <translation>谱表下方第一段唱词基线的深度，自谱表最下方谱线量起（正值向下）；遇到音符阻挡时整行唱词会被推得更远。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="141"/>
@@ -50679,7 +50679,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="142"/>
         <source>Least vertical gap between the lyrics and the notes, stems, slurs and other signs of the staff they belong to; applies above and below alike.</source>
-        <translation>歌词与所属谱表上的音符、符干、圆滑线等之间的最小垂直间隙；位于上方或下方时都适用。</translation>
+        <translation>唱词与所属谱表上的音符、符干、圆滑线等之间的最小垂直间隙；位于上方或下方时都适用。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="153"/>
@@ -50689,7 +50689,7 @@ The score will be saved as:
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="154"/>
         <source>Least vertical gap between the lyrics and the staff on their far side: the next staff down for lyrics below, the next staff up for lyrics above.</source>
-        <translation>歌词与其外侧相邻谱表之间的最小垂直间隙：下方歌词指下一行谱表，上方歌词指上一行谱表。</translation>
+        <translation>唱词与其外侧相邻谱表之间的最小垂直间隙：下方唱词指下一行谱表，上方唱词指上一行谱表。</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="164"/>
