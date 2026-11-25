@@ -65,6 +65,7 @@
 #include "engraving/dom/ottava.h"
 #include "engraving/dom/palmmute.h"
 #include "engraving/dom/part.h"
+#include "engraving/dom/partialtie.h"
 #include "engraving/dom/pedal.h"
 #include "engraving/dom/rehearsalmark.h"
 #include "engraving/dom/rest.h"
@@ -1691,4 +1692,31 @@ TEST_F(Notation_PreviewMusicTests, textsAtChords)
     EXPECT_FALSE(errorOf("c'4 \\fretDiagram \"x3201\"").empty());
     EXPECT_FALSE(errorOf("c'4 \\figuredBass \"6 x\"").empty());
     EXPECT_FALSE(errorOf("c'4 \\mark A").empty());
+}
+
+/**
+ * @TEST_CASE partialTiesOnNotes
+ * @details `\\partialTie` adds an incoming partial tie to each note of the chord, `\\partialTie outgoing` an
+ * outgoing one
+ */
+TEST_F(Notation_PreviewMusicTests, partialTiesOnNotes)
+{
+    ASSERT_TRUE(load("c''2~ | \\volta \"1.\" 1 c''2 \\bar \":|.\" \\volta \"2.\" 1 c''2 \\partialTie | "
+                     "d''2 \\partialTie outgoing"));
+
+    const std::vector<Chord*> found = chords();
+    ASSERT_EQ(found.size(), 4u);
+
+    const Note* incoming = found[2]->notes().front();
+    ASSERT_TRUE(incoming->incomingPartialTie());
+    EXPECT_EQ(incoming->incomingPartialTie()->partialSpannerDirection(), PartialSpannerDirection::INCOMING);
+    EXPECT_FALSE(incoming->incomingPartialTie()->isOutgoing());
+    EXPECT_FALSE(incoming->outgoingPartialTie());
+
+    const Note* outgoing = found[3]->notes().front();
+    ASSERT_TRUE(outgoing->outgoingPartialTie());
+    EXPECT_TRUE(outgoing->outgoingPartialTie()->isOutgoing());
+    EXPECT_FALSE(outgoing->incomingPartialTie());
+
+    EXPECT_FALSE(errorOf("\\partialTie c''2").empty());
 }

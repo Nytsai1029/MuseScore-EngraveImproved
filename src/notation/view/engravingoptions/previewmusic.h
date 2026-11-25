@@ -51,7 +51,8 @@ namespace mu::notation {
 //!   `_"text"` of the chord is the next verse), `^"text"` a staff text above the chord (`<sup>…</sup>`, `<sub>`, `<b>`,
 //!   `<i>` format the letters between them, as in the text of a score).
 //! - After a note, as words: `\fermata`, `\arpeggio` (also `\arpeggioUp|Down|Bracket|UpStraight|DownStraight`),
-//!   `\laissezVibrer`, a dynamic (`\ppp \pp \p \mp \mf \f \ff \fff \sf \sfz \fp`; `\atEndOfPrevious` after it puts it
+//!   `\laissezVibrer`, `\partialTie` (an incoming partial tie, as into a second ending; `outgoing` after it for an
+//!   outgoing one), a dynamic (`\ppp \pp \p \mp \mf \f \ff \fff \sf \sfz \fp`; `\atEndOfPrevious` after it puts it
 //!   before its beat), `\expression "text"` (as dolce after a p), `\sticking "text"` (the hand of a percussion note, as
 //!   R), `\chordSymbol "text"` (a chord symbol, as C7(b9)/E; the text in parentheses, as (F), puts the symbol in
 //!   parentheses; a polychord is its chords from the top, separated by `|`, as D|C7; `alternate` after the text

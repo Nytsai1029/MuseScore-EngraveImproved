@@ -338,6 +338,7 @@ struct Event {
     bool slurFlat = false;          // CurveMode::FlatMiddle
     bool hammerOnPullOff = false;   // `\\hopoOn`: the slurs which begin at the chord are hammer-on / pull-off slurs
     bool laissezVibrer = false;
+    QString partialTie;             // `\\partialTie` ("incoming", or "outgoing" if `outgoing` follows); empty: none
     int slurStarts = 0;
     int slurStops = 0;
     Hairpin hairpin = Hairpin::None;
@@ -796,6 +797,9 @@ private:
             m_tieStyle = lineStyleOf(text.mid(4));
         } else if (text == "\\laissezVibrer") {
             lastEvent(token).laissezVibrer = true;
+        } else if (text == "\\partialTie") {
+            Event& event = lastEvent(token);
+            event.partialTie = takeWordIfOneOf({ "outgoing" }).has_value() ? "outgoing" : "incoming";
         } else if (text == "\\tremolo") {
             readTremoloBetweenChords(token);
         } else if (text == "\\ambitus") {
@@ -3473,6 +3477,12 @@ private:
 
         if (event.laissezVibrer) {
             m_xml.writeEmptyElement("LaissezVib");
+        }
+
+        if (!event.partialTie.isEmpty()) {
+            m_xml.writeStartElement("PartialTie");
+            text("partialSpannerDirection", event.partialTie);
+            m_xml.writeEndElement();
         }
 
         number("pitch", pitch.midi);
