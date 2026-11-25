@@ -44,6 +44,7 @@ FocusScope {
     //! NOTE: the EoSession: the option under the pointer or with the focus is the one which the preview pane shows
     property var session: null
 
+    readonly property bool isEoOptionHost: true
     readonly property bool isActive: Boolean(session) && session.activeOption === option
 
     readonly property var musicInfo: EoMusic.musicInfoOf(option, section, page)
@@ -331,6 +332,10 @@ FocusScope {
 
                 if (item.hasOwnProperty("navigationPanel")) {
                     item.navigationPanel = Qt.binding(function() { return root.navigationPanel })
+                }
+
+                if (item.hasOwnProperty("navigationRow")) {
+                    item.navigationRow = Qt.binding(function() { return root.navigationRow })
                 }
             }
         }

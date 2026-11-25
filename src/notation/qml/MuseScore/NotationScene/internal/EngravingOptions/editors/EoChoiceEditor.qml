@@ -60,7 +60,9 @@ Loader {
             segmentWidth: EoMusic.segmentWidthFor(root.option.choices)
 
             navigationPanel: root.navigationPanel
-            navigationOrderStart: root.navigationRow * 100
+            navigationRow: root.navigationRow
+            navigationOrderStart: root.navigationColumn
+            navigationNamePrefix: "Value_" + root.option.sid
 
             onActivated: function(value) {
                 root.styleItem.value = value

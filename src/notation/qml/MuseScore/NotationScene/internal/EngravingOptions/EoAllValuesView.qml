@@ -169,6 +169,7 @@ Item {
         delegate: Item {
             id: valueLine
 
+            readonly property bool isEoRevealItem: true
             readonly property string name: modelData
             readonly property var styleItem: root.optionsModel.item(name)
             readonly property string kind: root.optionsModel.valueKind(name)

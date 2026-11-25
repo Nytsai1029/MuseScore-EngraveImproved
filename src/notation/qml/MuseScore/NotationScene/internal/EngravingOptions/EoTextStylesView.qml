@@ -290,6 +290,15 @@ Item {
 
     // ----- the text styles -----
 
+    NavigationPanel {
+        id: styleNavPanel
+        name: "EngravingOptionsTextStyles"
+        section: Boolean(root.navigationPanel) ? root.navigationPanel.section : null
+        order: 2
+        direction: NavigationPanel.Vertical
+        accessible.name: qsTrc("EditStyleBase", "Text styles")
+    }
+
     StyledFlickable {
         id: styleList
 
@@ -358,7 +367,7 @@ Item {
                         color: styleLine.isCurrent ? AtStyle.text : AtStyle.text2
                     }
 
-                    navigation.panel: root.navigationPanel
+                    navigation.panel: styleNavPanel
                     navigation.row: index
                     navigation.column: 0
                     navigation.name: "TextStyle_" + modelData.code
@@ -432,8 +441,8 @@ Item {
                     textFont: AtStyle.font(12, Font.Medium)
 
                     navigation.panel: root.navigationPanel
-                    navigation.row: 1000
-                    navigation.column: 2
+                    navigation.row: 10
+                    navigation.column: 1
                     navigation.name: "ResetTextStyle"
 
                     onClicked: {
@@ -464,7 +473,7 @@ Item {
                     optionsModel: root.optionsModel
 
                     navigationPanel: root.navigationPanel
-                    navigationRow: 1001 + index * 20
+                    navigationRow: 20 + index * 50
                 }
             }
         }

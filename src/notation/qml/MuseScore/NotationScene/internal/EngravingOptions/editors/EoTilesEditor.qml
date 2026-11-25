@@ -84,7 +84,7 @@ Flow {
                 name: "Value_" + root.option.sid + "_" + model.index
                 panel: root.navigationPanel
                 row: root.navigationRow
-                column: root.navigationColumn + 9 + model.index
+                column: root.navigationColumn + model.index
                 enabled: root.enabled && root.visible
 
                 accessible.role: MUAccessible.RadioButton

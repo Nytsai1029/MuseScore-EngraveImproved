@@ -59,6 +59,7 @@
 #include "view/editgridsizedialogmodel.h"
 #include "view/engravemodemodel.h"
 #include "view/engravingoptions/engravingoptionsmodel.h"
+#include "view/engravingoptions/engravingoptionsnavigation.h"
 #include "view/engravingoptions/engravingoptionsstate.h"
 #include "view/engravingoptions/engravingpreview.h"
 #include "view/pagethumbnailview.h"
@@ -227,6 +228,7 @@ void NotationModule::registerUiTypes()
     qmlRegisterType<EditGridSizeDialogModel>("MuseScore.NotationScene", 1, 0, "EditGridSizeDialogModel");
     qmlRegisterType<EngraveModeModel>("MuseScore.NotationScene", 1, 0, "EngraveModeModel");
     qmlRegisterType<EngravingOptionsModel>("MuseScore.NotationScene", 1, 0, "EngravingOptionsModel");
+    qmlRegisterType<EngravingOptionsNavigation>("MuseScore.NotationScene", 1, 0, "EngravingOptionsNavigation");
     qmlRegisterType<EngravingOptionsState>("MuseScore.NotationScene", 1, 0, "EngravingOptionsDialogState");
     qmlRegisterType<EngravingPreview>("MuseScore.NotationScene", 1, 0, "EngravingPreview");
     qmlRegisterType<PageThumbnailView>("MuseScore.NotationScene", 1, 0, "PageThumbnailView");

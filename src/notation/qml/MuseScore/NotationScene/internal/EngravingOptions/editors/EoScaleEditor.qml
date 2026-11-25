@@ -98,7 +98,7 @@ Item {
 
         dimension: "width"
 
-        navigation.column: root.navigationColumn + 9
+        navigation.column: root.navigationColumn
         navigation.accessible.name: root.plainTitle + " " + qsTrc("notation/engravingoptions", "Width")
     }
 
@@ -121,7 +121,7 @@ Item {
 
         navigation.panel: root.navigationPanel
         navigation.row: root.navigationRow
-        navigation.column: root.navigationColumn + 10
+        navigation.column: root.navigationColumn + 1
         navigation.name: "Lock_" + root.option.sid
         navigation.accessible.name: root.plainTitle + ": " + toolTipTitle
 
@@ -145,7 +145,7 @@ Item {
 
         dimension: "height"
 
-        navigation.column: root.navigationColumn + 11
+        navigation.column: root.navigationColumn + 2
         navigation.accessible.name: root.plainTitle + " " + qsTrc("notation/engravingoptions", "Height")
     }
 }

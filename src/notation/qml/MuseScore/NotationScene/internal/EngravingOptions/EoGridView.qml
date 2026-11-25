@@ -381,6 +381,7 @@ FocusScope {
                                 delegate: FocusScope {
                                     id: cellItem
 
+                                    readonly property bool isEoOptionHost: true
                                     readonly property var cell: root.cellAt(rowIndex, index)
                                     readonly property int cellRow: rowIndex
                                     readonly property int cellColumn: index
@@ -401,6 +402,10 @@ FocusScope {
                                         if (hasCell && isShown && Boolean(root.session)) {
                                             root.session.activate(cell, root.section, root.page)
                                         }
+                                    }
+
+                                    function activate() {
+                                        activateCell()
                                     }
 
                                     onActiveFocusChanged: {
@@ -442,7 +447,7 @@ FocusScope {
                                         session: root.session
                                         navigationPanel: root.navigationPanel
                                         navigationRow: cellItem.cellNavRow
-                                        navigationColumn: 1 + 2 * cellItem.cellColumn
+                                        navigationColumn: 1 + 10 * cellItem.cellColumn
                                         compact: true
 
                                         musicInfo: cellItem.hasCell ? EoMusic.musicInfoOf(cellItem.cell, root.section,
@@ -478,7 +483,7 @@ FocusScope {
                                             name: "Reset_" + (cellItem.hasCell ? cellItem.cell.sid : "")
                                             panel: root.navigationPanel
                                             row: cellItem.cellNavRow
-                                            column: 2 + 2 * cellItem.cellColumn
+                                            column: 9 + 10 * cellItem.cellColumn
                                             enabled: parent.visible && cellItem.isShown
 
                                             accessible.role: MUAccessible.Button

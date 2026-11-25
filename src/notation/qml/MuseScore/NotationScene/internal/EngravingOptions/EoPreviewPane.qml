@@ -192,7 +192,7 @@ Item {
                         checked: root.dialogState.showsHandles
 
                         navigation.panel: root.navigationPanel
-                        navigation.row: 900000
+                        navigation.row: 90000000
                         navigation.column: 1
                         navigation.name: "ShowHandles"
                         navigation.accessible.name: handlesLabel.text
@@ -229,7 +229,7 @@ Item {
                         toolTipTitle: qsTrc("notation", "Zoom out")
 
                         navigation.panel: root.navigationPanel
-                        navigation.row: 900000
+                        navigation.row: 90000000
                         navigation.column: 2
                         navigation.name: "PreviewZoomOut"
 
@@ -257,7 +257,7 @@ Item {
                         toolTipTitle: qsTrc("notation", "Zoom in")
 
                         navigation.panel: root.navigationPanel
-                        navigation.row: 900000
+                        navigation.row: 90000000
                         navigation.column: 3
                         navigation.name: "PreviewZoomIn"
 
@@ -286,7 +286,7 @@ Item {
                 textFont: AtStyle.font(12, Font.Medium)
 
                 navigation.panel: root.navigationPanel
-                navigation.row: 900050
+                navigation.row: 90000050
                 navigation.column: 1
                 navigation.name: "PreviewCompare"
 
@@ -340,7 +340,9 @@ Item {
                         segmentWidth: parent.contextSegmentWidth
 
                         navigationPanel: root.navigationPanel
-                        navigationOrderStart: 900100 + index * 10
+                        navigationRow: 90000100 + index * 10
+                        navigationOrderStart: 1
+                        navigationNamePrefix: "Context_" + index
 
                         onActivated: function(value) {
                             modelData.value = value
@@ -365,7 +367,8 @@ Item {
                         }
 
                         navigation.panel: root.navigationPanel
-                        navigation.row: 900100 + index * 10
+                        navigation.row: 90000100 + index * 10
+                        navigation.column: 1
                         navigation.name: "Context_" + modelData.value
 
                         onActivated: function(index, value) {

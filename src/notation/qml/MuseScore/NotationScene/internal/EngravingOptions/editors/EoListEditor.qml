@@ -55,8 +55,8 @@ Column {
             checked: modelData.value === root.styleItem.value
 
             navigation.panel: root.navigationPanel
-            navigation.row: root.navigationRow
-            navigation.column: root.navigationColumn + 9 + model.index
+            navigation.row: root.navigationRow + model.index
+            navigation.column: root.navigationColumn
             navigation.name: "Value_" + root.option.sid + "_" + model.index
 
             onToggled: {

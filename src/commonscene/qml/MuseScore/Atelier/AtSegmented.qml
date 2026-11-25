@@ -37,7 +37,9 @@ Rectangle {
     property real segmentRadius: 7
 
     property NavigationPanel navigationPanel: null
+    property int navigationRow: -1
     property int navigationOrderStart: 0
+    property string navigationNamePrefix: "Segment"
 
     signal activated(var value)
 
@@ -74,10 +76,11 @@ Rectangle {
                 NavigationControl {
                     id: navCtrl
 
-                    name: "Segment_" + modelData.value
+                    name: root.navigationNamePrefix + "_" + modelData.value
                     panel: root.navigationPanel
+                    row: root.navigationRow
                     order: root.navigationOrderStart + model.index
-                    enabled: segment.isEnabled && root.visible
+                    enabled: segment.isEnabled && root.enabled && root.visible
 
                     accessible.role: MUAccessible.RadioButton
                     accessible.name: modelData.title

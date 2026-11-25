@@ -131,7 +131,7 @@ StyledFlickable {
                         modifiedOnly: root.modifiedOnly
 
                         navigationPanel: root.navigationPanel
-                        navigationRowStart: (pageItem.pageIndex + 1) * 100000
+                        navigationRowStart: (pageItem.pageIndex + 1) * 500000
                     }
                 }
             }

@@ -76,7 +76,7 @@ Row {
 
                 navigation.panel: root.navigationPanel
                 navigation.row: root.navigationRow
-                navigation.column: root.navigationColumn + 9 + index
+                navigation.column: root.navigationColumn + index
                 navigation.name: "Value_" + root.option.sid + "_" + axis
                 navigation.accessible.name: EoTitles.plain(root.option.fullTitle) + " " + axis.toUpperCase()
 

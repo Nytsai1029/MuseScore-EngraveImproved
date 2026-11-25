@@ -56,8 +56,16 @@ EoPage {
 
             component: AtSwitch {
                 property var optionsModel: null
+                property NavigationPanel navigationPanel: null
+                property int navigationRow: 0
 
                 checked: Boolean(optionsModel) && optionsModel.loadsFontDefaults
+
+                navigation.panel: navigationPanel
+                navigation.row: navigationRow
+                navigation.column: 1
+                navigation.name: "LoadsFontDefaults"
+                navigation.accessible.name: qsTrc("EditStyleBase", "Automatically load style settings based on font")
 
                 onToggled: {
                     optionsModel.loadsFontDefaults = !optionsModel.loadsFontDefaults

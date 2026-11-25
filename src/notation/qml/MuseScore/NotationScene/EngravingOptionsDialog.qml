@@ -177,6 +177,28 @@ StyledDialogView {
         eoModel.reject()
     }
 
+    //! NOTE: the enclosing option row or grid cell which owns a focused control, so the preview pane follows
+    //! keyboard focus across every editor type
+    function optionHostOf(item) {
+        for (var current = item; Boolean(current); current = current.parent) {
+            if (current.isEoOptionHost) {
+                return current
+            }
+        }
+        return null
+    }
+
+    //! NOTE: the enclosing row to bring into view when the focused control is not inside an option host
+    //! (e.g. a line of AllValuesView)
+    function revealItemOf(item) {
+        for (var current = item; Boolean(current); current = current.parent) {
+            if (current.isEoRevealItem) {
+                return current
+            }
+        }
+        return item
+    }
+
     EngravingOptionsModel {
         id: eoModel
     }
@@ -188,6 +210,20 @@ StyledDialogView {
     //! NOTE: how the dialog was left — its page, its handle switch and the widths of its side columns
     EngravingOptionsDialogState {
         id: dialogState
+    }
+
+    EngravingOptionsNavigation {
+        id: dialogNav
+
+        section: root.navigationSection
+
+        onControlActivated: function(item, highlighted) {
+            var host = root.optionHostOf(item)
+            if (Boolean(host)) {
+                host.activate()
+            }
+            dialogNav.ensureVisible(item, host || root.revealItemOf(item), highlighted)
+        }
     }
 
     EoPages {
@@ -211,7 +247,7 @@ StyledDialogView {
         id: pageNavPanel
         name: "EngravingOptionsPage"
         section: root.navigationSection
-        order: 2
+        order: 3
         direction: NavigationPanel.Both
         accessible.name: root.isFiltered ? resultsTitle.text : root.currentPage.title
     }
@@ -220,7 +256,7 @@ StyledDialogView {
         id: buttonsNavPanel
         name: "EngravingOptionsButtons"
         section: root.navigationSection
-        order: 3
+        order: 4
         direction: NavigationPanel.Horizontal
         accessible.name: qsTrc("notation/engravingoptions", "Dialog buttons")
     }
@@ -348,7 +384,7 @@ StyledDialogView {
 
                 navigation.panel: pageNavPanel
                 navigation.row: 0
-                navigation.column: 1000
+                navigation.column: 1
                 navigation.name: "ResetPage"
 
                 onClicked: {

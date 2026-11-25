@@ -49,7 +49,7 @@ Column {
     property NavigationPanel navigationPanel: null
 
     //! NOTE: the rows of the navigation panel which the page has to itself begin here
-    property int navigationRowStart: 0
+    property int navigationRowStart: 10
 
     readonly property bool isFiltered: searchWords.length > 0 || modifiedOnly
 
@@ -85,7 +85,7 @@ Column {
 
             readonly property var section: modelData
             readonly property int sectionIndex: index
-            readonly property int navigationRowStart: root.navigationRowStart + sectionIndex * 1000
+            readonly property int navigationRowStart: root.navigationRowStart + sectionIndex * 5000
 
             readonly property var sids: EoFilter.sectionSids(section)
 
@@ -170,7 +170,7 @@ Column {
 
                     navigation.panel: root.navigationPanel
                     navigation.row: sectionItem.navigationRowStart
-                    navigation.column: 2
+                    navigation.column: 1
                     navigation.name: "ResetSection_" + root.page.code + "_" + sectionItem.sectionIndex
 
                     onClicked: {
@@ -239,7 +239,7 @@ Column {
                             optionsModel: root.optionsModel
 
                             navigationPanel: root.navigationPanel
-                            navigationRow: sectionItem.navigationRowStart + optionLoader.optionIndex * 20 + 1
+                            navigationRow: sectionItem.navigationRowStart + optionLoader.optionIndex * 50 + 1
                         }
                     }
 
@@ -257,7 +257,7 @@ Column {
                             modifiedOnly: root.modifiedOnly
 
                             navigationPanel: root.navigationPanel
-                            navigationRow: sectionItem.navigationRowStart + optionLoader.optionIndex * 20 + 1
+                            navigationRow: sectionItem.navigationRowStart + optionLoader.optionIndex * 50 + 1
                         }
                     }
                 }
