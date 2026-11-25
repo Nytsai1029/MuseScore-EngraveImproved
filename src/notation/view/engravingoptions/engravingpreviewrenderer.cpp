@@ -23,9 +23,11 @@
 
 #include <algorithm>
 #include <cmath>
+#include <map>
 #include <optional>
 #include <QImage>
 #include <tuple>
+#include <unordered_map>
 
 #include "io/buffer.h"
 
@@ -37,11 +39,13 @@
 #include "engraving/dom/slurtie.h"
 #include "engraving/dom/staff.h"
 #include "engraving/dom/stafftype.h"
+#include "engraving/dom/system.h"
 #include "engraving/dom/timesig.h"
 #include "engraving/iengravingfontsprovider.h"
 #include "engraving/infrastructure/localfileinfoprovider.h"
 #include "engraving/infrastructure/mscreader.h"
 #include "engraving/rw/mscloader.h"
+#include "engraving/style/textstyle.h"
 #include "engraving/types/types.h"
 
 #include "linkedstylevalues.h"
@@ -387,37 +391,79 @@ QImage EngravingPreviewRenderer::picture(double pixelsPerStaffSpace, double devi
 namespace {
 struct ItemCollector {
     muse::PointF origin;
+    const std::unordered_map<const System*, int>* systems = nullptr;
     std::vector<EngravingPreviewRenderer::Item>* items = nullptr;
 };
 
 //! NOTE Pixels of a staff space of the pictures which are compared
 constexpr double COMPARED_PIXELS_PER_STAFF_SPACE = 8.0;
 
-//! The part of two pictures, in staff spaces, in which they differ; nothing if they are the same
-std::optional<muse::RectF> differingPart(const QImage& a, const QImage& b)
+//! NOTE Differing pixels closer than this (in staff spaces) belong to the same wash: keeps the words of a header or
+//! the dashes of a line in one wash, while leaving headers on different pages or opposite margins separate
+constexpr double DIFFERING_CLUSTER_GAP_SP = 1.5;
+
+//! The parts of two pictures, in staff spaces, in which they differ; empty if they are the same
+std::vector<muse::RectF> differingParts(const QImage& a, const QImage& b)
 {
     if (a.size() != b.size()) {
-        return muse::RectF(0.0, 0.0, a.width() / COMPARED_PIXELS_PER_STAFF_SPACE,
-                           a.height() / COMPARED_PIXELS_PER_STAFF_SPACE);
+        return { muse::RectF(0.0, 0.0, a.width() / COMPARED_PIXELS_PER_STAFF_SPACE,
+                             a.height() / COMPARED_PIXELS_PER_STAFF_SPACE) };
     }
 
-    QRect box;
-    for (int y = 0; y < a.height(); ++y) {
-        for (int x = 0; x < a.width(); ++x) {
-            const QRgb p = a.pixel(x, y);
-            const QRgb q = b.pixel(x, y);
-            if (std::abs(qAlpha(p) - qAlpha(q)) > 16 || std::abs(qRed(p) - qRed(q)) > 16) {
-                box = box.isNull() ? QRect(x, y, 1, 1) : box.united(QRect(x, y, 1, 1));
+    const int gap = static_cast<int>(std::ceil(DIFFERING_CLUSTER_GAP_SP * COMPARED_PIXELS_PER_STAFF_SPACE));
+    std::vector<QRect> clusters;
+
+    const auto mergeRun = [&clusters, gap](const QRect& run) {
+        QRect merged = run;
+        size_t write = 0;
+        for (size_t read = 0; read < clusters.size(); ++read) {
+            if (clusters[read].adjusted(-gap, -gap, gap, gap).intersects(merged)) {
+                merged = merged.united(clusters[read]);
+            } else {
+                clusters[write++] = clusters[read];
             }
+        }
+        clusters.resize(write);
+        clusters.push_back(merged);
+    };
+
+    for (int y = 0; y < a.height(); ++y) {
+        const QRgb* rowA = reinterpret_cast<const QRgb*>(a.constScanLine(y));
+        const QRgb* rowB = reinterpret_cast<const QRgb*>(b.constScanLine(y));
+        int runStart = -1;
+        int runEnd = -1;
+        for (int x = 0; x < a.width(); ++x) {
+            const QRgb p = rowA[x];
+            const QRgb q = rowB[x];
+            if (std::abs(qAlpha(p) - qAlpha(q)) <= 16 && std::abs(qRed(p) - qRed(q)) <= 16) {
+                continue;
+            }
+            if (runStart < 0) {
+                runStart = x;
+                runEnd = x;
+            } else if (x - runEnd <= gap) {
+                runEnd = x;
+            } else {
+                mergeRun(QRect(runStart, y, runEnd - runStart + 1, 1));
+                runStart = x;
+                runEnd = x;
+            }
+        }
+        if (runStart >= 0) {
+            mergeRun(QRect(runStart, y, runEnd - runStart + 1, 1));
         }
     }
 
-    if (box.isNull()) {
-        return std::nullopt;
+    std::vector<muse::RectF> result;
+    result.reserve(clusters.size());
+    for (const QRect& box : clusters) {
+        result.emplace_back(box.x() / COMPARED_PIXELS_PER_STAFF_SPACE,
+                            box.y() / COMPARED_PIXELS_PER_STAFF_SPACE,
+                            box.width() / COMPARED_PIXELS_PER_STAFF_SPACE,
+                            box.height() / COMPARED_PIXELS_PER_STAFF_SPACE);
     }
 
-    return muse::RectF(box.x() / COMPARED_PIXELS_PER_STAFF_SPACE, box.y() / COMPARED_PIXELS_PER_STAFF_SPACE,
-                       box.width() / COMPARED_PIXELS_PER_STAFF_SPACE, box.height() / COMPARED_PIXELS_PER_STAFF_SPACE);
+    return result;
 }
 
 muse::RectF inStaffSpaces(const muse::RectF& rect, const muse::PointF& origin, double spatium)
@@ -464,6 +510,14 @@ void collectItem(void* data, EngravingItem* item)
     result.type = item->type();
     result.track = item->track() == muse::nidx ? -1 : static_cast<int>(item->track());
     result.tick = tickOf(item);
+    if (collector->systems) {
+        if (const EngravingItem* systemItem = item->findAncestor(ElementType::SYSTEM)) {
+            const auto it = collector->systems->find(toSystem(systemItem));
+            if (it != collector->systems->end()) {
+                result.system = it->second;
+            }
+        }
+    }
     result.box = inStaffSpaces(item->ldata()->bbox().translated(item->pagePos()), origin, spatium);
     result.curve = curveOf(item, origin, spatium);
 
@@ -592,8 +646,13 @@ std::vector<EngravingPreviewRenderer::Item> EngravingPreviewRenderer::items() co
     }
 
     //! NOTE The items of every page shown, from the top left corner of the picture
+    std::unordered_map<const System*, int> systemIndices;
+    int nextSystem = 0;
     for (Page* page : m_score->pages()) {
-        ItemCollector collector { pictureRect().topLeft() - page->pos(), &result };
+        for (const System* system : page->systems()) {
+            systemIndices[system] = nextSystem++;
+        }
+        ItemCollector collector { pictureRect().topLeft() - page->pos(), &systemIndices, &result };
         page->scanElements(&collector, collectItem, false);
         if (!m_showsPage) {
             break;
@@ -665,19 +724,16 @@ EngravingPreviewRenderer::MarkedChanges EngravingPreviewRenderer::markedChanges(
         }
     }
 
-    //! NOTE The order in which the items follow each other on their staff, in the layout as it is:
-    //! the predecessor of an item is the item nearest to its left
+    //! NOTE The order in which the items follow each other on their staff in their system, in the layout as it is:
+    //! the predecessor of an item is the item nearest to its left on the same staff and system
     std::vector<int> predecessorOf(before.size(), -1);
     {
-        std::vector<std::vector<size_t> > groups;
+        std::map<std::pair<int, int>, std::vector<size_t> > groups;
         for (size_t b = 0; b < before.size(); ++b) {
-            const size_t at = static_cast<size_t>(staffGroupOf(before[b].track) + 1);
-            if (groups.size() <= at) {
-                groups.resize(at + 1);
-            }
-            groups[at].push_back(b);
+            groups[{ before[b].system, staffGroupOf(before[b].track) }].push_back(b);
         }
-        for (std::vector<size_t>& group : groups) {
+        for (auto& [key, group] : groups) {
+            UNUSED(key);
             std::stable_sort(group.begin(), group.end(), [&before](size_t a, size_t b) {
                 return before[a].box.left() < before[b].box.left();
             });
@@ -800,12 +856,11 @@ EngravingPreviewRenderer::Effect EngravingPreviewRenderer::effectOf(const MStyle
         noteChange(pair.first, pair.second, effect, largest);
     }
 
-    //! NOTE A value which only the painting uses (a line of dashes, a thickness) moves no box: it is the picture
-    //! which differs
+    //! NOTE A value which only the painting uses (a line of dashes, a thickness, a page header/footer) moves no box:
+    //! it is the picture which differs
     if (effect.changed.empty()) {
-        const std::optional<muse::RectF> differing = differingPart(pictureBefore, pictureAfter);
-        if (differing) {
-            effect.changed.push_back(*differing);
+        for (const muse::RectF& box : differingParts(pictureBefore, pictureAfter)) {
+            effect.changed.push_back(box);
         }
     }
 
@@ -850,9 +905,24 @@ std::optional<PropertyValue> EngravingPreviewRenderer::probeOf(const MStyle& sty
     }
     case P_TYPE::SPATIUM:
         return PropertyValue(Spatium(step(current.value<Spatium>().val(), PROBE_AMOUNT)));
+    case P_TYPE::POINT: {
+        const muse::PointF point = current.value<muse::PointF>();
+        const double y = point.y() < 0.0 ? point.y() - PROBE_AMOUNT : step(point.y(), PROBE_AMOUNT);
+        return PropertyValue(muse::PointF(step(point.x(), PROBE_AMOUNT), y));
+    }
     case P_TYPE::SCALE: {
         const ScaleF scale = current.value<ScaleF>();
         return PropertyValue(ScaleF(step(scale.width(), PROBE_AMOUNT), step(scale.height(), PROBE_AMOUNT)));
+    }
+    case P_TYPE::TEXT_STYLE: {
+        const std::vector<TextStyleType>& styles = allTextStyles();
+        if (styles.size() < 2) {
+            return std::nullopt;
+        }
+        const TextStyleType currentStyle = current.value<TextStyleType>();
+        const auto it = std::find(styles.begin(), styles.end(), currentStyle);
+        const size_t next = it == styles.end() ? 0 : (static_cast<size_t>(it - styles.begin()) + 1) % styles.size();
+        return PropertyValue(styles[next]);
     }
     default:
         return std::nullopt;

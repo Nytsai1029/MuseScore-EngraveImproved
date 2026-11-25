@@ -29,13 +29,31 @@
 
 using namespace mu::notation;
 
-static constexpr double WASH_OPACITY = 0.22;
+static constexpr double WASH_OPACITY = 0.26;
+static constexpr double WASH_GROWTH = 0.20;
+static constexpr double WASH_MIN_SIZE = 0.85;
 static constexpr double WASH_RADIUS = 3.0;
 static constexpr double HANDLE_RADIUS = 4.5;
 static constexpr double HANDLE_RING = 1.5;
 static constexpr double HANDLE_LINE = 16.0;
 static constexpr double ARROW_HEAD = 4.5;
 static constexpr double CONTROL_POINT_SIZE = 4.0;
+
+QRectF PreviewOverlay::washRectFor(const QRectF& itemRect, double pixelsPerStaffSpace)
+{
+    const double growth = WASH_GROWTH * pixelsPerStaffSpace;
+    const double minSize = WASH_MIN_SIZE * pixelsPerStaffSpace;
+    QRectF rect = itemRect.adjusted(-growth, -growth, growth, growth);
+    if (rect.width() < minSize) {
+        const double pad = (minSize - rect.width()) * 0.5;
+        rect.adjust(-pad, 0.0, pad, 0.0);
+    }
+    if (rect.height() < minSize) {
+        const double pad = (minSize - rect.height()) * 0.5;
+        rect.adjust(0.0, -pad, 0.0, pad);
+    }
+    return rect;
+}
 
 void PreviewOverlay::paintBelow(QPainter* painter) const
 {

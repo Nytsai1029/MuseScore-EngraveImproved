@@ -56,8 +56,8 @@ Item {
     readonly property var styleItem: Boolean(option) ? optionsModel.item(option.sid) : null
     readonly property string valueKind: Boolean(option) ? optionsModel.valueKind(option.sid) : ""
 
-    //! NOTE: a switch, a distance or a number changes the picture in a way which can be seen and dragged
-    readonly property bool isShownByEffect: ["spatium", "real", "int", "bool"].indexOf(valueKind) >= 0
+    //! NOTE: a switch, a distance, an offset or a number changes the picture in a way which can be seen
+    readonly property bool isShownByEffect: ["spatium", "real", "int", "bool", "point"].indexOf(valueKind) >= 0
 
     //! NOTE: the zoom of the picture is the scale of the user times the fit of the picture to the paper
     //! (so that 100 % always fills the room inside it). Music is not made smaller than readable nor larger than
@@ -139,8 +139,7 @@ Item {
 
                 activeSid: Boolean(root.option) ? root.option.sid : ""
                 probeValue: EoMusic.probeValueOf(root.option, root.styleItem)
-                //! NOTE: a point (an offset, of which the option is the x or the y) is not dragged: the probe
-                //! of a point has nothing to move it with, so it has no effect and no handle anyway
+                //! NOTE: a point (an offset, of which an option may edit x and y or one axis) is washed, not dragged
                 isDraggable: Boolean(root.option) && root.option.kind === "number" && !root.option.axis
                 showsHandles: root.dialogState.showsHandles
 

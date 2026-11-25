@@ -198,3 +198,19 @@ TEST(Notation_PreviewOverlayTests, controlPointsAreSquaresOfTheAccent)
         EXPECT_TRUE(isAccent(image.pixelColor(point.toPoint()))) << point.x() << "," << point.y();
     }
 }
+
+/**
+ * @TEST_CASE washRectForKeepsSmallMarksReadable
+ * @details A tiny mark (a staccato dot, a barline) gets a wash at least large enough to see, centred on it
+ */
+TEST(Notation_PreviewOverlayTests, washRectForKeepsSmallMarksReadable)
+{
+    const double pixelsPerSp = 10.0;
+    const QRectF dot(50.0, 40.0, 2.0, 2.0);
+    const QRectF wash = PreviewOverlay::washRectFor(dot, pixelsPerSp);
+
+    EXPECT_GE(wash.width(), 8.0);
+    EXPECT_GE(wash.height(), 8.0);
+    EXPECT_NEAR(wash.center().x(), dot.center().x(), 0.01);
+    EXPECT_NEAR(wash.center().y(), dot.center().y(), 0.01);
+}

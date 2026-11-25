@@ -55,9 +55,6 @@ static constexpr double BASE_STAFF_SPACE = 7.0;
 //! NOTE The hairline around each page of a picture of the pages
 static const QColor PAGE_EDGE_COLOR(0, 0, 0, 56);
 
-//! NOTE How far the washes reach beyond the boxes of the items they are behind, in staff spaces
-static constexpr double WASH_GROWTH = 0.15;
-
 namespace mu::notation {
 //! NOTE A dialog page has many pictures, and a change of the style makes all of them out of date at once.
 //! They are made again one by one, each in a turn of the event loop of its own, so that the interface
@@ -711,10 +708,9 @@ PreviewOverlay EngravingPreview::overlay()
     const double pixels = pixelsPerStaffSpace();
 
     if (m_showsHandles && !m_activeSid.isEmpty()) {
-        const double growth = WASH_GROWTH * pixels;
         for (const muse::RectF& box : m_effect.changed) {
             const QRectF rect(toItem(box.topLeft()), QSizeF(box.width() * pixels, box.height() * pixels));
-            result.washes.push_back(rect.adjusted(-growth, -growth, growth, growth));
+            result.washes.push_back(PreviewOverlay::washRectFor(rect, pixels));
         }
     }
 

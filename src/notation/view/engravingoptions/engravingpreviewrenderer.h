@@ -69,6 +69,7 @@ public:
         engraving::ElementType type = engraving::ElementType::INVALID;
         int track = -1;     // -1 where the item has none
         int tick = -1;
+        int system = -1;    // index of the system the item stands on; -1 if outside any system
         muse::RectF box;    // in staff spaces, from the top left corner of the picture
         std::vector<muse::PointF> curve;    // of a slur or tie: start, bezier 1, bezier 2, end; else empty
     };

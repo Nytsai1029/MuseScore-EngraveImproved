@@ -1026,8 +1026,10 @@ TEST_F(Notation_EngravingPreviewTests, previewShowsWhatTheOptionDoes)
                 const StyleId id = MStyle::styleIdx(muse::String::fromQString(sid));
                 const std::vector<EngravingPreviewRenderer::Override> overrides
                     = musicStyleOf(option, grid, section, page);
+                const std::optional<PropertyValue> choiceProbe
+                    = option.type == "EoChoice" ? choiceProbeOf(option, style, overrides, id) : std::nullopt;
                 const std::optional<PropertyValue> probe
-                    = option.type == "EoChoice" ? choiceProbeOf(option, style, overrides, id)
+                    = choiceProbe ? choiceProbe
                       : option.type == "EoText" ? std::optional<PropertyValue>(textProbeOf(style, overrides, id))
                       : EngravingPreviewRenderer::probeOf(style, overrides, id, dragMaximumOf(option));
                 if (!probe) {
@@ -1266,4 +1268,114 @@ TEST_F(Notation_EngravingPreviewTests, activePreviewStyleOptionFollowsTheScore)
 
     EXPECT_GT(stretched->sizeInStaffSpaces().width(), 35.0);
     EXPECT_LT(unstretched->sizeInStaffSpaces().width(), 25.0);
+}
+
+/**
+ * @TEST_CASE aPointOffsetIsProbedWithoutAHandle
+ * @details A two-dimensional offset (P_TYPE::POINT) gets a probe so its preview washes the moved item,
+ *          without creating a one-dimensional drag handle
+ */
+TEST_F(Notation_EngravingPreviewTests, aPointOffsetIsProbedWithoutAHandle)
+{
+    const MStyle style = baseStyle();
+    const std::vector<EngravingPreviewRenderer::Override> overrides = {
+        { Sid::showMeasureNumber, true },
+        { Sid::measureNumberSystem, false },
+        { Sid::measureNumberInterval, 1 }
+    };
+
+    const std::optional<PropertyValue> probe
+        = EngravingPreviewRenderer::probeOf(style, overrides, Sid::measureNumberPosAbove);
+    ASSERT_TRUE(probe.has_value());
+
+    auto renderer = laidOut("c''4 c''4 | c''2 | c''2", style, overrides);
+    ASSERT_TRUE(renderer);
+
+    const EngravingPreviewRenderer::Effect effect
+        = renderer->effectOf(style, overrides, Sid::measureNumberPosAbove, *probe);
+    EXPECT_FALSE(effect.changed.empty());
+    EXPECT_FALSE(effect.hasHandle);
+    EXPECT_TRUE(marksOnly(*renderer, effect, ElementType::MEASURE_NUMBER));
+}
+
+/**
+ * @TEST_CASE aTextStyleChoiceIsProbed
+ * @details A TextStyleType style value gets a probe so its preview washes the text it styles
+ */
+TEST_F(Notation_EngravingPreviewTests, aTextStyleChoiceIsProbed)
+{
+    const MStyle style = baseStyle();
+    const std::vector<EngravingPreviewRenderer::Override> overrides = {
+        { Sid::showMeasureNumber, true },
+        { Sid::measureNumberSystem, false },
+        { Sid::measureNumberInterval, 1 }
+    };
+
+    const std::optional<PropertyValue> probe
+        = EngravingPreviewRenderer::probeOf(style, overrides, Sid::measureNumberTextStyle);
+    ASSERT_TRUE(probe.has_value());
+
+    auto renderer = laidOut("c''4 c''4 | c''2 | c''2", style, overrides);
+    ASSERT_TRUE(renderer);
+
+    const EngravingPreviewRenderer::Effect effect
+        = renderer->effectOf(style, overrides, Sid::measureNumberTextStyle, *probe);
+    EXPECT_FALSE(effect.changed.empty());
+    EXPECT_TRUE(marksOnly(*renderer, effect, ElementType::MEASURE_NUMBER));
+}
+
+/**
+ * @TEST_CASE markedChangesSeparatesSystems
+ * @details Horizontal carry-along checks stay within the same system: an item on system 1 does not take an
+ *          unmoved item on system 2 as its predecessor
+ */
+TEST_F(Notation_EngravingPreviewTests, markedChangesSeparatesSystems)
+{
+    const auto item = [](ElementType type, int tick, int system, double x) {
+        EngravingPreviewRenderer::Item i;
+        i.type = type;
+        i.track = 0;
+        i.tick = tick;
+        i.system = system;
+        i.box = muse::RectF(x, system * 10.0, 1.0, 1.0);
+        return i;
+    };
+
+    const std::vector<EngravingPreviewRenderer::Item> before = {
+        item(ElementType::CLEF, 0, 0, 1.0),
+        item(ElementType::CLEF, 1920, 1, 1.5),
+        item(ElementType::NOTE, 0, 0, 3.0),
+    };
+    const std::vector<EngravingPreviewRenderer::Item> after = {
+        item(ElementType::CLEF, 0, 0, 2.0),
+        item(ElementType::CLEF, 1920, 1, 1.5),
+        item(ElementType::NOTE, 0, 0, 4.0),
+    };
+
+    const EngravingPreviewRenderer::MarkedChanges marked = EngravingPreviewRenderer::markedChanges(before, after);
+    ASSERT_EQ(marked.pairs.size(), 1u);
+    EXPECT_EQ(marked.pairs.front().first.type, ElementType::CLEF);
+    EXPECT_EQ(marked.pairs.front().first.system, 0);
+}
+
+/**
+ * @TEST_CASE showHeaderMarksEachPageHeaderSeparately
+ * @details Page headers painted on pages 2 and 3 get separate washes, not one band spanning both pages
+ */
+TEST_F(Notation_EngravingPreviewTests, showHeaderMarksEachPageHeaderSeparately)
+{
+    const MStyle style = baseStyle();
+    auto renderer = laidOut("\\title \"Sonata\" c''1 \\pageBreak c''1 \\pageBreak c''1", style, {}, 0.0, true);
+    ASSERT_TRUE(renderer);
+
+    const std::optional<PropertyValue> probe = EngravingPreviewRenderer::probeOf(style, {}, Sid::showHeader);
+    ASSERT_TRUE(probe.has_value());
+
+    const EngravingPreviewRenderer::Effect effect = renderer->effectOf(style, {}, Sid::showHeader, *probe);
+    EXPECT_EQ(effect.changed.size(), 2u);
+    const std::vector<muse::RectF> pages = renderer->pagesInStaffSpaces();
+    ASSERT_GE(pages.size(), 3u);
+    for (const muse::RectF& box : effect.changed) {
+        EXPECT_LT(box.width(), pages[1].width() * 0.5);
+    }
 }

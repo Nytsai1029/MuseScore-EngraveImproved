@@ -129,9 +129,7 @@ std::optional<PropertyValue> probeOf(const SourceBlock& option, const MStyle& st
     if (option.type == "EoChoice") {
         const QVariantList values = choiceValuesOf(option);
         if (values.size() < 2) {
-            //! NOTE A choice whose values come from the model (not a literal `choices` list) is not
-            //! probeable from the source: as the pane and the effect test do, it is left unprobed
-            return std::nullopt;
+            return EngravingPreviewRenderer::probeOf(style, overrides, id, dragMaximumOf(option));
         }
 
         const QVariant current = styleValueToUi(id, EngravingPreviewRenderer::valueOf(style, overrides, id));
@@ -196,11 +194,10 @@ Cell cellOf(const QString& sid, const MusicInfo& music, const MStyle& style,
     PreviewOverlay overlay;
     overlay.accent = QColor(0x4A, 0x7D, 0xD9);
     const QPointF offset(CELL_PADDING, CELL_PADDING);
-    const double growth = 0.15 * pixels;
     for (const muse::RectF& box : effect.changed) {
         const QRectF rect(box.left() * pixels + offset.x(), box.top() * pixels + offset.y(),
                           box.width() * pixels, box.height() * pixels);
-        overlay.washes.push_back(rect.adjusted(-growth, -growth, growth, growth));
+        overlay.washes.push_back(PreviewOverlay::washRectFor(rect, pixels));
     }
     if (effect.hasHandle) {
         overlay.handle = PreviewOverlay::Handle {

@@ -49,6 +49,10 @@ public:
 
     QColor accent;
 
+    //! NOTE The wash behind one changed item box (in item pixels): padded around the box and kept large enough
+    //! to read on tiny marks such as staccato dots, tenuto dashes and single barlines
+    static QRectF washRectFor(const QRectF& itemRect, double pixelsPerStaffSpace);
+
     //! NOTE The washes, painted behind the music so that it is not smeared
     void paintBelow(QPainter* painter) const;
     //! NOTE The control polygons and the handle, painted over the music
