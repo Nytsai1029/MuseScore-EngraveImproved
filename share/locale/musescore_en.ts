@@ -11078,13 +11078,12 @@ followed by dashes</translation>
         <translation type="unfinished">Spacers and frames</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="103"/>
         <source>Style</source>
         <translation type="unfinished">Style</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="114"/>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="131"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="111"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="128"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierScorePage.qml" line="83"/>
         <location filename="../../src/appshell/qml/NotationPage/NotationPage.qml" line="330"/>
         <location filename="../../src/appshell_web/qml/NotationFrame.qml" line="65"/>
@@ -11092,12 +11091,12 @@ followed by dashes</translation>
         <translation type="unfinished">Layout</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="140"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="137"/>
         <source>Preview system</source>
         <translation type="unfinished">Preview system</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="148"/>
+        <location filename="../../src/appshell/qml/Atelier/AtelierLayoutPane.qml" line="145"/>
         <source>Shows the systems which are selected whole as they will be printed</source>
         <translation type="unfinished">Shows the systems which are selected whole as they will be printed</translation>
     </message>
@@ -46652,7 +46651,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Size of the musical symbols in the text, as a percentage of their size in the staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoTextStylesView.qml" line="419"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoTextStylesView.qml" line="431"/>
         <source>Reset text style</source>
         <translation type="unfinished">Reset text style</translation>
     </message>

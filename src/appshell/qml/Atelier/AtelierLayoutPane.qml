@@ -54,7 +54,7 @@ Item {
             "system-break", "page-break", "section-break", "toggle-system-lock",
             "insert-vbox", "insert-hbox", "insert-textframe",
             "reset", "reset-beammode", "reset-text-style-overrides", "reset-stretch",
-            "edit-style", "edit-style-classic", "page-settings"
+            "edit-style", "page-settings"
         ]
 
         Component.onCompleted: {
@@ -98,10 +98,7 @@ Item {
         { code: "reset" },
         { code: "reset-beammode" },
         { code: "reset-text-style-overrides" },
-        { code: "reset-stretch" },
-
-        { section: qsTrc("appshell", "Style") },
-        { code: "edit-style-classic" }
+        { code: "reset-stretch" }
     ]
 
     NavigationPanel {

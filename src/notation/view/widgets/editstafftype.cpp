@@ -162,11 +162,10 @@ EditStaffType::EditStaffType(QWidget* parent)
     connect(templateReset,  &QPushButton::clicked, this, &EditStaffType::resetToTemplateClicked);
     connect(addToTemplates, &QPushButton::clicked, this, &EditStaffType::addToTemplatesClicked);
 
+    //! NOTE The style dialog of the skin (Engraving Options in Atelier), with the style of tablature fret numbers
     connect(editTextStyleButton, &QPushButton::clicked, this, [=]() {
-        UriQuery uri("musescore://notation/style");
-        uri.addParam("currentPageCode", Val("text-styles"));
-        uri.addParam("currentSubPageCode", Val("tab-fret-number"));
-        interactive()->open(uri);
+        dispatcher()->dispatch("edit-style", muse::actions::ActionData::make_arg2<QString, QString>("text-styles",
+                                                                                                   "tab-fret-number"));
     });
 
     addToTemplates->setVisible(false);

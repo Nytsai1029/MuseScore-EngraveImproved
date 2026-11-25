@@ -25,6 +25,7 @@
 #include "ui_editstafftype.h"
 
 #include "modularity/ioc.h"
+#include "actions/iactionsdispatcher.h"
 #include "engraving/iengravingconfiguration.h"
 
 #include "engraving/dom/stafftype.h"
@@ -43,7 +44,7 @@ class EditStaffType : public QDialog, private Ui::EditStaffType, public muse::In
     Q_OBJECT
 
     muse::Inject<engraving::IEngravingConfiguration> engravingConfiguration = { this };
-    INJECT(muse::IInteractive, interactive)
+    muse::Inject<muse::actions::IActionsDispatcher> dispatcher = { this };
 
     mu::engraving::StaffType staffType;
 
