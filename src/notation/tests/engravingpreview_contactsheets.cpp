@@ -303,6 +303,8 @@ TEST(Notation_EngravingPreviewContactSheets, DISABLED_ContactSheets)
     const MStyle style = baseStyle();
     const QString pagesDir = QString::fromUtf8(ENGRAVING_OPTIONS_QML_DIR) + "/pages/";
 
+    const QString onlyPage = qEnvironmentVariable("EO_CONTACT_SHEET_PAGE");
+
     for (const QString& fileName : QDir(pagesDir).entryList({ "*Page.qml" }, QDir::Files, QDir::Name)) {
         const SourceBlock page = readPageSource(pagesDir + fileName);
         if (page.type != "EoPage") {
@@ -310,6 +312,9 @@ TEST(Notation_EngravingPreviewContactSheets, DISABLED_ContactSheets)
         }
 
         const QString code = SourceBlock::unquoted(page.property("code").value_or(QString()));
+        if (!onlyPage.isEmpty() && code != onlyPage) {
+            continue;
+        }
         std::vector<Cell> cells;
 
         for (const SourceBlock& section : page.children) {
