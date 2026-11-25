@@ -510,7 +510,7 @@ std::vector<EngravingPreviewRenderer::Override> EngravingPreview::currentOverrid
 
 void EngravingPreview::layoutMusic(const MStyle& style)
 {
-    m_renderer->layout(style, currentOverrides(), m_systemWidth);
+    m_renderer->layout(style, currentOverrides(), m_systemWidth, m_activeStyleId);
 }
 
 //! NOTE Lays the music out, and finds what `activeSid` does to it. The layout is left as the real values have it

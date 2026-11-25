@@ -103,7 +103,8 @@ protected:
     static std::unique_ptr<EngravingPreviewRenderer> laidOut(const QString& music, const MStyle& style,
                                                              const std::vector<EngravingPreviewRenderer::Override>&
                                                              overrides = {},
-                                                             double systemWidthSp = 0.0, bool showsPage = false)
+                                                             double systemWidthSp = 0.0, bool showsPage = false,
+                                                             StyleId keptId = StyleId::NOSTYLE)
     {
         auto renderer = std::make_unique<EngravingPreviewRenderer>(nullptr);
         const muse::Ret ret = renderer->setMusic(music);
@@ -113,7 +114,7 @@ protected:
         }
 
         renderer->setShowsPage(showsPage);
-        renderer->layout(style, overrides, systemWidthSp);
+        renderer->layout(style, overrides, systemWidthSp, keptId);
         return renderer;
     }
 
@@ -1113,7 +1114,9 @@ TEST_F(Notation_EngravingPreviewTests, theMusicOfEveryOptionFitsThePane)
                     continue;
                 }
 
-                auto renderer = laidOut(music, style, musicStyleOf(option, grid, section, page), systemWidth);
+                const StyleId id = MStyle::styleIdx(muse::String::fromQString(sid));
+                auto renderer = laidOut(music, style, musicStyleOf(option, grid, section, page),
+                                        systemWidth, false, id);
                 if (!renderer) {
                     ADD_FAILURE() << name << ": the music of " << sid.toStdString() << " is not valid: "
                                   << music.toStdString();
@@ -1268,4 +1271,26 @@ TEST_F(Notation_EngravingPreviewTests, aMusicWithABreakHasASystemWidth)
             }
         }
     }
+}
+
+/**
+ * @TEST_CASE activePreviewStyleOptionFollowsTheScore
+ * @details Preview style defaults (such as turning off last-system stretching) do not overwrite the option the
+ *          preview is currently showing, so changing that option updates the preview live
+ */
+TEST_F(Notation_EngravingPreviewTests, activePreviewStyleOptionFollowsTheScore)
+{
+    MStyle stretchedStyle = baseStyle();
+    stretchedStyle.set(Sid::lastSystemFillLimit, 0.3);
+
+    MStyle unstretchedStyle = baseStyle();
+    unstretchedStyle.set(Sid::lastSystemFillLimit, 0.8);
+
+    auto stretched = laidOut("c''4 d''4 e''4", stretchedStyle, {}, 38.0, false, Sid::lastSystemFillLimit);
+    auto unstretched = laidOut("c''4 d''4 e''4", unstretchedStyle, {}, 38.0, false, Sid::lastSystemFillLimit);
+    ASSERT_TRUE(stretched);
+    ASSERT_TRUE(unstretched);
+
+    EXPECT_GT(stretched->sizeInStaffSpaces().width(), 35.0);
+    EXPECT_LT(unstretched->sizeInStaffSpaces().width(), 25.0);
 }

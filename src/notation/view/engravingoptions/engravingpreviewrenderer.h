@@ -98,8 +98,10 @@ public:
 
     //! NOTE Lays the music out with the style: the given one without what belongs to a page
     //! (see makePreviewStyle) unless the picture shows the page, then the overrides. The width of the systems is
-    //! given in staff spaces; not positive: each system is as wide as its music needs (a page has its own width)
-    void layout(const engraving::MStyle& style, const std::vector<Override>& overrides, double systemWidthSp = 0.0);
+    //! given in staff spaces; not positive: each system is as wide as its music needs (a page has its own width).
+    //! `keptId` is the style value the preview is showing: makePreviewStyle leaves it as the score has it
+    void layout(const engraving::MStyle& style, const std::vector<Override>& overrides, double systemWidthSp = 0.0,
+                StyleId keptId = StyleId::NOSTYLE);
 
     //! NOTE The size of the laid out music, which is the first page cut down to what is printed on it (the whole
     //! pages if it shows the pages). In staff spaces, so it does not depend on the staff size of the style
@@ -154,9 +156,9 @@ public:
     QImage picture(double pixelsPerStaffSpace, double devicePixelRatio = 1.0) const;
 
     //! NOTE The style of a preview: nothing of a page (size, margins, header, footer), no instrument names,
-    //! no measure numbers, the systems where the music puts them. A preview which shows one of these
-    //! sets it again with an override
-    static void makePreviewStyle(engraving::MStyle& style, double systemWidthSp);
+    //! no measure numbers, the systems where the music puts them. A preview which shows one of these keeps the
+    //! score's own value for `keptId` (or sets it again with an override)
+    static void makePreviewStyle(engraving::MStyle& style, double systemWidthSp, StyleId keptId = StyleId::NOSTYLE);
 
 private:
     //! NOTE The part of the first page which the picture shows: what is printed, plus a margin around it,

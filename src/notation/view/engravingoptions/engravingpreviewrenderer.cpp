@@ -184,7 +184,7 @@ const MasterScore* EngravingPreviewRenderer::score() const
     return m_score.get();
 }
 
-void EngravingPreviewRenderer::makePreviewStyle(MStyle& style, double systemWidthSp)
+void EngravingPreviewRenderer::makePreviewStyle(MStyle& style, double systemWidthSp, StyleId keptId)
 {
     const double systemWidthInch = systemWidthSp > 0.0 ? systemWidthSp * style.spatium() / DPI : PAGE_SIZE_INCH;
 
@@ -200,15 +200,26 @@ void EngravingPreviewRenderer::makePreviewStyle(MStyle& style, double systemWidt
 
     style.set(Sid::showHeader, false);
     style.set(Sid::showFooter, false);
-    style.set(Sid::showMeasureNumber, false);
+    if (keptId != Sid::showMeasureNumber) {
+        style.set(Sid::showMeasureNumber, false);
+    }
 
-    style.set(Sid::enableIndentationOnFirstSystem, false);
-    style.set(Sid::firstSystemInstNameVisibility, static_cast<int>(InstrumentLabelVisibility::HIDE));
-    style.set(Sid::subsSystemInstNameVisibility, static_cast<int>(InstrumentLabelVisibility::HIDE));
+    if (keptId != Sid::enableIndentationOnFirstSystem) {
+        style.set(Sid::enableIndentationOnFirstSystem, false);
+    }
+    if (keptId != Sid::firstSystemInstNameVisibility) {
+        style.set(Sid::firstSystemInstNameVisibility, static_cast<int>(InstrumentLabelVisibility::HIDE));
+    }
+    if (keptId != Sid::subsSystemInstNameVisibility) {
+        style.set(Sid::subsSystemInstNameVisibility, static_cast<int>(InstrumentLabelVisibility::HIDE));
+    }
 
     //! NOTE The systems are neither spread over the height of the page, nor is the last one made as wide as the page
+    //! (unless the preview is showing `lastSystemFillLimit` itself on a system of a given width)
     style.set(Sid::enableVerticalSpread, false);
-    style.set(Sid::lastSystemFillLimit, 1.0);
+    if (keptId != Sid::lastSystemFillLimit || systemWidthSp <= 0.0) {
+        style.set(Sid::lastSystemFillLimit, 1.0);
+    }
 
     //! NOTE The system after a break stands close under the one before: how far apart the systems of a page are is
     //! no part of what a picture of the music shows (the vertical spacing is shown on pages), and so two systems
@@ -222,7 +233,8 @@ void EngravingPreviewRenderer::makePreviewStyle(MStyle& style, double systemWidt
     style.set(Sid::staffUpperBorder, Spatium(FIRST_SYSTEM_TOP));
 }
 
-void EngravingPreviewRenderer::layout(const MStyle& style, const std::vector<Override>& overrides, double systemWidthSp)
+void EngravingPreviewRenderer::layout(const MStyle& style, const std::vector<Override>& overrides,
+                                      double systemWidthSp, StyleId keptId)
 {
     IF_ASSERT_FAILED(isLoaded()) {
         return;
@@ -240,7 +252,7 @@ void EngravingPreviewRenderer::layout(const MStyle& style, const std::vector<Ove
 
     MStyle previewStyle = style;
     if (!m_showsPage) {
-        makePreviewStyle(previewStyle, systemWidthSp);
+        makePreviewStyle(previewStyle, systemWidthSp, keptId);
     }
 
     //! NOTE A value is shown with what choosing it sets too (as a preset of the chord symbols, its file)
@@ -749,20 +761,20 @@ EngravingPreviewRenderer::Effect EngravingPreviewRenderer::effectOf(const MStyle
                                                                     const std::vector<Override>& overrides, StyleId id,
                                                                     const PropertyValue& probe, double systemWidthSp)
 {
-    layout(style, overrides, systemWidthSp);
+    layout(style, overrides, systemWidthSp, id);
     const std::vector<Item> before = items();
     const muse::PointF originBefore = pictureRect().topLeft();
     const QImage pictureBefore = picture(COMPARED_PIXELS_PER_STAFF_SPACE);
 
     std::vector<Override> probed = overrides;
     probed.push_back({ id, probe });
-    layout(style, probed, systemWidthSp);
+    layout(style, probed, systemWidthSp, id);
     std::vector<Item> after = items();
     const muse::PointF originAfter = pictureRect().topLeft();
     const QImage pictureAfter = picture(COMPARED_PIXELS_PER_STAFF_SPACE);
 
     //! NOTE The picture is the one of the real values
-    layout(style, overrides, systemWidthSp);
+    layout(style, overrides, systemWidthSp, id);
 
     //! NOTE The top or left edge of the picture may move with the probe: the origins of the two item
     //! lists differ then, and everything would seem to have moved. The items of the probed layout are

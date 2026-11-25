@@ -180,7 +180,7 @@ Cell cellOf(const QString& sid, const MusicInfo& music, const MStyle& style,
     if (probe) {
         effect = renderer.effectOf(style, overrides, id, *probe, music.systemWidth);
     } else {
-        renderer.layout(style, overrides, music.systemWidth);
+        renderer.layout(style, overrides, music.systemWidth, id);
     }
 
     const double pixels = music.showsPage ? PIXELS_PER_STAFF_SPACE_OF_A_PAGE : PIXELS_PER_STAFF_SPACE;

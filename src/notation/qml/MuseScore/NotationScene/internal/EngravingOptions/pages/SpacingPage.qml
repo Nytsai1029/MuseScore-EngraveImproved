@@ -98,8 +98,8 @@ EoPage {
 
         EoNumber {
             sid: "lastSystemFillLimit"
-            music: "c''4 d'' e'' f''"
-            systemWidth: 36
+            music: "c''4 d''4 e''4"
+            systemWidth: 38
             title: qsTrc("EditStyleBase", "Last system fill threshold:")
             hint: qsTrc("notation/engravingoptions",
                         "The last system of the score, or of a section, is stretched to the right margin only if its " +
