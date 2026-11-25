@@ -117,7 +117,7 @@ EoPage {
 
         EoToggle {
             sid: "useAdaptiveSpacingRatio"
-            music: "c''2 c''4 c''8 c''16 c''16"
+            music: "c''1 | c''2 c''4 c''4"
             title: qsTrc("EditStyleBase", "Vary spacing ratio by note density of each system")
             hint: qsTrc("notation/engravingoptions",
                         "Every system gets its own spacing ratio, between the two set below: a system crowded with " +
@@ -185,7 +185,7 @@ EoPage {
 
         EoToggle {
             sid: "keepEqualDurationSpacing"
-            music: "<< { c''4 c''4 } \\\\ { a'8 a' a' a' } >>"
+            music: "<< { c''4. d''8 c''4. d''8 } \\\\ { e'4 f'4 e'4 f'4 } >>"
             title: qsTrc("EditStyleBase", "Keep equal spacing for equal note values (per system)")
             hint: qsTrc("notation/engravingoptions",
                         "Notes of the same value get the same width everywhere in a system, also where the voices " +
@@ -194,7 +194,7 @@ EoPage {
 
         EoToggle {
             sid: "crossStaffBeamSpacingOffset"
-            music: "\\staves 2 c''8[ \\crossStaff down e'8 c''8 \\crossStaff down e'8]"
+            music: "\\staves 2 c''8[ \\crossStaff down e'8 \\crossStaff off c''8 \\crossStaff down e'8]"
             title: qsTrc("EditStyleBase", "Offset spacing of cross-staff beamed notes")
             hint: qsTrc("notation/engravingoptions",
                         "Under a beam which crosses between staves, a stem-up note followed by a stem-down note is " +
@@ -228,7 +228,9 @@ EoPage {
 
         EoNumber {
             sid: "systemHeaderMinStartOfSystemDistance"
-            music: "c''4 d''4"
+            music: "c''1 \\break c''4 d''4 e''4 f''4"
+            systemWidth: 16
+            musicStyle: ({ genClef: false })
             title: qsTrc("EditStyleBase", "Start of the system to first note:")
             hint: qsTrc("notation/engravingoptions",
                         "The first note stands at least this far from the left end of the staff; it shows where a " +
@@ -260,8 +262,7 @@ EoPage {
 
         EoNumber {
             sid: "barlineToLineStartDistance"
-            music: "c''2~ | \\break c''2"
-            systemWidth: 16
+            music: "c''2~ | \\volta \"1.\" 1 c''2 \\bar \":|.\" \\volta \"2.\" 1 c''2 \\partialTie"
             title: qsTrc("EditStyleBase", "Barline to continued tie or line:")
             hint: qsTrc("notation/engravingoptions",
                         "Where a tie or line begins which comes out of a barline inside a system, as after a repeat " +
@@ -413,8 +414,8 @@ EoPage {
 
             EoNumber {
                 sid: "noteKeyDistance"
-                music: "c''4 | \\key 2 c''4"
-                musicStyle: ({ noteBarDistance: 0.0, keysigLeftMargin: 0.0 })
+                music: "\\key 2 a'4 | \\key 0 c''16 c''16 \\bar \":|.\" c''4"
+                musicStyle: ({ useParensRepeatCourtesies: false, showCourtesiesAfterCancellingRepeats: false })
                 title: qsTrc("notation/engravingoptions", "Note to key signature")
                 hint: qsTrc("notation/engravingoptions",
                             "Seen where a key signature follows a note with no barline between them, as a courtesy " +
@@ -424,8 +425,8 @@ EoPage {
 
             EoNumber {
                 sid: "noteTimesigDistance"
-                music: "c''4 | \\time 3/4 c''4"
-                musicStyle: ({ noteBarDistance: 0.0, timesigLeftMargin: 0.0 })
+                music: "\\time 3/4 c''2. | \\time 1/4 c''16[ c''16 c''16 c''16] \\bar \":|.\" c''4"
+                musicStyle: ({ useParensRepeatCourtesies: false, showCourtesiesAfterCancellingRepeats: false })
                 title: qsTrc("notation/engravingoptions", "Note to time signature")
                 hint: qsTrc("notation/engravingoptions",
                             "Seen where a time signature follows a note with no barline between them, as a courtesy " +
@@ -633,7 +634,8 @@ EoPage {
 
             EoNumber {
                 sid: "stemStemDistance"
-                music: "\\stemUp a'16 \\stemDown e''16 \\stemUp a'16 \\stemDown e''16"
+                music: "\\stemUp e'4 \\stemDown f''4 \\stemUp e'4 \\stemDown f''4"
+                musicStyle: ({ spacingQuarterNoteSpace: 1.0 })
                 title: qsTrc("notation/engravingoptions", "Stem to stem")
                 hint: qsTrc("notation/engravingoptions",
                             "The gap between the stems of neighbouring chords; it shows above all under beams which " +
@@ -680,7 +682,13 @@ EoPage {
 
             EoNumber {
                 sid: "clefClefDistance"
-                music: "c''4 \\clef bass e4"
+                music: "\\clef bass e2 | \\clef treble c''2 \\jump \"D.C.\" | c''2"
+                musicStyle: ({
+                    useParensOtherJumpCourtesies: false,
+                    useParensOtherJumpCourtesiesAfterCancelling: false,
+                    clefBarlineDistance: 0.0,
+                    clefLeftMargin: 0.0
+                })
                 title: qsTrc("notation/engravingoptions", "Clef to clef")
                 max: 5
             }
@@ -703,7 +711,7 @@ EoPage {
 
             EoNumber {
                 sid: "clefBarlineDistance"
-                music: "c''16 \\clef bass | c''4"
+                music: "c''16 \\clef bass | e4"
                 musicStyle: ({ spacingDensity: 1.0 })
                 title: qsTrc("EditStyleBase", "Clef to barline:")
                 hint: qsTrc("notation/engravingoptions",
@@ -756,7 +764,13 @@ EoPage {
 
             EoNumber {
                 sid: "barBarlineDistance"
-                music: "c''4 | c''4"
+                music: "c''4 | \\small r32 | c''4"
+                musicStyle: ({
+                    minMeasureWidth: 0.5,
+                    barNoteDistance: 0.0,
+                    restBarlineDistance: 0.0,
+                    spacingQuarterNoteSpace: 0.5
+                })
                 title: qsTrc("notation/engravingoptions", "Barline to barline")
                 hint: qsTrc("notation/engravingoptions",
                             "The least inner width of a measure whose content takes up no room.")
@@ -800,14 +814,21 @@ EoPage {
 
             EoNumber {
                 sid: "keyClefDistance"
-                music: "c''4 | \\key 2 \\clef bass e4"
+                music: "c''4 \\bar \":|.\" \\key 2 \\clef bass e4"
+                musicStyle: ({ placeClefsBeforeRepeats: false })
                 title: qsTrc("notation/engravingoptions", "Key signature to clef")
                 max: 5
             }
 
             EoNumber {
                 sid: "keyKeyDistance"
-                music: "c''4 | \\key 2 c''4 | \\key -2 c''4"
+                music: "\\key 2 a'2 | \\key 0 c''2 \\jump \"D.C.\" | c''2"
+                musicStyle: ({
+                    useParensOtherJumpCourtesies: false,
+                    useParensOtherJumpCourtesiesAfterCancelling: false,
+                    keyBarlineDistance: 0.0,
+                    keysigLeftMargin: 0.0
+                })
                 title: qsTrc("notation/engravingoptions", "Key signature to key signature")
                 max: 5
             }
@@ -823,7 +844,8 @@ EoPage {
 
             EoNumber {
                 sid: "keyBarlineDistance"
-                music: "c''4 | \\key 2 c''4 | c''4"
+                music: "\\key 2 a'2 | \\key 0 c''2 \\bar \":|.\" c''2"
+                musicStyle: ({ useParensRepeatCourtesies: false, showCourtesiesAfterCancellingRepeats: false })
                 title: qsTrc("EditStyleBase", "Key signature to barline:")
                 hint: qsTrc("notation/engravingoptions",
                             "Seen where a barline follows a key signature: a start-repeat barline after a change of " +
@@ -866,7 +888,8 @@ EoPage {
 
             EoNumber {
                 sid: "timesigClefDistance"
-                music: "c''4 | \\time 3/4 \\clef bass e4"
+                music: "c''4 \\bar \":|.\" \\time 3/4 \\clef bass e2."
+                musicStyle: ({ placeClefsBeforeRepeats: false })
                 title: qsTrc("notation/engravingoptions", "Time signature to clef")
                 max: 5
             }
@@ -876,14 +899,21 @@ EoPage {
 
             EoNumber {
                 sid: "timesigTimesigDistance"
-                music: "c''4 | \\time 3/4 c''4 | \\time 2/4 c''4"
+                music: "\\time 3/4 c''2. | \\time 2/4 c''2 \\jump \"D.C.\" | c''2"
+                musicStyle: ({
+                    useParensOtherJumpCourtesies: false,
+                    useParensOtherJumpCourtesiesAfterCancelling: false,
+                    timesigBarlineDistance: 0.0,
+                    timesigLeftMargin: 0.0
+                })
                 title: qsTrc("notation/engravingoptions", "Time signature to time signature")
                 max: 5
             }
 
             EoNumber {
                 sid: "timesigBarlineDistance"
-                music: "c''4 | \\time 3/4 c''4 | c''4"
+                music: "\\time 3/4 c''2. | \\time 2/4 c''2 \\bar \":|.\" c''2"
+                musicStyle: ({ useParensRepeatCourtesies: false, showCourtesiesAfterCancellingRepeats: false })
                 title: qsTrc("EditStyleBase", "Time signature to barline:")
                 hint: qsTrc("notation/engravingoptions",
                             "Seen where a barline follows a time signature: a start-repeat barline after a change of " +
@@ -906,7 +936,8 @@ EoPage {
 
         EoNumber {
             sid: "spacingDefaultPadding"
-            music: "<< { c'16 c' c' c' } \\\\ { c'''16 c''' c''' c''' } >>"
+            music: "\\stemDown e'4 \\stemUp f''4 \\stemDown e'4 \\stemUp f''4"
+            musicStyle: ({ spacingQuarterNoteSpace: 1.0 })
             title: qsTrc("notation/engravingoptions", "Default padding between items")
             hint: qsTrc("notation/engravingoptions",
                         "The gap between two neighbouring items of kinds which have no value of their own in the " +
@@ -927,7 +958,8 @@ EoPage {
 
         EoNumber {
             sid: "kerningVerticalClearance"
-            music: "c'16 \\stemDown a''16 c'16 \\stemDown a''16"
+            music: "\\stemUp \\noBeam g'8 \\stemDown f'16 \\stemUp \\noBeam g'8 \\stemDown f'16"
+            musicStyle: ({ spacingDensity: 3.0 })
             title: qsTrc("notation/engravingoptions", "Vertical gap needed for items to tuck past each other")
             hint: qsTrc("notation/engravingoptions",
                         "Two neighbouring items at different heights, such as a low note after the flag of a high " +
@@ -938,7 +970,7 @@ EoPage {
 
         EoNumber {
             sid: "kerningVerticalClearanceAccidental"
-            music: "c''16 bes16 c''16 bes16"
+            music: "\\stemUp c''16 \\stemDown ees'16 \\stemUp c''16 \\stemDown ees'16"
             title: qsTrc("notation/engravingoptions", "Vertical gap needed for an accidental to tuck in")
             hint: qsTrc("notation/engravingoptions",
                         "An accidental may slide above or below the item before it, a note or a flag, only while " +
@@ -948,7 +980,8 @@ EoPage {
 
         EoNumber {
             sid: "kerningVerticalClearanceParenthesis"
-            music: "c''16 a'?16 c''16 a'?16"
+            music: "\\stemUp c''16 \\parenthesize \\stemDown a'16 \\stemUp c''16 \\parenthesize \\stemDown a'16"
+            musicStyle: ({ spacingDensity: 2.0 })
             title: qsTrc("notation/engravingoptions", "Vertical gap needed for a parenthesis to tuck in")
             hint: qsTrc("notation/engravingoptions",
                         "A parenthesis and its neighbour may overlap sideways only while this much vertical space " +
