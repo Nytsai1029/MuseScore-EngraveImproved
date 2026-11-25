@@ -78,6 +78,10 @@ public:
     struct Effect {
         //! the boxes, in the layout as it is, of the items which the change moves or reshapes
         std::vector<muse::RectF> changed;
+        //! the boxes, in the same frame, where the changed or added items land in the probed layout
+        std::vector<muse::RectF> afterChanged;
+        //! how far the probed picture's origin shifts relative to the layout as it is, in staff spaces
+        muse::PointF probeFrameShift;
         bool hasHandle = false;
         muse::PointF anchor;                // where the handle sits: on the edge which moves most
         muse::PointF direction;             // the unit vector along which that edge moves when the value grows
@@ -121,10 +125,12 @@ public:
                     const PropertyValue& probe, double systemWidthSp = 0.0);
 
     //! NOTE The items of two layouts of the same music, marked: which of them the change really moves or
-    //! reshapes (the pairs), and which exist in one layout only (the boxes). `pairs` keeps `before` first
+    //! reshapes (the pairs), and which exist in one layout only (the boxes; afterBoxes keeps only those added
+    //! in the probed layout). `pairs` keeps `before` first
     struct MarkedChanges {
         std::vector<std::pair<Item, Item> > pairs;
         std::vector<muse::RectF> boxes;
+        std::vector<muse::RectF> afterBoxes;
     };
 
     //! NOTE Which items are marked as changed between two layouts of the same music: an item which is only

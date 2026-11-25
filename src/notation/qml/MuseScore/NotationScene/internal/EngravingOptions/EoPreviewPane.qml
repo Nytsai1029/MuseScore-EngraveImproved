@@ -95,6 +95,11 @@ Item {
 
     onPageChanged: {
         userScale = 1.0
+        compareButton.keyToggled = false
+    }
+
+    onOptionChanged: {
+        compareButton.keyToggled = false
     }
 
     Rectangle {
@@ -142,6 +147,7 @@ Item {
                 //! NOTE: a point (an offset, of which an option may edit x and y or one axis) is washed, not dragged
                 isDraggable: Boolean(root.option) && root.option.kind === "number" && !root.option.axis
                 showsHandles: root.dialogState.showsHandles
+                showingProbed: compareButton.held
 
                 dragMinimum: Boolean(root.option) && root.option.min !== undefined
                              ? root.option.min * root.unitsPerShownUnit : -1e9
@@ -258,6 +264,45 @@ Item {
                         onClicked: {
                             root.userScale = Math.min(2.0, root.userScale + 0.25)
                         }
+                    }
+                }
+            }
+
+            // ----- before / after comparison -----
+
+            AtOutlineButton {
+                id: compareButton
+
+                property bool keyToggled: false
+                readonly property bool held: (mouseArea.pressed || keyToggled) && enabled
+
+                height: 26
+                visible: card.visible && card.hasEffect
+                enabled: visible && !card.isDragging
+                checked: held
+                isClickOnKeyNavTriggered: false
+
+                text: qsTrc("notation/engravingoptions", "Hold to preview change")
+                textFont: AtStyle.font(12, Font.Medium)
+
+                navigation.panel: root.navigationPanel
+                navigation.row: 900050
+                navigation.column: 1
+                navigation.name: "PreviewCompare"
+
+                navigation.onTriggered: {
+                    keyToggled = !keyToggled
+                }
+
+                navigation.onActiveChanged: {
+                    if (!navigation.active) {
+                        keyToggled = false
+                    }
+                }
+
+                onVisibleChanged: {
+                    if (!visible) {
+                        keyToggled = false
                     }
                 }
             }

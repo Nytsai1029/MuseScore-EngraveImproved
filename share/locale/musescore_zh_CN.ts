@@ -44652,6 +44652,11 @@ The score will be saved as:
         <translation>显示拖动手柄</translation>
     </message>
     <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewPane.qml" line="285"/>
+        <source>Hold to preview change</source>
+        <translation>按住预览变化</translation>
+    </message>
+    <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewPane.qml" line="301"/>
         <source>This music does not show the option.</source>
         <translation>这段乐谱无法显示该选项的效果。</translation>

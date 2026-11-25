@@ -22,10 +22,12 @@
 #pragma once
 
 #include <memory>
+#include <optional>
 #include <vector>
 
 #include <QColor>
 #include <QImage>
+#include <QMarginsF>
 #include <QQuickPaintedItem>
 #include <QVariant>
 #include <QVariantMap>
@@ -95,6 +97,8 @@ class EngravingPreview : public QQuickPaintedItem, public muse::Injectable, publ
     Q_PROPERTY(bool showsHandles READ showsHandles WRITE setShowsHandles NOTIFY showsHandlesChanged)
     Q_PROPERTY(bool showsControlPoints READ showsControlPoints WRITE setShowsControlPoints
                NOTIFY showsControlPointsChanged)
+    //! NOTE While true, shows the probed ("after") picture aligned to the same staff position for comparison
+    Q_PROPERTY(bool showingProbed READ showingProbed WRITE setShowingProbed NOTIFY showingProbedChanged)
     Q_PROPERTY(QColor accentColor READ accentColor WRITE setAccentColor NOTIFY accentColorChanged)
 
     //! NOTE Whether the music shows the option `activeSid`, and whether there is a handle to change it with
@@ -155,6 +159,9 @@ public:
     bool showsControlPoints() const;
     void setShowsControlPoints(bool shows);
 
+    bool showingProbed() const;
+    void setShowingProbed(bool showing);
+
     QColor accentColor() const;
     void setAccentColor(const QColor& color);
 
@@ -189,6 +196,7 @@ signals:
     void isDraggableChanged();
     void showsHandlesChanged();
     void showsControlPointsChanged();
+    void showingProbedChanged();
     void accentColorChanged();
     void effectChanged();
     void isDraggingChanged();
@@ -253,6 +261,7 @@ private:
     bool m_isDraggable = true;
     bool m_showsHandles = true;
     bool m_showsControlPoints = false;
+    bool m_showingProbed = false;
     QColor m_accentColor = QColor(0x4A, 0x7D, 0xD9);
 
     double m_dragMinimum = -1e9;
@@ -267,6 +276,7 @@ private:
     QString m_error;
 
     EngravingPreviewRenderer::Effect m_effect;
+    std::optional<PropertyValue> m_activeProbe;
     muse::RectF m_changeBox;    // the union of the changed boxes, in staff spaces
     std::vector<std::vector<muse::PointF> > m_curves;
 
@@ -276,6 +286,10 @@ private:
     double m_draggedNumber = 0.0;   // the value under the pointer, in engine units
 
     QImage m_image;
+    QImage m_probedImage;
+    PreviewOverlay::Ghost m_probedGhost;
+    //! NOTE Room outside `m_image` needed so a flipped or extended probed ghost/preview is not clipped
+    QMarginsF m_extraBounds;
     QSizeF m_naturalSize;
     QSizeF m_naturalPageSize;
     std::vector<muse::RectF> m_pages;   // where the pages are in the picture, in staff spaces, if it shows them

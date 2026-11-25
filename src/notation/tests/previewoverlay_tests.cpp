@@ -214,3 +214,86 @@ TEST(Notation_PreviewOverlayTests, washRectForKeepsSmallMarksReadable)
     EXPECT_NEAR(wash.center().x(), dot.center().x(), 0.01);
     EXPECT_NEAR(wash.center().y(), dot.center().y(), 0.01);
 }
+
+/**
+ * @TEST_CASE probedGhostMarksAddedInkOnlyWithinAfterRegions
+ * @details Unchanged ink stays transparent, added ink inside afterRegions is tinted in the accent color,
+ *          carried-along ink outside afterRegions is ignored, and negative frame shifts keep flipped items unclipped
+ */
+TEST(Notation_PreviewOverlayTests, probedGhostMarksAddedInkOnlyWithinAfterRegions)
+{
+    QImage before(100, 60, QImage::Format_ARGB32_Premultiplied);
+    before.fill(Qt::transparent);
+    {
+        QPainter p(&before);
+        p.fillRect(10, 20, 20, 20, Qt::black);  // unchanged block
+    }
+
+    //! NOTE `after` grew 15 px taller on top (shiftY = -15), has the same block at y=35, an added block inside
+    //! afterRegions at y=2 (py = -13 in before's frame), and a carried-along block outside afterRegions at x=75
+    QImage after(100, 75, QImage::Format_ARGB32_Premultiplied);
+    after.fill(Qt::transparent);
+    {
+        QPainter p(&after);
+        p.fillRect(10, 35, 20, 20, Qt::black);  // unchanged block (py = 20..40)
+        p.fillRect(40, 2, 12, 10, Qt::black);   // added above before's top edge (py = -13..-3)
+        p.fillRect(75, 35, 10, 10, Qt::black);  // carried-along outside afterRegions
+    }
+
+    const std::vector<QRectF> afterRegions = {
+        QRectF(10, 20, 20, 20),
+        QRectF(40, -13, 12, 10),
+    };
+
+    const PreviewOverlay::Ghost ghost = PreviewOverlay::probedGhost(before, after, QPointF(0, -15),
+                                                                    afterRegions, 10.0, ACCENT);
+    ASSERT_FALSE(ghost.isNull());
+    EXPECT_LT(ghost.offset.y(), 0.0);
+
+    const auto pixelAtBeforeCoord = [&ghost](int bx, int by) {
+        return ghost.image.pixelColor(bx - static_cast<int>(std::lround(ghost.offset.x())),
+                                      by - static_cast<int>(std::lround(ghost.offset.y())));
+    };
+
+    // Unchanged black ink stays transparent
+    EXPECT_EQ(pixelAtBeforeCoord(20, 30).alpha(), 0);
+
+    // Added ink above before's top edge is tinted translucent accent
+    const QColor added = pixelAtBeforeCoord(45, -8);
+    EXPECT_GT(added.alpha(), 90);
+    EXPECT_LT(added.alpha(), 180);
+    EXPECT_GT(added.blue(), added.red());
+
+    // Carried-along ink outside afterRegions is not included in the ghost image
+    EXPECT_LT(ghost.offset.x() + ghost.image.width(), 75.0);
+}
+
+/**
+ * @TEST_CASE probedGhostRespectsDevicePixelRatio
+ * @details On a Retina (2x) preview image, the ghost keeps devicePixelRatio=2 and maps logical offsets accurately
+ */
+TEST(Notation_PreviewOverlayTests, probedGhostRespectsDevicePixelRatio)
+{
+    QImage before(120, 80, QImage::Format_ARGB32_Premultiplied);
+    before.setDevicePixelRatio(2.0);
+    before.fill(Qt::transparent);
+
+    QImage after(120, 80, QImage::Format_ARGB32_Premultiplied);
+    after.setDevicePixelRatio(2.0);
+    after.fill(Qt::transparent);
+    {
+        QPainter p(&after);
+        p.fillRect(20, 10, 10, 10, Qt::black);  // logical rect (20, 10, 10, 10) -> physical (40, 20, 20, 20)
+    }
+
+    const std::vector<QRectF> afterRegions = { QRectF(20, 10, 10, 10) };
+    const PreviewOverlay::Ghost ghost = PreviewOverlay::probedGhost(before, after, QPointF(0, 0),
+                                                                    afterRegions, 10.0, ACCENT);
+    ASSERT_FALSE(ghost.isNull());
+    EXPECT_DOUBLE_EQ(ghost.image.devicePixelRatio(), 2.0);
+
+    const int gx = static_cast<int>(std::lround((25.0 - ghost.offset.x()) * 2.0));
+    const int gy = static_cast<int>(std::lround((15.0 - ghost.offset.y()) * 2.0));
+    ASSERT_TRUE(ghost.image.rect().contains(gx, gy));
+    EXPECT_GT(ghost.image.pixelColor(gx, gy).alpha(), 90);
+}

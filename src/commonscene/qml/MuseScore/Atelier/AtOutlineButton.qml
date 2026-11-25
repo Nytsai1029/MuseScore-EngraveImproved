@@ -28,6 +28,8 @@ import Muse.UiComponents 1.0
 FlatButton {
     id: root
 
+    property bool checked: false
+
     height: 28
 
     implicitWidth: label.implicitWidth + 22
@@ -39,6 +41,9 @@ FlatButton {
         radius: 7
 
         color: {
+            if (root.checked) {
+                return AtStyle.soft
+            }
             if (root.mouseArea.pressed) {
                 return AtStyle.pressed
             }
@@ -47,7 +52,7 @@ FlatButton {
         }
 
         border.width: 1
-        border.color: AtStyle.stroke2
+        border.color: root.checked ? AtStyle.accent : AtStyle.stroke2
 
         NavigationFocusBorder {
             navigationCtrl: root.navigation

@@ -1379,3 +1379,48 @@ TEST_F(Notation_EngravingPreviewTests, showHeaderMarksEachPageHeaderSeparately)
         EXPECT_LT(box.width(), pages[1].width() * 0.5);
     }
 }
+
+/**
+ * @TEST_CASE effectReportsAfterChangedForFlippedAndAddedItems
+ * @details Flipping a placement puts the destination box in afterChanged (outside before's changed box),
+ *          and toggling an off-by-default sign puts the newly appearing sign's box in afterChanged
+ */
+TEST_F(Notation_EngravingPreviewTests, effectReportsAfterChangedForFlippedAndAddedItems)
+{
+    const MStyle style = baseStyle();
+
+    // Flipping lyrics from below to above: afterChanged lands above before's changed box
+    {
+        auto renderer = laidOut("c''4_\"Glo-\" d''4_\"ri-\" e''2_\"a\"", style);
+        ASSERT_TRUE(renderer);
+        const EngravingPreviewRenderer::Effect effect
+            = renderer->effectOf(style, {}, Sid::lyricsPlacement, PropertyValue(PlacementV::ABOVE));
+        ASSERT_FALSE(effect.changed.empty());
+        ASSERT_FALSE(effect.afterChanged.empty());
+
+        double minBeforeY = 1e9;
+        for (const muse::RectF& box : effect.changed) {
+            minBeforeY = std::min(minBeforeY, box.top());
+        }
+        double minAfterY = 1e9;
+        for (const muse::RectF& box : effect.afterChanged) {
+            minAfterY = std::min(minAfterY, box.top());
+        }
+        EXPECT_LT(minAfterY, minBeforeY - 3.0);
+    }
+
+    // Enabling an off-by-default measure number 1 puts the new number in afterChanged
+    {
+        const std::vector<EngravingPreviewRenderer::Override> overrides = {
+            { Sid::showMeasureNumber, true },
+            { Sid::measureNumberSystem, false },
+            { Sid::measureNumberInterval, 1 }
+        };
+        auto renderer = laidOut("c''4 c''4 | c''2 | c''2", style, overrides);
+        ASSERT_TRUE(renderer);
+        const EngravingPreviewRenderer::Effect effect
+            = renderer->effectOf(style, overrides, Sid::showMeasureNumberOne, PropertyValue(true));
+        EXPECT_FALSE(effect.changed.empty());
+        EXPECT_FALSE(effect.afterChanged.empty());
+    }
+}

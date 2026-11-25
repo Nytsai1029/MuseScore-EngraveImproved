@@ -22,8 +22,10 @@
 #pragma once
 
 #include <optional>
+#include <vector>
 
 #include <QColor>
+#include <QImage>
 #include <QPointF>
 #include <QPolygonF>
 #include <QRectF>
@@ -43,6 +45,15 @@ public:
         QPointF direction;      // a unit vector
     };
 
+    //! NOTE The ink that a probe adds or moves into new positions, tinted in the accent color and placed in
+    //! the before-picture's logical pixel frame
+    struct Ghost {
+        QImage image;
+        QPointF offset;         // logical pixels from the before-picture's top-left corner
+
+        bool isNull() const { return image.isNull(); }
+    };
+
     QVector<QRectF> washes;
     std::optional<Handle> handle;
     QVector<QPolygonF> controlPolygons;     // start, bezier 1, bezier 2, end of each curve
@@ -52,6 +63,12 @@ public:
     //! NOTE The wash behind one changed item box (in item pixels): padded around the box and kept large enough
     //! to read on tiny marks such as staccato dots, tenuto dashes and single barlines
     static QRectF washRectFor(const QRectF& itemRect, double pixelsPerStaffSpace);
+
+    //! NOTE Builds the accent-tinted ghost of pixels present in `after` (aligned by `probeFrameShiftLogical`)
+    //! but not in `before`, clipped to `afterRegionsLogical` so carried-along items stay clean
+    static Ghost probedGhost(const QImage& before, const QImage& after, const QPointF& probeFrameShiftLogical,
+                             const std::vector<QRectF>& afterRegionsLogical, double pixelsPerStaffSpace,
+                             const QColor& accent);
 
     //! NOTE The washes, painted behind the music so that it is not smeared
     void paintBelow(QPainter* painter) const;

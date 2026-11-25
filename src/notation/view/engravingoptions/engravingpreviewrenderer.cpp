@@ -600,6 +600,7 @@ void noteChange(const EngravingPreviewRenderer::Item& was, const EngravingPrevie
     }
 
     effect.changed.push_back(was.box);
+    effect.afterChanged.push_back(is.box);
 
     const std::optional<EdgeShift> shift = largestEdgeShift(was, is);
     if (shift && (!largest || std::abs(shift->shift) > std::abs(largest->shift))) {
@@ -707,15 +708,15 @@ EngravingPreviewRenderer::MarkedChanges EngravingPreviewRenderer::markedChanges(
     constexpr size_t NO_PAIR = static_cast<size_t>(-1);
 
     std::vector<size_t> pairOf(before.size(), NO_PAIR);   // of a before item into `pairs`
-    std::vector<Item> unmatched;
+    std::vector<std::pair<Item, bool> > unmatched;        // second: true if the item exists in `after` only
 
     size_t i = 0;
     size_t j = 0;
     while (i < before.size() || j < after.size()) {
         if (j >= after.size() || (i < before.size() && kindComesBefore(before[i], after[j]))) {
-            unmatched.push_back(before[i++]);
+            unmatched.push_back({ before[i++], false });
         } else if (i >= before.size() || kindComesBefore(after[j], before[i])) {
-            unmatched.push_back(after[j++]);
+            unmatched.push_back({ after[j++], true });
         } else {
             pairOf[i] = pairs.size();
             pairs.push_back({ before[i], after[j] });
@@ -779,21 +780,25 @@ EngravingPreviewRenderer::MarkedChanges EngravingPreviewRenderer::markedChanges(
 
     //! NOTE The staff lines span the whole system, so a change which touches the music marks them too.
     //! They count only when nothing else is marked (an option of the staff lines themselves)
-    const bool onlyStaffLinesMarked = std::all_of(unmatched.begin(), unmatched.end(), [](const Item& item) {
-        return item.type == engraving::ElementType::STAFF_LINES;
+    const bool onlyStaffLinesMarked = std::all_of(unmatched.begin(), unmatched.end(),
+                                                  [](const std::pair<Item, bool>& entry) {
+        return entry.first.type == engraving::ElementType::STAFF_LINES;
     }) && std::all_of(result.pairs.begin(), result.pairs.end(), [](const std::pair<Item, Item>& pair) {
         return pair.first.type == engraving::ElementType::STAFF_LINES;
     });
     if (!onlyStaffLinesMarked) {
         result.pairs.erase(std::remove_if(result.pairs.begin(), result.pairs.end(),
-                                         [](const std::pair<Item, Item>& pair) {
+                                          [](const std::pair<Item, Item>& pair) {
             return pair.first.type == engraving::ElementType::STAFF_LINES;
         }), result.pairs.end());
     }
 
-    for (const Item& item : unmatched) {
+    for (const auto& [item, isAfter] : unmatched) {
         if (onlyStaffLinesMarked || item.type != engraving::ElementType::STAFF_LINES) {
             result.boxes.push_back(item.box);
+            if (isAfter) {
+                result.afterBoxes.push_back(item.box);
+            }
         }
     }
 
@@ -801,7 +806,7 @@ EngravingPreviewRenderer::MarkedChanges EngravingPreviewRenderer::markedChanges(
 }
 
 PropertyValue EngravingPreviewRenderer::valueOf(const MStyle& style, const std::vector<Override>& overrides,
-                                              StyleId id)
+                                                StyleId id)
 {
     PropertyValue value = style.styleV(id);
     for (const Override& override : overrides) {
@@ -820,6 +825,7 @@ EngravingPreviewRenderer::Effect EngravingPreviewRenderer::effectOf(const MStyle
     layout(style, overrides, systemWidthSp, id);
     const std::vector<Item> before = items();
     const muse::PointF originBefore = pictureRect().topLeft();
+    const double spatiumBefore = m_score->style().spatium();
     const QImage pictureBefore = picture(COMPARED_PIXELS_PER_STAFF_SPACE);
 
     std::vector<Override> probed = overrides;
@@ -827,6 +833,7 @@ EngravingPreviewRenderer::Effect EngravingPreviewRenderer::effectOf(const MStyle
     layout(style, probed, systemWidthSp, id);
     std::vector<Item> after = items();
     const muse::PointF originAfter = pictureRect().topLeft();
+    const double spatiumAfter = m_score->style().spatium();
     const QImage pictureAfter = picture(COMPARED_PIXELS_PER_STAFF_SPACE);
 
     //! NOTE The picture is the one of the real values
@@ -835,7 +842,8 @@ EngravingPreviewRenderer::Effect EngravingPreviewRenderer::effectOf(const MStyle
     //! NOTE The top or left edge of the picture may move with the probe: the origins of the two item
     //! lists differ then, and everything would seem to have moved. The items of the probed layout are
     //! brought into the frame of the layout as it is before they are compared
-    const muse::PointF frameShift = (originAfter - originBefore) / m_score->style().spatium();
+    const muse::PointF frameShift(originAfter.x() / spatiumAfter - originBefore.x() / spatiumBefore,
+                                  originAfter.y() / spatiumAfter - originBefore.y() / spatiumBefore);
     for (Item& item : after) {
         item.box.translate(frameShift);
         for (muse::PointF& point : item.curve) {
@@ -846,11 +854,15 @@ EngravingPreviewRenderer::Effect EngravingPreviewRenderer::effectOf(const MStyle
     const PropertyValue current = valueOf(style, overrides, id);
 
     Effect effect;
+    effect.probeFrameShift = frameShift;
     std::optional<EdgeShift> largest;
 
     const MarkedChanges marked = markedChanges(before, after);
     for (const muse::RectF& box : marked.boxes) {
         effect.changed.push_back(box);
+    }
+    for (const muse::RectF& box : marked.afterBoxes) {
+        effect.afterChanged.push_back(box);
     }
     for (const std::pair<Item, Item>& pair : marked.pairs) {
         noteChange(pair.first, pair.second, effect, largest);
@@ -861,6 +873,7 @@ EngravingPreviewRenderer::Effect EngravingPreviewRenderer::effectOf(const MStyle
     if (effect.changed.empty()) {
         for (const muse::RectF& box : differingParts(pictureBefore, pictureAfter)) {
             effect.changed.push_back(box);
+            effect.afterChanged.push_back(box);
         }
     }
 

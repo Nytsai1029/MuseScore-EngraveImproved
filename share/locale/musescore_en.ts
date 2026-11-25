@@ -2344,7 +2344,7 @@ space unit</extracomment>
         <translation type="unfinished">Enable indentation on first system</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="177"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="178"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="489"/>
         <source>First system indentation:</source>
         <translation type="unfinished">First system indentation:</translation>
@@ -2355,25 +2355,25 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;First system indentation&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="194"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="195"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="547"/>
         <source>Automatically hide all empty staves</source>
         <translation type="unfinished">Automatically hide all empty staves</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="206"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="207"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="559"/>
         <source>Don’t hide empty staves in first system</source>
         <translation type="unfinished">Don’t hide empty staves in first system</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="216"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="217"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="566"/>
         <source>Show brackets when spanning a single staff</source>
         <translation type="unfinished">Show brackets when spanning a single staff</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="227"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="228"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="573"/>
         <source>Show square brackets when spanning a single staff</source>
         <translation type="unfinished">Show square brackets when spanning a single staff</translation>
@@ -2389,7 +2389,7 @@ space unit</extracomment>
         <translation type="unfinished">Instrument names</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="242"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="243"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="596"/>
         <source>Hide if there is only 1 instrument</source>
         <translation type="unfinished">Hide if there is only 1 instrument</translation>
@@ -2417,7 +2417,7 @@ space unit</extracomment>
         <translation type="unfinished">Hide</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="272"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="271"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="652"/>
         <source>On subsequent systems:</source>
         <translation type="unfinished">On subsequent systems:</translation>
@@ -2475,7 +2475,7 @@ space unit</extracomment>
         <translation type="unfinished">Autoplace</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="351"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="350"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="889"/>
         <source>Min. vertical distance:</source>
         <translation type="unfinished">Min. vertical distance:</translation>
@@ -2496,7 +2496,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Vertical align range&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="363"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="361"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="989"/>
         <source>Min. horizontal distance:</source>
         <translation type="unfinished">Min. horizontal distance:</translation>
@@ -2535,7 +2535,7 @@ space unit</extracomment>
         <translation type="unfinished">Music top margin:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="69"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="83"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1246"/>
         <source>Min. distance to header/footer:</source>
         <translation type="unfinished">Min. distance to header/footer:</translation>
@@ -2566,19 +2566,19 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Factor for distance above/below brace&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="149"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="175"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1455"/>
         <source>Factor for distance between systems:</source>
         <translation type="unfinished">Factor for distance between systems:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="161"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="187"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1468"/>
         <source>Factor for distance above/below bracket:</source>
         <translation type="unfinished">Factor for distance above/below bracket:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="173"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="199"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1481"/>
         <source>Factor for distance above/below brace:</source>
         <translation type="unfinished">Factor for distance above/below brace:</translation>
@@ -2600,7 +2600,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Min. staff distance&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="187"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="213"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1579"/>
         <source>Max. grand staff distance:</source>
         <translation type="unfinished">Max. grand staff distance:</translation>
@@ -2627,7 +2627,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Max. staff distance&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="197"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="223"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1698"/>
         <source>Max. page fill distance:</source>
         <translation type="unfinished">Max. page fill distance:</translation>
@@ -2638,14 +2638,14 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Max. grand staff distance&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="248"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="274"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1734"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1991"/>
         <source>Max. system distance:</source>
         <translation type="unfinished">Max. system distance:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="237"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="263"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1744"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1794"/>
         <source>Min. system distance:</source>
@@ -2662,13 +2662,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Staff distance&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="214"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="240"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1959"/>
         <source>Staff distance:</source>
         <translation type="unfinished">Staff distance:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="227"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="253"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="1975"/>
         <source>Grand staff distance:</source>
         <translation type="unfinished">Grand staff distance:</translation>
@@ -2715,13 +2715,13 @@ space unit</extracomment>
         <translation type="unfinished">Barline to grace note:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="440"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="441"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2233"/>
         <source>Note to barline:</source>
         <translation type="unfinished">Note to barline:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="819"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="840"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2243"/>
         <source>Key signature to time signature:</source>
         <translation type="unfinished">Key signature to time signature:</translation>
@@ -2737,7 +2737,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Key to time signature distance&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="295"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="296"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2305"/>
         <source>Barline to time signature:</source>
         <translation type="unfinished">Barline to time signature:</translation>
@@ -2748,7 +2748,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Time signature to barline distance&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="708"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="716"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2341"/>
         <source>Clef to barline:</source>
         <translation type="unfinished">Clef to barline:</translation>
@@ -2759,7 +2759,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Clef to barline distance&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="285"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="286"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2423"/>
         <source>Barline to key signature:</source>
         <translation type="unfinished">Barline to key signature:</translation>
@@ -2790,31 +2790,31 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Note to barline distance&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="827"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="849"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2511"/>
         <source>Key signature to barline:</source>
         <translation type="unfinished">Key signature to barline:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="726"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="734"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2521"/>
         <source>Barline to note:</source>
         <translation type="unfinished">Barline to note:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="305"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="306"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2538"/>
         <source>Clef to note:</source>
         <translation type="unfinished">Clef to note:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="275"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="276"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2551"/>
         <source>Barline to clef:</source>
         <translation type="unfinished">Barline to clef:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="887"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="917"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2561"/>
         <source>Time signature to barline:</source>
         <translation type="unfinished">Time signature to barline:</translation>
@@ -2830,7 +2830,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Barline to grace note distance&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="736"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="744"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2675"/>
         <source>Barline to accidental:</source>
         <translation type="unfinished">Barline to accidental:</translation>
@@ -2841,13 +2841,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Clef to time signature distance&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="692"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="700"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2711"/>
         <source>Clef to key signature:</source>
         <translation type="unfinished">Clef to key signature:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="700"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="708"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2734"/>
         <source>Clef to time signature:</source>
         <translation type="unfinished">Clef to time signature:</translation>
@@ -2896,7 +2896,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Grace note to grace note&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="254"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="256"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2899"/>
         <source>System header to continued tie or line:</source>
         <translation type="unfinished">System header to continued tie or line:</translation>
@@ -2907,7 +2907,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;System header to continued tie or line&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="265"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="266"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2935"/>
         <source>Barline to continued tie or line:</source>
         <translation type="unfinished">Barline to continued tie or line:</translation>
@@ -2918,7 +2918,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Barline to continued tie or line&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="319"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="320"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="2971"/>
         <source>Continued tie or line to barline:</source>
         <translation type="unfinished">Continued tie or line to barline:</translation>
@@ -2929,7 +2929,7 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Continued tie or line to barline&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="330"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="331"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3014"/>
         <source>Right margin after courtesy signatures:</source>
         <translation type="unfinished">Right margin after courtesy signatures:</translation>
@@ -3000,7 +3000,7 @@ space unit</extracomment>
         <translation type="unfinished">Clef/key signature to first note:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="232"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="234"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3278"/>
         <source>Start of the system to first note:</source>
         <translation type="unfinished">Start of the system to first note:</translation>
@@ -3123,8 +3123,8 @@ space unit</extracomment>
         <translation type="unfinished">Show header also on first page</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="50"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="124"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="63"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="137"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3793"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4060"/>
         <source>Show on first page</source>
@@ -3136,8 +3136,8 @@ space unit</extracomment>
         <translation type="unfinished">Use odd/even page header</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="55"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="130"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="68"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="143"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="3816"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4083"/>
         <source>Different odd/even pages</source>
@@ -3284,7 +3284,7 @@ space unit</extracomment>
         <translation type="unfinished">Brackets and braces</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="90"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="107"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="4587"/>
         <source>Let brackets extend into the left margin when there are no instrument names</source>
         <translation type="unfinished">Let brackets extend into the left margin when there are no instrument names</translation>
@@ -3806,13 +3806,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Maximum slope&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="221"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="222"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6650"/>
         <source>Maximum slope:</source>
         <translation type="unfinished">Maximum slope:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="232"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="233"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6679"/>
         <source>Vertical distance from stem:</source>
         <translation type="unfinished">Vertical distance from stem:</translation>
@@ -3828,13 +3828,13 @@ space unit</extracomment>
         <translation type="unfinished">Reset &apos;Vertical distance from notehead&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="244"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="245"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6749"/>
         <source>Vertical distance from notehead:</source>
         <translation type="unfinished">Vertical distance from notehead:</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="255"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="256"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="6794"/>
         <source>Avoid staves</source>
         <translation type="unfinished">Avoid staves</translation>
@@ -3965,7 +3965,7 @@ space unit</extracomment>
         <translation type="unfinished">Extend bracket to end of duration</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="208"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="209"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="7118"/>
         <source>Fixed slant (follow beam/stems)</source>
         <translation type="unfinished">Fixed slant (follow beam/stems)</translation>
@@ -4023,7 +4023,7 @@ space unit</extracomment>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArpeggiosPage.qml" line="84"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="438"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="439"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="78"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="189"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="289"/>
@@ -4031,7 +4031,7 @@ space unit</extracomment>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="273"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="63"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/GlissandoNoteLinePage.qml" line="199"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="327"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="328"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="99"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="82"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="174"/>
@@ -4184,8 +4184,8 @@ space unit</extracomment>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="42"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="193"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="42"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="149"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="187"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="150"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="188"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="42"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="143"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="42"/>
@@ -4613,7 +4613,7 @@ space unit</extracomment>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="85"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="288"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="287"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="704"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="10428"/>
         <source>Distance from staff:</source>
@@ -4891,7 +4891,7 @@ followed by dashes</translation>
         <translation type="unfinished">Reset &apos;Line gap&apos; value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="344"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="345"/>
         <location filename="../../src/notation/view/widgets/editstyle.ui" line="12258"/>
         <source>Omit extension line when space is limited</source>
         <translation type="unfinished">Omit extension line when space is limited</translation>
@@ -25720,11 +25720,11 @@ Fret %1 on strings %2</translation>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="234"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="246"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StemsPage.qml" line="258"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="204"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="215"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="241"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="252"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="226"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="221"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="232"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="258"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="269"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="227"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="50"/>
         <location filename="../../src/palette/qml/MuseScore/Palette/PaletteCellPropertiesDialog.qml" line="105"/>
         <location filename="../../src/palette/qml/MuseScore/Palette/PaletteCellPropertiesDialog.qml" line="121"/>
@@ -28583,13 +28583,13 @@ pickup measure</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/symbols/SymbolSettings.qml" line="114"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="426"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="427"/>
         <source>Short side</source>
         <translation type="unfinished">Short side</translation>
     </message>
     <message>
         <location filename="../../src/inspector/view/qml/MuseScore/Inspector/notation/symbols/SymbolSettings.qml" line="134"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="432"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="433"/>
         <source>Long side</source>
         <translation type="unfinished">Long side</translation>
     </message>
@@ -30731,7 +30731,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/FretboardsPage.qml" line="205"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/LineStyleSection.qml" line="58"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="281"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="282"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VoltasPage.qml" line="64"/>
         <source>Line thickness:</source>
         <translation type="unfinished">Line thickness:</translation>
@@ -31310,7 +31310,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="490"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStatusBar.qml" line="165"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierStatusBar.qml" line="155"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewPane.qml" line="224"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewPane.qml" line="229"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/ZoomControl.qml" line="58"/>
         <source>Zoom out</source>
         <translation type="unfinished">Zoom out</translation>
@@ -31325,7 +31325,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/appshell/qml/Atelier/AtelierFontDesignPage.qml" line="520"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierPreviewStatusBar.qml" line="193"/>
         <location filename="../../src/appshell/qml/Atelier/AtelierStatusBar.qml" line="207"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewPane.qml" line="252"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewPane.qml" line="257"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/ZoomControl.qml" line="78"/>
         <source>Zoom in</source>
         <translation type="unfinished">Zoom in</translation>
@@ -32426,7 +32426,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Circle</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="188"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="201"/>
         <location filename="../../src/notation/view/widgets/editstyle.cpp" line="1356"/>
         <source>Using variables in the header/footer</source>
         <translation type="unfinished">Using variables in the header/footer</translation>
@@ -33488,20 +33488,20 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="78"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="318"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="111"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="328"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="112"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="329"/>
         <source>Text style</source>
         <translation type="unfinished">Text style</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="115"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="62"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="63"/>
         <source>Frequency</source>
         <translation type="unfinished">Frequency</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="124"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="67"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="68"/>
         <source>Start of each system</source>
         <translation type="unfinished">Start of each system</translation>
     </message>
@@ -33524,19 +33524,19 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="173"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="171"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="172"/>
         <source>Align</source>
         <translation type="unfinished">Align</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="180"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="176"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="177"/>
         <source>To the barline</source>
         <translation type="unfinished">To the barline</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="186"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="177"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="178"/>
         <source>To the measure</source>
         <translation type="unfinished">To the measure</translation>
     </message>
@@ -33544,8 +33544,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="190"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="380"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/VoltasPage.qml" line="137"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="150"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="351"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="151"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="352"/>
         <source>Alignment</source>
         <translation type="unfinished">Alignment</translation>
     </message>
@@ -33603,13 +33603,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="309"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="305"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="306"/>
         <source>Show measure number ranges</source>
         <translation type="unfinished">Show measure number ranges</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EditStyle/MeasureNumbersPage.qml" line="353"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="314"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="315"/>
         <source>Bracket type</source>
         <translation type="unfinished">Bracket type</translation>
     </message>
@@ -34314,7 +34314,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Articulation details</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="233"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="234"/>
         <source>Tenuto: extra distance from notehead next to a tie</source>
         <translation type="unfinished">Tenuto: extra distance from notehead next to a tie</translation>
     </message>
@@ -34323,7 +34323,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Extra distance between a tenuto mark and the notehead when the mark sits outside the staff and an outer tie starts or ends on the same side of the note.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="243"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="244"/>
         <source>Staccato: extra distance from notehead next to a tie</source>
         <translation type="unfinished">Staccato: extra distance from notehead next to a tie</translation>
     </message>
@@ -34340,7 +34340,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">How far an accent is pulled towards a staccato dot stacked on the same side outside the staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="196"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="197"/>
         <source>Marcato always above the staff</source>
         <translation type="unfinished">Marcato always above the staff</translation>
     </message>
@@ -34373,7 +34373,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Horizontal margin within which neighbouring objects count as colliding when articulations, ornaments and fermatas are moved away from the staff automatically.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="252"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="253"/>
         <source>Ornaments</source>
         <translation type="unfinished">Ornaments</translation>
     </message>
@@ -34394,7 +34394,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Size of the accidentals above and below ornaments relative to normal accidentals.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="379"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="380"/>
         <source>Breath marks and caesuras</source>
         <translation type="unfinished">Breath marks and caesuras</translation>
     </message>
@@ -34477,97 +34477,97 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">The gap between a brace and the line which joins the staves at the start of the system.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="91"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="108"/>
         <source>On, the staves start at the left margin and the brackets hang out into it; off, the staves are moved right so that the brackets stay inside the margin.</source>
         <translation type="unfinished">On, the staves start at the left margin and the brackets hang out into it; off, the staves are moved right so that the brackets stay inside the margin.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="99"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="116"/>
         <source>Bracket overshoot beyond the staff</source>
         <translation type="unfinished">Bracket overshoot beyond the staff</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="100"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="117"/>
         <source>How far the bracket’s heavy line runs on above the top staff line and below the bottom one, before the curved tips begin. For every music font except Leland.</source>
         <translation type="unfinished">How far the bracket’s heavy line runs on above the top staff line and below the bottom one, before the curved tips begin. For every music font except Leland.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="109"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="126"/>
         <source>How far the bracket’s heavy line runs on above the top staff line and below the bottom one, before the curved tips begin, when the music font is Leland.</source>
         <translation type="unfinished">How far the bracket’s heavy line runs on above the top staff line and below the bottom one, before the curved tips begin, when the music font is Leland.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="119"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="136"/>
         <source>The length of the two horizontal strokes of a square bracket; it is also how far the bracket stands out to the left of the staves.</source>
         <translation type="unfinished">The length of the two horizontal strokes of a square bracket; it is also how far the bracket stands out to the left of the staves.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="128"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="145"/>
         <source>Line bracket thickness</source>
         <translation type="unfinished">Line bracket thickness</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="129"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="146"/>
         <source>The thickness of a line bracket, a plain vertical line without tips, as a multiple of the bracket thickness: 0.67 is two thirds of it.</source>
         <translation type="unfinished">The thickness of a line bracket, a plain vertical line without tips, as a multiple of the bracket thickness: 0.67 is two thirds of it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="140"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="157"/>
         <source>Brace width</source>
         <translation type="unfinished">Brace width</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="141"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="158"/>
         <source>How broad a brace is drawn: this much is added, in widths of the font’s brace symbol, for every gap between the staves it joins, so a smaller value gives a slimmer brace. Not used with the music fonts Emmentaler and Gonville.</source>
         <translation type="unfinished">How broad a brace is drawn: this much is added, in widths of the font’s brace symbol, for every gap between the staves it joins, so a smaller value gives a slimmer brace. Not used with the music fonts Emmentaler and Gonville.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="153"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="170"/>
         <source>Square bracket thickness</source>
         <translation type="unfinished">Square bracket thickness</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="154"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="171"/>
         <source>The thickness of the lines of a square bracket as a multiple of the staff line thickness.</source>
         <translation type="unfinished">The thickness of the lines of a square bracket as a multiple of the staff line thickness.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="163"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="180"/>
         <source>System dividers</source>
         <translation type="unfinished">System dividers</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="164"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="181"/>
         <source>The pair of slanting strokes which separates the systems of a large score, at the left or the right margin or both.</source>
         <translation type="unfinished">The pair of slanting strokes which separates the systems of a large score, at the left or the right margin or both.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="185"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="202"/>
         <source>A divider is drawn at the left margin between every two systems of a page.</source>
         <translation type="unfinished">A divider is drawn at the left margin between every two systems of a page.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="200"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="217"/>
         <source>Positive values move the left divider to the right, towards the staves.</source>
         <translation type="unfinished">Positive values move the left divider to the right, towards the staves.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="211"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="228"/>
         <source>Positive values move the left divider down from the middle between the two systems.</source>
         <translation type="unfinished">Positive values move the left divider down from the middle between the two systems.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="221"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="238"/>
         <source>A divider is drawn at the right margin between every two systems of a page.</source>
         <translation type="unfinished">A divider is drawn at the right margin between every two systems of a page.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="236"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="253"/>
         <source>Positive values move the right divider to the right, out into the margin; negative values towards the staves.</source>
         <translation type="unfinished">Positive values move the right divider to the right, out into the margin; negative values towards the staves.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="248"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="265"/>
         <source>Positive values move the right divider down from the middle between the two systems.</source>
         <translation type="unfinished">Positive values move the right divider down from the middle between the two systems.</translation>
     </message>
@@ -34576,7 +34576,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">How far the thick line of a bracket extends above the top staff and below the bottom staff before its tips, with music fonts other than Leland.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="108"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="125"/>
         <source>Bracket overshoot beyond the staff (Leland)</source>
         <translation type="unfinished">Bracket overshoot beyond the staff (Leland)</translation>
     </message>
@@ -34585,7 +34585,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">How far the thick line of a bracket extends above the top staff and below the bottom staff before its tips, with the music font Leland.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="118"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="135"/>
         <source>Square bracket hook length</source>
         <translation type="unfinished">Square bracket hook length</translation>
     </message>
@@ -34618,7 +34618,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Horizontal stretch of a brace is one glyph width per staff it spans plus this much per gap between those staves; lower values give a slimmer brace.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="171"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="188"/>
         <source>Divider</source>
         <translation type="unfinished">Divider</translation>
     </message>
@@ -34633,47 +34633,47 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">The first measure of the score, and of every section, gets its number too. Numbering at a regular interval then counts 1, 6, 11 … instead of 5, 10, 15 …</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="63"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="64"/>
         <source>Whether the first measure of every system is numbered, or measures at a regular interval wherever they fall.</source>
         <translation type="unfinished">Whether the first measure of every system is numbered, or measures at a regular interval wherever they fall.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="68"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="69"/>
         <source>At a regular interval</source>
         <translation type="unfinished">At a regular interval</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="77"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="78"/>
         <source>Interval</source>
         <translation type="unfinished">Interval</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="78"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="79"/>
         <source>A number is shown every this many measures: 5 numbers measures 5, 10, 15 … Only with the frequency ‘At a regular interval’.</source>
         <translation type="unfinished">A number is shown every this many measures: 5 numbers measures 5, 10, 15 … Only with the frequency ‘At a regular interval’.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="93"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="94"/>
         <source>Placement in the system</source>
         <translation type="unfinished">Placement in the system</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="94"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="95"/>
         <source>The numbers stand above the top staff of each system, below its bottom staff, on the staves which also carry tempo and rehearsal marks, or on every staff.</source>
         <translation type="unfinished">The numbers stand above the top staff of each system, below its bottom staff, on the staves which also carry tempo and rehearsal marks, or on every staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="99"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="100"/>
         <source>Above system</source>
         <translation type="unfinished">Above system</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="100"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="101"/>
         <source>Below system</source>
         <translation type="unfinished">Below system</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="101"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="102"/>
         <source>At system marking positions</source>
         <translation type="unfinished">At system marking positions</translation>
     </message>
@@ -34877,7 +34877,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="274"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="293"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="102"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="103"/>
         <source>On all staves</source>
         <translation type="unfinished">On all staves</translation>
     </message>
@@ -35327,7 +35327,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="301"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="311"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ClefsKeyAndTimeSignaturesPage.qml" line="322"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="294"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="295"/>
         <source>Standard</source>
         <translation type="unfinished">Standard</translation>
     </message>
@@ -35555,19 +35555,19 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">The parentheses are only as tall as the signatures they enclose; off makes them as tall as the staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="112"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="113"/>
         <source>The text style which gives the numbers their font, size and frame; ‘Measure number (alternate)’ is a second, bolder and framed style kept for this purpose.</source>
         <translation type="unfinished">The text style which gives the numbers their font, size and frame; ‘Measure number (alternate)’ is a second, bolder and framed style kept for this purpose.</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="392"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="135"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="339"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="136"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="340"/>
         <source>Above or below the staff</source>
         <translation type="unfinished">Above or below the staff</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="136"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="137"/>
         <source>Used only with the placement ‘On all staves’; with the other placements the numbers stand above the staff, or below it for ‘Below system’.</source>
         <translation type="unfinished">Used only with the placement ‘On all staves’; with the other placements the numbers stand above the staff, or below it for ‘Below system’.</translation>
     </message>
@@ -35653,8 +35653,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="125"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="359"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="409"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="360"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="410"/>
         <source>Horizontal padding</source>
         <translation type="unfinished">Horizontal padding</translation>
     </message>
@@ -35685,8 +35685,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="155"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="169"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="184"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="170"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="185"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="396"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="494"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="515"/>
@@ -35696,8 +35696,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="66"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="77"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="46"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="140"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="341"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="141"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="342"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="210"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="237"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="264"/>
@@ -35710,10 +35710,10 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="239"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="251"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="46"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="153"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="192"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="221"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="243"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="154"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="193"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="222"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="244"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="46"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="148"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="46"/>
@@ -35724,8 +35724,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="156"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="170"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="185"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="171"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="186"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="397"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="495"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="516"/>
@@ -35735,8 +35735,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="67"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="78"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="47"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="141"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="342"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="142"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="343"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="211"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="238"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="265"/>
@@ -35749,10 +35749,10 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="240"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="252"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="47"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="154"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="193"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="222"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="244"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="155"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="194"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="223"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="245"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="47"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="149"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="47"/>
@@ -35762,217 +35762,217 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Below</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="163"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="164"/>
         <source>Position of lute right-hand fingering</source>
         <translation type="unfinished">Position of lute right-hand fingering</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="164"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="165"/>
         <source>The dots and strokes which name the fingers of the right hand in lute music: below the notes (default), above them, or ‘Auto’ as for articulations.</source>
         <translation type="unfinished">The dots and strokes which name the fingers of the right hand in lute music: below the notes (default), above them, or ‘Auto’ as for articulations.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="177"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="178"/>
         <source>Position of bowings and other playing marks</source>
         <translation type="unfinished">Position of bowings and other playing marks</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="178"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="179"/>
         <source>Up bow and down bow, harmonics, open and stopped signs, snap pizzicato and the other signs which are not articulations in the narrow sense: above the notes (default), below them, or ‘Auto’ as for articulations.</source>
         <translation type="unfinished">Up bow and down bow, harmonics, open and stopped signs, snap pizzicato and the other signs which are not articulations in the narrow sense: above the notes (default), below them, or ‘Auto’ as for articulations.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="191"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="192"/>
         <source>Kinds of articulation</source>
         <translation type="unfinished">Kinds of articulation</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="197"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="198"/>
         <source>Marcato marks stand above the staff whatever the stem direction; off puts them on the notehead side like other articulations.</source>
         <translation type="unfinished">Marcato marks stand above the staff whatever the stem direction; off puts them on the notehead side like other articulations.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="205"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="206"/>
         <source>Staccato next to the notehead</source>
         <translation type="unfinished">Staccato next to the notehead</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="206"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="207"/>
         <source>The dot sits right at the notehead, in a staff space if need be and inside slurs; off stacks it outside the staff and outside slurs, with accents and the other articulations.</source>
         <translation type="unfinished">The dot sits right at the notehead, in a staff space if need be and inside slurs; off stacks it outside the staff and outside slurs, with accents and the other articulations.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="214"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="215"/>
         <source>Tenuto next to the notehead</source>
         <translation type="unfinished">Tenuto next to the notehead</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="215"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="216"/>
         <source>The dash sits right at the notehead, in a staff space if need be and inside slurs; off stacks it outside the staff and outside slurs, with accents and the other articulations.</source>
         <translation type="unfinished">The dash sits right at the notehead, in a staff space if need be and inside slurs; off stacks it outside the staff and outside slurs, with accents and the other articulations.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="223"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="224"/>
         <source>Accent drawn towards a staccato dot</source>
         <translation type="unfinished">Accent drawn towards a staccato dot</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="224"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="225"/>
         <source>Outside the staff, an accent stacked on a staccato dot is moved towards the dot by this much, so that the two read as one sign.</source>
         <translation type="unfinished">Outside the staff, an accent stacked on a staccato dot is moved towards the dot by this much, so that the two read as one sign.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="234"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="235"/>
         <source>Added to ‘Distance from notehead’ when the tenuto stands outside the staff on the side where a tie starts or ends, so that the tie passes between notehead and mark.</source>
         <translation type="unfinished">Added to ‘Distance from notehead’ when the tenuto stands outside the staff on the side where a tie starts or ends, so that the tie passes between notehead and mark.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="244"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="245"/>
         <source>Added to ‘Distance from notehead’ when the staccato dot stands outside the staff on the side where a tie starts or ends, so that the tie passes between notehead and dot.</source>
         <translation type="unfinished">Added to ‘Distance from notehead’ when the staccato dot stands outside the staff on the side where a tie starts or ends, so that the tie passes between notehead and dot.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="257"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="258"/>
         <source>Accidental: distance from the ornament</source>
         <translation type="unfinished">Accidental: distance from the ornament</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="258"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="259"/>
         <source>Vertical gap between a trill, turn or other ornament and the small accidental above or below it.</source>
         <translation type="unfinished">Vertical gap between a trill, turn or other ornament and the small accidental above or below it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="266"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="267"/>
         <source>Accidental: size</source>
         <translation type="unfinished">Accidental: size</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="267"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="268"/>
         <source>Size of the accidentals above and below ornaments as a multiple of a normal accidental; 0.6 is 60 %.</source>
         <translation type="unfinished">Size of the accidentals above and below ornaments as a multiple of a normal accidental; 0.6 is 60 %.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="276"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="277"/>
         <source>Falls, doits, plops and scoops</source>
         <translation type="unfinished">Falls, doits, plops and scoops</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="282"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="283"/>
         <source>Thickness of the straight and curved lines; the wavy forms are symbols of the music font and keep their own weight.</source>
         <translation type="unfinished">Thickness of the straight and curved lines; the wavy forms are symbols of the music font and keep their own weight.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="291"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="292"/>
         <source>How far a straight or curved line rises or falls, as long as it has not been reshaped by hand.</source>
         <translation type="unfinished">How far a straight or curved line rises or falls, as long as it has not been reshaped by hand.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="302"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="303"/>
         <source>Horizontal extent as a multiple of the height; 1.2 makes the line a little wider than it is tall.</source>
         <translation type="unfinished">Horizontal extent as a multiple of the height; 1.2 makes the line a little wider than it is tall.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="312"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="313"/>
         <source>Distance from the note</source>
         <translation type="unfinished">Distance from the note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="313"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="314"/>
         <source>Horizontal gap between the line and whatever lies at its height on that side of the chord: the notehead, an augmentation dot or an accidental.</source>
         <translation type="unfinished">Horizontal gap between the line and whatever lies at its height on that side of the chord: the notehead, an augmentation dot or an accidental.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="322"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="323"/>
         <source>Start height above or below the notehead centre</source>
         <translation type="unfinished">Start height above or below the notehead centre</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="323"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="324"/>
         <source>Falls and scoops meet the note this far below the middle of the notehead, doits and plops this far above it.</source>
         <translation type="unfinished">Falls and scoops meet the note this far below the middle of the notehead, doits and plops this far above it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="333"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="334"/>
         <source>Wavy doits and plops: shift downwards</source>
         <translation type="unfinished">Wavy doits and plops: shift downwards</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="334"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="335"/>
         <source>A fine adjustment which lowers the wavy symbol so that it meets the note at the right height in the chosen music font.</source>
         <translation type="unfinished">A fine adjustment which lowers the wavy symbol so that it meets the note at the right height in the chosen music font.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="346"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="347"/>
         <source>Wavy falls and scoops: shift upwards</source>
         <translation type="unfinished">Wavy falls and scoops: shift upwards</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="347"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="348"/>
         <source>A fine adjustment which raises the wavy symbol, which otherwise hangs below its start height by its full height.</source>
         <translation type="unfinished">A fine adjustment which raises the wavy symbol, which otherwise hangs below its start height by its full height.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="360"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="361"/>
         <source>Least horizontal gap which note spacing keeps between a fall, doit, plop or scoop and the items before and after it.</source>
         <translation type="unfinished">Least horizontal gap which note spacing keeps between a fall, doit, plop or scoop and the items before and after it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="370"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="371"/>
         <source>Distance from a barline</source>
         <translation type="unfinished">Distance from a barline</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="371"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="372"/>
         <source>Least horizontal gap between a fall, doit, plop or scoop and a barline.</source>
         <translation type="unfinished">Least horizontal gap between a fall, doit, plop or scoop and a barline.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="384"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="385"/>
         <source>Breath mark: vertical position</source>
         <translation type="unfinished">Breath mark: vertical position</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="385"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="386"/>
         <source>Height of breath marks relative to the top staff line, or the bottom line for a mark placed below; negative values are above that line.</source>
         <translation type="unfinished">Height of breath marks relative to the top staff line, or the bottom line for a mark placed below; negative values are above that line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="396"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="397"/>
         <source>Caesura: vertical position</source>
         <translation type="unfinished">Caesura: vertical position</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="397"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="398"/>
         <source>Height of the foot of a caesura relative to the top staff line, or the bottom line for a mark placed below; positive values are below that line, so 1 sp lets the strokes cut through the line.</source>
         <translation type="unfinished">Height of the foot of a caesura relative to the top staff line, or the bottom line for a mark placed below; positive values are below that line, so 1 sp lets the strokes cut through the line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="410"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="411"/>
         <source>Least horizontal gap which note spacing keeps between a breath mark or caesura and the items before and after it.</source>
         <translation type="unfinished">Least horizontal gap which note spacing keeps between a breath mark or caesura and the items before and after it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="419"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="420"/>
         <source>Keyboard hand brackets</source>
         <translation type="unfinished">Keyboard hand brackets</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="421"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="422"/>
         <source>The angled brackets which mark notes to be played with the left or the right hand.</source>
         <translation type="unfinished">The angled brackets which mark notes to be played with the left or the right hand.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="427"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="428"/>
         <source>Length of the horizontal stroke of the bracket.</source>
         <translation type="unfinished">Length of the horizontal stroke of the bracket.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="433"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="434"/>
         <source>Length of the vertical stroke of the bracket.</source>
         <translation type="unfinished">Length of the vertical stroke of the bracket.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="151"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="152"/>
         <source>Whether the number begins at, is centred on, or ends at the point it is aligned to: the barline or the measure, as chosen under ‘Align’.</source>
         <translation type="unfinished">Whether the number begins at, is centred on, or ends at the point it is aligned to: the barline or the measure, as chosen under ‘Align’.</translation>
     </message>
@@ -35982,11 +35982,11 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoTextStylesView.qml" line="154"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="309"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="334"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="69"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="144"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="155"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="355"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="173"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="82"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="157"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="156"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="356"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="190"/>
         <source>Left</source>
         <translation type="unfinished">Left</translation>
     </message>
@@ -35994,8 +35994,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoAlignEditor.qml" line="52"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="419"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoTextStylesView.qml" line="155"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="156"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="356"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="157"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="357"/>
         <source>Center</source>
         <translation type="unfinished">Center</translation>
     </message>
@@ -36005,22 +36005,22 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoTextStylesView.qml" line="156"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="311"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="336"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="71"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="146"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="157"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="357"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="174"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="84"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="159"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="158"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="358"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="191"/>
         <source>Right</source>
         <translation type="unfinished">Right</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="172"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="173"/>
         <source>To the barline: the number sits at the barline which begins its measure. To the measure: at the left end, the middle or the right end of the measure, after any clef and key signature.</source>
         <translation type="unfinished">To the barline: the number sits at the barline which begins its measure. To the measure: at the left end, the middle or the right end of the measure, after any clef and key signature.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="184"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="364"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="185"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="365"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="54"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="57"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="57"/>
@@ -36034,7 +36034,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Offset</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="185"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="186"/>
         <source>Offset with the alternate text style</source>
         <translation type="unfinished">Offset with the alternate text style</translation>
     </message>
@@ -36043,8 +36043,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="227"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="445"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="109"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="188"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="367"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="189"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="368"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="58"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="60"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="60"/>
@@ -36062,8 +36062,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="228"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="446"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="110"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="189"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="368"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="190"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="369"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="59"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="61"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="61"/>
@@ -36077,122 +36077,122 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Below the staff</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="196"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="197"/>
         <source>The sideways and vertical shift of a number which stands above the staff; a negative vertical value moves it further up. Applies with the text style ‘Measure number’.</source>
         <translation type="unfinished">The sideways and vertical shift of a number which stands above the staff; a negative vertical value moves it further up. Applies with the text style ‘Measure number’.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="211"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="212"/>
         <source>The sideways and vertical shift of a number which stands below the staff; a positive vertical value moves it further down. Applies with the text style ‘Measure number’.</source>
         <translation type="unfinished">The sideways and vertical shift of a number which stands below the staff; a positive vertical value moves it further down. Applies with the text style ‘Measure number’.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="226"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="227"/>
         <source>Offset above the staff with the alternate text style</source>
         <translation type="unfinished">Offset above the staff with the alternate text style</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="227"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="228"/>
         <source>Takes the place of the offset above the staff while the text style is ‘Measure number (alternate)’; a negative vertical value moves the number further up.</source>
         <translation type="unfinished">Takes the place of the offset above the staff while the text style is ‘Measure number (alternate)’; a negative vertical value moves the number further up.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="243"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="244"/>
         <source>Offset below the staff with the alternate text style</source>
         <translation type="unfinished">Offset below the staff with the alternate text style</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="244"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="245"/>
         <source>Takes the place of the offset below the staff while the text style is ‘Measure number (alternate)’.</source>
         <translation type="unfinished">Takes the place of the offset below the staff while the text style is ‘Measure number (alternate)’.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="255"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="256"/>
         <source>Distance from a one-line staff</source>
         <translation type="unfinished">Distance from a one-line staff</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="256"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="257"/>
         <source>On a staff with a single line, such as a percussion line, the numbers start this far above or below the line, because the barlines reach beyond it. Also used for the measure number ranges at multimeasure rests.</source>
         <translation type="unfinished">On a staff with a single line, such as a percussion line, the numbers start this far above or below the line, because the barlines reach beyond it. Also used for the measure number ranges at multimeasure rests.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="276"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="277"/>
         <source>Least gap to a barline</source>
         <translation type="unfinished">Least gap to a barline</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="277"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="278"/>
         <source>A left- or right-aligned number which would touch a barline running between the staves is moved sideways until it is this far from it; centred numbers stay where they are.</source>
         <translation type="unfinished">A left- or right-aligned number which would touch a barline running between the staves is moved sideways until it is this far from it; centred numbers stay where they are.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="289"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="290"/>
         <source>Least vertical gap between a measure number and the notes or other signs which lie between it and the staff.</source>
         <translation type="unfinished">Least vertical gap between a measure number and the notes or other signs which lie between it and the staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="297"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="298"/>
         <source>Measure number ranges at multimeasure rests</source>
         <translation type="unfinished">Measure number ranges at multimeasure rests</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="306"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="307"/>
         <source>A multimeasure rest shows the first and the last measure number it covers, such as 12–19.</source>
         <translation type="unfinished">A multimeasure rest shows the first and the last measure number it covers, such as 12–19.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="315"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="316"/>
         <source>What encloses the range: [12–19], (12–19) or 12–19.</source>
         <translation type="unfinished">What encloses the range: [12–19], (12–19) or 12–19.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="317"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="318"/>
         <source>Square brackets</source>
         <translation type="unfinished">Square brackets</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="319"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="320"/>
         <source>None</source>
         <translation type="unfinished">None</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="329"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="330"/>
         <source>The text style which gives the range its font and size.</source>
         <translation type="unfinished">The text style which gives the range its font and size.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="352"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="353"/>
         <source>The range stands at the left end of the measure, centred over it, or at its right end.</source>
         <translation type="unfinished">The range stands at the left end of the measure, centred over it, or at its right end.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="375"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="380"/>
         <source>The sideways and vertical shift of a range which stands above the staff; a negative vertical value moves it further up.</source>
         <translation type="unfinished">The sideways and vertical shift of a range which stands above the staff; a negative vertical value moves it further up.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="389"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="394"/>
         <source>The sideways and vertical shift of a range which stands below the staff; a positive vertical value moves it further down.</source>
         <translation type="unfinished">The sideways and vertical shift of a range which stands below the staff; a positive vertical value moves it further down.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="400"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="405"/>
         <source>Separator</source>
         <translation type="unfinished">Separator</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="401"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="406"/>
         <source>The character between the first and the last number of the range; an en dash by default, as in 12–19.</source>
         <translation type="unfinished">The character between the first and the last number of the range; an en dash by default, as in 12–19.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="412"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="417"/>
         <source>Least vertical gap between a measure number range and the notes or other signs which lie between it and the staff.</source>
         <translation type="unfinished">Least vertical gap between a measure number range and the notes or other signs which lie between it and the staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="177"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="194"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TablaturePage.qml" line="131"/>
         <source>Show</source>
         <translation type="unfinished">Show</translation>
@@ -36349,7 +36349,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="185"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="198"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="178"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="195"/>
         <source>Symbol</source>
         <translation type="unfinished">Symbol</translation>
     </message>
@@ -36407,13 +36407,13 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">As a fraction of the dot’s normal size in the music font; 0.5 is half size.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="179"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="196"/>
         <source>Horizontal offset</source>
         <translation type="unfinished">Horizontal offset</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="154"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="180"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SystemPage.qml" line="197"/>
         <source>Vertical offset</source>
         <translation type="unfinished">Vertical offset</translation>
     </message>
@@ -37921,7 +37921,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="119"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="45"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="116"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="117"/>
         <source>Offset above the staff</source>
         <translation type="unfinished">Offset above the staff</translation>
     </message>
@@ -37934,8 +37934,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ChordSymbolsPage.qml" line="404"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="127"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="46"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="125"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="161"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="126"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="162"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="156"/>
         <source>Offset below the staff</source>
         <translation type="unfinished">Offset below the staff</translation>
@@ -38232,70 +38232,70 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Layout</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="40"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="53"/>
         <source>Header</source>
         <translation type="unfinished">Header</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="44"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="57"/>
         <source>Show header</source>
         <translation type="unfinished">Show header</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="56"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="131"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="69"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="144"/>
         <source>Off, the texts of the odd pages are used on every page.</source>
         <translation type="unfinished">Off, the texts of the odd pages are used on every page.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="60"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="73"/>
         <source>Header text</source>
         <translation type="unfinished">Header text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="61"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="136"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="74"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="149"/>
         <source>Each field may hold several lines and the variables listed below, such as $p for the page number.</source>
         <translation type="unfinished">Each field may hold several lines and the variables listed below, such as $p for the page number.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="65"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="140"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="78"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="153"/>
         <source>Odd pages</source>
         <translation type="unfinished">Odd pages</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="66"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="141"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="79"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="154"/>
         <source>Even pages</source>
         <translation type="unfinished">Even pages</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoAlignEditor.qml" line="57"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoAllValuesView.qml" line="424"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="70"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="145"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="83"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="158"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="163"/>
         <source>Middle</source>
         <translation type="unfinished">Middle</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="92"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="99"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="106"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="167"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="174"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="181"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="105"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="112"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="119"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="180"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="187"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="194"/>
         <source>Only with ‘Different odd/even pages’ on.</source>
         <translation type="unfinished">Only with ‘Different odd/even pages’ on.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="113"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="126"/>
         <source>Footer</source>
         <translation type="unfinished">Footer</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="135"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="148"/>
         <source>Footer text</source>
         <translation type="unfinished">Footer text</translation>
     </message>
@@ -38324,7 +38324,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Even pages, right</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="118"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HeaderAndFooterPage.qml" line="131"/>
         <source>Show footer</source>
         <translation type="unfinished">Show footer</translation>
     </message>
@@ -38517,147 +38517,147 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Height of the dash above the baseline of the text: 50 % puts it at half the height of a small letter x.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="213"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="214"/>
         <source>Minimum gap between dash and syllable</source>
         <translation type="unfinished">Minimum gap between dash and syllable</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="214"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="215"/>
         <source>Least white space between a dash and the syllables on either side of it.</source>
         <translation type="unfinished">Least white space between a dash and the syllables on either side of it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="223"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="224"/>
         <source>Maximum distance between dashes</source>
         <translation type="unfinished">Maximum distance between dashes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="224"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="225"/>
         <source>Across a wide gap between two syllables the dash is repeated, so that two dashes are never further apart than this.</source>
         <translation type="unfinished">Across a wide gap between two syllables the dash is repeated, so that two dashes are never further apart than this.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="235"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="236"/>
         <source>Limit the number of dashes</source>
         <translation type="unfinished">Limit the number of dashes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="236"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="237"/>
         <source>Off, a long gap gets as many dashes as ‘Maximum distance between dashes’ calls for.</source>
         <translation type="unfinished">Off, a long gap gets as many dashes as ‘Maximum distance between dashes’ calls for.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="243"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="244"/>
         <source>Maximum number of dashes</source>
         <translation type="unfinished">Maximum number of dashes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="244"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="245"/>
         <source>Between two syllables no more dashes than this are drawn, however wide the gap. Only with ‘Limit the number of dashes’ on.</source>
         <translation type="unfinished">Between two syllables no more dashes than this are drawn, however wide the gap. Only with ‘Limit the number of dashes’ on.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="257"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="258"/>
         <source>Omit dash when space is limited</source>
         <translation type="unfinished">Omit dash when space is limited</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="258"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="259"/>
         <source>When two syllables of a word stand too close for a dash of the minimum length, the dash is left out; off moves the notes apart so that every divided word shows its dash.</source>
         <translation type="unfinished">When two syllables of a word stand too close for a dash of the minimum length, the dash is left out; off moves the notes apart so that every divided word shows its dash.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="267"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="268"/>
         <source>Never left-align syllables followed by dashes</source>
         <translation type="unfinished">Never left-align syllables followed by dashes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="268"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="269"/>
         <source>A syllable which is held over several notes and continues with a dash stays centred under its first note; off aligns it like a syllable with an extension line.</source>
         <translation type="unfinished">A syllable which is held over several notes and continues with a dash stays centred under its first note; off aligns it like a syllable with an extension line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="277"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="278"/>
         <source>Restate dash before syllable on first note of the system</source>
         <translation type="unfinished">Restate dash before syllable on first note of the system</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="278"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="279"/>
         <source>When a word is divided at a system break and its next syllable falls on the first note of the new system, a dash is drawn in front of that syllable as well.</source>
         <translation type="unfinished">When a word is divided at a system break and its next syllable falls on the first note of the new system, a dash is drawn in front of that syllable as well.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="287"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="288"/>
         <source>Dash at the start of a system</source>
         <translation type="unfinished">Dash at the start of a system</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="288"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="289"/>
         <source>Where the dash stands when a word continues from the system before: centred between the start of the music and the next syllable, right after the clef and key signature, or under the first note.</source>
         <translation type="unfinished">Where the dash stands when a word continues from the system before: centred between the start of the music and the next syllable, right after the clef and key signature, or under the first note.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="295"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="296"/>
         <source>Inside the header</source>
         <translation type="unfinished">Inside the header</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="296"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="297"/>
         <source>Under the first note</source>
         <translation type="unfinished">Under the first note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="303"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="304"/>
         <source>Halve the gap before the first and after the last dash</source>
         <translation type="unfinished">Halve the gap before the first and after the last dash</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="304"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="305"/>
         <source>When several dashes fill a gap, the space between a syllable and the dash nearest to it is half the space between two dashes; off makes all the spaces equal.</source>
         <translation type="unfinished">When several dashes fill a gap, the space between a syllable and the dash nearest to it is half the space between two dashes; off makes all the spaces equal.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="311"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="312"/>
         <source>Extension lines</source>
         <translation type="unfinished">Extension lines</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="319"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="320"/>
         <source>An extension line which would be shorter than this is left out, or drawn at this length if ‘Omit extension line when space is limited’ is off.</source>
         <translation type="unfinished">An extension line which would be shorter than this is left out, or drawn at this length if ‘Omit extension line when space is limited’ is off.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="334"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="335"/>
         <source>Gap between syllable and line</source>
         <translation type="unfinished">Gap between syllable and line</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="335"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="336"/>
         <source>White space between the end of a syllable and the start of its extension line.</source>
         <translation type="unfinished">White space between the end of a syllable and the start of its extension line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="345"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="346"/>
         <source>When the notes of a melisma stand too close for a line of the minimum length, the line is left out; off moves the notes apart so that every melisma shows its line.</source>
         <translation type="unfinished">When the notes of a melisma stand too close for a line of the minimum length, the line is left out; off moves the notes apart so that every melisma shows its line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="353"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="354"/>
         <source>End of the line on the last note</source>
         <translation type="unfinished">End of the line on the last note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="354"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="355"/>
         <source>Where the line ends on the last note of the melisma, as a fraction of the notehead width from its left edge: 1 is the right edge of the notehead, 0.5 its middle.</source>
         <translation type="unfinished">Where the line ends on the last note of the melisma, as a fraction of the notehead width from its left edge: 1 is the right edge of the notehead, 0.5 its middle.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="363"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="364"/>
         <source>Vertical position of the line</source>
         <translation type="unfinished">Vertical position of the line</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="364"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="365"/>
         <source>Raises (negative) or lowers (positive) extension lines from their normal place, where the lower edge of the line lies on the baseline of the text. Dashes are not affected.</source>
         <translation type="unfinished">Raises (negative) or lowers (positive) extension lines from their normal place, where the lower edge of the line lies on the baseline of the text. Dashes are not affected.</translation>
     </message>
@@ -38669,7 +38669,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="442"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="44"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="106"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="122"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="123"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="198"/>
         <source>Position</source>
         <translation type="unfinished">Position</translation>
@@ -39548,7 +39548,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">How far the ottava line continues past the right edge of the last note it covers (never beyond the next note).</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="318"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="319"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="32"/>
         <source>Parentheses</source>
         <translation type="unfinished">Parentheses</translation>
@@ -40382,37 +40382,37 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Applies to the first system of the score and to the first system after every section break.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="178"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="179"/>
         <source>The staves of the first system start at least this far from the left page margin; wider instrument names push them further.</source>
         <translation type="unfinished">The staves of the first system start at least this far from the left page margin; wider instrument names push them further.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="188"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="189"/>
         <source>Empty staves</source>
         <translation type="unfinished">Empty staves</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="195"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="196"/>
         <source>A staff which has no notes in a system is left out of that system. The staves of a piano or other multi-staff instrument go only when all of them are empty, unless ‘Only hide staves on a system if the entire instrument is empty’ is off in the instrument’s settings, as in the preview.</source>
         <translation type="unfinished">A staff which has no notes in a system is left out of that system. The staves of a piano or other multi-staff instrument go only when all of them are empty, unless ‘Only hide staves on a system if the entire instrument is empty’ is off in the instrument’s settings, as in the preview.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="207"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="208"/>
         <source>The first system of the score, and of every section, then shows all the instruments.</source>
         <translation type="unfinished">The first system of the score, and of every section, then shows all the instruments.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="217"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="218"/>
         <source>When hiding staves leaves a bracket or brace around a single staff, it is still drawn; off, it is left out.</source>
         <translation type="unfinished">When hiding staves leaves a bracket or brace around a single staff, it is still drawn; off, it is left out.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="228"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="229"/>
         <source>When hiding staves leaves a square bracket around a single staff, it is still drawn; off, it is left out.</source>
         <translation type="unfinished">When hiding staves leaves a square bracket around a single staff, it is still drawn; off, it is left out.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="236"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="237"/>
         <source>Instrument names</source>
         <translation type="unfinished">Instrument names</translation>
     </message>
@@ -40423,104 +40423,104 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="257"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="274"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="273"/>
         <source>Long name</source>
         <translation type="unfinished">Long name</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="258"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="275"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="274"/>
         <source>Short name</source>
         <translation type="unfinished">Short name</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="259"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="276"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="275"/>
         <source>Hide</source>
         <translation type="unfinished">Hide</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="289"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="288"/>
         <source>The gap between the instrument names and the staves; where there are brackets, it is measured from the outermost bracket.</source>
         <translation type="unfinished">The gap between the instrument names and the staves; where there are brackets, it is measured from the outermost bracket.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="304"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="303"/>
         <source>Widen the distance for larger name fonts</source>
         <translation type="unfinished">Widen the distance for larger name fonts</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="305"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="304"/>
         <source>‘Distance from staff’ is multiplied by how much larger the instrument-name font is than its default size; off, the distance stays exactly as set.</source>
         <translation type="unfinished">‘Distance from staff’ is multiplied by how much larger the instrument-name font is than its default size; off, the distance stays exactly as set.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="312"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="311"/>
         <source>Swing</source>
         <translation type="unfinished">Swing</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="313"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="312"/>
         <source>For playback only; nothing changes on the page.</source>
         <translation type="unfinished">For playback only; nothing changes on the page.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="318"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="317"/>
         <source>Swung note value</source>
         <translation type="unfinished">Swung note value</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="319"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="318"/>
         <source>Pairs of eighth notes, or of sixteenth notes, are played long–short throughout the score; a swing text in the score takes over from the place where it stands.</source>
         <translation type="unfinished">Pairs of eighth notes, or of sixteenth notes, are played long–short throughout the score; a swing text in the score takes over from the place where it stands.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="323"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="322"/>
         <source>Off</source>
         <translation type="unfinished">Off</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="324"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="323"/>
         <source>Eighth note</source>
         <translation type="unfinished">Eighth note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="325"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="324"/>
         <source>Sixteenth note</source>
         <translation type="unfinished">Sixteenth note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="332"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="331"/>
         <source>Swing ratio</source>
         <translation type="unfinished">Swing ratio</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="333"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="332"/>
         <source>The share of the beat which the first note of a swung pair takes: 50% is even, 67% a triplet swing. No effect while ‘Swung note value’ is ‘Off’.</source>
         <translation type="unfinished">The share of the beat which the first note of a swung pair takes: 50% is even, 67% a triplet swing. No effect while ‘Swung note value’ is ‘Off’.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="346"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="345"/>
         <source>Automatic placement</source>
         <translation type="unfinished">Automatic placement</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="352"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="351"/>
         <source>The least white space between the lowest note or mark of a staff and the highest note or mark of the staff below it; staves and systems are moved apart to keep it.</source>
         <translation type="unfinished">The least white space between the lowest note or mark of a staff and the highest note or mark of the staff below it; staves and systems are moved apart to keep it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="364"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="362"/>
         <source>Two marks, one above the other, count as colliding and are moved apart vertically when they pass each other sideways by less than this.</source>
         <translation type="unfinished">Two marks, one above the other, count as colliding and are moved apart vertically when they pass each other sideways by less than this.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="372"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="370"/>
         <source>Enable automatic placement</source>
         <translation type="unfinished">Enable automatic placement</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="373"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ScorePage.qml" line="371"/>
         <source>Off: nothing is moved out of the way of anything else. Every sign stands at its default position or where it was dragged, collisions are left as they are, and notes are spaced by their duration alone, with no extra room for accidentals, dots or lyrics. The same switch as the command ‘Toggle automatic placement for entire score’.</source>
         <translation type="unfinished">Off: nothing is moved out of the way of anything else. Every sign stands at its default position or where it was dragged, collisions are left as they are, and notes are spaced by their duration alone, with no extra room for accidentals, dots or lyrics. The same switch as the command ‘Toggle automatic placement for entire score’.</translation>
     </message>
@@ -41689,7 +41689,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoScaleEditor.qml" line="102"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="301"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="302"/>
         <source>Width</source>
         <translation type="unfinished">Width</translation>
     </message>
@@ -41705,7 +41705,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/editors/EoScaleEditor.qml" line="149"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="290"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="291"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SlursPage.qml" line="715"/>
         <source>Height</source>
         <translation type="unfinished">Height</translation>
@@ -41861,130 +41861,130 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">The distance from the time signature which begins the system to the first notehead; an accidental before that note reaches into this space.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="233"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="235"/>
         <source>The first note stands at least this far from the left end of the staff; it shows where a system begins without clef or key signature.</source>
         <translation type="unfinished">The first note stands at least this far from the left end of the staff; it shows where a system begins without clef or key signature.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="242"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="244"/>
         <source>Free space after the clef, key or time signature</source>
         <translation type="unfinished">Free space after the clef, key or time signature</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="243"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="245"/>
         <source>At least this much stays empty between the clef, key or time signature which begins the system and whatever comes first after it: the accidentals of the first note, or a start-repeat barline.</source>
         <translation type="unfinished">At least this much stays empty between the clef, key or time signature which begins the system and whatever comes first after it: the accidentals of the first note, or a start-repeat barline.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="255"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="257"/>
         <source>Where a tie, slur or other line carried over from the previous system begins: this far after the clef, key or time signature.</source>
         <translation type="unfinished">Where a tie, slur or other line carried over from the previous system begins: this far after the clef, key or time signature.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="266"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="267"/>
         <source>Where a tie or line begins which comes out of a barline inside a system, as after a repeat barline or at the start of a second ending.</source>
         <translation type="unfinished">Where a tie or line begins which comes out of a barline inside a system, as after a repeat barline or at the start of a second ending.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="276"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="277"/>
         <source>The distance from the left end of the staff to the clef at the start of every system; also the gap before a clef which stands after a barline.</source>
         <translation type="unfinished">The distance from the left end of the staff to the clef at the start of every system; also the gap before a clef which stands after a barline.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="286"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="287"/>
         <source>The gap before a key signature which follows a barline: a change of key, or the courtesy key signature at the end of a system.</source>
         <translation type="unfinished">The gap before a key signature which follows a barline: a change of key, or the courtesy key signature at the end of a system.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="296"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="297"/>
         <source>The gap before a time signature which follows a barline: a change of time, or the courtesy time signature at the end of a system.</source>
         <translation type="unfinished">The gap before a time signature which follows a barline: a change of time, or the courtesy time signature at the end of a system.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="306"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="307"/>
         <source>The least gap between any clef and the note or rest after it. At the start of a system the larger ‘Clef/key signature to first note’ rules, so this shows at clef changes.</source>
         <translation type="unfinished">The least gap between any clef and the note or rest after it. At the start of a system the larger ‘Clef/key signature to first note’ rules, so this shows at clef changes.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="313"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="314"/>
         <source>End of the system</source>
         <translation type="unfinished">End of the system</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="320"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="321"/>
         <source>Where a tie, slur or other line which goes on in the next system ends: this far before the last barline.</source>
         <translation type="unfinished">Where a tie, slur or other line which goes on in the next system ends: this far before the last barline.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="331"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="332"/>
         <source>The space left after a courtesy clef, key or time signature at the end of a system, before the right end of the staff.</source>
         <translation type="unfinished">The space left after a courtesy clef, key or time signature at the end of a system, before the right end of the staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="339"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="340"/>
         <source>Padding between items</source>
         <translation type="unfinished">Padding between items</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="340"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="341"/>
         <source>The smallest gap between an item (row) and the item which follows it on its right (column). Small notes get proportionally less, and so does everything in a system which is compressed to fit the line.</source>
         <translation type="unfinished">The smallest gap between an item (row) and the item which follows it on its right (column). Small notes get proportionally less, and so does everything in a system which is compressed to fit the line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="346"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="347"/>
         <source>The smallest gap between an item (row) and the item which follows it (column), in staff spaces.</source>
         <translation type="unfinished">The smallest gap between an item (row) and the item which follows it (column), in staff spaces.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="352"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="353"/>
         <source>The ‘Accidental’ column also applies to a fingering which stands before its note.</source>
         <translation type="unfinished">The ‘Accidental’ column also applies to a fingering which stands before its note.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="354"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="355"/>
         <source>From ↓ to →</source>
         <translation type="unfinished">From ↓ to →</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="356"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="367"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="357"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="368"/>
         <source>Note</source>
         <translation type="unfinished">Note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="357"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="358"/>
         <source>Flag</source>
         <translation type="unfinished">Flag</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="160"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/HammerOnsPullOffsAndTappingPage.qml" line="172"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="358"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="359"/>
         <source>Dot</source>
         <translation type="unfinished">Dot</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="359"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="369"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="360"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="370"/>
         <source>Rest</source>
         <translation type="unfinished">Rest</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="360"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="370"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="361"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="371"/>
         <source>Stem</source>
         <translation type="unfinished">Stem</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="376"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="361"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="371"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="362"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="372"/>
         <source>Clef</source>
         <translation type="unfinished">Clef</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="362"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="374"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="363"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="375"/>
         <source>Barline</source>
         <translation type="unfinished">Barline</translation>
     </message>
@@ -42245,15 +42245,15 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="374"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="363"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="372"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="364"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="373"/>
         <source>Key signature</source>
         <translation type="unfinished">Key signature</translation>
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ParenthesesPage.qml" line="375"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="364"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="373"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="365"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="374"/>
         <source>Time signature</source>
         <translation type="unfinished">Time signature</translation>
     </message>
@@ -42298,152 +42298,152 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Gap between the clef and the closing parenthesis.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="368"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="369"/>
         <source>Accidental</source>
         <translation type="unfinished">Accidental</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="375"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="376"/>
         <source>Arpeggio</source>
         <translation type="unfinished">Arpeggio</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="387"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="388"/>
         <source>The gap between a note and the accidental of the next note; if the distance set between an accidental and its own notehead is larger, that is used.</source>
         <translation type="unfinished">The gap between a note and the accidental of the next note; if the distance set between an accidental and its own notehead is larger, that is used.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="398"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="399"/>
         <source>Also used from a rest to a note and between two rests.</source>
         <translation type="unfinished">Also used from a rest to a note and between two rests.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="410"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="411"/>
         <source>Also used from a rest to a clef.</source>
         <translation type="unfinished">Also used from a rest to a clef.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="419"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="420"/>
         <source>Seen where a key signature follows a note with no barline between them, as a courtesy key signature before a repeat barline does.</source>
         <translation type="unfinished">Seen where a key signature follows a note with no barline between them, as a courtesy key signature before a repeat barline does.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="430"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="431"/>
         <source>Seen where a time signature follows a note with no barline between them, as a courtesy time signature before a repeat barline does.</source>
         <translation type="unfinished">Seen where a time signature follows a note with no barline between them, as a courtesy time signature before a repeat barline does.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="441"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="442"/>
         <source>The room left after the last note of a measure.</source>
         <translation type="unfinished">The room left after the last note of a measure.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="458"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="459"/>
         <source>Also used from a flag to a rest.</source>
         <translation type="unfinished">Also used from a flag to a rest.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="638"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="640"/>
         <source>The gap between the stems of neighbouring chords; it shows above all under beams which cross between staves.</source>
         <translation type="unfinished">The gap between the stems of neighbouring chords; it shows above all under beams which cross between staves.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="709"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="717"/>
         <source>The gap after a clef change which stands at the end of a measure.</source>
         <translation type="unfinished">The gap after a clef change which stands at the end of a measure.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="727"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="735"/>
         <source>The room left before the first note of a measure; also used from a barline to a rest.</source>
         <translation type="unfinished">The room left before the first note of a measure; also used from a barline to a rest.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="737"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="745"/>
         <source>The gap between a barline and the accidental of the first note after it.</source>
         <translation type="unfinished">The gap between a barline and the accidental of the first note after it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="761"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="775"/>
         <source>The least inner width of a measure whose content takes up no room.</source>
         <translation type="unfinished">The least inner width of a measure whose content takes up no room.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="779"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="793"/>
         <source>Also used from a key signature to a rest. At the start of a system the larger ‘Clef/key signature to first note’ rules.</source>
         <translation type="unfinished">Also used from a key signature to a rest. At the start of a system the larger ‘Clef/key signature to first note’ rules.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="790"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="804"/>
         <source>The gap between a key signature and the accidental of the first note after it.</source>
         <translation type="unfinished">The gap between a key signature and the accidental of the first note after it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="820"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="841"/>
         <source>Also used from a time signature to a key signature.</source>
         <translation type="unfinished">Also used from a time signature to a key signature.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="828"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="850"/>
         <source>Seen where a barline follows a key signature: a start-repeat barline after a change of key, or the barline after a courtesy key signature at a repeat.</source>
         <translation type="unfinished">Seen where a barline follows a key signature: a start-repeat barline after a change of key, or the barline after a courtesy key signature at a repeat.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="847"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="869"/>
         <source>Also used from a time signature to a rest. At the start of a system the larger ‘Time signature to first note’ rules.</source>
         <translation type="unfinished">Also used from a time signature to a rest. At the start of a system the larger ‘Time signature to first note’ rules.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="888"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="918"/>
         <source>Seen where a barline follows a time signature: a start-repeat barline after a change of time, or the barline after a courtesy time signature at a repeat.</source>
         <translation type="unfinished">Seen where a barline follows a time signature: a start-repeat barline after a change of time, or the barline after a courtesy time signature at a repeat.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="905"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="935"/>
         <source>Padding limits and kerning</source>
         <translation type="unfinished">Padding limits and kerning</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="910"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="941"/>
         <source>Default padding between items</source>
         <translation type="unfinished">Default padding between items</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="911"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="942"/>
         <source>The gap between two neighbouring items of kinds which have no value of their own in the table above; also between notes of different voices, which need not keep ‘Note to note’.</source>
         <translation type="unfinished">The gap between two neighbouring items of kinds which have no value of their own in the table above; also between notes of different voices, which need not keep ‘Note to note’.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="922"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="953"/>
         <source>No two neighbouring items come closer than this, whatever their own value says; like all padding it shrinks when a crowded system is compressed.</source>
         <translation type="unfinished">No two neighbouring items come closer than this, whatever their own value says; like all padding it shrinks when a crowded system is compressed.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="931"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="963"/>
         <source>Vertical gap needed for items to tuck past each other</source>
         <translation type="unfinished">Vertical gap needed for items to tuck past each other</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="932"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="964"/>
         <source>Two neighbouring items at different heights, such as a low note after the flag of a high one, may overlap sideways only while this much vertical space stays between them; with less, they are set side by side.</source>
         <translation type="unfinished">Two neighbouring items at different heights, such as a low note after the flag of a high one, may overlap sideways only while this much vertical space stays between them; with less, they are set side by side.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="942"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="974"/>
         <source>Vertical gap needed for an accidental to tuck in</source>
         <translation type="unfinished">Vertical gap needed for an accidental to tuck in</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="943"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="975"/>
         <source>An accidental may slide above or below the item before it, a note or a flag, only while this much vertical space stays between the two.</source>
         <translation type="unfinished">An accidental may slide above or below the item before it, a note or a flag, only while this much vertical space stays between the two.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="952"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="985"/>
         <source>Vertical gap needed for a parenthesis to tuck in</source>
         <translation type="unfinished">Vertical gap needed for a parenthesis to tuck in</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="953"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="986"/>
         <source>A parenthesis and its neighbour may overlap sideways only while this much vertical space stays between them.</source>
         <translation type="unfinished">A parenthesis and its neighbour may overlap sideways only while this much vertical space stays between them.</translation>
     </message>
@@ -42452,7 +42452,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between two items of kinds that have no setting of their own, and between two noteheads that may come closer than the minimum note distance.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="921"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="952"/>
         <source>Least padding between items</source>
         <translation type="unfinished">Least padding between items</translation>
     </message>
@@ -42489,7 +42489,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Gaps after notes and rests</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="397"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="398"/>
         <source>Note to rest</source>
         <translation type="unfinished">Note to rest</translation>
     </message>
@@ -42498,7 +42498,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a notehead and a rest that follows it. Also used from a rest to a note and between two rests.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="409"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="410"/>
         <source>Note to clef</source>
         <translation type="unfinished">Note to clef</translation>
     </message>
@@ -42507,7 +42507,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a notehead and a clef that follows it. Also used from a rest to a clef.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="449"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="450"/>
         <source>Note to arpeggio</source>
         <translation type="unfinished">Note to arpeggio</translation>
     </message>
@@ -42516,7 +42516,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a notehead and an arpeggio that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="418"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="419"/>
         <source>Note to key signature</source>
         <translation type="unfinished">Note to key signature</translation>
     </message>
@@ -42525,7 +42525,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a notehead and a key signature that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="429"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="430"/>
         <source>Note to time signature</source>
         <translation type="unfinished">Note to time signature</translation>
     </message>
@@ -42534,7 +42534,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a notehead and a time signature that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="386"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="387"/>
         <source>Note to accidental</source>
         <translation type="unfinished">Note to accidental</translation>
     </message>
@@ -42543,7 +42543,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a notehead and an accidental that follows it. The accidental to note distance is used instead if it is larger.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="457"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="458"/>
         <source>Flag to note</source>
         <translation type="unfinished">Flag to note</translation>
     </message>
@@ -42552,7 +42552,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a flag and a notehead that follows it. Also used from a flag to a rest.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="466"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="467"/>
         <source>Flag to accidental</source>
         <translation type="unfinished">Flag to accidental</translation>
     </message>
@@ -42561,7 +42561,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a flag and an accidental that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="480"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="481"/>
         <source>Flag to clef</source>
         <translation type="unfinished">Flag to clef</translation>
     </message>
@@ -42570,7 +42570,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a flag and a clef that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="512"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="513"/>
         <source>Flag to arpeggio</source>
         <translation type="unfinished">Flag to arpeggio</translation>
     </message>
@@ -42579,7 +42579,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a flag and an arpeggio that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="504"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="505"/>
         <source>Flag to barline</source>
         <translation type="unfinished">Flag to barline</translation>
     </message>
@@ -42588,7 +42588,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a flag and a barline that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="488"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="489"/>
         <source>Flag to key signature</source>
         <translation type="unfinished">Flag to key signature</translation>
     </message>
@@ -42597,7 +42597,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a flag and a key signature that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="496"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="497"/>
         <source>Flag to time signature</source>
         <translation type="unfinished">Flag to time signature</translation>
     </message>
@@ -42606,7 +42606,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a flag and a time signature that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="523"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="524"/>
         <source>Augmentation dot to accidental</source>
         <translation type="unfinished">Augmentation dot to accidental</translation>
     </message>
@@ -42615,7 +42615,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between an augmentation dot and an accidental that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="537"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="538"/>
         <source>Augmentation dot to clef</source>
         <translation type="unfinished">Augmentation dot to clef</translation>
     </message>
@@ -42624,7 +42624,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between an augmentation dot and a clef that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="569"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="570"/>
         <source>Augmentation dot to arpeggio</source>
         <translation type="unfinished">Augmentation dot to arpeggio</translation>
     </message>
@@ -42633,7 +42633,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between an augmentation dot and an arpeggio that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="561"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="562"/>
         <source>Augmentation dot to barline</source>
         <translation type="unfinished">Augmentation dot to barline</translation>
     </message>
@@ -42642,7 +42642,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between an augmentation dot and a barline that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="545"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="546"/>
         <source>Augmentation dot to key signature</source>
         <translation type="unfinished">Augmentation dot to key signature</translation>
     </message>
@@ -42651,7 +42651,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between an augmentation dot and a key signature that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="553"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="554"/>
         <source>Augmentation dot to time signature</source>
         <translation type="unfinished">Augmentation dot to time signature</translation>
     </message>
@@ -42660,7 +42660,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between an augmentation dot and a time signature that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="580"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="581"/>
         <source>Rest to accidental</source>
         <translation type="unfinished">Rest to accidental</translation>
     </message>
@@ -42669,7 +42669,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a rest and an accidental that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="613"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="614"/>
         <source>Rest to barline</source>
         <translation type="unfinished">Rest to barline</translation>
     </message>
@@ -42678,7 +42678,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a rest and a barline that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="597"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="598"/>
         <source>Rest to key signature</source>
         <translation type="unfinished">Rest to key signature</translation>
     </message>
@@ -42687,7 +42687,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a rest and a key signature that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="605"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="606"/>
         <source>Rest to time signature</source>
         <translation type="unfinished">Rest to time signature</translation>
     </message>
@@ -42696,7 +42696,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a rest and a time signature that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="637"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="639"/>
         <source>Stem to stem</source>
         <translation type="unfinished">Stem to stem</translation>
     </message>
@@ -42705,7 +42705,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a stem and a stem that follows it. Applies between the stems of adjacent chords, above all under cross-staff beams.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="627"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="628"/>
         <source>Stem to accidental</source>
         <translation type="unfinished">Stem to accidental</translation>
     </message>
@@ -42726,7 +42726,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Least clear space between the right edge of the clef, key or time signature that ends the system header and the leftmost point of what follows: the first note or rest with its accidentals, or a start repeat barline.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="666"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="668"/>
         <source>Clef to accidental</source>
         <translation type="unfinished">Clef to accidental</translation>
     </message>
@@ -42735,7 +42735,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a clef and an accidental that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="684"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="692"/>
         <source>Clef to clef</source>
         <translation type="unfinished">Clef to clef</translation>
     </message>
@@ -42744,7 +42744,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a clef and a clef that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="718"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="726"/>
         <source>Clef to arpeggio</source>
         <translation type="unfinished">Clef to arpeggio</translation>
     </message>
@@ -42753,7 +42753,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a clef and an arpeggio that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="677"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="679"/>
         <source>Clef to stem</source>
         <translation type="unfinished">Clef to stem</translation>
     </message>
@@ -42762,7 +42762,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a clef and a stem that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="770"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="784"/>
         <source>Barline to arpeggio</source>
         <translation type="unfinished">Barline to arpeggio</translation>
     </message>
@@ -42771,7 +42771,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a barline and an arpeggio that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="760"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="774"/>
         <source>Barline to barline</source>
         <translation type="unfinished">Barline to barline</translation>
     </message>
@@ -42780,7 +42780,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a barline and a barline that follows it. This is the least inner width of a bar whose content takes up no room.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="778"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="792"/>
         <source>Key signature to note</source>
         <translation type="unfinished">Key signature to note</translation>
     </message>
@@ -42789,7 +42789,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a key signature and a notehead that follows it. In a system header the system header distance applies instead if it is larger; also used from a key signature to a rest.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="789"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="803"/>
         <source>Key signature to accidental</source>
         <translation type="unfinished">Key signature to accidental</translation>
     </message>
@@ -42798,7 +42798,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a key signature and an accidental that follows it. The accidental is that of the first note after the key signature.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="804"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="819"/>
         <source>Key signature to clef</source>
         <translation type="unfinished">Key signature to clef</translation>
     </message>
@@ -42807,7 +42807,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a key signature and a clef that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="838"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="860"/>
         <source>Key signature to arpeggio</source>
         <translation type="unfinished">Key signature to arpeggio</translation>
     </message>
@@ -42816,7 +42816,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a key signature and an arpeggio that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="811"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="832"/>
         <source>Key signature to key signature</source>
         <translation type="unfinished">Key signature to key signature</translation>
     </message>
@@ -42825,7 +42825,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a key signature and a key signature that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="846"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="868"/>
         <source>Time signature to note</source>
         <translation type="unfinished">Time signature to note</translation>
     </message>
@@ -42834,7 +42834,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a time signature and a notehead that follows it. In a system header the system header distance for time signatures applies instead if it is larger; also used from a time signature to a rest.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="857"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="879"/>
         <source>Time signature to accidental</source>
         <translation type="unfinished">Time signature to accidental</translation>
     </message>
@@ -42843,7 +42843,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a time signature and an accidental that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="870"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="893"/>
         <source>Time signature to clef</source>
         <translation type="unfinished">Time signature to clef</translation>
     </message>
@@ -42852,7 +42852,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a time signature and a clef that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="898"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="928"/>
         <source>Time signature to arpeggio</source>
         <translation type="unfinished">Time signature to arpeggio</translation>
     </message>
@@ -42861,7 +42861,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Minimum horizontal gap between a time signature and an arpeggio that follows it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="880"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/SpacingPage.qml" line="909"/>
         <source>Time signature to time signature</source>
         <translation type="unfinished">Time signature to time signature</translation>
     </message>
@@ -43529,8 +43529,8 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     </message>
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="154"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="168"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="183"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="169"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/ArticulationsAndOrnamentsPage.qml" line="184"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="83"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="47"/>
         <source>Auto</source>
@@ -43752,42 +43752,42 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">On a note in parentheses the laissez vibrer tie starts this far above or below the parenthesis, so that it passes clear of it.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="449"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="448"/>
         <source>Gap to the next note or rest</source>
         <translation type="unfinished">Gap to the next note or rest</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="450"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="449"/>
         <source>The least horizontal space between the end of a laissez vibrer tie and the note or rest which follows; the music is spaced wider if needed.</source>
         <translation type="unfinished">The least horizontal space between the end of a laissez vibrer tie and the note or rest which follows; the music is spaced wider if needed.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="459"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="458"/>
         <source>Gap to the next accidental</source>
         <translation type="unfinished">Gap to the next accidental</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="460"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="459"/>
         <source>The same when the following note has an accidental in the way of the tie.</source>
         <translation type="unfinished">The same when the following note has an accidental in the way of the tie.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="468"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="467"/>
         <source>Gap to the next stem</source>
         <translation type="unfinished">Gap to the next stem</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="469"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="468"/>
         <source>The same when the stem of the following note is in the way of the tie.</source>
         <translation type="unfinished">The same when the stem of the following note is in the way of the tie.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="477"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="476"/>
         <source>Gap to the barline</source>
         <translation type="unfinished">Gap to the barline</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="478"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="477"/>
         <source>The least horizontal space between the end of a laissez vibrer tie and the barline after it.</source>
         <translation type="unfinished">The least horizontal space between the end of a laissez vibrer tie and the barline after it.</translation>
     </message>
@@ -43942,7 +43942,7 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
     <message>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/BendPage.qml" line="63"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/DynamicsHairpinsPage.qml" line="299"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="318"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LyricsPage.qml" line="319"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TiesPage.qml" line="419"/>
         <source>Minimum length</source>
         <translation type="unfinished">Minimum length</translation>
@@ -44386,17 +44386,17 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FingeringPage.qml" line="136"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/FretboardDiagramsPage.qml" line="79"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/LetRingAndPalmMutePage.qml" line="53"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="288"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="411"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="289"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/MeasureNumberPage.qml" line="416"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/OttavaPage.qml" line="172"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/PedalPage.qml" line="161"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RehearsalMarksPage.qml" line="83"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="205"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/RepeatsPage.qml" line="258"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="83"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="134"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="171"/>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="200"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="135"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="172"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="201"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="83"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TempoTextPage.qml" line="166"/>
         <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TextLinePage.qml" line="132"/>
@@ -44490,62 +44490,62 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">The right end of an extended bracket stops at least this far before the following note, clef, barline or tuplet bracket. Only with ‘Extend bracket to end of duration’ on.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="209"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="210"/>
         <source>The bracket runs parallel to the beam, or to the line through the tips of the first and last stems, however steep that is; ‘Maximum slope’ is then not applied.</source>
         <translation type="unfinished">The bracket runs parallel to the beam, or to the line through the tips of the first and last stems, however steep that is; ‘Maximum slope’ is then not applied.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="216"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="217"/>
         <source>Vertical distance from the notes</source>
         <translation type="unfinished">Vertical distance from the notes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="222"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="223"/>
         <source>The steepest a bracket may be, as rise over length: 0.5 lets it climb one staff space for every two it runs. Steeper brackets are flattened by moving one end away from the notes.</source>
         <translation type="unfinished">The steepest a bracket may be, as rise over length: 0.5 lets it climb one staff space for every two it runs. Steeper brackets are flattened by moving one end away from the notes.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="233"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="234"/>
         <source>Gap between the ends of the bracket hooks and the stem tips, where the tuplet is on the stem side; also the gap to the staff when ‘Avoid staves’ has moved the bracket out.</source>
         <translation type="unfinished">Gap between the ends of the bracket hooks and the stem tips, where the tuplet is on the stem side; also the gap to the staff when ‘Avoid staves’ has moved the bracket out.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="245"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="246"/>
         <source>Gap between the ends of the bracket hooks and the noteheads, where the tuplet is on the notehead side.</source>
         <translation type="unfinished">Gap between the ends of the bracket hooks and the noteheads, where the tuplet is on the notehead side.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="256"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="257"/>
         <source>A bracket which would lie inside the staff is moved out, to just above the top line or below the bottom line.</source>
         <translation type="unfinished">A bracket which would lie inside the staff is moved out, to just above the top line or below the bottom line.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="263"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="264"/>
         <source>Horizontal distance from the notes</source>
         <translation type="unfinished">Horizontal distance from the notes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="267"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="268"/>
         <source>How far the bracket reaches beyond the first and the last note: measured from the stem where the bracket is on the stem side, from the outer edge of the notehead where it is on the notehead side. Negative values pull the end inwards.</source>
         <translation type="unfinished">How far the bracket reaches beyond the first and the last note: measured from the stem where the bracket is on the stem side, from the outer edge of the notehead where it is on the notehead side. Negative values pull the end inwards.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="272"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="273"/>
         <source>Before the first note</source>
         <translation type="unfinished">Before the first note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="273"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="274"/>
         <source>After the last note</source>
         <translation type="unfinished">After the last note</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="276"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="277"/>
         <source>From the stem</source>
         <translation type="unfinished">From the stem</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="277"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/TupletsPage.qml" line="278"/>
         <source>From the notehead</source>
         <translation type="unfinished">From the notehead</translation>
     </message>
@@ -44610,182 +44610,182 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">The least distance from the bottom line of the last staff on the page to the bottom page margin.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="70"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="84"/>
         <source>The least gap between the music, with everything above and below the staves, and the text of the header or footer.</source>
         <translation type="unfinished">The least gap between the music, with everything above and below the staves, and the text of the header or footer.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="78"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="92"/>
         <source>Vertical justification</source>
         <translation type="unfinished">Vertical justification</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="83"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="97"/>
         <source>Justify staves vertically</source>
         <translation type="unfinished">Justify staves vertically</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="84"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="98"/>
         <source>The gaps between staves and between systems are opened up evenly until the music reaches down to the bottom margin. Off, the staves of a system keep fixed distances and only the gaps between systems grow.</source>
         <translation type="unfinished">The gaps between staves and between systems are opened up evenly until the music reaches down to the bottom margin. Off, the staves of a system keep fixed distances and only the gaps between systems grow.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="91"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="105"/>
         <source>Distance</source>
         <translation type="unfinished">Distance</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="92"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="106"/>
         <source>The limits between which the gaps may vary when the page is justified.</source>
         <translation type="unfinished">The limits between which the gaps may vary when the page is justified.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="95"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="109"/>
         <source>Between systems</source>
         <translation type="unfinished">Between systems</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="96"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="110"/>
         <source>Between staves</source>
         <translation type="unfinished">Between staves</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="99"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="113"/>
         <source>Minimum</source>
         <translation type="unfinished">Minimum</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="100"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="114"/>
         <source>Maximum</source>
         <translation type="unfinished">Maximum</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="108"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="134"/>
         <source>Measured from the bottom line of one system to the top line of the next; notes and marks in between can force more.</source>
         <translation type="unfinished">Measured from the bottom line of one system to the top line of the next; notes and marks in between can force more.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="119"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="145"/>
         <source>Justifying never opens the gap between two systems further than this.</source>
         <translation type="unfinished">Justifying never opens the gap between two systems further than this.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="128"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="154"/>
         <source>Applies between all staves of a system, also between the two staves of a piano part.</source>
         <translation type="unfinished">Applies between all staves of a system, also between the two staves of a piano part.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="138"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="164"/>
         <source>Justifying never opens the gap between two staves of a system further than this; between staves joined by a brace, ‘Max. grand staff distance’ applies instead.</source>
         <translation type="unfinished">Justifying never opens the gap between two staves of a system further than this; between staves joined by a brace, ‘Max. grand staff distance’ applies instead.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="150"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="176"/>
         <source>When the page is justified, a gap between two systems is made this many times as large as a gap between ordinary neighbouring staves of a system.</source>
         <translation type="unfinished">When the page is justified, a gap between two systems is made this many times as large as a gap between ordinary neighbouring staves of a system.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="162"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="188"/>
         <source>When the page is justified, the gap between a bracketed group of staves and the staff above or below it is made this many times as large as a gap between two staves inside the group.</source>
         <translation type="unfinished">When the page is justified, the gap between a bracketed group of staves and the staff above or below it is made this many times as large as a gap between two staves inside the group.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="174"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="200"/>
         <source>When the page is justified, the gap between the staves joined by a brace, such as a piano part, and the staff above or below them is made this many times as large as a gap between ordinary neighbouring staves.</source>
         <translation type="unfinished">When the page is justified, the gap between the staves joined by a brace, such as a piano part, and the staff above or below them is made this many times as large as a gap between ordinary neighbouring staves.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="188"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="214"/>
         <source>Justifying never opens the gap between the staves joined by a brace further than this.</source>
         <translation type="unfinished">Justifying never opens the gap between the staves joined by a brace further than this.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="198"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="224"/>
         <source>Once the gaps are even, each may be opened by at most this much more to bring the last staff down to the bottom margin; a page which would need more stays short.</source>
         <translation type="unfinished">Once the gaps are even, each may be opened by at most this much more to bring the last staff down to the bottom margin; a page which would need more stays short.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="207"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="233"/>
         <source>Without vertical justification</source>
         <translation type="unfinished">Without vertical justification</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="208"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="234"/>
         <source>These distances apply while ‘Justify staves vertically’ is off.</source>
         <translation type="unfinished">These distances apply while ‘Justify staves vertically’ is off.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="215"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="241"/>
         <source>The distance between the staves of different instruments in a system, from bottom line to top line; notes and marks in between can force more.</source>
         <translation type="unfinished">The distance between the staves of different instruments in a system, from bottom line to top line; notes and marks in between can force more.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="228"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="254"/>
         <source>The distance between the staves of one instrument, such as the two staves of a piano part.</source>
         <translation type="unfinished">The distance between the staves of one instrument, such as the two staves of a piano part.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="238"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="264"/>
         <source>The least gap between two systems, from the bottom line of one to the top line of the next.</source>
         <translation type="unfinished">The least gap between two systems, from the bottom line of one to the top line of the next.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="249"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="275"/>
         <source>To fill the page, the gaps between systems are opened up evenly, but never further than this.</source>
         <translation type="unfinished">To fill the page, the gaps between systems are opened up evenly, but never further than this.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="259"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="285"/>
         <source>Frames</source>
         <translation type="unfinished">Frames</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="264"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="290"/>
         <source>Gap above a vertical frame</source>
         <translation type="unfinished">Gap above a vertical frame</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="265"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="291"/>
         <source>The distance between a vertical frame and the system above it, for every frame which has not been given its own.</source>
         <translation type="unfinished">The distance between a vertical frame and the system above it, for every frame which has not been given its own.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="275"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="301"/>
         <source>Gap below a vertical frame</source>
         <translation type="unfinished">Gap below a vertical frame</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="276"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="302"/>
         <source>The distance between a vertical frame and the system below it, for every frame which has not been given its own.</source>
         <translation type="unfinished">The distance between a vertical frame and the system below it, for every frame which has not been given its own.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="286"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="312"/>
         <source>Least height of an auto-sized vertical frame</source>
         <translation type="unfinished">Least height of an auto-sized vertical frame</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="287"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="313"/>
         <source>A vertical frame which takes its height from its content is never lower than this; the same holds for an empty fretboard diagram legend.</source>
         <translation type="unfinished">A vertical frame which takes its height from its content is never lower than this; the same holds for an empty fretboard diagram legend.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="297"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="323"/>
         <source>Clearance for notation above a vertical frame</source>
         <translation type="unfinished">Clearance for notation above a vertical frame</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="298"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="324"/>
         <source>Least white space between a vertical frame and the lowest note or sign of the system above it; the frame moves down when ‘Gap above a vertical frame’ would leave less. For every frame which has not been given its own.</source>
         <translation type="unfinished">Least white space between a vertical frame and the lowest note or sign of the system above it; the frame moves down when ‘Gap above a vertical frame’ would leave less. For every frame which has not been given its own.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="309"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="335"/>
         <source>Clearance for notation below a vertical frame</source>
         <translation type="unfinished">Clearance for notation below a vertical frame</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="310"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/VerticalSpacingPage.qml" line="336"/>
         <source>Least white space between a vertical frame and the highest note or sign of the system below it; the system moves down when ‘Gap below a vertical frame’ would leave less. For every frame which has not been given its own.</source>
         <translation type="unfinished">Least white space between a vertical frame and the highest note or sign of the system below it; the system moves down when ‘Gap below a vertical frame’ would leave less. For every frame which has not been given its own.</translation>
     </message>
@@ -44794,12 +44794,17 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Spreads the staves and systems over the height of the page.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewPane.qml" line="205"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewPane.qml" line="210"/>
         <source>Show handles</source>
         <translation type="unfinished">Show handles</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewPane.qml" line="368"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewPane.qml" line="285"/>
+        <source>Hold to preview change</source>
+        <translation type="unfinished">Hold to preview change</translation>
+    </message>
+    <message>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/EoPreviewPane.qml" line="412"/>
         <source>This music does not show the option.</source>
         <translation type="unfinished">This music does not show the option.</translation>
     </message>
@@ -45630,132 +45635,132 @@ In addition, Mastering MuseScore features a supportive community of musicians, w
         <translation type="unfinished">Expression text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="99"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="100"/>
         <source>Snap to dynamics</source>
         <translation type="unfinished">Snap to dynamics</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="100"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="101"/>
         <source>Expression text beside a dynamic is set at the height of the dynamic, and the two then move up or down together.</source>
         <translation type="unfinished">Expression text beside a dynamic is set at the height of the dynamic, and the two then move up or down together.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="107"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="108"/>
         <source>Place expression before dynamic</source>
         <translation type="unfinished">Place expression before dynamic</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="108"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="109"/>
         <source>Off: expression text on the same note as a dynamic follows it (‘p dolce’). On: it stands before it (‘dolce p’).</source>
         <translation type="unfinished">Off: expression text on the same note as a dynamic follows it (‘p dolce’). On: it stands before it (‘dolce p’).</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="117"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="118"/>
         <source>Horizontal shift and height of expression text placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</source>
         <translation type="unfinished">Horizontal shift and height of expression text placed above, measured from the top staff line (negative is up); notes and signs in the way still push it further out.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="126"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="127"/>
         <source>Horizontal shift and depth of expression text placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</source>
         <translation type="unfinished">Horizontal shift and depth of expression text placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="135"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="136"/>
         <source>Least vertical gap between expression text and the notes or other signs which lie between it and the staff.</source>
         <translation type="unfinished">Least vertical gap between expression text and the notes or other signs which lie between it and the staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="142"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="143"/>
         <source>System text</source>
         <translation type="unfinished">System text</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="143"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="144"/>
         <source>Text which belongs to the whole system instead of one staff, and so appears in every part.</source>
         <translation type="unfinished">Text which belongs to the whole system instead of one staff, and so appears in every part.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="150"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="151"/>
         <source>Side of the staff on which system text is placed, unless one is flipped by hand.</source>
         <translation type="unfinished">Side of the staff on which system text is placed, unless one is flipped by hand.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="162"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="163"/>
         <source>Horizontal shift and depth of system text placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘System’.</source>
         <translation type="unfinished">Horizontal shift and depth of system text placed below, measured from the bottom staff line (positive is down); notes and signs in the way still push it further out. The offset above the staff is the ‘Offset’ of the text style ‘System’.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="172"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="173"/>
         <source>Least vertical gap between system text and the notes or other signs which lie between it and the staff.</source>
         <translation type="unfinished">Least vertical gap between system text and the notes or other signs which lie between it and the staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="179"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="180"/>
         <source>Instrument changes</source>
         <translation type="unfinished">Instrument changes</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="181"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="182"/>
         <source>The text which tells a player to change to another instrument (‘To Piccolo’).</source>
         <translation type="unfinished">The text which tells a player to change to another instrument (‘To Piccolo’).</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="188"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="189"/>
         <source>Side of the staff on which instrument change texts are placed, unless one is flipped by hand.</source>
         <translation type="unfinished">Side of the staff on which instrument change texts are placed, unless one is flipped by hand.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="201"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="202"/>
         <source>Least vertical gap between an instrument change text and the notes or other signs which lie between it and the staff.</source>
         <translation type="unfinished">Least vertical gap between an instrument change text and the notes or other signs which lie between it and the staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="208"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="209"/>
         <source>Harp pedal diagrams</source>
         <translation type="unfinished">Harp pedal diagrams</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="210"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="211"/>
         <source>The pedal setting of the harp is shown either as a diagram or as text (the note names of the seven strings); each kind has its own values.</source>
         <translation type="unfinished">The pedal setting of the harp is shown either as a diagram or as text (the note names of the seven strings); each kind has its own values.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="217"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="218"/>
         <source>Diagram: position</source>
         <translation type="unfinished">Diagram: position</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="218"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="219"/>
         <source>Side of the staff on which harp pedal diagrams are placed, unless one is flipped by hand.</source>
         <translation type="unfinished">Side of the staff on which harp pedal diagrams are placed, unless one is flipped by hand.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="229"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="230"/>
         <source>Diagram: minimum distance from notes and signs</source>
         <translation type="unfinished">Diagram: minimum distance from notes and signs</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="230"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="231"/>
         <source>Least vertical gap between a harp pedal diagram and the notes or other signs which lie between it and the staff.</source>
         <translation type="unfinished">Least vertical gap between a harp pedal diagram and the notes or other signs which lie between it and the staff.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="238"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="239"/>
         <source>Text: position</source>
         <translation type="unfinished">Text: position</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="239"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="240"/>
         <source>Side of the staff on which harp pedal settings written as text are placed, unless one is flipped by hand.</source>
         <translation type="unfinished">Side of the staff on which harp pedal settings written as text are placed, unless one is flipped by hand.</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="251"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="252"/>
         <source>Text: minimum distance from notes and signs</source>
         <translation type="unfinished">Text: minimum distance from notes and signs</translation>
     </message>
     <message>
-        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="252"/>
+        <location filename="../../src/notation/qml/MuseScore/NotationScene/internal/EngravingOptions/pages/StaffTextPage.qml" line="253"/>
         <source>Least vertical gap between a harp pedal setting written as text and the notes or other signs which lie between it and the staff.</source>
         <translation type="unfinished">Least vertical gap between a harp pedal setting written as text and the notes or other signs which lie between it and the staff.</translation>
     </message>

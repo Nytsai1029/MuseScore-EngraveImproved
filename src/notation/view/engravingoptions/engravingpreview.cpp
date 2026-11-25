@@ -293,7 +293,11 @@ void EngravingPreview::setShowsHandles(bool shows)
     m_showsHandles = shows;
     emit showsHandlesChanged();
 
-    update();
+    if (m_showsHandles && m_probedGhost.isNull() && hasEffect()) {
+        invalidatePaint();
+    } else {
+        update();
+    }
 }
 
 bool EngravingPreview::showsControlPoints() const
@@ -313,6 +317,27 @@ void EngravingPreview::setShowsControlPoints(bool shows)
     invalidatePaint();
 }
 
+bool EngravingPreview::showingProbed() const
+{
+    return m_showingProbed;
+}
+
+void EngravingPreview::setShowingProbed(bool showing)
+{
+    if (m_showingProbed == showing) {
+        return;
+    }
+
+    m_showingProbed = showing;
+    emit showingProbedChanged();
+
+    if (m_showingProbed && m_probedImage.isNull() && hasEffect()) {
+        invalidatePaint();
+    } else {
+        update();
+    }
+}
+
 QColor EngravingPreview::accentColor() const
 {
     return m_accentColor;
@@ -327,7 +352,11 @@ void EngravingPreview::setAccentColor(const QColor& color)
     m_accentColor = color;
     emit accentColorChanged();
 
-    update();
+    if (m_showsHandles && hasEffect()) {
+        invalidatePaint();
+    } else {
+        update();
+    }
 }
 
 bool EngravingPreview::hasEffect() const
@@ -535,11 +564,13 @@ void EngravingPreview::updateEffect(const MStyle& style)
     }
 
     if (!probe) {
+        m_activeProbe.reset();
         layoutMusic(style);
         return;
     }
 
     m_effect = m_renderer->effectOf(style, currentOverrides(), id, *probe, m_systemWidth);
+    m_activeProbe = m_effect.isEmpty() ? std::nullopt : probe;
 
     m_changeBox = muse::RectF();
     for (const muse::RectF& box : m_effect.changed) {
@@ -565,6 +596,9 @@ void EngravingPreview::render()
         m_needsLayout = false;
 
         m_image = QImage();
+        m_probedImage = QImage();
+        m_probedGhost = {};
+        m_extraBounds = QMarginsF();
         m_contentSize = QSizeF();
         m_naturalSize = QSizeF();
         m_naturalPageSize = QSizeF();
@@ -572,6 +606,7 @@ void EngravingPreview::render()
         //! NOTE A drag goes on with the effect found when the handle was pressed (see updateEffect)
         if (!isDragging()) {
             m_effect = {};
+            m_activeProbe.reset();
             m_changeBox = muse::RectF();
             m_curves.clear();
         }
@@ -643,6 +678,9 @@ void EngravingPreview::render()
 void EngravingPreview::paintPicture()
 {
     m_image = QImage();
+    m_probedImage = QImage();
+    m_probedGhost = {};
+    m_extraBounds = QMarginsF();
     m_contentSize = QSizeF();
     m_curves.clear();
 
@@ -651,15 +689,60 @@ void EngravingPreview::paintPicture()
     }
 
     //! NOTE The picture is always made at the size it is shown, never scaled
+    const double pixels = BASE_STAFF_SPACE * m_zoom;
     const qreal pixelRatio = window() ? window()->effectiveDevicePixelRatio() : 1.0;
-    m_image = m_renderer->picture(BASE_STAFF_SPACE * m_zoom, pixelRatio);
-    m_contentSize = m_image.deviceIndependentSize();
+    m_image = m_renderer->picture(pixels, pixelRatio);
+    const QSizeF imageSize = m_image.deviceIndependentSize();
+    m_contentSize = imageSize;
 
     if (m_showsControlPoints) {
         for (const EngravingPreviewRenderer::Item& item : m_renderer->items()) {
             if (!item.curve.empty()) {
                 m_curves.push_back(item.curve);
             }
+        }
+    }
+
+    if (!isDragging() && !m_activeSid.isEmpty() && m_activeStyleId != StyleId::NOSTYLE
+        && hasEffect() && m_activeProbe.has_value() && (m_showsHandles || m_showingProbed)) {
+        const INotationPtr notation = globalContext()->currentNotation();
+        if (notation) {
+            const MStyle& style = notation->elements()->msScore()->style();
+            const std::vector<EngravingPreviewRenderer::Override> base = currentOverrides();
+            std::vector<EngravingPreviewRenderer::Override> probed = base;
+            probed.push_back({ m_activeStyleId, *m_activeProbe });
+
+            m_renderer->layout(style, probed, m_systemWidth, m_activeStyleId);
+            m_probedImage = m_renderer->picture(pixels, pixelRatio);
+            m_renderer->layout(style, base, m_systemWidth, m_activeStyleId);
+
+            const QPointF shift(m_effect.probeFrameShift.x() * pixels, m_effect.probeFrameShift.y() * pixels);
+            if (m_showsHandles && !m_effect.afterChanged.empty()) {
+                std::vector<QRectF> afterRegions;
+                afterRegions.reserve(m_effect.afterChanged.size());
+                for (const muse::RectF& box : m_effect.afterChanged) {
+                    afterRegions.emplace_back(box.left() * pixels, box.top() * pixels,
+                                              box.width() * pixels, box.height() * pixels);
+                }
+                m_probedGhost = PreviewOverlay::probedGhost(m_image, m_probedImage, shift, afterRegions,
+                                                            pixels, m_accentColor);
+            }
+
+            //! NOTE Keep enough room around the real picture so neither the probed ghost nor the compared
+            //! after-picture is clipped when an option moves an item outside the original bounds
+            QRectF combined(QPointF(0.0, 0.0), imageSize);
+            if (!m_probedGhost.isNull()) {
+                combined = combined.united(QRectF(m_probedGhost.offset, m_probedGhost.image.deviceIndependentSize()));
+            }
+            if (!m_probedImage.isNull() && !m_showsPage) {
+                combined = combined.united(QRectF(shift, m_probedImage.deviceIndependentSize()));
+            }
+            m_extraBounds = QMarginsF(std::max(0.0, -combined.left()),
+                                      std::max(0.0, -combined.top()),
+                                      std::max(0.0, combined.right() - imageSize.width()),
+                                      std::max(0.0, combined.bottom() - imageSize.height()));
+            m_contentSize = QSizeF(imageSize.width() + m_extraBounds.left() + m_extraBounds.right(),
+                                   imageSize.height() + m_extraBounds.top() + m_extraBounds.bottom());
         }
     }
 }
@@ -676,8 +759,9 @@ double EngravingPreview::pixelsPerStaffSpace() const
 
 QRectF EngravingPreview::pictureRect() const
 {
-    return QRectF((width() - m_contentSize.width()) / 2.0, (height() - m_contentSize.height()) / 2.0,
-                  m_contentSize.width(), m_contentSize.height());
+    const QSizeF imageSize = m_image.deviceIndependentSize();
+    const QPointF combinedTopLeft((width() - m_contentSize.width()) / 2.0, (height() - m_contentSize.height()) / 2.0);
+    return QRectF(combinedTopLeft + QPointF(m_extraBounds.left(), m_extraBounds.top()), imageSize);
 }
 
 QPointF EngravingPreview::toItem(const muse::PointF& inStaffSpaces) const
@@ -743,11 +827,25 @@ void EngravingPreview::paint(QPainter* painter)
         return;
     }
 
-    //! NOTE The washes mark what the option changes: behind the music, so that it is not smeared
-    const PreviewOverlay marks = overlay();
-    marks.paintBelow(painter);
-    painter->drawImage(pictureRect(), m_image);
-    marks.paintAbove(painter);
+    const QRectF target = pictureRect();
+    const double pixels = pixelsPerStaffSpace();
+
+    if (m_showingProbed && !m_probedImage.isNull() && !isDragging()) {
+        const QPointF probedOrigin = target.topLeft()
+                                     + QPointF(m_effect.probeFrameShift.x(), m_effect.probeFrameShift.y()) * pixels;
+        painter->drawImage(QRectF(probedOrigin, m_probedImage.deviceIndependentSize()), m_probedImage);
+    } else {
+        //! NOTE The washes mark what the option changes: behind the music, so that it is not smeared
+        const PreviewOverlay marks = overlay();
+        marks.paintBelow(painter);
+        if (m_showsHandles && !isDragging() && !m_probedGhost.isNull()) {
+            painter->drawImage(QRectF(target.topLeft() + m_probedGhost.offset,
+                                      m_probedGhost.image.deviceIndependentSize()),
+                               m_probedGhost.image);
+        }
+        painter->drawImage(target, m_image);
+        marks.paintAbove(painter);
+    }
 
     //! NOTE The edges of the pages, which are as white as the paper around them
     if (!m_pages.empty()) {
@@ -755,7 +853,7 @@ void EngravingPreview::paint(QPainter* painter)
         painter->setPen(QPen(PAGE_EDGE_COLOR, 1.0));
         painter->setBrush(Qt::NoBrush);
         for (const muse::RectF& page : m_pages) {
-            const QRectF rect(toItem(page.topLeft()), QSizeF(page.width(), page.height()) * pixelsPerStaffSpace());
+            const QRectF rect(toItem(page.topLeft()), QSizeF(page.width(), page.height()) * pixels);
             painter->drawRect(rect.adjusted(-0.5, -0.5, 0.5, 0.5));
         }
         painter->restore();

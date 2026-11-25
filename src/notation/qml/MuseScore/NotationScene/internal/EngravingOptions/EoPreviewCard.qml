@@ -44,6 +44,7 @@ Rectangle {
     property alias isDraggable: preview.isDraggable
     property alias showsHandles: preview.showsHandles
     property alias showsControlPoints: preview.showsControlPoints
+    property alias showingProbed: preview.showingProbed
     property alias dragMinimum: preview.dragMinimum
     property alias dragMaximum: preview.dragMaximum
     property alias dragStep: preview.dragStep
