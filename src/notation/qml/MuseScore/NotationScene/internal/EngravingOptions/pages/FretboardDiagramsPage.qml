@@ -323,8 +323,8 @@ EoPage {
 
             EoNumber {
                 sid: "barreSlurHeightTwoStrings"
-                music: "c''2 \\fretDiagram \"xx0233\" barre 3 r2"
-                musicStyle: ({ barreAppearanceSlur: true })
+                music: "c''1 \\fretDiagram \"xx0233\" barre 3"
+                musicStyle: ({ barreAppearanceSlur: true, fretMag: 1.8 })
                 hint: qsTrc("notation/engravingoptions",
                             "How far the arc of a slur-style barré across two strings bulges above its ends, as a " +
                             "fraction of the fret spacing.")
@@ -334,8 +334,8 @@ EoPage {
 
             EoNumber {
                 sid: "barreSlurHeightThreeStrings"
-                music: "c''2 \\fretDiagram \"x02220\" barre 2 r2"
-                musicStyle: ({ barreAppearanceSlur: true })
+                music: "c''1 \\fretDiagram \"x02220\" barre 2"
+                musicStyle: ({ barreAppearanceSlur: true, fretMag: 1.8 })
                 hint: qsTrc("notation/engravingoptions",
                             "How far the arc of a slur-style barré across three strings bulges above its ends, as a " +
                             "fraction of the fret spacing.")
@@ -345,8 +345,8 @@ EoPage {
 
             EoNumber {
                 sid: "barreSlurHeight"
-                music: "c''2 \\fretDiagram \"x24432\" barre 2 r2"
-                musicStyle: ({ barreAppearanceSlur: true })
+                music: "c''1 \\fretDiagram \"x24432\" barre 2"
+                musicStyle: ({ barreAppearanceSlur: true, fretMag: 1.8 })
                 hint: qsTrc("notation/engravingoptions",
                             "How far the arc of a slur-style barré across four or more strings bulges above its " +
                             "ends, as a fraction of the fret spacing.")
@@ -356,8 +356,8 @@ EoPage {
 
             EoNumber {
                 sid: "barreSlurThicknessTwoStrings"
-                music: "c''2 \\fretDiagram \"xx0233\" barre 3 r2"
-                musicStyle: ({ barreAppearanceSlur: true })
+                music: "c''1 \\fretDiagram \"xx0233\" barre 3"
+                musicStyle: ({ barreAppearanceSlur: true, fretMag: 1.8 })
                 hint: qsTrc("notation/engravingoptions",
                             "Thickness of the arc of a slur-style barré across two strings.")
                 max: 0.5
@@ -366,8 +366,8 @@ EoPage {
 
             EoNumber {
                 sid: "barreSlurThickness"
-                music: "c''2 \\fretDiagram \"x24432\" barre 2 r2"
-                musicStyle: ({ barreAppearanceSlur: true })
+                music: "c''1 \\fretDiagram \"x24432\" barre 2"
+                musicStyle: ({ barreAppearanceSlur: true, fretMag: 1.8 })
                 hint: qsTrc("notation/engravingoptions",
                             "Thickness of the arc of a slur-style barré across three or more strings.")
                 max: 0.5
@@ -380,8 +380,8 @@ EoPage {
 
         EoNumber {
             sid: "barreSlurShoulderOffsetRatio"
-            music: "c''2 \\fretDiagram \"x24432\" barre 2 r2"
-            musicStyle: ({ barreAppearanceSlur: true })
+            music: "c''1 \\fretDiagram \"x24432\" barre 2"
+            musicStyle: ({ barreAppearanceSlur: true, fretMag: 1.8 })
             title: qsTrc("notation/engravingoptions", "Shoulder position of the barré arc")
             hint: qsTrc("notation/engravingoptions",
                         "How far in from each end the arc reaches its full height, as a fraction of its length: a " +

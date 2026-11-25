@@ -64,8 +64,22 @@ EoPage {
 
         EoNumber {
             sid: "staffHeaderFooterPadding"
-            music: "\\instruments 2 \\group bracket c''1"
-            musicStyle: ({ headerFirstPage: true, oddHeaderC: "$P", staffUpperBorder: 0 })
+            music: "\\instruments 2 \\group bracket c''1 | c''1"
+            musicStyle: ({
+                pageWidth: 4.5,
+                pageHeight: 2.8,
+                pagePrintableWidth: 3.7,
+                pageOddLeftMargin: 0.4,
+                pageEvenLeftMargin: 0.4,
+                pageOddTopMargin: 0.35,
+                pageEvenTopMargin: 0.35,
+                pageOddBottomMargin: 0.35,
+                pageEvenBottomMargin: 0.35,
+                headerFirstPage: true,
+                oddHeaderC: "Sonata",
+                headerFontSize: 12,
+                staffUpperBorder: 0
+            })
             title: qsTrc("EditStyleBase", "Min. distance to header/footer:")
             hint: qsTrc("notation/engravingoptions",
                         "The least gap between the music, with everything above and below the staves, and the text " +
@@ -102,9 +116,21 @@ EoPage {
 
             EoNumber {
                 sid: "minSystemSpread"
-                music: "\\instruments 2 \\group bracket c''1 \\break c''1 \\break c''1 \\break c''1 " +
-                       "\\break c''1 \\break c''1 \\break c''1 \\break c''1"
-                musicStyle: ({ staffUpperBorder: 9.0 })
+                music: "\\instruments 2 \\group bracket c''1 \\break c''1 \\break c''1"
+                musicStyle: ({
+                    pageWidth: 4.8,
+                    pageHeight: 6.2,
+                    pagePrintableWidth: 4.0,
+                    pageOddLeftMargin: 0.4,
+                    pageEvenLeftMargin: 0.4,
+                    pageOddTopMargin: 0.35,
+                    pageEvenTopMargin: 0.35,
+                    pageOddBottomMargin: 0.35,
+                    pageEvenBottomMargin: 0.35,
+                    staffUpperBorder: 2.0,
+                    maxSystemSpread: 8.5,
+                    maxPageFillSpread: 0
+                })
                 hint: qsTrc("notation/engravingoptions",
                             "Measured from the bottom line of one system to the top line of the next; notes and " +
                             "marks in between can force more.")

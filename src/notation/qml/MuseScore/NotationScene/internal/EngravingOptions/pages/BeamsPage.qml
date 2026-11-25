@@ -59,7 +59,7 @@ EoPage {
 
         EoNumber {
             sid: "beamMinLen"
-            music: "c'8[ e'16]"
+            music: "c'8.[ c'16 c'8. c'16]"
             title: qsTrc("notation/engravingoptions", "Length of beamlets")
             hint: qsTrc("notation/engravingoptions",
                         "Length of the short stub of beam on a single note, as on the sixteenth after a dotted " +
@@ -77,7 +77,7 @@ EoPage {
 
         EoChoice {
             sid: "frenchStyleBeams"
-            music: "c'16[ e'16 g'16 e'16]"
+            music: "c'32[ e'32 g'32 b'32 g'32 e'32]"
             title: qsTrc("notation", "Beam style")
             presentation: "tiles"
             choices: [

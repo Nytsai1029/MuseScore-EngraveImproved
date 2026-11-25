@@ -87,6 +87,23 @@ EoPage {
 
         EoToggle {
             sid: "alignSystemToMargin"
+            previewScope: "page"
+            musicStyle: ({
+                pageWidth: 4.5,
+                pageHeight: 2.3,
+                pagePrintableWidth: 3.3,
+                pageOddLeftMargin: 0.6,
+                pageEvenLeftMargin: 0.6,
+                pageOddTopMargin: 0.35,
+                pageEvenTopMargin: 0.35,
+                pageOddBottomMargin: 0.35,
+                pageEvenBottomMargin: 0.35,
+                headerFirstPage: true,
+                oddHeaderL: "Sonata",
+                headerFontSize: 11,
+                enableIndentationOnFirstSystem: false,
+                firstSystemInstNameVisibility: 2
+            })
             title: qsTrc("EditStyleBase", "Let brackets extend into the left margin when there are no instrument names")
             hint: qsTrc("notation/engravingoptions",
                         "On, the staves start at the left margin and the brackets hang out into it; off, the staves " +

@@ -96,6 +96,7 @@ EoPage {
 
         EoToggle {
             sid: "snapToDynamics"
+            music: "e4 \\p \\expression \"dolce\" c''4 e''4 c''4"
             title: qsTrc("notation/engravingoptions", "Snap to dynamics")
             hint: qsTrc("notation/engravingoptions",
                         "Expression text beside a dynamic is set at the height of the dynamic, and the two then move " +

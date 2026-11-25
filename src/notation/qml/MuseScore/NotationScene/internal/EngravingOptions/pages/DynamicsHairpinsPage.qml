@@ -168,7 +168,7 @@ EoPage {
 
         EoNumber {
             sid: "dynamicsMinBarlineDistance"
-            music: "\\staves 2 \\spanBarlines c''2 c''2 | c''2 \\sfz c''2"
+            music: "\\staves 2 \\spanBarlines c''2 | c''4 \\fff c''4"
             title: qsTrc("notation/engravingoptions", "Minimum distance from barlines")
             hint: qsTrc("notation/engravingoptions",
                         "With ‘Avoid barlines’ on: how far from the barline a dynamic ends up after it has been " +

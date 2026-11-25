@@ -205,6 +205,7 @@ EoPage {
 
         EoToggle {
             sid: "tupletBracketFixedSlant"
+            music: "\\tuplet 3/2 { c'4 g' e'' }"
             title: qsTrc("EditStyleBase", "Fixed slant (follow beam/stems)")
             hint: qsTrc("notation/engravingoptions",
                         "The bracket runs parallel to the beam, or to the line through the tips of the first and " +
@@ -279,7 +280,7 @@ EoPage {
 
             EoNumber {
                 sid: "tupletStemLeftDistance"
-                music: "\\tuplet 3/2 { c''8 d'' e'' }"
+                music: "\\stemDown \\tuplet 3/2 { c''4 d'' e'' }"
                 min: -5
                 max: 5
             }
@@ -294,7 +295,7 @@ EoPage {
 
             EoNumber {
                 sid: "tupletStemRightDistance"
-                music: "\\stemUp \\tuplet 3/2 { e'8 g' c'' }"
+                music: "\\stemUp \\tuplet 3/2 { e'4 g' c'' }"
                 min: -5
                 max: 5
             }

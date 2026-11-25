@@ -259,7 +259,7 @@ EoPage {
 
         EoNumber {
             sid: "slurArticulationDistance"
-            music: "\\stemUp c''4-.( d''4)"
+            music: "\\stemUp c'4-.( d'4-.)"
             title: qsTrc("notation/engravingoptions", "Distance beyond articulation")
             hint: qsTrc("notation/engravingoptions",
                         "When a staccato dot, tenuto line or similar mark sits next to the notehead on the slur’s " +

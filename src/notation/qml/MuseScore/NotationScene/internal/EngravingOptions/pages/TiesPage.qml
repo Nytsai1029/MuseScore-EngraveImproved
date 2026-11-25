@@ -122,7 +122,7 @@ EoPage {
 
         EoNumber {
             sid: "minTieLength"
-            music: "g'16~ g'16 g'16~ g'16 g'16~ g'16 g'16~ g'16"
+            music: "<c'' e'' g''>16~ <c'' e'' g''>16 r8 r2"
             title: qsTrc("notation/engravingoptions", "Minimum tie length")
             hint: qsTrc("notation/engravingoptions",
                         "Tied notes are spaced far enough apart for the tie between them to be at least this long.")
@@ -444,8 +444,7 @@ EoPage {
 
         EoNumber {
             sid: "laissezVibNoteDistance"
-            music: "c''8 \\laissezVibrer c''8 r4"
-            musicStyle: ({ measureSpacing: 2.0 })
+            music: "e'16 \\laissezVibrer e'16 r8 r4"
             title: qsTrc("notation/engravingoptions", "Gap to the next note or rest")
             hint: qsTrc("notation/engravingoptions",
                         "The least horizontal space between the end of a laissez vibrer tie and the note or rest " +

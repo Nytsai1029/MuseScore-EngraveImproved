@@ -315,7 +315,7 @@ EoPage {
 
         EoNumber {
             sid: "lineEndToBarlineDistance"
-            music: "c''2_\"la-\" | \\break c''2_\"la\""
+            music: "c''2 \\startOttava 8va c''2 | \\break c''2 \\stopOttava c''2"
             systemWidth: 16
             title: qsTrc("EditStyleBase", "Continued tie or line to barline:")
             hint: qsTrc("notation/engravingoptions",

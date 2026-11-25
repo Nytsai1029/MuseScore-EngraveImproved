@@ -226,7 +226,7 @@ EoPage {
 
         EoNumber {
             sid: "guitarBendTabNoteVerticalPadding"
-            music: "\\tab \\grace a'8 \\preBend b'4 r4 r2"
+            music: "\\tab \\grace a'8 \\preBend b'4"
             title: qsTrc("notation/engravingoptions", "Vertical gap to the fret numbers")
             hint: qsTrc("notation/engravingoptions",
                         "Vertical gap between a fret number and the start of a pre-bend above it, or the arrowhead " +
@@ -261,7 +261,7 @@ EoPage {
 
         EoNumber {
             sid: "guitarBendHoldLineEndInset"
-            music: "\\tab a'4 \\bend b'4~ b'4 r4"
+            music: "\\tab a'4 \\bend b'4~ b'4 c''4"
             title: qsTrc("notation/engravingoptions", "Hold line: gap before the next note")
             hint: qsTrc("notation/engravingoptions",
                         "The dashed hold line runs on past its last note and stops this far before the following " +

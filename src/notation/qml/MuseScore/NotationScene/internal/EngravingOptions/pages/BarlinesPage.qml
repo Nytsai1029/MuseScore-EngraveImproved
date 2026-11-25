@@ -201,7 +201,7 @@ EoPage {
 
     EoSection {
         title: qsTrc("notation/engravingoptions", "Barlines which cross text")
-        music: "\\staves 2 \\spanBarlines c''1 | \\staff 2 c''2 c''2^\"espressivo\" | c''1"
+        music: "\\staves 2 \\spanBarlines \\staff 2 g2 g2^\"espressivo\" | g2 g2"
 
         EoToggle {
             sid: "maskBarlinesForText"
@@ -214,8 +214,8 @@ EoPage {
 
         EoNumber {
             sid: "maskBarlinesCollisionPadding"
-            music: "\\staves 2 \\spanBarlines c''1 | \\staff 2 c''2^\"espressivo\" c''2 | c''1"
-            musicStyle: ({ maskBarlinesForText: true, measureSpacing: 1.0 })
+            music: "\\staves 2 \\spanBarlines \\staff 2 g2 g2^\"dolce\" | g2 g2"
+            musicStyle: ({ maskBarlinesForText: true, measureSpacing: 1.4 })
             title: qsTrc("notation/engravingoptions", "Distance at which a barline is broken")
             hint: qsTrc("notation/engravingoptions",
                         "A barline which passes closer than this to a text is broken there, even if it does not " +

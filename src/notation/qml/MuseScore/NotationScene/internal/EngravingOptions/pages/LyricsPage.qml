@@ -210,6 +210,7 @@ EoPage {
 
         EoNumber {
             sid: "lyricsDashPad"
+            music: "c''8_\"Glo-\" d''8_\"ri-\" e''4_\"a\""
             title: qsTrc("notation/engravingoptions", "Minimum gap between dash and syllable")
             hint: qsTrc("notation/engravingoptions",
                         "Least white space between a dash and the syllables on either side of it.")

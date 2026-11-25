@@ -104,7 +104,7 @@ EoPage {
 
         EoNumber {
             sid: "shortStemStartLocation"
-            music: "\\stemUp a'4"
+            music: "\\stemUp g'4 a'4 b'4 c''4"
             title: qsTrc("EditStyleBase", "Shortening starts beyond the staff by (half spaces):")
             hint: qsTrc("notation/engravingoptions",
                         "How far the stem tip must stand out beyond the outer staff line before the stem is " +
