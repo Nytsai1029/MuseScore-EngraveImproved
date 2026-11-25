@@ -163,8 +163,8 @@ EoPage {
 
         EoToggle {
             sid: "enableIndentationOnFirstSystem"
-            music: "c''4 d''4"
-            musicStyle: ({ enableIndentationOnFirstSystem: true })
+            music: "c''1 \\break c''1"
+            systemWidth: 22
             title: qsTrc("EditStyleBase", "Enable indentation on first system")
             hint: qsTrc("notation/engravingoptions",
                         "Applies to the first system of the score and to the first system after every section break.")
@@ -172,7 +172,8 @@ EoPage {
 
         EoNumber {
             sid: "firstSystemIndentationValue"
-            music: "c''4 d''4"
+            music: "c''1 \\break c''1"
+            systemWidth: 22
             musicStyle: ({ enableIndentationOnFirstSystem: true })
             title: qsTrc("EditStyleBase", "First system indentation:")
             hint: qsTrc("notation/engravingoptions",
@@ -247,7 +248,6 @@ EoPage {
             music: "\\name \"Violin I\" \"Vln. I\" c''1 | c''1"
             musicStyle: ({
                 hideInstrumentNameIfOneInstrument: false,
-                firstSystemInstNameVisibility: 0,
                 subsSystemInstNameVisibility: 1
             })
             title: qsTrc("EditStyleBase", "On first system of sections:")
@@ -266,8 +266,7 @@ EoPage {
             systemWidth: 20
             musicStyle: ({
                 hideInstrumentNameIfOneInstrument: false,
-                firstSystemInstNameVisibility: 0,
-                subsSystemInstNameVisibility: 1
+                firstSystemInstNameVisibility: 0
             })
             title: qsTrc("EditStyleBase", "On subsequent systems:")
             choices: [
@@ -358,8 +357,7 @@ EoPage {
 
         EoNumber {
             sid: "skylineMinHorizontalClearance"
-            music: "\\staves 2 << { g16 c''16 } \\\\ { \\staff 2 c16 a'16 } >>"
-            musicStyle: ({ measureSpacing: 1.3 })
+            music: "c8 c''8 \\f c''4 c''2"
             title: qsTrc("EditStyleBase", "Min. horizontal distance:")
             hint: qsTrc("notation/engravingoptions",
                         "Two marks, one above the other, count as colliding and are moved apart vertically when they " +

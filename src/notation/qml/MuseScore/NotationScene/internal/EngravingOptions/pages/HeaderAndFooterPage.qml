@@ -32,9 +32,22 @@ EoPage {
     legacyCodes: ["headerAndFooter"]
     title: qsTrc("EditStyleBase", "Header & footer")
     group: qsTrc("notation/engravingoptions", "Layout")
-    //! NOTE: three pages: the first, with the title; an even one; an odd one
+    //! NOTE: three compact pages (first with title, even, odd) with larger header/footer text so the bands read clearly
     previewScope: "page"
     music: "\\title \"Sonata\" c''1 \\pageBreak c''1 \\pageBreak c''1"
+    musicStyle: ({
+        pageWidth: 4.5,
+        pageHeight: 3.2,
+        pagePrintableWidth: 3.7,
+        pageOddLeftMargin: 0.4,
+        pageEvenLeftMargin: 0.4,
+        pageOddTopMargin: 0.35,
+        pageEvenTopMargin: 0.35,
+        pageOddBottomMargin: 0.35,
+        pageEvenBottomMargin: 0.35,
+        headerFontSize: 12,
+        footerFontSize: 12
+    })
 
     EoSection {
         title: qsTrc("notation/engravingoptions", "Header")

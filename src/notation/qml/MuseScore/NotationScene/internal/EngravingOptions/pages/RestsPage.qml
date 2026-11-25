@@ -266,7 +266,7 @@ EoPage {
 
         EoNumber {
             sid: "mmRestNumberPosOneLineStaff"
-            music: "\\lines 1 R1 | R1 | R1 | R1 | c'1"
+            music: "\\lines 1 R1 | R1 | R1 | R1 | f''1"
             musicStyle: ({ createMultiMeasureRests: true })
             title: qsTrc("notation/engravingoptions", "Lowest position on one-line staves")
             hint: qsTrc("notation/engravingoptions",

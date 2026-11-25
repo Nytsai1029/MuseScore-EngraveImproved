@@ -217,7 +217,7 @@ EoPage {
 
     EoSection {
         title: qsTrc("notation/engravingoptions", "Jumps and markers")
-        music: "\\segno c''2 c''2 | c''2 c''2 \\toCoda | \\coda c''2 c''2 \\jump \"D.S. al Coda\""
+        music: "\\segno c''2 c''2 \\toCoda | c''1 | \\coda c''4 c''4 c''2 \\jump \"D.S. al Coda\""
 
         EoNumber {
             sid: "repeatTextBarlinePadding"

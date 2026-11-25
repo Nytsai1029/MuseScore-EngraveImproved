@@ -470,7 +470,7 @@ EoPage {
         EoChoice {
             sid: "timeSigVSMarginNonCentered"
             music: "\\time 4/4 c''1 \\break \\time 3/4 c''2."
-            systemWidth: 16
+            systemWidth: 22
             musicStyle: ({ timeSigPlacement: 1, timeSigCenterOnBarline: false })
             title: qsTrc("notation/engravingoptions",
                          "Above the staves: courtesy at the end of the system, not centred")

@@ -159,7 +159,8 @@ EoPage {
 
         EoChoice {
             sid: "articulationAnchorLuteFingering"
-            music: "c''4 \\luteFinger 2 b'4 \\luteFinger 3"
+            music: "c''4 \\luteFinger thumb b'4 \\luteFinger 1 d''4 \\luteFinger 2 c''4 \\luteFinger 3"
+            musicStyle: ({ articulationMag: 1.4 })
             title: qsTrc("notation/engravingoptions", "Position of lute right-hand fingering")
             hint: qsTrc("notation/engravingoptions",
                         "The dots and strokes which name the fingers of the right hand in lute music: below the " +

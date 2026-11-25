@@ -40,7 +40,7 @@ EoPage {
         EoToggle {
             sid: "showMeasureNumber"
             music: "c''4 c''4 | c''2 | c''2"
-            musicStyle: ({ showMeasureNumber: true, measureNumberSystem: false, measureNumberInterval: 1 })
+            musicStyle: ({ measureNumberSystem: false, measureNumberInterval: 1 })
             title: qsTrc("notation/editstyle/voltas", "Show measure numbers")
         }
 
@@ -57,7 +57,8 @@ EoPage {
 
         EoChoice {
             sid: "measureNumberSystem"
-            music: "c''4 c''4 | c''2 | c''2"
+            music: "c''4 c''4 | c''2 \\break c''2 | c''2"
+            systemWidth: 32
             musicStyle: ({ showMeasureNumber: true, measureNumberInterval: 1 })
             title: qsTrc("notation/editstyle/voltas", "Frequency")
             hint: qsTrc("notation/engravingoptions",
@@ -371,7 +372,11 @@ EoPage {
             EoOffset {
                 sid: "mmRestRangePosAbove"
                 music: "c''1 | R1 | R1 | R1 | c''1"
-                musicStyle: ({ createMultiMeasureRests: true, mmRestShowMeasureNumberRange: true })
+                musicStyle: ({
+                    createMultiMeasureRests: true,
+                    mmRestShowMeasureNumberRange: true,
+                    mmRestRangeVPlacement: 0
+                })
                 hint: qsTrc("notation/engravingoptions",
                             "The sideways and vertical shift of a range which stands above the staff; a negative " +
                             "vertical value moves it further up.")
