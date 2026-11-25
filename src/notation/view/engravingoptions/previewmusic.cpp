@@ -2527,7 +2527,9 @@ private:
             if (staff == 0 && m_piece.staves > 1 && m_piece.spanBarlines) {
                 number("barLineSpan", 1);
             }
-            if (staff == 1 && !m_piece.instruments && !m_piece.tabStaves.count(staff)) {
+            if (m_piece.staffLines.count(staff) && m_piece.staffLines.at(staff) == 1) {
+                text("defaultClef", "PERC");
+            } else if (staff == 1 && !m_piece.instruments && !m_piece.tabStaves.count(staff)) {
                 text("defaultClef", "F");
             }
             //! NOTE: the staves' bracket, as TWrite writes it (twrite.cpp): type, span, col, visible

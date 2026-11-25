@@ -1013,8 +1013,9 @@ TEST_F(Notation_PreviewMusicTests, stavesHiddenIndividually)
  */
 TEST_F(Notation_PreviewMusicTests, staffWithOneLine)
 {
-    ASSERT_TRUE(load("\\lines 1 R1 | c'1"));
+    ASSERT_TRUE(load("\\lines 1 R1 | f''1"));
     EXPECT_EQ(score()->staff(0)->lines(Fraction(0, 1)), 1);
+    EXPECT_EQ(score()->staff(0)->defaultClefType().concertClef, ClefType::PERC);
 
     ASSERT_TRUE(load("c'1"));
     EXPECT_EQ(score()->staff(0)->lines(Fraction(0, 1)), 5);

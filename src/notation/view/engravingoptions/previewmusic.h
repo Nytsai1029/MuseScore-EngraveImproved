@@ -112,8 +112,8 @@ namespace mu::notation {
 //!   chords which follow on the neighbouring staff. A slur, a tie and a hairpin stay on one staff.
 //!   `\tab` at the beginning makes the current staff a six-string tablature (its part is a guitar in standard
 //!   tuning; a note is on the highest string which has it), a simple one which shows the frets alone; `\tab common`
-//!   a common one, which shows the rhythm too. `\lines N` gives it N lines
-//!   (1 to 5) instead of five. `\name "long" "short"` at the beginning names the instrument,
+//!   a common one, which shows the rhythm too. `\lines N` gives it N lines (1 to 5) instead of five (a one-line
+//!   staff gets a percussion clef). `\name "long" "short"` at the beginning names the instrument,
 //!   `\smallStaff` makes the current staff a small staff, `\spanBarlines` joins the barlines of two staves,
 //!   `\hideStavesIndividually` lets the style hide an empty staff of the two although the other has notes.
 //!   `\group` with `bracket`, `square`, `line`, `brace` or `none` chooses the bracket over the two staves
