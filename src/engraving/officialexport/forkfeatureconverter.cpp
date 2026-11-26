@@ -524,6 +524,10 @@ void ForkFeatureConverter::stripItem(EngravingItem* item)
     } else if (item->isSlurSegment()) {
         reset(Pid::SLUR_MULTI_BEZIER_DATA);
         reset(Pid::SLUR_FROZEN_SHAPE);
+    } else if (item->isTieSegment()) {
+        if (!item->ldata()->mask().empty()) {
+            m_report.addDropped(DroppedFeature::TieSignatureGaps);
+        }
     } else if (item->isTuplet()) {
         reset(Pid::TUPLET_BRACKET_FIXED_SLANT);
     } else if (item->type() == ElementType::TREMOLO_TWOCHORD) {

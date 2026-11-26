@@ -91,6 +91,9 @@ muse::TranslatableString mu::engraving::droppedFeatureTitle(DroppedFeature featu
     case DroppedFeature::SlurPiecesNotSplit:
         return muse::TranslatableString("engraving/officialexport",
                                         "Multi-curve slurs that could not be split into plain slurs");
+    case DroppedFeature::TieSignatureGaps:
+        return muse::TranslatableString("engraving/officialexport",
+                                        "Gaps in ties across key or time signatures");
     }
     return muse::TranslatableString();
 }

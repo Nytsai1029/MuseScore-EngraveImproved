@@ -21,6 +21,8 @@
  */
 #include "slurtielayout.h"
 
+#include <algorithm>
+#include <array>
 #include <cmath>
 
 #include "iengravingfont.h"
@@ -266,10 +268,42 @@ PointF lensEndNormal(const PointF& from, const PointF& to)
     return normal.y() > 0.0 ? -normal : normal;
 }
 
-// Closed two-cubic lens between start and end, widened by endHalfWidth on each side and cut square to the curve
-// at both ends, to be filled without a pen
+// Semicircular cap from `from` to `to` (opposite points across their midpoint), bulging in the
+// direction of `outwardHint` perpendicular to the chord `from -> to`. Built from two quarter-circle
+// cubic Beziers so the cap joins both edges tangentially.
+void appendRoundCap(PainterPath& path, const PointF& from, const PointF& to, const PointF& outwardHint)
+{
+    const PointF center = 0.5 * (from + to);
+    const PointF radial = from - center;
+    const double radius = std::hypot(radial.x(), radial.y());
+    if (radius < 1e-9) {
+        path.lineTo(to);
+        return;
+    }
+
+    // Remove any component along `radial` so the cap stays a true semicircle tangent to the edges.
+    const PointF radialUnit = radial / radius;
+    const double proj = outwardHint.x() * radialUnit.x() + outwardHint.y() * radialUnit.y();
+    const PointF orthoOut = outwardHint - radialUnit * proj;
+    const double outLen = std::hypot(orthoOut.x(), orthoOut.y());
+    if (outLen < 1e-9) {
+        path.lineTo(to);
+        return;
+    }
+
+    constexpr double QUARTER_CIRCLE_KAPPA = 0.5522847498307933984; // 4 * (sqrt(2) - 1) / 3
+    const PointF outVec = (orthoOut / outLen) * radius;
+    const PointF apex = center + outVec;
+
+    path.cubicTo(from + outVec * QUARTER_CIRCLE_KAPPA, apex + radial * QUARTER_CIRCLE_KAPPA, apex);
+    path.cubicTo(apex - radial * QUARTER_CIRCLE_KAPPA, to + outVec * QUARTER_CIRCLE_KAPPA, to);
+}
+
+// Closed two-cubic lens between start and end, widened by endHalfWidth on each side and closed at both
+// ends either square to the curve (FLAT) or with half-circle caps (ROUND), to be filled without a pen.
 PainterPath buildSolidLensPath(const PointF& start, const PointF& c1, const PointF& c2, const PointF& end,
-                               const PointF& thickness, double endHalfWidth)
+                               const PointF& thickness, double endHalfWidth,
+                               SlurTieEndStyle endStyle = SlurTieEndStyle::FLAT)
 {
     const PointF startOffset = lensEndNormal(start, c1) * endHalfWidth;
     const PointF endOffset = lensEndNormal(c2, end) * endHalfWidth;
@@ -279,10 +313,122 @@ PainterPath buildSolidLensPath(const PointF& start, const PointF& c1, const Poin
     path.setFillRule(PainterPath::FillRule::WindingFill);
     path.moveTo(start + startOffset);
     path.cubicTo(c1 - widened, c2 - widened, end + endOffset);
-    path.lineTo(end - endOffset);
+    if (endStyle == SlurTieEndStyle::ROUND) {
+        appendRoundCap(path, end + endOffset, end - endOffset, end - c2);
+    } else {
+        path.lineTo(end - endOffset);
+    }
     path.cubicTo(c2 + widened, c1 + widened, start - startOffset);
+    if (endStyle == SlurTieEndStyle::ROUND) {
+        appendRoundCap(path, start - startOffset, start + startOffset, start - c1);
+    }
     path.closeSubpath();
     return path;
+}
+
+struct TieCurveShape
+{
+    double shoulderHeight = 0.0;
+    double controlDistance = 0.0;
+};
+
+struct ReferenceSpanSample
+{
+    double span = 0.0;
+    double value = 0.0;
+};
+
+// Piecewise linear evaluation through the three (span, value) samples sorted by span.
+// Equal spans collapse so the later entry wins without dividing by zero. Shorter than the
+// shortest span scales proportionally to length; longer than the longest keeps the last slope.
+double evaluateReferenceSpans(double lengthSp, std::array<ReferenceSpanSample, 3> samples)
+{
+    if (lengthSp <= 0.0) {
+        return 0.0;
+    }
+
+    std::stable_sort(samples.begin(), samples.end(), [](const ReferenceSpanSample& a, const ReferenceSpanSample& b) {
+        return a.span < b.span;
+    });
+
+    std::array<ReferenceSpanSample, 3> unique {};
+    size_t count = 0;
+    for (const ReferenceSpanSample& sample : samples) {
+        if (count > 0 && std::abs(sample.span - unique[count - 1].span) <= 1e-9) {
+            unique[count - 1] = sample;
+        } else {
+            unique[count++] = sample;
+        }
+    }
+
+    if (count == 1 || lengthSp <= unique[0].span) {
+        return unique[0].span > 1e-9 ? unique[0].value * (lengthSp / unique[0].span) : unique[0].value;
+    }
+
+    size_t piece = count - 2;
+    for (size_t i = 0; i + 1 < count; ++i) {
+        if (lengthSp <= unique[i + 1].span) {
+            piece = i;
+            break;
+        }
+    }
+
+    const ReferenceSpanSample& a = unique[piece];
+    const ReferenceSpanSample& b = unique[piece + 1];
+    const double t = (lengthSp - a.span) / (b.span - a.span);
+    return a.value + t * (b.value - a.value);
+}
+
+TieCurveShape tieCurveByFormula(const TieSegment* tieSeg, double tieWidth, double tieLengthInSp)
+{
+    const double spatium = tieSeg->spatium();
+    const MStyle& style = tieSeg->style();
+    const double minShoulderHeight = tieSeg->minShoulderHeight();
+    const double maxShoulderHeight = std::max(minShoulderHeight, tieSeg->maxShoulderHeight());
+    const double shoulderHeightFactor = style.styleD(Sid::tieShoulderHeightFactor);
+    const double shoulderHeightRefLength = style.styleS(Sid::tieShoulderHeightReferenceLength).val();
+
+    double shoulderH = minShoulderHeight
+                       + spatium * shoulderHeightFactor * std::sqrt(std::abs(tieLengthInSp - shoulderHeightRefLength));
+    shoulderH = std::clamp(shoulderH, minShoulderHeight, maxShoulderHeight);
+
+    const double controlDistance = tieWidth * style.styleD(Sid::tieShoulderWidth);
+    return { shoulderH, controlDistance };
+}
+
+TieCurveShape tieCurveByReferenceSpans(const TieSegment* tieSeg, double tieWidth, double tieLengthInSp)
+{
+    const double spatium = tieSeg->spatium();
+    const MStyle& style = tieSeg->style();
+    const double minShoulderHeight = tieSeg->minShoulderHeight();
+    const double maxShoulderHeight = std::max(minShoulderHeight, tieSeg->maxShoulderHeight());
+
+    const double shortSpan = style.styleS(Sid::tieShortSpan).val();
+    const double mediumSpan = style.styleS(Sid::tieMediumSpan).val();
+    const double longSpan = style.styleS(Sid::tieLongSpan).val();
+
+    const double heightSp = evaluateReferenceSpans(tieLengthInSp, { {
+        { shortSpan, style.styleS(Sid::tieShortHeight).val() },
+        { mediumSpan, style.styleS(Sid::tieMediumHeight).val() },
+        { longSpan, style.styleS(Sid::tieLongHeight).val() },
+    } });
+    const double distanceSp = evaluateReferenceSpans(tieLengthInSp, { {
+        { shortSpan, style.styleS(Sid::tieShortControlDistance).val() },
+        { mediumSpan, style.styleS(Sid::tieMediumControlDistance).val() },
+        { longSpan, style.styleS(Sid::tieLongControlDistance).val() },
+    } });
+
+    const double shoulderH = std::clamp(heightSp * spatium, minShoulderHeight, maxShoulderHeight);
+    const double controlDistance = std::clamp(distanceSp * spatium, 0.0, std::max(0.0, tieWidth));
+    return { shoulderH, controlDistance };
+}
+
+TieCurveShape computeTieCurveShape(const TieSegment* tieSeg, double tieWidth, double tieLengthInSp)
+{
+    if (tieSeg->style().styleB(Sid::tieCurveByReferenceSpans)) {
+        return tieCurveByReferenceSpans(tieSeg, tieWidth, tieLengthInSp);
+    }
+    return tieCurveByFormula(tieSeg, tieWidth, tieLengthInSp);
 }
 
 PointF unitNormalFromTangent(const PointF& tangent, PointF& previousNormal, bool& hasPrevious)
@@ -322,7 +468,8 @@ void appendCatmullRom(PainterPath& path, const std::vector<PointF>& points, bool
 // collapse on Z-curves, where a cubic's normal rotates a lot between joints.
 // The envelope keeps endHalfWidth on each side at the tips and is closed there, to be filled without a pen.
 PainterPath buildSolidWithEnvelope(const std::vector<SlurSamplePoint>& denseSamples,
-                                   double totalLength, double midThickness, double endHalfWidth, double spatium)
+                                   double totalLength, double midThickness, double endHalfWidth, double spatium,
+                                   SlurTieEndStyle endStyle = SlurTieEndStyle::FLAT)
 {
     PainterPath path;
     if (denseSamples.size() < 2) {
@@ -363,8 +510,15 @@ PainterPath buildSolidWithEnvelope(const std::vector<SlurSamplePoint>& denseSamp
     path.setFillRule(PainterPath::FillRule::WindingFill);
     path.moveTo(upper.front());
     appendCatmullRom(path, upper, false);
-    path.lineTo(lower.back());
+    if (endStyle == SlurTieEndStyle::ROUND) {
+        appendRoundCap(path, upper.back(), lower.back(), samples.back().point - samples[samples.size() - 2].point);
+    } else {
+        path.lineTo(lower.back());
+    }
     appendCatmullRom(path, lower, true);
+    if (endStyle == SlurTieEndStyle::ROUND) {
+        appendRoundCap(path, lower.front(), upper.front(), samples.front().point - samples[1].point);
+    }
     path.closeSubpath();
     return path;
 }
@@ -544,9 +698,10 @@ bool computeMultiBezierPath(SlurSegment* slurSeg, const PointF& p2, const PointF
     }
 
     const bool solidStyle = slurSeg->slur()->styleType() == SlurStyleType::Solid;
+    const SlurTieEndStyle endStyle = SlurTieEndStyle(slurSeg->style().styleI(Sid::slurEndStyle));
     PainterPath path = solidStyle
                        ? buildSolidWithEnvelope(denseSamples, totalLength, slurSeg->ldata()->midThickness(),
-                                                solidEndHalfWidth(slurSeg), slurSeg->spatium())
+                                                solidEndHalfWidth(slurSeg), slurSeg->spatium(), endStyle)
                        : buildOpenMultiBezierPath(chain);
     path = toSystemCoordinates.map(path);
     slurSeg->mutldata()->path.set_value(path);
@@ -3228,17 +3383,11 @@ void SlurTieLayout::computeBezier(TieSegment* tieSeg, PointF shoulderOffset)
     shoulderOffset = t.map(shoulderOffset);  // also apply to shoulderOffset
 
     const double _spatium = tieSeg->spatium();
-    double tieLengthInSp = tieEndNormalized.x() / _spatium;
+    const double tieWidth = tieEndNormalized.x();
+    const double tieLengthInSp = tieWidth / _spatium;
 
-    const double minShoulderHeight = tieSeg->minShoulderHeight();
-    const double maxShoulderHeight = tieSeg->maxShoulderHeight();
-    const double shoulderHeightFactor = tieSeg->style().styleD(Sid::tieShoulderHeightFactor);
-    const double shoulderHeightRefLength = tieSeg->style().styleS(Sid::tieShoulderHeightReferenceLength).val();
-    double shoulderH = minShoulderHeight
-                       + _spatium * shoulderHeightFactor * sqrt(std::abs(tieLengthInSp - shoulderHeightRefLength));
-    shoulderH = std::clamp(shoulderH, minShoulderHeight, maxShoulderHeight);
-
-    shoulderH -= shoulderOffset.y();
+    const TieCurveShape curveShape = computeTieCurveShape(tieSeg, tieWidth, tieLengthInSp);
+    double shoulderH = curveShape.shoulderHeight - shoulderOffset.y();
 
     PointF shoulderAdjustOffset = tieSeg->tie()->up() ? PointF(0.0, shoulderOffset.y()) : PointF(0.0, -shoulderOffset.y());
     tieSeg->addAdjustmentOffset(shoulderAdjustOffset, Grip::BEZIER1);
@@ -3248,14 +3397,11 @@ void SlurTieLayout::computeBezier(TieSegment* tieSeg, PointF shoulderOffset)
         shoulderH = -shoulderH;
     }
 
-    double shoulderW = tieSeg->style().styleD(Sid::tieShoulderWidth); // TODO: style
-
-    const double tieWidth = tieEndNormalized.x();
     // Keep the two shoulder points equidistant from the tie's mid-point so the
     // shape stays symmetric (both endpoints get the same slope). Any horizontal
     // shoulder offset shifts both points by the same amount.
-    const double bezier1X = (tieWidth - tieWidth * shoulderW) * .5 + shoulderOffset.x();
-    const double bezier2X = bezier1X + tieWidth * shoulderW;
+    const double bezier1X = (tieWidth - curveShape.controlDistance) * .5 + shoulderOffset.x();
+    const double bezier2X = bezier1X + curveShape.controlDistance;
 
     const PointF tieDrag = PointF(tieWidth * .5, 0.0);
 
@@ -3283,8 +3429,9 @@ void SlurTieLayout::computeBezier(TieSegment* tieSeg, PointF shoulderOffset)
     // Solid ties are a closed lens that includes the end width, to be filled
     // without a pen; dotted/dashed ties keep only the thin top edge to be stroked.
     if (tieSeg->tie()->styleType() == SlurStyleType::Solid) {
+        const SlurTieEndStyle endStyle = SlurTieEndStyle(tieSeg->style().styleI(Sid::tieEndStyle));
         path = buildSolidLensPath(PointF(), bezier1Final, bezier2Final, tieEndNormalized, tieThickness,
-                                  solidEndHalfWidth(tieSeg));
+                                  solidEndHalfWidth(tieSeg), endStyle);
     } else {
         path.moveTo(PointF());
         path.cubicTo(bezier1Final - tieThickness, bezier2Final - tieThickness, tieEndNormalized);
@@ -3552,7 +3699,8 @@ void SlurTieLayout::finishBezier(SlurSegment* slurSeg, const PointF& p2, const P
     // dotted/dashed slurs keep only the top edge to be stroked
     PainterPath path;
     if (slurSeg->slur()->styleType() == SlurStyleType::Solid) {
-        path = buildSolidLensPath(PointF(), p3, p4, p2, thick, solidEndHalfWidth(slurSeg));
+        const SlurTieEndStyle endStyle = SlurTieEndStyle(slurSeg->style().styleI(Sid::slurEndStyle));
+        path = buildSolidLensPath(PointF(), p3, p4, p2, thick, solidEndHalfWidth(slurSeg), endStyle);
     } else {
         path.moveTo(PointF());
         path.cubicTo(p3 - thick, p4 - thick, p2);

@@ -45,6 +45,7 @@ private:
                                     LayoutContext& ctx);
     static void maskBarlineForText(BarLine* barline, const std::vector<TextBase*>& allSystemText);
     static std::vector<TextBase*> collectAllSystemText(const System* system);
+    static void computeTieSignatureMasks(const System* system, bool maskAtKeySig, bool maskAtTimeSig);
 
     static void cleanupMask(const Shape& itemShape, Shape& mask, double minFragmentLength);
 };

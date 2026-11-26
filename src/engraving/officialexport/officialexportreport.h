@@ -45,6 +45,7 @@ enum class DroppedFeature {
     MusicSymbolTextCharacters,
     GraceNotesBeforeSystemBreak,
     SlurPiecesNotSplit,
+    TieSignatureGaps,
 };
 
 struct OfficialExportReport

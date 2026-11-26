@@ -22,9 +22,12 @@
 
 #include "masklayout.h"
 
+#include <algorithm>
+
 #include "dom/barline.h"
 #include "dom/chord.h"
 #include "dom/jump.h"
+#include "dom/keysig.h"
 #include "dom/lyrics.h"
 #include "dom/marker.h"
 #include "dom/measure.h"
@@ -34,19 +37,170 @@
 #include "dom/segment.h"
 #include "dom/staff.h"
 #include "dom/stafflines.h"
+#include "dom/stafftype.h"
 #include "dom/system.h"
 #include "dom/page.h"
 #include "dom/textbase.h"
 #include "dom/textlinebase.h"
+#include "dom/tie.h"
+#include "dom/timesig.h"
 
 using namespace mu::engraving;
 using namespace mu::engraving::rendering::score;
+
+namespace {
+struct SignatureMaskCandidate
+{
+    Shape pageShape;
+    staff_idx_t staffIdx = muse::nidx;
+    bool spansAllStaves = false;
+};
+
+void clearTieMasks(const System* system)
+{
+    for (SpannerSegment* spannerSegment : system->spannerSegments()) {
+        if (!spannerSegment || !spannerSegment->isTieSegment()) {
+            continue;
+        }
+        if (!spannerSegment->ldata()->mask().empty()) {
+            spannerSegment->mutldata()->setMask(Shape());
+        }
+    }
+}
+
+bool tieTouchesStaff(const TieSegment* tieSeg, staff_idx_t staffIdx)
+{
+    if (tieSeg->staffIdx() == muse::nidx) {
+        return false;
+    }
+
+    staff_idx_t minStaff = tieSeg->staffIdx();
+    staff_idx_t maxStaff = tieSeg->staffIdx();
+    if (tieSeg->vStaffIdx() != muse::nidx) {
+        minStaff = std::min(minStaff, tieSeg->vStaffIdx());
+        maxStaff = std::max(maxStaff, tieSeg->vStaffIdx());
+    }
+
+    if (const Tie* tie = tieSeg->tie()) {
+        if (const Note* startNote = tie->startNote()) {
+            if (const Chord* startChord = startNote->chord()) {
+                minStaff = std::min(minStaff, startChord->vStaffIdx());
+                maxStaff = std::max(maxStaff, startChord->vStaffIdx());
+            }
+        }
+        if (const Note* endNote = tie->endNote()) {
+            if (const Chord* endChord = endNote->chord()) {
+                minStaff = std::min(minStaff, endChord->vStaffIdx());
+                maxStaff = std::max(maxStaff, endChord->vStaffIdx());
+            }
+        }
+    }
+
+    return staffIdx >= minStaff && staffIdx <= maxStaff;
+}
+
+std::vector<SignatureMaskCandidate> collectSignatureMaskCandidates(const System* system, bool maskAtKeySig,
+                                                                   bool maskAtTimeSig)
+{
+    std::vector<SignatureMaskCandidate> candidates;
+
+    for (const MeasureBase* mb : system->measures()) {
+        if (!mb->isMeasure()) {
+            continue;
+        }
+        const Measure* measure = toMeasure(mb);
+
+        for (const Segment& seg : measure->segments()) {
+            if (!seg.enabled()) {
+                continue;
+            }
+            const bool isKeySigSeg = maskAtKeySig && seg.isType(SegmentType::KeySigType);
+            const bool isTimeSigSeg = maskAtTimeSig && seg.isType(SegmentType::TimeSigType);
+            if (!isKeySigSeg && !isTimeSigSeg) {
+                continue;
+            }
+
+            for (const EngravingItem* el : seg.elist()) {
+                if (!el || !el->visible() || !el->ldata()->isValid() || el->ldata()->isSkipDraw()) {
+                    continue;
+                }
+                const SysStaff* sysStaff = system->staff(el->staffIdx());
+                if (!sysStaff || !sysStaff->show()) {
+                    continue;
+                }
+
+                bool spansAllStaves = false;
+                Sid paddingSid = Sid::NOSTYLE;
+                if (isKeySigSeg) {
+                    if (!el->isKeySig()) {
+                        continue;
+                    }
+                    const KeySig* ks = toKeySig(el);
+                    if (ks->staff() && !ks->staff()->staffType(ks->tick())->genKeysig()) {
+                        continue;
+                    }
+                    paddingSid = Sid::tieGapAtKeySigPadding;
+                } else {
+                    if (!el->isTimeSig()) {
+                        continue;
+                    }
+                    const TimeSig* ts = toTimeSig(el);
+                    if ((ts->staff() && !ts->staff()->staffType(ts->tick())->genTimesig())
+                        || !ts->showOnThisStaff()) {
+                        continue;
+                    }
+                    spansAllStaves = ts->isAcrossStaves();
+                    paddingSid = Sid::tieGapAtTimeSigPadding;
+                }
+
+                const Shape rawShape = el->shape();
+                if (rawShape.empty()) {
+                    continue;
+                }
+
+                const double padding = std::max(0.0, el->style().styleS(paddingSid).val()) * el->spatium();
+                candidates.push_back({
+                    rawShape.translated(el->pagePos()).padded(padding),
+                    el->staffIdx(),
+                    spansAllStaves,
+                });
+            }
+        }
+    }
+
+    return candidates;
+}
+
+void maskTieForSignatures(TieSegment* tieSeg, const std::vector<SignatureMaskCandidate>& candidates)
+{
+    Shape mask;
+    if (tieSeg->ldata()->isValid() && !tieSeg->ldata()->isSkipDraw() && !candidates.empty()) {
+        const PointF tiePos = tieSeg->pagePos();
+        const Shape tieShape = tieSeg->shape().translated(tiePos);
+
+        for (const SignatureMaskCandidate& sig : candidates) {
+            if (!sig.spansAllStaves && !tieTouchesStaff(tieSeg, sig.staffIdx)) {
+                continue;
+            }
+            if (tieShape.intersects(sig.pageShape)) {
+                mask.add(sig.pageShape.bbox().translated(-tiePos));
+            }
+        }
+    }
+
+    if (!mask.empty() || !tieSeg->ldata()->mask().empty()) {
+        tieSeg->mutldata()->setMask(mask);
+    }
+}
+}
 
 void MaskLayout::computeMasks(LayoutContext& ctx, Page* page)
 {
     TRACEFUNC;
 
     const bool maskAllText = ctx.conf().styleB(Sid::maskBarlinesForText);
+    const bool maskTieAtKeySig = ctx.conf().styleB(Sid::tieGapAtKeySig);
+    const bool maskTieAtTimeSig = ctx.conf().styleB(Sid::tieGapAtTimeSig);
 
     for (const System* system : page->systems()) {
         std::vector<TextBase*> allSystemText = collectAllSystemText(system);
@@ -70,6 +224,34 @@ void MaskLayout::computeMasks(LayoutContext& ctx, Page* page)
                 }
             }
         }
+
+        computeTieSignatureMasks(system, maskTieAtKeySig, maskTieAtTimeSig);
+    }
+}
+
+void MaskLayout::computeTieSignatureMasks(const System* system, bool maskAtKeySig, bool maskAtTimeSig)
+{
+    TRACEFUNC;
+
+    if (!maskAtKeySig && !maskAtTimeSig) {
+        clearTieMasks(system);
+        return;
+    }
+
+    std::vector<TieSegment*> tieSegments;
+    for (SpannerSegment* spannerSegment : system->spannerSegments()) {
+        if (spannerSegment && spannerSegment->isTieSegment()) {
+            tieSegments.push_back(static_cast<TieSegment*>(spannerSegment));
+        }
+    }
+    if (tieSegments.empty()) {
+        return;
+    }
+
+    const std::vector<SignatureMaskCandidate> candidates = collectSignatureMaskCandidates(system, maskAtKeySig,
+                                                                                          maskAtTimeSig);
+    for (TieSegment* tieSeg : tieSegments) {
+        maskTieForSignatures(tieSeg, candidates);
     }
 }
 

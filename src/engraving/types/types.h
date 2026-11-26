@@ -1217,6 +1217,11 @@ enum class TieDotsPlacement : unsigned char {
     AFTER_DOTS
 };
 
+enum class SlurTieEndStyle : unsigned char {
+    FLAT,
+    ROUND
+};
+
 enum class TimeSigPlacement : unsigned char {
     NORMAL,
     ABOVE_STAVES,

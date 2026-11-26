@@ -99,6 +99,7 @@ set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/tempomap_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/textbase_tests.cpp
     #${CMAKE_CURRENT_LIST_DIR}/textedit_tests.cpp doesn't compile and needs actualization
+    ${CMAKE_CURRENT_LIST_DIR}/tiestyle_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/timesig_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/tools_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/transpose_tests.cpp

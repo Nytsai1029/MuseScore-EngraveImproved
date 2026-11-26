@@ -2028,8 +2028,11 @@ void TDraw::draw(const LaissezVibSegment* item, muse::draw::Painter* painter)
 {
     const LaissezVibSegment::LayoutData* ldata = item->ldata();
     if (item->score()->style().styleB(Sid::laissezVibUseSmuflSym) && !item->isEdited()) {
+        painter->save();
+        setMask(item, painter);
         painter->setPen(item->curColor());
         item->drawSymbol(ldata->symbol, painter);
+        painter->restore();
     } else {
         draw(static_cast<const TieSegment*>(item), painter);
     }
@@ -3064,6 +3067,9 @@ void TDraw::draw(const TieSegment* item, Painter* painter)
         return;
     }
 
+    painter->save();
+    setMask(item, painter);
+
     Color penColor = item->curColor(item->getProperty(Pid::VISIBLE).toBool(), item->getProperty(Pid::COLOR).value<Color>());
     if (!item->score()->printing() && item->ldata()->allJumpPointsInactive) {
         penColor.setAlpha(std::min(penColor.alpha(), 85));
@@ -3102,6 +3108,8 @@ void TDraw::draw(const TieSegment* item, Painter* painter)
     }
     painter->setPen(pen);
     painter->drawPath(item->ldata()->path());
+
+    painter->restore();
 }
 
 void TDraw::draw(const TimeSig* item, Painter* painter)

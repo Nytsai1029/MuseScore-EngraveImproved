@@ -18693,6 +18693,11 @@ Fret %1 on strings %2</source>
         <source>Multi-curve slurs that could not be split into plain slurs</source>
         <translation>无法拆分为普通圆滑线的多段曲线圆滑线</translation>
     </message>
+    <message>
+        <location filename="../../src/engraving/officialexport/upstreamformat.cpp" line="95"/>
+        <source>Gaps in ties across key or time signatures</source>
+        <translation>穿过调号或拍号时的延音线留白</translation>
+    </message>
 </context>
 <context>
     <name>engraving/ottavatype</name>
